@@ -1,0 +1,99 @@
+////// Tabs
+
+.tabs {
+  margin: 0;
+  list-style-type: none;
+  border: 1px solid $grey-light;
+  background: $white;
+  .content & {
+    margin: 0;
+    &:not(:last-child) {
+      margin: 0;
+    }
+    li {
+      list-style: none;
+    }
+    ul {
+      margin: 0;
+    }
+    ul li {
+      list-style: none;
+    }
+  }
+}
+
+.content .tabs ul {
+  margin: 0;
+}
+
+.tabs::before,
+.tabs::after {
+  display: table;
+  content: ' ';
+  @include flex($fb: 0);
+  @include order($int: 1);
+}
+
+.tabs::after {
+  clear: both;
+}
+
+.tabs.vertical>li {
+  display: block;
+  float: none;
+  width: auto;
+}
+
+.tab>a:focus,
+.tab>a.is-active,
+.tab a[aria-selected=true] {
+  color: $blk;
+  background: $primary;
+}
+
+.tabs>li>a:hover {
+  background: $grey-light;
+}
+
+.tab {
+  float: left;
+}
+
+.tab > a {
+  display: block;
+  text-decoration: none;
+  color: $blk;
+  line-height: 1;
+  @include padding($top: $md, $right: $lg, $bottom: $md, $left:$lg);
+  .content & {
+    color: $blk;
+  }
+}
+
+[data-whatinput='mouse'] .tab > a {
+  outline: 0;
+}
+
+.tabs-content {
+  clear: both;
+  padding: $lg;
+  transition: all 0.5s ease;
+  color: $secondary;
+  border: 1px solid $grey-light;
+  border-top: 0;
+  background: $white;
+}
+
+.tabs-content.vertical {
+  border: 1px solid $light;
+  border-left: 0;
+}
+
+.tabs-panel {
+  display: none;
+  padding: $md;
+}
+
+.tabs-panel.is-active {
+  display: block;
+}
