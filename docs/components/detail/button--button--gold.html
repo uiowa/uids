@@ -228,15 +228,15 @@
             <label class="FileBrowser-select-label" for="filebrowser-select">File:</label>
             <select class="FileBrowser-select" id="filebrowser-select">
                 
-                <option value="file-61c5a518dbd877acb56bcb498618c4a9">_button.scss</option>
+                <option value="file-2e863720b17ff778671100e16bb16e83">_button.scss</option>
                 
-                <option value="file-18d74a9e8f5612c11e01687d1eb784b5">button.js</option>
+                <option value="file-5881f34eda45a9e28aace89c56b6af4e">button.js</option>
                 
             </select>
         </div>
 
         
-        <div class="FileBrowser-item is-active" id="file-61c5a518dbd877acb56bcb498618c4a9" data-role="resource-preview">
+        <div class="FileBrowser-item is-active" id="file-2e863720b17ff778671100e16bb16e83" data-role="resource-preview">
             <ul class="Meta">
                 <li class="Meta-item">
                     <strong class="Meta-key">Content:</strong>
@@ -246,80 +246,32 @@
                             <code class="Code Code--lang-SCSS FileBrowser-code">
                                 <pre><span class="hljs-comment">// https://fractal.build/guide/components/including-sub-components.html#providing-context-data-to-sub-components</span>
 
-<span class="hljs-selector-class">.bttn</span>,
-%bttn {
-  <span class="hljs-attribute">display</span>: inline-block;
-  <span class="hljs-attribute">position</span>: relative;
-  <span class="hljs-attribute">margin-top</span>: auto;
-  <span class="hljs-attribute">cursor</span>: pointer;
-  <span class="hljs-attribute">text-align</span>: center;
-  <span class="hljs-attribute">text-decoration</span>: none;
-  <span class="hljs-attribute">text-transform</span>: uppercase;
-  <span class="hljs-attribute">font-size</span>: <span class="hljs-variable">$base-font-size</span>;
-  <span class="hljs-attribute">font-weight</span>: <span class="hljs-variable">$font-weight-bold</span>;
-  @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$top</span>: auto);
-  @<span class="hljs-keyword">include</span> padding(<span class="hljs-variable">$top</span>: <span class="hljs-variable">$md</span>, <span class="hljs-variable">$right</span>: <span class="hljs-variable">$xlg</span>, <span class="hljs-variable">$bottom</span>: <span class="hljs-variable">$md</span>, <span class="hljs-variable">$left</span>: <span class="hljs-variable">$xlg</span>);
+<span class="hljs-selector-class">.bttn</span> {
+  @<span class="hljs-keyword">extend</span> %bttn;
 }
 
-
-
-<span class="hljs-selector-class">.bttn</span>::before {
-  <span class="hljs-attribute">content</span>: <span class="hljs-string">''</span>;
-  <span class="hljs-attribute">position</span>: absolute;
-  <span class="hljs-attribute">left</span>: <span class="hljs-number">50%</span>;
-  <span class="hljs-attribute">bottom</span>: <span class="hljs-number">0</span>;
-  <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
-  <span class="hljs-attribute">height</span>: <span class="hljs-number">4px</span>;
-  <span class="hljs-attribute">background-color</span>: <span class="hljs-variable">$primary</span>;
-  <span class="hljs-attribute">transform-origin</span>: center;
-  <span class="hljs-attribute">transform</span>: translate(-<span class="hljs-number">50%</span>, <span class="hljs-number">0</span>) scaleX(<span class="hljs-number">0</span>);
-  <span class="hljs-attribute">transition</span>: transform <span class="hljs-number">0.3s</span> ease-in-out;
+<span class="hljs-selector-class">.bttn--primary</span>{
+  @<span class="hljs-keyword">extend</span> %bttn--primary;
 }
 
-<span class="hljs-selector-class">.bttn</span>:hover::before {
-  <span class="hljs-attribute">transform</span>: translate(-<span class="hljs-number">50%</span>, <span class="hljs-number">0</span>) scaleX(<span class="hljs-number">1</span>);
+<span class="hljs-selector-class">.bttn--secondary</span> {
+  @<span class="hljs-keyword">extend</span> %bttn--secondary;
 }
 
-<span class="hljs-selector-class">.bttn--primary</span>,
-%bttn--primary {
-  <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
-  <span class="hljs-attribute">background</span>: <span class="hljs-variable">$primary</span>;
-  &amp;::before {
-    <span class="hljs-attribute">background-color</span>: <span class="hljs-variable">$white</span>;
-  }
+<span class="hljs-selector-class">.bttn--secondary__light</span> {
+  @<span class="hljs-keyword">extend</span> %bttn--secondary__light;
 }
 
-
-<span class="hljs-selector-class">.bttn--secondary</span>,
-%bttn--secondary {
-  <span class="hljs-attribute">color</span>: <span class="hljs-variable">$primary</span>;
-  <span class="hljs-attribute">background</span>: <span class="hljs-variable">$secondary</span>;
+<span class="hljs-selector-class">.bttn--tertiary</span> {
+  @<span class="hljs-keyword">extend</span> %bttn--tertiary;
 }
 
-<span class="hljs-selector-class">.bttn--secondary__light</span>,
-%bttn--secondary__light {
-  <span class="hljs-attribute">color</span>: <span class="hljs-variable">$white</span>;
+<span class="hljs-selector-class">.bttn--full</span> {
+  @<span class="hljs-keyword">extend</span> %bttn--full;
 }
 
-<span class="hljs-selector-class">.bttn--tertiary</span>,
-%bttn--tertiary {
-  <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
-  <span class="hljs-attribute">background</span>: <span class="hljs-variable">$white</span>;
-}
-
-<span class="hljs-selector-class">.bttn--full</span>,
-%bttn--full {
-  <span class="hljs-attribute">display</span>: block;
-}
-
-<span class="hljs-selector-class">.bttn--outline</span>,
-%bttn--<span class="hljs-attribute">outline</span> {
-  <span class="hljs-attribute">border</span>: <span class="hljs-number">2px</span> solid <span class="hljs-variable">$primary</span>;
-  <span class="hljs-selector-tag">i</span> {
-    <span class="hljs-attribute">color</span>: <span class="hljs-variable">$primary</span>;
-    <span class="hljs-attribute">font-size</span>: <span class="hljs-variable">$h6-font-size</span>;
-    @<span class="hljs-keyword">include</span> padding(<span class="hljs-variable">$right</span>: <span class="hljs-variable">$sm</span>);
-  }
+<span class="hljs-selector-class">.bttn--outline</span> {
+  @<span class="hljs-keyword">extend</span> %bttn--outline;
 }
 
 <span class="hljs-selector-class">.bttn__apply</span> {
@@ -332,7 +284,6 @@
     <span class="hljs-attribute">display</span>: block;
   }
 }
-
 
 <span class="hljs-selector-class">.bg-type--dark</span> {
   <span class="hljs-attribute">padding</span>: <span class="hljs-variable">$md</span>;
@@ -362,12 +313,12 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">1.7 KB</span>
+                    <span class="Meta-value">778 Bytes</span>
                 </li>
             </ul>
         </div>
         
-        <div class="FileBrowser-item" id="file-18d74a9e8f5612c11e01687d1eb784b5" data-role="resource-preview">
+        <div class="FileBrowser-item" id="file-5881f34eda45a9e28aace89c56b6af4e" data-role="resource-preview">
             <ul class="Meta">
                 <li class="Meta-item">
                     <strong class="Meta-key">Content:</strong>

@@ -1,79 +1,31 @@
 // https://fractal.build/guide/components/including-sub-components.html#providing-context-data-to-sub-components
 
-.bttn,
-%bttn {
-  display: inline-block;
-  position: relative;
-  margin-top: auto;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-size: $base-font-size;
-  font-weight: $font-weight-bold;
-  @include margin($top: auto);
-  @include padding($top: $md, $right: $xlg, $bottom: $md, $left: $xlg);
+.bttn {
+  @extend %bttn;
 }
 
-
-
-.bttn::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: 100%;
-  height: 4px;
-  background-color: $primary;
-  transform-origin: center;
-  transform: translate(-50%, 0) scaleX(0);
-  transition: transform 0.3s ease-in-out;
+.bttn--primary{
+  @extend %bttn--primary;
 }
 
-.bttn:hover::before {
-  transform: translate(-50%, 0) scaleX(1);
+.bttn--secondary {
+  @extend %bttn--secondary;
 }
 
-.bttn--primary,
-%bttn--primary {
-  color: $secondary;
-  background: $primary;
-  &::before {
-    background-color: $white;
-  }
+.bttn--secondary__light {
+  @extend %bttn--secondary__light;
 }
 
-
-.bttn--secondary,
-%bttn--secondary {
-  color: $primary;
-  background: $secondary;
+.bttn--tertiary {
+  @extend %bttn--tertiary;
 }
 
-.bttn--secondary__light,
-%bttn--secondary__light {
-  color: $white;
+.bttn--full {
+  @extend %bttn--full;
 }
 
-.bttn--tertiary,
-%bttn--tertiary {
-  color: $secondary;
-  background: $white;
-}
-
-.bttn--full,
-%bttn--full {
-  display: block;
-}
-
-.bttn--outline,
-%bttn--outline {
-  border: 2px solid $primary;
-  i {
-    color: $primary;
-    font-size: $h6-font-size;
-    @include padding($right: $sm);
-  }
+.bttn--outline {
+  @extend %bttn--outline;
 }
 
 .bttn__apply {
@@ -86,7 +38,6 @@
     display: block;
   }
 }
-
 
 .bg-type--dark {
   padding: $md;

@@ -163,11 +163,10 @@
   list-style-type: none;
   padding: 0;
   margin: 0;
-
   >li {
     display: inline-block;
     list-style-type: none;
-    margin: 2px;
+    margin: 0;
   }
 }
 
@@ -225,7 +224,23 @@
   font-weight: $font-weight-bold;
   @include margin($top: auto);
   @include padding($top: $md, $right: $xlg, $bottom: $md, $left: $xlg);
+    &:before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 100%;
+      height: 4px;
+      background-color: $primary;
+      transform-origin: center;
+      transform: translate(-50%, 0) scaleX(0);
+      transition: transform 0.3s ease-in-out;
+    }
+    &:hover::before {
+      transform: translate(-50%, 0) scaleX(1);
+    }
 }
+
 
 %bttn--primary {
   color: $secondary;
