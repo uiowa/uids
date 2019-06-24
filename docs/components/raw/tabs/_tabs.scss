@@ -28,8 +28,11 @@
 }
 
 .tab>a:focus,
+.tabs li>a:focus,
 .tab>a.is-active,
-.tab a[aria-selected=true] {
+.tabs li>a.is-active,
+.tab a[aria-selected=true],
+.tabs li a[aria-selected=true] {
   color: $blk;
   background: $primary;
 }
@@ -38,11 +41,11 @@
   background: $grey-light;
 }
 
-.tab {
+.tab, .tabs li {
   float: left;
 }
 
-.tab > a {
+.tab > a, .tabs li > a {
   display: block;
   text-decoration: none;
   color: $blk;
@@ -50,7 +53,8 @@
   @include padding($top: $md, $right: $lg, $bottom: $md, $left:$lg);
 }
 
-[data-whatinput='mouse'] .tab > a {
+[data-whatinput='mouse'] .tab > a,
+[data-whatinput='mouse'] .tabs li > a {
   outline: 0;
 }
 
