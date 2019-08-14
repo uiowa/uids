@@ -13,9 +13,10 @@ function cardToggle({
   for (i = 0; i < document.getElementsByClassName("card").length; i++) {
     if (id != i) {
       document.getElementsByClassName("card")[i].classList.remove("is-open");
+      document.getElementById(buttonId).setAttribute("aria-expanded", "false");
     }
   }
-  if (
-    document.getElementsByClassName("card")[id].classList.toggle("is-open")
-  ) {}
+  if (document.getElementsByClassName("card")[id].classList.toggle("is-open")) {
+    document.getElementById(buttonId).setAttribute("aria-expanded", "true")
+  }
 }
