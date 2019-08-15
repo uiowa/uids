@@ -1,3 +1,4 @@
+/*
 let feature = document.getElementById("feature__container");
 // moves over the div and remove class
 if (document.getElementById("feature__container")) {
@@ -5,3 +6,4 @@ if (document.getElementById("feature__container")) {
     document.getElementsByClassName('feature')[0].classList.remove("is-open");
   });
 }
+*/

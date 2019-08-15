@@ -1,33 +1,37 @@
 .feature {
+  position: relative;
   overflow: hidden;
-  transition: flex-basis 500ms ease-in-out;
+  transition: all 0.4s cubic-bezier(0.61, -0.44, 0.33, 1.39);
   color: $white;
-  @include flexbox;
-  @include breakpoint(sm) {
-    @include flex($fb: 10em);
+
+  &:nth-child(1) {
+    width: 50vw;
   }
-  @include flex-direction($value: column);
+
+  &:nth-child(2) {
+    width: 25vw;
+  }
+
+  &:nth-child(3) {
+    width: 25vw;
+  }
 
   &__container {
-    @include breakpoint(sm) {
-      @include flexbox;
-    }
-  }
-
-  &__wrapper {
-    position: relative;
-
+    display: flex;
+    width: 99.1vw;
     min-height: 540px;
-    &:after {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      content: "";
-      background: linear-gradient(transparent 1%, transparent 49%, rgba(0, 0, 0, .7));
-    }
   }
+
+  &:hover:after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    content: "";
+    background: linear-gradient(transparent 1%, transparent 49%, rgba(0, 0, 0, .7));
+  }
+
   a {
     text-decoration: none;
     color: $white;
@@ -53,8 +57,8 @@
   }
 
   &__heading {
-    white-space: nowrap;
     margin: 0;
+    white-space: nowrap;
     color: $white;
     font-size: $h2-font-size;
     line-height: 1;
@@ -62,8 +66,8 @@
   }
 
   &__subheading {
-    white-space: nowrap;
     margin: 0;
+    white-space: nowrap;
     font-size: $base-font-size;
     @extend %shadow;
   }
@@ -89,6 +93,7 @@
     font-weight: $font-weight-medium-bold;
     font-style: normal;
     line-height: 1;
+
     i {
       padding-left: $sm;
       &.fa-plus:before {
@@ -103,17 +108,38 @@
 }
 
 
+@include breakpoint(sm) {
+  .feature {
+    transition: width 500ms ease-in-out;
+  }
+}
+
+
+// Hide/Reveal Teaser
+
+.feature:nth-child(1) {
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    content: "";
+    background: linear-gradient(transparent 1%, transparent 49%, rgba(0, 0, 0, .7));
+  }
+
+  .feature__content {
+    opacity: 1;
+  }
+
+  .feature__teaser {
+    opacity: 0;
+  }
+}
+
 .feature:hover .feature__content,
 .feature:focus .feature__content {
   opacity: 1;
-}
-
-.feature.is-open .feature__content {
-  opacity: 1;
-}
-
-.feature.is-open .feature__teaser {
-  opacity: 0;
 }
 
 .feature:hover .feature__teaser,
@@ -121,47 +147,39 @@
   opacity: 0;
 }
 
-.feature.is-open {
+// Sibling Adjacent Hover
+
+.feature__container {
+  pointer-events: none;
+}
+
+.feature__container>.feature {
   cursor: pointer;
-  @include breakpoint(sm) {
-    @include flex($fb: 20em);
+  pointer-events: auto;
+}
+
+.feature__container:hover>.feature,
+.feature__container:focus-within>.feature {
+  width: 25vw;
+
+  .feature__content {
+    opacity: 0;
+  }
+
+  .feature__teaser {
+    opacity: 1;
   }
 }
 
-.feature:hover,
-.feature:focus {
-  cursor: pointer;
-  @include breakpoint(sm) {
-    @include flex($fb: 20em);
+.feature__container:hover>.feature:hover,
+.feature__container:focus-within>.feature:focus {
+  width: 50vw;
+
+  .feature__content {
+    opacity: 1;
   }
-}
 
-/* Safari 11+ */
-
-@media not all and (min-resolution:.001dpcm) {
-  @supports (-webkit-appearance:none) and (stroke-color:transparent) {
-
-    .feature.is-open {
-      flex-basis: unset;
-      @include breakpoint(sm) {
-        width: 66.3%;
-      }
-    }
-
-    .feature {
-      flex: unset;
-      transition: width 500ms ease-in-out;
-      @include breakpoint(sm) {
-        width: 33.3%;
-      }
-    }
-
-    .feature:hover,
-    .feature:focus {
-      flex-basis: unset;
-      @include breakpoint(sm) {
-        width: 66.3%;
-      }
-    }
+  .feature__teaser {
+    opacity: 0;
   }
 }
