@@ -96,6 +96,7 @@
 
     i {
       padding-left: $sm;
+
       &.fa-plus:before {
         padding: $xsm;
         color: $primary;
@@ -106,7 +107,6 @@
     }
   }
 }
-
 
 @include breakpoint(sm) {
   .feature {
@@ -181,4 +181,37 @@
   .feature__teaser {
     opacity: 0;
   }
+}
+
+// Video Controls
+.video-btn {
+  padding: $sm;
+  border: none;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  background: none;
+  top: 20px;
+  left: 15px;
+  font-size: $h4-font-size;
+  color: $white;
+  cursor: pointer;
+  z-index: 1;
+
+  &:before {
+    content: "\f28b";
+    @include fas();
+  }
+
+  &__play:before {
+    content: "\f144";
+  }
+}
+
+.video-btn:hover {
+  color: $secondary;
+}
+
+.video__container {
+  position: relative;
 }
