@@ -157,7 +157,7 @@
 <div class="Browser-panel Browser-code is-active" data-role="tab-panel" id="browser-887d35a5e1e3ea428a372ed971338ab7-panel-html">
     <code class="Code Code--lang-html">
         
-        <pre><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"feature__container"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"feature__container"</span>&gt;</span>
+        <pre><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"feature__container"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"feature__container image"</span>&gt;</span>
 
     <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://example.com"</span> <span class="hljs-attr">tabindex</span>=<span class="hljs-string">"0"</span> <span class="hljs-attr">aria-expanded</span>=<span class="hljs-string">"true"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"feature"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"background-image: url('../../images/feature1.jpg'); background-size: cover; background-position: center"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"feature__wrapper"</span>&gt;</span>
@@ -241,7 +241,7 @@
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"video-btn video-btn__pause"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"video-btn"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"element-invisible"</span>&gt;</span>Pause<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endif</span></span> %}</span><span class="xml">
 
-<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"feature__container"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"feature__container"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"feature__container"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"feature__container </span></span></span><span class="hljs-template-variable">{{ feature_type }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span>
 
 </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">set</span></span> counter = 0 %}</span><span class="xml">
 
@@ -306,7 +306,7 @@
 
 </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endif</span></span> %}</span><span class="xml">
 
-</span><span class="hljs-template-tag">{% <span class="hljs-name">elseif</span> feature_type == 'image' %}</span><span class="xml">
+</span><span class="hljs-template-tag">{% <span class="hljs-name">else</span>  %}</span><span class="xml">
 
 <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"</span></span></span><span class="hljs-template-variable">{{ item.feature_link }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span> <span class="hljs-attr">tabindex</span>=<span class="hljs-string">"0"</span> <span class="hljs-attr">aria-expanded</span>=<span class="hljs-string">"</span></span></span><span class="hljs-template-variable">{{ firstitem }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"feature"</span> </span></span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">if</span></span> item.feature_banner_image %}</span><span class="xml"><span class="hljs-tag"> <span class="hljs-attr">style</span>=<span class="hljs-string">"background-image: url('</span></span></span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">spaceless</span></span> %}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string"></span></span></span><span class="hljs-template-variable">{{ item.feature_banner_image }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string"></span></span></span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endspaceless</span></span> %}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">'); background-size: cover; background-position: center"</span> </span></span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endif</span></span> %}</span><span class="xml"><span class="hljs-tag">&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"feature__wrapper"</span>&gt;</span>
@@ -450,11 +450,12 @@
   &amp;__bracket {
     <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;
     @<span class="hljs-keyword">include</span> bracket();
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">500px</span>;
   }
 
   &amp;__heading {
     <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
-    <span class="hljs-attribute">white-space</span>: nowrap;
+    <span class="hljs-comment">//white-space: nowrap;</span>
     <span class="hljs-attribute">color</span>: <span class="hljs-variable">$white</span>;
     <span class="hljs-attribute">font-size</span>: <span class="hljs-variable">$h2-font-size</span>;
     <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1</span>;
@@ -463,7 +464,7 @@
 
   &amp;__subheading {
     <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
-    <span class="hljs-attribute">white-space</span>: nowrap;
+    <span class="hljs-comment">//white-space: nowrap;</span>
     <span class="hljs-attribute">font-size</span>: <span class="hljs-variable">$base-font-size</span>;
     @<span class="hljs-keyword">extend</span> %shadow;
   }
@@ -535,6 +536,7 @@
 <span class="hljs-selector-class">.feature</span>:hover <span class="hljs-selector-class">.feature__content</span>,
 <span class="hljs-selector-class">.feature</span>:focus <span class="hljs-selector-class">.feature__content</span> {
   <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;
+  <span class="hljs-comment">//@extend .fade-in;</span>
 }
 
 <span class="hljs-selector-class">.feature</span>:hover <span class="hljs-selector-class">.feature__teaser</span>,
@@ -543,6 +545,43 @@
 }
 
 <span class="hljs-comment">// Sibling Adjacent Hover</span>
+<span class="hljs-comment">/*
+.feature__container {
+  pointer-events: none;
+}
+
+.feature__container&gt;.feature {
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.feature__container:hover&gt;.feature,
+.feature__container:focus-within&gt;.feature {
+  width: 25vw;
+
+  .feature__content {
+    opacity: 0;
+  }
+
+  .feature__teaser {
+    opacity: 1;
+  }
+}
+
+.feature__container:hover&gt;.feature:hover,
+.feature__container:focus-within&gt;.feature:focus {
+  width: 50vw;
+
+  .feature__content {
+    opacity: 1;
+  }
+
+  .feature__teaser {
+    opacity: 0;
+  }
+}
+*/</span>
+
 
 <span class="hljs-selector-class">.feature__container</span> {
   <span class="hljs-attribute">pointer-events</span>: none;
@@ -553,8 +592,10 @@
   <span class="hljs-attribute">pointer-events</span>: auto;
 }
 
-<span class="hljs-selector-class">.feature__container</span>:hover&gt;<span class="hljs-selector-class">.feature</span>,
-<span class="hljs-selector-class">.feature__container</span>:focus-within&gt;<span class="hljs-selector-class">.feature</span> {
+<span class="hljs-selector-class">.feature__container</span><span class="hljs-selector-class">.video</span>:hover&gt;<span class="hljs-selector-class">.feature</span>,
+<span class="hljs-selector-class">.feature__container</span><span class="hljs-selector-class">.video</span>:focus-within&gt;<span class="hljs-selector-class">.feature</span>,
+<span class="hljs-selector-class">.feature__container</span><span class="hljs-selector-class">.image</span>:hover&gt;<span class="hljs-selector-class">.feature</span>,
+<span class="hljs-selector-class">.feature__container</span><span class="hljs-selector-class">.image</span>:focus-within&gt;<span class="hljs-selector-class">.feature</span> {
   <span class="hljs-attribute">width</span>: <span class="hljs-number">25vw</span>;
 
   <span class="hljs-selector-class">.feature__content</span> {
@@ -566,8 +607,10 @@
   }
 }
 
-<span class="hljs-selector-class">.feature__container</span>:hover&gt;<span class="hljs-selector-class">.feature</span>:hover,
-<span class="hljs-selector-class">.feature__container</span>:focus-within&gt;<span class="hljs-selector-class">.feature</span>:focus {
+<span class="hljs-selector-class">.feature__container</span><span class="hljs-selector-class">.video</span>:hover&gt;<span class="hljs-selector-class">.feature</span>:hover,
+<span class="hljs-selector-class">.feature__container</span><span class="hljs-selector-class">.video</span>:focus-within&gt;<span class="hljs-selector-class">.feature</span>:focus,
+<span class="hljs-selector-class">.feature__container</span><span class="hljs-selector-class">.image</span>:hover&gt;<span class="hljs-selector-class">.feature</span>:hover,
+<span class="hljs-selector-class">.feature__container</span><span class="hljs-selector-class">.image</span>:focus-within&gt;<span class="hljs-selector-class">.feature</span>:focus {
   <span class="hljs-attribute">width</span>: <span class="hljs-number">50vw</span>;
 
   <span class="hljs-selector-class">.feature__content</span> {
@@ -578,6 +621,7 @@
     <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
   }
 }
+
 
 <span class="hljs-comment">// Video Controls</span>
 <span class="hljs-selector-class">.video-btn</span> {
@@ -611,6 +655,90 @@
 <span class="hljs-selector-class">.video__container</span> {
   <span class="hljs-attribute">position</span>: relative;
 }
+
+
+<span class="hljs-comment">// Image Stack</span>
+
+<span class="hljs-comment">/*
+
+.feature__container.image-stack {
+  flex-wrap: wrap;
+  flex-direction: column;
+  height: 50vh;
+}
+
+.image-stack {
+
+.feature:nth-child(1) {
+   flex: 0 0 100%;
+   width: unset;
+  &amp;:hover {
+    flex: 0 0 100%;
+  }
+}
+.feature:nth-child(2),
+.feature:nth-child(3) {
+ flex: 0 0 50%;
+ width: unset;
+}
+
+}
+
+*/</span>
+
+
+<span class="hljs-comment">// unused</span>
+<span class="hljs-comment">/*
+.feature:nth-child(2):hover,
+.feature:nth-child(3):hover {
+  flex: 0 0 90%;
+}
+
+.feature:nth-child(2):hover+.feature:nth-child(3),
+.feature:nth-child(3):hover+.feature:nth-child(2) {
+  flex: 0 0 10%;
+}
+*/</span>
+
+
+<span class="hljs-comment">/*
+.feature__container.image-stack:hover&gt;.feature:nth-child(1),
+.feature__container.image-stack:focus-within&gt;.feature:nth-child(1) {
+  flex: 0 0 50%;
+
+
+}
+
+.feature__container.image-stack:hover&gt;.feature:nth-child(1):hover,
+.feature__container.image-stack:focus-within&gt;.feature:nth-child(1):focus  {
+ flex: 0 0 50%;
+
+}
+*/</span>
+
+<span class="hljs-comment">/*
+// Vertical stack
+
+.feature__container.image-stack:hover&gt;.feature:nth-child(2),
+.feature__container.image-stack:focus-within&gt;.feature:nth-child(2),
+.feature__container.image-stack:hover&gt;.feature:nth-child(3),
+.feature__container.image-stack:focus-within&gt;.feature:nth-child(3) {
+    flex: 0 0 10%;
+   transition: all 0.3s ease;
+
+}
+
+.feature__container.image-stack:hover&gt;.feature:nth-child(2):hover,
+.feature__container.image-stack:focus-within&gt;.feature:nth-child(2):focus,
+.feature__container.image-stack:hover&gt;.feature:nth-child(3):hover,
+.feature__container.image-stack:focus-within&gt;.feature:nth-child(3):focus {
+   flex: 0 0 90%;
+   transition: all 0.3s ease;
+
+}
+
+*/</span>
+
 </pre>
                             </code>
                             
@@ -627,7 +755,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">3.5 KB</span>
+                    <span class="Meta-value">5.8 KB</span>
                 </li>
             </ul>
         </div>
@@ -715,15 +843,19 @@
         
         
         <li class="Meta-item">
-            <strong class="Meta-key">Variants <em class="Meta-count">(2)</em>:</strong>
+            <strong class="Meta-key">Variants <em class="Meta-count">(3)</em>:</strong>
             <span class="Meta-value Meta-value--linkList">
             
                 <a href="">
                     <span>Default</span>
                 </a>, 
             
-                <a href="feature-block--feature-block-b.html">
-                    <span>Feature Block B</span>
+                <a href="feature-block--feature-block-video.html">
+                    <span>Feature Block Video</span>
+                </a>, 
+            
+                <a href="feature-block--feature-block-image-stack.html">
+                    <span>Feature Block Image Stack</span>
                 </a>
             
             </span>
@@ -1475,8 +1607,32 @@
         
         
         <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="feature-block--feature-block-b.html" data-pjax>
-                <span>Feature Block B</span>
+            <a class="Tree-entityLink" href="feature-block--feature-block-video.html" data-pjax>
+                <span>Feature Block Video</span>
+                
+
+<div class="Status Status--unlabelled">
+
+<div class="Status-dots">
+
+
+<span class="Status-dot" style="border-color: #FF9233;" title="WIP"></span>
+
+
+</div>
+
+</div>
+
+
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="feature-block--feature-block-image-stack.html" data-pjax>
+                <span>Feature Block Image Stack</span>
                 
 
 <div class="Status Status--unlabelled">

@@ -4,7 +4,7 @@
 <button class="video-btn video-btn__pause" id="video-btn"><span class="element-invisible">Pause</span></button>
 {% endif %}
 
-<div id="feature__container" class="feature__container">
+<div id="feature__container" class="feature__container {{ feature_type }}">
 
 {% set counter = 0 %}
 
@@ -69,7 +69,7 @@
 
 {% endif %}
 
-{% elseif feature_type == 'image' %}
+{% else  %}
 
 <a href="{{ item.feature_link }}" tabindex="0" aria-expanded="{{ firstitem }}" class="feature" {% if item.feature_banner_image %} style="background-image: url('{% spaceless %}{{ item.feature_banner_image }}{% endspaceless %}'); background-size: cover; background-position: center" {% endif %}>
     <div class="feature__wrapper">

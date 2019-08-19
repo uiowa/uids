@@ -45,7 +45,7 @@
     outline: none;
     background: $dark-gray;
     box-shadow: 3px 5px 10px 0 rgba(13, 23, 33, .2);
-    border: 1px solid $white;
+    border: 1px solid $secondary;
 
     &:after {
       content: "\f00d";
@@ -100,17 +100,16 @@
 
 .quick-nav-b {
   display: flex;
-  align-items: center;
   padding: 9px 0;
-  height: 90px;
+  height: 218px;
   transition: top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94);
   position: absolute;
-  top: -90px;
+  top: -218px;
   left: 0;
   width: 100%;
 
   .quick-links--primary & {
-    background-color: #151515e6;
+    background-color: #fff;
   }
 
   .quick-links--secondary & {
@@ -122,27 +121,36 @@
     z-index: 201;
     top: 0;
     transition: top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94);
+    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.15);
   }
 
   ul {
     list-style: none;
-    margin: 0 0 0 2%;
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 50%;
+    height: 120px;
+    margin: 10px 0 0 10%;
   }
 
   li {
     position: relative;
     list-style: none;
-    padding: $sm;
     display: inline;
-
+    padding: 10px 0;
+    width: 50%;
     a {
-      padding: $sm;
+      padding: $md;
       text-decoration: none;
-      color: $white;
-      font-size: $small-font-size;
-      text-transform: uppercase;
-      letter-spacing: .09rem;
+      color: $secondary;
+          &:before {
+            content: "\f101";
+            color: $primary;
+              font-size: $base-font-size;
+              @include fas();
+              padding-right: $sm;
+            }
 
       &:hover:after {
         right: 0;
@@ -170,7 +178,7 @@
       }
 
       .quick-links--primary & {
-        color: $white;
+        color: $secondary;
       }
 
       .quick-links--secondary & {
