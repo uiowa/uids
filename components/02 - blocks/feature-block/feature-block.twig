@@ -1,10 +1,9 @@
-
-{% if feature_type == 'video' %}
+{% if (feature_type == 'video') or (feature_type == 'image-stack') %}
 <div class="video__container">
 <button class="video-btn video-btn__pause" id="video-btn"><span class="element-invisible">Pause</span></button>
 {% endif %}
 
-<div id="feature__container" class="feature__container {{ feature_type }}">
+<div id="feature__container" class="feature__container {{ feature_type }} {{ feature_columns }}">
 
 {% set counter = 0 %}
 
@@ -16,7 +15,7 @@
     {% set firstitem = 'false' %}
 {% endif %}
 
-{% if feature_type == 'video' %}
+{% if (feature_type == 'video') or (feature_type == 'image-stack') %}
 
 {% if firstitem == 'true' %}
 
@@ -98,6 +97,6 @@
 
 </div>
 
-{% if feature_type == 'video' %}
+{% if (feature_type == 'video') or (feature_type == 'image-stack') %}
 </div>
 {% endif %}
