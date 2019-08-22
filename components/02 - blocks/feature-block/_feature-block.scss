@@ -6,11 +6,13 @@
 
   &:nth-child(1) {
     .feature__one-col & {
-       width: 100vw;
-     }
+      width: 100vw;
+    }
+
     .feature__two-col & {
       width: 75vw;
     }
+
     .feature__three-col & {
       width: 50vw;
     }
@@ -27,6 +29,7 @@
   &__container {
     display: flex;
     width: 99.1vw;
+
     &.image {
       min-height: 540px;
     }
@@ -251,7 +254,92 @@
   position: relative;
 }
 
-// Sibling Adjacent Hover
+// Image Stack
+
+.feature__container.image-stack {
+  flex-wrap: wrap;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.image-stack {
+  .feature:nth-child(1) {
+    flex: 0 0 70%;
+    width: unset;
+    &:hover {
+      flex: 1 1 auto;
+    }
+  }
+
+  .feature:nth-child(2),
+  .feature:nth-child(3) {
+    flex: 0 0 15%;
+    width: unset;
+  }
+
+  .feature:last-child {
+    .feature__teaser {
+      border-bottom: none;
+    }
+  }
+
+  .feature__teaser {
+    height: 100%;
+    align-items: center;
+    display: flex;
+    background: rgba(255, 255, 255, 0.8);
+    border-bottom: 1px solid $secondary;
+  }
+
+  .feature__teaser-heading {
+    color: $secondary;
+  }
+
+  .feature__teaser-heading i.fa-plus::before {
+    color: $secondary;
+    border: 1px solid $secondary;
+  }
+}
+
+.feature__container.image-stack.feature__three-col:hover>.feature:hover,
+.feature__container.image-stack.feature__three-col:focus-within>.feature:focus {
+  width: 100vw;
+
+  .feature__content {
+    opacity: 1;
+  }
+
+  .feature__teaser {
+    opacity: 0;
+  }
+}
+
+// Vertical stack
+
+.feature__container.image-stack:hover>.feature:nth-child(1),
+.feature__container.image-stack:focus-within>.feature:nth-child(1),
+.feature__container.image-stack:hover>.feature:nth-child(2),
+.feature__container.image-stack:focus-within>.feature:nth-child(2),
+.feature__container.image-stack:hover>.feature:nth-child(3),
+.feature__container.image-stack:focus-within>.feature:nth-child(3) {
+  flex: 0 0 15%;
+  transition: all 0.3s ease;
+  width: 100vw;
+
+}
+
+.feature__container.image-stack:hover>.feature:nth-child(1):hover,
+.feature__container.image-stack:focus-within>.feature:nth-child(1):focus,
+.feature__container.image-stack:hover>.feature:nth-child(2):hover,
+.feature__container.image-stack:focus-within>.feature:nth-child(2):focus,
+.feature__container.image-stack:hover>.feature:nth-child(3):hover,
+.feature__container.image-stack:focus-within>.feature:nth-child(3):focus {
+  flex: 0 0 70%;
+  transition: all 0.3s ease;
+}
+
+
+// Remove: Sibling Adjacent Hover
 /*
 .feature__container {
   pointer-events: none;
@@ -286,55 +374,5 @@
   .feature__teaser {
     opacity: 0;
   }
-}
-*/
-
-/*
-
-// Image Stack
-
-.feature__container.image-stack {
-  flex-wrap: wrap;
-  flex-direction: column;
-  height: 50vh;
-}
-
-.image-stack {
-
-  .feature:nth-child(1) {
-    flex: 0 0 100%;
-    width: unset;
-
-    &:hover {
-      flex: 0 0 100%;
-    }
-  }
-
-  .feature:nth-child(2),
-  .feature:nth-child(3) {
-    flex: 0 0 50%;
-    width: unset;
-  }
-
-}
-
-// Vertical stack
-
-.feature__container.image-stack:hover>.feature:nth-child(2),
-.feature__container.image-stack:focus-within>.feature:nth-child(2),
-.feature__container.image-stack:hover>.feature:nth-child(3),
-.feature__container.image-stack:focus-within>.feature:nth-child(3) {
-    flex: 0 0 10%;
-   transition: all 0.3s ease;
-
-}
-
-.feature__container.image-stack:hover>.feature:nth-child(2):hover,
-.feature__container.image-stack:focus-within>.feature:nth-child(2):focus,
-.feature__container.image-stack:hover>.feature:nth-child(3):hover,
-.feature__container.image-stack:focus-within>.feature:nth-child(3):focus {
-   flex: 0 0 90%;
-   transition: all 0.3s ease;
-
 }
 */
