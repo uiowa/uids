@@ -13,6 +13,18 @@ for (let i = 0; i < elements.length; i++) {
     }
     this.setAttribute("aria-expanded", "true");
   };
+  elements[i].onmouseout = elements[i].onfocus = function () {
+    let el = elements[0];
+     while (el) {
+       if (el.tagName === "A") {
+         //remove attribute
+         el.setAttribute("aria-expanded", "false");
+       }
+       // pass the attribute to sibling
+       el = el.nextSibling;
+     }
+ elements[0].setAttribute("aria-expanded", "true");
+  };
 }
 
 

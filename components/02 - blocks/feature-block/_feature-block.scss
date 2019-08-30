@@ -1,34 +1,29 @@
 .feature {
   position: relative;
   overflow: hidden;
+  min-height: 300px;
   transition: all 0.4s cubic-bezier(0.61, -0.44, 0.33, 1.39);
   color: $white;
+  @include flex(1, 0, 100%);
 
-  &:nth-child(1) {
-    .feature__one-col & {
-      width: 100vw;
-    }
-
-    .feature__two-col & {
-      width: 75vw;
-    }
-
-    .feature__three-col & {
-      width: 50vw;
-    }
-  }
-
-  &:nth-child(2) {
-    width: 25vw;
-  }
-
-  &:nth-child(3) {
-    width: 25vw;
+  @include breakpoint(sm) {
+    align-self: auto;
+    order: 0;
+    min-height: auto;
+    @include flex(1, 1, 0%);
   }
 
   &__container {
-    display: flex;
-    width: 99.1vw;
+    flex-wrap: wrap;
+    @include flexbox;
+    @include breakpoint(sm) {
+      align-content: stretch;
+      align-items: stretch;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      min-height: 500px;
+    }
 
     &.image {
       min-height: 540px;
@@ -67,7 +62,7 @@
   &__bracket {
     z-index: 1;
     @include bracket();
-    width: 500px;
+    //width: 500px;
   }
 
   &__heading {
@@ -110,7 +105,6 @@
 
     i {
       padding-left: $sm;
-
       &.fa-plus:before {
         padding: $xsm;
         color: $primary;
@@ -124,31 +118,45 @@
 
 @include breakpoint(sm) {
   .feature {
-    transition: width 500ms ease;
+    transition: all 0.3s ease;
   }
 }
 
-// Hide/Reveal Teaser
 
-.feature:nth-child(1) {
-  &::after {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    content: "";
-    background: linear-gradient(transparent 1%, transparent 49%, rgba(0, 0, 0, .7));
+.feature__container-expanded {
+  .feature {
+    @include breakpoint(sm) {
+      flex: unset;
+      width: 25%;
+    }
   }
 
-  .feature__content {
-    opacity: 1;
-  }
+  .feature:nth-child(1) {
+    @include breakpoint(sm) {
+      flex-grow: 1;
+    }
 
-  .feature__teaser {
-    opacity: 0;
+    &::after {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      content: "";
+      background: linear-gradient(transparent 1%, transparent 49%, rgba(0, 0, 0, .7));
+    }
+
+    .feature__content {
+      opacity: 1;
+    }
+
+    .feature__teaser {
+      opacity: 0;
+    }
   }
 }
+
+
 
 .feature:hover .feature__content,
 .feature:focus .feature__content {
@@ -161,7 +169,7 @@
 }
 
 .feature__container {
-  pointer-events: none;
+  //pointer-events: none;
 }
 
 .feature__container>.feature {
@@ -169,11 +177,12 @@
   pointer-events: auto;
 }
 
-.feature__container.feature__three-col:hover>.feature,
-.feature__container.feature__three-col:focus-within>.feature,
-.feature__container.feature__two-col:hover>.feature,
-.feature__container.feature__two-col:focus-within>.feature {
-  width: 25vw;
+
+.feature__container:hover>.feature,
+.feature__container:focus-within>.feature {
+  @include breakpoint(sm) {
+    @include flex(1, 1, 0%);
+  }
 
   .feature__content {
     opacity: 0;
@@ -184,10 +193,17 @@
   }
 }
 
-.feature__container.feature__three-col:hover>.feature:hover,
-.feature__container.feature__three-col:focus-within>.feature:focus {
-  width: 50vw;
+.feature__container-expanded:hover>.feature,
+.feature__container-expanded:focus-within>.feature {
+  @include breakpoint(sm) {
+    flex: unset;
+    flex-grow: 0;
+  }
+}
 
+
+.feature__container:hover>.feature:hover,
+.feature__container:focus-within>.feature:focus {
   .feature__content {
     opacity: 1;
   }
@@ -197,23 +213,14 @@
   }
 }
 
-.feature__container.feature__two-col:hover>.feature:hover,
-.feature__container.feature__two-col:focus-within>.feature:focus {
-  width: 75vw;
-
-  .feature__content {
-    opacity: 1;
-  }
-
-  .feature__teaser {
-    opacity: 0;
-  }
+.feature__container-expanded:hover>.feature:hover,
+.feature__container-expanded:focus-within>.feature:focus {
+  flex-grow: 1;
 }
 
-.feature__container.feature__one-col:hover>.feature:hover,
-.feature__container.feature__one-col:focus-within>.feature:focus {
-  width: 100vw;
-}
+
+
+// Video
 
 .feature__container.feature__one-col {
   video {
@@ -221,20 +228,19 @@
   }
 }
 
-// Video Controls
 .video-btn {
-  padding: $sm;
-  border: none;
-  width: 50px;
-  height: 50px;
   position: absolute;
-  background: none;
+  z-index: 1;
   top: 20px;
   left: 15px;
-  font-size: $h4-font-size;
-  color: $white;
+  width: 50px;
+  height: 50px;
+  padding: $sm;
   cursor: pointer;
-  z-index: 1;
+  color: $white;
+  border: none;
+  background: none;
+  font-size: $h4-font-size;
 
   &:before {
     content: "\f28b";
@@ -254,27 +260,33 @@
   position: relative;
 }
 
-// Image Stack
+// Accordion Stack
 
 .feature__container.image-stack {
-  flex-wrap: wrap;
-  flex-direction: column;
-  height: 100vh;
+  @include breakpoint(sm) {
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 100vh;
+  }
 }
 
 .image-stack {
   .feature:nth-child(1) {
-    flex: 0 0 70%;
-    width: unset;
-    &:hover {
-      flex: 1 1 auto;
+    @include breakpoint(sm) {
+      flex: 0 0 70%;
+      width: unset;
+      &:hover {
+        flex: 1 1 auto;
+      }
     }
   }
 
   .feature:nth-child(2),
   .feature:nth-child(3) {
-    flex: 0 0 15%;
-    width: unset;
+    @include breakpoint(sm) {
+      flex: 0 0 15%;
+      width: unset;
+    }
   }
 
   .feature:last-child {
@@ -284,11 +296,11 @@
   }
 
   .feature__teaser {
-    height: 100%;
-    align-items: center;
     display: flex;
-    background: rgba(255, 255, 255, 0.8);
+    align-items: center;
+    height: 100%;
     border-bottom: 1px solid $secondary;
+    background: rgba(255, 255, 255, 0.8);
   }
 
   .feature__teaser-heading {
@@ -303,7 +315,9 @@
 
 .feature__container.image-stack.feature__three-col:hover>.feature:hover,
 .feature__container.image-stack.feature__three-col:focus-within>.feature:focus {
-  width: 100vw;
+  @include breakpoint(sm) {
+    width: 100vw;
+  }
 
   .feature__content {
     opacity: 1;
@@ -314,7 +328,6 @@
   }
 }
 
-// Vertical stack
 
 .feature__container.image-stack:hover>.feature:nth-child(1),
 .feature__container.image-stack:focus-within>.feature:nth-child(1),
@@ -322,10 +335,11 @@
 .feature__container.image-stack:focus-within>.feature:nth-child(2),
 .feature__container.image-stack:hover>.feature:nth-child(3),
 .feature__container.image-stack:focus-within>.feature:nth-child(3) {
-  flex: 0 0 15%;
-  transition: all 0.3s ease;
-  width: 100vw;
-
+  @include breakpoint(sm) {
+    flex: 0 0 15%;
+    width: 100vw;
+    transition: all 0.3s ease;
+  }
 }
 
 .feature__container.image-stack:hover>.feature:nth-child(1):hover,
@@ -334,45 +348,8 @@
 .feature__container.image-stack:focus-within>.feature:nth-child(2):focus,
 .feature__container.image-stack:hover>.feature:nth-child(3):hover,
 .feature__container.image-stack:focus-within>.feature:nth-child(3):focus {
-  flex: 0 0 70%;
-  transition: all 0.3s ease;
-}
-
-
-// Remove: Sibling Adjacent Hover
-/*
-.feature__container {
-  pointer-events: none;
-}
-
-.feature__container>.feature {
-  cursor: pointer;
-  pointer-events: auto;
-}
-
-.feature__container:hover>.feature,
-.feature__container:focus-within>.feature {
-  width: 25vw;
-
-  .feature__content {
-    opacity: 0;
-  }
-
-  .feature__teaser {
-    opacity: 1;
+  @include breakpoint(sm) {
+    flex: 0 0 70%;
+    transition: all 0.3s ease;
   }
 }
-
-.feature__container:hover>.feature:hover,
-.feature__container:focus-within>.feature:focus {
-  width: 50vw;
-
-  .feature__content {
-    opacity: 1;
-  }
-
-  .feature__teaser {
-    opacity: 0;
-  }
-}
-*/
