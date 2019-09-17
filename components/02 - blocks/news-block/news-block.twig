@@ -1,41 +1,24 @@
-{% if block_type == 'basic' %}
+{% if block_type == 'advanced' %}
 
-  <div class="card__wrapper">
+  <div class="news-card__wrapper">
 
-    {% for item in news.items | slice(0, 2) %}
-      {% include "@news-block--basic" with {
-        "card_image": item.card_image,
-        "card_link_url": item.card_link_url,
-        "card_title": item.card_title,
-        "card_text": item.card_text,
-        "card_link_title": item.card_link_title
-      } %}
-    {% endfor %}
-
-  </div>
-
-{% elseif block_type == 'advanced' %}
-
-  <div class="card__wrapper">
-
-    {% set card_position = 0 %}
+    {% set news_card_position = 0 %}
 
     {% for item in news.items %}
       {% include "@news-block--advanced" with {
-        "card_image": item.card_image,
-        "card_tag": item.card_tag,
-        "card_title": item.card_title,
-        "card_text": item.card_text,
-        "card_date": item.card_date,
-        "card_link_url": item.card_link_url,
-        "card_link_title": item.card_link_title
+        "news_card_image": item.card_image,
+        "news_card_tag": item.card_tag,
+        "news_card_title": item.card_title,
+        "news_card_text": item.card_text,
+        "news_card_date": item.card_date,
+        "news_card_link_url": item.card_link_url,
+        "news_card_link_title": item.card_link_title
       } %}
 
-      {% set card_position = card_position + 1 %}
+      {% set news_card_position = news_card_position + 1 %}
     {% endfor %}
 
   </div>
 
-  <a href="/" class="bttn bttn--primary bttn--full">More News</a>
 
 {% endif %}

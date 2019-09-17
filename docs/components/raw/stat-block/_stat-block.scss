@@ -1,13 +1,24 @@
 .stat {
   position: relative;
+  align-items: center;
+  justify-content: center;
   padding: 5rem;
   text-align: center;
-  @include margin($right: $sm, $bottom: $md, $left: $sm);
+  @include breakpoint(sm) {
+    @include margin($right: $sm, $bottom: 0, $left: $sm);
+  }
   @include flexbox;
   @include flex-direction($value: column);
   @include flex($fg: 1, $fs: 1, $fb: 0%);
-  align-items: center;
-  justify-content: center;
+
+  &:first-of-type {
+    @include margin($left: 0);
+  }
+
+  &:last-of-type {
+    @include margin($right: 0);
+  }
+
   &:before {
     position: absolute;
     top: 0;
@@ -32,9 +43,10 @@
     color: $white;
     font-family: $font-family-caps-bold;
     font-size: $h3-font-size;
+
     &:after {
       display: block;
-      width: 15%;
+      width: 50px;
       height: 4px;
       margin: 0 auto;
       content: "";
