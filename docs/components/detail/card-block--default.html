@@ -152,7 +152,6 @@
     <code class="Code Code--lang-html">
         
         <pre><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"card__wrapper"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">hr</span> /&gt;</span>
 
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"card card__ card__row"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"card__img"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"../../images/feature1.jpg"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"Alt Text"</span>&gt;</span>
@@ -195,7 +194,6 @@
         <pre><span class="xml"></span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">if</span></span> block_type == 'basic' %}</span><span class="xml">
 
   <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"card__wrapper"</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">hr</span> /&gt;</span>
 
     </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">for</span></span> item in card.items | slice(0, 2) %}</span><span class="xml">
       </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">include</span></span> "@card-<span class="hljs-name">block</span>--basic" with {
@@ -302,17 +300,20 @@
   @<span class="hljs-keyword">include</span> flex-direction(<span class="hljs-variable">$value</span>: column);
   @<span class="hljs-keyword">include</span> flex(<span class="hljs-variable">$fg</span>: 1, <span class="hljs-variable">$fs</span>: 1, <span class="hljs-variable">$fb</span>: 0%);
 
-&amp;__row {
-  @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$right</span>: <span class="hljs-variable">$sm</span>, <span class="hljs-variable">$bottom</span>: 0, <span class="hljs-variable">$left</span>: <span class="hljs-variable">$sm</span>);
+  &amp;__row {
+    @<span class="hljs-keyword">include</span> breakpoint(sm) {
+      @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$right</span>: <span class="hljs-variable">$sm</span>, <span class="hljs-variable">$bottom</span>: 0, <span class="hljs-variable">$left</span>: <span class="hljs-variable">$sm</span>);
 
-   &amp;:first-of-type {
-     @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$left</span>: 0);
-   }
+      &amp;:first-of-type {
+        @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$left</span>: 0);
+      }
 
-   &amp;:last-of-type {
-     @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$right</span>: 0);
-   }
-}
+      &amp;:last-of-type {
+        @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$right</span>: 0);
+      }
+    }
+  }
+
   &amp;__wrapper {
     @<span class="hljs-keyword">include</span> breakpoint(sm) {
       @<span class="hljs-keyword">include</span> flexbox;
@@ -332,6 +333,7 @@
   &amp;__title {
     <span class="hljs-attribute">font-size</span>: <span class="hljs-variable">$h6-font-size</span>;
     @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$top</span>: <span class="hljs-variable">$sm</span>, <span class="hljs-variable">$bottom</span>: <span class="hljs-variable">$sm</span>);
+
     <span class="hljs-selector-tag">a</span> {
       <span class="hljs-attribute">text-decoration</span>: none;
       <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
@@ -356,6 +358,7 @@
 
   &amp;__details {
     @<span class="hljs-keyword">include</span> element-invisible;
+
     <span class="hljs-selector-class">.is-open</span> &amp; {
       <span class="hljs-attribute">clear</span>: both;
       @<span class="hljs-keyword">include</span> element-invisible-off;
@@ -379,13 +382,14 @@
   <span class="hljs-attribute">height</span>: <span class="hljs-number">30px</span>;
   <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
   <span class="hljs-attribute">cursor</span>: pointer;
-  <span class="hljs-attribute">transition</span>: background .<span class="hljs-number">25s</span>,border .<span class="hljs-number">25s</span>,color .<span class="hljs-number">25s</span>,transform .<span class="hljs-number">25s</span>;
+  <span class="hljs-attribute">transition</span>: background .<span class="hljs-number">25s</span>, border .<span class="hljs-number">25s</span>, color .<span class="hljs-number">25s</span>, transform .<span class="hljs-number">25s</span>;
   <span class="hljs-attribute">border</span>: none;
   <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-variable">$secondary</span>;
   <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">50%</span>;
   <span class="hljs-attribute">background</span>: <span class="hljs-variable">$white</span>;
 
   @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$right</span>: <span class="hljs-variable">$sm</span>);
+
   <span class="hljs-selector-class">.is-open</span> &amp; {
     <span class="hljs-attribute">background</span>: <span class="hljs-variable">$secondary</span>;
   }
@@ -395,6 +399,7 @@
     <span class="hljs-attribute">content</span>: <span class="hljs-string">"\f141"</span>;
     <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
     @<span class="hljs-keyword">include</span> fas();
+
     <span class="hljs-selector-class">.is-open</span> &amp; {
       <span class="hljs-attribute">content</span>: <span class="hljs-string">"\f00d"</span>;
       <span class="hljs-attribute">color</span>: <span class="hljs-variable">$white</span>;
@@ -417,7 +422,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">1.9 KB</span>
+                    <span class="Meta-value">2 KB</span>
                 </li>
             </ul>
         </div>
