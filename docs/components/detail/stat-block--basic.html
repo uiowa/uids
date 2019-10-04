@@ -157,9 +157,8 @@
 <div class="Browser-panel Browser-code is-active" data-role="tab-panel" id="browser-9a3170fa9cac4160e7a857659a07ab95-panel-html">
     <code class="Code Code--lang-html">
         
-        <pre><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stat"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stat__title"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stat__description"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+        <pre><span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stat__title"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stat__description"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></pre>
         
     </code>
@@ -177,9 +176,11 @@
     
     <div class="Browser-panel Browser-code" data-role="tab-panel" id="browser-9a3170fa9cac4160e7a857659a07ab95-panel-view">
     <code class="Code Code--lang-twig">
-        <pre><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stat"</span> </span></span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">if</span></span> stat_image %}</span><span class="xml"><span class="hljs-tag">
-  <span class="hljs-attr">style</span>=<span class="hljs-string">"background-image: url('</span></span></span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">spaceless</span></span> %}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string"></span></span></span><span class="hljs-template-variable">{{ stat_image }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string"></span></span></span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endspaceless</span></span> %}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">'); background-size: cover; background-position: center"</span>
-  </span></span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endif</span></span> %}</span><span class="xml"><span class="hljs-tag">&gt;</span>
+        <pre><span class="xml"></span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">block</span></span> stat_bg %}</span><span class="xml">
+  </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">if</span></span> stat_image %}</span><span class="xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stat </span></span></span><span class="hljs-template-variable">{{ stat_classes }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span> </span></span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">if</span></span> stat_image %}</span><span class="xml"><span class="hljs-tag"> <span class="hljs-attr">style</span>=<span class="hljs-string">"background-image: url('</span></span></span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">spaceless</span></span> %}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string"></span></span></span><span class="hljs-template-variable">{{ stat_image }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string"></span></span></span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endspaceless</span></span> %}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">'); background-size: cover; background-position: center"</span> </span></span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endif</span></span> %}</span><span class="xml"><span class="hljs-tag">&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endif</span></span> %}</span><span class="xml">
+  </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endblock</span></span> %}</span><span class="xml">
   <span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stat__title"</span>&gt;</span></span><span class="hljs-template-variable">{{ stat_title }}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stat__description"</span>&gt;</span></span><span class="hljs-template-variable">{{ stat_summary }}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></pre>
@@ -244,19 +245,22 @@
   <span class="hljs-attribute">justify-content</span>: center;
   <span class="hljs-attribute">padding</span>: <span class="hljs-number">5rem</span>;
   <span class="hljs-attribute">text-align</span>: center;
-  @<span class="hljs-keyword">include</span> breakpoint(sm) {
-    @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$right</span>: <span class="hljs-variable">$sm</span>, <span class="hljs-variable">$bottom</span>: 0, <span class="hljs-variable">$left</span>: <span class="hljs-variable">$sm</span>);
-  }
   @<span class="hljs-keyword">include</span> flexbox;
   @<span class="hljs-keyword">include</span> flex-direction(<span class="hljs-variable">$value</span>: column);
   @<span class="hljs-keyword">include</span> flex(<span class="hljs-variable">$fg</span>: 1, <span class="hljs-variable">$fs</span>: 1, <span class="hljs-variable">$fb</span>: 0%);
 
-  &amp;:first-of-type {
-    @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$left</span>: 0);
-  }
+  &amp;__row {
+    @<span class="hljs-keyword">include</span> breakpoint(sm) {
+      @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$right</span>: <span class="hljs-variable">$sm</span>, <span class="hljs-variable">$bottom</span>: 0, <span class="hljs-variable">$left</span>: <span class="hljs-variable">$sm</span>);
+    }
 
-  &amp;:last-of-type {
-    @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$right</span>: 0);
+    &amp;:first-of-type {
+      @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$left</span>: 0);
+    }
+
+    &amp;:last-of-type {
+      @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$right</span>: 0);
+    }
   }
 
   &amp;:before {
@@ -316,7 +320,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">1.1 KB</span>
+                    <span class="Meta-value">1.2 KB</span>
                 </li>
             </ul>
         </div>
@@ -1284,30 +1288,6 @@
         <li class="Tree-item Tree-entity" data-role="item">
             <a class="Tree-entityLink" href="feature-block--feature-block-hover-collapsed.html" data-pjax>
                 <span>Feature Block Hover Collapsed</span>
-                
-
-<div class="Status Status--unlabelled">
-
-<div class="Status-dots">
-
-
-<span class="Status-dot" style="border-color: #FF9233;" title="WIP"></span>
-
-
-</div>
-
-</div>
-
-
-            </a>
-        </li>
-        
-    
-        
-        
-        <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="feature-block--feature-block-accordion.html" data-pjax>
-                <span>Feature Block Accordion</span>
                 
 
 <div class="Status Status--unlabelled">

@@ -181,6 +181,7 @@
 
     </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">for</span></span> item in card.items | slice(0, 2) %}</span><span class="xml">
       </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">include</span></span> "@card-<span class="hljs-name">block</span>--basic" with {
+        "card_classes": 'card__row',
         "card_image": item.card_image,
         "card_link_url": item.card_link_url,
         "card_title": item.card_title,
@@ -279,18 +280,21 @@
                                 <pre><span class="hljs-selector-class">.card</span> {
   <span class="hljs-attribute">position</span>: relative;
   <span class="hljs-attribute">transition</span>: transform .<span class="hljs-number">35s</span>, z-index .<span class="hljs-number">5s</span>;
-  @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$right</span>: <span class="hljs-variable">$sm</span>, <span class="hljs-variable">$bottom</span>: 0, <span class="hljs-variable">$left</span>: <span class="hljs-variable">$sm</span>);
   @<span class="hljs-keyword">include</span> flexbox;
   @<span class="hljs-keyword">include</span> flex-direction(<span class="hljs-variable">$value</span>: column);
   @<span class="hljs-keyword">include</span> flex(<span class="hljs-variable">$fg</span>: 1, <span class="hljs-variable">$fs</span>: 1, <span class="hljs-variable">$fb</span>: 0%);
 
-  &amp;:first-of-type {
-   @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$left</span>: 0);
-  }
-  &amp;:last-of-type {
-    @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$right</span>: 0);
-  }
+&amp;__row {
+  @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$right</span>: <span class="hljs-variable">$sm</span>, <span class="hljs-variable">$bottom</span>: 0, <span class="hljs-variable">$left</span>: <span class="hljs-variable">$sm</span>);
 
+   &amp;:first-of-type {
+     @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$left</span>: 0);
+   }
+
+   &amp;:last-of-type {
+     @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$right</span>: 0);
+   }
+}
   &amp;__wrapper {
     @<span class="hljs-keyword">include</span> breakpoint(sm) {
       @<span class="hljs-keyword">include</span> flexbox;
@@ -348,7 +352,6 @@
     <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">3px</span> <span class="hljs-number">5px</span> <span class="hljs-number">5px</span> <span class="hljs-number">0</span> rgba(<span class="hljs-number">13</span>, <span class="hljs-number">23</span>, <span class="hljs-number">33</span>, <span class="hljs-number">0.1</span>);
   }
 }
-
 
 <span class="hljs-selector-class">.card__bttn</span> {
   <span class="hljs-attribute">position</span>: relative;
@@ -1360,30 +1363,6 @@
         <li class="Tree-item Tree-entity" data-role="item">
             <a class="Tree-entityLink" href="feature-block--feature-block-hover-collapsed.html" data-pjax>
                 <span>Feature Block Hover Collapsed</span>
-                
-
-<div class="Status Status--unlabelled">
-
-<div class="Status-dots">
-
-
-<span class="Status-dot" style="border-color: #FF9233;" title="WIP"></span>
-
-
-</div>
-
-</div>
-
-
-            </a>
-        </li>
-        
-    
-        
-        
-        <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="feature-block--feature-block-accordion.html" data-pjax>
-                <span>Feature Block Accordion</span>
                 
 
 <div class="Status Status--unlabelled">

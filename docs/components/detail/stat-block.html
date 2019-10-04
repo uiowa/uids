@@ -159,15 +159,15 @@
         
         <pre><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stat__wrapper"</span>&gt;</span>
 
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stat"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"background-image: url('../../images/feature1.jpg'); background-size: cover; background-position: center"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stat stat__row"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"background-image: url('../../images/feature1.jpg'); background-size: cover; background-position: center"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stat__title"</span>&gt;</span>15:1<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stat__description"</span>&gt;</span>student-to-faculty ratio<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stat"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"background-image: url('../../images/feature2.jpg'); background-size: cover; background-position: center"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stat stat__row"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"background-image: url('../../images/feature2.jpg'); background-size: cover; background-position: center"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stat__title"</span>&gt;</span>78%<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stat__description"</span>&gt;</span>of classes have fewer than 30 students<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stat"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"background-image: url('../../images/feature3.jpg'); background-size: cover; background-position: center"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stat stat__row"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"background-image: url('../../images/feature3.jpg'); background-size: cover; background-position: center"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stat__title"</span>&gt;</span>14<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stat__description"</span>&gt;</span>consecutive years named a "Best Buy" by Fiske Guide to Colleges<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
@@ -195,6 +195,7 @@
 
     </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">for</span></span> item in stat.items | slice(0, 3) %}</span><span class="xml">
       </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">include</span></span> "@stat-<span class="hljs-name">block</span>--basic" with {
+        "stat_classes": 'stat__row',
         "stat_image": item.stat_image,
         "stat_title": item.stat_title,
         "stat_summary": item.stat_summary
@@ -211,6 +212,7 @@
 
     </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">for</span></span> item in stat.items | slice(0, 4) %}</span><span class="xml">
       </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">include</span></span> "@stat-<span class="hljs-name">block</span>--basic" with {
+        "stat_classes": 'stat__row',
         "stat_image": item.stat_image,
         "stat_title": item.stat_title,
         "stat_summary": item.stat_summary
@@ -281,19 +283,22 @@
   <span class="hljs-attribute">justify-content</span>: center;
   <span class="hljs-attribute">padding</span>: <span class="hljs-number">5rem</span>;
   <span class="hljs-attribute">text-align</span>: center;
-  @<span class="hljs-keyword">include</span> breakpoint(sm) {
-    @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$right</span>: <span class="hljs-variable">$sm</span>, <span class="hljs-variable">$bottom</span>: 0, <span class="hljs-variable">$left</span>: <span class="hljs-variable">$sm</span>);
-  }
   @<span class="hljs-keyword">include</span> flexbox;
   @<span class="hljs-keyword">include</span> flex-direction(<span class="hljs-variable">$value</span>: column);
   @<span class="hljs-keyword">include</span> flex(<span class="hljs-variable">$fg</span>: 1, <span class="hljs-variable">$fs</span>: 1, <span class="hljs-variable">$fb</span>: 0%);
 
-  &amp;:first-of-type {
-    @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$left</span>: 0);
-  }
+  &amp;__row {
+    @<span class="hljs-keyword">include</span> breakpoint(sm) {
+      @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$right</span>: <span class="hljs-variable">$sm</span>, <span class="hljs-variable">$bottom</span>: 0, <span class="hljs-variable">$left</span>: <span class="hljs-variable">$sm</span>);
+    }
 
-  &amp;:last-of-type {
-    @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$right</span>: 0);
+    &amp;:first-of-type {
+      @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$left</span>: 0);
+    }
+
+    &amp;:last-of-type {
+      @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$right</span>: 0);
+    }
   }
 
   &amp;:before {
@@ -353,7 +358,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">1.1 KB</span>
+                    <span class="Meta-value">1.2 KB</span>
                 </li>
             </ul>
         </div>
@@ -1358,30 +1363,6 @@
         <li class="Tree-item Tree-entity" data-role="item">
             <a class="Tree-entityLink" href="feature-block--feature-block-hover-collapsed.html" data-pjax>
                 <span>Feature Block Hover Collapsed</span>
-                
-
-<div class="Status Status--unlabelled">
-
-<div class="Status-dots">
-
-
-<span class="Status-dot" style="border-color: #FF9233;" title="WIP"></span>
-
-
-</div>
-
-</div>
-
-
-            </a>
-        </li>
-        
-    
-        
-        
-        <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="feature-block--feature-block-accordion.html" data-pjax>
-                <span>Feature Block Accordion</span>
                 
 
 <div class="Status Status--unlabelled">
