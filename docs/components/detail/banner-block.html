@@ -158,9 +158,14 @@
     <code class="Code Code--lang-html">
         
         <pre><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"banner "</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"background-image: url('../../images/bg.jpg'); background-size: cover; background-position: center"</span>&gt;</span>
+
     <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"banner__image"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"../../images/herky-01.png"</span> /&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"banner__container"</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">h3</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"banner__title"</span>&gt;</span>Bold Hawkeye Headline Here<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">h3</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"banner__title"</span>&gt;</span>
+            Bold Hawkeye Headline Here
+        <span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+
         <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"banner__summary"</span>&gt;</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://example.com"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"bttn bttn--tertiary"</span>&gt;</span>Call to Action<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
@@ -186,13 +191,22 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"banner </span></span></span><span class="hljs-template-variable">{{ banner_classes }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span> </span></span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">if</span></span> banner_bg_image %}</span><span class="xml"><span class="hljs-tag"> <span class="hljs-attr">style</span>=<span class="hljs-string">"background-image: url('</span></span></span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">spaceless</span></span> %}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string"></span></span></span><span class="hljs-template-variable">{{ banner_bg_image }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string"></span></span></span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endspaceless</span></span> %}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">'); background-size: cover; background-position: center"</span> </span></span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endif</span></span> %}</span><span class="xml"><span class="hljs-tag">&gt;</span>
     </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endif</span></span> %}</span><span class="xml">
   </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endblock</span></span> %}</span><span class="xml">
+
   </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">if</span></span> banner_image %}</span><span class="xml">
     <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"banner__image"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"</span></span></span><span class="hljs-template-variable">{{ banner_image }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span>/&gt;</span>
   </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endif</span></span> %}</span><span class="xml">
   <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"banner__container"</span>&gt;</span>
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">if</span></span> banner_title is not empty %}</span><span class="xml">
-      <span class="hljs-tag">&lt;<span class="hljs-name">h3</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"banner__title"</span>&gt;</span></span><span class="hljs-template-variable">{{ banner_title }}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endif</span></span> %}</span><span class="xml">
+
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">block</span></span> heading %}</span><span class="xml">
+      </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">if</span></span> banner_title is not empty %}</span><span class="xml">
+        </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">include</span></span> "<a href="heading.html">@heading</a>" with {
+          "heading_level" : 'h3',
+          "heading_class" : 'banner__title',
+          "heading" : banner_title
+        } %}</span><span class="xml">
+      </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endif</span></span> %}</span><span class="xml">
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endblock</span></span> %}</span><span class="xml">
+
     </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">if</span></span> banner_summary is not empty %}</span><span class="xml">
       <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"banner__summary"</span>&gt;</span></span><span class="hljs-template-variable">{{ banner_summary }}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
     </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endif</span></span> %}</span><span class="xml">
@@ -254,12 +268,12 @@
   <span class="hljs-attribute">overflow</span>: hidden;
   @<span class="hljs-keyword">include</span> flex(<span class="hljs-variable">$fg</span>: 1, <span class="hljs-variable">$fs</span>: 1, <span class="hljs-variable">$fb</span>: 0%);
     @<span class="hljs-keyword">include</span> breakpoint(sm) {
-      <span class="hljs-attribute">min-height</span>: <span class="hljs-number">350px</span>;
+      <span class="hljs-attribute">min-height</span>: <span class="hljs-number">400px</span>;
     }
 
   &amp;__container {
     <span class="hljs-attribute">position</span>: relative;
-    <span class="hljs-attribute">padding</span>: <span class="hljs-variable">$xlg</span>;
+    @<span class="hljs-keyword">include</span> padding(<span class="hljs-variable">$top</span>: <span class="hljs-variable">$xlg</span>, <span class="hljs-variable">$right</span>: <span class="hljs-variable">$xlg</span>, <span class="hljs-variable">$bottom</span>: <span class="hljs-variable">$xlg</span>, <span class="hljs-variable">$left</span>: <span class="hljs-variable">$md</span>);
     @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$top</span>: <span class="hljs-variable">$sm</span>, <span class="hljs-variable">$right</span>: <span class="hljs-variable">$xlg</span>, <span class="hljs-variable">$bottom</span>: 0, <span class="hljs-variable">$left</span>: <span class="hljs-variable">$xlg</span>);
     @<span class="hljs-keyword">include</span> breakpoint(sm) {
       <span class="hljs-attribute">width</span>: <span class="hljs-number">50%</span>;
@@ -320,7 +334,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">1.3 KB</span>
+                    <span class="Meta-value">1.4 KB</span>
                 </li>
             </ul>
         </div>
@@ -363,6 +377,15 @@
             <strong class="Meta-key">Filesystem Path:</strong>
             <span class="Meta-value">components/02 - blocks/banner-block/banner-block.twig</span>
         </li>
+        
+        <li class="Meta-item">
+            <strong class="Meta-key">References <em class="Meta-count">(1)</em>:</strong>
+            <span class="Meta-value Meta-value--linkList">
+            
+                <a href="heading.html">@<span>heading</span></a>
+            
+            </span>
+        </li class="Meta-item">
         
         
         <li class="Meta-item">
