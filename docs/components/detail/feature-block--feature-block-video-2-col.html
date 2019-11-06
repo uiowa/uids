@@ -398,7 +398,6 @@
       <span class="hljs-attribute">align-content</span>: stretch;
       <span class="hljs-attribute">align-items</span>: stretch;
       <span class="hljs-attribute">flex-direction</span>: row;
-     <span class="hljs-comment">// flex-wrap: nowrap;</span>
       <span class="hljs-attribute">justify-content</span>: flex-start;
     }
 
@@ -427,7 +426,7 @@
     <span class="hljs-attribute">bottom</span>: <span class="hljs-number">0</span>;
     <span class="hljs-attribute">transition</span>: opacity .<span class="hljs-number">3s</span> linear;
     <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
-    @<span class="hljs-keyword">include</span> padding(<span class="hljs-variable">$top</span>: <span class="hljs-variable">$xlg</span>, <span class="hljs-variable">$right</span>: <span class="hljs-variable">$xlg</span>, <span class="hljs-variable">$bottom</span>: <span class="hljs-variable">$sm</span>, <span class="hljs-variable">$left</span>: <span class="hljs-variable">$xlg</span>);
+    @<span class="hljs-keyword">include</span> padding(<span class="hljs-variable">$top</span>: <span class="hljs-variable">$xlg</span>, <span class="hljs-variable">$right</span>: <span class="hljs-variable">$xlg</span>, <span class="hljs-variable">$bottom</span>: <span class="hljs-variable">$xlg</span>, <span class="hljs-variable">$left</span>: <span class="hljs-variable">$xlg</span>);
   }
 
   &amp;__hr {
@@ -438,7 +437,8 @@
 
   &amp;__bracket {
     <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;
-    @<span class="hljs-keyword">include</span> bracket();
+    <span class="hljs-attribute">position</span>: relative;
+    <span class="hljs-comment">//@include bracket();</span>
     <span class="hljs-comment">//width: 500px;</span>
   }
 
@@ -557,10 +557,6 @@
 
 <span class="hljs-selector-class">.feature__container</span>:hover&gt;<span class="hljs-selector-class">.feature</span>,
 <span class="hljs-selector-class">.feature__container</span>:focus-within&gt;<span class="hljs-selector-class">.feature</span> {
- <span class="hljs-comment">/* @include breakpoint(sm) {
-    @include flex(1, 1, 0%);
-  }
-*/</span>
   <span class="hljs-selector-class">.feature__content</span> {
     <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
   }
@@ -569,15 +565,6 @@
     <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;
   }
 }
-
-<span class="hljs-selector-class">.feature__container-expanded</span>:hover&gt;<span class="hljs-selector-class">.feature</span>,
-<span class="hljs-selector-class">.feature__container-expanded</span>:focus-within&gt;<span class="hljs-selector-class">.feature</span> {
-  @<span class="hljs-keyword">include</span> breakpoint(sm) {
-    <span class="hljs-attribute">flex</span>: unset;
-    <span class="hljs-attribute">flex-grow</span>: <span class="hljs-number">0</span>;
-  }
-}
-
 
 <span class="hljs-selector-class">.feature__container</span>:hover&gt;<span class="hljs-selector-class">.feature</span>:hover,
 <span class="hljs-selector-class">.feature__container</span>:focus-within&gt;<span class="hljs-selector-class">.feature</span>:focus {
@@ -590,146 +577,22 @@
   }
 }
 
-<span class="hljs-selector-class">.feature__container-expanded</span>:hover&gt;<span class="hljs-selector-class">.feature</span>:hover,
-<span class="hljs-selector-class">.feature__container-expanded</span>:focus-within&gt;<span class="hljs-selector-class">.feature</span>:focus {
-  <span class="hljs-attribute">flex-grow</span>: <span class="hljs-number">1</span>;
+<span class="hljs-comment">// hover expand</span>
+<span class="hljs-comment">/*
+.feature__container-expanded:hover&gt;.feature:hover,
+.feature__container-expanded:focus-within&gt;.feature:focus {
+  flex-grow: 1;
 }
-
-
-
-<span class="hljs-comment">// Video</span>
-
-<span class="hljs-selector-class">.feature__container</span><span class="hljs-selector-class">.feature__one-col</span> {
-  <span class="hljs-selector-tag">video</span> {
-    <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
-  }
-}
-
-<span class="hljs-selector-class">.video-btn</span> {
-  <span class="hljs-attribute">position</span>: absolute;
-  <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;
-  <span class="hljs-attribute">top</span>: <span class="hljs-number">20px</span>;
-  <span class="hljs-attribute">left</span>: <span class="hljs-number">15px</span>;
-  <span class="hljs-attribute">width</span>: <span class="hljs-number">50px</span>;
-  <span class="hljs-attribute">height</span>: <span class="hljs-number">50px</span>;
-  <span class="hljs-attribute">padding</span>: <span class="hljs-variable">$sm</span>;
-  <span class="hljs-attribute">cursor</span>: pointer;
-  <span class="hljs-attribute">color</span>: <span class="hljs-variable">$white</span>;
-  <span class="hljs-attribute">border</span>: none;
-  <span class="hljs-attribute">background</span>: none;
-  <span class="hljs-attribute">font-size</span>: <span class="hljs-variable">$h4-font-size</span>;
-
-  &amp;:before {
-    <span class="hljs-attribute">content</span>: <span class="hljs-string">"\f28b"</span>;
-    @<span class="hljs-keyword">include</span> fas();
-  }
-
-  &amp;__play:before {
-    <span class="hljs-attribute">content</span>: <span class="hljs-string">"\f144"</span>;
+*/</span>
+<span class="hljs-comment">/*
+.feature__container-expanded:hover&gt;.feature,
+.feature__container-expanded:focus-within&gt;.feature {
+  @include breakpoint(sm) {
+    flex: unset;
+    flex-grow: 0;
   }
 }
-
-<span class="hljs-selector-class">.video-btn</span>:hover {
-  <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
-}
-
-<span class="hljs-selector-class">.video__container</span> {
-  <span class="hljs-attribute">position</span>: relative;
-}
-
-<span class="hljs-comment">// Accordion Stack</span>
-
-<span class="hljs-selector-class">.feature__container</span><span class="hljs-selector-class">.image-stack</span> {
-  @<span class="hljs-keyword">include</span> breakpoint(sm) {
-    <span class="hljs-attribute">flex-direction</span>: column;
-    <span class="hljs-attribute">flex-wrap</span>: wrap;
-    <span class="hljs-attribute">height</span>: <span class="hljs-number">100vh</span>;
-  }
-}
-
-<span class="hljs-selector-class">.image-stack</span> {
-  <span class="hljs-selector-class">.feature</span>:nth-child(1) {
-    @<span class="hljs-keyword">include</span> breakpoint(sm) {
-      <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">70%</span>;
-      <span class="hljs-attribute">width</span>: unset;
-      &amp;:hover {
-        <span class="hljs-attribute">flex</span>: <span class="hljs-number">1</span> <span class="hljs-number">1</span> auto;
-      }
-    }
-  }
-
-  <span class="hljs-selector-class">.feature</span>:nth-child(2),
-  <span class="hljs-selector-class">.feature</span>:nth-child(3) {
-    @<span class="hljs-keyword">include</span> breakpoint(sm) {
-      <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">15%</span>;
-      <span class="hljs-attribute">width</span>: unset;
-    }
-  }
-
-  <span class="hljs-selector-class">.feature</span>:last-child {
-    <span class="hljs-selector-class">.feature__teaser</span> {
-      <span class="hljs-attribute">border-bottom</span>: none;
-    }
-  }
-
-  <span class="hljs-selector-class">.feature__teaser</span> {
-    <span class="hljs-attribute">display</span>: flex;
-    <span class="hljs-attribute">align-items</span>: center;
-    <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
-    <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">1px</span> solid <span class="hljs-variable">$secondary</span>;
-    <span class="hljs-attribute">background</span>: rgba(<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">0.8</span>);
-  }
-
-  <span class="hljs-selector-class">.feature__teaser-heading</span> {
-    <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
-  }
-
-  <span class="hljs-selector-class">.feature__teaser-heading</span> <span class="hljs-selector-tag">i</span><span class="hljs-selector-class">.fa-plus</span>::before {
-    <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
-    <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-variable">$secondary</span>;
-  }
-}
-
-<span class="hljs-selector-class">.feature__container</span><span class="hljs-selector-class">.image-stack</span><span class="hljs-selector-class">.feature__three-col</span>:hover&gt;<span class="hljs-selector-class">.feature</span>:hover,
-<span class="hljs-selector-class">.feature__container</span><span class="hljs-selector-class">.image-stack</span><span class="hljs-selector-class">.feature__three-col</span>:focus-within&gt;<span class="hljs-selector-class">.feature</span>:focus {
-  @<span class="hljs-keyword">include</span> breakpoint(sm) {
-    <span class="hljs-attribute">width</span>: <span class="hljs-number">100vw</span>;
-  }
-
-  <span class="hljs-selector-class">.feature__content</span> {
-    <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;
-  }
-
-  <span class="hljs-selector-class">.feature__teaser</span> {
-    <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
-  }
-}
-
-
-<span class="hljs-selector-class">.feature__container</span><span class="hljs-selector-class">.image-stack</span>:hover&gt;<span class="hljs-selector-class">.feature</span>:nth-child(1),
-<span class="hljs-selector-class">.feature__container</span><span class="hljs-selector-class">.image-stack</span>:focus-within&gt;<span class="hljs-selector-class">.feature</span>:nth-child(1),
-<span class="hljs-selector-class">.feature__container</span><span class="hljs-selector-class">.image-stack</span>:hover&gt;<span class="hljs-selector-class">.feature</span>:nth-child(2),
-<span class="hljs-selector-class">.feature__container</span><span class="hljs-selector-class">.image-stack</span>:focus-within&gt;<span class="hljs-selector-class">.feature</span>:nth-child(2),
-<span class="hljs-selector-class">.feature__container</span><span class="hljs-selector-class">.image-stack</span>:hover&gt;<span class="hljs-selector-class">.feature</span>:nth-child(3),
-<span class="hljs-selector-class">.feature__container</span><span class="hljs-selector-class">.image-stack</span>:focus-within&gt;<span class="hljs-selector-class">.feature</span>:nth-child(3) {
-  @<span class="hljs-keyword">include</span> breakpoint(sm) {
-    <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">15%</span>;
-    <span class="hljs-attribute">width</span>: <span class="hljs-number">100vw</span>;
-    <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.3s</span> ease;
-  }
-}
-
-<span class="hljs-selector-class">.feature__container</span><span class="hljs-selector-class">.image-stack</span>:hover&gt;<span class="hljs-selector-class">.feature</span>:nth-child(1):hover,
-<span class="hljs-selector-class">.feature__container</span><span class="hljs-selector-class">.image-stack</span>:focus-within&gt;<span class="hljs-selector-class">.feature</span>:nth-child(1):focus,
-<span class="hljs-selector-class">.feature__container</span><span class="hljs-selector-class">.image-stack</span>:hover&gt;<span class="hljs-selector-class">.feature</span>:nth-child(2):hover,
-<span class="hljs-selector-class">.feature__container</span><span class="hljs-selector-class">.image-stack</span>:focus-within&gt;<span class="hljs-selector-class">.feature</span>:nth-child(2):focus,
-<span class="hljs-selector-class">.feature__container</span><span class="hljs-selector-class">.image-stack</span>:hover&gt;<span class="hljs-selector-class">.feature</span>:nth-child(3):hover,
-<span class="hljs-selector-class">.feature__container</span><span class="hljs-selector-class">.image-stack</span>:focus-within&gt;<span class="hljs-selector-class">.feature</span>:nth-child(3):focus {
-  @<span class="hljs-keyword">include</span> breakpoint(sm) {
-    <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">70%</span>;
-    <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.3s</span> ease;
-  }
-}
+*/</span>
 </pre>
                             </code>
                             
@@ -746,7 +609,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">6.5 KB</span>
+                    <span class="Meta-value">3.8 KB</span>
                 </li>
             </ul>
         </div>
@@ -859,8 +722,8 @@
                     <span>Feature Block 2 Col</span>
                 </a>, 
             
-                <a href="feature-block--feature-block-1-col.html">
-                    <span>Feature Block 1 Col</span>
+                <a href="feature-block--feature-block.html">
+                    <span>Feature Block</span>
                 </a>, 
             
                 <a href="feature-block--feature-block-video-3-col.html">
@@ -875,8 +738,8 @@
                     <span>Feature Block Video 1 Col</span>
                 </a>, 
             
-                <a href="feature-block--feature-block-hover-collapsed.html">
-                    <span>Feature Block Hover Collapsed</span>
+                <a href="feature-block--feature-block-hover.html">
+                    <span>Feature Block Hover</span>
                 </a>, 
             
                 <a href="feature-block--feature-block-accordion.html">
@@ -1185,30 +1048,6 @@
         <li class="Tree-item Tree-entity" data-role="item">
             <a class="Tree-entityLink" href="tables.html" data-pjax>
                 <span>Tables</span>
-                
-
-<div class="Status Status--unlabelled">
-
-<div class="Status-dots">
-
-
-<span class="Status-dot" style="border-color: #FF9233;" title="WIP"></span>
-
-
-</div>
-
-</div>
-
-
-            </a>
-        </li>
-        
-    
-        
-        
-        <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="video.html" data-pjax>
-                <span>Video</span>
                 
 
 <div class="Status Status--unlabelled">
@@ -1634,8 +1473,8 @@
         
         
         <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="feature-block--default.html" data-pjax>
-                <span>Feature Block 3 Col</span>
+            <a class="Tree-entityLink" href="feature-block--feature-block.html" data-pjax>
+                <span>Feature Block</span>
                 
 
 <div class="Status Status--unlabelled">
@@ -1658,128 +1497,8 @@
         
         
         <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="feature-block--feature-block-2-col.html" data-pjax>
-                <span>Feature Block 2 Col</span>
-                
-
-<div class="Status Status--unlabelled">
-
-<div class="Status-dots">
-
-
-<span class="Status-dot" style="border-color: #FF9233;" title="WIP"></span>
-
-
-</div>
-
-</div>
-
-
-            </a>
-        </li>
-        
-    
-        
-        
-        <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="feature-block--feature-block-1-col.html" data-pjax>
-                <span>Feature Block 1 Col</span>
-                
-
-<div class="Status Status--unlabelled">
-
-<div class="Status-dots">
-
-
-<span class="Status-dot" style="border-color: #FF9233;" title="WIP"></span>
-
-
-</div>
-
-</div>
-
-
-            </a>
-        </li>
-        
-    
-        
-        
-        <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="feature-block--feature-block-video-3-col.html" data-pjax>
-                <span>Feature Block Video 3 Col</span>
-                
-
-<div class="Status Status--unlabelled">
-
-<div class="Status-dots">
-
-
-<span class="Status-dot" style="border-color: #FF9233;" title="WIP"></span>
-
-
-</div>
-
-</div>
-
-
-            </a>
-        </li>
-        
-    
-        
-        
-        <li class="Tree-item Tree-entity is-current" data-state="current" data-role="item">
-            <a class="Tree-entityLink" href="" data-pjax>
-                <span>Feature Block Video 2 Col</span>
-                
-
-<div class="Status Status--unlabelled">
-
-<div class="Status-dots">
-
-
-<span class="Status-dot" style="border-color: #FF9233;" title="WIP"></span>
-
-
-</div>
-
-</div>
-
-
-            </a>
-        </li>
-        
-    
-        
-        
-        <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="feature-block--feature-block-video-1-col.html" data-pjax>
-                <span>Feature Block Video 1 Col</span>
-                
-
-<div class="Status Status--unlabelled">
-
-<div class="Status-dots">
-
-
-<span class="Status-dot" style="border-color: #FF9233;" title="WIP"></span>
-
-
-</div>
-
-</div>
-
-
-            </a>
-        </li>
-        
-    
-        
-        
-        <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="feature-block--feature-block-hover-collapsed.html" data-pjax>
-                <span>Feature Block Hover Collapsed</span>
+            <a class="Tree-entityLink" href="feature-block--feature-block-hover.html" data-pjax>
+                <span>Feature Block Hover</span>
                 
 
 <div class="Status Status--unlabelled">
@@ -1831,53 +1550,8 @@
         
         
         <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="portraits-block.html" data-pjax>
-                <span>Portraits Block</span>
-                
-
-<div class="Status Status--unlabelled">
-
-<div class="Status-dots">
-
-
-<span class="Status-dot" style="border-color: #FF9233;" title="WIP"></span>
-
-
-</div>
-
-</div>
-
-
-            </a>
-        </li>
-        
-    
-        
-        <li class="Tree-item Tree-collection Tree-depth-3" data-behaviour="collection" id="tree-components-collection-stat-block">
-            <h4 class="Tree-collectionLabel" data-role="toggle">
+            <a class="Tree-entityLink" href="stat-block.html" data-pjax>
                 <span>Stat Block</span>
-            </h4>
-            <ul class="Tree-collectionItems" data-role="items">
-            
-            
-            
-            
-    
-        
-        
-        <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="stat-block--default.html" data-pjax>
-                <span>Statistics Block 3</span>
-                
-            </a>
-        </li>
-        
-    
-        
-        
-        <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="stat-block--more.html" data-pjax>
-                <span>Statistics Block 4</span>
                 
 
 <div class="Status Status--unlabelled">
@@ -1894,11 +1568,6 @@
 
 
             </a>
-        </li>
-        
-    
-
-            </ul>
         </li>
         
     
