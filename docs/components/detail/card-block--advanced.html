@@ -174,7 +174,24 @@
     
     <div class="Browser-panel Browser-code" data-role="tab-panel" id="browser-7ca99286482f4b940610a679f4357c10-panel-view">
     <code class="Code Code--lang-twig">
-        <pre><span class="xml"></span></pre>
+        <pre><span class="xml"></span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">if</span></span> block_type == 'basic' %}</span><span class="xml">
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"card__wrapper"</span>&gt;</span>
+
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">for</span></span> item in card.items | slice(0, 2) %}</span><span class="xml">
+      </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">include</span></span> "@card-<span class="hljs-name">block</span>--basic" with {
+        "card_classes": 'card__row',
+        "card_image": item.card_image,
+        "card_link_url": item.card_link_url,
+        "card_title": item.card_title,
+        "card_text": item.card_text,
+        "card_link_title": item.card_link_title
+      } %}</span><span class="xml">
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endfor</span></span> %}</span><span class="xml">
+
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+</span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endif</span></span> %}</span><span class="xml"></span></pre>
     </code>
 </div>
 
@@ -263,6 +280,7 @@
   <span class="hljs-attribute">text-decoration</span>: none;
   <span class="hljs-attribute">cursor</span>: pointer;
   <span class="hljs-attribute">transition</span>: transform .<span class="hljs-number">35s</span>, z-index .<span class="hljs-number">5s</span>;
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.125</span>);
   @<span class="hljs-keyword">include</span> flexbox;
   @<span class="hljs-keyword">include</span> flex-direction(<span class="hljs-variable">$value</span>: column);
   @<span class="hljs-keyword">include</span> flex(<span class="hljs-variable">$fg</span>: 1, <span class="hljs-variable">$fs</span>: 1, <span class="hljs-variable">$fb</span>: 0%);
@@ -289,13 +307,12 @@
 
   &amp;__img {
     <span class="hljs-attribute">align-self</span>: start;
-    @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$bottom</span>: <span class="hljs-variable">$md</span>);
   }
 
-  &amp;__label {
-    <span class="hljs-attribute">letter-spacing</span>: .<span class="hljs-number">09rem</span>;
-    <span class="hljs-attribute">text-transform</span>: uppercase;
+  &amp;__body {
+    <span class="hljs-attribute">padding</span>: <span class="hljs-variable">$gutter</span>;
   }
+
 
   &amp;__title {
     <span class="hljs-attribute">font-size</span>: <span class="hljs-variable">$h6-font-size</span>;
@@ -308,73 +325,48 @@
     }
   }
 
-  &amp;__date {
-    <span class="hljs-attribute">font-weight</span>: <span class="hljs-variable">$font-weight-bold</span>;
-  }
-
   &amp;__text {
     @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$top</span>: <span class="hljs-variable">$sm</span>, <span class="hljs-variable">$bottom</span>: <span class="hljs-variable">$sm</span>);
     <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
   }
-
-  &amp;__link {
-    <span class="hljs-attribute">text-decoration</span>: none;
-    <span class="hljs-attribute">letter-spacing</span>: .<span class="hljs-number">05rem</span>;
-    <span class="hljs-attribute">text-transform</span>: uppercase;
-    <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
-    <span class="hljs-attribute">font-weight</span>: <span class="hljs-variable">$font-weight-light</span>;
-  }
-
-  &amp;__details {
-    @<span class="hljs-keyword">include</span> element-invisible;
-
-    <span class="hljs-selector-class">.is-open</span> &amp; {
-      <span class="hljs-attribute">clear</span>: both;
-      @<span class="hljs-keyword">include</span> element-invisible-off;
-      @<span class="hljs-keyword">include</span> padding(<span class="hljs-variable">$top</span>: <span class="hljs-variable">$sm</span>, <span class="hljs-variable">$bottom</span>: <span class="hljs-variable">$sm</span>);
-    }
-  }
-
-  &amp;<span class="hljs-selector-class">.is-open</span> {
-    <span class="hljs-attribute">padding</span>: <span class="hljs-variable">$md</span>;
-    <span class="hljs-attribute">transform</span>: translateY(-<span class="hljs-number">10px</span>) scale(<span class="hljs-number">1.01</span>);
-    <span class="hljs-attribute">background</span>: <span class="hljs-variable">$light</span>;
-    <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">3px</span> <span class="hljs-number">5px</span> <span class="hljs-number">5px</span> <span class="hljs-number">0</span> rgba(<span class="hljs-number">13</span>, <span class="hljs-number">23</span>, <span class="hljs-number">33</span>, <span class="hljs-number">0.1</span>);
-  }
 }
 
-<span class="hljs-selector-class">.card__bttn</span> {
-  <span class="hljs-attribute">position</span>: relative;
-  <span class="hljs-attribute">display</span>: block;
-  <span class="hljs-attribute">float</span>: left;
-  <span class="hljs-attribute">width</span>: <span class="hljs-number">30px</span>;
-  <span class="hljs-attribute">height</span>: <span class="hljs-number">30px</span>;
-  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
-  <span class="hljs-attribute">cursor</span>: pointer;
-  <span class="hljs-attribute">transition</span>: background .<span class="hljs-number">25s</span>, border .<span class="hljs-number">25s</span>, color .<span class="hljs-number">25s</span>, transform .<span class="hljs-number">25s</span>;
-  <span class="hljs-attribute">border</span>: none;
-  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-variable">$secondary</span>;
-  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">50%</span>;
-  <span class="hljs-attribute">background</span>: <span class="hljs-variable">$white</span>;
 
-  @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$right</span>: <span class="hljs-variable">$sm</span>);
 
-  <span class="hljs-selector-class">.is-open</span> &amp; {
-    <span class="hljs-attribute">background</span>: <span class="hljs-variable">$secondary</span>;
+<span class="hljs-comment">/*
+.card__bttn {
+  position: relative;
+  display: block;
+  float: left;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  cursor: pointer;
+  transition: background .25s, border .25s, color .25s, transform .25s;
+  border: none;
+  border: 1px solid $secondary;
+  border-radius: 50%;
+  background: $white;
+
+  @include margin($right: $sm);
+
+  .is-open &amp; {
+    background: $secondary;
   }
 
   &amp;:before {
-    <span class="hljs-attribute">padding</span>: <span class="hljs-variable">$xsm</span>;
-    <span class="hljs-attribute">content</span>: <span class="hljs-string">"\f141"</span>;
-    <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
-    @<span class="hljs-keyword">include</span> fas();
+    padding: $xsm;
+    content: "\f141";
+    color: $secondary;
+    @include fas();
 
-    <span class="hljs-selector-class">.is-open</span> &amp; {
-      <span class="hljs-attribute">content</span>: <span class="hljs-string">"\f00d"</span>;
-      <span class="hljs-attribute">color</span>: <span class="hljs-variable">$white</span>;
+    .is-open &amp; {
+      content: "\f00d";
+      color: $white;
     }
   }
 }
+*/</span>
 </pre>
                             </code>
                             
@@ -391,7 +383,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">2.1 KB</span>
+                    <span class="Meta-value">1.5 KB</span>
                 </li>
             </ul>
         </div>
@@ -484,8 +476,17 @@
         </li>
         <li class="Meta-item">
             <strong class="Meta-key">Filesystem Path:</strong>
-            <span class="Meta-value">components/02 - blocks/card-block/card-block--advanced.twig</span>
+            <span class="Meta-value">components/02 - blocks/card-block/card-block.twig</span>
         </li>
+        
+        <li class="Meta-item">
+            <strong class="Meta-key">References <em class="Meta-count">(1)</em>:</strong>
+            <span class="Meta-value Meta-value--linkList">
+            
+                <a href="card-block--basic.html">@<span>card-block--basic</span></a>
+            
+            </span>
+        </li class="Meta-item">
         
         
     </ul>
