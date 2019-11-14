@@ -157,13 +157,11 @@
 <div class="Browser-panel Browser-code is-active" data-role="tab-panel" id="browser-f0dfc2bc78cc62857a2125620236c26e-panel-html">
     <code class="Code Code--lang-html">
         
-        <pre><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">""</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"card card__ "</span>&gt;</span>
+        <pre><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"card card__ "</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"card__body"</span>&gt;</span>
 
-        <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"card__text"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"bttn bttn--primary bttn--full"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></pre>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></pre>
         
     </code>
 </div>
@@ -180,28 +178,37 @@
     
     <div class="Browser-panel Browser-code" data-role="tab-panel" id="browser-f0dfc2bc78cc62857a2125620236c26e-panel-view">
     <code class="Code Code--lang-twig">
-        <pre><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"</span></span></span><span class="hljs-template-variable">{{ card_link_url }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"card card__</span></span></span><span class="hljs-template-variable">{{ card_position }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string"> </span></span></span><span class="hljs-template-variable">{{ card_classes }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span>
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">block</span></span> card_img %}</span><span class="xml">
-      </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">if</span></span> card_image %}</span><span class="xml">
-        <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"card__img"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"</span></span></span><span class="hljs-template-variable">{{ card_image }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"Alt Text"</span>&gt;</span>
+        <pre><span class="xml"></span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">block</span></span> card_wrapper_start %}</span><span class="xml">
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"card card__</span></span></span><span class="hljs-template-variable">{{ card_position }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string"> </span></span></span><span class="hljs-template-variable">{{ card_classes }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span>
+  </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endblock</span></span> %}</span><span class="xml">
+  </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">block</span></span> card_img %}</span><span class="xml">
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">if</span></span> card_image %}</span><span class="xml">
+      <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"card__img"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"</span></span></span><span class="hljs-template-variable">{{ card_image }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"Alt Text"</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endif</span></span> %}</span><span class="xml">
+  </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endblock</span></span> %}</span><span class="xml">
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"card__body"</span>&gt;</span>
+
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">block</span></span> heading %}</span><span class="xml">
+      </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">if</span></span> card_title is not empty %}</span><span class="xml">
+        </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">include</span></span> "<a href="heading.html">@heading</a>" with {
+          "heading_level" : 'h2',
+          "heading_class" : 'card__title',
+          "heading" : card_title
+        } %}</span><span class="xml">
       </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endif</span></span> %}</span><span class="xml">
     </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endblock</span></span> %}</span><span class="xml">
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"card__body"</span>&gt;</span>
 
-      </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">block</span></span> heading %}</span><span class="xml">
-        </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">if</span></span> card_title is not empty %}</span><span class="xml">
-          </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">include</span></span> "<a href="heading.html">@heading</a>" with {
-            "heading_level" : 'h2',
-            "heading_class" : 'card__title',
-            "heading" : card_title
-          } %}</span><span class="xml">
-        </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endif</span></span> %}</span><span class="xml">
-      </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endblock</span></span> %}</span><span class="xml">
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">block</span></span> card_content %}</span><span class="xml">
+      </span><span class="hljs-template-variable">{{ card_text }}</span><span class="xml">
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endblock</span></span> %}</span><span class="xml">
 
-      <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"card__text"</span>&gt;</span></span><span class="hljs-template-variable">{{ card_text }}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">if</span></span> card_link_url is not empty %}</span><span class="xml">
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"bttn bttn--primary bttn--full"</span>&gt;</span></span><span class="hljs-template-variable">{{ card_link_title }}</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span></pre>
+  </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endif</span></span> %}</span><span class="xml">
+  </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">block</span></span> card_wrapper_end %}</span><span class="xml">
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-keyword">endblock</span></span> %}</span><span class="xml"></span></pre>
     </code>
 </div>
 
@@ -218,17 +225,17 @@
 <span class="hljs-attr">      card_link_url:</span> <span class="hljs-string">'https://example.com'</span>
 <span class="hljs-attr">      card_image:</span> <span class="hljs-string">../../images/feature1.jpg</span>
 <span class="hljs-attr">      card_text:</span> <span class="hljs-string">&gt;-</span>
-        <span class="hljs-string">Molecular</span> <span class="hljs-string">medicine</span> <span class="hljs-string">PhD</span> <span class="hljs-string">student</span> <span class="hljs-string">Jordan</span> <span class="hljs-string">Kohlmeyer</span> <span class="hljs-string">is</span> <span class="hljs-string">researching</span> <span class="hljs-string">new</span>
+        <span class="hljs-string">&lt;p&gt;Molecular</span> <span class="hljs-string">medicine</span> <span class="hljs-string">PhD</span> <span class="hljs-string">student</span> <span class="hljs-string">Jordan</span> <span class="hljs-string">Kohlmeyer</span> <span class="hljs-string">is</span> <span class="hljs-string">researching</span> <span class="hljs-string">new</span>
         <span class="hljs-string">therapies</span> <span class="hljs-string">for</span> <span class="hljs-string">malignant</span> <span class="hljs-string">peripheral</span> <span class="hljs-string">nerve</span> <span class="hljs-string">sheath</span> <span class="hljs-string">tumors,</span> <span class="hljs-string">which</span> <span class="hljs-string">are</span>
         <span class="hljs-string">deadly,</span> <span class="hljs-string">resistant</span> <span class="hljs-string">to</span> <span class="hljs-string">drug</span> <span class="hljs-string">therapies,</span> <span class="hljs-string">and</span> <span class="hljs-string">often</span> <span class="hljs-string">unable</span> <span class="hljs-string">to</span> <span class="hljs-string">be</span> <span class="hljs-string">operated</span>
-        <span class="hljs-string">upon</span> <span class="hljs-string">due</span> <span class="hljs-string">to</span> <span class="hljs-string">their</span> <span class="hljs-string">location.</span>
+        <span class="hljs-string">upon</span> <span class="hljs-string">due</span> <span class="hljs-string">to</span> <span class="hljs-string">their</span> <span class="hljs-string">location.&lt;/p&gt;</span>
 <span class="hljs-attr">      card_date:</span> <span class="hljs-string">'June 14, 1984'</span>
 <span class="hljs-attr">    - card_tag:</span> <span class="hljs-string">News</span>
 <span class="hljs-attr">      card_title:</span> <span class="hljs-string">Getting</span> <span class="hljs-string">to</span> <span class="hljs-string">know</span> <span class="hljs-string">Iowa's</span> <span class="hljs-string">fall</span> <span class="hljs-number">2018</span> <span class="hljs-string">graduates</span>
 <span class="hljs-attr">      card_link_title:</span> <span class="hljs-string">Read</span> <span class="hljs-string">Article</span>
 <span class="hljs-attr">      card_link_url:</span> <span class="hljs-string">'https://example.com'</span>
 <span class="hljs-attr">      card_image:</span> <span class="hljs-string">../../images/feature2.jpg</span>
-<span class="hljs-attr">      card_text:</span> <span class="hljs-string">Receiving</span> <span class="hljs-string">a</span> <span class="hljs-string">diploma</span> <span class="hljs-string">signals</span> <span class="hljs-string">both</span> <span class="hljs-string">an</span> <span class="hljs-string">ending</span> <span class="hljs-string">and</span> <span class="hljs-string">a</span> <span class="hljs-string">beginning.</span>
+<span class="hljs-attr">      card_text:</span> <span class="hljs-string">&lt;p&gt;Receiving</span> <span class="hljs-string">a</span> <span class="hljs-string">diploma</span> <span class="hljs-string">signals</span> <span class="hljs-string">both</span> <span class="hljs-string">an</span> <span class="hljs-string">ending</span> <span class="hljs-string">and</span> <span class="hljs-string">a</span> <span class="hljs-string">beginning.&lt;/p&gt;</span>
 <span class="hljs-attr">      card_date:</span> <span class="hljs-string">'June 14, 1984'</span>
 <span class="hljs-attr">    - card_tag:</span> <span class="hljs-string">News</span>
 <span class="hljs-attr">      card_title:</span> <span class="hljs-string">Turning</span> <span class="hljs-string">the</span> <span class="hljs-string">tide</span> <span class="hljs-string">for</span> <span class="hljs-string">sick</span> <span class="hljs-string">seals</span>
@@ -236,10 +243,10 @@
 <span class="hljs-attr">      card_link_url:</span> <span class="hljs-string">'https://example.com'</span>
 <span class="hljs-attr">      card_image:</span> <span class="hljs-string">../../images/feature3.jpg</span>
 <span class="hljs-attr">      card_text:</span> <span class="hljs-string">&gt;-</span>
-        <span class="hljs-string">As</span> <span class="hljs-string">the</span> <span class="hljs-string">attending</span> <span class="hljs-string">veterinarian</span> <span class="hljs-string">at</span> <span class="hljs-string">a</span> <span class="hljs-string">marine</span> <span class="hljs-string">mammal</span> <span class="hljs-string">hospital</span> <span class="hljs-string">in</span> <span class="hljs-string">Los</span>
+        <span class="hljs-string">&lt;p&gt;As</span> <span class="hljs-string">the</span> <span class="hljs-string">attending</span> <span class="hljs-string">veterinarian</span> <span class="hljs-string">at</span> <span class="hljs-string">a</span> <span class="hljs-string">marine</span> <span class="hljs-string">mammal</span> <span class="hljs-string">hospital</span> <span class="hljs-string">in</span> <span class="hljs-string">Los</span>
         <span class="hljs-string">Angeles,</span> <span class="hljs-string">University</span> <span class="hljs-string">of</span> <span class="hljs-string">Iowa</span> <span class="hljs-string">alumna</span> <span class="hljs-string">Lauren</span> <span class="hljs-string">Palmer</span> <span class="hljs-string">aims</span> <span class="hljs-string">to</span> <span class="hljs-string">rehabilitate</span>
         <span class="hljs-string">and</span> <span class="hljs-string">release</span> <span class="hljs-string">sick</span> <span class="hljs-string">or</span> <span class="hljs-string">injured</span> <span class="hljs-string">animals—and</span> <span class="hljs-string">to</span> <span class="hljs-string">help</span> <span class="hljs-string">educate</span> <span class="hljs-string">people</span> <span class="hljs-string">about</span> <span class="hljs-string">the</span>
-        <span class="hljs-string">ocean’s</span> <span class="hljs-string">ecosystem.</span>
+        <span class="hljs-string">ocean’s</span> <span class="hljs-string">ecosystem.&lt;/p&gt;</span>
 <span class="hljs-attr">      card_date:</span> <span class="hljs-string">'June 14, 1984'</span>
 <span class="hljs-attr">    - card_tag:</span> <span class="hljs-string">News</span>
 <span class="hljs-attr">      card_title:</span> <span class="hljs-string">Swinging</span> <span class="hljs-string">for</span> <span class="hljs-string">the</span> <span class="hljs-string">fences</span> <span class="hljs-string">in</span> <span class="hljs-string">sports</span> <span class="hljs-string">management</span>
@@ -247,10 +254,10 @@
 <span class="hljs-attr">      card_link_url:</span> <span class="hljs-string">'https://example.com'</span>
 <span class="hljs-attr">      card_image:</span> <span class="hljs-string">../../images/feature4.jpg</span>
 <span class="hljs-attr">      card_text:</span> <span class="hljs-string">&gt;-</span>
-        <span class="hljs-string">Jake</span> <span class="hljs-string">Stone</span> <span class="hljs-string">is</span> <span class="hljs-string">heading</span> <span class="hljs-string">to</span> <span class="hljs-string">the</span> <span class="hljs-string">Baltimore</span> <span class="hljs-string">Orioles</span> <span class="hljs-string">organization</span> <span class="hljs-string">after</span>
+        <span class="hljs-string">&lt;p&gt;Jake</span> <span class="hljs-string">Stone</span> <span class="hljs-string">is</span> <span class="hljs-string">heading</span> <span class="hljs-string">to</span> <span class="hljs-string">the</span> <span class="hljs-string">Baltimore</span> <span class="hljs-string">Orioles</span> <span class="hljs-string">organization</span> <span class="hljs-string">after</span>
         <span class="hljs-string">graduation.</span> <span class="hljs-string">He</span> <span class="hljs-string">says</span> <span class="hljs-string">this</span> <span class="hljs-string">was</span> <span class="hljs-string">made</span> <span class="hljs-string">possible</span> <span class="hljs-string">by</span> <span class="hljs-string">taking</span> <span class="hljs-string">advantage</span> <span class="hljs-string">of</span> <span class="hljs-string">the</span>
         <span class="hljs-string">opportunities</span> <span class="hljs-string">offered</span> <span class="hljs-string">by</span> <span class="hljs-string">the</span> <span class="hljs-string">University</span> <span class="hljs-string">of</span> <span class="hljs-string">Iowa’s</span> <span class="hljs-string">Sport</span> <span class="hljs-string">and</span> <span class="hljs-string">Recreation</span>
-        <span class="hljs-string">Management</span> <span class="hljs-string">Program</span> <span class="hljs-string">and</span> <span class="hljs-string">his</span> <span class="hljs-string">work</span> <span class="hljs-string">with</span> <span class="hljs-string">the</span> <span class="hljs-string">Hawkeye</span> <span class="hljs-string">baseball</span> <span class="hljs-string">team.</span>
+        <span class="hljs-string">Management</span> <span class="hljs-string">Program</span> <span class="hljs-string">and</span> <span class="hljs-string">his</span> <span class="hljs-string">work</span> <span class="hljs-string">with</span> <span class="hljs-string">the</span> <span class="hljs-string">Hawkeye</span> <span class="hljs-string">baseball</span> <span class="hljs-string">team.&lt;/p&gt;</span>
 <span class="hljs-attr">      card_date:</span> <span class="hljs-string">'June 14, 1984'</span>
 </pre>
             
@@ -288,7 +295,6 @@
                                 <pre><span class="hljs-selector-class">.card</span> {
   <span class="hljs-attribute">position</span>: relative;
   <span class="hljs-attribute">text-decoration</span>: none;
-  <span class="hljs-attribute">cursor</span>: pointer;
   <span class="hljs-attribute">transition</span>: transform .<span class="hljs-number">35s</span>, z-index .<span class="hljs-number">5s</span>;
   <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.125</span>);
   @<span class="hljs-keyword">include</span> flexbox;
@@ -321,13 +327,14 @@
 
   &amp;__body {
     <span class="hljs-attribute">padding</span>: <span class="hljs-variable">$gutter</span>;
+    <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
+    @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$top</span>: <span class="hljs-variable">$sm</span>, <span class="hljs-variable">$bottom</span>: <span class="hljs-variable">$sm</span>);
   }
-
 
   &amp;__title {
     <span class="hljs-attribute">font-size</span>: <span class="hljs-variable">$h6-font-size</span>;
     <span class="hljs-attribute">font-weight</span>: <span class="hljs-variable">$font-weight-medium-bold</span>;
-    @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$top</span>: <span class="hljs-variable">$sm</span>, <span class="hljs-variable">$bottom</span>: <span class="hljs-variable">$sm</span>);
+    @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$top</span>: 0, <span class="hljs-variable">$bottom</span>: <span class="hljs-variable">$sm</span>);
 
     <span class="hljs-selector-tag">a</span> {
       <span class="hljs-attribute">text-decoration</span>: none;
@@ -336,8 +343,8 @@
   }
 
   &amp;__text {
-    @<span class="hljs-keyword">include</span> margin(<span class="hljs-variable">$top</span>: <span class="hljs-variable">$sm</span>, <span class="hljs-variable">$bottom</span>: <span class="hljs-variable">$sm</span>);
-    <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
+    <span class="hljs-comment">//@include margin($top: $sm, $bottom: $sm);</span>
+    <span class="hljs-comment">//color: $secondary;</span>
   }
 }
 
@@ -393,7 +400,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">1.5 KB</span>
+                    <span class="Meta-value">1.6 KB</span>
                 </li>
             </ul>
         </div>
