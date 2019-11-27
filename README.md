@@ -39,6 +39,7 @@ an NPM script.
 This will also run `gulp` as a prebuild task.
 
 ## Viewing the HDS
-Start the Fractal serve to view the HDS locally.
+Start the Fractal server to view the HDS locally. The command will output the
+server URL to visit in your browser, ex. http://localhost:3000.
 
 - `npm run start`
