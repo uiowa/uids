@@ -11,6 +11,10 @@ After installing NVM, run `nvm use`. You may need to install the specified
 version of Node using `nvm install`.
 
 ## How to Use
+First, install NPM dependencies:
+```
+npm install
+```
 
 If you want to compile assets with Gulp, you can install the Gulp CLI globally
 per the NVM version or run it through an NPM script.
