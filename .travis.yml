@@ -6,7 +6,7 @@ language: node_js
 node_js:
 
 matrix:
-fast_finish: true
+  fast_finish: true
 
 install:
 - npm install
@@ -15,7 +15,7 @@ script:
 - npm run build
 
 before_deploy:
-  - rm -rf assets/ components/ dist/ documentation/
+  - rm -rf assets/ components/ dist/ documentation/ README.md
   - mv -v docs/* .
 
 deploy:
