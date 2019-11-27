@@ -15,9 +15,8 @@ script:
 - npm run build
 
 before_deploy:
-  - touch .nojekyll
-  - echo "node_modules\n.DS_Store" > '.gitignore'
-  - ln -s docs/index.html index.html
+  - rm -rf assets/ components/ dist/ documentation/
+  - mv docs/* .
 
 deploy:
   provider: pages
