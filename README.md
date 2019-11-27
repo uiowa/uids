@@ -25,7 +25,7 @@ per the NVM version or run it through an NPM script.
 - `gulp watch`
 
 #### NPM Script
-- `npm run gulp`
+- `npm run watch`
 
 ## Building the Docs
 
