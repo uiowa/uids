@@ -1,0 +1,26 @@
+sudo: false
+
+language: node_js
+
+# Use .nvmrc file for Node version.
+node_js:
+
+matrix:
+fast_finish: true
+
+install:
+- npm install
+
+script:
+- npm run build
+
+before_deploy:
+  - ln -s docs/index.html index.html
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GH_TOKEN
+  keep-history: false
+  on:
+    branch: master
