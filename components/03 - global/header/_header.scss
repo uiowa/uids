@@ -1,13 +1,16 @@
-//https://www.svgbackgrounds.com/#subtle-prism
-
 .header__container {
   @extend %container;
+
   &--full {
- @include breakpoint(sm) {
-   @include flexbox;
-   @include padding($top: 0, $right: $lg, $bottom: 0, $left: $lg);
+    @include breakpoint(sm) {
+      @include flexbox;
+      @include padding($top: 0, $right: $gutter, $bottom: 0, $left: $gutter);
+      .site-header__left & {
+        display: block;
+      }
+    }
   }
-}
+
   @include breakpoint(sm) {
     @include flexbox;
     .site-header__left &,
@@ -15,6 +18,7 @@
       display: block;
       padding: 0;
     }
+
     .site-header__center & {
       max-width: 100%;
     }
