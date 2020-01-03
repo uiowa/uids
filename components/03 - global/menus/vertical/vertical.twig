@@ -1,0 +1,76 @@
+<div class="block-superfish-alt">
+	<h2 class="block-title {{ links_nav.title_classes }}">{{ links_nav.title }}</h2>
+	<ul id="superfish-main-accordion" class="menu sf-menu sf-main sf-style-none sf-accordion sf-hidden">
+		{% for link in links_nav.links %}
+			{% include "@vertical--links" with {
+              "link_nav_url": item.link_nav_url,
+              "link_nav_title": item.link_nav_title
+            } %}
+		{% endfor %}
+	</ul>
+</div>
+
+
+
+
+<style>
+/**
+ * sfSmallscreen.
+ */
+ul.sf-menu.sf-accordion {
+  display: none;
+  position: absolute;
+}
+
+ul.sf-menu.sf-accordion,
+ul.sf-menu.sf-accordion ul,
+ul.sf-menu.sf-accordion li {
+  float: left;
+  width: 100%;
+}
+
+ul.sf-menu.sf-accordion ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul.sf-menu.sf-accordion.sf-expanded,
+ul.sf-menu.sf-accordion li.sf-expanded>ul {
+  left: auto !important;
+  position: relative;
+  top: auto !important;
+}
+
+ul.sf-menu.sf-accordion .sf-sub-indicator:after {
+  content: "â–¼";
+}
+
+ul.sf-menu.sf-accordion.sf-accordion-with-buttons .sf-accordion-button:after {
+  content: "â–¼";
+  margin: 0 0 0 1em;
+}
+
+ul.sf-menu.sf-accordion.sf-accordion-with-buttons li.sf-expanded>.sf-accordion-button:after {
+  content: "â–²";
+}
+
+.sf-accordion.sf-hidden {
+  background: transparent !important;
+  border: 0 none !important;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  position: relative !important;
+  height: auto !important;
+  margin:  !important;
+  overflow: visible !important;
+  padding: 0 !important;
+  width: auto !important;
+}
+
+ul.sf-menu.sf-accordion {
+  display: block !important;
+  position: absolute;
+}
+
+</style>
+
