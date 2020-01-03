@@ -1,35 +1,10 @@
-.navbar--main {
-    position: relative;
-    @include breakpoint(sm) {
-      @include flexbox;
-      @include flex($fg: 1, $fs: 1, $fb: 0);
-    }
-
-  .site-header__left &,
-  .site-header__center & {
-    display: block;
-    flex: unset;
-  }
-
-  .site-header__center & {
-    @include breakpoint(sm) {
-      @include flexbox;
-      align-items: center;
-      justify-content: center;
-    }
-  }
+.block-superfish-alt .block-title {
+  display: block;
+  text-transform: uppercase;
+  color: #666;
+  font-size: 23px;
+  font-weight: 300;
 }
-
-.site-header__left .navbar--secondary,
-.site-header__center .navbar--secondary {
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
-}
-
-.site-header__left .navbar--primary,
-.site-header__center .navbar--primary {
-  border-top: 1px solid rgba(0, 0, 0, 0.25);
-}
-
 
 .region-primary-menu {
   @include breakpoint(sm) {
@@ -60,13 +35,8 @@
   }
 }
 
-.block-superfish,
+.block-superfish-alt,
 .region-primary-menu {
-  @include breakpoint(sm) {
-    @include flexbox;
-    @include margin($left: auto);
-  }
-
   .site-header__left &,
   .site-header__center & {
     display: block;
@@ -79,7 +49,8 @@
 }
 
 
-.block-superfish {
+
+.block-superfish-alt {
   #superfish-main-toggle {
     position: absolute;
     top: 90px;
@@ -106,7 +77,7 @@
   }
 }
 
-.block-superfish,
+.block-superfish-alt,
 .region-primary-menu {
 
   // Shared styles
@@ -119,19 +90,6 @@
         a {
           &:after {
             height: 1px;
-            .site-header--secondary &,
-            .site-header--tertiary & {
-              background: none;
-              //CSS dashed border using linear-gradient
-              background-image: linear-gradient(90deg, $primary, $primary 75%, transparent 75%, transparent 100%);
-              background-size: 10px 1px;
-            }
-            .site-header--primary & {
-              background: none;
-              //CSS dashed border using linear-gradient
-              background-image: linear-gradient(90deg, $secondary, $secondary 75%, transparent 75%, transparent 100%);
-              background-size: 10px 1px;
-            }
           }
         }
       }
@@ -144,12 +102,7 @@
         color: $secondary;
         font-weight: $font-weight-medium-bold;
         @extend %font-smoothing-on;
-        .navbar--secondary & {
-          color: $white;
-        }
-        .navbar--primary & {
-          color: $secondary;
-        }
+
         &:after{
           position: absolute;
           bottom: 0;
@@ -158,14 +111,7 @@
           height: 2px;
           content: "";
           transition: 300ms;
-          .site-header--secondary &,
-          .site-header--tertiary & {
-            background: $primary;
-          }
 
-          .site-header--primary & {
-            background: $secondary;
-          }
         }
 
         &:hover:after,
@@ -216,11 +162,6 @@
     @include flexbox;
     align-items: center;
     margin-top: auto;
-    .site-header__default & {
-      @include flexbox;
-      align-items: center;
-      margin-top: auto;
-    }
 
     li:hover>ul,
     li.sfHover>ul {
@@ -266,12 +207,13 @@
     }
   }
 
+
+
   // Accordion styles.
   .sf-accordion {
     float: none !important;
     width: auto !important;
-    margin-bottom: -2rem;
-    border-top: 1px solid $secondary;
+    margin-bottom: 1rem;
     li {
       &.sf-clone-parent>a.sf-depth-1 {
         background: inherit;
@@ -283,20 +225,19 @@
       }
 
       a.sf-depth-1.menuparent:before {
-        color: $white;
+        color: $secondary;
       }
 
       a {
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
-        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
         &.sf-depth-1 {
-          color: $white;
-          background: $secondary;
+          color: $secondary;
+          background: #fff;
           @extend %font-smoothing-on;
+          font-size: 1.6rem;
         }
         &:hover,
         &:focus {
-          background-color: $primary;
+          background-color: $white;
           box-shadow: none;
         }
       }
@@ -313,7 +254,7 @@
         order: 2;
         margin-top: -0.7rem;
         content: "\f0c9";
-        color: inherit;
+        color: $secondary;
         font-size: $base-font-size;
         @include fas();
       }
@@ -330,17 +271,16 @@
 }
 
 
-
-.sf-menu ul li {
-  .site-header--secondary & {
-    background: $secondary !important;
-  }
-
-  .site-header--tertiary & {
-    background: $white !important;
-  }
-
-  .site-header--primary & {
-    background: $white !important;
-  }
+.block-superfish-alt .menu.sf-accordion li a {
+  padding: .6rem 0;
 }
+
+ .block-superfish-alt .menu.sf-accordion ul {
+   box-shadow: none;
+   li {
+   background: $white;
+   a {
+   color: $secondary;
+   }
+   }
+ }
