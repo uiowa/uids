@@ -1,182 +1,25 @@
-/*
-
-
-@media only screen and (min-width: 26rem) {
-  .hds-search form {
-    display: flex;
-  }
-}
-
-.hds-search input[type="text"],
-.hds-search .form-type-textfield {
-  box-sizing: border-box;
-  width: 100%;
-  margin: 0 !important;
-  border: none;
-  line-height: 3rem;
-}
-
-
-
-.hds-search [type="submit"] {
-  width: 100%;
-  margin-top: unset;
-}
-
-@media only screen and (min-width: 26rem) {
-  .hds-search [type="submit"] {
-    width: auto;
-  }
-}
-
-*/
-
-/*
-.view-filters,
-.block,
-.hds-search {
-
-  input[type="text"] {
-    padding-left: $md;
-    border-bottom: 1px solid #f1f1f1;
-    font-size: 1.5rem;
-
-    &::placeholder {
-      color: #333;
-    }
-  }
-
-//
-
-form {
-  margin-bottom: 70px;
-}
-
-[type="submit"] {
-  width: 100%;
-  margin-top: unset;
-}
-
-.form-item,
-.form-actions {
-  margin: 0;
-}
-
-  >* {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-
-
-  >*>* {
-    margin: calc(0px / 2);
-  }
-
-  >*>* {
-    flex-grow: 1;
-  }
-
-  >*> :first-child {
-    flex-basis: 0;
-    flex-grow: 999;
-    min-width: calc(66.666% - 0px);
-  }
-
-  [type="text"] {
-    width: 100%;
-    font-size: inherit;
-    margin: 0;
-  }
-
-
-
-
-}
-
-
-@media only screen and (min-width: 26rem) {
-  .hds-search [type="submit"],
-  .block [type="submit"],
-  .view-filters [type="submit"] {
-    width: auto;
-  }
-}
-*/
-
-/*
-.hds-search form {
-  margin-bottom: 70px;
-}
-
-.hds-search [type="submit"] {
-  width: 100%;
-  margin-top: unset;
-}
-
-
-@media only screen and (min-width: 26rem) {
-  .hds-search [type="submit"] {
-    width: auto;
-  }
-}
-
-.hds-search .hds-content .form-item,
-.hds-search .hds-content .form-actions {
-  margin: 0;
-}
-
-  .hds-search >* {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-  .hds-search  >* {
-  margin: calc(0px / 2 * -1);
-}
-
-
-  .hds-search>*>* {
-  margin: calc(0px / 2);
-}
-
-  .hds-search>*>* {
-  flex-grow: 1;
-}
-
- .hds-search>*> :first-child {
-  flex-basis: 0;
-  flex-grow: 999;
-  min-width: calc(66.666% - 0px);
-}
-
-
- .hds-search [type="text"] {
-  width: 100%;
-  font-size: inherit;
-  margin: 0;
-}
-*/
-
-
-
 .hds-search label {
   @include element-invisible;
 }
 
-.hds-search input[type="text"]{
-   padding-left: $md;
-   border-bottom: 1px solid #f1f1f1;
-   font-size: 1.5rem;
-&::placeholder {
-  color: #333;
-}
+.hds-search input[type="text"] {
+  padding-left: $md;
+  border-bottom: 1px solid #f1f1f1;
+  font-size: 1.5rem;
+
+  &::placeholder {
+    color: #333;
+  }
 }
 
 .hds-search [type="submit"] {
   width: 100%;
   margin-top: unset;
   background: #ccc;
+
+  @include breakpoint(sm) {
+    width: auto;
+  }
 }
 
 .hds-search [type="search"] {
@@ -188,7 +31,7 @@ form {
   margin: 0;
 }
 
-.hds-search >* {
+.hds-search>* {
   margin: calc(0px / 2);
 }
 
@@ -211,14 +54,10 @@ form {
 .hds-search {
   display: block;
   margin-bottom: 70px;
-}
 
-@media only screen and (min-width: 26rem) {
-  .hds-search [type="submit"] {
-    width: auto;
-  }
-  .hds-search {
+  @include breakpoint(sm) {
     display: flex;
+    flex-wrap: wrap;
   }
 }
 
@@ -243,3 +82,8 @@ form {
   display: flex;
 }
 
+// full width for any elements not part of the form
+
+.hds-search .search-help-link {
+  width: 100%;
+}
