@@ -4,40 +4,212 @@
   display: block;
   height: 80px;
   background: $primary;
+
+  &.dept-menu {
+    height: 50px;
+  }
 }
+
+.site_name--wrapper {
+  position: relative;
+  z-index: 200;
+  border-bottom: 1px solid #ccc;
+  background: #fff;
+
+  .o-canvas--lock & {
+    background: #f1f1f1;
+  }
+
+  .page__container {
+    display: flex;
+    min-height: 80px;
+  }
+}
+
+
+.o-canvas__wrapper .bttn--primary {
+  background: none;
+}
+
+.o-canvas--complete .dept-menu .bttn--drawer.bttn--menu {
+  background: #f1f1f1;
+  //border-bottom: 1px solid #ccc;
+}
+
+
+.dept-menu {
+  .bttn--drawer.bttn--menu.inactive {
+    background: #f1f1f1;
+    //border-bottom: 1px solid #ccc;
+  }
+
+  .bttn--drawer.bttn--menu.active {
+    background: #fff;
+    // border-left: 1px solid #ccc;
+  }
+
+  .bttn--drawer.bttn--search.active {
+    background: #fff;
+    // border-left: 1px solid #ccc;
+    // border-right: 1px solid #ccc;
+  }
+}
+
+
+
+.dept-menu {
+  .bttn--drawer {
+    top: 50px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
+
+.dept-menu .logo-icon--tab {
+  width: auto;
+  height: 50px;
+  margin-right: 10px;
+  padding: 13px 7px 13px 15px;
+  background: #151515;
+
+  @include breakpoint(menu) {
+    width: 120px;
+    height: auto;
+  }
+
+}
+
+.dept-menu .o-canvas__group .region-primary-menu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0px;
+  width: 310px;
+  height: auto;
+}
+
 
 .uiowa-bar .page__container {
   position: unset;
   display: flex;
   justify-content: space-between;
   margin-right: 0;
+
   @include breakpoint(menu) {
-  margin-right: auto;
+    justify-content: unset;
+  }
+
+  @include breakpoint(menu) {
+    margin-right: auto;
+  }
+
+  &.dept-menu {
+    height: 50px;
   }
 }
+
+
+.uiowa-bar__slogan {
+  width: 100%;
+  margin: 0;
+  padding: 16px 0 30px 0;
+
+  @include breakpoint(menu) {
+    display: flex;
+    align-items: center;
+    width: auto;
+    padding: 0 0 5px;
+  }
+}
+
 
 .uiowa-bar__title {
   display: flex;
   align-items: center;
-  margin: 0 0 0 20px;
+  margin: 0 0 0 15px;
   padding-bottom: 5px;
-  font-size: 2.2rem;
+  //font-size: 1.6rem;
+  font-size: calc(100% + 2vw);
   font-weight: 300;
+
+  @include breakpoint(menu) {
+    margin: 0 0 0 20px;
+    font-size: 2.2rem;
+  }
+
+  .dept-menu & {
+    width: 60%;
+    margin: 0;
+    padding-top: 10px;
+    @include breakpoint(menu) {
+      width: auto;
+    }
+  }
 }
+
+/*
+.button-icon {
+    display: block;
+    height: 30px;
+}
+
+.button--icon-close {
+ display: none;
+ .active & {
+   display: block;
+ }
+}
+*/
+
+
+
+
+
+
 
 // drawer container
 
 .o-canvas__group {
-   @include breakpoint(menu) {
-     position: absolute;
-     top: 0;
-     right: 0;
-   }
   display: flex;
   height: 100%;
+
+  @include breakpoint(menu) {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
   .region-primary-menu {
     height: 80px;
   }
+}
+
+// traditional navigation below logo
+
+.subnav-true.menu-horizontal {
+  padding-top: 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.sub-menu.menu-horizontal,
+.subnav-true.menu-horizontal {
+  display: none;
+
+  @include breakpoint(menu) {
+    display: block;
+  }
+}
+
+.sub-menu,
+.subnav-true {
+  .bttn--menu {
+    @include breakpoint(menu) {
+      display: none;
+    }
+  }
+
 }
 
 // transparent overlay
@@ -68,30 +240,70 @@ body {
   }
 }
 
+.o-canvas__menu {
+  .hds-search {
+    display: block;
+
+    @include breakpoint(menu) {
+      display: none;
+    }
+  }
+}
+
 // buttons
 
 .bttn--drawer.bttn--search {
+  display: none;
+
+  @include breakpoint(menu) {
+    display: flex;
+  }
+
   &.active {
     background: #fff;
   }
+
   &:before {
-    content: "\f002";
+    content: '';
+    //content: "\f002";
+    background: url(../../images/search-01.svg);
+    background-repeat: no-repeat;
+    background-size: 90%;
   }
 }
+
 
 .bttn--drawer.bttn--menu {
   .o-canvas--complete & {
     background: #fff;
   }
+
   &.active {
     background: #fff;
   }
+
   &.inactive {
     background: #fff;
   }
+
   &:before {
-    content: "\f0c9";
+    content: '';
+    //content: "\f0c9";
+    background: url(../../images/m-s-01.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+
+    @include breakpoint(menu) {
+      background: url(../../images/menu-01.svg);
+      background-repeat: no-repeat;
+      background-size: 90%;
+    }
   }
+}
+
+.o-canvas__wrapper button>* {
+  pointer-events: none;
 }
 
 .bttn--drawer {
@@ -99,24 +311,47 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: auto;
   height: 80px;
   padding: 7px 35px 0;
+
+  span {
+    display: none;
+
+    @include breakpoint(menu) {
+      display: inline;
+    }
+  }
 
   .o-canvas--open & {
     color: $secondary;
   }
 
   &:before {
-    padding: $xsm $md $xsm 0;
+    margin-right: 5px;
+    //padding: $xsm $md $xsm 0;
+    padding: 1rem 2rem;
     color: $secondary;
     font-size: $base-font-size;
+
+    @include breakpoint(menu) {
+      padding: .8rem 1rem;
+    }
     @include fas();
 
     .o-canvas--open & {
-      content: "\f057";
+      content: '';
       color: $secondary;
-      font-size: 1.4rem;
+      background: url(../../images/close-01.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 70%;
+
+      @include breakpoint(menu) {
+        background-position: 0 -2px;
+        background-size: 90%;
+      }
+
+      //font-size: 1.4rem;
     }
   }
 }
@@ -140,6 +375,7 @@ body {
   transform-origin: right top;
   opacity: 0;
   background: #fff;
+
   .o-canvas--open & {
     top: 80px;
     visibility: visible;
@@ -151,3 +387,6 @@ body {
   }
 }
 
+.dept-menu .o-canvas--open .o-canvas__drawer {
+  top: 130px;
+}
