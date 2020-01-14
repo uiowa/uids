@@ -1,41 +1,58 @@
+header {
+  position: relative;
+  z-index: 400;
+}
+
+
 .uiowa-bar {
   position: relative;
   z-index: 400;
   display: block;
   height: 80px;
   background: $primary;
-
   &.dept-menu {
     height: 50px;
   }
 }
+
+// department header
 
 .site_name--wrapper {
   position: relative;
   z-index: 200;
   border-bottom: 1px solid #ccc;
   background: #fff;
-
+     @include breakpoint(menu) {
+       position: unset;
+     }
   .o-canvas--lock & {
     background: #f1f1f1;
   }
 
   .page__container {
     display: flex;
-    min-height: 80px;
+    min-height: 90px;
+    justify-content: space-between;
+    margin-right: 0;
+          @include breakpoint(container) {
+            position: unset;
+            justify-content: unset;
+            margin-right: auto;
+          }
+      @include breakpoint(menu) {
+        position: unset;
+
+      }
   }
 }
 
 
-.o-canvas__wrapper .bttn--primary {
-  background: none;
-}
-
+/*
 .o-canvas--complete .dept-menu .bttn--drawer.bttn--menu {
   background: #f1f1f1;
   //border-bottom: 1px solid #ccc;
 }
-
+*/
 
 .dept-menu {
   .bttn--drawer.bttn--menu.inactive {
@@ -53,13 +70,22 @@
     // border-left: 1px solid #ccc;
     // border-right: 1px solid #ccc;
   }
+  .bttn--drawer.bttn--menu {
+    .o-canvas--complete & {
+    background: #f1f1f1;
+   }
+  }
+
 }
 
 
 
 .dept-menu {
   .bttn--drawer {
-    top: 50px;
+    height: 90px;
+    @include breakpoint(container) {
+   top: 50px;
+    }
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -68,28 +94,44 @@
 
 
 .dept-menu .logo-icon--tab {
-  width: auto;
-  height: 50px;
-  margin-right: 10px;
-  padding: 13px 7px 13px 15px;
+   width: 150px;
+   height: 50px;
+   margin-right: 10px;
+   padding: 13px 13px 13px 25px;
   background: #151515;
 
   @include breakpoint(menu) {
     width: 120px;
     height: auto;
+    padding: 13px 7px 13px 18px;
   }
+}
+
+.region-primary-menu {
+  position: absolute;
+  top: 0;
+  margin-top: 7px;
+  right: 330px;
 
 }
 
-.dept-menu .o-canvas__group .region-primary-menu {
+.dept-menu .region-primary-menu {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0px;
   width: 310px;
   height: auto;
+  padding: 0;
+  margin: 0;
 }
 
+
+
+.dept-menu .region-primary-menu {
+  right: 0;
+
+}
 
 .uiowa-bar .page__container {
   position: unset;
@@ -120,7 +162,7 @@
     display: flex;
     align-items: center;
     width: auto;
-    padding: 0 0 5px;
+    padding: 1px 0 0;
   }
 }
 
@@ -128,21 +170,26 @@
 .uiowa-bar__title {
   display: flex;
   align-items: center;
-  margin: 0 0 0 15px;
+  margin: 0;
   padding-bottom: 5px;
   //font-size: 1.6rem;
-  font-size: calc(100% + 2vw);
+  font-size: calc(100% + 1.4vw);
   font-weight: 300;
-
+  text-align: center;
   @include breakpoint(menu) {
     margin: 0 0 0 20px;
+  }
+  @include breakpoint(container) {
+    margin: 0 0 0 20px;
     font-size: 2.2rem;
+    text-align: left;
   }
 
   .dept-menu & {
     width: 60%;
     margin: 0;
     padding-top: 10px;
+    text-align: left;
     @include breakpoint(menu) {
       width: auto;
     }
@@ -187,6 +234,14 @@
 }
 
 // traditional navigation below logo
+.dept-menu .o-canvas__group {
+   display: flex;
+   height: 100%;
+   position: relative;
+   @include breakpoint(container) {
+     position: absolute;
+   }
+  }
 
 .subnav-true.menu-horizontal {
   padding-top: 0;
@@ -302,9 +357,16 @@ body {
   }
 }
 
-.o-canvas__wrapper button>* {
+.o-canvas__wrapper {
+  button>* {
   pointer-events: none;
+  }
+  .bttn--primary {
+    background: none;
+  }
 }
+
+
 
 .bttn--drawer {
   position: relative;
@@ -312,8 +374,10 @@ body {
   align-items: center;
   justify-content: center;
   height: 80px;
-  padding: 7px 35px 0;
-
+  padding: 7px 15px 0;
+  @include breakpoint(menu) {
+    padding: 7px 35px 0;
+  }
   span {
     display: none;
 
@@ -387,6 +451,11 @@ body {
   }
 }
 
-.dept-menu .o-canvas--open .o-canvas__drawer {
-  top: 130px;
+.dept-menu  .o-canvas__drawer {
+  top: 140px;
 }
+
+.dept-menu .o-canvas--open .o-canvas__drawer {
+  top: 140px;
+}
+
