@@ -94,6 +94,12 @@
     }
   }
 
+  @else if $class==menu {
+    @media (min-width: 855px) {
+      @content;
+    }
+  }
+
   @else if $class==md {
     @media (min-width: 992px) {
       @content;
@@ -226,7 +232,7 @@
   font-size: $base-font-size;
   font-weight: $font-weight-bold;
   //@include margin($top: auto);
-  @include padding($top: $md, $right: $xlg, $bottom: $md, $left: $xlg);
+  @include padding($top: $sm-md, $right: $xlg, $bottom: $sm-md, $left: $xlg);
   /*  &:before {
       content: '';
       position: absolute;
@@ -274,7 +280,7 @@
 }
 
 %bttn--outline {
-  border: 2px solid $primary;
+  border: 1px solid $primary;
   i {
     color: $primary;
     font-size: $h6-font-size;

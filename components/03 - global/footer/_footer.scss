@@ -1,19 +1,15 @@
 .footer {
   position: relative;
   background: $secondary;
-  background: url("../images/footerbg.jpg");
-  background-size: cover;
-  @include padding($top: $md, $right: 0, $bottom: 0, $left: 0);
+  @include padding($top: $xlg, $right: 0, $bottom: $xlg, $left: 0);
 
-  &::before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
-    width: 100%;
-    height: 100%;
-    content: "";
-    background: rgba(0, 0, 0, 0.78);
+  .logo-icon--tab {
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 40px;
+    @include breakpoint(menu) {
+      height: auto;
+    }
   }
 
   p {
@@ -29,21 +25,27 @@
   }
 
   &__container--flex {
-    @include breakpoint(sm) {
+    @include breakpoint(menu) {
       @include flexbox;
+      flex-wrap: wrap;
     }
   }
 
   &__links {
-    @include margin($top: $xlg, $right: 0, $bottom: $lg);
+    @include margin($top: 0, $right: 0, $bottom: $lg);
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
     .menu {
       margin: 0;
-      @include breakpoint(sm) {
+      flex-wrap: wrap;
+      @extend %no-ul-list;
+
         @include flexbox;
-      }
 
       li {
-        @extend %no-ul-list;
+       //@extend @extend %no-ul-list;
+
       }
 
       a {
@@ -57,7 +59,7 @@
 
         li {
           @extend %no-ul-list;
-          margin-top: $md;
+          //margin-top: $md;
 
           a {
             font-weight: $font-weight-light;
@@ -68,20 +70,32 @@
   }
 
   &__links--nav {
-    margin-top: $md;
+    //margin-top: $md;
     margin-bottom: $md;
-    @include breakpoint(sm) {
+    @include breakpoint(menu) {
       display: flex;
-      flex: 0 0 20%;
+      //flex: 0 0 20%;
+    }
+  }
+
+  &__links--contact {
+    @include breakpoint(menu) {
+      flex-grow: 2;
     }
   }
 
   &__links--bttn {
     .menu li {
-      @include margin($bottom: $md);
+      //@include margin($bottom: $md);
+      flex-basis: 100%;
+      line-height: 1.3;
+      margin-bottom: $md;
       @include breakpoint(sm) {
-        @include flex($fg: 1, $fs: 1, $fb: 0);
-        @include margin($right: $xlg, $bottom: 0);
+       // @include flex($fg: 1, $fs: 1, $fb: 0);
+       // @include margin($right: $xlg, $bottom: 0);
+      }
+      a {
+        padding: 0;
       }
 
       &:last-child {
@@ -90,13 +104,6 @@
     }
   }
 
-  &__logo {
-    width: 40%;
-    @include margin($top: 0, $right: 0, $bottom: $lg);
-    @include breakpoint(sm) {
-      width: 30%;
-    }
-  }
 
   &__links--icon {
     a {

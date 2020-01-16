@@ -6,6 +6,11 @@
   padding-left: $md;
   border-bottom: 1px solid #f1f1f1;
   font-size: 1.5rem;
+  text-align: center;
+
+  @include breakpoint(menu) {
+    text-align: left;
+  }
 
   &::placeholder {
     color: #333;
@@ -17,7 +22,7 @@
   margin-top: unset;
   background: #ccc;
 
-  @include breakpoint(sm) {
+  @include breakpoint(menu) {
     width: auto;
   }
 }
@@ -53,19 +58,21 @@
 
 .hds-search {
   display: block;
-  margin-bottom: 70px;
+  margin-bottom: 40px;
 
   @include breakpoint(sm) {
     display: flex;
     flex-wrap: wrap;
   }
+
+  @include breakpoint(menu) {
+    padding: 20px;
+    background: #f1f1f1;
+  }
 }
 
 .hds-search>* {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
 }
 
@@ -81,4 +88,3 @@
 .hds-search>*>:last-child {
   display: flex;
 }
-

@@ -1,61 +1,154 @@
-<header class="uiowa-bar">
+<header>
+<div class="uiowa-bar {{ header_classes }} {{ site_subnav }}">
+
 	<div class="page__container">
 		{% render '@uiowa-logo--tab' %}
 
+{% if site_slogan %}
+	<div class="uiowa-bar__slogan">{{ site_slogan }}</div>
+{% endif %}
+
+
+{% if site_nav == 'horizontal' %}
 		{% if site_name %}
 			<h1 class="uiowa-bar__title">{{ site_name }}</h1>
 		{% endif %}
+{% endif %}
 
-		<div class="o-canvas__group">
+{% if site_nav == 'off-canvas' %}
+	{% if site_name %}
+		<h1 class="uiowa-bar__title">{{ site_name }}</h1>
+	{% endif %}
+{% endif %}
 
-			{% if top_nav == 'true' %}
-				{% render '@top' %}
-			{% endif %}
+
+{% if top_nav == 'uiowa' %}
+	{% render '@top' %}
+{% endif %}
+
+{% if top_nav == 'department' %}
+	{% render '@top--department' %}
+{% endif %}
+
+
+{% if (site_nav == 'off-canvas' or site_nav == 'horizontal') %}
+
+<div class="o-canvas__group">
 
 <div class="o-canvas__wrapper">
-
 <button class="bttn bttn--primary bttn--drawer bttn--search inactive" tabindex="0" role="button" aria-expanded="false">Search
+</button>
+<div class="o-canvas__drawer o-canvas__search" aria-labelledby="o-canvas__searchlabel">
+<div class="drawer-content">
+<h2 id="o-canvas__searchlabel" class="element-invisible">Search Drawer</h2>
+{% render '@search' %}
+{% render '@vertical--search' %}
+{% render '@quick--search' %}
+</div>
+</div>
+</div>
 
-				</button>
-
-				<div class="o-canvas__drawer" aria-labelledby="o-canvas__searchlabel">
-					<div class="drawer-content">
-						<h2 id="o-canvas__searchlabel" class="element-invisible">Search Drawer</h2>
-
-						{% render '@search' %}
-						{% render '@vertical--search' %}
-						{% render '@quick--search' %}
-
-					</div>
-				</div>
-			</div>
-
-			{% if site_nav == 'off-canvas' %}
 
 <div class="o-canvas__wrapper">
+<button class="bttn bttn--primary bttn--drawer bttn--menu inactive" tabindex="0" role="button" aria-expanded="false">
+<span>Menu</span>
+</button>
+<div class="o-canvas__drawer o-canvas__menu" aria-labelledby="o-canvas__menulabel">
+<div class="drawer-content">
+<h2 id="o-canvas__menulabel" class="element-invisible">Menu Drawer Options</h2>
+{% render '@search' %}
+{% if top_nav == 'uiowa' %}
+{% render '@top--reversed' %}
+{% endif %}
+{% render '@vertical' %}
+{% render '@group' %}
+{% render '@quick' %}
+</div>
+</div>
 
-					<button class="bttn bttn--primary bttn--drawer bttn--menu inactive" tabindex="0" role="button" aria-expanded="false">Menu
-					</button>
+</div>
 
-					<div class="o-canvas__drawer" aria-labelledby="o-canvas__menulabel">
-						<div class="drawer-content">
-							<h2 id="o-canvas__menulabel" class="element-invisible">Menu Drawer Options</h2>
+{% endif %}
 
-							{% render '@vertical' %}
-							{% render '@group' %}
-							{% render '@quick' %}
 
-						</div>
-					</div>
-				</div>
-			{% endif %}
+
 
 		</div>
 	</div>
+
+</div><!--end header wrapper-->
+
+{% if site_nav == 'department' %}
+<div class="site_name--wrapper {{ header_classes }} {{ site_subnav }}">
+
+
+<div class="page__container">
+
+{% if site_name %}
+	<h1 class="uiowa-bar__title">{{ site_name }}</h1>
+{% endif %}
+
+
+<div class="o-canvas__group">
+
+	<div class="o-canvas__wrapper">
+		<button class="bttn bttn--primary bttn--drawer bttn--search inactive" tabindex="0" role="button" aria-expanded="false">Search
+		</button>
+		<div class="o-canvas__drawer o-canvas__search" aria-labelledby="o-canvas__searchlabel">
+			<div class="drawer-content">
+				<h2 id="o-canvas__searchlabel" class="element-invisible">Search Drawer</h2>
+				{% render '@search' %}
+				{% render '@vertical--search' %}
+				{% render '@quick--search' %}
+			</div>
+		</div>
+	</div>
+
+
+	<div class="o-canvas__wrapper">
+		<button class="bttn bttn--primary bttn--drawer bttn--menu inactive" tabindex="0" role="button" aria-expanded="false">
+			<span>Menu</span>
+		</button>
+		<div class="o-canvas__drawer o-canvas__menu" aria-labelledby="o-canvas__menulabel">
+			<div class="drawer-content">
+				<h2 id="o-canvas__menulabel" class="element-invisible">Menu Drawer Options</h2>
+				{% render '@search' %}
+				{% if top_nav == 'true' %}
+					{% render '@top--reversed' %}
+				{% endif %}
+				{% render '@vertical' %}
+				{% render '@group' %}
+				{% render '@quick' %}
+			</div>
+		</div>
+
+	</div>
+
+
+
+
+
+</div>
+</div>
+
+{% endif %}
+
+
+
 </header>
 
 {% if site_nav == 'horizontal' %}
-	<nav class="menu-horizontal">
+	<nav class="menu-horizontal {{ header_classes }}">
+		<div class="page__container">
+			{% render '@superfish' %}
+		</div>
+	</nav>
+{% endif %}
+
+{% if site_subnav == 'subnav-true' %}
+
+<nav class="menu-horizontal {{ header_classes }} {{ site_subnav }}">
+
 		<div class="page__container">
 			{% render '@superfish' %}
 		</div>
