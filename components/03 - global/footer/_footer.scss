@@ -6,15 +6,49 @@
   .logo-icon--tab {
     padding-top: 0;
     padding-bottom: 0;
-    height: 40px;
-    @include breakpoint(menu) {
-      height: auto;
-    }
+    height: auto;
+
   }
 
   p {
     color: #ccc;
+    line-height: 1.5;
+    font-weight: 100;
+    a {
+      color: $primary;
+      text-decoration: none;;
+      &[href^="tel:"]:before,
+      &[href^="mailto:"]:before {
+        margin-right: $md;
+        @include fas();
+        font-size: $small-font-size;
+        color: #999;
+      }
+      &[href^="tel:"]:before {
+        content: "\f095";
+      }
+      &[href^="mailto:"]:before {
+        content: "\f0e0";
+      }
+    }
   }
+
+  &__site--name {
+    color: #fff;
+    font-size: 1.7rem;
+    margin-top: $md;
+    font-weight: $font-weight-heavy;
+    margin-bottom: $xsm;
+
+  }
+
+  &__site--slogan {
+    color: #ccc;
+    font-size: 1.4rem;
+    margin-top: 0;
+    font-weight: 300;
+  }
+
 
   &__container {
     @extend %container;
@@ -123,7 +157,6 @@
     }
   }
 }
-
 
 
 .socket {
