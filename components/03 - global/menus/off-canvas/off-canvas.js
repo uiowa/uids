@@ -1,6 +1,7 @@
 const drawerContainer = document.querySelectorAll(".o-canvas__wrapper");
 const toggleButtons = document.querySelectorAll("button.bttn--drawer");
 const canvasDrawer = document.querySelectorAll(".o-canvas__drawer");
+const searchBox = document.querySelectorAll(".hds-search input");
 
 // drawer open/close functionality
 
@@ -11,7 +12,18 @@ document.addEventListener(
     // Add the active/open class
     e.target.classList.toggle("active");
     e.target.parentNode.classList.toggle("o-canvas--open");
-    // aria expanded for buttons
+
+    // add focus for search
+     if (e.target.classList.contains("bttn--search")) {
+for (let i = 0; i < searchBox.length; i++) {
+  searchBox[i].classList.add("search-focused");
+}
+
+     } else {
+     }
+
+
+
     if (e.target.classList.contains("active")) {
       e.target.setAttribute("aria-expanded", "true");
       e.target.classList.remove("inactive");
@@ -34,6 +46,9 @@ document.addEventListener(
       toggleButtons[i].setAttribute("aria-expanded", "false");
       toggleButtons[i].parentNode.classList.remove("o-canvas--open");
       toggleButtons[i].nextElementSibling.setAttribute("aria-hidden", "true");
+
+
+
     }
   },
   false
