@@ -1,7 +1,6 @@
 const drawerContainer = document.querySelectorAll(".o-canvas__wrapper");
 const toggleButtons = document.querySelectorAll("button.bttn--drawer");
-//const links = document.querySelectorAll(".bttn--drawer");
-var drawerItself = document.querySelectorAll(".o-canvas__drawer");
+const canvasDrawer = document.querySelectorAll(".o-canvas__drawer");
 
 // drawer open/close functionality
 
@@ -12,21 +11,11 @@ document.addEventListener(
     // Add the active/open class
     e.target.classList.toggle("active");
     e.target.parentNode.classList.toggle("o-canvas--open");
-   // var drawerItself = document.querySelectorAll(".o-canvas__drawer");
-   // var drawerContainer = document.querySelectorAll(".o-canvas__wrapper");
     // aria expanded for buttons
     if (e.target.classList.contains("active")) {
       e.target.setAttribute("aria-expanded", "true");
       e.target.classList.remove("inactive");
       e.target.nextElementSibling.setAttribute("aria-hidden", "false");
-      // drawerItself.setAttribute("aria-hidden", "false");
-      //  e.target.parentNode.parentNode.classList.remove("drawer-is-closed");
-      /* for (let i = 0; i < drawerItself.length; i++) {
-
-      drawerItself[i].setAttribute("aria-hidden", "false");
-    }
-    */
-
       document.body.classList.remove("o-canvas--complete");
       document.body.classList.add("o-canvas--lock");
     } else {
@@ -36,16 +25,12 @@ document.addEventListener(
       document.body.classList.add("o-canvas--complete");
       document.body.classList.remove("o-canvas--lock");
     }
-
-    // Get all toggle bttn links
-
-
-    // Loop through each link
+    // go through each link
     for (var i = 0; i < toggleButtons.length; i++) {
-      // If the link is the one clicked, skip it
+      // skip clicked link
       if (toggleButtons[i] === e.target) continue;
       toggleButtons[i].classList.remove("active");
-     toggleButtons[i].classList.remove("inactive");
+      toggleButtons[i].classList.remove("inactive");
       toggleButtons[i].setAttribute("aria-expanded", "false");
       toggleButtons[i].parentNode.classList.remove("o-canvas--open");
       toggleButtons[i].nextElementSibling.setAttribute("aria-hidden", "true");
