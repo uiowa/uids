@@ -7,7 +7,6 @@ header {
   z-index: 400;
 }
 
-
 .uiowa-bar {
   position: relative;
   z-index: 400;
@@ -16,6 +15,13 @@ header {
   background: $primary;
   &.dept-menu {
     height: 50px;
+  }
+  &.main-iowa {
+    background: $secondary;
+    @include breakpoint(menu) {
+      background: $primary;
+    }
+
   }
 }
 
@@ -174,12 +180,13 @@ header {
 .uiowa-bar__title {
   display: flex;
   align-items: center;
-  margin: 0;
+  margin: 0 0 0 10px;
   padding-bottom: 5px;
   //font-size: 1.6rem;
   font-size: calc(100% + 1.4vw);
   font-weight: 300;
-  text-align: center;
+  text-align: left;
+  width: 100%;
   @include breakpoint(menu) {
     margin: 0 0 0 20px;
   }
@@ -325,7 +332,7 @@ body {
   &:before {
     content: '';
     //content: "\f002";
-    background: url(../../images/search-01.svg);
+    background: url(../images/search-01.svg);
     background-repeat: no-repeat;
     background-size: 90%;
   }
@@ -348,13 +355,13 @@ body {
   &:before {
     content: '';
     //content: "\f0c9";
-    background: url(../../images/m-s-01.svg);
+    background: url(../images/m-s-01.svg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
 
     @include breakpoint(menu) {
-      background: url(../../images/menu-01.svg);
+      background: url(../images/menu-01.svg);
       background-repeat: no-repeat;
       background-size: 90%;
     }
@@ -410,7 +417,7 @@ body {
     .o-canvas--open & {
       content: '';
       color: $secondary;
-      background: url(../../images/close-01.svg);
+      background: url(../images/close-01.svg);
       background-repeat: no-repeat;
       background-position: center;
       background-size: 70%;

@@ -1,8 +1,4 @@
 <footer class="footer">
-  <div class="footer__container">
-
-
-  </div>
 
   <div class="footer__container footer__container--flex">
 
@@ -11,9 +7,40 @@
 {% render '@uiowa-logo--tab' %}
 
 
+{% if site_name %}
+	<h2 class="footer__site--name">{{ site_name }}</h2>
+{% endif %}
+
+{% if site_slogan %}
+	<strong  class="footer__site--slogan">{{ site_slogan }}</strong>
+{% endif %}
+
+
+
+{% if footer_type == 'uiowa' %}
 
         <p>Iowa City, Iowa 52242<br>
-          319-335-3500</p>
+<a href="tel:319-335-3500">319-335-3500</a></p>
+
+
+
+{% endif %}
+
+{% if footer_type == 'department' %}
+
+<p>280 Boyd Law Building<br />
+Melrose & Byington<br/>
+
+​Iowa City, IA 52242<br/>
+
+<a href="tel:319-335-3500">319-335-9034</a><br/>
+
+
+<a href="mailto:law-webmaster@uiowa.edu">law-webmaster@uiowa.edu</a></p>
+
+
+
+{% endif %}
 
 
       <div class="footer__links footer__links--icon">
