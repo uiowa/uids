@@ -5,6 +5,11 @@ html {
 header {
   position: relative;
   z-index: 400;
+  margin-bottom: 100px;
+
+  @include breakpoint(menu) {
+    margin-bottom: 60px;
+  }
 }
 
 .uiowa-bar {
@@ -18,13 +23,13 @@ header {
     height: 50px;
   }
 
+
   &.main-iowa {
     background: $secondary;
 
     @include breakpoint(menu) {
       background: $primary;
     }
-
   }
 }
 
@@ -48,12 +53,19 @@ header {
     display: flex;
     min-height: 90px;
     justify-content: space-between;
+
+    @include breakpoint(mobilemenu) {
+      margin-left: 0;
+    }
+
     margin-right: 0;
+    flex-wrap: wrap;
 
     @include breakpoint(container) {
       position: unset;
       justify-content: unset;
       margin-right: auto;
+      margin-left: auto;
     }
 
     @include breakpoint(menu) {
@@ -63,6 +75,9 @@ header {
   }
 }
 
+.subnav-true.site_name--wrapper .page__container {
+  min-height: auto;
+}
 
 .dept-menu {
   .bttn--drawer.bttn--menu.inactive {
@@ -87,17 +102,19 @@ header {
 }
 
 
-
 .dept-menu {
   .bttn--drawer {
-    height: 90px;
+    height: 60px;
+
+    @include breakpoint(menu) {
+      height: 90px;
+    }
 
     @include breakpoint(container) {
       top: 50px;
+
     }
 
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
   }
 }
@@ -121,7 +138,7 @@ header {
   position: absolute;
   top: 0;
   margin-top: 7px;
-  right: 330px;
+  right: 336px;
 
 }
 
@@ -141,8 +158,13 @@ header {
   display: flex;
   justify-content: space-between;
   margin-right: 0;
+  flex-wrap: wrap;
 
-  @include breakpoint(menu) {
+  @include breakpoint(mobilemenu) {
+    margin-left: 0;
+  }
+
+  @include breakpoint(container) {
     justify-content: unset;
   }
 
@@ -156,10 +178,15 @@ header {
 }
 
 
+.uiowa-bar.dept-menu .page__container {
+  justify-content: initial;
+}
+
 .uiowa-bar__slogan {
   width: 100%;
   margin: 0;
   padding: 16px 0 30px 0;
+  flex-basis: content;
 
   @include breakpoint(menu) {
     display: flex;
@@ -179,6 +206,7 @@ header {
   font-weight: 300;
   text-align: left;
   width: 100%;
+  flex-basis: content;
 
   @include breakpoint(menu) {
     margin: 0 0 0 20px;
@@ -193,11 +221,12 @@ header {
   .dept-menu & {
     width: 60%;
     margin: 0;
-    padding-top: 10px;
+    padding: 20px;
     text-align: left;
 
     @include breakpoint(menu) {
       width: auto;
+      padding: 25px 20px 25px 0;
     }
   }
 }
@@ -210,7 +239,7 @@ header {
   display: flex;
   height: 100%;
 
-  @include breakpoint(menu) {
+  @include breakpoint(container) {
     position: absolute;
     top: 0;
     right: 0;
@@ -294,6 +323,14 @@ body {
   }
 }
 
+.o-canvas__group {
+  flex-basis: 100%;
+
+  @include breakpoint(menu) {
+    flex-basis: unset;
+  }
+}
+
 // buttons
 
 .bttn--drawer.bttn--search {
@@ -316,7 +353,9 @@ body {
 }
 
 
+
 .bttn--drawer.bttn--menu {
+
   .o-canvas--complete & {
     background: #fff;
   }
@@ -331,20 +370,38 @@ body {
 
   &:before {
     content: '';
-    background: url(../images/m-s-01.svg);
+    background: url(../images/menu-01.svg);
     background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100%;
 
-    @include breakpoint(menu) {
-      background: url(../images/menu-01.svg);
-      background-repeat: no-repeat;
-      background-size: 90%;
-    }
+    @include breakpoint(menu) {}
   }
 }
 
+.bttn--drawer.bttn--menu {
+  @include breakpoint(mobilemenu) {
+    justify-content: left;
+    width: 100%;
+  }
+}
+
+.bttn--drawer.bttn--menu.inactive {
+  @include breakpoint(mobilemenu) {
+    background: #f1f1f1;
+  }
+}
+
+.bttn--drawer.bttn--menu.active {
+  @include breakpoint(mobilemenu) {
+    background: #f1f1f1;
+  }
+}
+
+
 .o-canvas__wrapper {
+  @include breakpoint(mobilemenu) {
+    width: 100%;
+  }
+
   button>* {
     pointer-events: none;
 
@@ -362,16 +419,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 80px;
-  padding: 7px 15px 0;
-
+  height: 60px;
+  padding: 0 0 0 20px;
   @include breakpoint(menu) {
     padding: 7px 35px 0;
+    height: 80px;
   }
 
   span {
-    display: none;
-
     @include breakpoint(menu) {
       display: inline;
     }
@@ -382,12 +437,13 @@ body {
   }
 
   &:before {
-    margin-right: 5px;
-    padding: 1rem 2rem;
+    margin-right: 0;
+    padding: 1rem .9rem 1rem 2rem;
     color: $secondary;
     font-size: $base-font-size;
 
     @include breakpoint(menu) {
+      margin-right: 5px;
       padding: .8rem 1rem;
     }
 
@@ -398,15 +454,13 @@ body {
       color: $secondary;
       background: url(../images/close-01.svg);
       background-repeat: no-repeat;
-      background-position: center;
+      background-position: left;
       background-size: 70%;
 
       @include breakpoint(menu) {
         background-position: 0 -2px;
         background-size: 90%;
       }
-
-      //font-size: 1.4rem;
     }
   }
 }
@@ -416,7 +470,6 @@ body {
 .o-canvas__drawer {
   position: fixed;
   z-index: 400;
-  //top: 80px;
   right: 0;
   display: block;
   visibility: hidden;
@@ -432,7 +485,12 @@ body {
   background: #fff;
 
   .o-canvas--open & {
-    top: 80px;
+    top: 140px;
+
+    @include breakpoint(menu) {
+      top: 80px;
+    }
+
     visibility: visible;
     height: calc(100% - 80px);
     transition: all .4s ease-in-out;
@@ -443,10 +501,17 @@ body {
 }
 
 .dept-menu .o-canvas__drawer {
-  top: 140px;
+  top: 195px;
+
+  @include breakpoint(menu) {
+    top: 140px;
+  }
 }
 
 .dept-menu .o-canvas--open .o-canvas__drawer {
-  top: 140px;
-}
+  top: 195px;
 
+  @include breakpoint(menu) {
+    top: 140px;
+  }
+}

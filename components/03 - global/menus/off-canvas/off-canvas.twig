@@ -4,6 +4,10 @@
 	<div class="page__container">
 		{% render '@uiowa-logo--tab' %}
 
+{% if (header_classes == 'main-iowa' or header_classes == 'top-iowa' or header_classes == 'sub-menu') %}
+
+<div class="search-wrapper">
+
 {% if site_slogan %}
 	<div class="uiowa-bar__slogan">{{ site_slogan }}</div>
 {% endif %}
@@ -22,31 +26,56 @@
 {% endif %}
 
 
-{% if top_nav == 'uiowa' %}
-	{% render '@top' %}
-{% endif %}
+
 
 {% if top_nav == 'department' %}
 	{% render '@top--department' %}
 {% endif %}
 
 
+{% include '@uiowa-search' with {
+        "title": 'Search this site',
+        "search_color": 'search-popup--secondary'
+      } %}
+
+</div>
+
+{% if top_nav == 'uiowa' %}
+	{% render '@top' %}
+{% endif %}
+
+
+<button class="search-button" tabindex="0" role="button" aria-pressed="false" aria-expanded="false">
+	<span id="search-button-label">Search</span>
+</button>
+
+
+{% endif %}
+
+
+
+
+{% if header_classes == 'dept-menu' %}
+
+
+		{% if site_slogan %}
+			<div class="uiowa-bar__slogan">{{ site_slogan }}</div>
+		{% endif %}
+
+		{% if top_nav == 'department' %}
+			{% render '@top--department' %}
+		{% endif %}
+
+
+{% endif %}
+
+
+
+
 {% if (site_nav == 'off-canvas' or site_nav == 'horizontal') %}
 
 <div class="o-canvas__group">
 
-<div class="o-canvas__wrapper">
-<button class="bttn bttn--primary bttn--drawer bttn--search inactive" tabindex="0" role="button" aria-expanded="false">Search
-</button>
-<div class="o-canvas__drawer o-canvas__search" aria-labelledby="o-canvas__searchlabel">
-<div class="drawer-content">
-<h2 id="o-canvas__searchlabel" class="element-invisible">Search Drawer</h2>
-{% render '@search' %}
-{% render '@vertical--search' %}
-{% render '@quick--search' %}
-</div>
-</div>
-</div>
 
 
 <div class="o-canvas__wrapper">
@@ -56,13 +85,13 @@
 <div class="o-canvas__drawer o-canvas__menu" aria-labelledby="o-canvas__menulabel">
 <div class="drawer-content">
 <h2 id="o-canvas__menulabel" class="element-invisible">Menu Drawer Options</h2>
-{% render '@search' %}
+
 {% if top_nav == 'uiowa' %}
 {% render '@top--reversed' %}
 {% endif %}
 {% render '@vertical' %}
 {% render '@group' %}
-{% render '@quick' %}
+
 </div>
 </div>
 
@@ -84,26 +113,27 @@
 
 <div class="page__container">
 
+<div class="search-wrapper">
+
 {% if site_name %}
 	<h1 class="uiowa-bar__title">{{ site_name }}</h1>
 {% endif %}
 
+{% include '@uiowa-search' with {
+        "title": 'Search this site',
+        "search_color": 'search-popup--secondary'
+      } %}
+
+			</div>
+
+<button id="search--button" class="search-button" tabindex="0" role="button" aria-pressed="false" aria-expanded="false">
+	<span id="search-button-label">Search</span>
+</button>
+
+
+
 
 <div class="o-canvas__group">
-
-	<div class="o-canvas__wrapper">
-		<button class="bttn bttn--primary bttn--drawer bttn--search inactive" tabindex="0" role="button" aria-expanded="false">Search
-		</button>
-		<div class="o-canvas__drawer o-canvas__search" aria-labelledby="o-canvas__searchlabel">
-			<div class="drawer-content">
-				<h2 id="o-canvas__searchlabel" class="element-invisible">Search Drawer</h2>
-				{% render '@search' %}
-				{% render '@vertical--search' %}
-				{% render '@quick--search' %}
-			</div>
-		</div>
-	</div>
-
 
 	<div class="o-canvas__wrapper">
 		<button class="bttn bttn--primary bttn--drawer bttn--menu inactive" tabindex="0" role="button" aria-expanded="false">
@@ -112,13 +142,12 @@
 		<div class="o-canvas__drawer o-canvas__menu" aria-labelledby="o-canvas__menulabel">
 			<div class="drawer-content">
 				<h2 id="o-canvas__menulabel" class="element-invisible">Menu Drawer Options</h2>
-				{% render '@search' %}
+
 				{% if top_nav == 'true' %}
 					{% render '@top--reversed' %}
 				{% endif %}
 				{% render '@vertical' %}
 				{% render '@group' %}
-				{% render '@quick' %}
 			</div>
 		</div>
 
@@ -133,9 +162,6 @@
 
 {% endif %}
 
-
-
-</header>
 
 {% if site_nav == 'horizontal' %}
 	<nav class="menu-horizontal {{ header_classes }}">
@@ -147,13 +173,18 @@
 
 {% if site_subnav == 'subnav-true' %}
 
-<nav class="menu-horizontal {{ header_classes }} {{ site_subnav }}">
+	<nav class="menu-horizontal {{ header_classes }} {{ site_subnav }}">
 
 		<div class="page__container">
 			{% render '@superfish' %}
 		</div>
 	</nav>
 {% endif %}
+
+
+
+</header>
+
 
 
 <main class="content page__container hds-content" role="main">
@@ -267,9 +298,7 @@
 
 }
 
-main {
-  margin-top: 60px !important;
-}
+
 
 .breadcrumb {
   display: none;

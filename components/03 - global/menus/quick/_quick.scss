@@ -1,22 +1,41 @@
 .menu--quick-links {
-  .menu {
-    @include flexbox;
-    margin: 30px 0 0;
-    flex-direction: column;
-    li {
-      //@include flexbox;
-      flex-grow: 1;
+  position: absolute;
+  background: #fff;
+  bottom: -112px;
+  z-index: 100;
+  left: 20px;
+  width: 82%;
+  padding-left: 20px;
+  display: none;
+
+  .main-iowa & {
+    @include breakpoint(menu) {
       display: block;
+    }
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+
+    li {
+      list-style: none;
+      margin-right: 20px;
+
       i {
         color: #666;
-        padding-right: 20px;
+        padding-right: 6px;
       }
+
       a {
         display: block;
         text-decoration: none;
         color: $med-gray;
+        font-size: .8rem;
         text-transform: uppercase;
         @include padding($top: $xsm, $right: $md, $bottom: $xsm, $left: 0);
+
         &:hover {
           text-decoration: underline;
         }
@@ -24,4 +43,3 @@
     }
   }
 }
-
