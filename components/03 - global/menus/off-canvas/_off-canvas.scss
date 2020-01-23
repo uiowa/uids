@@ -2,15 +2,34 @@ html {
   touch-action: manipulation;
 }
 
+
+main.page__container.hds-content {
+  margin-top: 70px;
+}
+
+header.main-iowa {
+  .search-is-open & {
+    @include breakpoint(menu) {
+      background: $secondary;
+      padding-bottom: 32px;
+    }
+  }
+}
+
+img {
+  width: 100%;
+}
+
 header {
   position: relative;
   z-index: 400;
-  margin-bottom: 100px;
+  margin-bottom: 0;
 
   @include breakpoint(menu) {
-    margin-bottom: 60px;
+    //margin-bottom: 60px;
   }
 }
+
 
 .uiowa-bar {
   position: relative;
@@ -19,13 +38,14 @@ header {
   height: 80px;
   background: $primary;
 
+
   &.dept-menu {
     height: 50px;
   }
 
 
   &.main-iowa {
-    background: $secondary;
+    background: $primary;
 
     @include breakpoint(menu) {
       background: $primary;
@@ -101,6 +121,14 @@ header {
 
 }
 
+/*
+.search-is-open.o-canvas--complete .dept-menu .bttn--drawer.bttn--menu {
+  @include breakpoint(menu) {
+    background: #fff;
+  }
+}
+*/
+
 
 .dept-menu {
   .bttn--drawer {
@@ -120,38 +148,7 @@ header {
 }
 
 
-.dept-menu .logo-icon--tab {
-  width: 150px;
-  height: 50px;
-  margin-right: 10px;
-  padding: 13px 13px 13px 25px;
-  background: #151515;
 
-  @include breakpoint(menu) {
-    width: 120px;
-    height: auto;
-    padding: 13px 7px 13px 18px;
-  }
-}
-
-.region-primary-menu {
-  position: absolute;
-  top: 0;
-  margin-top: 7px;
-  right: 336px;
-
-}
-
-.dept-menu .region-primary-menu {
-  position: absolute;
-  top: 0;
-  right: 20px;
-  bottom: 0px;
-  width: auto;
-  height: auto;
-  padding: 0;
-  margin: 0;
-}
 
 .uiowa-bar .page__container {
   position: unset;
@@ -183,7 +180,7 @@ header {
 }
 
 .uiowa-bar__slogan {
-  width: 100%;
+  //width: 100%;
   margin: 0;
   padding: 16px 0 30px 0;
   flex-basis: content;
@@ -201,14 +198,19 @@ header {
   display: flex;
   align-items: center;
   margin: 0 0 0 10px;
-  padding-bottom: 5px;
+  //padding-bottom: 5px;
   font-size: calc(100% + 1.4vw);
   font-weight: 300;
   text-align: left;
   width: 100%;
   flex-basis: content;
 
+  @include breakpoint(mobilemenu) {
+    font-size: calc(100% + 1.2vw);
+  }
+
   @include breakpoint(menu) {
+    font-size: calc(100% + 1.4vw);
     margin: 0 0 0 20px;
   }
 
@@ -219,15 +221,23 @@ header {
   }
 
   .dept-menu & {
-    width: 60%;
+    width: 80%;
     margin: 0;
     padding: 20px;
     text-align: left;
+
 
     @include breakpoint(menu) {
       width: auto;
       padding: 25px 20px 25px 0;
     }
+  }
+}
+
+@media (max-width: 1018px) and (min-width: 855px) {
+
+.dept-menu .uiowa-bar__title {
+     font-size: calc(100% + 1vw);
   }
 }
 
@@ -345,10 +355,11 @@ body {
   }
 
   &:before {
-    content: '';
+   /* content: '';
     background: url(../images/search-01.svg);
     background-repeat: no-repeat;
     background-size: 90%;
+    */
   }
 }
 
@@ -369,11 +380,22 @@ body {
   }
 
   &:before {
-    content: '';
+       padding: $xsm;
+       padding-right: 7px;
+       content: "\f0c9";
+       color: $secondary;
+       font-size: 1.5rem;
+       @include fas();
+margin-right: 10px;
+       @include breakpoint(menu) {
+         font-size: 1.2rem;
+       }
+   /* content: '';
     background: url(../images/menu-01.svg);
     background-repeat: no-repeat;
 
     @include breakpoint(menu) {}
+    */
   }
 }
 
@@ -411,8 +433,14 @@ body {
     background: none;
   }
 }
-
-
+/*
+.search-is-open .bttn--drawer.bttn--menu.inactive,
+.search-is-open .bttn--drawer.bttn--menu {
+  @include breakpoint(menu) {
+    background: none;
+  }
+}
+*/
 
 .bttn--drawer {
   position: relative;
@@ -421,8 +449,27 @@ body {
   justify-content: center;
   height: 60px;
   padding: 0 0 0 20px;
+
+
+  &:focus {
+    /* Some exciting button focus styles */
+    outline: none;
+  }
+
+  &:focus:not(:focus-visible) {
+    /* Undo all the above focused button styles
+     if the button has focus but the browser wouldn't normally
+     show default focus styles */
+  }
+
+  &:focus-visible {
+    /* Some even *more* exciting button focus styles */
+    outline: lightgreen solid 2px;
+  }
+
+
   @include breakpoint(menu) {
-    padding: 7px 35px 0;
+    padding: 13px 35px 0;
     height: 80px;
   }
 
@@ -450,20 +497,39 @@ body {
     @include fas();
 
     .o-canvas--open & {
-      content: '';
+     /* content: '';
       color: $secondary;
       background: url(../images/close-01.svg);
       background-repeat: no-repeat;
       background-position: left;
       background-size: 70%;
+*/
+  content: "\f00d";
+  background:#999;
+  padding: 7px;
+  border-radius: 50%;
+    width: 25px;
+    height: 25px;
 
+  margin-right: 10px;
+  //   box-shadow: 0px 15px 10px -16px #111;
+  //background: $secondary;
+  color: $white;
+      font-size: 1rem;
+      line-height: .8;
       @include breakpoint(menu) {
-        background-position: 0 -2px;
-        background-size: 90%;
+       width: 35px;
+       height: 35px;
+       font-size: 1.2rem;
+       line-height: 1;;
+
       }
     }
   }
 }
+
+
+
 
 // off canvas drawer
 
@@ -477,13 +543,16 @@ body {
   width: 100%;
   max-width: 720px;
   height: calc(100% - 80px);
-  padding: 40px 35px;
+  padding: 20px 22px 40px;
   transition: clip-path 1s, opacity .5s, transform .5s, visibility .5s;
   transform: scale(0.925);
   transform-origin: right top;
   opacity: 0;
   background: #fff;
 
+    @include breakpoint(menu) {
+ padding: 40px 35px;
+    }
   .o-canvas--open & {
     top: 140px;
 

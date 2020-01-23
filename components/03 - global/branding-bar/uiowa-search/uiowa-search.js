@@ -15,6 +15,8 @@
 
 function searchToggle() {
 
+// document.getElementById("#bttnav").removeEventListener("click");
+
   if (wrapper.classList.contains("is-open")) {
     this.setAttribute("aria-expanded", "false");
     wrapper.classList.remove("is-open");
@@ -25,10 +27,10 @@ function searchToggle() {
     body.classList.add("search-is-open");
   }
 
-    const isAriaPressed = button.getAttribute('aria-pressed') === 'true';
-    button.setAttribute('aria-pressed', isAriaPressed ? 'false' : 'true');
+    //const isAriaPressed = button.getAttribute('aria-pressed') === 'true';
+    //button.setAttribute('aria-pressed', isAriaPressed ? 'false' : 'true');
 
-    if (button.getAttribute('aria-pressed') === 'true') {
+    if (button.getAttribute('aria-expanded') === 'true') {
       document.getElementById('search-button-label').innerHTML = 'Close';
       document.getElementById("search-input").focus();
     } else {
@@ -39,17 +41,20 @@ function searchToggle() {
 
 
 // click outside of menu drawer
-/*
 
 document.addEventListener(
   "click",
   function (event) {
-    if (!event.target.closest(".search-wrapper.is-open", ".search-button")) {
-      document.body.classList.remove("search-is-open");
-        wrapper.classList.remove("is-open");
+    if (!event.target.closest(".search-wrapper")) {
+     document.body.classList.remove("search-is-open");
+      document.getElementById('search-button-label').innerHTML = 'Search';
+     wrapper.classList.remove("is-open");
+     button.setAttribute("aria-expanded", "false");
+        console.log("outside");
     }
   },
   false
 );
-*/
+
+
 

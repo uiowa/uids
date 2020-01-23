@@ -1,4 +1,24 @@
 .search-button {
+  outline: none;
+
+  &:focus {
+    /* Some exciting button focus styles */
+    //outline: lightgreen solid 2px;
+  }
+
+  &:focus:not(:focus-visible) {
+    /* Undo all the above focused button styles
+     if the button has focus but the browser wouldn't normally
+     show default focus styles */
+    //outline: lightgreen solid 2px;
+  }
+
+  &:focus-visible {
+    /* Some even *more* exciting button focus styles */
+    //outline: lightgreen solid 2px;
+  }
+
+
   position: relative;
   z-index: 200;
   top: 0;
@@ -10,50 +30,63 @@
   margin: 0;
   padding: 7px 25px;
   cursor: pointer;
-  transition: background .25s, border .25s, color .25s, transform .25s;
+  transition: background .15s,
+  border .15s,
+  color .15s,
+  transform .15s;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
   border: none;
+
   background: none;
-  background: #fff;
   font-size: 1rem;
   font-weight: 700;
 
   .site_name--wrapper & {
     background: none;
     height: 90px;
+    width: 20%;
 
     @include breakpoint(menu) {
-      height: 55px;
-      top: 65px;
+      //  height: 55px;
+      top: 0px;
+      width: auto;
     }
   }
 
   @include breakpoint(menu) {
     position: absolute;
-    right: 169px;
+    right: 0;
 
     .sub-menu &,
     .subnav-true & {
-      right: 15px;
+      right: 0px;
+    }
+  }
+
+  @include breakpoint(container) {
+    right: 3%;
+
+    .sub-menu &,
+    .subnav-true & {
+      right: -50px;
     }
   }
 
   @include breakpoint(menu) {
-    top: 12px;
-    height: 55px;
-    padding: 7px 25px;
-    background: none;
+    top: 0;
+    height: 80px;
+    padding: 16px 25px 7px 18px;
   }
 
   span {
     display: none;
+
     @include breakpoint(menu) {
       display: inline-block;
     }
   }
-
 
 
   .uiowa-bar--home & {
@@ -69,21 +102,49 @@
 
   }
 
-  &[aria-expanded="true"] {
-    background: $white;
 
-    @include breakpoint(menu) {
-      border: 1px solid $secondary;
-      background: none;
+  &[aria-expanded="true"] {
+   background: $white;
+
+   @include breakpoint(menu) {
+     background: none;
+   }
+    .site_name--wrapper & {
+      @include breakpoint(menu) {
+       // background: #f1f1f1;
+      }
     }
 
+
+
+    @include breakpoint(menu) {}
+
     &:before {
-      content: "\f057";
+      content: "\f00d";
+
+
+         padding: 7px;
+
+
+
+       //   box-shadow: 0px 15px 10px -16px #111;
       //background: $secondary;
       color: $secondary;
+       .dept-menu & {
+          background: $secondary;
+          color: white;
+       }
+
       @include breakpoint(menu) {
         color: $secondary;
+         background: #fff;
+          border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            margin-right: 5px;
+            line-height: 1.2;;
       }
+
       .main-iowa & {
         color: $secondary;
 
@@ -117,14 +178,28 @@
   }
 }
 
+
+
+@media (max-width: 1880px) and (min-width: 84.375em) {
+
+ .search-button {
+  right: 5%;
+}
+}
+
+
+
 body.search-is-open {
   //overflow: hidden !important;
 }
 
+
 .search-is-open .search-overlay .hds-search {
+
   position: absolute;
   z-index: 1;
   left: 0;
+
   /*transform: translate(0px, 0px);
 transition: transform 0.2s;
 */
@@ -132,26 +207,23 @@ transition: transform 0.2s;
   cursor: text;
 
   @include breakpoint(menu) {
-    width: 80%;
+    width: 73%;
+    border-bottom: 1px solid #6d5a0e;
+    height: 50px;
   }
 
   @include breakpoint(container) {
-    width: 81%;
+    width: 73%;
     margin-right: 90px;
   }
 
-  @include breakpoint(menu) {
-    border-bottom: none;
-  }
 }
 
 .search-is-open .site_name--wrapper .search-overlay .hds-search {
   border-bottom: 1px solid #666;
 }
 
-.search-is-open .site_name--wrapper {
-
-}
+.search-is-open .site_name--wrapper {}
 
 .search-is-open .subnav-true.site_name--wrapper {
   background: #FFF;
@@ -173,6 +245,11 @@ transition: transform 0.2s;
 
 
 .search-overlay .hds-search {
+  button>* {
+    pointer-events: none;
+
+  }
+
   position: absolute;
   z-index: 3;
   top: 0;
@@ -201,7 +278,7 @@ transition: transform 0.3s;
 
 
 .search-overlay .hds-search input[type="text"] {
-  padding-left: 1.05rem;
+  padding-left: 0;
   text-align: left;
   border: none;
   border-bottom-width: medium;
@@ -223,10 +300,10 @@ transition: transform 0.3s;
   }
 
   &::placeholder {
-    color: $secondary;
+    color: #000;
 
     @include breakpoint(menu) {
-      color: $secondary;
+      color: #000;
     }
   }
 }
@@ -234,13 +311,15 @@ transition: transform 0.3s;
 
 
 .search-overlay .hds-search {
-  margin-top: 18px;
+  margin-top: 13px;
+
   margin-left: 21px;
   padding: 0;
   padding: 0px;
 
   @include breakpoint(menu) {
     background: $primary;
+    margin-top: 18px;
 
     .site_name--wrapper & {
       background: white;
@@ -249,14 +328,14 @@ transition: transform 0.3s;
 
   @include breakpoint(menu) {
     .site_name--wrapper & {
-      margin-top: 17px;
+      margin-top: 22px;
       margin-left: 0;
       padding: 0;
     }
   }
 
   .site_name--wrapper & {
-    margin-top: 15px;
+    margin-top: 22px;
   }
 }
 
@@ -266,9 +345,7 @@ transition: transform 0.3s;
   padding: 0 10px;
   background: none;
 
-  .site_name--wrapper & {
-
-  }
+  .site_name--wrapper & {}
 }
 
 .search-overlay .hds-search [type="submit"] span {
@@ -282,7 +359,7 @@ transition: transform 0.3s;
   background-repeat: repeat;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100%;
+  background-size: 90%;
 
   @include breakpoint(menu) {
     background-position: center;
@@ -300,8 +377,15 @@ transition: transform 0.3s;
 .search-overlay {
   position: absolute;
   visibility: hidden;
-  width: 100%;
-  @include breakpoint(menu) {}
+
+  .search-is-open & {
+    @include breakpoint(menu) {
+      width: 100%;
+    }
+  }
+
+
+
 
   .is-open & {
     z-index: 100;
@@ -316,6 +400,7 @@ transition: transform 0.3s;
     text-align: left;
   }
 }
+
 
 .search-is-open {
   @include breakpoint(menu) {
@@ -334,12 +419,51 @@ transition: transform 0.3s;
 }
 
 
+
+
+
 .search-wrapper {
   position: relative;
   display: flex;
-  display: flex;
   flex: 1;
+
+  .main-iowa & {
+    flex-direction: column;
+    align-items: flex-end;
+     @include breakpoint(container) {
+align-items: unset;
+     }
+  }
+
+  .dept-menu & {
+    flex-wrap: wrap;
+  }
+
+  @include breakpoint(container) {
+    margin-right: calc(50% - 43vw);
+  }
+
+  .sub-menu & {
+    @include breakpoint(container) {
+      margin-right: calc(50% - 47vw);
+    }
+
+  }
+
+  .dept-menu.subnav-true & {
+    @include breakpoint(container) {
+      margin-right: calc(50% - 45vw);
+    }
+
+  }
 }
+
+
+.search-is-open .site_name--wrapper.dept-menu .search-wrapper {
+  flex-direction: column;
+  align-items: flex-end;
+}
+
 
 .search-overlay {
   @include breakpoint(mobilemenu) {

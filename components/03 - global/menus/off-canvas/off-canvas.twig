@@ -1,10 +1,15 @@
-<header>
+<header class="{{ header_classes }}">
 <div class="uiowa-bar {{ header_classes }} {{ site_subnav }}">
 
 	<div class="page__container">
 		{% render '@uiowa-logo--tab' %}
 
 {% if (header_classes == 'main-iowa' or header_classes == 'top-iowa' or header_classes == 'sub-menu') %}
+
+{% if top_nav == 'uiowa' %}
+	{% render '@top' %}
+{% endif %}
+
 
 <div class="search-wrapper">
 
@@ -40,14 +45,10 @@
 
 </div>
 
-{% if top_nav == 'uiowa' %}
-	{% render '@top' %}
-{% endif %}
 
 
-<button class="search-button" tabindex="0" role="button" aria-pressed="false" aria-expanded="false">
-	<span id="search-button-label">Search</span>
-</button>
+
+
 
 
 {% endif %}
@@ -79,16 +80,17 @@
 
 
 <div class="o-canvas__wrapper">
-<button class="bttn bttn--primary bttn--drawer bttn--menu inactive" tabindex="0" role="button" aria-expanded="false">
+<button id="bttnav" class="bttn bttn--primary bttn--drawer bttn--menu inactive" tabindex="0" role="button" aria-expanded="false">
 <span>Menu</span>
 </button>
 <div class="o-canvas__drawer o-canvas__menu" aria-labelledby="o-canvas__menulabel">
 <div class="drawer-content">
 <h2 id="o-canvas__menulabel" class="element-invisible">Menu Drawer Options</h2>
-
+{#
 {% if top_nav == 'uiowa' %}
 {% render '@top--reversed' %}
 {% endif %}
+#}
 {% render '@vertical' %}
 {% render '@group' %}
 
@@ -126,11 +128,6 @@
 
 			</div>
 
-<button id="search--button" class="search-button" tabindex="0" role="button" aria-pressed="false" aria-expanded="false">
-	<span id="search-button-label">Search</span>
-</button>
-
-
 
 
 <div class="o-canvas__group">
@@ -143,9 +140,12 @@
 			<div class="drawer-content">
 				<h2 id="o-canvas__menulabel" class="element-invisible">Menu Drawer Options</h2>
 
-				{% if top_nav == 'true' %}
+{#
+{% if top_nav == 'true' %}
 					{% render '@top--reversed' %}
 				{% endif %}
+				#}
+
 				{% render '@vertical' %}
 				{% render '@group' %}
 			</div>
@@ -185,7 +185,11 @@
 
 </header>
 
+{% if top_nav == 'uiowa' %}
 
+<img src="../../images/demo.jpg"/>
+
+{% endif %}
 
 <main class="content page__container hds-content" role="main">
 
