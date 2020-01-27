@@ -541,7 +541,7 @@ margin-right: 10px;
   visibility: hidden;
   overflow-y: auto;
   width: 100%;
-  max-width: 720px;
+  max-width: 560px;
   height: calc(100% - 80px);
   padding: 20px 22px 40px;
   transition: clip-path 1s, opacity .5s, transform .5s, visibility .5s;
@@ -583,4 +583,56 @@ margin-right: 10px;
   @include breakpoint(menu) {
     top: 140px;
   }
+}
+
+header.main-iowa {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 400;
+    transition: transform 0.4s;
+}
+
+
+
+
+body:before {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.75);
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  -webkit-transition: opacity .35s, visibility .35s;
+  transition: opacity .35s, visibility .35s;
+}
+
+
+
+/* BODY CLASSES
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.scroll-down header.main-iowa {
+  transform: translate3d(0, -100%, 0);
+
+}
+
+.scroll-up header.main-iowa {
+  transform: none;
+
+}
+
+.scroll-down .logo-icon--tab {
+    margin-top: -16px;
+}
+
+.scroll-up:not(.menu-open) header.main-iowa {
+
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
 }

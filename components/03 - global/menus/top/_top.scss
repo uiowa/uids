@@ -1,5 +1,6 @@
 .o-canvas__wrapper .menu--group.menu--reversed {
   display: block !important;
+
   @include breakpoint(menu) {
     display: none !important;
   }
@@ -7,22 +8,27 @@
 
 
 .menu--top {
- // display: none!important;
-   @include breakpoint(menu) {
-   //  display: flex!important;
-   }
-  padding-top: 5px;
+  // display: none!important;
+  @include breakpoint(menu) {
+    //  display: flex!important;
+  }
+  //padding-top: 5px;
   .menu {
     li {
       &:nth-child(3) {
-          display: none!important;
-         @include breakpoint(menu) {
-           display: flex!important;
-         }
-      }
-      a {
-        &:hover {
+        display: none !important;
+
+        @include breakpoint(menu) {
+          display: flex !important;
         }
+      }
+
+      a {
+        .main-iowa & {
+          font-size: 1.2rem;
+        }
+
+        &:hover {}
       }
     }
   }
@@ -30,25 +36,27 @@
 
 .dept-menu {
   .menu--top {
-display: none!important;
+    display: none !important;
+
     @include breakpoint(menu) {
-    display: flex!important;
+      display: flex !important;
     }
-}
+  }
 
 }
 
 .region-primary-menu {
-    margin-top: 7px;
-      position: absolute;
-      right: 96px;
-   @include breakpoint(menu) {
+  margin-top: 7px;
   position: absolute;
-  top: 0;
-  right: 336px;
-     margin-top: 11px;
-   }
+  z-index: 400;
+  right: 96px;
 
+  @include breakpoint(menu) {
+    position: absolute;
+    top: 0;
+    right: 336px;
+    margin-top: 11px;
+  }
 }
 
 .dept-menu .region-primary-menu {
@@ -61,8 +69,6 @@ display: none!important;
   padding: 0;
   margin: 0;
 }
-
-
 
 .region-primary-menu.menu--top .menu li a {
   font-weight: 300;

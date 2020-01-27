@@ -1,46 +1,343 @@
-{% if site_type == 'primary' %}
+{% if header_type == 'header--primary' %}
 
-  {% include '@uiowa-bar' with {
-    "bg_color": 'uiowa-bar--primary',
-    "site_type": 'uiowa-bar--standard'
-  } %}
+<header class="{{ header_classes }}">
+	<div class="uiowa-bar {{ header_classes }} {{ site_subnav }}">
+		<div class="page__container">
 
-{% elseif site_type == 'secondary' %}
+			{% render '@uiowa-logo--tab' %}
+			{% render '@top' %}
 
-  {% include '@uiowa-bar' with {
-    "bg_color": 'uiowa-bar--secondary',
-    "site_type": 'uiowa-bar--standard'
-  } %}
+			<div class="search-wrapper">
 
-{% elseif site_type == 'tertiary' %}
+				{% if site_slogan %}
+				<div class="uiowa-bar__slogan">{{ site_slogan }}</div>
+				{% endif %}
 
-  {% include '@uiowa-bar' with {
-    "bg_color": 'uiowa-bar--primary',
-    "site_type": 'uiowa-bar--home'
-  } %}
+				{% if site_name %}
+				<h1 class="uiowa-bar__title">{{ site_name }}</h1>
+				{% endif %}
+
+				{% render '@uiowa-search--primary' %}
+
+			</div>
+
+{% if site_nav == 'off-canvas' %}
+	{% include '@off-canvas' %}
+{% endif %}
+
+
+		</div>
+	</div>
+</header>
+
+
+
+{% elseif header_type == 'header--secondary' %}
+
+
+<header class="{{ header_classes }}">
+	<div class="uiowa-bar {{ header_classes }} {{ site_subnav }}">
+		<div class="page__container">
+
+			{% render '@uiowa-logo--tab' %}
+
+			<div class="search-wrapper">
+
+				{% if site_slogan %}
+					<div class="uiowa-bar__slogan">{{ site_slogan }}</div>
+				{% endif %}
+
+				{% if site_name %}
+					<h1 class="uiowa-bar__title">{{ site_name }}</h1>
+				{% endif %}
+
+				{% render '@uiowa-search' %}
+
+			</div>
+
+{% if site_nav == 'off-canvas' %}
+	{% include '@off-canvas' %}
+{% endif %}
+
+
+		</div>
+	</div>
+</header>
+
+{% if site_nav == 'horizontal' %}
+	<nav class="menu-horizontal {{ header_classes }}">
+		<div class="page__container">
+			{% render '@superfish' %}
+		</div>
+	</nav>
+{% endif %}
+
+
+
+
+{% elseif header_type == 'header--tertiary' %}
+
+
+<header class="{{ header_classes }}">
+	<div class="uiowa-bar {{ header_classes }} {{ site_subnav }}">
+		<div class="page__container">
+
+			{% render '@uiowa-logo--tab' %}
+
+
+				{% if site_slogan %}
+					<div class="uiowa-bar__slogan">{{ site_slogan }}</div>
+				{% endif %}
+
+
+
+				{% if top_nav == 'department' %}
+				{% render '@top--department' %}
+				{% endif %}
+
+
+			</div>
+
+{% if site_nav == 'off-canvas' %}
+			{% include '@off-canvas' %}
+{% endif %}
+
+		</div>
+	</div>
+
+
+<div class="site_name--wrapper {{ header_classes }} {{ site_subnav }}">
+
+
+	<div class="page__container">
+
+		<div class="search-wrapper">
+
+			{% if site_name %}
+				<h1 class="uiowa-bar__title">{{ site_name }}</h1>
+			{% endif %}
+
+{% render '@uiowa-search' %}
+
+
+		</div>
+
+
+		{% include '@off-canvas' %}
+
+
+	</div>
+
+</header>
+
+
+{% if site_nav == 'horizontal' %}
+	<nav class="menu-horizontal {{ header_classes }}">
+		<div class="page__container">
+			{% render '@superfish' %}
+		</div>
+	</nav>
+{% endif %}
+
+
 
 {% endif %}
 
-<header class="header site-header {{ header_alignment }} {{ header_type }}">
-  <div class="header__container {{ header_color }}">
 
-    {% if site_type == 'primary' %}
-      {% include '@site-name' %}
-    {% elseif site_type == 'secondary' %}
-      {% include '@site-name' %}
-    {% elseif site_type == 'tertiary' %}
-    {% endif %}
 
-    <nav class="navbar navbar--main {{ nav_type }}">
-      <div id="nav" class="region-primary-menu">
-        {% if menu_type == 'superfish' %}
-          {% include '@superfish' %}
-        {% elseif menu_type == 'main' %}
-          {% include '@main-menu' %}
-        {% elseif menu_type == 'mega' %}
-          {% include '@mega-menu' %}
-        {% endif %}
-      </div>
-    </nav>
-  </div>
-</header>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{#
+	{% if site_subnav == 'subnav-true' %}
+
+	<nav class="menu-horizontal {{ header_classes }} {{ site_subnav }}">
+
+		<div class="page__container">
+			{% render '@superfish' %}
+		</div>
+	</nav>
+	{% endif %}
+#}
+
+
+
+
+
+	{% if top_nav == 'uiowa' %}
+
+	<img src="../../images/demo.jpg" />{% endif %}<main
+		class="content page__container hds-content" role="main">
+
+		{% include '@breadcrumbs' %}
+
+		<a id="main-content" tabindex="-1"></a>
+		<article role="article" class="node node--type-page node--view-mode-full">
+			<h1>Page Title</h1>
+			<p>Lorem ipsum dolor sit amet,
+				<a href="/link">consectetur adipiscing elit</a>. Nulla accumsan, metus
+				ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo
+				nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin
+				vel erat vel, interdum
+				mattis neque.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+				accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec
+				rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio,
+				sollicitudin vel erat vel, interdum
+				mattis neque.</p>
+
+			<h2>Second Level</h2>
+
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+				accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec
+				rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio,
+				sollicitudin vel erat vel, interdum
+				mattis neque.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+				accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec
+				rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio,
+				sollicitudin vel erat vel, interdum
+				mattis neque.</p>
+
+			<h3>Third Level</h3>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+				accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec
+				rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio,
+				sollicitudin vel erat vel, interdum
+				mattis neque.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+				accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec
+				rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio,
+				sollicitudin vel erat vel, interdum
+				mattis neque.</p>
+
+			<h4>Fourth Level</h4>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+				accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec
+				rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio,
+				sollicitudin vel erat vel, interdum
+				mattis neque.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+				accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec
+				rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio,
+				sollicitudin vel erat vel, interdum
+				mattis neque.</p>
+			<h5>Fifth Level</h5>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+				accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec
+				rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio,
+				sollicitudin vel erat vel, interdum
+				mattis neque.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+				accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec
+				rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio,
+				sollicitudin vel erat vel, interdum
+				mattis neque.</p>
+
+
+			<ol type="1">
+				<li>Coffee</li>
+				<li>Tea</li>
+				<li>Milk</li>
+			</ol>
+			<ol type="A">
+				<li>Coffee</li>
+				<li>Tea</li>
+				<li>Milk</li>
+			</ol>
+			<ol type="a">
+				<li>Coffee</li>
+				<li>Tea</li>
+				<li>Milk</li>
+			</ol>
+			<ol type="I">
+				<li>Coffee</li>
+				<li>Tea</li>
+				<li>Milk</li>
+			</ol>
+			<ol type="i">
+				<li>Coffee</li>
+				<li>Tea</li>
+				<li>Milk</li>
+			</ol>
+
+
+			<ol class="is-lower-alpha">
+				<li>Coffee</li>
+				<li>Tea</li>
+				<li>Milk</li>
+			</ol>
+			<ol class="is-lower-roman">
+				<li>Coffee</li>
+				<li>Tea</li>
+				<li>Milk</li>
+			</ol>
+			<ol class="is-upper-alpha">
+				<li>Coffee</li>
+				<li>Tea</li>
+				<li>Milk</li>
+			</ol>
+			<ol class="is-upper-roman">
+				<li>Coffee</li>
+				<li>Tea</li>
+				<li>Milk</li>
+			</ol>
+
+		</article>
+	</main>
+	<style>
+		.block-superfish,
+		.region-primary-menu {
+			margin-left: 0;
+		}
+
+		.menu-horizontal {
+			background: #f1f1f1;
+			padding-top: 10px;
+
+		}
+
+		.block-superfish .menu li a {
+			position: relative;
+			padding: 1.4rem 1rem;
+
+		}
+
+
+		.breadcrumb {
+			display: none;
+		}
+
+		.block-superfish .sf-style-none>li>a.sf-depth-1.menuparent::before,
+		.block-superfish .menu>li>a.sf-depth-1.menuparent::before {
+			right: 0.7125rem;
+
+			font-size: 0.8rem;
+		}
+
+		.block-superfish .sf-style-none ul,
+		.block-superfish .menu ul {
+			-webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+			box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+			background: #000;
+		}
+
+		.sf-menu ul li {
+			background: #333;
+		}
+	</style>
