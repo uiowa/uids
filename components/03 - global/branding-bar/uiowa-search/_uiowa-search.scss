@@ -1,5 +1,5 @@
 .search-button {
-  outline: none;
+ // outline: none;
 
   &:focus {
     /* Some exciting button focus styles */
@@ -43,7 +43,7 @@
   font-size: 1rem;
   font-weight: 700;
 
-  .site_name--wrapper & {
+  .header--tertiary & {
     background: none;
     height: 90px;
     width: 20%;
@@ -59,8 +59,7 @@
     position: absolute;
     right: 0;
 
-    .sub-menu &,
-    .subnav-true & {
+    .header--horizontal & {
       right: 0px;
     }
   }
@@ -68,8 +67,7 @@
   @include breakpoint(container) {
     right: 3%;
 
-    .sub-menu &,
-    .subnav-true & {
+    .header--horizontal & {
       right: -50px;
     }
   }
@@ -97,7 +95,7 @@
     }
   }
 
-  .main-iowa & {
+  .header--primary & {
     @include breakpoint(menu) {}
 
   }
@@ -109,7 +107,7 @@
    @include breakpoint(menu) {
      background: none;
    }
-    .site_name--wrapper & {
+    .header--tertiary & {
       @include breakpoint(menu) {
        // background: #f1f1f1;
       }
@@ -130,9 +128,14 @@
        //   box-shadow: 0px 15px 10px -16px #111;
       //background: $secondary;
       color: $secondary;
-       .dept-menu & {
+       .header--tertiary & {
           background: $secondary;
           color: white;
+          border-radius: 50%;
+           width: 35px;
+           height: 35px;
+
+
        }
 
       @include breakpoint(menu) {
@@ -145,7 +148,7 @@
             line-height: 1.2;;
       }
 
-      .main-iowa & {
+      .header--primary & {
         color: $secondary;
 
         @include breakpoint(menu) {
@@ -167,7 +170,7 @@
       font-size: 1.2rem;
     }
 
-    .main-iowa & {
+    .header--primary & {
       color: $secondary;
 
       @include breakpoint(menu) {
@@ -219,27 +222,24 @@ transition: transform 0.2s;
 
 }
 
-.search-is-open .site_name--wrapper .search-overlay .hds-search {
+.search-is-open .header--tertiary .hds-search {
+   @include breakpoint(menu) {
   border-bottom: 1px solid #666;
-}
-
-.search-is-open .site_name--wrapper {}
-
-.search-is-open .subnav-true.site_name--wrapper {
-  background: #FFF;
+   }
 }
 
 
-.search-is-open .main-iowa .logo-icon--tab,
-.search-is-open .top-iowa .logo-icon--tab,
-.search-is-open .sub-menu .logo-icon--tab,
-.search-is-open .dept-menu .uiowa-bar__title {
+
+
+.search-is-open .header--primary .logo-icon--tab,
+.search-is-open .header--secondary .logo-icon--tab,
+.search-is-open .header--tertiary .uiowa-bar__title {
   @include breakpoint(mobilemenu) {
     display: none !important;
   }
 }
 
-.search-is-open .main-iowa .menu--top {
+.search-is-open .header--primary .menu--top {
   display: none !important;
 }
 
@@ -293,7 +293,7 @@ transition: transform 0.3s;
   }
 
   @include breakpoint(menu) {
-    .site_name--wrapper & {
+    .header--tertiary & {
       border-bottom: none;
     }
 
@@ -321,21 +321,21 @@ transition: transform 0.3s;
     background: $primary;
     margin-top: 18px;
 
-    .site_name--wrapper & {
+    .header--tertiary & {
       background: white;
     }
   }
 
   @include breakpoint(menu) {
-    .site_name--wrapper & {
+    .header--tertiary & {
       margin-top: 22px;
       margin-left: 0;
       padding: 0;
     }
   }
 
-  .site_name--wrapper & {
-    margin-top: 22px;
+  .header--tertiary  & {
+    margin-top: 19px;
   }
 }
 
@@ -345,7 +345,6 @@ transition: transform 0.3s;
   padding: 0 10px;
   background: none;
 
-  .site_name--wrapper & {}
 }
 
 .search-overlay .hds-search [type="submit"] span {
@@ -367,7 +366,7 @@ transition: transform 0.3s;
 
   // background: url(../images/search-white-01.svg);
 
-  .site_name--wrapper & {
+ .header--tertiary & {
     //  background: url(../images/search-white-01.svg);
     background-repeat: no-repeat;
     background-position: center;
@@ -387,7 +386,7 @@ transition: transform 0.3s;
 
 
 
-  .is-open & {
+  &[aria-expanded="true"] {
     z-index: 100;
     visibility: visible;
     transition: opacity .3s;
@@ -402,6 +401,7 @@ transition: transform 0.3s;
 }
 
 
+// color changes for active search - change to focus invisible?
 .search-is-open {
   @include breakpoint(menu) {
     .uiowa-bar__title {
@@ -410,7 +410,8 @@ transition: transform 0.3s;
   }
 }
 
-.search-is-open .site_name--wrapper {
+
+.search-is-open .header--tertiary {
   @include breakpoint(menu) {
     .uiowa-bar__title {
       color: $white;
@@ -427,7 +428,7 @@ transition: transform 0.3s;
   display: flex;
   flex: 1;
 
-  .main-iowa & {
+  .header--primary & {
     flex-direction: column;
     align-items: flex-end;
      @include breakpoint(container) {
@@ -435,7 +436,7 @@ align-items: unset;
      }
   }
 
-  .dept-menu & {
+  .header--tertiary & {
     flex-wrap: wrap;
   }
 
@@ -450,7 +451,7 @@ align-items: unset;
 
   }
 
-  .dept-menu.subnav-true & {
+  .header--horizontal & {
     @include breakpoint(container) {
       margin-right: calc(50% - 45vw);
     }
@@ -459,7 +460,7 @@ align-items: unset;
 }
 
 
-.search-is-open .site_name--wrapper.dept-menu .search-wrapper {
+.search-is-open .header--tertiary .search-wrapper {
   flex-direction: column;
   align-items: flex-end;
 }
@@ -486,12 +487,12 @@ align-items: unset;
     background-color: $primary;
     @include flexbox;
 
-    .site_name--wrapper & {
+    .header--tertiary & {
       background-color: $white;
     }
   }
 
-  .is-open & {
+  &[aria-expanded="true"] {
     @include breakpoint(mobilemenu) {
       z-index: 100;
       top: 0;
@@ -507,10 +508,22 @@ align-items: unset;
 }
 
 
-.site_name--wrapper.dept-menu {
-  .is-open .search-overlay {
+.header--tertiary {
+  .is-open.search-overlay {
     @include breakpoint(mobilemenu) {
       height: 92px;
     }
   }
 }
+
+
+
+header.header--primary {
+  .search-is-open & {
+    @include breakpoint(menu) {
+      background: $secondary;
+      padding-bottom: 32px;
+    }
+  }
+}
+

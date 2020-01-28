@@ -1,0 +1,195 @@
+main.page__container.hds-content {
+  margin-top: 70px;
+}
+
+
+img {
+  width: 100%;
+}
+
+header {
+  position: relative;
+  z-index: 400;
+  margin-bottom: 0;
+}
+
+
+.uiowa-bar {
+  position: relative;
+  z-index: 400;
+  display: block;
+  height: 80px;
+  background: $primary;
+
+
+  .header--tertiary & {
+    height: 50px;
+  }
+
+
+  .header--primary & {
+    background: $primary;
+
+    @include breakpoint(menu) {
+      background: $primary;
+    }
+  }
+}
+
+// department header
+
+.site_name--wrapper {
+  position: relative;
+  z-index: 200;
+  border-bottom: 1px solid #ccc;
+  background: #fff;
+
+  @include breakpoint(menu) {
+    position: unset;
+  }
+
+  .o-canvas--lock & {
+    background: #f1f1f1;
+  }
+
+  .page__container {
+    display: flex;
+    min-height: 90px;
+    justify-content: space-between;
+
+    @include breakpoint(mobilemenu) {
+      margin-left: 0;
+    }
+
+    margin-right: 0;
+    flex-wrap: wrap;
+
+    @include breakpoint(container) {
+      position: unset;
+      justify-content: unset;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    @include breakpoint(menu) {
+      position: unset;
+
+    }
+  }
+}
+
+
+
+.header--horizontal.site_name--wrapper .page__container {
+  min-height: auto;
+}
+
+
+
+// sticky header
+
+header.header--sticky {
+  @include breakpoint(menu) {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 400;
+    transition: transform 0.4s;
+  }
+}
+
+
+
+// sticky header for tertiary
+
+.scroll-up .header--sticky .site_name--wrapper {
+  .o-canvas--open .o-canvas__drawer {
+    @include breakpoint(menu) {
+      top: 110px;
+    }
+  }
+
+  .search-overlay .hds-search {
+    @include breakpoint(menu) {
+      margin-top: 11px;
+    }
+  }
+
+  .page__container {
+    @include breakpoint(menu) {
+      min-height: 60px;
+      transition: transform 0.4s,
+        -webkit-transform 0.4s;
+    }
+  }
+
+  .uiowa-bar__title {
+    @include breakpoint(menu) {
+      font-size: 1.6rem;
+      padding: 0;
+    }
+  }
+
+  .bttn--drawer {
+    @include breakpoint(menu) {
+      height: 60px;
+    }
+  }
+
+  .search-button {
+    @include breakpoint(menu) {
+      height: 60px;
+    }
+  }
+}
+
+
+// fixed scroll bar
+
+.scroll-down header.header--sticky {
+  @include breakpoint(menu) {
+    transform: translate3d(0, -100%, 0);
+  }
+}
+
+.scroll-up header.header--sticky {
+  @include breakpoint(menu) {
+    transform: none;
+  }
+
+}
+
+.scroll-down .logo-icon--tab {
+  @include breakpoint(menu) {
+    margin-top: -16px;
+  }
+}
+
+.scroll-up:not(.menu-open) header.header--sticky {
+  @include breakpoint(menu) {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+  }
+}
+
+
+
+// not essential
+.header--horizontal.menu-horizontal,
+.header--horizontal.menu-horizontal {
+  display: none;
+
+  @include breakpoint(menu) {
+    display: block;
+  }
+}
+
+
+
+.header--horizontal {
+  .bttn--menu {
+    @include breakpoint(menu) {
+      display: none;
+    }
+  }
+}

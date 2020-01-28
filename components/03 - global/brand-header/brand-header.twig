@@ -1,7 +1,7 @@
 {% if header_type == 'header--primary' %}
 
-<header class="{{ header_classes }}">
-	<div class="uiowa-bar {{ header_classes }} {{ site_subnav }}">
+<header class="{{ header_type }} {{ header_nav }} {{ header_action }}">
+	<div class="uiowa-bar">
 		<div class="page__container">
 
 			{% render '@uiowa-logo--tab' %}
@@ -21,7 +21,7 @@
 
 			</div>
 
-{% if site_nav == 'off-canvas' %}
+{% if header_nav == 'header--toggle' %}
 	{% include '@off-canvas' %}
 {% endif %}
 
@@ -35,8 +35,8 @@
 {% elseif header_type == 'header--secondary' %}
 
 
-<header class="{{ header_classes }}">
-	<div class="uiowa-bar {{ header_classes }} {{ site_subnav }}">
+<header class="{{ header_type }} {{ header_nav }} {{ header_action }}">
+	<div class="uiowa-bar">
 		<div class="page__container">
 
 			{% render '@uiowa-logo--tab' %}
@@ -55,7 +55,7 @@
 
 			</div>
 
-{% if site_nav == 'off-canvas' %}
+{% if header_nav == 'header--toggle' %}
 	{% include '@off-canvas' %}
 {% endif %}
 
@@ -64,8 +64,8 @@
 	</div>
 </header>
 
-{% if site_nav == 'horizontal' %}
-	<nav class="menu-horizontal {{ header_classes }}">
+{% if header_nav == 'header--horizontal' %}
+	<nav class="menu-horizontal {{ header_type }}">
 		<div class="page__container">
 			{% render '@superfish' %}
 		</div>
@@ -78,8 +78,8 @@
 {% elseif header_type == 'header--tertiary' %}
 
 
-<header class="{{ header_classes }}">
-	<div class="uiowa-bar {{ header_classes }} {{ site_subnav }}">
+<header class="{{ header_nav }} {{ header_type }} {{ header_action }}">
+	<div class="uiowa-bar">
 		<div class="page__container">
 
 			{% render '@uiowa-logo--tab' %}
@@ -91,22 +91,21 @@
 
 
 
-				{% if top_nav == 'department' %}
+
 				{% render '@top--department' %}
-				{% endif %}
+
 
 
 			</div>
 
-{% if site_nav == 'off-canvas' %}
-			{% include '@off-canvas' %}
-{% endif %}
+
 
 		</div>
 	</div>
 
 
-<div class="site_name--wrapper {{ header_classes }} {{ site_subnav }}">
+<div class="site_name--wrapper {{ header_nav }}">
+
 
 
 	<div class="page__container">
@@ -123,7 +122,10 @@
 		</div>
 
 
-		{% include '@off-canvas' %}
+{% if header_nav == 'header--toggle' %}
+	{% include '@off-canvas' %}
+{% endif %}
+
 
 
 	</div>
@@ -131,8 +133,8 @@
 </header>
 
 
-{% if site_nav == 'horizontal' %}
-	<nav class="menu-horizontal {{ header_classes }}">
+{% if header_nav == 'header--horizontal' %}
+	<nav class="menu-horizontal {{ header_type }} ">
 		<div class="page__container">
 			{% render '@superfish' %}
 		</div>
@@ -163,25 +165,11 @@
 
 
 
-{#
-	{% if site_subnav == 'subnav-true' %}
-
-	<nav class="menu-horizontal {{ header_classes }} {{ site_subnav }}">
-
-		<div class="page__container">
-			{% render '@superfish' %}
-		</div>
-	</nav>
-	{% endif %}
-#}
 
 
+	<img src="../../images/demo.jpg" />
 
-
-
-	{% if top_nav == 'uiowa' %}
-
-	<img src="../../images/demo.jpg" />{% endif %}<main
+	<main
 		class="content page__container hds-content" role="main">
 
 		{% include '@breadcrumbs' %}
@@ -306,15 +294,9 @@
 			margin-left: 0;
 		}
 
-		.menu-horizontal {
-			background: #f1f1f1;
-			padding-top: 10px;
-
-		}
-
 		.block-superfish .menu li a {
 			position: relative;
-			padding: 1.4rem 1rem;
+			padding: 1rem;
 
 		}
 

@@ -1,4 +1,4 @@
-  const wrapper = document.querySelector(".search-wrapper");
+  const wrapper = document.querySelector(".search-overlay");
   const body = document.body;
   const button = document.querySelector("button.search-button");
 
@@ -8,7 +8,7 @@
   document.querySelector(".search-button").addEventListener('keydown', function (event) {
     if (event.key == "Escape") {
       this.setAttribute("aria-expanded", "false");
-      document.querySelector(".search-wrapper").classList.remove("is-open");
+      document.querySelector(".search-overlay").setAttribute("aria-expanded", "false");
     }
   });
 }
@@ -17,12 +17,14 @@ function searchToggle() {
 
 // document.getElementById("#bttnav").removeEventListener("click");
 
-  if (wrapper.classList.contains("is-open")) {
+  if (body.classList.contains("search-is-open")) {
     this.setAttribute("aria-expanded", "false");
-    wrapper.classList.remove("is-open");
+    //wrapper.classList.remove("is-open");
+    wrapper.setAttribute("aria-expanded", "false");
     body.classList.remove("search-is-open");
   } else {
-    wrapper.classList.add("is-open");
+    //wrapper.classList.add("is-open");
+    wrapper.setAttribute("aria-expanded", "true");
     this.setAttribute("aria-expanded", "true");
     body.classList.add("search-is-open");
   }
@@ -48,7 +50,8 @@ document.addEventListener(
     if (!event.target.closest(".search-wrapper")) {
      document.body.classList.remove("search-is-open");
       document.getElementById('search-button-label').innerHTML = 'Search';
-     wrapper.classList.remove("is-open");
+    // wrapper.classList.remove("is-open");
+     wrapper.setAttribute("aria-expanded", "false");
      button.setAttribute("aria-expanded", "false");
         console.log("outside");
     }
