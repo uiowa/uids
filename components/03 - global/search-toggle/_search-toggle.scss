@@ -74,12 +74,14 @@
   }
 
   span {
-    display: none;
+     @include element-invisible;
     @include breakpoint(menu) {
+      @include element-invisible-off;
+      overflow: unset;
+      position: unset !important;
       display: inline-block;
     }
   }
-
 
   .uiowa-bar--home & {
     top: 0;
@@ -190,7 +192,7 @@
 
 
 .search-is-open .header--primary .menu--top {
-  display: none;
+  @include element-invisible;
 }
 
 
@@ -276,7 +278,7 @@
 }
 
 .search-overlay .hds-search [type="submit"] span {
-  display: none;
+   @include element-invisible;
 }
 
 .search-overlay .hds-search [type="submit"]::before {

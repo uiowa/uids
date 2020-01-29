@@ -1,18 +1,5 @@
-.o-canvas__wrapper .menu--group.menu--reversed {
-  display: block !important;
-
-  @include breakpoint(menu) {
-    display: none !important;
-  }
-}
-
 
 .menu--top {
-  // display: none!important;
-  @include breakpoint(menu) {
-    //  display: flex!important;
-  }
-  //padding-top: 5px;
   .menu {
     li {
       &:nth-child(3) {
@@ -36,13 +23,13 @@
 
 .header--tertiary {
   .menu--top {
-    display: none !important;
-
-    @include breakpoint(menu) {
-      display: flex !important;
+      @include element-invisible;
+        @include breakpoint(menu) {
+          @include element-invisible-off;
+          overflow: unset;
+          position: absolute !important;
     }
   }
-
 }
 
 .region-primary-menu {
@@ -73,3 +60,4 @@
 .region-primary-menu.menu--top .menu li a {
   font-weight: 300;
 }
+
