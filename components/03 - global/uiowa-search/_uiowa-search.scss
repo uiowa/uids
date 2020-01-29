@@ -1,24 +1,4 @@
 .search-button {
- // outline: none;
-
-  &:focus {
-    /* Some exciting button focus styles */
-    //outline: lightgreen solid 2px;
-  }
-
-  &:focus:not(:focus-visible) {
-    /* Undo all the above focused button styles
-     if the button has focus but the browser wouldn't normally
-     show default focus styles */
-    //outline: lightgreen solid 2px;
-  }
-
-  &:focus-visible {
-    /* Some even *more* exciting button focus styles */
-    //outline: lightgreen solid 2px;
-  }
-
-
   position: relative;
   z-index: 200;
   top: 0;
@@ -30,30 +10,14 @@
   margin: 0;
   padding: 7px 25px;
   cursor: pointer;
-  transition: background .15s,
-  border .15s,
-  color .15s,
-  transform .15s;
+  transition: background .15s, border .15s, color .15s, transform .15s;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
   border: none;
-
   background: none;
   font-size: 1rem;
   font-weight: 700;
-
-  .header--tertiary & {
-    background: none;
-    height: 90px;
-    width: 20%;
-
-    @include breakpoint(menu) {
-      //  height: 55px;
-      top: 0px;
-      width: auto;
-    }
-  }
 
   @include breakpoint(menu) {
     position: absolute;
@@ -74,13 +38,43 @@
 
   @include breakpoint(menu) {
     top: 0;
+
     height: 80px;
     padding: 16px 25px 7px 18px;
   }
 
+  // outline: none;
+
+  &:focus {
+    /* Some exciting button focus styles */
+    //outline: lightgreen solid 2px;
+  }
+
+  &:focus:not(:focus-visible) {
+    /* Undo all the above focused button styles
+     if the button has focus but the browser wouldn't normally
+     show default focus styles */
+    //outline: lightgreen solid 2px;
+  }
+
+  &:focus-visible {
+    /* Some even *more* exciting button focus styles */
+    //outline: lightgreen solid 2px;
+  }
+
+  .header--tertiary & {
+    width: 20%;
+    height: 90px;
+    background: none;
+
+    @include breakpoint(menu) {
+      top: 0px;
+      width: auto;
+    }
+  }
+
   span {
     display: none;
-
     @include breakpoint(menu) {
       display: inline-block;
     }
@@ -89,63 +83,40 @@
 
   .uiowa-bar--home & {
     top: 0;
-
     @include breakpoint(sm) {
       top: 0;
     }
   }
 
-  .header--primary & {
-    @include breakpoint(menu) {}
-
-  }
-
-
   &[aria-expanded="true"] {
-   background: $white;
+    background: $white;
 
-   @include breakpoint(menu) {
-     background: none;
-   }
-    .header--tertiary & {
-      @include breakpoint(menu) {
-       // background: #f1f1f1;
-      }
+    @include breakpoint(menu) {
+      background: none;
     }
 
-
-
-    @include breakpoint(menu) {}
-
     &:before {
+      padding: 7px;
       content: "\f00d";
-
-
-         padding: 7px;
-
-
-
-       //   box-shadow: 0px 15px 10px -16px #111;
-      //background: $secondary;
       color: $secondary;
-       .header--tertiary & {
-          background: $secondary;
-          color: white;
-          border-radius: 50%;
-           width: 35px;
-           height: 35px;
-
-
-       }
 
       @include breakpoint(menu) {
+        width: 35px;
+        height: 35px;
+        margin-right: 5px;
         color: $secondary;
-         background: #fff;
-          border-radius: 50%;
-            width: 35px;
-            height: 35px;
-            margin-right: 5px;
-            line-height: 1.2;;
+        border-radius: 50%;
+        background: #fff;
+        line-height: 1.2;
+      }
+
+      .header--tertiary & {
+        width: 35px;
+        height: 35px;
+        color: white;
+        border-radius: 50%;
+        background: $secondary;
+
       }
 
       .header--primary & {
@@ -184,35 +155,24 @@
 
 
 @media (max-width: 1880px) and (min-width: 84.375em) {
-
- .search-button {
-  right: 5%;
+  .search-button {
+    right: 5%;
+  }
 }
-}
 
-
-
-body.search-is-open {
-  //overflow: hidden !important;
-}
 
 
 .search-is-open .search-overlay .hds-search {
-
   position: absolute;
   z-index: 1;
   left: 0;
-
-  /*transform: translate(0px, 0px);
-transition: transform 0.2s;
-*/
   width: 70%;
   cursor: text;
 
   @include breakpoint(menu) {
     width: 73%;
-    border-bottom: 1px solid #6d5a0e;
     height: 50px;
+    border-bottom: 1px solid #6d5a0e;
   }
 
   @include breakpoint(container) {
@@ -223,63 +183,39 @@ transition: transform 0.2s;
 }
 
 .search-is-open .header--tertiary .hds-search {
-   @include breakpoint(menu) {
-  border-bottom: 1px solid #666;
-   }
-}
-
-
-
-
-.search-is-open .header--primary .logo-icon--tab,
-.search-is-open .header--secondary .logo-icon--tab,
-.search-is-open .header--tertiary .uiowa-bar__title {
-  @include breakpoint(mobilemenu) {
-    display: none !important;
+  @include breakpoint(menu) {
+    border-bottom: 1px solid #666;
   }
 }
 
+
 .search-is-open .header--primary .menu--top {
-  display: none !important;
+  display: none;
 }
 
 
 .search-overlay .hds-search {
-  button>* {
-    pointer-events: none;
-
-  }
-
   position: absolute;
   z-index: 3;
   top: 0;
   right: 0;
-  //transition: transform 0.2s;
-  //transform: translate(90px, 0px);
   width: 0px;
   cursor: pointer;
   transition: width .4s cubic-bezier(0.000, 0.795, 0.000, 1.000);
   background: none;
+
+  button>* {
+    pointer-events: none;
+
+  }
 }
 
-/*
-.search-overlay .hds-search input[type="text"] {
-transition: transform 0.3s;
- transform: translate(80px, 0px);
-  width: 0px;
-  right: 0;
-  position: absolute;
-  border: none;
-   border-bottom: 3px solid #62d474;
-   transition: all 0.5s ease;
-   transform: scale(0);
-}
-*/
 
 
 .search-overlay .hds-search input[type="text"] {
   padding-left: 0;
   text-align: left;
+  color: $secondary;
   border: none;
   border-bottom-width: medium;
   border-bottom-style: none;
@@ -288,15 +224,10 @@ transition: transform 0.3s;
   box-shadow: none !important;
   font-size: 1.5rem;
 
-  @include breakpoint(mobilemenu) {
-    color: $secondary;
-  }
-
   @include breakpoint(menu) {
     .header--tertiary & {
       border-bottom: none;
     }
-
   }
 
   &::placeholder {
@@ -312,14 +243,13 @@ transition: transform 0.3s;
 
 .search-overlay .hds-search {
   margin-top: 13px;
-
   margin-left: 21px;
   padding: 0;
   padding: 0px;
 
   @include breakpoint(menu) {
-    background: $primary;
     margin-top: 18px;
+    background: $primary;
 
     .header--tertiary & {
       background: white;
@@ -334,17 +264,15 @@ transition: transform 0.3s;
     }
   }
 
-  .header--tertiary  & {
+  .header--tertiary & {
     margin-top: 19px;
   }
 }
 
 
-
 .search-overlay .hds-search [type="submit"] {
   padding: 0 10px;
   background: none;
-
 }
 
 .search-overlay .hds-search [type="submit"] span {
@@ -364,10 +292,7 @@ transition: transform 0.3s;
     background-position: center;
   }
 
-  // background: url(../images/search-white-01.svg);
-
- .header--tertiary & {
-    //  background: url(../images/search-white-01.svg);
+  .header--tertiary & {
     background-repeat: no-repeat;
     background-position: center;
   }
@@ -392,10 +317,6 @@ transition: transform 0.3s;
     transition: opacity .3s;
     transition-timing-function: ease;
     transition-timing-function: ease-in-out;
-    //background: none;
-    //  display: block;
-    // top: 0;
-    //transition: top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94);
     text-align: left;
   }
 }
@@ -420,98 +341,88 @@ transition: transform 0.3s;
 }
 
 
-
-
-
 .search-wrapper {
   position: relative;
-  display: flex;
-  flex: 1;
 
-  .header--primary & {
-    flex-direction: column;
-    align-items: flex-end;
-     @include breakpoint(container) {
-align-items: unset;
-     }
-  }
-
-  .header--tertiary & {
-    flex-wrap: wrap;
+  @include breakpoint(menu) {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
   }
 
   @include breakpoint(container) {
     margin-right: calc(50% - 43vw);
   }
 
+  .search-is-open & {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+  }
+
+  .header--primary & {
+    align-items: flex-end;
+    flex-direction: column;
+
+    @include breakpoint(container) {
+      align-items: unset;
+    }
+  }
+
+  .header--tertiary & {
+    flex-wrap: wrap;
+  }
+
   .sub-menu & {
     @include breakpoint(container) {
       margin-right: calc(50% - 47vw);
     }
-
   }
 
   .header--horizontal & {
     @include breakpoint(container) {
       margin-right: calc(50% - 45vw);
     }
-
   }
 }
 
 
 .search-is-open .header--tertiary .search-wrapper {
-  flex-direction: column;
   align-items: flex-end;
+  flex-direction: column;
 }
 
-
 .search-overlay {
-  @include breakpoint(mobilemenu) {
-    position: absolute;
-    top: 0;
-    top: -80px;
-    left: 0;
-    display: table;
-    visibility: hidden;
-    visibility: hidden;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    height: 80px;
-    transition: opacity .5s, visibility .5s;
-    transition: top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94);
-    text-align: center;
-    //opacity: 0;
-    background-color: $primary;
-    @include flexbox;
+  position: absolute;
+  top: 0;
+  top: -80px;
+  left: 0;
+  visibility: hidden;
+  align-items: center;
+  justify-content: center;
+  transition: top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94);
+  text-align: center;
+  background-color: $primary;
+  @include flexbox;
 
-    .header--tertiary & {
-      background-color: $white;
-    }
+  .header--tertiary & {
+    background-color: $white;
   }
 
   &[aria-expanded="true"] {
-    @include breakpoint(mobilemenu) {
-      z-index: 100;
-      top: 0;
-      display: block;
-      visibility: visible;
-      transition: top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94);
-      transition: opacity .3s;
-      transition-timing-function: ease;
-      transition-timing-function: ease-in-out;
-      text-align: left;
-    }
-  }
-}
+    z-index: 100;
+    top: 0;
+    display: contents;
+    visibility: visible;
+    width: 100%;
+    transition: top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94);
+    transition: opacity .3s;
+    transition-timing-function: ease;
+    transition-timing-function: ease-in-out;
+    text-align: left;
 
-
-.header--tertiary {
-  .is-open.search-overlay {
-    @include breakpoint(mobilemenu) {
-      height: 92px;
+    @include breakpoint(menu) {
+      display: flex;
     }
   }
 }
@@ -521,9 +432,8 @@ align-items: unset;
 header.header--primary {
   .search-is-open & {
     @include breakpoint(menu) {
-      background: $secondary;
       padding-bottom: 32px;
+      background: $secondary;
     }
   }
 }
-

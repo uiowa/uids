@@ -1,16 +1,42 @@
+// traditional navigation below logo
 
+.menu-horizontal {
+  padding-top: 10px;
+  border-bottom: 1px solid #ccc;
+  background: #fff;
 
+  &.header--tertiary {
+    padding-top: 0;
+    border-bottom: 0;
+  }
+}
 
+.block-superfish .menu>li:first-child>a {
+  padding-left: 0;
+}
 
+////
 
 .header--tertiary {
+  .bttn--drawer {
+    display: flex;
+    height: 60px;
+
+    @include breakpoint(menu) {
+      height: 90px;
+    }
+
+    @include breakpoint(container) {
+      top: 50px;
+    }
+  }
+
   .bttn--drawer.bttn--menu.inactive {
     background: #f1f1f1;
   }
 
   .bttn--drawer.bttn--menu.active {
     background: #fff;
-
   }
 
   .bttn--drawer.bttn--search.active {
@@ -22,120 +48,7 @@
       background: #f1f1f1;
     }
   }
-
 }
-
-
-
-.header--tertiary {
-  .bttn--drawer {
-    height: 60px;
-
-    @include breakpoint(menu) {
-      height: 90px;
-    }
-
-    @include breakpoint(container) {
-      top: 50px;
-
-    }
-
-    display: flex;
-  }
-}
-
-
-
-
-.uiowa-bar .page__container {
-  position: unset;
-  display: flex;
-  justify-content: space-between;
-  margin-right: 0;
-  flex-wrap: wrap;
-
-  @include breakpoint(mobilemenu) {
-    margin-left: 0;
-  }
-
-  @include breakpoint(container) {
-    justify-content: unset;
-  }
-
-  @include breakpoint(menu) {
-    margin-right: auto;
-  }
-}
-
-
-
-
-.header--tertiary .uiowa-bar .page__container {
-  justify-content: initial;
-  min-height: 50px;
-}
-
-.uiowa-bar__slogan {
-  margin: 0;
-  padding: 16px 0 30px 0;
-  flex-basis: content;
-
-  @include breakpoint(menu) {
-    display: flex;
-    align-items: center;
-    width: auto;
-    padding: 1px 0 0;
-  }
-}
-
-
-.uiowa-bar__title {
-  display: flex;
-  align-items: center;
-  margin: 0 0 0 10px;
-  font-size: calc(100% + 1.4vw);
-  font-weight: 300;
-  text-align: left;
-  width: 100%;
-  flex-basis: content;
-
-  @include breakpoint(mobilemenu) {
-    font-size: calc(100% + 1.2vw);
-  }
-
-  @include breakpoint(menu) {
-    font-size: calc(100% + 1.4vw);
-    margin: 0 0 0 20px;
-  }
-
-  @include breakpoint(container) {
-    margin: 0 0 0 20px;
-    font-size: 2.2rem;
-    text-align: left;
-  }
-
-  .header--tertiary & {
-    width: 80%;
-    margin: 0;
-    padding: 20px;
-    text-align: left;
-
-
-    @include breakpoint(menu) {
-      width: auto;
-      padding: 25px 20px 25px 0;
-    }
-  }
-}
-
-@media (max-width: 1018px) and (min-width: 855px) {
-
-.header--tertiary .uiowa-bar__title {
-     font-size: calc(100% + 1vw);
-  }
-}
-
-
 
 // drawer container
 
@@ -156,9 +69,9 @@
 
 
 .header--tertiary .o-canvas__group {
+  position: relative;
   display: flex;
   height: 100%;
-  position: relative;
 
   @include breakpoint(container) {
     position: absolute;
@@ -166,27 +79,9 @@
 }
 
 
-// traditional navigation below logo
-
-		.menu-horizontal {
-		  background: #fff;
-		  padding-top: 10px;
-		  border-bottom: 1px solid #ccc;
-
-		  &.header--tertiary  {
-		    padding-top: 0;
-		    border-bottom: 0;
-		  }
-		}
-
-		.block-superfish .menu>li:first-child>a {
-		  padding-left: 0;
-		}
-
 
 
 // transparent overlay
-
 
 body {
   &.o-canvas--lock::before {
@@ -249,54 +144,52 @@ body {
   }
 
   &:before {
-       padding: $xsm;
-       padding-right: 7px;
-       content: "\f0c9";
-       color: $secondary;
-       font-size: 1.5rem;
-       @include fas();
-margin-right: 10px;
-       @include breakpoint(menu) {
-         font-size: 1.2rem;
-       }
+    margin-right: 10px;
+    padding: $xsm;
+    padding-right: 7px;
+    content: "\f0c9";
+    color: $secondary;
+    font-size: 1.5rem;
+    @include fas();
+    @include breakpoint(menu) {
+      font-size: 1.2rem;
+    }
   }
 }
 
 .bttn--drawer.bttn--menu {
-  @include breakpoint(mobilemenu) {
-    justify-content: left;
-    width: 100%;
-  }
+  justify-content: left;
+  width: 100%;
 }
 
 .bttn--drawer.bttn--menu.inactive {
-  @include breakpoint(mobilemenu) {
-    background: #f1f1f1;
+  background: #f1f1f1;
+
+  @include breakpoint(menu) {
+    background: #fff;
   }
 }
 
 .bttn--drawer.bttn--menu.active {
-  @include breakpoint(mobilemenu) {
-    background: #f1f1f1;
+  background: #f1f1f1;
+
+  @include breakpoint(menu) {
+    background: #fff;
   }
 }
 
 
 .o-canvas__wrapper {
-  @include breakpoint(mobilemenu) {
-    width: 100%;
-  }
+  width: 100%;
 
   button>* {
     pointer-events: none;
-
   }
 
   .bttn--primary {
     background: none;
   }
 }
-
 
 .bttn--drawer {
   position: relative;
@@ -306,21 +199,14 @@ margin-right: 10px;
   height: 60px;
   padding: 0 0 0 20px;
 
-
-  &:focus {
-  }
-
-  &:focus:not(:focus-visible) {
-  }
-
-  &:focus-visible {
-  }
-
-
   @include breakpoint(menu) {
-    padding: 13px 35px 0;
     height: 80px;
+    padding: 13px 35px 0;
   }
+
+  &:focus {}
+  &:focus:not(:focus-visible) {}
+  &:focus-visible {}
 
   span {
     @include breakpoint(menu) {
@@ -346,29 +232,26 @@ margin-right: 10px;
     @include fas();
 
     .o-canvas--open & {
-  content: "\f00d";
-  background:#999;
-  padding: 7px;
-  border-radius: 50%;
-    width: 25px;
-    height: 25px;
-
-  margin-right: 10px;
-  color: $white;
+      width: 25px;
+      height: 25px;
+      margin-right: 10px;
+      padding: 7px;
+      content: "\f00d";
+      color: $white;
+      border-radius: 50%;
+      background: #999;
       font-size: 1rem;
       line-height: .8;
-      @include breakpoint(menu) {
-       width: 35px;
-       height: 35px;
-       font-size: 1.2rem;
-       line-height: 1;;
 
+      @include breakpoint(menu) {
+        width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
+        line-height: 1;
       }
     }
   }
 }
-
-
 
 
 // off canvas drawer
@@ -380,8 +263,7 @@ margin-right: 10px;
   display: block;
   visibility: hidden;
   overflow-y: auto;
-  width: 100%;
-  max-width: 560px;
+  width: 100%;;
   height: calc(100% - 80px);
   padding: 20px 22px 40px;
   transition: clip-path 1s, opacity .5s, transform .5s, visibility .5s;
@@ -390,22 +272,23 @@ margin-right: 10px;
   opacity: 0;
   background: #fff;
 
-    @include breakpoint(menu) {
- padding: 40px 35px;
-    }
+  @include breakpoint(menu) {
+    padding: 40px 35px;
+    max-width: 560px;
+  }
+
   .o-canvas--open & {
     top: 140px;
-
-    @include breakpoint(menu) {
-      top: 80px;
-    }
-
     visibility: visible;
     height: calc(100% - 80px);
     transition: all .4s ease-in-out;
     transform: scale(1);
     opacity: 1;
     box-shadow: 0 8px 8px 0 rgba(63, 63, 70, .25);
+
+    @include breakpoint(menu) {
+      top: 80px;
+    }
   }
 }
 
@@ -424,6 +307,3 @@ margin-right: 10px;
     top: 140px;
   }
 }
-
-
-

@@ -1,25 +1,14 @@
 .logo-icon {
   display: block;
   margin-left: -$xsm;
-
   &:hover {
     opacity: 0.7;
-  }
-  .logo-icon--primary & {
-    fill: $secondary;
   }
   .logo-icon--secondary & {
     fill: $primary;
   }
-  .uiowa-bar--home & {
-    width: 180px;
-    height: 70px;
-  }
-  .uiowa-bar--standard & {
-    width: 120px;
-    height: 40px;
-  }
 }
+
 
 .logo-icon--tab  {
     background: $secondary;
@@ -30,11 +19,17 @@
   @include breakpoint(menu) {
     width: 180px;
     height: auto;
-    margin-left: -20px;
+    margin-left: 0px;
      padding: 25px 15px 25px 20px;
   }
   @include breakpoint(container) {
     margin-left: -16px;
+  }
+  .search-is-open & {
+      display: none;
+      @include breakpoint(menu) {
+        display: block;
+      }
   }
 }
 
@@ -51,5 +46,9 @@
     height: auto;
     padding: 13px 7px 13px 18px;
   }
+    .search-is-open & {
+      display: flex;
+    }
 }
+
 
