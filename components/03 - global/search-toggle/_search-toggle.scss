@@ -47,7 +47,7 @@
 
   &:focus {
     /* Some exciting button focus styles */
-    //outline: lightgreen solid 2px;
+    outline:none;
   }
 
   &:focus:not(:focus-visible) {
@@ -74,9 +74,11 @@
   }
 
   span {
-     @include element-invisible;
+     //@include element-invisible;
+     display: none;
     @include breakpoint(menu) {
-      @include element-invisible-off;
+    //  @include element-invisible-off;
+      display: inline;
       overflow: unset;
       position: unset !important;
       display: inline-block;
@@ -192,7 +194,8 @@
 
 
 .search-is-open .header--primary .menu--top {
-  @include element-invisible;
+  //@include element-invisible;
+  display: none;
 }
 
 
@@ -278,7 +281,8 @@
 }
 
 .search-overlay .hds-search [type="submit"] span {
-   @include element-invisible;
+   //@include element-invisible;
+   display: none;
 }
 
 .search-overlay .hds-search [type="submit"]::before {
@@ -343,6 +347,7 @@
 }
 
 
+
 .search-wrapper {
   position: relative;
 
@@ -387,7 +392,17 @@
     }
   }
 }
+/*
+.header--tertiary .search-wrapper {
+  @include breakpoint(container) {
+    margin-right: calc(50% - 43vw);
 
+    .search-is-open & {
+      margin-right: calc(50% - 45vw);
+    }
+  }
+}
+*/
 
 .search-is-open .header--tertiary .search-wrapper {
   align-items: flex-end;

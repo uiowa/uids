@@ -39,6 +39,7 @@ document.addEventListener(
       e.target.setAttribute("aria-expanded", "true");
       e.target.classList.remove("inactive");
       e.target.nextElementSibling.setAttribute("aria-hidden", "false");
+      //canvasDrawer[0].querySelector("#superfish-main-accordion li a").focus();
       document.body.classList.remove("o-canvas--complete");
       document.body.classList.add("o-canvas--lock");
     } else {
@@ -65,6 +66,11 @@ document.addEventListener(
   false
 );
 
+/*
+canvasDrawer[0].addEventListener("transitionend", e => {
+  canvasDrawer[0].querySelector("#superfish-main-accordion li a").focus();
+});
+*/
 // click outside of menu drawer
 
 document.addEventListener(
@@ -104,13 +110,12 @@ window.addEventListener("keydown", function (event) {
 
 
 
-//const body = document.body;
 const scrollUp = "scroll-up";
 const scrollDown = "scroll-down";
 const canvasLock = "o-canvas--lock";
 let lastScroll = 0;
 
-
+// navigation scroll
 
 window.addEventListener("scroll", function () {
   const currentScroll = window.pageYOffset;

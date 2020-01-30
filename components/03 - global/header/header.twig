@@ -4,43 +4,29 @@
 		<div class="uiowa-bar">
 			<div class="page__container">
 
-
 				{% render '@logo--tab' %}
 				{% render '@top' %}
-
-
-{% render '@search-toggle--primary' %}
-
-
-
+				{% render '@search-toggle--primary' %}
 				{% if header_nav == 'header--toggle' %}
 					{% include '@off-canvas' %}
 				{% endif %}
-
 
 			</div>
 		</div>
 	</header>
 
-
 {% elseif header_type == 'header--secondary' %}
-
 
 	<header class="{{ header_type }} {{ header_nav }} {{ header_action }}">
 		<div class="uiowa-bar">
 			<div class="page__container">
 
 				{% render '@logo--tab' %}
-{% render '@site-name' %}
-
-
-					{% render '@search-toggle' %}
-
-
+				{% include '@site-name' with {"site_name": 'Carver College of Medicine'} %}
+				{% render '@search-toggle' %}
 				{% if header_nav == 'header--toggle' %}
 					{% include '@off-canvas' %}
 				{% endif %}
-
 
 			</div>
 		</div>
@@ -49,53 +35,38 @@
 	{% if header_nav == 'header--horizontal' %}
 		<nav class="menu-horizontal {{ header_type }}">
 			<div class="page__container">
+
 				{% render '@superfish' %}
+
 			</div>
 		</nav>
 	{% endif %}
 
-
 {% elseif header_type == 'header--tertiary' %}
-
 
 	<header class="{{ header_nav }} {{ header_type }} {{ header_action }}">
 		<div class="uiowa-bar">
 			<div class="page__container">
 
 				{% render '@logo--tab' %}
-
-{% render '@site-slogan' %}
-
+				{% include '@site-slogan' with {"site_slogan": 'Carver College of Medicine'} %}
 				{% render '@top--department' %}
 
-
 			</div>
-
-
 		</div>
 	</div>
 
-
 	<div class="site_name--wrapper {{ header_nav }}">
-
-
 		<div class="page__container">
-{% render '@site-name' %}
 
-
-{% render '@search-toggle' %}
-
-
-
+			{% include '@site-name' with {"site_name": 'Fraternal Order of Eagles Diabetes Research Center'} %}
+			{% render '@search-toggle' %}
 			{% if header_nav == 'header--toggle' %}
 				{% include '@off-canvas' %}
 			{% endif %}
 
-
 		</div>
-
 	</header>
-
 
 	{% if header_nav == 'header--horizontal' %}
 		<nav class="menu-horizontal {{ header_type }} ">
@@ -104,7 +75,6 @@
 			</div>
 		</nav>
 	{% endif %}
-
 
 {% endif %}
 
