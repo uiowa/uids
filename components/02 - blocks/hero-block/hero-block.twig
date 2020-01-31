@@ -1,0 +1,48 @@
+{% block hero_wrapper_start %}
+<div class="hero__overlay"></div>
+
+{% if hero_type == 'video' %}
+  {% if hero_video %}
+<video class="hero__video" autoplay="autoplay" muted="muted" loop="loop" id="video-container" poster="{{ hero_image }}">
+
+      <source src="{{ hero_video }}" type="video/mp4">
+    </video>
+    <!-- This picture should assume background overlay doesn't work. So it should be darker to handle contrast ratio issues. -->
+    <!--[if lt IE 9]>
+      <img src="{{ hero_image }}" alt="{{ hero_image_alt }}" class=" ie8-poster">
+    <![endif]-->
+    </video>
+  {% endif %}
+{% else %}
+  <div class="hero__image">
+    {% include "@bg-images" %}
+  </div>
+{% endif %}
+
+{% endblock %}
+
+<div class="hero__container">
+  <div class="hero__content">
+  {% block headline %}
+    {% if hero_title is not empty %}
+      {% include "@headline" with {
+        "headline_level" : 'h2',
+        "headline_type" : 'bold-headline bold-headline--negative',
+        "headline_title" : hero_title
+      } %}
+    {% endif %}
+  {% endblock %}
+  {% if cta is not empty %}
+    {% for item in cta.items %}
+      <a href="{{item.link}}" class="{{ item.type }}">{{ item.text }}</a>
+    {% endfor %}
+  {% endif %}
+  {% if hero_type == 'video' %}
+    <div class="video-controls">
+<button class="video-btn video-btn__pause" id="video-btn">
+        <span class="element-invisible">Pause</span>
+      </button>
+    </div>
+  {% endif %}
+  </div>
+</div>
