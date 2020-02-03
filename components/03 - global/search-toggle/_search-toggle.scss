@@ -1,0 +1,439 @@
+.search-button {
+  position: relative;
+  z-index: 200;
+  top: 0;
+  top: 0;
+  right: 0;
+  display: block;
+  width: auto;
+  height: 80px;
+  margin: 0;
+  padding: 7px 25px;
+  cursor: pointer;
+  transition: background .15s, border .15s, color .15s, transform .15s;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: none;
+  background: none;
+  font-size: 1rem;
+  font-weight: 700;
+
+  @include breakpoint(menu) {
+    position: absolute;
+    right: 0;
+
+    .header--horizontal & {
+      right: 20px;
+    }
+  }
+
+  @include breakpoint(container) {
+    right: 175px;
+
+    .header--horizontal & {
+      //right: -50px;
+    }
+  }
+
+  @include breakpoint(menu) {
+    top: 0;
+
+    height: 80px;
+    padding: 16px 25px 7px 18px;
+  }
+
+  // outline: none;
+
+  &:focus {
+    /* Some exciting button focus styles */
+    outline:none;
+  }
+
+  &:focus:not(:focus-visible) {
+    /* Undo all the above focused button styles
+     if the button has focus but the browser wouldn't normally
+     show default focus styles */
+  }
+
+  &:focus-visible {
+    /* Some even *more* exciting button focus styles */
+  }
+
+  .header--tertiary & {
+    width: 20%;
+    height: 90px;
+    background: none;
+
+    @include breakpoint(menu) {
+      top: 0px;
+      width: auto;
+    }
+  }
+
+  span {
+     //@include element-invisible;
+     display: none;
+    @include breakpoint(menu) {
+      //@include element-invisible-off;
+      display: inline;
+      overflow: unset;
+      position: unset !important;
+      display: inline-block;
+    }
+  }
+
+  .uiowa-bar--home & {
+    top: 0;
+    @include breakpoint(sm) {
+      top: 0;
+    }
+  }
+
+  &[aria-expanded="true"] {
+    background: $white;
+
+    @include breakpoint(menu) {
+      background: none;
+    }
+
+    &:before {
+      padding: 7px;
+      content: "\f00d";
+      color: $secondary;
+
+      @include breakpoint(menu) {
+        width: 35px;
+        height: 35px;
+        margin-right: 5px;
+        color: $secondary;
+        border-radius: 50%;
+        background: #fff;
+        line-height: 1.2;
+      }
+
+      .header--tertiary & {
+        width: 35px;
+        height: 35px;
+        color: white;
+        border-radius: 50%;
+        background: $secondary;
+
+      }
+
+      .header--primary & {
+        color: $secondary;
+
+        @include breakpoint(menu) {
+          color: $secondary;
+        }
+      }
+    }
+  }
+
+  &:before {
+    padding: $xsm;
+    padding-right: 7px;
+    content: "\f002";
+    color: $secondary;
+    font-size: 1.5rem;
+    @include fas();
+
+    @include breakpoint(menu) {
+      font-size: 1.2rem;
+    }
+
+    .header--primary & {
+      color: $secondary;
+
+      @include breakpoint(menu) {
+        color: $secondary;
+      }
+    }
+
+  }
+}
+
+
+
+/*
+@media (max-width: 1880px) and (min-width: 84.375em) {
+  .search-button {
+    right: 5%;
+  }
+}
+*/
+
+
+.search-is-open .search-overlay .hds-search {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  width: 70%;
+  cursor: text;
+
+  @include breakpoint(menu) {
+    width: 73%;
+    height: 50px;
+    border-bottom: 1px solid #6d5a0e;
+  }
+
+  @include breakpoint(container) {
+    width: 73%;
+    margin-right: 90px;
+  }
+
+}
+
+.search-is-open .header--tertiary .hds-search {
+  @include breakpoint(menu) {
+    border-bottom: 1px solid #666;
+  }
+}
+
+
+.search-is-open .header--primary .menu--top {
+  //@include element-invisible;
+  display: none;
+}
+
+
+.search-overlay .hds-search {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  right: 0;
+  width: 0px;
+  cursor: pointer;
+  transition: width .4s cubic-bezier(0.000, 0.795, 0.000, 1.000);
+  background: none;
+
+  button>* {
+    pointer-events: none;
+
+  }
+}
+
+
+
+.search-overlay .hds-search input[type="text"] {
+  padding-left: 0;
+  text-align: left;
+  color: $secondary;
+  border: none;
+  border-bottom-width: medium;
+  border-bottom-style: none;
+  border-bottom-color: currentcolor;
+  background: none;
+  box-shadow: none !important;
+  font-size: 1.5rem;
+
+  @include breakpoint(menu) {
+    .header--tertiary & {
+      border-bottom: none;
+    }
+  }
+
+  &::placeholder {
+    color: #000;
+
+    @include breakpoint(menu) {
+      color: #000;
+    }
+  }
+}
+
+
+
+.search-overlay .hds-search {
+  margin-top: 13px;
+  margin-left: 21px;
+  padding: 0;
+  padding: 0px;
+
+  @include breakpoint(menu) {
+    margin-top: 18px;
+    background: $primary;
+
+    .header--tertiary & {
+      background: white;
+    }
+  }
+
+  @include breakpoint(menu) {
+    .header--tertiary & {
+      margin-top: 22px;
+      margin-left: 0;
+      padding: 0;
+    }
+  }
+
+  .header--tertiary & {
+    margin-top: 19px;
+  }
+}
+
+
+.search-overlay .hds-search [type="submit"] {
+  padding: 0 10px;
+  background: none;
+}
+
+.search-overlay .hds-search [type="submit"] span {
+   //@include element-invisible;
+   display: none;
+}
+
+.search-overlay .hds-search [type="submit"]::before {
+  padding: 20px;
+  content: ' ';
+  background: url(../images/search-01.svg);
+  background-repeat: repeat;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 90%;
+
+  @include breakpoint(menu) {
+    background-position: center;
+  }
+
+  .header--tertiary & {
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+
+.search-overlay {
+  position: absolute;
+  visibility: hidden;
+
+  .search-is-open & {
+    @include breakpoint(menu) {
+      width: 100%;
+    }
+  }
+
+
+
+
+  &[aria-expanded="true"] {
+    z-index: 100;
+    visibility: visible;
+    transition: opacity .3s;
+    transition-timing-function: ease;
+    transition-timing-function: ease-in-out;
+    text-align: left;
+  }
+}
+
+
+// color changes for active search - change to focus invisible?
+.search-is-open {
+  @include breakpoint(menu) {
+    .uiowa-bar__title {
+      color: $primary;
+    }
+  }
+}
+
+
+.search-is-open .header--tertiary {
+  @include breakpoint(menu) {
+    .uiowa-bar__title {
+      color: $white;
+    }
+  }
+}
+
+
+
+.search-wrapper {
+  position: relative;
+
+  @include breakpoint(menu) {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+  }
+
+  @include breakpoint(container) {
+    margin-right: calc(50% - 50vw);
+  }
+
+  .search-is-open & {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+  }
+
+  .header--primary & {
+    align-items: flex-end;
+    flex-direction: column;
+
+    @include breakpoint(container) {
+      align-items: unset;
+    }
+  }
+
+  .header--tertiary & {
+    flex-wrap: wrap;
+  }
+
+  .header--horizontal & {
+    @include breakpoint(container) {
+      margin-right: calc(50% - 49vw);
+    }
+  }
+}
+
+
+.search-is-open .header--tertiary .search-wrapper {
+  align-items: flex-end;
+  flex-direction: column;
+}
+
+.search-overlay {
+  position: absolute;
+  top: 0;
+  top: -80px;
+  left: 0;
+  visibility: hidden;
+  align-items: center;
+  justify-content: center;
+  transition: top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94);
+  text-align: center;
+  background-color: $primary;
+  @include flexbox;
+
+  .header--tertiary & {
+    background-color: $white;
+  }
+
+  &[aria-expanded="true"] {
+    z-index: 100;
+    top: 0;
+    display: contents;
+    visibility: visible;
+    width: 100%;
+    transition: top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94);
+    transition: opacity .3s;
+    transition-timing-function: ease;
+    transition-timing-function: ease-in-out;
+    text-align: left;
+
+    @include breakpoint(menu) {
+      display: flex;
+    }
+  }
+}
+
+
+
+header.header--primary {
+  .search-is-open & {
+    @include breakpoint(menu) {
+      padding-bottom: 32px;
+      background: $secondary;
+    }
+  }
+}
