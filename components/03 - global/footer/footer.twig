@@ -1,10 +1,35 @@
 <footer class="footer">
 
+{% if footer_type == 'uiowa' %}
+
+
+
+<div class="footer__container">
+
+	<div class="footer__links footer__links--bttn">
+
+		<ul class="menu">
+			{% for item in link_bttn.items | slice(0, 4) %}
+				{% include "@footer--links-bttn" with {
+            "link_bttn_url": item.link_bttn_url,
+            "link_bttn_class": item.link_bttn_class,
+            "link_bttn_icon": item.link_bttn_icon,
+            "link_bttn_title": item.link_bttn_title,
+          } %}
+			{% endfor %}
+		</ul>
+
+	</div>
+</div>
+{% endif %}
+
+
+
   <div class="footer__container footer__container--flex">
 
 <div class="footer__links footer__links--contact">
 
-{% render '@uiowa-logo--tab' %}
+{% render '@logo--tab' %}
 
 
 {% if site_name %}
@@ -41,6 +66,9 @@ Melrose & Byington<br/>
 
 
 {% endif %}
+
+
+{% if footer_type == 'uiowa' %}
 
 
       <div class="footer__links footer__links--icon">
@@ -85,20 +113,20 @@ Melrose & Byington<br/>
     </div>
 
 
-<div class="footer__links footer__links--bttn">
-
-	<ul class="menu">
-		{% for item in link_bttn.items | slice(0, 4) %}
-			{% include "@footer--links-bttn" with {
-            "link_bttn_url": item.link_bttn_url,
-            "link_bttn_class": item.link_bttn_class,
-            "link_bttn_icon": item.link_bttn_icon,
-            "link_bttn_title": item.link_bttn_title,
-          } %}
-		{% endfor %}
-	</ul>
-
+<div class="footer__links footer__links--nav">
+	<nav role="navigation">
+		<ul class="menu">
+			{% for link in links_nav_3.links %}
+				{% include "@footer--links-nav" with {
+              "link_nav_url": item.link_nav_url,
+              "link_nav_title": item.link_nav_title
+            } %}
+			{% endfor %}
+		</ul>
+	</nav>
 </div>
+{% endif %}
+
 
 
 

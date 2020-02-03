@@ -7,7 +7,7 @@ const fractal = module.exports = require('@frctl/fractal').create();
 /*
  * Give your project a title.
  */
-fractal.set('project.title', 'HDS');
+fractal.set('project.title', 'UIDS');
 
 /*
 * Require the Twig adapter
