@@ -25,16 +25,13 @@
     z-index: 3;
     min-height: 100vh;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    @extend %container;
     .bttn--outline.bttn--secondary__light {
       background-color: rgba(0,0,0,0.3);
     }
     .video-controls {
       position: absolute;
       bottom: 10px;
-      left: 20px;
     }
     .video-btn {
       border: 0;
@@ -56,6 +53,22 @@
       &:hover {
         border-color: transparent transparent transparent #fff;
       }
+    }
+  }
+  &__container-center {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    .video-controls {
+      left: 20px;
+    }
+  }
+  &__container-bottom {
+    align-items: flex-end;
+    justify-content: flex-start;
+    text-align: left;
+    .video-controls {
+      right: 20px;
     }
   }
 }
