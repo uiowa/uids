@@ -1,12 +1,11 @@
 <div class="portrait__bg">
 
-	{% if not attributes is defined %}
 		{% include '@headline' with {
       "headline_level": 'h2',
 			"headline_title": 'Social Profiles',
 			"headline_type": 'bold-headline--negative'
     } %}
-	{% endif %}
+
 
 	<div class="portrait__wrapper">
 		<ul class="portrait__container">
@@ -16,13 +15,16 @@
 				<li class="portrait">
 					<div class="portrait__item">
 						<div class="portrait__gradient">
-							<h3 class="portrait__title">
-								{{ item.portrait_title }}<br/>
-								<span>{{ item.portrait_sub }}</span>
-							</h3>
+							<h3 class="portrait__title">{{ item.portrait_title }}</h3>
+							<div class="portrait__sub">{{ item.portrait_sub }}</div>
+
 						</div>
 						<div class="embed-responsive embed-responsive-9by16">
-							<video class="player" controls="false" preload="metadata" poster="{{ item.portrait_poster }}">
+							<button id="button" class="vidbttn">
+								<span id="label">play</span>
+							</button>
+
+							<video class="player" preload="metadata" poster="{{ item.portrait_poster }}">
 								<source src="{{ item.portrait_link }}" type="video/mp4">
 								<track label="English" kind="subtitles" srclang="en" src="{{ item.portrait_srt }}" default="default">
 									<p>Video is not Supporting</p>

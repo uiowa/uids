@@ -2,6 +2,7 @@
   @include flexbox;
   @include flex-wrap($value: wrap);
   @include flex($fg: 1, $fs: 1, $fb: 0);
+
   @include breakpoint(sm) {
     @include margin($right: $md, $left: $md);
   }
@@ -9,6 +10,7 @@
   &:first-child {
     @include margin($left: 0);
   }
+
   &:last-child {
     @include margin($right: 0);
   }
@@ -26,6 +28,7 @@
 
   &__container {
     margin: 0;
+
     @include breakpoint(sm) {
       @include flexbox;
     }
@@ -37,10 +40,10 @@
     width: 100%;
   }
 
- &__gradient {
+  &__gradient {
     position: absolute;
     z-index: 100;
-    top: 0;
+    bottom: 0;
     right: 0;
     left: 0;
     min-height: 150px;
@@ -49,20 +52,90 @@
     //background: $secondary;
     //background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23faf8fd' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
     font-size: $h6-font-size;
+
     //-webkit-mask-image: linear-gradient(to top, transparent 25%, black 75%);
     //mask-image: linear-gradient(to top, transparent 25%, black 75%);
+    &.active {
+      display: none;
+    }
   }
 
-
+  &__sub {
+    margin: 0;
+    font-size: .9rem;
+    color: $secondary;
+    background: $primary;
+    display: inline-block;
+  }
 
   &__title {
     margin: 0;
     font-size: $h6-font-size;
+    font-family: $font-family-caps-light;
     font-weight: $font-weight-medium-bold;
+    text-transform: uppercase;
+    padding: 10px;
     color: #fff;
-    span {
-      font-weight: $font-weight-light;
-    }
+    background: $secondary;
+    display: inline-block;
   }
 }
 
+
+
+.vidbttn {
+  position: absolute;
+  border: 0;
+  background: transparent;
+  box-sizing: border-box;
+  top: 50%;
+  z-index: 900;
+  left: 45%;
+  border-color: transparent transparent transparent #202020;
+  transition: 100ms all ease;
+  cursor: pointer;
+
+  &:hover {
+    border-color: transparent transparent transparent #404040;
+  }
+}
+
+
+button>* {
+  pointer-events: none;
+}
+
+
+
+.vidbttn {
+  background: black;
+  width: 55px;
+  border-radius: 50%;
+  height: 55px;
+
+  &:before {
+    margin-left: -8px;
+    content: "\f144";
+    color: $primary;
+    font-size: 3.5rem;
+    @include fas();
+
+  }
+
+  &.paused:before {
+    content: "\f28b";
+  }
+
+  span {
+    display: none;
+  }
+}
+
+
+.embed-responsive.active .vidbttn.active {
+  display: none;
+}
+
+.embed-responsive.active:hover .vidbttn.active {
+  display: block;
+}
