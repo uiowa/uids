@@ -1,34 +1,39 @@
 <div class="portrait__bg">
 
-  {% if not attributes is defined %}
-    {% include '@headline' with {
+	{% if not attributes is defined %}
+		{% include '@headline' with {
       "headline_level": 'h2',
 			"headline_title": 'Social Profiles',
 			"headline_type": 'bold-headline--negative'
     } %}
-  {% endif %}
+	{% endif %}
 
-  <div class="portrait__wrapper">
-    <ul class="portrait__container">
+	<div class="portrait__wrapper">
+		<ul class="portrait__container">
 
-      {% for item in portrait.items %}
+			{% for item in portrait.items %}
 
-        <li class="portrait">
-          <div class="portrait__item">
-            <div class="portrait__gradient">
-              <h3 class="portrait__title">
-                {{ item.portrait_title }}<br/>
-                <span>{{ item.portrait_sub }}</span>
-              </h3>
-            </div>
-            <div class="embed-responsive embed-responsive-9by16">
-              <iframe title="{{ item.portrait_title }}" id="player" src="{{ item.portrait_link }}" frameborder="0" allow="autoplay encrypted-media allowfullscreen"></iframe>
-            </div>
-          </div>
-        </li>
+				<li class="portrait">
+					<div class="portrait__item">
+						<div class="portrait__gradient">
+							<h3 class="portrait__title">
+								{{ item.portrait_title }}<br/>
+								<span>{{ item.portrait_sub }}</span>
+							</h3>
+						</div>
+						<div class="embed-responsive embed-responsive-9by16">
+							<video class="player" controls="false" preload="metadata" poster="{{ item.portrait_poster }}">
+								<source src="{{ item.portrait_link }}" type="video/mp4">
+								<track label="English" kind="subtitles" srclang="en" src="{{ item.portrait_srt }}" default="default">
+									<p>Video is not Supporting</p>
+								</video>
 
-      {% endfor %}
-    </ul>
+							</div>
+						</div>
+					</li>
 
-  </div>
-</div>
+				{% endfor %}
+			</ul>
+
+		</div>
+	</div>
