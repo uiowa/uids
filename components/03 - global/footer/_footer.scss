@@ -1,8 +1,10 @@
 .footer {
   position: relative;
   background: $secondary;
-  @include padding($top: $xlg, $right: 0, $bottom: $xlg, $left: 0);
-
+    @include padding($top: $xlg, $right: 0, $bottom: $xlg, $left: 0);
+    @include breakpoint(menu) {
+  @include padding($top: $xlg, $right: 0, $bottom: 0, $left: 0);
+    }
   .logo-icon--tab {
     padding-top: 0;
     padding-bottom: 0;
@@ -105,7 +107,7 @@
 
   &__links--nav {
     //margin-top: $md;
-    margin-bottom: $md;
+    margin-bottom: $xlg;
     @include breakpoint(menu) {
       display: flex;
       //flex: 0 0 20%;
@@ -117,7 +119,7 @@
       flex-grow: 2;
     }
   }
-
+/*
   &__links--bttn {
     .menu li {
       //@include margin($bottom: $md);
@@ -137,6 +139,27 @@
       }
     }
   }
+*/
+
+  &__links--bttn {
+    margin-bottom: 45px;
+    a.bttn {
+      padding: .2rem;
+    }
+    .menu li {
+      @include margin($bottom: $md);
+
+      @include breakpoint(sm) {
+        @include flex($fg: 1, $fs: 1, $fb: 0);
+        @include margin($right: $xlg, $bottom: 0);
+      }
+
+      &:last-child {
+        @include margin($right: 0);
+      }
+    }
+  }
+
 
 
   &__links--icon {

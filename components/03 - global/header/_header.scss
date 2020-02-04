@@ -1,44 +1,279 @@
-.header__container {
-  @extend %container;
+main.page__container.hds-content {
+  margin-top: 70px;
+}
 
-  &--full {
-    @include breakpoint(sm) {
-      @include flexbox;
-      @include padding($top: 0, $right: $gutter, $bottom: 0, $left: $gutter);
-      .site-header__left & {
-        display: block;
-      }
-    }
+
+img {
+  width: 100%;
+}
+
+// not essential
+.header--horizontal.menu-horizontal,
+.header--horizontal.menu-horizontal {
+  display: none;
+
+  @include breakpoint(menu) {
+    display: block;
   }
+}
 
-  @include breakpoint(sm) {
-    @include flexbox;
-    .site-header__left &,
-    .site-header__center & {
-      display: block;
-      padding: 0;
-    }
 
-    .site-header__center & {
-      max-width: 100%;
+
+.header--horizontal {
+  .bttn--menu {
+    @include breakpoint(menu) {
+      display: none;
     }
   }
 }
+
+
+////
+
 
 header {
-  &.site-header--primary {
-    background-color: $primary;
+  position: relative;
+  z-index: 400;
+  margin-bottom: 0;
+}
+
+
+.uiowa-bar {
+  position: relative;
+  z-index: 400;
+  display: block;
+  height: 80px;
+  background: $primary;
+
+  .header--tertiary & {
+    height: 50px;
   }
 
-  &.site-header--secondary {
-    background-color: $secondary;
-  }
-
-  &.site-header--tertiary {
-    background-color: #ffffff;
+  .header--primary & {
+    background: $primary;
+    @include breakpoint(menu) {
+      background: $primary;
+    }
   }
 }
 
-.black {
-  background: $blk;
+
+.uiowa-bar .page__container {
+  position: unset;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-right: 0;
+  margin-left: 0;
+
+  @include breakpoint(container) {
+    justify-content: unset;
+  }
+
+  @include breakpoint(menu) {
+    margin-right: auto;
+    margin-left: auto;
+  }
 }
+
+.header--secondary .uiowa-bar .page__container {
+
+  //flex-wrap: wrap;
+  //display: flex;
+  .logo-icon--tab {
+  //  flex: 20%;
+  //  width: auto;
+  }
+  .uiowa-bar__title {
+   // flex: 50%;
+   // margin: 0 0 0 10px;
+   width: 40%;
+    @include breakpoint(menu) {
+      width: auto;
+    }
+  }
+  .search-wrapper {
+ //   flex: 20%;
+  }
+  .o-canvas__group {
+  //  flex: 100%;
+  }
+}
+
+
+
+.header--tertiary .uiowa-bar .page__container {
+  justify-content: initial;
+  min-height: 50px;
+}
+
+
+// department header
+
+.site_name--wrapper {
+  position: relative;
+  z-index: 200;
+  border-bottom: 1px solid #ccc;
+  background: #fff;
+
+  @include breakpoint(menu) {
+    position: unset;
+  }
+
+  .o-canvas--lock & {
+    background: #f1f1f1;
+  }
+
+  .page__container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    min-height: 90px;
+    margin-right: 0;
+    margin-left: 0;
+
+    @include breakpoint(menu) {
+      position: unset;
+      justify-content: unset;
+      margin-right: auto;
+      padding-left: 1.25rem;
+
+    }
+
+    @include breakpoint(container) {
+      margin-left: auto;
+      padding-left: 0;
+    }
+  }
+}
+
+
+
+.header--horizontal.site_name--wrapper .page__container {
+  //min-height: auto;
+}
+
+
+// sticky header
+
+header.header--sticky {
+  @include breakpoint(menu) {
+    position: fixed;
+    z-index: 400;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: transform 0.4s;
+  }
+}
+
+// sticky header for tertiary
+
+.scroll-up .header--sticky .site_name--wrapper,
+.scroll-down .header--sticky .site_name--wrapper {
+  .o-canvas--open .o-canvas__drawer {
+    @include breakpoint(menu) {
+      top: 110px;
+    }
+  }
+
+  .search-overlay .hds-search {
+    @include breakpoint(menu) {
+      margin-top: 3px;
+
+      border-bottom: none;
+    }
+  }
+
+  .page__container {
+    @include breakpoint(menu) {
+      min-height: 60px;
+    }
+  }
+
+  .uiowa-bar__title {
+    @include breakpoint(menu) {
+      padding: 0;
+      transition: transform 0.4s, -webkit-transform 0.4s;
+      font-size: 1.6rem;
+    }
+  }
+
+  .bttn--drawer {
+    @include breakpoint(menu) {
+      height: 60px;
+      padding: 3px 35px 0;
+    }
+  }
+
+  .search-button {
+    @include breakpoint(menu) {
+      height: 60px;
+      padding: 7px 25px 7px 18px;
+    }
+  }
+}
+
+
+// fixed scroll bar
+
+.scroll-down header.header--sticky {
+  @include breakpoint(menu) {
+    transform: translate3d(0, -100%, 0);
+  }
+}
+
+.scroll-up header.header--sticky {
+  @include breakpoint(menu) {
+    transform: none;
+  }
+}
+
+
+.scroll-down header.header--sticky .logo-icon--tab {
+  @include breakpoint(menu) {
+    margin-top: -17px;
+  }
+}
+
+.scroll-up:not(.menu-open) header.header--sticky {
+  @include breakpoint(menu) {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+  }
+}
+
+
+/*
+
+	.block-superfish,
+	.region-primary-menu {
+	  margin-left: 0;
+	}
+
+	.block-superfish .menu li a {
+	  position: relative;
+	  padding: 1rem;
+	}
+
+	.breadcrumb {
+	  display: none;
+	}
+
+	.block-superfish .sf-style-none>li>a.sf-depth-1.menuparent::before,
+	.block-superfish .menu>li>a.sf-depth-1.menuparent::before {
+	  right: 0.7125rem;
+	  font-size: 0.8rem;
+	}
+
+	.block-superfish .sf-style-none ul,
+	.block-superfish .menu ul {
+	  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+	  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+	  background: #000;
+	}
+
+	.sf-menu ul li {
+	  background: #333;
+  }
+
+  */

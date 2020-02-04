@@ -1,7 +1,10 @@
 const drawerContainer = document.querySelectorAll(".o-canvas__wrapper");
 const toggleButtons = document.querySelectorAll("button.bttn--drawer");
-//const links = document.querySelectorAll(".bttn--drawer");
-var drawerItself = document.querySelectorAll(".o-canvas__drawer");
+const canvasDrawer = document.querySelectorAll(".o-canvas__drawer");
+
+//const searchBox = document.querySelectorAll(".hds-search input");
+//const searchButton = document.getElementById("search--button");
+//const searchLabel = document.getElementById("search-button-label");
 
 // drawer open/close functionality
 
@@ -12,21 +15,31 @@ document.addEventListener(
     // Add the active/open class
     e.target.classList.toggle("active");
     e.target.parentNode.classList.toggle("o-canvas--open");
-   // var drawerItself = document.querySelectorAll(".o-canvas__drawer");
-   // var drawerContainer = document.querySelectorAll(".o-canvas__wrapper");
-    // aria expanded for buttons
+
+    /*
+        document.body.classList.remove("search-is-open");
+        searchButton.setAttribute("aria-pressed", "false");
+           if (searchButton.getAttribute('aria-pressed') === 'true') {
+            searchLabel.innerHTML = 'Close';
+           } else if (searchButton.getAttribute('aria-pressed') === 'false') {
+             searchLabel.innerHTML = 'Search';
+           }
+    */
+
+    // add focus for search
+    /*     if (e.target.classList.contains("bttn--search")) {
+          for (let i = 0; i < searchBox.length; i++) {
+      searchBox[i].classList.add("search-focused");
+    }
+         } else {
+         }
+    */
+
     if (e.target.classList.contains("active")) {
       e.target.setAttribute("aria-expanded", "true");
       e.target.classList.remove("inactive");
       e.target.nextElementSibling.setAttribute("aria-hidden", "false");
-      // drawerItself.setAttribute("aria-hidden", "false");
-      //  e.target.parentNode.parentNode.classList.remove("drawer-is-closed");
-      /* for (let i = 0; i < drawerItself.length; i++) {
-
-      drawerItself[i].setAttribute("aria-hidden", "false");
-    }
-    */
-
+      //canvasDrawer[0].querySelector("#superfish-main-accordion li a").focus();
       document.body.classList.remove("o-canvas--complete");
       document.body.classList.add("o-canvas--lock");
     } else {
@@ -36,24 +49,28 @@ document.addEventListener(
       document.body.classList.add("o-canvas--complete");
       document.body.classList.remove("o-canvas--lock");
     }
-
-    // Get all toggle bttn links
-
-
-    // Loop through each link
+    // go through each link
     for (var i = 0; i < toggleButtons.length; i++) {
-      // If the link is the one clicked, skip it
+      // skip clicked link
       if (toggleButtons[i] === e.target) continue;
       toggleButtons[i].classList.remove("active");
-     toggleButtons[i].classList.remove("inactive");
+      toggleButtons[i].classList.remove("inactive");
       toggleButtons[i].setAttribute("aria-expanded", "false");
       toggleButtons[i].parentNode.classList.remove("o-canvas--open");
       toggleButtons[i].nextElementSibling.setAttribute("aria-hidden", "true");
+
+
+
     }
   },
   false
 );
 
+/*
+canvasDrawer[0].addEventListener("transitionend", e => {
+  canvasDrawer[0].querySelector("#superfish-main-accordion li a").focus();
+});
+*/
 // click outside of menu drawer
 
 document.addEventListener(
@@ -77,7 +94,7 @@ document.addEventListener(
 
 // esc key
 
-window.addEventListener("keydown", event => {
+window.addEventListener("keydown", function (event) {
   if (event.key === "Escape") {
     document.body.classList.remove("o-canvas--lock");
     document.body.classList.add("o-canvas--complete");
@@ -88,4 +105,33 @@ window.addEventListener("keydown", event => {
       toggleButtons[i].classList.remove("active");
     }
   }
+});
+
+
+
+
+const scrollUp = "scroll-up";
+const scrollDown = "scroll-down";
+const canvasLock = "o-canvas--lock";
+let lastScroll = 0;
+
+// navigation scroll
+
+window.addEventListener("scroll", function () {
+  const currentScroll = window.pageYOffset;
+  if (currentScroll == 0) {
+    body.classList.remove(scrollUp);
+    return;
+  }
+// if contains lock don't add anything....
+  if (currentScroll > lastScroll && !body.classList.contains(canvasLock)) {
+    // down
+    body.classList.remove(scrollUp);
+    body.classList.add(scrollDown);
+  } else if (currentScroll < lastScroll && body.classList.contains(scrollDown)) {
+    // up
+    body.classList.remove(scrollDown);
+    body.classList.add(scrollUp);
+  }
+  lastScroll = currentScroll;
 });

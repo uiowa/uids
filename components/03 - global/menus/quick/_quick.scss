@@ -1,22 +1,43 @@
 .menu--quick-links {
-  .menu {
-    @include flexbox;
-    margin: 30px 0 0;
-    flex-direction: column;
+  position: absolute;
+  //background: #fff;
+  bottom: -112px;
+  z-index: 100;
+  left: 5px;
+  width: 82%;
+  padding-left: 20px;
+  @include element-invisible;
+
+  .header--primary & {
+    @include breakpoint(menu) {
+      //display: block;
+      @include element-invisible-off;
+      position: absolute!important;
+    }
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+
     li {
-      //@include flexbox;
-      flex-grow: 1;
-      display: block;
+      list-style: none;
+      margin-right: 20px;
+
       i {
-        color: #666;
-        padding-right: 20px;
+        color: #999;
+        padding-right: 6px;
       }
+
       a {
         display: block;
         text-decoration: none;
-        color: $med-gray;
+        color: #fff;
+        font-size: .8rem;
         text-transform: uppercase;
         @include padding($top: $xsm, $right: $md, $bottom: $xsm, $left: 0);
+
         &:hover {
           text-decoration: underline;
         }
@@ -24,4 +45,3 @@
     }
   }
 }
-

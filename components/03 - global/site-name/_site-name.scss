@@ -1,41 +1,51 @@
-.header__brand {
-   @include breakpoint(sm) {
-     @include flex($fg: 1, $fs: 1, $fb: 0);
-   }
-  @include margin($right: $lg);
-  @include padding($top: $md,$bottom: $md);
-  .site-header__left &,
-  .site-header__center & {
-    flex: unset;
-    @include padding($top: $md, $right: 0, $bottom: $md, $left: 0);
+.uiowa-bar__title {
+  display: flex;
+  align-items: center;
+  margin: 0 auto 0 10px;
+  text-align: left;
+  font-size: calc(100% + 1.2vw);
+  font-weight: 300;
+
+  @include breakpoint(menu) {
+    flex-basis: content;
+    margin: 0 0 0 20px;
+    font-size: calc(100% + 1.4vw);
   }
-  .site-header__center & {
-    text-align: center;
+
+  @include breakpoint(container) {
+    margin: 0 0 0 20px;
+    text-align: left;
+    font-size: 2.2rem;
+  }
+
+  .header--secondary & {
+    .search-is-open & {
+      //@include element-invisible;
+      display: none;
+    }
+  }
+
+
+  .header--tertiary & {
+    width: 70%;
+    margin: 0;
+    padding: 20px;
+    text-align: left;
+
+    @include breakpoint(menu) {
+      width: auto;
+      padding: 25px 20px 25px 0;
+    }
+
+    .search-is-open & {
+      //@include element-invisible;
+      display: none;
+    }
   }
 }
 
-.header__slogan {
-  font-size: $h6-font-size;
-  .site-header--primary & {
-    color: $secondary;
-  }
-  .site-header--secondary & {
-    color: $primary;
+@media (max-width: 1018px) and (min-width: 855px) {
+  .header--tertiary .uiowa-bar__title {
+    font-size: calc(100% + 1vw);
   }
 }
-
-.header__logo-link {
-  @include padding($bottom: $md);
-  text-decoration: none;
-  color: $secondary;
-  font-size: $h4-font-size;
-  font-weight: $font-weight-bold;
-  .site-header--primary & {
-    color: $secondary;
-  }
-  .site-header--secondary & {
-    color: $white;
-  }
-}
-
-

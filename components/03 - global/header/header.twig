@@ -1,46 +1,80 @@
-{% if site_type == 'primary' %}
+{% if header_type == 'header--primary' %}
 
-  {% include '@uiowa-bar' with {
-    "bg_color": 'uiowa-bar--primary',
-    "site_type": 'uiowa-bar--standard'
-  } %}
+	<header class="{{ header_type }} {{ header_nav }} {{ header_action }}">
+		<div class="uiowa-bar">
+			<div class="page__container">
 
-{% elseif site_type == 'secondary' %}
+				{% render '@logo--tab' %}
+				{% render '@top' %}
+				{% render '@search-toggle--primary' %}
+				{% if header_nav == 'header--toggle' %}
+					{% include '@off-canvas' %}
+				{% endif %}
 
-  {% include '@uiowa-bar' with {
-    "bg_color": 'uiowa-bar--secondary',
-    "site_type": 'uiowa-bar--standard'
-  } %}
+			</div>
+		</div>
+	</header>
 
-{% elseif site_type == 'tertiary' %}
+{% elseif header_type == 'header--secondary' %}
 
-  {% include '@uiowa-bar' with {
-    "bg_color": 'uiowa-bar--primary',
-    "site_type": 'uiowa-bar--home'
-  } %}
+	<header class="{{ header_type }} {{ header_nav }} {{ header_action }}">
+		<div class="uiowa-bar">
+			<div class="page__container">
+
+				{% render '@logo--tab' %}
+				{% include '@site-name' with {"site_name": 'Carver College of Medicine'} %}
+				{% render '@search-toggle' %}
+				{% if header_nav == 'header--toggle' %}
+					{% include '@off-canvas' %}
+				{% endif %}
+
+			</div>
+		</div>
+	</header>
+
+	{% if header_nav == 'header--horizontal' %}
+		<nav class="menu-horizontal {{ header_type }}">
+			<div class="page__container">
+
+				{% render '@superfish' %}
+
+			</div>
+		</nav>
+	{% endif %}
+
+{% elseif header_type == 'header--tertiary' %}
+
+	<header class="{{ header_nav }} {{ header_type }} {{ header_action }}">
+		<div class="uiowa-bar">
+			<div class="page__container">
+
+				{% render '@logo--tab' %}
+				{% include '@site-slogan' with {"site_slogan": 'Carver College of Medicine'} %}
+				{% render '@top--department' %}
+
+			</div>
+		</div>
+	</div>
+
+	<div class="site_name--wrapper {{ header_nav }}">
+		<div class="page__container">
+
+			{% include '@site-name' with {"site_name": 'Fraternal Order of Eagles Diabetes Research Center'} %}
+			{% render '@search-toggle' %}
+			{% if header_nav == 'header--toggle' %}
+				{% include '@off-canvas' %}
+			{% endif %}
+
+		</div>
+	</header>
+
+	{% if header_nav == 'header--horizontal' %}
+		<nav class="menu-horizontal {{ header_type }} ">
+			<div class="page__container">
+				{% render '@superfish' %}
+			</div>
+		</nav>
+	{% endif %}
 
 {% endif %}
 
-<header class="header site-header {{ header_alignment }} {{ header_type }}">
-  <div class="header__container {{ header_color }}">
-
-    {% if site_type == 'primary' %}
-      {% include '@site-name' %}
-    {% elseif site_type == 'secondary' %}
-      {% include '@site-name' %}
-    {% elseif site_type == 'tertiary' %}
-    {% endif %}
-
-    <nav class="navbar navbar--main {{ nav_type }}">
-      <div id="nav" class="region-primary-menu">
-        {% if menu_type == 'superfish' %}
-          {% include '@superfish' %}
-        {% elseif menu_type == 'main' %}
-          {% include '@main-menu' %}
-        {% elseif menu_type == 'mega' %}
-          {% include '@mega-menu' %}
-        {% endif %}
-      </div>
-    </nav>
-  </div>
-</header>

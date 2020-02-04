@@ -1,29 +1,62 @@
-.o-canvas__wrapper .menu--group.menu--reversed {
-  display: block !important;
-  @include breakpoint(menu) {
-    display: none !important;
-  }
-}
-
 
 .menu--top {
-  display: none!important;
-   @include breakpoint(menu) {
-     display: flex!important;
-   }
-  padding-top: 5px;
   .menu {
     li {
-      a {
-        &:hover {
+      &:nth-child(3) {
+        display: none !important;
+
+        @include breakpoint(menu) {
+          display: flex !important;
         }
+      }
+
+      a {
+        .header--primary & {
+          font-size: 1.2rem;
+        }
+
+        &:hover {}
       }
     }
   }
 }
 
+.header--tertiary {
+  .menu--top {
+      @include element-invisible;
+        @include breakpoint(menu) {
+          @include element-invisible-off;
+          overflow: unset;
+          position: absolute !important;
+    }
+  }
+}
 
+.region-primary-menu {
+  margin-top: 7px;
+  position: absolute;
+  z-index: 400;
+  right: 96px;
+
+  @include breakpoint(menu) {
+    position: absolute;
+    top: 0;
+    right: 356px;
+    margin-top: 11px;
+  }
+}
+
+.header--tertiary .region-primary-menu {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  bottom: 0px;
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: 0;
+}
 
 .region-primary-menu.menu--top .menu li a {
-  font-weight: 300;
+  font-weight: $font-weight-light;
 }
