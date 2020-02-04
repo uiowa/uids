@@ -35,28 +35,24 @@
     bottom: 0;
     display: flex;
     @extend %container;
+    h1 {
+      color: white;
+    }
     .video-controls {
       position: absolute;
       bottom: 10px;
     }
     .video-btn {
+      background-color: transparent;
       border: 0;
-      background: transparent;
-      box-sizing: border-box;
-      width: 0;
-      height: 30px;
-      border-color: transparent transparent transparent #fff;
-      transition: 100ms all ease;
+      color: white;
+      font-size: $h3-font-size;
       cursor: pointer;
-
-      border-style: solid;
-      border-width: 15px 0 15px 24px;
-      &.video-btn__pause{
-        border-style: double;
-        border-width: 0px 0 0px 24px;
+      &::after {
+        content: '►';
       }
-      &:hover {
-        border-color: transparent transparent transparent #fff;
+      &.video-btn__pause::after {
+        content: '❙❙';
       }
     }
   }
