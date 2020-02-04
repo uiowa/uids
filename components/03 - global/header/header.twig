@@ -1,28 +1,41 @@
-{% if header_type == 'header--primary' %}
+<header class="{{ header_type }} {{ header_nav }} {{ header_action }}">
 
-	<header class="{{ header_type }} {{ header_nav }} {{ header_action }}">
-		<div class="uiowa-bar">
-			<div class="page__container">
+	<div class="uiowa-bar">
+		<div class="page__container">
 
-				{% render '@logo--tab' %}
+			{% render '@logo--tab' %}
+
+			{% if header_type == 'header--primary' %}
+
 				{% render '@top' %}
 				{% render '@search-toggle--primary' %}
-				{% if header_nav == 'header--toggle' %}
-					{% include '@off-canvas' %}
-				{% endif %}
 
-			</div>
+			{% elseif header_type == 'header--secondary' %}
+
+				{% include '@site-name' with {"site_name": 'Carver College of Medicine'} %}
+				{% render '@search-toggle' %}
+
+			{% elseif header_type == 'header--tertiary' %}
+
+				{% include '@site-slogan' with {"site_slogan": 'Carver College of Medicine'} %}
+				{% render '@top--department' %}
+
+
+			{% endif %}
+
+			{% if header_nav == 'header--toggle' %}
+				{% include '@off-canvas' %}
+			{% endif %}
+
 		</div>
-	</header>
+	</div>
 
-{% elseif header_type == 'header--secondary' %}
+	{% if header_type == 'header--tertiary' %}
 
-	<header class="{{ header_type }} {{ header_nav }} {{ header_action }}">
-		<div class="uiowa-bar">
+		<div class="site_name--wrapper {{ header_nav }}">
 			<div class="page__container">
 
-				{% render '@logo--tab' %}
-				{% include '@site-name' with {"site_name": 'Carver College of Medicine'} %}
+				{% include '@site-name' with {"site_name": 'Fraternal Order of Eagles Diabetes Research Center'} %}
 				{% render '@search-toggle' %}
 				{% if header_nav == 'header--toggle' %}
 					{% include '@off-canvas' %}
@@ -30,51 +43,24 @@
 
 			</div>
 		</div>
-	</header>
 
-	{% if header_nav == 'header--horizontal' %}
-		<nav class="menu-horizontal {{ header_type }}">
-			<div class="page__container">
-
-				{% render '@superfish' %}
-
-			</div>
-		</nav>
 	{% endif %}
+</header>
 
-{% elseif header_type == 'header--tertiary' %}
-
-	<header class="{{ header_nav }} {{ header_type }} {{ header_action }}">
-		<div class="uiowa-bar">
-			<div class="page__container">
-
-				{% render '@logo--tab' %}
-				{% include '@site-slogan' with {"site_slogan": 'Carver College of Medicine'} %}
-				{% render '@top--department' %}
-
-			</div>
+{% if header_nav == 'header--horizontal' %}
+	<nav class="menu-horizontal {{ header_type }} ">
+		<div class="page__container">
+			{% render '@superfish' %}
 		</div>
-	</div>
+	</nav>
 
-	<div class="site_name--wrapper {{ header_nav }}">
+{% elseif header_nav == 'header--horizontal' %}
+	<nav class="menu-horizontal {{ header_type }}">
 		<div class="page__container">
 
-			{% include '@site-name' with {"site_name": 'Fraternal Order of Eagles Diabetes Research Center'} %}
-			{% render '@search-toggle' %}
-			{% if header_nav == 'header--toggle' %}
-				{% include '@off-canvas' %}
-			{% endif %}
+			{% render '@superfish' %}
 
 		</div>
-	</header>
-
-	{% if header_nav == 'header--horizontal' %}
-		<nav class="menu-horizontal {{ header_type }} ">
-			<div class="page__container">
-				{% render '@superfish' %}
-			</div>
-		</nav>
-	{% endif %}
-
+	</nav>
 {% endif %}
 
