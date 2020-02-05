@@ -1,29 +1,26 @@
-<footer class="footer">
-
 {% if footer_type == 'uiowa' %}
 
+<div class="footer-cta__wrapper">
 
+	<div class="footer-cta__container">
 
-<div class="footer__container">
-
-	<div class="footer__links footer__links--bttn">
-
-		<ul class="menu">
-			{% for item in link_bttn.items | slice(0, 4) %}
-				{% include "@footer--links-bttn" with {
+				{% for item in link_bttn.items | slice(0, 3) %}
+					{% include "@footer--links-bttn" with {
             "link_bttn_url": item.link_bttn_url,
             "link_bttn_class": item.link_bttn_class,
             "link_bttn_icon": item.link_bttn_icon,
             "link_bttn_title": item.link_bttn_title,
           } %}
-			{% endfor %}
-		</ul>
+				{% endfor %}
 
 	</div>
 </div>
+
 {% endif %}
 
 
+
+<footer class="footer">
 
   <div class="footer__container footer__container--flex">
 
@@ -46,8 +43,6 @@
 
         <p>Iowa City, Iowa 52242<br>
 <a href="tel:319-335-3500">319-335-3500</a></p>
-
-
 
 {% endif %}
 
@@ -82,6 +77,21 @@ Melrose & Byington<br/>
           {% endfor %}
         </ul>
       </div>
+
+<div class="socket">
+	<ul class="socket__menu">
+		<li>© 2019 The University of Iowa</li>
+		<li>
+			<a href="http://www.uiowa.edu/homepage/online-privacy-information">Privacy Notice</a>
+		</li>
+		<li>
+			<a href="http://opsmanual.uiowa.edu/community-policies/nondiscrimination-statement">Nondiscrimination Statement</a>
+		</li>
+	</ul>
+</div>
+
+
+
     </div>
 
     <div class="footer__links footer__links--nav">
@@ -133,14 +143,4 @@ Melrose & Byington<br/>
   </div>
 </footer>
 
-<div class="socket">
-  <ul class="socket__menu">
-    <li>© 2019 The University of Iowa</li>
-    <li>
-      <a href="http://www.uiowa.edu/homepage/online-privacy-information">Privacy Notice</a>
-    </li>
-    <li>
-      <a href="http://opsmanual.uiowa.edu/community-policies/nondiscrimination-statement">Nondiscrimination Statement</a>
-    </li>
-  </ul>
-</div>
+

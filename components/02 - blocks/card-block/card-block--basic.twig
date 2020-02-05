@@ -1,5 +1,5 @@
 {% block card_wrapper_start %}
-  <div class="card card__{{ card_position }} {{ card_classes }}">
+  <div class="card card__{{ card_position }} {{ card_classes }} {{ card_type }}">
   {% endblock %}
 
   {% block card_img %}
@@ -20,14 +20,22 @@
       {% endif %}
     {% endblock %}
 
+{% block card_author %}
+	{% if card_author %}
+		<div class="card__author">{{ card_author }}</div>
+	{% endif %}
+{% endblock %}
+
+
     {% block card_content %}
       {{ card_text }}
     {% endblock %}
 
-  </div>
-  {% if card_link_url is not empty %}
-    <a class="bttn bttn--primary bttn--full" href="{{ card_link_url }}">{{ card_link_title }}</a>
+      {% if card_link_url is not empty %}
+    <a class="bttn bttn--outline bttn--tertiary bttn--sans-serif" href="{{ card_link_url }}">{{ card_link_title }} <i class="fas fa-arrow-right"></i></a>
   {% endif %}
+
+  </div>
 
   {% block card_wrapper_end %}
   </div>

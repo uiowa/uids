@@ -88,6 +88,7 @@
         font-weight: $font-weight-bold;
         text-decoration: none;
         color: white;
+        font-size: 1.1rem;
       }
 
       ul {
@@ -95,7 +96,6 @@
 
         li {
           @extend %no-ul-list;
-          //margin-top: $md;
 
           a {
             font-weight: $font-weight-light;
@@ -106,11 +106,9 @@
   }
 
   &__links--nav {
-    //margin-top: $md;
     margin-bottom: $xlg;
     @include breakpoint(menu) {
       display: flex;
-      //flex: 0 0 20%;
     }
   }
 
@@ -119,48 +117,6 @@
       flex-grow: 2;
     }
   }
-/*
-  &__links--bttn {
-    .menu li {
-      //@include margin($bottom: $md);
-      flex-basis: 100%;
-      line-height: 1.3;
-      margin-bottom: $md;
-      @include breakpoint(sm) {
-       // @include flex($fg: 1, $fs: 1, $fb: 0);
-       // @include margin($right: $xlg, $bottom: 0);
-      }
-      a {
-        padding: 0;
-      }
-
-      &:last-child {
-        @include margin($right: 0);
-      }
-    }
-  }
-*/
-
-  &__links--bttn {
-    margin-bottom: 45px;
-    a.bttn {
-      padding: .2rem;
-    }
-    .menu li {
-      @include margin($bottom: $md);
-
-      @include breakpoint(sm) {
-        @include flex($fg: 1, $fs: 1, $fb: 0);
-        @include margin($right: $xlg, $bottom: 0);
-      }
-
-      &:last-child {
-        @include margin($right: 0);
-      }
-    }
-  }
-
-
 
   &__links--icon {
     a {
@@ -182,28 +138,95 @@
 }
 
 
+
 .socket {
-  padding: $md;
-  text-align: center;
-  background: $primary;
+  &__container {
+    @extend %container;
+    @include breakpoint(container) {
+      padding: 0;
+    }
+  }
 
   &__menu {
     @extend %no-ul-list;
 
     li {
       display: inline;
-      border-right: 1px solid #000;
+      color: white;
+      font-size: $small-font-size;
+      border-right: 1px solid #ccc;
       @include padding($top: 0, $right: $sm, $left: $sm);
 
       &:last-child {
         border-right: none;
         @include padding($right: 0);
       }
+      &:first-child {
+        @include padding($left: 0);
+      }
 
       a {
         text-decoration: none;
-        color: $secondary;
+        color: $white;
       }
     }
   }
+}
+
+
+
+.footer-cta {
+  &__wrapper {
+    background: $primary;
+    padding: $lg 0;
+    margin: 0;
+      .bttn--outline {
+        border: 1px solid $secondary;
+        flex: 1;
+      }
+  }
+  &__container {
+     @extend %container;
+     justify-content: space-between;
+     display: flex;
+     @include breakpoint(container) {
+       padding: 0;
+     }
+  }
+}
+
+
+.footer-cta__container>a {
+  margin: 0 $md;
+  padding-top: $xsm;
+   &:before {
+     content: ' ';
+     background: url(../images/apply-01.svg);
+     background-repeat: no-repeat;
+     background-size: 90%;
+     width: 35px;
+     height: 35px;
+     display: inline-block;
+     margin-bottom: -5px;
+   }
+     &:nth-child(2):before {
+       content: ' ';
+       background: url(../images/location-01.svg);
+       background-repeat: no-repeat;
+       background-size: 90%;
+     }
+     &:nth-child(3):before {
+       content: ' ';
+       background: url(../images/request-01.svg);
+       background-repeat: no-repeat;
+       background-size: 90%;
+     }
+}
+
+.footer-cta__container>a:first-child {
+  margin-left: 0;
+}
+
+.footer-cta__container>a:last-child {
+  margin-right: 0;
 }

@@ -1,4 +1,4 @@
-const toggleButton = document.querySelectorAll("bttn--video");
+const toggleButton = document.querySelectorAll("button.vidbttn");
 var ctrlVideo = document.querySelectorAll(".player");
 var textOverlay = document.querySelectorAll(".portrait__overlay");
 var videoContainer = document.querySelectorAll(".embed-responsive");
@@ -17,7 +17,7 @@ Object.defineProperty(HTMLMediaElement.prototype, "playing", {
 document.addEventListener(
   "click",
   function (e) {
-    if (!e.target.classList.contains("bttn--video")) return;
+    if (!e.target.classList.contains("vidbttn")) return;
     e.target.classList.toggle("paused");
     for (var i = 0; i < videoContainer.length; i++) {
       videoContainer[i].classList.toggle("active");

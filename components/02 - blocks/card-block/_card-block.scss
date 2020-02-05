@@ -2,14 +2,18 @@
   position: relative;
   text-decoration: none;
   transition: transform .35s, z-index .5s;
+  margin-bottom: 1.6rem;
+  &.card--enclosed {
   border: 1px solid rgba(0, 0, 0, 0.125);
+  flex: 1 1 15%;
+  }
   @include flexbox;
   @include flex-direction($value: column);
   @include flex($fg: 1, $fs: 1, $fb: 0%);
 
   &__row {
     @include breakpoint(sm) {
-      @include margin($right: $sm, $bottom: 0, $left: $sm);
+      @include margin($right: 1.6rem, $bottom: 0, $left: 1.6rem);
 
       &:first-of-type {
         @include margin($left: 0);
@@ -22,9 +26,11 @@
   }
 
   &__wrapper {
-    @include breakpoint(sm) {
-      @include flexbox;
-    }
+     margin: $mobile-height-gutter $mobile-width-gutter;
+     @include breakpoint(sm) {
+       @include flexbox;
+       margin: $desktop-height-gutter $desktop-width-gutter;
+     }
   }
 
   &__img {
@@ -32,15 +38,36 @@
   }
 
   &__body {
-    padding: $gutter;
+    //padding: $gutter;
+    .card--enclosed & {
+      padding: 0 2rem 2rem 2rem;
+    }
     color: $secondary;
-    @include margin($top: $sm, $bottom: $sm);
+    //@include margin($top: $sm, $bottom: $sm);
+    p {
+      font-size: 1rem;
+      line-height: 2;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  &__author {
+    font-family: $font-family-serif;
+    font-weight: $font-weight-bold;
+    font-size: .9rem;
+    color: #666;
+    margin: $gutter 0;
+    font-style: italic;
   }
 
   &__title {
-    font-size: $h6-font-size;
-    font-weight: $font-weight-medium-bold;
-    @include margin($top: 0, $bottom: $sm);
+    font-family: $font-family-serif;
+    font-weight: $font-weight-bold;
+    font-size: $h3-font-size;
+    padding: 2rem 0 1rem;
+    line-height: 1;
+    margin: 0;
+   // @include margin($top: 0, $bottom: $sm);
 
     a {
       text-decoration: none;
@@ -53,40 +80,3 @@
     //color: $secondary;
   }
 }
-
-
-
-/*
-.card__bttn {
-  position: relative;
-  display: block;
-  float: left;
-  width: 30px;
-  height: 30px;
-  padding: 0;
-  cursor: pointer;
-  transition: background .25s, border .25s, color .25s, transform .25s;
-  border: none;
-  border: 1px solid $secondary;
-  border-radius: 50%;
-  background: $white;
-
-  @include margin($right: $sm);
-
-  .is-open & {
-    background: $secondary;
-  }
-
-  &:before {
-    padding: $xsm;
-    content: "\f141";
-    color: $secondary;
-    @include fas();
-
-    .is-open & {
-      content: "\f00d";
-      color: $white;
-    }
-  }
-}
-*/
