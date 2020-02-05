@@ -2,7 +2,7 @@ const toggleButton = document.querySelectorAll("button.vidbttn");
 var ctrlVideo = document.querySelectorAll(".player");
 var textOverlay = document.querySelectorAll(".portrait__gradient");
 var videoContainer = document.querySelectorAll(".embed-responsive");
-
+/*
 Object.defineProperty(HTMLMediaElement.prototype, "playing", {
   get: function () {
     return !!(
@@ -13,7 +13,7 @@ Object.defineProperty(HTMLMediaElement.prototype, "playing", {
     );
   }
 });
-
+*/
 document.addEventListener(
   "click",
   function (e) {

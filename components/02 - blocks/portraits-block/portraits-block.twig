@@ -1,40 +1,34 @@
 <div class="portrait__bg">
 
-		{% include '@headline' with {
-      "headline_level": 'h2',
-			"headline_title": 'Social Profiles',
-			"headline_type": 'bold-headline--negative'
-    } %}
-
 
 	<div class="portrait__wrapper">
 		<ul class="portrait__container">
 
-			{% for item in portrait.items %}
+<li class="portrait">
+	<div class="portrait__item">
+  <br />
+{% include '@headline' with {
+      "headline_level": 'h1',
+			"headline_title": 'Hear from Hawkeyes',
+			"headline_type": 'bold-headline bold-headline--serif underline--text-shadow underline underline--gold'
+    } %}
 
-				<li class="portrait">
-					<div class="portrait__item">
-						<div class="portrait__gradient">
-							<h3 class="portrait__title">{{ item.portrait_title }}</h3>
-							<div class="portrait__sub">{{ item.portrait_sub }}</div>
+<p>High rankings and cool buildings don’t make Iowa exceptional. Hawkeyes do. Meet just a few of the Hawkeyes making an impact.</p>
 
-						</div>
-						<div class="embed-responsive embed-responsive-9by16">
-							<button id="button" class="vidbttn">
-								<span id="label">play</span>
-							</button>
+</div></li>
 
-							<video class="player" preload="metadata" poster="{{ item.portrait_poster }}">
-								<source src="{{ item.portrait_link }}" type="video/mp4">
-								<track label="English" kind="subtitles" srclang="en" src="{{ item.portrait_srt }}" default="default">
-									<p>Video is not Supporting</p>
-								</video>
 
-							</div>
-						</div>
-					</li>
+{% for item in portrait.items %}
 
-				{% endfor %}
+	{% include "@portraits-block--basic" with {
+        "card_image": item.card_image,
+        "card_link_url": item.card_link_url,
+        "card_title": item.card_title,
+        "card_text": item.card_text,
+        "card_link_title": item.card_link_title
+      } %}
+{% endfor %}
+
 			</ul>
 
 		</div>
