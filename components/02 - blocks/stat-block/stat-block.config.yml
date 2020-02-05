@@ -3,34 +3,70 @@ hidden: false
 order: 3
 status: wip
 context:
+  stat_direction: 'horizontal'
   stat:
     items:
       - stat_title: '15:1'
         stat_summary: 'student-to-faculty ratio'
-        stat_image: ../../images/feature1.jpg
-      - stat_title: '78%'
+        stat_image: '../../images/feature1.jpg'
+        stat_pattern:
+        stat_prefix: 
+        stat_suffix: 
+        stat_classes:
+      - stat_title: '78'
         stat_summary: 'of classes have fewer than 30 students'
-        stat_image: ../../images/feature2.jpg
-      - stat_title: '14'
-        stat_summary: 'consecutive years named a "Best Buy" by Fiske Guide to Colleges'
-        stat_image: ../../images/feature3.jpg
+        stat_image: '../../images/feature2.jpg'
+        stat_pattern:
+        stat_prefix: 
+        stat_suffix: '%'
+        stat_classes: 'suffix-super'
+      - stat_title: '34'
+        stat_summary: 'best public university, u.s. news & world report'
+        stat_image: 
+        stat_pattern: '../../images/brain.png'
+        stat_prefix: '#'
+        stat_suffix: 
+        stat_classes:
       - stat_title: '5,000'
         stat_summary: 'courses offered every year'
-        stat_image: '../../images/feature1.jpg'
+        stat_image:
+        stat_pattern:
+        stat_prefix: '+'
+        stat_suffix: 
+        stat_classes: '../../images/feature3.jpg'
 
 variants:
   - name: default
+    hidden: true
+  - name: horizontal3
     label: Statistics Block 3
-    status: null
     context:
       stat_items: '3'
-
-  - name: More
+  - name: horizontal4
     label: Statistics Block 4
-    hidden: true
     context:
       stat_items: '4'
-
+  - name: vertical2
+    label: Statistics Block 2 Vertical
+    context:
+      stat_items: '2'
+      stat_direction: 'vertical'
+      stat:
+        items:
+          - stat_title: '78'
+            stat_summary: 'of classes have fewer than 30 students'
+            stat_image:
+            stat_pattern:
+            stat_prefix: 
+            stat_suffix: '%'
+            stat_classes: 'align-left suffix-super'
+          - stat_title: '95'
+            stat_summary: 'job/grad school placement rate'
+            stat_image:
+            stat_pattern:
+            stat_prefix: 
+            stat_suffix: '%'
+            stat_classes: 'align-left suffix-super'
   - name: advanced
     label: Stat Block Advanced
     hidden: true
