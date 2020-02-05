@@ -1,7 +1,11 @@
+{% if stat_pattern %}{% set stat_classes = stat_classes ~ ' has-pattern' %}{% endif %}
+{% if stat_image %}{% set stat_classes = stat_classes ~ ' has-image' %}{% endif %}
+
 {% block stat_wrapper_start %}
-  {% if stat_image %}
-    <div class="stat {{ stat_classes }}" {% if stat_image %} style="background-image: url('{% spaceless %}{{ stat_image }}{% endspaceless %}'); background-size: cover; background-position: center" {% endif %}>
-    {% endif %}
+    <div class="stat stat__row {{ stat_classes }}"
+      {% if stat_pattern %} style="background-image: url('{% spaceless %}{{ stat_pattern }}{% endspaceless %}'); background-size: fill; background-repeat: repeat;" {% endif %}
+      {% if stat_image %} style="background-image: url('{% spaceless %}{{ stat_image }}{% endspaceless %}'); background-size: cover; background-position: center;" {% endif %}
+    >
   {% endblock %}
 
   {% block heading %}
@@ -9,7 +13,9 @@
       {% include "@heading" with {
         "heading_level" : 'h2',
         "heading_class" : 'stat__title',
-        "heading" : stat_title
+        "heading" : stat_title,
+        "heading_prefix" : stat_prefix,
+        "heading_suffix" : stat_suffix
       } %}
     {% endif %}
   {% endblock %}

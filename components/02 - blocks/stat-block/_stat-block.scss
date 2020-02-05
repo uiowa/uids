@@ -1,25 +1,44 @@
 .stat {
-  position: relative;
+  color: $blk;
   padding: 5rem;
+  position: relative;
   text-align: center;
   @include flexbox;
   @include flex-direction($value: column);
   @include flex($fg: 1, $fs: 1, $fb: 0%);
 
-  &__row {
-    @include breakpoint(sm) {
-      @include margin($right: $sm, $bottom: 0, $left: $sm);
-    }
+  &__title {
+    position: relative;
+    margin: 0;
+    text-transform: uppercase;
+    line-height: 1.5;
+    font-family: $font-family-caps-bold;
+    font-size: $h3-font-size;
+    display: inline-table;
 
-    &:first-of-type {
-      @include margin($left: 0);
-    }
-
-    &:last-of-type {
-      @include margin($right: 0);
+    &:after {
+      display: block;
+      width: 100%;
+      height: 6px;
+      margin: 0 auto;
+      content: "";
+      background-color: #ffcd00;
     }
   }
 
+  &__description {
+    position: relative;
+    @include margin($top: $md);
+    font-family: $font-family-caps-bold;
+    text-transform: uppercase;
+  }
+}
+
+.has-image.stat {
+  color: $white;
+  .stat__title {
+    color: white;
+  }
   &:before {
     position: absolute;
     top: 0;
@@ -30,35 +49,41 @@
     content: "";
     background-color: rgba(0, 0, 0, 0.7);
   }
+}
 
-  &__wrapper {
-    @include breakpoint(sm) {
-      @include flexbox;
-    }
+.align-left.stat {
+  text-align: left;
+}
+
+.prefix-super.stat .heading__prefix,
+.suffix-super.stat .heading__suffix {
+  font-size: $h5-font-size;
+  vertical-align: super;
+}
+
+.prefix-sub.stat .heading__prefix,
+.suffix-sub.stat  .heading__suffix {
+  font-size: $h5-font-size;
+  vertical-align: sub;
+}
+
+.stat__wrapper.horizontal {
+  @include breakpoint(sm) {
+    @include flexbox;
   }
-
-  &__title {
-    position: relative;
-    margin: 0;
-    text-transform: uppercase;
-    line-height: 1.5;
-    color: $white;
-    font-family: $font-family-caps-bold;
-    font-size: $h3-font-size;
-
-    &:after {
-      display: block;
-      width: 50px;
-      height: 4px;
-      margin: 0 auto;
-      content: "";
-      background-color: #ffcd00;
+  .stat {
+    &__row {
+      @include breakpoint(sm) {
+        @include margin($right: $sm, $bottom: 0, $left: $sm);
+      }
+  
+      &:first-of-type {
+        @include margin($left: 0);
+      }
+  
+      &:last-of-type {
+        @include margin($right: 0);
+      }
     }
-  }
-
-  &__description {
-    position: relative;
-    color: #fff;
-    @include margin($top: $md);
   }
 }
