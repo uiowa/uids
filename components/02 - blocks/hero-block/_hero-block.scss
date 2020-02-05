@@ -3,7 +3,15 @@
     overflow: hidden;
     position: relative;
     min-height: 71vh;
+      .bold-headline--serif {
+        font-size: 4rem !important;
+      }
+      .bttn--secondary {
+        background: #22222294;
+        margin-right: $md;
+      }
   }
+
   &__overlay {
     height: 71vh;
     position: absolute;
@@ -35,25 +43,41 @@
     bottom: 0;
     @include flexbox;
     @extend %container;
+    &.hero__container-center {
+      max-width: 100%;
+    }
     h1 {
       color: white;
       font-family: $font-family-serif;
+      font-weight: 700;
+
     }
     .video-controls {
       position: absolute;
-      bottom: 10px;
+      bottom: 20px;
+      right: 20px;
     }
     .video-btn {
-      background-color: transparent;
-      border: 0;
-      color: white;
-      font-size: $h3-font-size;
+
+          border: 1px solid white;
+          border-radius: 50%;
+          width: 30px;
+          height: 30px;
+background: white;
+      color: $secondary;
+      font-size: 1rem;
       cursor: pointer;
       &::after {
         content: '►';
       }
       &.video-btn__pause::after {
         content: '❙❙';
+        margin-left: -3px;
+        color: white;
+        font-size: .9rem;
+      }
+      &.video-btn__pause {
+        background-color: transparent;
       }
     }
   }
@@ -62,7 +86,7 @@
     justify-content: center;
     text-align: center;
     .video-controls {
-      left: 20px;
+     // left: 20px;
     }
   }
   &__container-bottom {
@@ -70,7 +94,7 @@
     justify-content: flex-start;
     text-align: left;
     .video-controls {
-      right: 20px;
+     // right: 20px;
     }
   }
   &__content {

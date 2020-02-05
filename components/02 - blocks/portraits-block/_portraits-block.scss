@@ -14,16 +14,7 @@
   &:last-child {
     @include margin($right: 0);
   }
-
-  /*&__bg {
-    background: url('../images/social.jpg');
-    background-size: cover;
-    @include margin($top: $xxlg, $bottom: $xxlg);
-    @include padding($top: $xxlg, $bottom: $xxlg);
-  }*/
-
   &__wrapper {
-   // @extend %container;
    margin: 4.10rem;
   }
 
@@ -41,7 +32,7 @@
     width: 100%;
   }
 
-  &__gradient {
+  &__overlay {
     position: absolute;
     z-index: 100;
     bottom: 0;
@@ -50,12 +41,7 @@
     min-height: 150px;
     padding: $md;
     color: $white;
-    //background: $secondary;
-    //background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23faf8fd' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
     font-size: $h6-font-size;
-
-    //-webkit-mask-image: linear-gradient(to top, transparent 25%, black 75%);
-    //mask-image: linear-gradient(to top, transparent 25%, black 75%);
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
@@ -70,9 +56,6 @@
     font-size: .9rem;
     color: $secondary;
     display: inline-block;
-    //width: 40%;
-   // border-left: 10px solid $primary;
-   // padding: 2px 0;
     span {
       background-color: $primary;
       padding: 5px 15px 5px 10px;
@@ -93,14 +76,14 @@
 }
 
 
-
-.vidbttn {
+/*
+.bttn--video {
   position: absolute;
   border: 0;
   background: transparent;
   box-sizing: border-box;
   top: 50%;
-  z-index: 900;
+  z-index: 100;
   left: 45%;
   border-color: transparent transparent transparent #202020;
   transition: 100ms all ease;
@@ -110,15 +93,22 @@
     border-color: transparent transparent transparent #404040;
   }
 }
+*/
 
-
-button>* {
+button.bttn--video >* {
   pointer-events: none;
 }
 
 
 
-.vidbttn {
+.bttn--video {
+    position: absolute;
+    border: 0;
+    background: transparent;
+    box-sizing: border-box;
+    top: 50%;
+    z-index: 100;
+    left: 45%;
   background: black;
   width: 55px;
   border-radius: 50%;
@@ -143,11 +133,11 @@ button>* {
 }
 
 
-.embed-responsive.active .vidbttn.active {
+.embed-responsive.active .bttn--video.active {
   display: none;
 }
 
-.embed-responsive.active:hover .vidbttn.active {
+.embed-responsive.active:hover .bttn--video.active {
   display: block;
 }
 
