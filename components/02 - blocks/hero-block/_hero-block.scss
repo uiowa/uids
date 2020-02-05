@@ -1,0 +1,80 @@
+.hero {
+  &__wrapper {
+    overflow: hidden;
+    position: relative;
+    min-height: 71vh;
+  }
+  &__overlay {
+    height: 71vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-image: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.8));
+    z-index: 2;
+  }
+  &__ie8-poster, &__video, &__image {
+    width: 100%;
+    object-position: 50% 50%;
+    object-fit: none;
+    height: 71vh;
+    @include breakpoint(lg) {
+      position: absolute;
+      width: 100%;
+      top: 0;
+      object-fit: unset;
+      height: auto;
+    }
+  }
+  &__container {
+    position: absolute;
+    z-index: 3;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    @include flexbox;
+    @extend %container;
+    h1 {
+      color: white;
+      font-family: $font-family-serif;
+    }
+    .video-controls {
+      position: absolute;
+      bottom: 10px;
+    }
+    .video-btn {
+      background-color: transparent;
+      border: 0;
+      color: white;
+      font-size: $h3-font-size;
+      cursor: pointer;
+      &::after {
+        content: '►';
+      }
+      &.video-btn__pause::after {
+        content: '❙❙';
+      }
+    }
+  }
+  &__container-center {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    .video-controls {
+      left: 20px;
+    }
+  }
+  &__container-bottom {
+    align-items: flex-end;
+    justify-content: flex-start;
+    text-align: left;
+    .video-controls {
+      right: 20px;
+    }
+  }
+  &__content {
+    max-width: 100%;
+  }
+}
+
