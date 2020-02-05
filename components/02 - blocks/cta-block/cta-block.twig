@@ -1,24 +1,40 @@
+<div class="cta__wrapper">
+	<div class="cta__container">
 
-      <div class="cta">
-
-
-  <div class="cta__container">
-
-    {% block cta %}
-      {% if cta_title is not empty %}
-        {% include "@heading" with {
+		{% block cta %}
+			{% if cta_title is not empty %}
+				<div>
+					{% include "@heading" with {
           "heading_level" : 'h2',
           "heading_class" : 'bold-headline bold-headline--caps',
           "heading" : cta_title
         } %}
-      {% endif %}
-    {% endblock %}
+				</div>
+			{% endif %}
+		{% endblock %}
 
-    {% if cta_summary is not empty %}
-      <p class="cta__summary">{{ cta_summary }}</p>
-    {% endif %}
-    {% if cta_link_url is not empty %}
-      <a href="{{ cta_link_url }}" class="bttn bttn--tertiary">{{ cta_link_title }}</a>
-    {% endif %}
-  </div>
+		{% if cta_summary is not empty %}
+			<div>
+				<p class="cta__summary">{{ cta_summary }}</p>
+			</div>
+		{% endif %}
+		{% if cta_link_url is not empty %}
+			<div>
+
+				{#
+				{% include "@button" with {
+				          "button.link" : 'https://www.example.com',
+				          "button.type" : 'bttn bttn--tertiary bttn--caps',
+				          "button.text" : cta_link_title,
+				          "button.icon" : yes
+				        } %}
+				#}
+
+				<a href="{{ cta_link_url }}" class="bttn bttn--tertiary bttn--caps">{{ cta_link_title }}
+					<i class="fas fa-arrow-right"></i>
+				</a>
+
+			</div>
+		{% endif %}
+	</div>
 </div>

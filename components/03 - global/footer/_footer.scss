@@ -1,10 +1,12 @@
 .footer {
   position: relative;
   background: $secondary;
-    @include padding($top: $xlg, $right: 0, $bottom: $xlg, $left: 0);
-    @include breakpoint(menu) {
-  @include padding($top: $xlg, $right: 0, $bottom: 0, $left: 0);
-    }
+  @include padding($top: $xlg, $right: 0, $bottom: $xlg, $left: 0);
+
+  @include breakpoint(menu) {
+    @include padding($top: $xlg, $right: 0, $bottom: 0, $left: 0);
+  }
+
   .logo-icon--tab {
     padding-top: 0;
     padding-bottom: 0;
@@ -16,9 +18,12 @@
     color: #ccc;
     line-height: 1.5;
     font-weight: 100;
+
     a {
       color: $primary;
-      text-decoration: none;;
+      text-decoration: none;
+      ;
+
       &[href^="tel:"]:before,
       &[href^="mailto:"]:before {
         margin-right: $md;
@@ -26,9 +31,11 @@
         font-size: $small-font-size;
         color: #999;
       }
+
       &[href^="tel:"]:before {
         content: "\f095";
       }
+
       &[href^="mailto:"]:before {
         content: "\f0e0";
       }
@@ -54,6 +61,7 @@
 
   &__container {
     @extend %container;
+
     //padding: 0 $gutter;
     @include breakpoint(container) {
       padding: 0;
@@ -72,15 +80,16 @@
     flex-grow: 1;
     flex-shrink: 1;
     flex-basis: 0;
+
     .menu {
       margin: 0;
       flex-wrap: wrap;
       @extend %no-ul-list;
 
-        @include flexbox;
+      @include flexbox;
 
       li {
-       //@extend @extend %no-ul-list;
+        //@extend @extend %no-ul-list;
 
       }
 
@@ -107,6 +116,7 @@
 
   &__links--nav {
     margin-bottom: $xlg;
+
     @include breakpoint(menu) {
       display: flex;
     }
@@ -142,6 +152,7 @@
 .socket {
   &__container {
     @extend %container;
+
     @include breakpoint(container) {
       padding: 0;
     }
@@ -161,6 +172,7 @@
         border-right: none;
         @include padding($right: 0);
       }
+
       &:first-child {
         @include padding($left: 0);
       }
@@ -180,47 +192,66 @@
     background: $primary;
     padding: $lg 0;
     margin: 0;
-      .bttn--outline {
-        border: 1px solid $secondary;
+
+    .bttn--outline {
+      border: 1px solid $secondary;
+      display: block;
+
+      @include breakpoint(sm) {
         flex: 1;
+        display: inline-block;
       }
+    }
   }
+
   &__container {
-     @extend %container;
-     justify-content: space-between;
-     display: flex;
-     @include breakpoint(container) {
-       padding: 0;
-     }
+    @extend %container;
+    justify-content: space-between;
+
+    @include breakpoint(sm) {
+      display: flex;
+    }
+
+    @include breakpoint(container) {
+      padding: 0;
+    }
   }
 }
 
 
 .footer-cta__container>a {
-  margin: 0 $md;
+  margin: $md 0;
+
+  @include breakpoint(sm) {
+    margin: 0 $md;
+  }
+
   padding-top: $xsm;
-   &:before {
-     content: ' ';
-     background: url(../images/apply-01.svg);
-     background-repeat: no-repeat;
-     background-size: 90%;
-     width: 35px;
-     height: 35px;
-     display: inline-block;
-     margin-bottom: -5px;
-   }
-     &:nth-child(2):before {
-       content: ' ';
-       background: url(../images/location-01.svg);
-       background-repeat: no-repeat;
-       background-size: 90%;
-     }
-     &:nth-child(3):before {
-       content: ' ';
-       background: url(../images/request-01.svg);
-       background-repeat: no-repeat;
-       background-size: 90%;
-     }
+
+  &:before {
+    content: ' ';
+    background: url(../images/apply-01.svg);
+    background-repeat: no-repeat;
+    background-size: 90%;
+    width: 35px;
+    height: 35px;
+    display: inline-block;
+    margin-bottom: -5px;
+  }
+
+  &:nth-child(2):before {
+    content: ' ';
+    background: url(../images/location-01.svg);
+    background-repeat: no-repeat;
+    background-size: 90%;
+  }
+
+  &:nth-child(3):before {
+    content: ' ';
+    background: url(../images/request-01.svg);
+    background-repeat: no-repeat;
+    background-size: 90%;
+  }
 }
 
 .footer-cta__container>a:first-child {

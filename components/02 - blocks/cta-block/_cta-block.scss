@@ -1,53 +1,53 @@
-.banner {
-  position: relative;
-  @include flex($fg: 1, $fs: 1, $fb: 0%);
-    @include breakpoint(sm) {
-      min-height: 400px;
+.cta {
+  &__wrapper {
+    .bold-headline {
+      margin: 0;
     }
-
-  &__container {
-    position: relative;
-    @include padding($top: $xlg, $right: $xlg, $bottom: $xlg, $left: $md);
-    @include margin($top: 0, $right: $xlg, $bottom: 0, $left: $xlg);
-    @include breakpoint(sm) {
-      width: 50%;
-      @include margin($top: 0, $right: $xlg, $bottom: 0, $left: $xlg);
-    }
-  }
-
-  &__title {
+    background: $primary;
+    padding: $md 0;
     margin: 0;
-    text-transform: uppercase;
-    font-family: $font-family-caps-bold;
-    font-size: $h2-font-size;
+      .bttn--outline {
+        border: 1px solid $secondary;
+        flex: 1;
+      }
   }
+  &__container {
+      margin: 0 $mobile-width-gutter;
 
-  &__summary {
-    font-weight: $font-weight-normal;
-    @include margin($bottom: $lg);
-  }
-
-  &__image {
-    position: relative;
-    display: inline-block;
-    @include padding($top: $lg, $right: $lg, $bottom: 0, $left: $lg);
-    @include breakpoint(sm) {
-      float: right;
-      width: 40%;
-      @include padding($top: 0, $left: 0);
-    }
-  }
-
-  &:before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
-    width: 100%;
-    height: 100%;
-    content: "";
-    background-color: $primary;
-    background-color: rgba(255, 194, 16, 0.7);
+      @include breakpoint(sm) {
+        margin: 0 $desktop-width-gutter;
+      }
+     justify-content: space-between;
+     @include breakpoint(sm) {
+     display: flex;
+     }
+     @include breakpoint(container) {
+       padding: 0;
+     }
   }
 }
 
+.cta__container>div {
+  @include breakpoint(sm) {
+  margin: 0 $md;
+  }
+  padding-top: $xsm;
+  @include breakpoint(sm) {
+  flex: 1 1 33%;
+  }
+  @include center(both);
+}
+
+.cta__container>div:first-child {
+  margin-left: 0;
+}
+
+.cta__container>div:nth-child(2) {
+  @include breakpoint(sm) {
+  flex: 1 1 45%;
+  }
+}
+
+.cta__container>div:last-child {
+  margin-right: 0;
+}

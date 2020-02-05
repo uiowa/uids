@@ -1,6 +1,8 @@
 <div class="search-overlay" aria-expanded="false" aria-label="search tools for this site">
-	{% render '@search' %}
+	{% include '@search' %}
 	{% if search_type == 'search--primary' %}
-		{% render '@quick--search' %}
+		{% block search %}
+			{% render '@quick--search' %}
+		{% endblock %}
 	{% endif %}
 </div>

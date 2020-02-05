@@ -1,146 +1,130 @@
 {% if footer_type == 'uiowa' %}
 
-<div class="footer-cta__wrapper">
+	<div class="footer-cta__wrapper">
 
-	<div class="footer-cta__container">
+		<div class="footer-cta__container">
 
-				{% for item in link_bttn.items | slice(0, 3) %}
-					{% include "@footer--links-bttn" with {
+			{% for item in link_bttn.items | slice(0, 3) %}
+				{% include "@footer--links-bttn" with {
             "link_bttn_url": item.link_bttn_url,
             "link_bttn_class": item.link_bttn_class,
             "link_bttn_icon": item.link_bttn_icon,
             "link_bttn_title": item.link_bttn_title,
           } %}
-				{% endfor %}
+			{% endfor %}
 
+		</div>
 	</div>
-</div>
 
 {% endif %}
-
-
 
 <footer class="footer">
 
-  <div class="footer__container footer__container--flex">
+	<div class="footer__container footer__container--flex">
 
-<div class="footer__links footer__links--contact">
+		<div class="footer__links footer__links--contact">
 
-{% render '@logo--tab' %}
+			{% render '@logo--tab' %}
 
+			{% if site_name %}
+				<h2 class="footer__site--name">{{ site_name }}</h2>
+			{% endif %}
 
-{% if site_name %}
-	<h2 class="footer__site--name">{{ site_name }}</h2>
-{% endif %}
+			{% if site_slogan %}
+				<strong class="footer__site--slogan">{{ site_slogan }}</strong>
+			{% endif %}
 
-{% if site_slogan %}
-	<strong  class="footer__site--slogan">{{ site_slogan }}</strong>
-{% endif %}
+			{% if footer_type == 'uiowa' %}
 
+				<p>Iowa City, Iowa 52242<br>
+					<a href="tel:319-335-3500">319-335-3500</a>
+				</p>
 
+			{% endif %}
 
-{% if footer_type == 'uiowa' %}
+			{% if footer_type == 'department' %}
 
-        <p>Iowa City, Iowa 52242<br>
-<a href="tel:319-335-3500">319-335-3500</a></p>
+				<p>280 Boyd Law Building<br/>
+					Melrose & Byington<br/>
 
-{% endif %}
+					​Iowa City, IA 52242<br/>
 
-{% if footer_type == 'department' %}
+					<a href="tel:319-335-3500">319-335-9034</a><br/>
 
-<p>280 Boyd Law Building<br />
-Melrose & Byington<br/>
+					<a href="mailto:law-webmaster@uiowa.edu">law-webmaster@uiowa.edu</a>
+				</p>
 
-​Iowa City, IA 52242<br/>
+			{% endif %}
 
-<a href="tel:319-335-3500">319-335-9034</a><br/>
+			{% if footer_type == 'uiowa' %}
 
-
-<a href="mailto:law-webmaster@uiowa.edu">law-webmaster@uiowa.edu</a></p>
-
-
-
-{% endif %}
-
-
-{% if footer_type == 'uiowa' %}
-
-
-      <div class="footer__links footer__links--icon">
-        <ul class="menu">
-          {% for item in link_icon.items | slice(0, 7) %}
-            {% include "@footer--links-icon" with {
+				<div class="footer__links footer__links--icon">
+					<ul class="menu">
+						{% for item in link_icon.items | slice(0, 7) %}
+							{% include "@footer--links-icon" with {
               "link_icon_url": item.link_icon_url,
               "link_icon_class": item.link_icon_class,
               "link_icon_title": item.link_icon_title
             } %}
-          {% endfor %}
-        </ul>
-      </div>
+						{% endfor %}
+					</ul>
+				</div>
 
-<div class="socket">
-	<ul class="socket__menu">
-		<li>© 2019 The University of Iowa</li>
-		<li>
-			<a href="http://www.uiowa.edu/homepage/online-privacy-information">Privacy Notice</a>
-		</li>
-		<li>
-			<a href="http://opsmanual.uiowa.edu/community-policies/nondiscrimination-statement">Nondiscrimination Statement</a>
-		</li>
-	</ul>
-</div>
+				<div class="socket">
+					<ul class="socket__menu">
+						<li>© 2019 The University of Iowa</li>
+						<li>
+							<a href="http://www.uiowa.edu/homepage/online-privacy-information">Privacy Notice</a>
+						</li>
+						<li>
+							<a href="http://opsmanual.uiowa.edu/community-policies/nondiscrimination-statement">Nondiscrimination Statement</a>
+						</li>
+					</ul>
+				</div>
 
+			</div>
 
+			<div class="footer__links footer__links--nav">
+				<nav role="navigation">
 
-    </div>
-
-    <div class="footer__links footer__links--nav">
-      <nav role="navigation">
-
-        <ul class="menu">
-          {% for link in links_nav_1.links %}
-            {% include "@footer--links-nav" with {
+					<ul class="menu">
+						{% for link in links_nav_1.links %}
+							{% include "@footer--links-nav" with {
               "link_nav_url": item.link_nav_url,
               "link_nav_title": item.link_nav_title
             } %}
-          {% endfor %}
-        </ul>
+						{% endfor %}
+					</ul>
 
-      </nav>
-    </div>
+				</nav>
+			</div>
 
-    <div class="footer__links footer__links--nav">
-      <nav role="navigation">
-        <ul class="menu">
-          {% for link in links_nav_2.links %}
-            {% include "@footer--links-nav" with {
+			<div class="footer__links footer__links--nav">
+				<nav role="navigation">
+					<ul class="menu">
+						{% for link in links_nav_2.links %}
+							{% include "@footer--links-nav" with {
               "link_nav_url": item.link_nav_url,
               "link_nav_title": item.link_nav_title
             } %}
-          {% endfor %}
-        </ul>
-      </nav>
-    </div>
+						{% endfor %}
+					</ul>
+				</nav>
+			</div>
 
-
-<div class="footer__links footer__links--nav">
-	<nav role="navigation">
-		<ul class="menu">
-			{% for link in links_nav_3.links %}
-				{% include "@footer--links-nav" with {
+			<div class="footer__links footer__links--nav">
+				<nav role="navigation">
+					<ul class="menu">
+						{% for link in links_nav_3.links %}
+							{% include "@footer--links-nav" with {
               "link_nav_url": item.link_nav_url,
               "link_nav_title": item.link_nav_title
             } %}
-			{% endfor %}
-		</ul>
-	</nav>
-</div>
-{% endif %}
+						{% endfor %}
+					</ul>
+				</nav>
+			</div>
+		{% endif %}
 
-
-
-
-  </div>
+	</div>
 </footer>
-
-
