@@ -1,24 +1,38 @@
-{% if stat_pattern %}{% set stat_classes = stat_classes ~ ' has-pattern' %}{% endif %}
-{% if stat_image %}{% set stat_classes = stat_classes ~ ' has-image' %}{% endif %}
+{% if stat_image_position == 'top' %}
+	<div class="stat__grid">
+		{% block stat_img %}
+			{% if stat_image %}
+				<img class="stat__img" src="{{ stat_image }}" alt="Alt Text">
+			{% endif %}
+		{% endblock %}
+	</div>
+{% endif %}
 
-{% block stat_wrapper_start %}
-    <div class="stat stat__row {{ stat_classes }}"
-      {% if stat_pattern %} style="background-image: url('{% spaceless %}{{ stat_pattern }}{% endspaceless %}'); background-size: fill; background-repeat: repeat;" {% endif %}
-      {% if stat_image %} style="background-image: url('{% spaceless %}{{ stat_image }}{% endspaceless %}'); background-size: cover; background-position: center;" {% endif %}
-    >
-  {% endblock %}
-
-  {% block heading %}
-    {% if stat_title is not empty %}
-      {% include "@heading" with {
-        "heading_level" : 'h2',
-        "heading_class" : 'stat__title',
-        "heading" : stat_title,
-        "heading_prefix" : stat_prefix,
-        "heading_suffix" : stat_suffix
-      } %}
-    {% endif %}
-  {% endblock %}
-
-  <p class="stat__description">{{ stat_summary }}</p>
+<div class="stat__grid stat__grid--centered">
+	{% block heading %}
+		<div>
+			{% if stat_title is not empty %}
+				{% include "@heading" with {
+          "heading_level" : 'h2',
+          "heading_class" : 'stat__title',
+          "heading" : stat_title,
+          "heading_prefix" : stat_prefix,
+          "heading_suffix" : stat_suffix
+        } %}
+			{% endif %}
+		{% endblock %}
+	</div>
+	<div>
+		<p class="stat__description">{{ stat_summary }}</p>
+	</div>
 </div>
+
+{% if stat_image_position == 'bottom' %}
+	<div class="stat__grid">
+		{% block stat_img %}
+			{% if stat_image %}
+				<img class="stat__img" src="{{ stat_image }}" alt="Alt Text">
+			{% endif %}
+		{% endblock %}
+	</div>
+{% endif %}
