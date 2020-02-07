@@ -146,6 +146,29 @@
   order: $int;
 }
 
+// vertical center mixin
+@mixin center($position) {
+  display: flex;
+
+  @if $position=='both' {
+    align-items: center;
+    justify-content: center;
+  }
+
+  @else if $position=='vertical' {
+    align-items: center;
+  }
+
+  @else if $position=='horizontal' {
+    justify-content: center;
+  }
+
+  @else if $position=='none' {
+    align-items: stretch;
+    justify-content: flex-start;
+  }
+}
+
 
 //////////  Padding/Margin
 
@@ -258,7 +281,11 @@
 
 %bttn--tertiary {
   color: $secondary;
-  background: $white;
+  background: white;
+}
+
+%bttn--transparent {
+  background: transparent;
 }
 
 %bttn--full {

@@ -1,44 +1,111 @@
+.stat__grid {
+  margin: $lg 0;
+
+  @include breakpoint(sm) {
+    margin: 0;
+    background: url('../../images/brain-pattern.svg');
+    background-size: 200%;
+  }
+}
+
+
+.stat__grid--centered {
+  @include center(both);
+  flex-flow: column nowrap;
+}
+
+.stat__grid:nth-child(1) {
+  display: none;
+
+  @include breakpoint(sm) {
+    grid-area: 1 / 1 / 2 / 2;
+    display: block;
+  }
+}
+
+.stat__grid:nth-child(2) {
+  grid-area: 2 / 1 / 3 / 2;
+}
+
+.stat__grid:nth-child(3) {
+  grid-area: 1 / 2 / 2 / 3;
+}
+
+.stat__grid:nth-child(4) {
+  display: none;
+
+  @include breakpoint(sm) {
+    grid-area: 2 / 2 / 3 / 3;
+    display: block;
+  }
+}
+
+.stat__grid:nth-child(5) {
+  display: none;
+
+  @include breakpoint(sm) {
+    grid-area: 1 / 3 / 2 / 4;
+    display: block;
+  }
+}
+
+.stat__grid:nth-child(6) {
+  grid-area: 2 / 3 / 3 / 4;
+}
+
+
 .stat {
   color: $blk;
-  padding: 5rem;
   position: relative;
   text-align: center;
-  @include flexbox;
-  @include flex-direction($value: column);
-  @include flex($fg: 1, $fs: 1, $fb: 0%);
+
+  @include breakpoint(sm) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+  }
+
+  &.align-left {
+    text-align: left;
+    @include center(none);
+  }
 
   &__title {
     position: relative;
     margin: 0;
     text-transform: uppercase;
-    line-height: 1.5;
+    line-height: 1.2;
     font-family: $font-family-caps-bold;
-    font-size: $h3-font-size;
+    font-size: 8vw;
     display: inline-table;
+    border-bottom: 8px solid $primary;
+    padding: 0 $lg;
 
-    &:after {
-      display: block;
-      width: 100%;
-      height: 6px;
-      margin: 0 auto;
-      content: "";
-      background-color: #ffcd00;
+    @include breakpoint(sm) {
+      font-size: 6vw;
     }
   }
 
   &__description {
     position: relative;
-    @include margin($top: $md);
     font-family: $font-family-caps-bold;
     text-transform: uppercase;
+    font-size: 1.325rem;
+    line-height: 1.4;
+    width: 70%;
+    margin: $md auto;
   }
 }
 
 .has-image.stat {
   color: $white;
+
   .stat__title {
     color: white;
   }
+
   &:before {
     position: absolute;
     top: 0;
@@ -51,39 +118,43 @@
   }
 }
 
-.align-left.stat {
-  text-align: left;
-}
-
-.prefix-super.stat .heading__prefix,
-.suffix-super.stat .heading__suffix {
-  font-size: $h5-font-size;
+.heading__prefix,
+.heading__suffix {
+  font-size: 4vw;
   vertical-align: super;
 }
 
-.prefix-sub.stat .heading__prefix,
-.suffix-sub.stat  .heading__suffix {
+/*
+.heading__prefix,
+.heading__suffix {
   font-size: $h5-font-size;
   vertical-align: sub;
 }
-
+*/
 .stat__wrapper.horizontal {
   @include breakpoint(sm) {
     @include flexbox;
   }
+
   .stat {
     &__row {
       @include breakpoint(sm) {
-        @include margin($right: $sm, $bottom: 0, $left: $sm);
+        // @include margin($right: $sm, $bottom: 0, $left: $sm);
       }
-  
+
       &:first-of-type {
         @include margin($left: 0);
       }
-  
+
       &:last-of-type {
         @include margin($right: 0);
       }
     }
   }
+}
+
+
+.stat_number {
+  min-height: 300px;
+  padding-top: $lg;
 }

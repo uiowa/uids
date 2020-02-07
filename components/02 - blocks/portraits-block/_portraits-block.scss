@@ -2,6 +2,7 @@
   @include flexbox;
   @include flex-wrap($value: wrap);
   @include flex($fg: 1, $fs: 1, $fb: 0);
+
   @include breakpoint(sm) {
     @include margin($right: $md, $left: $md);
   }
@@ -9,23 +10,21 @@
   &:first-child {
     @include margin($left: 0);
   }
+
   &:last-child {
     @include margin($right: 0);
   }
 
-  &__bg {
-    background: url('../images/social.jpg');
-    background-size: cover;
-    @include margin($top: $xxlg, $bottom: $xxlg);
-    @include padding($top: $xxlg, $bottom: $xxlg);
-  }
-
   &__wrapper {
-    @extend %container;
+    margin: $mobile-height-gutter $mobile-width-gutter;
+    @include breakpoint(sm) {
+      margin: $desktop-height-gutter $desktop-width-gutter;
+    }
   }
 
   &__container {
     margin: 0;
+
     @include breakpoint(sm) {
       @include flexbox;
     }
@@ -35,32 +34,144 @@
     position: relative;
     overflow: hidden;
     width: 100%;
+    margin-bottom: $gutter;
+
+    @include breakpoint(sm) {
+      margin-bottom: 0;
+    }
   }
 
-  &__gradient {
+  &__overlay {
     position: absolute;
     z-index: 100;
-    top: 0;
     right: 0;
+    bottom: 0;
     left: 0;
+    display: flex;
+    align-items: baseline;
+    flex-flow: column nowrap;
+    justify-content: center;
     min-height: 150px;
     padding: $md;
     color: $white;
-    background: $secondary;
-    background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23faf8fd' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
     font-size: $h6-font-size;
-    -webkit-mask-image: linear-gradient(to top, transparent 25%, black 75%);
-    mask-image: linear-gradient(to top, transparent 25%, black 75%);
+
+    &.active {
+      display: none;
+    }
+  }
+
+  &__sub {
+    display: inline-block;
+    margin: 0;
+    color: $secondary;
+    font-size: .9rem;
+
+    span {
+      padding: 5px 15px 5px 10px;
+      background-color: $primary;
+    }
   }
 
   &__title {
+    display: inline-block;
     margin: 0;
+    padding: 10px;
+    text-transform: uppercase;
+    color: #fff;
+    background: $secondary;
+    font-family: $font-family-caps-light;
     font-size: $h6-font-size;
     font-weight: $font-weight-medium-bold;
-    color: #fff;
-    span {
-      font-weight: $font-weight-light;
-    }
   }
 }
 
+button.vidbttn>* {
+  pointer-events: none;
+}
+
+
+.vidbttn {
+  position: absolute;
+  z-index: 100;
+  top: 50%;
+  left: 45%;
+  box-sizing: border-box;
+  width: 55px;
+  height: 55px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  background: black;
+
+  &:before {
+    margin-left: -8px;
+    content: "\f144";
+    color: $primary;
+    font-size: 3.5rem;
+    @include fas();
+  }
+
+  &.paused:before {
+    content: "\f28b";
+  }
+
+  span {
+    display: none;
+  }
+}
+
+
+.embed-responsive.active .vidbttn.active {
+  display: none;
+}
+
+.embed-responsive.active:hover .vidbttn.active {
+  display: block;
+}
+
+.underline--text-shadow {
+  text-shadow:
+    -2px -2px white,
+    -2px 2px white,
+    2px -2px white,
+    2px 2px white;
+}
+
+.underline {
+  display: inline;
+  background-size: 1px 1em;
+  box-shadow:
+    inset 0 -0.175em white,
+    inset 0 -0.2em #000;
+}
+
+.underline--gold {
+  box-shadow:
+    inset 0 -0.175em white,
+    inset 0 -0.25em $primary;
+}
+
+.bold-headline--serif {
+  font-size: 3.875rem;
+}
+
+
+video::cue {
+  //color: white;
+  //font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  //text-shadow: 0px 0px 20px black;
+}
+
+video::cue i {
+  font-style: italic;
+}
+
+video::cue(v) {
+
+}
+
+video::cue(c) {
+
+}

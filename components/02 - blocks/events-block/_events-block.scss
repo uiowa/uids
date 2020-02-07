@@ -1,0 +1,189 @@
+.events-card__heading {
+  margin-bottom: 30px;
+  padding: 20px 0 10px;
+  background: $secondary;
+
+  @include breakpoint(sm) {
+    width: 100px;
+    margin-right: 30px;
+    margin-bottom: 0;
+    padding: 60px 0;
+    transform: rotate(180deg);
+    writing-mode: vertical-rl;
+  }
+
+  @include center(both);
+
+  h2 {
+    @include breakpoint(sm) {
+      margin: 0 0 0 -13px;
+    }
+
+    a {
+      text-decoration: none;
+      text-transform: uppercase;
+      color: white;
+      font-family: $font-family-caps-bold;
+      font-size: $h3-font-size;
+    }
+  }
+}
+
+
+.events-card {
+  position: relative;
+  transition: transform .35s, z-index .5s;
+  @include flexbox;
+  @include flex-direction($value: column);
+  @include flex($fg: 1, $fs: 1, $fb: 0%);
+
+  &__body {
+    width: 70%;
+    padding-right: 30px;
+
+    @include breakpoint(sm) {
+      margin-top: -30px;
+    }
+  }
+
+  &__row {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 40px;
+
+    @include breakpoint(sm) {
+      padding-top: 30px;
+      @include margin($right: $sm, $bottom: 0, $left: $sm);
+      @include center(both);
+
+      &:first-of-type {
+        @include margin($left: 0);
+      }
+
+      &:last-of-type {
+        @include margin($right: 0);
+      }
+    }
+  }
+
+  &__wrapper {
+    background: $primary;
+    min-height: 270px;
+    padding-bottom: 20px;
+
+    @include breakpoint(sm) {
+      @include flexbox;
+      padding-bottom: 0;
+    }
+  }
+
+  &__img {
+    align-self: start;
+    padding: 8px;
+    border: 1px solid white;
+    border-radius: 50%;
+    background: $primary;
+    @include margin($bottom: $md);
+  }
+
+  &__image {
+    width: 30%;
+    margin-right: 30px;
+    margin-left: 10px;
+    @include breakpoint(sm) {
+      margin-left: 0;
+    }
+  }
+
+  &__label {
+    letter-spacing: .09rem;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    font-family: $font-family-serif;
+    font-size: $h6-font-size;
+    font-weight: $font-weight-bold;
+    @include margin($top: $sm, $bottom: $sm);
+
+    a {
+      text-decoration: none;
+      color: $secondary;
+    }
+  }
+
+  &__date {
+    margin-bottom: 10px;
+    font-family: $font-family-serif;
+    font-size: 1.2rem;
+    font-weight: $font-weight-light;
+    font-style: italic;
+    ;
+  }
+
+  &__text {
+    @include margin($top: $sm, $bottom: $sm);
+  }
+
+  &__link {
+    text-decoration: none;
+    letter-spacing: .06rem;
+    text-transform: uppercase;
+    color: $secondary;
+    font-weight: $font-weight-light;
+
+    &:after {
+      content: "\f0da";
+      @include padding($left: $sm);
+      @include fas();
+    }
+  }
+
+  &__details {
+
+    .is-open & {
+      clear: both;
+      @include element-invisible-off;
+      @include padding($top: $sm, $bottom: $sm);
+    }
+  }
+
+  &.is-open {
+    padding: $md;
+    transform: translateY(-10px) scale(1.01);
+    background: $light;
+    box-shadow: 3px 5px 5px 0 rgba(13, 23, 33, 0.1);
+  }
+}
+
+.events-card__bttn {
+  position: relative;
+  display: block;
+  float: left;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  cursor: pointer;
+  transition: background .25s, border .25s, color .25s, transform .25s;
+  border: none;
+  border: 1px solid $secondary;
+  border-radius: 50%;
+  background: $white;
+  @include margin($right: $sm);
+
+  .is-open & {
+    background: $secondary;
+  }
+
+  &:before {
+    padding: $xsm;
+    content: "\f141";
+    color: $secondary;
+    @include fas();
+
+    .is-open & {
+      content: "\f00d";
+      color: $white;
+    }
+  }
+}
