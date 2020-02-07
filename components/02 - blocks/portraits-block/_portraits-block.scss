@@ -9,6 +9,20 @@
 
   &:first-child {
     @include margin($left: 0);
+    flex-basis: 100%;
+    text-align: center;
+    @include breakpoint(container) {
+      flex: 1 1 0;
+      text-align: left;
+
+    }
+  }
+
+  &:nth-child(2) {
+    @include margin($left: 0);
+    @include breakpoint(container) {
+      @include margin($left: $md);
+    }
   }
 
   &:last-child {
@@ -18,6 +32,9 @@
   &__wrapper {
     margin: $mobile-height-gutter $mobile-width-gutter;
     @include breakpoint(sm) {
+      margin: $mobile-height-gutter $desktop-width-gutter;
+    }
+    @include breakpoint(container) {
       margin: $desktop-height-gutter $desktop-width-gutter;
     }
   }
@@ -27,6 +44,8 @@
 
     @include breakpoint(sm) {
       @include flexbox;
+      flex-direction: row;
+      flex-wrap: wrap;
     }
   }
 
@@ -36,6 +55,8 @@
     width: 100%;
     margin-bottom: $gutter;
 
+
+
     @include breakpoint(sm) {
       margin-bottom: 0;
     }
@@ -43,6 +64,13 @@
 
   &__overlay {
     position: absolute;
+    padding: $md;
+    @include breakpoint(sm) {position: relative;padding: 0;}
+     @include breakpoint(menu) {
+       position: absolute;
+       padding: $md;
+        min-height: 150px;
+     }
     z-index: 100;
     right: 0;
     bottom: 0;
@@ -51,14 +79,23 @@
     align-items: baseline;
     flex-flow: column nowrap;
     justify-content: center;
-    min-height: 150px;
-    padding: $md;
+
     color: $white;
     font-size: $h6-font-size;
 
     &.active {
       display: none;
     }
+  }
+
+  &__body {
+    @include breakpoint(sm) {
+      max-width: 60%;
+      margin: $lg auto;
+    }
+     @include breakpoint(container) {
+       max-width: 100%;
+     }
   }
 
   &__sub {
@@ -70,6 +107,15 @@
     span {
       padding: 5px 15px 5px 10px;
       background-color: $primary;
+        @include breakpoint(sm) {
+          display: block;
+          width: 100%;
+        }
+
+        @include breakpoint(menu) {
+          display: inline;
+          width: auto;
+        }
     }
   }
 
@@ -83,8 +129,14 @@
     font-family: $font-family-caps-light;
     font-size: $h6-font-size;
     font-weight: $font-weight-medium-bold;
+    @include breakpoint(sm) {display: block;width: 100%;}
+     @include breakpoint(menu) {
+       display: inline-block;
+       width: auto;
+     }
   }
 }
+
 
 button.vidbttn>* {
   pointer-events: none;
@@ -121,6 +173,13 @@ button.vidbttn>* {
   }
 }
 
+@media (hover:none),
+(hover:on-demand) {
+  .vidbttn {
+    display: none;
+  }
+}
+
 
 .embed-responsive.active .vidbttn.active {
   display: none;
@@ -153,7 +212,11 @@ button.vidbttn>* {
 }
 
 .bold-headline--serif {
-  font-size: 3.875rem;
+     font-size: calc(100% + 5vw);
+
+     @include breakpoint(sm) {
+       font-size: calc(100% + 2vw);
+     }
 }
 
 

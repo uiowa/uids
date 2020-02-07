@@ -1,12 +1,6 @@
 <li class="portrait">
 	<div class="portrait__item">
-		<div class="portrait__overlay">
-			<h3 class="portrait__title">{{ item.portrait_title }}</h3>
-			<div class="portrait__sub">
-				<span>{{ item.portrait_sub }}</span>
-			</div>
 
-		</div>
 		<div class="embed-responsive embed-responsive-9by16">
 			<button class="vidbttn">
 				<span id="label">play</span>
@@ -14,12 +8,19 @@
 
 			<video class="player" preload="metadata" poster="{{ item.portrait_poster }}">
 				<source src="{{ item.portrait_link }}" type="video/mp4">
-				<track label="English" kind="subtitles" srclang="en" src="{{ item.portrait_srt }}" default/>
-					<p>Video is not Supporting</p>
-				</video>
+				<track label="English" kind="subtitles" srclang="en" src="{{ item.portrait_srt }}" default="default"/>
+				<p>Video is not Supporting</p>
+			</video>
 
+		</div>
+
+		<div class="portrait__overlay">
+			<h3 class="portrait__title">{{ item.portrait_title }}</h3>
+			<div class="portrait__sub">
+				<span>{{ item.portrait_sub }}</span>
 			</div>
 		</div>
-	</li>
 
+	</div>
+</li>
 
