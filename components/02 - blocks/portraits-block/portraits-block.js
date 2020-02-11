@@ -1,6 +1,6 @@
 const toggleButton = document.querySelectorAll("button.vidbttn");
 var ctrlVideo = document.querySelectorAll(".player");
-var textOverlay = document.querySelectorAll(".portrait__overlay");
+var textOverlay = document.querySelectorAll(".highlight__wrapper");
 var videoContainer = document.querySelectorAll(".embed-responsive");
 
 /*

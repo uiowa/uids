@@ -11,6 +11,7 @@
     @include margin($left: 0);
     flex-basis: 100%;
     text-align: center;
+
     @include breakpoint(container) {
       flex: 1 1 0;
       text-align: left;
@@ -20,6 +21,7 @@
 
   &:nth-child(2) {
     @include margin($left: 0);
+
     @include breakpoint(container) {
       @include margin($left: $md);
     }
@@ -31,9 +33,11 @@
 
   &__wrapper {
     margin: $gutter;
+
     @include breakpoint(menu) {
       margin: $mobile-height-gutter $desktop-width-gutter;
     }
+
     @include breakpoint(container) {
       margin: $desktop-height-gutter $desktop-width-gutter;
     }
@@ -62,84 +66,34 @@
     }
   }
 
-  &__overlay {
-    position: absolute;
-    padding: $md;
-    @include breakpoint(sm) {position: relative;padding: 0;}
-     @include breakpoint(menu) {
-       position: absolute;
-       padding: $md;
-        min-height: 150px;
-     }
-    z-index: 100;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    align-items: baseline;
-    flex-flow: column nowrap;
-    justify-content: center;
-
-    color: $white;
-    font-size: $h6-font-size;
-
-    &.active {
-      display: none;
-    }
-  }
 
   &__body {
     @include breakpoint(sm) {
       max-width: 60%;
       margin: $lg auto;
     }
-     @include breakpoint(container) {
-       max-width: 100%;
-     }
-  }
 
-  &__sub {
-    display: inline-block;
-    margin: 0;
-    color: $secondary;
-    font-size: .9rem;
-    width: 100%;
-    @include breakpoint(menu) {
-      width: auto;
+    @include breakpoint(container) {
+      max-width: 100%;
     }
-
-    span {
-      padding: 5px 15px 5px 10px;
-      background-color: $primary;
-        @include breakpoint(sm) {
-          display: block;
-          width: 100%;
-        }
-
-        @include breakpoint(menu) {
-          display: inline;
-          width: auto;
-        }
-    }
-  }
-
-  &__title {
-    display: inline-block;
-    margin: 0;
-    padding: 10px;
-    text-transform: uppercase;
-    color: #fff;
-    background: $secondary;
-    font-family: $font-family-caps-light;
-    font-size: $h6-font-size;
-    font-weight: $font-weight-medium-bold;
-    @include breakpoint(sm) {display: block;width: 100%;}
-     @include breakpoint(menu) {
-       display: inline-block;
-       width: auto;
-     }
   }
 }
+
+
+
+.portrait {
+  .highlight__wrapper {
+    position: absolute;
+    padding: $md;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    &.active {
+      display: none;
+    }
+  }
+}
+
 
 
 button.vidbttn>* {
@@ -216,11 +170,11 @@ button.vidbttn>* {
 }
 
 .bold-headline--serif {
-     font-size: calc(100% + 5vw);
+  font-size: calc(100% + 5vw);
 
-     @include breakpoint(sm) {
-       font-size: calc(100% + 2vw);
-     }
+  @include breakpoint(sm) {
+    font-size: calc(100% + 2vw);
+  }
 }
 
 
@@ -234,10 +188,6 @@ video::cue i {
   font-style: italic;
 }
 
-video::cue(v) {
+video::cue(v) {}
 
-}
-
-video::cue(c) {
-
-}
+video::cue(c) {}
