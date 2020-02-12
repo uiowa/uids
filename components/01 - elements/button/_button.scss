@@ -4,24 +4,25 @@
   @extend %bttn;
 }
 
-.bttn--primary{
+.bttn--primary {
   @extend %bttn--primary;
-    border: 1px solid $primary;
+  border: 1px solid $primary;
 
-    &:hover,
-    &:focus {
-      border: 1px solid $secondary;
-    }
+  &:hover,
+  &:focus {
+    border: 1px solid $secondary;
+  }
 
 }
 
 .bttn--secondary {
   @extend %bttn--secondary;
-   border: 1px solid $secondary;
-   &:hover,
-   &:focus {
-     border: 1px solid $primary;
-   }
+  border: 1px solid $secondary;
+
+  &:hover,
+  &:focus {
+    border: 1px solid $primary;
+  }
 }
 
 .bttn--secondary__light {
@@ -30,11 +31,13 @@
 
 .bttn--tertiary {
   @extend %bttn--tertiary;
+  @extend %bttn--focus;
   border: 1px solid white;
-     &:hover,
-     &:focus {
-       border: 1px solid $secondary;
-     }
+
+  &:hover,
+  &:focus {
+    border: 1px solid $secondary;
+  }
 }
 
 .bttn--full {
@@ -44,38 +47,42 @@
 .bttn--outline {
   @extend %bttn--outline;
   border: 1px solid $primary;
-    &:hover,
-    &:focus {
-      background: #fff;
-      border: 1px solid $secondary;
-          color: $secondary;
-    }
+  @extend %bttn--focus;
+
+  &:hover,
+  &:focus {
+    background: #fff;
+    border: 1px solid #666;
+    color: $secondary;
+  }
 }
 
 .bttn--transparent {
   @extend %bttn--transparent;
-   &:hover,
-   &:focus {
-     background: #fff;
-       border: 1px solid white;
-   }
+
+  &:hover,
+  &:focus {
+    background: #fff;
+    border: 1px solid white;
+  }
 }
 
 
 
 .bttn--caps {
-text-transform: uppercase;
-font-family: $font-family-caps-bold;
+  text-transform: uppercase;
+  font-family: $font-family-caps-bold;
 }
 
 .bttn--sans-serif {
-font-family: $font-family-sans-serif;
-font-weight: $font-weight-normal;
-font-size: .9rem;
-letter-spacing: .04rem;
-i {
+  font-family: $font-family-sans-serif;
+  font-weight: $font-weight-normal;
   font-size: .9rem;
-}
+  letter-spacing: .04rem;
+
+  i {
+    font-size: .9rem;
+  }
 }
 
 .bttn__apply {
@@ -84,10 +91,12 @@ i {
   border: 1px solid $white;
   font-size: .95rem;
   display: none;
+
   @include breakpoint(sm) {
     display: block;
   }
 }
 
 @media (hover: hover) {}
+
 @media (hover: none) {}

@@ -12,15 +12,19 @@
       font-size: $h6-font-size;
     }
 
+
     &__sub {
-      //display: inline-block;
       margin: 0;
       color: $secondary;
-      font-size: 1.1rem;
+      font-size: .9rem;
+      line-height: 1.7;
+
+      @include breakpoint(container) {
+        font-size: 1rem;
+      }
 
       span {
-       // display: inline;
-        padding: 0.45rem;
+        padding: 0.45rem 1rem;
         background-color: $primary;
         box-decoration-break: clone;
         line-height: 1.4;
@@ -29,54 +33,45 @@
     }
 
     &__title {
-      //display: inline;
-      //margin-bottom: -$sm;
+      margin-bottom: 8px;
+      padding: 2px 0;
       text-transform: uppercase;
       font-family: $font-family-caps-bold;
-     // font-size: $h6-font-size;
+      font-size: calc(100% + -.7vw);
       line-height: 1.7;
-      padding: 2px 0;
-      margin-bottom: 8px;
 
-         font-size: calc(100% + 1vw);
-         line-height: 1.7;
+      @include breakpoint(menu) {
+        font-size: calc(100% + .3vw);
+      }
 
-         @include breakpoint(container) {
-           font-size: calc(100% + 1vw);
-           line-height: 1.2;
-         }
+      @include breakpoint(container) {
+        font-size: calc(100% + .8vw);
+        line-height: 1.4;
+      }
 
-      //padding: $md 0;
-        //  line-height: 1.5;
+
       span {
-     // box-decoration-break: clone;
-     // -webkit-box-decoration-break: clone;
-      color: #fff;
-      background: $secondary;
-      //padding:  $md;
-
-      display: inline;
-      padding: 0.45rem;
-
-      /* Needs prefixing */
-      box-decoration-break: clone;
-      -webkit-box-decoration-break: clone;
-
+        display: inline;
+        padding: 0.45rem 1rem;
+        color: #fff;
+        background: $secondary;
+        box-decoration-break: clone;
+        -webkit-box-decoration-break: clone;
       }
     }
   }
 
-
-
   @-moz-document url-prefix() {
     .highlight__title {
-       line-height: 1.8;
-       margin-bottom: -2px;
+      margin-bottom: -2px;
+      line-height: 1.8;
     }
-     .highlight__title span {
-       padding-top: 20px;
-     }
-     .highlight__sub span {
-       line-height: 1.7;
-     }
+
+    .highlight__title span {
+      padding-top: 20px;
+    }
+
+    .highlight__sub span {
+      line-height: 1.7;
+    }
   }

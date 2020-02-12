@@ -1,6 +1,6 @@
 .events-card__heading {
   margin-bottom: 30px;
-  padding: 20px 0 10px;
+  padding: 3px 0 0px;
   background: $secondary;
 
   @include breakpoint(menu) {
@@ -10,6 +10,7 @@
     transform: rotate(180deg);
     writing-mode: vertical-rl;
   }
+
   @include breakpoint(container) {
     margin-right: 30px;
   }
@@ -28,9 +29,9 @@
       font-family: $font-family-caps-bold;
       font-size: $h4-font-size;
 
-         @include breakpoint(sm) {
-           font-size: $h3-font-size;
-         }
+      @include breakpoint(sm) {
+        font-size: $h3-font-size;
+      }
     }
   }
 }
@@ -44,9 +45,14 @@
 
   &__body {
     padding: 0 $mobile-width-gutter;
-     @include breakpoint(menu) {
-       margin-top: -30px;
-     }
+
+    @include breakpoint(sm) {
+      width: auto;
+    }
+
+    @include breakpoint(menu) {
+      margin-top: -30px;
+    }
 
     @include breakpoint(container) {
       width: 70%;
@@ -57,7 +63,7 @@
   &__row {
     display: flex;
     flex-direction: row;
-    margin-bottom: 40px;
+    margin-bottom: 15px;
 
     @include breakpoint(menu) {
       padding-top: 30px;
@@ -66,6 +72,7 @@
 
       &:first-of-type {
         @include margin($left: 0);
+
       }
 
       &:last-of-type {
@@ -75,13 +82,13 @@
   }
 
   &__wrapper {
-    background: $primary;
     min-height: 270px;
     padding-bottom: 20px;
+    background: $primary;
 
     @include breakpoint(menu) {
-      @include flexbox;
       padding-bottom: 0;
+      @include flexbox;
     }
   }
 
@@ -94,14 +101,20 @@
     @include margin($bottom: $md);
   }
 
+
   &__image {
     display: none;
-
-    margin-right: 30px;
+    margin-right: 10px;
     margin-left: 10px;
+
+    @include breakpoint(sm) {
+      display: none;
+    }
+
     @include breakpoint(container) {
-      width: 30%;
       display: block;
+      width: 30%;
+      margin-right: 30px;
       margin-left: 0;
     }
   }
@@ -129,7 +142,6 @@
     font-size: 1.2rem;
     font-weight: $font-weight-light;
     font-style: italic;
-    ;
   }
 
   &__text {
@@ -151,6 +163,10 @@
   }
 
   &__details {
+    i {
+      padding-right: 10px;
+      color: white;
+    }
 
     .is-open & {
       clear: both;
@@ -196,5 +212,12 @@
       content: "\f00d";
       color: $white;
     }
+  }
+}
+
+
+@media only screen and (min-width: 400px) {
+  .events-card__image {
+    //display: flex;
   }
 }
