@@ -1,9 +1,11 @@
-if (document.getElementById("video-btn")) {
-  document.getElementById("video-btn").addEventListener("click", pausePlay);
-}
-
 const video = document.getElementById("video-container");
 const btn = document.getElementById("video-btn");
+
+if (document.getElementById("video-btn")) {
+  video.addEventListener("click", pausePlay);
+}
+
+
 
 // Pause and play
 function pausePlay() {
