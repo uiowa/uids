@@ -13,34 +13,70 @@
     }
 
     &__sub {
-      display: inline-block;
+      //display: inline-block;
       margin: 0;
       color: $secondary;
-      font-size: .9rem;
+      font-size: 1.1rem;
 
       span {
-        padding: $sm $md;
+       // display: inline;
+        padding: 0.45rem;
         background-color: $primary;
         box-decoration-break: clone;
-        line-height: 1.9;
+        line-height: 1.4;
         -webkit-box-decoration-break: clone;
       }
     }
 
     &__title {
-      display: inline;
-      margin-bottom: -$sm;
+      //display: inline;
+      //margin-bottom: -$sm;
       text-transform: uppercase;
       font-family: $font-family-caps-bold;
-      font-size: $h6-font-size;
-      padding: $md 0;
-          line-height: 1.5;
+     // font-size: $h6-font-size;
+      line-height: 1.7;
+      padding: 2px 0;
+      margin-bottom: 8px;
+
+         font-size: calc(100% + 1vw);
+         line-height: 1.7;
+
+         @include breakpoint(container) {
+           font-size: calc(100% + 1vw);
+           line-height: 1.2;
+         }
+
+      //padding: $md 0;
+        //  line-height: 1.5;
       span {
-      box-decoration-break: clone;
-      -webkit-box-decoration-break: clone;
+     // box-decoration-break: clone;
+     // -webkit-box-decoration-break: clone;
       color: #fff;
       background: $secondary;
-      padding:  $md;
+      //padding:  $md;
+
+      display: inline;
+      padding: 0.45rem;
+
+      /* Needs prefixing */
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+
       }
     }
+  }
+
+
+
+  @-moz-document url-prefix() {
+    .highlight__title {
+       line-height: 1.8;
+       margin-bottom: -2px;
+    }
+     .highlight__title span {
+       padding-top: 20px;
+     }
+     .highlight__sub span {
+       line-height: 1.7;
+     }
   }
