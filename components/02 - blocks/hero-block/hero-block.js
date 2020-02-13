@@ -2,7 +2,7 @@ const video = document.getElementById("video-container");
 const btn = document.getElementById("video-btn");
 
 if (document.getElementById("video-btn")) {
-  video.addEventListener("click", pausePlay);
+  document.getElementById("video-btn").addEventListener("click", pausePlay);
 }
 
 
