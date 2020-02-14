@@ -121,6 +121,7 @@ window.addEventListener("scroll", function () {
   const currentScroll = window.pageYOffset;
   if (currentScroll == 0) {
     body.classList.remove(scrollUp);
+    body.classList.remove(scrollDown);
     return;
   }
 // if contains lock don't add anything....
