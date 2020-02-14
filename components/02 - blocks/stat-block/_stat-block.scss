@@ -1,11 +1,12 @@
 .stat__grid {
-  margin: $lg 0;
+  margin: 0;
+  background: url('../../images/brain-pattern.svg');
+  background-size: 140%;
 
-  @include breakpoint(sm) {
-    margin: 0;
-    background: url('../../images/brain-pattern.svg');
-    background-size: 200%;
+  img {
+    height: 100%;
   }
+
 }
 
 
@@ -15,28 +16,34 @@
 }
 
 .stat__grid:nth-child(1) {
-  display: none;
+  grid-area: 1 / 1 / 2 / 2;
 
   @include breakpoint(sm) {
     grid-area: 1 / 1 / 2 / 2;
-    display: block;
   }
 }
 
 .stat__grid:nth-child(2) {
-  grid-area: 2 / 1 / 3 / 2;
+  grid-area: 1 / 2 / 2 / 3;
+
+  @include breakpoint(sm) {
+    grid-area: 2 / 1 / 3 / 2;
+  }
 }
 
 .stat__grid:nth-child(3) {
-  grid-area: 1 / 2 / 2 / 3;
+  grid-area: 2 / 1 / 3 / 2;
+
+  @include breakpoint(sm) {
+    grid-area: 1 / 2 / 2 / 3;
+  }
 }
 
 .stat__grid:nth-child(4) {
-  display: none;
+  grid-area: 2 / 2 / 3 / 3;
 
   @include breakpoint(sm) {
     grid-area: 2 / 2 / 3 / 3;
-    display: block;
   }
 }
 
@@ -51,13 +58,24 @@
 
 .stat__grid:nth-child(6) {
   grid-area: 2 / 3 / 3 / 4;
-}
+  display: none;
 
+  @include breakpoint(sm) {
+    display: flex;
+  }
+}
 
 .stat {
   color: $blk;
   position: relative;
   text-align: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  border-bottom: 1px solid #cccccc8a;
+
 
   @include breakpoint(sm) {
     display: grid;
@@ -78,26 +96,27 @@
     text-transform: uppercase;
     line-height: 1.2;
     font-family: $font-family-caps-bold;
-    font-size: 8vw;
+    font-size: calc(100% + 4vw);
     display: inline-table;
     border-bottom: 8px solid $primary;
     padding: 0 $lg;
-
-    @include breakpoint(sm) {
-      font-size: 6vw;
-    }
   }
 
   &__description {
     position: relative;
     font-family: $font-family-caps-bold;
     text-transform: uppercase;
-    font-size: 1.325rem;
+    font-size: 1rem;
     line-height: 1.4;
     width: 70%;
     margin: $md auto;
+
+    @include breakpoint(menu) {
+      font-size: calc(100% + .7vw);
+    }
   }
 }
+
 
 .has-image.stat {
   color: $white;
@@ -122,7 +141,12 @@
 .heading__suffix {
   font-size: 4vw;
   vertical-align: super;
+
+  @include breakpoint(sm) {
+    font-size: calc(100% + -2vw);
+  }
 }
+
 
 /*
 .heading__prefix,

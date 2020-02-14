@@ -1,40 +1,37 @@
 .cta {
   &__wrapper {
+    padding: $xlg 0;
+    background: $primary;
+
+    @include breakpoint(container) {
+      padding: $md 0;
+    }
 
     .bold-headline {
       margin: 0;
+      padding: 0;
     }
-
-    background: $primary;
-    padding: $xlg 0;
-    @include breakpoint(sm) {
-    padding: $md 0;
-    }
-    margin: -10px 0 0;
 
     .bttn--outline {
-      border: 1px solid $secondary;
       flex: 1;
+      border: 1px solid $secondary;
     }
   }
+
 
   &__summary {
     text-align: center;
-    @include breakpoint(sm) {
-      text-align: left;
-    }
   }
 
   &__container {
+    justify-content: space-between;
     margin: 0 $mobile-width-gutter;
 
-    @include breakpoint(sm) {
+    @include breakpoint(container) {
       margin: 0 $desktop-width-gutter;
     }
 
-    justify-content: space-between;
-
-    @include breakpoint(sm) {
+    @include breakpoint(container) {
       display: flex;
     }
 
@@ -45,16 +42,35 @@
 }
 
 .cta__container>div {
-  @include breakpoint(sm) {
+  @include breakpoint(container) {
     margin: 0 $md;
   }
-  padding-top: $xsm;
 
-  @include breakpoint(sm) {
+  @include breakpoint(container) {
     flex: 1 1 33%;
   }
 
   @include center(both);
+
+  &:first-child {
+    text-align: center;
+    h2 {
+      font-size: 3.2rem;
+    }
+  }
+
+  &:nth-child(2) {
+    margin: 0 auto;
+
+    @include breakpoint(sm) {
+      width: 60%;
+    }
+
+    @include breakpoint(container) {
+      width: auto;
+      margin: auto;
+    }
+  }
 }
 
 .cta__container>div:first-child {
@@ -62,7 +78,7 @@
 }
 
 .cta__container>div:nth-child(2) {
-  @include breakpoint(sm) {
+  @include breakpoint(container) {
     flex: 1 1 45%;
   }
 }

@@ -9,6 +9,22 @@
 
   &:first-child {
     @include margin($left: 0);
+    flex-basis: 100%;
+    text-align: center;
+
+    @include breakpoint(container) {
+      flex: 1 1 0;
+      text-align: left;
+
+    }
+  }
+
+  &:nth-child(2) {
+    @include margin($left: 0);
+
+    @include breakpoint(container) {
+      @include margin($left: $md);
+    }
   }
 
   &:last-child {
@@ -16,8 +32,13 @@
   }
 
   &__wrapper {
-    margin: $mobile-height-gutter $mobile-width-gutter;
+    margin: $mobile-height-gutter $gutter;
+
     @include breakpoint(sm) {
+      margin: 4rem $desktop-width-gutter;
+    }
+
+    @include breakpoint(container) {
       margin: $desktop-height-gutter $desktop-width-gutter;
     }
   }
@@ -27,6 +48,8 @@
 
     @include breakpoint(sm) {
       @include flexbox;
+      flex-direction: row;
+      flex-wrap: wrap;
     }
   }
 
@@ -36,55 +59,51 @@
     width: 100%;
     margin-bottom: $gutter;
 
+
+
     @include breakpoint(sm) {
       margin-bottom: 0;
     }
   }
 
-  &__overlay {
+
+  &__body {
+    @include breakpoint(sm) {
+      max-width: 60%;
+      margin: $lg auto;
+    }
+
+    @include breakpoint(container) {
+      max-width: 100%;
+    }
+  }
+}
+
+
+
+.portrait {
+  .highlight__title {
+    font-size: 1rem;
+
+    @include breakpoint(container) {
+      font-size: 1.3rem;
+    }
+  }
+
+  .highlight__wrapper {
     position: absolute;
-    z-index: 100;
+    padding: $md;
     right: 0;
     bottom: 0;
     left: 0;
-    display: flex;
-    align-items: baseline;
-    flex-flow: column nowrap;
-    justify-content: center;
-    min-height: 150px;
-    padding: $md;
-    color: $white;
-    font-size: $h6-font-size;
 
     &.active {
       display: none;
     }
   }
-
-  &__sub {
-    display: inline-block;
-    margin: 0;
-    color: $secondary;
-    font-size: .9rem;
-
-    span {
-      padding: 5px 15px 5px 10px;
-      background-color: $primary;
-    }
-  }
-
-  &__title {
-    display: inline-block;
-    margin: 0;
-    padding: 10px;
-    text-transform: uppercase;
-    color: #fff;
-    background: $secondary;
-    font-family: $font-family-caps-light;
-    font-size: $h6-font-size;
-    font-weight: $font-weight-medium-bold;
-  }
 }
+
+
 
 button.vidbttn>* {
   pointer-events: none;
@@ -121,57 +140,55 @@ button.vidbttn>* {
   }
 }
 
+@media (hover:none),
+(hover:on-demand) {
+  .vidbttn {
+    display: none;
+  }
+}
+
 
 .embed-responsive.active .vidbttn.active {
   display: none;
 }
 
-.embed-responsive.active:hover .vidbttn.active {
+
+.embed-responsive.active .vidbttn.active:focus {
   display: block;
 }
 
-.underline--text-shadow {
+.embed-responsive.active:hover .vidbttn.active:focus {
+  display: block;
+}
+
+.embed-responsive.active:hover .vidbttn.active,
+.embed-responsive.active:focus .vidbttn.active {
+  display: block;
+}
+
+.underline--gold {
   text-shadow:
     -2px -2px white,
     -2px 2px white,
     2px -2px white,
     2px 2px white;
-}
-
-.underline {
   display: inline;
   background-size: 1px 1em;
-  box-shadow:
-    inset 0 -0.175em white,
-    inset 0 -0.2em #000;
-}
-
-.underline--gold {
   box-shadow:
     inset 0 -0.175em white,
     inset 0 -0.25em $primary;
 }
 
-.bold-headline--serif {
-  font-size: 3.875rem;
-}
-
-
 video::cue {
-  //color: white;
-  //font-family: "Roboto", sans-serif;
   font-size: 20px;
-  //text-shadow: 0px 0px 20px black;
+  line-height: 1;
+  padding: 15px;
 }
 
 video::cue i {
   font-style: italic;
 }
 
-video::cue(v) {
+video::cue(v) {}
 
-}
-
-video::cue(c) {
-
-}
+video::cue(c) {}

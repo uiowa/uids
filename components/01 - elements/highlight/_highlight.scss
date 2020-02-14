@@ -1,0 +1,77 @@
+  .highlight {
+    &__wrapper {
+      z-index: 100;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      align-items: baseline;
+      flex-flow: column nowrap;
+      justify-content: center;
+      color: $white;
+      font-size: $h6-font-size;
+    }
+
+
+    &__sub {
+      margin: 0;
+      color: $secondary;
+      font-size: .9rem;
+      line-height: 1.7;
+
+      @include breakpoint(container) {
+        font-size: 1rem;
+      }
+
+      span {
+        padding: 0.45rem 1rem;
+        background-color: $primary;
+        box-decoration-break: clone;
+        line-height: 1.4;
+        -webkit-box-decoration-break: clone;
+      }
+    }
+
+    &__title {
+      margin-bottom: 8px;
+      padding: 2px 0;
+      text-transform: uppercase;
+      font-family: $font-family-caps-bold;
+      font-size: calc(100% + -.7vw);
+      line-height: 1.7;
+
+      @include breakpoint(menu) {
+        font-size: calc(100% + .3vw);
+      }
+
+      @include breakpoint(container) {
+        font-size: calc(100% + .8vw);
+        line-height: 1.4;
+      }
+
+
+      span {
+        display: inline;
+        padding: 0.45rem 1rem;
+        color: #fff;
+        background: $secondary;
+        box-decoration-break: clone;
+        -webkit-box-decoration-break: clone;
+      }
+    }
+  }
+
+  @-moz-document url-prefix() {
+    .highlight__title {
+      margin-bottom: -2px;
+      //line-height: 1.8;
+    }
+
+    .highlight__title span {
+      padding-top: 20px;
+    }
+
+    .highlight__sub span {
+      line-height: 1.7;
+    }
+  }

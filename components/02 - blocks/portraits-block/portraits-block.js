@@ -1,7 +1,9 @@
 const toggleButton = document.querySelectorAll("button.vidbttn");
-var ctrlVideo = document.querySelectorAll(".player");
-var textOverlay = document.querySelectorAll(".portrait__overlay");
-var videoContainer = document.querySelectorAll(".embed-responsive");
+const ctrlVideo = document.querySelectorAll(".player");
+const textOverlay = document.querySelectorAll(".portrait .highlight__wrapper");
+const videoContainer = document.querySelectorAll(".embed-responsive");
+const buttonLabel = document.getElementById("label");
+
 /*
 Object.defineProperty(HTMLMediaElement.prototype, "playing", {
   get: function () {
@@ -16,27 +18,29 @@ Object.defineProperty(HTMLMediaElement.prototype, "playing", {
 */
 document.addEventListener(
   "click",
-  function (e) {
-    if (!e.target.classList.contains("vidbttn")) return;
-    e.target.classList.toggle("paused");
+  ({
+    target
+  }) => {
+    if (!target.classList.contains("vidbttn")) return;
+    target.classList.toggle("paused");
     for (var i = 0; i < videoContainer.length; i++) {
       videoContainer[i].classList.toggle("active");
     }
 
     for (var i = 0; i < ctrlVideo.length; i++) {
       ctrlVideo[i].play();
-
-      e.target.classList.toggle("active");
-      document.getElementById("label").innerHTML = "Pause";
+      target.classList.toggle("active");
     }
 
+    for (var i = 0; i < buttonLabel.length; i++) {
+    }
     /*
       if (document.querySelector('video').playing) {
        console.log("play");
       }
 */
 
-    if (e.target.classList.contains("active")) {
+    if (target.classList.contains("active")) {
       for (var i = 0; i < textOverlay.length; i++) {
         textOverlay[i].classList.add("active");
       }
@@ -50,16 +54,16 @@ document.addEventListener(
         ctrlVideo[i].pause();
 
         document.getElementById("label").innerHTML = "Play";
-        e.target.classList.remove("active");
+        target.classList.remove("active");
       }
     }
 
     for (var i = 0; i < toggleButton.length; i++) {
       // skip clicked link
-      if (toggleButton[i] === e.target) continue;
+      if (toggleButton[i] === target) continue;
       ctrlVideo[i].pause();
       toggleButton[i].classList.remove("active");
-      document.getElementById("label").innerHTML = "Pause";
+      //buttonLabel[i].innerHTML = "Play";
       textOverlay[i].classList.remove("active");
       toggleButton[i].classList.remove("paused");
       videoContainer[i].classList.remove("active");
@@ -67,3 +71,40 @@ document.addEventListener(
   },
   false
 );
+
+
+
+const isMobile = {
+  Android() {
+    return navigator.userAgent.match(/Android/i);
+  },
+  BlackBerry() {
+    return navigator.userAgent.match(/BlackBerry/i);
+  },
+  iOS() {
+    return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+  },
+  iPhone() {
+    return navigator.userAgent.match(/iPhone/i);
+  },
+  iPad() {
+    return navigator.userAgent.match(/iPad/i);
+  },
+  Opera() {
+    return navigator.userAgent.match(/Opera Mini/i);
+  },
+  Windows() {
+    return navigator.userAgent.match(/IEMobile/i);
+  },
+  any() {
+    return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+  }
+};
+
+
+
+if (isMobile.any()) {
+  document.querySelectorAll(".player")[0].controls = true;
+  document.querySelectorAll(".player")[1].controls = true;
+  document.querySelectorAll(".player")[2].controls = true;
+}
