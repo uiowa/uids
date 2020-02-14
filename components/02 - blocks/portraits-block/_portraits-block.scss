@@ -83,7 +83,11 @@
 
 .portrait {
   .highlight__title {
-    font-size: 1.3rem;
+    font-size: 1rem;
+
+    @include breakpoint(container) {
+      font-size: 1.3rem;
+    }
   }
 
   .highlight__wrapper {
@@ -148,45 +152,42 @@ button.vidbttn>* {
   display: none;
 }
 
-.embed-responsive.active:hover .vidbttn.active {
+
+.embed-responsive.active .vidbttn.active:focus {
   display: block;
 }
 
-.underline--text-shadow {
+.embed-responsive.active:hover .vidbttn.active:focus {
+  display: block;
+}
+
+.embed-responsive.active:hover .vidbttn.active,
+.embed-responsive.active:focus .vidbttn.active {
+  display: block;
+}
+
+.underline--gold {
   text-shadow:
     -2px -2px white,
     -2px 2px white,
     2px -2px white,
     2px 2px white;
-}
-
-.underline {
   display: inline;
   background-size: 1px 1em;
-  box-shadow:
-    inset 0 -0.175em white,
-    inset 0 -0.2em #000;
-}
-
-.underline--gold {
   box-shadow:
     inset 0 -0.175em white,
     inset 0 -0.25em $primary;
 }
 
 .bold-headline--serif {
-  font-size: calc(100% + 5vw);
 
-  @include breakpoint(sm) {
-    font-size: calc(100% + 2.5vw);
-  }
 }
 
 
 video::cue {
   font-size: 20px;
   line-height: 1;
-  padding: 5px;
+  padding: 15px;
 }
 
 video::cue i {

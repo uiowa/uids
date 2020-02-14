@@ -1,6 +1,6 @@
 .events-card__heading {
   margin-bottom: 30px;
-  padding: 3px 0 0px;
+  padding: 11px 0 0px;
   background: $secondary;
 
   @include breakpoint(menu) {
@@ -35,6 +35,13 @@
     }
   }
 }
+
+@-moz-document url-prefix() {
+  .events-card__heading {
+    padding: 3px 0 0px;
+  }
+}
+
 
 .events-card {
   position: relative;
@@ -72,11 +79,10 @@
 
       &:first-of-type {
         @include margin($left: 0);
-
       }
 
       &:last-of-type {
-       // @include margin($right: 0);
+        // @include margin($right: 0);
       }
     }
   }
@@ -159,58 +165,6 @@
       content: "\f0da";
       @include padding($left: $sm);
       @include fas();
-    }
-  }
-
-  &__details {
-    i {
-      padding-right: 10px;
-      color: white;
-    }
-
-    .is-open & {
-      clear: both;
-      @include element-invisible-off;
-      @include padding($top: $sm, $bottom: $sm);
-    }
-  }
-
-  &.is-open {
-    padding: $md;
-    transform: translateY(-10px) scale(1.01);
-    background: $light;
-    box-shadow: 3px 5px 5px 0 rgba(13, 23, 33, 0.1);
-  }
-}
-
-.events-card__bttn {
-  position: relative;
-  display: block;
-  float: left;
-  width: 30px;
-  height: 30px;
-  padding: 0;
-  cursor: pointer;
-  transition: background .25s, border .25s, color .25s, transform .25s;
-  border: none;
-  border: 1px solid $secondary;
-  border-radius: 50%;
-  background: $white;
-  @include margin($right: $sm);
-
-  .is-open & {
-    background: $secondary;
-  }
-
-  &:before {
-    padding: $xsm;
-    content: "\f141";
-    color: $secondary;
-    @include fas();
-
-    .is-open & {
-      content: "\f00d";
-      color: $white;
     }
   }
 }

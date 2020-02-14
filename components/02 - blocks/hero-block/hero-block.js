@@ -5,8 +5,6 @@ if (document.getElementById("video-btn")) {
   document.getElementById("video-btn").addEventListener("click", pausePlay);
 }
 
-
-
 // Pause and play
 function pausePlay() {
   if (video.paused) {

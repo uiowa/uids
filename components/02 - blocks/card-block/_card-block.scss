@@ -1,25 +1,21 @@
 .card {
   position: relative;
-  text-decoration: none;
-  transition: transform .35s, z-index .5s;
-  margin-bottom: 1.6rem;
-  &.card--enclosed {
-    @include breakpoint(sm) {
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  flex: 1 1 15%;
-    }
-  }
-  @include flexbox;
+  display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
-      display: flex;
-      -webkit-box-orient: horizontal;
-      -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-      flex-direction: row;
-      -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  margin-bottom: 1.6rem;
+  transition: transform .35s, z-index .5s;
+  text-decoration: none;
+  @include flexbox;
   @include flex-direction($value: column);
   @include flex($fg: 1, $fs: 1, $fb: 0%);
+
+  &.card--enclosed {
+    @include breakpoint(sm) {
+      flex: 1 1 15%;
+      border: 1px solid rgba(0, 0, 0, 0.125);
+    }
+  }
 
   &__row {
     @include breakpoint(menu) {
@@ -35,23 +31,13 @@
     }
   }
 
-  &__head {
-    text-align: center;
-     @include center(horizontal);
-    margin: $mobile-height-gutter $mobile-width-gutter;
+  &__wrapper {
+    margin: $gutter $mobile-width-gutter;
 
     @include breakpoint(menu) {
+      margin: $gutter $desktop-width-gutter 10rem;
       @include flexbox;
-      margin: 6rem 0 3rem 0;
     }
-  }
-
-  &__wrapper {
-     margin: $gutter $mobile-width-gutter;
-     @include breakpoint(menu) {
-       @include flexbox;
-       margin: $gutter $desktop-width-gutter 10rem;
-     }
   }
 
   &__img {
@@ -59,19 +45,19 @@
   }
 
   &__body {
-    //padding: $gutter;
+    color: $secondary;
     .card--enclosed & {
       @include breakpoint(sm) {
-      padding: 0 2rem 2rem 2rem;
+        padding: 0 2rem 2rem 2rem;
       }
     }
-    color: $secondary;
-    //@include margin($top: $sm, $bottom: $sm);
+
     p {
+      display: none;
+      margin-bottom: 1.5rem;
       font-size: 1rem;
       line-height: 2;
-      margin-bottom: 1.5rem;
-      display: none;
+
       @include breakpoint(sm) {
         display: block;
       }
@@ -79,32 +65,33 @@
   }
 
   &__author {
-    font-family: $font-family-serif;
-    font-weight: $font-weight-bold;
-    font-size: .9rem;
-    color: #666;
-    margin: $gutter 0;
-    font-style: italic;
     display: none;
+    margin: $gutter 0;
+    color: #666;
+    font-family: $font-family-serif;
+    font-size: .9rem;
+    font-weight: $font-weight-bold;
+    font-style: italic;
+
     @include breakpoint(sm) {
       display: block;
     }
   }
 
   &__title {
-    font-family: $font-family-serif;
-    font-weight: $font-weight-bold;
-    font-size: calc(100% + 1vw);
-    padding: 2rem 0 1rem;
-    line-height: 1;
     margin: 0;
+    padding: 2rem 0 .5rem;
+    font-size: calc(100% + 1vw);
+    //font-family: $font-family-serif;
+    font-weight: $font-weight-bold;
+    line-height: 1.2;
     @include breakpoint(sm) {
-      font-size: calc(100% + 1.5vw);
+      font-size: calc(100% + 1vw);
     }
-     @include breakpoint(container) {
-       font-size: calc(100% + 1.5vw);
-     }
-   // @include margin($top: 0, $bottom: $sm);
+
+    @include breakpoint(container) {
+      font-size: calc(100% + 1vw);
+    }
 
     a {
       text-decoration: none;
@@ -115,5 +102,28 @@
   &__text {
     //@include margin($top: $sm, $bottom: $sm);
     //color: $secondary;
+  }
+}
+
+
+
+.card__head {
+  flex-wrap: wrap;
+  margin: $mobile-height-gutter $mobile-width-gutter;
+  text-align: center;
+  @include center(horizontal);
+
+  @include breakpoint(menu) {
+    margin: 6rem 0 3rem 0;
+    @include flexbox;
+  }
+
+  .bttn {
+    flex-basis: 100%;
+  }
+
+  h2 {
+    margin: 0;
+    padding: 0;
   }
 }

@@ -5,7 +5,6 @@
   }
 }
 
-
 .video-controls {
   position: absolute;
   z-index: 100;
@@ -44,6 +43,13 @@
   }
 }
 
+.hero__video {
+  display: none;
+
+  @include breakpoint(sm) {
+    display: block;
+  }
+}
 
 .hero {
   position: relative;
@@ -52,26 +58,18 @@
   &__video {
     width: 100%;
   }
+
+  &__image img {
+    display: block;
+    width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+  }
+
+  &.hero__bottom .hero__image img {
+    height: 57rem;
+  }
 }
-
-.hero .hero__image img {
-  display: block;
-  width: 100%;
-  //height: 100vh;
-  -o-object-fit: cover;
-  object-fit: cover;
-}
-
-.hero.hero__bottom .hero__image img {
-  height: 57rem;
-}
-
-.hero__content-center .cta a.bttn:nth-child(3) {margin-right: 0;}
-
-.hero__grid .hero__image img {
-  // height: 100vh;
-}
-
 
 .hero__image {
   overflow: hidden;
@@ -83,7 +81,6 @@
   .hero__content-center {
     .bold-headline--serif {
       display: none;
-       font-weight: $font-weight-bold;
       margin-bottom: $md;
 
       @include breakpoint(sm) {
@@ -105,11 +102,15 @@
 
     &:hover,
     &:focus {
-      // background: #000;
-      //  border: 1px solid white;
       color: $primary;
     }
   }
+
+
+  .hero__content-center .hero__links a.bttn:nth-child(3) {
+    margin-right: 0;
+  }
+
 
   .bold-headline {
     margin-top: $lg;
@@ -133,11 +134,6 @@
 
 .hero__container.hero__container-center {
   max-width: 100%;
-}
-
-.hero__link {
-  position: relative;
-  display: block;
 }
 
 .hero .hero__content {
@@ -168,7 +164,6 @@
     top: 0;
     left: 0;
     display: block;
-
     width: 100%;
     height: 100%;
     content: "";
@@ -185,19 +180,127 @@
   }
 }
 
-.hero__video {
-  display: none;
+
+.hero__content-bottom,
+.hero__content-center {
+  padding: 0 $md;
+  grid-template-columns: repeat(1, 1fr);
+  justify-self: stretch;
 
   @include breakpoint(sm) {
-    display: block;
+    position: absolute;
+    background: transparent;
+    grid-column: 1/-1;
+    grid-template-columns: repeat(6, 1fr);
+    grid-column-gap: 1.25rem;
+  }
+
+  @include breakpoint(container) {
+    width: 81.875em;
+    padding: 0;
   }
 }
+
+.hero__content-bottom {
+  padding: 0 0 $sm;
+
+  @include breakpoint(sm) {
+    bottom: 0;
+  }
+}
+
+.hero__content-center {
+  text-align: center;
+
+  @include breakpoint(sm) {
+    bottom: 40%;
+    width: 100%;
+  }
+}
+
+.hero .hero__content .hero__container {
+  max-width: 81.875em;
+  margin: 0 auto;
+}
+
+.hero__content-center>* {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.hero__content-center>*,
+.hero__content-bottom>* {
+  @include breakpoint(sm) {
+    grid-column: 1/-1;
+  }
+}
+
+.hero .hero__content .bttn {
+  display: block;
+  grid-column: unset;
+
+  @include breakpoint(sm) {
+    display: inline-block;
+  }
+}
+
+.hero::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  content: "";
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+  opacity: .75;
+  background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, .75)));
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, .75));
+  will-change: opacity;
+}
+
+@media only screen and (min-width: 889px) {
+  body {}
+}
+
+
+// Aerial Photo Grid
+
 
 .hero.hero__grid .hero__content {
   position: absolute;
   background: transparent;
 }
 
+.hero.hero__grid {
+  .highlight__wrapper {
+    width: 95%;
+
+    @include breakpoint(container) {
+      width: 50%;
+    }
+  }
+
+  .bold-headline {
+    font-size: calc(100% + 6vw);
+    line-height: 1;
+
+    @include breakpoint(sm) {
+      font-size: calc(100% + 8vw);
+    }
+  }
+}
+
+.hero__content-grid {
+  top: 0;
+  height: 100%;
+  background: transparent;
+
+  @include breakpoint(sm) {
+    top: 0;
+  }
+}
 
 .hero__content-grid {
   padding: 0 $mobile-width-gutter;
@@ -208,37 +311,6 @@
 
   @include breakpoint(sm) {
     padding: 0 $desktop-width-gutter;
-  }
-
-  .highlight__wrapper {
-    width: 95%;
-
-    @include breakpoint(container) {
-      width: 50%;
-    }
-  }
-
-
-  .highlight__sub {
-    @include breakpoint(menu) {
-      //display: none;
-    }
-
-    @include breakpoint(container) {
-      display: inline;
-    }
-
-
-  }
-
-
-  .bold-headline {
-    font-size: calc(100% + 6vw);
-    line-height: 1;
-
-    @include breakpoint(sm) {
-      font-size: calc(100% + 8vw);
-    }
   }
 }
 
@@ -277,7 +349,6 @@
   }
 }
 
-
 .hero__content-grid>*:nth-child(4) {
   align-self: center;
   text-align: center;
@@ -304,97 +375,3 @@
   }
 }
 
-
-.hero__content-bottom,
-.hero__content-center {
-  padding: 0 $md;
-  grid-template-columns: repeat(1, 1fr);
-  justify-self: stretch;
-
-  @include breakpoint(sm) {
-    position: absolute;
-    background: transparent;
-    grid-column: 1/-1;
-    grid-template-columns: repeat(6, 1fr);
-    grid-column-gap: 1.25rem;
-  }
-
-  @include breakpoint(container) {
-    width: 81.875em;
-    padding: 0;
-  }
-}
-
-.hero__content-grid {
-  top: 0;
-  height: 100%;
-  background: transparent;
-
-  @include breakpoint(sm) {
-    top: 0;
-  }
-}
-
-
-.hero__content-bottom {
-    padding: 0 0 $sm;
-  @include breakpoint(sm) {
-    bottom: 0;
-  }
-}
-
-.hero__content-center {
-  text-align: center;
-
-  @include breakpoint(sm) {
-    bottom: 40%;
-    width: 100%;
-  }
-}
-
-.hero .hero__content .hero__container {
-  max-width: 81.875em;
-  margin: 0 auto;
-}
-
-.hero__content-center>* {
-  margin-right: auto;
-  margin-left: auto;
-}
-
-.hero__content-center>*,
-.hero__content-bottom>*,
-  {
-  @include breakpoint(sm) {
-    grid-column: 1/-1;
-  }
-}
-
-.hero .hero__content .bttn {
-  display: block;
-  grid-column: unset;
-
-  @include breakpoint(sm) {
-    display: inline-block;
-  }
-}
-
-.hero::after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  content: "";
-  -webkit-transition: all .5s ease-in-out;
-  transition: all .5s ease-in-out;
-  opacity: .75;
-  background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, .75)));
-  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, .75));
-  will-change: opacity;
-}
-
-@media only screen and (min-width: 889px) {
-  body {}
-}
