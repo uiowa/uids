@@ -1,7 +1,7 @@
 .stat__grid {
   margin: 0;
-  background: url('../images/brain-pattern.svg');
-  background-size: 140%;
+  //background: url('../images/brain-pattern.svg');
+  //background-size: 140%;
   img {
     height: 100%;
   }
@@ -10,8 +10,15 @@
 .stat__grid--centered {
   @include center(both);
   flex-flow: column nowrap;
+  text-align: center;
 }
 
+.stat__grid--left {
+  flex-flow: column nowrap;
+  text-align: left;
+}
+
+/*
 .stat__grid:nth-child(1) {
   grid-area: 1 / 1 / 2 / 2;
 
@@ -61,19 +68,20 @@
     display: flex;
   }
 }
+*/
+
 
 .stat {
   color: $blk;
   position: relative;
-  text-align: center;
-  display: grid;
+  /*display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   border-bottom: 1px solid #cccccc8a;
-
-
+*/
+/*
   @include breakpoint(sm) {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -81,12 +89,13 @@
     grid-column-gap: 0px;
     grid-row-gap: 0px;
   }
-
+*/
+ /*
   &.align-left {
     text-align: left;
     @include center(none);
   }
-
+*/
   &__title {
     position: relative;
     margin: 0;
@@ -96,7 +105,10 @@
     font-size: calc(100% + 4vw);
     display: inline-table;
     border-bottom: 8px solid $primary;
-    padding: 0 $lg;
+    padding: $md $lg $sm;
+    @include breakpoint(menu) {
+      padding: 0 $lg;
+    }
   }
 
   &__description {
@@ -106,7 +118,9 @@
     font-size: 1rem;
     line-height: 1.4;
     width: 70%;
-    margin: $md auto;
+    .stat__grid--centered & {
+      margin: $md auto;
+    }
 
     @include breakpoint(menu) {
       font-size: calc(100% + .7vw);
@@ -179,3 +193,4 @@
   min-height: 300px;
   padding-top: $lg;
 }
+
