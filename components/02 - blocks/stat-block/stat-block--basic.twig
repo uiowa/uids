@@ -1,14 +1,4 @@
-{% if stat_image_position == 'top' %}
-	<div class="stat__grid stat__grid--centered">
-		{% block stat_img %}
-			{% if stat_image %}
-				<img class="stat__img" src="{{ stat_image }}" alt="Alt Text">
-			{% endif %}
-		{% endblock %}
-	</div>
-{% endif %}
-
-<div class="stat__grid stat__grid--centered">
+<div class="stat__grid {{ stat_classes }}">
 	{% block heading %}
 		<div>
 			{% if stat_title is not empty %}
@@ -26,13 +16,3 @@
 		<p class="stat__description">{{ stat_summary }}</p>
 	</div>
 </div>
-
-{% if stat_image_position == 'bottom' %}
-<div class="stat__grid stat__grid--centered">
-		{% block stat_img %}
-			{% if stat_image %}
-				<img class="stat__img" src="{{ stat_image }}" alt="Alt Text">
-			{% endif %}
-		{% endblock %}
-	</div>
-{% endif %}
