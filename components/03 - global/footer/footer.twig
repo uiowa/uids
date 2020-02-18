@@ -62,37 +62,30 @@
 					<ul class="menu">
 						{% for item in link_icon.items | slice(0, 7) %}
 							{% include "@footer--links-icon" with {
-              "link_icon_url": item.link_icon_url,
-              "link_icon_class": item.link_icon_class,
-              "link_icon_title": item.link_icon_title
-            } %}
+								"link_icon_url": item.link_icon_url,
+								"link_icon_class": item.link_icon_class,
+								"link_icon_title": item.link_icon_title
+							} %}
 						{% endfor %}
 					</ul>
 				</div>
 
-				<div class="socket">
-					<ul class="socket__menu">
-						<li>© 2019 The University of Iowa</li>
-						<li>
-							<a href="http://www.uiowa.edu/homepage/online-privacy-information">Privacy Notice</a>
-						</li>
-						<li>
-							<a href="http://opsmanual.uiowa.edu/community-policies/nondiscrimination-statement">Nondiscrimination Statement</a>
-						</li>
-					</ul>
-				</div>
+			{% endif %}
 
-			</div>
+			{% include "@footer--socket-menu" %}
 
+		</div>
+
+		{% if footer_type == 'uiowa' %}
 			<div class="footer__links footer__links--nav">
 				<nav role="navigation">
 
 					<ul class="menu">
 						{% for link in links_nav_1.links %}
 							{% include "@footer--links-nav" with {
-              "link_nav_url": item.link_nav_url,
-              "link_nav_title": item.link_nav_title
-            } %}
+								"link_nav_url": item.link_nav_url,
+								"link_nav_title": item.link_nav_title
+							} %}
 						{% endfor %}
 					</ul>
 
@@ -104,9 +97,9 @@
 					<ul class="menu">
 						{% for link in links_nav_2.links %}
 							{% include "@footer--links-nav" with {
-              "link_nav_url": item.link_nav_url,
-              "link_nav_title": item.link_nav_title
-            } %}
+								"link_nav_url": item.link_nav_url,
+								"link_nav_title": item.link_nav_title
+							} %}
 						{% endfor %}
 					</ul>
 				</nav>
@@ -117,9 +110,9 @@
 					<ul class="menu">
 						{% for link in links_nav_3.links %}
 							{% include "@footer--links-nav" with {
-              "link_nav_url": item.link_nav_url,
-              "link_nav_title": item.link_nav_title
-            } %}
+								"link_nav_url": item.link_nav_url,
+								"link_nav_title": item.link_nav_title
+							} %}
 						{% endfor %}
 					</ul>
 				</nav>
