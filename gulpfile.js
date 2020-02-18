@@ -24,7 +24,6 @@ function assetsCopy() {
 
 // SCSS bundled into CSS task
 function css() {
-    console.log('css');
     return src(config.css.src)
         .pipe(sourcemaps.init())
         .pipe(glob())
@@ -52,7 +51,6 @@ function css() {
 }
 
 function fractalStart() {
-    console.log('fractalStart');
     const server = fractal.web.server({
         sync: true
     });
@@ -64,7 +62,6 @@ function fractalStart() {
 
 // Watch files
 function watchFiles() {
-    console.log('watchFiles');
     // Watch SCSS changes
     return watch(config.css.src, css)
 }
