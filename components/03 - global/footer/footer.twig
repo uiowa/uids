@@ -59,15 +59,9 @@
 			{% if footer_type == 'uiowa' %}
 
 				<div class="footer__links footer__links--icon">
-					<ul class="menu">
-						{% for item in link_icon.items | slice(0, 7) %}
-							{% include "@footer--links-icon" with {
-								"link_icon_url": item.link_icon_url,
-								"link_icon_class": item.link_icon_class,
-								"link_icon_title": item.link_icon_title
-							} %}
-						{% endfor %}
-					</ul>
+					{% include "@footer--links-nav" with {
+						links: link_icon.links | slice(0, 7),
+					} %}
 				</div>
 
 			{% endif %}
@@ -79,42 +73,25 @@
 		{% if footer_type == 'uiowa' %}
 			<div class="footer__links footer__links--nav">
 				<nav role="navigation">
-
-					<ul class="menu">
-						{% for link in links_nav_1.links %}
-							{% include "@footer--links-nav" with {
-								"link_nav_url": item.link_nav_url,
-								"link_nav_title": item.link_nav_title
-							} %}
-						{% endfor %}
-					</ul>
-
+					{% include "@footer--links-nav" with {
+						links: links_nav_1.links,
+					} %}
 				</nav>
 			</div>
 
 			<div class="footer__links footer__links--nav">
 				<nav role="navigation">
-					<ul class="menu">
-						{% for link in links_nav_2.links %}
-							{% include "@footer--links-nav" with {
-								"link_nav_url": item.link_nav_url,
-								"link_nav_title": item.link_nav_title
-							} %}
-						{% endfor %}
-					</ul>
+					{% include "@footer--links-nav" with {
+						links: links_nav_2.links,
+					} %}
 				</nav>
 			</div>
 
 			<div class="footer__links footer__links--nav">
 				<nav role="navigation">
-					<ul class="menu">
-						{% for link in links_nav_3.links %}
-							{% include "@footer--links-nav" with {
-								"link_nav_url": item.link_nav_url,
-								"link_nav_title": item.link_nav_title
-							} %}
-						{% endfor %}
-					</ul>
+					{% include "@footer--links-nav" with {
+						links: links_nav_3.links,
+					} %}
 				</nav>
 			</div>
 		{% endif %}
