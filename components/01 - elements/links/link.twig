@@ -1,8 +1,19 @@
-{# @todo Add check for no url to display <span> instead. #}
+{#
+ # Renders an <a> tag if a url is provided or a
+ # <span> if the url is not present.
+ #
+ # Available properties of the link object:
+ # * url
+ # * class
+ # * icon_class
+ # * text
+ #
+ # @todo Add 'target' property.
+ #}
 {% if link.url %}
-<a href="{{ link.url }}">
+<a href="{{ link.url }}" class="{{ link.class }}">
   {% else %}
-  <span>
+  <span class="nolink">
 {% endif %}
     {% if link.icon_class %}
   <i class="{{ link.icon_class }}"></i>

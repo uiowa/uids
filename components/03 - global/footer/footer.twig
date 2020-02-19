@@ -4,14 +4,9 @@
 
 		<div class="footer-cta__container">
 
-			{% for item in link_bttn.items | slice(0, 3) %}
-				{% include "@footer--links-bttn" with {
-            "link_bttn_url": item.link_bttn_url,
-            "link_bttn_class": item.link_bttn_class,
-            "link_bttn_icon": item.link_bttn_icon,
-            "link_bttn_title": item.link_bttn_title,
-          } %}
-			{% endfor %}
+			{% include "@menu" with {
+				items: link_bttn.items | slice(0, 3),
+			} %}
 
 		</div>
 	</div>
@@ -24,71 +19,58 @@
 
 		<div class="footer__links footer__links--contact">
 
+			{# IOWA block logo. #}
+			{# @todo Replace this with generic reference. #}
 			{% render '@logo--tab' %}
 
+			{# Site name. #}
 			{% if site_name %}
 				<h2 class="footer__site--name">{{ site_name }}</h2>
 			{% endif %}
 
+			{# Site slogan. #}
 			{% if site_slogan %}
 				<strong class="footer__site--slogan">{{ site_slogan }}</strong>
 			{% endif %}
 
-			{% if footer_type == 'uiowa' %}
+			{# Contact information. #}
+			{% block contact_info %}
+			{{ contact_info }}
+			{% endblock %}
 
-				<p>Iowa City, Iowa 52242<br>
-					<a href="tel:319-335-3500">319-335-3500</a>
-				</p>
+			{# Social links. #}
+			{% block social_links %}
+				{# @todo Move demo options to context. #}
+				{% if footer_type == 'uiowa' %}
+					<div class="footer__links footer__links--icon">
+						{% include "@menu" with {
+							items: link_icon.items | slice(0, 7),
+						} %}
+					</div>
+				{% endif %}
+			{% endblock %}
 
-			{% endif %}
-
-			{% if footer_type == 'department' %}
-
-				<p>280 Boyd Law Building<br/>
-					Melrose & Byington<br/>
-
-					​Iowa City, IA 52242<br/>
-
-					<a href="tel:319-335-3500">319-335-9034</a><br/>
-
-					<a href="mailto:law-webmaster@uiowa.edu">law-webmaster@uiowa.edu</a>
-				</p>
-
-			{% endif %}
-
-			{% if footer_type == 'uiowa' %}
-
-				<div class="footer__links footer__links--icon">
-					{% include "@menu" with {
-						items: link_icon.items | slice(0, 7),
-					} %}
-				</div>
-
-			{% endif %}
-
+			{# Socket menu. #}
 			{% include "@footer--socket-menu" %}
 
 		</div>
 
-		{% if footer_type == 'uiowa' %}
-			<div class="footer__links footer__links--nav">
-					{% include "@menu" with {
-						items: links_nav_1.items,
-					} %}
-			</div>
+		{# Footer menus. #}
+		{% block footer_menus %}
+			{# @todo Move demo options to context. #}
+			{% if footer_type == 'uiowa' %}
 
-			<div class="footer__links footer__links--nav">
-					{% include "@menu" with {
-						items: links_nav_2.items,
-					} %}
-			</div>
+				{# Loop through menus and render each one. #}
+				{% for items in [links_nav_1.items, links_nav_2.items, links_nav_3.items] %}
+					<div class="footer__links footer__links--nav">
+						{% include "@menu" with {
+							items: items,
+						} %}
+					</div>
+				{% endfor %}
 
-			<div class="footer__links footer__links--nav">
-					{% include "@menu" with {
-						items: links_nav_3.items,
-					} %}
-			</div>
-		{% endif %}
+			{% endif %}
+		{% endblock %}
 
 	</div>
 </footer>
