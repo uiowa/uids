@@ -1,4 +1,6 @@
-<div class="stat__grid {{ stat_classes }}">
+{% block stat_wrapper_start %}
+	<div class="stat__grid {{ stat_classes }}">
+	{% endblock %}
 	{% block heading %}
 		<div>
 			{% if stat_title is not empty %}
@@ -10,9 +12,10 @@
           "heading_suffix" : stat_suffix
         } %}
 			{% endif %}
-		{% endblock %}
-	</div>
-	<div>
+		</div>
+	{% endblock %}
+	{% if stat_summary is not empty %}
 		<p class="stat__description">{{ stat_summary }}</p>
-	</div>
+	{% endif %}
 </div>
+
