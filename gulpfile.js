@@ -63,10 +63,10 @@ function fractalStart() {
 // Watch files
 function watchFiles() {
     // Watch SCSS changes
-    watch(config.css.src, parallel(css, fractalStart))
+    return watch(config.css.src, css)
 }
 
-const watching = parallel(assetsCopy, watchFiles);
+const watching = parallel(assetsCopy, fractalStart, watchFiles);
 
 exports.default = parallel(css);
 exports.watch = watching;

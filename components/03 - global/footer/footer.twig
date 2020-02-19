@@ -4,14 +4,9 @@
 
 		<div class="footer-cta__container">
 
-			{% for item in link_bttn.items | slice(0, 3) %}
-				{% include "@footer--links-bttn" with {
-            "link_bttn_url": item.link_bttn_url,
-            "link_bttn_class": item.link_bttn_class,
-            "link_bttn_icon": item.link_bttn_icon,
-            "link_bttn_title": item.link_bttn_title,
-          } %}
-			{% endfor %}
+			{% include "@menu" with {
+				items: link_bttn.items | slice(0, 3),
+			} %}
 
 		</div>
 	</div>
@@ -24,107 +19,58 @@
 
 		<div class="footer__links footer__links--contact">
 
+			{# IOWA block logo. #}
+			{# @todo Replace this with generic reference. #}
 			{% render '@logo--tab' %}
 
+			{# Site name. #}
 			{% if site_name %}
 				<h2 class="footer__site--name">{{ site_name }}</h2>
 			{% endif %}
 
+			{# Site slogan. #}
 			{% if site_slogan %}
 				<strong class="footer__site--slogan">{{ site_slogan }}</strong>
 			{% endif %}
 
+			{# Contact information. #}
+			{% block contact_info %}
+			{{ contact_info }}
+			{% endblock %}
+
+			{# Social links. #}
+			{% block social_links %}
+				{# @todo Move demo options to context. #}
+				{% if footer_type == 'uiowa' %}
+					<div class="footer__links footer__links--icon">
+						{% include "@menu" with {
+							items: link_icon.items | slice(0, 7),
+						} %}
+					</div>
+				{% endif %}
+			{% endblock %}
+
+			{# Socket menu. #}
+			{% include "@footer--socket-menu" %}
+
+		</div>
+
+		{# Footer menus. #}
+		{% block footer_menus %}
+			{# @todo Move demo options to context. #}
 			{% if footer_type == 'uiowa' %}
 
-				<p>Iowa City, Iowa 52242<br>
-					<a href="tel:319-335-3500">319-335-3500</a>
-				</p>
+				{# Loop through menus and render each one. #}
+				{% for items in [links_nav_1.items, links_nav_2.items, links_nav_3.items] %}
+					<div class="footer__links footer__links--nav">
+						{% include "@menu" with {
+							items: items,
+						} %}
+					</div>
+				{% endfor %}
 
 			{% endif %}
-
-			{% if footer_type == 'department' %}
-
-				<p>280 Boyd Law Building<br/>
-					Melrose & Byington<br/>
-
-					​Iowa City, IA 52242<br/>
-
-					<a href="tel:319-335-3500">319-335-9034</a><br/>
-
-					<a href="mailto:law-webmaster@uiowa.edu">law-webmaster@uiowa.edu</a>
-				</p>
-
-			{% endif %}
-
-			{% if footer_type == 'uiowa' %}
-
-				<div class="footer__links footer__links--icon">
-					<ul class="menu">
-						{% for item in link_icon.items | slice(0, 7) %}
-							{% include "@footer--links-icon" with {
-              "link_icon_url": item.link_icon_url,
-              "link_icon_class": item.link_icon_class,
-              "link_icon_title": item.link_icon_title
-            } %}
-						{% endfor %}
-					</ul>
-				</div>
-
-				<div class="socket">
-					<ul class="socket__menu">
-						<li>© 2019 The University of Iowa</li>
-						<li>
-							<a href="http://www.uiowa.edu/homepage/online-privacy-information">Privacy Notice</a>
-						</li>
-						<li>
-							<a href="http://opsmanual.uiowa.edu/community-policies/nondiscrimination-statement">Nondiscrimination Statement</a>
-						</li>
-					</ul>
-				</div>
-
-			</div>
-
-			<div class="footer__links footer__links--nav">
-				<nav role="navigation">
-
-					<ul class="menu">
-						{% for link in links_nav_1.links %}
-							{% include "@footer--links-nav" with {
-              "link_nav_url": item.link_nav_url,
-              "link_nav_title": item.link_nav_title
-            } %}
-						{% endfor %}
-					</ul>
-
-				</nav>
-			</div>
-
-			<div class="footer__links footer__links--nav">
-				<nav role="navigation">
-					<ul class="menu">
-						{% for link in links_nav_2.links %}
-							{% include "@footer--links-nav" with {
-              "link_nav_url": item.link_nav_url,
-              "link_nav_title": item.link_nav_title
-            } %}
-						{% endfor %}
-					</ul>
-				</nav>
-			</div>
-
-			<div class="footer__links footer__links--nav">
-				<nav role="navigation">
-					<ul class="menu">
-						{% for link in links_nav_3.links %}
-							{% include "@footer--links-nav" with {
-              "link_nav_url": item.link_nav_url,
-              "link_nav_title": item.link_nav_title
-            } %}
-						{% endfor %}
-					</ul>
-				</nav>
-			</div>
-		{% endif %}
+		{% endblock %}
 
 	</div>
 </footer>
