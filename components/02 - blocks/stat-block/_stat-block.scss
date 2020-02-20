@@ -1,92 +1,11 @@
 .stat__grid {
   margin: 0;
-  background: url('../images/brain-pattern.svg');
-  background-size: 140%;
-  img {
-    height: 100%;
-  }
 }
 
-.stat__grid--centered {
-  @include center(both);
-  flex-flow: column nowrap;
-}
-
-.stat__grid:nth-child(1) {
-  grid-area: 1 / 1 / 2 / 2;
-
-  @include breakpoint(sm) {
-    grid-area: 1 / 1 / 2 / 2;
-  }
-}
-
-.stat__grid:nth-child(2) {
-  grid-area: 1 / 2 / 2 / 3;
-
-  @include breakpoint(sm) {
-    grid-area: 2 / 1 / 3 / 2;
-  }
-}
-
-.stat__grid:nth-child(3) {
-  grid-area: 2 / 1 / 3 / 2;
-
-  @include breakpoint(sm) {
-    grid-area: 1 / 2 / 2 / 3;
-  }
-}
-
-.stat__grid:nth-child(4) {
-  grid-area: 2 / 2 / 3 / 3;
-
-  @include breakpoint(sm) {
-    grid-area: 2 / 2 / 3 / 3;
-  }
-}
-
-.stat__grid:nth-child(5) {
-  display: none;
-
-  @include breakpoint(sm) {
-    grid-area: 1 / 3 / 2 / 4;
-    display: block;
-  }
-}
-
-.stat__grid:nth-child(6) {
-  grid-area: 2 / 3 / 3 / 4;
-  display: none;
-
-  @include breakpoint(sm) {
-    display: flex;
-  }
-}
 
 .stat {
   color: $blk;
   position: relative;
-  text-align: center;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-  border-bottom: 1px solid #cccccc8a;
-
-
-  @include breakpoint(sm) {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-  }
-
-  &.align-left {
-    text-align: left;
-    @include center(none);
-  }
-
   &__title {
     position: relative;
     margin: 0;
@@ -96,7 +15,13 @@
     font-size: calc(100% + 4vw);
     display: inline-table;
     border-bottom: 8px solid $primary;
-    padding: 0 $lg;
+    padding: $md $lg $sm;
+    @include breakpoint(menu) {
+      padding: 0 $lg 0 0;
+      .uids-component--center & {
+        padding: 0 $lg;
+      }
+    }
   }
 
   &__description {
@@ -106,33 +31,13 @@
     font-size: 1rem;
     line-height: 1.4;
     width: 70%;
-    margin: $md auto;
-
+    margin: $sm 0;
     @include breakpoint(menu) {
       font-size: calc(100% + .7vw);
     }
   }
 }
 
-
-.has-image.stat {
-  color: $white;
-
-  .stat__title {
-    color: white;
-  }
-
-  &:before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
-    width: 100%;
-    height: 100%;
-    content: "";
-    background-color: rgba(0, 0, 0, 0.7);
-  }
-}
 
 .heading__prefix,
 .heading__suffix {
@@ -142,40 +47,4 @@
   @include breakpoint(sm) {
     font-size: calc(100% + -2vw);
   }
-}
-
-
-/*
-.heading__prefix,
-.heading__suffix {
-  font-size: $h5-font-size;
-  vertical-align: sub;
-}
-*/
-.stat__wrapper.horizontal {
-  @include breakpoint(sm) {
-    @include flexbox;
-  }
-
-  .stat {
-    &__row {
-      @include breakpoint(sm) {
-        // @include margin($right: $sm, $bottom: 0, $left: $sm);
-      }
-
-      &:first-of-type {
-        @include margin($left: 0);
-      }
-
-      &:last-of-type {
-        @include margin($right: 0);
-      }
-    }
-  }
-}
-
-
-.stat_number {
-  min-height: 300px;
-  padding-top: $lg;
 }
