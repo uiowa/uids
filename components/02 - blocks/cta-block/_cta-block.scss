@@ -1,33 +1,17 @@
 .cta {
   &__wrapper {
+    width: 100%;
+
     .bold-headline {
       margin: 0;
       padding: 0;
-    }
-  }
-
-  &__summary {
-    margin: $sm auto $md;
-    @include breakpoint(container) {
-      margin: 0;
-    }
-  }
-
-  &__container {
-    display: block;
-    padding: $xlg $mobile-width-gutter;
-    @include breakpoint(container) {
-      display: grid;
-      padding: $lg $desktop-width-gutter;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      grid-column-gap: 0px;
-      grid-row-gap: 0px;
     }
 
     &.uids-component--black {
       .bold-headline {
         color: $primary;
       }
+
       .cta__summary {
         color: #fff;
       }
@@ -42,6 +26,38 @@
         background: #fff;
       }
     }
+
+  }
+
+  &__summary {
+    margin: $sm auto $md;
+
+    @include breakpoint(container) {
+      margin: 0;
+    }
+  }
+
+  &__container {
+    display: block;
+    padding: $xlg $mobile-width-gutter;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+
+    .uids-component--left & {
+      justify-items: unset;
+      align-items: unset;
+      text-align: unset;
+
+    }
+
+    @include breakpoint(container) {
+      display: grid;
+      padding: $lg $desktop-width-gutter;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-column-gap: 0px;
+      grid-row-gap: 0px;
+    }
   }
 }
 
@@ -54,36 +70,40 @@
   @include breakpoint(container) {
     flex: 1;
   }
-
-  &:first-child {
-    .bold-headline {
-      font-size: 3.2rem;
-    }
-  }
 }
 
-.cta__container.uids-component--left>div:first-child .bold-headline {
+.cta__wrapper.uids-component--left .bold-headline {
+  font-size: 3.2rem;
+}
+
+.cta__wrapper.uids-component--left .bold-headline {
   margin-bottom: $sm;
   font-size: 2.5rem;
 }
 
 .cta__container {
-  >div:nth-child(1) {
+  .cta__title {
     margin-left: 0;
+
+    .uids-component--left & {
+      grid-area: 1 / 1 / 2 / 3;
+    }
   }
-  &.uids-component--left>div:nth-child(1) {
-    grid-area: 1 / 1 / 2 / 2;
-  }
-  >div:nth-child(2) {
+
+  .cta__content {
     margin-left: 0;
+
+    .uids-component--left & {
+      grid-area: 2 / 1 / 3 / 3;
+
+    }
   }
-  &.uids-component--left>div:nth-child(2) {
-    grid-area: 2 / 1 / 3 / 2;
-  }
-  >div:nth-child(3) {
+
+  .cta__link {
     margin-right: 0;
-  }
-  &.uids-component--left>div:nth-child(3) {
-    grid-area: 1 / 2 / 3 / 3;
+
+    .uids-component--left & {
+      grid-area: 1 / 3 / 3 / 4;
+    }
   }
 }

@@ -1,9 +1,13 @@
-<div class="cta__wrapper">
-	<div class="cta__container {{ cta_classes }}">
 
-		{% block cta %}
+
+{% block cta_container_start %}
+<div class="cta__wrapper {{ cta_classes }}">
+	<div class="cta__container">
+  {% endblock %}
+
+		{% block heading %}
 			{% if cta_title is not empty %}
-				<div>
+				<div class="cta__title">
 					{% include "@heading" with {
           "heading_level" : 'h2',
           "heading_class" : 'bold-headline bold-headline--caps',
@@ -14,27 +18,16 @@
 		{% endblock %}
 
 		{% if cta_summary is not empty %}
-			<div>
+			<div class="cta__content">
 				<p class="cta__summary">{{ cta_summary }}</p>
 			</div>
 		{% endif %}
 
 		{% if cta_link_url is not empty %}
-			<div>
-
-				{#
-				{% include "@button" with {
-				          "button.link" : 'https://www.example.com',
-				          "button.type" : 'bttn bttn--tertiary bttn--caps',
-				          "button.text" : cta_link_title,
-				          "button.icon" : yes
-				        } %}
-				#}
-
+			<div class="cta__link">
 				<a href="{{ cta_link_url }}" class="bttn bttn--secondary bttn--caps">{{ cta_link_title }}
 					<i class="fas fa-arrow-right"></i>
 				</a>
-
 			</div>
 		{% endif %}
 
