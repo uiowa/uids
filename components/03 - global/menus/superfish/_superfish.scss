@@ -76,11 +76,15 @@
   background: #999;
 }
 
-.block-superfish .menu li a {
+.block-superfish .menu li a,
+.block-superfish .menu li .nolink {
   padding: 1.05rem;
   text-decoration: none;
   color: #151515;
-  font-weight: 600
+  font-weight: 600;
+   @include breakpoint(menu) {
+     padding: 1.05rem 1.5rem;
+   }
 }
 
 .block-superfish .menu li a:after {
@@ -94,12 +98,12 @@
   transition: 300ms
 }
 
-.block-superfish .menu>li>a.sf-depth-1.menuparent {
+.block-superfish .menu>li>.sf-depth-1.menuparent {
   position: relative;
   padding-right: 2.5rem
 }
 
-.block-superfish .menu>li>a.sf-depth-1.menuparent:before {
+.block-superfish .menu>li>.sf-depth-1.menuparent:before {
   position: absolute;
   top: 50%;
   right: .3125rem;
@@ -269,7 +273,7 @@
   font-weight: 900
 }
 
-.sf-accordion li a.sf-depth-1 {
+.sf-accordion li .sf-depth-1 {
   color: #151515;
   background: #fff;
   font-size: 1.6rem
@@ -279,7 +283,8 @@
   content: ''
 }
 
-.menu.sf-accordion li a {
+.menu.sf-accordion li a,
+.menu.sf-accordion li .nolink {
   padding: .6rem 0
 }
 
@@ -292,6 +297,7 @@
   background: #fff
 }
 
-.menu.sf-accordion ul li a {
+.menu.sf-accordion ul li a,
+.menu.sf-accordion ul li .nolink {
   color: #666
 }
