@@ -51,9 +51,31 @@
   }
 }
 
+
+// breadcrumbs
+
+.hero {
+  .breadcrumb {
+    li {
+      @include breakpoint(sm) {
+      color: white;
+      }
+    }
+    a {
+      @include breakpoint(sm) {
+      color: white;
+      }
+    }
+  }
+}
+
+
 .hero {
   position: relative;
   background: $secondary;
+  @include breakpoint(container) {
+    overflow: hidden;
+  }
 
   &__video {
     width: 100%;
@@ -67,8 +89,15 @@
   }
 
   &.hero__bottom .hero__image img {
-    height: 57rem;
+    //height: 57rem;
   }
+}
+
+img.hero-image {
+    display: block;
+    width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
 }
 
 .hero__image {
@@ -76,11 +105,12 @@
   contain: paint;
 }
 
+
 // headings
-.hero {
+
+
   .hero__content-center {
     .bold-headline--serif {
-      display: none;
       margin-bottom: $md;
 
       @include breakpoint(sm) {
@@ -92,17 +122,26 @@
   .bttn--secondary {
     z-index: 100;
     margin-bottom: $md;
-    background: #222222b8;
+    background: #fff;
+    color: $secondary;
+    @include breakpoint(sm) {
+      color: #fff;
+    }
+
 
     @include breakpoint(sm) {
       margin-right: $md;
+      background: #222222b8;
     }
-
-    @include breakpoint(menu) {}
 
     &:hover,
     &:focus {
-      color: $primary;
+      color: $secondary;
+       @include breakpoint(sm) {
+         color: $primary;
+         background: #222222b8;
+
+       }
     }
   }
 
@@ -110,19 +149,30 @@
     margin-right: 0;
   }
 
+
+
   .bold-headline {
+    &.bold-headline--caps {
+       color: #fff;
+    }
+      &.bold-headline--serif {
+        color: #000;
+
+        @include breakpoint(sm) {
+          color: #fff;
+        }
+      }
     margin-top: $lg;
     padding: 0;
     margin-bottom: 0;
-    color: #fff;
-    text-shadow: 0 1px 1px #000;
+
     font-size: calc(100% + 3vw);
     line-height: 1;
 
     @include breakpoint(sm) {
+      text-shadow: 0 1px 1px #000;
       font-size: calc(100% + 4vw);
     }
-  }
 }
 
 .hero__container {
@@ -134,29 +184,51 @@
   max-width: 100%;
 }
 
-.hero .hero__content {
+.hero .hero__content-center {
+  z-index: 2;
+  display: grid;
+  width: 100%;
+  position: relative;
+  background: #fff;
+  padding: $gutter;
+  @include breakpoint(sm) {
+    bottom: 35%;
+    position: absolute;
+  }
+  @include breakpoint(container) {
+    padding: $gutter 0;
+  }
+}
+
+
+.hero .hero__content-bottom {
   position: relative;
   z-index: 2;
   display: grid;
   width: 100%;
   background: white;
+  padding: 0 $gutter;
 
   @include breakpoint(sm) {
     position: absolute;
     background: transparent;
+    padding: $gutter;
+  }
+  @include breakpoint(container) {
+     padding: $gutter 0;
   }
 }
 
 .hero .hero__content-center {
   padding: $lg 0;
-  background: url("../images/widescreen__768_x_432/bg-image.jpg");
+  //background: url("../images/widescreen__768_x_432/bg-image.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 
   @include breakpoint(sm) {
     background: transparent;
   }
-
+/*
   &:after {
     position: absolute;
     top: 0;
@@ -176,6 +248,7 @@
       background: none;
     }
   }
+  */
 }
 
 
@@ -234,8 +307,8 @@
 }
 
 .hero .hero__content .bttn {
-  display: block;
-  grid-column: unset;
+ // display: block;
+ // grid-column: unset;
 
   @include breakpoint(sm) {
     display: inline-block;
