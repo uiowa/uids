@@ -1,5 +1,57 @@
-.text-long {
-  h1 {
-    font-size: 20px;
+.bold-headline {
+  @include padding($top: 0, $right: 0, $bottom: $sm, $left: 0);
+
+  &.bold-headline--negative {
+    color: $white;
   }
+}
+
+.bold-headline--caps {
+  text-transform: uppercase;
+  font-family: $font-family-caps-bold;
+}
+
+.bold-headline--serif {
+  font-family: $font-family-serif;
+  font-weight: $font-weight-bold;
+  font-size: calc(100% + 5vw);
+
+  @include breakpoint(sm) {
+    font-size: calc(100% + 2.5vw);
+  }
+}
+
+
+.bold-headline--positive {
+  @extend .bold-headline;
+}
+
+.bold-headline--negative {
+  color: $white;
+  @extend .bold-headline;
+}
+
+
+h2.bold-headline {}
+
+/*
+h2.bold-headline.bold-headline--caps {
+  font-size: $h1-font-size;
+}
+
+h3.bold-headline.bold-headline--caps {
+  font-size: $h2-font-size;
+}*/
+
+
+h3.bold-headline {
+  font-size: $h4-font-size;
+}
+
+h4.bold-headline {
+  font-size: $h5-font-size;
+}
+
+h5.bold-headline {
+  font-size: $h6-font-size;
 }
