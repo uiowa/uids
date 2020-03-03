@@ -39,6 +39,11 @@
   }
   .menu li {
     position: relative;
+    display: block;
+    width: 100%;
+    @include breakpoint(sm) {
+      width: auto;
+    }
   }
   .menu li.menu-item:first-child a {
     .site-header__left & {
@@ -77,24 +82,30 @@
     .menu li a {
       position: relative;
       text-transform: uppercase;
-      &:hover, &:focus {
-        &:after {
-          width: 1px;
+      @include breakpoint(sm) {
+        &:hover, &:focus {
+          &:after {
+            width: 1px;
+          }
         }
       }
     }
     .menu li a:after {
       position: absolute;
-      content: "";
-      background: $primary;
-      bottom: 35%;
-      right: 0;
-      height: 25%;
-      width: 1px;
+      @include breakpoint(sm) {
+        content: "";
+        background: $primary;
+        bottom: 35%;
+        right: 0;
+        height: 25%;
+        width: 1px;
+      }
     }
     .menu li:first-of-type a {
-      &:after {
-        width: 0;
+      @include breakpoint(sm) {
+        &:after {
+          width: 0;
+        }
       }
     }
   }
