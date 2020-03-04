@@ -253,9 +253,10 @@
   text-transform: uppercase;
   //font-size: $base-font-size;
   //font-weight: $font-weight-bold;
+  line-height: 1.4;
   font-size: 1.2rem;
   padding: 1rem 2rem .8rem;
-    i {
+    i, svg {
       margin-left: $sm;
       color: $primary;
     }
@@ -284,7 +285,7 @@
 %bttn--primary {
   color: $secondary;
   background: $primary;
-  i {
+  i, svg {
     color: $white;
   }
 }
@@ -313,7 +314,7 @@
 
 %bttn--outline {
   border: 1px solid $primary;
-  i {
+  i, svg {
     color: $primary;
     font-size: $h6-font-size;
     @include padding($right: $sm);
@@ -324,11 +325,45 @@
 
 %uids-component--center {
   @include center(both);
+  display: block;
+  text-align: center;
+}
+
+%uids-component--flex-center {
+  @include center(both);
   flex-flow: column nowrap;
   text-align: center;
 }
 
 %uids-component--left {
+  text-align: left;
+  @include center(both);
+}
+
+%uids-component--flex-left {
   flex-flow: column nowrap;
   text-align: left;
+  width: 100%;
+}
+
+%uids-component--gold {
+  background: $primary;
+}
+
+%uids-component--black {
+  background: $secondary;
+}
+
+%uids-component--gray {
+  background: $light;
+}
+
+%uids-component--brain {
+  background: #fff url("#{$imgpath}/brain-pattern.svg");
+  background-size: auto auto;
+}
+
+%uids-component--brain-reversed {
+  background: $primary url("#{$imgpath}/brain-pattern-reversed.svg");
+  background-size: auto auto;
 }

@@ -1,3 +1,4 @@
+
 aside .region,
 .layout-content .region {
   padding: 0;
@@ -9,25 +10,44 @@ aside .region,
 }
 
 
-/*
-.layout-container-fluid {
-  max-width: 100%;
-  padding: 0 35px;
-  margin: 0 auto;
+.grid--3-2>:nth-child(1) {
+  order: 1;
 }
 
-.layout-container--flex {
-  display: flex;
+.grid--3-2>:nth-child(2) {
+  order: 2;
 }
 
-.layout-container-flex {
-  max-width: 100%;
-  padding: 0 35px;
-  display: flex;
-    .site-header__left &,
-    .site-header__center & {
-      display: block;
-      padding:  0;
-    }
+.grid--3-2>:nth-child(3) {
+  order: 4;
+
+  @include breakpoint(sm) {
+    order: 3;
+  }
 }
-*/
+
+.grid--3-2>:nth-child(4) {
+  order: 3;
+
+  @include breakpoint(sm) {
+    order: 4;
+  }
+}
+
+.grid--3-2>:nth-child(5) {
+  order: 5;
+}
+
+.grid--3-2>:nth-child(6) {
+  order: 6;
+}
+
+
+.grid--3-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50%, 1fr));
+
+  @include breakpoint(sm) {
+    grid-template-columns: repeat(auto-fit, minmax(33.3%, 1fr));
+  }
+}

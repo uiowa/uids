@@ -1,45 +1,66 @@
 .cta {
   &__wrapper {
-    padding: $xlg 0;
-    background: $primary;
-
-    @include breakpoint(container) {
-      padding: $md 0;
-    }
+    width: 100%;
 
     .bold-headline {
       margin: 0;
       padding: 0;
     }
 
-    .bttn--outline {
-      flex: 1;
-      border: 1px solid $secondary;
+    &.uids-component--black {
+      .bold-headline {
+        color: $primary;
+      }
+
+      .cta__summary {
+        color: #fff;
+      }
+    }
+
+    &.uids-component--black,
+    &.uids-component--gold {
+      .bttn {
+        flex: 1;
+        color: $secondary;
+        border: 1px solid #fff;
+        background: #fff;
+      }
     }
   }
 
-
   &__summary {
-    text-align: center;
+    margin: $sm auto $md;
+    line-height: 1.5;
+
+    @include breakpoint(container) {
+      margin: 0;
+    }
   }
 
   &__container {
-    justify-content: space-between;
-    margin: 0 $mobile-width-gutter;
+    display: block;
+    padding: $xlg $mobile-width-gutter;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
 
-    @include breakpoint(container) {
-      margin: 0 $desktop-width-gutter;
+    .uids-component--left & {
+      justify-items: unset;
+      align-items: unset;
+      text-align: unset;
+
     }
 
     @include breakpoint(container) {
-      display: flex;
-    }
-
-    @include breakpoint(container) {
-      padding: 0;
+      display: grid;
+      padding: $lg $desktop-width-gutter;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-column-gap: 0px;
+      grid-row-gap: 0px;
     }
   }
 }
+
 
 .cta__container>div {
   @include breakpoint(container) {
@@ -47,42 +68,42 @@
   }
 
   @include breakpoint(container) {
-    flex: 1 1 33%;
-  }
-
-  @include center(both);
-
-  &:first-child {
-    text-align: center;
-    h2 {
-      font-size: 3.2rem;
-    }
-  }
-
-  &:nth-child(2) {
-    margin: 0 auto;
-
-    @include breakpoint(sm) {
-      width: 60%;
-    }
-
-    @include breakpoint(container) {
-      width: auto;
-      margin: auto;
-    }
+    flex: 1;
   }
 }
 
-.cta__container>div:first-child {
-  margin-left: 0;
+.cta__wrapper.uids-component--left .bold-headline {
+  font-size: 3.2rem;
 }
 
-.cta__container>div:nth-child(2) {
-  @include breakpoint(container) {
-    flex: 1 1 45%;
+.cta__wrapper.uids-component--left .bold-headline {
+  margin-bottom: $sm;
+  font-size: 2.5rem;
+}
+
+.cta__container {
+  .cta__title {
+    margin-left: 0;
+
+    .uids-component--left & {
+      grid-area: 1 / 1 / 2 / 3;
+    }
   }
-}
 
-.cta__container>div:last-child {
-  margin-right: 0;
+  .cta__content {
+    margin-left: 0;
+
+    .uids-component--left & {
+      grid-area: 2 / 1 / 3 / 3;
+
+    }
+  }
+
+  .cta__link {
+    margin-right: 0;
+
+    .uids-component--left & {
+      grid-area: 1 / 3 / 3 / 4;
+    }
+  }
 }
