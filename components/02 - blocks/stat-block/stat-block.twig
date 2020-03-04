@@ -1,5 +1,6 @@
 <div class="stat__wrapper">
-<div class="stat">
+<div class="grid--3-2">
+
 
 <div class="stat__grid uids-component--center uids-component--brain">
 	<img class="stat__img" src="../../images/stat-1.jpg" alt="Alt Text">
@@ -19,6 +20,11 @@
     } %}
   {% endfor %}
 
+<div class="stat__grid uids-component--center uids-component--brain">
+	<img class="stat__img" src="../../images/stat-2.jpg" alt="Alt Text">
+</div>
+
+
 {% for item in stat.items | slice(1, 1) %}
 	{% include "@stat-block--basic" with {
       "stat_classes": item.stat_classes,
@@ -32,9 +38,7 @@
     } %}
 {% endfor %}
 
-<div class="stat__grid uids-component--center uids-component--brain">
-	<img class="stat__img" src="../../images/stat-2.jpg" alt="Alt Text">
-</div>
+
 
 
 <div class="stat__grid uids-component--center uids-component--brain">
@@ -68,84 +72,10 @@
     margin: 0;
 }
 
-.stat__grid img {
+.grid--3-2 img {
     height: 100%;
   }
 
-
-.stat__grid:nth-child(1) {
-grid-area: 1 / 1 / 2 / 2;
-}
-@media (min-width: 768px) {
-.stat__grid:nth-child(1) {
-  grid-area: 1 / 1 / 2 / 2;
-}
-}
-
-.stat__grid:nth-child(2) {
-grid-area: 1 / 2 / 2 / 3;
-}
-@media (min-width: 768px) {
-.stat__grid:nth-child(2) {
-  grid-area: 2 / 1 / 3 / 2;
-}
-}
-
-.stat__grid:nth-child(3) {
-grid-area: 2 / 1 / 3 / 2;
-}
-@media (min-width: 768px) {
-.stat__grid:nth-child(3) {
-  grid-area: 1 / 2 / 2 / 3;
-}
-}
-
-.stat__grid:nth-child(4) {
-grid-area: 2 / 2 / 3 / 3;
-}
-@media (min-width: 768px) {
-.stat__grid:nth-child(4) {
-  grid-area: 2 / 2 / 3 / 3;
-}
-}
-
-.stat__grid:nth-child(5) {
-display: none;
-}
-@media (min-width: 768px) {
-.stat__grid:nth-child(5) {
-  grid-area: 1 / 3 / 2 / 4;
-  display: block;
-}
-}
-
-.stat__grid:nth-child(6) {
-grid-area: 2 / 3 / 3 / 4;
-display: none;
-}
-@media (min-width: 768px) {
-.stat__grid:nth-child(6) {
-  display: flex;
-}
-}
-
-.stat {
-display: grid;
-grid-template-columns: repeat(2, 1fr);
-grid-template-rows: repeat(2, 1fr);
-grid-column-gap: 0;
-grid-row-gap: 0;
-border-bottom: 1px solid #cccccc8a;
-}
-@media (min-width: 768px) {
-.stat {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  grid-column-gap: 0;
-  grid-row-gap: 0;
-}
-}
 
 
 </style>
