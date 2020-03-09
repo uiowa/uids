@@ -156,7 +156,8 @@ header {
 
 // sticky header
 
-header.header--sticky {
+header.header--sticky,
+.header-sticky header  {
   @include breakpoint(menu) {
     position: fixed;
     z-index: 400;
@@ -170,7 +171,9 @@ header.header--sticky {
 // sticky header for tertiary
 
 .scroll-up .header--sticky .site_name--wrapper,
-.scroll-down .header--sticky .site_name--wrapper {
+.scroll-down .header--sticky .site_name--wrapper,
+.header-sticky.scroll-up .site_name--wrapper,
+.header-sticky.scroll-down .site_name--wrapper {
   .o-canvas--open .o-canvas__drawer {
     @include breakpoint(menu) {
       top: 110px;
@@ -217,26 +220,30 @@ header.header--sticky {
 
 // fixed scroll bar
 
-.scroll-down header.header--sticky {
+.scroll-down header.header--sticky,
+.header-sticky.scroll-down header {
   @include breakpoint(menu) {
     transform: translate3d(0, -100%, 0);
   }
 }
 
-.scroll-up header.header--sticky {
+.scroll-up header.header--sticky,
+.header-sticky.scroll-up header {
   @include breakpoint(menu) {
     transform: none;
   }
 }
 
 
-.scroll-down header.header--sticky .logo-icon--tab {
+.scroll-down header.header--sticky .logo-icon--tab,
+.header-sticky.scroll-down header .logo-icon--tab {
   @include breakpoint(menu) {
     margin-top: -17px;
   }
 }
 
-.scroll-up:not(.menu-open) header.header--sticky {
+.scroll-up:not(.menu-open) header.header--sticky,
+.header-sticky.scroll-up:not(.menu-open) header  {
   @include breakpoint(menu) {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
   }
