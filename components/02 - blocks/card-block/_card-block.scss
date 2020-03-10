@@ -17,6 +17,65 @@
     }
   }
 
+  &.card--horizontal.card--enclosed {
+    padding: $gutter;
+  }
+
+  &.card--horizontal {
+    @include breakpoint(sm) {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    >* {
+      @include breakpoint(sm) {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%;
+        flex: 1;
+      }
+    }
+
+    >img {
+      @include breakpoint(sm) {
+        flex: 0 0 20%;
+      }
+    }
+
+    .card__title {
+      font-family: $font-family-serif;
+      font-weight: $font-weight-bold;
+
+      @include breakpoint(sm) {
+        font-size: calc(100% + 1.4vw);
+        padding: 0;
+      }
+    }
+
+    .card__author {
+      margin: .75rem 0 .4rem;
+    }
+
+    .card__body p {
+      margin-top: .3rem;
+      margin-bottom: .5rem;
+    }
+
+    .card__body {
+      padding-left: $gutter;
+    }
+
+    .bttn--outline {
+      display: table;
+
+      &:after {
+        width: auto;
+      }
+    }
+  }
+
   &__row {
     @include breakpoint(menu) {
       @include margin($right: 1.6rem, $bottom: 0, $left: 1.6rem);
@@ -46,6 +105,7 @@
 
   &__body {
     color: $secondary;
+
     .card--enclosed & {
       @include breakpoint(sm) {
         padding: 0 2rem 2rem 2rem;
@@ -85,6 +145,7 @@
     //font-family: $font-family-serif;
     font-weight: $font-weight-bold;
     line-height: 1.2;
+
     @include breakpoint(sm) {
       font-size: calc(100% + 1vw);
       margin: 0;
