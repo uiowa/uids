@@ -17,13 +17,15 @@
       }
     }
 
-    &.uids-component--black,
     &.uids-component--gold {
       .bttn {
-        flex: 1;
+        //flex: 1;
         color: $secondary;
-        border: 1px solid #fff;
-        background: #fff;
+        border: 1px solid white;
+        background: white;
+        i, svg {
+          color: $primary;
+        }
       }
     }
   }
@@ -49,7 +51,9 @@
       align-items: unset;
       text-align: unset;
       width: 100%;
-
+      @include breakpoint(menu) {
+        padding: $lg 0;
+      }
     }
 
     @include breakpoint(menu) {
@@ -107,6 +111,8 @@
       grid-area: 1 / 3 / 3 / 4;
        @include breakpoint(menu) {
         text-align: right;
+        @include center(vertical);
+        justify-content: flex-end;
        }
     }
   }
