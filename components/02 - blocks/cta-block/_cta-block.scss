@@ -17,13 +17,15 @@
       }
     }
 
-    &.uids-component--black,
     &.uids-component--gold {
       .bttn {
-        flex: 1;
+        //flex: 1;
         color: $secondary;
-        border: 1px solid #fff;
-        background: #fff;
+        border: 1px solid white;
+        background: white;
+        i, svg {
+          color: $primary;
+        }
       }
     }
   }
@@ -48,10 +50,13 @@
       justify-items: unset;
       align-items: unset;
       text-align: unset;
-
+      width: 100%;
+      @include breakpoint(menu) {
+        padding: $lg 0;
+      }
     }
 
-    @include breakpoint(container) {
+    @include breakpoint(menu) {
       display: grid;
       padding: $lg $desktop-width-gutter;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -104,6 +109,11 @@
 
     .uids-component--left & {
       grid-area: 1 / 3 / 3 / 4;
+       @include breakpoint(menu) {
+        text-align: right;
+        @include center(vertical);
+        justify-content: flex-end;
+       }
     }
   }
 }
