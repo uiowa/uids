@@ -1,296 +1,92 @@
-// duplicate styles from superfish.css
-
-.menu--reversed {
-  .menu {
-    margin-top: 0;
-    margin-bottom: $lg;
-    li {
-      //border: 1px solid $secondary;
-      border-right: none;
-      &:last-child {
-      }
-      &:last-child a {
-
-      }
-      a {
-        //background: #E35205;
-        //color: $white;
-        //padding-top: 0;
-        //padding-bottom: 0;
-        //text-transform: uppercase;
-        //font-size: $small-font-size;
-        font-weight: $font-weight-bold;
-        &:hover {
-          //background: $secondary;
-          //color: $white;
-          color: $secondary;
-        }
-      }
-    }
-  }
-}
-
-
-
-.uids-menu .menu {
-  float: none;
-  @extend %no-ul-list;
-  font-size: $base-font-size;
-}
-
-
-.uids-menu {
-
-  .menu {
-    overflow: visible;
-    @include clearfix;
-      a {
-        position: relative;
-        //padding: $md;
-        transition: background 0.8s ease-out;
-        text-decoration: none;
-        color: $secondary;
-        font-weight: $font-weight-medium-bold;
-        @extend %font-smoothing-on;
-
-     /*   &:after {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 0%;
-          height: 2px;
-          content: "";
-          transition: 300ms;
-        }
-
-        &:hover:after,
-        &:focus:after {
-          width: 100%;
-        }
-*/
-      }
-    }
-  }
-
-
 .uids-menu {
   @include breakpoint(sm) {
-    @include flexbox;
     align-items: center;
+    @include flexbox;
   }
   @include margin($left: auto);
-}
-
-
-
-.uids-menu {
-  .menu,
-  .menu * {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  .menu li {
-    position: relative;
-    display: block;
-  }
-  .menu ul {
-    position: absolute;
-    display: none;
-    top: 100%;
-    left: 0;
-    z-index: 99;
-  }
-  .menu>li {
-    float: left;
-  }
-  .menu li:hover>ul {
-    display: block;
-  }
-  .menu a {
-    display: block;
-    position: relative;
-  }
-  .menu ul ul {
-    top: 0;
-    left: 100%;
-  }
-}
-
-/*
-.main--secondary--vertical,
-.main--secondary--horizontal {
-  padding: 0;
-  display: block;
-  .uids-menu {
-    position: relative;
-    li {
-        width: 100%;
-        @include breakpoint(sm) {
-          width: auto;
-        }
-    }
-    .menu-item {
-      display: block;
-      text-decoration: none;
-      background-color: transparent;
-    }
-    .menu-item a {
-      position: relative;
-      display: block;
-      width: 100%;
-      background-color: $white;
-      border: 1px solid $secondary;
-      @include padding($top: $sm, $right: $sm, $bottom: $sm, $left:$sm);
-      border-right-width: 0;
-      border-left-width: 0;
-      text-transform: uppercase;
-      &:hover, &:focus {
-        background-color: $primary;
-        color: $secondary;
-      }
-    }
-    .menu-item:first-of-type a {
-      border-top-width: 0;
-    }
-    .menu-item:last-of-type a {
-      border-bottom-width: 0;
-    }
-  }
-}
-
-.main--secondary--vertical {
-  ul.menu {
-    @include flexbox;
-    @include flex-direction(column);
+  .menu {
+    overflow: visible;
+    font-size: $base-font-size;
     @extend %no-ul-list;
-    width: 100%;
-  }
-}
-
-.main--secondary--horizontal {
-  .uids-menu {
-    @include breakpoint(sm) {
-      background-color: $light;
-      right: 0;
-    }
-    .menu li a {
-      @include breakpoint(sm) {
-        width: auto;
-        background-color: transparent;
-        border: 0px;
-        &:hover, &:focus {
-          &:after {
-            width: 1px;
-          }
-        }
-      }
-    }
-    .menu li a:after {
-      @include breakpoint(sm) {
-        position: absolute;
-        content: "";
-        background: $primary;
-        bottom: 35%;
-        right: 0;
-        height: 25%;
-        width: 1px;
-      }
-    }
-    .menu li:first-of-type a {
-      @include breakpoint(sm) {
-        &:after {
-          width: 0;
-        }
-      }
+    @include flexbox;
+    a {
+      position: relative;
+      transition: background 0.8s ease-out;
+      text-decoration: none;
+      color: $secondary;
+      font-weight: $font-weight-medium-bold;
+      @extend %font-smoothing-on;
     }
   }
 }
 
-*/
 
-
+// vertical and horiztonal
 .main--secondary--vertical,
 .main--secondary--horizontal {
-  padding: 0;
   display: block;
-
+  padding: 0;
   .menu {
     position: relative;
-
     li {
       display: block;
       width: 100%;
+      margin-bottom: $sm;
       font-size: 1.4rem;
       line-height: 1.3;
-      margin-bottom: $sm;
-
       @include breakpoint(sm) {
         width: auto;
-        font-size: 1.2rem;
         margin-bottom: 0;
+        font-size: calc(100% + .1vw);
+        @include center(vertical);
       }
     }
-
-     a {
+    a {
       position: relative;
       display: inline;
       width: 100%;
-      //background-color: $white;
-      //border: 1px solid $secondary;
-
-
-      //border-right-width: 0;
-      //border-left-width: 0;
-
       &:hover,
       &:focus {
         @include breakpoint(sm) {
-        background-color: $primary;
-        color: $secondary;
+          color: $secondary;
+          background-color: $primary;
         }
       }
     }
-
-
   }
 }
 
+// vertical only
 .main--secondary--vertical {
   ul.menu {
+    width: 100%;
     @include flexbox;
     @include flex-direction(column);
-   // @extend %no-ul-list;
-    width: 100%;
     li {
-       margin-bottom: $sm;
+      margin-bottom: $sm;
     }
   }
 }
 
-
+// horizontal only
 .main--secondary--horizontal {
   .menu {
+    display: block;
     @include breakpoint(sm) {
-      right: 0;
+      @include flexbox;
     }
-
     li a {
-
-          @include padding($top: $sm, $right: $sm, $bottom: $sm, $left:0);
-
-          @include breakpoint(sm) {
-             text-transform: uppercase;
-            @include padding($top: $md, $right: $lg, $bottom: $md, $left:$lg);
-            @include center(both);
-            text-align: center;
-          }
-
+      @include padding($top: $sm, $right: $sm, $bottom: $sm, $left:0);
+      @include breakpoint(sm) {
+        text-align: center;
+        text-transform: uppercase;
+        @include padding($top: $md, $right: $lg, $bottom: $md, $left:$lg);
+        @include center(both);
+      }
       @include breakpoint(sm) {
         width: auto;
-        background-color: transparent;
         border: 0px;
-
+        background-color: transparent;
         &:hover,
         &:focus {
           &:after {
@@ -299,19 +95,17 @@
         }
       }
     }
-
     li a:after {
       @include breakpoint(sm) {
         position: absolute;
+        right: 0;
+        bottom: 35%;
+        width: 1px;
+        height: 25%;
         content: "";
         background: $primary;
-        bottom: 35%;
-        right: 0;
-        height: 25%;
-        width: 1px;
       }
     }
-
     li:last-of-type a {
       @include breakpoint(sm) {
         &:after {
