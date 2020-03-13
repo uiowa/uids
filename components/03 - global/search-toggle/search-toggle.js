@@ -31,7 +31,7 @@ function searchToggle() {
     }
     if (button.getAttribute("aria-expanded") === "true") {
       document.getElementById("search-button-label").innerHTML = "Close";
-      document.getElementById("search-input").focus();
+      document.getElementsByName('search-terms')[0].focus();
     } else {
       document.getElementById("search-button-label").innerHTML = "Search";
     }
