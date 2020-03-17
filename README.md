@@ -8,6 +8,8 @@ https://uiowa.github.io/uids/
 
 After installing NVM, run `nvm use`. You may need to install the specified version of Node using `nvm install`.
 
+The node-gyp package requires a C compiler. If you notice node-gyp errors after installing dependencies, see the instructions for installing a C compiler based on your OS: https://github.com/nodejs/node-gyp#on-macos
+
 ## Usage
 First, install NPM dependencies:
 ```
