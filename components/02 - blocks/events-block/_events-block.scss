@@ -71,19 +71,29 @@
     display: flex;
     flex-direction: row;
     margin-bottom: 15px;
+    padding-top: $md;
     //min-height: 270px;
-    i {
+    .fas,
+    .svg-inline--fa {
+      color: $grey;
+      padding-right: $xsm;
+      .uids-component--gold & {
       color: white;
+      }
+    }
+
+    .svg-inline--fa {
+      width: 17px;
     }
 
     @include breakpoint(menu) {
       padding-top: 30px;
       min-height: 270px;
-      @include margin($right: $sm, $bottom: 0, $left: $sm);
+      @include margin($right: $md, $bottom: 0, $left: $md);
       @include center(both);
 
       &:first-of-type {
-        @include margin($left: 0);
+        //@include margin($left: 0);
       }
 
       &:last-of-type {
@@ -94,7 +104,6 @@
 
   &__wrapper {
     padding-bottom: 20px;
-    background: $primary;
 
     @include breakpoint(menu) {
       padding-bottom: 0;
@@ -102,15 +111,49 @@
     }
   }
 
-  &__img {
+  &__image img {
     align-self: start;
     padding: 8px;
-    border: 1px solid white;
+    border: 1px solid $grey;
     border-radius: 50%;
-    background: $primary;
+    background: #fff;
     @include margin($bottom: $md);
+    .uids-component--gold & {
+      border: 1px solid white;
+      background: $primary;
+    }
+    .uids-component--gray & {
+      background: $light;
+    }
+    .uids-component--black & {
+      background: $secondary;
+      border: 1px solid $primary;
+    }
   }
 
+  .bttn {
+   padding: $sm;
+   margin-top: $md;
+   background: transparent;
+   border-color: white;
+   &:after,
+   &:focus {
+     .uids-component--gold & {
+     background-color: #fff;
+     }
+   }
+   .uids-component--black &,
+   .uids-component--gold &,
+   .uids-component--gray & {
+     padding: $sm $sm $sm $md;
+   }
+    .uids-component--gray & {
+      border-color: $grey;
+    }
+    .uids-component--black & {
+      color: $primary;
+    }
+  }
 
   &__image {
     display: none;
@@ -132,6 +175,9 @@
   &__label {
     letter-spacing: .09rem;
     text-transform: uppercase;
+    .uids-component--black & {
+      color: $light;
+    }
   }
 
   &__title {
@@ -143,6 +189,9 @@
     a {
       text-decoration: none;
       color: $secondary;
+      .uids-component--black & {
+        color: white;
+      }
     }
   }
 
@@ -152,6 +201,9 @@
     font-size: 1.2rem;
     font-weight: $font-weight-light;
     font-style: italic;
+    .uids-component--black & {
+      color: $primary;
+    }
   }
 
   &__text {

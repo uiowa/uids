@@ -3,54 +3,73 @@
     align-items: center;
     @include flexbox;
   }
+
   @include margin($left: auto);
+
   .menu {
     overflow: visible;
     font-size: $base-font-size;
     @extend %no-ul-list;
     @include flexbox;
+
     a {
       position: relative;
+      display: inline-block;
       transition: background 0.8s ease-out;
       text-decoration: none;
       color: $secondary;
-      font-weight: $font-weight-medium-bold;
       @extend %font-smoothing-on;
     }
   }
 }
 
-
 // vertical and horiztonal
 .main--secondary--vertical,
 .main--secondary--horizontal {
   display: block;
-  padding: 0;
+
   .menu {
     position: relative;
+
     li {
       display: block;
       width: 100%;
       margin-bottom: $sm;
       font-size: 1.4rem;
       line-height: 1.3;
+
       @include breakpoint(sm) {
         width: auto;
         margin-bottom: 0;
-        font-size: calc(100% + .1vw);
-        @include center(vertical);
       }
-    }
-    a {
-      position: relative;
-      display: inline;
-      width: 100%;
-      &:hover,
-      &:focus {
-        @include breakpoint(sm) {
-          color: $secondary;
-          background-color: $primary;
+
+      li {
+        font-size: 1.1rem;
+
+        a {
+          color: #333;
+          border-bottom: none;
+          @include padding($top: $xsm, $right: $sm, $bottom: $xsm, $left:0);
+
         }
+      }
+
+      a {
+        position: relative;
+        width: 100%;
+        border-bottom: 1px solid $light;
+        @include padding($top: $sm, $right: $sm, $bottom: $sm, $left:0);
+
+        &:hover,
+        &:focus {
+          @include breakpoint(sm) {
+            color: $secondary;
+          }
+        }
+      }
+
+      &.menu-item--expanded.menu-item--active-trail a {
+        border-bottom: none;
       }
     }
   }
@@ -62,6 +81,7 @@
     width: 100%;
     @include flexbox;
     @include flex-direction(column);
+
     li {
       margin-bottom: $sm;
     }
@@ -70,35 +90,64 @@
 
 // horizontal only
 .main--secondary--horizontal {
+  padding: $gutter;
+  @extend %container;
+
+  @include breakpoint(sm) {
+    padding: 0 $gutter;
+  }
+
+  @include breakpoint(container) {
+    padding: 0;
+  }
+
   .menu {
     display: block;
+
     @include breakpoint(sm) {
       @include flexbox;
     }
-    li a {
-      @include padding($top: $sm, $right: $sm, $bottom: $sm, $left:0);
+
+    li {
       @include breakpoint(sm) {
-        text-align: center;
-        text-transform: uppercase;
-        @include padding($top: $md, $right: $lg, $bottom: $md, $left:$lg);
-        @include center(both);
+        font-size: calc(100% + .1vw);
+        @include center(vertical);
       }
-      @include breakpoint(sm) {
-        width: auto;
-        border: 0px;
-        background-color: transparent;
-        &:hover,
-        &:focus {
-          &:after {
-            width: 1px;
-          }
+
+      &:first-of-type a {
+        @include breakpoint(sm) {
+          margin-left: 0;
+        }
+      }
+
+      &:last-of-type a {
+        @include breakpoint(sm) {
+          margin-right: 0;
+        }
+      }
+
+      a {
+        @extend %bttn--focus;
+
+        @include breakpoint(sm) {
+          position: relative;
+          width: auto;
+          margin: 0 $lg;
+          text-align: center;
+          text-transform: uppercase;
+          border: 0px;
+          background-color: transparent;
+          font-weight: $font-weight-medium-bold;
+          @include padding($top: $lg, $right: 0, $bottom: $lg, $left:0);
+          @include center(both);
         }
       }
     }
-    li a:after {
+
+    li a:before {
       @include breakpoint(sm) {
         position: absolute;
-        right: 0;
+        right: -30px;
         bottom: 35%;
         width: 1px;
         height: 25%;
@@ -106,9 +155,10 @@
         background: $primary;
       }
     }
+
     li:last-of-type a {
       @include breakpoint(sm) {
-        &:after {
+        &:before {
           width: 0;
         }
       }

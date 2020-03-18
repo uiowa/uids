@@ -9,6 +9,11 @@
   @include flexbox;
   @include flex-direction($value: column);
   @include flex($fg: 1, $fs: 1, $fb: 0%);
+  border: 1px solid rgba(0, 0, 0, 0.125);
+
+  @include breakpoint(sm) {
+    border: none;
+  }
 
   &.card--enclosed {
     @include breakpoint(sm) {
@@ -107,6 +112,10 @@
 
   &__body {
     color: $secondary;
+    padding: 0 2rem 2rem 2rem;
+    @include breakpoint(sm) {
+      padding: 0;
+    }
 
     .card--enclosed & {
       @include breakpoint(sm) {
