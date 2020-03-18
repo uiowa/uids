@@ -73,11 +73,17 @@
     margin-bottom: 15px;
     padding-top: $md;
     //min-height: 270px;
-    .fas {
+    .fas,
+    .svg-inline--fa {
       color: $grey;
+      padding-right: $xsm;
       .uids-component--gold & {
       color: white;
       }
+    }
+
+    .svg-inline--fa {
+      width: 17px;
     }
 
     @include breakpoint(menu) {
@@ -125,6 +131,29 @@
     }
   }
 
+  .bttn {
+   padding: $sm;
+   margin-top: $md;
+   background: transparent;
+   border-color: white;
+   &:after,
+   &:focus {
+     .uids-component--gold & {
+     background-color: #fff;
+     }
+   }
+   .uids-component--black &,
+   .uids-component--gold &,
+   .uids-component--gray & {
+     padding: $sm $sm $sm $md;
+   }
+    .uids-component--gray & {
+      border-color: $grey;
+    }
+    .uids-component--black & {
+      color: $primary;
+    }
+  }
 
   &__image {
     display: none;
