@@ -420,6 +420,7 @@ _:future,
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   display: grid;
+  width: 100%;
 
   @include breakpoint(sm) {
     padding: 0 $desktop-width-gutter;
@@ -427,8 +428,9 @@ _:future,
 }
 
 .hero__content-grid>*:nth-child(1) {
-  display: none;
-  grid-area: 2 / 1 / 3 / 2;
+  //display: none;
+  //grid-area: 2 / 1 / 3 / 2;
+   grid-area: 1 / 1 / 2 / 2;
 
   @include breakpoint(menu) {
     display: flex;
@@ -437,23 +439,25 @@ _:future,
 }
 
 .hero__content-grid>*:nth-child(2) {
-  display: none;
+  //display: none;
   align-self: center;
-  grid-area: 1 / 1 / 3 / 4;
+  //grid-area: 1 / 1 / 3 / 4;
+  grid-area: 1 / 2 / 2 / 3;
 
   @include breakpoint(menu) {
-    display: none;
+    display: block;
     grid-area: 1 / 2 / 2 / 3;
   }
 
   @include breakpoint(container) {
-    display: block;
+
   }
 }
 
 .hero__content-grid>*:nth-child(3) {
-  display: none;
-  grid-area: 2 / 3 / 3 / 4;
+ // display: none;
+ // grid-area: 2 / 3 / 3 / 4;
+  grid-area: 1 / 3 / 2 / 4;
 
   @include breakpoint(menu) {
     display: flex;
@@ -463,7 +467,7 @@ _:future,
 
 .hero__content-grid>*:nth-child(4) {
   align-self: center;
-  text-align: center;
+  //text-align: center;
   grid-area: 2 / 1 / 3 / 4;
 
   @include breakpoint(menu) {
@@ -486,3 +490,58 @@ _:future,
     display: flex;
   }
 }
+
+@media screen and (max-width: 450px) {
+  .hero__content-grid>*:nth-child(1),
+  .hero__content-grid>*:nth-child(2),
+  .hero__content-grid>*:nth-child(3) {
+    display: none;
+  }
+}
+
+
+  .hero__content-grid .highlight__wrapper .highlight__sub {
+    display: none;
+  }
+
+  .highlight__title span {
+    color: $secondary;
+    background: $primary;
+  }
+
+    .hero__content-grid .bold-headline--caps.bold-headline {
+      @include breakpoint(menu) {
+      padding-right: 6rem;
+      }
+    }
+
+
+// ie11
+@media all and (-ms-high-contrast: none),
+(-ms-high-contrast: active) {
+
+  .hero__content-grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .hero__content-grid>* {
+    flex: 1 0 auto;
+   // width: 25%;
+  }
+
+  .hero__content-grid .highlight__wrapper .highlight__sub {
+    display: none;
+}
+
+  .hero__content-grid .highlight__wrapper {
+    width: 33%;
+  }
+  .hero__content-grid .bold-headline--caps.bold-headline {
+    width: 60%;
+  }
+  .hero.hero__grid .highlight__wrapper {
+      width: auto!important;
+    }
+}
+
