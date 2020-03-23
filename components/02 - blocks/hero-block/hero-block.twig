@@ -61,6 +61,13 @@
 
 {% else %}
 
+{% if hero_content == 'bottom' %}
+	{% block breadcrumbs %}
+		{% include '@breadcrumbs' %}
+	{% endblock %}
+{% endif %}
+
+
 {% block headline %}
 	{% if hero_title is not empty %}
 		{% include "@heading" with {
@@ -82,12 +89,6 @@
           <a href="{{item.link}}" class="{{ item.type }}">{{ item.text }}</a>
         {% endfor %}
       </div>
-    {% endif %}
-
-    {% if hero_content == 'bottom' %}
-      {% block breadcrumbs %}
-        {% include '@breadcrumbs' %}
-      {% endblock %}
     {% endif %}
 
   </div>
