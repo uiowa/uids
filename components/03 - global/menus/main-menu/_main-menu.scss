@@ -59,7 +59,20 @@
         width: 100%;
         border-bottom: 1px solid $light;
         @include padding($top: $sm, $right: $sm, $bottom: $sm, $left:0);
-
+        &.is-active {
+          &:before {
+            background: $gray;
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            width: 100%;
+            height: 4px;
+            transform-origin: center;
+            transition: transform 0.3s ease-in-out;
+            transform: translate(-50%, 0) scaleX(1);
+          }
+        }
         &:hover,
         &:focus {
           @include breakpoint(sm) {
