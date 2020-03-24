@@ -51,10 +51,11 @@
   @include flex($fg: 1, $fs: 1, $fb: 0%);
 
   &__body {
-    padding: 0 $mobile-width-gutter;
+    padding: 0 0 $mobile-width-gutter $mobile-width-gutter;
 
     @include breakpoint(sm) {
       width: auto;
+      padding: $mobile-width-gutter;
     }
 
     @include breakpoint(menu) {
@@ -86,10 +87,14 @@
       width: 17px;
     }
 
+     @include breakpoint(container) {
+       padding-left: 3rem;
+       min-height: 270px;
+     }
+
     @include breakpoint(menu) {
       padding-top: 30px;
-      min-height: 270px;
-      @include margin($right: $md, $bottom: 0, $left: 0);
+      margin: 0;
       @include center(both);
 
       &:first-of-type {
@@ -97,7 +102,7 @@
       }
 
       &:last-of-type {
-        @include margin($right: 0);
+        //@include margin($right: 0);
       }
     }
   }
