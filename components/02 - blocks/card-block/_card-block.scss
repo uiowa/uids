@@ -10,15 +10,24 @@
   @include flex-direction($value: column);
   @include flex($fg: 1, $fs: 1, $fb: 0%);
   border: 1px solid rgba(0, 0, 0, 0.125);
+  .media {
+    flex-shrink: 0;
+    width: 100%;
+    img {
+      flex-shrink: 0;
+    }
+  }
 
   @include breakpoint(sm) {
     border: none;
+    margin-bottom: 0;
   }
 
   &.card--enclosed {
     @include breakpoint(sm) {
       flex: 1 1 15%;
       border: 1px solid rgba(0, 0, 0, 0.125);
+      //margin-bottom: 1.6rem;
     }
   }
 
@@ -32,6 +41,7 @@
       flex-direction: row;
       flex-wrap: wrap;
       width: 100%;
+      margin-bottom: 1.6rem;
     }
 
     > * {
@@ -55,7 +65,7 @@
       font-weight: $font-weight-bold;
 
       @include breakpoint(sm) {
-        font-size: calc(100% + 1.4vw);
+        //font-size: calc(100% + 1.4vw);
         padding: 0;
       }
     }
@@ -158,12 +168,12 @@
     line-height: 1.2;
 
     @include breakpoint(sm) {
-      font-size: calc(100% + 1vw);
+      font-size: 1.8rem;
       margin: 0;
     }
 
     @include breakpoint(container) {
-      font-size: calc(100% + 1vw);
+      //font-size: calc(100% + 1vw);
     }
 
     a {
@@ -178,20 +188,25 @@
   }
 }
 
-
+// @todo move card header to separate component
 .card__head {
   flex-wrap: wrap;
-  margin: $mobile-height-gutter $mobile-width-gutter;
+  padding: 3rem 0 2rem 0;
   text-align: center;
   @include center(horizontal);
 
   @include breakpoint(menu) {
-    margin: 6rem 0 3rem 0;
+    margin: 0;
     @include flexbox;
   }
 
   .bttn {
     flex-basis: 100%;
+    &.bttn--link:hover,
+    &.bttn--link:focus {
+      background: transparent;
+      text-decoration: underline;
+    }
   }
 
   h2 {

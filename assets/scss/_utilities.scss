@@ -337,7 +337,9 @@
   @include center(both);
   flex-flow: column nowrap;
   text-align: center;
-  padding: 1.5rem 0;
+  @include breakpoint(sm) {
+    padding: 1.5rem 0;
+  }
 }
 
 %uids-component--left {
@@ -364,6 +366,10 @@
   background: $light;
 }
 
+%uids-component--alert {
+  background: $danger;
+}
+
 %uids-component--brain {
   background: #fff url("#{$imgpath}/brain-pattern.svg");
   background-size: auto auto;
@@ -371,5 +377,10 @@
 
 %uids-component--brain-reversed {
   background: $primary url("#{$imgpath}/brain-pattern-reversed.svg");
+  background-size: auto auto;
+}
+
+%uids-component--brain-black {
+  background: $secondary url("#{$imgpath}/brain-pattern-black.svg");
   background-size: auto auto;
 }

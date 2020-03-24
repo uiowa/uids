@@ -3,7 +3,6 @@
 }
 
 .stat {
-  color: $blk;
   position: relative;
   &__title {
     position: relative;
@@ -15,6 +14,14 @@
     display: inline-table;
     border-bottom: 8px solid $primary;
     padding: $md $lg $sm;
+    .uids-component--brain-black &,
+    .uids-component--black & {
+      color: white;
+    }
+    .uids-component--brain-reversed &,
+    .uids-component--gold & {
+      border-bottom: 8px solid white;
+    }
     @include breakpoint(sm) {
       padding: 0 $lg 0 0;
       .uids-component--flex-center & {
@@ -29,13 +36,29 @@
     text-transform: uppercase;
     font-size: 1rem;
     line-height: 1.4;
-    width: 70%;
+    width: 85%;
     margin: $sm 0;
+    .uids-component--brain-black &,
+    .uids-component--black & {
+      color: white;
+    }
     @include breakpoint(menu) {
       font-size: 1.5rem;
     }
+    .grid--3-2 & {
+      @include breakpoint(menu) {
+        width: 60%;
+      }
+    }
   }
 }
+
+.grid--3-2 .stat__description {
+  @include breakpoint(menu) {
+    width: 60%;
+  }
+}
+
 
 .heading__prefix,
 .heading__suffix {

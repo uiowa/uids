@@ -2,7 +2,7 @@ const drawerContainer = document.querySelectorAll(".o-canvas__wrapper");
 const toggleButtons = document.querySelectorAll("button.bttn--drawer");
 const canvasDrawer = document.querySelectorAll(".o-canvas__drawer");
 
-//const searchBox = document.querySelectorAll(".hds-search input");
+//const searchBox = document.querySelectorAll(".uids-search input");
 //const searchButton = document.getElementById("search--button");
 //const searchLabel = document.getElementById("search-button-label");
 

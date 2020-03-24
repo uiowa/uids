@@ -225,7 +225,7 @@
 
       div:first-of-type,
       nav:first-of-type {
-        width: 100%;
+        flex-basis: 100%;
       }
 
     @include breakpoint(sm) {
@@ -240,6 +240,17 @@
 
 .footer-cta__container .menu {
   @extend %no-ul-list;
+  li {
+    @include breakpoint(sm) {
+      &:first-child a {
+        margin: 0 $md 0 0;
+      }
+
+      &:last-child a {
+        margin: 0 0 0 $md;
+      }
+    }
+  }
 
   a {
     margin: $md 0;

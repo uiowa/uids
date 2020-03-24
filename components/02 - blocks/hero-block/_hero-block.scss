@@ -74,6 +74,7 @@
 .hero {
   position: relative;
   background: $secondary;
+
   img {
     width: 100%;
   }
@@ -130,15 +131,18 @@ img.hero-image {
     margin-bottom: $md;
     background: #fff;
     color: $secondary;
+    display: block;
 
     @include breakpoint(sm) {
       color: #fff;
+      display: inline-block;
     }
 
 
     @include breakpoint(sm) {
       margin-right: $md;
-      background: #222222b8;
+      background: #000;
+      background: rgba(0, 0, 0, 0.58);
     }
 
     &:hover,
@@ -147,14 +151,16 @@ img.hero-image {
 
       @include breakpoint(sm) {
         color: $primary;
-        background: #222222b8;
+        background: #333;
+        background: rgba(34, 34, 34, 0.73);
 
       }
     }
   }
 }
 
-.hero__content-center .hero__links a.bttn:nth-child(3) {
+.hero__content-center .hero__links a.bttn:nth-child(3),
+.hero__content-center div a.bttn:nth-child(3) {
   margin-right: 0;
 }
 
@@ -163,11 +169,13 @@ img.hero-image {
   p {
     color: #000;
     line-height: 1.5;
+
     @include breakpoint(sm) {
       color: #fff;
       margin: 0 20%;
     }
   }
+
   .bold-headline {
     &.bold-headline--caps {
       color: #fff;
@@ -181,15 +189,18 @@ img.hero-image {
       }
     }
 
-    margin-top: $lg;
+    margin-top: 0;
     padding: 0;
-    margin-bottom: .75rem;
+    margin-bottom: .7rem;
     font-size: calc(100% + 4vw);
     line-height: 1;
 
     @include breakpoint(sm) {
       text-shadow: 0 1px 1px #000;
       font-size: calc(100% + 4vw);
+    }
+    @include breakpoint(menu) {
+      margin-bottom: .3rem;
     }
   }
 }
@@ -366,7 +377,7 @@ _::-webkit-full-page-media,
 _:future,
 :root .hero.hero__grid {
   @include breakpoint(container) {
-    height: 100vh;
+    //height: 100vh;
   }
 }
 
@@ -374,9 +385,19 @@ _::-webkit-full-page-media,
 _:future,
 :root .hero__image img {
   @include breakpoint(container) {
-    height: 100vh;
+   // height: 100vh;
   }
 }
+
+_::-webkit-full-page-media,
+_:future,
+:root .hero.hero__grid .hero__content {
+  align-content: center;
+  @include breakpoint(menu) {
+    //height: 100vh;
+  }
+}
+
 
 .hero.hero__grid .hero__content {
   position: absolute;
@@ -420,6 +441,7 @@ _:future,
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   display: grid;
+  width: 100%;
 
   @include breakpoint(sm) {
     padding: 0 $desktop-width-gutter;
@@ -427,8 +449,7 @@ _:future,
 }
 
 .hero__content-grid>*:nth-child(1) {
-  display: none;
-  grid-area: 2 / 1 / 3 / 2;
+  grid-area: 1 / 1 / 2 / 2;
 
   @include breakpoint(menu) {
     display: flex;
@@ -437,23 +458,19 @@ _:future,
 }
 
 .hero__content-grid>*:nth-child(2) {
-  display: none;
   align-self: center;
-  grid-area: 1 / 1 / 3 / 4;
+  grid-area: 1 / 2 / 2 / 3;
 
   @include breakpoint(menu) {
-    display: none;
+    display: block;
     grid-area: 1 / 2 / 2 / 3;
   }
 
-  @include breakpoint(container) {
-    display: block;
-  }
+  @include breakpoint(container) {}
 }
 
 .hero__content-grid>*:nth-child(3) {
-  display: none;
-  grid-area: 2 / 3 / 3 / 4;
+  grid-area: 1 / 3 / 2 / 4;
 
   @include breakpoint(menu) {
     display: flex;
@@ -463,8 +480,7 @@ _:future,
 
 .hero__content-grid>*:nth-child(4) {
   align-self: center;
-  text-align: center;
-  grid-area: 2 / 1 / 3 / 4;
+  grid-area: 2 / 1 / 3 / 3;
 
   @include breakpoint(menu) {
     display: flex;
@@ -479,10 +495,66 @@ _:future,
 }
 
 .hero__content-grid>*:nth-child(5) {
-  display: none;
   grid-area: 2 / 3 / 3 / 4;
 
   @include breakpoint(menu) {
     display: flex;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .hero__content-grid>*:nth-child(1),
+  .hero__content-grid>*:nth-child(2),
+  .hero__content-grid>*:nth-child(3),
+  .hero__content-grid>*:nth-child(5) {
+    display: none;
+  }
+}
+
+
+.hero__content-grid .highlight__wrapper .highlight__sub {
+  display: none;
+}
+
+.hero__content-grid .highlight__title span {
+  color: $secondary;
+  background: $primary;
+}
+
+.hero__content-grid .bold-headline--caps.bold-headline {
+  padding-right: 3rem;
+  @include breakpoint(menu) {
+    padding-right: 6rem;
+  }
+}
+
+
+// ie11
+@media all and (-ms-high-contrast: none),
+(-ms-high-contrast: active) {
+
+  .hero__content-grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .hero__content-grid>* {
+    flex: 1 0 auto;
+  }
+
+  .hero__content-grid .highlight__wrapper .highlight__sub {
+    display: none;
+  }
+
+  .hero__content-grid .highlight__wrapper {
+    width: 33%;
+  }
+
+  .hero__content-grid .bold-headline--caps.bold-headline {
+    width: 60%;
+  }
+
+  .hero.hero__grid .highlight__wrapper {
+    width: auto !important;
   }
 }
