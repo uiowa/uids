@@ -71,3 +71,38 @@ document.addEventListener(
 );
 
 
+
+const isMobile = {
+  Android() {
+    return navigator.userAgent.match(/Android/i);
+  },
+  BlackBerry() {
+    return navigator.userAgent.match(/BlackBerry/i);
+  },
+  iOS() {
+    return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+  },
+  iPhone() {
+    return navigator.userAgent.match(/iPhone/i);
+  },
+  iPad() {
+    return navigator.userAgent.match(/iPad/i);
+  },
+  Opera() {
+    return navigator.userAgent.match(/Opera Mini/i);
+  },
+  Windows() {
+    return navigator.userAgent.match(/IEMobile/i);
+  },
+  any() {
+    return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+  }
+};
+
+
+
+if (isMobile.any()) {
+  document.querySelectorAll(".player")[0].controls = true;
+  document.querySelectorAll(".player")[1].controls = true;
+  document.querySelectorAll(".player")[2].controls = true;
+}
