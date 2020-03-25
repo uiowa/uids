@@ -42,7 +42,6 @@
   }
 }
 
-
 .events-card {
   position: relative;
   transition: transform .35s, z-index .5s;
@@ -51,18 +50,18 @@
   @include flex($fg: 1, $fs: 1, $fb: 0%);
 
   &__body {
-    padding: 0 0 $mobile-width-gutter $mobile-width-gutter;
+    padding: 0 $mobile-width-gutter $mobile-width-gutter $mobile-width-gutter;
 
-    @include breakpoint(sm) {
+    @include breakpoint(menu) {
       width: auto;
-      padding: $mobile-width-gutter;
+      padding: $mobile-width-gutter 0;
     }
 
     @include breakpoint(menu) {
       margin-top: -30px;
     }
 
-    @include breakpoint(container) {
+    @include breakpoint(xlg) {
       width: 70%;
       padding: 0;
     }
@@ -71,15 +70,24 @@
   &__row {
     display: flex;
     flex-direction: row;
-    margin-bottom: 15px;
-    padding-top: $md;
+    //margin-bottom: 15px;
+    //padding-top: $md;
+    flex-wrap: wrap;
+    @include breakpoint(sm) {
+    padding: 0 1.5rem;
+    }
+    @include breakpoint(xlg) {
+      flex-wrap: nowrap;
+    }
+
     //min-height: 270px;
     .fas,
     .svg-inline--fa {
       color: $grey;
       padding-right: $xsm;
+
       .uids-component--gold & {
-      color: white;
+        color: white;
       }
     }
 
@@ -87,15 +95,17 @@
       width: 17px;
     }
 
-     @include breakpoint(container) {
-       padding-left: 3rem;
-       min-height: 270px;
-     }
+
+
+    @include breakpoint(container) {
+      padding: 0 1.5rem;
+      min-height: 270px;
+      @include center(both);
+    }
 
     @include breakpoint(menu) {
       padding-top: 30px;
       margin: 0;
-      @include center(both);
 
       &:first-of-type {
         //@include margin($left: 0);
@@ -117,20 +127,49 @@
     }
   }
 
+  &__image {
+    overflow: hidden;
+    contain: paint;
+    @include breakpoint(menu) {
+      height: 150px;
+      margin-bottom: 20px;
+    }
+
+    @include breakpoint(xlg) {
+      height: auto;
+      margin-bottom: 0;
+    }
+  }
+
   &__image img {
     align-self: start;
-    padding: 8px;
-    border: 1px solid $grey;
-    border-radius: 50%;
+    @include breakpoint(menu) {
+    margin-top: -50px;
+    }
+    width: 100%;
+
+    @include breakpoint(xlg) {
+      border-radius: 50%;
+      margin-top: 0;
+      height: auto;
+      padding: 8px;
+      border: 1px solid $grey;
+    }
+
     background: #fff;
-    @include margin($bottom: $md);
+    //@include margin($bottom: $md);
+
     .uids-component--gold & {
+      @include breakpoint(xlg) {
       border: 1px solid white;
+      }
       background: $primary;
     }
+
     .uids-component--gray & {
       background: $light;
     }
+
     .uids-component--black & {
       background: $secondary;
       border: 1px solid $primary;
@@ -138,40 +177,52 @@
   }
 
   .bttn {
-   padding: $xsm;
-   margin-top: $md;
-   background: transparent;
-   border-color: white;
-   font-size: .8rem;
-   &:after,
-   &:focus {
-     .uids-component--gold & {
-     background-color: #fff;
-     }
-   }
-   .uids-component--black &,
-   .uids-component--gold &,
-   .uids-component--gray & {
-     padding: .4rem $sm .4rem 1rem;
-   }
+    padding: $xsm;
+    margin-top: $md;
+    background: transparent;
+    border: none;
+    //border-bottom: 1px solid $secondary;
+    font-size: .8rem;
+
+    &:after,
+    &:focus {
+      .uids-component--gold & {
+        background-color: #fff;
+      }
+    }
+
+    .uids-component--black &,
+    .uids-component--gold &,
+    .uids-component--gray & {
+      padding: 0 0 .4rem 0;
+    }
+
     .uids-component--gray & {
       border-color: $grey;
     }
+
     .uids-component--black & {
       color: $primary;
     }
   }
 
   &__image {
-    display: none;
-    margin-right: 10px;
-    margin-left: 10px;
+    //display: none;
+    //margin-right: 10px;
+    // margin-left: 10px;
 
     @include breakpoint(sm) {
-      display: none;
+      //display: none;
     }
 
-    @include breakpoint(container) {
+    @include breakpoint(menu) {
+      display: block;
+      width: 100%;
+      margin-right: 0px;
+      margin-left: 0;
+    }
+
+    @include breakpoint(xlg) {
       display: block;
       width: 40%;
       margin-right: 30px;
@@ -182,6 +233,7 @@
   &__label {
     letter-spacing: .09rem;
     text-transform: uppercase;
+
     .uids-component--black & {
       color: $light;
     }
@@ -196,6 +248,7 @@
     a {
       text-decoration: none;
       color: $secondary;
+
       .uids-component--black & {
         color: white;
       }
@@ -208,6 +261,7 @@
     font-size: 1.2rem;
     font-weight: $font-weight-light;
     font-style: italic;
+
     .uids-component--black & {
       color: $primary;
     }
