@@ -29,12 +29,13 @@ function searchToggle() {
       this.setAttribute("aria-expanded", "true");
       body.classList.add("search-is-open");
     }
-    if (button.getAttribute("aria-expanded") === "true") {
+  /*if (button.getAttribute("aria-expanded") === "true") {
       document.getElementById("search-button-label").innerHTML = "Close";
       document.getElementsByName('search-terms')[0].focus();
     } else {
       document.getElementById("search-button-label").innerHTML = "Search";
     }
+   */
   }
 }
 
