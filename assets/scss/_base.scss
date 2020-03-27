@@ -535,27 +535,75 @@ li {
 
 
 // todo - move alert to separate component
+
 .uids-component--alert {
   padding: $md 0;
-  p {
+  margin-top: 90px;
+
+  p,
+  >* {
     color: #fff;
     font-family: $font-family-serif;
     text-align: center;
     line-height: 1.4;
     width: 70%;
+    font-size: 1.2rem;
     margin: 0 auto;
+
     i,
     span,
     svg {
       margin-right: $sm;
     }
+
     a {
       text-decoration: underline;
       color: white;
       font-weight: $font-weight-bold;
-      &:hover, &:focus {
+
+      &:hover,
+      &:focus {
         text-decoration: none;
       }
     }
+  }
+}
+
+// Hawk Alert Styles
+
+
+.uiowa-alerts-wrapper {
+  padding-bottom: .5rem;
+
+  .hawk-alert-heading {
+    @include breakpoint(menu) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .hawk-alert-label {
+    text-transform: uppercase;
+    font-weight: $font-weight-bold;
+    font-size: 2rem;
+  }
+
+  .hawk-alert-date {
+    background: $secondary;
+    padding: 5px 10px;
+    border-radius: 3px;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .9rem;
+    display: block;
+
+    @include breakpoint(sm) {
+      display: inline;
+    }
+  }
+
+  .hawk-alert-body {
+    display: block;
   }
 }
