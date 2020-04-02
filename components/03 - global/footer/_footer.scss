@@ -165,13 +165,22 @@
 
   &__menu {
     @extend %no-ul-list;
+    display: flex;
+    flex-wrap: wrap;
 
     li {
-      display: inline;
       color: white;
       font-size: $small-font-size;
       border-right: 1px solid #ccc;
+      margin-bottom: $xsm;
       @include padding($top: 0, $right: $sm, $left: $sm);
+
+      &:first-child {
+        flex-basis: 100%;
+      }
+      &:nth-child(2) {
+        padding-left: 0;
+      }
 
       &:last-child {
         border-right: none;
@@ -184,7 +193,7 @@
 
       a {
         text-decoration: none;
-        color: $white;
+        color: $primary;
          &:hover,
          &:focus {
            text-decoration: underline;
