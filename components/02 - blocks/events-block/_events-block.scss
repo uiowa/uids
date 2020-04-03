@@ -14,14 +14,9 @@
       padding:  0 $mobile-width-gutter $mobile-width-gutter $mobile-width-gutter;
     }
 
-    @include breakpoint(container) {
-      background: #fff;
-    }
-
     @include breakpoint(xlg) {
       width: 70%;
       padding: 0;
-      background: transparent;
     }
   }
 
@@ -32,15 +27,21 @@
     align-content: flex-start;
     background: #fff;
 
+    @include breakpoint(menu) {
+      margin: 0;
+    }
+
     @include breakpoint(container) {
-      background: none;
-      padding: 0 1.5rem;
+      margin: 1.5rem 0 1.5rem 1.5rem;
+      min-height: 200px;
+      @include center(both);
     }
 
     @include breakpoint(xlg) {
       flex-wrap: nowrap;
       border: none;
       padding: 0 1.5rem;
+      background: transparent;
     }
 
     .fas,
@@ -57,17 +58,6 @@
 
     .svg-inline--fa {
       width: 17px;
-    }
-
-
-
-    @include breakpoint(container) {
-      min-height: 270px;
-      @include center(both);
-    }
-
-    @include breakpoint(menu) {
-      margin: 0;
     }
   }
 
@@ -97,7 +87,7 @@
   &__image img {
     align-self: start;
     @include breakpoint(container) {
-    margin-top: -90px;
+    margin-top: -50px;
     }
     width: 100%;
 
