@@ -1,46 +1,3 @@
-.events-card__heading {
-  margin-bottom: 30px;
-  padding: 11px 0 0px;
-  background: $secondary;
-
-  @include breakpoint(menu) {
-    width: 100px;
-    margin-bottom: 0;
-    padding: 60px 0;
-    transform: rotate(180deg);
-    writing-mode: vertical-rl;
-  }
-
-  @include breakpoint(container) {
-    margin-right: 30px;
-  }
-
-  @include center(both);
-
-  h2 {
-    @include breakpoint(menu) {
-      margin: 0 0 0 -13px;
-    }
-
-    a {
-      text-decoration: none;
-      text-transform: uppercase;
-      color: white;
-      font-family: $font-family-caps-bold;
-      font-size: $h4-font-size;
-
-      @include breakpoint(sm) {
-        font-size: $h3-font-size;
-      }
-    }
-  }
-}
-
-@-moz-document url-prefix() {
-  .events-card__heading {
-    padding: 3px 0 0px;
-  }
-}
 
 .events-card {
   position: relative;
@@ -53,12 +10,8 @@
     padding: 0 $mobile-width-gutter $mobile-width-gutter $mobile-width-gutter;
 
     @include breakpoint(menu) {
-      width: auto;
-      padding: $mobile-width-gutter 0;
-    }
-
-    @include breakpoint(menu) {
-      margin-top: -30px;
+      flex-basis: 100%;
+      padding:  0 $mobile-width-gutter $mobile-width-gutter $mobile-width-gutter;
     }
 
     @include breakpoint(xlg) {
@@ -70,50 +23,41 @@
   &__row {
     display: flex;
     flex-direction: row;
-    //margin-bottom: 15px;
-    //padding-top: $md;
     flex-wrap: wrap;
-    @include breakpoint(sm) {
-    padding: 0 1.5rem;
-    }
-    @include breakpoint(xlg) {
-      flex-wrap: nowrap;
+    align-content: flex-start;
+    background: #fff;
+
+    @include breakpoint(menu) {
+      margin: 0;
     }
 
-    //min-height: 270px;
+    @include breakpoint(container) {
+      margin: 1.5rem 0 1.5rem 1.5rem;
+      min-height: 200px;
+      @include center(both);
+    }
+
+    @include breakpoint(xlg) {
+      flex-wrap: nowrap;
+      border: none;
+      padding: 0 1.5rem;
+      background: transparent;
+    }
+
     .fas,
     .svg-inline--fa {
       color: $grey;
       padding-right: $xsm;
 
       .uids-component--gold & {
-        color: white;
+         @include breakpoint(xlg) {
+          color: white;
+         }
       }
     }
 
     .svg-inline--fa {
       width: 17px;
-    }
-
-
-
-    @include breakpoint(container) {
-      padding: 0 1.5rem;
-      min-height: 270px;
-      @include center(both);
-    }
-
-    @include breakpoint(menu) {
-      padding-top: 30px;
-      margin: 0;
-
-      &:first-of-type {
-        //@include margin($left: 0);
-      }
-
-      &:last-of-type {
-        //@include margin($right: 0);
-      }
     }
   }
 
@@ -130,9 +74,8 @@
   &__image {
     overflow: hidden;
     contain: paint;
-    @include breakpoint(menu) {
-      height: 150px;
-      margin-bottom: 20px;
+    @include breakpoint(container) {
+      height: 250px;
     }
 
     @include breakpoint(xlg) {
@@ -143,7 +86,7 @@
 
   &__image img {
     align-self: start;
-    @include breakpoint(menu) {
+    @include breakpoint(container) {
     margin-top: -50px;
     }
     width: 100%;
@@ -206,13 +149,6 @@
   }
 
   &__image {
-    //display: none;
-    //margin-right: 10px;
-    // margin-left: 10px;
-
-    @include breakpoint(sm) {
-      //display: none;
-    }
 
     @include breakpoint(menu) {
       display: block;
@@ -229,10 +165,11 @@
     }
   }
 
+
   &__label {
-    letter-spacing: .09rem;
-    text-transform: uppercase;
-    font-size: .95rem;
+    font-family: $font-family-serif;
+    font-size: $h6-font-size;
+    font-weight: $font-weight-light;
 
     .uids-component--black & {
       color: $light;
@@ -248,6 +185,18 @@
     a {
       text-decoration: none;
       color: $secondary;
+      &:hover, &:focus {
+        text-decoration: underline;
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+      }
 
       .uids-component--black & {
         color: white;
@@ -283,12 +232,5 @@
       @include padding($left: $sm);
       @include fas();
     }
-  }
-}
-
-
-@media only screen and (min-width: 400px) {
-  .events-card__image {
-    //display: flex;
   }
 }
