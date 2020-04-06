@@ -28,21 +28,12 @@
         text-decoration: underline;
       }
 
-      &[href^="tel:"]:before,
-      &[href^="mailto:"]:before {
-        margin-right: $md;
-        @include fas();
+      i, svg, span {
+        margin-right: $sm;
         font-size: $small-font-size;
         color: #999;
       }
 
-      &[href^="tel:"]:before {
-        content: "\f095";
-      }
-
-      &[href^="mailto:"]:before {
-        content: "\f0e0";
-      }
     }
   }
 
@@ -174,13 +165,23 @@
 
   &__menu {
     @extend %no-ul-list;
+    display: flex;
+    flex-wrap: wrap;
 
     li {
-      display: inline;
       color: white;
       font-size: $small-font-size;
-      border-right: 1px solid #ccc;
+      border-right: 1px solid #5d5656;
+      margin-bottom: $xsm;
       @include padding($top: 0, $right: $sm, $left: $sm);
+
+      &:first-child {
+        flex-basis: 100%;
+        border-right: none;
+      }
+      &:nth-child(2) {
+        padding-left: 0;
+      }
 
       &:last-child {
         border-right: none;
@@ -193,7 +194,7 @@
 
       a {
         text-decoration: none;
-        color: $white;
+        color: $primary;
          &:hover,
          &:focus {
            text-decoration: underline;
