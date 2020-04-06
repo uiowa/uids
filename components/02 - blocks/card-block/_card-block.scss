@@ -1,3 +1,5 @@
+
+
 .card {
   position: relative;
   display: flex;
@@ -10,6 +12,20 @@
   @include flex-direction($value: column);
   @include flex($fg: 1, $fs: 1, $fb: 0%);
   border: 1px solid rgba(0, 0, 0, 0.125);
+
+  &:hover,
+  &:focus,
+  &:focus-within {
+    .bttn {
+      text-decoration: underline;
+    }
+  }
+
+  .bttn {
+    position: unset;
+
+  }
+
   .media {
     flex-shrink: 0;
     width: 100%;
@@ -27,7 +43,6 @@
     @include breakpoint(sm) {
       flex: 1 1 15%;
       border: 1px solid rgba(0, 0, 0, 0.125);
-      //margin-bottom: 1.6rem;
     }
   }
 
@@ -65,7 +80,6 @@
       font-weight: $font-weight-bold;
 
       @include breakpoint(sm) {
-        //font-size: calc(100% + 1.4vw);
         padding: 0;
       }
     }
@@ -138,6 +152,9 @@
       margin-bottom: 1.5rem;
       font-size: 1rem;
       line-height: 2;
+            a {
+              position: relative;
+            }
 
       @include breakpoint(sm) {
         display: block;
@@ -163,17 +180,12 @@
     margin: 0 0 $md;
     padding: 2rem 0 0;
     font-size: calc(100% + 1vw);
-    //font-family: $font-family-serif;
     font-weight: $font-weight-bold;
     line-height: 1.2;
 
     @include breakpoint(sm) {
       font-size: 1.8rem;
       margin: 0;
-    }
-
-    @include breakpoint(container) {
-      //font-size: calc(100% + 1vw);
     }
 
     a {
@@ -193,11 +205,6 @@
         bottom: 0;
       }
     }
-  }
-
-  &__text {
-    //@include margin($top: $sm, $bottom: $sm);
-    //color: $secondary;
   }
 }
 
@@ -228,16 +235,9 @@
   }
 }
 
-
 .card.card--horizontal {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
   flex-direction: row;
-  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
 }
