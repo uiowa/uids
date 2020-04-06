@@ -1,12 +1,9 @@
-
-
 .card {
   position: relative;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   margin-bottom: 1.6rem;
-  transition: transform .35s, z-index .5s;
   text-decoration: none;
   @include flexbox;
   @include flex-direction($value: column);
@@ -23,12 +20,27 @@
 
   .bttn {
     position: unset;
+  }
 
+  a.bttn {
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    &:after {
+      background: none;
+    }
   }
 
   .media {
     flex-shrink: 0;
     width: 100%;
+
     img {
       flex-shrink: 0;
     }
@@ -59,7 +71,7 @@
       margin-bottom: 1.6rem;
     }
 
-    > * {
+    >* {
       @include breakpoint(sm) {
         display: flex;
         flex-direction: column;
@@ -137,6 +149,7 @@
   &__body {
     color: $secondary;
     padding: 0 2rem 2rem 2rem;
+
     @include breakpoint(sm) {
       padding: 0;
     }
@@ -152,9 +165,12 @@
       margin-bottom: 1.5rem;
       font-size: 1rem;
       line-height: 2;
-            a {
-              position: relative;
-            }
+
+      a {
+        position: relative;
+        z-index: 1;
+        ;
+      }
 
       @include breakpoint(sm) {
         display: block;
@@ -192,7 +208,8 @@
       text-decoration: none;
       color: $secondary;
 
-      &:hover, &:focus {
+      &:hover,
+      &:focus {
         text-decoration: underline;
       }
 
@@ -222,6 +239,7 @@
 
   .bttn {
     flex-basis: 100%;
+
     &.bttn--link:hover,
     &.bttn--link:focus {
       background: transparent;
