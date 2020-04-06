@@ -1,32 +1,34 @@
 // This would be a unique ID for every accordion.
-const accordion = document.getElementById("accordion-No1")
+const accordions = document.getElementsByClassName("uids-accordion");
 
-const accordion_elements = accordion.getElementsByClassName("uids-accordion__heading");
-const multiselectable = accordion.getAttribute('aria-multiselectable') === 'true' || false;;
+Array.prototype.forEach.call(accordions, accordion => {
+  let accordion_elements = accordion.getElementsByClassName("uids-accordion__heading");
+  let multiselectable = accordion.getAttribute('aria-multiselectable') === 'true' || false;;
 
-Array.prototype.forEach.call(accordion_elements, el => {
-    let btn = el.querySelector('button');
-    let target = el.nextElementSibling;
+  Array.prototype.forEach.call(accordion_elements, el => {
+      let btn = el.querySelector('button');
+      let target = el.nextElementSibling;
 
-    let expanded = btn.getAttribute('aria-expanded') === 'true' || false;;
-    target.hidden = !expanded;
+      let expanded = btn.getAttribute('aria-expanded') === 'true' || false;;
+      target.hidden = !expanded;
 
-    btn.onclick = () => {
-      let expanded = btn.getAttribute('aria-expanded') === 'true' || false;
+      btn.onclick = () => {
+        let expanded = btn.getAttribute('aria-expanded') === 'true' || false;
 
-        // Checks if multiple panels can be open at once. If not, closes other panels.
-        if (!multiselectable && !expanded) {
-            Array.prototype.forEach.call(accordion_elements, el => {
-                let inner_target = el.nextElementSibling;
-                let inner_btn = el.querySelector('button');
-                inner_btn.setAttribute('aria-expanded', expanded);
-                inner_btn.setAttribute('aria-selected', expanded);
-                inner_target.hidden = !expanded;
-            });
-        }
+          // Checks if multiple panels can be open at once. If not, closes other panels.
+          if (!multiselectable && !expanded) {
+              Array.prototype.forEach.call(accordion_elements, el => {
+                  let inner_target = el.nextElementSibling;
+                  let inner_btn = el.querySelector('button');
+                  inner_btn.setAttribute('aria-expanded', expanded);
+                  inner_btn.setAttribute('aria-selected', expanded);
+                  inner_target.hidden = !expanded;
+              });
+          }
 
-      btn.setAttribute('aria-expanded', !expanded);
-      btn.setAttribute('aria-selected', !expanded);
-      target.hidden = expanded;
-    }
+        btn.setAttribute('aria-expanded', !expanded);
+        btn.setAttribute('aria-selected', !expanded);
+        target.hidden = expanded;
+      }
+  });
 });
