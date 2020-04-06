@@ -9,7 +9,6 @@ aside .region,
   @extend %container;
 }
 
-
 .grid--3-2>:nth-child(1) {
   order: 1;
 }
@@ -21,7 +20,7 @@ aside .region,
 .grid--3-2>:nth-child(3) {
   order: 4;
 
-  @include breakpoint(sm) {
+  @include breakpoint(container) {
     order: 3;
   }
 }
@@ -29,7 +28,7 @@ aside .region,
 .grid--3-2>:nth-child(4) {
   order: 3;
 
-  @include breakpoint(sm) {
+  @include breakpoint(container) {
     order: 4;
   }
 }
@@ -42,23 +41,21 @@ aside .region,
   order: 6;
 }
 
-
 .grid--3-2 {
-  display: grid;
+  display: block;
   grid-template-columns: repeat(auto-fit, minmax(50%, 1fr));
 
-  &.grid--3-2-stacked {
-    display: block;
-    @include breakpoint(sm) {
-      display: grid;
-    }
+  @include breakpoint(xsm) {
+    display: grid;
   }
 
   @include breakpoint(sm) {
+    grid-template-columns: repeat(auto-fit, minmax(50%, 1fr));
+  }
+  @include breakpoint(container) {
     grid-template-columns: repeat(auto-fit, minmax(33.3%, 1fr));
   }
 }
-
 
 
 // ie11
