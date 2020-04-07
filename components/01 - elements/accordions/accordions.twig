@@ -1,3 +1,9 @@
+{% if accordion.multiselectable == true %}
+  {% set accordion_type = 'multi' %}
+{% else %}
+  {% set accordion_type = 'single' %}
+{% endif %}
+
 <div class="uids-accordion
   {% if accordion.variant %} uids-accordion--{{ accordion.variant }}{% endif %}"
   role="tablist"
@@ -16,11 +22,6 @@
         <i aria-hidden="true" focusable="false" class="fas fa-chevron-up"></i>
       </button>
     </h2>
-    {% if accordion.multiselectable == true %}
-      {% set accordion_type = 'multi' %}
-    {% else %}
-      {% set accordion_type = 'single' %}
-    {% endif %}
     <div id="{{ accordion_type }}-select-{{ item_number }}" class="uids-accordion__content">
       {{ item.content }}
     </div>
