@@ -1,4 +1,3 @@
-// This would be a unique ID for every accordion.
 const accordions = document.getElementsByClassName("uids-accordion");
 
 Array.prototype.forEach.call(accordions, accordion => {
