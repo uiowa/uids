@@ -2,24 +2,32 @@
 .uids-accordion {
   h2 {
     margin: 0;
-    margin-top: 1em;
-    font-size: 1em;
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: $font-weight-bold;
+
+    &:not(:first-child) {
+      margin-top: 1rem;
+    }
 
     button {
       all: inherit;
-      font-size: 1em;
+      font-size: 1.2rem;
       width: 100%;
       background-color: #edeceb;
-      padding: 0.5em;
+      padding: $md;
+      display: flex;
+      justify-content: space-between;
       transition: all 0.2s ease-in-out;
       transition-property: background-color;
+      cursor: pointer;
 
       &:focus {
         outline: 5px auto -webkit-focus-ring-color;
       }
-  
+
       i, svg {
-        float: right;
+        //float: right;
         color: currentColor;
         transform: rotate(-180deg) translate(0px, -0.1em);
         transition: all 0.3s ease-in-out;
@@ -27,12 +35,12 @@
         background-color: transparent;
         height: 1.4rem;
         width: 1.4rem;
-        padding: 0.2rem;
+        padding: 0.8rem;
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: -0.2rem 0;
-        border-radius: 0.7rem;
+        margin: -0.3rem 0;
+        border-radius: 50%;
       }
 
       &:hover, &:focus {
@@ -46,7 +54,7 @@
           transform: rotate(0deg) translate(0px, 0em);
         }
       }
-  
+
       &[aria-expanded="true"] i, &[aria-expanded="true"] svg {
         transform: rotate(0deg) translate(0px, 0.1em);
         background-color: #fafafa;
@@ -55,8 +63,7 @@
   }
 
   .uids-accordion__content {
-    padding: 0.5em 1.5em;
-    font-size: 1em;
+    padding: $sm $md;
     border: 1px solid #edeceb;
 
     p {
