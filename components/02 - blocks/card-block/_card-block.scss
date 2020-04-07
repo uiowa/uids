@@ -4,15 +4,43 @@
   flex-direction: row;
   flex-wrap: wrap;
   margin-bottom: 1.6rem;
-  transition: transform .35s, z-index .5s;
   text-decoration: none;
   @include flexbox;
   @include flex-direction($value: column);
   @include flex($fg: 1, $fs: 1, $fb: 0%);
   border: 1px solid rgba(0, 0, 0, 0.125);
+
+  &:hover,
+  &:focus,
+  &:focus-within {
+    .bttn {
+      text-decoration: underline;
+    }
+  }
+
+  .bttn {
+    position: unset;
+  }
+
+  a.bttn {
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    &:after {
+      background: none;
+    }
+  }
+
   .media {
     flex-shrink: 0;
     width: 100%;
+
     img {
       flex-shrink: 0;
     }
@@ -27,7 +55,6 @@
     @include breakpoint(sm) {
       flex: 1 1 15%;
       border: 1px solid rgba(0, 0, 0, 0.125);
-      //margin-bottom: 1.6rem;
     }
   }
 
@@ -44,7 +71,7 @@
       margin-bottom: 1.6rem;
     }
 
-    > * {
+    >* {
       @include breakpoint(sm) {
         display: flex;
         flex-direction: column;
@@ -65,7 +92,6 @@
       font-weight: $font-weight-bold;
 
       @include breakpoint(sm) {
-        //font-size: calc(100% + 1.4vw);
         padding: 0;
       }
     }
@@ -123,6 +149,7 @@
   &__body {
     color: $secondary;
     padding: 0 2rem 2rem 2rem;
+
     @include breakpoint(sm) {
       padding: 0;
     }
@@ -138,6 +165,12 @@
       margin-bottom: 1.5rem;
       font-size: 1rem;
       line-height: 2;
+
+      a {
+        position: relative;
+        z-index: 1;
+        ;
+      }
 
       @include breakpoint(sm) {
         display: block;
@@ -163,7 +196,6 @@
     margin: 0 0 $md;
     padding: 2rem 0 0;
     font-size: calc(100% + 1vw);
-    //font-family: $font-family-serif;
     font-weight: $font-weight-bold;
     line-height: 1.2;
 
@@ -172,15 +204,12 @@
       margin: 0;
     }
 
-    @include breakpoint(container) {
-      //font-size: calc(100% + 1vw);
-    }
-
     a {
       text-decoration: none;
       color: $secondary;
 
-      &:hover, &:focus {
+      &:hover,
+      &:focus {
         text-decoration: underline;
       }
 
@@ -193,11 +222,6 @@
         bottom: 0;
       }
     }
-  }
-
-  &__text {
-    //@include margin($top: $sm, $bottom: $sm);
-    //color: $secondary;
   }
 }
 
@@ -215,6 +239,7 @@
 
   .bttn {
     flex-basis: 100%;
+
     &.bttn--link:hover,
     &.bttn--link:focus {
       background: transparent;
@@ -228,16 +253,9 @@
   }
 }
 
-
 .card.card--horizontal {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
   flex-direction: row;
-  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
 }
