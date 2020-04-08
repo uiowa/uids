@@ -14,17 +14,27 @@
   &:focus,
   &:focus-within {
     .bttn {
-      text-decoration: underline;
-
-      //@extend %bttn--focus;
+       background-position: 0px;
+       background-size: 200% 100%;
+       i, svg {
+         color: $secondary;
+       }
     }
   }
-
+  .bttn {
+    background-image: linear-gradient(to bottom, #ffffff 0%, #ffffff 87%, #ffcd00 87%, #ffcd00 100%);
+    background-position: 0px -20px;
+    background-size: 200% 200%;
+    transition: all .25s ease-in;
+  }
   .bttn {
     position: unset;
   }
 
   a.bttn {
+    &:after {
+      background-color: transparent;
+    }
     &:before {
       content: '';
       position: absolute;
@@ -32,10 +42,6 @@
       top: 0;
       right: 0;
       bottom: 0;
-    }
-
-    &:after {
-      background: none;
     }
   }
 
