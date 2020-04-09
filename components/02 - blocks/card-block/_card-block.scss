@@ -1,3 +1,5 @@
+
+
 .card {
   position: relative;
   display: flex;
@@ -10,31 +12,24 @@
   @include flex($fg: 1, $fs: 1, $fb: 0%);
   border: 1px solid rgba(0, 0, 0, 0.125);
 
-  &:hover,
-  &:focus,
-  &:focus-within {
-    .bttn {
-      text-decoration: underline;
-    }
+  &:focus-within .card__title a:focus {
+    text-decoration: underline;
+  }
+
+  .card__title:focus-within  ~ .bttn {
+       background-position: 0px;
+       background-size: 200% 100%;
+       i, svg {
+         color: $secondary;
+       }
+
   }
 
   .bttn {
-    position: unset;
-  }
-
-  a.bttn {
-    &:before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-    }
-
-    &:after {
-      background: none;
-    }
+    background-image: linear-gradient(to bottom, #ffffff 0%, #ffffff 90%, #ffcd00 90%, #ffcd00 100%);
+    background-position: 0px -20px;
+    background-size: 200% 200%;
+    transition: all .25s ease-in;
   }
 
   .media {
@@ -161,7 +156,6 @@
     }
 
     p {
-      display: none;
       margin-bottom: 1.5rem;
       font-size: 1rem;
       line-height: 2;
@@ -169,11 +163,6 @@
       a {
         position: relative;
         z-index: 1;
-        ;
-      }
-
-      @include breakpoint(sm) {
-        display: block;
       }
     }
   }
@@ -213,7 +202,7 @@
         text-decoration: underline;
       }
 
-      &:after {
+    /*  &:after {
         content: '';
         position: absolute;
         left: 0;
@@ -221,6 +210,8 @@
         right: 0;
         bottom: 0;
       }
+      */
+
     }
   }
 }
