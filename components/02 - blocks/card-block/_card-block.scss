@@ -1,3 +1,5 @@
+
+
 .card {
   position: relative;
   display: flex;
@@ -10,39 +12,24 @@
   @include flex($fg: 1, $fs: 1, $fb: 0%);
   border: 1px solid rgba(0, 0, 0, 0.125);
 
-  &:hover,
-  &:focus,
-  &:focus-within {
-    .bttn {
+  &:focus-within .card__title a:focus {
+    text-decoration: underline;
+  }
+
+  .card__title:focus-within  ~ .bttn {
        background-position: 0px;
        background-size: 200% 100%;
        i, svg {
          color: $secondary;
        }
-    }
+
   }
+
   .bttn {
-    background-image: linear-gradient(to bottom, #ffffff 0%, #ffffff 87%, #ffcd00 87%, #ffcd00 100%);
+    background-image: linear-gradient(to bottom, #ffffff 0%, #ffffff 90%, #ffcd00 90%, #ffcd00 100%);
     background-position: 0px -20px;
     background-size: 200% 200%;
     transition: all .25s ease-in;
-  }
-  .bttn {
-    position: unset;
-  }
-
-  a.bttn {
-    &:after {
-      background-color: transparent;
-    }
-    &:before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-    }
   }
 
   .media {
@@ -215,7 +202,7 @@
         text-decoration: underline;
       }
 
-      &:after {
+    /*  &:after {
         content: '';
         position: absolute;
         left: 0;
@@ -223,6 +210,8 @@
         right: 0;
         bottom: 0;
       }
+      */
+
     }
   }
 }
