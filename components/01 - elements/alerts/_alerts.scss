@@ -19,7 +19,53 @@
 }
 
 
-.hawk-alert-message {
+.hawk-alert-message,
+.alert {
+  @include clearfix;
+  clear: both;
+  color: #fff;
+  font-family: $font-family-serif;
+  line-height: 1.4;
+  font-size: 1.2rem;
+  text-align: center;
+
+  .close {
+    background: none;
+    border: none;
+
+    span {
+      @include element-invisible;
+    }
+
+    &:hover,
+    &:focus {
+      cursor: pointer;
+      &:before {
+        color: #fff;
+        border-radius: 50%;
+        background: $secondary;
+      }
+    }
+
+    &:before {
+      width: 35px;
+      margin-right: 5px;
+      color: #151515;
+      border-radius: 50%;
+      background: #fff;
+      line-height: 1.2;
+      padding: 7px;
+      content: "\f00d";
+      display: inline-block;
+      font-style: normal;
+      font-variant: normal;
+      text-rendering: auto;
+      line-height: 1;
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+    }
+  }
+
   p {
     width: 70%;
     color: #fff;
