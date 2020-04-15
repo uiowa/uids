@@ -28,20 +28,6 @@
 
 {% if hero_content == 'grid' %}
 
-{% include "@highlight" with {
-      "highlight_title" : grid_title_1,
-      "highlight_sub" : grid_sub_1
-    } %}
-
-{% include "@highlight" with {
-      "highlight_title" : grid_title_2,
-      "highlight_sub" : grid_sub_2
-    } %}
-
-{% include "@highlight" with {
-      "highlight_title" : grid_title_3,
-      "highlight_sub" : grid_sub_3
-    } %}
 
     {% block headline %}
       {% if hero_title is not empty %}
@@ -53,13 +39,26 @@
       {% endif %}
     {% endblock %}
 
+<div class="hero-content">
+<p>Big Ten athletics. A world-class hospital. Renowned artists. Exciting things come together in Iowa City, with Iowa's campus at the center of it all.
+<a href="https://www.example.com" class="bttn bttn--primary bttn--caps">
+	About Iowa City
+	<i class="fas fa-arrow-right"></i>
+</a>
+</p>
 
-{% include "@highlight" with {
-      "highlight_title" : grid_title_4,
-      "highlight_sub" : grid_sub_4
-    } %}
+
+</div>
+
 
 {% else %}
+
+{% if hero_content == 'bottom' %}
+	{% block breadcrumbs %}
+		{% include '@breadcrumbs' %}
+	{% endblock %}
+{% endif %}
+
 
 {% block headline %}
 	{% if hero_title is not empty %}
@@ -84,16 +83,10 @@
       </div>
     {% endif %}
 
-    {% if hero_content == 'bottom' %}
-      {% block breadcrumbs %}
-        {% include '@breadcrumbs' %}
-      {% endblock %}
-    {% endif %}
-
   </div>
 
   {% if hero_type == 'video' %}
-    <div class="video-controls">
+    <div class="video-controls video">
       <button class="video-btn video-btn__pause" id="video-btn">
         <span class="element-invisible">Pause</span>
       </button>

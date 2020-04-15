@@ -88,6 +88,12 @@
     }
   }
 
+  @if $class==xsm {
+    @media (min-width: 600px) {
+      @content;
+    }
+  }
+
   @else if $class==sm {
     @media (min-width: 768px) {
       @content;
@@ -114,6 +120,12 @@
 
   @else if $class==container {
     @media (min-width: 84.375em) {
+      @content;
+    }
+  }
+
+  @else if $class==xlg {
+    @media (min-width: 106em) {
       @content;
     }
   }
@@ -275,7 +287,9 @@
      transform: translate(-50%, 0) scaleX(0);
      transition: transform 0.3s ease-in-out;
    }
-
+   &:focus {
+     text-decoration: underline;
+   }
    &:hover::after,
    &:focus::after {
      transform: translate(-50%, 0) scaleX(1);
@@ -337,6 +351,9 @@
   @include center(both);
   flex-flow: column nowrap;
   text-align: center;
+  @include breakpoint(sm) {
+    padding: 1.5rem 0;
+  }
 }
 
 %uids-component--left {
@@ -348,6 +365,7 @@
   flex-flow: column nowrap;
   text-align: left;
   width: 100%;
+  padding: 1.5rem 0;
 }
 
 %uids-component--gold {
@@ -369,5 +387,10 @@
 
 %uids-component--brain-reversed {
   background: $primary url("#{$imgpath}/brain-pattern-reversed.svg");
+  background-size: auto auto;
+}
+
+%uids-component--brain-black {
+  background: $secondary url("#{$imgpath}/brain-pattern-black.svg");
   background-size: auto auto;
 }

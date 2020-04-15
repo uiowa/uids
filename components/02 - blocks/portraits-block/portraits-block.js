@@ -17,19 +17,17 @@ Object.defineProperty(HTMLMediaElement.prototype, "playing", {
 });
 */
 document.addEventListener(
-  "click",
-  ({
-    target
-  }) => {
-    if (!target.classList.contains("vidbttn")) return;
-    target.classList.toggle("paused");
+    "click",
+    function (e) {
+    if (!e.target.classList.contains("vidbttn")) return;
+    e.target.classList.toggle("paused");
     for (var i = 0; i < videoContainer.length; i++) {
       videoContainer[i].classList.toggle("active");
     }
 
     for (var i = 0; i < ctrlVideo.length; i++) {
       ctrlVideo[i].play();
-      target.classList.toggle("active");
+      e.target.classList.toggle("active");
     }
 
     for (var i = 0; i < buttonLabel.length; i++) {
@@ -40,7 +38,7 @@ document.addEventListener(
       }
 */
 
-    if (target.classList.contains("active")) {
+    if (e.target.classList.contains("active")) {
       for (var i = 0; i < textOverlay.length; i++) {
         textOverlay[i].classList.add("active");
       }
@@ -54,13 +52,13 @@ document.addEventListener(
         ctrlVideo[i].pause();
 
         document.getElementById("label").innerHTML = "Play";
-        target.classList.remove("active");
+        e.target.classList.remove("active");
       }
     }
 
     for (var i = 0; i < toggleButton.length; i++) {
       // skip clicked link
-      if (toggleButton[i] === target) continue;
+      if (toggleButton[i] === e.target) continue;
       ctrlVideo[i].pause();
       toggleButton[i].classList.remove("active");
       //buttonLabel[i].innerHTML = "Play";
