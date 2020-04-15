@@ -37,6 +37,7 @@
   .media {
     flex-shrink: 0;
     width: 100%;
+    min-height: 1px;
 
     img {
       flex-shrink: 0;
@@ -102,7 +103,8 @@
     }
 
     .card__body {
-      padding-left: $gutter;
+      padding: 0 0 0 $gutter;
+      min-height: 1px;
     }
 
     .bttn--outline {
@@ -144,15 +146,26 @@
 
   &__body {
     color: $secondary;
-    padding: 0 2rem 2rem 2rem;
+    padding: 2rem;
+    min-height: 1px;
+
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        &:not(:first-child) {
+          margin-top: 0;
+        }
+      }
 
     @include breakpoint(sm) {
-      padding: 0;
+      padding: 2rem 0 0;
     }
 
     .card--enclosed & {
       @include breakpoint(sm) {
-        padding: 0 2rem 2rem 2rem;
+        padding: 2rem;
       }
     }
 
@@ -184,7 +197,7 @@
 
   &__title {
     margin: 0 0 $md;
-    padding: 2rem 0 0;
+    padding: 0;
     font-size: calc(100% + 1vw);
     font-weight: $font-weight-bold;
     line-height: 1.2;
