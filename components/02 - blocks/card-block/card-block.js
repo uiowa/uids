@@ -5,12 +5,14 @@ Array.prototype.forEach.call(cards, card => {
   } else {
     var down, up, link = card.querySelector('a.bttn');
   }
-  card.style.cursor = 'pointer';
-  card.onmousedown = () => down = +new Date();
-  card.onmouseup = () => {
-    up = +new Date();
-    if ((up - down) < 200) {
-      link.click();
+  if (card.querySelector('a.bttn') || card.querySelector('.card__title a')) {
+    card.style.cursor = 'pointer';
+    card.onmousedown = () => down = +new Date();
+    card.onmouseup = () => {
+      up = +new Date();
+      if ((up - down) < 200) {
+        link.click();
+      }
     }
   }
 });

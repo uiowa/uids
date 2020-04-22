@@ -24,7 +24,7 @@
   @include clearfix;
   clear: both;
   color: #fff;
-  font-family: $font-family-serif;
+  font-family: $font-family-sans-serif;
   line-height: 1.4;
   font-size: 1.2rem;
   text-align: center;
@@ -82,7 +82,7 @@
   p,
   >* {
     color: #fff;
-    font-family: $font-family-serif;
+    font-family: $font-family-sans-serif;
     text-align: center;
     line-height: 1.4;
     font-size: 1.2rem;
@@ -134,22 +134,23 @@
   h6 {
     text-transform: uppercase;
     font-weight: $font-weight-bold;
-    font-size: 2rem;
+    font-size: 1.7rem;
   }
 
   .hawk-alert-date {
-    background: white;
-    padding: 5px 10px;
-    border-radius: 3px;
-    color: $secondary;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: $font-weight-bold;
-    font-size: .9rem;
+    font-family: $font-family-sans-serif;
+    font-weight: $font-weight-light;
+    font-size: 1.3rem;
     display: block;
-    margin: 0;
-
-    @include breakpoint(sm) {
+    margin: 0 0 $md;
+    @include breakpoint(menu) {
       display: inline;
+      margin: 0;
+      &:before {
+        content: '| ';
+        padding-right: $sm;
+        padding-left: $sm;
+      }
     }
   }
 
