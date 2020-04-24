@@ -59,8 +59,6 @@
     width: 100%;
     margin-bottom: $gutter;
 
-
-
     @include breakpoint(sm) {
       margin-bottom: 0;
     }
@@ -81,22 +79,36 @@
 
 .portrait {
   .highlight__title {
+    justify-content: left;
     font-size: 1rem;
 
     @include breakpoint(container) {
       font-size: 1.3rem;
     }
+
+    span {
+      display: block;
+      ;
+
+      @include breakpoint(sm) {
+        display: inline;
+      }
+    }
   }
 
   .highlight__wrapper {
-    position: absolute;
-    padding: $md;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    display: block;
 
-    &.active {
-      display: none;
+    @include breakpoint(sm) {
+      position: absolute;
+      padding: $md;
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      &.active {
+        display: none;
+      }
     }
   }
 }
@@ -108,6 +120,12 @@ button.vidbttn>* {
 
 
 .vidbttn {
+  display: none;
+
+  @include breakpoint(sm) {
+    display: block;
+  }
+
   position: absolute;
   z-index: 100;
   top: 50%;
@@ -123,6 +141,7 @@ button.vidbttn>* {
   &:hover:before,
   &:focus:before {
     color: #fff;
+    cursor: pointer;
   }
 
   &:before {
@@ -155,16 +174,16 @@ button.vidbttn>* {
 
 
 .portrait .embed-responsive.active .vidbttn.active:focus {
-  display: block;
+  //display: block;
 }
 
 .portrait .embed-responsive.active:hover .vidbttn.active:focus {
-  display: block;
+  //display: block;
 }
 
 .portrait .embed-responsive.active:hover .vidbttn.active,
 .portrait .embed-responsive.active:focus .vidbttn.active {
-  display: block;
+  //display: block;
 }
 
 .portrait video::cue {

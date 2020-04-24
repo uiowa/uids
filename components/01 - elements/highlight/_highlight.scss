@@ -12,18 +12,21 @@
       font-size: $h6-font-size;
     }
 
-
     &__sub {
-      margin: 0;
       color: $secondary;
       font-size: .9rem;
       line-height: 1.7;
+
+      @include breakpoint(sm) {
+        margin: 6px 0 0;
+      }
 
       @include breakpoint(container) {
         font-size: 1rem;
       }
 
       span {
+        display: inline;
         padding: 0.45rem 1rem;
         background-color: $primary;
         box-decoration-break: clone;
@@ -33,15 +36,14 @@
     }
 
     &__title {
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0;
       padding: 2px 0;
       text-transform: uppercase;
       font-family: $font-family-caps-bold;
       font-size: calc(100% + -.7vw);
       line-height: 1.7;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 0;
 
       @include breakpoint(menu) {
         font-size: calc(100% + .3vw);
@@ -51,7 +53,6 @@
         font-size: calc(100% + .8vw);
       }
 
-
       span {
         display: inline;
         padding: 0.45rem 1rem;
@@ -59,6 +60,21 @@
         background: $secondary;
         box-decoration-break: clone;
         -webkit-box-decoration-break: clone;
+      }
+    }
+  }
+
+
+  @-moz-document url-prefix() {
+    .highlight__title {}
+
+    .highlight__title span {
+      padding-top: 12px;
+    }
+
+    .highlight__sub {
+      @include breakpoint(sm) {
+        margin: 1px 0 0;
       }
     }
   }
