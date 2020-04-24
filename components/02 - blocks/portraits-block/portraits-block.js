@@ -3,6 +3,7 @@ const ctrlVideo = document.querySelectorAll(".player");
 const textOverlay = document.querySelectorAll(".portrait .highlight__wrapper");
 const videoContainer = document.querySelectorAll(".embed-responsive");
 const buttonLabel = document.getElementById("label");
+const trackElements = document.querySelectorAll("track");
 const debug = false;
 
 document.addEventListener(
@@ -10,32 +11,22 @@ document.addEventListener(
   function (e) {
     if (!e.target.classList.contains("vidbttn")) return;
     e.target.classList.toggle("paused");
-    for (var i = 0; i < videoContainer.length; i++) {
-      videoContainer[i].classList.toggle("active");
-    }
 
     for (var i = 0; i < ctrlVideo.length; i++) {
       ctrlVideo[i].play();
       e.target.classList.toggle("active");
+      videoContainer[i].classList.toggle("active");
     }
 
-    for (var i = 0; i < buttonLabel.length; i++) {}
-
     if (e.target.classList.contains("active")) {
-      for (var i = 0; i < textOverlay.length; i++) {
-        textOverlay[i].classList.add("active");
-      }
-
       for (var i = 0; i < ctrlVideo.length; i++) {
-        document.getElementById("label").innerHTML = "Pause";
         ctrlVideo[i].setAttribute("controls", "true");
+        trackElements[i].track.mode = "showing";
+        textOverlay[i].classList.add("active");
+
       }
     } else {
       for (var i = 0; i < ctrlVideo.length; i++) {
-        // skip clicked link
-        ctrlVideo[i].pause();
-
-        document.getElementById("label").innerHTML = "Play";
         e.target.classList.remove("active");
       }
     }
@@ -49,6 +40,8 @@ document.addEventListener(
       toggleButton[i].classList.remove("paused");
       videoContainer[i].classList.remove("active");
       ctrlVideo[i].removeAttribute("controls", "true");
+      trackElements[i].track.mode = "hidden";
+      document.getElementById("label").innerHTML = "Play";
     }
   },
   false
