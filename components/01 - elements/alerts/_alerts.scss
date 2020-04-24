@@ -1,33 +1,85 @@
+.alert {
+  padding: $md 0;
+}
+
 .alert-danger {
-  background: $danger;
-  padding: $lg 0;
+  background: $danger-light;
+  border-bottom: 2px solid $danger;
+
+  .close:before {
+    background: $danger;
+  }
 }
 
 .alert-success {
-  background: $success;
-  padding: $lg 0;
+  background: $success-light;
+  border-bottom: 2px solid $success;
+
+  .close:before {
+    background: $success;
+  }
 }
 
 .alert-warning {
-  background: $warning;
-  padding: $lg 0;
+  background: $warning-light;
+  border-bottom: 2px solid $warning;
+
+  .close:before {
+    background: $brand-cool-gray;
+  }
 }
 
 .alert-info {
-  background: $info;
-  padding: $lg 0;
+  background: $info-light;
+  border-bottom: 2px solid $info;
+
+  .close:before {
+    background: $info;
+  }
 }
 
+.hawk-alert.alert {
+  text-align: left;
+  display: flex;
+  @include center(vertical);
+
+  >* {
+    text-align: left;
+    display: flex;
+  }
+
+  .hawk-alert-message {
+    @extend %container;
+
+    .hawk-alert-heading {
+      border-right: 1px solid $brand-cool-gray;
+    }
+
+    .hawk-alert-body {
+      @include center(vertical);
+
+      p {
+        width: 100%;
+        padding-left: $md;
+      }
+
+      //padding: 0 0 0 $lg;
+    }
+  }
+}
+
+.alert {
+  text-align: center;
+}
 
 .hawk-alert-message,
 .alert {
   @include clearfix;
   clear: both;
-  color: #fff;
+  color: $secondary;
   font-family: $font-family-sans-serif;
   line-height: 1.4;
   font-size: 1.2rem;
-  text-align: center;
 
   .close {
     background: none;
@@ -40,6 +92,7 @@
     &:hover,
     &:focus {
       cursor: pointer;
+
       &:before {
         color: #fff;
         border-radius: 50%;
@@ -50,9 +103,8 @@
     &:before {
       width: 35px;
       margin-right: 5px;
-      color: #151515;
+      color: #fff;
       border-radius: 50%;
-      background: #fff;
       line-height: 1.2;
       padding: 7px;
       content: "\f00d";
@@ -81,7 +133,7 @@
 
   p,
   >* {
-    color: #fff;
+    color: $secondary;
     font-family: $font-family-sans-serif;
     text-align: center;
     line-height: 1.4;
@@ -97,6 +149,7 @@
     a {
       text-decoration: underline;
       font-weight: $font-weight-bold;
+      color: $secondary;
 
 
       &:hover,
@@ -107,22 +160,66 @@
   }
 }
 
+.hawk-alert-label,
+h2,
+h3,
+h4,
+h5,
+h6 {
+
+  .alert-danger & {
+    &:before {
+      color: $danger;
+    }
+  }
+
+  .alert-warning & {
+    &:before {
+      color: $warning;
+    }
+  }
+
+  .alert-success & {
+    &:before {
+      color: $success;
+    }
+  }
+
+  .alert-info & {
+    &:before {
+      color: $info;
+    }
+  }
+}
+
+
 .uiowa-alerts-wrapper {
 
-  .hawk-alert-heading,
+  .hawk-alert-heading {
+    text-align: left;
+    padding-right: $lg;
+  }
+
   h2,
   h3,
   h4,
   h5,
   h6 {
     text-align: center;
+    font-size: 1.7rem;
     display: block;
-    padding: 0 $lg;
+    padding: 0 $xsm 0 $lg;
 
     @include breakpoint(menu) {
-      display: flex;
+      //display: flex;
       align-items: center;
       justify-content: center;
+    }
+  }
+
+  .hawk-alert-label {
+    &:before {
+      padding-right: $sm;
     }
   }
 
@@ -135,22 +232,32 @@
     text-transform: uppercase;
     font-weight: $font-weight-bold;
     font-size: 1.7rem;
+
+    &:before {
+      content: "\f06a";
+      display: inline-block;
+      font-style: normal;
+      font-variant: normal;
+      text-rendering: auto;
+      line-height: 1;
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+    }
   }
 
   .hawk-alert-date {
     font-family: $font-family-sans-serif;
     font-weight: $font-weight-light;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     display: block;
-    margin: 0 0 $md;
+    margin: 0 0 $md 0;
+    //padding: $xsm $sm;
+    //background: $warning-light;
+
     @include breakpoint(menu) {
-      display: inline;
-      margin: 0;
-      &:before {
-        content: '| ';
-        padding-right: $sm;
-        padding-left: $sm;
-      }
+      //display: block;
+      //margin: 0;
+
     }
   }
 
