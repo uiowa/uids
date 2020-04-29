@@ -223,14 +223,17 @@
 
 @mixin h1 {
   font-size: $h1-font-size;
+  line-height: unset;
   @include margin($top: $sm, $bottom: $sm);
   font-family: $font-family-serif;
-  font-weight: $font-weight-bold;
+  font-weight: $font-weight-medium-bold;
 }
 
 @mixin h2 {
   font-size: $h2-font-size;
-  @include margin($top: 0, $bottom: $sm);
+  line-height: unset;
+  font-weight: $font-weight-medium;
+  @include margin($top: 0, $bottom: $xsm);
   &:not(:first-child) {
     @include margin($top: $lg);
   }
@@ -238,7 +241,8 @@
 
 @mixin h3 {
   font-size: $h3-font-size;
-  @include margin($top: 0, $bottom: $sm);
+  line-height: unset;
+  @include margin($top: 0, $bottom: $xsm);
   &:not(:first-child) {
     @include margin($top: $lg);
   }
@@ -246,7 +250,9 @@
 
 @mixin h4 {
   font-size: $h4-font-size;
-  @include margin($top: 0, $bottom: $sm);
+  line-height: unset;
+  font-weight: $font-weight-medium;
+  @include margin($top: 0, $bottom: $xsm);
   &:not(:first-child) {
     @include margin($top: $lg);
   }
@@ -254,7 +260,9 @@
 
 @mixin h5 {
   font-size: $h5-font-size;
-  @include margin($top: 0, $bottom: $sm-md);
+  line-height: unset;
+  font-weight: $font-weight-medium;
+  @include margin($top: 0, $bottom: $xsm);
   &:not(:first-child) {
     @include margin($top: $lg);
   }
@@ -262,7 +270,9 @@
 
 @mixin h6 {
   font-size: $h6-font-size;
-  @include margin($top: 0, $bottom: $sm-md);
+  line-height: unset;
+  font-weight: $font-weight-medium;
+  @include margin($top: 0, $bottom: $xsm);
   &:not(:first-child) {
     @include margin($top: $lg);
   }
@@ -270,7 +280,7 @@
 
 // Card Mixins
 
-@mixin card--enclosed {
+@mixin card-enclosed {
   @include breakpoint(sm) {
     border: 1px solid rgba(0, 0, 0, 0.125);
   }
@@ -288,13 +298,9 @@
 @mixin card-header {
   margin: 0 0 $md;
   padding: 0;
-  font-size: calc(100% + 1vw);
+  font-size: 1.6rem;
   font-weight: $font-weight-bold;
   line-height: 1.2;
-
-  @include breakpoint(sm) {
-    font-size: 1.8rem;
-  }
 
   a {
     text-decoration: none;
@@ -317,6 +323,7 @@
   color: $secondary;
   padding: 2rem;
   min-height: 1px;
+  line-height: 1.7;
 
   h2,
   h3,
@@ -329,7 +336,7 @@
   }
 
   @include breakpoint(sm) {
-    padding: 2rem 0 0;
+    padding: 2rem 0;
   }
 
   .card--enclosed & {
@@ -340,12 +347,10 @@
 }
 
 @mixin card-subtitle {
-  margin: 0 0 $gutter;
   color: #666;
   font-family: $font-family-serif;
-  font-size: 1.2rem;
-  font-weight: $font-weight-bold;
-  font-style: italic;
+  font-size: 1.3rem;
+  font-weight: $font-weight-medium;
 }
 
 @mixin card {
@@ -373,7 +378,7 @@
 }
 
 @mixin card-paragraph {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
   font-size: 1rem;
   line-height: 1.7;
 
@@ -552,17 +557,17 @@
 
 %bttn {
   border: none;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
   cursor: pointer;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
-  //font-size: $base-font-size;
-  //font-weight: $font-weight-bold;
   line-height: 1.4;
-  font-size: 1.2rem;
-  padding: 1rem 2rem .8rem;
+  font-size: 1.25rem;
+  padding: 1rem 2rem 1rem;
 
   i,
   svg {
@@ -625,7 +630,7 @@
 }
 
 %bttn--full {
-  display: block;
+  display: flex;
 }
 
 %bttn--outline {

@@ -1,6 +1,11 @@
 .card {
   @include card;
 
+  &.card--enclosed {
+    @include card-enclosed;
+  }
+
+
   .card__title:focus-within~.bttn {
     background-position: 0px;
     background-size: 200% 100%;
@@ -16,19 +21,26 @@
     background-position: 0px -20px;
     background-size: 200% 200%;
     transition: all .25s ease-in;
-    margin-bottom: $gutter;
+  }
+
+  p+.bttn,
+  p+.btn {
+    margin-top: $lg;
+  }
+
+  .card__author+p,
+  .card__author+.bttn,
+  .card__author+.btn {
+    margin-top: $gutter;
   }
 
   .media {
     @include card-media;
   }
 
-  &.card--enclosed {
-    @include card--enclosed;
-  }
-
   &__img {
     align-self: start;
+    width: 100%;
   }
 
   &__body {
