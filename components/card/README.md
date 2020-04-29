@@ -12,9 +12,8 @@ A card is a good component for showing details. It features text fields stacked 
 * Author
 
 **Orientations:**
-* Portrait (default) - Used for displaying cards in a row.
-* Landscape (`.card--horizontal`) - Used for stacking cards on top of one another.
+* Vertical (default) - Used for displaying cards in a row.
+* Horizontal (`.card--horizontal`) - Used for stacking cards on top of one another.
 
 **Style variations:**
-* Open (`.card--open`) - no outline
-* Enclosed (`.card--enclosed`) - outline
+* Enclosed (`.card--enclosed`) - Card has an outline around it.
