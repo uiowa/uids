@@ -1,9 +1,9 @@
 .card {
   @include card;
 
-&.card--enclosed {
-  @include card-enclosed;
-}
+  &.card--enclosed {
+    @include card-enclosed;
+  }
 
 
   .card__title:focus-within~.bttn {
@@ -23,8 +23,15 @@
     transition: all .25s ease-in;
   }
 
-  .bttn, .btn {
+  p+.bttn,
+  p+.btn {
     margin-top: $lg;
+  }
+
+  .card__author+p,
+  .card__author+.bttn,
+  .card__author+.btn {
+    margin-top: $gutter;
   }
 
   .media {
