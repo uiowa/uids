@@ -1,37 +1,121 @@
+.alert {
+  padding: $md 0;
+}
+
 .alert-danger {
-  background: $danger;
-  padding: $lg 0;
+  border-bottom: 2px solid $danger;
+  background: $danger-light;
+
+  .close:before {
+    background: $danger;
+  }
 }
 
 .alert-success {
-  background: $success;
-  padding: $lg 0;
+  border-bottom: 2px solid $success;
+  background: $success-light;
+
+  .close:before {
+    background: $success;
+  }
 }
 
 .alert-warning {
-  background: $warning;
-  padding: $lg 0;
+  border-bottom: 2px solid $warning;
+  background: $warning-light;
+
+  .close:before {
+    background: $brand-cool-gray;
+  }
 }
 
 .alert-info {
-  background: $info;
-  padding: $lg 0;
+  border-bottom: 2px solid $info;
+  background: $info-light;
+
+  .close:before {
+    background: $info;
+  }
 }
 
+.hawk-alert.alert {
+  @include breakpoint(menu) {
+    text-align: left;
+  }
+
+  @include center(vertical);
+
+  >* {
+    @include breakpoint(menu) {
+      display: flex;
+      text-align: left;
+    }
+  }
+
+  .hawk-alert-message {
+    @extend %container;
+
+    @include breakpoint(menu) {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      grid-column-gap: 0px;
+      grid-row-gap: 0px;
+    }
+
+    .hawk-alert-heading {
+      @include breakpoint(menu) {
+        border-right: 1px solid $brand-cool-gray;
+        grid-area: 1 / 1 / 3 / 2;
+      }
+    }
+
+    .hawk-alert-link.alert-link {
+      @include breakpoint(menu) {
+        width: 100%;
+        padding-left: $md;
+        text-align: left;
+        grid-area: 2 / 2 / 3 / 5;
+      }
+    }
+
+    .hawk-alert-body {
+      @include breakpoint(menu) {
+        width: 100%;
+
+        @include center(vertical);
+        grid-area: 1 / 2 / 2 / 5;
+      }
+
+      p {
+        width: 100%;
+
+        @include breakpoint(menu) {
+          padding-left: $md;
+          text-align: left;
+        }
+      }
+
+    }
+  }
+}
+
+.alert {
+  text-align: center;
+}
 
 .hawk-alert-message,
 .alert {
-  @include clearfix;
   clear: both;
-  color: #fff;
+  color: $secondary;
   font-family: $font-family-sans-serif;
-  line-height: 1.4;
   font-size: 1.2rem;
-  text-align: center;
+  line-height: 1.4;
+  @include clearfix;
 
   .close {
-    background: none;
     border: none;
+    background: none;
 
     span {
       @include element-invisible;
@@ -40,6 +124,7 @@
     &:hover,
     &:focus {
       cursor: pointer;
+
       &:before {
         color: #fff;
         border-radius: 50%;
@@ -48,45 +133,44 @@
     }
 
     &:before {
+      display: inline-block;
       width: 35px;
       margin-right: 5px;
-      color: #151515;
-      border-radius: 50%;
-      background: #fff;
-      line-height: 1.2;
       padding: 7px;
       content: "\f00d";
-      display: inline-block;
-      font-style: normal;
-      font-variant: normal;
-      text-rendering: auto;
-      line-height: 1;
+      color: #fff;
+      border-radius: 50%;
       font-family: "Font Awesome 5 Free";
       font-weight: 900;
+      font-style: normal;
+      font-variant: normal;
+      line-height: 1.2;
+      line-height: 1;
+      text-rendering: auto;
     }
   }
 
   p {
     width: 70%;
-    color: #fff;
     text-align: center;
+    color: #fff;
   }
 
   a {
     text-decoration: underline;
-    font-weight: $font-weight-bold;
     color: $secondary;
     color: #fff;
+    font-weight: $font-weight-bold;
   }
 
   p,
   >* {
-    color: #fff;
-    font-family: $font-family-sans-serif;
-    text-align: center;
-    line-height: 1.4;
-    font-size: 1.2rem;
     margin: 0 auto;
+    text-align: center;
+    color: $secondary;
+    font-family: $font-family-sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.4;
 
     i,
     span,
@@ -96,8 +180,8 @@
 
     a {
       text-decoration: underline;
+      color: $secondary;
       font-weight: $font-weight-bold;
-
 
       &:hover,
       &:focus {
@@ -107,22 +191,65 @@
   }
 }
 
+.hawk-alert-label,
+h2,
+h3,
+h4,
+h5,
+h6 {
+
+  .alert-danger & {
+    &:before {
+      color: $danger;
+    }
+  }
+
+  .alert-warning & {
+    &:before {
+      color: $brand-cool-gray;
+    }
+  }
+
+  .alert-success & {
+    &:before {
+      color: $success;
+    }
+  }
+
+  .alert-info & {
+    &:before {
+      color: $info;
+    }
+  }
+}
+
+
 .uiowa-alerts-wrapper {
 
-  .hawk-alert-heading,
+  .hawk-alert-heading {
+    padding-right: $lg;
+    text-align: left;
+  }
+
   h2,
   h3,
   h4,
   h5,
   h6 {
-    text-align: center;
     display: block;
-    padding: 0 $lg;
+    padding: 0 $xsm 0 $lg;
+    text-align: center;
+    font-size: 1.7rem;
 
     @include breakpoint(menu) {
-      display: flex;
       align-items: center;
       justify-content: center;
+    }
+  }
+
+  .hawk-alert-label {
+    &:before {
+      padding-right: $sm;
     }
   }
 
@@ -133,24 +260,31 @@
   h5,
   h6 {
     text-transform: uppercase;
-    font-weight: $font-weight-bold;
     font-size: 1.7rem;
+    font-weight: $font-weight-bold;
+
+    &:before {
+      display: inline-block;
+      content: "\f06a";
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      font-style: normal;
+      font-variant: normal;
+      line-height: 1;
+      text-rendering: auto;
+    }
   }
 
   .hawk-alert-date {
-    font-family: $font-family-sans-serif;
-    font-weight: $font-weight-light;
-    font-size: 1.3rem;
     display: block;
-    margin: 0 0 $md;
+    text-align: center;
+    font-family: $font-family-sans-serif;
+    font-size: 1.2rem;
+    font-weight: $font-weight-light;
+
     @include breakpoint(menu) {
-      display: inline;
-      margin: 0;
-      &:before {
-        content: '| ';
-        padding-right: $sm;
-        padding-left: $sm;
-      }
+      text-align: left;
+
     }
   }
 
