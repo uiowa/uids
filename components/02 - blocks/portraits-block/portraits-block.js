@@ -2,7 +2,6 @@ const toggleButton = document.querySelectorAll("button.vidbttn");
 const ctrlVideo = document.querySelectorAll(".player");
 const textOverlay = document.querySelectorAll(".portrait .highlight__wrapper");
 const videoContainer = document.querySelectorAll(".embed-responsive");
-const buttonLabel = document.getElementById("label");
 const trackElements = document.querySelectorAll("track");
 const debug = false;
 
@@ -41,7 +40,6 @@ document.addEventListener(
       videoContainer[i].classList.remove("active");
       ctrlVideo[i].removeAttribute("controls", "true");
       trackElements[i].track.mode = "hidden";
-      document.getElementById("label").innerHTML = "Play";
     }
   },
   false
