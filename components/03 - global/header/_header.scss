@@ -45,7 +45,9 @@ header {
   }
 
   .header--tertiary & {
-    height: 50px;
+    @include breakpoint(menu) {
+      height: 50px;
+    }
   }
 
   .header--primary & {
@@ -86,9 +88,13 @@ header {
   .uiowa-bar__title {
    // flex: 50%;
    // margin: 0 0 0 10px;
-   width: 40%;
+   width: 100%;
+   padding: $gutter;
+   background: #fff;
     @include breakpoint(menu) {
       width: auto;
+      background: transparent;
+      padding: 0;
     }
   }
   .search-wrapper {
@@ -106,6 +112,14 @@ header {
   min-height: 50px;
 }
 
+.header--tertiary .site_name--wrapper .page__container {
+  position: unset;
+
+  @include breakpoint(menu) {
+
+  }
+}
+
 
 // department header
 
@@ -114,6 +128,10 @@ header {
   z-index: 2;
   border-bottom: 1px solid #ccc;
   background: #fff;
+
+  .header--tertiary & {
+    position: unset;
+  }
 
   @include breakpoint(menu) {
     position: unset;

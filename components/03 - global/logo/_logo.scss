@@ -44,27 +44,43 @@
   }
 
   .search-is-open & {
-    display: none;
+    visibility: none;
+    opacity: 0;
 
     @include breakpoint(menu) {
       display: block;
+      opacity: 1;
+      visibility: visible;
     }
   }
 }
 
-
+.header--secondary .logo-icon--tab {
+  width: 107px;
+  height: 70px;
+    @include breakpoint(menu) {
+      width: 150px;
+      height: 80px;
+    }
+      @include breakpoint(container) {
+        margin-left: -16px;
+        width: 180px;
+        height: auto;
+        padding: 5px 15px 25px 20px;
+      }
+}
 
 
 .header--tertiary .logo-icon--tab {
   width: 107px;
-  height: 50px;
+  height: 70px;
   margin-right: 10px;
   padding: 13px 13px 13px 25px;
   background: #151515;
 
   @include breakpoint(menu) {
     width: 110px;
-    height: 50px;
+    height: 60px;
     padding: 13px 7px 13px 18px;
   }
 
@@ -75,6 +91,8 @@
 
   .search-is-open & {
     display: flex;
+    opacity: 1;
+    visibility: visible;
   }
 }
 

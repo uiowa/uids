@@ -64,14 +64,22 @@
     /* Some even *more* exciting button focus styles */
   }
 
+  .header--secondary & {
+    height: 70px;
+    @include breakpoint(menu) {
+      height: 80px;
+    }
+  }
+
   .header--tertiary & {
-    width: 20%;
-    height: 90px;
+    //width: 20%;
+    height: 70px;
     background: none;
 
     @include breakpoint(menu) {
       top: 0px;
       width: auto;
+      height: 90px;
     }
   }
 
@@ -272,9 +280,18 @@
     }
   }
 
-  .header--tertiary & {
-    margin-top: 19px;
+  .header--tertiary &,
+  .header--secondary & {
+    margin-top: 7px;
   }
+
+  .header--secondary & {
+    @include breakpoint(menu) {
+      margin-top: 18px;
+    }
+  }
+
+
 }
 
 
@@ -352,9 +369,13 @@
 
 
 .search-wrapper {
-  position: relative;
+  position: absolute;
+  right: 0;
+  top: 0;
+
 
   @include breakpoint(menu) {
+    position: relative;
     display: flex;
     flex: 1;
     justify-content: space-between;
@@ -365,9 +386,13 @@
   }
 
   .search-is-open & {
+    width: 100%;
     display: flex;
     flex: 1;
     justify-content: space-between;
+     @include breakpoint(menu) {
+       position: relative;
+     }
   }
 
   .header--primary & {
