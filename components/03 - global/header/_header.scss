@@ -62,11 +62,17 @@ header {
 
 .uiowa-bar .page__container {
   position: unset;
-  display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   margin-right: 0;
   margin-left: 0;
+  .header--primary & {
+    display: flex;
+  }
+
+  @include breakpoint(menu) {
+     display: flex;
+  }
 
   @include breakpoint(container) {
     justify-content: unset;
@@ -119,6 +125,9 @@ header {
   @include breakpoint(menu) {
     min-height: 90px;
     position: relative;
+  }
+  @include breakpoint(container) {
+    position: unset;
   }
 }
 
