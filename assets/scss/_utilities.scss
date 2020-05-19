@@ -231,7 +231,7 @@
 
 @mixin h2 {
   font-size: $h2-font-size;
-  line-height: unset;
+  line-height: 1.25;
   font-weight: $font-weight-medium;
   @include margin($top: 0, $bottom: $xsm);
   &:not(:first-child) {
@@ -241,7 +241,7 @@
 
 @mixin h3 {
   font-size: $h3-font-size;
-  line-height: unset;
+  line-height: 1.25;
   @include margin($top: 0, $bottom: $xsm);
   &:not(:first-child) {
     @include margin($top: $lg);
@@ -250,7 +250,7 @@
 
 @mixin h4 {
   font-size: $h4-font-size;
-  line-height: unset;
+  line-height: 1.25;
   font-weight: $font-weight-medium;
   @include margin($top: 0, $bottom: $xsm);
   &:not(:first-child) {
@@ -260,7 +260,7 @@
 
 @mixin h5 {
   font-size: $h5-font-size;
-  line-height: unset;
+  line-height: 1.25;
   font-weight: $font-weight-medium;
   @include margin($top: 0, $bottom: $xsm);
   &:not(:first-child) {
@@ -270,7 +270,7 @@
 
 @mixin h6 {
   font-size: $h6-font-size;
-  line-height: unset;
+  line-height: 1.25;
   font-weight: $font-weight-medium;
   @include margin($top: 0, $bottom: $xsm);
   &:not(:first-child) {
@@ -343,6 +343,10 @@
     @include breakpoint(sm) {
       padding: 2rem;
     }
+  }
+  ul, ol, dl, table {
+    font-size: 1rem;
+    line-height: 1.7;
   }
 }
 
@@ -431,6 +435,10 @@
   color: #EDECEB !important;
 }
 
+@mixin brand-cool-gray {
+  color: $brand-cool-gray !important;
+}
+
 @mixin fullwidth-container {
   width: 100%;
   padding-right: 0;
@@ -444,7 +452,23 @@
 }
 
 @mixin bg-dark {
-  background-color: #343a40 !important;
+  background-color: $brand-cool-gray !important;
+
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: #fff;
+
+    &.card__title {
+      color: $secondary;
+    }
+  }
+}
+
+@mixin bg-black {
+  background-color: $secondary !important;
 
   h2,
   h3,
