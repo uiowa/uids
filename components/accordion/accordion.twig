@@ -3,17 +3,16 @@
 {% else %}
   {% set accordion_type = 'single' %}
 {% endif %}
-{# @todo (Backlog) Add background options. #}
+
 <div class="uids-accordion
-  {% if accordion.variant %} uids-accordion--{{ accordion.variant }}{% endif %}"
+  {% if accordion.variant %} uids-accordion--{{ variant }}{% endif %}"
   role="tablist"
-  aria-multiselectable="{{ accordion.multiselectable }}"
+  aria-multiselectable="{{ multiselectable }}"
 >
   {% set item_number = 1 %}
-  {% for item in accordion.items %}
+  {% for item in items %}
     <!-- Use the accurate heading level to maintain the document outline -->
     <h2 class="uids-accordion__heading">
-      {# @todo Needs aria relationship attributes on button. #}
       <button class="uids-accordion__button"
         role="tab" 
         aria-selected="{{ item.expanded | default('false') }}"
