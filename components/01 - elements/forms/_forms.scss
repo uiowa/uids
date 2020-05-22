@@ -522,10 +522,11 @@
       &::-webkit-file-upload-button {
         cursor: pointer;
       }
-    }
 
-    &::before {
+      &::before {
       position: absolute;
+      bottom: 0;
+      left: 0;
       z-index: 1;
       content: 'Select a file';
       display: inline-block;
@@ -550,9 +551,39 @@
       border-color: darken($upload-primary, 50%);
       color: darken($upload-primary, 50%);
     }
+    }
     .button {
       @extend %bttn--primary; 
       display: block;
+    }
+
+    input[data-drupal-selector^="edit-file-upload-multiple-upload"].form-file {
+      padding-left: 0.1rem;
+
+      &:before {
+        content: 'Choose files';
+      }
+    }
+
+    input[data-drupal-selector^="edit-file-upload-multiple-upload"].button {
+      margin: 0 0 1rem 0;
+    }
+
+    div[class*="js-form-item-file-upload-multiple-file"] {
+      margin: 0;
+
+      .file {
+        background-image: none;
+        padding: 0;
+
+        &:before {
+          content: '\f15b';
+          font-size: 1rem;
+          color: #434343;
+          margin-right: 0.2rem;
+          @include fas();
+        }
+      }
     }
   }
 
