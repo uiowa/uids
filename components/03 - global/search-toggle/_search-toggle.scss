@@ -167,6 +167,12 @@
   }
 }
 
+.header--secondary.horizontal .search-button,
+.header--secondary.mega .search-button,
+.header--tertiary.horizontal .search-button,
+.header--tertiary.mega .search-button {
+  right: 0;
+}
 
 
 /*
@@ -250,8 +256,10 @@
   &::placeholder {
     color: #fff;
     font-size: 1rem;
+    padding-top: 10px;
 
     @include breakpoint(menu) {
+      padding-top: 0;
       color: #000;
       font-size: unset;
     }
@@ -384,6 +392,11 @@
 
   @include breakpoint(container) {
     margin-right: calc(50% - 50vw);
+    .header--horizontal &,
+    .horizontal &,
+    .mega & {
+      margin-right: 0;
+    }
   }
 
   .search-is-open & {
@@ -411,7 +424,7 @@
 
   .header--horizontal & {
     @include breakpoint(container) {
-      margin-right: calc(50% - 49vw);
+      //margin-right: calc(50% - 49vw);
     }
   }
 }
