@@ -99,14 +99,11 @@
     }
   }
 
-  /*
-  .card__body p {
-    margin-top: 0;
-    margin-bottom: .5rem;
-  }
-*/
   .card__body {
-    padding: 0 0 $md $gutter;
+    padding: 2rem;
+    @include breakpoint(sm) {
+      padding: 0 0 $md $gutter;
+    }
     min-height: 1px;
   }
 
@@ -124,9 +121,13 @@
 // @todo move card header to separate component
 .card__head {
   flex-wrap: wrap;
-  padding: 0 0 2rem 0;
+  padding: 0;
   text-align: center;
   @include center(horizontal);
+
+  @include breakpoint(sm) {
+    padding: 0 0 2rem 0;
+  }
 
   @include breakpoint(menu) {
     margin: 0;
@@ -144,6 +145,11 @@
 
   .bttn {
     flex-basis: 100%;
+    padding-top: $sm;
+
+    @include breakpoint(sm) {
+      padding-top: $md;
+    }
 
     &.bttn--link:hover,
     &.bttn--link:focus {
