@@ -1,7 +1,6 @@
 'use strict';
 
 const path = require('path');
-// const mandelbrot = require('@frctl/mandelbrot');
 const pkg = require('./package.json');
 const fractal = module.exports = require('@frctl/fractal').create();
 const webUITheme = require('mono-fractal')({
