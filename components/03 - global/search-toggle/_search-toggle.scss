@@ -1,6 +1,6 @@
 .search-button {
   position: relative;
-  z-index: 200;
+  z-index: 2;
   top: 0;
   top: 0;
   right: 0;
@@ -40,6 +40,9 @@
     top: 0;
     height: 80px;
     padding: 14px 25px 7px 18px;
+    .header--tertiary & {
+      padding: 9px 25px 7px 18px;
+    }
   }
 
   &:focus,
@@ -61,14 +64,22 @@
     /* Some even *more* exciting button focus styles */
   }
 
+  .header--secondary & {
+    height: 70px;
+    @include breakpoint(menu) {
+      height: 80px;
+    }
+  }
+
   .header--tertiary & {
-    width: 20%;
-    height: 90px;
+    //width: 20%;
+    height: 70px;
     background: none;
 
     @include breakpoint(menu) {
       top: 0px;
       width: auto;
+      height: 90px;
     }
   }
 
@@ -110,6 +121,7 @@
         border-radius: 50%;
         background: #fff;
         line-height: 1.2;
+        color: $secondary;
       }
 
       .header--tertiary & {
@@ -122,7 +134,7 @@
       }
 
       .header--primary & {
-        color: $secondary;
+        //color: #fff;
 
         @include breakpoint(menu) {
           color: $secondary;
@@ -135,19 +147,20 @@
     padding: $xsm;
     padding-right: 7px;
     content: "\f002";
-    color: $secondary;
+    color: #fff;
     font-size: 1.5rem;
     @include fas();
 
     @include breakpoint(menu) {
       font-size: 1.2rem;
+      color: $secondary;
     }
 
     .header--primary & {
-      color: $secondary;
+      //color: $secondary;
 
       @include breakpoint(menu) {
-        color: $secondary;
+        //color: $secondary;
       }
     }
 
@@ -197,10 +210,9 @@
   display: none;
 }
 
-
 .search-overlay .uids-search {
   position: absolute;
-  z-index: 3;
+  z-index: 2;
   top: 0;
   right: 0;
   width: 0px;
@@ -219,7 +231,7 @@
 .search-overlay .uids-search input[type="text"] {
   padding-left: 0;
   text-align: left;
-  color: $secondary;
+  color: #fff;
   border: none;
   border-bottom-width: medium;
   border-bottom-style: none;
@@ -229,13 +241,14 @@
   font-size: 1.5rem;
 
   @include breakpoint(menu) {
+    color: $secondary;
     .header--tertiary & {
       border-bottom: none;
     }
   }
 
   &::placeholder {
-    color: #000;
+    color: #fff;
     font-size: 1rem;
 
     @include breakpoint(menu) {
@@ -258,7 +271,7 @@
     background: $primary;
 
     .header--tertiary & {
-      background: white;
+      background: transparent;
     }
   }
 
@@ -270,9 +283,15 @@
     }
   }
 
-  .header--tertiary & {
-    margin-top: 19px;
+  .header--tertiary &,
+  .header--secondary & {
+    margin-top: 7px;
+    @include breakpoint(menu) {
+      margin-top: 18px;
+    }
   }
+
+
 }
 
 
@@ -290,7 +309,7 @@
 .search-overlay .uids-search [type="submit"]::before {
   padding: 20px;
   content: ' ';
-  background: url(../images/search-01.svg);
+  background: url(../images/search-white-01.svg);
   background-repeat: repeat;
   background-repeat: no-repeat;
   background-position: center;
@@ -298,6 +317,7 @@
 
   @include breakpoint(menu) {
     background-position: center;
+    background: url(../images/search-01.svg);
   }
 
   .header--tertiary & {
@@ -320,7 +340,7 @@
 
 
   &[aria-expanded="true"] {
-    z-index: 100;
+    z-index: 1;
     visibility: visible;
     transition: opacity .3s;
     transition-timing-function: ease;
@@ -350,9 +370,13 @@
 
 
 .search-wrapper {
-  position: relative;
+  position: absolute;
+  right: 0;
+  top: 0;
+
 
   @include breakpoint(menu) {
+    position: relative;
     display: flex;
     flex: 1;
     justify-content: space-between;
@@ -363,9 +387,13 @@
   }
 
   .search-is-open & {
+    width: 100%;
     display: flex;
     flex: 1;
     justify-content: space-between;
+     @include breakpoint(menu) {
+       position: relative;
+     }
   }
 
   .header--primary & {
@@ -412,7 +440,7 @@
   }
 
   &[aria-expanded="true"] {
-    z-index: 100;
+    z-index: 1;
     top: 0;
     display: contents;
     visibility: visible;

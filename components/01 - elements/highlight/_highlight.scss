@@ -1,6 +1,6 @@
   .highlight {
     &__wrapper {
-      z-index: 100;
+      z-index: 1;
       right: 0;
       bottom: 0;
       left: 0;
@@ -38,7 +38,7 @@
     &__title {
       align-items: center;
       justify-content: center;
-      margin-bottom: 0;
+      margin-bottom: 8px;
       padding: 2px 0;
       text-transform: uppercase;
       font-family: $font-family-caps-bold;
@@ -47,6 +47,7 @@
 
       @include breakpoint(menu) {
         font-size: calc(100% + .3vw);
+        margin-bottom: 0;
       }
 
       @include breakpoint(container) {
@@ -64,9 +65,10 @@
     }
   }
 
-
   @-moz-document url-prefix() {
-    .highlight__title {}
+    .highlight__title {
+      margin-bottom: 0;
+    }
 
     .highlight__title span {
       padding-top: 12px;

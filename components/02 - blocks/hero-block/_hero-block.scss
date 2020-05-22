@@ -7,7 +7,7 @@
 
 .video-controls {
   position: absolute;
-  z-index: 100;
+  z-index: 1;
   right: 20px;
   bottom: 20px;
 }
@@ -126,7 +126,7 @@ img.hero-image {
 
 .hero {
   .bttn--secondary {
-    z-index: 100;
+    z-index: 1;
     margin-bottom: $md;
     background: #fff;
     color: $secondary;
@@ -204,11 +204,15 @@ img.hero-image {
 
     @include breakpoint(sm) {
       text-shadow: 0 1px 1px #000;
-      font-size: calc(100% + 3.5vw);
+      font-size: calc(100% + 2.5vw);
     }
 
     @include breakpoint(menu) {
       margin-bottom: .3rem;
+    }
+
+    @include breakpoint(md) {
+      font-size: calc(100% + 3.5vw);
     }
   }
 }
@@ -227,7 +231,7 @@ img.hero-image {
 }
 
 .hero .hero__content-center {
-  z-index: 2;
+  z-index: 1;
   display: grid;
   width: 100%;
   position: relative;
@@ -244,10 +248,9 @@ img.hero-image {
   }
 }
 
-
 .hero .hero__content-bottom {
   position: relative;
-  z-index: 2;
+  z-index: 1;
   display: grid;
   width: 100%;
   background: white;
@@ -257,6 +260,7 @@ img.hero-image {
     position: absolute;
     background: transparent;
     padding: $gutter;
+    max-width: $container-width;
   }
 
   @include breakpoint(container) {
@@ -395,7 +399,7 @@ _:future,
   }
 
   background: transparent;
-  z-index: 100;
+  z-index: 1;
 
   p {
     color: #fff;

@@ -76,7 +76,6 @@
 
 
 
-
 // transparent overlay
 
 body {
@@ -91,7 +90,7 @@ body {
 
   &:before {
     position: fixed;
-    z-index: 200;
+    z-index: 2;
     top: 0;
     left: 0;
     visibility: hidden;
@@ -195,13 +194,16 @@ body {
   align-items: center;
   justify-content: center;
   height: 60px;
-  padding: 0 0 0 20px;
+  padding: 0 0 0 15px;
   font-weight: 700;
   font-size: 1rem;
 
   @include breakpoint(menu) {
     height: 80px;
     padding: 14px 35px 0;
+    .header--tertiary & {
+      padding: 9px 35px 0;
+    }
   }
 
   &:focus,
@@ -266,7 +268,7 @@ body {
 
 .o-canvas__drawer {
   position: fixed;
-  z-index: 400;
+  z-index: 2;
   right: 0;
   display: block;
   visibility: hidden;
@@ -286,7 +288,7 @@ body {
   }
 
   .o-canvas--open & {
-    top: 140px;
+    //top: 140px;
     visibility: visible;
     height: calc(100% - 80px);
     transition: all .4s ease-in-out;
@@ -301,7 +303,7 @@ body {
 }
 
 .header--tertiary .o-canvas__drawer {
-  top: 195px;
+  //top: 195px;
 
   @include breakpoint(menu) {
     top: 140px;
@@ -309,7 +311,7 @@ body {
 }
 
 .header--tertiary .o-canvas--open .o-canvas__drawer {
-  top: 195px;
+  //top: 195px;
 
   @include breakpoint(menu) {
     top: 140px;
