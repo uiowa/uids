@@ -1,6 +1,6 @@
 const { src, dest, parallel, series, watch } = require('gulp');
 const config = require('./config.json');
-const fractal      = require('./fractal.js');
+const fractal      = require('./fractal.config.js');
 const logger       = fractal.cli.console;
 const sass         = require('gulp-sass');
 const prefix       = require('gulp-autoprefixer');
@@ -20,6 +20,13 @@ var paths = {
 function assetsCopy() {
     return src(['./assets/**/*.woff', './assets/**/*.woff2', './assets/**/*.js', './assets/**/*.jpg', './assets/**/*.png', './assets/**/*.svg'])
     .pipe(dest('./dist/'));
+}
+
+// Icons
+function icons() {
+    return src(`${paths.src}/assets/icons/**/*`)
+        .pipe(imagemin())
+        .pipe(gulp.dest(`${paths.dest}/assets/icons`));
 }
 
 // SCSS bundled into CSS task
