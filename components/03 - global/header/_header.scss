@@ -38,18 +38,21 @@ header {
   z-index: 1;
   display: block;
   min-height: auto;
-  background: $primary;
+  background: $secondary;
   @include breakpoint(menu) {
     height: 80px;
+    background: $primary;
 
   }
 
   .header--tertiary & {
-    height: 50px;
+    @include breakpoint(menu) {
+      height: 50px;
+    }
   }
 
   .header--primary & {
-    background: $primary;
+    //background: $primary;
     @include breakpoint(menu) {
       background: $primary;
     }
@@ -59,11 +62,17 @@ header {
 
 .uiowa-bar .page__container {
   position: unset;
-  display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   margin-right: 0;
   margin-left: 0;
+  .header--primary & {
+    display: flex;
+  }
+
+  @include breakpoint(menu) {
+     display: flex;
+  }
 
   @include breakpoint(container) {
     justify-content: unset;
@@ -86,9 +95,13 @@ header {
   .uiowa-bar__title {
    // flex: 50%;
    // margin: 0 0 0 10px;
-   width: 40%;
+   width: 100%;
+   padding: $gutter $gutter $gutter 15px;
+   background: $primary;
     @include breakpoint(menu) {
       width: auto;
+      background: transparent;
+      padding: 0;
     }
   }
   .search-wrapper {
@@ -106,6 +119,20 @@ header {
   min-height: 50px;
 }
 
+.header--tertiary .site_name--wrapper .page__container {
+  position: unset;
+  min-height: auto;
+  background: $primary;
+  @include breakpoint(menu) {
+    min-height: 90px;
+    position: relative;
+    background: transparent;
+  }
+  @include breakpoint(container) {
+    position: unset;
+  }
+}
+
 
 // department header
 
@@ -114,6 +141,10 @@ header {
   z-index: 2;
   border-bottom: 1px solid #ccc;
   background: #fff;
+
+  .header--tertiary & {
+    position: unset;
+  }
 
   @include breakpoint(menu) {
     position: unset;

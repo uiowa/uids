@@ -1,10 +1,11 @@
 .uiowa-bar__title {
   display: flex;
   align-items: center;
-  margin: 0 auto 0 10px;
+  margin: 0 auto 0 0;
   text-align: left;
-  font-size: calc(100% + 1.2vw);
+  font-size: calc(100% + 2vw);
   font-weight: 300;
+  line-height: 1;
   font-family: $font-family-sans-serif;
   a {
     color: $secondary;
@@ -26,25 +27,29 @@
   .header--secondary & {
     .search-is-open & {
       //@include element-invisible;
-      display: none;
+      @include breakpoint(menu) {
+        display: none;
+      }
     }
   }
 
 
   .header--tertiary & {
-    width: 70%;
     margin: 0;
-    padding: 20px;
+    padding: 10px 20px 20px 20px;
     text-align: left;
 
     @include breakpoint(menu) {
-      width: auto;
+      width: 75%;
       padding: 25px 20px 25px 0;
+      background: transparent;
     }
 
     .search-is-open & {
       //@include element-invisible;
-      display: none;
+      @include breakpoint(menu) {
+        display: none;
+      }
     }
   }
 }
