@@ -1,13 +1,24 @@
 'use strict';
 
 const path = require('path');
-const mandelbrot = require('@frctl/mandelbrot');
+// const mandelbrot = require('@frctl/mandelbrot');
+const pkg = require('./package.json');
 const fractal = module.exports = require('@frctl/fractal').create();
+const webUITheme = require('mono-fractal')({
+    panels: [
+        'html',
+        'resources',
+        'context',
+        'info',
+    ],
+});
 
 /*
  * Give your project a title.
  */
 fractal.set('project.title', 'UIDS');
+fractal.set('project.repository', pkg._from)
+fractal.set('project.version', pkg.version)
 
 /*
 * Require the Twig adapter
@@ -47,21 +58,19 @@ fractal.docs.set('path', path.join(__dirname, 'documentation'));
 fractal.web.set('static.path', path.join(__dirname, 'dist'));
 fractal.web.set('builder.dest', __dirname + '/docs');
 
-const hawkeyeTheme = mandelbrot({
-    lang: 'en-US',
-      skin: 'white',
-      // display context data in YAML
-      format: 'yaml',
-      // which panels to show
-      panels: [
-        'html',
-        'notes',
-        'view',
-        'context',
-        'resources',
-        'info',
-      ],
-});
+// const hawkeyeTheme = mandelbrot({
+//     lang: 'en-US',
+//     skin: 'white',
+//     // display context data in YAML
+//     format: 'yaml',
+//     // which panels to show
+//     panels: [
+//         'html',
+//         'resources',
+//         'context',
+//         'info',
+//     ],
+// });
 
-fractal.web.theme(hawkeyeTheme); // tell Fractal to use the configured theme by default
+fractal.web.theme(webUITheme); // tell Fractal to use the configured theme by default
 fractal.components.set('default.preview', '@preview');
