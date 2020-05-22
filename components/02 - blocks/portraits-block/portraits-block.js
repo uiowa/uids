@@ -45,33 +45,6 @@ document.addEventListener(
   false
 );
 
-
-var isMobile = {
-  Android: function () {
-    return navigator.userAgent.match(/Android/i);
-  },
-  BlackBerry: function () {
-    return navigator.userAgent.match(/BlackBerry/i);
-  },
-  iOS: function () {
-    return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-  },
-  Opera: function () {
-    return navigator.userAgent.match(/Opera Mini/i);
-  },
-  Windows: function () {
-    return navigator.userAgent.match(/IEMobile/i);
-  },
-  any: function () {
-    return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
-  }
-};
-if (isMobile.any()) {
-  document.querySelectorAll(".player")[0].controls = true;
-  document.querySelectorAll(".player")[1].controls = true;
-  document.querySelectorAll(".player")[2].controls = true;
-}
-
 // Set video controls to true for small viewport
 // Define our viewportWidth variable
 var viewportWidth;
