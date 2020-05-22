@@ -1,6 +1,6 @@
 ////// Form Elments
 
-.uids-content {
+.webform-submission-form {
 
   fieldset {
     margin: 1rem 0;
@@ -16,6 +16,7 @@
     padding: 0;
     white-space: normal;
     color: inherit;
+    margin-bottom: 0;
   }
 
   progress {
@@ -171,6 +172,7 @@
     -moz-appearance: none;
     appearance: none;
     @extend %bttn;
+    font-family: $font-family-caps-bold;
   }
 
   input[type='search'] {
@@ -249,11 +251,6 @@
     font-style: italic;
   }
 
-  legend {
-    max-width: 100%;
-    @include margin($bottom: $sm);
-  }
-
   select {
     height: 3.5rem;
     padding: $xsm;
@@ -326,10 +323,327 @@
     font-style: italic;
   }
 
+  .description {
+    margin: 0.5rem 0;
+
+    .webform-element-more {
+      margin-top: 0.3rem;
+    }
+  }
+
   .form-item,
   .form-actions {
     margin-top: 1em;
     margin-bottom: 1em;
   }
 
+  .form-item {
+    padding: 0rem 0rem;
+  }
+
+  .form-type-webform-multiple{
+    .webform-multiple-table {
+      margin-bottom: 10px;
+
+      thead th {
+        border-top: none;
+        padding: 0px;
+      }
+
+      tr.draggable {
+        position: relative;
+
+        .webform-multiple-table--handle {
+          padding: 0rem 0.75rem;
+
+          .tabledrag-handle {
+            margin: 0rem;
+            height: 16px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+
+            .handle {
+              background-position: 0rem;
+              width: 16px;
+              height: 16px;
+              padding: 0rem;
+              margin: 0rem;
+            }
+          }
+
+          & + td {
+            padding-left: 0rem;
+
+            fieldset {
+              margin-bottom: 0rem;
+            }
+
+            input {
+              margin: 0;
+            }
+          }
+        }
+
+        td.webform-multiple-table--weight {
+          vertical-align: middle;
+
+          .form-group {
+            margin-bottom: 0px;
+          }
+        }
+
+        .webform-multiple-table--operations {
+          width: 16px;
+          padding: 0rem 1rem 0rem 0rem;
+
+          .form-control {
+            display: inline-block;
+            margin-bottom: -3px;
+            border: none;
+            width: 18px;
+            height: 18px;
+          }
+        }
+
+        &.drag {
+          box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+      }
+    }
+
+    .webform-multiple-add {
+      display: flex;
+
+      .button {
+        @extend %bttn--primary;
+      }
+
+      div[class*="-add-more-items"] {
+        display: flex;
+        margin:0;
+
+        input {
+          height: unset;
+          width: unset;
+          margin: 0 1rem;
+        }
+      }
+
+      .form-control {
+        width: unset;
+
+        &.form-number {
+          display: inline-block;
+        }
+      }
+
+      .field-suffix {
+        display: inline-block;
+        color: lighten(#000, 40%);
+        line-height: 1.4;
+        font-size: 1.25rem;
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .tabledrag-toggle-weight {
+      font-size: inherit;
+      color: lighten(#000, 40%);
+      padding: 1rem;
+    }
+
+    .tabledrag-toggle-weight-wrapper {
+      justify-content: flex-end;
+    }
+
+    .webform-multiple-table--weight .webform-multiple-sort-weight {
+      width: 4em;
+    }
+
+    .webform-multiple-table--operations input[type="image"] {
+      border: none;
+    }
+  }
+
+  .fieldgroup {
+    padding: 0.75rem;
+  }
+
+  .webform-scale {
+    .webform-scale-options {
+      .webform-scale-option {
+        display: inline-block;
+      }
+
+      input {
+        transition: all 0.3s ease-in-out;
+        transition-property: border-color, background-color;
+      }
+
+      input:checked + label {
+        border-color: $primary;
+        background-color: rgba($primary, 0.2);
+      }
+    }
+
+    label {
+      width: 36px;
+      height: 36px;
+      font-size: 1.2em;
+      line-height: 1.7em;
+      margin: 0 .625rem;
+      text-align: center;
+      color: #666;
+      border: 3px solid #ccc;
+      border-radius: 50%;
+      background-color: #fff;
+    }
+  }
+
+  .form-managed-file {
+    // $upload-primary: #353535;
+
+    // .file {
+    //   padding-top: 1.1rem;
+    //   padding-left: 7rem;
+    //   margin-bottom: .625rem;
+    // }
+
+    // [type='file'] {
+    //   position: relative;
+    //   z-index: 0;
+    //   width: 100%;
+    //   cursor: pointer;
+    //   padding-top: 0.8rem;
+    //   padding-left: 0.3rem;
+
+    //   &::-webkit-file-upload-button {
+    //     cursor: pointer;
+    //   }
+
+    //   &::before {
+    //     position: absolute;
+    //     bottom: 0;
+    //     left: 0;
+    //     z-index: 1;
+    //     content: 'Select a file';
+    //     display: inline-block;
+    //     background-color: #ffffff;
+    //     border: 1px solid $upload-primary;
+    //     color: $upload-primary;
+    //     padding: 0.5rem 0.7rem;
+    //     outline: none;
+    //     white-space: nowrap;
+    //     -webkit-user-select: none;
+    //     font-family: inherit;
+    //     font-size: inherit;
+    //     line-height: inherit;
+    //     pointer-events: none;
+    //   }
+    //   &:hover::before {
+    //     border-color: darken($upload-primary, 20%);
+    //     color: darken($upload-primary, 20%);
+    //   }
+    //   &:active::before {
+        
+    //     border-color: darken($upload-primary, 50%);
+    //     color: darken($upload-primary, 50%);
+    //   }
+    // }
+
+    .button {
+      @extend %bttn--primary; 
+      display: block;
+    }
+
+    // input[multiple="multiple"].form-file {
+    //   padding-left: 0.1rem;
+
+    //   &:before {
+    //     content: 'Choose files';
+    //   }
+    // }
+
+    input[multiple="multiple"].button {
+      margin: 0 0 1rem 0;
+    }
+
+    // div[class*="js-form-item-file-upload-multiple-file"] {
+    //   margin: 0;
+
+    //   .file {
+    //     background-image: none;
+    //     padding: 0;
+
+    //     &:before {
+    //       content: '\f15b';
+    //       font-size: 1rem;
+    //       color: #434343;
+    //       margin-right: 0.2rem;
+    //       @include fas();
+    //     }
+    //   }
+    // }
+  }
+
+  .webform-message {
+    margin: 0.625rem 0;
+
+    div[role="alert"].alert {
+      background: $info-light;
+      padding: $md 0;
+      border: 1px solid;
+      border-color: rgba($info, 0.03);
+      border-bottom: 2px solid rgba($info, 0.8);
+
+        .close:before {
+          background: rgba($info, 0.8);
+        }
+
+      &.alert-danger {
+        background: $danger-light;
+        border-color: rgba($danger, 0.03);
+        border-bottom: 2px solid rgba($danger, 0.8);
+
+        .close:before {
+          background: rgba($danger, 0.8);
+        }
+      }
+
+      &.alert-success {
+        background: $success-light;
+        border-color: rgba($success, 0.03);
+        border-bottom: 2px solid rgba($success, 0.8);
+
+        .close:before {
+          background: rgba($success, 0.8);
+        }
+      }
+
+      &.alert-warning {
+        background: $warning-light;
+        border-color: rgba($warning, 0.09);
+        border-bottom: 2px solid rgba($warning, 0.8);
+
+        .close:before {
+          background: rgba(#000000, 0.7);
+        }
+      }
+    }
+
+    button {
+      padding: 0 0 0 0.625rem;
+      margin-right: 0;
+
+      &.close:before {
+        width: 26px;
+        height: 26px;
+        margin-right: 5px;
+        padding: 5px;
+        font-size: 1rem;
+      }
+    }
+  }
 }
