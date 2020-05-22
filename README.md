@@ -1,7 +1,7 @@
 # UIowa Design System (UIDS)
 A design system for the University of Iowa.
 
-https://uiowa.github.io/uids/
+http://uids.brand.uiowa.edu
 
 ## Requirements
 [Node Version Manager (NVM)](https://github.com/nvm-sh/nvm) is used to lock the version of Node to the latest LTS.
