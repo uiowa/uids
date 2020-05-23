@@ -3,7 +3,9 @@ const del = require('del');
 const fractal       = require('./fractal.config.js');
 const logger        = fractal.cli.console;
 const sass          = require('gulp-sass');
-const prefix        = require('gulp-autoprefixer');
+const postcss = require('gulp-postcss');
+const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano')
 const glob          = require('gulp-sass-glob');
 const sourcemaps    = require('gulp-sourcemaps');
 const imagemin      = require('gulp-imagemin')
@@ -43,53 +45,22 @@ function icons() {
         .pipe(dest(`${paths.dest}/assets/icons`));
 }
 
-// SCSS bundled into CSS task
-function css() {
-    return src(config.css.src)
-        .pipe(sourcemaps.init())
-        .pipe(glob())
-        .pipe(sass({
-            includePaths: [
-                'components/**/*.scss',
-                'assets/**/*.scss',
-            ],
-            outputStyle: 'compressed'
-        }).on('error', function (err) {
-            console.log(err.message);
-            // sass.logError
-            this.emit('end');
-        }))
-        .pipe(prefix(['last 2 versions', '> 1%', 'ie 9', 'ie 10'], {
-            cascade: true
-        }))
-        //.pipe(minifyCSS())
-        .pipe(sourcemaps.write('./'))
-        .pipe(dest('dist/css'));
-}
-
 // Styles
 function styles() {
-    return src([
-        `${paths.src}/components/**/*.scss`,
-        `${paths.src}/assets/**/*.scss`,
-    ])
-        .pipe(sourcemaps.init())
+    return src(`${paths.src}/**/*.scss`)
         .pipe(glob())
+        .pipe(sourcemaps.init())
         .pipe(sass({
-            includePaths: [
-                `${paths.src}/components/**/*.scss`,
-                `${paths.src}/assets/**/*.scss`,
-            ],
-            outputStyle: 'compressed'
-        }).on('error', function (err) {
-            console.log(err.message);
-            // sass.logError
-            this.emit('end');
-        }))
-        .pipe(prefix(['last 2 versions', '> 1%', 'ie 9', 'ie 10'], {
-            cascade: true
-        }))
-        .pipe(sourcemaps.write('./'))
+            errLogToConsole: true,
+            debugInfo: true,
+            // includePaths: [
+            //     `${paths.src}/components/**/*.scss`,
+            //     `${paths.src}/assets/**/*.scss`,
+            // ],
+            // outputStyle: 'compressed',
+        }).on('error', sass.logError))
+        .pipe(postcss([ autoprefixer(), cssnano()]))
+        .pipe(sourcemaps.write('.'))
         .pipe(dest(`${paths.dest}/assets/css`));
 }
 
