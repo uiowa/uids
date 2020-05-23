@@ -1,0 +1,81 @@
+
+.menu--top {
+  .menu {
+    li {
+      display: flex;
+      &:nth-child(3) {
+        display: none !important;
+
+        @include breakpoint(menu) {
+          display: flex !important;
+        }
+      }
+
+      a {
+        padding: $md;
+        color: #fff;
+        @include breakpoint(menu) {
+          color: $secondary;
+        }
+         &:hover,
+         &:focus {
+           text-decoration: underline;
+         }
+        .header--primary & {
+          font-size: .9rem;
+          padding-right: 0;
+          @include breakpoint(sm) {
+          font-size: 1.2rem;
+          padding-right: $md;
+          }
+        }
+
+        &:hover {}
+      }
+    }
+  }
+}
+
+.header--tertiary {
+  .menu--top {
+      @include element-invisible;
+        @include breakpoint(menu) {
+          @include element-invisible-off;
+          overflow: unset;
+          position: absolute !important;
+    }
+  }
+}
+
+.menu--top.uids-menu {
+  margin-top: 13px;
+  position: absolute;
+  z-index: 2;
+  right: 96px;
+
+  @include breakpoint(sm) {
+    margin-top: 9px;
+  }
+
+  @include breakpoint(menu) {
+    position: absolute;
+    top: 0;
+    right: 356px;
+    margin-top: 11px;
+  }
+}
+
+.header--tertiary .uids-menu {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  bottom: 0px;
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: 0;
+}
+
+.uids-menu.menu--top .menu li a {
+  font-weight: $font-weight-light;
+}

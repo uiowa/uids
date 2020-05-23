@@ -1,0 +1,165 @@
+.card {
+  @include card;
+
+  &.card--enclosed {
+    @include card-enclosed;
+  }
+
+
+  .card__title:focus-within~.bttn {
+    background-position: 0px;
+    background-size: 200% 100%;
+
+    i,
+    svg {
+      color: $secondary;
+    }
+  }
+
+  .bttn {
+    background-image: linear-gradient(to bottom, #ffffff 0%, #ffffff 90%, #ffcd00 90%, #ffcd00 100%);
+    background-position: 0px -20px;
+    background-size: 200% 200%;
+    transition: all .25s ease-in;
+  }
+
+  p+.bttn,
+  p+.btn {
+    margin-top: $md;
+  }
+
+  .card__author+p,
+  .card__author+.bttn,
+  .card__author+.btn {
+    margin-top: $sm;
+  }
+
+  .card__media {
+    @include card-media;
+  }
+
+  &__img {
+    align-self: start;
+    width: 100%;
+  }
+
+  &__body {
+    @include card-body;
+  }
+
+  p {
+    @include card-paragraph;
+  }
+
+  &__author {
+    @include card-subtitle;
+  }
+
+  &__title {
+    @include card-header;
+  }
+}
+
+
+
+.card.card--horizontal {
+
+  &.card--enclosed {
+    padding: $gutter;
+  }
+
+  @include breakpoint(sm) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-bottom: 1.6rem;
+  }
+
+  >* {
+    @include breakpoint(sm) {
+      display: flex;
+      flex-direction: column;
+      flex-basis: 100%;
+      flex: 1;
+    }
+  }
+
+  >.card__media {
+    @include card-media-horizontal-left;
+  }
+
+  .card__title {
+    font-family: $font-family-serif;
+    font-weight: $font-weight-bold;
+
+    @include breakpoint(sm) {
+      padding: 0;
+      margin: 0 0 .5rem;
+    }
+  }
+
+  .card__body {
+    padding: 2rem;
+    @include breakpoint(sm) {
+      padding: 0 0 $md $gutter;
+    }
+    min-height: 1px;
+  }
+
+  .bttn--outline {
+    display: table;
+    width: max-content;
+
+    &:after {
+      width: auto;
+    }
+  }
+}
+
+
+// @todo move card header to separate component
+.card__head {
+  flex-wrap: wrap;
+  padding: 0;
+  text-align: center;
+  @include center(horizontal);
+
+  @include breakpoint(sm) {
+    padding: 0 0 2rem 0;
+  }
+
+  @include breakpoint(menu) {
+    margin: 0;
+    display: block;
+  }
+
+  p {
+    @include brand-cool-gray;
+    margin: 0;
+  }
+
+  .bold-headline {
+    display: block;
+  }
+
+  .bttn {
+    flex-basis: 100%;
+    padding-top: $sm;
+
+    @include breakpoint(sm) {
+      padding-top: $md;
+    }
+
+    &.bttn--link:hover,
+    &.bttn--link:focus {
+      background: transparent;
+      text-decoration: underline;
+    }
+  }
+
+  h2 {
+    margin: 0;
+    padding: 0;
+  }
+}

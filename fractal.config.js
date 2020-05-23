@@ -1,10 +1,15 @@
 'use strict';
 
-const path = require('path');
+const paths = {
+    build: `${__dirname}/www`,
+    src: `${__dirname}/src`,
+    static: `${__dirname}/tmp`,
+}
+
 const pkg = require('./package.json');
 const fractal = module.exports = require('@frctl/fractal').create();
-const webUITheme = require('mono-fractal')({
-    favicon: '/assets/favicon.ico',
+const uidsTheme = require('mono-fractal')({
+    favicon: '/assets/icons/favicon.ico',
     panels: [
         'html',
         'resources',
@@ -17,8 +22,8 @@ const webUITheme = require('mono-fractal')({
  * Give your project a title.
  */
 fractal.set('project.title', 'UIDS');
-fractal.set('project.repository', pkg._from)
-fractal.set('project.version', pkg.version)
+fractal.set('project.repository', pkg.repository.url);
+fractal.set('project.version', pkg.version);
 
 /*
 * Require the Twig adapter
@@ -39,38 +44,22 @@ const twigAdapter = require('@frctl/twig')({
 });
 
 /*
- * Tell Fractal where to look for components.
- *
+ * Components config.
  */
-
 fractal.components.engine(twigAdapter);
 fractal.components.set('ext', '.twig');
-fractal.components.set('path', path.join(__dirname, 'components'));
-
-/*
- * Tell Fractal where to look for documentation pages.
- */
-fractal.docs.set('path', path.join(__dirname, 'documentation'));
-
-/*
- * Tell the Fractal web preview plugin where to look for static assets.
- */
-fractal.web.set('static.path', path.join(__dirname, 'dist'));
-fractal.web.set('builder.dest', __dirname + '/docs');
-
-// const hawkeyeTheme = mandelbrot({
-//     lang: 'en-US',
-//     skin: 'white',
-//     // display context data in YAML
-//     format: 'yaml',
-//     // which panels to show
-//     panels: [
-//         'html',
-//         'resources',
-//         'context',
-//         'info',
-//     ],
-// });
-
-fractal.web.theme(webUITheme); // tell Fractal to use the configured theme by default
 fractal.components.set('default.preview', '@preview');
+fractal.components.set('path', `${paths.src}/components`);
+
+/*
+ * Documentation config.
+ */
+fractal.docs.set('path', `${paths.src}/docs`);
+
+/*
+ * Web UI config.
+ */
+fractal.web.theme(uidsTheme); // tell Fractal to use the configured theme by default
+fractal.web.set('static.path', paths.static);
+fractal.web.set('builder.dest', paths.build);
+
