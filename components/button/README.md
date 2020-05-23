@@ -1,4 +1,0 @@
-# Button
-
-## Todo
-* Complete documentation.

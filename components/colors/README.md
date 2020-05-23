@@ -1,4 +1,0 @@
-# Colors
-
-## Todo
-* Write documentation.

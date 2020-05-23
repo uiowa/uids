@@ -47,20 +47,17 @@ function icons() {
 
 // Styles
 function styles() {
-    return src(`${paths.src}/**/*.scss`)
+    return src([
+        'src/assets/uiowa.scss',
+    ])
         .pipe(glob())
         .pipe(sourcemaps.init())
         .pipe(sass({
             errLogToConsole: true,
             debugInfo: true,
-            // includePaths: [
-            //     `${paths.src}/components/**/*.scss`,
-            //     `${paths.src}/assets/**/*.scss`,
-            // ],
-            // outputStyle: 'compressed',
         }).on('error', sass.logError))
         .pipe(postcss([ autoprefixer(), cssnano()]))
-        .pipe(sourcemaps.write('.'))
+        .pipe(sourcemaps.write('./'))
         .pipe(dest(`${paths.dest}/assets/css`));
 }
 
