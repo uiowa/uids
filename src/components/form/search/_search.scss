@@ -21,6 +21,9 @@
   width: 100%;
   margin-top: unset;
   background: #ccc;
+  line-height: 1;
+  text-transform: uppercase;
+  font-family: $font-family-caps-bold;
 
   @include breakpoint(menu) {
     width: auto;
@@ -90,12 +93,11 @@
 }
 
 .uids-search>*>:first-child {
-  -ms-flex-preferred-size: 0;
-  flex-basis: 0;
-  -webkit-box-flex: 999;
-  -ms-flex-positive: 999;
-  flex-grow: 999;
-  min-width: calc(66.666% - 0px);
+  @include breakpoint(menu) {
+    flex-basis: 0;
+    flex-grow: 999;
+    min-width: calc(66.666% - 0px);
+  }
 }
 
 .uids-search>*>:last-child {
