@@ -3,7 +3,7 @@
   align-items: center;
   margin: 0 auto 0 0;
   text-align: left;
-  font-size: calc(100% + 2vw);
+  font-size: 1.8rem;
   font-weight: 300;
   line-height: 1;
   font-family: $font-family-sans-serif;
@@ -15,7 +15,7 @@
   @include breakpoint(menu) {
     flex-basis: content;
     margin: 5px 0 0 20px;
-    font-size: calc(100% + 1.4vw);
+    font-size: 2rem;
   }
 
   @include breakpoint(container) {
@@ -35,9 +35,14 @@
 
   .header--tertiary & {
     font-size: 1rem;
-    flex-basis: content;
     margin: 0;
-    width: 75%;
+    padding: $gutter;
+    background: $primary;
+     @include breakpoint(menu) {
+       background: transparent;
+       font-size: 1rem;
+       padding: 0;
+     }
   }
 
   .header--tertiary {
@@ -63,9 +68,10 @@
 
 
 }
-
+/*
 @media (max-width: 1018px) and (min-width: 855px) {
   .header--tertiary .uiowa-bar__title {
     font-size: calc(100% + 1vw);
   }
 }
+*/
