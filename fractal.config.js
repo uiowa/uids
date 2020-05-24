@@ -10,6 +10,11 @@ const pkg = require('./package.json');
 const fractal = module.exports = require('@frctl/fractal').create();
 const uidsTheme = require('mono-fractal')({
     favicon: '/assets/icons/favicon.ico',
+    lang: 'en-US',
+    styles: [
+        'default',
+        '/assets/css/theme.css'
+    ],
     panels: [
         'html',
         'resources',
@@ -21,7 +26,7 @@ const uidsTheme = require('mono-fractal')({
 /*
  * Give your project a title.
  */
-fractal.set('project.title', 'UIDS');
+fractal.set('project.title', 'UIDS - UIOWA Design System');
 fractal.set('project.repository', pkg.repository.url);
 fractal.set('project.version', pkg.version);
 
@@ -59,6 +64,7 @@ fractal.docs.set('path', `${paths.src}/docs`);
 /*
  * Web UI config.
  */
+uidsTheme.addLoadPath(__dirname + '/theme/views');
 fractal.web.theme(uidsTheme); // tell Fractal to use the configured theme by default
 fractal.web.set('static.path', paths.static);
 fractal.web.set('builder.dest', paths.build);

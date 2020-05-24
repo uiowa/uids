@@ -48,7 +48,7 @@ function icons() {
 // Styles
 function styles() {
     return src([
-        'src/assets/uiowa.scss',
+        'src/assets/scss/*.scss',
     ])
         .pipe(glob())
         .pipe(sourcemaps.init())
@@ -81,7 +81,7 @@ function startWatch() {
     // watch(`${paths.src}/assets/images`, images);
     // watch(`${paths.src}/assets/vectors`, images);
     // watch(`${paths.src}/**/*.js`, scripts);
-    watch(`${paths.src}/**/*.css`, styles);
+    watch(`${paths.src}/**/*.scss`, styles);
 }
 
 const compile = series(clean, parallel(assetsCopy, icons, styles));

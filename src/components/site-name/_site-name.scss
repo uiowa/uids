@@ -1,0 +1,71 @@
+.uiowa-bar__title {
+  display: flex;
+  align-items: center;
+  margin: 0 auto 0 0;
+  text-align: left;
+  font-size: calc(100% + 2vw);
+  font-weight: 300;
+  line-height: 1;
+  font-family: $font-family-sans-serif;
+  a {
+    color: $secondary;
+    text-decoration: none;;
+  }
+
+  @include breakpoint(menu) {
+    flex-basis: content;
+    margin: 5px 0 0 20px;
+    font-size: calc(100% + 1.4vw);
+  }
+
+  @include breakpoint(container) {
+    margin: 5px 0 0 20px;
+    text-align: left;
+    font-size: 2.2rem;
+  }
+
+  .header--secondary & {
+    .search-is-open & {
+      //@include element-invisible;
+      @include breakpoint(menu) {
+        display: none;
+      }
+    }
+  }
+
+  .header--tertiary & {
+    font-size: 1rem;
+    flex-basis: content;
+    margin: 0;
+    width: 75%;
+  }
+
+  .header--tertiary {
+    .site_name--wrapper & {
+      margin: 0;
+      padding: 10px 20px 20px 20px;
+      text-align: left;
+
+      @include breakpoint(menu) {
+        width: 75%;
+        padding: 25px 20px 25px 0;
+        background: transparent;
+      }
+
+      .search-is-open & {
+        //@include element-invisible;
+        @include breakpoint(menu) {
+          display: none;
+        }
+      }
+    }
+  }
+
+
+}
+
+@media (max-width: 1018px) and (min-width: 855px) {
+  .header--tertiary .uiowa-bar__title {
+    font-size: calc(100% + 1vw);
+  }
+}
