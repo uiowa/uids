@@ -16,6 +16,7 @@ $header-height: 50px;
 .Header {
   background-color: $primary;
   height: $header-height;
+
   a {
     font-weight: inherit;
     font-size: inherit;
@@ -31,6 +32,8 @@ $header-height: 50px;
   position: absolute;
   right: 0;
   height: auto;
+  top: 8px;
+  right: 15px;
 }
 
 [dir=ltr] .Header-button,
@@ -39,7 +42,10 @@ $header-height: 50px;
 }
 
 .header--tertiary .uiowa-bar {
-  position: fixed;
+  @include breakpoint(sm) {
+    position: fixed;
+  }
+
   width: 100%;
 }
 
@@ -67,4 +73,13 @@ $header-height: 50px;
 
 h1 {
   font-feature-settings: unset;
+}
+
+.header--tertiary .uiowa-bar .page__container {
+  background: $primary;
+  display: flex;
+
+  @include breakpoint(sm) {
+    background: $primary;
+  }
 }
