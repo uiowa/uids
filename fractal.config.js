@@ -69,20 +69,33 @@ fractal.web.theme(uidsTheme); // tell Fractal to use the configured theme by def
 fractal.web.set('static.path', paths.static);
 fractal.web.set('builder.dest', paths.build);
 
-fractal.components.set('statuses', {
-        prototype: {
-            label: "Prototype",
-            description: "Do not implement.",
-            color: "#D10000"
-        },
-        wip: {
-            label: "WIP",
-            description: "Work in progress. Implement with caution.",
-            color: "#A84F00"
-        },
-        ready: {
-            label: "Ready",
-            description: "Ready to implement.",
-            color: "#187718"
-        }
+fractal.components.set("statuses", {
+  prototype: {
+    label: "Prototype",
+    description: "Do not implement.",
+    color: "#D10000",
+  },
+  wip: {
+    label: "WIP",
+    description: "Work in progress. Implement with caution.",
+    color: "#A84F00",
+  },
+  ready: {
+    label: "Ready",
+    description: "Ready to implement.",
+    color: "#187718",
+  },
+});
+
+fractal.docs.set("statuses", {
+  draft: {
+    label: "Draft",
+    description: "Work in progress.",
+    color: "#A84F00",
+  },
+  ready: {
+    label: "Ready",
+    description: "Ready for referencing.",
+    color: "#187718",
+  },
 });
