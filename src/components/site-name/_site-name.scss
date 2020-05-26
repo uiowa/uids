@@ -7,9 +7,11 @@
   font-weight: 300;
   line-height: 1;
   font-family: $font-family-sans-serif;
+
   a {
     color: $secondary;
-    text-decoration: none;;
+    text-decoration: none;
+    ;
   }
 
   @include breakpoint(menu) {
@@ -26,6 +28,7 @@
 
   .header--secondary & {
     .search-is-open & {
+
       //@include element-invisible;
       @include breakpoint(menu) {
         display: none;
@@ -38,43 +41,41 @@
     margin: 0;
     padding: $gutter;
     background: $primary;
-     @include breakpoint(menu) {
-       background: transparent;
-       font-size: 1rem;
-       padding: 0;
-     }
-  }
 
-  .header--tertiary {
-    .site_name--wrapper & {
-      margin: 0;
-      padding: 10px 20px 20px 20px;
-      text-align: left;
-      font-size: 1.8rem;
-
-      @include breakpoint(menu) {
-        width: 75%;
-        padding: 25px 20px 25px 0;
-        background: transparent;
-        font-size: 2rem;
-      }
-
-      @include breakpoint(container) {
-        font-size: 2.2rem;
-      }
-
-
-      .search-is-open & {
-        //@include element-invisible;
-        @include breakpoint(menu) {
-          display: none;
-        }
-      }
+    @include breakpoint(menu) {
+      background: transparent;
+      font-size: 1rem;
+      padding: 0;
     }
   }
 
+  .header--tertiary .site_name--wrapper & {
+    margin: 0;
+    padding: 10px 20px 20px 20px;
+    text-align: left;
+    font-size: 1.8rem;
 
+    @include breakpoint(menu) {
+      width: 75%;
+      padding: 25px 20px 25px 0;
+      background: transparent;
+      font-size: 2rem;
+    }
+
+    @include breakpoint(container) {
+      font-size: 2.2rem;
+    }
+
+    .search-is-open & {
+
+      //@include element-invisible;
+      @include breakpoint(menu) {
+        display: none;
+      }
+    }
+  }
 }
+
 /*
 @media (max-width: 1018px) and (min-width: 855px) {
   .header--tertiary .uiowa-bar__title {
