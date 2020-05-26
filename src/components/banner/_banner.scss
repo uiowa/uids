@@ -1,0 +1,116 @@
+.banner {
+  position: relative;
+  background: #fff;
+  color: $secondary;
+
+  .bold-headline {
+    font-size: 2.8rem;
+  }
+
+  &:after {
+    @include breakpoint(sm) {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      content: "";
+      -webkit-transition: all .5s ease-in-out;
+      transition: all .5s ease-in-out;
+      will-change: opacity;
+      background: linear-gradient(to right, #fff 1%, #ffffffeb 32%, rgba(255, 255, 255, 0) 100%);
+    }
+  }
+
+  &--reversed {
+    color: white;
+    background: $secondary;
+
+    .banner__content {
+      background: $secondary;
+
+      @include breakpoint(sm) {
+        background: transparent;
+      }
+    }
+
+    .bold-headline {
+      color: #fff;
+    }
+
+    &:after {
+      @include breakpoint(sm) {
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.86) 0%, rgba(0, 0, 0, 0.23) 65%, rgba(0, 0, 0, 0) 100%);
+      }
+    }
+  }
+
+  &__image {
+    overflow: hidden;
+    contain: paint;
+  }
+
+  &__image img {
+    display: block;
+    width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+
+    @include breakpoint(menu) {
+      height: 33rem;
+    }
+  }
+}
+
+.banner__content {
+  position: relative;
+  z-index: 2;
+  padding: $xlg;
+  background: white;
+
+  @include breakpoint(sm) {
+    position: absolute;
+    background: transparent;
+    top: 20%;
+
+    @include breakpoint(sm) {
+      width: 70%;
+      padding: 0;
+    }
+
+    @include breakpoint(menu) {
+      width: 50%;
+    }
+
+    @include breakpoint(container) {
+      width: 30%;
+    }
+  }
+}
+
+.banner {
+  position: relative;
+
+  &__container {
+    max-width: 81.875em;
+
+    @include breakpoint(sm) {
+      margin: 0 0 0 $xlg;
+    }
+
+    @include breakpoint(container) {
+      margin: 0 auto;
+    }
+  }
+
+  &__title {
+    margin: 0;
+  }
+
+  &__summary {
+    font-weight: $font-weight-light;
+    font-size: 1.3rem;
+    @include margin($bottom: $lg, $top: $md);
+  }
+}

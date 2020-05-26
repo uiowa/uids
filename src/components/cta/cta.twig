@@ -1,0 +1,39 @@
+
+
+{% block cta_container_start %}
+<div class="cta__wrapper {{ cta_classes }}">
+	<div class="cta__container">
+  {% endblock %}
+
+		{% block heading %}
+			{% if cta_title %}
+				<div class="cta__title">
+					{% include "@heading" with {
+          "heading_level" : 'h2',
+          "heading_class" : 'bold-headline bold-headline--caps',
+          "heading" : cta_title
+        } %}
+				</div>
+			{% endif %}
+		{% endblock %}
+
+{% block content %}
+{% if cta_summary %}
+			<div class="cta__content">
+				<p class="cta__summary">{{ cta_summary }}</p>
+			</div>
+		{% endif %}
+			{% endblock %}
+
+{% block content %}
+{% if cta_link_url %}
+			<div class="cta__link">
+				<a href="{{ cta_link_url }}" class="bttn bttn--primary bttn--caps">{{ cta_link_title }}
+					<i class="fas fa-arrow-right"></i>
+				</a>
+			</div>
+		{% endif %}
+		{% endblock %}
+
+	</div>
+</div>
