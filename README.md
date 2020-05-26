@@ -23,6 +23,11 @@ npm run watch
 ```
 The command will output the server URL to visit in your browser, ex. http://localhost:3000.
 
+### Where do I put my code?
+*Note: There is a top-level `components` directory. This is in place to preserve compatibility with `uids_base`. This directory will be removed after `uids_base` is updated to accommodate recent directory changes.*
+
+All work on components should be done in the `src/components` directory. Each component is contained in its own directory. Some component directories are grouped together for presentation purposes.
+
 ## Continuous Integration
 [![Build Status](https://travis-ci.com/uiowa/uids.svg?branch=master)](https://travis-ci.com/uiowa/uids)
 
