@@ -8,37 +8,72 @@
 
 $header-height: 50px;
 
+h1 {
+  font-feature-settings: unset;
+}
+
 .element-invisible,
 .visually-hidden {
   @include element-invisible
 }
 
 .Header {
-  background-color: $primary;
   height: $header-height;
 
   a {
     font-weight: inherit;
     font-size: inherit;
   }
-}
 
-.Header-navToggle {
-  height: $header-height;
-  width: $header-height;
-}
+  &-navToggle {
+    height: $header-height;
+    width: $header-height;
 
-.Header-Utils {
-  position: absolute;
-  right: 0;
-  height: auto;
-  top: 8px;
-  right: 15px;
-}
+    svg {
+      fill: white;
+    }
 
-[dir=ltr] .Header-button,
-[dir=rtl] .Header-button {
-  border-right: 0;
+    @include breakpoint(menu) {
+      svg {
+        fill: $secondary;
+      }
+    }
+  }
+
+  &-Utils {
+    position: absolute;
+    height: auto;
+    top: 15px;
+    right: 15px;
+
+    color: #ffffff;
+
+    a {
+      color: #ffffff;
+    }
+
+    svg {
+      fill: #ffffff;
+    }
+
+    @include breakpoint(menu) {
+      top: 8px;
+      color: $secondary;
+
+      a {
+        color: $secondary;
+      }
+
+      svg {
+        fill: $secondary;
+      }
+    }
+  }
+
+  [dir=ltr] &-button,
+  [dir=rtl] &-button {
+    border-right: 0;
+  }
 }
 
 .header--tertiary .uiowa-bar {
@@ -47,6 +82,11 @@ $header-height: 50px;
   }
 
   width: 100%;
+
+  .page__container {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .logo-icon--tab {
@@ -69,22 +109,4 @@ $header-height: 50px;
 .Prose a {
   color: #00558C;
   text-decoration: underline;
-}
-
-h1 {
-  font-feature-settings: unset;
-}
-
-.header--tertiary .uiowa-bar .page__container {
-  background: $primary;
-  display: flex;
-  align-items: center;
-
-  @include breakpoint(sm) {
-    background: $primary;
-  }
-}
-
-.header--tertiary .uiowa-bar__title {
-  padding: 1.25rem 0;
 }
