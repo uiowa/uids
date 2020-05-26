@@ -28,14 +28,46 @@ h1 {
   &-navToggle {
     height: $header-height;
     width: $header-height;
+
+    svg {
+      fill: white;
+    }
+
+    @include breakpoint(menu) {
+      svg {
+        fill: $secondary;
+      }
+    }
   }
 
   &-Utils {
     position: absolute;
-    right: 0;
     height: auto;
-    top: 8px;
+    top: 15px;
     right: 15px;
+
+    color: #ffffff;
+
+    a {
+      color: #ffffff;
+    }
+
+    svg {
+      fill: #ffffff;
+    }
+
+    @include breakpoint(menu) {
+      top: 8px;
+      color: $secondary;
+
+      a {
+        color: $secondary;
+      }
+
+      svg {
+        fill: $secondary;
+      }
+    }
   }
 
   [dir=ltr] &-button,
@@ -51,18 +83,9 @@ h1 {
 
   width: 100%;
 
-  &__title {
-    padding: 1.25rem 0;
-  }
-
   .page__container {
-    background: $primary;
     display: flex;
     align-items: center;
-
-    @include breakpoint(sm) {
-      background: $primary;
-    }
   }
 }
 
