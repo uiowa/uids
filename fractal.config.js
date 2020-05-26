@@ -26,7 +26,7 @@ const uidsTheme = require('mono-fractal')({
 /*
  * Give your project a title.
  */
-fractal.set('project.title', 'UIDS - UIOWA Design System');
+fractal.set('project.title', 'UIDS - UI Design System');
 fractal.set('project.repository', pkg.repository.url);
 fractal.set('project.version', pkg.version);
 
