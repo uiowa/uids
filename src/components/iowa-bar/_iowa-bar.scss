@@ -1,0 +1,310 @@
+main.page__container.uids-content {
+  margin-top: 70px;
+}
+
+// not essential
+.header--horizontal.menu-horizontal,
+.header--horizontal.menu-horizontal {
+  display: none;
+
+  @include breakpoint(menu) {
+    display: block;
+  }
+}
+
+.header--horizontal {
+  .bttn--menu {
+    @include breakpoint(menu) {
+      display: none;
+    }
+  }
+}
+
+////
+
+header {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 0;
+}
+
+.uiowa-bar {
+  position: relative;
+  z-index: 1;
+  display: block;
+  min-height: auto;
+  background: $secondary;
+
+  @include breakpoint(menu) {
+    height: 80px;
+    background: $primary;
+  }
+
+  .header--tertiary & {
+    @include breakpoint(menu) {
+      height: 50px;
+    }
+  }
+
+  .header--primary & {
+
+    //background: $primary;
+    @include breakpoint(menu) {
+      background: $primary;
+    }
+  }
+}
+
+.uiowa-bar .page__container {
+  position: unset;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-right: 0;
+  margin-left: 0;
+
+  .header--primary & {
+    display: flex;
+  }
+
+  @include breakpoint(menu) {
+    display: flex;
+    justify-content: unset;
+  }
+
+  @include breakpoint(container) {
+    justify-content: unset;
+  }
+
+  @include breakpoint(menu) {
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+.header--secondary .uiowa-bar .page__container {
+
+  .uiowa-bar__title {
+    width: 100%;
+    padding: $gutter $gutter $gutter 15px;
+    background: $primary;
+
+    @include breakpoint(menu) {
+      width: auto;
+      background: transparent;
+      padding: 0;
+    }
+  }
+}
+
+
+
+.header--tertiary .uiowa-bar .page__container {
+  justify-content: initial;
+  min-height: 50px;
+}
+
+.header--tertiary .site_name--wrapper .page__container {
+  position: unset;
+  min-height: auto;
+  background: $primary;
+
+  @include breakpoint(menu) {
+    min-height: 90px;
+    position: relative;
+    background: transparent;
+  }
+
+  @include breakpoint(container) {
+    position: unset;
+  }
+}
+
+.header--secondary.mega .page__container,
+.header--secondary.horizontal .page__container,
+.header--secondary.header--horizontal .page__container,
+.header--tertiary.horizontal .page__container,
+.header--tertiary.mega .page__container,
+.header--tertiary.header--horizontal .page__container {
+  position: relative;
+}
+
+
+
+// department header
+
+.site_name--wrapper {
+  position: relative;
+  z-index: 2;
+  border-bottom: 1px solid #ccc;
+  background: #fff;
+
+  .header--tertiary & {
+    position: unset;
+  }
+
+  @include breakpoint(menu) {
+    position: unset;
+  }
+
+  .o-canvas--lock & {
+    background: #f1f1f1;
+  }
+
+  .page__container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    min-height: 90px;
+    margin-right: 0;
+    margin-left: 0;
+
+    @include breakpoint(menu) {
+      position: unset;
+      justify-content: unset;
+      margin-right: auto;
+      padding-left: 1.25rem;
+
+    }
+
+    @include breakpoint(container) {
+      margin-left: auto;
+      padding-left: 0;
+    }
+  }
+}
+
+.header--horizontal.site_name--wrapper .page__container {
+  //min-height: auto;
+}
+
+
+// sticky header
+
+header.header--sticky,
+.header-sticky header {
+  @include breakpoint(menu) {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: transform 0.4s;
+  }
+}
+
+// sticky header for tertiary
+
+.scroll-up .header--sticky .site_name--wrapper,
+.scroll-down .header--sticky .site_name--wrapper,
+.header-sticky.scroll-up .site_name--wrapper,
+.header-sticky.scroll-down .site_name--wrapper {
+  .o-canvas--open .o-canvas__drawer {
+    @include breakpoint(menu) {
+      top: 110px;
+    }
+  }
+
+  .search-overlay .uids-search {
+    @include breakpoint(menu) {
+      margin-top: 3px;
+      border-bottom: none;
+    }
+  }
+
+  .page__container {
+    @include breakpoint(menu) {
+      min-height: 60px;
+    }
+  }
+
+  .uiowa-bar__title {
+    @include breakpoint(menu) {
+      padding: 0;
+      transition: transform 0.4s, -webkit-transform 0.4s;
+      font-size: 1.6rem;
+    }
+  }
+
+  .bttn--drawer {
+    @include breakpoint(menu) {
+      height: 60px;
+      padding: 3px 35px 0;
+    }
+  }
+
+  .search-button {
+    @include breakpoint(menu) {
+      height: 60px;
+      padding: 7px 25px 7px 18px;
+    }
+  }
+}
+
+
+// fixed scroll bar
+
+.scroll-down header.header--sticky,
+.header-sticky.scroll-down header {
+  @include breakpoint(menu) {
+    transform: translate3d(0, -100%, 0);
+  }
+}
+
+.scroll-up header.header--sticky,
+.header-sticky.scroll-up header {
+  @include breakpoint(menu) {
+    transform: none;
+  }
+}
+
+
+.scroll-down header.header--sticky .logo-icon--tab,
+.header-sticky.scroll-down header .logo-icon--tab {
+  @include breakpoint(menu) {
+    margin-top: -17px;
+  }
+}
+
+.scroll-up:not(.menu-open) header.header--sticky,
+.header-sticky.scroll-up:not(.menu-open) header {
+  @include breakpoint(menu) {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+  }
+}
+
+
+
+/*
+
+	.block-superfish,
+	.uids-menu {
+	  margin-left: 0;
+	}
+
+	.block-superfish .menu li a {
+	  position: relative;
+	  padding: 1rem;
+	}
+
+	.breadcrumb {
+	  display: none;
+	}
+
+	.block-superfish .sf-style-none>li>a.sf-depth-1.menuparent::before,
+	.block-superfish .menu>li>a.sf-depth-1.menuparent::before {
+	  right: 0.7125rem;
+	  font-size: 0.8rem;
+	}
+
+	.block-superfish .sf-style-none ul,
+	.block-superfish .menu ul {
+	  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+	  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+	  background: #000;
+	}
+
+	.sf-menu ul li {
+	  background: #333;
+  }
+
+  */

@@ -1,0 +1,90 @@
+@import "variables";
+@import "utilities";
+@import "fonts";
+@import "../../components/logo/logo";
+@import "../../components/site-name/site-name";
+@import "../../components/menus/off-canvas/off-canvas";
+@import "../../components/iowa-bar/iowa-bar";
+
+$header-height: 50px;
+
+.element-invisible,
+.visually-hidden {
+  @include element-invisible
+}
+
+.Header {
+  background-color: $primary;
+  height: $header-height;
+
+  a {
+    font-weight: inherit;
+    font-size: inherit;
+  }
+}
+
+.Header-navToggle {
+  height: $header-height;
+  width: $header-height;
+}
+
+.Header-Utils {
+  position: absolute;
+  right: 0;
+  height: auto;
+  top: 8px;
+  right: 15px;
+}
+
+[dir=ltr] .Header-button,
+[dir=rtl] .Header-button {
+  border-right: 0;
+}
+
+.header--tertiary .uiowa-bar {
+  @include breakpoint(sm) {
+    position: fixed;
+  }
+
+  width: 100%;
+}
+
+.logo-icon--tab {
+  margin-left: 0;
+}
+
+.Frame-body {
+  height: calc(100% - #{$header-height});
+  margin-top: $header-height;
+}
+
+.Pen-info {
+  top: calc(100vh - 230px);
+}
+
+.Pen-top {
+  margin: 20px;
+}
+
+.Prose a {
+  color: #00558C;
+  text-decoration: underline;
+}
+
+h1 {
+  font-feature-settings: unset;
+}
+
+.header--tertiary .uiowa-bar .page__container {
+  background: $primary;
+  display: flex;
+  align-items: center;
+
+  @include breakpoint(sm) {
+    background: $primary;
+  }
+}
+
+.header--tertiary .uiowa-bar__title {
+  padding: 1.25rem 0;
+}

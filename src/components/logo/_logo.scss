@@ -1,0 +1,109 @@
+.logo-icon {
+  display: block;
+  margin-left: -$xsm;
+
+  &:hover,
+  &:focus {
+    opacity: 0.7;
+  }
+
+  .logo-icon--secondary & {
+    fill: $primary;
+  }
+}
+
+.header--primary .logo-icon--secondary .logo-icon,
+.header--secondary .logo-icon--secondary .logo-icon {
+     @include breakpoint(container) {
+       margin-top: 13px;
+     }
+}
+
+.logo-icon--tab {
+  background: $secondary;
+  width: 130px;
+  height: 80px;
+  padding: 0 15px 0 20px;
+
+   a:focus svg {
+     opacity: .5;
+  }
+
+  @include breakpoint(menu) {
+    width: 150px;
+    height: 80px;
+    margin-left: 0px;
+    padding: 0 20px;
+  }
+
+  @include breakpoint(container) {
+    width: 180px;
+    height: 90px;
+  }
+
+  .search-is-open & {
+    visibility: none;
+    opacity: 0;
+
+    @include breakpoint(menu) {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+
+.header--secondary .logo-icon--tab {
+  width: 107px;
+  height: 70px;
+    @include breakpoint(menu) {
+      width: 150px;
+      height: 80px;
+    }
+      @include breakpoint(container) {
+        margin-left: -16px;
+        width: 180px;
+        height: auto;
+        padding: 5px 15px 25px 20px;
+      }
+}
+
+
+.header--tertiary .logo-icon--tab {
+  width: 107px;
+  height: 70px;
+  margin-right: 10px;
+  padding: 13px 13px 13px 25px;
+  background: #151515;
+
+  @include breakpoint(menu) {
+    width: 110px;
+    height: 60px;
+    padding: 13px 7px 13px 18px;
+  }
+
+  @include breakpoint(container) {
+    width: 120px;
+    height: auto;
+  }
+
+  .search-is-open & {
+    visibility: none;
+    opacity: 0;
+
+    @include breakpoint(menu) {
+      display: flex;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+// ie11
+@media all and (-ms-high-contrast: none),
+(-ms-high-contrast: active) {
+  .logo-icon {
+    height: 50px;
+  }
+}
