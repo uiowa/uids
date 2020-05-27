@@ -52,10 +52,7 @@ function styles() {
     ])
         .pipe(glob())
         .pipe(sourcemaps.init())
-        .pipe(sass({
-            errLogToConsole: true,
-            debugInfo: true,
-        }).on('error', sass.logError))
+        .pipe(sass().on('error', sass.logError))
         .pipe(postcss([ autoprefixer(), cssnano()]))
         .pipe(sourcemaps.write('./'))
         .pipe(dest(`${paths.dest}/assets/css`));
