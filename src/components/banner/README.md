@@ -1,7 +1,2 @@
 # Banner
 
-## Todo
-
-## Roadmap
-
-

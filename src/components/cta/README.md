@@ -1,5 +1,1 @@
 # CTA
-
-## Todo
-
-## Roadmap
