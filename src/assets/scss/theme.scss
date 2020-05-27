@@ -79,7 +79,7 @@ h1 {
 }
 
 .header--tertiary .uiowa-bar {
-  @include breakpoint(sm) {
+  @include breakpoint(menu) {
     position: fixed;
   }
 
@@ -103,7 +103,11 @@ h1 {
 
 .Frame-body {
   height: calc(100% - #{$header-height});
-  margin-top: $header-height;
+  margin-top: 0;
+
+  @include breakpoint(menu) {
+    margin-top: $header-height;
+  }
 }
 
 .Search-label,
