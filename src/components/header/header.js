@@ -7,12 +7,12 @@ let lastScroll = 0;
 window.addEventListener("scroll", function () {
   const currentScroll = window.pageYOffset;
   // if contains lock don't add anything....
-  if (currentScroll > lastScroll && !body.classList.contains(canvasLock)) {
+  if ((currentScroll + 82) > lastScroll && !body.classList.contains(canvasLock)) {
     // down
-    if (currentScroll > 82) {
+
       body.classList.remove(scrollUp);
       body.classList.add(scrollDown);
-    }
+
   } else if (currentScroll < lastScroll && body.classList.contains(scrollDown)) {
     // up
     body.classList.remove(scrollDown);
