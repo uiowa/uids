@@ -92,7 +92,13 @@ h1 {
 }
 
 .logo-icon--tab {
-  margin-left: 0;
+  // Override left margin to account for
+  // menu button.
+  @include breakpoint(container) {
+    .header--tertiary & {
+      margin-left: 0;
+    }
+  }
 }
 
 .Frame-body {
