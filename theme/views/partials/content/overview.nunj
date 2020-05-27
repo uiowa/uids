@@ -1,0 +1,24 @@
+{% import 'macros/status.nunj' as status %}
+
+<p><strong>UIDS</strong> is a design system to support building applications that support the University of Iowa brand.</p>
+
+<p>You can browse the component library using the navigation on the left.</p>
+
+<h2>Component Statuses</h2>
+<p>Components and their variants have been given statuses reflecting their state of completion. The available statuses are listed below.</p>
+<table class="table is-striped">
+    <thead>
+    <tr>
+        <th>Label</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for handle, st in frctl.get('components.statuses') %}
+        <tr>
+            <td>{{ status.tag(st) }}</td>
+            <td>{{ st.description }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
