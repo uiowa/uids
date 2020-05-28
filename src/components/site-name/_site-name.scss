@@ -8,10 +8,21 @@
   line-height: 1;
   font-family: $font-family-sans-serif;
 
+   .uiowa-bar & {
+     width: 100%;
+     padding: $gutter;
+     background: $primary;
+
+     @include breakpoint(menu) {
+       width: auto;
+       background: transparent;
+       padding: 0;
+     }
+   }
+
   a {
     color: $secondary;
     text-decoration: none;
-    ;
   }
 
   @include breakpoint(menu) {
@@ -28,8 +39,6 @@
 
   .header--secondary & {
     .search-is-open & {
-
-      //@include element-invisible;
       @include breakpoint(menu) {
         display: none;
       }
@@ -51,7 +60,6 @@
 
   .header--tertiary .site_name--wrapper & {
     margin: 0;
-    //padding: 10px 20px 20px 20px;
     text-align: left;
     font-size: 1.8rem;
 
@@ -67,8 +75,6 @@
     }
 
     .search-is-open & {
-
-      //@include element-invisible;
       @include breakpoint(menu) {
         display: none;
       }
@@ -76,10 +82,3 @@
   }
 }
 
-/*
-@media (max-width: 1018px) and (min-width: 855px) {
-  .header--tertiary .uiowa-bar__title {
-    font-size: calc(100% + 1vw);
-  }
-}
-*/
