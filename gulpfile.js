@@ -55,12 +55,14 @@ function componentCssInPlace() {
 
 // Styles
 function buildStyles() {
-    return src([
-        'src/assets/scss/*.scss',
-    ])
+    return src(`${paths.src}/assets/scss/*.scss`)
         .pipe(glob())
         .pipe(sourcemaps.init())
-        .pipe(sass().on('error', sass.logError))
+        .pipe(sass({
+            includePaths: [
+                `${paths.src}/components`,
+            ],
+        }).on('error', sass.logError))
         .pipe(postcss([ autoprefixer(), cssnano()]))
         .pipe(sourcemaps.write('./'))
         .pipe(dest(`${paths.dest}/assets/css`));
