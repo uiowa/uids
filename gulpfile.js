@@ -45,14 +45,24 @@ function icons() {
         .pipe(dest(`${paths.dest}/assets/icons`));
 }
 
+function componentCssInPlace() {
+    console.log('Generating CSS for components in place');
+    return src(`${paths.src}/components/**/*.scss`)
+        .pipe(sass().on('error', sass.logError))
+        .pipe(postcss([autoprefixer()]))
+        .pipe(dest(`${paths.src}/components`));
+}
+
 // Styles
-function styles() {
-    return src([
-        'src/assets/scss/*.scss',
-    ])
+function buildStyles() {
+    return src(`${paths.src}/assets/scss/*.scss`)
         .pipe(glob())
         .pipe(sourcemaps.init())
-        .pipe(sass().on('error', sass.logError))
+        .pipe(sass({
+            includePaths: [
+                `${paths.src}/components`,
+            ],
+        }).on('error', sass.logError))
         .pipe(postcss([ autoprefixer(), cssnano()]))
         .pipe(sourcemaps.write('./'))
         .pipe(dest(`${paths.dest}/assets/css`));
@@ -72,14 +82,18 @@ function serve() {
 }
 
 // Watch
-function startWatch() {
+function startWatch(done) {
     serve();
     watch(`${paths.src}/assets/icons`, icons);
     // watch(`${paths.src}/assets/images`, images);
     // watch(`${paths.src}/assets/vectors`, images);
     // watch(`${paths.src}/**/*.js`, scripts);
     watch(`${paths.src}/**/*.scss`, styles);
+
+    done();
 }
+
+const styles = series(componentCssInPlace, buildStyles);
 
 const compile = series(clean, parallel(assetsCopy, icons, styles));
 
