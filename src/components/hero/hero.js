@@ -1,5 +1,17 @@
 const video = document.getElementById("video-container");
 const btn = document.getElementById("video-btn");
+const motionQuery = matchMedia('(prefers-reduced-motion)');
+
+function reducedMotionCheck() {
+  if (motionQuery.matches) {
+     video.pause();
+     btn.innerHTML = "<span class='element-invisible'>" + "Play" + "</span>";
+     btn.classList.remove("video-btn__pause");
+     btn.classList.add("video-btn__play");
+  }
+}
+reducedMotionCheck();
+motionQuery.addListener(reducedMotionCheck);
 
 if (document.getElementById("video-btn")) {
   document.getElementById("video-btn").addEventListener("click", pausePlay);
