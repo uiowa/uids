@@ -1,0 +1,76 @@
+<link rel="stylesheet" href="{{ '/components/prototype/footer/footer.css'|path }}">
+{% if footer_type == 'uiowa' %}
+
+	<div role="region" class="footer-cta__wrapper">
+
+		<div class="footer-cta__container">
+
+			{% include "@menu" with {
+				items: link_bttn.items | slice(0, 3),
+			} %}
+
+		</div>
+	</div>
+
+{% endif %}
+
+<footer class="footer">
+
+	<div class="footer__container footer__container--flex">
+
+		<div class="footer__links footer__links--contact">
+
+			{# IOWA block logo. #}
+			{% render '@prototype-logo' %}
+
+			{# Site name. #}
+			{% if site_name %}
+				<h2 class="footer__site--name">{{ site_name }}</h2>
+			{% endif %}
+
+			{# Site slogan. #}
+			{% if site_slogan %}
+				<strong class="footer__site--slogan">{{ site_slogan }}</strong>
+			{% endif %}
+
+			{# Contact information. #}
+			{% block contact_info %}
+			{{ contact_info }}
+			{% endblock %}
+
+			{# Social links. #}
+			{% block social_links %}
+				{# @todo Move demo options to context. #}
+				{% if footer_type == 'uiowa' %}
+					<div class="footer__links footer__links--icon">
+						{% include "@menu" with {
+							items: link_icon.items | slice(0, 7),
+						} %}
+					</div>
+				{% endif %}
+			{% endblock %}
+
+			{# Socket menu. #}
+			{% include "@footer--socket-menu" %}
+
+		</div>
+
+		{# Footer menus. #}
+		{% block footer_menus %}
+			{# @todo Move demo options to context. #}
+			{% if footer_type == 'uiowa' %}
+
+				{# Loop through menus and render each one. #}
+				{% for items in [links_nav_1.items, links_nav_2.items, links_nav_3.items] %}
+					<div class="footer__links footer__links--nav">
+						{% include "@menu" with {
+							items: items,
+						} %}
+					</div>
+				{% endfor %}
+
+			{% endif %}
+		{% endblock %}
+
+	</div>
+</footer>

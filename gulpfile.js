@@ -45,8 +45,16 @@ function icons() {
         .pipe(dest(`${paths.dest}/assets/icons`));
 }
 
+function componentCssInPlace() {
+    console.log('Generating CSS for components in place');
+    return src(`${paths.src}/components/**/*.scss`)
+        .pipe(sass().on('error', sass.logError))
+        .pipe(postcss([autoprefixer()]))
+        .pipe(dest(`${paths.src}/components`));
+}
+
 // Styles
-function styles() {
+function buildStyles() {
     return src([
         'src/assets/scss/*.scss',
     ])
@@ -82,6 +90,8 @@ function startWatch(done) {
 
     done();
 }
+
+const styles = series(componentCssInPlace, buildStyles);
 
 const compile = series(clean, parallel(assetsCopy, icons, styles));
 

@@ -1,0 +1,51 @@
+@import '../../../assets/scss/variables';
+@import "../../../assets/scss/breakpoint";
+
+header {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 0;
+}
+
+
+.iowa-bar {
+  position: relative;
+  z-index: 1;
+  display: block;
+  min-height: auto;
+  background: $secondary;
+
+  @include breakpoint(menu) {
+    height: 80px;
+    background: $primary;
+  }
+
+  &.iowa-bar--narrow {
+    @include breakpoint(menu) {
+      height: 50px;
+    }
+  }
+}
+
+
+.uiowa-bar .page__container {
+  position: unset;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-right: 0;
+  margin-left: 0;
+
+  @include breakpoint(menu) {
+    justify-content: unset;
+    display: flex;
+  }
+
+  @include breakpoint(container) {
+    justify-content: unset;
+  }
+
+  @include breakpoint(menu) {
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
