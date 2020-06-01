@@ -25,6 +25,10 @@ function clean() {
     return del(`${paths.dest}/assets/`);
 }
 
+function cleanComponentCss() {
+    return del(`${paths.src}/components/**/*.css`);
+}
+
 function assetsCopy() {
     return src([
         `${paths.src}/assets/**/*.woff`,
@@ -46,7 +50,6 @@ function icons() {
 }
 
 function componentCssInPlace() {
-    console.log('Generating CSS for components in place');
     return src(`${paths.src}/components/**/*.scss`)
         .pipe(sass().on('error', sass.logError))
         .pipe(postcss([autoprefixer()]))
@@ -88,14 +91,14 @@ function startWatch(done) {
     // watch(`${paths.src}/assets/images`, images);
     // watch(`${paths.src}/assets/vectors`, images);
     // watch(`${paths.src}/**/*.js`, scripts);
-    watch(`${paths.src}/**/*.scss`, styles);
+    watch(`${paths.src}/**/*.scss`, series(parallel(clean, cleanComponentCss), styles));
 
     done();
 }
 
 const styles = series(componentCssInPlace, buildStyles);
 
-const compile = series(clean, parallel(assetsCopy, icons, styles));
+const compile = series(parallel(clean, cleanComponentCss), parallel(assetsCopy, icons, styles));
 
 exports.default = compile;
 exports.watch = series(compile, startWatch);

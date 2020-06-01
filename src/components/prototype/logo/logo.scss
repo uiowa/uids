@@ -2,49 +2,60 @@
 @import "../../../assets/scss/breakpoint";
 
 .logo {
-  fill: $primary;
+  display: block;
+}
+
+.logo--tab {
   height: 70px;
-  margin-left: -2px;
+  width:  119px;
+  padding: 25px;
+  background: $secondary;
 
-  &--tab {
-    width: 107px;
-    padding: 0 15px 0 20px;
-    background: $secondary;
+  a:focus svg {
+    opacity: .5;
+  }
 
-    a:focus svg {
-      opacity: .5;
-    }
-
-    // @todo Move this to search or search-toggle?
-    .search-is-open & {
-      visibility: none;
-      opacity: 0;
-
-      @include breakpoint(menu) {
-        display: block;
-        opacity: 1;
-        visibility: visible;
-      }
-    }
+  .logo-icon {
+    height: 20px;
 
     @include breakpoint(menu) {
-      width: 150px;
-      height: 80px;
-      margin-left: 0px;
-      padding: 0 20px;
+      height: 30px;
     }
 
     @include breakpoint(container) {
-      width: 185px;
-      height: 87px;
-      padding: 5px 20px 25px;
+      height: 39px;
     }
+  }
+
+  // @todo Move this to search or search-toggle?
+  .search-is-open & {
+    visibility: none;
+    opacity: 0;
+
+    @include breakpoint(menu) {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  @include breakpoint(menu) {
+    width: 154px;
+    height: 80px;
+    padding: 25px;
+  }
+
+  @include breakpoint(container) {
+    width: 181px;
+    height: 90px;
+    // Switch to tab-style overhang with more
+    // padding on the top.
+    padding: 28px 23px 23px;
   }
 }
 
 .logo-icon {
-  display: block;
-  height: 70px;
+  fill: $primary;
 
   &:hover,
   &:focus {
