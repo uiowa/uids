@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ '/components/prototype/logo/logo.css'|path }}">
+<link rel="stylesheet" href="{{ '/components/prototype/iowa-bar/iowa-bar.css'|path }}">
 {% set classes = 'iowa-bar' %}
 {% if iowa_bar_classes is not empty %}
   {% set classes = classes ~ ' ' ~ iowa_bar_classes %}
@@ -7,7 +7,9 @@
   <div class="page__container">
     {% render '@prototype-logo' %}
     {% if site_name %}
-      {% include '@site-name' with { site_name } %}
+      {% include '@prototype-site-name' %}
     {% endif %}
   </div>
+  {% block iowa_bar_below %}
+  {% endblock %}
 </div>

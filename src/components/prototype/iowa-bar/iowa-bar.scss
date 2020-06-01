@@ -18,16 +18,47 @@ header {
     height: 80px;
     background: $primary;
   }
+}
 
-  &.iowa-bar--narrow {
+.iowa-bar--narrow {
+  @include breakpoint(menu) {
+    height: 50px;
+  }
+
+  .logo--tab {
+    margin-right: 10px;
+
     @include breakpoint(menu) {
-      height: 50px;
+      height: 56px;
+      width: 120px;
+      padding: 15px;
+    }
+  }
+
+  .logo-icon {
+    height: 20px;
+
+    @include breakpoint(menu) {
+      height: 26px;
     }
   }
 }
 
+// @todo Convert this to reference .iowa-bar--narrow.
+.header--tertiary .logo-icon--tab {
+  .search-is-open & {
+    visibility: none;
+    opacity: 0;
 
-.uiowa-bar .page__container {
+    @include breakpoint(menu) {
+      display: flex;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.iowa-bar .page__container {
   position: unset;
   flex-wrap: wrap;
   justify-content: space-between;
