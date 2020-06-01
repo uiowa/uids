@@ -1,6 +1,11 @@
-<div class="uiowa-bar uiowa-bar--narrow">
+<link rel="stylesheet" href="{{ '/components/prototype/logo/logo.css'|path }}">
+{% set classes = 'iowa-bar' %}
+{% if iowa_bar_classes is not empty %}
+  {% set classes = classes ~ ' ' ~ iowa_bar_classes %}
+{% endif %}
+<div class="{{ classes }}">
   <div class="page__container">
-    {% render '@prototype-logo--tab' %}
+    {% render '@prototype-logo' %}
     {% if site_name %}
       {% include '@site-name' with { site_name } %}
     {% endif %}
