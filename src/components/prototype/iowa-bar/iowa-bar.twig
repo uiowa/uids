@@ -6,10 +6,13 @@
 <div class="{{ classes }}">
   <div class="page__container">
     {% render '@prototype-logo' %}
-    {% if site_name %}
+    {% if site_name and site_name_position == 'inline' %}
       {% include '@prototype-site-name' %}
     {% endif %}
   </div>
   {% block iowa_bar_below %}
+    {% if site_name and site_name_position == 'below' %}
+      {% include '@prototype-site-name' %}
+    {% endif %}
   {% endblock %}
 </div>
