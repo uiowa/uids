@@ -18,6 +18,44 @@ header {
     height: 80px;
     background: $primary;
   }
+
+  .logo--tab {
+    margin-right: 20px;
+  }
+
+  .site-name {
+    width: 100%;
+    padding: $gutter;
+    background: $primary;
+
+    @include breakpoint(menu) {
+      width: auto;
+      background: transparent;
+      padding: 0;
+    }
+  }
+
+  .page__container {
+    position: unset;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-right: 0;
+    margin-left: 0;
+
+    @include breakpoint(menu) {
+      justify-content: unset;
+      display: flex;
+    }
+
+    @include breakpoint(container) {
+      justify-content: unset;
+    }
+
+    @include breakpoint(menu) {
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
 }
 
 .iowa-bar--narrow {
@@ -25,6 +63,7 @@ header {
     height: 50px;
   }
 
+  // Overrides the
   .logo--tab {
     margin-right: 10px;
 
@@ -32,6 +71,18 @@ header {
       height: 56px;
       width: 120px;
       padding: 15px;
+    }
+
+    // @todo Move this to search or search-toggle?
+    .search-is-open & {
+      visibility: none;
+      opacity: 0;
+
+      @include breakpoint(menu) {
+        display: flex;
+        opacity: 1;
+        visibility: visible;
+      }
     }
   }
 
@@ -42,40 +93,42 @@ header {
       height: 26px;
     }
   }
-}
 
-// @todo Move this to search or search-toggle?
-.iowa-bar--narrow .logo-icon--tab {
-  .search-is-open & {
-    visibility: none;
-    opacity: 0;
+  .site-name {
+    font-size: 1rem;
+    margin: 0;
+    padding: $gutter;
+    background: $primary;
 
     @include breakpoint(menu) {
-      display: flex;
-      opacity: 1;
-      visibility: visible;
+      background: transparent;
+      font-size: 1rem;
+      padding: 0;
     }
   }
 }
 
-.iowa-bar .page__container {
-  position: unset;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-right: 0;
-  margin-left: 0;
+// Override .site-name styles when
+// displayed underneath the iowa-bar.
+.iowa-bar__below .site-name {
+  margin: 0;
+  text-align: left;
+  font-size: 1.8rem;
 
   @include breakpoint(menu) {
-    justify-content: unset;
-    display: flex;
+    width: 75%;
+    padding: 25px 20px 25px 0;
+    background: transparent;
+    font-size: 2rem;
   }
 
   @include breakpoint(container) {
-    justify-content: unset;
+    font-size: 2.2rem;
   }
 
-  @include breakpoint(menu) {
-    margin-right: auto;
-    margin-left: auto;
+  .search-is-open & {
+    @include breakpoint(menu) {
+      display: none;
+    }
   }
 }
