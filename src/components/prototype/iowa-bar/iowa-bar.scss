@@ -115,10 +115,27 @@ header {
 // Override .site-name styles when
 // displayed underneath the iowa-bar.
 .iowa-bar__below {
-  position: relative;
   z-index: 2;
   border-bottom: 1px solid #ccc;
   background: #fff;
+
+  .page__container {
+    justify-content: space-between;
+    margin-right: 0;
+    margin-left: 0;
+
+    @include breakpoint(menu) {
+      position: unset;
+      justify-content: unset;
+      margin-right: auto;
+      padding-left: 1.25rem;
+    }
+
+    @include breakpoint(container) {
+      margin-left: auto;
+      padding-left: 0;
+    }
+  }
 
   .site-name {
     margin: 0;
@@ -134,28 +151,6 @@ header {
 
     @include breakpoint(container) {
       font-size: 2.2rem;
-    }
-
-    .page__container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      min-height: 90px;
-      margin-right: 0;
-      margin-left: 0;
-
-      @include breakpoint(menu) {
-        position: unset;
-        justify-content: unset;
-        margin-right: auto;
-        padding-left: 1.25rem;
-
-      }
-
-      @include breakpoint(container) {
-        margin-left: auto;
-        padding-left: 0;
-      }
     }
 
     // @todo Move to search or search-toggle?
