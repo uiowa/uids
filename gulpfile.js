@@ -10,7 +10,6 @@ const glob          = require('gulp-sass-glob');
 const sourcemaps    = require('gulp-sourcemaps');
 const imagemin      = require('gulp-imagemin')
 
-
 /*
  * Directories here
  */
@@ -18,6 +17,7 @@ var paths = {
     build: `${__dirname}/www`,
     src: `${__dirname}/src`,
     dest: `${__dirname}/tmp`,
+    dist: `${__dirname}/dist`,
 };
 
 // Clean

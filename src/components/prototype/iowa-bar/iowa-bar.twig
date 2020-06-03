@@ -24,13 +24,16 @@
     {% block off_canvas %}
     {% endblock %}
   </div>
+  {% if site_name_position == 'below' or below_bar_content is not empty %}
   {% block below_bar %}
     <div class="iowa-bar__below">
       <div class="page__container">
         {% if site_name and site_name_position == 'below' %}
           {% include '@prototype-site-name' %}
         {% endif %}
+        {{ below_bar_content }}
       </div>
     </div>
   {% endblock %}
+  {% endif %}
 </header>
