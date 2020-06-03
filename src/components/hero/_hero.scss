@@ -8,15 +8,26 @@
 .video-controls {
   position: absolute;
   z-index: 1;
-  left: 20px;
-  bottom: 40px;
+  left: 1.25rem;
+  bottom: 1.25rem;
+
+  @include breakpoint(container) {
+    left: 3rem;
+    bottom: 3rem;
+  }
+
   .hero__bottom & {
     bottom: 50%;
-    @include breakpoint(container) {
-      bottom: 40px;
-    }
+    left: 1.25rem;
   }
 }
+
+@media only screen and (min-width: 1510px) {
+  .hero__bottom .video-controls {
+    bottom: 3rem;
+  }
+}
+
 
 .video-btn {
   display: none;
