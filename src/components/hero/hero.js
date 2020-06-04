@@ -11,6 +11,7 @@ function reducedMotionCheck() {
     btn.setAttribute("aria-label", "Play");
   }
 }
+
 reducedMotionCheck();
 motionQuery.addListener(reducedMotionCheck);
 
