@@ -27,13 +27,11 @@ function clean() {
 
 function assetsCopy() {
     return src([
-        `${paths.src}/assets/**/*.woff`,
-        `${paths.src}/assets/**/*.woff2`,
-        `${paths.src}/assets/**/*.js`,
-        `${paths.src}/assets/**/*.jpg`,
-        `${paths.src}/assets/**/*.png`,
-        `${paths.src}/assets/**/*.svg`,
+        `${paths.src}/assets/**/*.{woff,woff2}`,
         `${paths.src}/assets/**/*.css`,
+        `${paths.src}/assets/**/*.js`,
+        `${paths.src}/assets/**/*.{jpg,png,svg}`,
+        `${paths.src}/assets/**/*.{mov,mp4}`,
     ])
     .pipe(dest(`${paths.dest}/assets`));
 }
