@@ -1,5 +1,5 @@
 @import '../../../assets/scss/variables';
-@import "../../../assets/scss/breakpoint";
+@import "../../../assets/scss/utilities";
 
 header {
   position: relative;
@@ -7,6 +7,7 @@ header {
   margin-bottom: 0;
 }
 
+// Settings for the default version of the IOWA bar.
 .iowa-bar {
   position: relative;
   z-index: 1;
@@ -23,7 +24,7 @@ header {
     margin-right: 20px;
 
     @include breakpoint(container) {
-      margin-left: -16px;
+      margin-left: -12px;
     }
   }
 
@@ -39,7 +40,9 @@ header {
     }
   }
 
-  .page__container {
+  &__container {
+    @extend %container;
+
     position: unset;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -60,107 +63,111 @@ header {
       margin-left: auto;
     }
   }
-}
 
-.iowa-bar--narrow {
-  @include breakpoint(menu) {
-    height: 50px;
-  }
-
-  // Overrides the
-  .logo--tab {
-    margin-right: 10px;
-
+  // Styles for the narrow version of the IOWA bar.
+  &--narrow {
     @include breakpoint(menu) {
-      height: 56px;
-      width: 120px;
-      padding: 15px;
+      height: 50px;
     }
 
-    // @todo Move this to search or search-toggle?
-    .search-is-open & {
-      visibility: none;
-      opacity: 0;
+    // Overrides the logo tab styles when using
+    // the narrow version of the IOWA bar.
+    .logo--tab {
+      margin-right: 10px;
 
       @include breakpoint(menu) {
-        display: flex;
-        opacity: 1;
-        visibility: visible;
+        height: 56px;
+        width: 120px;
+        padding: 15px;
+      }
+
+      // @todo Move this to search or search-toggle?
+      .search-is-open & {
+        visibility: none;
+        opacity: 0;
+
+        @include breakpoint(menu) {
+          display: flex;
+          opacity: 1;
+          visibility: visible;
+        }
       }
     }
-  }
 
-  .logo-icon {
-    height: 20px;
+    .logo-icon {
+      height: 20px;
 
-    @include breakpoint(menu) {
-      height: 26px;
+      @include breakpoint(menu) {
+        height: 26px;
+      }
     }
-  }
 
-  .site-name {
-    font-size: 1rem;
-    margin: 0;
-    padding: $gutter;
-    background: $primary;
-
-    @include breakpoint(menu) {
-      background: transparent;
+    .site-name {
       font-size: 1rem;
-      padding: 0;
-    }
-  }
-}
+      margin: 0;
+      padding: $gutter;
+      background: $primary;
 
-// Override .site-name styles when
-// displayed underneath the iowa-bar.
-.iowa-bar__below {
-  z-index: 2;
-  border-bottom: 1px solid #ccc;
-  background: #fff;
-
-  .page__container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    min-height: 90px;
-    margin-right: 0;
-    margin-left: 0;
-
-    @include breakpoint(menu) {
-      position: unset;
-      justify-content: unset;
-      margin-right: auto;
-      padding-left: 1.25rem;
-    }
-
-    @include breakpoint(container) {
-      margin-left: auto;
-      padding-left: 0;
-    }
-  }
-
-  .site-name {
-    margin: 0;
-    text-align: left;
-    font-size: 1.8rem;
-
-    @include breakpoint(menu) {
-      width: 75%;
-      padding: 25px 20px 25px 0;
-      background: transparent;
-      font-size: 2rem;
-    }
-
-    @include breakpoint(container) {
-      font-size: 2.2rem;
-    }
-
-    // @todo Move to search or search-toggle?
-    .search-is-open & {
       @include breakpoint(menu) {
-        display: none;
+        background: transparent;
+        font-size: 1rem;
+        padding: 0;
       }
     }
   }
+
+  // Styles for container underneath
+  &__below {
+    z-index: 2;
+    border-bottom: 1px solid #ccc;
+    background: #fff;
+
+    &__container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      min-height: 90px;
+      margin-right: 0;
+      margin-left: 0;
+
+      @include breakpoint(menu) {
+        position: unset;
+        justify-content: unset;
+        margin-right: auto;
+        padding-left: 1.25rem;
+      }
+
+      @include breakpoint(container) {
+        margin-left: auto;
+        padding-left: 0;
+      }
+    }
+
+    // Override .site-name styles when
+    // displayed underneath the iowa-bar.
+    .site-name {
+      margin: 0;
+      text-align: left;
+      font-size: 1.8rem;
+
+      @include breakpoint(menu) {
+        width: 75%;
+        padding: 25px 20px 25px 0;
+        background: transparent;
+        font-size: 2rem;
+      }
+
+      @include breakpoint(container) {
+        font-size: 2.2rem;
+      }
+
+      // @todo Move to search or search-toggle?
+      .search-is-open & {
+        @include breakpoint(menu) {
+          display: none;
+        }
+      }
+    }
+  }
+
 }

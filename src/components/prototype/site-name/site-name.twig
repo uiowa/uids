@@ -1,6 +1,9 @@
+{% if site_name_tag is empty %}
+	{% set site_name_tag = 'h1' %}
+{% endif %}
 {% if site_name %}
 	<link rel="stylesheet" href="{{ '/components/prototype/site-name/site-name.css'|path }}">
-	<h1 class="site-name">
+	<{{ site_name_tag }} class="site-name">
 		{% if site_name_link %}
 		<a href="{{ site_name_link }}">
 			{% endif %}
@@ -8,5 +11,5 @@
 			{% if site_name_link %}
 		</a>
 		{% endif %}
-	</h1>
+	</{{ site_name_tag }}>
 {% endif %}

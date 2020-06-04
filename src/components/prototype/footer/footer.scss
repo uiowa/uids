@@ -33,7 +33,8 @@
     }
   }
 
-  &__site--name {
+  // Override site-name when it is displayed in the footer.
+  .site-name {
     color: #fff;
     font-size: 1.7rem;
     margin-top: $md;
@@ -49,7 +50,8 @@
      }
   }
 
-  &__site--slogan {
+  // Override parent-site-name when it is displayed in the footer.
+  .parent-site-name {
     color: #ccc;
     font-size: 1.4rem;
     margin-top: 0;
@@ -157,14 +159,16 @@
       @include margin($right: $md);
     }
 
+    .link-text {
+      @include element-invisible;
+    }
+
     ul,
     li {
       @extend %no-ul-list;
     }
   }
 }
-
-
 
 .socket {
   &__container {
