@@ -16,17 +16,24 @@ First, install NPM dependencies:
 npm install
 ```
 
-## Local viewing and development
+## Run locally
 The following command creates and runs a temporary server to view the site locally.
 ```
 npm run watch
 ```
 The command will output the server URL to visit in your browser, ex. http://localhost:3000.
 
-### Where do I put my code?
-*Note: There is a top-level `components` directory. This is in place to preserve compatibility with `uids_base`. This directory will be removed after `uids_base` is updated to accommodate recent directory changes.*
+## Contributing
+While we have not done a perfect job of applying any of these standards, we recommend the following resources as a starting point for best practices that are observed by this project:
+* Writing CSS and HTML: https://codeguide.co/
+* BEM: https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/
+
+### Components
+Learn about Fractal components here: https://fractal.build/guide/components/#what-defines-a-component. Note that this project uses Twig (`.twig`) instead of Handlebars (`.hbs`).
 
 All work on components should be done in the `src/components` directory. Each component is contained in its own directory. Some component directories are grouped together for presentation purposes.
+
+If you are starting work on a new component, please make sure that it has `status: prototype` in its config file. and is placed in the `src/components/prototypes` directory.
 
 ## Continuous Integration
 [![Build Status](https://travis-ci.com/uiowa/uids.svg?branch=master)](https://travis-ci.com/uiowa/uids)
