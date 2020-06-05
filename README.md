@@ -3,14 +3,15 @@ A design system for the University of Iowa.
 
 See the documentation at http://uids.brand.uiowa.edu.
 
-## Requirements
+## Documentation
+The documentation is built with Fractal.js. You can build and run a local version to aid in development.
+
+### Requirements
 [Node Version Manager (NVM)](https://github.com/nvm-sh/nvm) is used to lock the version of Node to the latest LTS.
 
 After installing NVM, run `nvm use`. You may need to install the specified version of Node using `nvm install`.
 
 The node-gyp package requires a C compiler. If you notice node-gyp errors after installing dependencies, see the instructions for installing a C compiler based on your OS: https://github.com/nodejs/node-gyp#on-macos
-
-## Running the documentation locally
 
 ### Install dependencies
 First, install NPM dependencies:
@@ -18,7 +19,7 @@ First, install NPM dependencies:
 npm install
 ```
 
-## Start the local Fractal server.
+### Start the local server.
 The following command creates and runs a temporary server to view the site locally.
 ```
 npm run watch
