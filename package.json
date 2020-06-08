@@ -37,10 +37,11 @@
     "prebuild": "gulp",
     "css": "npm-run-all css-compile",
     "css-compile": "node-sass --output-style expanded --include-path src/components --source-map true --source-map-contents true --precision 6 src/assets/scss/ -o dist/css/",
-    "build": "fractal build",
+    "docs": "npm-run-all ",
+    "docs-build": "fractal build",
     "watch": "gulp watch",
     "dist": "npm-run-all --parallel css",
-    "release": "npm-run-all dist release-zip",
+    "release": "npm-run-all dist docs-build release-zip",
     "release-zip": "cross-env-shell \"rm -rf uids-$npm_package_version-dist && cp -r dist/ uids-$npm_package_version-dist && zip -r9 uids-$npm_package_version-dist.zip uids-$npm_package_version-dist && rm -rf uids-$npm_package_version-dist\"",
     "start": "fractal start",
     "test": "xo || stylelint src/**/*.css"
