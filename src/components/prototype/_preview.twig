@@ -17,7 +17,7 @@
   {# Add stylesheets that are in this components directory. #}
   {% for asset in _target.resources.assets %}
     {% if asset.isCSS %}
-      <link media="all" rel="stylesheet" href="/{{ asset.srcPath|path }}">
+      <link media="all" rel="stylesheet" href="{{ '/' ~ asset.srcPath|path }}">
     {% endif %}
   {% endfor %}
 
@@ -33,7 +33,7 @@
 {# Add scripts that are in this components directory. #}
 {% for asset in _target.resources.assets %}
   {% if asset.isJS %}
-    <script src="/{{ asset.srcPath|path }}"></script>
+    <script src="{{ '/' ~ asset.srcPath|path }}"></script>
   {% endif %}
 {% endfor %}
 </html>
