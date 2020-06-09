@@ -626,6 +626,12 @@ li {
   }
 }
 
+@media (min-width: 768px) {
+  .mobile-display {
+    display: none;
+  }
+}
+
 .element-invisible,
 .visually-hidden {
   position: absolute !important;
@@ -1351,7 +1357,7 @@ h6:before {
 
 .banner__content {
   position: relative;
-  z-index: 2;
+  z-index: 1;
   padding: 2.5rem;
   background: white;
 }
@@ -3701,14 +3707,32 @@ h2.bold-headline, h2.bold-headline--positive, h2.bold-headline--negative {
 .video-controls {
   position: absolute;
   z-index: 1;
-  right: 20px;
-  bottom: 20px;
+  left: 1.25rem;
+  bottom: 1.25rem;
+}
+
+@media (min-width: 84.375em) {
+  .video-controls {
+    left: 3rem;
+    bottom: 3rem;
+  }
+}
+
+.hero__bottom .video-controls {
+  bottom: 50%;
+  left: 1.25rem;
+}
+
+@media only screen and (min-width: 1470px) {
+  .hero__bottom .video-controls {
+    bottom: 3rem;
+  }
 }
 
 .video-btn {
   display: none;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
   color: #151515;
   border: 1px solid white;
@@ -3735,16 +3759,11 @@ h2.bold-headline, h2.bold-headline--positive, h2.bold-headline--negative {
   line-height: 1;
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
-  font-size: .7rem;
+  font-size: 1rem;
 }
 
 .video-btn.video-btn__pause::after {
-  color: white;
   content: "\f04c";
-}
-
-.video-btn.video-btn__pause {
-  background-color: transparent;
 }
 
 @media (min-width: 768px) {
@@ -3765,19 +3784,20 @@ h2.bold-headline, h2.bold-headline--positive, h2.bold-headline--negative {
   }
 }
 
+@media (min-aspect-ratio: 16 / 9) {
+  .hero {
+    height: 80vh;
+  }
+}
+
 .hero {
   position: relative;
+  overflow: hidden;
   background: #151515;
 }
 
 .hero img {
   width: 100%;
-}
-
-@media (min-width: 84.375em) {
-  .hero {
-    overflow: hidden;
-  }
 }
 
 .hero__video {
@@ -4569,10 +4589,6 @@ header {
   padding-left: 0.625rem;
 }
 
-.uids-menu {
-  margin-left: auto;
-}
-
 @media (min-width: 768px) {
   .uids-menu {
     align-items: center;
@@ -4695,12 +4711,12 @@ header {
 }
 
 .main--secondary--horizontal {
-  padding: 1.25rem;
+  padding: 1.25rem 0;
 }
 
 @media (min-width: 768px) {
   .main--secondary--horizontal {
-    padding: 0 1.25rem;
+    padding: 0;
   }
 }
 
@@ -5545,7 +5561,7 @@ body:before {
 }
 
 .menu--top.uids-menu {
-  margin-top: 13px;
+  margin-top: 7px;
   position: absolute;
   z-index: 2;
   right: 96px;
@@ -5566,7 +5582,7 @@ body:before {
   }
 }
 
-.header--tertiary .uids-menu {
+.header--tertiary .uids-menu.menu--top {
   position: absolute;
   top: 0;
   right: 20px;
@@ -6045,7 +6061,7 @@ body:before {
   right: 0;
   display: block;
   width: auto;
-  height: 80px;
+  height: 70px;
   margin: 0;
   padding: 7px 25px;
   cursor: pointer;
@@ -6315,7 +6331,7 @@ body:before {
 }
 
 .search-overlay .uids-search {
-  margin-top: 13px;
+  margin-top: 7px;
   margin-left: 21px;
   padding: 0;
   padding: 0px;
@@ -6676,6 +6692,7 @@ body:before {
 
 .uids-component--flex-center .stat__title {
   padding: 1.05rem 1.875rem 0;
+  display: block;
 }
 
 .uids-component--brain-black .stat__title,
@@ -7154,6 +7171,175 @@ dd {
   .uids-component--circle-list li::before {
     line-height: .2;
   }
+}
+
+.breadcrumb ol, .footer__links .menu, .footer__links .menu ul li, .footer__links--icon ul,
+.footer__links--icon li, .socket__menu, .footer-cta__container .menu, .uids-menu .menu, .sf-menu, .pager__items, .tabs {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.breadcrumb ol > li, .footer__links .menu > li, .footer__links .menu ul li > li, .footer__links--icon ul > li, .footer__links--icon li > li, .socket__menu > li, .footer-cta__container .menu > li, .uids-menu .menu > li, .sf-menu > li, .pager__items > li, .tabs > li {
+  display: inline-block;
+  list-style-type: none;
+  margin: 0;
+}
+
+.layout-container, .page__container, .page__container--mixed, .hawk-alert.alert .hawk-alert-message, .footer__container, .socket__container, .footer-cta__container, .main--secondary--horizontal {
+  margin: 0 1.25rem;
+  position: relative;
+}
+
+@media (min-width: 84.375em) {
+  .layout-container, .page__container, .page__container--mixed, .hawk-alert.alert .hawk-alert-message, .footer__container, .socket__container, .footer-cta__container, .main--secondary--horizontal {
+    max-width: 81.875em;
+    margin: 0 auto;
+  }
+}
+
+.uids-menu .menu a, .block-superfish-alt .sf-style-none li a,
+.block-superfish-alt .menu li a, .block-superfish-alt .sf-style-none ul,
+.block-superfish-alt .menu ul, .block-superfish-alt .sf-accordion li a.sf-depth-1 {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.bttn, .uids-content [type='submit'],
+.uids-content [type='button'] {
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  line-height: 1.4;
+  font-size: 1.25rem;
+  padding: 1rem 2rem 1rem;
+}
+
+.bttn i, .uids-content [type='submit'] i, .uids-content [type='button'] i,
+.bttn svg,
+.uids-content [type='submit'] svg,
+.uids-content [type='button'] svg {
+  margin-left: 0.625rem;
+  color: #FFCD00;
+}
+
+.bttn--primary:after, .bttn--secondary:after, .bttn--tertiary:after, .bttn--outline:after, .bttn--outline:hover:after, .bttn--outline:focus:after, .main--secondary--horizontal .menu li a:after, .main--secondary--horizontal .menu li span:after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 100%;
+  height: 4px;
+  background-color: #FFCD00;
+  transform-origin: center;
+  transform: translate(-50%, 0) scaleX(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+.bttn--primary:focus, .bttn--secondary:focus, .bttn--tertiary:focus, .bttn--outline:focus, .main--secondary--horizontal .menu li a:focus, .main--secondary--horizontal .menu li span:focus {
+  text-decoration: underline;
+}
+
+.bttn--primary:hover::after, .bttn--secondary:hover::after, .bttn--tertiary:hover::after, .bttn--outline:hover::after, .main--secondary--horizontal .menu li a:hover::after, .main--secondary--horizontal .menu li span:hover::after, .bttn--primary:focus::after, .bttn--secondary:focus::after, .bttn--tertiary:focus::after, .bttn--outline:focus::after, .main--secondary--horizontal .menu li a:focus::after, .main--secondary--horizontal .menu li span:focus::after {
+  transform: translate(-50%, 0) scaleX(1);
+}
+
+.bttn--primary, .uids-content input#edit-submit,
+.uids-content input#edit-actions-submit, .uids-content .form-type-webform-multiple .webform-multiple-add .button, .uids-content .form-managed-file .button {
+  color: #151515;
+  background: #FFCD00;
+}
+
+.bttn--primary i, .uids-content input#edit-submit i, .uids-content input#edit-actions-submit i, .uids-content .form-type-webform-multiple .webform-multiple-add .button i, .uids-content .form-managed-file .button i,
+.bttn--primary svg,
+.uids-content input#edit-submit svg,
+.uids-content input#edit-actions-submit svg,
+.uids-content .form-type-webform-multiple .webform-multiple-add .button svg,
+.uids-content .form-managed-file .button svg,
+.bttn--primary span,
+.uids-content input#edit-submit span,
+.uids-content input#edit-actions-submit span,
+.uids-content .form-type-webform-multiple .webform-multiple-add .button span,
+.uids-content .form-managed-file .button span {
+  color: #fff;
+}
+
+.bttn--secondary {
+  color: #fff;
+  background: #151515;
+}
+
+.bttn--secondary__light {
+  color: #fff;
+}
+
+.bttn--tertiary, .uids-content input#edit-preview {
+  color: #151515;
+  background: white;
+}
+
+.bttn--transparent {
+  background: transparent;
+}
+
+.bttn--full {
+  display: flex;
+}
+
+.bttn--outline, .uids-content input#edit-preview {
+  border: 1px solid #FFCD00;
+}
+
+.bttn--outline i, .uids-content input#edit-preview i,
+.bttn--outline span,
+.uids-content input#edit-preview span {
+  color: #FFCD00;
+}
+
+.bttn--outline svg, .uids-content input#edit-preview svg {
+  color: #FFCD00;
+}
+
+.uids-component--center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: block;
+  text-align: center;
+}
+
+.uids-component--flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column nowrap;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .uids-component--flex-center {
+    padding: 1.5rem 0;
+  }
+}
+
+.uids-component--left {
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.uids-component--flex-left {
+  flex-flow: column nowrap;
+  text-align: left;
+  width: 100%;
+  padding: 1.5rem 0;
 }
 
 /*
