@@ -10,6 +10,7 @@ script:
 before_deploy:
   - |
     if [ $TRAVIS_TAG != '']; then
+      echo "$TRAVIS_TAG"
       npm run release-zip
     else
       rm -rf src/ dist/
@@ -20,6 +21,7 @@ deploy:
   - provider: releases
     skip_cleanup: true
     github-token: $GH_TOKEN
+    file_glob: true
     file: "*.zip"
     on:
       tags: true
