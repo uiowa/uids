@@ -54,24 +54,6 @@ fractal.components.engine(twigAdapter);
 fractal.components.set('ext', '.twig');
 fractal.components.set('default.preview', '@preview');
 fractal.components.set('path', `${paths.src}/components`);
-
-/*
- * Documentation config.
- */
-fractal.docs.set('path', `${paths.src}/docs`);
-
-/*
- * Web UI config.
- */
-uidsTheme.addLoadPath(__dirname + '/theme/views');
-/*
- * Specify the static assets directory that contains the custom stylesheet.
- */
-uidsTheme.addStatic(__dirname + '/src/components', '/components');
-fractal.web.theme(uidsTheme); // tell Fractal to use the configured theme by default
-fractal.web.set('static.path', paths.static);
-fractal.web.set('builder.dest', paths.build);
-
 fractal.components.set("statuses", {
   prototype: {
     label: "Prototype",
@@ -90,6 +72,10 @@ fractal.components.set("statuses", {
   },
 });
 
+/*
+ * Documentation config.
+ */
+fractal.docs.set('path', `${paths.src}/docs`);
 fractal.docs.set("statuses", {
   draft: {
     label: "Draft",
@@ -102,3 +88,15 @@ fractal.docs.set("statuses", {
     color: "#187718",
   },
 });
+
+/*
+ * Web UI config.
+ */
+uidsTheme.addLoadPath(__dirname + '/theme/views');
+/*
+ * Specify the static assets directory that contains the custom stylesheet.
+ */
+uidsTheme.addStatic(__dirname + '/src/components', '/components');
+fractal.web.theme(uidsTheme); // tell Fractal to use the configured theme by default
+fractal.web.set('static.path', paths.build);
+fractal.web.set('builder.dest', paths.build);

@@ -16,7 +16,7 @@ const imagemin      = require('gulp-imagemin')
 var paths = {
     build: `${__dirname}/www`,
     src: `${__dirname}/src`,
-    dest: `${__dirname}/tmp`,
+    dest: `${__dirname}/www`,
     dist: `${__dirname}/dist`,
 };
 
