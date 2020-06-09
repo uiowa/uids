@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {{ static.path }}
-    <link media="all" rel="stylesheet" href="{{ '/assets/css/uiowa-base.css'|path }}">
+  <link media="all" rel="stylesheet" href="{{ '/assets/css/uiowa-base.css'|path }}">
 
-    <title>Preview Layout</title>
+  {# Add stylesheets that are defined as dependencies of this component. #}
+  {# @todo Replace this with a dynamic process. #}
+  {% if _target.meta.dependencies.stylesheets is not empty %}
+    {% for stylesheet in _target.meta.dependencies.stylesheets %}
+      <link media="all" rel="stylesheet" href="{{ stylesheet|path }}">
+    {% endfor %}
+  {% endif %}
+
+  {# Add stylesheets that are in this components directory. #}
+  {% for asset in _target.resources.assets %}
+    {% if asset.isCSS %}
+      <link media="all" rel="stylesheet" href="/{{ asset.srcPath|path }}">
+    {% endif %}
+  {% endfor %}
+
+  <title>Preview Layout</title>
 </head>
 <body>
 
@@ -16,4 +30,10 @@
 </body>
 
 <script src="/assets/vendor/js/jquery.js"></script>
+{# Add scripts that are in this components directory. #}
+{% for asset in _target.resources.assets %}
+  {% if asset.isJS %}
+    <script src="/{{ asset.srcPath|path }}"></script>
+  {% endif %}
+{% endfor %}
 </html>

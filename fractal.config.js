@@ -18,7 +18,6 @@ const uidsTheme = require('mono-fractal')({
     panels: [
         'html',
         'resources',
-        'context',
         'info',
     ],
 });

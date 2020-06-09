@@ -10,11 +10,6 @@
     @include padding($top: $xlg, $right: 0, $bottom: 0, $left: 0);
   }
 
-  .logo-icon--tab {
-    padding: 0 40px 0 0;
-    height: auto;
-  }
-
   p {
     color: #ccc;
     line-height: 1.5;
@@ -38,7 +33,8 @@
     }
   }
 
-  &__site--name {
+  // Override site-name when it is displayed in the footer.
+  .site-name {
     color: #fff;
     font-size: 1.7rem;
     margin-top: $md;
@@ -54,7 +50,8 @@
      }
   }
 
-  &__site--slogan {
+  // Override parent-site-name when it is displayed in the footer.
+  .parent-site-name {
     color: #ccc;
     font-size: 1.4rem;
     margin-top: 0;
@@ -149,6 +146,10 @@
     .menu {
       flex-wrap: wrap;
       @include flexbox;
+      line-height: 2;
+      @include breakpoint(menu) {
+        line-height: 1;
+      }
     }
 
     a {
@@ -162,14 +163,16 @@
       @include margin($right: $md);
     }
 
+    .link-text {
+      @include element-invisible;
+    }
+
     ul,
     li {
       @extend %no-ul-list;
     }
   }
 }
-
-
 
 .socket {
   &__container {
@@ -321,4 +324,18 @@
 
 .footer-cta__container>a:last-child {
   margin-right: 0;
+}
+
+// Logo in footer.
+.logo--footer {
+  padding: 0 40px 0 0;
+  width: 128px;
+
+  @include breakpoint(menu) {
+    width: 145px
+  }
+
+  @include breakpoint(container) {
+    width: 176px
+  }
 }

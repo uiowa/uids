@@ -1,59 +1,60 @@
 @import '../../../assets/scss/variables';
-@import "../../../assets/scss/breakpoint";
+@import "../../../assets/scss/utilities";
 
 .logo {
-  fill: $primary;
+  display: block;
+}
+
+.logo--tab {
   height: 70px;
-  margin-left: -2px;
+  width:  119px;
+  padding: 25px $gutter;
+  background: $secondary;
 
-  &--tab {
-    width: 107px;
-    padding: 0 15px 0 20px;
-    background: $secondary;
+  a:focus svg {
+    opacity: .5;
+  }
 
-    a:focus svg {
-      opacity: .5;
-    }
-
-    // @todo Move this to search or search-toggle?
-    .search-is-open & {
-      visibility: none;
-      opacity: 0;
-
-      @include breakpoint(menu) {
-        display: block;
-        opacity: 1;
-        visibility: visible;
-      }
-    }
+  // @todo Move this to search or search-toggle?
+  .search-is-open & {
+    visibility: none;
+    opacity: 0;
 
     @include breakpoint(menu) {
-      width: 150px;
-      height: 80px;
-      margin-left: 0px;
-      padding: 0 20px;
+      display: block;
+      opacity: 1;
+      visibility: visible;
     }
+  }
 
-    @include breakpoint(container) {
-      width: 185px;
-      height: 87px;
-      padding: 5px 20px 25px;
-    }
+  @include breakpoint(menu) {
+    width: 154px;
+    height: 80px;
+    padding: 25px;
+  }
+
+  @include breakpoint(container) {
+    width: 181px;
+    height: 90px;
   }
 }
 
 .logo-icon {
-  display: block;
-  height: 70px;
+  fill: $primary;
+  height: 20px;
+
+  @include breakpoint(menu) {
+    height: 30px;
+  }
+
+  @include breakpoint(container) {
+    height: 39px;
+  }
 
   &:hover,
   &:focus {
     opacity: 0.7;
   }
-
-  //@include breakpoint(container) {
-  //  margin-top: 13px;
-  //}
 
   // @todo Move this to header.scss?
   .header--tertiary & {
@@ -62,44 +63,5 @@
     @include breakpoint(container) {
       margin-top: 0;
     }
-  }
-}
-
-// @todo Move this to header.scss?
-.header--primary .logo-icon--tab,
-.header--secondary .logo-icon--tab,
-.header--tertiary .logo-icon--tab {
-  @include breakpoint(container) {
-    margin-left: -16px;
-  }
-}
-
-.header--tertiary .logo-icon--tab {
-  margin-right: 10px;
-  background: #151515;
-
-  @include breakpoint(menu) {
-    width: 120px;
-    height: auto;
-    padding: 13px;
-  }
-
-  .search-is-open & {
-    visibility: none;
-    opacity: 0;
-
-    @include breakpoint(menu) {
-      display: flex;
-      opacity: 1;
-      visibility: visible;
-    }
-  }
-}
-
-// ie11
-@media all and (-ms-high-contrast: none),
-(-ms-high-contrast: active) {
-  .logo-icon {
-    height: 50px;
   }
 }
