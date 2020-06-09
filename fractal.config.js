@@ -98,5 +98,5 @@ uidsTheme.addLoadPath(__dirname + '/theme/views');
  */
 uidsTheme.addStatic(__dirname + '/src/components', '/components');
 fractal.web.theme(uidsTheme); // tell Fractal to use the configured theme by default
-fractal.web.set('static.path', paths.build);
+fractal.web.set('static.path', paths.static);
 fractal.web.set('builder.dest', paths.build);
