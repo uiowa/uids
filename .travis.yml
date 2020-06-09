@@ -1,34 +1,28 @@
 sudo: false
+
 language: node_js
+
+# Use .nvmrc file for Node version.
 node_js:
+
 matrix:
   fast_finish: true
+
 install:
   - npm install
+
 script:
   - npm run docs
+
 before_deploy:
-  - |
-    if [ $TRAVIS_TAG != '']; then
-      echo "$TRAVIS_TAG"
-      npm run release-zip
-    else
-      rm -rf src/ dist/
-      rm .nvmrc fractal.config.js gulpfile.js package.json package-lock.json README.md
-      mv -v www/* .
-    fi
+  - rm -rf src/ dist/
+  - rm .nvmrc fractal.config.js gulpfile.js package.json package-lock.json README.md
+  - mv -v www/* .
+
 deploy:
-  - provider: releases
-    skip_cleanup: true
-    github-token: $GH_TOKEN
-    file_glob: true
-    file: "*.zip"
-    on:
-      tags: true
-      repo: uiowa/uids
-  - provider: pages
-    skip-cleanup: true
-    github-token: $GH_TOKEN
-    keep-history: false
-    on:
-      branch: master
+  provider: pages
+  skip-cleanup: true
+  github-token: $GH_TOKEN
+  keep-history: false
+  on:
+    branch: master
