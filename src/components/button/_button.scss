@@ -1,7 +1,7 @@
 // https://fractal.build/guide/components/including-sub-components.html#providing-context-data-to-sub-components
 
 .bttn {
-  @extend %bttn;
+  @include bttn;
 }
 
 a.bttn {
@@ -17,9 +17,9 @@ a.bttn {
 }
 
 .bttn--primary {
-  @extend %bttn--primary;
+  @include bttn--primary;
   border: 1px solid $primary;
-  @extend %bttn--focus;
+  @include bttn--focus;
 
   &:after {
     background-color: $secondary;
@@ -32,9 +32,9 @@ a.bttn {
 }
 
 .bttn--secondary {
-  @extend %bttn--secondary;
+  @include bttn--secondary;
   border: 1px solid $secondary;
-  @extend %bttn--focus;
+  @include bttn--focus;
 
   &:hover,
   &:focus {
@@ -43,12 +43,12 @@ a.bttn {
 }
 
 .bttn--secondary__light {
-  @extend %bttn--secondary__light;
+  @include bttn--secondary__light;
 }
 
 .bttn--tertiary {
-  @extend %bttn--tertiary;
-  @extend %bttn--focus;
+  @include bttn--tertiary;
+  @include bttn--focus;
   border: 1px solid white;
 
   &:hover,
@@ -58,25 +58,25 @@ a.bttn {
 }
 
 .bttn--full {
-  @extend %bttn--full;
+  @include bttn--full;
 }
 
 .bttn--outline {
-  @extend %bttn--outline;
+  @include bttn--outline;
   border: 1px solid $primary;
-  @extend %bttn--focus;
+  @include bttn--focus;
 
   &:hover,
   &:focus {
     background: #fff;
     //border: 1px solid #666;
     color: $secondary;
-    @extend %bttn--focus;
+    @include bttn--focus;
   }
 }
 
 .bttn--transparent {
-  @extend %bttn--transparent;
+  @include bttn--transparent;
 
   &:hover,
   &:focus {
@@ -93,11 +93,9 @@ a.bttn {
 .bttn--sans-serif {
   font-family: $font-family-sans-serif;
   font-weight: $font-weight-normal;
+  font-size: .9rem;
   letter-spacing: .04rem;
   display: inline-block;
-  &.bttn {
-    font-size: .9rem;
-  }
   &:focus {
     text-decoration: underline;
   }
