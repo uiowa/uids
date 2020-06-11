@@ -13,7 +13,7 @@ if (document.querySelector(".search-button")) {
         this.setAttribute("aria-expanded", "false");
         document
           .querySelector(".search-overlay")
-          .setAttribute("aria-expanded", "false");
+          .setAttribute("aria-hidden", "true");
       }
     });
 }
@@ -22,16 +22,12 @@ function searchToggle() {
   if (document.getElementById("search-button-label")) {
     if (body.classList.contains("search-is-open")) {
       this.setAttribute("aria-expanded", "false");
-      wrapper.setAttribute("aria-expanded", "false");
+      wrapper.setAttribute("aria-hidden", "true");
       body.classList.remove("search-is-open");
     } else {
-      wrapper.setAttribute("aria-expanded", "true");
+      wrapper.setAttribute("aria-hidden", "false");
       this.setAttribute("aria-expanded", "true");
       body.classList.add("search-is-open");
-    }
-  if (button.getAttribute("aria-expanded") === "true") {
-      document.getElementsByName('search-terms')[0].focus();
-    } else {
     }
   }
 }
@@ -45,7 +41,7 @@ document.addEventListener(
       if (document.getElementById("search-button-label")) {
         document.body.classList.remove("search-is-open");
         document.getElementById("search-button-label").innerHTML = "Search";
-        wrapper.setAttribute("aria-expanded", "false");
+        wrapper.setAttribute("aria-hidden", "true");
         button.setAttribute("aria-expanded", "false");
       }
     }
