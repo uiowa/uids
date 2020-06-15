@@ -1,0 +1,42 @@
+{# Find consistent way to add classes from here #}
+<div data-carousel='carousel'>
+    {% if display_title %}
+        {{ content.title }}
+    {% else %}
+        <div class="sr-only">{{ content.title }}</div>
+    {% endif %}
+    <div class="carousel slide" data-ride="carousel" data-interval="false">
+
+
+      {% if label_hidden %}
+        <div class="carousel-container label-hidden-{{ label_hidden ? 'true' : 'false' }}">
+          {% for item in items %}
+            {% set slide_image = item.image %}
+            {% set slide_caption = item.caption %}
+            {% set slide_classes = item.classes %}
+            {% include '@carousel-slide' with {
+              'slide_image': slide_image,
+              'slide_caption': slide_caption,
+              'slide_classes': slide_classes
+            } %}
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="carousel-container label-hidden-{{ label_hidden ? 'true' : 'false' }}">
+          <div class='label'>{{ label }}</div>
+          {% for item in items %}
+            {% set slide_image = item.image %}
+            {% set slide_caption = item.caption %}
+            {% set slide_classes = item.classes %}
+            {% include '@carousel-slide' with {
+              'slide_image': slide_image,
+              'slide_caption': slide_caption,
+              'slide_classes': slide_classes
+            } %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+
+    </div>
+  </div>
