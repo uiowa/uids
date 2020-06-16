@@ -1,0 +1,224 @@
+@import '../../../assets/scss/variables';
+@import '../../../assets/scss/utilities';
+
+// // Full-width.
+// .field--name-field-section-content-block {
+//   .col-md-12.paragraph--type--carousel {
+//     padding: 0;
+//   }
+
+//   .paragraph--type--carousel {
+//     .paragraph--type--carousel-image {
+//       margin-bottom: 0;
+
+//       .field--name-field-media-image {
+//         width: 100%;
+//         height: auto;
+
+//         img {
+//           width: 100%;
+//           height: auto;
+//           max-height: 900px;
+//           object-fit: cover;
+//         }
+//       }
+//     }
+//   }
+// }
+
+div[data-carousel="carousel"] {
+  max-width: 1200px;
+
+  .slick-slide {
+    position: relative;
+  }
+
+  .carousel-caption {
+    padding: 1.25rem;
+    overflow-y: auto;
+    max-height: 7rem;
+    background-color: $dark;
+    color: $white;
+    position: absolute;
+    bottom: 3rem;
+    right: 15%;
+    left: 15%;
+    text-align: center;
+  }
+
+  .slick-dots {
+    margin-bottom: calc(1.5rem - .15rem);
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    justify-content: center;
+
+    li {
+      list-style: none;
+      height: 0.3rem;
+      margin: 0 0.2rem;
+
+      button {
+        height: 0.3rem;
+        width: 3rem;
+        padding: 0;
+        text-indent: -9999px;
+        border: none;
+        background-color: rgba(255,255,255,0.6);
+        box-shadow: 0px 0px 30px 2px #727272;
+        transition: background-color 0.3s ease-in-out;
+
+        &:focus {
+          outline: none;
+          background-color: $primary;
+        }
+      }
+
+      &.slick-active button {
+        background-color: $primary;
+      }
+    }
+  }
+
+  .slick-arrow {
+    top: 0;
+    height: 100%;
+    z-index: 10;
+    position: absolute;
+    border: none;
+    background-color: transparent;
+    color: transparent;
+    outline: none;
+
+    &:before {
+      position: absolute;
+      @include fas();
+      color: rgba(255,255,255,0.6);
+      font-size: 3rem;
+      text-shadow: 0px 0px 20px #727272;
+      transition: color 0.3s ease-in-out;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      &:before {
+        color: rgba(255,255,255,0.9);
+      }
+    }
+
+    &.slick-prev {
+      left: 0;
+      padding: 0 5rem 0 1rem;
+
+      &:before {
+        content: '\f053';
+      }
+    }
+
+    &.slick-next {
+      right: 0;
+      padding: 0 1rem 0 5rem;
+
+      &:before {
+        content: '\f054';
+      }
+    }
+  }
+}
+
+// .paragraph--type--carousel-image.bg-dark {
+//   .carousel-caption {
+//     background-color: $dark;
+//     color: $white;
+
+//     a:not(.btn):not(.alert-link) {
+//       color: $primary;
+//     }
+
+//     blockquote,
+//     blockquote p {
+//       border-color: $white;
+
+//       &:before {
+//         background-color: $white;
+//         color: $dark;
+//       }
+
+//       footer {
+//         color: $dark-gray;
+//       }
+//     }
+//   }
+
+//   &.semi-transparent {
+//     .carousel-caption {
+//       background-color: rgba(52, 58, 64, 0.8) !important;
+//     }
+//   }
+// }
+
+// .paragraph--type--carousel-image.bg-light {
+//   .carousel-caption {
+//     background-color: $light;
+//     color: $dark-gray;
+
+//     blockquote,
+//     blockquote p {
+//       border-color: $dark-gray;
+
+//       &:before {
+//         background-color: $dark-gray;
+//         color: $white;
+//       }
+
+//       footer {
+//         color: $dark-gray;
+//       }
+//     }
+//   }
+
+//   &.semi-transparent {
+//     .carousel-caption {
+//       background-color: rgba(248, 249, 250, 0.8) !important;
+//     }
+//   }
+// }
+
+// .paragraph--type--carousel-image.bg-yellow {
+//   .carousel-caption {
+//     background-color: $primary;
+
+//     a:not(.btn):not(.alert-link) {
+//       color: $secondary;
+//       text-decoration: underline;
+
+//       &:hover,
+//       &:focus {
+//         text-decoration: none;
+//       }
+//     }
+
+//     blockquote,
+//     blockquote p {
+//       border-color: $dark-gray;
+
+//       &:before {
+//         background-color: $dark-gray;
+//         color: $white;
+//       }
+
+//       footer {
+//         color: $dark-gray;
+//       }
+//     }
+//   }
+
+//   &.semi-transparent {
+//     .carousel-caption {
+//       background-color: rgba(255, 205, 0, 0.8) !important;
+//       color: $dark-gray;
+//     }
+//   }
+// }

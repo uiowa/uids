@@ -29,6 +29,13 @@
 </body>
 
 <script src="/assets/vendor/js/jquery.js"></script>
+{# Add Javascript that is defined as dependencies of this component. #}
+{# @todo Replace this with a dynamic process. #}
+{% if _target.meta.dependencies.javascript is not empty %}
+  {% for script in _target.meta.dependencies.javascript %}
+    <script src="{{ script|path }}"></script>
+  {% endfor %}
+{% endif %}
 {# Add scripts that are in this components directory. #}
 {% for asset in _target.resources.assets %}
   {% if asset.isJS %}
