@@ -1,30 +1,12 @@
 {# Find consistent way to add classes from here #}
-<div data-carousel="carousel" {{ carousel_fade ? 'class="carousel-fade"' : '' }}>
-    {% if display_title %}
-        {{ content.title }}
-    {% else %}
-        <div class="sr-only">{{ content.title }}</div>
-    {% endif %}
-    <div class="carousel slide" data-ride="carousel" data-interval="false">
-
-
-      <div class="carousel-container label-hidden-{{ label_hidden ? 'true' : 'false' }}">
-        {% if not label_hidden %}
-          <div class='label'>{{ label }}</div>
-        {% endif %}
-        {% for item in items %}
-          {% set slide_image = item.image %}
-          {% set slide_caption = item.caption %}
-          {% set slide_classes = item.classes %}
-          {% set slide_alt = item.alt %}
-          {% include '@prototype-carousel--slide' with {
-            'slide_image': slide_image,
-            'slide_caption': slide_caption,
-            'slide_classes': slide_classes
-          } %}
-        {% endfor %}
-      </div>
-
-
-    </div>
-  </div>
+<div data-carousel="carousel" class="carousel{{ carousel_fade ? ' carousel--fade' : '' }}" >
+  {% for item in items %}
+    {# @todo Incluede image alt? #}
+    {% set carousel_slide = {
+      'slide_image': item.image,
+      'slide_caption': item.caption,
+      'slide_classes': item.classes,
+    } %}
+    {% include '@prototype-carousel--slide' with carousel_slide %}
+  {% endfor %}
+</div>
