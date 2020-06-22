@@ -99,6 +99,7 @@ h1 {
   .iowa-bar__container {
     display: flex;
     align-items: center;
+    max-width: 100%;
   }
 }
 
@@ -106,8 +107,14 @@ h1 {
 
   // Override left margin to account for
   // menu button.
-  @include breakpoint(container) {
-    .iowa-bar--narrow & {
+  .iowa-bar--narrow & {
+    margin-right: auto;
+
+    @include breakpoint(menu) {
+      margin-right: 10px;
+    }
+
+    @include breakpoint(container) {
       margin-left: 0;
     }
   }
