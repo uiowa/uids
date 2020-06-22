@@ -6,7 +6,7 @@
 
   <link media="all" rel="stylesheet" href="{{ '/assets/css/uiowa-base.css'|path }}">
 
-  {# Add stylesheets that are defined as dependencies of this component. #}
+  {# Add stylesheets defined as dependencies of the component. #}
   {% if _target.meta.dependencies.stylesheets is not empty %}
     {% for stylesheet in _target.meta.dependencies.stylesheets %}
       <link media="all" rel="stylesheet" href="{{ stylesheet|path }}">
@@ -28,6 +28,12 @@
 </body>
 
 <script src="/assets/vendor/js/jquery.js"></script>
+{# Add scripts defined as dependencies of the component. #}
+{% if _target.meta.dependencies.scripts is not empty %}
+  {% for script in _target.meta.dependencies.scripts %}
+    <script src="{{ script|path }}"></script>
+  {% endfor %}
+{% endif %}
 {# Add scripts that are in this components directory. #}
 {% for asset in _target.resources.assets %}
   {% if asset.isJS %}
