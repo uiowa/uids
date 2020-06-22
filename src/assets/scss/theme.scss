@@ -4,11 +4,11 @@
 @import "fonts";
 @import "../../components/typography/headings/headings";
 @import "../../components/typography/paragraph/paragraph";
-@import "../../components/logo/logo.scss";
-@import "../../components/site-name/site-name";
+@import "../../components/branding/logo/logo.scss";
+@import '../../components/branding/site-name/site-name.scss';
 @import "../../components/menus/off-canvas/off-canvas";
 @import "../../components/header/header";
-@import "../../components/iowa-bar/iowa-bar";
+@import '../../components/branding/iowa-bar/iowa-bar.scss';
 @import "../../components/tables/tables";
 
 $header-height: 50px;
@@ -81,14 +81,14 @@ h1 {
   }
 }
 
-.header--tertiary .uiowa-bar {
+.iowa-bar--narrow {
   @include breakpoint(menu) {
     position: fixed;
   }
 
   width: 100%;
 
-  .uiowa-bar__title {
+  .site-name {
     width: 100%;
 
     @include breakpoint(menu) {
@@ -96,18 +96,18 @@ h1 {
     }
   }
 
-  .page__container {
+  .iowa-bar__container {
     display: flex;
     align-items: center;
   }
 }
 
-.logo-icon--tab {
+.logo--tab {
 
   // Override left margin to account for
   // menu button.
   @include breakpoint(container) {
-    .header--tertiary & {
+    .iowa-bar--narrow & {
       margin-left: 0;
     }
   }

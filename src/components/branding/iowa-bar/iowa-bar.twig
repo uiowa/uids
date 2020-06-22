@@ -12,11 +12,11 @@
 {% endif %}
 <header class="{{ classes }}">
   <div class="iowa-bar__container">
-    {% render '@prototype-logo' %}
+    {% render '@logo' %}
     {% if parent_site.name is not empty %}
-      {% include '@prototype-parent-site-name' with parent_site %}
+      {% include '@parent-site-name' with parent_site %}
     {% elseif site_name and site_name_position == 'inline' %}
-      {% include '@prototype-site-name' %}
+      {% include '@site-name' %}
     {% endif %}
     {% block top_links %}
     {% endblock %}
@@ -28,7 +28,7 @@
     <div class="iowa-bar__below">
       <div class="iowa-bar__container">
         {% if site_name and site_name_position == 'below' %}
-          {% include '@prototype-site-name' %}
+          {% include '@site-name' %}
         {% endif %}
         {{ below_bar_content }}
       </div>
