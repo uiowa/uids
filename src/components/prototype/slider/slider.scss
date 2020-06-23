@@ -1,75 +1,85 @@
 @import '../../../assets/scss/variables';
 @import '../../../assets/scss/utilities';
 
-.slider__slide {
-  position: relative;
-  overflow: hidden;
-  min-height: 300px;
-  transition: all 0.4s cubic-bezier(0.61, -0.44, 0.33, 1.39);
-  color: $white;
-  @include flex(1, 0, 100%);
+.slider {
+  flex-wrap: wrap;
+  @include flexbox;
 
   @include breakpoint(sm) {
-    align-self: auto;
-    order: 0;
-    min-height: 500px;
-    @include flex(1, 1, 0%);
-  }
-
-}
-
-.slider {
-  &__container {
-    flex-wrap: wrap;
-    @include flexbox;
-    min-height: 540px;
-
-    @include breakpoint(sm) {
-      align-content: stretch;
-      align-items: stretch;
-      flex-direction: row;
-      justify-content: flex-start;
-    }
+    align-content: stretch;
+    align-items: stretch;
+    flex-direction: row;
+    justify-content: flex-start;
   }
 
   &__slide {
-    @include breakpoint(sm) {
+    cursor: pointer;
+    pointer-events: auto;
+    position: relative;
+    overflow: hidden;
+    min-height: 300px;
+    transition: all 0.4s cubic-bezier(0.61, -0.44, 0.33, 1.39);
+    color: $white;
+    @include flex(1, 0, 100%);
+
+    @include breakpoint(md) {
+      align-self: auto;
       flex: unset;
-      width: 25%;
+      order: 0;
+      min-height: 500px;
+      transition: all 0.3s ease;
+      width: 20%;
     }
 
-    &:hover:after {
+    // banner overrides
+    .banner:after {
+      background: none;
+    }
+
+    .banner__content {
       position: absolute;
-      top: 0;
-      right: 0;
       bottom: 0;
-      left: 0;
-      content: "";
-      background: linear-gradient(transparent 1%, transparent 29%, rgba(0, 0, 0, .7));
-    }
-  }
-
-  &__slide:nth-child(1) {
-    @include breakpoint(sm) {
-      flex-grow: 1;
-    }
-
-    &::after {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      content: "";
-      background: linear-gradient(transparent 1%, transparent 29%, rgba(0, 0, 0, .7));
-    }
-
-    .banner__container {
-      opacity: 1;
-    }
-
-    .slider__teaser {
+      top: unset;
+      transition: opacity .3s linear;
       opacity: 0;
+      @include padding($top: $xlg, $right: $xlg, $bottom: $xlg, $left: $xlg);
+      width: 100%;
+    }
+
+    .banner__content .bold-headline--serif {
+      font-family: "Zilla Slab", serif;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .banner__summary {
+      margin-bottom: 1.3rem;
+      margin-top: .5rem;
+    }
+
+    // Expanded overrides.
+    &[aria-expanded="true"] {
+      @include breakpoint(sm) {
+        flex-grow: 1;
+      }
+
+      .banner__content {
+        opacity: 1;
+      }
+
+      .slider__teaser {
+        opacity: 0;
+      }
+
+      &:after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        content: "";
+        background: linear-gradient(transparent 1%, transparent 29%, rgba(0, 0, 0, .7));
+      }
     }
   }
 
@@ -107,139 +117,4 @@
       }
     }
   }
-}
-
-
-@include breakpoint(sm) {
-  .slider__slide {
-    transition: all 0.3s ease;
-  }
-}
-
-
-.slider__container-expanded {
-  .slider__slide {
-    @include breakpoint(sm) {
-      flex: unset;
-      width: 25%;
-    }
-  }
-
-  .slider__slide:nth-child(1) {
-    @include breakpoint(sm) {
-      flex-grow: 1;
-    }
-
-    &::after {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      content: "";
-      background: linear-gradient(transparent 1%, transparent 29%, rgba(0, 0, 0, .7));
-    }
-
-    .banner__content {
-      opacity: 1;
-    }
-
-    .slider__teaser {
-      opacity: 0;
-    }
-  }
-}
-
-
-
-.slider__slide:hover .banner__content,
-.slider__slide:focus .banner__content {
-  opacity: 1;
-}
-
-.slider__slide:hover .slider__teaser,
-.slider__slide:focus .slider__teaser {
-  opacity: 0;
-}
-
-.slider__container {
-  //pointer-events: none;
-}
-
-.slider__container>.slider__slide {
-  cursor: pointer;
-  pointer-events: auto;
-}
-
-
-.slider__container:hover>.slider__slide,
-.slider__container:focus-within>.slider__slide {
-  .banner__content {
-    opacity: 0;
-  }
-
-  .slider__teaser {
-    opacity: 1;
-  }
-}
-
-.slider__container:hover>.slider__slide:hover,
-.slider__container:focus-within>.slider__slide:focus {
-  .banner__content {
-    opacity: 1;
-  }
-
-  .slider__teaser {
-    opacity: 0;
-  }
-}
-
-// hover expand
-
-.slider__container-expanded:hover>.slider__slide:hover,
-.slider__container-expanded:focus-within>.slider__slide:focus {
-  flex-grow: 1;
-}
-
-.slider__container-expanded:hover>.slider__slide,
-.slider__container-expanded:focus-within>.slider__slide {
-  @include breakpoint(sm) {
-    flex: unset;
-    flex-grow: 0;
-  }
-}
-
-
-// banner overrides
-
-.banner__content {
-  width: 100%;
-}
-
-.banner:after {
-  background: none;
-}
-
-.banner__content {
-  position: absolute;
-  bottom: 0;
-  transition: opacity .3s linear;
-  opacity: 0;
-  @include padding($top: $xlg, $right: $xlg, $bottom: $xlg, $left: $xlg);
-}
-
-.banner__content .bold-headline--serif {
-  font-family: "Zilla Slab", serif;
-  font-weight: 700;
-  margin: 0;
-}
-
-.banner__summary {
-  margin-bottom: 1.3rem;
-  margin-top: .5rem;
-}
-
-.banner__content {
-  bottom: 0;
-  top: unset;
 }
