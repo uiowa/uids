@@ -89,7 +89,7 @@ function startWatch(done) {
     // watch(`${paths.src}/assets/images`, images);
     // watch(`${paths.src}/assets/vectors`, images);
     // watch(`${paths.src}/**/*.js`, scripts);
-    watch(`${paths.src}/**/*.scss`, series(parallel(clean, cleanComponentCss), styles));
+    watch(`${paths.src}/**/*.scss`, compile);
 
     done();
 }

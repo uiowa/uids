@@ -1,0 +1,38 @@
+{% set classes = 'iowa-bar' %}
+{% if iowa_bar_classes is not empty %}
+  {% set classes = classes ~ ' ' ~ iowa_bar_classes %}
+{% endif %}
+{# When there is a parent site, the site name is always below. #}
+{% if parent_site.name is not empty %}
+  {% set site_name_position = 'below' %}
+{% endif %}
+{# When the site name is below, the iowa bar is always narrow. #}
+{% if site_name_position == 'below' %}
+  {% set classes = classes ~ ' iowa-bar--narrow' %}
+{% endif %}
+<header class="{{ classes }}">
+  <div class="iowa-bar__container">
+    {% render '@logo' %}
+    {% if parent_site.name is not empty %}
+      {% include '@parent-site-name' with parent_site %}
+    {% elseif site_name and site_name_position == 'inline' %}
+      {% include '@site-name' %}
+    {% endif %}
+    {% block top_links %}
+    {% endblock %}
+    {% block off_canvas %}
+    {% endblock %}
+  </div>
+  {% if site_name_position == 'below' or below_bar_content is not empty %}
+  {% block below_bar %}
+    <div class="iowa-bar__below">
+      <div class="iowa-bar__container">
+        {% if site_name and site_name_position == 'below' %}
+          {% include '@site-name' %}
+        {% endif %}
+        {{ below_bar_content }}
+      </div>
+    </div>
+  {% endblock %}
+  {% endif %}
+</header>

@@ -1,0 +1,62 @@
+<footer class="footer">
+	<div class="footer__container footer__container--flex">
+		<div class="footer__links footer__links--contact">
+
+			{# IOWA block logo. #}
+			{% render '@logo' with {
+				'logo_classes': 'logo--footer',
+			} %}
+
+			{# Site name. #}
+			{% if site_name %}
+				{% render '@site-name' with {
+					'site_name_tag': 'h2',
+				} %}
+			{% endif %}
+
+			{# Site slogan. #}
+			{% if parent_site_name %}
+				{% render '@parent-site-name' with {
+					'parent_site_name_tag': 'strong',
+				} %}
+			{% endif %}
+
+			{# Contact information. #}
+			{% block contact_info %}
+				{{ contact_info }}
+			{% endblock %}
+
+			{# Social links. #}
+			{% block social_links %}
+				{# @todo Move demo options to context. #}
+				<div class="footer__links footer__links--icon">
+					{% include "@menu" with {
+						items: link_icon.items | slice(0, 7),
+					} %}
+				</div>
+			{% endblock %}
+
+			{# Socket menu. #}
+			<div class="socket">
+				<ul class="socket__menu">
+					<li>© {{ 'now' | date('Y') }} The University of Iowa</li>
+					<li>
+						<a href="https://uiowa.edu/privacy">Privacy Notice</a>
+					</li>
+					<li>
+						<a href="https://opsmanual.uiowa.edu/community-policies/nondiscrimination-statement">Nondiscrimination Statement</a>
+					</li>
+					<li>
+						<a href="https://uiowa.edu/accessibility">Accessibility</a>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+
+		{# Footer menus. #}
+		{% block footer_menus %}
+		{% endblock %}
+
+	</div>
+</footer>
