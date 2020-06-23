@@ -1,15 +1,15 @@
 @import url('https://use.fontawesome.com/releases/v5.8.2/css/all.css');
-@import "variables";
-@import "utilities";
-@import "fonts";
-@import "../../components/typography/headings/headings";
-@import "../../components/typography/paragraph/paragraph";
-@import "../../components/logo/logo.scss";
-@import "../../components/site-name/site-name";
-@import "../../components/menus/off-canvas/off-canvas";
-@import "../../components/header/header";
-@import "../../components/iowa-bar/iowa-bar";
-@import "../../components/tables/tables";
+@import 'variables';
+@import 'utilities';
+@import 'fonts';
+@import 'typography/headings/headings.scss';
+@import 'typography/paragraph/paragraph.scss';
+@import 'branding/logo/logo.scss';
+@import 'branding/site-name/site-name.scss';
+@import 'menus/off-canvas/off-canvas';
+@import 'header/header';
+@import 'branding/iowa-bar/iowa-bar.scss';
+@import 'tables/tables.scss';
 
 $header-height: 50px;
 
@@ -81,14 +81,14 @@ h1 {
   }
 }
 
-.header--tertiary .uiowa-bar {
+.iowa-bar--narrow {
   @include breakpoint(menu) {
     position: fixed;
   }
 
   width: 100%;
 
-  .uiowa-bar__title {
+  .site-name {
     width: 100%;
 
     @include breakpoint(menu) {
@@ -96,18 +96,25 @@ h1 {
     }
   }
 
-  .page__container {
+  .iowa-bar__container {
     display: flex;
     align-items: center;
+    max-width: 100%;
   }
 }
 
-.logo-icon--tab {
+.logo--tab {
 
   // Override left margin to account for
   // menu button.
-  @include breakpoint(container) {
-    .header--tertiary & {
+  .iowa-bar--narrow & {
+    margin-right: auto;
+
+    @include breakpoint(menu) {
+      margin-right: 10px;
+    }
+
+    @include breakpoint(container) {
       margin-left: 0;
     }
   }
@@ -137,6 +144,7 @@ h1 {
     font-weight: $font-weight-bold;
     text-transform: uppercase;
     font-family: $font-family-sans-serif;
+    margin-bottom: 0;
   }
 
   &-entityLink:hover,
@@ -147,6 +155,14 @@ h1 {
       text-decoration: underline;
     }
   }
+
+  &-item ul.Tree-collectionItems {
+    padding-left: 15px;
+  }
+}
+
+[dir=ltr] .Tree-depth-3 .Tree-collectionLabel::before {
+  left: .25rem;
 }
 
 .Pen-info {
