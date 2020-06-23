@@ -1,7 +1,7 @@
 @import '../../../assets/scss/variables';
 @import '../../../assets/scss/utilities';
 
-.slider {
+.slider__slide {
   position: relative;
   overflow: hidden;
   min-height: 300px;
@@ -16,6 +16,9 @@
     @include flex(1, 1, 0%);
   }
 
+}
+
+.slider {
   &__container {
     flex-wrap: wrap;
     @include flexbox;
@@ -42,12 +45,7 @@
       bottom: 0;
       left: 0;
       content: "";
-      background: linear-gradient(transparent 1%, transparent 49%, rgba(0, 0, 0, .7));
-    }
-
-    a {
-      text-decoration: none;
-      color: $white;
+      background: linear-gradient(transparent 1%, transparent 29%, rgba(0, 0, 0, .7));
     }
   }
 
@@ -63,68 +61,16 @@
       bottom: 0;
       left: 0;
       content: "";
-      background: linear-gradient(transparent 1%, transparent 49%, rgba(0, 0, 0, .7));
+      background: linear-gradient(transparent 1%, transparent 29%, rgba(0, 0, 0, .7));
     }
 
-    .feature__content {
+    .banner__container {
       opacity: 1;
     }
 
-    .feature__teaser {
+    .slider__teaser {
       opacity: 0;
     }
-  }
-
-  // hover expand
-
-  &:hover>.slider__slide:hover,
-  &:focus-within>.slider__slide:focus {
-    flex-grow: 1;
-  }
-
-  &:hover>.slider__slide,
-  &:focus-within>.slider_slide {
-    @include breakpoint(sm) {
-      flex: unset;
-      flex-grow: 0;
-    }
-  }
-
-  &__content {
-    position: absolute;
-    bottom: 0;
-    transition: opacity .3s linear;
-    opacity: 0;
-    @include padding($top: $xlg, $right: $xlg, $bottom: $xlg, $left: $xlg);
-  }
-
-  &__hr {
-    border: 0;
-    border-top: 1px solid #eee;
-    @include margin($top: $md, $bottom: $md);
-  }
-
-  &__bracket {
-    z-index: 1;
-    position: relative;
-    //@include bracket();
-    //width: 500px;
-  }
-
-  &__heading {
-    margin: 0;
-    font-weight: $font-weight-medium-bold;
-    color: $white;
-    font-size: $h2-font-size;
-    line-height: 1;
-    @extend %shadow;
-  }
-
-  &__subheading {
-    margin: 0;
-    //white-space: nowrap;
-    font-size: $base-font-size;
-    @extend %shadow;
   }
 
   &__teaser {
@@ -163,58 +109,137 @@
   }
 }
 
+
 @include breakpoint(sm) {
-  .feature {
+  .slider__slide {
     transition: all 0.3s ease;
   }
 }
 
 
-.feature__container-expanded {
+.slider__container-expanded {
+  .slider__slide {
+    @include breakpoint(sm) {
+      flex: unset;
+      width: 25%;
+    }
+  }
+
+  .slider__slide:nth-child(1) {
+    @include breakpoint(sm) {
+      flex-grow: 1;
+    }
+
+    &::after {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      content: "";
+      background: linear-gradient(transparent 1%, transparent 29%, rgba(0, 0, 0, .7));
+    }
+
+    .banner__content {
+      opacity: 1;
+    }
+
+    .slider__teaser {
+      opacity: 0;
+    }
+  }
 }
 
 
 
-.feature:hover .feature__content,
-.feature:focus .feature__content {
+.slider__slide:hover .banner__content,
+.slider__slide:focus .banner__content {
   opacity: 1;
 }
 
-.feature:hover .feature__teaser,
-.feature:focus .feature__teaser {
+.slider__slide:hover .slider__teaser,
+.slider__slide:focus .slider__teaser {
   opacity: 0;
 }
 
-.feature__container {
+.slider__container {
   //pointer-events: none;
 }
 
-.feature__container>.feature {
+.slider__container>.slider__slide {
   cursor: pointer;
   pointer-events: auto;
 }
 
 
-.feature__container:hover>.feature,
-.feature__container:focus-within>.feature {
-  .feature__content {
+.slider__container:hover>.slider__slide,
+.slider__container:focus-within>.slider__slide {
+  .banner__content {
     opacity: 0;
   }
 
-  .feature__teaser {
+  .slider__teaser {
     opacity: 1;
   }
 }
 
-.feature__container:hover>.feature:hover,
-.feature__container:focus-within>.feature:focus {
-  .feature__content {
+.slider__container:hover>.slider__slide:hover,
+.slider__container:focus-within>.slider__slide:focus {
+  .banner__content {
     opacity: 1;
   }
 
-  .feature__teaser {
+  .slider__teaser {
     opacity: 0;
   }
 }
 
+// hover expand
 
+.slider__container-expanded:hover>.slider__slide:hover,
+.slider__container-expanded:focus-within>.slider__slide:focus {
+  flex-grow: 1;
+}
+
+.slider__container-expanded:hover>.slider__slide,
+.slider__container-expanded:focus-within>.slider__slide {
+  @include breakpoint(sm) {
+    flex: unset;
+    flex-grow: 0;
+  }
+}
+
+
+// banner overrides
+
+.banner__content {
+  width: 100%;
+}
+
+.banner:after {
+  background: none;
+}
+
+.banner__content {
+  position: absolute;
+  bottom: 0;
+  transition: opacity .3s linear;
+  opacity: 0;
+  @include padding($top: $xlg, $right: $xlg, $bottom: $xlg, $left: $xlg);
+}
+
+.banner__content .bold-headline--serif {
+  font-family: "Zilla Slab", serif;
+  font-weight: 700;
+  margin: 0;
+}
+
+.banner__summary {
+  margin-bottom: 1.3rem;
+  margin-top: .5rem;
+}
+
+.banner__content {
+  bottom: 0;
+  top: unset;
+}
