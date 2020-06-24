@@ -1,15 +1,24 @@
-<div class="slider__slide"{% if item.feature_expanded %} aria-expanded="true"{% endif %}>
-  {% include '@banner' with {
-    'banner_image': item.feature_banner_image,
-    'banner_link_url': item.feature_link,
-    'banner_title': item.feature_title,
-    'banner_summary': item.feature_sub,
-    'banner_link_url': item.feature_sub,
-    'bttn_class': item.feature_link_class,
-    'banner_link_title': item.feature_link_title,
-    'banner_classes': item.feature_banner_class,
-
+<div class="slider__slide" {% if item.feature_expanded %} aria-expanded="true" {% endif %}>
+  {% embed '@banner' with {
+    'banner_image' : item.feature_banner_image,
+    'banner_link_url' : item.feature_link,
+    'banner_title' : item.feature_title,
+    'banner_summary' : item.feature_sub,
+    'banner_link_url' : item.feature_sub,
+    'bttn_class' : item.feature_link_class,
+    'banner_link_title' : item.feature_link_title,
+    'banner_classes' : item.feature_banner_class
   } %}
+
+    {% block banner_image %}
+      {% if banner_image %}
+        <div class="banner__image">
+          <img src="{{ item.feature_banner_image }}">
+        </div>
+      {% endif %}
+    {% endblock %}
+
+  {% endembed %}
 
   <div class="slider__teaser">
     <p class="slider__teaser-heading">{{ item.feature_title }}
