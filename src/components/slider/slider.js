@@ -1,11 +1,11 @@
 const elements = document.getElementsByClassName('slider__slide');
-console.log(elements);
+
 for (let i = 0; i < elements.length; i++) {
-  elements[i].onmouseover = elements[i].onfocus = function () {
+  elements[i].onmouseover = elements[i].onfocusin = elements[i].onfocus = function () {
     setAriaFalse(elements);
     this.setAttribute("aria-expanded", "true");
   };
-  elements[i].onmouseout = elements[i].onfocus = function () {
+  elements[i].onmouseout = elements[i].onfocusout = elements[i].onfocusout = function () {
     setAriaFalse(elements);
     elements[0].setAttribute("aria-expanded", "true");
   };
