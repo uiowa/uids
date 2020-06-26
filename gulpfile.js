@@ -88,7 +88,7 @@ function startWatch(done) {
     watch(`${paths.src}/assets/icons`, icons);
     // watch(`${paths.src}/assets/images`, images);
     // watch(`${paths.src}/assets/vectors`, images);
-    // watch(`${paths.src}/**/*.js`, scripts);
+    watch(`${paths.src}/**/*.js`, compile);
     watch(`${paths.src}/**/*.scss`, compile);
 
     done();

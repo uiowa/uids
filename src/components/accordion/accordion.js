@@ -1,14 +1,19 @@
+// function Accordion(element) {
+//   this.panels = element.getElementsByClassName("uids-accordion__heading");
+//   this.multiSelectible = element.getAttribute('aria-multiselectable') === 'true' || false;
+// }
+// @todo Finish converting this to OO implementation.
 const accordions = document.getElementsByClassName("uids-accordion");
 
 Array.prototype.forEach.call(accordions, accordion => {
   let accordion_elements = accordion.getElementsByClassName("uids-accordion__heading");
-  let multiselectable = accordion.getAttribute('aria-multiselectable') === 'true' || false;;
+  let multiselectable = accordion.getAttribute('aria-multiselectable') === 'true' || false;
 
   Array.prototype.forEach.call(accordion_elements, el => {
       let btn = el.querySelector('button');
       let target = el.nextElementSibling;
 
-      let expanded = btn.getAttribute('aria-expanded') === 'true' || false;;
+      let expanded = btn.getAttribute('aria-expanded') === 'true' || false;
       target.hidden = !expanded;
 
       btn.onclick = () => {
