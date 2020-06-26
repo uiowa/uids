@@ -5,10 +5,6 @@ for (let i = 0; i < elements.length; i++) {
     setAriaFalse(elements);
     this.setAttribute("aria-expanded", "true");
   };
-  elements[i].onmouseout = elements[i].onfocusout = function () {
-    setAriaFalse(elements);
-    elements[0].setAttribute("aria-expanded", "true");
-  };
 }
 
 const setAriaFalse = function(elements) {
