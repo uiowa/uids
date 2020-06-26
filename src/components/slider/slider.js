@@ -1,24 +1,44 @@
-// @todo Add ability to have multiple sliders on a page.
-const elements = document.getElementsByClassName('slider__slide');
+function Slider(element) {
+  this.slides = element.getElementsByClassName('slider__slide');
 
-for (let i = 0; i < elements.length; i++) {
-  elements[i].onmouseover = elements[i].onfocus = function () {
-    setActiveSlide(this);
-  };
-}
-
-const setAriaFalse = () => {
-  for (let i = 0; i < elements.length; i++) {
-    let el = elements.item(i);
-    el.setAttribute('aria-expanded', 'false');
+  for (let i = 0; i < this.slides.length; i++) {
+    this.slides[i].onmouseover = this.slides[i].onfocus = () => {
+      this.setActiveSlide(this.slides[i]);
+    };
   }
 }
 
-const setActiveSlide = element => {
-  setAriaFalse(elements);
+Slider.prototype.setAriaFalse = function() {
+  for (let i = 0; i < this.slides.length; i++) {
+    let el = this.slides.item(i)
+    if (el) {
+      el.setAttribute('aria-expanded', 'false');
+    }
+  }
+}
+
+Slider.prototype.setActiveSlide = function(element) {
+  this.setAriaFalse();
   element.setAttribute('aria-expanded', 'true');
 }
 
+Slider.prototype.getActiveSlideIndex = () => {
+  for (let i = 0; i < this.slides.length; i++) {
+    if (this.slides[i].getAttribute('aria-expanded') === 'true') {
+      return i;
+    }
+  }
+
+  return false;
+}
+
+const sliders = document.getElementsByClassName('slider');
+
+for (let i = 0; i < sliders.length; i++) {
+  let slider = new Slider(sliders[i]);
+}
+
+// @todo How to scope this properly to function per-slider.
 document.addEventListener('keyup', (event) => {
   keyHandler(event);
 }, false);
@@ -40,12 +60,4 @@ const keyHandler = function(event) {
   }
 }
 
-const getActiveSlideIndex = () => {
-  for (let i = 0; i < elements.length; i++) {
-    if (elements[i].getAttribute('aria-expanded') === 'true') {
-      return i;
-    }
-  }
 
-  return false;
-}

@@ -8,7 +8,7 @@ Array.prototype.forEach.call(accordions, accordion => {
       let btn = el.querySelector('button');
       let target = el.nextElementSibling;
 
-      let expanded = btn.getAttribute('aria-expanded') === 'true' || false;;
+      let expanded = btn.getAttribute('aria-expanded') === 'true' || false;.
       target.hidden = !expanded;
 
       btn.onclick = () => {
