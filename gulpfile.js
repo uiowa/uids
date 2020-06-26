@@ -106,12 +106,12 @@ function startWatch(done) {
   // watch(`${paths.src}/assets/vectors`, images);
   // watch(`${paths.src}/**/*.js`, scripts);
   watch(`${paths.src}/**/*.scss`, compile);
-  watch(`${paths.theme}/**/*.scss`, buildTheme)
+  // watch(`${paths.theme}/**/*.scss`, buildTheme)
 
   done();
 }
 
-const styles = series(componentCssInPlace, buildStyles, buildTheme);
+const styles = series(componentCssInPlace, buildStyles/*, buildTheme*/);
 
 const compile = series(parallel(clean, cleanComponentCss), parallel(assetsCopy, icons, styles));
 
