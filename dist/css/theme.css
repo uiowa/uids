@@ -398,23 +398,69 @@ sub {
   margin-bottom: 1.7rem;
 }
 
-.logo-icon {
+.logo {
   display: block;
-  margin-left: -2px;
 }
 
-.logo-icon:hover, .logo-icon:focus {
-  opacity: 0.7;
+.logo--tab {
+  height: 70px;
+  width: 109px;
+  padding: 25px 1.25rem;
+  background: #151515;
 }
 
-.logo-icon--secondary .logo-icon {
+.logo--tab a:focus svg {
+  opacity: .5;
+}
+
+.search-is-open .logo--tab {
+  visibility: none;
+  opacity: 0;
+}
+
+@media (min-width: 855px) {
+  .search-is-open .logo--tab {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@media (min-width: 855px) {
+  .logo--tab {
+    width: 154px;
+    height: 80px;
+    padding: 25px;
+  }
+}
+
+@media (min-width: 84.375em) {
+  .logo--tab {
+    width: 188px;
+    height: 90px;
+    padding: 23px 20px;
+  }
+}
+
+.logo-icon {
   fill: #FFCD00;
+  height: 20px;
+}
+
+@media (min-width: 855px) {
+  .logo-icon {
+    height: 30px;
+  }
 }
 
 @media (min-width: 84.375em) {
   .logo-icon {
-    margin-top: 13px;
+    height: 43px;
   }
+}
+
+.logo-icon:hover, .logo-icon:focus {
+  opacity: 0.7;
 }
 
 .header--tertiary .logo-icon {
@@ -427,88 +473,7 @@ sub {
   }
 }
 
-.logo-icon--tab {
-  background: #151515;
-  width: 107px;
-  height: 70px;
-  padding: 0 15px 0 20px;
-}
-
-.logo-icon--tab a:focus svg {
-  opacity: .5;
-}
-
-@media (min-width: 855px) {
-  .logo-icon--tab {
-    width: 150px;
-    height: 80px;
-    margin-left: 0px;
-    padding: 0 20px;
-  }
-}
-
-@media (min-width: 84.375em) {
-  .logo-icon--tab {
-    width: 185px;
-    height: 87px;
-    padding: 5px 20px 25px;
-  }
-}
-
-.search-is-open .logo-icon--tab {
-  visibility: none;
-  opacity: 0;
-}
-
-@media (min-width: 855px) {
-  .search-is-open .logo-icon--tab {
-    display: block;
-    opacity: 1;
-    visibility: visible;
-  }
-}
-
-@media (min-width: 84.375em) {
-  .header--primary .logo-icon--tab,
-  .header--secondary .logo-icon--tab,
-  .header--tertiary .logo-icon--tab {
-    margin-left: -16px;
-  }
-}
-
-.header--tertiary .logo-icon--tab {
-  margin-right: 10px;
-  background: #151515;
-}
-
-@media (min-width: 855px) {
-  .header--tertiary .logo-icon--tab {
-    width: 120px;
-    height: auto;
-    padding: 13px;
-  }
-}
-
-.search-is-open .header--tertiary .logo-icon--tab {
-  visibility: none;
-  opacity: 0;
-}
-
-@media (min-width: 855px) {
-  .search-is-open .header--tertiary .logo-icon--tab {
-    display: flex;
-    opacity: 1;
-    visibility: visible;
-  }
-}
-
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-  .logo-icon {
-    height: 50px;
-  }
-}
-
-.uiowa-bar__title {
+.site-name {
   display: flex;
   align-items: center;
   margin: 0 auto 0 0;
@@ -519,85 +484,29 @@ sub {
   font-family: "Roboto", sans-serif;
 }
 
-.uiowa-bar .uiowa-bar__title {
-  width: 100%;
-  padding: 1.25rem;
-  background: #FFCD00;
-}
-
-@media (min-width: 855px) {
-  .uiowa-bar .uiowa-bar__title {
-    width: auto;
-    background: transparent;
-    padding: 0;
-  }
-}
-
-.uiowa-bar__title a {
+.site-name a {
   color: #151515;
   text-decoration: none;
 }
 
 @media (min-width: 855px) {
-  .uiowa-bar__title {
+  .site-name {
     flex-basis: content;
-    margin: 1px 0 0 20px;
+    margin: 1px 0 0 0;
     font-size: 2rem;
   }
 }
 
 @media (min-width: 84.375em) {
-  .uiowa-bar__title {
-    margin: 5px 0 0 20px;
+  .site-name {
+    margin: 5px 0 0 0;
     text-align: left;
     font-size: 2.2rem;
   }
 }
 
 @media (min-width: 855px) {
-  .search-is-open .header--secondary .uiowa-bar__title {
-    display: none;
-  }
-}
-
-.header--tertiary .uiowa-bar__title {
-  font-size: 1rem;
-  margin: 0;
-  padding: 1.25rem;
-  background: #FFCD00;
-}
-
-@media (min-width: 855px) {
-  .header--tertiary .uiowa-bar__title {
-    background: transparent;
-    font-size: 1rem;
-    padding: 0;
-  }
-}
-
-.header--tertiary .site_name--wrapper .uiowa-bar__title {
-  margin: 0;
-  text-align: left;
-  font-size: 1.8rem;
-}
-
-@media (min-width: 855px) {
-  .header--tertiary .site_name--wrapper .uiowa-bar__title {
-    width: 75%;
-    padding: 25px 20px 25px 0;
-    background: transparent;
-    font-size: 2rem;
-  }
-}
-
-@media (min-width: 84.375em) {
-  .header--tertiary .site_name--wrapper .uiowa-bar__title {
-    font-size: 2.2rem;
-  }
-}
-
-@media (min-width: 855px) {
-  .search-is-open .header--tertiary .site_name--wrapper .uiowa-bar__title {
+  .search-is-open .header--secondary .site-name {
     display: none;
   }
 }
@@ -1145,7 +1054,7 @@ header {
   margin-bottom: 0;
 }
 
-.uiowa-bar {
+.iowa-bar {
   position: relative;
   z-index: 1;
   display: block;
@@ -1154,20 +1063,121 @@ header {
 }
 
 @media (min-width: 855px) {
-  .uiowa-bar {
+  .iowa-bar {
     height: 80px;
     background: #FFCD00;
   }
 }
 
+.iowa-bar .logo--tab {
+  margin-right: 20px;
+}
+
+@media (min-width: 84.375em) {
+  .iowa-bar .logo--tab {
+    margin-left: -12px;
+    padding: 27px 20px 20px;
+  }
+}
+
+.iowa-bar .site-name {
+  width: 100%;
+  padding: 1.25rem;
+  background: #FFCD00;
+}
+
 @media (min-width: 855px) {
-  .header--tertiary .uiowa-bar {
+  .iowa-bar .site-name {
+    width: auto;
+    background: transparent;
+    padding: 0;
+  }
+}
+
+.iowa-bar__container {
+  max-width: 81.875em;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+@media (min-width: 855px) {
+  .iowa-bar__container {
+    justify-content: flex-start;
+    display: flex;
+  }
+}
+
+@media (min-width: 855px) {
+  .iowa-bar__container {
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+@media (min-width: 855px) {
+  .iowa-bar--narrow {
     height: 50px;
   }
 }
 
-.uiowa-bar .page__container {
-  position: unset;
+.iowa-bar--narrow .logo--tab {
+  margin-right: 10px;
+}
+
+@media (min-width: 855px) {
+  .iowa-bar--narrow .logo--tab {
+    height: 56px;
+    width: 119px;
+    padding: 15px;
+  }
+}
+
+.search-is-open .iowa-bar--narrow .logo--tab {
+  visibility: none;
+  opacity: 0;
+}
+
+@media (min-width: 855px) {
+  .search-is-open .iowa-bar--narrow .logo--tab {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.iowa-bar--narrow .logo-icon {
+  height: 20px;
+}
+
+@media (min-width: 855px) {
+  .iowa-bar--narrow .logo-icon {
+    height: 26px;
+  }
+}
+
+.iowa-bar--narrow .site-name {
+  font-size: 1rem;
+  margin: 0;
+  padding: 1.25rem;
+  background: #FFCD00;
+}
+
+@media (min-width: 855px) {
+  .iowa-bar--narrow .site-name {
+    background: transparent;
+    font-size: 1rem;
+    padding: 0;
+  }
+}
+
+.iowa-bar__below {
+  z-index: 2;
+  border-bottom: 1px solid #ccc;
+  background: #fff;
+}
+
+.iowa-bar__below .iowa-bar__container {
   flex-wrap: wrap;
   justify-content: space-between;
   margin-right: 0;
@@ -1175,22 +1185,47 @@ header {
 }
 
 @media (min-width: 855px) {
-  .uiowa-bar .page__container {
-    justify-content: unset;
+  .iowa-bar__below .iowa-bar__container {
     display: flex;
+    position: unset;
+    min-height: 90px;
+    justify-content: unset;
+    margin-right: auto;
+    padding-left: 1.25rem;
   }
 }
 
 @media (min-width: 84.375em) {
-  .uiowa-bar .page__container {
-    justify-content: unset;
+  .iowa-bar__below .iowa-bar__container {
+    margin-left: auto;
+    padding-left: 0;
+  }
+}
+
+.iowa-bar__below .site-name {
+  margin: 0;
+  text-align: left;
+  font-size: 1.8rem;
+}
+
+@media (min-width: 855px) {
+  .iowa-bar__below .site-name {
+    width: 75%;
+    padding: 25px 20px 25px 0;
+    background: transparent;
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 84.375em) {
+  .iowa-bar__below .site-name {
+    font-size: 2.2rem;
   }
 }
 
 @media (min-width: 855px) {
-  .uiowa-bar .page__container {
-    margin-right: auto;
-    margin-left: auto;
+  .search-is-open .iowa-bar__below .site-name {
+    display: none;
   }
 }
 
@@ -1402,33 +1437,44 @@ h1 {
   border-right: 0;
 }
 
-.header--tertiary .uiowa-bar {
+.iowa-bar--narrow {
   width: 100%;
 }
 
 @media (min-width: 855px) {
-  .header--tertiary .uiowa-bar {
+  .iowa-bar--narrow {
     position: fixed;
   }
 }
 
-.header--tertiary .uiowa-bar .uiowa-bar__title {
+.iowa-bar--narrow .site-name {
   width: 100%;
 }
 
 @media (min-width: 855px) {
-  .header--tertiary .uiowa-bar .uiowa-bar__title {
+  .iowa-bar--narrow .site-name {
     width: auto;
   }
 }
 
-.header--tertiary .uiowa-bar .page__container {
+.iowa-bar--narrow .iowa-bar__container {
   display: flex;
   align-items: center;
+  max-width: 100%;
+}
+
+.iowa-bar--narrow .logo--tab {
+  margin-right: auto;
+}
+
+@media (min-width: 855px) {
+  .iowa-bar--narrow .logo--tab {
+    margin-right: 10px;
+  }
 }
 
 @media (min-width: 84.375em) {
-  .header--tertiary .logo-icon--tab {
+  .iowa-bar--narrow .logo--tab {
     margin-left: 0;
   }
 }
@@ -1455,6 +1501,7 @@ h1 {
   font-weight: 700;
   text-transform: uppercase;
   font-family: "Roboto", sans-serif;
+  margin-bottom: 0;
 }
 
 .Tree-entityLink:hover, .Tree-entityLink:focus {
@@ -1463,6 +1510,14 @@ h1 {
 
 .Tree-entityLink:hover span, .Tree-entityLink:focus span {
   text-decoration: underline;
+}
+
+.Tree-item ul.Tree-collectionItems {
+  padding-left: 15px;
+}
+
+[dir=ltr] .Tree-depth-3 .Tree-collectionLabel::before {
+  left: .25rem;
 }
 
 .Pen-info {
