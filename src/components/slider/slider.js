@@ -5,6 +5,9 @@ function Slider(element) {
     this.slides[i].onmouseover = this.slides[i].onfocus = () => {
       this.setActiveSlide(this.slides[i]);
     };
+    this.slides[i].addEventListener('keyup', (event) => {
+      this.handleKeyEvent(event);
+    }, false);
   }
 }
 
@@ -22,7 +25,7 @@ Slider.prototype.setActiveSlide = function(element) {
   element.setAttribute('aria-expanded', 'true');
 }
 
-Slider.prototype.getActiveSlideIndex = () => {
+Slider.prototype.getActiveSlideIndex = function() {
   for (let i = 0; i < this.slides.length; i++) {
     if (this.slides[i].getAttribute('aria-expanded') === 'true') {
       return i;
@@ -32,32 +35,25 @@ Slider.prototype.getActiveSlideIndex = () => {
   return false;
 }
 
+Slider.prototype.handleKeyEvent = function(event) {
+  if (event.keyCode === 37) {
+    // left - previous
+    let index = this.getActiveSlideIndex();
+    if (index !== false && index > 0) {
+      // @todo Allow looping?
+      this.setActiveSlide(this.slides[index-1]);
+    }
+  } else if (event.keyCode === 39) {
+    // right - next
+    let index = this.getActiveSlideIndex();
+    if (index !== false && index < this.slides.length-1) {
+      this.setActiveSlide(this.slides[index+1]);
+    }
+  }
+}
+
 const sliders = document.getElementsByClassName('slider');
 
 for (let i = 0; i < sliders.length; i++) {
   let slider = new Slider(sliders[i]);
 }
-
-// @todo How to scope this properly to function per-slider.
-document.addEventListener('keyup', (event) => {
-  keyHandler(event);
-}, false);
-
-const keyHandler = function(event) {
-  if (event.keyCode === 37) {
-    // left - previous
-    let index = getActiveSlideIndex();
-    if (index !== false && index > 0) {
-      // @todo Allow looping?
-      setActiveSlide(elements[index-1]);
-    }
-  } else if (event.keyCode === 39) {
-    // right - next
-    let index = getActiveSlideIndex();
-    if (index !== false && index < elements.length-1) {
-      setActiveSlide(elements[index+1]);
-    }
-  }
-}
-
-
