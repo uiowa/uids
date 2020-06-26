@@ -1,20 +1,20 @@
-<div tabindex="0" class="slider__slide" {% if item.feature_expanded %} aria-expanded="true" {% endif %}>
+<div tabindex="0" class="slider__slide" {% if slide.slide_expanded %} aria-expanded="true" {% endif %}>
 
   {% embed '@banner' with {
-    'banner_image' : item.feature_banner_image,
-    'banner_link_url' : item.feature_link,
-    'banner_title' : item.feature_title,
-    'banner_summary' : item.feature_sub,
-    'banner_link_url' : item.feature_sub,
-    'bttn_class' : item.feature_link_class,
-    'banner_link_title' : item.feature_link_title,
-    'banner_classes' : item.feature_banner_class
+    'banner_image' : slide.slide_banner_image,
+    'banner_link_url' : slide.slide_link,
+    'banner_title' : slide.slide_title,
+    'banner_summary' : slide.slide_sub,
+    'banner_link_url' : slide.slide_sub,
+    'bttn_class' : slide.slide_link_class,
+    'banner_link_title' : slide.slide_link_title,
+    'banner_classes' : slide.slide_banner_class
   } %}
 
     {% block banner_image %}
       {% if banner_image %}
         <div class="banner__image">
-          <img src="{{ item.feature_banner_image }}">
+          <img src="{{ slide.slide_banner_image }}">
         </div>
       {% endif %}
     {% endblock %}
@@ -22,7 +22,7 @@
   {% endembed %}
 
   <div class="slider__teaser">
-    <p class="slider__teaser-heading">{{ item.feature_title }}
+    <p class="slider__teaser-heading">{{ slide.slide_title }}
       <span aria-hidden="true" class="fas fa-plus"></span>
     </p>
   </div>
