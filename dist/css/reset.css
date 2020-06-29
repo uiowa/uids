@@ -1,34 +1,18 @@
-//=======================================================
-// Base
-//
-// normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css
-//
-// NOTE: While this uses normalize.css as a starting
-// point it has and will be updated as needed.
-// This should be ONLY plain html element styling.
-// There should be NO classes, IDs, etc.
-//=======================================================
-
-// Sass Lint needs to ignore some Normalize specific things:
-// sass-lint:disable no-duplicate-properties, no-vendor-prefixes
-
 /* Document
    ========================================================================== */
-
 /**
  * 1. Change the default font family in all browsers (opinionated).
  * 2. Correct the line height in all browsers.
  * 3. Prevent adjustments of font size after orientation changes in
  *    IE on Windows Phone and in iOS.
  */
-
 :root {
   font-size: 16px;
 }
 
 html {
   box-sizing: border-box;
-  font-family: $font-family-sans-serif;
+  font-family: "Roboto", sans-serif;
   /* 1 */
   line-height: 1.15;
   /* 2 */
@@ -39,19 +23,16 @@ html {
   touch-action: manipulation;
 }
 
-// https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
 * {
   box-sizing: inherit;
+}
 
-  &::before,
-  &::after {
-    box-sizing: inherit;
-  }
+*::before, *::after {
+  box-sizing: inherit;
 }
 
 /* Sections
    ========================================================================== */
-
 /**
  * Remove the margin in all browsers (opinionated).
  */
@@ -78,7 +59,6 @@ section {
 
 /* Grouping content
    ========================================================================== */
-
 /**
  * Add the correct display in IE 9-.
  * 1. Add the correct display in IE.
@@ -116,7 +96,6 @@ pre {
 
 /* Text-level semantics
    ========================================================================== */
-
 /**
  * 1. Remove the gray background on active links in IE 10.
  * 2. Remove gaps in links underline in iOS 8+ and Safari 8+.
@@ -126,15 +105,14 @@ a {
   /* 1 */
   -webkit-text-decoration-skip: objects;
   /* 2 */
-
   /**
    * Remove the outline on focused links when they are also active or hovered
    * in all browsers (opinionated).
    */
-  &:active,
-  &:hover {
-    outline-width: 0;
-  }
+}
+
+a:active, a:hover {
+  outline-width: 0;
 }
 
 /**
@@ -207,7 +185,6 @@ sup {
 
 /* Embedded content
    ========================================================================== */
-
 /**
  * Add the correct display in IE 9-.
  */
@@ -244,7 +221,6 @@ svg:not(:root) {
 
 /* Forms
    ========================================================================== */
-
 /**
  * 1. Change the font styles in all browsers (opinionated).
  * 2. Remove the margin in Firefox and Safari.
@@ -287,7 +263,6 @@ select {
  */
 button,
 html [type='button'],
-/* 1 */
 [type='reset'],
 [type='submit'] {
   -webkit-appearance: button;
@@ -415,13 +390,11 @@ textarea {
 
 /* Interactive
    ========================================================================== */
-
 /*
  * Add the correct display in IE 9-.
  * 1. Add the correct display in Edge, IE, and Firefox.
  */
 details,
-/* 1 */
 menu {
   display: block;
 }
@@ -435,7 +408,6 @@ summary {
 
 /* Scripting
    ========================================================================== */
-
 /**
  * Add the correct display in IE 9-.
  */
@@ -452,7 +424,6 @@ template {
 
 /* Hidden
    ========================================================================== */
-
 /**
  * Add the correct display in IE 10-.
  */
@@ -462,7 +433,6 @@ template {
 
 /* Lists
    ========================================================================== */
-
 /**
  * Unset default list margin and padding because if not
  * we'll have to unset it every. single. time.
@@ -477,10 +447,15 @@ dl {
 li {
   margin: 0;
   padding: 0;
-  //list-style: none;
 }
 
 .element-invisible,
 .visually-hidden {
-  @include element-invisible();
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
 }
+
+/*# sourceMappingURL=reset.css.map */
