@@ -1,12 +1,12 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Build and release
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
   push:
-    branches: [ feature_github_workflows ]
+    branches: [ master ]
   pull_request:
     branches: [ master ]
 
@@ -23,15 +23,30 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Read .nvmrc
+        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+        id: nvm
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "${{ steps.nvm.outputs.NVMRC }}"
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - run: npm ci
+
+      # Runs a single command using the runners shell
+      - name: Generate ZIP files
+        run: npm run zip
+
+      # https://github.com/actions/create-release#readme
       - name: Create a Release
         uses: actions/create-release@v1.1.1
         env:
@@ -40,8 +55,12 @@ jobs:
           # The name of the tag. This should come from the webhook payload, `github.GITHUB_REF` when a user pushes a new tag
           tag_name: ${{ github.ref }}
           # The name of the release. For example, `Release v1.0.1`
-          release_name: ${{ github.ref }}
+          release_name: Test
           # Text describing the contents of the tag.
           body: Test
-          # `true` to create a draft (unpublished) release, `false` to create a published one. Default: `false`
-          draft: # optional
+          # @todo Remove this before finishing this PR.
+          draft: true
+
+        # https://github.com/marketplace/actions/upload-a-release-asset
+        - name: Upload release asset
+          run: echo ZIP files would be attached to release.
