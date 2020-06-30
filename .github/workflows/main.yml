@@ -20,6 +20,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout code
       - uses: actions/checkout@v2
 
       # Runs a single command using the runners shell
@@ -31,3 +32,16 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+      - name: Create a Release
+        uses: actions/create-release@v1.1.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          # The name of the tag. This should come from the webhook payload, `github.GITHUB_REF` when a user pushes a new tag
+          tag_name: ${{ github.ref }}
+          # The name of the release. For example, `Release v1.0.1`
+          release_name: ${{ github.ref }}
+          # Text describing the contents of the tag.
+          body: Test
+          # `true` to create a draft (unpublished) release, `false` to create a published one. Default: `false`
+          draft: # optional
