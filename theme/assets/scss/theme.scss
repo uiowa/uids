@@ -1,0 +1,199 @@
+@import url('https://use.fontawesome.com/releases/v5.8.2/css/all.css');
+@import 'variables';
+@import 'utilities';
+@import '_local-fonts.scss';
+@import 'typography/headings/headings.scss';
+@import 'typography/paragraph/paragraph.scss';
+@import 'branding/logo/logo.scss';
+@import 'branding/site-name/site-name.scss';
+@import 'menus/off-canvas/off-canvas';
+@import 'header/header';
+@import 'branding/iowa-bar/iowa-bar.scss';
+@import 'tables/tables.scss';
+
+$header-height: 50px;
+
+h1 {
+  font-feature-settings: unset;
+}
+
+.element-invisible,
+.visually-hidden {
+  @include element-invisible
+}
+
+.Header {
+  height: $header-height;
+
+  a {
+    font-weight: inherit;
+    font-size: inherit;
+  }
+
+  &-navToggle {
+    height: $header-height;
+    width: $header-height;
+
+    svg {
+      fill: white;
+    }
+
+    @include breakpoint(menu) {
+      svg {
+        fill: $secondary;
+      }
+    }
+  }
+
+  &-Utils {
+    position: absolute;
+    height: auto;
+    top: 15px;
+    right: 15px;
+
+    color: #ffffff;
+
+    a {
+      color: #ffffff;
+    }
+
+    svg {
+      fill: #ffffff;
+    }
+
+    @include breakpoint(menu) {
+      top: 8px;
+      color: $secondary;
+
+      a {
+        color: $secondary;
+      }
+
+      svg {
+        fill: $secondary;
+      }
+    }
+  }
+
+  [dir=ltr] &-button,
+  [dir=rtl] &-button {
+    border-right: 0;
+  }
+}
+
+.iowa-bar--narrow {
+  @include breakpoint(menu) {
+    position: fixed;
+  }
+
+  width: 100%;
+
+  .site-name {
+    width: 100%;
+
+    @include breakpoint(menu) {
+      width: auto;
+    }
+  }
+
+  .iowa-bar__container {
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+  }
+}
+
+.logo--tab {
+
+  // Override left margin to account for
+  // menu button.
+  .iowa-bar--narrow & {
+    margin-right: auto;
+
+    @include breakpoint(menu) {
+      margin-right: 10px;
+    }
+
+    @include breakpoint(container) {
+      margin-left: 0;
+    }
+  }
+}
+
+.Frame-body {
+  height: calc(100% - #{$header-height});
+  margin-top: 0;
+
+  @include breakpoint(menu) {
+    margin-top: $header-height;
+  }
+}
+
+
+// Sidebar
+.Search-label,
+.Tree-title {
+  color: rgb(34, 37, 43);
+  font-family: $font-family-sans-serif;
+  font-size: 16px;
+}
+
+.Tree {
+  &-collectionLabel {
+    // @todo This should probably be resolved differently.
+    font-weight: $font-weight-bold;
+    text-transform: uppercase;
+    font-family: $font-family-sans-serif;
+    margin-bottom: 0;
+  }
+
+  &-entityLink:hover,
+  &-entityLink:focus {
+    background-color: #e1e1e1;
+
+    span {
+      text-decoration: underline;
+    }
+  }
+
+  &-item ul.Tree-collectionItems {
+    padding-left: 15px;
+  }
+}
+
+[dir=ltr] .Tree-depth-3 .Tree-collectionLabel::before {
+  left: .25rem;
+}
+
+.Pen-info {
+  position: relative;
+  top: 0;
+  overflow: initial;
+}
+
+.Pen-top {
+  margin: 20px;
+  height: calc(100% - 40);
+
+  .Prose {
+    max-width: 100%;
+  }
+}
+
+.Prose {
+  a {
+    color: #00558C;
+    text-decoration: underline;
+  }
+
+  h1 {
+    @include h1;
+  }
+
+  table {
+    width: 100%;
+    margin: 0;
+    font-size: 1.2rem;
+    font-feature-settings: unset;
+  }
+}
