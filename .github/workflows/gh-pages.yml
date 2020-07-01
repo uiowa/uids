@@ -6,9 +6,10 @@ name: Publish to GitHub Pages
 # events but only for the master branch
 on:
   push:
-    branches: [ feature_github_workflows ]
-#  pull_request:
-#    branches: [ master ]
+    tags:
+      - '*'
+  pull_request:
+    branches: [ master ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -22,6 +23,10 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
 
       - name: Read .nvmrc
         run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
@@ -50,5 +55,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
           FOLDER: www # The folder the action should deploy.
-          TARGET_FOLDER: test
+          TARGET_FOLDER: ${{ steps.get_version.outputs.VERSION }}
 
