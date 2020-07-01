@@ -6,10 +6,8 @@ name: Publish to GitHub Pages
 # events but only for the master branch
 on:
   push:
-    tags:
-      - '*'
     branches:
-      - '*'
+      - master
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -27,10 +25,6 @@ jobs:
       - name: Get the version
         id: get_version
         run: echo ::set-env name=BRANCH::${GITHUB_REF#refs/*/}
-
-      - name: Read .nvmrc
-        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
-        id: nvm
 
       - name: Setup node
         uses: actions/setup-node@v2.1.0
@@ -55,5 +49,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: test-branch # The branch the action should deploy to.
           FOLDER: www # The folder the action should deploy.
-          TARGET_FOLDER: ${{ env.BRANCH }}
+          TARGET_FOLDER: latest/${{ env.BRANCH }}
 
