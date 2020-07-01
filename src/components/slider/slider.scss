@@ -55,8 +55,9 @@
     }
 
     .banner--reversed .banner__content {
-      background: rgba(21, 21, 21, 0.6);
+      background: rgba(21, 21, 21, 0.7);
       height: 100%;
+
       @include breakpoint(sm) {
         background: transparent;
         height: auto;
@@ -68,7 +69,12 @@
       bottom: 0;
       top: unset;
       transition: opacity .2s linear;
-      opacity: 0;
+      opacity: 1;
+
+      @include breakpoint(sm) {
+        opacity: 0;
+      }
+
       @include padding($top: $xlg, $right: $xlg, $bottom: $xlg, $left: $xlg);
       width: 100%;
     }
@@ -117,7 +123,12 @@
     width: 100%;
     padding: $md;
     //transition: opacity .4s linear;
-    opacity: 1;
+    opacity: 0;
+
+    @include breakpoint(sm) {
+      opacity: 1;
+    }
+
     color: $white;
     background: rgba(0, 0, 0, 0.75);
     box-shadow: 0 5px 30px 10px rgba(0, 0, 0, 0.3);
