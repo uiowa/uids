@@ -8,8 +8,8 @@ on:
   push:
     tags:
       - '*'
-  pull_request:
-    branches: [ master ]
+    branches:
+      - '*'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -26,7 +26,7 @@ jobs:
 
       - name: Get the version
         id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+        run: echo ::set-env name=BRANCH::${GITHUB_REF#refs/*/}
 
       - name: Read .nvmrc
         run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
@@ -55,5 +55,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
           FOLDER: www # The folder the action should deploy.
-          TARGET_FOLDER: ${{ steps.get_version.outputs.VERSION }}
+          TARGET_FOLDER: ${{ env.BRANCH }}
 
