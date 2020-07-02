@@ -45,18 +45,17 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          key: npm-packages-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: npm-packages-
 
       - run: npm ci
 #      - run: npm run docs
       - run: echo "${{ github.ref }}"
       - run: echo "${{ env.MAIN_BRANCH }}"
-      - run: echo ${{ github.ref }} == "ref/heads/${{ env.MAIN_BRANCH }}"
+#      - run: echo ${{ github.ref }} == "ref/heads/${{ env.MAIN_BRANCH }}"
 
       # @todo Change this to main.
-      # Check if master
+      # Check if main branch
       - name: Deploy main
         if: ${{ github.ref }} == "ref/heads/${{ env.MAIN_BRANCH }}"
         run: echo "Main branch."
@@ -70,7 +69,7 @@ jobs:
 
       # Check if tags
       - name: Deploy tags
-        if: contains(${{ github.ref }}, 'ref/tags')
+        if: contains(github.ref, 'ref/tags')
         run: echo "Tagged release."
         # @todo Set TARGET_FOLDER = docs/${{ env.BRANCH }}
         # @todo Also publish to root docs directory.
