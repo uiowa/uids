@@ -16,12 +16,20 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    env:
+      TARGET_BRANCH: test-branch # @todo Change this before the PR is merged.
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Checkout docs
+        uses: actions/checkout@v2
+        with:
+          ref: gh-pages
+          path: gh-pages
 
       - name: Get the version
         id: get_version
@@ -42,20 +50,25 @@ jobs:
 
       - run: npm ci
       - run: npm run docs
+      - run: echo "${{ github.ref }}"
 
-      # https://github.com/JamesIves/github-pages-deploy-action#readme
-      - name: Deploy version 🚀
-        uses: JamesIves/github-pages-deploy-action@releases/v3
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: test-branch # The branch the action should deploy to.
-          FOLDER: www # The folder the action should deploy.
-          TARGET_FOLDER: docs/${{ env.BRANCH }}
-      # https://github.com/JamesIves/github-pages-deploy-action#readme
-      - name: Deploy base 🚀
-        uses: JamesIves/github-pages-deploy-action@releases/v3
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: test-branch # The branch the action should deploy to.
-          FOLDER: www # The folder the action should deploy.
+      # Check if tags
+#      - name: Deploy tags
+#        if: contains(github.ref, "ref/tags")
+#
+#      # https://github.com/JamesIves/github-pages-deploy-action#readme
+#      - name: Deploy version 🚀
+#        uses: JamesIves/github-pages-deploy-action@releases/v3
+#        with:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          BRANCH: ${{ env.TARGET_BRANCH }} # The branch the action should deploy to.
+#          FOLDER: www # The folder the action should deploy.
+#          TARGET_FOLDER: docs/${{ env.BRANCH }}
+#      # https://github.com/JamesIves/github-pages-deploy-action#readme
+#      - name: Deploy base 🚀
+#        uses: JamesIves/github-pages-deploy-action@releases/v3
+#        with:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          BRANCH: ${{ env.TARGET_BRANCH }} # The branch the action should deploy to.
+#          FOLDER: www # The folder the action should deploy.
 
