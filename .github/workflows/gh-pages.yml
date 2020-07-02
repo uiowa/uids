@@ -62,9 +62,9 @@ jobs:
         # @todo Set TARGET_FOLDER = latest/${{ env.BRANCH }}
 
       # Check if branch other than master
-#      - name: Deploy branch
-#        if: contains(github.ref, "ref/heads") && github.ref != "ref/heads/${{ env.MAIN_BRANCH }}"
-#        run: echo "Feature branch."
+      - name: Deploy branch
+        if: contains(github.ref, "ref/heads") && github.ref != "ref/heads/${{ env.MAIN_BRANCH }}"
+        run: echo "Feature branch."
         # @todo Set TARGET_FOLDER = branches/${{ env.BRANCH }}
 
       # Check if tags
