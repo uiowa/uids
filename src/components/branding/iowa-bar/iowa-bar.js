@@ -1,7 +1,10 @@
 const scrollUp = "scroll-up";
 const scrollDown = "scroll-down";
 const canvasLock = "o-canvas--lock";
+const menuDrawer = document.querySelector('.header-not-sticky .o-canvas__drawer');
+const menuDrawerMobile = document.querySelector('.o-canvas__drawer');
 const header = document.querySelector('[data-uids-header]');
+const menuMq = window.matchMedia("(min-width: 855px)");
 let height = header.clientHeight;
 let lastScroll = 0;
 
@@ -12,6 +15,11 @@ window.addEventListener("scroll", function () {
   if (currentScroll <= height) {
     body.classList.remove(scrollUp);
     body.classList.remove(scrollDown);
+    if (menuMq.matches) {
+      menuDrawer.style.top = Math.max(height - this.scrollY) + 'px';
+    } else {
+      menuDrawerMobile.style.top = Math.max(height - this.scrollY) + 'px';
+    }
     return;
   }
   // if contains lock don't add anything....
