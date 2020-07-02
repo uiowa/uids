@@ -57,7 +57,7 @@ jobs:
       # @todo Change this to main.
       # Check if master
       - name: Deploy main
-        if: github.ref == "ref/heads/${{ env.MAIN_BRANCH }}"
+        if: ${{ github.ref == "ref/heads/"env.MAIN_BRANCH }}
         run: echo "Main branch."
         # @todo Set TARGET_FOLDER = latest/${{ env.BRANCH }}
 
@@ -69,7 +69,7 @@ jobs:
 
       # Check if tags
       - name: Deploy tags
-        if: ${{ contains(github.ref, 'ref/heads') }}
+        if: ${{ contains(github.ref, 'ref/tags') }}
         run: echo "Tagged release."
         # @todo Set TARGET_FOLDER = docs/${{ env.BRANCH }}
         # @todo Also publish to root docs directory.
