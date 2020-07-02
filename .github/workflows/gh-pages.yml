@@ -63,13 +63,13 @@ jobs:
 
       # Check if branch other than master
       - name: Deploy branch
-        if: contains(github.ref, "ref/heads") && github.ref != "ref/heads/${{ env.MAIN_BRANCH }}"
+        if: contains(github.ref, 'ref/heads') && github.ref != "ref/heads/${{ env.MAIN_BRANCH }}"
         run: echo "Feature branch."
         # @todo Set TARGET_FOLDER = branches/${{ env.BRANCH }}
 
       # Check if tags
       - name: Deploy tags
-        if: contains(github.ref, "ref/heads")
+        if: ${{ contains(github.ref, 'ref/heads') }}
         run: echo "Tagged release."
         # @todo Set TARGET_FOLDER = docs/${{ env.BRANCH }}
         # @todo Also publish to root docs directory.
