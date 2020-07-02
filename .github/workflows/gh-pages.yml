@@ -26,11 +26,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Checkout docs
-        uses: actions/checkout@v2
-        with:
-          ref: gh-pages
-          path: gh-pages
+#      - name: Checkout docs
+#        uses: actions/checkout@v2
+#        with:
+#          ref: gh-pages
+#          path: gh-pages
 
       - name: Get the version
         id: get_version
@@ -50,9 +50,10 @@ jobs:
             ${{ runner.os }}-node-
 
       - run: npm ci
-      - run: npm run docs
+#      - run: npm run docs
       - run: echo "${{ github.ref }}"
       - run: echo "${{ env.MAIN_BRANCH }}"
+      - run: echo "${{ github.ref }} == "ref/heads/${{ env.MAIN_BRANCH }}""
 
       # @todo Change this to main.
       # Check if master
