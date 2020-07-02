@@ -1,6 +1,4 @@
-# This is a basic workflow to help you get started with Actions
-
-name: Publish to GitHub Pages
+name: Publish to GitHub Pages (Branches)
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -17,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TARGET_BRANCH: test-branch # @todo Change this before the PR is merged.
+      MAIN_BRANCH: master # @todo Change this to main when branch is renamed.
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -50,6 +49,26 @@ jobs:
       - run: npm ci
       - run: npm run docs
       - run: echo "${{ github.ref }}"
+
+      # @todo Change this to main.
+      # Check if master
+      - name: Deploy main
+        if: github.ref == "ref/heads/${{ env.MAIN_BRANCH }}"
+        run: echo "Main branch."
+        # @todo Set TARGET_FOLDER = latest/${{ env.BRANCH }}
+
+      # Check if branch other than master
+      - name: Deploy branch
+        if: contains(github.ref, "ref/heads") && github.ref != "ref/heads/${{ env.MAIN_BRANCH }}"
+        run: echo "Feature branch."
+        # @todo Set TARGET_FOLDER = branches/${{ env.BRANCH }}
+
+      # Check if tags
+      - name: Deploy tags
+        if: contains(github.ref, "ref/tags")
+        run: echo "Tagged release."
+        # @todo Set TARGET_FOLDER = docs/${{ env.BRANCH }}
+        # @todo Also publish to root docs directory.
 
       # https://github.com/JamesIves/github-pages-deploy-action#readme
 #      - name: Deploy 🚀
