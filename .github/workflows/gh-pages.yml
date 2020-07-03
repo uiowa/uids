@@ -27,8 +27,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - run: echo $GITHUB_WORKSPACE
-      - run: ls -lah $GITHUB_WORKSPACE
+#      - run: echo $GITHUB_WORKSPACE
+#      - run: ls -lah $GITHUB_WORKSPACE
 
       # https://github.com/actions/checkout#readme
       - name: Checkout docs
@@ -37,8 +37,10 @@ jobs:
           ref: gh-pages
           path: gh-pages
 
+      # Remove the '.git' directory in 'gh-pages' to prevent
+      # any git pushing weirdness later.
       - run: rm -rf $GITHUB_WORKSPACE/gh-pages/.git
-      - run: ls -lah $GITHUB_WORKSPACE/gh-pages
+#      - run: ls -lah $GITHUB_WORKSPACE/gh-pages
 
       - name: Get the version
         id: get_version
@@ -59,45 +61,55 @@ jobs:
       - run: npm ci
       - run: npm run docs
       # Check to make sure that docs built into www.
-      - run: ls -lah $GITHUB_WORKSPACE/www
+#      - run: ls -lah $GITHUB_WORKSPACE/www
 
       # Debugging messages.
-      - run: echo "${{ github.ref }}"
-      - run: echo "${{ env.MAIN_BRANCH }}"
-      - run: echo "Main check - ${{ github.ref == format('refs/heads/{0}', env.MAIN_BRANCH) }}"
-      - run: echo "Branch check - ${{ contains(github.ref, 'refs/heads/') && github.ref != format('refs/heads/{0}', env.MAIN_BRANCH) }}"
-      - run: echo "Tags check - ${{ startsWith(github.ref, 'refs/tags/') }}"
+#      - run: echo "${{ github.ref }}"
+#      - run: echo "${{ env.MAIN_BRANCH }}"
+#      - run: echo "Main check - ${{ github.ref == format('refs/heads/{0}', env.MAIN_BRANCH) }}"
+#      - run: echo "Branch check - ${{ contains(github.ref, 'refs/heads/') && github.ref != format('refs/heads/{0}', env.MAIN_BRANCH) }}"
+#      - run: echo "Tags check - ${{ startsWith(github.ref, 'refs/tags/') }}"
 
       # Only one of the following 3 steps should run.
 
-      # Check if main branch
-      - name: Deploy main
+      # If main branch:
+      #   - Remove existing 'latest' directory, if it exists.
+      #   - Move build into 'latest' directory.
+      - name: Main branch preparations
         if: github.ref == format('refs/heads/{0}', env.MAIN_BRANCH)
         run: |
           rm -rf $GITHUB_WORKSPACE/gh-pages/latest
           mv $GITHUB_WORKSPACE/www $GITHUB_WORKSPACE/gh-pages/latest
 
-      # Check if branch other than master
-      - name: Deploy branch
+      # If branch other than master:
+      #   - Create the 'branches' directory if it doesn't exist.
+      #   - Remove existing version of docs, if it exists.
+      #   - Move build into versioned folder.
+      - name: Other branch preparations
         if: contains(github.ref, 'refs/heads/') && github.ref != format('refs/heads/{0}', env.MAIN_BRANCH)
         run: |
           if [ ! -d "$GITHUB_WORKSPACE/gh-pages/branches" ]; then mkdir $GITHUB_WORKSPACE/gh-pages/branches ; fi
           rm -rf $GITHUB_WORKSPACE/gh-pages/branches/${{ env.BRANCH }}
           mv $GITHUB_WORKSPACE/www/ $GITHUB_WORKSPACE/gh-pages/branches/${{ env.BRANCH }}/
 
-      # Check if tags
-      - name: Deploy tags
+      # If tags:
+      #   - Copy the build to the root of 'gh-pages'.
+      #   - Create the 'docs' directory if it doesn't exist.
+      #   - Remove existing version of docs, if it exists.
+      #   - Move build into versioned folder.
+      - name: Tag push preparations
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           cp -a $GITHUB_WORKSPACE/www/* $GITHUB_WORKSPACE/gh-pages
           if [ ! -d "$GITHUB_WORKSPACE/gh-pages/docs" ]; then mkdir $GITHUB_WORKSPACE/gh-pages/docs ; fi
           rm -rf $GITHUB_WORKSPACE/gh-pages/docs/${{ env.BRANCH }}
           mv $GITHUB_WORKSPACE/www/ $GITHUB_WORKSPACE/gh-pages/docs/${{ env.BRANCH }}
-        # @todo Set TARGET_FOLDER = docs/${{ env.BRANCH }}
-        # @todo Also publish to root docs directory.
+
+      # @todo Add condition to check if deleting a branch.
+      # @todo If deleting a branch, remove folder from $GITHUB_WORKSPACE/branches.
 
       # Look at the 'gh-pages' directory to see if everything looks right.
-      - run: ls -lah $GITHUB_WORKSPACE/gh-pages
+#      - run: ls -lah $GITHUB_WORKSPACE/gh-pages
 
       # https://github.com/JamesIves/github-pages-deploy-action#readme
       - name: Deploy version 🚀
