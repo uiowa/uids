@@ -22,19 +22,21 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      # https://github.com/actions/checkout#readme
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout code
         uses: actions/checkout@v2
 
       - run: ls -lah $GITHUB_WORKSPACE
 
+      # https://github.com/actions/checkout#readme
       - name: Checkout docs
         uses: actions/checkout@v2
         with:
           ref: gh-pages
           path: www
 
-      - run: ls -lah $GITHUB_WORKSPACE
+      - run: ls -lah $GITHUB_WORKSPACE/www
 
       - name: Get the version
         id: get_version
@@ -54,7 +56,7 @@ jobs:
 
       - run: npm ci
       - run: npm run docs
-      - run: ls -lah $GITHUB_WORKSPACE
+      - run: ls -lah $GITHUB_WORKSPACE/www
 
       # Debugging messages.
       - run: echo "${{ github.ref }}"
