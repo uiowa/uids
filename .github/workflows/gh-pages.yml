@@ -84,7 +84,7 @@ jobs:
       - name: Deploy tags
         if: startsWith(github.ref, 'refs/tags/')
         run: |
-          cp -a $GITHUB_WORKSPACE/www/* $GITHUB_WORKSPACE/gh-pages
+          cp -a $GITHUB_WORKSPACE/www/* $GITHUB_WORKSPACE/gh-pages,
           rm -rf $GITHUB_WORKSPACE/gh-pages/docs/${{ env.BRANCH }},
           mv $GITHUB_WORKSPACE/www $GITHUB_WORKSPACE/gh-pages/docs/${{ env.BRANCH }}
         # @todo Set TARGET_FOLDER = docs/${{ env.BRANCH }}
