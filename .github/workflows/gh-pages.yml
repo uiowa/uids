@@ -78,7 +78,7 @@ jobs:
         if: contains(github.ref, 'refs/heads/') && github.ref != format('refs/heads/{0}', env.MAIN_BRANCH)
         run: |
           rm -rf $GITHUB_WORKSPACE/gh-pages/branches/${{ env.BRANCH }},
-          mv $GITHUB_WORKSPACE/www $GITHUB_WORKSPACE/gh-pages/branches/${{ env.BRANCH }}
+          mv $GITHUB_WORKSPACE/www/ $GITHUB_WORKSPACE/gh-pages/branches/${{ env.BRANCH }}/
 
       # Check if tags
       - name: Deploy tags
@@ -86,7 +86,7 @@ jobs:
         run: |
           cp -a $GITHUB_WORKSPACE/www/* $GITHUB_WORKSPACE/gh-pages,
           rm -rf $GITHUB_WORKSPACE/gh-pages/docs/${{ env.BRANCH }},
-          mv $GITHUB_WORKSPACE/www $GITHUB_WORKSPACE/gh-pages/docs/${{ env.BRANCH }}
+          mv $GITHUB_WORKSPACE/www/ $GITHUB_WORKSPACE/gh-pages/docs/${{ env.BRANCH }}/
         # @todo Set TARGET_FOLDER = docs/${{ env.BRANCH }}
         # @todo Also publish to root docs directory.
 
