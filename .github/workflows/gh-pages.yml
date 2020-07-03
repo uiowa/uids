@@ -52,6 +52,8 @@ jobs:
 #      - run: npm run docs
       - run: echo "${{ github.ref }}"
       - run: echo "${{ env.MAIN_BRANCH }}"
+      - run: echo "Main deploy check ${{ endsWith(github.ref, env.MAIN_BRANCH) }}"
+      - run: echo "Tags deploy check ${{ startsWith(github.ref, 'ref/tags') }}"
 
       # @todo Change this to main.
       # Check if main branch
