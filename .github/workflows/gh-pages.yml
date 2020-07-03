@@ -73,7 +73,7 @@ jobs:
       - name: Deploy main
         if: github.ref == format('refs/heads/{0}', env.MAIN_BRANCH)
         run: |
-          rm -rf $GITHUB_WORKSPACE/gh-pages/latest,
+          rm -rf $GITHUB_WORKSPACE/gh-pages/latest
           mv $GITHUB_WORKSPACE/www $GITHUB_WORKSPACE/gh-pages/latest
 
       # Check if branch other than master
@@ -97,20 +97,12 @@ jobs:
 
       # Look at the 'gh-pages' directory to see if everything looks right.
       - run: ls -lah $GITHUB_WORKSPACE/gh-pages
-#
-#      # https://github.com/JamesIves/github-pages-deploy-action#readme
-#      - name: Deploy version 🚀
-#        uses: JamesIves/github-pages-deploy-action@releases/v3
-#        with:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#          BRANCH: ${{ env.TARGET_BRANCH }} # The branch the action should deploy to.
-#          FOLDER: www # The folder the action should deploy.
-#          TARGET_FOLDER: docs/${{ env.BRANCH }}
-#      # https://github.com/JamesIves/github-pages-deploy-action#readme
-#      - name: Deploy base 🚀
-#        uses: JamesIves/github-pages-deploy-action@releases/v3
-#        with:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#          BRANCH: ${{ env.TARGET_BRANCH }} # The branch the action should deploy to.
-#          FOLDER: www # The folder the action should deploy.
+
+      # https://github.com/JamesIves/github-pages-deploy-action#readme
+      - name: Deploy version 🚀
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: ${{ env.TARGET_BRANCH }} # The branch the action should deploy to.
+          FOLDER: www # The folder the action should deploy.
 
