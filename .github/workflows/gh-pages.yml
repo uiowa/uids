@@ -34,9 +34,9 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: gh-pages
-          path: www
+          path: gh-pages
 
-      - run: ls -lah $GITHUB_WORKSPACE/www
+      - run: ls -lah $GITHUB_WORKSPACE/gh-pages
 
       - name: Get the version
         id: get_version
@@ -56,7 +56,6 @@ jobs:
 
       - run: npm ci
       - run: npm run docs
-      - run: ls -lah $GITHUB_WORKSPACE/www
 
       # Debugging messages.
       - run: echo "${{ github.ref }}"
@@ -70,21 +69,29 @@ jobs:
       # Check if main branch
       - name: Deploy main
         if: github.ref == format('refs/heads/{0}', env.MAIN_BRANCH)
-        run: echo "Main branch."
-        # @todo Set TARGET_FOLDER = latest/${{ env.BRANCH }}
+        run: |
+          rm -rf $GITHUB_WORKSPACE/gh-pages/latest,
+          mv $GITHUB_WORKSPACE/www $GITHUB_WORKSPACE/gh-pages/latest
 
       # Check if branch other than master
       - name: Deploy branch
         if: contains(github.ref, 'refs/heads/') && github.ref != format('refs/heads/{0}', env.MAIN_BRANCH)
-        run: echo "Feature branch."
-        # @todo Set TARGET_FOLDER = branches/${{ env.BRANCH }}
+        run: |
+          rm -rf $GITHUB_WORKSPACE/gh-pages/branches/${{ env.BRANCH }},
+          mv $GITHUB_WORKSPACE/www $GITHUB_WORKSPACE/gh-pages/branches/${{ env.BRANCH }}
 
       # Check if tags
       - name: Deploy tags
         if: startsWith(github.ref, 'refs/tags/')
-        run: echo "Tagged release."
+        run: |
+          cp -a $GITHUB_WORKSPACE/www/* $GITHUB_WORKSPACE/gh-pages
+          rm -rf $GITHUB_WORKSPACE/gh-pages/docs/${{ env.BRANCH }},
+          mv $GITHUB_WORKSPACE/www $GITHUB_WORKSPACE/gh-pages/docs/${{ env.BRANCH }}
         # @todo Set TARGET_FOLDER = docs/${{ env.BRANCH }}
         # @todo Also publish to root docs directory.
+
+      # Look at the 'gh-pages' directory to see if everything looks right.
+      - run: ls -lah $GITHUB_WORKSPACE/gh-pages
 #
 #      # https://github.com/JamesIves/github-pages-deploy-action#readme
 #      - name: Deploy version 🚀
