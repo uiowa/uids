@@ -26,7 +26,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - run: ls -lah ./
       - run: ls -lah $GITHUB_WORKSPACE
 
       - name: Checkout docs
@@ -35,7 +34,6 @@ jobs:
           ref: gh-pages
           path: www
 
-      - run: ls -lah ./
       - run: ls -lah $GITHUB_WORKSPACE
 
       - name: Get the version
@@ -55,7 +53,8 @@ jobs:
           restore-keys: npm-packages-
 
       - run: npm ci
-#      - run: npm run docs
+      - run: npm run docs
+      - run: ls -lah $GITHUB_WORKSPACE
 
       # Debugging messages.
       - run: echo "${{ github.ref }}"
