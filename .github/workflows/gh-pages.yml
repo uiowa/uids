@@ -52,6 +52,7 @@ jobs:
 #      - run: npm run docs
       - run: echo "${{ github.ref }}"
       - run: echo "${{ env.MAIN_BRANCH }}"
+      - run: echo "contains(github.ref, 'refs/heads/') && github.ref != format('refs/heads/{0}', env.MAIN_BRANCH) - ${{ contains(github.ref, 'refs/heads/') && github.ref != format('refs/heads/{0}', env.MAIN_BRANCH) }}
 
       # @todo Change this to main.
       # Check if main branch
@@ -62,7 +63,7 @@ jobs:
 
       # Check if branch other than master
       - name: Deploy branch
-        if: contains(github.ref, 'refs/heads') && github.ref != "refs/heads/${{ env.MAIN_BRANCH }}"
+        if: contains(github.ref, 'refs/heads/') && github.ref != format('refs/heads/{0}', env.MAIN_BRANCH)
         run: echo "Feature branch."
         # @todo Set TARGET_FOLDER = branches/${{ env.BRANCH }}
 
