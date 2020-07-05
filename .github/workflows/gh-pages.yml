@@ -2,7 +2,8 @@ name: Publish docs to GitHub Pages
 
 # Triggers on pushes to branches and tags, as well a deleting a branch.
 on:
-  delete
+  delete:
+    - '*'
   push:
     branches:
       - '*'
@@ -64,7 +65,8 @@ jobs:
 #      - run: ls -lah $GITHUB_WORKSPACE/www
 
       # Debugging messages.
-#      - run: echo "${{ github.ref }}"
+      - run: echo "${{ github.ref }}"
+      - run: echo "${{ github.event }}"
 #      - run: echo "${{ env.MAIN_BRANCH }}"
 #      - run: echo "Main check - ${{ github.ref == format('refs/heads/{0}', env.MAIN_BRANCH) }}"
 #      - run: echo "Branch check - ${{ contains(github.ref, 'refs/heads/') && github.ref != format('refs/heads/{0}', env.MAIN_BRANCH) }}"
