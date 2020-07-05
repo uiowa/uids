@@ -65,7 +65,7 @@ jobs:
 
       # Debugging messages.
 #      - run: echo "${{ github.ref }}"
-      - run: echo "${{ toJSON(github.event) }}"
+      - run: echo "Deleted - ${{ github.event.deleted == true }}"
 #      - run: echo "${{ env.MAIN_BRANCH }}"
 #      - run: echo "Main check - ${{ github.ref == format('refs/heads/{0}', env.MAIN_BRANCH) }}"
 #      - run: echo "Branch check - ${{ contains(github.ref, 'refs/heads/') && github.ref != format('refs/heads/{0}', env.MAIN_BRANCH) }}"
@@ -77,7 +77,7 @@ jobs:
       #   - Remove existing 'latest' directory, if it exists.
       #   - Move build into 'latest' directory.
       - name: Main branch preparations
-        if: env.GITHUB_EVENT_TRIGGER == 'push' && github.ref == format('refs/heads/{0}', env.MAIN_BRANCH)
+        if: github.event.deleted == false && github.ref == format('refs/heads/{0}', env.MAIN_BRANCH)
         run: |
           rm -rf $GITHUB_WORKSPACE/gh-pages/latest
           mv $GITHUB_WORKSPACE/www $GITHUB_WORKSPACE/gh-pages/latest
@@ -87,7 +87,7 @@ jobs:
       #   - Remove existing version of docs, if it exists.
       #   - Move build into versioned folder.
       - name: Other branch preparations
-        if: env.GITHUB_EVENT_TRIGGER == 'push' && contains(github.ref, 'refs/heads/') && github.ref != format('refs/heads/{0}', env.MAIN_BRANCH)
+        if: github.event.deleted == false && contains(github.ref, 'refs/heads/') && github.ref != format('refs/heads/{0}', env.MAIN_BRANCH)
         run: |
           if [ ! -d "$GITHUB_WORKSPACE/gh-pages/branches" ]; then mkdir $GITHUB_WORKSPACE/gh-pages/branches ; fi
           rm -rf $GITHUB_WORKSPACE/gh-pages/branches/${{ env.BRANCH }}
@@ -99,7 +99,7 @@ jobs:
       #   - Remove existing version of docs, if it exists.
       #   - Move build into versioned folder.
       - name: Tag push preparations
-        if: env.GITHUB_EVENT_TRIGGER == 'push' && startsWith(github.ref, 'refs/tags/')
+        if: github.event.deleted == false && startsWith(github.ref, 'refs/tags/')
         run: |
           cp -a $GITHUB_WORKSPACE/www/* $GITHUB_WORKSPACE/gh-pages
           if [ ! -d "$GITHUB_WORKSPACE/gh-pages/docs" ]; then mkdir $GITHUB_WORKSPACE/gh-pages/docs ; fi
@@ -108,7 +108,7 @@ jobs:
 
       # If event trigger is 'delete', remove the branch folder, if it exists.
       - name: Branch deletion preparations
-        if: env.GITHUB_EVENT_TRIGGER == 'delete'
+        if: github.event.deleted == true
         run: if [ -d "$GITHUB_WORKSPACE/gh-pages/branches/${{ env.BRANCH }}" ]; then rm -rf $GITHUB_WORKSPACE/gh-pages/branches/${{ env.BRANCH }} ; fi
 
       # Look at the 'gh-pages' directory to see if everything looks right.
