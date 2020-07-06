@@ -3,10 +3,10 @@
 //   this.multiSelectible = element.getAttribute('aria-multiselectable') === 'true' || false;
 // }
 // @todo Finish converting this to OO implementation.
-const accordions = document.getElementsByClassName("uids-accordion");
+const accordions = document.getElementsByClassName("accordion");
 
 Array.prototype.forEach.call(accordions, accordion => {
-  let accordion_elements = accordion.getElementsByClassName("uids-accordion__heading");
+  let accordion_elements = accordion.getElementsByClassName("accordion__heading");
   let multiselectable = accordion.getAttribute('aria-multiselectable') === 'true' || false;
 
   Array.prototype.forEach.call(accordion_elements, el => {
