@@ -121,7 +121,7 @@
     
         
     
-<label class="Status-label" style="background-color: #A84F00; color: white; border-color: #A84F00;">WIP <i class="fas fa-exclamation-triangle"></i></label>
+<label class="Status-label" style="background-color: #187718; color: white; border-color: #187718;">Ready <i class="fas fa-check"></i></label>
 
 </div>
 
@@ -358,44 +358,54 @@
                         <div class="FileBrowser-itemPreview">
                             
                             <code class="Code Code--lang-JavaScript FileBrowser-code hljs">
-                                <pre><span class="hljs-comment">// function Accordion(element) {</span>
-<span class="hljs-comment">//   this.panels = element.getElementsByClassName("uids-accordion__heading");</span>
-<span class="hljs-comment">//   this.multiSelectible = element.getAttribute('aria-multiselectable') === 'true' || false;</span>
-<span class="hljs-comment">// }</span>
-<span class="hljs-comment">// @todo Finish converting this to OO implementation.</span>
+                                <pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Accordion</span>(<span class="hljs-params">element</span>) </span>{
+  <span class="hljs-keyword">this</span>.panels = element.getElementsByClassName(<span class="hljs-string">"accordion__heading"</span>);
+  <span class="hljs-keyword">this</span>.multiSelectible = element.getAttribute(<span class="hljs-string">'aria-multiselectable'</span>) === <span class="hljs-string">'true'</span> || <span class="hljs-literal">false</span>;
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.panels.length; i++) {
+
+    <span class="hljs-keyword">let</span> btn = <span class="hljs-keyword">this</span>.panels[i].querySelector(<span class="hljs-string">'button'</span>);
+    <span class="hljs-keyword">let</span> target = <span class="hljs-keyword">this</span>.panels[i].nextElementSibling;
+
+    <span class="hljs-keyword">let</span> expanded = btn.getAttribute(<span class="hljs-string">'aria-expanded'</span>) === <span class="hljs-string">'true'</span> || <span class="hljs-literal">false</span>;
+    target.hidden = !expanded;
+
+    btn.onclick = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+      <span class="hljs-keyword">this</span>.togglePanel(btn, target);
+    }
+  }
+}
+
+Accordion.prototype.togglePanel = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">btn, target</span>) </span>{
+  <span class="hljs-keyword">let</span> expanded = btn.getAttribute(<span class="hljs-string">'aria-expanded'</span>) === <span class="hljs-string">'true'</span> || <span class="hljs-literal">false</span>;
+
+  <span class="hljs-comment">// Checks if multiple panels can be open at once. If not, closes other panels.</span>
+  <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.multiSelectible &amp;&amp; !expanded) {
+    <span class="hljs-keyword">this</span>.collapseAllPanels();
+  }
+
+  btn.setAttribute(<span class="hljs-string">'aria-expanded'</span>, !expanded);
+  btn.setAttribute(<span class="hljs-string">'aria-selected'</span>, !expanded);
+  target.hidden = expanded;
+}
+
+Accordion.prototype.collapseAllPanels = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.panels.length; i++) {
+    <span class="hljs-keyword">let</span> inner_target = <span class="hljs-keyword">this</span>.panels[i].nextElementSibling;
+    <span class="hljs-keyword">let</span> inner_btn = <span class="hljs-keyword">this</span>.panels[i].querySelector(<span class="hljs-string">'button'</span>);
+    inner_btn.setAttribute(<span class="hljs-string">'aria-expanded'</span>, <span class="hljs-string">'false'</span>);
+    inner_btn.setAttribute(<span class="hljs-string">'aria-selected'</span>, <span class="hljs-string">'false'</span>);
+    inner_target.hidden = <span class="hljs-literal">true</span>;
+  }
+}
+
+<span class="hljs-comment">// Instantiate accordions on the page.</span>
 <span class="hljs-keyword">const</span> accordions = <span class="hljs-built_in">document</span>.getElementsByClassName(<span class="hljs-string">"accordion"</span>);
 
-<span class="hljs-built_in">Array</span>.prototype.forEach.call(accordions, accordion =&gt; {
-  <span class="hljs-keyword">let</span> accordion_elements = accordion.getElementsByClassName(<span class="hljs-string">"accordion__heading"</span>);
-  <span class="hljs-keyword">let</span> multiselectable = accordion.getAttribute(<span class="hljs-string">'aria-multiselectable'</span>) === <span class="hljs-string">'true'</span> || <span class="hljs-literal">false</span>;
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; accordions.length; i++) {
+  <span class="hljs-keyword">let</span> accordion = <span class="hljs-keyword">new</span> Accordion(accordions[i]);
+}
 
-  <span class="hljs-built_in">Array</span>.prototype.forEach.call(accordion_elements, el =&gt; {
-      <span class="hljs-keyword">let</span> btn = el.querySelector(<span class="hljs-string">'button'</span>);
-      <span class="hljs-keyword">let</span> target = el.nextElementSibling;
-
-      <span class="hljs-keyword">let</span> expanded = btn.getAttribute(<span class="hljs-string">'aria-expanded'</span>) === <span class="hljs-string">'true'</span> || <span class="hljs-literal">false</span>;
-      target.hidden = !expanded;
-
-      btn.onclick = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-        <span class="hljs-keyword">let</span> expanded = btn.getAttribute(<span class="hljs-string">'aria-expanded'</span>) === <span class="hljs-string">'true'</span> || <span class="hljs-literal">false</span>;
-
-          <span class="hljs-comment">// Checks if multiple panels can be open at once. If not, closes other panels.</span>
-          <span class="hljs-keyword">if</span> (!multiselectable &amp;&amp; !expanded) {
-              <span class="hljs-built_in">Array</span>.prototype.forEach.call(accordion_elements, el =&gt; {
-                  <span class="hljs-keyword">let</span> inner_target = el.nextElementSibling;
-                  <span class="hljs-keyword">let</span> inner_btn = el.querySelector(<span class="hljs-string">'button'</span>);
-                  inner_btn.setAttribute(<span class="hljs-string">'aria-expanded'</span>, expanded);
-                  inner_btn.setAttribute(<span class="hljs-string">'aria-selected'</span>, expanded);
-                  inner_target.hidden = !expanded;
-              });
-          }
-
-        btn.setAttribute(<span class="hljs-string">'aria-expanded'</span>, !expanded);
-        btn.setAttribute(<span class="hljs-string">'aria-selected'</span>, !expanded);
-        target.hidden = expanded;
-      }
-  });
-});
 </pre>
                             </code>
                             
@@ -412,7 +422,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">1.6 KB</span>
+                    <span class="Meta-value">1.5 KB</span>
                 </li>
             </ul>
         </div>
@@ -1216,7 +1226,7 @@
                 
                     
 
-<span style="color: #A84F00;" title="WIP">Single Select</span>
+<span style="color: #187718;" title="Ready">Single Select</span>
 
 
                 
@@ -1231,7 +1241,7 @@
                 
                     
 
-<span style="color: #A84F00;" title="WIP">Multi Select</span>
+<span style="color: #187718;" title="Ready">Multi Select</span>
 
 
                 
@@ -1340,7 +1350,7 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-07-06T12:48:20.802Z">
+            <time datetime="2020-07-06T13:08:34.571Z">
                 7/6/2020
             </time>
         </div>
