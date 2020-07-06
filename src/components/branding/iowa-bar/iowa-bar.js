@@ -16,7 +16,9 @@ window.addEventListener("scroll", function () {
     body.classList.remove(scrollUp);
     body.classList.remove(scrollDown);
     if (menuMq.matches) {
-      menuDrawer.style.top = Math.max(height - this.scrollY) + 'px';
+      if (menuDrawer) {
+        menuDrawer.style.top = Math.max(height - this.scrollY) + 'px';
+      }
     } else {
       menuDrawerMobile.style.top = Math.max(height - this.scrollY) + 'px';
     }
@@ -35,4 +37,13 @@ window.addEventListener("scroll", function () {
     body.classList.add(scrollUp);
   }
   lastScroll = currentScroll;
+});
+
+window.addEventListener("orientationchange", function (event) {
+  var afterOrientationChange = function () {
+    menuDrawerMobile.style.top = Math.max(header.offsetHeight - this.scrollY) + 'px';
+    window.removeEventListener('resize', afterOrientationChange);
+  };
+  window.addEventListener('resize', afterOrientationChange);
+  return;
 });
