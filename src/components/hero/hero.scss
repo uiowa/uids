@@ -1,3 +1,6 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/utilities';
+
 @media (hover:none),
 (hover:on-demand) {
   .video-btn {
@@ -115,6 +118,7 @@
   }
 }
 
+
 img.hero-image {
   display: block;
   width: 100%;
@@ -180,6 +184,7 @@ img.hero-image {
   margin-right: 0;
 }
 
+/*
 .hero.hero__center {
   p {
     @include breakpoint(sm) {
@@ -187,7 +192,7 @@ img.hero-image {
     }
   }
 }
-
+*/
 
 
 .hero {
@@ -203,25 +208,23 @@ img.hero-image {
   }
 
   .bold-headline {
-    &.bold-headline--caps {}
-
-    &.bold-headline--serif {
-      color: #000;
-
-      @include breakpoint(sm) {
-        color: #fff;
-      }
+    &.bold-headline--negative {
+       line-height: 1;
+       color: #000;
+        @include breakpoint(sm) {
+          text-shadow: 0 1px 1px #000;
+          color: #fff;
+        }
     }
 
     margin-top: 0;
     padding: 0;
     margin-bottom: .7rem;
     font-size: calc(100% + 4vw);
-    line-height: 1;
 
     @include breakpoint(sm) {
-      text-shadow: 0 1px 1px #000;
       font-size: calc(100% + 2.5vw);
+
     }
 
     @include breakpoint(menu) {
@@ -353,7 +356,7 @@ img.hero-image {
   }
 }
 
-.hero::after {
+.hero--gradient::after {
   position: absolute;
   top: 0;
   left: 0;
@@ -368,6 +371,20 @@ img.hero-image {
   background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 1));
   will-change: opacity;
 }
+
+.hero--solid::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  content: "";
+  background: rgba(0, 0, 0, .6);
+  will-change: opacity;
+}
+
+
 
 @media only screen and (min-width: 889px) {
   body {}
