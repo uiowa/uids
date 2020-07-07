@@ -1,14 +1,9 @@
 // traditional navigation below logo
 
-.menu-horizontal {
+.nav--horizontal {
   padding-top: 10px;
   border-bottom: 1px solid #ccc;
   background: #fff;
-
-  &.header--tertiary {
-    padding-top: 0;
-    border-bottom: 0;
-  }
 }
 
 .block-superfish .menu>li:first-child>a {
@@ -17,7 +12,7 @@
 
 ////
 
-.header--tertiary {
+.iowa-bar.iowa-bar--narrow {
   .bttn--drawer {
     display: flex;
     height: 60px;
@@ -64,7 +59,7 @@
 }
 
 
-.header--tertiary .o-canvas__group {
+.iowa-bar.iowa-bar--narrow .o-canvas__group {
   position: relative;
   display: flex;
   height: 100%;
@@ -197,11 +192,12 @@ body {
   padding: 0 0 0 15px;
   font-weight: 700;
   font-size: 1rem;
+  z-index: 2;
 
   @include breakpoint(menu) {
     height: 80px;
     padding: 14px 35px 0;
-    .header--tertiary & {
+    .iowa-bar--narrow & {
       padding: 9px 35px 0;
     }
   }
@@ -274,7 +270,7 @@ body {
   visibility: hidden;
   overflow-y: auto;
   width: 100%;;
-  height: calc(100% - 80px);
+  height: 100%;
   padding: 20px 22px 40px;
   transition: clip-path 1s, opacity .5s, transform .5s, visibility .5s;
   transform: scale(0.925);
@@ -288,9 +284,8 @@ body {
   }
 
   .o-canvas--open & {
-    //top: 140px;
     visibility: visible;
-    height: calc(100% - 80px);
+    height: 100%;
     transition: all .4s ease-in-out;
     transform: scale(1);
     opacity: 1;
@@ -302,24 +297,14 @@ body {
   }
 }
 
-.header--tertiary .o-canvas__drawer {
-  //top: 195px;
-
+.iowa-bar.iowa-bar--narrow .o-canvas--open .o-canvas__drawer {
   @include breakpoint(menu) {
+    top: 146px;
+  }
+  @include breakpoint(container) {
     top: 140px;
   }
 }
-
-.header--tertiary .o-canvas--open .o-canvas__drawer {
-  //top: 195px;
-
-  @include breakpoint(menu) {
-    top: 140px;
-  }
-}
-
-
-
 
 .o-canvas__drawer {
   background-color: rgb(255, 255, 255);
@@ -330,5 +315,8 @@ body {
   transition: background-color 0.01s;
 }
 
+.o-canvas--lock .iowa-bar__below {
+  background: #f1f1f1;
+}
 
 
