@@ -1,7 +1,5 @@
 <div class="hero hero__{{ hero_content }} hero--{{ hero_overlay }}">
 
-
-
   {% block hero_media %}
     {% if hero_type == 'video' %}
       <video class="hero__video" autoplay="autoplay" muted="muted" loop="loop" id="video-container" poster="{{ hero_image }}">
@@ -17,32 +15,31 @@
   {% endblock %}
 
   {% block hero_content_wrapper %}
-<div class="hero__container hero__container-{{ hero_content}}">
-    <div class="hero__content hero__content-{{ hero_content }}">
+    <div class="hero__container hero__container-{{ hero_content}}">
+      <div class="hero__content hero__content-{{ hero_content }}">
 
-    {% if hero_type == 'video' %}
-        <div class="video-controls video">
-          <button class="video-btn video-btn__pause" id="video-btn">
-            <span class="element-invisible">Pause</span>
-          </button>
-        </div>
-      {% endif %}
+        {% if hero_type == 'video' %}
+          <div class="video-controls video">
+            <button class="video-btn video-btn__pause" id="video-btn">
+              <span class="element-invisible">Pause</span>
+            </button>
+          </div>
+        {% endif %}
 
-
-{% block headline %}
-	{% if hero_title is not empty %}
-		{% include "@headline" with {
+        {% block headline %}
+          {% if hero_title is not empty %}
+            {% include "@headline" with {
               "heading_level" : 'h2',
               "heading_class" : hero_title_classes,
               "heading" : hero_title
             } %}
-	{% endif %}
-{% endblock %}
+          {% endif %}
+        {% endblock %}
 
- {{ hero_text }}
+        {{ hero_text }}
 
+      </div>
     </div>
-</div>
 
   {% endblock %}
 </div>
