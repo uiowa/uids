@@ -21,13 +21,17 @@
          &:focus {
            text-decoration: underline;
          }
-        .header--primary & {
+        .iowa-bar--full & {
           font-size: .9rem;
           padding-right: 0;
-          @include breakpoint(sm) {
+          @include breakpoint(menu) {
           font-size: 1.2rem;
           padding-right: $md;
           }
+        }
+
+        .iowa-bar--narrow & {
+          padding: .8rem $md;
         }
 
         &:hover {}
@@ -36,7 +40,7 @@
   }
 }
 
-.header--tertiary {
+.iowa-bar--narrow {
   .menu--top {
       @include element-invisible;
         @include breakpoint(menu) {
@@ -47,25 +51,25 @@
   }
 }
 
-.menu--top.uids-menu {
+.menu--top.nav {
   margin-top: 7px;
   position: absolute;
   z-index: 2;
   right: 96px;
+  top: 0;
+  display: block;
 
   @include breakpoint(sm) {
     margin-top: 9px;
   }
 
   @include breakpoint(menu) {
-    position: absolute;
-    top: 0;
     right: 356px;
     margin-top: 11px;
   }
 }
 
-.header--tertiary .uids-menu.menu--top {
+.iowa-bar--narrow .nav.menu--top {
   position: absolute;
   top: 0;
   right: 20px;
@@ -76,6 +80,6 @@
   margin: 0;
 }
 
-.uids-menu.menu--top .menu li a {
+.nav.menu--top .menu li a {
   font-weight: $font-weight-light;
 }
