@@ -10,9 +10,11 @@
 {% if site_name_position == 'below' %}
   {% set classes = classes ~ ' iowa-bar--narrow' %}
 {% endif %}
-<header class="{{ classes }}">
+<header class="{{ classes }}" data-uids-header>
   <div class="iowa-bar__container">
-    {% render '@logo' %}
+    {% render '@logo' with {
+      'logo_id': 'header',
+    } %}
     {% if parent_site.name is not empty %}
       {% include '@parent-site-name' with parent_site %}
     {% elseif site_name and site_name_position == 'inline' %}

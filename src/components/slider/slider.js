@@ -52,6 +52,7 @@ Slider.prototype.handleKeyEvent = function(event) {
   }
 }
 
+// Instantiate sliders on the page.
 const sliders = document.getElementsByClassName('slider');
 
 for (let i = 0; i < sliders.length; i++) {

@@ -1,0 +1,124 @@
+name: Publish docs to GitHub Pages
+
+# Triggers on pushes to branches and tags, as well a deleting a branch.
+on:
+  delete:
+  push:
+    branches:
+      - '*'
+    tags:
+      - '*'
+      # @todo Change this to only reference tags starting with v.
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    env:
+      TARGET_BRANCH: gh-pages
+      MAIN_BRANCH: main
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # https://github.com/actions/checkout#readme
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+#      - run: echo $GITHUB_WORKSPACE
+#      - run: ls -lah $GITHUB_WORKSPACE
+
+      # https://github.com/actions/checkout#readme
+      - name: Checkout docs
+        uses: actions/checkout@v2
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      # Remove the '.git' directory in 'gh-pages' to prevent
+      # any git pushing weirdness later.
+      - run: rm -rf $GITHUB_WORKSPACE/gh-pages/.git
+#      - run: ls -lah $GITHUB_WORKSPACE/gh-pages
+
+      - name: Get the version
+        id: get_version
+        run: echo ::set-env name=BRANCH::${GITHUB_REF#refs/*/}
+
+      - name: Setup node
+        uses: actions/setup-node@v2.1.0
+        with:
+          node-version: "12.x"
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-packages-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: npm-packages-
+
+      - run: npm ci
+      - run: npm run docs
+      # Check to make sure that docs built into www.
+#      - run: ls -lah $GITHUB_WORKSPACE/www
+
+      # Debugging messages.
+#      - run: echo "${{ github.ref }}"
+#      - run: echo "${{ env.MAIN_BRANCH }}"
+#      - run: echo "Main check - ${{ github.ref == format('refs/heads/{0}', env.MAIN_BRANCH) }}"
+#      - run: echo "Branch check - ${{ contains(github.ref, 'refs/heads/') && github.ref != format('refs/heads/{0}', env.MAIN_BRANCH) }}"
+#      - run: echo "Tags check - ${{ startsWith(github.ref, 'refs/tags/') }}"
+
+      # Only one of the following 3 steps should run.
+
+      # If main branch:
+      #   - Remove existing 'latest' directory, if it exists.
+      #   - Move build into 'latest' directory.
+      - name: Main branch preparations
+        if: github.event.deleted == false && github.ref == format('refs/heads/{0}', env.MAIN_BRANCH)
+        run: |
+          rm -rf $GITHUB_WORKSPACE/gh-pages/latest
+          mv $GITHUB_WORKSPACE/www $GITHUB_WORKSPACE/gh-pages/latest
+
+      # If branch other than main:
+      #   - Create the 'branches' directory if it doesn't exist.
+      #   - Remove existing version of docs, if it exists.
+      #   - Move build into versioned folder.
+      - name: Other branch preparations
+        if: github.event.deleted == false && contains(github.ref, 'refs/heads/') && github.ref != format('refs/heads/{0}', env.MAIN_BRANCH)
+        run: |
+          if [ ! -d "$GITHUB_WORKSPACE/gh-pages/branches" ]; then mkdir $GITHUB_WORKSPACE/gh-pages/branches ; fi
+          rm -rf $GITHUB_WORKSPACE/gh-pages/branches/${{ env.BRANCH }}
+          mv $GITHUB_WORKSPACE/www/ $GITHUB_WORKSPACE/gh-pages/branches/${{ env.BRANCH }}/
+
+      # If tags:
+      #   - Copy the build to the root of 'gh-pages'.
+      #   - Create the 'docs' directory if it doesn't exist.
+      #   - Remove existing version of docs, if it exists.
+      #   - Move build into versioned folder.
+      # @todo Do we need to have a method for checking if this is the most recent version?
+      - name: Tag push preparations
+        if: github.event.deleted == false && startsWith(github.ref, 'refs/tags/')
+        run: |
+          cp -a $GITHUB_WORKSPACE/www/* $GITHUB_WORKSPACE/gh-pages
+          if [ ! -d "$GITHUB_WORKSPACE/gh-pages/docs" ]; then mkdir $GITHUB_WORKSPACE/gh-pages/docs ; fi
+          rm -rf $GITHUB_WORKSPACE/gh-pages/docs/${{ env.BRANCH }}
+          mv $GITHUB_WORKSPACE/www/ $GITHUB_WORKSPACE/gh-pages/docs/${{ env.BRANCH }}
+
+      # If event trigger is 'delete', remove the branch folder, if it exists.
+      - name: Branch deletion preparations
+        if: github.event.deleted == true
+        run: if [ -d "$GITHUB_WORKSPACE/gh-pages/branches/${{ env.BRANCH }}" ]; then rm -rf $GITHUB_WORKSPACE/gh-pages/branches/${{ env.BRANCH }} ; fi
+
+      # Look at the 'gh-pages' directory to see if everything looks right.
+#      - run: ls -lah $GITHUB_WORKSPACE/gh-pages
+
+      # https://github.com/JamesIves/github-pages-deploy-action#readme
+      - name: Deploy docs 🚀
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: ${{ env.TARGET_BRANCH }} # The branch the action should deploy to.
+          FOLDER: gh-pages # The folder the action should deploy.
+
