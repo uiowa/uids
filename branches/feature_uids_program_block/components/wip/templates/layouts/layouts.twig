@@ -1,17 +1,20 @@
 {% if site_type == 'primary' %}
 
-{% render '@iowa-bar--full' %}
+{% include '@prototype-iowa-bar' with {
+  "bg_color": 'uiowa-bar--primary',
+  "site_type": 'uiowa-bar--standard'
+} %}
 
 {% elseif site_type == 'secondary' %}
 
-{% include '@iowa-bar' with {
+{% include '@prototype-iowa-bar' with {
   "bg_color": 'uiowa-bar--secondary',
   "site_type": 'uiowa-bar--standard'
 } %}
 
 {% elseif site_type == 'tertiary' %}
 
-{% include '@iowa-bar' with {
+{% include '@prototype-iowa-bar' with {
   "bg_color": 'uiowa-bar--primary',
   "site_type": 'uiowa-bar--home'
 } %}
@@ -30,13 +33,13 @@
 
     <nav class="navbar navbar--main {{ nav_type }}">
       <div id="nav" class="region-primary-menu">
-{#        {% if menu_type == 'superfish' %}#}
-{#        {% include '@superfish' %}#}
-{#        {% elseif menu_type == 'main' %}#}
-{#        {% include '@main-menu' %}#}
-{#        {% elseif menu_type == 'mega' %}#}
-{#        {% include '@mega-menu' %}#}
-{#        {% endif %}#}
+        {% if menu_type == 'superfish' %}
+        {% include '@superfish' %}
+        {% elseif menu_type == 'main' %}
+        {% include '@main-menu' %}
+        {% elseif menu_type == 'mega' %}
+        {% include '@mega-menu' %}
+        {% endif %}
       </div>
     </nav>
   </div>

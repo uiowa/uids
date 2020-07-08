@@ -40,15 +40,13 @@
     top: 0;
     height: 80px;
     padding: 14px 25px 7px 18px;
-
-    .iowa-bar--narrow & {
+    .header--tertiary & {
       padding: 9px 25px 7px 18px;
     }
   }
 
   &:focus,
   &:hover {
-
     /* Some exciting button focus styles */
     //outline:none;
     span {
@@ -66,15 +64,14 @@
     /* Some even *more* exciting button focus styles */
   }
 
-  .iowa-bar--full & {
+  .header--secondary & {
     height: 70px;
-
     @include breakpoint(menu) {
       height: 80px;
     }
   }
 
-  .iowa-bar--narrow & {
+  .header--tertiary & {
     //width: 20%;
     height: 70px;
     background: none;
@@ -87,9 +84,8 @@
   }
 
   span {
-    //@include element-invisible;
-    display: none;
-
+     //@include element-invisible;
+     display: none;
     @include breakpoint(menu) {
       //@include element-invisible-off;
       display: inline;
@@ -101,7 +97,6 @@
 
   .uiowa-bar--home & {
     top: 0;
-
     @include breakpoint(sm) {
       top: 0;
     }
@@ -129,7 +124,7 @@
         color: $secondary;
       }
 
-      .iowa-bar--narrow & {
+      .header--tertiary & {
         width: 35px;
         height: 35px;
         color: white;
@@ -138,7 +133,9 @@
 
       }
 
-      .iowa-bar--full & {
+      .header--primary & {
+        //color: #fff;
+
         @include breakpoint(menu) {
           color: $secondary;
         }
@@ -170,10 +167,22 @@
   }
 }
 
-.iowa-bar.horizontal .search-button,
-.iowa-bar.mega .search-button {
+.header--secondary.horizontal .search-button,
+.header--secondary.mega .search-button,
+.header--tertiary.horizontal .search-button,
+.header--tertiary.mega .search-button {
   right: 0;
 }
+
+
+/*
+@media (max-width: 1880px) and (min-width: 84.375em) {
+  .search-button {
+    right: 5%;
+  }
+}
+*/
+
 
 .search-is-open .search-overlay .uids-search {
   position: absolute;
@@ -195,21 +204,15 @@
 
 }
 
-.search-is-open .iowa-bar--full .site-name {
-  @include breakpoint(menu) {
-    display: none;
-  }
-}
-
-
-.search-is-open .iowa-bar--narrow .uids-search {
+.search-is-open .header--tertiary .uids-search {
   @include breakpoint(menu) {
     border-bottom: 1px solid #666;
   }
 }
 
 
-.search-is-open .iowa-bar--full .menu--top {
+.search-is-open .header--primary .menu--top {
+  //@include element-invisible;
   display: none;
 }
 
@@ -229,6 +232,8 @@
   }
 }
 
+
+
 .search-overlay .uids-search input[type="text"] {
   padding-left: 0;
   text-align: left;
@@ -243,8 +248,7 @@
 
   @include breakpoint(menu) {
     color: $secondary;
-
-    .iowa-bar--narrow & {
+    .header--tertiary & {
       border-bottom: none;
     }
   }
@@ -262,6 +266,8 @@
   }
 }
 
+
+
 .search-overlay .uids-search {
   margin-top: 7px;
   margin-left: 21px;
@@ -272,28 +278,30 @@
     margin-top: 18px;
     background: $primary;
 
-    .iowa-bar--narrow & {
+    .header--tertiary & {
       background: transparent;
     }
   }
 
   @include breakpoint(menu) {
-    .iowa-bar--narrow & {
+    .header--tertiary & {
       margin-top: 22px;
       margin-left: 0;
       padding: 0;
     }
   }
 
-  .iowa-bar--narrow &,
-  .iowa-bar--full & {
+  .header--tertiary &,
+  .header--secondary & {
     margin-top: 7px;
-
     @include breakpoint(menu) {
       margin-top: 18px;
     }
   }
+
+
 }
+
 
 .search-overlay .uids-search [type="submit"] {
   padding: 0 10px;
@@ -302,8 +310,8 @@
 }
 
 .search-overlay .uids-search [type="submit"] span {
-  //@include element-invisible;
-  display: none;
+   //@include element-invisible;
+   display: none;
 }
 
 .search-overlay .uids-search [type="submit"]::before {
@@ -320,7 +328,7 @@
     background: url(../images/search-01.svg);
   }
 
-  .iowa-bar--narrow & {
+  .header--tertiary & {
     background-repeat: no-repeat;
     background-position: center;
   }
@@ -335,6 +343,9 @@
       width: 100%;
     }
   }
+
+
+
 
   &[aria-hidden="false"] {
     z-index: 1;
@@ -356,13 +367,15 @@
   }
 }
 
-.search-is-open .iowa-bar--narrow {
+
+.search-is-open .header--tertiary {
   @include breakpoint(menu) {
     .uiowa-bar__title {
       color: $white;
     }
   }
 }
+
 
 .search-wrapper {
   position: absolute;
@@ -379,7 +392,7 @@
 
   @include breakpoint(container) {
     margin-right: calc(50% - 50vw);
-
+    .header--horizontal &,
     .horizontal &,
     .mega & {
       margin-right: 0;
@@ -391,10 +404,9 @@
     display: flex;
     flex: 1;
     justify-content: space-between;
-
-    @include breakpoint(menu) {
-      position: relative;
-    }
+     @include breakpoint(menu) {
+       position: relative;
+     }
   }
 
   .header--primary & {
@@ -406,18 +418,19 @@
     }
   }
 
-  .iowa-bar--narrow & {
+  .header--tertiary & {
     flex-wrap: wrap;
   }
 
-  .iowa-bar--full & {
+  .header--horizontal & {
     @include breakpoint(container) {
       //margin-right: calc(50% - 49vw);
     }
   }
 }
 
-.search-is-open .iowa-bar--narrow .search-wrapper {
+
+.search-is-open .header--tertiary .search-wrapper {
   align-items: flex-end;
   flex-direction: column;
 }
@@ -435,7 +448,7 @@
   background-color: $primary;
   @include flexbox;
 
-  .iowa-bar--narrow & {
+  .header--tertiary & {
     background-color: $white;
   }
 
@@ -456,3 +469,26 @@
     }
   }
 }
+
+
+
+header.header--primary {
+  .search-is-open & {
+    @include breakpoint(menu) {
+      padding-bottom: 32px;
+      background: $secondary;
+    }
+  }
+}
+
+
+// ie11
+
+@media all and (-ms-high-contrast: none),
+(-ms-high-contrast: active) {
+  .search-wrapper {
+      @include breakpoint(container) {
+        margin-right: 0px;
+      }
+    }
+  }

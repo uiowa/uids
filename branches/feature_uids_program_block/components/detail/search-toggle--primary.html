@@ -304,15 +304,13 @@
     <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
     <span class="hljs-attribute">height</span>: <span class="hljs-number">80px</span>;
     <span class="hljs-attribute">padding</span>: <span class="hljs-number">14px</span> <span class="hljs-number">25px</span> <span class="hljs-number">7px</span> <span class="hljs-number">18px</span>;
-
-    <span class="hljs-selector-class">.iowa-bar--narrow</span> &amp; {
+    <span class="hljs-selector-class">.header--tertiary</span> &amp; {
       <span class="hljs-attribute">padding</span>: <span class="hljs-number">9px</span> <span class="hljs-number">25px</span> <span class="hljs-number">7px</span> <span class="hljs-number">18px</span>;
     }
   }
 
   &amp;<span class="hljs-selector-pseudo">:focus</span>,
   &amp;<span class="hljs-selector-pseudo">:hover</span> {
-
     <span class="hljs-comment">/* Some exciting button focus styles */</span>
     <span class="hljs-comment">//outline:none;</span>
     <span class="hljs-selector-tag">span</span> {
@@ -330,15 +328,14 @@
     <span class="hljs-comment">/* Some even *more* exciting button focus styles */</span>
   }
 
-  <span class="hljs-selector-class">.iowa-bar--full</span> &amp; {
+  <span class="hljs-selector-class">.header--secondary</span> &amp; {
     <span class="hljs-attribute">height</span>: <span class="hljs-number">70px</span>;
-
     <span class="hljs-keyword">@include</span> breakpoint(menu) {
       <span class="hljs-attribute">height</span>: <span class="hljs-number">80px</span>;
     }
   }
 
-  <span class="hljs-selector-class">.iowa-bar--narrow</span> &amp; {
+  <span class="hljs-selector-class">.header--tertiary</span> &amp; {
     <span class="hljs-comment">//width: 20%;</span>
     <span class="hljs-attribute">height</span>: <span class="hljs-number">70px</span>;
     <span class="hljs-attribute">background</span>: none;
@@ -351,9 +348,8 @@
   }
 
   <span class="hljs-selector-tag">span</span> {
-    <span class="hljs-comment">//@include element-invisible;</span>
-    <span class="hljs-attribute">display</span>: none;
-
+     <span class="hljs-comment">//@include element-invisible;</span>
+     <span class="hljs-attribute">display</span>: none;
     <span class="hljs-keyword">@include</span> breakpoint(menu) {
       <span class="hljs-comment">//@include element-invisible-off;</span>
       <span class="hljs-attribute">display</span>: inline;
@@ -365,7 +361,6 @@
 
   <span class="hljs-selector-class">.uiowa-bar--home</span> &amp; {
     <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
-
     <span class="hljs-keyword">@include</span> breakpoint(sm) {
       <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
     }
@@ -393,7 +388,7 @@
         <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
       }
 
-      <span class="hljs-selector-class">.iowa-bar--narrow</span> &amp; {
+      <span class="hljs-selector-class">.header--tertiary</span> &amp; {
         <span class="hljs-attribute">width</span>: <span class="hljs-number">35px</span>;
         <span class="hljs-attribute">height</span>: <span class="hljs-number">35px</span>;
         <span class="hljs-attribute">color</span>: white;
@@ -402,7 +397,9 @@
 
       }
 
-      <span class="hljs-selector-class">.iowa-bar--full</span> &amp; {
+      <span class="hljs-selector-class">.header--primary</span> &amp; {
+        <span class="hljs-comment">//color: #fff;</span>
+
         <span class="hljs-keyword">@include</span> breakpoint(menu) {
           <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
         }
@@ -434,10 +431,22 @@
   }
 }
 
-<span class="hljs-selector-class">.iowa-bar</span><span class="hljs-selector-class">.horizontal</span> <span class="hljs-selector-class">.search-button</span>,
-<span class="hljs-selector-class">.iowa-bar</span><span class="hljs-selector-class">.mega</span> <span class="hljs-selector-class">.search-button</span> {
+<span class="hljs-selector-class">.header--secondary</span><span class="hljs-selector-class">.horizontal</span> <span class="hljs-selector-class">.search-button</span>,
+<span class="hljs-selector-class">.header--secondary</span><span class="hljs-selector-class">.mega</span> <span class="hljs-selector-class">.search-button</span>,
+<span class="hljs-selector-class">.header--tertiary</span><span class="hljs-selector-class">.horizontal</span> <span class="hljs-selector-class">.search-button</span>,
+<span class="hljs-selector-class">.header--tertiary</span><span class="hljs-selector-class">.mega</span> <span class="hljs-selector-class">.search-button</span> {
   <span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;
 }
+
+
+<span class="hljs-comment">/*
+@media (max-width: 1880px) and (min-width: 84.375em) {
+  .search-button {
+    right: 5%;
+  }
+}
+*/</span>
+
 
 <span class="hljs-selector-class">.search-is-open</span> <span class="hljs-selector-class">.search-overlay</span> <span class="hljs-selector-class">.uids-search</span> {
   <span class="hljs-attribute">position</span>: absolute;
@@ -459,21 +468,15 @@
 
 }
 
-<span class="hljs-selector-class">.search-is-open</span> <span class="hljs-selector-class">.iowa-bar--full</span> <span class="hljs-selector-class">.site-name</span> {
-  <span class="hljs-keyword">@include</span> breakpoint(menu) {
-    <span class="hljs-attribute">display</span>: none;
-  }
-}
-
-
-<span class="hljs-selector-class">.search-is-open</span> <span class="hljs-selector-class">.iowa-bar--narrow</span> <span class="hljs-selector-class">.uids-search</span> {
+<span class="hljs-selector-class">.search-is-open</span> <span class="hljs-selector-class">.header--tertiary</span> <span class="hljs-selector-class">.uids-search</span> {
   <span class="hljs-keyword">@include</span> breakpoint(menu) {
     <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#666</span>;
   }
 }
 
 
-<span class="hljs-selector-class">.search-is-open</span> <span class="hljs-selector-class">.iowa-bar--full</span> <span class="hljs-selector-class">.menu--top</span> {
+<span class="hljs-selector-class">.search-is-open</span> <span class="hljs-selector-class">.header--primary</span> <span class="hljs-selector-class">.menu--top</span> {
+  <span class="hljs-comment">//@include element-invisible;</span>
   <span class="hljs-attribute">display</span>: none;
 }
 
@@ -493,6 +496,8 @@
   }
 }
 
+
+
 <span class="hljs-selector-class">.search-overlay</span> <span class="hljs-selector-class">.uids-search</span> <span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type="text"]</span> {
   <span class="hljs-attribute">padding-left</span>: <span class="hljs-number">0</span>;
   <span class="hljs-attribute">text-align</span>: left;
@@ -507,8 +512,7 @@
 
   <span class="hljs-keyword">@include</span> breakpoint(menu) {
     <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
-
-    <span class="hljs-selector-class">.iowa-bar--narrow</span> &amp; {
+    <span class="hljs-selector-class">.header--tertiary</span> &amp; {
       <span class="hljs-attribute">border-bottom</span>: none;
     }
   }
@@ -526,6 +530,8 @@
   }
 }
 
+
+
 <span class="hljs-selector-class">.search-overlay</span> <span class="hljs-selector-class">.uids-search</span> {
   <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">7px</span>;
   <span class="hljs-attribute">margin-left</span>: <span class="hljs-number">21px</span>;
@@ -536,28 +542,30 @@
     <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">18px</span>;
     <span class="hljs-attribute">background</span>: <span class="hljs-variable">$primary</span>;
 
-    <span class="hljs-selector-class">.iowa-bar--narrow</span> &amp; {
+    <span class="hljs-selector-class">.header--tertiary</span> &amp; {
       <span class="hljs-attribute">background</span>: transparent;
     }
   }
 
   <span class="hljs-keyword">@include</span> breakpoint(menu) {
-    <span class="hljs-selector-class">.iowa-bar--narrow</span> &amp; {
+    <span class="hljs-selector-class">.header--tertiary</span> &amp; {
       <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">22px</span>;
       <span class="hljs-attribute">margin-left</span>: <span class="hljs-number">0</span>;
       <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
     }
   }
 
-  <span class="hljs-selector-class">.iowa-bar--narrow</span> &amp;,
-  <span class="hljs-selector-class">.iowa-bar--full</span> &amp; {
+  <span class="hljs-selector-class">.header--tertiary</span> &amp;,
+  <span class="hljs-selector-class">.header--secondary</span> &amp; {
     <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">7px</span>;
-
     <span class="hljs-keyword">@include</span> breakpoint(menu) {
       <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">18px</span>;
     }
   }
+
+
 }
+
 
 <span class="hljs-selector-class">.search-overlay</span> <span class="hljs-selector-class">.uids-search</span> <span class="hljs-selector-attr">[type="submit"]</span> {
   <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">10px</span>;
@@ -566,8 +574,8 @@
 }
 
 <span class="hljs-selector-class">.search-overlay</span> <span class="hljs-selector-class">.uids-search</span> <span class="hljs-selector-attr">[type="submit"]</span> <span class="hljs-selector-tag">span</span> {
-  <span class="hljs-comment">//@include element-invisible;</span>
-  <span class="hljs-attribute">display</span>: none;
+   <span class="hljs-comment">//@include element-invisible;</span>
+   <span class="hljs-attribute">display</span>: none;
 }
 
 <span class="hljs-selector-class">.search-overlay</span> <span class="hljs-selector-class">.uids-search</span> <span class="hljs-selector-attr">[type="submit"]</span><span class="hljs-selector-pseudo">::before</span> {
@@ -584,7 +592,7 @@
     <span class="hljs-attribute">background</span>: url(../images/search-<span class="hljs-number">01</span>.svg);
   }
 
-  <span class="hljs-selector-class">.iowa-bar--narrow</span> &amp; {
+  <span class="hljs-selector-class">.header--tertiary</span> &amp; {
     <span class="hljs-attribute">background-repeat</span>: no-repeat;
     <span class="hljs-attribute">background-position</span>: center;
   }
@@ -599,6 +607,9 @@
       <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
     }
   }
+
+
+
 
   &amp;<span class="hljs-selector-attr">[aria-hidden="false"]</span> {
     <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;
@@ -620,13 +631,15 @@
   }
 }
 
-<span class="hljs-selector-class">.search-is-open</span> <span class="hljs-selector-class">.iowa-bar--narrow</span> {
+
+<span class="hljs-selector-class">.search-is-open</span> <span class="hljs-selector-class">.header--tertiary</span> {
   <span class="hljs-keyword">@include</span> breakpoint(menu) {
     <span class="hljs-selector-class">.uiowa-bar__title</span> {
       <span class="hljs-attribute">color</span>: <span class="hljs-variable">$white</span>;
     }
   }
 }
+
 
 <span class="hljs-selector-class">.search-wrapper</span> {
   <span class="hljs-attribute">position</span>: absolute;
@@ -643,7 +656,7 @@
 
   <span class="hljs-keyword">@include</span> breakpoint(container) {
     <span class="hljs-attribute">margin-right</span>: calc(<span class="hljs-number">50%</span> - <span class="hljs-number">50vw</span>);
-
+    <span class="hljs-selector-class">.header--horizontal</span> &amp;,
     <span class="hljs-selector-class">.horizontal</span> &amp;,
     <span class="hljs-selector-class">.mega</span> &amp; {
       <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">0</span>;
@@ -655,10 +668,9 @@
     <span class="hljs-attribute">display</span>: flex;
     <span class="hljs-attribute">flex</span>: <span class="hljs-number">1</span>;
     <span class="hljs-attribute">justify-content</span>: space-between;
-
-    <span class="hljs-keyword">@include</span> breakpoint(menu) {
-      <span class="hljs-attribute">position</span>: relative;
-    }
+     <span class="hljs-keyword">@include</span> breakpoint(menu) {
+       <span class="hljs-attribute">position</span>: relative;
+     }
   }
 
   <span class="hljs-selector-class">.header--primary</span> &amp; {
@@ -670,18 +682,19 @@
     }
   }
 
-  <span class="hljs-selector-class">.iowa-bar--narrow</span> &amp; {
+  <span class="hljs-selector-class">.header--tertiary</span> &amp; {
     <span class="hljs-attribute">flex-wrap</span>: wrap;
   }
 
-  <span class="hljs-selector-class">.iowa-bar--full</span> &amp; {
+  <span class="hljs-selector-class">.header--horizontal</span> &amp; {
     <span class="hljs-keyword">@include</span> breakpoint(container) {
       <span class="hljs-comment">//margin-right: calc(50% - 49vw);</span>
     }
   }
 }
 
-<span class="hljs-selector-class">.search-is-open</span> <span class="hljs-selector-class">.iowa-bar--narrow</span> <span class="hljs-selector-class">.search-wrapper</span> {
+
+<span class="hljs-selector-class">.search-is-open</span> <span class="hljs-selector-class">.header--tertiary</span> <span class="hljs-selector-class">.search-wrapper</span> {
   <span class="hljs-attribute">align-items</span>: flex-end;
   <span class="hljs-attribute">flex-direction</span>: column;
 }
@@ -699,7 +712,7 @@
   <span class="hljs-attribute">background-color</span>: <span class="hljs-variable">$primary</span>;
   <span class="hljs-keyword">@include</span> flexbox;
 
-  <span class="hljs-selector-class">.iowa-bar--narrow</span> &amp; {
+  <span class="hljs-selector-class">.header--tertiary</span> &amp; {
     <span class="hljs-attribute">background-color</span>: <span class="hljs-variable">$white</span>;
   }
 
@@ -720,6 +733,29 @@
     }
   }
 }
+
+
+
+<span class="hljs-selector-tag">header</span><span class="hljs-selector-class">.header--primary</span> {
+  <span class="hljs-selector-class">.search-is-open</span> &amp; {
+    <span class="hljs-keyword">@include</span> breakpoint(menu) {
+      <span class="hljs-attribute">padding-bottom</span>: <span class="hljs-number">32px</span>;
+      <span class="hljs-attribute">background</span>: <span class="hljs-variable">$secondary</span>;
+    }
+  }
+}
+
+
+<span class="hljs-comment">// ie11</span>
+
+<span class="hljs-keyword">@media</span> all <span class="hljs-keyword">and</span> (-ms-high-contrast: none),
+(-ms-high-contrast: active) {
+  <span class="hljs-selector-class">.search-wrapper</span> {
+      <span class="hljs-keyword">@include</span> breakpoint(container) {
+        <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">0px</span>;
+      }
+    }
+  }
 </pre>
                             </code>
                             
@@ -736,7 +772,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">8 KB</span>
+                    <span class="Meta-value">8.5 KB</span>
                 </li>
             </ul>
         </div>
@@ -893,6 +929,23 @@
             </span>
         </li class="Meta-item">
         
+        
+        <li class="Meta-item">
+            <strong class="Meta-key">Referenced by <em class="Meta-count">(5)</em>:</strong>
+            <span class="Meta-value Meta-value--linkList">
+            
+                <a href="header-old.html">@<span>header-old</span></a>, 
+            
+                <a href="header-old--site-name-with-off-canvas.html">@<span>header-old--site-name-with-off-canvas</span></a>, 
+            
+                <a href="header-old--site-subnav.html">@<span>header-old--site-subnav</span></a>, 
+            
+                <a href="header-old--department-nav-with-off-canvas.html">@<span>header-old--department-nav-with-off-canvas</span></a>, 
+            
+                <a href="header-old--department-nav.html">@<span>header-old--department-nav</span></a>
+            
+            </span>
+        </li>
         
     </ul>
 </div>
@@ -1230,6 +1283,37 @@
         
     
         
+        <li class="Tree-item Tree-collection Tree-depth-2" data-behaviour="collection" id="tree-components-collection-form">
+            <h3 class="Tree-collectionLabel" data-role="toggle">
+                <span>Form</span>
+            </h3>
+            <ul class="Tree-collectionItems" data-role="items">
+            
+            
+            
+            
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="search.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Search</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+
+            </ul>
+        </li>
+        
+    
+        
         <li class="Tree-item Tree-collection Tree-depth-2" data-behaviour="collection" id="tree-components-collection-banner">
             <h3 class="Tree-collectionLabel" data-role="toggle">
                 <span>Banner</span>
@@ -1551,7 +1635,7 @@
                 
                     
 
-<span style="color: #187718;" title="Ready">Single Select</span>
+<span style="color: #A84F00;" title="WIP">Single Select</span>
 
 
                 
@@ -1566,7 +1650,7 @@
                 
                     
 
-<span style="color: #187718;" title="Ready">Multi Select</span>
+<span style="color: #A84F00;" title="WIP">Multi Select</span>
 
 
                 
@@ -1655,37 +1739,6 @@
         </li>
         
     
-        
-        <li class="Tree-item Tree-collection Tree-depth-2" data-behaviour="collection" id="tree-components-collection-layouts">
-            <h3 class="Tree-collectionLabel" data-role="toggle">
-                <span>Layouts</span>
-            </h3>
-            <ul class="Tree-collectionItems" data-role="items">
-            
-            
-            
-            
-    
-        
-        
-        <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="basic-page.html" data-pjax>
-                
-                    
-
-<span style="color: #A84F00;" title="WIP">Basic Page</span>
-
-
-                
-            </a>
-        </li>
-        
-    
-
-            </ul>
-        </li>
-        
-    
 
     </ul>
 </div>
@@ -1706,8 +1759,8 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-07-08T18:38:23.132Z">
-                7/8/2020
+            <time datetime="2020-07-07T08:38:53.598Z">
+                7/7/2020
             </time>
         </div>
     </div>

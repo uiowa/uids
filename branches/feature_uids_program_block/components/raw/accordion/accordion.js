@@ -1,48 +1,38 @@
-function Accordion(element) {
-  this.panels = element.getElementsByClassName("accordion__heading");
-  this.multiSelectible = element.getAttribute('aria-multiselectable') === 'true' || false;
+// function Accordion(element) {
+//   this.panels = element.getElementsByClassName("uids-accordion__heading");
+//   this.multiSelectible = element.getAttribute('aria-multiselectable') === 'true' || false;
+// }
+// @todo Finish converting this to OO implementation.
+const accordions = document.getElementsByClassName("uids-accordion");
 
-  for (let i = 0; i < this.panels.length; i++) {
+Array.prototype.forEach.call(accordions, accordion => {
+  let accordion_elements = accordion.getElementsByClassName("uids-accordion__heading");
+  let multiselectable = accordion.getAttribute('aria-multiselectable') === 'true' || false;
 
-    let btn = this.panels[i].querySelector('button');
-    let target = this.panels[i].nextElementSibling;
+  Array.prototype.forEach.call(accordion_elements, el => {
+      let btn = el.querySelector('button');
+      let target = el.nextElementSibling;
 
-    let expanded = btn.getAttribute('aria-expanded') === 'true' || false;
-    target.hidden = !expanded;
+      let expanded = btn.getAttribute('aria-expanded') === 'true' || false;
+      target.hidden = !expanded;
 
-    btn.onclick = () => {
-      this.togglePanel(btn, target);
-    }
-  }
-}
+      btn.onclick = () => {
+        let expanded = btn.getAttribute('aria-expanded') === 'true' || false;
 
-Accordion.prototype.togglePanel = function(btn, target) {
-  let expanded = btn.getAttribute('aria-expanded') === 'true' || false;
+          // Checks if multiple panels can be open at once. If not, closes other panels.
+          if (!multiselectable && !expanded) {
+              Array.prototype.forEach.call(accordion_elements, el => {
+                  let inner_target = el.nextElementSibling;
+                  let inner_btn = el.querySelector('button');
+                  inner_btn.setAttribute('aria-expanded', expanded);
+                  inner_btn.setAttribute('aria-selected', expanded);
+                  inner_target.hidden = !expanded;
+              });
+          }
 
-  // Checks if multiple panels can be open at once. If not, closes other panels.
-  if (!this.multiSelectible && !expanded) {
-    this.collapseAllPanels();
-  }
-
-  btn.setAttribute('aria-expanded', !expanded);
-  btn.setAttribute('aria-selected', !expanded);
-  target.hidden = expanded;
-}
-
-Accordion.prototype.collapseAllPanels = function() {
-  for (let i = 0; i < this.panels.length; i++) {
-    let inner_target = this.panels[i].nextElementSibling;
-    let inner_btn = this.panels[i].querySelector('button');
-    inner_btn.setAttribute('aria-expanded', 'false');
-    inner_btn.setAttribute('aria-selected', 'false');
-    inner_target.hidden = true;
-  }
-}
-
-// Instantiate accordions on the page.
-const accordions = document.getElementsByClassName("accordion");
-
-for (let i = 0; i < accordions.length; i++) {
-  let accordion = new Accordion(accordions[i]);
-}
-
+        btn.setAttribute('aria-expanded', !expanded);
+        btn.setAttribute('aria-selected', !expanded);
+        target.hidden = expanded;
+      }
+  });
+});
