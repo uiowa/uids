@@ -1,14 +1,15 @@
-const scrollUp = 'scroll-up';
-const scrollDown = 'scroll-down';
+const scrollUp = "scroll-up";
+const scrollDown = "scroll-down";
+const canvasLock = "o-canvas--lock";
 const menuDrawer = document.querySelector('.header-not-sticky .o-canvas__drawer');
 const menuDrawerMobile = document.querySelector('.o-canvas__drawer');
 const header = document.querySelector('[data-uids-header]');
-const menuMq = window.matchMedia('(min-width: 855px)');
+const menuMq = window.matchMedia("(min-width: 855px)");
 let height = header.clientHeight;
 let lastScroll = 0;
 
 // navigation scroll
-window.addEventListener('scroll', function () {
+window.addEventListener("scroll", function () {
   const currentScroll = window.pageYOffset;
   // remove classes if scrolled all the way up
   if (currentScroll <= height) {
@@ -24,7 +25,7 @@ window.addEventListener('scroll', function () {
     return;
   }
   // if contains lock don't add anything....
-  if (currentScroll > lastScroll && !body.classList.contains('o-canvas--lock')) {
+  if (currentScroll > lastScroll && !body.classList.contains(canvasLock)) {
     // down
     if (currentScroll > height) {
       body.classList.remove(scrollUp);
@@ -38,8 +39,8 @@ window.addEventListener('scroll', function () {
   lastScroll = currentScroll;
 });
 
-window.addEventListener('orientationchange', function (event) {
-  const afterOrientationChange = function () {
+window.addEventListener("orientationchange", function (event) {
+  var afterOrientationChange = function () {
     menuDrawerMobile.style.top = Math.max(header.offsetHeight - this.scrollY) + 'px';
     window.removeEventListener('resize', afterOrientationChange);
   };
