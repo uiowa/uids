@@ -1,22 +1,16 @@
 @import '../../../assets/scss/variables';
 @import '../../../assets/scss/utilities';
 
-header {
-  position: relative;
-  z-index: 2;
-  margin-bottom: 0;
-}
-
 // Settings for the default version of the IOWA bar.
 .iowa-bar {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: block;
   min-height: auto;
   background: $secondary;
 
   @include breakpoint(menu) {
-    height: 80px;
+    //min-height: 80px;
     background: $primary;
   }
 
@@ -25,7 +19,6 @@ header {
 
     @include breakpoint(container) {
       margin-left: -12px;
-
       // More padding on top in this variation.
       padding: 27px 20px 20px;
     }
@@ -40,6 +33,10 @@ header {
       width: auto;
       background: transparent;
       padding: 0;
+    }
+
+    @include breakpoint(container) {
+      margin: 5px 0 0 0;
     }
   }
 
@@ -58,12 +55,32 @@ header {
       margin-right: auto;
       margin-left: auto;
     }
+
+    .iowa-bar--narrow.horizontal &,
+    .iowa-bar--narrow.mega & {
+      @include breakpoint(container) {
+        position: relative;
+      }
+    }
+
+  }
+
+  // Styles for the narrow version of the IOWA bar.
+  &--full {
+
+    @include breakpoint(menu) {
+      height: 80px;
+      background: $primary;
+    }
+
   }
 
   // Styles for the narrow version of the IOWA bar.
   &--narrow {
+
     @include breakpoint(menu) {
-      height: 50px;
+      min-height: 50px;
+      position: relative;
     }
 
     // Overrides the logo tab styles when using
@@ -75,6 +92,10 @@ header {
         height: 56px;
         width: 119px;
         padding: 15px;
+      }
+
+      @include breakpoint(container) {
+        margin-bottom: -6px;
       }
 
       // @todo Move this to search or search-toggle?
@@ -98,6 +119,12 @@ header {
       }
     }
 
+    .parent-site-name {
+      @include breakpoint(container) {
+        padding: 6px 0 0 0;
+      }
+    }
+
     .site-name {
       font-size: 1rem;
       margin: 0;
@@ -109,13 +136,17 @@ header {
         font-size: 1rem;
         padding: 0;
       }
+
+      @include breakpoint(container) {
+        padding: 6px 0 0 0;
+      }
     }
   }
 
   // Styles for container underneath
   &__below {
     z-index: 2;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #e6e5e5;
     background: #fff;
 
     & .iowa-bar__container {
@@ -164,5 +195,106 @@ header {
         }
       }
     }
+  }
+}
+
+// sticky header
+
+.header-sticky .iowa-bar {
+  @include breakpoint(menu) {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: transform 0.4s;
+  }
+}
+
+// sticky header for Iowa Bar Below
+
+.header-sticky.scroll-up .iowa-bar__below,
+.header-sticky.scroll-down .iowa-bar__below {
+  .o-canvas--open .o-canvas__drawer {
+    @include breakpoint(menu) {
+      top: 116px;
+    }
+
+    @include breakpoint(container) {
+      top: 110px;
+    }
+  }
+
+  .search-overlay .uids-search {
+    @include breakpoint(menu) {
+      margin-top: 3px;
+      border-bottom: none;
+    }
+  }
+
+  .iowa-bar__container {
+    @include breakpoint(menu) {
+      min-height: 60px;
+    }
+  }
+
+  .site-name {
+    @include breakpoint(menu) {
+      padding: 0;
+      transition: transform 0.4s, -webkit-transform 0.4s;
+      font-size: 1.6rem;
+    }
+  }
+
+  .bttn--drawer {
+    @include breakpoint(menu) {
+      height: 60px;
+      padding: 3px 35px 0;
+    }
+  }
+
+  .search-button {
+    @include breakpoint(menu) {
+      height: 60px;
+      padding: 7px 25px 7px 18px;
+    }
+  }
+}
+
+.header-sticky.scroll-down .iowa-bar__below {
+  .bttn--drawer {
+    @include breakpoint(menu) {
+      top: 0px;
+    }
+
+    @include breakpoint(container) {
+      top: 30px;
+    }
+  }
+}
+
+// fixed scroll bar
+
+.header-sticky.scroll-down .iowa-bar {
+  @include breakpoint(menu) {
+    transform: translate3d(0, -100%, 0);
+  }
+
+  .logo--tab {
+    @include breakpoint(menu) {
+      margin-top: -17px;
+    }
+  }
+}
+
+.header-sticky.scroll-up .iowa-bar {
+  @include breakpoint(menu) {
+    transform: none;
+  }
+}
+
+.header-sticky.scroll-up:not(.menu-open) .iowa-bar {
+  @include breakpoint(menu) {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
   }
 }
