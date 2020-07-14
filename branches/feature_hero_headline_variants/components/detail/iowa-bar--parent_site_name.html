@@ -195,7 +195,7 @@
 <div class="Browser-panel Browser-code is-active" data-role="tab-panel" id="browser-41a7dcfe7744b3617d6951c6672399b5-panel-html">
     <code class="Code Code--lang-html hljs">
         
-        <pre><span class="hljs-tag">&lt;<span class="hljs-name">header</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"iowa-bar iowa-bar--narrow"</span>&gt;</span>
+        <pre><span class="hljs-tag">&lt;<span class="hljs-name">header</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"iowa-bar iowa-bar--narrow"</span> <span class="hljs-attr">data-uids-header</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"iowa-bar__container"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"logo logo--tab"</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://www.uiowa.edu"</span>&gt;</span>
@@ -489,18 +489,17 @@
                         <div class="FileBrowser-itemPreview">
                             
                             <code class="Code Code--lang-JavaScript FileBrowser-code hljs">
-                                <pre><span class="hljs-keyword">const</span> scrollUp = <span class="hljs-string">"scroll-up"</span>;
-<span class="hljs-keyword">const</span> scrollDown = <span class="hljs-string">"scroll-down"</span>;
-<span class="hljs-keyword">const</span> canvasLock = <span class="hljs-string">"o-canvas--lock"</span>;
+                                <pre><span class="hljs-keyword">const</span> scrollUp = <span class="hljs-string">'scroll-up'</span>;
+<span class="hljs-keyword">const</span> scrollDown = <span class="hljs-string">'scroll-down'</span>;
 <span class="hljs-keyword">const</span> menuDrawer = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'.header-not-sticky .o-canvas__drawer'</span>);
 <span class="hljs-keyword">const</span> menuDrawerMobile = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'.o-canvas__drawer'</span>);
 <span class="hljs-keyword">const</span> header = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'[data-uids-header]'</span>);
-<span class="hljs-keyword">const</span> menuMq = <span class="hljs-built_in">window</span>.matchMedia(<span class="hljs-string">"(min-width: 855px)"</span>);
+<span class="hljs-keyword">const</span> menuMq = <span class="hljs-built_in">window</span>.matchMedia(<span class="hljs-string">'(min-width: 855px)'</span>);
 <span class="hljs-keyword">let</span> height = header.clientHeight;
 <span class="hljs-keyword">let</span> lastScroll = <span class="hljs-number">0</span>;
 
 <span class="hljs-comment">// navigation scroll</span>
-<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">"scroll"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'scroll'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> currentScroll = <span class="hljs-built_in">window</span>.pageYOffset;
   <span class="hljs-comment">// remove classes if scrolled all the way up</span>
   <span class="hljs-keyword">if</span> (currentScroll &lt;= height) {
@@ -516,7 +515,7 @@
     <span class="hljs-keyword">return</span>;
   }
   <span class="hljs-comment">// if contains lock don't add anything....</span>
-  <span class="hljs-keyword">if</span> (currentScroll &gt; lastScroll &amp;&amp; !body.classList.contains(canvasLock)) {
+  <span class="hljs-keyword">if</span> (currentScroll &gt; lastScroll &amp;&amp; !body.classList.contains(<span class="hljs-string">'o-canvas--lock'</span>)) {
     <span class="hljs-comment">// down</span>
     <span class="hljs-keyword">if</span> (currentScroll &gt; height) {
       body.classList.remove(scrollUp);
@@ -530,8 +529,8 @@
   lastScroll = currentScroll;
 });
 
-<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">"orientationchange"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
-  <span class="hljs-keyword">var</span> afterOrientationChange = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'orientationchange'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
+  <span class="hljs-keyword">const</span> afterOrientationChange = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     menuDrawerMobile.style.top = <span class="hljs-built_in">Math</span>.max(header.offsetHeight - <span class="hljs-keyword">this</span>.scrollY) + <span class="hljs-string">'px'</span>;
     <span class="hljs-built_in">window</span>.removeEventListener(<span class="hljs-string">'resize'</span>, afterOrientationChange);
   };
@@ -1100,11 +1099,56 @@
         
         
         <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="hero--left-default-gradient-left.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Left Default Gradient Left</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
             <a class="Tree-entityLink" href="hero--left-highlighted.html" data-pjax>
                 
                     
 
 <span style="color: #A84F00;" title="WIP">Left Highlighted</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="hero--left-highlighted-thin.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Left Highlighted Thin</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="hero--video.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Video</span>
 
 
                 
@@ -1166,6 +1210,82 @@
                     
 
 <span style="color: #A84F00;" title="WIP">Lists</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+
+            </ul>
+        </li>
+        
+    
+        
+        <li class="Tree-item Tree-collection Tree-depth-2" data-behaviour="collection" id="tree-components-collection-cta">
+            <h3 class="Tree-collectionLabel" data-role="toggle">
+                <span>Cta</span>
+            </h3>
+            <ul class="Tree-collectionItems" data-role="items">
+            
+            
+            
+            
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="cta--default.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Default</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="cta--gold.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">CTA Block Gold Centered</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="cta--black.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">CTA Block Black Centered</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="cta--black-left.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">CTA Block Black Left</span>
 
 
                 
@@ -1852,8 +1972,8 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-07-08T14:28:10.021Z">
-                7/8/2020
+            <time datetime="2020-07-14T21:14:49.443Z">
+                7/14/2020
             </time>
         </div>
     </div>
