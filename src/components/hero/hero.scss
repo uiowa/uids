@@ -243,20 +243,32 @@ img.hero-image {
 }
 
 .hero__container.hero__container-center {
+   @include breakpoint(sm) {
+     z-index: 1;;
   max-width: 100%;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+   }
 }
 
 .hero .hero__content-center {
-  z-index: 1;
   display: grid;
   width: 100%;
-  position: relative;
+  //position: relative;
   background: #fff;
   padding: $gutter;
 
   @include breakpoint(sm) {
-    bottom: 35%;
-    position: absolute;
+    //bottom: 35%;
+   flex-wrap: wrap;
+   align-content: center;
+   flex-direction: column;
+   justify-content: center;
+    > * {
+      flex-basis: 100%;
+    }
   }
 
   @include breakpoint(container) {
@@ -292,8 +304,7 @@ img.hero-image {
   }
 }
 
-.hero__content-bottom,
-.hero__content-center {
+.hero__content-bottom  {
   padding: 0 $md;
   grid-template-columns: repeat(1, 1fr);
   justify-self: stretch;
@@ -324,8 +335,9 @@ img.hero-image {
   text-align: center;
 
   @include breakpoint(sm) {
-    bottom: 40%;
+    //bottom: 40%;
     width: 100%;
+    height: 100%;
   }
 }
 
@@ -353,6 +365,7 @@ img.hero-image {
 }
 
 .hero--gradient-center::after {
+    @include breakpoint(sm) {
   position: absolute;
   top: 0;
   left: 0;
@@ -366,9 +379,11 @@ img.hero-image {
   background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 1)));
   background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 1));
   will-change: opacity;
+    }
 }
 
 .hero--solid-opacity::after {
+    @include breakpoint(sm) {
   position: absolute;
   top: 0;
   left: 0;
@@ -378,9 +393,11 @@ img.hero-image {
   content: "";
   background: rgba(0, 0, 0, .6);
   will-change: opacity;
+    }
 }
 
 .hero--gradient-left:after {
+    @include breakpoint(sm) {
   position: absolute;
   top: 0;
   left: 0;
@@ -392,6 +409,7 @@ img.hero-image {
   transition: all .5s ease-in-out;
   will-change: opacity;
   background: linear-gradient(to right, rgba(0, 0, 0, 0.86) 0%, rgba(0, 0, 0, 0.23) 65%, rgba(0, 0, 0, 0) 100%);
+    }
 }
 
 
