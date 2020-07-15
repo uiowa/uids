@@ -1,0 +1,65 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/utilities';
+
+@media (hover:none),
+(hover:on-demand) {
+  .video-btn {
+    display: none;
+  }
+}
+
+.video-controls {
+  position: absolute;
+  z-index: 1;
+  left: 1.25rem;
+  bottom: 1.25rem;
+
+  @include breakpoint(container) {
+    left: 3rem;
+    bottom: 3rem;
+  }
+}
+
+
+.video-btn {
+  display: none;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  color: $secondary;
+  border: 1px solid white;
+  border-radius: 50%;
+  background: white;
+  font-size: 1rem;
+  padding: 0;
+
+  @include breakpoint(sm) {
+    display: block;
+  }
+
+  &::after {
+    content: "\f04b";
+    @include fas();
+    font-size: 1rem;
+  }
+
+  &.video-btn__pause::after {
+    content: "\f04c";
+  }
+
+  &.video-btn__pause {}
+}
+
+.hero__video {
+
+  @include breakpoint(sm) {
+    display: block;
+  }
+}
+
+
+.hero {
+  &__video {
+    width: 100%;
+  }
+}
