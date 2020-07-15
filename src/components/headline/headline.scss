@@ -21,6 +21,7 @@ h2.bold-headline {
 
 .bold-headline--caps {
   text-transform: uppercase;
+  font-weight: normal;
   font-family: $font-family-caps-bold;
 }
 
@@ -30,7 +31,6 @@ h2.bold-headline {
 }
 
 .bold-headline--highlight {
-  font-weight: 600;
   align-items: center;
   justify-content: center;
   margin-bottom: 8px;
@@ -42,6 +42,14 @@ h2.bold-headline {
     padding: 0.45rem 1rem;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
+  }
+   &.bold-headline--serif {
+     font-weight: 600;
+   }
+  &.bold-headline--caps {
+    span {
+          padding: 0.1rem 1rem;
+    }
   }
 }
 
@@ -68,3 +76,10 @@ h2.bold-headline {
   color: $white;
   @extend .bold-headline;
 }
+
+
+  @-moz-document url-prefix() {
+    .bold-headline--highlight.bold-headline--caps span {
+     padding: 1rem 1rem .4rem;
+    }
+  }
