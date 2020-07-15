@@ -1,4 +1,4 @@
-<div class="hero hero__{{ hero_content }} hero--{{ hero_overlay }} hero--{{ hero_size }}">
+<div class="hero hero__{{ hero_content }} hero--{{ hero_overlay }} hero--{{ hero_size }} {{ hero_classes }}">
 
   {% block hero_media %}
     {% if hero_type == 'video' %}
@@ -7,7 +7,9 @@
       </video>
       <!-- This picture should assume background overlay doesn't work. So it should be darker to handle contrast ratio issues. -->
       <!--[if lt IE 9]> <img src="{{ hero_image }}" alt="{{ hero_image_alt }}" class=" ie8-poster"> <![endif]-->
-    {% else %}
+    {% endif %}
+
+    {% if hero_type == 'image' %}
       <div class="hero__image">
         {% render "@image" %}
       </div>
