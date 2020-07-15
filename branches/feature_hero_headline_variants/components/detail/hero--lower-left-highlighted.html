@@ -264,11 +264,7 @@
                             <code class="Code Code--lang-CSS FileBrowser-code hljs">
                                 <pre><span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-aspect-ratio:</span> <span class="hljs-number">16</span> / <span class="hljs-number">9</span>) {
   <span class="hljs-selector-class">.hero</span> {
-    <span class="hljs-attribute">height</span>: <span class="hljs-number">80vh</span>; }
-    <span class="hljs-selector-class">.hero</span><span class="hljs-selector-class">.hero--thin</span> {
-      <span class="hljs-attribute">height</span>: <span class="hljs-number">35vh</span>; }
-      <span class="hljs-selector-class">.hero</span><span class="hljs-selector-class">.hero--thin</span> <span class="hljs-selector-class">.bold-headline</span> {
-        <span class="hljs-attribute">font-size</span>: <span class="hljs-built_in">calc</span>(<span class="hljs-number">100%</span> + <span class="hljs-number">2.5vw</span>); } }
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">80vh</span>; } }
 
 <span class="hljs-selector-class">.hero</span> {
   <span class="hljs-attribute">position</span>: relative;
@@ -386,9 +382,13 @@
 <span class="hljs-selector-class">.hero--banner</span> <span class="hljs-selector-class">.bold-headline</span> {
   <span class="hljs-attribute">font-size</span>: <span class="hljs-number">3rem</span>; }
 
-<span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">84.375em</span>) {
+<span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>) {
   <span class="hljs-selector-class">.hero--banner</span> <span class="hljs-selector-tag">img</span> {
     <span class="hljs-attribute">height</span>: <span class="hljs-number">33rem</span>; } }
+
+<span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>) {
+  <span class="hljs-selector-class">.hero--banner</span><span class="hljs-selector-class">.hero--thin</span> <span class="hljs-selector-tag">img</span> {
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">18rem</span>; } }
 
 <span class="hljs-selector-class">.hero--banner</span> <span class="hljs-selector-tag">p</span> {
   <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">100</span>; }
@@ -428,7 +428,7 @@
     <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
     <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
     <span class="hljs-attribute">content</span>: <span class="hljs-string">""</span>;
-    <span class="hljs-attribute">background</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.6</span>);
+    <span class="hljs-attribute">background</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.5</span>);
     <span class="hljs-attribute">will-change</span>: opacity; } }
 
 <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>) {
@@ -459,7 +459,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">4.2 KB</span>
+                    <span class="Meta-value">4.1 KB</span>
                 </li>
             </ul>
         </div>
@@ -549,11 +549,7 @@ motionQuery.addListener(reducedMotionCheck);
     <span class="hljs-attribute">height</span>: <span class="hljs-number">80vh</span>;
 
     &amp;<span class="hljs-selector-class">.hero--thin</span> {
-      <span class="hljs-attribute">height</span>: <span class="hljs-number">35vh</span>;
-
-      <span class="hljs-selector-class">.bold-headline</span> {
-        <span class="hljs-attribute">font-size</span>: calc(<span class="hljs-number">100%</span> + <span class="hljs-number">2.5vw</span>);
-      }
+      <span class="hljs-comment">// height: 35vh;</span>
     }
   }
 }
@@ -716,6 +712,7 @@ motionQuery.addListener(reducedMotionCheck);
 }
 
 
+
 <span class="hljs-comment">// Banner Variant</span>
 
 <span class="hljs-selector-class">.hero--banner</span> {
@@ -729,8 +726,16 @@ motionQuery.addListener(reducedMotionCheck);
   }
 
   <span class="hljs-selector-tag">img</span> {
-    <span class="hljs-keyword">@include</span> breakpoint(container) {
+    <span class="hljs-keyword">@include</span> breakpoint(sm) {
       <span class="hljs-attribute">height</span>: <span class="hljs-number">33rem</span>;
+    }
+  }
+
+  &amp;<span class="hljs-selector-class">.hero--thin</span> {
+    <span class="hljs-selector-tag">img</span> {
+      <span class="hljs-keyword">@include</span> breakpoint(sm) {
+        <span class="hljs-attribute">height</span>: <span class="hljs-number">18rem</span>;
+      }
     }
   }
 
@@ -752,6 +757,8 @@ motionQuery.addListener(reducedMotionCheck);
     }
   }
 }
+
+
 
 
 <span class="hljs-comment">// Gradients/Overlays</span>
@@ -783,7 +790,7 @@ motionQuery.addListener(reducedMotionCheck);
     <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
     <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
     <span class="hljs-attribute">content</span>: <span class="hljs-string">""</span>;
-    <span class="hljs-attribute">background</span>: rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, .<span class="hljs-number">6</span>);
+    <span class="hljs-attribute">background</span>: rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, .<span class="hljs-number">5</span>);
     will-change: opacity;
   }
 }
@@ -1543,20 +1550,20 @@ _:future,
                     <span>Lower Left Default</span>
                 </a>, 
             
-                <a href="hero--lower-left-default-gradient-left.html">
-                    <span>Lower Left Default Gradient Left</span>
-                </a>, 
-            
                 <a href="">
                     <span>Lower Left Highlighted</span>
                 </a>, 
             
-                <a href="hero--lower-left-highlighted-thin.html">
-                    <span>Lower Left Highlighted Thin</span>
-                </a>, 
-            
                 <a href="hero--banner-default.html">
                     <span>Banner Default</span>
+                </a>, 
+            
+                <a href="hero--banner-thin-default.html">
+                    <span>Banner Thin Default</span>
+                </a>, 
+            
+                <a href="hero--banner-thin-centered.html">
+                    <span>Banner Thin Centered</span>
                 </a>, 
             
                 <a href="hero--video.html">
@@ -1720,21 +1727,6 @@ _:future,
     
         
         
-        <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="hero--lower-left-default-gradient-left.html" data-pjax>
-                
-                    
-
-<span style="color: #A84F00;" title="WIP">Lower Left Default Gradient Left</span>
-
-
-                
-            </a>
-        </li>
-        
-    
-        
-        
         <li class="Tree-item Tree-entity is-current" data-state="current" data-role="item">
             <a class="Tree-entityLink" href="" data-pjax>
                 
@@ -1751,11 +1743,11 @@ _:future,
         
         
         <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="hero--lower-left-highlighted-thin.html" data-pjax>
+            <a class="Tree-entityLink" href="hero--banner-default.html" data-pjax>
                 
                     
 
-<span style="color: #A84F00;" title="WIP">Lower Left Highlighted Thin</span>
+<span style="color: #A84F00;" title="WIP">Banner Default</span>
 
 
                 
@@ -1766,11 +1758,26 @@ _:future,
         
         
         <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="hero--banner-default.html" data-pjax>
+            <a class="Tree-entityLink" href="hero--banner-thin-default.html" data-pjax>
                 
                     
 
-<span style="color: #A84F00;" title="WIP">Banner Default</span>
+<span style="color: #A84F00;" title="WIP">Banner Thin Default</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="hero--banner-thin-centered.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Banner Thin Centered</span>
 
 
                 
@@ -2609,7 +2616,7 @@ _:future,
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-07-15T17:04:36.262Z">
+            <time datetime="2020-07-15T17:37:31.852Z">
                 7/15/2020
             </time>
         </div>
