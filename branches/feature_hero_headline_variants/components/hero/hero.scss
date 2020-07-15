@@ -2,17 +2,7 @@
 @import '../../assets/scss/utilities';
 
 
-// Hero heights
-
-@media (min-aspect-ratio:16/9) {
-  .hero {
-    height: 80vh;
-
-    &.hero--thin {
-      // height: 35vh;
-    }
-  }
-}
+// Hero
 
 .hero {
   position: relative;
@@ -201,6 +191,8 @@
 
   p {
     font-weight: 100;
+    font-size: 1.3rem;
+    line-height: 1.7;
   }
 
   .hero__content-bottom {
@@ -223,7 +215,7 @@
 
 // Gradients/Overlays
 
-.hero--gradient-center::after {
+.hero--gradient-center-left::after {
   @include breakpoint(sm) {
     position: absolute;
     top: 0;
@@ -240,6 +232,23 @@
     will-change: opacity;
   }
 }
+
+.hero--gradient-center::after {
+  @include breakpoint(sm) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    content: "";
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 70%);
+    will-change: opacity;
+  }
+}
+
 
 .hero--solid-opacity::after {
   @include breakpoint(sm) {

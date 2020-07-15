@@ -100,13 +100,7 @@
     
         <div class="Prose Prose--condensed">
     
-        <h1 id="hero">Hero</h1>
-<p>A hero consists of a large image or video with content sitting on top of it.</p>
-<p><strong>Must contain an image field and either:</strong></p>
-<ul>
-<li>Title <em>and/or</em></li>
-<li>Body</li>
-</ul>
+        <p>This is a version of the thin banner that is centered with a solid black opacity</p>
 
     
 </div>
@@ -262,11 +256,7 @@
                         <div class="FileBrowser-itemPreview">
                             
                             <code class="Code Code--lang-CSS FileBrowser-code hljs">
-                                <pre><span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-aspect-ratio:</span> <span class="hljs-number">16</span> / <span class="hljs-number">9</span>) {
-  <span class="hljs-selector-class">.hero</span> {
-    <span class="hljs-attribute">height</span>: <span class="hljs-number">80vh</span>; } }
-
-<span class="hljs-selector-class">.hero</span> {
+                                <pre><span class="hljs-selector-class">.hero</span> {
   <span class="hljs-attribute">position</span>: relative;
   <span class="hljs-attribute">overflow</span>: hidden;
   <span class="hljs-attribute">background</span>: <span class="hljs-number">#151515</span>; }
@@ -391,7 +381,9 @@
     <span class="hljs-attribute">height</span>: <span class="hljs-number">18rem</span>; } }
 
 <span class="hljs-selector-class">.hero--banner</span> <span class="hljs-selector-tag">p</span> {
-  <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">100</span>; }
+  <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">100</span>;
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.3rem</span>;
+  <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.7</span>; }
 
 <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>) {
   <span class="hljs-selector-class">.hero--banner</span> <span class="hljs-selector-class">.hero__content-bottom</span> {
@@ -406,7 +398,7 @@
     <span class="hljs-attribute">width</span>: <span class="hljs-number">40%</span>; } }
 
 <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>) {
-  <span class="hljs-selector-class">.hero--gradient-center</span><span class="hljs-selector-pseudo">::after</span> {
+  <span class="hljs-selector-class">.hero--gradient-center-left</span><span class="hljs-selector-pseudo">::after</span> {
     <span class="hljs-attribute">position</span>: absolute;
     <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
     <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
@@ -417,6 +409,19 @@
     <span class="hljs-attribute">transition</span>: all .<span class="hljs-number">5s</span> ease-in-out;
     <span class="hljs-attribute">opacity</span>: .<span class="hljs-number">75</span>;
     <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">180deg</span>, transparent, black);
+    <span class="hljs-attribute">will-change</span>: opacity; } }
+
+<span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>) {
+  <span class="hljs-selector-class">.hero--gradient-center</span><span class="hljs-selector-pseudo">::after</span> {
+    <span class="hljs-attribute">position</span>: absolute;
+    <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">display</span>: block;
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+    <span class="hljs-attribute">content</span>: <span class="hljs-string">""</span>;
+    <span class="hljs-attribute">transition</span>: all .<span class="hljs-number">5s</span> ease-in-out;
+    <span class="hljs-attribute">background</span>: <span class="hljs-built_in">linear-gradient</span>(to bottom, rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>) <span class="hljs-number">0%</span>, <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.65</span>) <span class="hljs-number">70%</span>);
     <span class="hljs-attribute">will-change</span>: opacity; } }
 
 <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>) {
@@ -459,7 +464,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">4.1 KB</span>
+                    <span class="Meta-value">4.4 KB</span>
                 </li>
             </ul>
         </div>
@@ -542,17 +547,7 @@ motionQuery.addListener(reducedMotionCheck);
 <span class="hljs-keyword">@import</span> <span class="hljs-string">'../../assets/scss/utilities'</span>;
 
 
-<span class="hljs-comment">// Hero heights</span>
-
-<span class="hljs-keyword">@media</span> (min-aspect-ratio:<span class="hljs-number">16</span>/<span class="hljs-number">9</span>) {
-  <span class="hljs-selector-class">.hero</span> {
-    <span class="hljs-attribute">height</span>: <span class="hljs-number">80vh</span>;
-
-    &amp;<span class="hljs-selector-class">.hero--thin</span> {
-      <span class="hljs-comment">// height: 35vh;</span>
-    }
-  }
-}
+<span class="hljs-comment">// Hero</span>
 
 <span class="hljs-selector-class">.hero</span> {
   <span class="hljs-attribute">position</span>: relative;
@@ -741,6 +736,8 @@ motionQuery.addListener(reducedMotionCheck);
 
   <span class="hljs-selector-tag">p</span> {
     <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">100</span>;
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.3rem</span>;
+    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.7</span>;
   }
 
   <span class="hljs-selector-class">.hero__content-bottom</span> {
@@ -763,7 +760,7 @@ motionQuery.addListener(reducedMotionCheck);
 
 <span class="hljs-comment">// Gradients/Overlays</span>
 
-<span class="hljs-selector-class">.hero--gradient-center</span><span class="hljs-selector-pseudo">::after</span> {
+<span class="hljs-selector-class">.hero--gradient-center-left</span><span class="hljs-selector-pseudo">::after</span> {
   <span class="hljs-keyword">@include</span> breakpoint(sm) {
     <span class="hljs-attribute">position</span>: absolute;
     <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
@@ -780,6 +777,23 @@ motionQuery.addListener(reducedMotionCheck);
     will-change: opacity;
   }
 }
+
+<span class="hljs-selector-class">.hero--gradient-center</span><span class="hljs-selector-pseudo">::after</span> {
+  <span class="hljs-keyword">@include</span> breakpoint(sm) {
+    <span class="hljs-attribute">position</span>: absolute;
+    <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">display</span>: block;
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+    <span class="hljs-attribute">content</span>: <span class="hljs-string">""</span>;
+    -webkit-<span class="hljs-attribute">transition</span>: all .<span class="hljs-number">5s</span> ease-in-out;
+    <span class="hljs-attribute">transition</span>: all .<span class="hljs-number">5s</span> ease-in-out;
+    <span class="hljs-attribute">background</span>: linear-gradient(to bottom, rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>) <span class="hljs-number">0%</span>, rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.65</span>) <span class="hljs-number">70%</span>);
+    will-change: opacity;
+  }
+}
+
 
 <span class="hljs-selector-class">.hero--solid-opacity</span><span class="hljs-selector-pseudo">::after</span> {
   <span class="hljs-keyword">@include</span> breakpoint(sm) {
@@ -826,7 +840,7 @@ motionQuery.addListener(reducedMotionCheck);
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">4.2 KB</span>
+                    <span class="Meta-value">4.5 KB</span>
                 </li>
             </ul>
         </div>
@@ -1401,7 +1415,13 @@ _:future,
     <span class="hljs-attribute">display</span>: block; } }
 
 <span class="hljs-selector-class">.hero__video</span> {
-  <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>; }
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+  <span class="hljs-attribute">-o-object-fit</span>: cover;
+     <span class="hljs-attribute">object-fit</span>: cover; }
+
+<span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-aspect-ratio:</span> <span class="hljs-number">16</span> / <span class="hljs-number">9</span>) {
+  <span class="hljs-selector-class">.hero__video</span> {
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">80vh</span>; } }
 </pre>
                             </code>
                             
@@ -1418,7 +1438,7 @@ _:future,
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">1 KB</span>
+                    <span class="Meta-value">1.2 KB</span>
                 </li>
             </ul>
         </div>
@@ -1433,6 +1453,7 @@ _:future,
                             <code class="Code Code--lang-SCSS FileBrowser-code hljs">
                                 <pre><span class="hljs-keyword">@import</span> <span class="hljs-string">'../../assets/scss/variables'</span>;
 <span class="hljs-keyword">@import</span> <span class="hljs-string">'../../assets/scss/utilities'</span>;
+
 
 <span class="hljs-keyword">@media</span> (hover:none),
 (hover:on-demand) {
@@ -1452,7 +1473,6 @@ _:future,
     <span class="hljs-attribute">bottom</span>: <span class="hljs-number">3rem</span>;
   }
 }
-
 
 <span class="hljs-selector-class">.video-btn</span> {
   <span class="hljs-attribute">display</span>: none;
@@ -1494,6 +1514,15 @@ _:future,
 <span class="hljs-selector-class">.hero</span> {
   &amp;__video {
     <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+    <span class="hljs-selector-tag">object</span>-fit: cover;
+  }
+}
+
+<span class="hljs-comment">// settting a height to keep controls visible within viewport</span>
+
+<span class="hljs-keyword">@media</span> (min-aspect-ratio:<span class="hljs-number">16</span>/<span class="hljs-number">9</span>) {
+  <span class="hljs-selector-class">.hero__video</span> {
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">80vh</span>;
   }
 }
 </pre>
@@ -1512,7 +1541,7 @@ _:future,
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">868 Bytes</span>
+                    <span class="Meta-value">1 KB</span>
                 </li>
             </ul>
         </div>
@@ -1535,7 +1564,7 @@ _:future,
         
         
         <li class="Meta-item">
-            <strong class="Meta-key">Variants <em class="Meta-count">(8)</em>:</strong>
+            <strong class="Meta-key">Variants <em class="Meta-count">(9)</em>:</strong>
             <span class="Meta-value Meta-value--linkList">
             
                 <a href="hero--default.html">
@@ -1556,6 +1585,10 @@ _:future,
             
                 <a href="hero--banner-default.html">
                     <span>Banner Default</span>
+                </a>, 
+            
+                <a href="hero--banner-default-centered.html">
+                    <span>Banner Default Centered</span>
                 </a>, 
             
                 <a href="hero--banner-thin-default.html">
@@ -1748,6 +1781,21 @@ _:future,
                     
 
 <span style="color: #A84F00;" title="WIP">Banner Default</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="hero--banner-default-centered.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Banner Default Centered</span>
 
 
                 
@@ -2616,7 +2664,7 @@ _:future,
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-07-15T17:37:31.852Z">
+            <time datetime="2020-07-15T19:18:10.003Z">
                 7/15/2020
             </time>
         </div>
