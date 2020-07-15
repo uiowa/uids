@@ -9,11 +9,7 @@
     height: 80vh;
 
     &.hero--thin {
-      height: 35vh;
-
-      .bold-headline {
-        font-size: calc(100% + 2.5vw);
-      }
+      // height: 35vh;
     }
   }
 }
@@ -176,6 +172,7 @@
 }
 
 
+
 // Banner Variant
 
 .hero--banner {
@@ -189,8 +186,16 @@
   }
 
   img {
-    @include breakpoint(container) {
+    @include breakpoint(sm) {
       height: 33rem;
+    }
+  }
+
+  &.hero--thin {
+    img {
+      @include breakpoint(sm) {
+        height: 18rem;
+      }
     }
   }
 
@@ -212,6 +217,8 @@
     }
   }
 }
+
+
 
 
 // Gradients/Overlays
@@ -243,7 +250,7 @@
     width: 100%;
     height: 100%;
     content: "";
-    background: rgba(0, 0, 0, .6);
+    background: rgba(0, 0, 0, .5);
     will-change: opacity;
   }
 }
