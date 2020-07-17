@@ -1,0 +1,8 @@
+{# @todo Add option for additional classes to <li>. #}
+<li class="menu-item">
+  <a href="{{ item.url }}">{% if item.icon_class %}<i class="{{ item.icon_class }}"></i><span class="link-text">{% endif %}{{ item.text }}{% if item.icon_class %}</span>{% endif %}</a>
+  {% if item.children %}
+    {# If there is a child menu under this link, render it. #}
+    {% include "@menu" with { items: item.children} %}
+  {% endif %}
+</li>
