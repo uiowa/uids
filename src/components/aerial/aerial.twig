@@ -1,0 +1,41 @@
+<div class="aerial aerial__grid">
+
+	<div class="aerial__image">
+		{% render "@image" %}
+	</div>
+
+	<div class="aerial__content aerial__content-grid">
+
+		{% include "@highlight" with {
+      "highlight_title" : grid_title_1,
+      "highlight_sub" : grid_sub_1
+    } %}
+
+		{% include "@highlight" with {
+      "highlight_title" : grid_title_2,
+      "highlight_sub" : grid_sub_2
+    } %}
+
+		{% include "@highlight" with {
+      "highlight_title" : grid_title_3,
+      "highlight_sub" : grid_sub_3
+    } %}
+
+		{% block headline %}
+			{% if aerial_title is not empty %}
+				{% include "@headline" with {
+              "heading_level" : 'h2',
+              "heading_class" : 'bold-headline--caps bold-headline',
+              "heading" : aerial_title
+            } %}
+			{% endif %}
+		{% endblock %}
+
+		{% include "@highlight" with {
+      "highlight_title" : grid_title_4,
+      "highlight_sub" : grid_sub_4
+    } %}
+
+	</div>
+
+</div>
