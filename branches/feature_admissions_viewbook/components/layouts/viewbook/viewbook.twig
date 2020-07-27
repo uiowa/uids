@@ -6,6 +6,9 @@
 
 {% endembed %}
 
+<div class="section">
+<div class="section__snap">
+
 {% include "@hero--default" with {
   "hero_type": 'image',
   "hero_size": 'large',
@@ -18,6 +21,11 @@
   "hero_overlay": 'solid-opacity',
 } %}
 
+
+
+</div>{# end section #}
+
+
 <div role="region" class="cta-row__wrapper">
 	<div class="cta-row__container">
 		{% include "@menu" with {
@@ -29,16 +37,34 @@
 
 
 
+<div class="section__snap">
 {% render '@aerial' %}
+</div>
+{# end section #}
 
-{% include "@cta" %}
 
+<div class="section__snap">
+
+<div class="areas">
+<div class="areas__column">
+{% include "@headline" with {
+              "heading_level" : 'h2',
+              "heading_class" : 'bold-headline--caps bold-headline',
+              "heading" : '200 + Areas of Study'
+            } %}
+
+<p>Iowa offers over 200 majors, minors and certificates. Students are encouraged to work across disciplines to find their passion</p>
+
+
+
+</div>
+
+   <div class="areas__column">
 <div class="card__wrapper">
-
-{% for item in row.items | slice(0, 11) %}
-	{% set card_classes = item.card_classes ?: '' %}
-	{% set card_classes = card_classes|split(' ')|merge(['card__row'])|join(' ') %}
-	{% include '@card' with {
+	{% for item in row.items | slice(0, 9) %}
+		{% set card_classes = item.card_classes ?: '' %}
+		{% set card_classes = card_classes|split(' ')|merge(['card__row'])|join(' ') %}
+		{% include '@card' with {
       'card_classes': card_classes,
       'card_image': item.card_image,
       'card_link_url': item.card_link_url,
@@ -48,93 +74,81 @@
       'card_author': item.card_author,
       'card_aria': item.card_aria
     } %}
-{% endfor %}
+	{% endfor %}
+</div>
 
+</div>
 </div>
 
 
 
 
 
+
+</div>
+{# end section #}
+
+
+<div class="section__snap">
+
+<div class="viewbook">
+	<div class="viewbook__section">
+<img class="card__img" src="../../assets/images/viewbook/sections/0315.jpg" alt="Alt Text">
+
+
+  </div>
+<div class="viewbook__section">
+<img class="card__img" src="../../assets/images/viewbook/sections/00478.jpg" alt="Alt Text">
+
+
+</div>
+
+<div class="viewbook__section">
+<img class="card__img" src="../../assets/images/viewbook/sections/0717.jpg" alt="Alt Text">
+
+
+</div>
+
+<div class="viewbook__section">
+
+
+		{% include "@headline" with {
+              "heading_level" : 'h2',
+              "heading_class" : 'bold-headline--caps bold-headline',
+              "heading" : 'We Work Together'
+            } %}
+
+<p>The University of Iowa blends big-school opportunities with close, personal support to help you excel. We remove the barriers between arts and science, between students and faculty—but most of all, between you and anything you’d like to explore</p>
+</p>
+<p>How many universities have both a state-of-the-art children’s hospital anda 3,883-pipe Klais organ? Or helped build the Voyager I satellite and the very first creative writing degree program? Just one: Iowa.</p>
+</p>
+
+<a href="https://ADMISSIONS.UIOWA.EDU/ACADEMICS" class="bttn bttn--secondary bttn--caps">
+
+ADMISSIONS.UIOWA.EDU/ACADEMICS
+	<i class="fas fa-arrow-right"></i>
+</a>
+
+
+</div>
+
+</div>
+
+
+</div>
+{# end section snap #}
+
+
+</div>
+{# end section #}
+
+
+
+
+
+
 <main>
-  <a id="main-content" tabindex="-1"></a>
 
-  <article role="article" class="page__container">
-
-    <h1>Page Title</h1>
-
-    <h2>Second Level</h2>
-
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum
-            mattis neque.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum
-            mattis neque.</p>
-
-    <h3>Third Level</h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum
-            mattis neque.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum
-            mattis neque.</p>
-
-    <h4>Fourth Level</h4>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum
-            mattis neque.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum
-            mattis neque.</p>
-    <h5>Fifth Level</h5>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum
-            mattis neque.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum
-            mattis neque.</p>
-
-    <ol type="1">
-      <li>Coffee</li>
-      <li>Tea</li>
-      <li>Milk</li>
-    </ol>
-    <ol type="A">
-      <li>Coffee</li>
-      <li>Tea</li>
-      <li>Milk</li>
-    </ol>
-    <ol type="a">
-      <li>Coffee</li>
-      <li>Tea</li>
-      <li>Milk</li>
-    </ol>
-    <ol type="I">
-      <li>Coffee</li>
-      <li>Tea</li>
-      <li>Milk</li>
-    </ol>
-    <ol type="i">
-      <li>Coffee</li>
-      <li>Tea</li>
-      <li>Milk</li>
-    </ol>
-
-    <ol class="is-lower-alpha">
-      <li>Coffee</li>
-      <li>Tea</li>
-      <li>Milk</li>
-    </ol>
-    <ol class="is-lower-roman">
-      <li>Coffee</li>
-      <li>Tea</li>
-      <li>Milk</li>
-    </ol>
-    <ol class="is-upper-alpha">
-      <li>Coffee</li>
-      <li>Tea</li>
-      <li>Milk</li>
-    </ol>
-    <ol class="is-upper-roman">
-      <li>Coffee</li>
-      <li>Tea</li>
-      <li>Milk</li>
-    </ol>
-
-  </article>
 </main>
 
 {% render '@footer' %}

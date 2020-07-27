@@ -21,24 +21,39 @@
     display: flex; } }
 
 .cta-row__wrapper {
-  background: #FFCD00;
-  padding: 1.875rem 0;
-  margin: 0; }
+  padding: 0;
+  margin: 0;
+  margin: 0;
+  position: fixed;
+  right: 0;
+  height: 40vh;
+  width: 60px;
+  z-index: 100;
+  top: 30%; }
   .cta-row__wrapper nav {
     width: 100%; }
   @media (min-width: 768px) {
     .cta-row__wrapper .menu {
-      display: flex; } }
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      height: 100%;
+      padding: 50% 0; } }
   .cta-row__wrapper .menu li {
     flex: 1;
-    display: block; }
+    display: block;
+    width: 100%; }
   .cta-row__wrapper .bttn--outline {
-    border: 1px solid #151515;
-    display: block; }
+    border: none;
+    display: block;
+    background: #fff; }
     @media (min-width: 768px) {
       .cta-row__wrapper .bttn--outline {
         flex: 1;
-        display: block; } }
+        display: block;
+        margin-bottom: 1.875rem; } }
 
 .cta-row__container {
   justify-content: space-between; }
@@ -50,26 +65,27 @@
       padding: 0; } }
 
 .cta-row__container .menu a {
-  margin: 1.05rem 0;
+  margin: .5rem 0;
   padding-top: 0.325rem; }
-  @media (min-width: 768px) {
-    .cta-row__container .menu a {
-      margin: 0 1.05rem; } }
+  .cta-row__container .menu a.bttn--caps {
+    padding: .3rem .5rem .3rem; }
   .cta-row__container .menu a:before {
     content: ' ';
     background-repeat: no-repeat;
     background-size: 90%;
-    width: 35px;
-    height: 35px;
-    display: inline-block;
-    margin-bottom: -5px;
-    margin-right: 5px; }
+    width: 55px;
+    height: 55px;
+    display: flex;
+    margin: 0 auto;
+    margin-bottom: 0.625rem; }
   .cta-row__container .menu a.bttn--apply:before {
     background-image: url(/../../assets/images/apply-01.svg); }
   .cta-row__container .menu a.bttn--visit:before {
     background-image: url(/../../assets/images/location-01.svg); }
-  .cta-row__container .menu a.bttn--request:before {
-    background-image: url(/../../assets/images/request-01.svg); }
+  .cta-row__container .menu a.bttn--ask:before {
+    background-image: url(/../../assets/images/ask-01-01.svg); }
+  .cta-row__container .menu a.bttn--connect:before {
+    background-image: url(/../../assets/images/connect-01-01.svg); }
 
 .cta-row__container > a:first-child {
   margin-left: 0; }
@@ -77,8 +93,8 @@
 .cta-row__container > a:last-child {
   margin-right: 0; }
 
-.card__wrapper {
-  margin: 1.25rem 1.25rem; }
+.card.card--enclosed {
+  border: none; }
 
 @media (min-width: 855px) {
   .card__wrapper {
@@ -90,6 +106,61 @@
   .card__body {
     flex: auto !important; } }
 
-.card {
-  flex: 0 0 calc(25% - 3rem);
-  margin-bottom: 3rem; }
+.card__row {
+  flex: 0 0 33.3%;
+  margin-bottom: 0rem; }
+
+.cta__wrapper {
+  height: 100%; }
+
+.viewbook {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px; }
+  .viewbook__section:nth-child(1) {
+    grid-area: 1 / 1 / 3 / 4; }
+  .viewbook__section:nth-child(2) {
+    grid-area: 3 / 1 / 4 / 3; }
+  .viewbook__section:nth-child(3) {
+    grid-area: 3 / 3 / 4 / 4; }
+  .viewbook__section:nth-child(4) {
+    grid-area: 1 / 4 / 4 / 7;
+    align-items: center;
+    padding: 7rem 7rem 0 7rem; }
+    .viewbook__section:nth-child(4) h2.bold-headline,
+    .viewbook__section:nth-child(4) h2.bold-headline--positive,
+    .viewbook__section:nth-child(4) h2.bold-headline--negative {
+      font-size: calc(4em + 1vw); }
+
+.section {
+  flex-basis: 100%;
+  max-height: 100vh;
+  overflow-y: scroll;
+  border: 1px solid gray;
+  -ms-scroll-snap-type: y mandatory;
+      scroll-snap-type: y mandatory; }
+  .section__snap {
+    scroll-snap-align: start; }
+  .section__container {
+    max-width: 100em;
+    margin: 0 auto; }
+
+.areas {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px; }
+
+.areas__column:nth-child(1) {
+  grid-area: 1 / 1 / 4 / 4;
+  padding: 7rem 7rem 0 7rem; }
+  .areas__column:nth-child(1) h2.bold-headline,
+  .areas__column:nth-child(1) h2.bold-headline--positive,
+  .areas__column:nth-child(1) h2.bold-headline--negative {
+    font-size: calc(4em + 1vw); }
+
+.areas__column:nth-child(2) {
+  grid-area: 1 / 4 / 4 / 7; }
