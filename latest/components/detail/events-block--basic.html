@@ -247,7 +247,8 @@
   <span class="hljs-attribute">flex-direction</span>: column;
   <span class="hljs-attribute">flex</span>: <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">0%</span>; }
   <span class="hljs-selector-class">.events-card__body</span> {
-    <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">1.25rem</span> <span class="hljs-number">1.25rem</span> <span class="hljs-number">1.25rem</span>; }
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">1.25rem</span> <span class="hljs-number">1.25rem</span> <span class="hljs-number">1.25rem</span>;
+    <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">1</span> <span class="hljs-number">100%</span>; }
     <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>) {
       <span class="hljs-selector-class">.events-card__body</span> {
         <span class="hljs-attribute">text-align</span>: center; } }
@@ -263,7 +264,6 @@
     <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">84.375em</span>) {
       <span class="hljs-selector-class">.events-card__row</span> {
         <span class="hljs-attribute">display</span>: flex;
-        <span class="hljs-attribute">align-items</span>: center;
         <span class="hljs-attribute">justify-content</span>: center;
         <span class="hljs-attribute">flex-wrap</span>: nowrap;
         <span class="hljs-attribute">border</span>: none;
@@ -338,7 +338,8 @@
   <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">84.375em</span>) {
     <span class="hljs-selector-class">.events-card__image</span> {
       <span class="hljs-attribute">display</span>: block;
-      <span class="hljs-attribute">width</span>: <span class="hljs-number">60%</span>;
+      <span class="hljs-attribute">width</span>: auto;
+      <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">1</span> <span class="hljs-number">30%</span>;
       <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">15px</span>;
       <span class="hljs-attribute">margin-left</span>: <span class="hljs-number">0</span>; } }
   <span class="hljs-selector-class">.events-card__label</span> {
@@ -397,6 +398,10 @@
       <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1</span>;
       <span class="hljs-attribute">font-family</span>: <span class="hljs-string">"Font Awesome 5 Free"</span>;
       <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">900</span>; }
+
+<span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">84.375em</span>) {
+  <span class="hljs-selector-class">.events-card__image</span> + <span class="hljs-selector-class">.events-card__body</span> {
+    <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">1</span> <span class="hljs-number">70%</span>; } }
 </pre>
                             </code>
                             
@@ -413,7 +418,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">4.5 KB</span>
+                    <span class="Meta-value">4.6 KB</span>
                 </li>
             </ul>
         </div>
@@ -438,6 +443,7 @@
 
   &amp;__body {
     <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-variable">$mobile-width-gutter</span> <span class="hljs-variable">$mobile-width-gutter</span> <span class="hljs-variable">$mobile-width-gutter</span>;
+    <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">1</span> <span class="hljs-number">100%</span>;
 
     <span class="hljs-keyword">@include</span> breakpoint(sm) {
       <span class="hljs-attribute">text-align</span>: center;
@@ -457,7 +463,6 @@
 
     <span class="hljs-keyword">@include</span> breakpoint(container) {
       <span class="hljs-attribute">display</span>: flex;
-      <span class="hljs-attribute">align-items</span>: center;
       <span class="hljs-attribute">justify-content</span>: center;
       <span class="hljs-attribute">flex-wrap</span>: nowrap;
       <span class="hljs-attribute">border</span>: none;
@@ -515,9 +520,7 @@
       <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-variable">$grey</span>;
     }
 
-
     <span class="hljs-attribute">background</span>: <span class="hljs-number">#fff</span>;
-    <span class="hljs-comment">//@include margin($bottom: $md);</span>
 
     <span class="hljs-selector-class">.bg--gold</span> &amp; {
       <span class="hljs-keyword">@include</span> breakpoint(sm) {
@@ -574,7 +577,8 @@
 
     <span class="hljs-keyword">@include</span> breakpoint(container) {
       <span class="hljs-attribute">display</span>: block;
-      <span class="hljs-attribute">width</span>: <span class="hljs-number">60%</span>;
+      <span class="hljs-attribute">width</span>: auto;
+      <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">1</span> <span class="hljs-number">30%</span>;
       <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">15px</span>;
       <span class="hljs-attribute">margin-left</span>: <span class="hljs-number">0</span>;
     }
@@ -652,6 +656,12 @@
     }
   }
 }
+
+<span class="hljs-selector-class">.events-card__image</span>+<span class="hljs-selector-class">.events-card__body</span> {
+  <span class="hljs-keyword">@include</span> breakpoint(container) {
+    <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">1</span> <span class="hljs-number">70%</span>;
+  }
+}
 </pre>
                             </code>
                             
@@ -668,7 +678,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">3.8 KB</span>
+                    <span class="Meta-value">3.9 KB</span>
                 </li>
             </ul>
         </div>
@@ -1543,8 +1553,8 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-07-21T14:08:08.252Z">
-                7/21/2020
+            <time datetime="2020-07-27T18:22:12.122Z">
+                7/27/2020
             </time>
         </div>
     </div>
