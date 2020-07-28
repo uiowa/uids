@@ -6,8 +6,6 @@
 
 {% endembed %}
 
-
-
 {% include "@hero--default" with {
   "hero_type": 'image',
   "hero_size": 'large',
@@ -20,74 +18,36 @@
   "hero_overlay": 'solid-opacity',
 } %}
 
-
-
-
-
-
-<div data-uids-cta role="region" class="cta-row__wrapper">
-	<div class="cta-row__container">
-		{% include "@menu" with {
-				items: link_bttn.items | slice(0, 4),
-			} %}
-
-	</div>
+<div data-uids-cta="data-uids-cta" role="region" class="cta-row__wrapper">
+  <div class="cta-row__container">
+    {% include "@menu" with {
+      items : link_bttn.items | slice(0, 4)
+    } %}
+  </div>
 </div>
-
-
-<div class="stat__wrapper">
-<div class="stat__container">
-	{% for item in stat_row.items | slice(0,4) %}
-		{% include "@stat" with {
-				"stat_classes": item.stat_classes,
-				"stat_image": item.stat_image,
-				"stat_image_position": item.stat_image_position,
-				"stat_pattern": item.stat_pattern,
-				"stat_title": item.stat_title,
-				"stat_prefix": item.stat_prefix,
-				"stat_suffix": item.stat_suffix,
-				"stat_summary": item.stat_summary,
-        "stat_content": item.stat_content
-			} %}
-	{% endfor %}
-</div>
-</div>
-
-
-
-
-
-
-
-
 
 
 <div class="viewbook">
-<div class="viewbook__section areas__content bg-pattern--brain">
-
-{% include "@headline" with {
+  <div class="viewbook__section areas__content bg-pattern--brain">
+    {% include "@headline" with {
               "heading_level" : 'h2',
               "heading_class" : 'bold-headline--caps bold-headline',
               "heading" : '200+ <span>Areas</span> of Study'
             } %}
+    <p>Iowa offers over 200 majors, minors and certificates. Students are encouraged to work across disciplines to find their passion</p>
 
-<p>Iowa offers over 200 majors, minors and certificates. Students are encouraged to work across disciplines to find their passion</p>
+    <a href="https://ADMISSIONS.UIOWA.EDU/ACADEMICS" class="bttn bttn--secondary bttn--caps">
+      ADMISSIONS.UIOWA.EDU/ACADEMICS
+      <i class="fas fa-arrow-right"></i>
+    </a>
+  </div>
 
-<a href="https://ADMISSIONS.UIOWA.EDU/ACADEMICS" class="bttn bttn--secondary bttn--caps">
-
-	ADMISSIONS.UIOWA.EDU/ACADEMICS
-	<i class="fas fa-arrow-right"></i>
-</a>
-
-
-</div>
-
-   <div class="viewbook__section">
-<div class="card__wrapper">
-	{% for item in row.items | slice(0, 12) %}
-		{% set card_classes = item.card_classes ?: '' %}
-		{% set card_classes = card_classes|split(' ')|merge(['card__row'])|join(' ') %}
-		{% include '@card' with {
+  <div class="viewbook__section">
+    <div class="card__wrapper">
+{% for item in row.items | slice(0, 12) %}
+	{% set card_classes = item.card_classes ?: '' %}
+	{% set card_classes = card_classes|split(' ')|merge(['card__row'])|join(' ') %}
+	{% include '@card' with {
       'card_classes': card_classes,
       'card_image': item.card_image,
       'card_link_url': item.card_link_url,
@@ -98,119 +58,136 @@
       'card_aria': item.card_aria,
       'card_title_class': item.card_title_class
     } %}
-	{% endfor %}
+{% endfor %}
+
+    </div>
+  </div>
 </div>
 
+<div class="areas">
+  <div class="areas__column">
+    <img class="card__img" src="../../assets/images/viewbook/sections/0315.jpg" alt="Alt Text">
+  </div>
+
+  <div class="areas__column areas__content">
+    {% include "@headline" with {
+              "heading_level" : 'h2',
+              "heading_class" : 'bold-headline--caps bold-headline',
+              "heading" : 'We Work <span>Together</span>'
+            } %}
+    <p>The University of Iowa blends big-school opportunities with close, personal support to help you excel. We remove the barriers between arts and science, between students and faculty—but most of all, between you and anything you’d like to explore</p>
+  </p>
+
+  <a href="https://ADMISSIONS.UIOWA.EDU/ACADEMICS" class="bttn bttn--secondary bttn--caps">
+    ADMISSIONS.UIOWA.EDU/ACADEMICS
+    <i class="fas fa-arrow-right"></i>
+  </a>
+
 </div>
 </div>
 
 
+<div class="stat__wrapper">
+
+		{% for item in stat_row_1.items | slice(0, 4) %}
+			{% include "@stat" with {
+        "stat_classes" : item.stat_classes,
+        "stat_image" : item.stat_image,
+        "stat_image_position" : item.stat_image_position,
+        "stat_pattern" : item.stat_pattern,
+        "stat_title" : item.stat_title,
+        "stat_prefix" : item.stat_prefix,
+        "stat_suffix" : item.stat_suffix,
+        "stat_summary" : item.stat_summary,
+        "stat_content" : item.stat_content
+      } %}
+		{% endfor %}
+
+</div>
+
+{% render '@aerial' %}
+
+<div class="viewbook">
+<div class="viewbook__section areas__content">
+  {% include "@headline" with {
+              "heading_level" : 'h2',
+              "heading_class" : 'bold-headline--caps bold-headline',
+              "heading" : 'MAKE <span>30,000</span> NEW FRIENDS'
+            } %}
+
+  <p>Big Ten athletics, theaters, music venues, 500+ student groups, community organizations, student philanthropy, hiking trails, bike paths, workout facilities, hundreds of restaurants and coffee shops and food carts and—you get the idea.</p>
+
+  <a href="https://ADMISSIONS.UIOWA.EDU/STUDENT-LIFE" class="bttn bttn--secondary bttn--caps">
+    ADMISSIONS.UIOWA.EDU/STUDENT-LIFE
+
+    <i class="fas fa-arrow-right"></i>
+  </a>
+
+</div>
+
+<div class="viewbook__section">
+  <img class="card__img" src="../../assets/images/viewbook/sections/1304.jpg" alt="Alt Text">
+</div>
+</div>
 
 
+<div class="stat__wrapper">
+		{% for item in stat_row_2.items | slice(0, 4) %}
+			{% include "@stat" with {
+        "stat_classes" : item.stat_classes,
+        "stat_image" : item.stat_image,
+        "stat_image_position" : item.stat_image_position,
+        "stat_pattern" : item.stat_pattern,
+        "stat_title" : item.stat_title,
+        "stat_prefix" : item.stat_prefix,
+        "stat_suffix" : item.stat_suffix,
+        "stat_summary" : item.stat_summary,
+        "stat_content" : item.stat_content
+      } %}
+		{% endfor %}
+</div>
 
 
 
 
 <div class="areas">
 <div class="areas__column">
-
-<img class="card__img" src="../../assets/images/viewbook/sections/0315.jpg" alt="Alt Text">
-
-
-  </div>
-
+  <img class="card__img" src="../../assets/images/viewbook/sections/1961.jpg" alt="Alt Text">
+</div>
 
 <div class="areas__column areas__content">
-
-
-		{% include "@headline" with {
-              "heading_level" : 'h2',
-              "heading_class" : 'bold-headline--caps bold-headline',
-              "heading" : 'We Work <span>Together</span>'
-            } %}
-
-<p>The University of Iowa blends big-school opportunities with close, personal support to help you excel. We remove the barriers between arts and science, between students and faculty—but most of all, between you and anything you’d like to explore</p>
-</p>
-
-
-<a href="https://ADMISSIONS.UIOWA.EDU/ACADEMICS" class="bttn bttn--secondary bttn--caps">
-
-ADMISSIONS.UIOWA.EDU/ACADEMICS
-	<i class="fas fa-arrow-right"></i>
-</a>
-
-
-</div>
-
-</div>
-
-
-{% render '@aerial' %}
-
-
-
-<div class="viewbook">
-	<div class="viewbook__section areas__content">
-		{% include "@headline" with {
-              "heading_level" : 'h2',
-              "heading_class" : 'bold-headline--caps bold-headline',
-              "heading" : 'MAKE <span>30,000</span> NEW FRIENDS'
-            } %}
-
-<p>Big Ten athletics, theaters, music venues, 500+ student groups, community organizations, student philanthropy, hiking trails, bike paths, workout facilities, hundreds of restaurants and coffee shops and food carts and—you get the idea. There’s a lot to do in Iowa City. Every club, event, and activity is an opportunity to make new connections and find your own close-knit community on campus.</p>
-
-
-<a href="https://ADMISSIONS.UIOWA.EDU/STUDENT-LIFE" class="bttn bttn--secondary bttn--caps">
-ADMISSIONS.UIOWA.EDU/STUDENT-LIFE
-
-			<i class="fas fa-arrow-right"></i>
-		</a>
-
-
-	</div>
-
-	<div class="viewbook__section">
-<img class="card__img" src="../../assets/images/viewbook/sections/1304.jpg" alt="Alt Text">
-
-
-	</div>
-</div>
-
-
-
-
-<div class="areas">
-	<div class="areas__column">
-
-		<img class="card__img" src="../../assets/images/viewbook/sections/1961.jpg" alt="Alt Text">
-
-
-	</div>
-
-
-	<div class="areas__column areas__content">
-
-
-		{% include "@headline" with {
+  {% include "@headline" with {
               "heading_level" : 'h2',
               "heading_class" : 'bold-headline--caps bold-headline',
               "heading" : 'Make an <span>Impact</span>'
             } %}
-
-<p>Having big ideas isn’t enough—to excel in any career, you need to know how to share them and make them real. Iowa’s leadership in the study and craft of writing helps every Hawkeye learn communication skills that give them an edge. Dedicated career advising, thousands of on-campus job interviews, and countless opportunities for hands-on learning make Iowa grads stand out.</p>
-
-	</p>
-
+  <p>Having big ideas isn’t enough—to excel in any career, you need to know how to share them and make them real. Iowa’s leadership in the study and craft of writing helps every Hawkeye learn communication skills that give them an edge. Dedicated
+    career advising, thousands of on-campus job interviews, and countless opportunities for hands-on learning make Iowa grads stand out.</p>
+</p>
 
 <a href="https://STORIES.UIOWA.EDU/STUDENT-OUTCOMES" class="bttn bttn--secondary bttn--caps">
+  STORIES.UIOWA.EDU/STUDENT-OUTCOMES
+  <i class="fas fa-arrow-right"></i>
+</a>
+</div>
+</div>
 
 
-		STORIES.UIOWA.EDU/STUDENT-OUTCOMES
-		<i class="fas fa-arrow-right"></i>
-	</a>
-
-
-</div></div>
+<div class="stat__wrapper">
+	{% for item in stat_row_3.items | slice(0, 4) %}
+		{% include "@stat" with {
+        "stat_classes" : item.stat_classes,
+        "stat_image" : item.stat_image,
+        "stat_image_position" : item.stat_image_position,
+        "stat_pattern" : item.stat_pattern,
+        "stat_title" : item.stat_title,
+        "stat_prefix" : item.stat_prefix,
+        "stat_suffix" : item.stat_suffix,
+        "stat_summary" : item.stat_summary,
+        "stat_content" : item.stat_content
+      } %}
+	{% endfor %}
+</div>
 
 
 
@@ -218,18 +195,3 @@ ADMISSIONS.UIOWA.EDU/STUDENT-LIFE
 <main></main>
 
 {% render '@footer' %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
