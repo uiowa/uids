@@ -404,15 +404,11 @@
       <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>; } }
 
 <span class="hljs-selector-class">.aerial__content-grid</span> {
-  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">1.25rem</span>;
   <span class="hljs-attribute">grid-template-columns</span>: <span class="hljs-built_in">repeat</span>(<span class="hljs-number">3</span>, <span class="hljs-number">1</span>fr);
   <span class="hljs-attribute">grid-template-rows</span>: <span class="hljs-built_in">repeat</span>(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>fr);
   <span class="hljs-attribute">grid-column-gap</span>: <span class="hljs-number">0px</span>;
   <span class="hljs-attribute">grid-row-gap</span>: <span class="hljs-number">0px</span>;
   <span class="hljs-attribute">display</span>: grid; }
-  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>) {
-    <span class="hljs-selector-class">.aerial__content-grid</span> {
-      <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">3rem</span>; } }
 
 <span class="hljs-selector-class">.aerial__content-grid</span> &gt; *<span class="hljs-selector-pseudo">:nth-child(1)</span> {
   <span class="hljs-attribute">display</span>: none;
@@ -450,7 +446,8 @@
     <span class="hljs-selector-class">.aerial__content-grid</span> &gt; *<span class="hljs-selector-pseudo">:nth-child(4)</span> {
       <span class="hljs-attribute">display</span>: flex;
       <span class="hljs-attribute">text-align</span>: left;
-      <span class="hljs-attribute">grid-area</span>: <span class="hljs-number">1</span> / <span class="hljs-number">1</span> / <span class="hljs-number">3</span> / <span class="hljs-number">3</span>; } }
+      <span class="hljs-attribute">grid-area</span>: <span class="hljs-number">1</span> / <span class="hljs-number">1</span> / <span class="hljs-number">3</span> / <span class="hljs-number">3</span>;
+      <span class="hljs-attribute">padding-bottom</span>: <span class="hljs-number">30%</span>; } }
   <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">84.375em</span>) {
     <span class="hljs-selector-class">.aerial__content-grid</span> &gt; *<span class="hljs-selector-pseudo">:nth-child(4)</span> {
       <span class="hljs-attribute">width</span>: auto; } }
@@ -460,7 +457,8 @@
   <span class="hljs-attribute">grid-area</span>: <span class="hljs-number">1</span> / <span class="hljs-number">3</span> / <span class="hljs-number">3</span> / <span class="hljs-number">4</span>; }
   <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">855px</span>) {
     <span class="hljs-selector-class">.aerial__content-grid</span> &gt; *<span class="hljs-selector-pseudo">:nth-child(5)</span> {
-      <span class="hljs-attribute">display</span>: flex; } }
+      <span class="hljs-attribute">display</span>: flex;
+      <span class="hljs-attribute">padding-bottom</span>: <span class="hljs-number">55%</span>; } }
 </pre>
                             </code>
                             
@@ -477,7 +475,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">4.1 KB</span>
+                    <span class="Meta-value">4 KB</span>
                 </li>
             </ul>
         </div>
@@ -664,7 +662,7 @@ _:future,
 }
 
 <span class="hljs-selector-class">.aerial__content-grid</span> {
-  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-variable">$mobile-width-gutter</span>;
+  <span class="hljs-comment">//padding: 0 $mobile-width-gutter;</span>
   grid-template-<span class="hljs-attribute">columns</span>: repeat(<span class="hljs-number">3</span>, <span class="hljs-number">1</span>fr);
   grid-template-rows: repeat(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>fr);
   grid-<span class="hljs-attribute">column-gap</span>: <span class="hljs-number">0px</span>;
@@ -672,7 +670,7 @@ _:future,
   <span class="hljs-attribute">display</span>: grid;
 
   <span class="hljs-keyword">@include</span> breakpoint(sm) {
-    <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-variable">$desktop-width-gutter</span>;
+    <span class="hljs-comment">//padding: 0 $desktop-width-gutter;</span>
   }
 }
 
@@ -721,6 +719,7 @@ _:future,
     <span class="hljs-comment">//width: 60%;</span>
     <span class="hljs-attribute">text-align</span>: left;
     grid-<span class="hljs-selector-tag">area</span>: <span class="hljs-number">1</span> / <span class="hljs-number">1</span> / <span class="hljs-number">3</span> / <span class="hljs-number">3</span>;
+    <span class="hljs-attribute">padding-bottom</span>: <span class="hljs-number">30%</span>;
   }
 
   <span class="hljs-keyword">@include</span> breakpoint(container) {
@@ -734,6 +733,7 @@ _:future,
 
   <span class="hljs-keyword">@include</span> breakpoint(menu) {
     <span class="hljs-attribute">display</span>: flex;
+    <span class="hljs-attribute">padding-bottom</span>: <span class="hljs-number">55%</span>;
   }
 }
 </pre>
@@ -1960,7 +1960,7 @@ _:future,
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-07-28T17:19:50.430Z">
+            <time datetime="2020-07-28T18:35:41.663Z">
                 7/28/2020
             </time>
         </div>
