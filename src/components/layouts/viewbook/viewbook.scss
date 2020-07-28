@@ -144,12 +144,12 @@
     line-height: 1.7;
     font-size: 1.2rem;
     position: absolute;
-    bottom: 0;
+    bottom: $gutter;
 
     span {
       background: $secondary;
       display: inline;
-      padding: 0.1rem 1rem 0;
+      padding: 0.4rem 1rem 0.4rem;
       box-decoration-break: clone;
       -webkit-box-decoration-break: clone;
     }
@@ -161,7 +161,7 @@
   }
 
   .card__body {
-    background: #1f1e1e7d;
+    background: #1f1e1e69;
     background-size: auto auto;
     position: absolute;
     top: 0;
@@ -288,12 +288,12 @@
     font-size: calc(4em + 1vw);
 
     .heading__heading span {
-      display: inline;
       background: $primary;
-      display: inline;
+      display: inline-block;
       padding: 0.45rem 1rem;
       box-decoration-break: clone;
       -webkit-box-decoration-break: clone;
+      margin-bottom: .8rem;
 
     }
   }
@@ -312,10 +312,15 @@
 
 .stat__title {
   @include breakpoint(menu) {
-    font-size: calc(100% + 3vw);
+    font-size: calc(100% + 2vw);
   }
 }
-
+.heading__prefix,
+.heading__suffix {
+  @include breakpoint(menu) {
+  font-size: calc(100% + -1vw);
+  }
+}
 .stat__container {
   max-width: 100em;
   margin: 0 auto;
@@ -327,7 +332,7 @@
 .stat__grid {
   flex: 0 0 calc(23.5% - 4rem);
   margin-bottom: 0rem;
-  padding: 4rem 0;
+  padding: 3rem 0;
 }
 
 
@@ -335,7 +340,7 @@
 @-moz-document url-prefix() {
 
   .card.card--enclosed .card__title span {
-    padding: 1rem 1rem .4rem;
+    padding: 1rem 1rem .7rem;
   }
 
   .areas__content h2.bold-headline .heading__heading span {
