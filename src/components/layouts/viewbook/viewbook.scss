@@ -20,7 +20,11 @@
 // footer cta
 
 .cta-row__fixed {
-  //background: purple !important;
+  position: fixed;
+  bottom: 0;
+  z-index: 100;
+  width: 100%;
+  box-shadow: 0px 0 10px rgba(0, 0, 0, 0.4);
 }
 
 .cta-row {
@@ -175,16 +179,6 @@
 }
 
 
-@-moz-document url-prefix() {
-  .card.card--enclosed .card__title span {
-    padding: 1rem 1rem .4rem;
-  }
-
-  .card.card--enclosed .card__title {
-    padding-bottom: .825rem;
-  }
-}
-
 
 @media (min-width: 855px) {
   .card__wrapper {
@@ -315,7 +309,30 @@
   justify-content: center;
 }
 
+.stat__container {
+   max-width: 100em;
+   margin: 0 auto;
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: center;
+}
+
 .stat__grid {
   flex: 0 0 25%;
   margin-bottom: 0rem;
+}
+
+
+// Firefox overrides
+@-moz-document url-prefix() {
+
+  .card.card--enclosed .card__title span {
+    padding: 1rem 1rem .4rem;
+  }
+  .areas__content h2.bold-headline .heading__heading span {
+    padding: 1rem 1rem 0;
+  }
+  .card.card--enclosed .card__title {
+    padding-bottom: .825rem;
+  }
 }
