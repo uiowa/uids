@@ -21,16 +21,9 @@
 
 .cta-row {
   &__wrapper {
-    padding: 0;
+    background: $primary;
+    padding: $lg 0;
     margin: 0;
-    margin: 0;
-    position: fixed;
-    right: 0;
-    height: 40vh;
-    width: 60px;
-    z-index: 100;
-    top: 30%;
-    ;
 
     nav {
       width: 100%;
@@ -39,30 +32,21 @@
     .menu {
       @include breakpoint(sm) {
         display: flex;
-        flex-wrap: wrap;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-around;
-        height: 100%;
-        padding: 50% 0;
       }
 
       li {
         flex: 1;
         display: block;
-        width: 100%;
       }
     }
 
     .bttn--outline {
-      border: none;
+      border: 1px solid $secondary;
       display: block;
-      background: #fff;
 
       @include breakpoint(sm) {
         flex: 1;
         display: block;
-        margin-bottom: $lg;
       }
     }
   }
@@ -70,7 +54,6 @@
   &__container {
     @extend %container;
     justify-content: space-between;
-    //height: 100%;
 
     @include breakpoint(sm) {
       display: flex;
@@ -86,14 +69,10 @@
   @extend %no-ul-list;
 
   a {
-    margin: .5rem 0;
-
-    &.bttn--caps {
-      padding: .3rem .5rem .3rem;
-    }
+    margin: $md 0;
 
     @include breakpoint(sm) {
-      // margin: 0;
+      margin: 0 $md;
     }
 
     padding-top: $xsm;
@@ -102,11 +81,11 @@
       content: ' ';
       background-repeat: no-repeat;
       background-size: 90%;
-      width: 55px;
-      height: 55px;
-      display: flex;
-      margin: 0 auto;
-      margin-bottom: $sm;
+      width: 35px;
+      height: 35px;
+      display: inline-block;
+      margin-bottom: -5px;
+      margin-right: 5px;
     }
 
     &.bttn--apply:before {
@@ -135,7 +114,6 @@
   margin-right: 0;
 }
 
-
 // Card row
 
 .card__wrapper {
@@ -149,6 +127,9 @@
   &:nth-child(3n+2) {
     .card__media {
       order: 4;
+    }
+    .card__body {
+      background: #f1f1f1;
     }
   }
 }
