@@ -97,19 +97,19 @@
     }
 
     &.bttn--apply:before {
-      background-image: url(/#{$imgpath}/apply-01.svg);
+      background-image: url(/#{$imgpath}/viewbook/apply-01.svg);
     }
 
     &.bttn--visit:before {
-      background-image: url(/#{$imgpath}/location-01.svg);
+      background-image: url(/#{$imgpath}/viewbook/location-01.svg);
     }
 
     &.bttn--ask:before {
-      background-image: url(/#{$imgpath}/ask-01-01.svg);
+      background-image: url(/#{$imgpath}/viewbook/ask-01-01.svg);
     }
 
     &.bttn--connect:before {
-      background-image: url(/#{$imgpath}/connect-01-01.svg);
+      background-image: url(/#{$imgpath}/viewbook/connect-01-01.svg);
     }
   }
 }
@@ -210,6 +210,65 @@
 }
 
 // Grid section
+
+.hawkeye {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+
+  .areas__content {
+    padding: 0 7rem;
+  }
+
+  &__section:nth-child(1) {
+    grid-area: 1 / 1 / 2 / 3;
+  }
+
+  &__section:nth-child(2) {
+    grid-area: 1 / 3 / 2 / 5;
+  }
+
+  &__section:nth-child(3) {
+    grid-area: 2 / 1 / 5 / 5;
+  }
+
+  &__section:nth-child(4) {
+    grid-area: 1 / 5 / 3 / 9;
+    align-items: center;
+    display: flex;
+  }
+
+  &__section:nth-child(5) {
+    grid-area: 3 / 5 / 5 / 7;
+  }
+
+  &__section:nth-child(6) {
+    grid-area: 3 / 7 / 5 / 9;
+  }
+}
+
+.hawkeye__section.areas__content h2.bold-headline .heading__heading span {
+  background: $secondary;
+  color: #fff;
+}
+
+.hawkeye__section.areas__content h2.bold-headline {
+  @include breakpoint(menu) {
+    font-size: calc(4em + 2.5vw);
+  }
+
+  @include breakpoint(container) {
+    font-size: calc(4em + 3vw);
+  }
+
+  @include breakpoint(xlg) {
+    font-size: calc(4em + 3vw);
+  }
+
+  text-align: center;
+}
 
 .viewbook {
   display: grid;
@@ -315,12 +374,14 @@
     font-size: calc(100% + 2vw);
   }
 }
+
 .heading__prefix,
 .heading__suffix {
   @include breakpoint(menu) {
-  font-size: calc(100% + -1vw);
+    font-size: calc(100% + -1vw);
   }
 }
+
 .stat__container {
   max-width: 100em;
   margin: 0 auto;
@@ -369,12 +430,12 @@
 }
 
 
-.element--circle-list > li {
+.element--circle-list>li {
   display: block;
   align-items: start;
 }
 
-.element--circle-list > li {
+.element--circle-list>li {
   margin-bottom: $desktop-width-gutter;
 }
 
