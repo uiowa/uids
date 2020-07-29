@@ -20,11 +20,13 @@
 // footer cta
 
 .cta-row__fixed {
-  position: fixed;
-  bottom: 0;
-  z-index: 100;
-  width: 100%;
-  box-shadow: 0px 0 10px rgba(0, 0, 0, 0.4);
+  @include breakpoint(container) {
+    position: fixed;
+    bottom: 0;
+    z-index: 100;
+    width: 100%;
+    box-shadow: 0px 0 10px rgba(0, 0, 0, 0.4);
+  }
 }
 
 .cta-row {
@@ -81,6 +83,7 @@
 
     @include breakpoint(sm) {
       margin: 0 $md;
+      height: 100%;
     }
 
     padding-top: $xsm;
@@ -94,6 +97,16 @@
       display: inline-block;
       margin-bottom: -5px;
       margin-right: 5px;
+
+      @include breakpoint(sm) {
+        display: block;
+        margin: 0 auto;
+      }
+
+      @include breakpoint(container) {
+        display: inline-block;
+        margin: 0 5px -5px 0;
+      }
     }
 
     &.bttn--apply:before {
@@ -176,12 +189,10 @@
 
 
 
-@media (min-width: 855px) {
-  .card__wrapper {
-    //margin: 1.25rem 3rem 10rem;
+.card__wrapper {
+  @include breakpoint(menu) {
     display: flex;
     flex-wrap: wrap;
-    //justify-content: space-between;
   }
 }
 
@@ -195,7 +206,12 @@
 
 
 .card__row {
-  flex: 0 0 33.3%;
+  flex: 0 0 50%;
+
+  @include breakpoint(menu) {
+    flex: 0 0 33.3%;
+  }
+
   margin-bottom: 0rem;
 }
 
@@ -205,45 +221,26 @@
   height: 100%;
 }
 
-// Grid section
-/*
-.three-col {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
+// Grid sections
 
-  .stat__grid {
-    padding: 0;
-  }
-}
-
-.three-col__section:nth-child(1) {
-  grid-area: 1 / 1 / 5 / 2;
-  padding: $desktop-width-gutter;
-}
-
-.three-col__section:nth-child(2) {
-  grid-area: 1 / 2 / 5 / 4;
-  .areas__content {
-    padding-right: $desktop-width-gutter;
-    padding-left: $desktop-width-gutter;
-  }
-}
-
-.three-col__section:nth-child(3) {
-  grid-area: 1 / 4 / 5 / 7;
-}
-*/
 
 .hawkeye {
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-  margin-bottom: -20px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+
+  @include breakpoint(container) {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    margin-bottom: -20px;
+  }
+
+  &__section {
+    flex-basis: 100%;
+  }
 
   .areas__content {
     padding: 0 3rem;
@@ -251,24 +248,30 @@
 
   &__section:nth-child(1) {
     grid-area: 1 / 1 / 2 / 3;
+    order: 1;
   }
 
   &__section:nth-child(2) {
     grid-area: 1 / 3 / 2 / 5;
+    order: 2;
   }
 
   &__section:nth-child(3) {
     grid-area: 2 / 1 / 5 / 5;
+    order: 3;
   }
 
   &__section:nth-child(4) {
     grid-area: 1 / 5 / 3 / 9;
     align-items: center;
     display: flex;
+    order: 0;
+    padding: 3rem;
   }
 
   &__section:nth-child(5) {
     grid-area: 3 / 5 / 5 / 7;
+    order: 4;
   }
 
   &__section:nth-child(6) {
@@ -277,11 +280,21 @@
 }
 
 .hawkeye__section.areas__content h2.bold-headline .heading__heading span {
-  background: $secondary;
   color: #fff;
+  font-family: $font-family-script;
+  background: none;
+  text-transform: lowercase;
+
+  display: contents;
+
+  @include breakpoint(container) {
+    font-size: 11rem;
+  }
 }
 
 .hawkeye__section.areas__content h2.bold-headline {
+  width: 100%;
+
   @include breakpoint(menu) {
     font-size: calc(4em + 2.5vw);
     width: 100%;
@@ -299,11 +312,13 @@
 }
 
 .viewbook {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
+  @include breakpoint(container) {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+  }
 
   &__section {
     &:nth-child(2) {
@@ -313,7 +328,7 @@
     &:nth-child(1) {
       grid-area: 1 / 1 / 4 / 3;
       align-items: center;
-      padding: 3rem 3rem 0 3rem;
+      //padding: 3rem 3rem 0 3rem;
 
       h2.bold-headline,
       h2.bold-headline--positive,
@@ -351,24 +366,44 @@
 // areas of study grid
 
 .areas {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-}
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
 
-.areas__column:nth-child(1) {
-  grid-area: 1 / 1 / 4 / 5;
-}
+  @include breakpoint(container) {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+  }
 
-.areas__column:nth-child(2) {
-  grid-area: 1 / 5 / 4 / 7;
-}
+  &__column:nth-child(1) {
+    order: 1;
+    flex-basis: 100%;
 
+    @include breakpoint(container) {
+      grid-area: 1 / 1 / 4 / 5;
+    }
+  }
+
+  &__column:nth-child(2) {
+    flex-basis: 100%;
+
+    @include breakpoint(container) {
+      grid-area: 1 / 5 / 4 / 7;
+    }
+  }
+}
 
 .areas__content {
-  padding: 3rem 3rem 0 3rem;
+  padding: 3rem;
+  text-align: center;
+
+  @include breakpoint(container) {
+    padding: 3rem 3rem 0 3rem;
+    text-align: left;
+  }
 
   h2.bold-headline,
   h2.bold-headline--positive,
@@ -387,6 +422,34 @@
   }
 }
 
+// How to apply section
+
+.split {
+  padding-top: 3rem;
+
+  @include breakpoint(container) {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+  }
+
+  .areas__content {
+    text-align: left;
+    padding: 0 3rem;
+  }
+
+  &__column:nth-child(1) {
+    grid-area: 1 / 1 / 4 / 4;
+  }
+
+  &__column:nth-child(2) {
+    grid-area: 1 / 4 / 4 / 7;
+  }
+}
+
+
 
 // stats
 
@@ -394,39 +457,50 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 0 3rem;
+  padding: 3rem;
   align-items: self-end;
+
+  @include breakpoint(menu) {
+    padding: 0 3rem;
+  }
 }
 
 .stat__title {
-  border-bottom: none;
 
-  @include breakpoint(menu) {
+  @include breakpoint(container) {
     font-size: calc(100% + 2vw);
     flex-basis: 50%;
+    border-bottom: none;
   }
 }
 
 .stat__content {
-  font-size: 1.1rem;
   color: #ccc;
   flex-basis: 80%;
-  padding-top: .5rem;
-  margin-top: .75rem;
-  border-top: 6px solid $primary;
-  display: none;
+
+  @include breakpoint(container) {
+    font-size: 1.1rem;
+    padding-top: .5rem;
+    margin-top: .75rem;
+    border-top: 6px solid $primary;
+    opacity: 0;
+    transition: 1s;
+    @include element-invisible;
+  }
 }
 
 .stat__description {
-  font-size: 1.3rem;
-  margin: 0;
-  flex-basis: 50%;
-  opacity: .7;
+  @include breakpoint(container) {
+    flex-basis: 50%;
+    font-size: 1.3rem;
+    margin: 0;
+    opacity: .7;
+  }
 }
 
 .heading__prefix,
 .heading__suffix {
-  @include breakpoint(menu) {
+  @include breakpoint(container) {
     font-size: calc(100% + -1vw);
   }
 }
@@ -440,9 +514,15 @@
 }
 
 .stat__grid {
-  flex: 0 0 calc(25%);
+  flex: 0 0 50%;
+
+  @include breakpoint(sm) {
+    flex: 0 0 25%;
+    padding: 2rem 0;
+  }
+
   margin-bottom: 0rem;
-  padding: 2rem 0;
+
   display: flex;
   flex-wrap: wrap;
   cursor: pointer;
@@ -455,45 +535,14 @@
   }
 
   &:hover .stat__content {
-    display: block;
+    @include element-invisible-off;
     cursor: pointer;
+    opacity: 1;
   }
 }
 
 
-// Firefox overrides
-@-moz-document url-prefix() {
-
-  .card.card--enclosed .card__title span {
-    padding: 1rem 1rem .7rem;
-  }
-
-  .areas__content h2.bold-headline .heading__heading span {
-    padding: 1rem 1rem 0;
-  }
-
-  .card.card--enclosed .card__title {
-    padding-bottom: .825rem;
-  }
-}
-
-.split {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-  padding-top: 3rem;
-
-  &__column:nth-child(1) {
-    grid-area: 1 / 1 / 4 / 4;
-  }
-
-  &__column:nth-child(2) {
-    grid-area: 1 / 4 / 4 / 7;
-  }
-}
-
+// How to apply section
 
 .element--circle-list>li {
   display: block;
@@ -529,4 +578,25 @@
   margin-bottom: .8rem;
   color: $secondary;
   text-shadow: none;
+}
+
+// Firefox overrides
+@-moz-document url-prefix() {
+
+  .card.card--enclosed .card__title span {
+    padding: 1rem 1rem .7rem;
+  }
+
+  .areas__content h2.bold-headline .heading__heading span {
+    padding: 1rem 1rem 0;
+  }
+
+  .card.card--enclosed .card__title {
+    padding-bottom: .825rem;
+  }
+
+  .bold-headline--caps .heading__heading span {
+    padding: 1rem 1rem 0rem;
+
+  }
 }
