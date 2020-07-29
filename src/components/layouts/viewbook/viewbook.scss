@@ -478,8 +478,14 @@
   color: #ccc;
   flex-basis: 80%;
 
-  @include breakpoint(container) {
+  @include breakpoint(menu) {
     font-size: 1.1rem;
+    opacity: 0;
+    transition: 1s;
+    @include element-invisible;
+  }
+
+  @include breakpoint(container) {
     padding-top: .5rem;
     margin-top: .75rem;
     border-top: 6px solid $primary;
@@ -535,9 +541,11 @@
   }
 
   &:hover .stat__content {
-    @include element-invisible-off;
-    cursor: pointer;
-    opacity: 1;
+    @include breakpoint(menu) {
+      @include element-invisible-off;
+      cursor: pointer;
+      opacity: 1;
+    }
   }
 }
 
@@ -598,5 +606,13 @@
   .bold-headline--caps .heading__heading span {
     padding: 1rem 1rem 0rem;
 
+  }
+}
+
+
+@media (max-width:93.750em) and (min-width:84.375em) {
+  .areas__column .bold-headline--caps.bold-headline,
+  .viewbook__section .bold-headline--caps.bold-headline {
+    font-size: calc(3em + .3vw) !important;
   }
 }
