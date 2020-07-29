@@ -224,7 +224,7 @@
 // Grid sections
 
 
-.hawkeye {
+.image-grid {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row-reverse;
@@ -242,7 +242,7 @@
     flex-basis: 100%;
   }
 
-  .areas__content {
+  .grid__content {
     padding: 0 3rem;
   }
 
@@ -279,7 +279,7 @@
   }
 }
 
-.hawkeye__section.areas__content h2.bold-headline .heading__heading span {
+.image-grid__section.grid__content h2.bold-headline .heading__heading span {
   color: #fff;
   font-family: $font-family-script;
   background: none;
@@ -292,7 +292,7 @@
   }
 }
 
-.hawkeye__section.areas__content h2.bold-headline {
+.image-grid__section.grid__content h2.bold-headline {
   width: 100%;
 
   @include breakpoint(menu) {
@@ -311,7 +311,14 @@
   text-align: center;
 }
 
-.viewbook {
+
+
+
+.asymmetrical-grid {
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+
   @include breakpoint(container) {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
@@ -320,21 +327,38 @@
     grid-row-gap: 0px;
   }
 
-  &__section {
-    &:nth-child(2) {
-      grid-area: 1 / 3 / 4 / 7;
+  &__image-left {
+    order: 1;
+    flex-basis: 100%;
+
+    @include breakpoint(container) {
+      grid-area: 1 / 1 / 4 / 5;
+    }
+  }
+
+  &__content-right {
+    flex-basis: 100%;
+
+    @include breakpoint(container) {
+      grid-area: 1 / 5 / 4 / 7;
     }
 
-    &:nth-child(1) {
-      grid-area: 1 / 1 / 4 / 3;
-      align-items: center;
-      //padding: 3rem 3rem 0 3rem;
+  }
 
-      h2.bold-headline,
-      h2.bold-headline--positive,
-      h2.bold-headline--negative {
-        font-size: calc(4em + 1vw)
-      }
+
+  &__image-right {
+    grid-area: 1 / 3 / 4 / 7;
+  }
+
+  &__content-left {
+    grid-area: 1 / 1 / 4 / 3;
+    align-items: center;
+    //padding: 3rem 3rem 0 3rem;
+
+    h2.bold-headline,
+    h2.bold-headline--positive,
+    h2.bold-headline--negative {
+      font-size: calc(4em + 1vw)
     }
   }
 }
@@ -365,40 +389,10 @@
 
 // areas of study grid
 
-.areas {
-  display: flex;
-  flex-direction: row-reverse;
-  flex-wrap: wrap;
-
-  @include breakpoint(container) {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-  }
-
-  &__column:nth-child(1) {
-    order: 1;
-    flex-basis: 100%;
-
-    @include breakpoint(container) {
-      grid-area: 1 / 1 / 4 / 5;
-    }
-  }
-
-  &__column:nth-child(2) {
-    flex-basis: 100%;
-
-    @include breakpoint(container) {
-      grid-area: 1 / 5 / 4 / 7;
-    }
-  }
-}
-
-.areas__content {
+.grid__content {
   padding: 3rem;
   text-align: center;
+  width: 100%;
 
   @include breakpoint(container) {
     padding: 3rem 3rem 0 3rem;
@@ -424,7 +418,7 @@
 
 // How to apply section
 
-.split {
+.split-grid {
   padding-top: 3rem;
 
   @include breakpoint(container) {
@@ -435,7 +429,7 @@
     grid-row-gap: 0px;
   }
 
-  .areas__content {
+  .grid__content {
     text-align: left;
     padding: 0 3rem;
   }
@@ -590,12 +584,11 @@
 
 // Firefox overrides
 @-moz-document url-prefix() {
-
   .card.card--enclosed .card__title span {
     padding: 1rem 1rem .7rem;
   }
 
-  .areas__content h2.bold-headline .heading__heading span {
+  .grid__content h2.bold-headline .heading__heading span {
     padding: 1rem 1rem 0;
   }
 
@@ -605,14 +598,13 @@
 
   .bold-headline--caps .heading__heading span {
     padding: 1rem 1rem 0rem;
-
   }
 }
 
 
 @media (max-width:93.750em) and (min-width:84.375em) {
   .areas__column .bold-headline--caps.bold-headline,
-  .viewbook__section .bold-headline--caps.bold-headline {
+  .asymmetrical-grid .bold-headline--caps.bold-headline {
     font-size: calc(3em + .3vw) !important;
   }
 }
