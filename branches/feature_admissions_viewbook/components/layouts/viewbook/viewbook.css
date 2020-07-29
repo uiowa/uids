@@ -319,9 +319,18 @@
 .stat__content {
   color: #ccc;
   flex-basis: 80%; }
-  @media (min-width: 84.375em) {
+  @media (min-width: 855px) {
     .stat__content {
       font-size: 1.1rem;
+      opacity: 0;
+      transition: 1s;
+      position: absolute !important;
+      height: 1px;
+      width: 1px;
+      overflow: hidden;
+      clip: rect(1px, 1px, 1px, 1px); } }
+  @media (min-width: 84.375em) {
+    .stat__content {
       padding-top: .5rem;
       margin-top: .75rem;
       border-top: 6px solid #FFCD00;
@@ -367,14 +376,15 @@
   .stat__grid:hover {
     box-shadow: 3px 5px 10px 0 rgba(13, 23, 33, 0.2);
     transform: translateY(-10px) scale(1.02); }
-  .stat__grid:hover .stat__content {
-    position: static !important;
-    clip: auto;
-    height: auto;
-    width: auto;
-    overflow: auto;
-    cursor: pointer;
-    opacity: 1; }
+  @media (min-width: 855px) {
+    .stat__grid:hover .stat__content {
+      position: static !important;
+      clip: auto;
+      height: auto;
+      width: auto;
+      overflow: auto;
+      cursor: pointer;
+      opacity: 1; } }
 
 .element--circle-list > li {
   display: block;
@@ -414,3 +424,8 @@
     padding-bottom: .825rem; }
   .bold-headline--caps .heading__heading span {
     padding: 1rem 1rem 0rem; } }
+
+@media (max-width: 93.75em) and (min-width: 84.375em) {
+  .areas__column .bold-headline--caps.bold-headline,
+  .viewbook__section .bold-headline--caps.bold-headline {
+    font-size: calc(3em + .3vw) !important; } }
