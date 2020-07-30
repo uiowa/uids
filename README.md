@@ -38,6 +38,7 @@ All work on components should be done in the `src/components` directory. Each co
 
 If you are starting work on a new component, please make sure that it has `status: prototype` in its config file. and is placed in the `src/components/prototypes` directory.
 
+
 ### Continuous Integration
 ![Publish docs to GitHub Pages](https://github.com/uiowa/uids/workflows/Publish%20docs%20to%20GitHub%20Pages/badge.svg)
 GitHub Actions is used to build and deploy the Fractal artifact to the `gh-pages` branch. This branch is set to host UIDS using GitHub Pages. All pushes to a branches or tags will trigger a build.
