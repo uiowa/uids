@@ -26,11 +26,27 @@ function clean() {
   return del(`${paths.dest}/assets/`);
 }
 
+function cleanDist() {
+  return del(`${paths.dist}/`);
+}
+
 function cleanComponentCss() {
   return del(`${paths.src}/components/**/*.css`);
 }
 
-function assetsCopy() {
+function _assetsCopy(path = 'dest') {
+  let sourcePaths;
+  if (path === 'dist') {
+    sourcePaths = [
+      `${paths.src}/assets/**/*.{woff,woff2}`,
+      `${paths.src}/assets/**/*.css`,
+      `${paths.src}/assets/**/*.js`,
+      `${paths.src}/assets/**/*.{jpg,png,svg}`,
+      `${paths.src}/assets/**/*.{mov,mp4}`,
+      `!${paths.src}/assets/vendor`
+    ];
+  }
+  path = `${paths[path]}`;
   return src([
     `${paths.src}/assets/**/*.{woff,woff2}`,
     `${paths.src}/assets/**/*.css`,
@@ -38,7 +54,20 @@ function assetsCopy() {
     `${paths.src}/assets/**/*.{jpg,png,svg}`,
     `${paths.src}/assets/**/*.{mov,mp4}`,
   ])
-    .pipe(dest(`${paths.dest}/assets`));
+    .pipe(dest(`${path}/assets`));
+}
+
+function watchCopy() {
+  return _assetsCopy();
+}
+
+function distCopy() {
+  return _assetsCopy('dist');
+}
+
+function fontCopy() {
+  return src(`${paths.src}/assets/fonts/*.{woff,woff2}`)
+    .pipe(dest(`${paths.dist}/fonts`))
 }
 
 // Icons
@@ -113,7 +142,10 @@ function startWatch(done) {
 
 const styles = series(componentCssInPlace, buildStyles/*, buildTheme*/);
 
-const compile = series(parallel(clean, cleanComponentCss), parallel(assetsCopy, icons, styles));
+const compile = series(parallel(clean, cleanComponentCss), parallel(watchCopy, icons, styles));
+
+const dist = series(parallel(clean, cleanComponentCss), parallel(fontCopy, icons))
 
 exports.default = compile;
 exports.watch = series(compile, startWatch);
+exports.dist = dist;
