@@ -145,13 +145,14 @@
 }
 
 // ie11
+/*
 @media all and (-ms-high-contrast: none),
 (-ms-high-contrast: active) {
   .card__body {
     flex: auto !important;
   }
 }
-
+*/
 
 .card__row {
   flex: 0 0 50%;
@@ -367,76 +368,12 @@
   }
 }
 
-.stat__title {
-  @include breakpoint(container) {
-    font-size: calc(100% + 2vw);
-    flex-basis: 50%;
-    border-bottom: none;
-  }
-}
-
-.stat__content {
-  color: #ccc;
-  flex-basis: 80%;
-
-  @include breakpoint(menu) {
-    font-size: 1.1rem;
-    opacity: 0;
-    transition: 1s;
-    @include element-invisible;
-  }
-
-  @include breakpoint(container) {
-    padding-top: .5rem;
-    margin-top: .75rem;
-    border-top: 6px solid $primary;
-    opacity: 0;
-    transition: 1s;
-    @include element-invisible;
-  }
-}
-
-.stat__description {
-  @include breakpoint(container) {
-    flex-basis: 50%;
-    font-size: 1.3rem;
-    margin: 0;
-    opacity: .7;
-  }
-}
-
-.heading__prefix,
-.heading__suffix {
-  @include breakpoint(container) {
-    font-size: calc(100% + -1vw);
-  }
-}
-
 .stat__grid {
   flex: 0 0 50%;
 
   @include breakpoint(sm) {
     flex: 0 0 25%;
     padding: 2rem 0;
-  }
-
-  margin-bottom: 0rem;
-  display: flex;
-  flex-wrap: wrap;
-  cursor: pointer;
-  transition: all 225ms ease;
-  transition: all .45s cubic-bezier(.32, 1.25, .375, 1.15);
-
-  &:hover {
-    transform: translateY(-10px) scale(1.02);
-  }
-
-  &:hover .stat__content {
-    @include breakpoint(menu) {
-      @include element-invisible-off;
-      cursor: pointer;
-      opacity: 1;
-    }
   }
 }
 
