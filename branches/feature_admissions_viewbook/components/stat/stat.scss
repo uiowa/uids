@@ -7,7 +7,6 @@
 
 .stat {
   position: relative;
-
   &__title {
     position: relative;
     margin: 0;
@@ -17,7 +16,6 @@
     font-size: 4rem;
     border-bottom: 8px solid $primary;
     padding: $lg 0 $sm 0;
-
     @include breakpoint(sm) {
       padding: $md $lg 0;
     }
@@ -26,42 +24,28 @@
       padding: $md $lg 0;
       display: block;
     }
-
     .bg-pattern--brain-black &,
     .bg--black & {
       color: white;
     }
-
     .bg-pattern--brain-reversed &,
     .bg--gold & {
       border-bottom: 8px solid white;
     }
-
     @include breakpoint(sm) {
       font-size: calc(100% + 4vw);
       padding: 0 $lg 0 0;
-
       .element--flex-center & {
         padding: 0 $lg;
       }
     }
   }
 
-  &__content {
+  &__content{
     color: #666;
     margin: 0;
     padding: 0;
     line-height: 1.4;
-
-    .bg--black &,
-    .bg-pattern--brain-black & {
-      color: #ccc;
-    }
-
-    .bg-pattern--brain-reversed &,
-    .bg--gold & {
-      color: $secondary;
-    }
   }
 
   &__description {
@@ -72,16 +56,13 @@
     line-height: 1.4;
     width: 85%;
     margin: $sm 0;
-
     .bg-pattern--brain-black &,
     .bg--black & {
       color: white;
     }
-
     @include breakpoint(menu) {
       font-size: 1.5rem;
     }
-
     .grid--3-2 & {
       @include breakpoint(menu) {
         width: 60%;
@@ -104,87 +85,5 @@
 
   @include breakpoint(sm) {
     font-size: calc(100% + -2vw);
-  }
-}
-
-
-.stat--horizontal {
-
-  &.bg-pattern--brain-reversed,
-  &.bg--gold {
-    .stat__content {
-      @include breakpoint(container) {
-        border-top: 6px solid $secondary;
-      }
-    }
-  }
-
-
-  .stat__title {
-    @include breakpoint(container) {
-      font-size: calc(100% + 2vw);
-      flex-basis: 50%;
-      border-bottom: none;
-    }
-  }
-
-  .stat__content {
-    flex-basis: 80%;
-
-    @include breakpoint(menu) {
-      font-size: 1.1rem;
-      opacity: 0;
-      transition: 1s;
-      @include element-invisible;
-    }
-
-
-
-    @include breakpoint(container) {
-      padding-top: .5rem;
-      margin-top: .75rem;
-      border-top: 6px solid $primary;
-      opacity: 0;
-      transition: 1s;
-      @include element-invisible;
-    }
-
-  }
-
-  .stat__description {
-    @include breakpoint(container) {
-      flex-basis: 50%;
-      font-size: 1.3rem;
-      margin: 0;
-      opacity: .7;
-    }
-  }
-
-  .heading__prefix,
-  .heading__suffix {
-    @include breakpoint(container) {
-      font-size: calc(100% + -1vw);
-    }
-  }
-}
-
-.stat__grid.stat--horizontal {
-  margin-bottom: 0rem;
-  display: flex;
-  flex-wrap: wrap;
-  cursor: pointer;
-  transition: all 225ms ease;
-  transition: all .45s cubic-bezier(.32, 1.25, .375, 1.15);
-
-  &:hover {
-    transform: translateY(-10px) scale(1.02);
-  }
-
-  &:hover .stat__content {
-    @include breakpoint(menu) {
-      @include element-invisible-off;
-      cursor: pointer;
-      opacity: 1;
-    }
   }
 }
