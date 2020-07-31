@@ -354,10 +354,12 @@
 }
 
 
-
 // stats
 
 .stat__wrapper {
+  &:hover {
+    transition-delay: 4s;
+  }
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -380,27 +382,14 @@
 
 // How to apply section
 
-.element--circle-list>li {
-  display: block;
-  align-items: start;
+.element--circle-list.counter-increment {
+  counter-reset: circle-counter 3;
 }
-
 .element--circle-list>li {
   margin-bottom: $desktop-width-gutter;
 }
 
-.element--circle-list li p {
-  margin-top: 1em;
-}
-
-.element--circle-list li a.bttn {
-  display: inline-block;
-}
-
-.element--circle-list.counter-increment {
-  counter-reset: circle-counter 3;
-}
-
+// size adjustment to prevent container overflow before breakpoint
 @media (max-width:93.750em) and (min-width:84.375em) {
   .grid__content .bold-headline--caps.bold-headline {
     font-size: calc(3em + .3vw) !important;
