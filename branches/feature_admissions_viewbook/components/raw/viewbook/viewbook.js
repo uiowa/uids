@@ -1,3 +1,4 @@
+/*
 var isInViewport = function (elem) {
   var bounding = elem.getBoundingClientRect();
   return (
@@ -15,3 +16,4 @@ window.addEventListener('scroll', function (event) {
     cta.classList.add("cta-row__fixed");
   }
 }, false);
+*/

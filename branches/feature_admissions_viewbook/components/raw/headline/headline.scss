@@ -2,6 +2,7 @@
 
 .bold-headline {
   padding: 0;
+  line-height: 1;
 
   &.bold-headline--negative {
     color: $white;
@@ -40,14 +41,6 @@ h2.bold-headline {
   padding: 2px 0;
   line-height: 1.7;
 
-  span {
-    background: $primary;
-    display: inline;
-    padding: 0.45rem 1rem;
-    box-decoration-break: clone;
-    -webkit-box-decoration-break: clone;
-  }
-
   &.bold-headline--serif {
     font-weight: 600;
   }
@@ -59,41 +52,33 @@ h2.bold-headline {
   }
 }
 
-.bold-headline--underline {
-  padding-bottom: $sm;
-  line-height: 1.3;
+.bold-headline--highlight span,
+.bold-headline--caps .heading__heading span {
+  background: $primary;
   display: inline;
-  background-size: 1px 1em;
-  box-shadow: inset 0 -0.175em white, inset 0 -0.25em $primary;
-
-  .bg--gray & {
-    box-shadow: inset 0 -0.175em $light, inset 0 -0.25em $primary;
-  }
-
-  .bg--black & {
-    box-shadow: inset 0 -0.175em $secondary, inset 0 -0.25em $primary;
-  }
-
-  &.bold-headline--caps {
-    padding-bottom: $xsm;
-  }
+  padding: 0.85rem 1rem;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  color: $secondary;
+  text-shadow: none;
 }
 
-
-.bold-headline--positive {
-  @extend .bold-headline;
+// Set padding for highlighted words within headline
+.bold-headline--caps .heading__heading span {
+  display: inline-block;
+  margin-bottom: .8rem;
+  padding: 0.85rem 1rem .6rem;
 }
 
-.bold-headline--negative {
-  color: $white;
-  @extend .bold-headline;
-}
-
+// Firefox overrides
 
 @-moz-document url-prefix() {
-  .bold-headline--highlight.bold-headline--caps span {
-    padding: 1rem 1rem .4rem;
+
+  .bold-headline--highlight.bold-headline--caps span,
+  .bold-headline--caps .heading__heading span {
+    padding: 1.4rem 1rem .4rem;
   }
+
   .bold-headline--underline.bold-headline--caps {
     padding-bottom: .825rem;
   }
