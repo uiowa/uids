@@ -1,9 +1,13 @@
-<nav role="navigation" aria-label="Navigation">
-  <ul id="vertical-dots">
-    {% for section in vertical_dots.sections %}
+<nav id="vertical-dots" role="navigation" aria-label="Navigation">
+  <ul>
+    {% set section_no = 1 %}
+    {% for section in sections %}
       <li>
-        <a href="#" aria-label={{section.section_title}} data-section={{section.section_id}}></a>
+        <a href="#{{section.section_id}}" aria-labelledby="v-dot-nav-section-{{ section_no }}" data-section={{section.section_id}}>
+          <span id="v-dot-nav-section-{{ section_no }}">{{section.section_title}}</span>
+        </a>
       </li>
+      {% set section_no = section_no +1 %}
     {% endfor %}
   </ul>
 </nav>
