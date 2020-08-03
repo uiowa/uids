@@ -2,77 +2,78 @@
 @import '../../../assets/scss/utilities';
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 #vertical-dots {
-    z-index: 2;
-    position: fixed;
-    right: -20px;
-    display: flex;
-    height: 100vh;
-    top: 0;
-    padding-right: 20px;
-    align-items: center;
-    pointer-events: none;
+  z-index: 2;
+  position: fixed;
+  right: -20px;
+  display: flex;
+  height: 100vh;
+  top: 0;
+  padding-right: 20px;
+  align-items: center;
+  pointer-events: none;
 
-    ul {
-        list-style: none;
-        margin: 0;
+  ul {
+    list-style: none;
+    margin: 0;
+    background: #333333ad;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 
-        li {
-            list-style: none;
-            padding: 10px;
+    li {
+      list-style: none;
+      padding: 13px 10px;
 
-            span { 
-                padding: 0.25rem 1.2rem 0.15rem;
-                background-color: #FFCD00;
-                box-decoration-break: clone;
-                line-height: 1.4;
-                text-transform: uppercase;
-                font-weight: normal;
-                font-family: "antoniobold", sans-serif;
-                right: calc(100% - 20px);
-                position: absolute;
-                white-space: nowrap;
-                top: -111%;
-                box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.4);
-                transform: translateX(calc(100% + 20px));
-                transition: all 0.3s ease-in-out;
-                transition-property: transform;
-            }
+      span {
+        padding: 0.25rem 1.2rem 0.15rem;
+        background-color: #FFCD00;
+        box-decoration-break: clone;
+        line-height: 1.4;
+        text-transform: uppercase;
+        font-weight: normal;
+        font-family: "antoniobold", sans-serif;
+        right: calc(100% - 30px);
+        position: absolute;
+        white-space: nowrap;
+        top: -111%;
+        transform: translateX(calc(100% + 20px));
+        transition: all 0.3s ease-in-out;
+        transition-property: transform;
+      }
 
-            a {
-                pointer-events: all;
-                position: relative;
-                width: 10px;
-                height: 10px;
-                display: block;
-                border-radius: 7px;
-                background-color: #fff;
-                box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.4);
-                color: #151515;
+      a {
+        pointer-events: all;
+        position: relative;
+        width: 10px;
+        height: 10px;
+        display: block;
+        border-radius: 7px;
+        background-color: #fff;
+        color: #151515;
 
-                &:hover {
-                    span {
-                        text-decoration: underline;
-                        transform: translateX(-8px);
-                    }
-                }
-            }
+        &:hover {
+          span {
+            text-decoration: underline;
+            transform: translateX(-8px);
+          }
         }
+      }
     }
+  }
 }
 
 .v-dots-scroll-spacer {
+  position: relative;
+
+  .v-dots-scroll-target {
     position: relative;
+    top: 0px;
 
-    .v-dots-scroll-target {
-        position: relative;
-        top: 0px;
-
-        @include breakpoint(menu) {
-            top: -49px;
-        }
+    @include breakpoint(menu) {
+      top: -49px;
     }
+  }
 }
