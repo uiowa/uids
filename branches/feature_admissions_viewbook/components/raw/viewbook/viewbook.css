@@ -272,3 +272,24 @@
 @media (max-width: 93.75em) and (min-width: 84.375em) {
   .grid__content .bold-headline--caps.bold-headline {
     font-size: calc(3em + .3vw) !important; } }
+
+.hero:hover::before,
+.hero:focus::before {
+  transform: translate(-50%, 0) scaleX(1); }
+
+.hero.hero--solid-opacity:hover:after,
+.hero.hero--solid-opacity:focus:after {
+  background: rgba(0, 0, 0, 0.2); }
+
+.hero:before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 100%;
+  height: 4px;
+  background-color: #FFF;
+  transform-origin: center;
+  transform: translate(-50%, 0) scaleX(0);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1; }
