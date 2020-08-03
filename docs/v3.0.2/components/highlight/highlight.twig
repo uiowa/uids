@@ -1,0 +1,22 @@
+<div class="highlight__wrapper">
+
+	{% block headline %}
+		{% if highlight_title is not empty %}
+			{% include "@headline" with {
+        "heading_level" : 'h3',
+        "heading_class" : 'highlight__title',
+        "heading" : highlight_title
+      } %}
+		{% endif %}
+	{% endblock %}
+
+	{% block sub %}
+		{% if highlight_sub is not empty %}
+
+			<div class="highlight__sub">
+				<span>{{ highlight_sub }}</span>
+			</div>
+		{% endif %}
+
+	{% endblock %}
+</div>
