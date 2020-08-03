@@ -15,7 +15,6 @@
     pointer-events: auto;
     position: relative;
     overflow: hidden;
-    min-height: 300px;
     color: #fff;
     flex: 1 0 100%; }
     .slider__slide:focus {
@@ -43,10 +42,6 @@
           background: transparent;
           height: auto; } }
     .slider__slide .banner__content {
-      position: absolute;
-      bottom: 0;
-      top: unset;
-      transition: opacity .2s linear;
       opacity: 1;
       padding-top: 2.5rem;
       padding-right: 2.5rem;
@@ -55,7 +50,11 @@
       width: 100%; }
       @media (min-width: 768px) {
         .slider__slide .banner__content {
-          opacity: 0; } }
+          opacity: 0;
+          position: absolute;
+          bottom: 0;
+          top: unset;
+          transition: opacity .2s linear; } }
     .slider__slide .banner__content .bold-headline--serif {
       font-family: "Zilla Slab", serif;
       font-weight: 700;
