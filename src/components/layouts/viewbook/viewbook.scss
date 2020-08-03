@@ -158,6 +158,7 @@
 .hero--row {
   .bold-headline {
     font-size: 1.2rem;
+
     @include breakpoint(sm) {
       margin-left: $gutter;
     }
@@ -166,7 +167,7 @@
 
 @-moz-document url-prefix() {
   .hero--row {
-    .bold-headline--caps .heading__heading  {
+    .bold-headline--caps .heading__heading {
       padding: .8rem 1rem .4rem;
     }
   }
@@ -406,4 +407,29 @@
   .grid__content .bold-headline--caps.bold-headline {
     font-size: calc(3em + .3vw) !important;
   }
+}
+
+
+.hero.hero--solid-opacity:hover::before,
+.hero.hero--solid-opacity:focus::before {
+  transform: translate(-50%, 0) scaleX(1);
+}
+
+.hero.hero--solid-opacity:hover:after,
+.hero.hero--solid-opacity:focus:after {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.hero.hero--solid-opacity:before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 100%;
+  height: 4px;
+  background-color: #FFF;
+  transform-origin: center;
+  transform: translate(-50%, 0) scaleX(0);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1;
 }
