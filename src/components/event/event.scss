@@ -10,17 +10,15 @@
 
   &__body {
     padding: 0 $mobile-width-gutter $mobile-width-gutter $mobile-width-gutter;
+    flex: 0 1 100%;
 
     @include breakpoint(sm) {
       text-align: center;
-      width: 100%;
     }
 
     @include breakpoint(container) {
-      width: 70%;
       padding: 0;
       text-align: left;
-      ;
     }
   }
 
@@ -32,7 +30,6 @@
 
     @include breakpoint(container) {
       display: flex;
-      align-items: center;
       justify-content: center;
       flex-wrap: nowrap;
       border: none;
@@ -90,9 +87,7 @@
       border: 1px solid $grey;
     }
 
-
     background: #fff;
-    //@include margin($bottom: $md);
 
     .bg--gold & {
       @include breakpoint(sm) {
@@ -149,7 +144,8 @@
 
     @include breakpoint(container) {
       display: block;
-      width: 60%;
+      width: auto;
+      flex: 0 1 30%;
       margin-right: 15px;
       margin-left: 0;
     }
@@ -225,5 +221,11 @@
       @include padding($left: $sm);
       @include fas();
     }
+  }
+}
+
+.events-card__image+.events-card__body {
+  @include breakpoint(container) {
+    flex: 0 1 70%;
   }
 }
