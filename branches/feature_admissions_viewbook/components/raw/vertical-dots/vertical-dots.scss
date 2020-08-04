@@ -6,20 +6,25 @@ html {
 }
 
 #vertical-dots {
-  z-index: 2;
-  position: fixed;
-  right: -20px;
-  display: flex;
-  height: 100vh;
-  top: 0;
-  padding-right: 20px;
-  align-items: center;
-  pointer-events: none;
+    z-index: 2;
+    position: fixed;
+    right: -20px;
+    display: none;
+    height: 100vh;
+    top: 0;
+    padding-right: 20px;
+    align-items: center;
+    pointer-events: none;
+
+    @include breakpoint(menu) {
+        display: flex;
+    }
 
   ul {
+    pointer-events: all;
     list-style: none;
     margin: 0;
-    background-color: #fff;
+    background-color: $secondary;
     position: relative;
     padding: 8px 0px;
     border-top-left-radius: 21px;
@@ -27,11 +32,11 @@ html {
 
     li {
       list-style: none;
-      padding: 17px 15px;
+      padding: 11px 7px;
 
       span {
         padding: 0.25rem 1.2rem 0.15rem;
-        background-color: #FFCD00;
+        background-color: $primary;
         box-decoration-break: clone;
         line-height: 1.4;
         text-transform: uppercase;
@@ -40,28 +45,48 @@ html {
         right: calc(100% - 40px);
         position: absolute;
         white-space: nowrap;
-        top: -50%;
+        top: calc(50% - 16px);
         transform: translateX(calc(100% + 20px));
         transition: all 0.3s ease-in-out;
         transition-property: transform;
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.4);
       }
 
       a {
-        pointer-events: all;
         position: relative;
         color: #151515;
-        width: 10px;
-        height: 10px;
+        width: 20px;
+        height: 20px;
         border-radius: 50%;
-        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.4);
-        background-color: $brand-cool-gray;
+        border: 6px solid $secondary;
+        background-color: $primary;
         display: block;
+        transition: all 0.3s ease-in-out;
+        transition-property: background-color;
+
+        &:before {
+            content: '';
+            position: absolute;
+            border-radius: 20px;
+            width: 8px;
+            height: 8px;
+            background-color: transparent;
+            border: 1px solid $primary;
+            transition: all 0.3s ease-in-out;
+            transition-property: transform, background-color;
+        }
 
         &:hover {
           span {
             text-decoration: underline;
-            transform: translateX(-8px);
+            transform: translateX(-11px);
           }
+        }
+
+        &.current{
+            &:before {
+                transform: scale(2.8);
+            }
         }
       }
 
@@ -72,7 +97,7 @@ html {
         right: -14px;
 
         span {
-          top: 0;
+          top: 3px;
           z-index: 2;
           right: calc(100% - 50px);
         }
@@ -83,33 +108,39 @@ html {
         }
 
         a {
-          background-color: transparent;
-          box-shadow: none;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          text-decoration: none;
-          height: unset;
-          width: unset;
-
-
-          i {
-            height: 40px;
-            width: 40px;
-            /* box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.4); */
-            background-color: $secondary;
-            z-index: 1;
-            text-align: center;
-            vertical-align: center;
+            background-color: transparent;
+            box-shadow: none;
             display: flex;
-            color: $primary;
             align-items: center;
-            /* right: 20px; */
             justify-content: center;
-            border-top-left-radius: 21px;
-            border-bottom-left-radius: 21px;
+            text-decoration: none;
+            height: unset;
+            width: unset;
+            border: none;
+            padding-right: 3px;
 
-          }
+            &:before {
+                content: unset;
+            }
+
+            i {
+                height: 40px;
+                width: 40px;
+                background-color: $secondary;
+                z-index: 3;
+                text-align: center;
+                display: flex;
+                color: $primary;
+                align-items: center;
+                justify-content: center;
+                border-top-left-radius: 21px;
+                border-bottom-left-radius: 21px;
+                padding-right: 1px;
+            }
+        }
+
+        &:hover span {
+            transform: translateX(-38px);
         }
       }
     }
