@@ -58,24 +58,26 @@ dd {
     position: relative;
     min-height: 90px;
     margin-bottom: 0.25rem;
-    margin-left: 115px;
     list-style: none;
     counter-increment: circle-counter;
     line-height: 1.7;
     display: flex;
     align-items: center; }
+    @media (min-width: 768px) {
+      .uids-component--circle-list > li,
+      .element--circle-list > li {
+        margin-left: 115px; } }
     .uids-component--circle-list > li a,
     .element--circle-list > li a {
       display: contents; }
     .uids-component--circle-list > li:before,
     .element--circle-list > li:before {
-      position: absolute;
+      display: block;
+      margin: 0 auto;
       top: 0px;
       left: -100px;
-      display: inline-block;
       width: 5rem;
       height: 5rem;
-      margin-right: 0.5rem;
       padding-top: 39px;
       content: counter(circle-counter);
       text-align: center;
@@ -88,6 +90,12 @@ dd {
       font-family: "antoniobold", sans-serif;
       font-size: 2.4rem;
       line-height: 0; }
+      @media (min-width: 768px) {
+        .uids-component--circle-list > li:before,
+        .element--circle-list > li:before {
+          position: absolute;
+          display: inline-block;
+          margin: 0 0.5rem 0; } }
       .uids-component--gray .uids-component--circle-list > li:before,
       .bg--gray .uids-component--circle-list > li:before, .uids-component--gray
       .element--circle-list > li:before,
