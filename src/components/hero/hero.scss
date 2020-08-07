@@ -80,6 +80,7 @@
     @include breakpoint(sm) {
       color: #fff;
       max-width: 50em;
+      text-shadow: 0 1px 1px #000;
     }
   }
 
@@ -87,6 +88,14 @@
     &.bold-headline--negative {
       //line-height: 1;
       color: #000;
+
+      a {
+        color: #000;
+
+        @include breakpoint(sm) {
+          color: #fff;
+        }
+      }
 
       @include breakpoint(sm) {
         text-shadow: 0 1px 1px #000;
@@ -166,7 +175,13 @@
 
   &.hero--gradient-left:after {
     @include breakpoint(sm) {
-      background: linear-gradient(to right, rgba(0, 0, 0, 0.86) 0%, rgba(0, 0, 0, 0.23) 65%, rgba(0, 0, 0, 0) 100%);
+      background: linear-gradient(90deg, rgba(0, 0, 0, .86) 0, rgba(0, 0, 0, .23) 65%, transparent);
+    }
+  }
+
+  &.hero--gradient-left-reversed:after {
+    @include breakpoint(sm) {
+      background: linear-gradient(90deg, #fff 1%, hsla(0, 0%, 100%, .92) 32%, hsla(0, 0%, 100%, 0));
     }
   }
 }
@@ -322,10 +337,30 @@
   a {
     position: relative;
     z-index: 1;
-    color: $white;
+
+    @include breakpoint(sm) {
+      color: #fff;
+    }
 
     .bg-pattern--brain & {
       color: $secondary;
+    }
+  }
+}
+
+
+.hero--medium.hero--vertical-center.hero--horizontal-left {
+  .hero__content {
+    @include breakpoint(sm) {
+      width: 70%;
+    }
+
+    @include breakpoint(menu) {
+      width: 50%;
+    }
+
+    @include breakpoint(container) {
+      width: 30%;
     }
   }
 }
