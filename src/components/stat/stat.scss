@@ -121,6 +121,10 @@
 
 
   .stat__title {
+    @include breakpoint(sm) {
+      font-size: calc(100% + 3vw);
+    }
+
     @include breakpoint(container) {
       font-size: calc(100% + 2vw);
       flex-basis: 50%;
@@ -130,15 +134,13 @@
 
   .stat__content {
     flex-basis: 80%;
+    font-size: 1.1rem;
 
     @include breakpoint(menu) {
-      font-size: 1.1rem;
       opacity: 0;
       transition: 1s;
       @include element-invisible;
     }
-
-
 
     @include breakpoint(container) {
       padding-top: .5rem;
@@ -152,9 +154,17 @@
   }
 
   .stat__description {
+    width: 100%;
+    font-size: 1.3rem;
+    margin: 0.625rem 0 0;
+
+    @include breakpoint(sm) {
+      width: 85%;
+      margin: 0.625rem 0;
+    }
+
     @include breakpoint(container) {
       flex-basis: 50%;
-      font-size: 1.3rem;
       margin: 0;
       opacity: .7;
     }
