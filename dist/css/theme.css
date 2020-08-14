@@ -213,6 +213,13 @@
   /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
+@font-face {
+  font-family: 'amnestyscript';
+  src: url("../fonts/amnesty-script-webfont.woff2") format("woff2"), url("../fonts/amnesty-script-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 h1,
 h2,
 h3,
@@ -381,7 +388,17 @@ sub {
   height: auto;
 }
 
-.uids-component--bold-intro {
+.element--spacer-separator {
+  clear: both;
+  float: none;
+  width: 100%;
+  height: 0;
+  border: 1px solid transparent;
+  margin: 1.25rem 0;
+}
+
+.uids-component--bold-intro,
+.element--bold-intro {
   font-family: "Zilla Slab", serif;
   font-weight: 600;
   line-height: 1.2;
@@ -390,12 +407,151 @@ sub {
   margin-bottom: 1.7rem;
 }
 
-.uids-component--light-intro {
+.uids-component--light-intro,
+.element--light-intro {
   font-weight: 300;
   line-height: 1.2;
   font-size: 2.5rem;
   margin-top: 0;
   margin-bottom: 1.7rem;
+}
+
+table {
+  width: 100%;
+  font-size: 1.2rem;
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  margin-top: 1.25rem;
+}
+
+table td,
+table th {
+  padding: 1.05rem;
+  vertical-align: top;
+  padding: 1.05rem;
+}
+
+table th {
+  color: #151515;
+}
+
+table th:not([align]) {
+  text-align: left;
+}
+
+table thead td,
+table thead th {
+  color: #737373;
+  border-width: 0 0 2px;
+}
+
+table tfoot td,
+table tfoot th {
+  color: #737373;
+  border-width: 2px 0 0;
+}
+
+table tbody tr:last-child td,
+table tbody tr:last-child th {
+  border-bottom-width: 0;
+}
+
+table {
+  color: #151515;
+  background-color: #fff;
+}
+
+table th {
+  color: #151515;
+}
+
+table th:not([align]) {
+  text-align: left;
+}
+
+table thead {
+  background-color: transparent;
+}
+
+table thead {
+  border-bottom: 1px solid black;
+}
+
+table thead td,
+table thead th {
+  color: #151515;
+}
+
+table.is-striped {
+  border: 1px solid #eee;
+}
+
+table.is-striped thead {
+  background: #FFCD00;
+  text-transform: uppercase;
+  border: none;
+}
+
+/*
+table thead td,
+table thead th {
+  color: $secondary;
+  border-width: 0 0 2px;
+}
+
+table tfoot {
+  background-color: transparent;
+}
+
+table tfoot td,
+table tfoot th {
+  color: $grey;
+  border-width: 2px 0 0;
+}
+
+table tbody {
+  background-color: transparent;
+}
+
+table tbody tr:last-child td,
+table tbody tr:last-child th {
+  border-bottom-width: 0;
+}
+
+table.is-bordered td,
+table.is-bordered th {
+  border-width: 1px;
+}
+
+table.is-bordered tr:last-child td,
+table.is-bordered tr:last-child th {
+  border-bottom-width: 1px;
+}
+
+table.is-fullwidth {
+  width: 100%;
+}
+
+
+
+table.is-narrow td,
+table.is-narrow th {
+  padding: 0.25em 0.5em;
+  @include padding($top: $xsm, $right: $sm, $bottom: $xsm, $left: $sm);
+}
+*/
+table.is-striped tbody tr:not(.is-selected):nth-child(even) {
+  background-color: #f3f3f3;
+}
+
+table-container {
+  overflow: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
 }
 
 .logo {
@@ -511,51 +667,360 @@ sub {
   }
 }
 
-.menu-horizontal {
-  padding-top: 10px;
-  border-bottom: 1px solid #ccc;
+.iowa-bar {
+  position: relative;
+  z-index: 2;
+  display: block;
+  min-height: auto;
+  background: #151515;
+}
+
+@media (min-width: 855px) {
+  .iowa-bar {
+    background: #FFCD00;
+  }
+}
+
+.iowa-bar .logo--tab {
+  margin-right: 20px;
+}
+
+@media (min-width: 84.375em) {
+  .iowa-bar .logo--tab {
+    margin-left: -12px;
+    padding: 27px 20px 20px;
+  }
+}
+
+.iowa-bar .site-name {
+  width: 100%;
+  padding: 1.25rem;
+  background: #FFCD00;
+}
+
+@media (min-width: 855px) {
+  .iowa-bar .site-name {
+    width: auto;
+    background: transparent;
+    padding: 0;
+  }
+}
+
+@media (min-width: 84.375em) {
+  .iowa-bar .site-name {
+    margin: 5px 0 0 0;
+  }
+}
+
+.iowa-bar__container {
+  max-width: 81.875em;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+@media (min-width: 855px) {
+  .iowa-bar__container {
+    justify-content: flex-start;
+    display: flex;
+  }
+}
+
+@media (min-width: 855px) {
+  .iowa-bar__container {
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+@media (min-width: 84.375em) {
+  .iowa-bar--narrow.horizontal .iowa-bar__container,
+  .iowa-bar--narrow.mega .iowa-bar__container {
+    position: relative;
+  }
+}
+
+@media (min-width: 855px) {
+  .iowa-bar--full {
+    height: 80px;
+    background: #FFCD00;
+  }
+}
+
+@media (min-width: 855px) {
+  .iowa-bar--narrow {
+    min-height: 50px;
+    position: relative;
+  }
+}
+
+.iowa-bar--narrow .logo--tab {
+  margin-right: 10px;
+}
+
+@media (min-width: 855px) {
+  .iowa-bar--narrow .logo--tab {
+    height: 56px;
+    width: 119px;
+    padding: 15px;
+  }
+}
+
+@media (min-width: 84.375em) {
+  .iowa-bar--narrow .logo--tab {
+    margin-bottom: -6px;
+  }
+}
+
+.search-is-open .iowa-bar--narrow .logo--tab {
+  visibility: none;
+  opacity: 0;
+}
+
+@media (min-width: 855px) {
+  .search-is-open .iowa-bar--narrow .logo--tab {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.iowa-bar--narrow .logo-icon {
+  height: 20px;
+}
+
+@media (min-width: 855px) {
+  .iowa-bar--narrow .logo-icon {
+    height: 26px;
+  }
+}
+
+@media (min-width: 84.375em) {
+  .iowa-bar--narrow .parent-site-name {
+    padding: 6px 0 0 0;
+  }
+}
+
+.iowa-bar--narrow .site-name {
+  font-size: 1rem;
+  margin: 0;
+  padding: 1.25rem;
+  background: #FFCD00;
+}
+
+@media (min-width: 855px) {
+  .iowa-bar--narrow .site-name {
+    background: transparent;
+    font-size: 1rem;
+    padding: 0;
+  }
+}
+
+@media (min-width: 84.375em) {
+  .iowa-bar--narrow .site-name {
+    padding: 6px 0 0 0;
+  }
+}
+
+.iowa-bar__below {
+  z-index: 2;
+  border-bottom: 1px solid #e6e5e5;
   background: #fff;
 }
 
-.menu-horizontal.header--tertiary {
-  padding-top: 0;
-  border-bottom: 0;
+.iowa-bar__below .iowa-bar__container {
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+@media (min-width: 855px) {
+  .iowa-bar__below .iowa-bar__container {
+    display: flex;
+    position: unset;
+    min-height: 90px;
+    justify-content: unset;
+    margin-right: auto;
+    padding-left: 1.25rem;
+  }
+}
+
+@media (min-width: 84.375em) {
+  .iowa-bar__below .iowa-bar__container {
+    margin-left: auto;
+    padding-left: 0;
+  }
+}
+
+.iowa-bar__below .site-name {
+  margin: 0;
+  text-align: left;
+  font-size: 1.8rem;
+}
+
+@media (min-width: 855px) {
+  .iowa-bar__below .site-name {
+    width: 75%;
+    padding: 25px 20px 25px 0;
+    background: transparent;
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 84.375em) {
+  .iowa-bar__below .site-name {
+    font-size: 2.2rem;
+  }
+}
+
+@media (min-width: 855px) {
+  .search-is-open .iowa-bar__below .site-name {
+    display: none;
+  }
+}
+
+@media (min-width: 855px) {
+  .header-sticky .iowa-bar {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: transform 0.4s;
+  }
+}
+
+@media (min-width: 855px) {
+  .header-sticky.scroll-up .iowa-bar__below .o-canvas--open .o-canvas__drawer,
+  .header-sticky.scroll-down .iowa-bar__below .o-canvas--open .o-canvas__drawer {
+    top: 116px;
+  }
+}
+
+@media (min-width: 84.375em) {
+  .header-sticky.scroll-up .iowa-bar__below .o-canvas--open .o-canvas__drawer,
+  .header-sticky.scroll-down .iowa-bar__below .o-canvas--open .o-canvas__drawer {
+    top: 110px;
+  }
+}
+
+@media (min-width: 855px) {
+  .header-sticky.scroll-up .iowa-bar__below .search-overlay .uids-search,
+  .header-sticky.scroll-down .iowa-bar__below .search-overlay .uids-search {
+    margin-top: 3px;
+    border-bottom: none;
+  }
+}
+
+@media (min-width: 855px) {
+  .header-sticky.scroll-up .iowa-bar__below .iowa-bar__container,
+  .header-sticky.scroll-down .iowa-bar__below .iowa-bar__container {
+    min-height: 60px;
+  }
+}
+
+@media (min-width: 855px) {
+  .header-sticky.scroll-up .iowa-bar__below .site-name,
+  .header-sticky.scroll-down .iowa-bar__below .site-name {
+    padding: 0;
+    transition: transform 0.4s, -webkit-transform 0.4s;
+    font-size: 1.6rem;
+  }
+}
+
+@media (min-width: 855px) {
+  .header-sticky.scroll-up .iowa-bar__below .bttn--drawer,
+  .header-sticky.scroll-down .iowa-bar__below .bttn--drawer {
+    height: 60px;
+    padding: 3px 35px 0;
+  }
+}
+
+@media (min-width: 855px) {
+  .header-sticky.scroll-up .iowa-bar__below .search-button,
+  .header-sticky.scroll-down .iowa-bar__below .search-button {
+    height: 60px;
+    padding: 7px 25px 7px 18px;
+  }
+}
+
+@media (min-width: 855px) {
+  .header-sticky.scroll-down .iowa-bar__below .bttn--drawer {
+    top: 0px;
+  }
+}
+
+@media (min-width: 84.375em) {
+  .header-sticky.scroll-down .iowa-bar__below .bttn--drawer {
+    top: 30px;
+  }
+}
+
+@media (min-width: 855px) {
+  .header-sticky.scroll-down .iowa-bar {
+    transform: translate3d(0, -100%, 0);
+  }
+}
+
+@media (min-width: 855px) {
+  .header-sticky.scroll-down .iowa-bar .logo--tab {
+    margin-top: -17px;
+  }
+}
+
+@media (min-width: 855px) {
+  .header-sticky.scroll-up .iowa-bar {
+    transform: none;
+  }
+}
+
+@media (min-width: 855px) {
+  .header-sticky.scroll-up:not(.menu-open) .iowa-bar {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+  }
+}
+
+.nav--horizontal {
+  padding-top: 10px;
+  border-bottom: 1px solid #ccc;
+  background: #fff;
 }
 
 .block-superfish .menu > li:first-child > a {
   padding-left: 0;
 }
 
-.header--tertiary .bttn--drawer {
+.iowa-bar.iowa-bar--narrow .bttn--drawer {
   display: flex;
   height: 60px;
 }
 
 @media (min-width: 855px) {
-  .header--tertiary .bttn--drawer {
+  .iowa-bar.iowa-bar--narrow .bttn--drawer {
     height: 90px;
   }
 }
 
 @media (min-width: 84.375em) {
-  .header--tertiary .bttn--drawer {
+  .iowa-bar.iowa-bar--narrow .bttn--drawer {
     top: 50px;
   }
 }
 
-.header--tertiary .bttn--drawer.bttn--menu.inactive {
+.iowa-bar.iowa-bar--narrow .bttn--drawer.bttn--menu.inactive {
   background: #f1f1f1;
 }
 
-.header--tertiary .bttn--drawer.bttn--menu.active {
+.iowa-bar.iowa-bar--narrow .bttn--drawer.bttn--menu.active {
   background: #fff;
 }
 
-.header--tertiary .bttn--drawer.bttn--search.active {
+.iowa-bar.iowa-bar--narrow .bttn--drawer.bttn--search.active {
   background: #fff;
 }
 
-.o-canvas--complete .header--tertiary .bttn--drawer.bttn--menu {
+.o-canvas--complete .iowa-bar.iowa-bar--narrow .bttn--drawer.bttn--menu {
   background: #f1f1f1;
 }
 
@@ -572,14 +1037,14 @@ sub {
   }
 }
 
-.header--tertiary .o-canvas__group {
+.iowa-bar.iowa-bar--narrow .o-canvas__group {
   position: relative;
   display: flex;
   height: 100%;
 }
 
 @media (min-width: 84.375em) {
-  .header--tertiary .o-canvas__group {
+  .iowa-bar.iowa-bar--narrow .o-canvas__group {
     position: absolute;
   }
 }
@@ -711,6 +1176,7 @@ body:before {
   padding: 0 0 0 15px;
   font-weight: 700;
   font-size: 1rem;
+  z-index: 2;
 }
 
 @media (min-width: 855px) {
@@ -718,7 +1184,7 @@ body:before {
     height: 80px;
     padding: 14px 35px 0;
   }
-  .header--tertiary .bttn--drawer {
+  .iowa-bar--narrow .bttn--drawer {
     padding: 9px 35px 0;
   }
 }
@@ -791,7 +1257,7 @@ body:before {
   visibility: hidden;
   overflow-y: auto;
   width: 100%;
-  height: calc(100% - 80px);
+  height: 100%;
   padding: 20px 22px 40px;
   transition: clip-path 1s, opacity .5s, transform .5s, visibility .5s;
   transform: scale(0.925);
@@ -809,7 +1275,7 @@ body:before {
 
 .o-canvas--open .o-canvas__drawer {
   visibility: visible;
-  height: calc(100% - 80px);
+  height: 100%;
   transition: all .4s ease-in-out;
   transform: scale(1);
   opacity: 1;
@@ -823,13 +1289,13 @@ body:before {
 }
 
 @media (min-width: 855px) {
-  .header--tertiary .o-canvas__drawer {
-    top: 140px;
+  .iowa-bar.iowa-bar--narrow .o-canvas--open .o-canvas__drawer {
+    top: 146px;
   }
 }
 
-@media (min-width: 855px) {
-  .header--tertiary .o-canvas--open .o-canvas__drawer {
+@media (min-width: 84.375em) {
+  .iowa-bar.iowa-bar--narrow .o-canvas--open .o-canvas__drawer {
     top: 140px;
   }
 }
@@ -843,527 +1309,8 @@ body:before {
   transition: background-color 0.01s;
 }
 
-main.page__container.uids-content {
-  margin-top: 70px;
-}
-
-.header--horizontal.menu-horizontal,
-.header--horizontal.menu-horizontal {
-  display: none;
-}
-
-@media (min-width: 855px) {
-  .header--horizontal.menu-horizontal,
-  .header--horizontal.menu-horizontal {
-    display: block;
-  }
-}
-
-@media (min-width: 855px) {
-  .header--horizontal .bttn--menu {
-    display: none;
-  }
-}
-
-.header--tertiary .uiowa-bar .page__container {
-  justify-content: initial;
-  min-height: 50px;
-}
-
-.header--tertiary .site_name--wrapper .page__container {
-  position: unset;
-  min-height: auto;
-  background: #FFCD00;
-}
-
-@media (min-width: 855px) {
-  .header--tertiary .site_name--wrapper .page__container {
-    min-height: 90px;
-    position: relative;
-    background: transparent;
-  }
-}
-
-@media (min-width: 84.375em) {
-  .header--tertiary .site_name--wrapper .page__container {
-    position: unset;
-  }
-}
-
-.header--secondary.mega .page__container,
-.header--secondary.horizontal .page__container,
-.header--secondary.header--horizontal .page__container,
-.header--tertiary.horizontal .page__container,
-.header--tertiary.mega .page__container,
-.header--tertiary.header--horizontal .page__container {
-  position: relative;
-}
-
-.site_name--wrapper {
-  position: relative;
-  z-index: 2;
-  border-bottom: 1px solid #ccc;
-  background: #fff;
-}
-
-.header--tertiary .site_name--wrapper {
-  position: unset;
-}
-
-@media (min-width: 855px) {
-  .site_name--wrapper {
-    position: unset;
-  }
-}
-
-.o-canvas--lock .site_name--wrapper {
+.o-canvas--lock .iowa-bar__below {
   background: #f1f1f1;
-}
-
-.site_name--wrapper .page__container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  min-height: 90px;
-  margin-right: 0;
-  margin-left: 0;
-}
-
-@media (min-width: 855px) {
-  .site_name--wrapper .page__container {
-    position: unset;
-    justify-content: unset;
-    margin-right: auto;
-    padding-left: 1.25rem;
-  }
-}
-
-@media (min-width: 84.375em) {
-  .site_name--wrapper .page__container {
-    margin-left: auto;
-    padding-left: 0;
-  }
-}
-
-@media (min-width: 855px) {
-  header.header--sticky,
-  .header-sticky header {
-    position: fixed;
-    z-index: 2;
-    top: 0;
-    left: 0;
-    width: 100%;
-    transition: transform 0.4s;
-  }
-}
-
-@media (min-width: 855px) {
-  .scroll-up .header--sticky .site_name--wrapper .o-canvas--open .o-canvas__drawer,
-  .scroll-down .header--sticky .site_name--wrapper .o-canvas--open .o-canvas__drawer,
-  .header-sticky.scroll-up .site_name--wrapper .o-canvas--open .o-canvas__drawer,
-  .header-sticky.scroll-down .site_name--wrapper .o-canvas--open .o-canvas__drawer {
-    top: 110px;
-  }
-}
-
-@media (min-width: 855px) {
-  .scroll-up .header--sticky .site_name--wrapper .search-overlay .uids-search,
-  .scroll-down .header--sticky .site_name--wrapper .search-overlay .uids-search,
-  .header-sticky.scroll-up .site_name--wrapper .search-overlay .uids-search,
-  .header-sticky.scroll-down .site_name--wrapper .search-overlay .uids-search {
-    margin-top: 3px;
-    border-bottom: none;
-  }
-}
-
-@media (min-width: 855px) {
-  .scroll-up .header--sticky .site_name--wrapper .page__container,
-  .scroll-down .header--sticky .site_name--wrapper .page__container,
-  .header-sticky.scroll-up .site_name--wrapper .page__container,
-  .header-sticky.scroll-down .site_name--wrapper .page__container {
-    min-height: 60px;
-  }
-}
-
-@media (min-width: 855px) {
-  .scroll-up .header--sticky .site_name--wrapper .uiowa-bar__title,
-  .scroll-down .header--sticky .site_name--wrapper .uiowa-bar__title,
-  .header-sticky.scroll-up .site_name--wrapper .uiowa-bar__title,
-  .header-sticky.scroll-down .site_name--wrapper .uiowa-bar__title {
-    padding: 0;
-    transition: transform 0.4s, -webkit-transform 0.4s;
-    font-size: 1.6rem;
-  }
-}
-
-@media (min-width: 855px) {
-  .scroll-up .header--sticky .site_name--wrapper .bttn--drawer,
-  .scroll-down .header--sticky .site_name--wrapper .bttn--drawer,
-  .header-sticky.scroll-up .site_name--wrapper .bttn--drawer,
-  .header-sticky.scroll-down .site_name--wrapper .bttn--drawer {
-    height: 60px;
-    padding: 3px 35px 0;
-  }
-}
-
-@media (min-width: 855px) {
-  .scroll-up .header--sticky .site_name--wrapper .search-button,
-  .scroll-down .header--sticky .site_name--wrapper .search-button,
-  .header-sticky.scroll-up .site_name--wrapper .search-button,
-  .header-sticky.scroll-down .site_name--wrapper .search-button {
-    height: 60px;
-    padding: 7px 25px 7px 18px;
-  }
-}
-
-@media (min-width: 855px) {
-  .scroll-down header.header--sticky,
-  .header-sticky.scroll-down header {
-    transform: translate3d(0, -100%, 0);
-  }
-}
-
-@media (min-width: 855px) {
-  .scroll-up header.header--sticky,
-  .header-sticky.scroll-up header {
-    transform: none;
-  }
-}
-
-@media (min-width: 855px) {
-  .scroll-down header.header--sticky .logo-icon--tab,
-  .header-sticky.scroll-down header .logo-icon--tab {
-    margin-top: -17px;
-  }
-}
-
-@media (min-width: 855px) {
-  .scroll-up:not(.menu-open) header.header--sticky,
-  .header-sticky.scroll-up:not(.menu-open) header {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
-  }
-}
-
-.header--primary .uiowa-bar .page__container {
-  display: flex;
-}
-
-header {
-  position: relative;
-  z-index: 2;
-  margin-bottom: 0;
-}
-
-.iowa-bar {
-  position: relative;
-  z-index: 1;
-  display: block;
-  min-height: auto;
-  background: #151515;
-}
-
-@media (min-width: 855px) {
-  .iowa-bar {
-    height: 80px;
-    background: #FFCD00;
-  }
-}
-
-.iowa-bar .logo--tab {
-  margin-right: 20px;
-}
-
-@media (min-width: 84.375em) {
-  .iowa-bar .logo--tab {
-    margin-left: -12px;
-    padding: 27px 20px 20px;
-  }
-}
-
-.iowa-bar .site-name {
-  width: 100%;
-  padding: 1.25rem;
-  background: #FFCD00;
-}
-
-@media (min-width: 855px) {
-  .iowa-bar .site-name {
-    width: auto;
-    background: transparent;
-    padding: 0;
-  }
-}
-
-.iowa-bar__container {
-  max-width: 81.875em;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 0 auto;
-}
-
-@media (min-width: 855px) {
-  .iowa-bar__container {
-    justify-content: flex-start;
-    display: flex;
-  }
-}
-
-@media (min-width: 855px) {
-  .iowa-bar__container {
-    margin-right: auto;
-    margin-left: auto;
-  }
-}
-
-@media (min-width: 855px) {
-  .iowa-bar--narrow {
-    height: 50px;
-  }
-}
-
-.iowa-bar--narrow .logo--tab {
-  margin-right: 10px;
-}
-
-@media (min-width: 855px) {
-  .iowa-bar--narrow .logo--tab {
-    height: 56px;
-    width: 119px;
-    padding: 15px;
-  }
-}
-
-.search-is-open .iowa-bar--narrow .logo--tab {
-  visibility: none;
-  opacity: 0;
-}
-
-@media (min-width: 855px) {
-  .search-is-open .iowa-bar--narrow .logo--tab {
-    display: flex;
-    opacity: 1;
-    visibility: visible;
-  }
-}
-
-.iowa-bar--narrow .logo-icon {
-  height: 20px;
-}
-
-@media (min-width: 855px) {
-  .iowa-bar--narrow .logo-icon {
-    height: 26px;
-  }
-}
-
-.iowa-bar--narrow .site-name {
-  font-size: 1rem;
-  margin: 0;
-  padding: 1.25rem;
-  background: #FFCD00;
-}
-
-@media (min-width: 855px) {
-  .iowa-bar--narrow .site-name {
-    background: transparent;
-    font-size: 1rem;
-    padding: 0;
-  }
-}
-
-.iowa-bar__below {
-  z-index: 2;
-  border-bottom: 1px solid #ccc;
-  background: #fff;
-}
-
-.iowa-bar__below .iowa-bar__container {
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-right: 0;
-  margin-left: 0;
-}
-
-@media (min-width: 855px) {
-  .iowa-bar__below .iowa-bar__container {
-    display: flex;
-    position: unset;
-    min-height: 90px;
-    justify-content: unset;
-    margin-right: auto;
-    padding-left: 1.25rem;
-  }
-}
-
-@media (min-width: 84.375em) {
-  .iowa-bar__below .iowa-bar__container {
-    margin-left: auto;
-    padding-left: 0;
-  }
-}
-
-.iowa-bar__below .site-name {
-  margin: 0;
-  text-align: left;
-  font-size: 1.8rem;
-}
-
-@media (min-width: 855px) {
-  .iowa-bar__below .site-name {
-    width: 75%;
-    padding: 25px 20px 25px 0;
-    background: transparent;
-    font-size: 2rem;
-  }
-}
-
-@media (min-width: 84.375em) {
-  .iowa-bar__below .site-name {
-    font-size: 2.2rem;
-  }
-}
-
-@media (min-width: 855px) {
-  .search-is-open .iowa-bar__below .site-name {
-    display: none;
-  }
-}
-
-table {
-  width: 100%;
-  font-size: 1.2rem;
-}
-
-table {
-  border-spacing: 0;
-  border-collapse: collapse;
-}
-
-table td,
-table th {
-  padding: 1.05rem;
-  vertical-align: top;
-  padding: 1.05rem;
-}
-
-table th {
-  color: #151515;
-}
-
-table th:not([align]) {
-  text-align: left;
-}
-
-table thead td,
-table thead th {
-  color: #737373;
-  border-width: 0 0 2px;
-}
-
-table tfoot td,
-table tfoot th {
-  color: #737373;
-  border-width: 2px 0 0;
-}
-
-table tbody tr:last-child td,
-table tbody tr:last-child th {
-  border-bottom-width: 0;
-}
-
-table {
-  color: #151515;
-  background-color: #fff;
-}
-
-table th {
-  color: #151515;
-}
-
-table th:not([align]) {
-  text-align: left;
-}
-
-table thead {
-  background-color: transparent;
-}
-
-table thead {
-  border-bottom: 1px solid black;
-}
-
-table thead td,
-table thead th {
-  color: #151515;
-}
-
-table.is-striped {
-  border: 1px solid #eee;
-}
-
-table.is-striped thead {
-  background: #FFCD00;
-  text-transform: uppercase;
-  border: none;
-}
-
-/*
-table thead td,
-table thead th {
-  color: $secondary;
-  border-width: 0 0 2px;
-}
-
-table tfoot {
-  background-color: transparent;
-}
-
-table tfoot td,
-table tfoot th {
-  color: $grey;
-  border-width: 2px 0 0;
-}
-
-table tbody {
-  background-color: transparent;
-}
-
-table tbody tr:last-child td,
-table tbody tr:last-child th {
-  border-bottom-width: 0;
-}
-
-table.is-bordered td,
-table.is-bordered th {
-  border-width: 1px;
-}
-
-table.is-bordered tr:last-child td,
-table.is-bordered tr:last-child th {
-  border-bottom-width: 1px;
-}
-
-table.is-fullwidth {
-  width: 100%;
-}
-
-
-
-table.is-narrow td,
-table.is-narrow th {
-  padding: 0.25em 0.5em;
-  @include padding($top: $xsm, $right: $sm, $bottom: $xsm, $left: $sm);
-}
-*/
-table.is-striped tbody tr:not(.is-selected):nth-child(even) {
-  background-color: #f3f3f3;
-}
-
-table-container {
-  overflow: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-  max-width: 100%;
 }
 
 h1 {
