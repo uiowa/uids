@@ -316,6 +316,10 @@
   <span class="hljs-selector-class">.stat--horizontal</span><span class="hljs-selector-class">.bg-pattern--brain-reversed</span> <span class="hljs-selector-class">.stat__content</span>, <span class="hljs-selector-class">.stat--horizontal</span><span class="hljs-selector-class">.bg--gold</span> <span class="hljs-selector-class">.stat__content</span> {
     <span class="hljs-attribute">border-top</span>: <span class="hljs-number">6px</span> solid <span class="hljs-number">#151515</span>; } }
 
+<span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>) {
+  <span class="hljs-selector-class">.stat--horizontal</span> <span class="hljs-selector-class">.stat__title</span> {
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-built_in">calc</span>(<span class="hljs-number">100%</span> + <span class="hljs-number">3vw</span>); } }
+
 <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">84.375em</span>) {
   <span class="hljs-selector-class">.stat--horizontal</span> <span class="hljs-selector-class">.stat__title</span> {
     <span class="hljs-attribute">font-size</span>: <span class="hljs-built_in">calc</span>(<span class="hljs-number">100%</span> + <span class="hljs-number">2vw</span>);
@@ -323,10 +327,10 @@
     <span class="hljs-attribute">border-bottom</span>: none; } }
 
 <span class="hljs-selector-class">.stat--horizontal</span> <span class="hljs-selector-class">.stat__content</span> {
-  <span class="hljs-attribute">flex-basis</span>: <span class="hljs-number">80%</span>; }
+  <span class="hljs-attribute">flex-basis</span>: <span class="hljs-number">80%</span>;
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.1rem</span>; }
   <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">855px</span>) {
     <span class="hljs-selector-class">.stat--horizontal</span> <span class="hljs-selector-class">.stat__content</span> {
-      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.1rem</span>;
       <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
       <span class="hljs-attribute">transition</span>: <span class="hljs-number">1s</span>;
       <span class="hljs-attribute">position</span>: absolute <span class="hljs-meta">!important</span>;
@@ -347,12 +351,19 @@
       <span class="hljs-attribute">overflow</span>: hidden;
       <span class="hljs-attribute">clip</span>: <span class="hljs-built_in">rect</span>(<span class="hljs-number">1px</span>, <span class="hljs-number">1px</span>, <span class="hljs-number">1px</span>, <span class="hljs-number">1px</span>); } }
 
-<span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">84.375em</span>) {
-  <span class="hljs-selector-class">.stat--horizontal</span> <span class="hljs-selector-class">.stat__description</span> {
-    <span class="hljs-attribute">flex-basis</span>: <span class="hljs-number">50%</span>;
-    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.3rem</span>;
-    <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
-    <span class="hljs-attribute">opacity</span>: .<span class="hljs-number">7</span>; } }
+<span class="hljs-selector-class">.stat--horizontal</span> <span class="hljs-selector-class">.stat__description</span> {
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.3rem</span>;
+  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0.625rem</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>; }
+  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>) {
+    <span class="hljs-selector-class">.stat--horizontal</span> <span class="hljs-selector-class">.stat__description</span> {
+      <span class="hljs-attribute">width</span>: <span class="hljs-number">85%</span>;
+      <span class="hljs-attribute">margin</span>: <span class="hljs-number">0.625rem</span> <span class="hljs-number">0</span>; } }
+  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">84.375em</span>) {
+    <span class="hljs-selector-class">.stat--horizontal</span> <span class="hljs-selector-class">.stat__description</span> {
+      <span class="hljs-attribute">flex-basis</span>: <span class="hljs-number">50%</span>;
+      <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+      <span class="hljs-attribute">opacity</span>: .<span class="hljs-number">7</span>; } }
 
 <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">84.375em</span>) {
   <span class="hljs-selector-class">.stat--horizontal</span> <span class="hljs-selector-class">.heading__prefix</span>,
@@ -392,7 +403,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">3.8 KB</span>
+                    <span class="Meta-value">4.1 KB</span>
                 </li>
             </ul>
         </div>
@@ -557,6 +568,10 @@
 
 
   <span class="hljs-selector-class">.stat__title</span> {
+    <span class="hljs-keyword">@include</span> breakpoint(sm) {
+      <span class="hljs-attribute">font-size</span>: calc(<span class="hljs-number">100%</span> + <span class="hljs-number">3vw</span>);
+    }
+
     <span class="hljs-keyword">@include</span> breakpoint(container) {
       <span class="hljs-attribute">font-size</span>: calc(<span class="hljs-number">100%</span> + <span class="hljs-number">2vw</span>);
       <span class="hljs-attribute">flex-basis</span>: <span class="hljs-number">50%</span>;
@@ -566,15 +581,13 @@
 
   <span class="hljs-selector-class">.stat__content</span> {
     <span class="hljs-attribute">flex-basis</span>: <span class="hljs-number">80%</span>;
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.1rem</span>;
 
     <span class="hljs-keyword">@include</span> breakpoint(menu) {
-      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.1rem</span>;
       <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
       <span class="hljs-attribute">transition</span>: <span class="hljs-number">1s</span>;
       <span class="hljs-keyword">@include</span> element-invisible;
     }
-
-
 
     <span class="hljs-keyword">@include</span> breakpoint(container) {
       <span class="hljs-attribute">padding-top</span>: .<span class="hljs-number">5rem</span>;
@@ -588,9 +601,17 @@
   }
 
   <span class="hljs-selector-class">.stat__description</span> {
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.3rem</span>;
+    <span class="hljs-attribute">margin</span>: <span class="hljs-number">0.625rem</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>;
+
+    <span class="hljs-keyword">@include</span> breakpoint(sm) {
+      <span class="hljs-attribute">width</span>: <span class="hljs-number">85%</span>;
+      <span class="hljs-attribute">margin</span>: <span class="hljs-number">0.625rem</span> <span class="hljs-number">0</span>;
+    }
+
     <span class="hljs-keyword">@include</span> breakpoint(container) {
       <span class="hljs-attribute">flex-basis</span>: <span class="hljs-number">50%</span>;
-      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.3rem</span>;
       <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
       <span class="hljs-attribute">opacity</span>: .<span class="hljs-number">7</span>;
     }
@@ -639,7 +660,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">3.2 KB</span>
+                    <span class="Meta-value">3.4 KB</span>
                 </li>
             </ul>
         </div>
@@ -1916,8 +1937,8 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-08-13T16:40:32.902Z">
-                8/13/2020
+            <time datetime="2020-08-14T20:50:57.502Z">
+                8/14/2020
             </time>
         </div>
     </div>

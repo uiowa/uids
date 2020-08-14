@@ -166,9 +166,11 @@
 
   .bold-headline {
     font-size: 1.2rem;
+    text-align: center;
 
     @include breakpoint(sm) {
       margin-left: $gutter;
+      text-align: left;
     }
   }
 }
@@ -297,9 +299,14 @@
 }
 
 .stat__grid {
-  flex: 0 0 50%;
+  flex: 0 0 100%;
 
   @include breakpoint(sm) {
+    flex: 0 0 50%;
+    padding: 2rem 0;
+  }
+
+  @include breakpoint(menu) {
     flex: 0 0 25%;
     padding: 2rem 0;
   }
@@ -347,7 +354,17 @@
 // footer
 
 .footer {
+  @include breakpoint(container) {
+    padding-bottom: 6rem;
+  }
+}
+
+// Areas of Study Hero bttn
+.hero--horizontal-left .bttn {
+  margin: 0 auto;
+
   @include breakpoint(menu) {
-    padding-bottom: 2rem;
+    margin-right: auto;
+    margin-left: 0;
   }
 }
