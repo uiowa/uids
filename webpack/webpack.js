@@ -9,7 +9,7 @@ const isDevelopment = process.env.NODE_ENV !== "production";
 
 module.exports = {
   entry: {
-    app: "./src/uids/uids.js",
+    uids: "./src/uids/uids.js",
     vendor: "./src/vendor/vendor.js",
     custom: "./src/custom/custom.js"
   },
