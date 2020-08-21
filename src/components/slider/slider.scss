@@ -50,19 +50,17 @@
     }
 
     // banner overrides
-    .banner:after {
-      background: none;
-    }
+    .banner__image img {
+      display: block;
+      width: 100%;
+      -o-object-fit: cover;
+      object-fit: cover;
 
-    .banner--reversed .banner__content {
-      background: rgba(21, 21, 21, 0.7);
-      height: 100%;
-
-      @include breakpoint(sm) {
-        background: transparent;
-        height: auto;
+      @include breakpoint(menu) {
+        height: 33rem;
       }
     }
+
 
     .banner__content {
       opacity: 1;
@@ -77,17 +75,6 @@
 
       @include padding($top: $xlg, $right: $xlg, $bottom: $xlg, $left: $xlg);
       width: 100%;
-    }
-
-    .banner__content .bold-headline--serif {
-      font-family: "Zilla Slab", serif;
-      font-weight: 700;
-      margin: 0;
-    }
-
-    .banner__summary {
-      margin-bottom: 1.3rem;
-      margin-top: .5rem;
     }
 
     // Expanded overrides.
@@ -105,13 +92,15 @@
       }
 
       &:after {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        content: "";
-        background: linear-gradient(transparent 1%, transparent 29%, rgba(0, 0, 0, .7));
+        @include breakpoint(sm) {
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          content: "";
+          background: linear-gradient(transparent 1%, transparent 29%, rgba(0, 0, 0, .9));
+        }
       }
     }
   }
