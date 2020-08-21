@@ -349,7 +349,13 @@
         <span class="hljs-attribute">text-decoration</span>: underline; }
 
 <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--horizontal</span><span class="hljs-selector-class">.card--enclosed</span> {
-  <span class="hljs-attribute">padding</span>: <span class="hljs-number">1.25rem</span>; }
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">2rem</span>; }
+  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>) {
+    <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--horizontal</span><span class="hljs-selector-class">.card--enclosed</span> <span class="hljs-selector-class">.card__media</span> + <span class="hljs-selector-class">.card__body</span> {
+      <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">1.25rem</span>; } }
+  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>) {
+    <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--horizontal</span><span class="hljs-selector-class">.card--enclosed</span> <span class="hljs-selector-class">.card__body</span> {
+      <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>; } }
 
 <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>) {
   <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--horizontal</span> {
@@ -440,7 +446,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">4.6 KB</span>
+                    <span class="Meta-value">4.9 KB</span>
                 </li>
             </ul>
         </div>
@@ -576,7 +582,19 @@
 <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--horizontal</span> {
 
   &amp;<span class="hljs-selector-class">.card--enclosed</span> {
-    <span class="hljs-attribute">padding</span>: <span class="hljs-variable">$gutter</span>;
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">2rem</span>;
+
+    <span class="hljs-selector-class">.card__media</span>+<span class="hljs-selector-class">.card__body</span> {
+      <span class="hljs-keyword">@include</span> breakpoint(sm) {
+        <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-variable">$gutter</span>;
+      }
+    }
+
+    <span class="hljs-selector-class">.card__body</span> {
+      <span class="hljs-keyword">@include</span> breakpoint(sm) {
+        <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+      }
+    }
   }
 
   <span class="hljs-keyword">@include</span> breakpoint(sm) {
@@ -692,7 +710,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">2.4 KB</span>
+                    <span class="Meta-value">2.6 KB</span>
                 </li>
             </ul>
         </div>
@@ -715,7 +733,7 @@
         
         
         <li class="Meta-item">
-            <strong class="Meta-key">Variants <em class="Meta-count">(8)</em>:</strong>
+            <strong class="Meta-key">Variants <em class="Meta-count">(9)</em>:</strong>
             <span class="Meta-value Meta-value--linkList">
             
                 <a href="card--default.html">
@@ -744,6 +762,10 @@
             
                 <a href="card--horizontal.html">
                     <span>Horizontal</span>
+                </a>, 
+            
+                <a href="card--horizontal_border.html">
+                    <span>Horizontal w/ border</span>
                 </a>, 
             
                 <a href="card--row.html">
@@ -1677,6 +1699,21 @@
         
         
         <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="card--horizontal_border.html" data-pjax>
+                
+                    
+
+<span style="color: #187718;" title="Ready">Horizontal w/ border</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
             <a class="Tree-entityLink" href="card--row.html" data-pjax>
                 
                     
@@ -1959,7 +1996,7 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-08-21T21:21:41.109Z">
+            <time datetime="2020-08-21T21:38:05.782Z">
                 8/21/2020
             </time>
         </div>
