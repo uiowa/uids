@@ -1,52 +1,16 @@
 @import '../../assets/scss/variables';
 @import '../../assets/scss/utilities';
 
-.banner {
+
+// Hero
+
+.hero {
   position: relative;
-  background: #fff;
-  color: $secondary;
+  overflow: hidden;
+  flex-basis: 100%;
 
-  .bold-headline {
-    font-size: 2.8rem;
-  }
-
-  &:after {
-    @include breakpoint(sm) {
-      position: absolute;
-      top: 0;
-      left: 0;
-      display: block;
-      width: 100%;
-      height: 100%;
-      content: "";
-      -webkit-transition: all .5s ease-in-out;
-      transition: all .5s ease-in-out;
-      will-change: opacity;
-      background: linear-gradient(to right, #fff 1%, #ffffffeb 32%, rgba(255, 255, 255, 0) 100%);
-    }
-  }
-
-  &--reversed {
-    color: white;
-    background: $secondary;
-
-    .banner__content {
-      background: $secondary;
-
-      @include breakpoint(sm) {
-        background: transparent;
-      }
-    }
-
-    .bold-headline {
-      color: #fff;
-    }
-
-    &:after {
-      @include breakpoint(sm) {
-        background: linear-gradient(to right, rgba(0, 0, 0, 0.86) 0%, rgba(0, 0, 0, 0.23) 65%, rgba(0, 0, 0, 0) 100%);
-      }
-    }
+  img {
+    width: 100%;
   }
 
   &__image {
@@ -59,27 +23,336 @@
     width: 100%;
     -o-object-fit: cover;
     object-fit: cover;
+  }
 
-    @include breakpoint(menu) {
+}
+
+// Hero Heights
+
+.hero {
+  &.hero--medium {
+    @include breakpoint(sm) {
       height: 33rem;
+    }
+  }
+
+  &.hero--small {
+    @include breakpoint(sm) {
+      height: 18rem;
     }
   }
 }
 
-.banner__content {
-  position: relative;
-  z-index: 1;
-  padding: $xlg;
-  background: white;
 
-  @include breakpoint(sm) {
-    position: absolute;
-    background: transparent;
-    top: 20%;
+
+// headings and content
+
+// Medium and Small Variant
+.hero:not(.hero--large) {
+  .bold-headline {
+    font-size: 3rem;
+  }
+
+  p {
+    font-weight: 100;
+    font-size: 1.3rem;
+    line-height: 1.7;
+  }
+}
+
+
+
+.hero {
+
+  &.bg-pattern--brain,
+  &.bg-pattern--brain-reversed {
+    p {
+      color: $secondary;
+      font-weight: normal;
+    }
+  }
+
+  p {
+    color: #000;
+    line-height: 1.5;
+    margin-top: 0;
 
     @include breakpoint(sm) {
+      color: #fff;
+      max-width: 50em;
+      text-shadow: 0 1px 1px #000;
+    }
+  }
+
+  .bold-headline {
+    &.bold-headline--negative {
+      //line-height: 1;
+      color: #000;
+
+      a {
+        color: #000;
+
+        @include breakpoint(sm) {
+          color: #fff;
+        }
+      }
+
+      @include breakpoint(sm) {
+        text-shadow: 0 1px 1px #000;
+        color: #fff;
+      }
+    }
+
+    margin-top: 0;
+    padding: 0;
+    margin-bottom: .7rem;
+    font-size: calc(100% + 4vw);
+
+    @include breakpoint(sm) {
+      font-size: calc(100% + 2.5vw);
+    }
+
+    @include breakpoint(menu) {
+      margin-bottom: $xsm;
+    }
+
+    @include breakpoint(md) {
+      font-size: calc(100% + 3.5vw);
+    }
+  }
+}
+
+
+.hero__container {
+  max-width: 81.875em;
+  margin: 0 auto;
+}
+
+// Gradients/Overlays
+
+.hero {
+  &:after {
+    @include breakpoint(sm) {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      content: "";
+      -webkit-transition: all .5s ease-in-out;
+      transition: all .5s ease-in-out;
+      will-change: opacity;
+    }
+  }
+
+  &.hero--gradient-center-left::after {
+    @include breakpoint(sm) {
+      opacity: .75;
+      background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 1)));
+      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 1));
+    }
+  }
+
+  &.hero--gradient-center::after {
+    @include breakpoint(sm) {
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 70%);
+    }
+  }
+
+
+  &.hero--solid-opacity::after {
+    @include breakpoint(sm) {
+      background: rgba(0, 0, 0, .5);
+    }
+  }
+
+  &.hero--solid-opacity-reversed::after {
+    @include breakpoint(sm) {
+      background: rgba(255, 255, 255, .1);
+    }
+  }
+
+  &.hero--gradient-left:after {
+    @include breakpoint(sm) {
+      background: linear-gradient(90deg, rgba(0, 0, 0, .86) 0, rgba(0, 0, 0, .23) 65%, transparent);
+    }
+  }
+
+  &.hero--gradient-left-reversed:after {
+    @include breakpoint(sm) {
+      background: linear-gradient(90deg, #fff 1%, hsla(0, 0%, 100%, .92) 32%, hsla(0, 0%, 100%, 0));
+    }
+  }
+}
+
+// Alignment
+
+.hero--horizontal-center {
+  text-align: center;
+  max-width: 100%;
+
+  .hero__container {
+    @include breakpoint(sm) {
+      max-width: 100%;
+    }
+  }
+
+  .hero__content {
+    text-align: center;
+
+    @include breakpoint(sm) {
+      justify-content: center;
+    }
+  }
+}
+
+.hero--vertical-center {
+  width: 100%;
+  height: 100%;
+
+  .bttn {
+    margin-right: auto;
+    margin-left: auto
+  }
+
+  .hero__content {
+    display: grid;
+    width: 100%;
+    background: #fff;
+    padding: $gutter;
+
+    @include breakpoint(sm) {
+      z-index: 1;
+      flex-wrap: wrap;
+      align-content: center;
+      flex-direction: column;
+      background: transparent;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      position: absolute;
+      background: transparent;
+      padding: 1.25rem;
+
+      >* {
+        flex-basis: 100%;
+      }
+    }
+
+    @include breakpoint(container) {
+      padding: $gutter 0;
+    }
+  }
+
+  .hero__container {
+    @include breakpoint(sm) {
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      top: 0;
+    }
+  }
+}
+
+.hero--vertical-bottom.hero--horizontal-center {
+  .hero__content {
+    @include breakpoint(sm) {
+      max-width: 100%;
+
+      >* {
+        margin-right: auto;
+        margin-left: auto;
+      }
+    }
+  }
+}
+
+.hero--vertical-center.hero--horizontal-left {
+  .bttn {
+    margin-right: auto;
+    margin-left: 0;
+  }
+}
+
+.hero--vertical-bottom {
+  .hero__content {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    width: 100%;
+    background: white;
+    padding: $gutter;
+
+    @include breakpoint(sm) {
+      bottom: 0;
+      position: absolute;
+      background: transparent;
+      padding: $gutter;
+      max-width: $container-width;
+    }
+
+    @include breakpoint(container) {
+      padding: $gutter 0;
+    }
+  }
+}
+
+.hero--horizontal-left {
+  @include breakpoint(sm) {
+    justify-content: left;
+  }
+
+  .hero__content {
+    @include breakpoint(sm) {
+      max-width: 81.875em;
+    }
+  }
+
+  .bttn {
+    margin-right: auto;
+  }
+
+}
+
+
+
+.hero {
+  &:focus-within .bold-headline a:focus {
+    text-decoration: underline;
+  }
+
+  .bold-headline {
+    a {
+
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.hero__content p {
+  a {
+    position: relative;
+    z-index: 1;
+
+    @include breakpoint(sm) {
+      color: #fff;
+    }
+
+    .bg-pattern--brain & {
+      color: $secondary;
+    }
+  }
+}
+
+
+.hero--medium.hero--vertical-center.hero--horizontal-left {
+  .hero__content {
+    @include breakpoint(sm) {
       width: 70%;
-      padding: 0;
     }
 
     @include breakpoint(menu) {
@@ -89,31 +362,5 @@
     @include breakpoint(container) {
       width: 30%;
     }
-  }
-}
-
-.banner {
-  position: relative;
-
-  &__container {
-    max-width: 81.875em;
-
-    @include breakpoint(sm) {
-      margin: 0 0 0 $xlg;
-    }
-
-    @include breakpoint(container) {
-      margin: 0 auto;
-    }
-  }
-
-  &__title {
-    margin: 0;
-  }
-
-  &__summary {
-    font-weight: $font-weight-light;
-    font-size: 1.3rem;
-    @include margin($bottom: $lg, $top: $md);
   }
 }
