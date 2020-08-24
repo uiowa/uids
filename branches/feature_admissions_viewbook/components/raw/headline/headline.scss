@@ -6,6 +6,7 @@
 
   &.bold-headline--negative {
     color: $white;
+
     a {
       color: $white;
     }
@@ -28,8 +29,12 @@ h2.bold-headline {
 
 .bold-headline--caps {
   text-transform: uppercase;
-  font-weight: normal;
-  font-family: $font-family-caps-bold;
+  font-family: $font-family-caps;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
 .bold-headline--serif {
@@ -71,22 +76,7 @@ h2.bold-headline {
   display: inline-block;
   margin-bottom: .8rem;
   margin-top: .8rem;
-  padding: 0.85rem 1rem .6rem;
-}
-
-// Firefox overrides
-
-@-moz-document url-prefix() {
-
-  .bold-headline--highlight.bold-headline--caps span,
-  .bold-headline--caps .heading__heading span {
-    padding: 1.4rem 1rem .4rem;
-    margin-top: .1rem;
-  }
-
-  .bold-headline--underline.bold-headline--caps {
-    padding-bottom: .825rem;
-  }
+  padding: 0.85rem 1rem;
 }
 
 .bold-headline--underline {
@@ -96,12 +86,12 @@ h2.bold-headline {
   background-size: 1px 1em;
   box-shadow: inset 0 -0.175em white, inset 0 -0.25em $primary;
 
-   &::after {
-     content: '\A';
-     white-space: pre;
-     margin-bottom: $gutter;
-     display: inline-block;
-   }
+  &::after {
+    content: '\A';
+    white-space: pre;
+    margin-bottom: $gutter;
+    display: inline-block;
+  }
 
   .bg--gray & {
     box-shadow: inset 0 -0.175em $light, inset 0 -0.25em $primary;
@@ -111,7 +101,4 @@ h2.bold-headline {
     box-shadow: inset 0 -0.175em $secondary, inset 0 -0.25em $primary;
   }
 
-  &.bold-headline--caps {
-    padding-bottom: $xsm;
-  }
 }
