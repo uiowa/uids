@@ -621,24 +621,24 @@ aside .region,
 }
 
 @font-face {
-  font-family: 'antoniobold';
-  src: url("../fonts/antonio-bold-webfont.woff2") format("woff2"), url("../fonts/antonio-bold-webfont.woff") format("woff");
+  font-family: 'Antonio';
+  src: url("../fonts/Antonio-Bold.woff2") format("woff2"), url("../fonts/Antonio-Bold.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'antoniolight';
-  src: url("../fonts/antonio-light-webfont.woff2") format("woff2"), url("../fonts/antonio-light-webfont.woff") format("woff");
+  font-family: 'Antonio';
+  src: url("../fonts/Antonio-Light.woff2") format("woff2"), url("../fonts/Antonio-Light.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'antonioregular';
-  src: url("../fonts/antonio-regular-webfont.woff2") format("woff2"), url("../fonts/antonio-regular-webfont.woff") format("woff");
+  font-family: 'Antonio';
+  src: url("../fonts/Antonio-Regular.woff2") format("woff2"), url("../fonts/Antonio-Regular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -1233,7 +1233,11 @@ dd {
   border-radius: 50%;
   background-color: #FFCD00;
   box-shadow: inset 0px 0px 0px 10px white;
-  font-family: "antoniobold", sans-serif;
+  text-transform: uppercase;
+  font-family: "Antonio", sans-serif;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+  font-weight: bold;
   font-size: 2.4rem;
   line-height: 0;
 }
@@ -1497,8 +1501,12 @@ h2.bold-headline {
 
 .bold-headline--caps {
   text-transform: uppercase;
-  font-weight: normal;
-  font-family: "antoniobold", sans-serif;
+  font-family: "Antonio", sans-serif;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
 .bold-headline--serif {
@@ -1537,18 +1545,7 @@ h2.bold-headline {
   display: inline-block;
   margin-bottom: .8rem;
   margin-top: .8rem;
-  padding: 0.85rem 1rem .6rem;
-}
-
-@-moz-document url-prefix() {
-  .bold-headline--highlight.bold-headline--caps span,
-  .bold-headline--caps .heading__heading span {
-    padding: 1.4rem 1rem .4rem;
-    margin-top: .1rem;
-  }
-  .bold-headline--underline.bold-headline--caps {
-    padding-bottom: .825rem;
-  }
+  padding: 0.85rem 1rem;
 }
 
 .bold-headline--underline {
@@ -1559,8 +1556,11 @@ h2.bold-headline {
   box-shadow: inset 0 -0.175em white, inset 0 -0.25em #FFCD00;
 }
 
-.bold-headline--underline + p {
-  margin-top: 1.25rem;
+.bold-headline--underline::after {
+  content: '\A';
+  white-space: pre;
+  margin-bottom: 1.25rem;
+  display: inline-block;
 }
 
 .bg--gray .bold-headline--underline {
@@ -1569,10 +1569,6 @@ h2.bold-headline {
 
 .bg--black .bold-headline--underline {
   box-shadow: inset 0 -0.175em #151515, inset 0 -0.25em #FFCD00;
-}
-
-.bold-headline--underline.bold-headline--caps {
-  padding-bottom: 0.325rem;
 }
 
 .footer__links .menu, .footer__links .menu ul li, .footer__links--icon ul,
@@ -3949,16 +3945,12 @@ a.bttn.bttn--primary span {
 
 .bttn--caps {
   text-transform: uppercase;
-  font-family: "antoniobold", sans-serif;
+  font-family: "Antonio", sans-serif;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
 }
 
-@-moz-document url-prefix() {
-  .bttn--caps {
-    padding: 1rem 2rem .8rem 2rem;
-  }
-}
-
-.bttn--sans-serif {
+@-moz-document url-prefix() {}.bttn--sans-serif {
   font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-size: .9rem;
@@ -5038,7 +5030,7 @@ a.bttn.bttn--primary span {
   background: #ccc;
   line-height: 1;
   text-transform: uppercase;
-  font-family: "antoniobold", sans-serif;
+  font-family: "Antonio", sans-serif;
 }
 
 @media (min-width: 855px) {
@@ -5636,7 +5628,9 @@ a.bttn.bttn--primary span {
   margin-bottom: 8px;
   padding: 2px 0;
   text-transform: uppercase;
-  font-family: "antoniobold", sans-serif;
+  font-family: "Antonio", sans-serif;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
   font-size: calc(100% + -.7vw);
   line-height: 1.7;
 }
@@ -5644,7 +5638,7 @@ a.bttn.bttn--primary span {
 @media (min-width: 855px) {
   .highlight__title {
     font-size: calc(100% + .3vw);
-    margin-bottom: 0;
+    margin-bottom: -1px;
   }
 }
 
@@ -5661,20 +5655,6 @@ a.bttn.bttn--primary span {
   background: #151515;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
-}
-
-@-moz-document url-prefix() {
-  .highlight__title {
-    margin-bottom: 0;
-  }
-  .highlight__title span {
-    padding-top: 12px;
-  }
-  @media (min-width: 768px) {
-    .highlight__sub {
-      margin: 1px 0 0;
-    }
-  }
 }
 
 .menu--group .menu {
@@ -7575,7 +7555,8 @@ body:before {
   margin: 0;
   text-transform: uppercase;
   line-height: 1.2;
-  font-family: "antoniobold", sans-serif;
+  font-family: "Antonio", sans-serif;
+  font-weight: bold;
   font-size: 4rem;
   border-bottom: 8px solid #FFCD00;
   padding: 1.875rem 0 0.625rem 0;
@@ -7631,7 +7612,8 @@ body:before {
 
 .stat__description {
   position: relative;
-  font-family: "antoniobold", sans-serif;
+  font-family: "Antonio", sans-serif;
+  font-weight: bold;
   text-transform: uppercase;
   font-size: 1.3rem;
   line-height: 1.4;
@@ -7681,6 +7663,12 @@ body:before {
   }
 }
 
+@media (min-width: 768px) {
+  .stat--horizontal .stat__title {
+    font-size: calc(100% + 3vw);
+  }
+}
+
 @media (min-width: 84.375em) {
   .stat--horizontal .stat__title {
     font-size: calc(100% + 2vw);
@@ -7691,11 +7679,11 @@ body:before {
 
 .stat--horizontal .stat__content {
   flex-basis: 80%;
+  font-size: 1.1rem;
 }
 
 @media (min-width: 855px) {
   .stat--horizontal .stat__content {
-    font-size: 1.1rem;
     opacity: 0;
     transition: 1s;
     position: absolute !important;
@@ -7721,11 +7709,23 @@ body:before {
   }
 }
 
+.stat--horizontal .stat__description {
+  width: 100%;
+  font-size: 1.3rem;
+  margin: 0.625rem 0 0;
+}
+
+@media (min-width: 768px) {
+  .stat--horizontal .stat__description {
+    width: 85%;
+    margin: 0.625rem 0;
+  }
+}
+
 @media (min-width: 84.375em) {
   .stat--horizontal .stat__description {
     flex-basis: 50%;
-    font-size: 1.3rem;
-    margin: 0;
+    margin: .3rem 0 0;
     opacity: .7;
   }
 }
