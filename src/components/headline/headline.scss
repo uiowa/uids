@@ -1,15 +1,9 @@
 @import '../../assets/scss/variables';
 
-.bold-headline {
+
+@mixin bold-headline {
   padding: 0;
   line-height: 1;
-
-  &.bold-headline--negative {
-    color: $white;
-    a {
-      color: $white;
-    }
-  }
 
   a {
     color: $secondary;
@@ -22,11 +16,15 @@
   }
 }
 
-h2.bold-headline {
-  font-size: 2.8rem;
+@mixin bold-headline-negative {
+  color: $white;
+
+  a {
+    color: $white;
+  }
 }
 
-.bold-headline--caps {
+@mixin bold-headline-caps {
   text-transform: uppercase;
   font-family: $font-family-caps;
   -webkit-font-smoothing: auto;
@@ -36,31 +34,20 @@ h2.bold-headline {
   font-display: swap;
 }
 
-.bold-headline--serif {
+@mixin bold-headline-serif {
   font-family: $font-family-serif;
   font-weight: $font-weight-bold;
 }
 
-.bold-headline--highlight {
+@mixin bold-headline-highlight {
   align-items: center;
   justify-content: center;
   margin-bottom: 8px;
   padding: 2px 0;
   line-height: 1.7;
-
-  &.bold-headline--serif {
-    font-weight: 600;
-  }
-
-  &.bold-headline--caps {
-    span {
-      padding: 0.1rem 1rem 0;
-    }
-  }
 }
 
-.bold-headline--highlight span,
-.bold-headline--caps .heading__heading span {
+@mixin bold-headline-highlight-word {
   background: $primary;
   display: inline;
   padding: 0.85rem 1rem;
@@ -70,27 +57,27 @@ h2.bold-headline {
   text-shadow: none;
 }
 
-// Set padding for highlighted words within headline
-.bold-headline--caps .heading__heading span {
+@mixin bold-headline-highlight-caps-word {
+  background: $primary;
   display: inline-block;
   margin-bottom: .8rem;
   margin-top: .8rem;
   padding: 0.6rem 1rem;
 }
 
-.bold-headline--underline {
+@mixin bold-headline-underline {
   padding-bottom: $sm;
   line-height: 1.3;
   display: inline;
   background-size: 1px 1em;
   box-shadow: inset 0 -0.175em white, inset 0 -0.25em $primary;
 
-   &::after {
-     content: '\A';
-     white-space: pre;
-     margin-bottom: $gutter;
-     display: inline-block;
-   }
+  &::after {
+    content: '\A';
+    white-space: pre;
+    margin-bottom: $gutter;
+    display: inline-block;
+  }
 
   .bg--gray & {
     box-shadow: inset 0 -0.175em $light, inset 0 -0.25em $primary;
@@ -98,5 +85,53 @@ h2.bold-headline {
 
   .bg--black & {
     box-shadow: inset 0 -0.175em $secondary, inset 0 -0.25em $primary;
+  }
+}
+
+.bold-headline {
+  @include bold-headline;
+
+  &.bold-headline--negative {
+    @include bold-headline-negative;
+  }
+}
+
+.bold-headline--caps {
+  @include bold-headline-caps;
+}
+
+.bold-headline--serif {
+  @include bold-headline-serif;
+}
+
+.bold-headline--highlight {
+  @include bold-headline-highlight;
+}
+
+.bold-headline--highlight span {
+  @include bold-headline-highlight-word;
+}
+
+.bold-headline--caps .heading__heading span {
+  @include bold-headline-highlight-caps-word;
+}
+
+.bold-headline--underline {
+  @include bold-headline-underline;
+}
+
+// Misc
+
+h2.bold-headline {
+  font-size: 2.8rem;
+}
+
+.bold-headline--highlight.bold-headline--serif {
+  font-weight: 600;
+}
+
+.bold-headline--highlight.bold-headline--caps {
+  span {
+    padding: 0.1rem 1rem 0;
   }
 }
