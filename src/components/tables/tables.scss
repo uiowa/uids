@@ -1,6 +1,12 @@
 @import '../../assets/scss/variables';
 //// Table Elements
 
+.table-responsive-container {
+  overflow-x: auto;
+  width: 100%;
+  position: relative;
+}
+
  table {
   width: 100%;
   font-size: $content-font-size;
@@ -8,7 +14,7 @@
 
  table {
   border-spacing: 0;
-  border-collapse: collapse;
+  // border-collapse: collapse;
 }
 
  table td,
@@ -28,14 +34,14 @@
 
  table thead td,
  table thead th {
-  color: $grey;
-  border-width: 0 0 2px;
+  // color: $grey;
+  // border-width: 0 0 2px;
 }
 
  table tfoot td,
  table tfoot th {
-  color: $grey;
-  border-width: 2px 0 0;
+  // color: $grey;
+  // border-width: 2px 0 0;
 }
 
  table tbody tr:last-child td,
@@ -58,18 +64,14 @@ table th {
 
 table th {
   color: $secondary;
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  border-bottom: 1px solid black;
 }
 
 table th:not([align]) {
   text-align: left;
-}
-
-table thead {
-  background-color: transparent;
-}
-
-table thead {
-  border-bottom: 1px solid black;
 }
 
 table thead td,
@@ -81,7 +83,7 @@ table.is-striped {
   border: 1px solid #eee;
 }
 
-table.is-striped thead {
+table.is-striped thead th {
   background: $primary;
   text-transform: uppercase;
   border: none;
