@@ -1,38 +1,94 @@
-// Instantiate tables on the page.
-const tables = document.getElementsByTagName('table');
+document.addEventListener("DOMContentLoaded", function () {
+    // Instantiate tables on the page.
+    const tables = document.getElementsByTagName('table');
 
-for (let i = 0; i < tables.length; i++) {
-    let table = tables[i];
-    if(!table.closest('.table-responsive-container')) {
+    for (let i = 0; i < tables.length; i++) {
+        let table = tables[i];
+        if (!table.closest('.table-responsive-container')) {
+            // Set table header HTML for future use.
+            let header_HTML = '';
 
-        //Prepare table caption variables.
-        let caption_id = '';
-        let caption_labeledby = '';
-        //If the table catption exists and doesnt have an Id...
-        if (table.getElementsByTagName('caption') && !table.getElementsByTagName('caption')[0].id) {
-            caption_id = 'table-' + i;
-            caption_labeledby = 'aria-labelledby="' + caption_id + '"';
+            //Prepare table caption variables.
+            let caption_id = '';
+            let caption_labeledby = '';
 
-            //Give the caption an Id.
-            table.getElementsByTagName('caption')[0].id = caption_id;
+            //If the table catption exists and doesnt have an Id...
+            if (table.getElementsByTagName('caption') && !table.getElementsByTagName('caption')[0].id) {
+                caption_id = 'table-' + i;
+                caption_labeledby = 'aria-labelledby="' + caption_id + '"';
+
+                //Give the caption an Id.
+                table.getElementsByTagName('caption')[0].id = caption_id;
+            }
+
+            // Determine if there are thead TH's without scope.
+            if (table.querySelectorAll('thead tr th')[0] && table.querySelectorAll('thead tr')[0].lastElementChild.tagName === 'TH') {
+                let theads = table.querySelectorAll('thead tr th');
+                for (let j = 0; j < theads.length; j++) {
+                    let thead = theads[j];
+                    if (!thead.hasAttribute('scope')) {
+
+                        // If they dont have the scope attribute, give thema  scope of "col".
+                        thead.setAttribute('scope', 'col');
+                        thead.classList.add("invisible-header");
+                        thead.setAttribute('data-table-heading', 't-' + i + '-h-' + j);
+
+                        // Give the html to header_HTML for later usage.
+                        header_HTML = header_HTML +
+                            '<div class="track-heading" data-scroller-heading="t-' + i + '-h-' + j + '">' +
+                                thead.innerHTML + 
+                            '</div>'
+                        ;
+                    };
+                }
+            };
+
+            // Determine if there are tbody TH's without scope.
+            let trows = table.querySelectorAll('tbody tr');
+            for (let j = 0; j<trows.length; j++) {
+                let trow = trows[j];
+                if (trow.firstElementChild && trow.firstElementChild.tagName === 'TH' && !trow.firstElementChild.hasAttribute('scope')) {
+
+                    // If they dont have the scope attribute, give thema  scope of "row".
+                    trow.firstElementChild.setAttribute('scope', 'row');
+                };
+            }
+
+            // Create the header scroller with the header html we saved a while back.
+            let header_scroller = '\
+            <div id="headers-table-' + i + '">\
+                <div class="scroller" name="myElements">\
+                    ' + header_HTML + '\
+                </div>\
+            </div>';
+
+            // Wrap the table in a responsive table div, and make sure aria knows what caption labels it, if any.
+            // This should be done last as to not mess up any scoping of previous functions.
+            let classes = table.classList.contains('is-striped')? 'is-striped': '';
+            table.outerHTML = 
+                '<div class="table-responsive-container ' + classes +'" role="region" ' + caption_labeledby + ' tabindex="0">' + 
+                    header_scroller +
+                    table.outerHTML +
+                '</div>'
+            ;
+
+            window.addEventListener('resize', function () {
+                resizeScrollerheaders(i);
+            });
+            resizeScrollerheaders(i);
         }
-
-        // Wrap the table in a responsive table div, and make sure aria knows what caption labels it, if any.
-        wrap(
-            '<div class="table-responsive-container" role="region" ' + caption_labeledby + ' tabindex="0">',
-            table,
-            '</div>'
-        );
-        
-        // // Determine if there are thead TH's without scope.
-        // if (table.querySelectorAll('thead tr') && table.querySelectorAll('thead tr')[0].lastElementChild.tagName === 'TH') {
-        //     console.log('kjahsdf')
-        // };
     }
-}
+});
 
-// Wrap any selected HTML with other HTML.
-function wrap(top, wrap_object, bottom) {
-    var modified = top + wrap_object.outerHTML + bottom;
-    wrap_object.outerHTML = modified;
+function resizeScrollerheaders(i) {
+    let invisible_headers = document.querySelectorAll('#headers-table-' + i + ' + table .invisible-header');
+    for (let j = 0; j < invisible_headers.length; j++) {
+        let header = invisible_headers[j]
+        let header_tag = header.getAttribute('data-table-heading');
+        let header_width = header.offsetWidth;
+        let header_height = header.offsetHeight;
+        let visible_header = document.querySelector('#headers-table-' + i + ' [data-scroller-heading="' + header_tag + '"]');
+        visible_header.style.width = header_width + 'px';
+        visible_header.style.height = header_height + 'px';
+    }
 }
