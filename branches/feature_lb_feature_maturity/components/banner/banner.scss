@@ -67,6 +67,40 @@
 
 .banner {
 
+  .banner__content {
+    display: grid;
+    width: 100%;
+    background: #fff;
+    padding: $gutter;
+
+    @include breakpoint(sm) {
+      z-index: 1;
+      flex-wrap: wrap;
+      align-content: center;
+      flex-direction: column;
+      background: transparent;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      position: absolute;
+      background: transparent;
+      padding: 1.25rem 0 2rem 0;
+
+      >* {
+        flex-basis: 100%;
+      }
+
+      .bttn {
+        margin-right: auto;
+        margin-left: 0;
+      }
+    }
+
+    @include breakpoint(container) {
+      padding: $gutter 0;
+    }
+  }
+
   .banner__text {
     @include breakpoint(sm) {
       width: 70%;
@@ -146,6 +180,13 @@
 .banner__container {
   max-width: 81.875em;
   margin: 0 auto;
+
+  @include breakpoint(sm) {
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    top: 0;
+  }
 }
 
 // Gradients/Overlays
@@ -163,12 +204,12 @@
       -webkit-transition: all .5s ease-in-out;
       transition: all .5s ease-in-out;
       will-change: opacity;
+      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 1));
     }
   }
 
   &.banner--gradient-center-left::after {
     @include breakpoint(sm) {
-      opacity: .75;
       background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 1)));
       background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 1));
     }
@@ -275,7 +316,7 @@
   }
 }
 
-.banner--vertical-bottom.banner--horizontal-center {
+.banner.banner--vertical-bottom.banner--horizontal-center {
   .banner__content {
     @include breakpoint(sm) {
       max-width: 100%;
@@ -288,7 +329,7 @@
   }
 }
 
-.banner--horizontal-center {
+.banner.banner--horizontal-center {
   .banner__content {
     @include breakpoint(sm) {
 
@@ -301,7 +342,7 @@
 }
 
 
-.banner--vertical-center.banner--horizontal-left {
+.banner.banner--vertical-center.banner--horizontal-left {
   .bttn {
     margin-right: auto;
     margin-left: 0;
