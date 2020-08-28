@@ -67,6 +67,20 @@
 
 .banner {
 
+  .banner__text {
+    @include breakpoint(sm) {
+      width: 70%;
+    }
+
+    @include breakpoint(menu) {
+      width: 60%;
+    }
+
+    @include breakpoint(container) {
+      width: 60%;
+    }
+  }
+
   &.bg-pattern--brain,
   &.bg-pattern--brain-reversed,
   &.banner--gradient-left-reversed {
@@ -274,6 +288,19 @@
   }
 }
 
+.banner--horizontal-center {
+  .banner__content {
+    @include breakpoint(sm) {
+
+      >* {
+        margin-right: auto;
+        margin-left: auto;
+      }
+    }
+  }
+}
+
+
 .banner--vertical-center.banner--horizontal-left {
   .bttn {
     margin-right: auto;
@@ -329,7 +356,6 @@
   }
 
   .bold-headline {
-    width: fit-content;
 
     a {
 
@@ -359,18 +385,21 @@
 }
 
 
-.banner--medium.banner--vertical-center.banner--horizontal-left {
+.banner--medium.banner--vertical-center.banner--horizontal-left,
+.banner--medium.banner--vertical-bottom.banner--horizontal-left,
+.banner--small.banner--vertical-center.banner--horizontal-left,
+.banner--small.banner--vertical-bottom.banner--horizontal-left {
   .banner__text {
     @include breakpoint(sm) {
       width: 70%;
     }
 
     @include breakpoint(menu) {
-      width: 50%;
+      width: 60%;
     }
 
     @include breakpoint(container) {
-      width: 30%;
+      width: 40%;
     }
   }
 
