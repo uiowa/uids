@@ -452,7 +452,6 @@
                             
                             <code class="Code Code--lang-CSS FileBrowser-code hljs">
                                 <pre><span class="hljs-selector-class">.table-responsive-container</span> {
-  <span class="hljs-attribute">overflow-x</span>: auto;
   <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
   <span class="hljs-attribute">position</span>: relative; }
 
@@ -463,13 +462,28 @@
 <span class="hljs-selector-tag">table</span> {
   <span class="hljs-attribute">border-spacing</span>: <span class="hljs-number">0</span>; }
 
-<span class="hljs-selector-class">.scroller</span> <span class="hljs-selector-class">.track-heading</span> {
-  <span class="hljs-attribute">font-weight</span>: bold;
-  <span class="hljs-attribute">display</span>: inline-block; }
-  <span class="hljs-selector-class">.is-striped</span> <span class="hljs-selector-class">.scroller</span> <span class="hljs-selector-class">.track-heading</span> {
-    <span class="hljs-attribute">background</span>: <span class="hljs-number">#FFCD00</span>;
-    <span class="hljs-attribute">text-transform</span>: uppercase;
-    <span class="hljs-attribute">border</span>: none; }
+<span class="hljs-selector-class">.headers-table</span> {
+  <span class="hljs-attribute">position</span>: -webkit-sticky;
+  <span class="hljs-attribute">position</span>: sticky;
+  <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>; }
+  <span class="hljs-selector-class">.headers-table</span> <span class="hljs-selector-class">.scroller</span> {
+    <span class="hljs-attribute">white-space</span>: nowrap;
+    <span class="hljs-attribute">overflow-x</span>: hidden; }
+    <span class="hljs-selector-class">.headers-table</span> <span class="hljs-selector-class">.scroller</span> <span class="hljs-selector-class">.track-heading</span> {
+      <span class="hljs-attribute">font-weight</span>: bold;
+      <span class="hljs-attribute">display</span>: inline-block;
+      <span class="hljs-attribute">white-space</span>: break-spaces; }
+  <span class="hljs-selector-class">.is-striped</span> <span class="hljs-selector-class">.headers-table</span> {
+    <span class="hljs-attribute">-webkit-filter</span>: <span class="hljs-built_in">drop-shadow</span>(<span class="hljs-number">0px</span> <span class="hljs-number">1px</span> <span class="hljs-number">2px</span> rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.4</span>));
+            <span class="hljs-attribute">filter</span>: <span class="hljs-built_in">drop-shadow</span>(<span class="hljs-number">0px</span> <span class="hljs-number">1px</span> <span class="hljs-number">2px</span> rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.4</span>)); }
+    <span class="hljs-selector-class">.is-striped</span> <span class="hljs-selector-class">.headers-table</span> <span class="hljs-selector-class">.track-heading</span> {
+      <span class="hljs-attribute">background</span>: <span class="hljs-number">#FFCD00</span>;
+      <span class="hljs-attribute">text-transform</span>: uppercase;
+      <span class="hljs-attribute">border</span>: none; }
+
+<span class="hljs-selector-class">.table-container</span> {
+  <span class="hljs-attribute">overflow-x</span>: auto; }
 
 <span class="hljs-selector-tag">table</span> <span class="hljs-selector-tag">td</span>,
 <span class="hljs-selector-tag">table</span> <span class="hljs-selector-tag">th</span>,
@@ -496,9 +510,6 @@
 <span class="hljs-selector-tag">table</span> <span class="hljs-selector-tag">thead</span> <span class="hljs-selector-tag">th</span>,
 <span class="hljs-selector-class">.scroller</span> <span class="hljs-selector-class">.track-heading</span> {
   <span class="hljs-attribute">color</span>: <span class="hljs-number">#151515</span>;
-  <span class="hljs-attribute">position</span>: -webkit-sticky;
-  <span class="hljs-attribute">position</span>: sticky;
-  <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
   <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#fff</span>;
   <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">1px</span> solid black; }
 
@@ -525,14 +536,20 @@
 <span class="hljs-selector-tag">table</span><span class="hljs-selector-class">.is-striped</span> <span class="hljs-selector-tag">thead</span> <span class="hljs-selector-tag">th</span> {
   <span class="hljs-attribute">background</span>: <span class="hljs-number">#FFCD00</span>;
   <span class="hljs-attribute">text-transform</span>: uppercase;
-  <span class="hljs-attribute">border</span>: none; }
+  <span class="hljs-attribute">border</span>: none;
+  <span class="hljs-attribute">-webkit-filter</span>: <span class="hljs-built_in">drop-shadow</span>(<span class="hljs-number">4px</span> <span class="hljs-number">1px</span> <span class="hljs-number">2px</span> rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.4</span>));
+          <span class="hljs-attribute">filter</span>: <span class="hljs-built_in">drop-shadow</span>(<span class="hljs-number">4px</span> <span class="hljs-number">1px</span> <span class="hljs-number">2px</span> rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.4</span>)); }
+
+<span class="hljs-selector-class">.headers-table</span> + <span class="hljs-selector-class">.table-container</span> <span class="hljs-selector-tag">table</span><span class="hljs-selector-class">.is-striped</span> <span class="hljs-selector-tag">thead</span> <span class="hljs-selector-tag">th</span> {
+  <span class="hljs-attribute">-webkit-filter</span>: none;
+          <span class="hljs-attribute">filter</span>: none; }
 
 <span class="hljs-selector-tag">table</span><span class="hljs-selector-class">.is-striped</span> <span class="hljs-selector-tag">tbody</span> <span class="hljs-selector-tag">th</span> {
   <span class="hljs-attribute">text-transform</span>: uppercase;
   <span class="hljs-attribute">text-transform</span>: uppercase;
   <span class="hljs-attribute">border</span>: none;
-  <span class="hljs-attribute">-webkit-filter</span>: <span class="hljs-built_in">drop-shadow</span>(<span class="hljs-number">0px</span> <span class="hljs-number">1px</span> <span class="hljs-number">2px</span> rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.4</span>));
-          <span class="hljs-attribute">filter</span>: <span class="hljs-built_in">drop-shadow</span>(<span class="hljs-number">0px</span> <span class="hljs-number">1px</span> <span class="hljs-number">2px</span> rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.4</span>)); }
+  <span class="hljs-attribute">-webkit-filter</span>: <span class="hljs-built_in">drop-shadow</span>(<span class="hljs-number">0px</span> <span class="hljs-number">4px</span> <span class="hljs-number">2px</span> rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.4</span>));
+          <span class="hljs-attribute">filter</span>: <span class="hljs-built_in">drop-shadow</span>(<span class="hljs-number">0px</span> <span class="hljs-number">4px</span> <span class="hljs-number">2px</span> rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.4</span>)); }
 
 <span class="hljs-comment">/*
 table thead td,
@@ -606,7 +623,7 @@ table.is-narrow th {
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">2.5 KB</span>
+                    <span class="Meta-value">3.1 KB</span>
                 </li>
             </ul>
         </div>
@@ -677,8 +694,8 @@ table.is-narrow th {
 
             <span class="hljs-comment">// Create the header scroller with the header html we saved a while back.</span>
             <span class="hljs-keyword">let</span> header_scroller = <span class="hljs-string">'\
-            &lt;div id="headers-table-'</span> + i + <span class="hljs-string">'"&gt;\
-                &lt;div class="scroller" name="myElements"&gt;\
+            &lt;div id="headers-table-'</span> + i + <span class="hljs-string">'" class="headers-table" aria-hidden="true"&gt;\
+                &lt;div class="scroller syncscroll" name="sync-table-'</span> + i + <span class="hljs-string">'"&gt;\
                     '</span> + header_HTML + <span class="hljs-string">'\
                 &lt;/div&gt;\
             &lt;/div&gt;'</span>;
@@ -689,7 +706,9 @@ table.is-narrow th {
             table.outerHTML = 
                 <span class="hljs-string">'&lt;div class="table-responsive-container '</span> + classes +<span class="hljs-string">'" role="region" '</span> + caption_labeledby + <span class="hljs-string">' tabindex="0"&gt;'</span> + 
                     header_scroller +
-                    table.outerHTML +
+                    <span class="hljs-string">'&lt;div class="table-container syncscroll" name="sync-table-'</span> + i + <span class="hljs-string">'"&gt;'</span> +
+                        table.outerHTML +
+                    <span class="hljs-string">'&lt;/div&gt;'</span> +
                 <span class="hljs-string">'&lt;/div&gt;'</span>
             ;
 
@@ -702,7 +721,7 @@ table.is-narrow th {
 });
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">resizeScrollerheaders</span>(<span class="hljs-params">i</span>) </span>{
-    <span class="hljs-keyword">let</span> invisible_headers = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">'#headers-table-'</span> + i + <span class="hljs-string">' + table .invisible-header'</span>);
+    <span class="hljs-keyword">let</span> invisible_headers = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">'#headers-table-'</span> + i + <span class="hljs-string">' + .table-container table .invisible-header'</span>);
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>; j &lt; invisible_headers.length; j++) {
         <span class="hljs-keyword">let</span> header = invisible_headers[j]
         <span class="hljs-keyword">let</span> header_tag = header.getAttribute(<span class="hljs-string">'data-table-heading'</span>);
@@ -710,9 +729,14 @@ table.is-narrow th {
         <span class="hljs-keyword">let</span> header_height = header.offsetHeight;
         <span class="hljs-keyword">let</span> visible_header = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#headers-table-'</span> + i + <span class="hljs-string">' [data-scroller-heading="'</span> + header_tag + <span class="hljs-string">'"]'</span>);
         visible_header.style.width = header_width + <span class="hljs-string">'px'</span>;
-        visible_header.style.height = header_height + <span class="hljs-string">'px'</span>;
+        visible_header.style.height = (header_height + <span class="hljs-number">1</span>) + <span class="hljs-string">'px'</span>;
     }
-}</pre>
+    <span class="hljs-keyword">let</span> table_container = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#headers-table-'</span> + i + <span class="hljs-string">' + .table-container'</span>);
+    <span class="hljs-keyword">let</span> thead_height = table_container.querySelector(<span class="hljs-string">'table thead'</span>).offsetHeight;
+    table_container.style.marginTop = <span class="hljs-string">'-'</span> + (thead_height + <span class="hljs-number">1</span>) + <span class="hljs-string">'px'</span>;
+}
+
+!<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e, n</span>) </span>{ <span class="hljs-string">"function"</span> == <span class="hljs-keyword">typeof</span> define &amp;&amp; define.amd ? define([<span class="hljs-string">"exports"</span>], n) : n(<span class="hljs-string">"undefined"</span> != <span class="hljs-keyword">typeof</span> exports ? exports : e.syncscroll = {}) }(<span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>{ <span class="hljs-keyword">var</span> n = <span class="hljs-string">"Width"</span>, t = <span class="hljs-string">"Height"</span>, o = <span class="hljs-string">"Top"</span>, r = <span class="hljs-string">"Left"</span>, f = <span class="hljs-string">"scroll"</span>, i = <span class="hljs-string">"client"</span>, s = <span class="hljs-string">"EventListener"</span>, d = <span class="hljs-string">"add"</span> + s, c = <span class="hljs-string">"length"</span>, a = <span class="hljs-built_in">Math</span>.round, u = {}, l = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">var</span> e, l, p, y, m, h = <span class="hljs-built_in">document</span>.getElementsByClassName(<span class="hljs-string">"sync"</span> + f); <span class="hljs-keyword">for</span> (m <span class="hljs-keyword">in</span> u) <span class="hljs-keyword">if</span> (u.hasOwnProperty(m)) <span class="hljs-keyword">for</span> (e = <span class="hljs-number">0</span>; e &lt; u[m][c]; e++)u[m][e][<span class="hljs-string">"remove"</span> + s](f, u[m][e].syn, <span class="hljs-number">0</span>); <span class="hljs-keyword">for</span> (e = <span class="hljs-number">0</span>; e &lt; h[c];)<span class="hljs-keyword">if</span> (y = l = <span class="hljs-number">0</span>, p = h[e++], m = p.getAttribute(<span class="hljs-string">"name"</span>)) { <span class="hljs-keyword">for</span> (p = p[f + <span class="hljs-string">"er"</span>] || p; l &lt; (u[m] = u[m] || [])[c];)y |= u[m][l++] == p; y || u[m].push(p), p.eX = p.eY = <span class="hljs-number">0</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e, s</span>) </span>{ e[d](f, e.syn = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">var</span> d, l = u[s], p = e[f + r], y = e[f + o], m = p / (e[f + n] - e[i + n]), h = y / (e[f + t] - e[i + t]), v = p != e.eX, g = y != e.eY, X = <span class="hljs-number">0</span>; <span class="hljs-keyword">for</span> (e.eX = p, e.eY = y; X &lt; l[c];)d = l[X++], d != e &amp;&amp; (v &amp;&amp; a(d[f + r] - (p = d.eX = a(m * (d[f + n] - d[i + n])))) &amp;&amp; (d[f + r] = p), g &amp;&amp; a(d[f + o] - (y = d.eY = a(h * (d[f + t] - d[i + t])))) &amp;&amp; (d[f + o] = y)) }, <span class="hljs-number">0</span>) }(p, m) } }; <span class="hljs-string">"complete"</span> == <span class="hljs-built_in">document</span>.readyState ? l() : <span class="hljs-built_in">window</span>[d](<span class="hljs-string">"load"</span>, l, <span class="hljs-number">0</span>), e.reset = l });</pre>
                             </code>
                             
                         </div>
@@ -728,7 +752,7 @@ table.is-narrow th {
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">4.3 KB</span>
+                    <span class="Meta-value">6 KB</span>
                 </li>
             </ul>
         </div>
@@ -745,7 +769,6 @@ table.is-narrow th {
 <span class="hljs-comment">//// Table Elements</span>
 
 <span class="hljs-selector-class">.table-responsive-container</span> {
-  <span class="hljs-attribute">overflow-x</span>: auto;
   <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
   <span class="hljs-attribute">position</span>: relative;
 }
@@ -760,19 +783,41 @@ table.is-narrow th {
   <span class="hljs-comment">// border-collapse: collapse;</span>
 }
 
-<span class="hljs-selector-class">.scroller</span> <span class="hljs-selector-class">.track-heading</span> {
-  <span class="hljs-attribute">font-weight</span>: bold;
-  <span class="hljs-attribute">display</span>: inline-block;
+<span class="hljs-selector-class">.headers-table</span> {
+  <span class="hljs-attribute">position</span>: sticky;
+  <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;
+
+  <span class="hljs-selector-class">.scroller</span> {
+    <span class="hljs-attribute">white-space</span>: nowrap;
+    <span class="hljs-attribute">overflow-x</span>: hidden;
+
+    <span class="hljs-selector-class">.track-heading</span> {
+      <span class="hljs-attribute">font-weight</span>: bold;
+      <span class="hljs-attribute">display</span>: inline-block;
+      <span class="hljs-attribute">white-space</span>: break-spaces;
+
+      
+    }
+  }
 
   <span class="hljs-selector-class">.is-striped</span> &amp; {
-    <span class="hljs-attribute">background</span>: <span class="hljs-variable">$primary</span>;
-    <span class="hljs-attribute">text-transform</span>: uppercase;
-    <span class="hljs-attribute">border</span>: none;
+    <span class="hljs-attribute">filter</span>: drop-shadow(<span class="hljs-number">0px</span> <span class="hljs-number">1px</span> <span class="hljs-number">2px</span> rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.4</span>));
+
+    <span class="hljs-selector-class">.track-heading</span> {
+      <span class="hljs-attribute">background</span>: <span class="hljs-variable">$primary</span>;
+      <span class="hljs-attribute">text-transform</span>: uppercase;
+      <span class="hljs-attribute">border</span>: none;
+    }
   }
 }
 
- <span class="hljs-selector-tag">table</span> <span class="hljs-selector-tag">td</span>,
- <span class="hljs-selector-tag">table</span> <span class="hljs-selector-tag">th</span>,
+<span class="hljs-selector-class">.table-container</span> {
+  <span class="hljs-attribute">overflow-x</span>: auto;
+}
+
+<span class="hljs-selector-tag">table</span> <span class="hljs-selector-tag">td</span>,
+<span class="hljs-selector-tag">table</span> <span class="hljs-selector-tag">th</span>,
 <span class="hljs-selector-class">.scroller</span> <span class="hljs-selector-class">.track-heading</span> {
   <span class="hljs-attribute">padding</span>: <span class="hljs-variable">$md</span>;
   <span class="hljs-attribute">vertical-align</span>: top;
@@ -821,8 +866,6 @@ table.is-narrow th {
 <span class="hljs-selector-tag">table</span> <span class="hljs-selector-tag">thead</span> <span class="hljs-selector-tag">th</span>,
 <span class="hljs-selector-class">.scroller</span> <span class="hljs-selector-class">.track-heading</span> {
   <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
-  <span class="hljs-attribute">position</span>: sticky;
-  <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
   <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#fff</span>;
   <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">1px</span> solid black;
 }
@@ -854,12 +897,19 @@ table.is-narrow th {
     <span class="hljs-attribute">background</span>: <span class="hljs-variable">$primary</span>;
     <span class="hljs-attribute">text-transform</span>: uppercase;
     <span class="hljs-attribute">border</span>: none;
+    <span class="hljs-attribute">filter</span>: drop-shadow(<span class="hljs-number">4px</span> <span class="hljs-number">1px</span> <span class="hljs-number">2px</span> rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.4</span>));
+  }
+
+  <span class="hljs-selector-class">.headers-table</span> + <span class="hljs-selector-class">.table-container</span> &amp; {
+    <span class="hljs-selector-tag">thead</span> <span class="hljs-selector-tag">th</span> {
+      <span class="hljs-attribute">filter</span>: none;
+    }
   }
   <span class="hljs-selector-tag">tbody</span> <span class="hljs-selector-tag">th</span> {
     <span class="hljs-attribute">text-transform</span>: uppercase;
     <span class="hljs-attribute">text-transform</span>: uppercase;
     <span class="hljs-attribute">border</span>: none;
-    <span class="hljs-attribute">filter</span>: drop-shadow(<span class="hljs-number">0px</span> <span class="hljs-number">1px</span> <span class="hljs-number">2px</span> rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.4</span>));
+    <span class="hljs-attribute">filter</span>: drop-shadow(<span class="hljs-number">0px</span> <span class="hljs-number">4px</span> <span class="hljs-number">2px</span> rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.4</span>));
   }
 }
 
@@ -942,7 +992,7 @@ table.is-narrow th {
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">2.9 KB</span>
+                    <span class="Meta-value">3.3 KB</span>
                 </li>
             </ul>
         </div>
@@ -1784,8 +1834,8 @@ table.is-narrow th {
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-08-28T21:46:19.118Z">
-                8/28/2020
+            <time datetime="2020-08-31T20:19:31.705Z">
+                8/31/2020
             </time>
         </div>
     </div>
