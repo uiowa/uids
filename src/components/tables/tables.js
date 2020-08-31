@@ -56,8 +56,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Create the header scroller with the header html we saved a while back.
             let header_scroller = '\
-            <div id="headers-table-' + i + '">\
-                <div class="scroller" name="myElements">\
+            <div id="headers-table-' + i + '" class="headers-table" aria-hidden="true">\
+                <div class="scroller syncscroll" name="sync-table-' + i + '">\
                     ' + header_HTML + '\
                 </div>\
             </div>';
@@ -68,7 +68,9 @@ document.addEventListener("DOMContentLoaded", function () {
             table.outerHTML = 
                 '<div class="table-responsive-container ' + classes +'" role="region" ' + caption_labeledby + ' tabindex="0">' + 
                     header_scroller +
-                    table.outerHTML +
+                    '<div class="table-container syncscroll" name="sync-table-' + i + '">' +
+                        table.outerHTML +
+                    '</div>' +
                 '</div>'
             ;
 
@@ -81,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function resizeScrollerheaders(i) {
-    let invisible_headers = document.querySelectorAll('#headers-table-' + i + ' + table .invisible-header');
+    let invisible_headers = document.querySelectorAll('#headers-table-' + i + ' + .table-container table .invisible-header');
     for (let j = 0; j < invisible_headers.length; j++) {
         let header = invisible_headers[j]
         let header_tag = header.getAttribute('data-table-heading');
@@ -89,6 +91,11 @@ function resizeScrollerheaders(i) {
         let header_height = header.offsetHeight;
         let visible_header = document.querySelector('#headers-table-' + i + ' [data-scroller-heading="' + header_tag + '"]');
         visible_header.style.width = header_width + 'px';
-        visible_header.style.height = header_height + 'px';
+        visible_header.style.height = (header_height + 1) + 'px';
     }
+    let table_container = document.querySelector('#headers-table-' + i + ' + .table-container');
+    let thead_height = table_container.querySelector('table thead').offsetHeight;
+    table_container.style.marginTop = '-' + (thead_height + 1) + 'px';
 }
+
+!function (e, n) { "function" == typeof define && define.amd ? define(["exports"], n) : n("undefined" != typeof exports ? exports : e.syncscroll = {}) }(this, function (e) { var n = "Width", t = "Height", o = "Top", r = "Left", f = "scroll", i = "client", s = "EventListener", d = "add" + s, c = "length", a = Math.round, u = {}, l = function () { var e, l, p, y, m, h = document.getElementsByClassName("sync" + f); for (m in u) if (u.hasOwnProperty(m)) for (e = 0; e < u[m][c]; e++)u[m][e]["remove" + s](f, u[m][e].syn, 0); for (e = 0; e < h[c];)if (y = l = 0, p = h[e++], m = p.getAttribute("name")) { for (p = p[f + "er"] || p; l < (u[m] = u[m] || [])[c];)y |= u[m][l++] == p; y || u[m].push(p), p.eX = p.eY = 0, function (e, s) { e[d](f, e.syn = function () { var d, l = u[s], p = e[f + r], y = e[f + o], m = p / (e[f + n] - e[i + n]), h = y / (e[f + t] - e[i + t]), v = p != e.eX, g = y != e.eY, X = 0; for (e.eX = p, e.eY = y; X < l[c];)d = l[X++], d != e && (v && a(d[f + r] - (p = d.eX = a(m * (d[f + n] - d[i + n])))) && (d[f + r] = p), g && a(d[f + o] - (y = d.eY = a(h * (d[f + t] - d[i + t])))) && (d[f + o] = y)) }, 0) }(p, m) } }; "complete" == document.readyState ? l() : window[d]("load", l, 0), e.reset = l });
