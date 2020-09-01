@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Instantiate tables on the page.
-    const tables = document.getElementsByTagName('table');
+    const tables = document.querySelectorAll('table:not(.table-static)');
 
     for (let i = 0; i < tables.length; i++) {
         let table = tables[i];
