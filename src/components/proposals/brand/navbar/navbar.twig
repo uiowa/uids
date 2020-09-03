@@ -1,10 +1,19 @@
-<header class="iowa-bar iowa-bar--narrow" data-uids-header>
+
+<header
+class="iowa-bar iowa-bar--narrow"
+>
+<nav id="navigation"
+  class="iowa-bar__container"
+  data-uids-header
+  aria-labelledby="sections-heading">
+
+  <a class="skip-main" href="#main">Skip to main content</a>
+
   <div class="iowa-bar__inline top-nav">
     <div class="brand-site-name-toggle">
-
       <div class="brand-site-name">
         {% render '@logo' with { 'logo_id': 'header', }%}
-        <h1 class="site-name">
+        <h1 class="site-name" id="sections-heading" >
           <span></span>
           Universal Workflow
         </h1>
@@ -12,17 +21,21 @@
 
       <div class="toggle">
         <a
-          href="javascript:void(0);"
           class="icon"
-          onclick="uidsUtils.menuToggle()"
+          role="button"
+          title="menu"
+          aria-expanded="false"
+          href="javascript:void(0);"
+          onclick="uidsUtils.navbar.menuToggle(this)"
         >
           <i class="fa fa-bars"></i>
+
         </a>
       </div>
 
     </div>
 
-    <div class="right-links" id="myTopnav" >
+    <div class="right-links" id="myTopnav"  hidden>
       <a
         href="https://admissions.uiowa.edu/apply/apply?utm_source=uiowa&amp;utm_campaign=homepage_header"
         title="Apply"
@@ -40,11 +53,11 @@
         <a
           class="dropbtn"
           href="javascript:void(0);"
-          onclick="uidsUtils.dropDown('target')"
+          onclick="uidsUtils.navbar.dropDown(this, 'target')"
         >
           <span class=""> user <i class="fa fa-caret-down"></i></span>
         </a>
-        <div class="dropdown-content" id="target">
+        <div class="dropdown-content" id="target" hidden>
           <a href="#">Link 1</a>
           <a href="#">Link 2</a>
           <a href="#">Link 3</a>
@@ -57,5 +70,26 @@
         <span class=""> Link 4</span>
       </a>
     </div>
+
+
   </div>
+  </div>
+
+</nav>
 </header>
+<!--
+You should include a tabindex=”-1″ on the target of the skip link. IE and Chrome both require this attribute to be present to make the skip link work consistently.
+-->
+<main id="main" tabindex="-1">
+
+  <ol>
+    <li>provide a link at the top of the page that says "skip to main content"</li>
+    <li>have it link to an internal anchor further down in the page where the main content begins.</li>
+    <li>use CSS :focus and :activate to make the skip link visible when the user tabs to it</li>
+  </ol>
+
+</main>
+
+
+
+

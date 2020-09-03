@@ -7,10 +7,13 @@ const path = require("path");
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
+//const outputFolder = "build";
+const outputFolder = "build";
+
 module.exports = {
   entry: {
     uids: "./src/uids/uids.js",
-    vendor: "./src/vendor/vendor.js",
+  //vendor: "./src/vendor/vendor.js",
     custom: "./src/custom/custom.js"
   },
   mode: isDevelopment ? "development" : "production",
@@ -83,6 +86,6 @@ module.exports = {
   },
   output: {
     filename: isDevelopment ? "[name].js" : "[name].[hash].js",
-    path: path.resolve(__dirname, "build")
+    path: path.resolve(__dirname, "../../portal_frontend/assets/uids")
   }
 };
