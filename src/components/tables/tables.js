@@ -57,12 +57,16 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             // Create the header scroller with the header html we saved a while back.
-            let header_scroller = '\
-            <div id="headers-table-' + i + '" class="headers-table" aria-hidden="true">\
-                <div class="scroller syncscroll" name="sync-table-' + i + '">\
-                    ' + header_HTML + '\
-                </div>\
-            </div>';
+            let header_scroller = '';
+            if (header_HTML !== '')  {
+                header_scroller = '\
+                <div id="headers-table-' + i + '" class="headers-table" aria-hidden="true">\
+                    <div class="scroller syncscroll" name="sync-table-' + i + '">\
+                        ' + header_HTML + '\
+                    </div>\
+                </div>';
+            }
+
 
             // Wrap the table in a responsive table div, and make sure aria knows what caption labels it, if any.
             // This should be done last as to not mess up any scoping of previous functions.
