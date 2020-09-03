@@ -1,9 +1,3 @@
-// Initialize table observer.
-const table_observer = new IntersectionObserver(
-    ([e]) => e.target.classList.toggle('isSticky', e.intersectionRatio < 1),
-    { threshold: [1] }
-);
-
 document.addEventListener("DOMContentLoaded", function () {
     // Instantiate tables on the page.
     const tables = document.querySelectorAll('table:not(.table-static)');
@@ -82,15 +76,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 '</div>'
             ;
 
-            let table_bounding_box_selector = document.querySelector('#table-responsive-' + i);
-            let table_bounding_box_selector_table_container = table_bounding_box_selector.querySelector('.table-container');
-
             // Resize the visible headers every window resize and when the page is first rendered.
             window.addEventListener('resize', function () {
                 resizeScrollerheaders(i);
             });
             resizeScrollerheaders(i);
 
+            // Grab necessary elements to measure scrolling so we can add sticky class.
+            let table_bounding_box_selector = document.querySelector('#table-responsive-' + i);
+            let table_bounding_box_selector_table_container = table_bounding_box_selector.querySelector('.table-container');
+
+            // Add listeners for sticky class application.
             document.addEventListener('scroll', throttle(tableSetStickyHeaders, table_bounding_box_selector, 300));
             table_bounding_box_selector_table_container.addEventListener('scroll', throttle(tableSetStickyHeaders, table_bounding_box_selector, 50));
             tableSetStickyHeaders(table_bounding_box_selector);
@@ -118,6 +114,7 @@ function resizeScrollerheaders(i) {
 /*!
  * Check if an element is out of the viewport
  * (c) 2018 Chris Ferdinandi, MIT License, https://gomakethings.com
+ * https://gomakethings.com/how-to-check-if-any-part-of-an-element-is-out-of-the-viewport-with-vanilla-js/
  * @param  {Node}  elem The element to check
  * @return {Object}     A set of booleans for each side of the element
  */
@@ -132,10 +129,6 @@ function tableSetStickyHeaders(elem) {
     var out = {};
     out.top = bounding.top < 0;
     out.left = bounding.left < -10;
-    // out.bottom = bounding.bottom > (window.innerHeight || document.documentElement.clientHeight);
-    // out.right = bounding.right > (window.innerWidth || document.documentElement.clientWidth);
-    // out.any = out.top || out.left || out.bottom || out.right;
-    // out.all = out.top && out.left && out.bottom && out.right;
 
     // Check if the top bounding box is out and if it is then assign appropriate class.
     if (out.top) {
