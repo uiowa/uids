@@ -1,3 +1,9 @@
+// Initialize table observer.
+const table_observer = new IntersectionObserver(
+    ([e]) => e.target.classList.toggle('isSticky', e.intersectionRatio < 1),
+    { threshold: [1] }
+);
+
 document.addEventListener("DOMContentLoaded", function () {
     // Instantiate tables on the page.
     const tables = document.querySelectorAll('table:not(.table-static)');
@@ -35,9 +41,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         // Give the html to header_HTML for later usage.
                         header_HTML = header_HTML +
-                            '<div class="track-heading" data-scroller-heading="t-' + i + '-h-' + j + '">' +
-                                thead.innerHTML + 
-                            '</div>'
+                            '<div class="track-heading" data-scroller-heading="t-' + i + '-h-' + j + '">\
+                                <div class="text-positioner">' + 
+                                    thead.innerHTML + 
+                                '</div>\
+                            </div>'
                         ;
                     };
                 }
@@ -66,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // This should be done last as to not mess up any scoping of previous functions.
             let classes = table.classList.contains('is-striped')? 'is-striped': '';
             table.outerHTML = 
-                '<div class="table-responsive-container ' + classes +'" role="region" ' + caption_labeledby + ' tabindex="0">' + 
+                '<div id="table-responsive-' + i + '" class="table-responsive-container ' + classes +'" role="region" ' + caption_labeledby + ' tabindex="0">' + 
                     header_scroller +
                     '<div class="table-container syncscroll" name="sync-table-' + i + '">' +
                         table.outerHTML +
@@ -74,11 +82,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 '</div>'
             ;
 
+            let table_bounding_box_selector = document.querySelector('#table-responsive-' + i);
+            let table_bounding_box_selector_table_container = table_bounding_box_selector.querySelector('.table-container');
+
             // Resize the visible headers every window resize and when the page is first rendered.
             window.addEventListener('resize', function () {
                 resizeScrollerheaders(i);
             });
             resizeScrollerheaders(i);
+
+            document.addEventListener('scroll', throttle(tableSetStickyHeaders, table_bounding_box_selector, 300));
+            table_bounding_box_selector_table_container.addEventListener('scroll', throttle(tableSetStickyHeaders, table_bounding_box_selector, 50));
+            tableSetStickyHeaders(table_bounding_box_selector);
         }
     }
 });
@@ -98,6 +113,56 @@ function resizeScrollerheaders(i) {
     let table_container = document.querySelector('#headers-table-' + i + ' + .table-container');
     let thead_height = table_container.querySelector('table thead').offsetHeight;
     table_container.style.marginTop = '-' + (thead_height + 1) + 'px';
+}
+
+/*!
+ * Check if an element is out of the viewport
+ * (c) 2018 Chris Ferdinandi, MIT License, https://gomakethings.com
+ * @param  {Node}  elem The element to check
+ * @return {Object}     A set of booleans for each side of the element
+ */
+function tableSetStickyHeaders(elem) {
+
+    let elem_table = elem.querySelector('.table-container table');
+
+    // Get element's bounding.
+    var bounding = elem_table.getBoundingClientRect();
+
+    // Check if it's out of the viewport on each side.
+    var out = {};
+    out.top = bounding.top < 0;
+    out.left = bounding.left < -10;
+    // out.bottom = bounding.bottom > (window.innerHeight || document.documentElement.clientHeight);
+    // out.right = bounding.right > (window.innerWidth || document.documentElement.clientWidth);
+    // out.any = out.top || out.left || out.bottom || out.right;
+    // out.all = out.top && out.left && out.bottom && out.right;
+
+    // Check if the top bounding box is out and if it is then assign appropriate class.
+    if (out.top) {
+        elem.classList.add('isSticky-Top');
+    }
+    else {
+        elem.classList.remove('isSticky-Top');
+    }
+
+    // Check if the left bounding box is out and if it is then assign appropriate class.
+    if (out.left) {
+        elem.classList.add('isSticky-Left');
+    }
+    else {
+        elem.classList.remove('isSticky-Left');
+    }
+};
+
+// For throttling scroll functions.
+function throttle(fn, argument, wait) {
+    var time = Date.now();
+    return function () {
+        if ((time + wait - Date.now()) < 0) {
+            fn(argument);
+            time = Date.now();
+        }
+    }
 }
 
 // This is the copied syncscroll script needed to maintain syncronized scrolling between the table and the viaual headers.
