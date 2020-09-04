@@ -454,6 +454,12 @@
                                 <pre><span class="hljs-selector-class">.table-responsive-container</span> {
   <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
   <span class="hljs-attribute">position</span>: relative; }
+  <span class="hljs-selector-class">.table-responsive-container</span><span class="hljs-selector-class">.row-headers--true</span> <span class="hljs-selector-class">.track-heading</span><span class="hljs-selector-pseudo">:first-child</span> {
+    <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>; }
+    <span class="hljs-keyword">@media</span> <span class="hljs-keyword">only</span> screen <span class="hljs-keyword">and</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">400px</span>) {
+      <span class="hljs-selector-class">.table-responsive-container</span><span class="hljs-selector-class">.row-headers--true</span> <span class="hljs-selector-class">.track-heading</span><span class="hljs-selector-pseudo">:first-child</span> {
+        <span class="hljs-attribute">position</span>: -webkit-sticky;
+        <span class="hljs-attribute">position</span>: sticky; } }
 
 <span class="hljs-selector-tag">table</span> {
   <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
@@ -479,12 +485,6 @@
         <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
         <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
         <span class="hljs-attribute">font-weight</span>: bold; }
-      <span class="hljs-selector-class">.headers-table</span> <span class="hljs-selector-class">.scroller</span> <span class="hljs-selector-class">.track-heading</span><span class="hljs-selector-pseudo">:first-child</span> {
-        <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>; }
-        <span class="hljs-keyword">@media</span> <span class="hljs-keyword">only</span> screen <span class="hljs-keyword">and</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">400px</span>) {
-          <span class="hljs-selector-class">.headers-table</span> <span class="hljs-selector-class">.scroller</span> <span class="hljs-selector-class">.track-heading</span><span class="hljs-selector-pseudo">:first-child</span> {
-            <span class="hljs-attribute">position</span>: -webkit-sticky;
-            <span class="hljs-attribute">position</span>: sticky; } }
   <span class="hljs-selector-class">.is-striped</span> <span class="hljs-selector-class">.headers-table</span> <span class="hljs-selector-class">.track-heading</span> {
     <span class="hljs-attribute">background</span>: <span class="hljs-number">#FFCD00</span>;
     <span class="hljs-attribute">text-transform</span>: uppercase;
@@ -656,13 +656,17 @@
 
             <span class="hljs-comment">// Determine if there are tbody TH's without scope.</span>
             <span class="hljs-keyword">let</span> trows = table.querySelectorAll(<span class="hljs-string">'tbody tr'</span>);
+            <span class="hljs-keyword">let</span> row_headers = <span class="hljs-string">''</span>;
             <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>; j&lt;trows.length; j++) {
                 <span class="hljs-keyword">let</span> trow = trows[j];
-                <span class="hljs-keyword">if</span> (trow.firstElementChild &amp;&amp; trow.firstElementChild.tagName === <span class="hljs-string">'TH'</span> &amp;&amp; !trow.firstElementChild.hasAttribute(<span class="hljs-string">'scope'</span>)) {
+                <span class="hljs-keyword">if</span> (trow.firstElementChild &amp;&amp; trow.firstElementChild.tagName === <span class="hljs-string">'TH'</span>) {
+                    row_headers = <span class="hljs-string">'row-headers--true'</span>;
 
-                    <span class="hljs-comment">// If they dont have the scope attribute, give thema  scope of "row".</span>
-                    trow.firstElementChild.setAttribute(<span class="hljs-string">'scope'</span>, <span class="hljs-string">'row'</span>);
-                };
+                    <span class="hljs-keyword">if</span> (!trow.firstElementChild.hasAttribute(<span class="hljs-string">'scope'</span>)) {
+                        <span class="hljs-comment">// If they dont have the scope attribute, give thema  scope of "row".</span>
+                        trow.firstElementChild.setAttribute(<span class="hljs-string">'scope'</span>, <span class="hljs-string">'row'</span>);
+                    };
+                } 
             }
 
             <span class="hljs-comment">// Create the header scroller with the header html we saved a while back.</span>
@@ -681,7 +685,7 @@
             <span class="hljs-comment">// This should be done last as to not mess up any scoping of previous functions.</span>
             <span class="hljs-keyword">let</span> classes = table.classList.contains(<span class="hljs-string">'is-striped'</span>)? <span class="hljs-string">'is-striped'</span>: <span class="hljs-string">''</span>;
             table.outerHTML = 
-                <span class="hljs-string">'&lt;div id="table-responsive-'</span> + i + <span class="hljs-string">'" class="table-responsive-container '</span> + classes +<span class="hljs-string">'" role="region" '</span> + caption_labeledby + <span class="hljs-string">' tabindex="0"&gt;'</span> + 
+                <span class="hljs-string">'&lt;div id="table-responsive-'</span> + i + <span class="hljs-string">'" class="table-responsive-container '</span> + classes + <span class="hljs-string">' '</span> + row_headers + <span class="hljs-string">'" role="region" '</span> + caption_labeledby + <span class="hljs-string">' tabindex="0"&gt;'</span> + 
                     header_scroller +
                     <span class="hljs-string">'&lt;div class="table-container syncscroll" name="sync-table-'</span> + i + <span class="hljs-string">'"&gt;'</span> +
                         table.outerHTML +
@@ -689,20 +693,30 @@
                 <span class="hljs-string">'&lt;/div&gt;'</span>
             ;
 
-            <span class="hljs-comment">// Resize the visible headers every window resize and when the page is first rendered.</span>
-            <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'resize'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+            <span class="hljs-comment">// Resize the visible headers every window resize and when the page is first rendered if they exist.</span>
+            <span class="hljs-keyword">if</span> (header_HTML) {
+                <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'resize'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+                    resizeScrollerheaders(i);
+                });
                 resizeScrollerheaders(i);
-            });
-            resizeScrollerheaders(i);
+            }
 
             <span class="hljs-comment">// Grab necessary elements to measure scrolling so we can add sticky class.</span>
             <span class="hljs-keyword">let</span> table_bounding_box_selector = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#table-responsive-'</span> + i);
             <span class="hljs-keyword">let</span> table_bounding_box_selector_table_container = table_bounding_box_selector.querySelector(<span class="hljs-string">'.table-container'</span>);
 
             <span class="hljs-comment">// Add listeners for sticky class application.</span>
-            <span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">'scroll'</span>, throttle(tableSetStickyHeaders, table_bounding_box_selector, <span class="hljs-number">300</span>));
-            table_bounding_box_selector_table_container.addEventListener(<span class="hljs-string">'scroll'</span>, throttle(tableSetStickyHeaders, table_bounding_box_selector, <span class="hljs-number">50</span>));
-            tableSetStickyHeaders(table_bounding_box_selector);
+            <span class="hljs-comment">// Only add the listener for the headers if they exist.</span>
+            <span class="hljs-keyword">if</span> (header_HTML !== <span class="hljs-string">''</span>) {
+                <span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">'scroll'</span>, throttle(tableSetStickyHeaders, table_bounding_box_selector, <span class="hljs-number">300</span>));
+            }
+
+            <span class="hljs-keyword">if</span> (table.querySelectorAll(<span class="hljs-string">'tbody tr th'</span>).length !== <span class="hljs-number">0</span>) {
+                table_bounding_box_selector_table_container.addEventListener(<span class="hljs-string">'scroll'</span>, throttle(tableSetStickyHeaders, table_bounding_box_selector, <span class="hljs-number">300</span>));
+            }
+            <span class="hljs-keyword">if</span> (header_HTML !== <span class="hljs-string">''</span> || table.querySelectorAll(<span class="hljs-string">'tbody tr th'</span>).length !== <span class="hljs-number">0</span>) {
+                tableSetStickyHeaders(table_bounding_box_selector);
+            }
         }
     }
 });
@@ -741,7 +755,9 @@
     <span class="hljs-comment">// Check if it's out of the viewport on each side.</span>
     <span class="hljs-keyword">var</span> out = {};
     out.top = bounding.top &lt; <span class="hljs-number">0</span>;
-    out.left = bounding.left &lt; <span class="hljs-number">-10</span>;
+    out.left = bounding.left &lt; <span class="hljs-number">0</span>;
+    out.left_back = bounding.left &gt; <span class="hljs-number">-60</span>;
+
 
     <span class="hljs-comment">// Check if the top bounding box is out and if it is then assign appropriate class.</span>
     <span class="hljs-keyword">if</span> (out.top) {
@@ -755,7 +771,7 @@
     <span class="hljs-keyword">if</span> (out.left) {
         elem.classList.add(<span class="hljs-string">'isSticky-Left'</span>);
     }
-    <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">if</span> (out.left_back){
         elem.classList.remove(<span class="hljs-string">'isSticky-Left'</span>);
     }
 };
@@ -789,7 +805,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">8.7 KB</span>
+                    <span class="Meta-value">9.3 KB</span>
                 </li>
             </ul>
         </div>
@@ -808,6 +824,14 @@
 <span class="hljs-selector-class">.table-responsive-container</span> {
   <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
   <span class="hljs-attribute">position</span>: relative;
+
+  &amp;<span class="hljs-selector-class">.row-headers--true</span> <span class="hljs-selector-class">.track-heading</span><span class="hljs-selector-pseudo">:first-child</span> {
+    <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+
+    <span class="hljs-keyword">@media</span> <span class="hljs-keyword">only</span> screen <span class="hljs-keyword">and</span> (min-width: <span class="hljs-number">400px</span>) {
+      <span class="hljs-attribute">position</span>: sticky;
+    }
+  }
 }
 
  <span class="hljs-selector-tag">table</span> {
@@ -838,14 +862,6 @@
           <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
           <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
           <span class="hljs-attribute">font-weight</span>: bold;
-      }
-
-      &amp;<span class="hljs-selector-pseudo">:first-child</span> {
-        <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
-
-        <span class="hljs-keyword">@media</span> <span class="hljs-keyword">only</span> screen <span class="hljs-keyword">and</span> (min-width: <span class="hljs-number">400px</span>) {
-          <span class="hljs-attribute">position</span>: sticky;
-        }
       }
     }
   }
@@ -1829,8 +1845,8 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-09-03T18:50:09.195Z">
-                9/3/2020
+            <time datetime="2020-09-04T16:04:57.404Z">
+                9/4/2020
             </time>
         </div>
     </div>

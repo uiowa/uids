@@ -47,13 +47,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Determine if there are tbody TH's without scope.
             let trows = table.querySelectorAll('tbody tr');
+            let row_headers = '';
             for (let j = 0; j<trows.length; j++) {
                 let trow = trows[j];
-                if (trow.firstElementChild && trow.firstElementChild.tagName === 'TH' && !trow.firstElementChild.hasAttribute('scope')) {
+                if (trow.firstElementChild && trow.firstElementChild.tagName === 'TH') {
+                    row_headers = 'row-headers--true';
 
-                    // If they dont have the scope attribute, give thema  scope of "row".
-                    trow.firstElementChild.setAttribute('scope', 'row');
-                };
+                    if (!trow.firstElementChild.hasAttribute('scope')) {
+                        // If they dont have the scope attribute, give thema  scope of "row".
+                        trow.firstElementChild.setAttribute('scope', 'row');
+                    };
+                } 
             }
 
             // Create the header scroller with the header html we saved a while back.
@@ -72,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // This should be done last as to not mess up any scoping of previous functions.
             let classes = table.classList.contains('is-striped')? 'is-striped': '';
             table.outerHTML = 
-                '<div id="table-responsive-' + i + '" class="table-responsive-container ' + classes +'" role="region" ' + caption_labeledby + ' tabindex="0">' + 
+                '<div id="table-responsive-' + i + '" class="table-responsive-container ' + classes + ' ' + row_headers + '" role="region" ' + caption_labeledby + ' tabindex="0">' + 
                     header_scroller +
                     '<div class="table-container syncscroll" name="sync-table-' + i + '">' +
                         table.outerHTML +
@@ -80,20 +84,30 @@ document.addEventListener("DOMContentLoaded", function () {
                 '</div>'
             ;
 
-            // Resize the visible headers every window resize and when the page is first rendered.
-            window.addEventListener('resize', function () {
+            // Resize the visible headers every window resize and when the page is first rendered if they exist.
+            if (header_HTML) {
+                window.addEventListener('resize', function () {
+                    resizeScrollerheaders(i);
+                });
                 resizeScrollerheaders(i);
-            });
-            resizeScrollerheaders(i);
+            }
 
             // Grab necessary elements to measure scrolling so we can add sticky class.
             let table_bounding_box_selector = document.querySelector('#table-responsive-' + i);
             let table_bounding_box_selector_table_container = table_bounding_box_selector.querySelector('.table-container');
 
             // Add listeners for sticky class application.
-            document.addEventListener('scroll', throttle(tableSetStickyHeaders, table_bounding_box_selector, 300));
-            table_bounding_box_selector_table_container.addEventListener('scroll', throttle(tableSetStickyHeaders, table_bounding_box_selector, 50));
-            tableSetStickyHeaders(table_bounding_box_selector);
+            // Only add the listener for the headers if they exist.
+            if (header_HTML !== '') {
+                document.addEventListener('scroll', throttle(tableSetStickyHeaders, table_bounding_box_selector, 300));
+            }
+
+            if (table.querySelectorAll('tbody tr th').length !== 0) {
+                table_bounding_box_selector_table_container.addEventListener('scroll', throttle(tableSetStickyHeaders, table_bounding_box_selector, 300));
+            }
+            if (header_HTML !== '' || table.querySelectorAll('tbody tr th').length !== 0) {
+                tableSetStickyHeaders(table_bounding_box_selector);
+            }
         }
     }
 });
@@ -132,7 +146,9 @@ function tableSetStickyHeaders(elem) {
     // Check if it's out of the viewport on each side.
     var out = {};
     out.top = bounding.top < 0;
-    out.left = bounding.left < -10;
+    out.left = bounding.left < 0;
+    out.left_back = bounding.left > -60;
+
 
     // Check if the top bounding box is out and if it is then assign appropriate class.
     if (out.top) {
@@ -146,7 +162,7 @@ function tableSetStickyHeaders(elem) {
     if (out.left) {
         elem.classList.add('isSticky-Left');
     }
-    else {
+    if (out.left_back){
         elem.classList.remove('isSticky-Left');
     }
 };
