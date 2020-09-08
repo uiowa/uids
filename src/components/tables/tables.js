@@ -30,18 +30,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         // If they dont have the scope attribute, give thema  scope of "col".
                         thead.setAttribute('scope', 'col');
-                        thead.classList.add("invisible-header");
-                        thead.setAttribute('data-table-heading', 't-' + i + '-h-' + j);
-
-                        // Give the html to header_HTML for later usage.
-                        header_HTML = header_HTML +
-                            '<div class="track-heading" data-scroller-heading="t-' + i + '-h-' + j + '">\
-                                <div class="text-positioner">' + 
-                                    thead.innerHTML + 
-                                '</div>\
-                            </div>'
-                        ;
                     };
+
+                    thead.classList.add("invisible-header");
+                    thead.setAttribute('data-table-heading', 't-' + i + '-h-' + j);
+
+                    // Give the html to header_HTML for later usage.
+                    header_HTML = header_HTML +
+                        '<div class="track-heading" data-scroller-heading="t-' + i + '-h-' + j + '">\
+                            <div class="text-positioner">' +
+                                thead.innerHTML +
+                            '</div>\
+                        </div>'
+                    ;
                 }
             };
 
