@@ -463,9 +463,7 @@
 
 <span class="hljs-selector-tag">table</span> {
   <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
-  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.2rem</span>; }
-
-<span class="hljs-selector-tag">table</span> {
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.2rem</span>;
   <span class="hljs-attribute">border-spacing</span>: <span class="hljs-number">0</span>; }
 
 <span class="hljs-selector-class">.headers-table</span> {
@@ -578,6 +576,10 @@
 <span class="hljs-selector-tag">table</span><span class="hljs-selector-class">.table-static</span> <span class="hljs-selector-tag">tbody</span> <span class="hljs-selector-tag">th</span>,
 <span class="hljs-selector-tag">table</span><span class="hljs-selector-class">.table-static</span> <span class="hljs-selector-tag">thead</span> <span class="hljs-selector-tag">th</span> {
   <span class="hljs-attribute">position</span>: static; }
+
+<span class="hljs-selector-class">.lb__container</span> <span class="hljs-selector-class">.table-responsive-container</span> {
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">10px</span>;
+  <span class="hljs-attribute">margin-right</span>: auto; }
 </pre>
                             </code>
                             
@@ -594,7 +596,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">3.4 KB</span>
+                    <span class="Meta-value">3.5 KB</span>
                 </li>
             </ul>
         </div>
@@ -607,9 +609,11 @@
                         <div class="FileBrowser-itemPreview">
                             
                             <code class="Code Code--lang-JavaScript FileBrowser-code hljs">
-                                <pre><span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">"DOMContentLoaded"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+                                <pre><span class="hljs-keyword">let</span> resizeTimer;
+
+<span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">"DOMContentLoaded"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     <span class="hljs-comment">// Instantiate tables on the page.</span>
-    <span class="hljs-keyword">const</span> tables = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">'table:not(.table-static)'</span>);
+    <span class="hljs-keyword">let</span> tables = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">'table:not(.table-static)'</span>);
 
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; tables.length; i++) {
         <span class="hljs-keyword">let</span> table = tables[i];
@@ -648,17 +652,17 @@
                     header_HTML = header_HTML +
                         <span class="hljs-string">'&lt;div class="track-heading" data-scroller-heading="t-'</span> + i + <span class="hljs-string">'-h-'</span> + j + <span class="hljs-string">'"&gt;\
                             &lt;div class="text-positioner"&gt;'</span> +
-                                thead.innerHTML +
-                            <span class="hljs-string">'&lt;/div&gt;\
+                        thead.innerHTML +
+                        <span class="hljs-string">'&lt;/div&gt;\
                         &lt;/div&gt;'</span>
-                    ;
+                        ;
                 }
             };
 
             <span class="hljs-comment">// Determine if there are tbody TH's without scope.</span>
             <span class="hljs-keyword">let</span> trows = table.querySelectorAll(<span class="hljs-string">'tbody tr'</span>);
             <span class="hljs-keyword">let</span> row_headers = <span class="hljs-string">''</span>;
-            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>; j&lt;trows.length; j++) {
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>; j &lt; trows.length; j++) {
                 <span class="hljs-keyword">let</span> trow = trows[j];
                 <span class="hljs-keyword">if</span> (trow.firstElementChild &amp;&amp; trow.firstElementChild.tagName === <span class="hljs-string">'TH'</span>) {
                     row_headers = <span class="hljs-string">'row-headers--true'</span>;
@@ -667,12 +671,12 @@
                         <span class="hljs-comment">// If they dont have the scope attribute, give thema  scope of "row".</span>
                         trow.firstElementChild.setAttribute(<span class="hljs-string">'scope'</span>, <span class="hljs-string">'row'</span>);
                     };
-                } 
+                }
             }
 
             <span class="hljs-comment">// Create the header scroller with the header html we saved a while back.</span>
             <span class="hljs-keyword">let</span> header_scroller = <span class="hljs-string">''</span>;
-            <span class="hljs-keyword">if</span> (header_HTML !== <span class="hljs-string">''</span>)  {
+            <span class="hljs-keyword">if</span> (header_HTML !== <span class="hljs-string">''</span>) {
                 header_scroller = <span class="hljs-string">'\
                 &lt;div id="headers-table-'</span> + i + <span class="hljs-string">'" class="headers-table" aria-hidden="true"&gt;\
                     &lt;div class="scroller syncscroll" name="sync-table-'</span> + i + <span class="hljs-string">'"&gt;\
@@ -684,23 +688,15 @@
 
             <span class="hljs-comment">// Wrap the table in a responsive table div, and make sure aria knows what caption labels it, if any.</span>
             <span class="hljs-comment">// This should be done last as to not mess up any scoping of previous functions.</span>
-            <span class="hljs-keyword">let</span> classes = table.classList.contains(<span class="hljs-string">'is-striped'</span>)? <span class="hljs-string">'is-striped'</span>: <span class="hljs-string">''</span>;
-            table.outerHTML = 
-                <span class="hljs-string">'&lt;div id="table-responsive-'</span> + i + <span class="hljs-string">'" class="table-responsive-container '</span> + classes + <span class="hljs-string">' '</span> + row_headers + <span class="hljs-string">'" role="region" '</span> + caption_labeledby + <span class="hljs-string">' tabindex="0"&gt;'</span> + 
-                    header_scroller +
-                    <span class="hljs-string">'&lt;div class="table-container syncscroll" name="sync-table-'</span> + i + <span class="hljs-string">'"&gt;'</span> +
-                        table.outerHTML +
-                    <span class="hljs-string">'&lt;/div&gt;'</span> +
+            <span class="hljs-keyword">let</span> classes = table.classList.contains(<span class="hljs-string">'is-striped'</span>) ? <span class="hljs-string">'is-striped'</span> : <span class="hljs-string">''</span>;
+            table.outerHTML =
+                <span class="hljs-string">'&lt;div id="table-responsive-'</span> + i + <span class="hljs-string">'" class="table-responsive-container '</span> + classes + <span class="hljs-string">' '</span> + row_headers + <span class="hljs-string">'" role="region" '</span> + caption_labeledby + <span class="hljs-string">' tabindex="0"&gt;'</span> +
+                header_scroller +
+                <span class="hljs-string">'&lt;div class="table-container syncscroll" name="sync-table-'</span> + i + <span class="hljs-string">'"&gt;'</span> +
+                table.outerHTML +
+                <span class="hljs-string">'&lt;/div&gt;'</span> +
                 <span class="hljs-string">'&lt;/div&gt;'</span>
-            ;
-
-            <span class="hljs-comment">// Resize the visible headers every window resize and when the page is first rendered if they exist.</span>
-            <span class="hljs-keyword">if</span> (header_HTML) {
-                <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'resize'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-                    resizeScrollerheaders(i);
-                });
-                resizeScrollerheaders(i);
-            }
+                ;
 
             <span class="hljs-comment">// Grab necessary elements to measure scrolling so we can add sticky class.</span>
             <span class="hljs-keyword">let</span> table_bounding_box_selector = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#table-responsive-'</span> + i);
@@ -720,7 +716,43 @@
             }
         }
     }
+
+    <span class="hljs-comment">// Trigger the table to resize everything after the user has finished dragging the window.</span>
+    <span class="hljs-comment">// We only do this when the window is done being dragged for performance reasons.</span>
+    <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'resize'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+            triggerTableRespond();
+        }, <span class="hljs-number">250</span>);
+    });
+
+    <span class="hljs-comment">// Trigger the table to resize everything.</span>
+    <span class="hljs-comment">// We do this here to resize on initial Page Load.</span>
+    triggerTableRespond();
+    
 });
+
+<span class="hljs-comment">// This function will iterate through all tables, resize them, and then resize their headers.</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">triggerTableRespond</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">let</span> responsive_tables = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">'.table-responsive-container'</span>);
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; responsive_tables.length; i++) {
+        <span class="hljs-comment">// Reset Tables container sizes if they are contained in layout containers.</span>
+        <span class="hljs-keyword">if</span> (responsive_tables[i].closest(<span class="hljs-string">'.layout__container'</span>)) {
+            resetTableContainers(responsive_tables[i]);
+        }
+    }
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; responsive_tables.length; i++) {
+        <span class="hljs-comment">// Resize Tables container sizes if they are contained in layout containers.</span>
+        <span class="hljs-keyword">if</span> (responsive_tables[i].closest(<span class="hljs-string">'.layout__container'</span>)) {
+            resetTableContainers(responsive_tables[i]);
+        }
+
+        <span class="hljs-comment">// Resize the visible headers every window resize if they exist.</span>
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#headers-table-'</span> + i)) {
+            resizeScrollerheaders(i);
+        }
+    }
+}
 
 <span class="hljs-comment">// This function resizes the headers for a given table "i".</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">resizeScrollerheaders</span>(<span class="hljs-params">i</span>) </span>{
@@ -737,6 +769,38 @@
     <span class="hljs-keyword">let</span> table_container = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#headers-table-'</span> + i + <span class="hljs-string">' + .table-container'</span>);
     <span class="hljs-keyword">let</span> thead_height = table_container.querySelector(<span class="hljs-string">'table thead'</span>).offsetHeight;
     table_container.style.marginTop = <span class="hljs-string">'-'</span> + (thead_height + <span class="hljs-number">1</span>) + <span class="hljs-string">'px'</span>;
+}
+
+<span class="hljs-comment">// This function resizes the table wrapper.</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">resizeTableContainers</span>(<span class="hljs-params">table</span>) </span>{
+    <span class="hljs-keyword">let</span> table_bounding_box_selector = table;
+    <span class="hljs-keyword">let</span> lb_container = table_bounding_box_selector.closest(<span class="hljs-string">'.layout__container'</span>);
+    <span class="hljs-keyword">let</span> lb_container_has_multiple_columns = lb_container.querySelectorAll(<span class="hljs-string">'.lb__container&gt;.layout__region'</span>).length;
+
+    <span class="hljs-keyword">if</span> (lb_container_has_multiple_columns) {
+        <span class="hljs-keyword">let</span> layout_width = table_bounding_box_selector.closest(<span class="hljs-string">'.layout__region'</span>).offsetWidth;
+        table_bounding_box_selector.style.width = layout_width + <span class="hljs-string">'px'</span>;
+    }
+    <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">let</span> layout_width = table_bounding_box_selector.closest(<span class="hljs-string">'.lb__container'</span>).offsetWidth;
+        table_bounding_box_selector.style.width = layout_width + <span class="hljs-string">'px'</span>;
+    }
+}
+
+<span class="hljs-comment">// This function resets the table wrapper size.</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">resetTableContainers</span>(<span class="hljs-params">table</span>) </span>{
+    <span class="hljs-keyword">let</span> table_bounding_box_selector = table;
+    <span class="hljs-keyword">let</span> lb_container = table_bounding_box_selector.closest(<span class="hljs-string">'.layout__container'</span>);
+    <span class="hljs-keyword">let</span> lb_container_has_multiple_columns = lb_container.querySelectorAll(<span class="hljs-string">'.lb__container&gt;.layout__region'</span>).length;
+
+    <span class="hljs-keyword">if</span> (lb_container_has_multiple_columns) {
+        <span class="hljs-keyword">let</span> layout_width = table_bounding_box_selector.closest(<span class="hljs-string">'.layout__region'</span>).offsetWidth;
+        table_bounding_box_selector.style.width = <span class="hljs-string">'1px'</span>;
+    }
+    <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">let</span> layout_width = table_bounding_box_selector.closest(<span class="hljs-string">'.lb__container'</span>).offsetWidth;
+        table_bounding_box_selector.style.width = <span class="hljs-string">'1px'</span>;
+    }
 }
 
 <span class="hljs-comment">/*!
@@ -772,7 +836,7 @@
     <span class="hljs-keyword">if</span> (out.left) {
         elem.classList.add(<span class="hljs-string">'isSticky-Left'</span>);
     }
-    <span class="hljs-keyword">if</span> (out.left_back){
+    <span class="hljs-keyword">if</span> (out.left_back) {
         elem.classList.remove(<span class="hljs-string">'isSticky-Left'</span>);
     }
 };
@@ -806,7 +870,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">9.3 KB</span>
+                    <span class="Meta-value">11.8 KB</span>
                 </li>
             </ul>
         </div>
@@ -835,12 +899,9 @@
   }
 }
 
- <span class="hljs-selector-tag">table</span> {
+<span class="hljs-selector-tag">table</span> {
   <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
   <span class="hljs-attribute">font-size</span>: <span class="hljs-variable">$content-font-size</span>;
-}
-
- <span class="hljs-selector-tag">table</span> {
   <span class="hljs-attribute">border-spacing</span>: <span class="hljs-number">0</span>;
 }
 
@@ -988,7 +1049,12 @@
   <span class="hljs-selector-tag">thead</span> <span class="hljs-selector-tag">th</span> {
     <span class="hljs-attribute">position</span>: static;
   }
-} </pre>
+} 
+
+<span class="hljs-selector-class">.lb__container</span> <span class="hljs-selector-class">.table-responsive-container</span> {
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">10px</span>;
+  <span class="hljs-attribute">margin-right</span>: auto;
+}</pre>
                             </code>
                             
                         </div>
@@ -1004,7 +1070,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">2.8 KB</span>
+                    <span class="Meta-value">2.9 KB</span>
                 </li>
             </ul>
         </div>
@@ -1846,8 +1912,8 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-09-08T16:55:43.626Z">
-                9/8/2020
+            <time datetime="2020-09-09T22:01:08.067Z">
+                9/9/2020
             </time>
         </div>
     </div>

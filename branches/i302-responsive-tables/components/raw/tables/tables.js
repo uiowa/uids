@@ -1,6 +1,8 @@
+let resizeTimer;
+
 document.addEventListener("DOMContentLoaded", function () {
     // Instantiate tables on the page.
-    const tables = document.querySelectorAll('table:not(.table-static)');
+    let tables = document.querySelectorAll('table:not(.table-static)');
 
     for (let i = 0; i < tables.length; i++) {
         let table = tables[i];
@@ -39,17 +41,17 @@ document.addEventListener("DOMContentLoaded", function () {
                     header_HTML = header_HTML +
                         '<div class="track-heading" data-scroller-heading="t-' + i + '-h-' + j + '">\
                             <div class="text-positioner">' +
-                                thead.innerHTML +
-                            '</div>\
+                        thead.innerHTML +
+                        '</div>\
                         </div>'
-                    ;
+                        ;
                 }
             };
 
             // Determine if there are tbody TH's without scope.
             let trows = table.querySelectorAll('tbody tr');
             let row_headers = '';
-            for (let j = 0; j<trows.length; j++) {
+            for (let j = 0; j < trows.length; j++) {
                 let trow = trows[j];
                 if (trow.firstElementChild && trow.firstElementChild.tagName === 'TH') {
                     row_headers = 'row-headers--true';
@@ -58,12 +60,12 @@ document.addEventListener("DOMContentLoaded", function () {
                         // If they dont have the scope attribute, give thema  scope of "row".
                         trow.firstElementChild.setAttribute('scope', 'row');
                     };
-                } 
+                }
             }
 
             // Create the header scroller with the header html we saved a while back.
             let header_scroller = '';
-            if (header_HTML !== '')  {
+            if (header_HTML !== '') {
                 header_scroller = '\
                 <div id="headers-table-' + i + '" class="headers-table" aria-hidden="true">\
                     <div class="scroller syncscroll" name="sync-table-' + i + '">\
@@ -75,23 +77,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Wrap the table in a responsive table div, and make sure aria knows what caption labels it, if any.
             // This should be done last as to not mess up any scoping of previous functions.
-            let classes = table.classList.contains('is-striped')? 'is-striped': '';
-            table.outerHTML = 
-                '<div id="table-responsive-' + i + '" class="table-responsive-container ' + classes + ' ' + row_headers + '" role="region" ' + caption_labeledby + ' tabindex="0">' + 
-                    header_scroller +
-                    '<div class="table-container syncscroll" name="sync-table-' + i + '">' +
-                        table.outerHTML +
-                    '</div>' +
+            let classes = table.classList.contains('is-striped') ? 'is-striped' : '';
+            table.outerHTML =
+                '<div id="table-responsive-' + i + '" class="table-responsive-container ' + classes + ' ' + row_headers + '" role="region" ' + caption_labeledby + ' tabindex="0">' +
+                header_scroller +
+                '<div class="table-container syncscroll" name="sync-table-' + i + '">' +
+                table.outerHTML +
+                '</div>' +
                 '</div>'
-            ;
-
-            // Resize the visible headers every window resize and when the page is first rendered if they exist.
-            if (header_HTML) {
-                window.addEventListener('resize', function () {
-                    resizeScrollerheaders(i);
-                });
-                resizeScrollerheaders(i);
-            }
+                ;
 
             // Grab necessary elements to measure scrolling so we can add sticky class.
             let table_bounding_box_selector = document.querySelector('#table-responsive-' + i);
@@ -111,7 +105,43 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     }
+
+    // Trigger the table to resize everything after the user has finished dragging the window.
+    // We only do this when the window is done being dragged for performance reasons.
+    window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+            triggerTableRespond();
+        }, 250);
+    });
+
+    // Trigger the table to resize everything.
+    // We do this here to resize on initial Page Load.
+    triggerTableRespond();
+    
 });
+
+// This function will iterate through all tables, resize them, and then resize their headers.
+function triggerTableRespond() {
+    let responsive_tables = document.querySelectorAll('.table-responsive-container');
+    for (let i = 0; i < responsive_tables.length; i++) {
+        // Reset Tables container sizes if they are contained in layout containers.
+        if (responsive_tables[i].closest('.layout__container')) {
+            resetTableContainers(responsive_tables[i]);
+        }
+    }
+    for (let i = 0; i < responsive_tables.length; i++) {
+        // Resize Tables container sizes if they are contained in layout containers.
+        if (responsive_tables[i].closest('.layout__container')) {
+            resetTableContainers(responsive_tables[i]);
+        }
+
+        // Resize the visible headers every window resize if they exist.
+        if (document.querySelector('#headers-table-' + i)) {
+            resizeScrollerheaders(i);
+        }
+    }
+}
 
 // This function resizes the headers for a given table "i".
 function resizeScrollerheaders(i) {
@@ -128,6 +158,38 @@ function resizeScrollerheaders(i) {
     let table_container = document.querySelector('#headers-table-' + i + ' + .table-container');
     let thead_height = table_container.querySelector('table thead').offsetHeight;
     table_container.style.marginTop = '-' + (thead_height + 1) + 'px';
+}
+
+// This function resizes the table wrapper.
+function resizeTableContainers(table) {
+    let table_bounding_box_selector = table;
+    let lb_container = table_bounding_box_selector.closest('.layout__container');
+    let lb_container_has_multiple_columns = lb_container.querySelectorAll('.lb__container>.layout__region').length;
+
+    if (lb_container_has_multiple_columns) {
+        let layout_width = table_bounding_box_selector.closest('.layout__region').offsetWidth;
+        table_bounding_box_selector.style.width = layout_width + 'px';
+    }
+    else {
+        let layout_width = table_bounding_box_selector.closest('.lb__container').offsetWidth;
+        table_bounding_box_selector.style.width = layout_width + 'px';
+    }
+}
+
+// This function resets the table wrapper size.
+function resetTableContainers(table) {
+    let table_bounding_box_selector = table;
+    let lb_container = table_bounding_box_selector.closest('.layout__container');
+    let lb_container_has_multiple_columns = lb_container.querySelectorAll('.lb__container>.layout__region').length;
+
+    if (lb_container_has_multiple_columns) {
+        let layout_width = table_bounding_box_selector.closest('.layout__region').offsetWidth;
+        table_bounding_box_selector.style.width = '1px';
+    }
+    else {
+        let layout_width = table_bounding_box_selector.closest('.lb__container').offsetWidth;
+        table_bounding_box_selector.style.width = '1px';
+    }
 }
 
 /*!
@@ -163,7 +225,7 @@ function tableSetStickyHeaders(elem) {
     if (out.left) {
         elem.classList.add('isSticky-Left');
     }
-    if (out.left_back){
+    if (out.left_back) {
         elem.classList.remove('isSticky-Left');
     }
 };
