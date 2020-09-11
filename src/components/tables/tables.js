@@ -118,7 +118,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Trigger the table to resize everything.
     // We do this here to resize on initial Page Load.
     triggerTableRespond();
-    
 });
 
 // This function will iterate through all tables, resize them, and then resize their headers.
@@ -211,7 +210,7 @@ function tableSetStickyHeaders(elem) {
     var out = {};
     out.top = table_bounding.top < 0;
     out.left = table_bounding.left < container_bounding.left;
-    out.left_back = table_bounding.left > container_bounding.top-60;
+    out.left_back = table_bounding.left > container_bounding.left - 60;
 
 
     // Check if the top bounding box is out and if it is then assign appropriate class.
