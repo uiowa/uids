@@ -133,7 +133,7 @@ function triggerTableRespond() {
     for (let i = 0; i < responsive_tables.length; i++) {
         // Resize Tables container sizes if they are contained in layout containers.
         if (responsive_tables[i].closest('.layout__container')) {
-            resetTableContainers(responsive_tables[i]);
+            resizeTableContainers(responsive_tables[i]);
         }
 
         // Resize the visible headers every window resize if they exist.
@@ -183,11 +183,9 @@ function resetTableContainers(table) {
     let lb_container_has_multiple_columns = lb_container.querySelectorAll('.lb__container>.layout__region').length;
 
     if (lb_container_has_multiple_columns) {
-        let layout_width = table_bounding_box_selector.closest('.layout__region').offsetWidth;
         table_bounding_box_selector.style.width = '1px';
     }
     else {
-        let layout_width = table_bounding_box_selector.closest('.lb__container').offsetWidth;
         table_bounding_box_selector.style.width = '1px';
     }
 }
@@ -203,14 +201,17 @@ function tableSetStickyHeaders(elem) {
 
     let elem_table = elem.querySelector('.table-container table');
 
-    // Get element's bounding.
-    var bounding = elem_table.getBoundingClientRect();
+    // Get container element's bounding.
+    var container_bounding = elem.getBoundingClientRect();
+
+    // Get table element's bounding.
+    var table_bounding = elem_table.getBoundingClientRect();
 
     // Check if it's out of the viewport on each side.
     var out = {};
-    out.top = bounding.top < 0;
-    out.left = bounding.left < 0;
-    out.left_back = bounding.left > -60;
+    out.top = table_bounding.top < 0;
+    out.left = table_bounding.left < container_bounding.left;
+    out.left_back = table_bounding.left > container_bounding.top-60;
 
 
     // Check if the top bounding box is out and if it is then assign appropriate class.
