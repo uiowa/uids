@@ -125,13 +125,13 @@ function triggerTableRespond() {
     let responsive_tables = document.querySelectorAll('.table-responsive-container');
     for (let i = 0; i < responsive_tables.length; i++) {
         // Reset Tables container sizes if they are contained in layout containers.
-        if (responsive_tables[i].closest('.layout__container')) {
+        if (responsive_tables[i].closest('.block-inline-blockuiowa-text-area')) {
             resetTableContainers(responsive_tables[i]);
         }
     }
     for (let i = 0; i < responsive_tables.length; i++) {
         // Resize Tables container sizes if they are contained in layout containers.
-        if (responsive_tables[i].closest('.layout__container')) {
+        if (responsive_tables[i].closest('.block-inline-blockuiowa-text-area')) {
             resizeTableContainers(responsive_tables[i]);
         }
 
