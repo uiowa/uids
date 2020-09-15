@@ -1,7 +1,12 @@
 let resizeTimer;
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Instantiate tables on the page.
+    generateResponsiveTables();
+});
+
+// Instantiate tables on the page.
+function generateResponsiveTables() {
+    // Only instantiate tables that are not pre defined by the user as 'table-static'.
     let tables = document.querySelectorAll('table:not(.table-static)');
 
     for (let i = 0; i < tables.length; i++) {
@@ -116,9 +121,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Trigger the table to resize everything.
-    // We do this here to resize on initial Page Load.
+    // We do this here to resize on Instantiation.
     triggerTableRespond();
-});
+}
 
 // This function will iterate through all tables, resize them, and then resize their headers.
 function triggerTableRespond() {
