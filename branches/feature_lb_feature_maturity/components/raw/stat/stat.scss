@@ -3,6 +3,14 @@
 
 .stat__grid {
   margin: 0;
+
+  &:hover .stat__content {
+    @include breakpoint(menu) {
+      @include element-invisible-off;
+
+      opacity: 1;
+    }
+  }
 }
 
 .stat {
@@ -12,7 +20,7 @@
     position: relative;
     margin: 0;
     text-transform: uppercase;
-    line-height: 1.2;
+    line-height: 1;
     font-family: $font-family-caps-bold;
     font-weight: bold;
     font-size: 4rem;
@@ -20,17 +28,22 @@
     padding: $lg 0 $sm 0;
 
     @include breakpoint(sm) {
-      padding: $md $lg 0;
+      padding: $md $lg $sm 0;
     }
 
     .element--flex-center & {
-      padding: $md $lg 0;
+      padding: $md $lg $sm 0;
       display: block;
     }
 
     .bg-pattern--brain-black &,
     .bg--black & {
       color: white;
+    }
+
+    .stat--horizontal.bg-pattern--brain-black &,
+    .stat--horizontal.bg--black & {
+      color: $primary;
     }
 
     .bg-pattern--brain-reversed &,
@@ -40,10 +53,10 @@
 
     @include breakpoint(sm) {
       font-size: calc(100% + 4vw);
-      padding: 0 $lg 0 0;
+      padding: 0 $lg $sm 0;
 
       .element--flex-center & {
-        padding: 0 $lg;
+        padding: 0 $lg $sm;
       }
     }
   }
@@ -63,6 +76,18 @@
     .bg--gold & {
       color: $secondary;
     }
+
+    @include breakpoint(menu) {
+      opacity: 0;
+      transition: 1s;
+      @include element-invisible;
+    }
+
+    @include breakpoint(container) {
+      opacity: 0;
+      transition: 1s;
+      @include element-invisible;
+    }
   }
 
   &__description {
@@ -71,7 +96,7 @@
     font-weight: bold;
     text-transform: uppercase;
     font-size: 1.3rem;
-    line-height: 1.4;
+    line-height: 1.2;
     width: 85%;
     margin: $sm 0;
 
@@ -101,14 +126,17 @@
 
 .heading__prefix,
 .heading__suffix {
-  font-size: 2rem;
-  vertical-align: super;
-
-  @include breakpoint(sm) {
-    font-size: calc(100% + -2vw);
-  }
+  font-size: 2.5rem;
+  vertical-align: top;
 }
 
+.heading__prefix {
+  margin-right: -10px;
+}
+
+.heading__suffix {
+  margin-left: -10px;
+}
 
 .stat--horizontal {
 
@@ -123,15 +151,17 @@
 
 
   .stat__title {
-    @include breakpoint(sm) {
-      font-size: calc(100% + 3vw);
+    font-size: 3.1rem;
+
+    @include breakpoint(menu) {
+      padding: 0 $lg 0 0;
+      border-bottom: none;
     }
 
     @include breakpoint(container) {
-      font-size: calc(100% + 2vw);
       flex-basis: 50%;
-      border-bottom: none;
     }
+
   }
 
   .stat__content {
@@ -139,45 +169,38 @@
     font-size: 1.1rem;
 
     @include breakpoint(menu) {
-      opacity: 0;
-      transition: 1s;
-      @include element-invisible;
-    }
-
-    @include breakpoint(container) {
       padding-top: .5rem;
       margin-top: .75rem;
       border-top: 6px solid $primary;
-      opacity: 0;
-      transition: 1s;
-      @include element-invisible;
+      // opacity: 0;
+      // transition: 1s;
+      // @include element-invisible;
     }
 
   }
+
+  .heading__prefix,
+  .heading__suffix {
+    font-size: 2.1rem;
+    vertical-align: top;
+  }
+
 
   .stat__description {
     width: 100%;
     font-size: 1.3rem;
     margin: 0.625rem 0 0;
 
-    @include breakpoint(sm) {
-      width: 85%;
-      margin: 0.625rem 0;
-    }
-
-    @include breakpoint(container) {
+    @include breakpoint(menu) {
       flex-basis: 50%;
-      margin: .3rem 0 0;
-      opacity: .7;
+      margin: 0;
+    }
+
+    @include breakpoint(container) {
+      //flex-basis: 50%;
     }
   }
 
-  .heading__prefix,
-  .heading__suffix {
-    @include breakpoint(container) {
-      font-size: calc(100% + -1vw);
-    }
-  }
 }
 
 .stat__grid.stat--horizontal {
@@ -188,14 +211,8 @@
   transition: all .55s cubic-bezier(.95, 1.25, .375, 1.15);
 
   &:hover {
-    transform: translateY(-10px) scale(1.02);
-  }
-
-  &:hover .stat__content {
     @include breakpoint(menu) {
-      @include element-invisible-off;
-      cursor: pointer;
-      opacity: 1;
+      transform: translateY(-10px) scale(1.02);
     }
   }
 }

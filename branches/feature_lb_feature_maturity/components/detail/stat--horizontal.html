@@ -200,11 +200,18 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stat__title"</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"heading__heading"</span>&gt;</span>15:1<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"heading__suffix"</span>&gt;</span>+<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stat__description"</span>&gt;</span>student-to-faculty ratio<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stat__description"</span>&gt;</span>student-to-faculty<span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span> ratio<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"stat__content"</span>&gt;</span>Among the top 2% of universities worldwide.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></pre>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+    <span class="hljs-selector-class">.stat__grid</span><span class="hljs-selector-class">.stat--horizontal</span> {
+        <span class="hljs-attribute">padding</span>: <span class="hljs-number">3rem</span>;
+    }
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></pre>
         
     </code>
 </div>
@@ -240,6 +247,14 @@
                             <code class="Code Code--lang-CSS FileBrowser-code hljs">
                                 <pre><span class="hljs-selector-class">.stat__grid</span> {
   <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>; }
+  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">855px</span>) {
+    <span class="hljs-selector-class">.stat__grid</span><span class="hljs-selector-pseudo">:hover</span> <span class="hljs-selector-class">.stat__content</span> {
+      <span class="hljs-attribute">position</span>: static <span class="hljs-meta">!important</span>;
+      <span class="hljs-attribute">clip</span>: auto;
+      <span class="hljs-attribute">height</span>: auto;
+      <span class="hljs-attribute">width</span>: auto;
+      <span class="hljs-attribute">overflow</span>: auto;
+      <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>; } }
 
 <span class="hljs-selector-class">.stat</span> {
   <span class="hljs-attribute">position</span>: relative; }
@@ -247,7 +262,7 @@
     <span class="hljs-attribute">position</span>: relative;
     <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
     <span class="hljs-attribute">text-transform</span>: uppercase;
-    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.2</span>;
+    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1</span>;
     <span class="hljs-attribute">font-family</span>: <span class="hljs-string">"Antonio"</span>, sans-serif;
     <span class="hljs-attribute">font-weight</span>: bold;
     <span class="hljs-attribute">font-size</span>: <span class="hljs-number">4rem</span>;
@@ -255,22 +270,25 @@
     <span class="hljs-attribute">padding</span>: <span class="hljs-number">1.875rem</span> <span class="hljs-number">0</span> <span class="hljs-number">0.625rem</span> <span class="hljs-number">0</span>; }
     <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>) {
       <span class="hljs-selector-class">.stat__title</span> {
-        <span class="hljs-attribute">padding</span>: <span class="hljs-number">1.05rem</span> <span class="hljs-number">1.875rem</span> <span class="hljs-number">0</span>; } }
+        <span class="hljs-attribute">padding</span>: <span class="hljs-number">1.05rem</span> <span class="hljs-number">1.875rem</span> <span class="hljs-number">0.625rem</span> <span class="hljs-number">0</span>; } }
     <span class="hljs-selector-class">.element--flex-center</span> <span class="hljs-selector-class">.stat__title</span> {
-      <span class="hljs-attribute">padding</span>: <span class="hljs-number">1.05rem</span> <span class="hljs-number">1.875rem</span> <span class="hljs-number">0</span>;
+      <span class="hljs-attribute">padding</span>: <span class="hljs-number">1.05rem</span> <span class="hljs-number">1.875rem</span> <span class="hljs-number">0.625rem</span> <span class="hljs-number">0</span>;
       <span class="hljs-attribute">display</span>: block; }
     <span class="hljs-selector-class">.bg-pattern--brain-black</span> <span class="hljs-selector-class">.stat__title</span>,
     <span class="hljs-selector-class">.bg--black</span> <span class="hljs-selector-class">.stat__title</span> {
       <span class="hljs-attribute">color</span>: white; }
+    <span class="hljs-selector-class">.stat--horizontal</span><span class="hljs-selector-class">.bg-pattern--brain-black</span> <span class="hljs-selector-class">.stat__title</span>,
+    <span class="hljs-selector-class">.stat--horizontal</span><span class="hljs-selector-class">.bg--black</span> <span class="hljs-selector-class">.stat__title</span> {
+      <span class="hljs-attribute">color</span>: <span class="hljs-number">#FFCD00</span>; }
     <span class="hljs-selector-class">.bg-pattern--brain-reversed</span> <span class="hljs-selector-class">.stat__title</span>,
     <span class="hljs-selector-class">.bg--gold</span> <span class="hljs-selector-class">.stat__title</span> {
       <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">8px</span> solid white; }
     <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>) {
       <span class="hljs-selector-class">.stat__title</span> {
         <span class="hljs-attribute">font-size</span>: <span class="hljs-built_in">calc</span>(<span class="hljs-number">100%</span> + <span class="hljs-number">4vw</span>);
-        <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">1.875rem</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>; }
+        <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">1.875rem</span> <span class="hljs-number">0.625rem</span> <span class="hljs-number">0</span>; }
         <span class="hljs-selector-class">.element--flex-center</span> <span class="hljs-selector-class">.stat__title</span> {
-          <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">1.875rem</span>; } }
+          <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">1.875rem</span> <span class="hljs-number">0.625rem</span>; } }
   <span class="hljs-selector-class">.stat__content</span> {
     <span class="hljs-attribute">color</span>: <span class="hljs-number">#666</span>;
     <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
@@ -282,13 +300,31 @@
     <span class="hljs-selector-class">.bg-pattern--brain-reversed</span> <span class="hljs-selector-class">.stat__content</span>,
     <span class="hljs-selector-class">.bg--gold</span> <span class="hljs-selector-class">.stat__content</span> {
       <span class="hljs-attribute">color</span>: <span class="hljs-number">#151515</span>; }
+    <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">855px</span>) {
+      <span class="hljs-selector-class">.stat__content</span> {
+        <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
+        <span class="hljs-attribute">transition</span>: <span class="hljs-number">1s</span>;
+        <span class="hljs-attribute">position</span>: absolute <span class="hljs-meta">!important</span>;
+        <span class="hljs-attribute">height</span>: <span class="hljs-number">1px</span>;
+        <span class="hljs-attribute">width</span>: <span class="hljs-number">1px</span>;
+        <span class="hljs-attribute">overflow</span>: hidden;
+        <span class="hljs-attribute">clip</span>: <span class="hljs-built_in">rect</span>(<span class="hljs-number">1px</span>, <span class="hljs-number">1px</span>, <span class="hljs-number">1px</span>, <span class="hljs-number">1px</span>); } }
+    <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">84.375em</span>) {
+      <span class="hljs-selector-class">.stat__content</span> {
+        <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
+        <span class="hljs-attribute">transition</span>: <span class="hljs-number">1s</span>;
+        <span class="hljs-attribute">position</span>: absolute <span class="hljs-meta">!important</span>;
+        <span class="hljs-attribute">height</span>: <span class="hljs-number">1px</span>;
+        <span class="hljs-attribute">width</span>: <span class="hljs-number">1px</span>;
+        <span class="hljs-attribute">overflow</span>: hidden;
+        <span class="hljs-attribute">clip</span>: <span class="hljs-built_in">rect</span>(<span class="hljs-number">1px</span>, <span class="hljs-number">1px</span>, <span class="hljs-number">1px</span>, <span class="hljs-number">1px</span>); } }
   <span class="hljs-selector-class">.stat__description</span> {
     <span class="hljs-attribute">position</span>: relative;
     <span class="hljs-attribute">font-family</span>: <span class="hljs-string">"Antonio"</span>, sans-serif;
     <span class="hljs-attribute">font-weight</span>: bold;
     <span class="hljs-attribute">text-transform</span>: uppercase;
     <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.3rem</span>;
-    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.4</span>;
+    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.2</span>;
     <span class="hljs-attribute">width</span>: <span class="hljs-number">85%</span>;
     <span class="hljs-attribute">margin</span>: <span class="hljs-number">0.625rem</span> <span class="hljs-number">0</span>; }
     <span class="hljs-selector-class">.bg-pattern--brain-black</span> <span class="hljs-selector-class">.stat__description</span>,
@@ -307,70 +343,51 @@
 
 <span class="hljs-selector-class">.heading__prefix</span>,
 <span class="hljs-selector-class">.heading__suffix</span> {
-  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2rem</span>;
-  <span class="hljs-attribute">vertical-align</span>: super; }
-  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>) {
-    <span class="hljs-selector-class">.heading__prefix</span>,
-    <span class="hljs-selector-class">.heading__suffix</span> {
-      <span class="hljs-attribute">font-size</span>: <span class="hljs-built_in">calc</span>(<span class="hljs-number">100%</span> + -<span class="hljs-number">2vw</span>); } }
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2.5rem</span>;
+  <span class="hljs-attribute">vertical-align</span>: top; }
+
+<span class="hljs-selector-class">.heading__prefix</span> {
+  <span class="hljs-attribute">margin-right</span>: -<span class="hljs-number">10px</span>; }
+
+<span class="hljs-selector-class">.heading__suffix</span> {
+  <span class="hljs-attribute">margin-left</span>: -<span class="hljs-number">10px</span>; }
 
 <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">84.375em</span>) {
   <span class="hljs-selector-class">.stat--horizontal</span><span class="hljs-selector-class">.bg-pattern--brain-reversed</span> <span class="hljs-selector-class">.stat__content</span>, <span class="hljs-selector-class">.stat--horizontal</span><span class="hljs-selector-class">.bg--gold</span> <span class="hljs-selector-class">.stat__content</span> {
     <span class="hljs-attribute">border-top</span>: <span class="hljs-number">6px</span> solid <span class="hljs-number">#151515</span>; } }
 
-<span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>) {
-  <span class="hljs-selector-class">.stat--horizontal</span> <span class="hljs-selector-class">.stat__title</span> {
-    <span class="hljs-attribute">font-size</span>: <span class="hljs-built_in">calc</span>(<span class="hljs-number">100%</span> + <span class="hljs-number">3vw</span>); } }
-
-<span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">84.375em</span>) {
-  <span class="hljs-selector-class">.stat--horizontal</span> <span class="hljs-selector-class">.stat__title</span> {
-    <span class="hljs-attribute">font-size</span>: <span class="hljs-built_in">calc</span>(<span class="hljs-number">100%</span> + <span class="hljs-number">2vw</span>);
-    <span class="hljs-attribute">flex-basis</span>: <span class="hljs-number">50%</span>;
-    <span class="hljs-attribute">border-bottom</span>: none; } }
+<span class="hljs-selector-class">.stat--horizontal</span> <span class="hljs-selector-class">.stat__title</span> {
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">3.1rem</span>; }
+  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">855px</span>) {
+    <span class="hljs-selector-class">.stat--horizontal</span> <span class="hljs-selector-class">.stat__title</span> {
+      <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">1.875rem</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>;
+      <span class="hljs-attribute">border-bottom</span>: none; } }
+  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">84.375em</span>) {
+    <span class="hljs-selector-class">.stat--horizontal</span> <span class="hljs-selector-class">.stat__title</span> {
+      <span class="hljs-attribute">flex-basis</span>: <span class="hljs-number">50%</span>; } }
 
 <span class="hljs-selector-class">.stat--horizontal</span> <span class="hljs-selector-class">.stat__content</span> {
   <span class="hljs-attribute">flex-basis</span>: <span class="hljs-number">80%</span>;
   <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.1rem</span>; }
   <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">855px</span>) {
     <span class="hljs-selector-class">.stat--horizontal</span> <span class="hljs-selector-class">.stat__content</span> {
-      <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
-      <span class="hljs-attribute">transition</span>: <span class="hljs-number">1s</span>;
-      <span class="hljs-attribute">position</span>: absolute <span class="hljs-meta">!important</span>;
-      <span class="hljs-attribute">height</span>: <span class="hljs-number">1px</span>;
-      <span class="hljs-attribute">width</span>: <span class="hljs-number">1px</span>;
-      <span class="hljs-attribute">overflow</span>: hidden;
-      <span class="hljs-attribute">clip</span>: <span class="hljs-built_in">rect</span>(<span class="hljs-number">1px</span>, <span class="hljs-number">1px</span>, <span class="hljs-number">1px</span>, <span class="hljs-number">1px</span>); } }
-  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">84.375em</span>) {
-    <span class="hljs-selector-class">.stat--horizontal</span> <span class="hljs-selector-class">.stat__content</span> {
       <span class="hljs-attribute">padding-top</span>: .<span class="hljs-number">5rem</span>;
       <span class="hljs-attribute">margin-top</span>: .<span class="hljs-number">75rem</span>;
-      <span class="hljs-attribute">border-top</span>: <span class="hljs-number">6px</span> solid <span class="hljs-number">#FFCD00</span>;
-      <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
-      <span class="hljs-attribute">transition</span>: <span class="hljs-number">1s</span>;
-      <span class="hljs-attribute">position</span>: absolute <span class="hljs-meta">!important</span>;
-      <span class="hljs-attribute">height</span>: <span class="hljs-number">1px</span>;
-      <span class="hljs-attribute">width</span>: <span class="hljs-number">1px</span>;
-      <span class="hljs-attribute">overflow</span>: hidden;
-      <span class="hljs-attribute">clip</span>: <span class="hljs-built_in">rect</span>(<span class="hljs-number">1px</span>, <span class="hljs-number">1px</span>, <span class="hljs-number">1px</span>, <span class="hljs-number">1px</span>); } }
+      <span class="hljs-attribute">border-top</span>: <span class="hljs-number">6px</span> solid <span class="hljs-number">#FFCD00</span>; } }
+
+<span class="hljs-selector-class">.stat--horizontal</span> <span class="hljs-selector-class">.heading__prefix</span>,
+<span class="hljs-selector-class">.stat--horizontal</span> <span class="hljs-selector-class">.heading__suffix</span> {
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2.1rem</span>;
+  <span class="hljs-attribute">vertical-align</span>: top; }
 
 <span class="hljs-selector-class">.stat--horizontal</span> <span class="hljs-selector-class">.stat__description</span> {
   <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
   <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.3rem</span>;
   <span class="hljs-attribute">margin</span>: <span class="hljs-number">0.625rem</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>; }
-  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>) {
-    <span class="hljs-selector-class">.stat--horizontal</span> <span class="hljs-selector-class">.stat__description</span> {
-      <span class="hljs-attribute">width</span>: <span class="hljs-number">85%</span>;
-      <span class="hljs-attribute">margin</span>: <span class="hljs-number">0.625rem</span> <span class="hljs-number">0</span>; } }
-  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">84.375em</span>) {
+  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">855px</span>) {
     <span class="hljs-selector-class">.stat--horizontal</span> <span class="hljs-selector-class">.stat__description</span> {
       <span class="hljs-attribute">flex-basis</span>: <span class="hljs-number">50%</span>;
-      <span class="hljs-attribute">margin</span>: .<span class="hljs-number">3rem</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>;
-      <span class="hljs-attribute">opacity</span>: .<span class="hljs-number">7</span>; } }
-
-<span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">84.375em</span>) {
-  <span class="hljs-selector-class">.stat--horizontal</span> <span class="hljs-selector-class">.heading__prefix</span>,
-  <span class="hljs-selector-class">.stat--horizontal</span> <span class="hljs-selector-class">.heading__suffix</span> {
-    <span class="hljs-attribute">font-size</span>: <span class="hljs-built_in">calc</span>(<span class="hljs-number">100%</span> + -<span class="hljs-number">1vw</span>); } }
+      <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>; } }
 
 <span class="hljs-selector-class">.stat__grid</span><span class="hljs-selector-class">.stat--horizontal</span> {
   <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">0rem</span>;
@@ -378,17 +395,9 @@
   <span class="hljs-attribute">flex-wrap</span>: wrap;
   <span class="hljs-attribute">cursor</span>: pointer;
   <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.55s</span> <span class="hljs-built_in">cubic-bezier</span>(<span class="hljs-number">0.95</span>, <span class="hljs-number">1.25</span>, <span class="hljs-number">0.375</span>, <span class="hljs-number">1.15</span>); }
-  <span class="hljs-selector-class">.stat__grid</span><span class="hljs-selector-class">.stat--horizontal</span><span class="hljs-selector-pseudo">:hover</span> {
-    <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(-<span class="hljs-number">10px</span>) <span class="hljs-built_in">scale</span>(<span class="hljs-number">1.02</span>); }
   <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">855px</span>) {
-    <span class="hljs-selector-class">.stat__grid</span><span class="hljs-selector-class">.stat--horizontal</span><span class="hljs-selector-pseudo">:hover</span> <span class="hljs-selector-class">.stat__content</span> {
-      <span class="hljs-attribute">position</span>: static <span class="hljs-meta">!important</span>;
-      <span class="hljs-attribute">clip</span>: auto;
-      <span class="hljs-attribute">height</span>: auto;
-      <span class="hljs-attribute">width</span>: auto;
-      <span class="hljs-attribute">overflow</span>: auto;
-      <span class="hljs-attribute">cursor</span>: pointer;
-      <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>; } }
+    <span class="hljs-selector-class">.stat__grid</span><span class="hljs-selector-class">.stat--horizontal</span><span class="hljs-selector-pseudo">:hover</span> {
+      <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(-<span class="hljs-number">10px</span>) <span class="hljs-built_in">scale</span>(<span class="hljs-number">1.02</span>); } }
 </pre>
                             </code>
                             
@@ -452,6 +461,14 @@
 
 <span class="hljs-selector-class">.stat__grid</span> {
   <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+
+  &amp;<span class="hljs-selector-pseudo">:hover</span> <span class="hljs-selector-class">.stat__content</span> {
+    <span class="hljs-keyword">@include</span> breakpoint(menu) {
+      <span class="hljs-keyword">@include</span> element-invisible-off;
+
+      <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;
+    }
+  }
 }
 
 <span class="hljs-selector-class">.stat</span> {
@@ -461,7 +478,7 @@
     <span class="hljs-attribute">position</span>: relative;
     <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
     <span class="hljs-attribute">text-transform</span>: uppercase;
-    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.2</span>;
+    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1</span>;
     <span class="hljs-attribute">font-family</span>: <span class="hljs-variable">$font-family-caps-bold</span>;
     <span class="hljs-attribute">font-weight</span>: bold;
     <span class="hljs-attribute">font-size</span>: <span class="hljs-number">4rem</span>;
@@ -469,17 +486,22 @@
     <span class="hljs-attribute">padding</span>: <span class="hljs-variable">$lg</span> <span class="hljs-number">0</span> <span class="hljs-variable">$sm</span> <span class="hljs-number">0</span>;
 
     <span class="hljs-keyword">@include</span> breakpoint(sm) {
-      <span class="hljs-attribute">padding</span>: <span class="hljs-variable">$md</span> <span class="hljs-variable">$lg</span> <span class="hljs-number">0</span>;
+      <span class="hljs-attribute">padding</span>: <span class="hljs-variable">$md</span> <span class="hljs-variable">$lg</span> <span class="hljs-variable">$sm</span> <span class="hljs-number">0</span>;
     }
 
     <span class="hljs-selector-class">.element--flex-center</span> &amp; {
-      <span class="hljs-attribute">padding</span>: <span class="hljs-variable">$md</span> <span class="hljs-variable">$lg</span> <span class="hljs-number">0</span>;
+      <span class="hljs-attribute">padding</span>: <span class="hljs-variable">$md</span> <span class="hljs-variable">$lg</span> <span class="hljs-variable">$sm</span> <span class="hljs-number">0</span>;
       <span class="hljs-attribute">display</span>: block;
     }
 
     <span class="hljs-selector-class">.bg-pattern--brain-black</span> &amp;,
     <span class="hljs-selector-class">.bg--black</span> &amp; {
       <span class="hljs-attribute">color</span>: white;
+    }
+
+    <span class="hljs-selector-class">.stat--horizontal</span><span class="hljs-selector-class">.bg-pattern--brain-black</span> &amp;,
+    <span class="hljs-selector-class">.stat--horizontal</span><span class="hljs-selector-class">.bg--black</span> &amp; {
+      <span class="hljs-attribute">color</span>: <span class="hljs-variable">$primary</span>;
     }
 
     <span class="hljs-selector-class">.bg-pattern--brain-reversed</span> &amp;,
@@ -489,10 +511,10 @@
 
     <span class="hljs-keyword">@include</span> breakpoint(sm) {
       <span class="hljs-attribute">font-size</span>: calc(<span class="hljs-number">100%</span> + <span class="hljs-number">4vw</span>);
-      <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-variable">$lg</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>;
+      <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-variable">$lg</span> <span class="hljs-variable">$sm</span> <span class="hljs-number">0</span>;
 
       <span class="hljs-selector-class">.element--flex-center</span> &amp; {
-        <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-variable">$lg</span>;
+        <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-variable">$lg</span> <span class="hljs-variable">$sm</span>;
       }
     }
   }
@@ -512,6 +534,18 @@
     <span class="hljs-selector-class">.bg--gold</span> &amp; {
       <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
     }
+
+    <span class="hljs-keyword">@include</span> breakpoint(menu) {
+      <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
+      <span class="hljs-attribute">transition</span>: <span class="hljs-number">1s</span>;
+      <span class="hljs-keyword">@include</span> element-invisible;
+    }
+
+    <span class="hljs-keyword">@include</span> breakpoint(container) {
+      <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
+      <span class="hljs-attribute">transition</span>: <span class="hljs-number">1s</span>;
+      <span class="hljs-keyword">@include</span> element-invisible;
+    }
   }
 
   &amp;__description {
@@ -520,7 +554,7 @@
     <span class="hljs-attribute">font-weight</span>: bold;
     <span class="hljs-attribute">text-transform</span>: uppercase;
     <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.3rem</span>;
-    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.4</span>;
+    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.2</span>;
     <span class="hljs-attribute">width</span>: <span class="hljs-number">85%</span>;
     <span class="hljs-attribute">margin</span>: <span class="hljs-variable">$sm</span> <span class="hljs-number">0</span>;
 
@@ -550,14 +584,17 @@
 
 <span class="hljs-selector-class">.heading__prefix</span>,
 <span class="hljs-selector-class">.heading__suffix</span> {
-  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2rem</span>;
-  <span class="hljs-attribute">vertical-align</span>: super;
-
-  <span class="hljs-keyword">@include</span> breakpoint(sm) {
-    <span class="hljs-attribute">font-size</span>: calc(<span class="hljs-number">100%</span> + -<span class="hljs-number">2vw</span>);
-  }
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2.5rem</span>;
+  <span class="hljs-attribute">vertical-align</span>: top;
 }
 
+<span class="hljs-selector-class">.heading__prefix</span> {
+  <span class="hljs-attribute">margin-right</span>: -<span class="hljs-number">10px</span>;
+}
+
+<span class="hljs-selector-class">.heading__suffix</span> {
+  <span class="hljs-attribute">margin-left</span>: -<span class="hljs-number">10px</span>;
+}
 
 <span class="hljs-selector-class">.stat--horizontal</span> {
 
@@ -572,15 +609,17 @@
 
 
   <span class="hljs-selector-class">.stat__title</span> {
-    <span class="hljs-keyword">@include</span> breakpoint(sm) {
-      <span class="hljs-attribute">font-size</span>: calc(<span class="hljs-number">100%</span> + <span class="hljs-number">3vw</span>);
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">3.1rem</span>;
+
+    <span class="hljs-keyword">@include</span> breakpoint(menu) {
+      <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-variable">$lg</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>;
+      <span class="hljs-attribute">border-bottom</span>: none;
     }
 
     <span class="hljs-keyword">@include</span> breakpoint(container) {
-      <span class="hljs-attribute">font-size</span>: calc(<span class="hljs-number">100%</span> + <span class="hljs-number">2vw</span>);
       <span class="hljs-attribute">flex-basis</span>: <span class="hljs-number">50%</span>;
-      <span class="hljs-attribute">border-bottom</span>: none;
     }
+
   }
 
   <span class="hljs-selector-class">.stat__content</span> {
@@ -588,45 +627,38 @@
     <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.1rem</span>;
 
     <span class="hljs-keyword">@include</span> breakpoint(menu) {
-      <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
-      <span class="hljs-attribute">transition</span>: <span class="hljs-number">1s</span>;
-      <span class="hljs-keyword">@include</span> element-invisible;
-    }
-
-    <span class="hljs-keyword">@include</span> breakpoint(container) {
       <span class="hljs-attribute">padding-top</span>: .<span class="hljs-number">5rem</span>;
       <span class="hljs-attribute">margin-top</span>: .<span class="hljs-number">75rem</span>;
       <span class="hljs-attribute">border-top</span>: <span class="hljs-number">6px</span> solid <span class="hljs-variable">$primary</span>;
-      <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
-      <span class="hljs-attribute">transition</span>: <span class="hljs-number">1s</span>;
-      <span class="hljs-keyword">@include</span> element-invisible;
+      <span class="hljs-comment">// opacity: 0;</span>
+      <span class="hljs-comment">// transition: 1s;</span>
+      <span class="hljs-comment">// @include element-invisible;</span>
     }
 
   }
+
+  <span class="hljs-selector-class">.heading__prefix</span>,
+  <span class="hljs-selector-class">.heading__suffix</span> {
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2.1rem</span>;
+    <span class="hljs-attribute">vertical-align</span>: top;
+  }
+
 
   <span class="hljs-selector-class">.stat__description</span> {
     <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
     <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.3rem</span>;
     <span class="hljs-attribute">margin</span>: <span class="hljs-number">0.625rem</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>;
 
-    <span class="hljs-keyword">@include</span> breakpoint(sm) {
-      <span class="hljs-attribute">width</span>: <span class="hljs-number">85%</span>;
-      <span class="hljs-attribute">margin</span>: <span class="hljs-number">0.625rem</span> <span class="hljs-number">0</span>;
-    }
-
-    <span class="hljs-keyword">@include</span> breakpoint(container) {
+    <span class="hljs-keyword">@include</span> breakpoint(menu) {
       <span class="hljs-attribute">flex-basis</span>: <span class="hljs-number">50%</span>;
-      <span class="hljs-attribute">margin</span>: .<span class="hljs-number">3rem</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>;
-      <span class="hljs-attribute">opacity</span>: .<span class="hljs-number">7</span>;
+      <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+    }
+
+    <span class="hljs-keyword">@include</span> breakpoint(container) {
+      <span class="hljs-comment">//flex-basis: 50%;</span>
     }
   }
 
-  <span class="hljs-selector-class">.heading__prefix</span>,
-  <span class="hljs-selector-class">.heading__suffix</span> {
-    <span class="hljs-keyword">@include</span> breakpoint(container) {
-      <span class="hljs-attribute">font-size</span>: calc(<span class="hljs-number">100%</span> + -<span class="hljs-number">1vw</span>);
-    }
-  }
 }
 
 <span class="hljs-selector-class">.stat__grid</span><span class="hljs-selector-class">.stat--horizontal</span> {
@@ -637,14 +669,8 @@
   <span class="hljs-attribute">transition</span>: all .<span class="hljs-number">55s</span> cubic-bezier(.<span class="hljs-number">95</span>, <span class="hljs-number">1.25</span>, .<span class="hljs-number">375</span>, <span class="hljs-number">1.15</span>);
 
   &amp;<span class="hljs-selector-pseudo">:hover</span> {
-    <span class="hljs-attribute">transform</span>: translateY(-<span class="hljs-number">10px</span>) scale(<span class="hljs-number">1.02</span>);
-  }
-
-  &amp;<span class="hljs-selector-pseudo">:hover</span> <span class="hljs-selector-class">.stat__content</span> {
     <span class="hljs-keyword">@include</span> breakpoint(menu) {
-      <span class="hljs-keyword">@include</span> element-invisible-off;
-      <span class="hljs-attribute">cursor</span>: pointer;
-      <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;
+      <span class="hljs-attribute">transform</span>: translateY(-<span class="hljs-number">10px</span>) scale(<span class="hljs-number">1.02</span>);
     }
   }
 }
@@ -664,7 +690,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">3.4 KB</span>
+                    <span class="Meta-value">3.6 KB</span>
                 </li>
             </ul>
         </div>
@@ -687,7 +713,7 @@
         
         
         <li class="Meta-item">
-            <strong class="Meta-key">Variants <em class="Meta-count">(3)</em>:</strong>
+            <strong class="Meta-key">Variants <em class="Meta-count">(4)</em>:</strong>
             <span class="Meta-value Meta-value--linkList">
             
                 <a href="stat--default.html">
@@ -696,6 +722,10 @@
             
                 <a href="">
                     <span>Horizontal</span>
+                </a>, 
+            
+                <a href="stat--horizontal-bg--black.html">
+                    <span>Horizontal w/ Background</span>
                 </a>, 
             
                 <a href="stat--row.html">
@@ -1735,6 +1765,21 @@
         
         
         <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="stat--horizontal-bg--black.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Horizontal w/ Background</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
             <a class="Tree-entityLink" href="stat--row.html" data-pjax>
                 
                     
@@ -1956,8 +2001,8 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-09-01T02:33:22.769Z">
-                9/1/2020
+            <time datetime="2020-09-15T21:50:55.725Z">
+                9/15/2020
             </time>
         </div>
     </div>
