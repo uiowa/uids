@@ -8,5 +8,7 @@ import '../../../src/assets/scss/navbar.module.scss';
 import NavBar from '../../../src/components/proposals/brand/navbar/navbar';
 
 window.uidsUtils = window.uidsutils || {};
-window.uidsUtils.navbar = NavBar;
+window.uidsUtils.navbar = new NavBar();
+
+
 

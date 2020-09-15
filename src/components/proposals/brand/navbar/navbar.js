@@ -37,21 +37,21 @@
       evt.setAttribute("aria-expanded", false);
     }
   }
-
+//https://oli.me.uk/exporting-through-amd-commonjs-and-the-global-object/
   // Expose the class either via AMD, CommonJS or the global object
     if (typeof define === 'function' && define.amd) {
         define(function () {
-            return new NavBar();
+            return  NavBar;
         });
     }
     else if (typeof module === 'object' && module.exports){
         // we have es6 exports
-        module.exports = new NavBar();
+        module.exports =   NavBar;
     }
     else {
       //automatically apply to window object
       exports.uidsUtils = exports.uidsutils || {};
-      exports.uidsUtils.navbar = new NavBar();
+      exports.uidsUtils.navbar =  new NavBar();
     }
 
 
