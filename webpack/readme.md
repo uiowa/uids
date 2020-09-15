@@ -1,7 +1,7 @@
 # Webpack UIDS build
 
 The purpose of this webpack addition is to ingest the existing UIDS source sass files, wrap in a namespace to avoid collisions, and allow for es6 js imports.
-This will allow external application that typically use webpack and have other external constraints to us
+This will allow external applications that typically use webpack and have other external constraints to use
 
 1. npm run build:prod or build:dev
 2. creates a build in 'build' folder in the location of your choices
