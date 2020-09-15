@@ -139,6 +139,9 @@ function triggerTableRespond() {
         if (document.querySelector('#headers-table-' + i)) {
             resizeScrollerheaders(i);
         }
+
+        // Check if the table is greater than 400px. If it is, add the class 'left-sticky-minwidth'.
+        tableSetMinWidthClass(responsive_tables[i]);
     }
 }
 
@@ -174,14 +177,6 @@ function resizeTableContainers(table) {
     }
 
     table_bounding_box_selector.style.width = layout_width + 'px';
-
-    // Check if the table is greater than 400px. If it is, add a class that will give it 'position: sticky'.
-    if (layout_width > 400) {
-        table_bounding_box_selector.classList.add("left-sticky-minwidth");
-    }
-    else {
-        table_bounding_box_selector.classList.remove("left-sticky-minwidth");
-    }
 }
 
 // This function resets the table wrapper size.
@@ -238,6 +233,18 @@ function tableSetStickyHeaders(elem) {
         elem.classList.remove('isSticky-Left');
     }
 };
+
+// Check if the table is greater than 400px. If it is, add the class 'left-sticky-minwidth'.
+function tableSetMinWidthClass(table) {
+    let table_width = table.offsetWidth;
+    
+    if (table_width > 400) {
+        table.classList.add("left-sticky-minwidth");
+    }
+    else {
+        table.classList.remove("left-sticky-minwidth");
+    }
+}
 
 // For throttling scroll functions.
 function throttle(fn, argument, wait) {
