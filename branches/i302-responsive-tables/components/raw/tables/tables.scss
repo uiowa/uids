@@ -5,31 +5,44 @@
   width: 100%;
   position: relative;
 
-  &.row-headers--true .track-heading:first-child {
-    left: 0;
+  &.row-headers--true {
+    .track-heading:first-child {
+      left: 0;
+    }
 
-    @media only screen and (min-width: 400px) {
+    &.left-sticky-minwidth .track-heading:first-child {
       position: sticky;
     }
   }
 
-  &.isSticky-Left {
+  &.is-striped {
+    &.isSticky-Left.left-sticky-minwidth {
+      table.is-striped tbody th {
+        filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
+      }
 
-    .track-heading:first-child {
-      @media only screen and (min-width: 400px) {
-        border-right: 1px solid #ccc;
+      .track-heading:first-child {
+        filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
       }
     }
   }
 
-    .track-heading:first-child {
-      border-right: 1px solid #fff;
-      transition: border-right 0.3s ease-in-out;
-    }
+  &.isSticky-Left.left-sticky-minwidth .track-heading:first-child {
+    border-right: 1px solid #ccc;
+  }
 
-    &.is-striped .track-heading:first-child {
-      border-right: none;
-    }
+  .track-heading:first-child {
+    border-right: 1px solid #fff;
+    transition: border-right 0.3s ease-in-out;
+  }
+
+  &.isSticky-Left.is-striped.left-sticky-minwidth .track-heading:first-child {
+    border-right: none;
+  }
+
+  &.left-sticky-minwidth table tbody th {
+    position: sticky;
+  }
 }
 
 table {
@@ -81,20 +94,6 @@ table {
     .headers-table {
       transition: filter 0.3s ease-in-out;
       filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.2));
-    }
-  }
-
-  &.isSticky-Left {
-    table.is-striped tbody th {
-      @media only screen and (min-width: 400px) {
-        filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
-      }
-    }
-
-    .track-heading:first-child {
-      @media only screen and (min-width: 400px) {
-        filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
-      }
     }
   }
 }
@@ -152,10 +151,6 @@ table tbody th {
   position: static;
   left: 0;
   padding-left: $md;
-
-  @media only screen and (min-width: 400px) {
-    position: sticky;
-  }
 }
 
 table th:not([align]),

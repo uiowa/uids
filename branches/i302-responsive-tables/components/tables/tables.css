@@ -3,18 +3,25 @@
   position: relative; }
   .table-responsive-container.row-headers--true .track-heading:first-child {
     left: 0; }
-    @media only screen and (min-width: 400px) {
-      .table-responsive-container.row-headers--true .track-heading:first-child {
-        position: -webkit-sticky;
-        position: sticky; } }
-  @media only screen and (min-width: 400px) {
-    .table-responsive-container.isSticky-Left .track-heading:first-child {
-      border-right: 1px solid #ccc; } }
+  .table-responsive-container.row-headers--true.left-sticky-minwidth .track-heading:first-child {
+    position: -webkit-sticky;
+    position: sticky; }
+  .table-responsive-container.is-striped.isSticky-Left.left-sticky-minwidth table.is-striped tbody th {
+    -webkit-filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
+            filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2)); }
+  .table-responsive-container.is-striped.isSticky-Left.left-sticky-minwidth .track-heading:first-child {
+    -webkit-filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
+            filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2)); }
+  .table-responsive-container.isSticky-Left.left-sticky-minwidth .track-heading:first-child {
+    border-right: 1px solid #ccc; }
   .table-responsive-container .track-heading:first-child {
     border-right: 1px solid #fff;
     transition: border-right 0.3s ease-in-out; }
-  .table-responsive-container.is-striped .track-heading:first-child {
+  .table-responsive-container.isSticky-Left.is-striped.left-sticky-minwidth .track-heading:first-child {
     border-right: none; }
+  .table-responsive-container.left-sticky-minwidth table tbody th {
+    position: -webkit-sticky;
+    position: sticky; }
 
 table {
   width: 100%;
@@ -53,14 +60,6 @@ table {
     transition: filter 0.3s ease-in-out, -webkit-filter 0.3s ease-in-out;
     -webkit-filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.2));
             filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.2)); }
-  @media only screen and (min-width: 400px) {
-    .table-responsive-container.is-striped.isSticky-Left table.is-striped tbody th {
-      -webkit-filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
-              filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2)); } }
-  @media only screen and (min-width: 400px) {
-    .table-responsive-container.is-striped.isSticky-Left .track-heading:first-child {
-      -webkit-filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
-              filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2)); } }
 
 .table-container {
   overflow-x: auto; }
@@ -107,10 +106,6 @@ table tbody th {
   position: static;
   left: 0;
   padding-left: 1.05rem; }
-  @media only screen and (min-width: 400px) {
-    table tbody th {
-      position: -webkit-sticky;
-      position: sticky; } }
 
 table th:not([align]),
 .scroller .track-heading {

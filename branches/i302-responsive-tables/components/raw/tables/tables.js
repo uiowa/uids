@@ -1,7 +1,33 @@
 let resizeTimer;
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Instantiate tables on the page.
+    generateResponsiveTables();
+
+    // Detect if we are on a layout builder preview page.
+    if (document.querySelector('#block-uids-base-local-tasks a[data-drupal-link-system-path$="layout"].is-active')) {
+        // if it is, grab the element that holds the layout builder content and its preview.
+        let layoutContent = document.querySelector('#block-uids-base-content');
+        // Then set up a mutation observer to observe if if the content within it changes.
+        let layoutContentMO = new window.MutationObserver(function (e) {
+            // For each change 'e', check to see if there are removed nodesand if tere are, if one of them was the 'layout-builder' node.
+            for (let i = 0; i < e.length; i++) {
+                if (e[i].removedNodes[0] && e[i].removedNodes[0].id == 'layout-builder') {
+                    // If it was removed, that means the HTML was regenerated, and we need to regenerate the Responsive tables.
+                    setTimeout(function () {
+                        //Because the editor drawer closes so slow, we have a delay before we resize the tables.
+                        generateResponsiveTables();
+                    }, 500);
+                }
+            }
+        });
+        // This is where we tell the mutation observer what element to observe.
+        layoutContentMO.observe(layoutContent, { childList: true, subtree: true, characterData: true });
+    }
+});
+
+// Instantiate tables on the page.
+function generateResponsiveTables() {
+    // Only instantiate tables that are not pre defined by the user as 'table-static'.
     let tables = document.querySelectorAll('table:not(.table-static)');
 
     for (let i = 0; i < tables.length; i++) {
@@ -15,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
             let caption_labeledby = '';
 
             //If the table catption exists and doesnt have an Id...
-            if (table.getElementsByTagName('caption') && !table.getElementsByTagName('caption')[0].id) {
+            if (table.getElementsByTagName('caption')[0] && !table.getElementsByTagName('caption')[0].id) {
                 caption_id = 'table-' + i;
                 caption_labeledby = 'aria-labelledby="' + caption_id + '"';
 
@@ -116,9 +142,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Trigger the table to resize everything.
-    // We do this here to resize on initial Page Load.
+    // We do this here to resize on Instantiation.
     triggerTableRespond();
-});
+}
 
 // This function will iterate through all tables, resize them, and then resize their headers.
 function triggerTableRespond() {
@@ -139,6 +165,9 @@ function triggerTableRespond() {
         if (document.querySelector('#headers-table-' + i)) {
             resizeScrollerheaders(i);
         }
+
+        // Check if the table is greater than 400px. If it is, add the class 'left-sticky-minwidth'.
+        tableSetMinWidthClass(responsive_tables[i]);
     }
 }
 
@@ -164,15 +193,16 @@ function resizeTableContainers(table) {
     let table_bounding_box_selector = table;
     let lb_container = table_bounding_box_selector.closest('.layout__container');
     let lb_container_has_multiple_columns = lb_container.querySelectorAll('.lb__container>.layout__region').length;
+    let layout_width;
 
     if (lb_container_has_multiple_columns) {
-        let layout_width = table_bounding_box_selector.closest('.layout__region').offsetWidth;
-        table_bounding_box_selector.style.width = layout_width + 'px';
+        layout_width = table_bounding_box_selector.closest('.layout__region').offsetWidth;
     }
     else {
-        let layout_width = table_bounding_box_selector.closest('.lb__container').offsetWidth;
-        table_bounding_box_selector.style.width = layout_width + 'px';
+        layout_width = table_bounding_box_selector.closest('.lb__container').offsetWidth;
     }
+
+    table_bounding_box_selector.style.width = layout_width + 'px';
 }
 
 // This function resets the table wrapper size.
@@ -229,6 +259,18 @@ function tableSetStickyHeaders(elem) {
         elem.classList.remove('isSticky-Left');
     }
 };
+
+// Check if the table is greater than 400px. If it is, add the class 'left-sticky-minwidth'.
+function tableSetMinWidthClass(table) {
+    let table_width = table.offsetWidth;
+
+    if (table_width > 400) {
+        table.classList.add("left-sticky-minwidth");
+    }
+    else {
+        table.classList.remove("left-sticky-minwidth");
+    }
+}
 
 // For throttling scroll functions.
 function throttle(fn, argument, wait) {
