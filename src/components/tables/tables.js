@@ -164,14 +164,23 @@ function resizeTableContainers(table) {
     let table_bounding_box_selector = table;
     let lb_container = table_bounding_box_selector.closest('.layout__container');
     let lb_container_has_multiple_columns = lb_container.querySelectorAll('.lb__container>.layout__region').length;
+    let layout_width;
 
     if (lb_container_has_multiple_columns) {
-        let layout_width = table_bounding_box_selector.closest('.layout__region').offsetWidth;
-        table_bounding_box_selector.style.width = layout_width + 'px';
+        layout_width = table_bounding_box_selector.closest('.layout__region').offsetWidth;
     }
     else {
-        let layout_width = table_bounding_box_selector.closest('.lb__container').offsetWidth;
-        table_bounding_box_selector.style.width = layout_width + 'px';
+        layout_width = table_bounding_box_selector.closest('.lb__container').offsetWidth;
+    }
+
+    table_bounding_box_selector.style.width = layout_width + 'px';
+
+    // Check if the table is greater than 400px. If it is, add a class that will give it 'position: sticky'.
+    if (layout_width > 400) {
+        table_bounding_box_selector.classList.add("left-sticky-minwidth");
+    }
+    else {
+        table_bounding_box_selector.classList.remove("left-sticky-minwidth");
     }
 }
 
