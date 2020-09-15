@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
             let caption_labeledby = '';
 
             //If the table catption exists and doesnt have an Id...
-            if (table.getElementsByTagName('caption') && !table.getElementsByTagName('caption')[0].id) {
+            if (table.getElementsByTagName('caption')[0] && !table.getElementsByTagName('caption')[0].id) {
                 caption_id = 'table-' + i;
                 caption_labeledby = 'aria-labelledby="' + caption_id + '"';
 
