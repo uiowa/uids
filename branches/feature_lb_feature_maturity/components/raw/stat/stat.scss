@@ -3,11 +3,20 @@
 
 .stat__grid {
   margin: 0;
+  transition: all .55s cubic-bezier(.95, 1.25, .375, 1.15);
+
+  &.stat--transform {
+    &:hover {
+      @include breakpoint(menu) {
+        transform: translateY(-10px);
+      }
+    }
+  }
 
   &:hover .stat__content {
     @include breakpoint(menu) {
       @include element-invisible-off;
-
+      width: 80%;
       opacity: 1;
     }
   }
@@ -66,6 +75,7 @@
     margin: 0;
     padding: 0;
     line-height: 1.4;
+    width: 80%;
 
     .bg--black &,
     .bg-pattern--brain-black & {
@@ -81,13 +91,9 @@
       opacity: 0;
       transition: 1s;
       @include element-invisible;
+      width: 80%;
     }
 
-    @include breakpoint(container) {
-      opacity: 0;
-      transition: 1s;
-      @include element-invisible;
-    }
   }
 
   &__description {
@@ -154,7 +160,7 @@
     font-size: 3.1rem;
 
     @include breakpoint(menu) {
-      padding: 0 $lg 0 0;
+      padding: 0 $lg $xsm 0;
       border-bottom: none;
     }
 
@@ -165,16 +171,12 @@
   }
 
   .stat__content {
-    flex-basis: 80%;
     font-size: 1.1rem;
 
     @include breakpoint(menu) {
       padding-top: .5rem;
       margin-top: .75rem;
       border-top: 6px solid $primary;
-      // opacity: 0;
-      // transition: 1s;
-      // @include element-invisible;
     }
 
   }
@@ -195,10 +197,6 @@
       flex-basis: 50%;
       margin: 0;
     }
-
-    @include breakpoint(container) {
-      //flex-basis: 50%;
-    }
   }
 
 }
@@ -210,9 +208,11 @@
   cursor: pointer;
   transition: all .55s cubic-bezier(.95, 1.25, .375, 1.15);
 
-  &:hover {
-    @include breakpoint(menu) {
-      transform: translateY(-10px) scale(1.02);
+  &.stat--transform {
+    &:hover {
+      @include breakpoint(menu) {
+        transform: translateY(-10px) scale(1.02);
+      }
     }
   }
 }

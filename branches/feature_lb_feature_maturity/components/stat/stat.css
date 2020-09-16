@@ -1,5 +1,9 @@
 .stat__grid {
-  margin: 0; }
+  margin: 0;
+  transition: all 0.55s cubic-bezier(0.95, 1.25, 0.375, 1.15); }
+  @media (min-width: 855px) {
+    .stat__grid.stat--transform:hover {
+      transform: translateY(-10px); } }
   @media (min-width: 855px) {
     .stat__grid:hover .stat__content {
       position: static !important;
@@ -7,6 +11,7 @@
       height: auto;
       width: auto;
       overflow: auto;
+      width: 80%;
       opacity: 1; } }
 
 .stat {
@@ -46,7 +51,8 @@
     color: #666;
     margin: 0;
     padding: 0;
-    line-height: 1.4; }
+    line-height: 1.4;
+    width: 80%; }
     .bg--black .stat__content,
     .bg-pattern--brain-black .stat__content {
       color: #ccc; }
@@ -61,16 +67,8 @@
         height: 1px;
         width: 1px;
         overflow: hidden;
-        clip: rect(1px, 1px, 1px, 1px); } }
-    @media (min-width: 84.375em) {
-      .stat__content {
-        opacity: 0;
-        transition: 1s;
-        position: absolute !important;
-        height: 1px;
-        width: 1px;
-        overflow: hidden;
-        clip: rect(1px, 1px, 1px, 1px); } }
+        clip: rect(1px, 1px, 1px, 1px);
+        width: 80%; } }
   .stat__description {
     position: relative;
     font-family: "Antonio", sans-serif;
@@ -113,14 +111,13 @@
   font-size: 3.1rem; }
   @media (min-width: 855px) {
     .stat--horizontal .stat__title {
-      padding: 0 1.875rem 0 0;
+      padding: 0 1.875rem 0.325rem 0;
       border-bottom: none; } }
   @media (min-width: 84.375em) {
     .stat--horizontal .stat__title {
       flex-basis: 50%; } }
 
 .stat--horizontal .stat__content {
-  flex-basis: 80%;
   font-size: 1.1rem; }
   @media (min-width: 855px) {
     .stat--horizontal .stat__content {
@@ -149,5 +146,5 @@
   cursor: pointer;
   transition: all 0.55s cubic-bezier(0.95, 1.25, 0.375, 1.15); }
   @media (min-width: 855px) {
-    .stat__grid.stat--horizontal:hover {
+    .stat__grid.stat--horizontal.stat--transform:hover {
       transform: translateY(-10px) scale(1.02); } }
