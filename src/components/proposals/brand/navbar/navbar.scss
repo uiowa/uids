@@ -1,17 +1,13 @@
 @import "../../../../assets/scss/variables";
 @import "../../../../assets/scss/utilities";
 
-$offwhite: rgb(44, 44, 44);
-
 .iowa-bar--narrow .logo--tab {
   margin-right: 0px;
-
 }
-
 
 .top-nav {
   display: flex;
-  flex:1;
+  flex: 1;
   flex-direction: column;
   justify-content: space-between;
 }
@@ -24,23 +20,15 @@ $offwhite: rgb(44, 44, 44);
 .dropdown-content {
   display: none;
   position: relative;
-}
 
-.dropdown-content a {
-  display: block;
-}
+  a {
+    display: block;
+  }
 
-.dropdown-content .open a {
-  display: block;
+  .open a {
+    display: block;
+  }
 }
-
-.open {
-  border-top: none;
-  position: absolute;
-  display: block;
-  z-index: 1;
-}
-
 
 .brand-site-name-toggle {
   display: flex;
@@ -55,7 +43,6 @@ $offwhite: rgb(44, 44, 44);
     padding-left: 0px;
     background-color: $secondary;
   }
-
 
   .brand-site-name {
     display: flex;
@@ -75,22 +62,89 @@ $offwhite: rgb(44, 44, 44);
       text-align: center;
       text-decoration: none;
       font-size: 17px;
-      width:50px;
-      height:50px;
+      width: 50px;
+      height: 50px;
     }
     a:hover {
       background-color: $white;
       color: $secondary;
     }
   }
+}
+
+.right-links {
+  position: relative;
+
+  a {
+    float: none;
+    display: none;
+  }
+
+  .dropdown {
+    float: none;
+    display: none;
+  }
+}
+
+.open {
+  position: relative;
+  display: block;
+  width: 100%;
+  border-top: none;
+  z-index: 1;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+
 
 }
 
-@include breakpoint(menu) {
+a.skip-main {
+  left: -999px;
+  position: absolute;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: -999;
+}
+a.skip-main:focus,
+a.skip-main:active {
+  color: $white;
+  background-color: $secondary;
+  left: auto;
+  top: 60px;
+  width: 100%;
+  height: 35px;
+  overflow: auto;
+  margin: auto;
+  line-height: 35px;
+  // border:4px solid $primary;
+  text-align: center;
+  font-size: 1.2em;
+  z-index: 999;
+}
 
+.site-name {
+  color: $secondary;
+  padding-left: 0px;
+
+  span {
+    height: 100%;
+    padding-left: 15px;
+    border-left: 1px solid;
+    border-left-color: $white;
+  }
+
+  a {
+    color: $secondary;
+  }
+}
+
+// @include breakpoint(menu) {
+  @media screen and (min-width: 855px) {
   .top-nav {
     display: flex;
-    flex:1;
+    flex: 1;
     flex-direction: row;
     justify-content: space-between;
   }
@@ -107,6 +161,9 @@ $offwhite: rgb(44, 44, 44);
       padding-left: 0px;
       background-color: $primary;
 
+      span {
+        border: none;
+      }
     }
 
     .brand-site-name {
@@ -118,126 +175,45 @@ $offwhite: rgb(44, 44, 44);
       background-color: $primary;
       display: none;
     }
-
   }
 
-}
-
-
-.site-name {
-  color: $secondary;
-  padding-left: 0px;
-  span {
-    height: 100%;
-    padding-left: 15px;
-    border-left: 1px solid;
-    border-left-color: $white;
-  }
-
-}
-
-@include breakpoint(menu) {
-
-  .site-name {
-    span {
-      border:none;
-    }
-  }
-
-}
-
-.right-links{
-  position: relative;
-}
-
-.right-links a{
-  float: none;
-  display: none;
-}
-
-.right-links .dropdown {
-  float: none;
-  display: none;
-}
-
-
-@media screen and (max-width: 855px) {
-  .right-links.responsive a,
-  .right-links.responsive .dropdown {
-    float: none;
+  .right-links {
+    position: relative;
     display: block;
-  }
+    padding: 6px 3px 0px 3px;
+    a {
+      margin: 0px 5px 0px 5px;
+      padding: 0px 10px 0px 10px;
+      display: flex;
+      float: left;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      height: 100%;
+      color: $secondary;
+      text-align: center;
+      text-decoration: none;
+      font-size: 17px;
+      height: 50px;
+      min-width: 90px;
+      border-bottom: 3px solid;
+      border-bottom-color: $primary;
+    }
 
-  .right-links.responsive {
-    position: absolute;
-    top:70px;
-    width: 100%;
-    box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.26);
-    -webkit-box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.26);
+    a >span:last-child{
+      margin-left:5px;
+    }
 
-  }
+    a>span:first-child{
+      margin-right:5px;
+    }
 
-  .right-links.responsive a{
-    color: $white;
-    text-decoration: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    text-align: center;
-    height:50px;
-    border-bottom: 1px solid;
-    border-bottom-color: $white;
-    background-color: $offwhite;
-  }
-  .right-links a:hover {
-    background-color: $white;
-    color: $secondary;
-    span {
+    a:hover {
+      background-color: $white;
+      color: $secondary;
+      border-bottom: 3px solid;
       border-bottom-color: $secondary;
     }
-  }
-
-}
-
-.open {
-  position: relative;
-  display: block;
-  width: 100%;
-  box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.26);
-  -webkit-box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.26);
-}
-
-@include breakpoint(menu) {
-
-  .right-links{
-    position: relative;
-    display:block;
-    padding: 6px 3px 0px 3px;
-      a {
-        margin:0px 5px 0px 5px;
-        padding:0px 10px 0px 10px;
-        display: flex;
-        float:left;
-        justify-content: center;
-        align-items: center;
-        margin: 0 auto;
-        height: 100%;
-        color: $secondary;
-        text-align: center;
-        text-decoration: none;
-        font-size: 17px;
-        height:50px;
-        min-width:90px;
-       border-bottom: 3px solid;
-       border-bottom-color: $primary ;
-      }
-      a:hover {
-        background-color: $white;
-        color: $secondary;
-       border-bottom: 3px solid;
-       border-bottom-color: $secondary ;
-      }
   }
 
   .right-links .dropdown {
@@ -245,7 +221,6 @@ $offwhite: rgb(44, 44, 44);
     display: block;
   }
   .dropdown-content a {
-
     width: 100%;
     display: flex;
     justify-content: center;
@@ -256,8 +231,8 @@ $offwhite: rgb(44, 44, 44);
     text-align: center;
     text-decoration: none;
     font-size: 17px;
-    min-width:90px;
-    height:50px;
+    min-width: 90px;
+    height: 50px;
   }
 
   .dropdown {
@@ -267,10 +242,13 @@ $offwhite: rgb(44, 44, 44);
     border: none;
   }
 
-  .dropdown .open{
+  .dropdown .open {
     background-color: $primary;
-
   }
+
+
+
+
 
   .open {
     background-color: $primary;
@@ -279,48 +257,69 @@ $offwhite: rgb(44, 44, 44);
     position: absolute;
     display: block;
     z-index: 1000;
-    top:47px;
+    top: 47px;
+    box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.26);
+    -webkit-box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.26);
+  }
+}
+
+@media screen and (max-width: 855px) {
+
+
+  .right-links.right-links.responsive{
+    padding:10px;
+    background-color:  #343a40;
   }
 
+  .right-links.responsive a,
 
+  .right-links.responsive .dropdown {
+    float: none;
+    display: block;
+
+  }
+
+  .right-links.responsive {
+    position: absolute;
+    top: 70px;
+    width: 100%;
+    box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.26);
+    -webkit-box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.26);
+  }
+
+  .right-links.responsive a {
+    color: $white;
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 10px;
+    align-items: center;
+   // margin: 0 auto;
+    text-align: center;
+    height: 50px;
+    width:100%;
+
+    background-color: #212529;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .right-links a:hover {
+    background-color: $white;
+    color: $secondary;
+    span {
+      border-bottom-color: $secondary;
+    }
+  }
 }
 
-
-a.skip-main {
-  left:-999px;
-  position:absolute;
-  top:auto;
-  width:1px;
-  height:1px;
-  overflow:hidden;
-  z-index:-999;
+#main {
+  margin-top: 25px;
 }
-a.skip-main:focus, a.skip-main:active {
-  color: $white;
-  background-color:$secondary;
-  left: auto;
-  top: 60px;
-  width: 100%;
-  height: 35px;
-  overflow:auto;
-  margin: auto;
-  line-height: 35px;
-  // border:4px solid $primary;
-  text-align:center;
-  font-size:1.2em;
-  z-index:999;
-}
-
-
-#main{
-  margin-top:25px
-}
-
 
 @include breakpoint(menu) {
-
-  #main{
-    margin-top:85px
+  #main {
+    margin-top: 85px;
   }
-
 }

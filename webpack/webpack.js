@@ -7,7 +7,7 @@ const path = require("path");
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
-//const outputFolder = "build";
+//const outputFolder = ../../portal_frontend/assets/uids";
 const outputFolder = "build";
 
 module.exports = {
@@ -86,6 +86,6 @@ module.exports = {
   },
   output: {
     filename: isDevelopment ? "[name].js" : "[name].[hash].js",
-    path: path.resolve(__dirname, "../../portal_frontend/assets/uids")
+    path: path.resolve(__dirname, outputFolder)
   }
 };
