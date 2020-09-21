@@ -117,6 +117,7 @@
 
   &.bg-pattern--brain,
   &.bg-pattern--brain-reversed,
+  &.bg--gold,
   &.banner--gradient-left-reversed {
     color: $secondary;
 
@@ -138,13 +139,30 @@
     }
   }
 
+  &.bg-pattern--brain,
+  &.bg-pattern--brain-reversed,
+  &.bg--gold {
+    .bold-headline.bold-headline--negative {
+      @include breakpoint(sm) {
+        color: $secondary;
+        text-shadow: none;
+      }
+
+      a {
+        @include breakpoint(sm) {
+          color: $secondary;
+        }
+      }
+    }
+  }
+
   .bold-headline {
     &.bold-headline--negative {
       //line-height: 1;
-      color: #000;
+      color: $secondary;
 
       a {
-        color: #000;
+        color: $secondary;
 
         @include breakpoint(sm) {
           color: #fff;
@@ -212,34 +230,61 @@
     background: $secondary;
   }
 
-  &[class*="bg--"]:after,
-  &[class*="bg-pattern--"]:after {
+  &[class*="bg-"]:after {
     background: none;
   }
 
-  &.banner--gradient-center-left::after {
-    @include breakpoint(sm) {
-      background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 1)));
-      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 1));
+  &.banner--gradient-center-left {
+
+    &:after {
+      @include breakpoint(sm) {
+        background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 1)));
+        background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 1));
+      }
+    }
+
+    &[class*="bg-"]:after {
+      background: none;
     }
   }
 
-  &.banner--gradient-center::after {
-    @include breakpoint(sm) {
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 70%);
+  &.banner--gradient-center {
+
+    &:after {
+      @include breakpoint(sm) {
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 70%);
+      }
+    }
+
+    &[class*="bg-"]:after {
+      background: none;
     }
   }
 
 
-  &.banner--solid-opacity::after {
-    @include breakpoint(sm) {
-      background: rgba(0, 0, 0, .5);
+  &.banner--solid-opacity {
+
+    &:after {
+      @include breakpoint(sm) {
+        background: rgba(0, 0, 0, .5);
+      }
+    }
+
+    &[class*="bg-"]:after {
+      background: none;
     }
   }
 
-  &.banner--solid-opacity-reversed::after {
-    @include breakpoint(sm) {
-      background: rgba(255, 255, 255, .1);
+  &.banner--solid-opacity-reversed {
+
+    &:after {
+      @include breakpoint(sm) {
+        background: rgba(255, 255, 255, .1);
+      }
+    }
+
+    &[class*="bg-"]:after {
+      background: none;
     }
   }
 
@@ -249,9 +294,15 @@
     }
   }
 
-  &.banner--gradient-left-reversed:after {
-    @include breakpoint(sm) {
-      background: linear-gradient(90deg, #fff 1%, hsla(0, 0%, 100%, .92) 32%, hsla(0, 0%, 100%, 0));
+  &.banner--gradient-left-reversed {
+    &:after {
+      @include breakpoint(sm) {
+        background: linear-gradient(90deg, #fff 1%, hsla(0, 0%, 100%, .92) 32%, hsla(0, 0%, 100%, 0));
+      }
+    }
+
+    &[class*="bg-"]:after {
+      background: none;
     }
   }
 }
