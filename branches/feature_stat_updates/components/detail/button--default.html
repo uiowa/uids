@@ -385,9 +385,11 @@
 
 <span class="hljs-selector-class">.bttn--caps</span> {
   <span class="hljs-attribute">text-transform</span>: uppercase;
-  <span class="hljs-attribute">font-family</span>: <span class="hljs-string">"Antonio"</span>, sans-serif; }
+  <span class="hljs-attribute">font-family</span>: <span class="hljs-string">"Antonio"</span>, sans-serif;
+  <span class="hljs-attribute">-webkit-font-smoothing</span>: auto;
+  <span class="hljs-attribute">-moz-osx-font-smoothing</span>: auto; }
 
-<span class="hljs-selector-class">.bttn--sans-serif</span> {
+<span class="hljs-keyword">@-moz-document</span> url-prefix() {}<span class="hljs-selector-class">.bttn--sans-serif</span> {
   <span class="hljs-attribute">font-family</span>: <span class="hljs-string">"Roboto"</span>, sans-serif;
   <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">400</span>;
   <span class="hljs-attribute">font-size</span>: .<span class="hljs-number">9rem</span>;
@@ -395,7 +397,8 @@
   <span class="hljs-attribute">display</span>: inline-block; }
   <span class="hljs-selector-class">.bttn--sans-serif</span><span class="hljs-selector-pseudo">:focus</span> {
     <span class="hljs-attribute">text-decoration</span>: underline; }
-  <span class="hljs-selector-class">.bttn--sans-serif</span> <span class="hljs-selector-tag">i</span>, <span class="hljs-selector-class">.bttn--sans-serif</span> <span class="hljs-selector-tag">span</span> {
+  <span class="hljs-selector-class">.bttn--sans-serif</span> <span class="hljs-selector-tag">i</span>,
+  <span class="hljs-selector-class">.bttn--sans-serif</span> <span class="hljs-selector-tag">span</span> {
     <span class="hljs-attribute">font-size</span>: .<span class="hljs-number">9rem</span>; }
 
 <span class="hljs-selector-class">.bttn--link</span> {
@@ -404,7 +407,11 @@
     <span class="hljs-attribute">border</span>: none;
     <span class="hljs-attribute">transform</span>: none;
     <span class="hljs-attribute">background</span>: <span class="hljs-number">#fff</span>; }
-    <span class="hljs-selector-class">.bttn--link</span><span class="hljs-selector-pseudo">:hover</span> <span class="hljs-selector-tag">i</span>, <span class="hljs-selector-class">.bttn--link</span><span class="hljs-selector-pseudo">:hover</span> <span class="hljs-selector-tag">svg</span>, <span class="hljs-selector-class">.bttn--link</span><span class="hljs-selector-pseudo">:hover</span> <span class="hljs-selector-tag">span</span>, <span class="hljs-selector-class">.bttn--link</span><span class="hljs-selector-pseudo">:focus</span> <span class="hljs-selector-tag">i</span>, <span class="hljs-selector-class">.bttn--link</span><span class="hljs-selector-pseudo">:focus</span> <span class="hljs-selector-tag">svg</span>, <span class="hljs-selector-class">.bttn--link</span><span class="hljs-selector-pseudo">:focus</span> <span class="hljs-selector-tag">span</span> {
+    <span class="hljs-selector-class">.bttn--link</span><span class="hljs-selector-pseudo">:hover</span> <span class="hljs-selector-tag">i</span>,
+    <span class="hljs-selector-class">.bttn--link</span><span class="hljs-selector-pseudo">:hover</span> <span class="hljs-selector-tag">svg</span>,
+    <span class="hljs-selector-class">.bttn--link</span><span class="hljs-selector-pseudo">:hover</span> <span class="hljs-selector-tag">span</span>, <span class="hljs-selector-class">.bttn--link</span><span class="hljs-selector-pseudo">:focus</span> <span class="hljs-selector-tag">i</span>,
+    <span class="hljs-selector-class">.bttn--link</span><span class="hljs-selector-pseudo">:focus</span> <span class="hljs-selector-tag">svg</span>,
+    <span class="hljs-selector-class">.bttn--link</span><span class="hljs-selector-pseudo">:focus</span> <span class="hljs-selector-tag">span</span> {
       <span class="hljs-attribute">color</span>: <span class="hljs-number">#000</span>; }
     <span class="hljs-selector-class">.bttn--link</span><span class="hljs-selector-pseudo">:hover</span><span class="hljs-selector-pseudo">:hover</span><span class="hljs-selector-pseudo">::after</span>, <span class="hljs-selector-class">.bttn--link</span><span class="hljs-selector-pseudo">:hover</span><span class="hljs-selector-pseudo">:focus</span><span class="hljs-selector-pseudo">::after</span>, <span class="hljs-selector-class">.bttn--link</span><span class="hljs-selector-pseudo">:focus</span><span class="hljs-selector-pseudo">:hover</span><span class="hljs-selector-pseudo">::after</span>, <span class="hljs-selector-class">.bttn--link</span><span class="hljs-selector-pseudo">:focus</span><span class="hljs-selector-pseudo">:focus</span><span class="hljs-selector-pseudo">::after</span> {
       <span class="hljs-attribute">transform</span>: none; }
@@ -434,7 +441,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">4.9 KB</span>
+                    <span class="Meta-value">5 KB</span>
                 </li>
             </ul>
         </div>
@@ -484,15 +491,16 @@
 }
 
 <span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.bttn</span> {
-   <span class="hljs-selector-tag">span</span> {
-     <span class="hljs-attribute">margin-left</span>: <span class="hljs-variable">$sm</span>;
-     <span class="hljs-attribute">color</span>: <span class="hljs-variable">$primary</span>;
-   }
-   &amp;<span class="hljs-selector-class">.bttn--primary</span> {
-     <span class="hljs-selector-tag">span</span> {
-       <span class="hljs-attribute">color</span>: white;
-     }
-   }
+  <span class="hljs-selector-tag">span</span> {
+    <span class="hljs-attribute">margin-left</span>: <span class="hljs-variable">$sm</span>;
+    <span class="hljs-attribute">color</span>: <span class="hljs-variable">$primary</span>;
+  }
+
+  &amp;<span class="hljs-selector-class">.bttn--primary</span> {
+    <span class="hljs-selector-tag">span</span> {
+      <span class="hljs-attribute">color</span>: white;
+    }
+  }
 }
 
 <span class="hljs-selector-class">.bttn--primary</span> {
@@ -567,7 +575,17 @@
 <span class="hljs-selector-class">.bttn--caps</span> {
   <span class="hljs-attribute">text-transform</span>: uppercase;
   <span class="hljs-attribute">font-family</span>: <span class="hljs-variable">$font-family-caps-bold</span>;
+  -webkit-<span class="hljs-attribute">font</span>-smoothing: auto;
+  -moz-osx-<span class="hljs-attribute">font</span>-smoothing: auto;
 }
+
+<span class="hljs-keyword">@-moz-document</span> url-prefix() {
+  <span class="hljs-selector-class">.bttn--caps</span> {
+    <span class="hljs-comment">//padding: 1rem 2rem .8rem 2rem;</span>
+  }
+}
+
+
 
 <span class="hljs-selector-class">.bttn--sans-serif</span> {
   <span class="hljs-attribute">font-family</span>: <span class="hljs-variable">$font-family-sans-serif</span>;
@@ -575,10 +593,13 @@
   <span class="hljs-attribute">font-size</span>: .<span class="hljs-number">9rem</span>;
   <span class="hljs-attribute">letter-spacing</span>: .<span class="hljs-number">04rem</span>;
   <span class="hljs-attribute">display</span>: inline-block;
+
   &amp;<span class="hljs-selector-pseudo">:focus</span> {
     <span class="hljs-attribute">text-decoration</span>: underline;
   }
-  <span class="hljs-selector-tag">i</span>, <span class="hljs-selector-tag">span</span> {
+
+  <span class="hljs-selector-tag">i</span>,
+  <span class="hljs-selector-tag">span</span> {
     <span class="hljs-attribute">font-size</span>: .<span class="hljs-number">9rem</span>;
   }
 }
@@ -589,7 +610,10 @@
 
   &amp;<span class="hljs-selector-pseudo">:hover</span>,
   &amp;<span class="hljs-selector-pseudo">:focus</span> {
-    <span class="hljs-selector-tag">i</span>, svg, <span class="hljs-selector-tag">span</span> {
+
+    <span class="hljs-selector-tag">i</span>,
+    svg,
+    <span class="hljs-selector-tag">span</span> {
       <span class="hljs-attribute">color</span>: <span class="hljs-number">#000</span>;
     }
 
@@ -631,7 +655,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">2 KB</span>
+                    <span class="Meta-value">2.2 KB</span>
                 </li>
             </ul>
         </div>
@@ -1538,8 +1562,8 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-09-17T16:37:37.244Z">
-                9/17/2020
+            <time datetime="2020-09-21T14:16:56.802Z">
+                9/21/2020
             </time>
         </div>
     </div>
