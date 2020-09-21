@@ -17,8 +17,14 @@
   &:hover .stat__content {
     @include breakpoint(menu) {
       @include element-invisible-off;
-      width: 80%;
+      width: 100%;
       opacity: 1;
+    }
+  }
+
+  &.element--flex-center:hover .stat__content {
+    @include breakpoint(menu) {
+      width: 80%;
     }
   }
 }
@@ -78,6 +84,13 @@
     line-height: 1.4;
     width: 80%;
 
+    @include breakpoint(menu) {
+      opacity: 0;
+      transition: 1s;
+      @include element-invisible;
+      width: 100%;
+    }
+
     .bg--black &,
     .bg-pattern--brain-black & {
       color: #ccc;
@@ -88,11 +101,10 @@
       color: $secondary;
     }
 
-    @include breakpoint(menu) {
-      opacity: 0;
-      transition: 1s;
-      @include element-invisible;
-      width: 80%;
+    .element--flex-center & {
+      @include breakpoint(menu) {
+        width: 80%;
+      }
     }
 
   }
