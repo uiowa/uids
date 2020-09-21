@@ -623,27 +623,6 @@
 
 <span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">"DOMContentLoaded"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     generateResponsiveTables();
-
-    <span class="hljs-comment">// Detect if we are on a layout builder preview page.</span>
-    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#block-uids-base-local-tasks a[data-drupal-link-system-path$="layout"].is-active'</span>)) {
-        <span class="hljs-comment">// if it is, grab the element that holds the layout builder content and its preview.</span>
-        <span class="hljs-keyword">let</span> layoutContent = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#block-uids-base-content'</span>);
-        <span class="hljs-comment">// Then set up a mutation observer to observe if if the content within it changes.</span>
-        <span class="hljs-keyword">let</span> layoutContentMO = <span class="hljs-keyword">new</span> <span class="hljs-built_in">window</span>.MutationObserver(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>{
-            <span class="hljs-comment">// For each change 'e', check to see if there are removed nodesand if tere are, if one of them was the 'layout-builder' node.</span>
-            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; e.length; i++) {
-                <span class="hljs-keyword">if</span> (e[i].removedNodes[<span class="hljs-number">0</span>] &amp;&amp; e[i].removedNodes[<span class="hljs-number">0</span>].id == <span class="hljs-string">'layout-builder'</span>) {
-                    <span class="hljs-comment">// If it was removed, that means the HTML was regenerated, and we need to regenerate the Responsive tables.</span>
-                    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-                        <span class="hljs-comment">//Because the editor drawer closes so slow, we have a delay before we resize the tables.</span>
-                        generateResponsiveTables();
-                    }, <span class="hljs-number">500</span>);
-                }
-            }
-        });
-        <span class="hljs-comment">// This is where we tell the mutation observer what element to observe.</span>
-        layoutContentMO.observe(layoutContent, { <span class="hljs-attr">childList</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">subtree</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">characterData</span>: <span class="hljs-literal">true</span> });
-    }
 });
 
 <span class="hljs-comment">// Instantiate tables on the page.</span>
@@ -922,7 +901,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">13.8 KB</span>
+                    <span class="Meta-value">12.4 KB</span>
                 </li>
             </ul>
         </div>
@@ -1989,8 +1968,8 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-09-17T14:08:31.682Z">
-                9/17/2020
+            <time datetime="2020-09-21T20:26:59.557Z">
+                9/21/2020
             </time>
         </div>
     </div>

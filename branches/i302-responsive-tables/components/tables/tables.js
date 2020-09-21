@@ -2,27 +2,6 @@ let resizeTimer;
 
 document.addEventListener("DOMContentLoaded", function () {
     generateResponsiveTables();
-
-    // Detect if we are on a layout builder preview page.
-    if (document.querySelector('#block-uids-base-local-tasks a[data-drupal-link-system-path$="layout"].is-active')) {
-        // if it is, grab the element that holds the layout builder content and its preview.
-        let layoutContent = document.querySelector('#block-uids-base-content');
-        // Then set up a mutation observer to observe if if the content within it changes.
-        let layoutContentMO = new window.MutationObserver(function (e) {
-            // For each change 'e', check to see if there are removed nodesand if tere are, if one of them was the 'layout-builder' node.
-            for (let i = 0; i < e.length; i++) {
-                if (e[i].removedNodes[0] && e[i].removedNodes[0].id == 'layout-builder') {
-                    // If it was removed, that means the HTML was regenerated, and we need to regenerate the Responsive tables.
-                    setTimeout(function () {
-                        //Because the editor drawer closes so slow, we have a delay before we resize the tables.
-                        generateResponsiveTables();
-                    }, 500);
-                }
-            }
-        });
-        // This is where we tell the mutation observer what element to observe.
-        layoutContentMO.observe(layoutContent, { childList: true, subtree: true, characterData: true });
-    }
 });
 
 // Instantiate tables on the page.
