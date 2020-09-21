@@ -11,7 +11,7 @@ function generateResponsiveTables() {
 
     for (let i = 0; i < tables.length; i++) {
         let table = tables[i];
-        if (!table.closest('.table-responsive-container')) {
+        if (!table.closest('.table__responsive-container')) {
             // Set table header HTML for future use.
             let header_HTML = '';
 
@@ -59,7 +59,7 @@ function generateResponsiveTables() {
             for (let j = 0; j < trows.length; j++) {
                 let trow = trows[j];
                 if (trow.firstElementChild && trow.firstElementChild.tagName === 'TH') {
-                    row_headers = 'row-headers--true';
+                    row_headers = 'table__row-headers--true';
 
                     if (!trow.firstElementChild.hasAttribute('scope')) {
                         // If they dont have the scope attribute, give thema  scope of "row".
@@ -72,7 +72,7 @@ function generateResponsiveTables() {
             let header_scroller = '';
             if (header_HTML !== '') {
                 header_scroller = '\
-                <div id="headers-table-' + i + '" class="headers-table" aria-hidden="true">\
+                <div id="headers-table-' + i + '" class="table__responsive-header" aria-hidden="true">\
                     <div class="scroller syncscroll" name="sync-table-' + i + '">\
                         ' + header_HTML + '\
                     </div>\
@@ -82,19 +82,19 @@ function generateResponsiveTables() {
 
             // Wrap the table in a responsive table div, and make sure aria knows what caption labels it, if any.
             // This should be done last as to not mess up any scoping of previous functions.
-            let classes = table.classList.contains('is-striped') ? 'is-striped' : '';
+            let classes = table.classList.contains('is-striped') ? 'table--striped' : '';
             table.outerHTML =
-                '<div id="table-responsive-' + i + '" class="table-responsive-container ' + classes + ' ' + row_headers + '" role="region" ' + caption_labeledby + ' tabindex="0">' +
-                header_scroller +
-                '<div class="table-container syncscroll" name="sync-table-' + i + '">' +
-                table.outerHTML +
-                '</div>' +
+                '<div id="table-responsive-' + i + '" class="table__responsive-container ' + classes + ' ' + row_headers + '" role="region" ' + caption_labeledby + ' tabindex="0">' +
+                    header_scroller +
+                    '<div class="table__container syncscroll" name="sync-table-' + i + '">' +
+                        table.outerHTML +
+                    '</div>' +
                 '</div>'
                 ;
 
             // Grab necessary elements to measure scrolling so we can add sticky class.
             let table_bounding_box_selector = document.querySelector('#table-responsive-' + i);
-            let table_bounding_box_selector_table_container = table_bounding_box_selector.querySelector('.table-container');
+            let table_bounding_box_selector_table_container = table_bounding_box_selector.querySelector('.table__container');
 
             // Add listeners for sticky class application.
             // Only add the listener for the headers if they exist.
@@ -127,7 +127,7 @@ function generateResponsiveTables() {
 
 // This function will iterate through all tables, resize them, and then resize their headers.
 function triggerTableRespond() {
-    let responsive_tables = document.querySelectorAll('.table-responsive-container');
+    let responsive_tables = document.querySelectorAll('.table__responsive-container');
     for (let i = 0; i < responsive_tables.length; i++) {
         // Reset Tables container sizes if they are contained in layout containers.
         if (responsive_tables[i].closest('.block-inline-blockuiowa-text-area')) {
@@ -152,7 +152,7 @@ function triggerTableRespond() {
 
 // This function resizes the headers for a given table "i".
 function resizeScrollerheaders(i) {
-    let invisible_headers = document.querySelectorAll('#headers-table-' + i + ' + .table-container table .invisible-header');
+    let invisible_headers = document.querySelectorAll('#headers-table-' + i + ' + .table__container table .invisible-header');
     for (let j = 0; j < invisible_headers.length; j++) {
         let header = invisible_headers[j]
         let header_tag = header.getAttribute('data-table-heading');
@@ -162,7 +162,7 @@ function resizeScrollerheaders(i) {
         visible_header.style.width = header_width + 'px';
         visible_header.style.height = (header_height + 1) + 'px';
     }
-    let table_container = document.querySelector('#headers-table-' + i + ' + .table-container');
+    let table_container = document.querySelector('#headers-table-' + i + ' + .table__container');
     let thead_height = table_container.querySelector('table thead').offsetHeight;
     table_container.style.marginTop = '-' + (thead_height + 1) + 'px';
 }
@@ -207,7 +207,7 @@ function resetTableContainers(table) {
  */
 function tableSetStickyHeaders(elem) {
 
-    let elem_table = elem.querySelector('.table-container table');
+    let elem_table = elem.querySelector('.table__container table');
 
     // Get container element's bounding.
     var container_bounding = elem.getBoundingClientRect();
@@ -224,18 +224,18 @@ function tableSetStickyHeaders(elem) {
 
     // Check if the top bounding box is out and if it is then assign appropriate class.
     if (out.top) {
-        elem.classList.add('isSticky-Top');
+        elem.classList.add('is-sticky-top');
     }
     else {
-        elem.classList.remove('isSticky-Top');
+        elem.classList.remove('is-sticky-top');
     }
 
     // Check if the left bounding box is out and if it is then assign appropriate class.
     if (out.left) {
-        elem.classList.add('isSticky-Left');
+        elem.classList.add('is-sticky-left');
     }
     if (out.left_back) {
-        elem.classList.remove('isSticky-Left');
+        elem.classList.remove('is-sticky-left');
     }
 };
 

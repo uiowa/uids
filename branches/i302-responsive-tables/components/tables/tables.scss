@@ -1,11 +1,11 @@
 @import '../../assets/scss/variables';
 //// Table Elements
 
-.table-responsive-container {
+.table__responsive-container {
   width: 100%;
   position: relative;
 
-  &.row-headers--true {
+  &.table__row-headers--true {
     .track-heading:first-child {
       left: 0;
     }
@@ -15,8 +15,8 @@
     }
   }
 
-  &.is-striped {
-    &.isSticky-Left.left-sticky-minwidth {
+  &.table--striped {
+    &.is-sticky-left.left-sticky-minwidth {
       table.is-striped tbody th {
         filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
       }
@@ -27,7 +27,7 @@
     }
   }
 
-  &.isSticky-Left.left-sticky-minwidth .track-heading:first-child {
+  &.is-sticky-left.left-sticky-minwidth .track-heading:first-child {
     border-right: 1px solid #ccc;
   }
 
@@ -36,7 +36,7 @@
     transition: border-right 0.3s ease-in-out;
   }
 
-  &.isSticky-Left.is-striped.left-sticky-minwidth .track-heading:first-child {
+  &.is-sticky-left.table--striped.left-sticky-minwidth .track-heading:first-child {
     border-right: none;
   }
 
@@ -51,7 +51,7 @@ table {
   border-spacing: 0;
 }
 
-.headers-table {
+.table__responsive-header {
   position: sticky;
   z-index: 1;
   top: 0;
@@ -74,7 +74,7 @@ table {
     }
   }
 
-  .is-striped & {
+  .table--striped & {
     .track-heading {
       background: $primary;
       text-transform: uppercase;
@@ -83,22 +83,22 @@ table {
   }
 }
 
-.table-responsive-container.is-striped {
+.table__responsive-container.table--striped {
   border: 1px solid #eee;
 
   table.is-striped {
     border: none;
   }
   
-  &.isSticky-Top {
-    .headers-table {
+  &.is-sticky-top {
+    .table__responsive-header {
       transition: filter 0.3s ease-in-out;
       filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.2));
     }
   }
 }
 
-.table-container {
+.table__container {
   overflow-x: auto;
 }
 
@@ -114,7 +114,7 @@ table th,
   font-size: $base-font-size;
 }
 
-.text-formatted .table-responsive-container div {
+.text-formatted .table__responsive-container div {
     line-height: inherit;
     font-size: $base-font-size;
     margin-bottom: 0;
@@ -192,6 +192,6 @@ table.table-static {
   }
 } 
 
-.lb__container .table-responsive-container {
+.lb__container .table__responsive-container {
   margin-right: auto;
 }
