@@ -6,15 +6,16 @@
 }
 
 a.bttn {
-   span {
-     margin-left: $sm;
-     color: $primary;
-   }
-   &.bttn--primary {
-     span {
-       color: white;
-     }
-   }
+  span {
+    margin-left: $sm;
+    color: $primary;
+  }
+
+  &.bttn--primary {
+    span {
+      color: white;
+    }
+  }
 }
 
 .bttn--primary {
@@ -89,7 +90,17 @@ a.bttn {
 .bttn--caps {
   text-transform: uppercase;
   font-family: $font-family-caps-bold;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
 }
+
+@-moz-document url-prefix() {
+  .bttn--caps {
+    //padding: 1rem 2rem .8rem 2rem;
+  }
+}
+
+
 
 .bttn--sans-serif {
   font-family: $font-family-sans-serif;
@@ -97,10 +108,13 @@ a.bttn {
   font-size: .9rem;
   letter-spacing: .04rem;
   display: inline-block;
+
   &:focus {
     text-decoration: underline;
   }
-  i, span {
+
+  i,
+  span {
     font-size: .9rem;
   }
 }
@@ -111,7 +125,10 @@ a.bttn {
 
   &:hover,
   &:focus {
-    i, svg, span {
+
+    i,
+    svg,
+    span {
       color: #000;
     }
 
