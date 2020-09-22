@@ -642,7 +642,7 @@
 
             <span class="hljs-comment">//If the table catption exists and doesnt have an Id...</span>
             <span class="hljs-keyword">if</span> (table.getElementsByTagName(<span class="hljs-string">'caption'</span>)[<span class="hljs-number">0</span>] &amp;&amp; !table.getElementsByTagName(<span class="hljs-string">'caption'</span>)[<span class="hljs-number">0</span>].id) {
-                caption_id = <span class="hljs-string">'table-'</span> + i;
+                caption_id = <span class="hljs-string">'table--'</span> + i;
                 caption_labeledby = <span class="hljs-string">'aria-labelledby="'</span> + caption_id + <span class="hljs-string">'"'</span>;
 
                 <span class="hljs-comment">//Give the caption an Id.</span>
@@ -667,8 +667,8 @@
                     header_HTML = header_HTML +
                         <span class="hljs-string">'&lt;div class="table__responsive-header__track-heading" data-scroller-heading="t-'</span> + i + <span class="hljs-string">'-h-'</span> + j + <span class="hljs-string">'"&gt;\
                             &lt;div class="text-positioner"&gt;'</span> +
-                        thead.innerHTML +
-                        <span class="hljs-string">'&lt;/div&gt;\
+                                thead.innerHTML +
+                            <span class="hljs-string">'&lt;/div&gt;\
                         &lt;/div&gt;'</span>
                         ;
                 }
@@ -693,7 +693,7 @@
             <span class="hljs-keyword">let</span> header_scroller = <span class="hljs-string">''</span>;
             <span class="hljs-keyword">if</span> (header_HTML !== <span class="hljs-string">''</span>) {
                 header_scroller = <span class="hljs-string">'\
-                &lt;div id="headers-table-'</span> + i + <span class="hljs-string">'" class="table__responsive-header" aria-hidden="true"&gt;\
+                &lt;div id="table__header--'</span> + i + <span class="hljs-string">'" class="table__responsive-header" aria-hidden="true"&gt;\
                     &lt;div class="table__responsive-header__scroller syncscroll" name="sync-table-'</span> + i + <span class="hljs-string">'"&gt;\
                         '</span> + header_HTML + <span class="hljs-string">'\
                     &lt;/div&gt;\
@@ -705,7 +705,7 @@
             <span class="hljs-comment">// This should be done last as to not mess up any scoping of previous functions.</span>
             <span class="hljs-keyword">let</span> classes = table.classList.contains(<span class="hljs-string">'is-striped'</span>) ? <span class="hljs-string">'table--striped'</span> : <span class="hljs-string">''</span>;
             table.outerHTML =
-                <span class="hljs-string">'&lt;div id="table-responsive-'</span> + i + <span class="hljs-string">'" class="table__responsive-container '</span> + classes + <span class="hljs-string">' '</span> + row_headers + <span class="hljs-string">'" role="region" '</span> + caption_labeledby + <span class="hljs-string">' tabindex="0"&gt;'</span> +
+                <span class="hljs-string">'&lt;div id="table__responsive-container--'</span> + i + <span class="hljs-string">'" class="table__responsive-container table '</span> + classes + <span class="hljs-string">' '</span> + row_headers + <span class="hljs-string">'" role="region" '</span> + caption_labeledby + <span class="hljs-string">' tabindex="0"&gt;'</span> +
                     header_scroller +
                     <span class="hljs-string">'&lt;div class="table__container syncscroll" name="sync-table-'</span> + i + <span class="hljs-string">'"&gt;'</span> +
                         table.outerHTML +
@@ -714,7 +714,7 @@
                 ;
 
             <span class="hljs-comment">// Grab necessary elements to measure scrolling so we can add sticky class.</span>
-            <span class="hljs-keyword">let</span> table_bounding_box_selector = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#table-responsive-'</span> + i);
+            <span class="hljs-keyword">let</span> table_bounding_box_selector = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#table__responsive-container--'</span> + i);
             <span class="hljs-keyword">let</span> table_bounding_box_selector_table_container = table_bounding_box_selector.querySelector(<span class="hljs-string">'.table__container'</span>);
 
             <span class="hljs-comment">// Add listeners for sticky class application.</span>
@@ -757,7 +757,7 @@
 
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; responsive_tables.length; i++) {
         <span class="hljs-comment">// Resize the visible headers every window resize if they exist.</span>
-        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#headers-table-'</span> + i)) {
+        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#table__header--'</span> + i)) {
             resizeScrollerheaders(i);
         }
 
@@ -768,17 +768,17 @@
 
 <span class="hljs-comment">// This function resizes the headers for a given table "i".</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">resizeScrollerheaders</span>(<span class="hljs-params">i</span>) </span>{
-    <span class="hljs-keyword">let</span> invisible_headers = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">'#headers-table-'</span> + i + <span class="hljs-string">' + .table__container table .table__invisible-header'</span>);
+    <span class="hljs-keyword">let</span> invisible_headers = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">'#table__header--'</span> + i + <span class="hljs-string">' + .table__container table .table__invisible-header'</span>);
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>; j &lt; invisible_headers.length; j++) {
         <span class="hljs-keyword">let</span> header = invisible_headers[j]
         <span class="hljs-keyword">let</span> header_tag = header.getAttribute(<span class="hljs-string">'data-table-heading'</span>);
         <span class="hljs-keyword">let</span> header_width = header.offsetWidth;
         <span class="hljs-keyword">let</span> header_height = header.offsetHeight;
-        <span class="hljs-keyword">let</span> visible_header = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#headers-table-'</span> + i + <span class="hljs-string">' [data-scroller-heading="'</span> + header_tag + <span class="hljs-string">'"]'</span>);
+        <span class="hljs-keyword">let</span> visible_header = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#table__header--'</span> + i + <span class="hljs-string">' [data-scroller-heading="'</span> + header_tag + <span class="hljs-string">'"]'</span>);
         visible_header.style.width = header_width + <span class="hljs-string">'px'</span>;
         visible_header.style.height = (header_height + <span class="hljs-number">1</span>) + <span class="hljs-string">'px'</span>;
     }
-    <span class="hljs-keyword">let</span> table_container = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#headers-table-'</span> + i + <span class="hljs-string">' + .table__container'</span>);
+    <span class="hljs-keyword">let</span> table_container = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#table__header--'</span> + i + <span class="hljs-string">' + .table__container'</span>);
     <span class="hljs-keyword">let</span> thead_height = table_container.querySelector(<span class="hljs-string">'table thead'</span>).offsetHeight;
     table_container.style.marginTop = <span class="hljs-string">'-'</span> + (thead_height + <span class="hljs-number">1</span>) + <span class="hljs-string">'px'</span>;
 }
@@ -846,7 +846,6 @@
         }
     }
 }
-
 
 <span class="hljs-comment">// This is the copied syncscroll script needed to maintain syncronized scrolling between the table and the viaual headers.</span>
 <span class="hljs-comment">// https://github.com/asvd/syncscroll</span>
@@ -1933,7 +1932,7 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-09-22T15:49:43.205Z">
+            <time datetime="2020-09-22T16:48:03.727Z">
                 9/22/2020
             </time>
         </div>
