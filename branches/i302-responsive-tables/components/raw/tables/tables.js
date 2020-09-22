@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // Instantiate tables on the page.
 function generateResponsiveTables() {
     // Only instantiate tables that are not pre defined by the user as 'table-static'.
-    let tables = document.querySelectorAll('table:not(.table-static)');
+    let tables = document.querySelectorAll('table:not(.table--static)');
 
     for (let i = 0; i < tables.length; i++) {
         let table = tables[i];
@@ -39,12 +39,12 @@ function generateResponsiveTables() {
                         thead.setAttribute('scope', 'col');
                     };
 
-                    thead.classList.add("invisible-header");
+                    thead.classList.add("table__invisible-header");
                     thead.setAttribute('data-table-heading', 't-' + i + '-h-' + j);
 
                     // Give the html to header_HTML for later usage.
                     header_HTML = header_HTML +
-                        '<div class="track-heading" data-scroller-heading="t-' + i + '-h-' + j + '">\
+                        '<div class="table__responsive-header__track-heading" data-scroller-heading="t-' + i + '-h-' + j + '">\
                             <div class="text-positioner">' +
                         thead.innerHTML +
                         '</div>\
@@ -73,7 +73,7 @@ function generateResponsiveTables() {
             if (header_HTML !== '') {
                 header_scroller = '\
                 <div id="headers-table-' + i + '" class="table__responsive-header" aria-hidden="true">\
-                    <div class="scroller syncscroll" name="sync-table-' + i + '">\
+                    <div class="table__responsive-header__scroller syncscroll" name="sync-table-' + i + '">\
                         ' + header_HTML + '\
                     </div>\
                 </div>';
@@ -152,7 +152,7 @@ function triggerTableRespond() {
 
 // This function resizes the headers for a given table "i".
 function resizeScrollerheaders(i) {
-    let invisible_headers = document.querySelectorAll('#headers-table-' + i + ' + .table__container table .invisible-header');
+    let invisible_headers = document.querySelectorAll('#headers-table-' + i + ' + .table__container table .table__invisible-header');
     for (let j = 0; j < invisible_headers.length; j++) {
         let header = invisible_headers[j]
         let header_tag = header.getAttribute('data-table-heading');
@@ -224,18 +224,18 @@ function tableSetStickyHeaders(elem) {
 
     // Check if the top bounding box is out and if it is then assign appropriate class.
     if (out.top) {
-        elem.classList.add('is-sticky-top');
+        elem.classList.add('table--is-sticky-top');
     }
     else {
-        elem.classList.remove('is-sticky-top');
+        elem.classList.remove('table--is-sticky-top');
     }
 
     // Check if the left bounding box is out and if it is then assign appropriate class.
     if (out.left) {
-        elem.classList.add('is-sticky-left');
+        elem.classList.add('table--is-sticky-left');
     }
     if (out.left_back) {
-        elem.classList.remove('is-sticky-left');
+        elem.classList.remove('table--is-sticky-left');
     }
 };
 
@@ -244,10 +244,10 @@ function tableSetMinWidthClass(table) {
     let table_width = table.offsetWidth;
 
     if (table_width > 400) {
-        table.classList.add("left-sticky-minwidth");
+        table.classList.add("table--left-sticky-minwidth");
     }
     else {
-        table.classList.remove("left-sticky-minwidth");
+        table.classList.remove("table--left-sticky-minwidth");
     }
 }
 
