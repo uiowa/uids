@@ -21,7 +21,7 @@ function generateResponsiveTables() {
 
             //If the table catption exists and doesnt have an Id...
             if (table.getElementsByTagName('caption')[0] && !table.getElementsByTagName('caption')[0].id) {
-                caption_id = 'table-' + i;
+                caption_id = 'table--' + i;
                 caption_labeledby = 'aria-labelledby="' + caption_id + '"';
 
                 //Give the caption an Id.
@@ -46,8 +46,8 @@ function generateResponsiveTables() {
                     header_HTML = header_HTML +
                         '<div class="table__responsive-header__track-heading" data-scroller-heading="t-' + i + '-h-' + j + '">\
                             <div class="text-positioner">' +
-                        thead.innerHTML +
-                        '</div>\
+                                thead.innerHTML +
+                            '</div>\
                         </div>'
                         ;
                 }
@@ -72,7 +72,7 @@ function generateResponsiveTables() {
             let header_scroller = '';
             if (header_HTML !== '') {
                 header_scroller = '\
-                <div id="headers-table-' + i + '" class="table__responsive-header" aria-hidden="true">\
+                <div id="table__header--' + i + '" class="table__responsive-header" aria-hidden="true">\
                     <div class="table__responsive-header__scroller syncscroll" name="sync-table-' + i + '">\
                         ' + header_HTML + '\
                     </div>\
@@ -84,7 +84,7 @@ function generateResponsiveTables() {
             // This should be done last as to not mess up any scoping of previous functions.
             let classes = table.classList.contains('is-striped') ? 'table--striped' : '';
             table.outerHTML =
-                '<div id="table-responsive-' + i + '" class="table__responsive-container ' + classes + ' ' + row_headers + '" role="region" ' + caption_labeledby + ' tabindex="0">' +
+                '<div id="table__responsive-container--' + i + '" class="table__responsive-container table ' + classes + ' ' + row_headers + '" role="region" ' + caption_labeledby + ' tabindex="0">' +
                     header_scroller +
                     '<div class="table__container syncscroll" name="sync-table-' + i + '">' +
                         table.outerHTML +
@@ -93,7 +93,7 @@ function generateResponsiveTables() {
                 ;
 
             // Grab necessary elements to measure scrolling so we can add sticky class.
-            let table_bounding_box_selector = document.querySelector('#table-responsive-' + i);
+            let table_bounding_box_selector = document.querySelector('#table__responsive-container--' + i);
             let table_bounding_box_selector_table_container = table_bounding_box_selector.querySelector('.table__container');
 
             // Add listeners for sticky class application.
@@ -136,7 +136,7 @@ function triggerTableRespond() {
 
     for (let i = 0; i < responsive_tables.length; i++) {
         // Resize the visible headers every window resize if they exist.
-        if (document.querySelector('#headers-table-' + i)) {
+        if (document.querySelector('#table__header--' + i)) {
             resizeScrollerheaders(i);
         }
 
@@ -147,17 +147,17 @@ function triggerTableRespond() {
 
 // This function resizes the headers for a given table "i".
 function resizeScrollerheaders(i) {
-    let invisible_headers = document.querySelectorAll('#headers-table-' + i + ' + .table__container table .table__invisible-header');
+    let invisible_headers = document.querySelectorAll('#table__header--' + i + ' + .table__container table .table__invisible-header');
     for (let j = 0; j < invisible_headers.length; j++) {
         let header = invisible_headers[j]
         let header_tag = header.getAttribute('data-table-heading');
         let header_width = header.offsetWidth;
         let header_height = header.offsetHeight;
-        let visible_header = document.querySelector('#headers-table-' + i + ' [data-scroller-heading="' + header_tag + '"]');
+        let visible_header = document.querySelector('#table__header--' + i + ' [data-scroller-heading="' + header_tag + '"]');
         visible_header.style.width = header_width + 'px';
         visible_header.style.height = (header_height + 1) + 'px';
     }
-    let table_container = document.querySelector('#headers-table-' + i + ' + .table__container');
+    let table_container = document.querySelector('#table__header--' + i + ' + .table__container');
     let thead_height = table_container.querySelector('table thead').offsetHeight;
     table_container.style.marginTop = '-' + (thead_height + 1) + 'px';
 }
@@ -225,7 +225,6 @@ function throttle(fn, argument, wait) {
         }
     }
 }
-
 
 // This is the copied syncscroll script needed to maintain syncronized scrolling between the table and the viaual headers.
 // https://github.com/asvd/syncscroll
