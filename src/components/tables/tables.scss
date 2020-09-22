@@ -6,41 +6,41 @@
   position: relative;
 
   &.table__row-headers--true {
-    .track-heading:first-child {
+    .table__responsive-header__track-heading:first-child {
       left: 0;
     }
 
-    &.left-sticky-minwidth .track-heading:first-child {
+    &.table--left-sticky-minwidth .table__responsive-header__track-heading:first-child {
       position: sticky;
     }
   }
 
   &.table--striped {
-    &.is-sticky-left.left-sticky-minwidth {
+    &.table--is-sticky-left.table--left-sticky-minwidth {
       table.is-striped tbody th {
         filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
       }
 
-      .track-heading:first-child {
+      .table__responsive-header__track-heading:first-child {
         filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
       }
     }
   }
 
-  &.is-sticky-left.left-sticky-minwidth .track-heading:first-child {
+  &.table--is-sticky-left.table--left-sticky-minwidth .table__responsive-header__track-heading:first-child {
     border-right: 1px solid #ccc;
   }
 
-  .track-heading:first-child {
+  .table__responsive-header__track-heading:first-child {
     border-right: 1px solid #fff;
     transition: border-right 0.3s ease-in-out;
   }
 
-  &.is-sticky-left.table--striped.left-sticky-minwidth .track-heading:first-child {
+  &.table--is-sticky-left.table--striped.table--left-sticky-minwidth .table__responsive-header__track-heading:first-child {
     border-right: none;
   }
 
-  &.left-sticky-minwidth table tbody th {
+  &.table--left-sticky-minwidth table tbody th {
     position: sticky;
   }
 }
@@ -56,11 +56,11 @@ table {
   z-index: 1;
   top: 0;
 
-  .scroller {
+  .table__responsive-header__scroller {
     white-space: nowrap;
     overflow-x: hidden;
 
-    .track-heading {
+    .table__responsive-header__track-heading {
       display: inline-block;
 
       .text-positioner {
@@ -75,7 +75,7 @@ table {
   }
 
   .table--striped & {
-    .track-heading {
+    .table__responsive-header__track-heading {
       background: $primary;
       text-transform: uppercase;
       border: none;
@@ -90,7 +90,7 @@ table {
     border: none;
   }
   
-  &.is-sticky-top {
+  &.table--is-sticky-top {
     .table__responsive-header {
       transition: filter 0.3s ease-in-out;
       filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.2));
@@ -108,7 +108,7 @@ table {
 
 table td,
 table th,
-.scroller .track-heading {
+.table__responsive-header__scroller .table__responsive-header__track-heading {
   padding: $md;
   vertical-align: bottom;
   font-size: $base-font-size;
@@ -139,7 +139,7 @@ table {
 }
 
 table thead th,
-.scroller .track-heading {
+.table__responsive-header__scroller .table__responsive-header__track-heading {
   color: $secondary;
   background-color: #fff;
   border-bottom: 1px solid #cccccc;
@@ -154,13 +154,13 @@ table tbody th {
 }
 
 table th:not([align]),
-.scroller .track-heading {
+.table__responsive-header__scroller .table__responsive-header__track-heading {
   text-align: left;
 }
 
 table thead td,
 table thead th,
-.scroller .track-heading {
+.table__responsive-header__scroller .table__responsive-header__track-heading {
   color: $secondary;
 }
 
