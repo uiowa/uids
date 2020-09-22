@@ -128,18 +128,13 @@ function generateResponsiveTables() {
 // This function will iterate through all tables, resize them, and then resize their headers.
 function triggerTableRespond() {
     let responsive_tables = document.querySelectorAll('.table__responsive-container');
-    for (let i = 0; i < responsive_tables.length; i++) {
-        // Reset Tables container sizes if they are contained in layout containers.
-        if (responsive_tables[i].closest('.block-inline-blockuiowa-text-area')) {
-            resetTableContainers(responsive_tables[i]);
-        }
-    }
-    for (let i = 0; i < responsive_tables.length; i++) {
-        // Resize Tables container sizes if they are contained in layout containers.
-        if (responsive_tables[i].closest('.block-inline-blockuiowa-text-area')) {
-            resizeTableContainers(responsive_tables[i]);
-        }
 
+    // This function can be defined by the user to add any functionaity to this.
+    if (typeof hook_triggerTableRespond === "function") {
+        hook_triggerTableRespond(responsive_tables);
+    }
+
+    for (let i = 0; i < responsive_tables.length; i++) {
         // Resize the visible headers every window resize if they exist.
         if (document.querySelector('#headers-table-' + i)) {
             resizeScrollerheaders(i);
@@ -165,37 +160,6 @@ function resizeScrollerheaders(i) {
     let table_container = document.querySelector('#headers-table-' + i + ' + .table__container');
     let thead_height = table_container.querySelector('table thead').offsetHeight;
     table_container.style.marginTop = '-' + (thead_height + 1) + 'px';
-}
-
-// This function resizes the table wrapper.
-function resizeTableContainers(table) {
-    let table_bounding_box_selector = table;
-    let lb_container = table_bounding_box_selector.closest('.layout__container');
-    let lb_container_has_multiple_columns = lb_container.querySelectorAll('.lb__container>.layout__region').length;
-    let layout_width;
-
-    if (lb_container_has_multiple_columns) {
-        layout_width = table_bounding_box_selector.closest('.layout__region').offsetWidth;
-    }
-    else {
-        layout_width = table_bounding_box_selector.closest('.lb__container').offsetWidth;
-    }
-
-    table_bounding_box_selector.style.width = layout_width + 'px';
-}
-
-// This function resets the table wrapper size.
-function resetTableContainers(table) {
-    let table_bounding_box_selector = table;
-    let lb_container = table_bounding_box_selector.closest('.layout__container');
-    let lb_container_has_multiple_columns = lb_container.querySelectorAll('.lb__container>.layout__region').length;
-
-    if (lb_container_has_multiple_columns) {
-        table_bounding_box_selector.style.width = '1px';
-    }
-    else {
-        table_bounding_box_selector.style.width = '1px';
-    }
 }
 
 /*!
@@ -261,6 +225,7 @@ function throttle(fn, argument, wait) {
         }
     }
 }
+
 
 // This is the copied syncscroll script needed to maintain syncronized scrolling between the table and the viaual headers.
 // https://github.com/asvd/syncscroll
