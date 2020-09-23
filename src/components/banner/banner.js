@@ -1,10 +1,10 @@
 const banners = document.querySelectorAll('.banner');
-const link_elements = ['.bold-headline a', 'a.bttn'];
+const banner_link = ['.bold-headline a', 'a.bttn'];
 Array.prototype.forEach.call(banners, banner => {
   let up, down, link, i;
   // Loop through options and break on the first match.
-  for (i = 0; i < link_elements.length; i++) {
-    if (link = banner.querySelector(link_elements[i])) {
+  for (i = 0; i < banner_link.length; i++) {
+    if (link = banner.querySelector(banner_link[i])) {
       break;
     }
   }
