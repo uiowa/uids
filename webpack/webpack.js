@@ -8,12 +8,13 @@ const path = require("path");
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 //const outputFolder = ../../portal_frontend/assets/uids";
-const outputFolder = "build";
+const outputFolder = "site/build";
 
 module.exports = {
   entry: {
     uids: "./src/uids/uids.js",
-  //vendor: "./src/vendor/vendor.js",
+    navbar: "./src/uids/navbar.js",
+    vendor: "./src/vendor/bootstrap/vendor.js",
     custom: "./src/custom/custom.js"
   },
   mode: isDevelopment ? "development" : "production",
@@ -73,8 +74,10 @@ module.exports = {
     new WebpackAssetsManifest(),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
-      filename: isDevelopment ? "[name].css" : "[name].[hash].css",
-      chunkFilename: isDevelopment ? "[id].css" : "[id].[hash].css"
+      filename: isDevelopment ? "[name].css" : "[name].css",
+      chunkFilename: isDevelopment ? "[id].css" : "[id].css"
+     // filename: isDevelopment ? "[name].css" : "[name].[hash].css",
+     // chunkFilename: isDevelopment ? "[id].css" : "[id].[hash].css"
     })
   ],
   resolve: {
@@ -85,7 +88,8 @@ module.exports = {
     }
   },
   output: {
-    filename: isDevelopment ? "[name].js" : "[name].[hash].js",
+    //filename: isDevelopment ? "[name].js" : "[name].[hash].js",
+    filename: isDevelopment ? "[name].js" : "[name].js",
     path: path.resolve(__dirname, outputFolder)
   }
 };
