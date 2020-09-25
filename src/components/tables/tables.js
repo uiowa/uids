@@ -44,7 +44,7 @@ function generateResponsiveTables() {
 
                     // Give the html to header_HTML for later usage.
                     header_HTML = header_HTML +
-                        '<div class="table__responsive-header__track-heading" data-scroller-heading="t-' + i + '-h-' + j + '">\
+                        '<div class="table__sticky-heading" data-scroller-heading="t-' + i + '-h-' + j + '">\
                             <div class="text-positioner">' +
                                 thead.innerHTML +
                             '</div>\

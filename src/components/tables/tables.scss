@@ -73,11 +73,12 @@ table {
     position: relative;
 
     &.table__row-headers--true {
-      .table__responsive-header__track-heading:first-child {
+      // A sticky heading is a heading in the JS generated table__responsive-header container.
+      .table__sticky-heading:first-child {
         left: 0;
       }
 
-      &.table--left-sticky-minwidth .table__responsive-header__track-heading:first-child {
+      &.table--left-sticky-minwidth .table__sticky-heading:first-child {
         position: sticky;
       }
     }
@@ -90,7 +91,7 @@ table {
           filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
         }
 
-        .table__responsive-header__track-heading:first-child {
+        .table__sticky-heading:first-child {
           filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
         }
       }
@@ -107,16 +108,16 @@ table {
       }
     }
 
-    &.table--is-sticky-left.table--left-sticky-minwidth .table__responsive-header__track-heading:first-child {
+    &.table--is-sticky-left.table--left-sticky-minwidth .table__sticky-heading:first-child {
       border-right: 1px solid #ccc;
     }
 
-    .table__responsive-header__track-heading:first-child {
+    .table__responsive-header__sticky-heading:first-child {
       border-right: 1px solid #fff;
       transition: border-right 0.3s ease-in-out;
     }
 
-    &.table--is-sticky-left.table--striped.table--left-sticky-minwidth .table__responsive-header__track-heading:first-child {
+    &.table--is-sticky-left.table--striped.table--left-sticky-minwidth .table__sticky-heading:first-child {
       border-right: none;
     }
 
@@ -141,7 +142,16 @@ table {
       overflow-x: hidden;
     }
 
-    &__track-heading {
+    .table--striped & {
+      .table__sticky-heading {
+        background: $primary;
+        text-transform: uppercase;
+        border: none;
+      }
+    }
+  }
+
+  &__sticky-heading {
       display: inline-block;
       padding: $md;
       vertical-align: bottom;
@@ -160,15 +170,6 @@ table {
           font-weight: bold;
       }
     }
-
-    .table--striped & {
-      .table__responsive-header__track-heading {
-        background: $primary;
-        text-transform: uppercase;
-        border: none;
-      }
-    }
-  }
 
   &__container {
     overflow-x: auto;
