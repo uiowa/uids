@@ -1,0 +1,85 @@
+
+.menu--top {
+  .menu {
+    li {
+      display: flex;
+      &:nth-child(3) {
+        display: none !important;
+
+        @include breakpoint(menu) {
+          display: flex !important;
+        }
+      }
+
+      a {
+        padding: $md;
+        color: #fff;
+        @include breakpoint(menu) {
+          color: $secondary;
+        }
+         &:hover,
+         &:focus {
+           text-decoration: underline;
+         }
+        .iowa-bar--full & {
+          font-size: .9rem;
+          padding-right: 0;
+          @include breakpoint(menu) {
+          font-size: 1.2rem;
+          padding-right: $md;
+          }
+        }
+
+        .iowa-bar--narrow & {
+          padding: .8rem $md;
+        }
+
+        &:hover {}
+      }
+    }
+  }
+}
+
+.iowa-bar--narrow {
+  .menu--top {
+      @include element-invisible;
+        @include breakpoint(menu) {
+          @include element-invisible-off;
+          overflow: unset;
+          position: absolute !important;
+    }
+  }
+}
+
+.menu--top.nav {
+  margin-top: 7px;
+  position: absolute;
+  z-index: 2;
+  right: 96px;
+  top: 0;
+  display: block;
+
+  @include breakpoint(sm) {
+    margin-top: 9px;
+  }
+
+  @include breakpoint(menu) {
+    right: 356px;
+    margin-top: 11px;
+  }
+}
+
+.iowa-bar--narrow .nav.menu--top {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  bottom: 0px;
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: 0;
+}
+
+.nav.menu--top .menu li a {
+  font-weight: $font-weight-light;
+}
