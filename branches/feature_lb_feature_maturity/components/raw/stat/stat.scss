@@ -17,10 +17,23 @@
   &:hover .stat__content {
     @include breakpoint(menu) {
       @include element-invisible-off;
+<<<<<<< HEAD
       width: 80%;
       opacity: 1;
     }
   }
+=======
+      width: 100%;
+      opacity: 1;
+    }
+  }
+
+  &.element--flex-center:hover .stat__content {
+    @include breakpoint(menu) {
+      width: 80%;
+    }
+  }
+>>>>>>> main
 }
 
 .stat {
@@ -51,8 +64,11 @@
       color: white;
     }
 
+    // @todo This should probably be resolved with https://sass-lang.com/documentation/values/maps#using-maps
     .stat--horizontal.bg-pattern--brain-black &,
-    .stat--horizontal.bg--black & {
+    .stat--horizontal.bg--black &,
+    .bg-pattern--brain-black &,
+    .bg--black & {
       color: $primary;
     }
 
@@ -62,7 +78,7 @@
     }
 
     @include breakpoint(sm) {
-      font-size: calc(100% + 4vw);
+      font-size: 5rem;
       padding: 0 $lg $sm 0;
 
       .element--flex-center & {
@@ -78,6 +94,13 @@
     line-height: 1.4;
     width: 80%;
 
+    @include breakpoint(menu) {
+      opacity: 0;
+      transition: 1s;
+      @include element-invisible;
+      width: 100%;
+    }
+
     .bg--black &,
     .bg-pattern--brain-black & {
       color: #ccc;
@@ -88,11 +111,10 @@
       color: $secondary;
     }
 
-    @include breakpoint(menu) {
-      opacity: 0;
-      transition: 1s;
-      @include element-invisible;
-      width: 80%;
+    .element--flex-center & {
+      @include breakpoint(menu) {
+        width: 80%;
+      }
     }
 
   }
@@ -133,25 +155,27 @@
 
 .heading__prefix,
 .heading__suffix {
-  font-size: 2.5rem;
-  vertical-align: top;
+  font-size: 3.5rem;
+  vertical-align: middle;
 }
 
 .heading__prefix {
-  margin-right: -10px;
+  margin-right: -15px;
 }
 
 .heading__suffix {
-  margin-left: -10px;
+  margin-left: -15px;
 }
 
-.stat--horizontal {
+.stat--horizontal:not(.element--flex-center) {
 
   &.bg-pattern--brain-reversed,
-  &.bg--gold {
+  &.bg--gold,
+  .bg-pattern--brain-reversed &,
+  .bg--gold & {
     .stat__content {
       @include breakpoint(container) {
-        border-top: 6px solid $secondary;
+        border-top: 8px solid $secondary;
       }
     }
   }
@@ -171,10 +195,8 @@
 
   }
 
-  &.element--flex-center {
-    .stat__title {
-      padding: 0 0 $xsm;
-    }
+  &.element--flex-left {
+    flex-flow: wrap;
   }
 
   .stat__content {
@@ -183,7 +205,7 @@
     @include breakpoint(menu) {
       padding-top: .5rem;
       margin-top: .75rem;
-      border-top: 6px solid $primary;
+      border-top: 8px solid $primary;
     }
 
   }
@@ -191,7 +213,15 @@
   .heading__prefix,
   .heading__suffix {
     font-size: 2.1rem;
-    vertical-align: top;
+    vertical-align: middle;
+  }
+
+  .heading__prefix {
+    margin-right: -10px;
+  }
+
+  .heading__suffix {
+    margin-left: -10px;
   }
 
 
