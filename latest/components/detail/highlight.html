@@ -238,88 +238,77 @@
                         <div class="FileBrowser-itemPreview">
                             
                             <code class="Code Code--lang-SCSS FileBrowser-code hljs">
-                                <pre>  <span class="hljs-selector-class">.highlight</span> {
-    &amp;__wrapper {
-      <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;
-      <span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;
-      <span class="hljs-attribute">bottom</span>: <span class="hljs-number">0</span>;
-      <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
-      <span class="hljs-attribute">display</span>: flex;
-      <span class="hljs-attribute">align-items</span>: baseline;
-      <span class="hljs-attribute">flex-flow</span>: column nowrap;
-      <span class="hljs-attribute">justify-content</span>: center;
-      <span class="hljs-attribute">color</span>: <span class="hljs-variable">$white</span>;
-      <span class="hljs-attribute">font-size</span>: <span class="hljs-variable">$h6-font-size</span>;
+                                <pre><span class="hljs-keyword">@import</span> <span class="hljs-string">'../../assets/scss/variables'</span>;
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'../../assets/scss/utilities'</span>;
+
+<span class="hljs-selector-class">.highlight</span> {
+  &amp;__wrapper {
+    <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;
+    <span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">bottom</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">display</span>: flex;
+    <span class="hljs-attribute">align-items</span>: baseline;
+    <span class="hljs-attribute">flex-flow</span>: column nowrap;
+    <span class="hljs-attribute">justify-content</span>: center;
+    <span class="hljs-attribute">color</span>: <span class="hljs-variable">$white</span>;
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-variable">$h6-font-size</span>;
+  }
+
+  &amp;__sub {
+    <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
+    <span class="hljs-attribute">font-size</span>: .<span class="hljs-number">9rem</span>;
+    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.7</span>;
+
+    <span class="hljs-keyword">@include</span> breakpoint(sm) {
+      <span class="hljs-attribute">margin</span>: <span class="hljs-number">6px</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>;
     }
 
-    &amp;__sub {
-      <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
-      <span class="hljs-attribute">font-size</span>: .<span class="hljs-number">9rem</span>;
-      <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.7</span>;
-
-      <span class="hljs-keyword">@include</span> breakpoint(sm) {
-        <span class="hljs-attribute">margin</span>: <span class="hljs-number">6px</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>;
-      }
-
-      <span class="hljs-keyword">@include</span> breakpoint(container) {
-        <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1rem</span>;
-      }
-
-      <span class="hljs-selector-tag">span</span> {
-        <span class="hljs-attribute">display</span>: inline;
-        <span class="hljs-attribute">padding</span>: <span class="hljs-number">0.45rem</span> <span class="hljs-number">1rem</span>;
-        <span class="hljs-attribute">background-color</span>: <span class="hljs-variable">$primary</span>;
-        <span class="hljs-attribute">box-decoration-break</span>: clone;
-        <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.4</span>;
-        -webkit-<span class="hljs-attribute">box-decoration-break</span>: clone;
-      }
+    <span class="hljs-keyword">@include</span> breakpoint(container) {
+      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1rem</span>;
     }
 
-    &amp;__title {
-      <span class="hljs-attribute">align-items</span>: center;
-      <span class="hljs-attribute">justify-content</span>: center;
-      <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">8px</span>;
-      <span class="hljs-attribute">padding</span>: <span class="hljs-number">2px</span> <span class="hljs-number">0</span>;
-      <span class="hljs-attribute">text-transform</span>: uppercase;
-      <span class="hljs-attribute">font-family</span>: <span class="hljs-variable">$font-family-caps-bold</span>;
-      <span class="hljs-attribute">font-size</span>: calc(<span class="hljs-number">100%</span> + -.<span class="hljs-number">7vw</span>);
-      <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.7</span>;
-
-      <span class="hljs-keyword">@include</span> breakpoint(menu) {
-        <span class="hljs-attribute">font-size</span>: calc(<span class="hljs-number">100%</span> + .<span class="hljs-number">3vw</span>);
-        <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">0</span>;
-      }
-
-      <span class="hljs-keyword">@include</span> breakpoint(container) {
-        <span class="hljs-attribute">font-size</span>: calc(<span class="hljs-number">100%</span> + .<span class="hljs-number">8vw</span>);
-      }
-
-      <span class="hljs-selector-tag">span</span> {
-        <span class="hljs-attribute">display</span>: inline;
-        <span class="hljs-attribute">padding</span>: <span class="hljs-number">0.45rem</span> <span class="hljs-number">1rem</span>;
-        <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
-        <span class="hljs-attribute">background</span>: <span class="hljs-variable">$secondary</span>;
-        <span class="hljs-attribute">box-decoration-break</span>: clone;
-        -webkit-<span class="hljs-attribute">box-decoration-break</span>: clone;
-      }
+    <span class="hljs-selector-tag">span</span> {
+      <span class="hljs-attribute">display</span>: inline;
+      <span class="hljs-attribute">padding</span>: <span class="hljs-number">0.45rem</span> <span class="hljs-number">1rem</span>;
+      <span class="hljs-attribute">background-color</span>: <span class="hljs-variable">$primary</span>;
+      <span class="hljs-attribute">box-decoration-break</span>: clone;
+      <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.4</span>;
+      -webkit-<span class="hljs-attribute">box-decoration-break</span>: clone;
     }
   }
 
-  <span class="hljs-keyword">@-moz-document</span> url-prefix() {
-    <span class="hljs-selector-class">.highlight__title</span> {
-      <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">0</span>;
+  &amp;__title {
+    <span class="hljs-attribute">align-items</span>: center;
+    <span class="hljs-attribute">justify-content</span>: center;
+    <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">8px</span>;
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">2px</span> <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">text-transform</span>: uppercase;
+    <span class="hljs-attribute">font-family</span>: <span class="hljs-variable">$font-family-caps-bold</span>;
+    -webkit-<span class="hljs-attribute">font</span>-smoothing: auto;
+    -moz-osx-<span class="hljs-attribute">font</span>-smoothing: auto;
+    <span class="hljs-attribute">font-size</span>: calc(<span class="hljs-number">100%</span> + -.<span class="hljs-number">7vw</span>);
+    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.7</span>;
+
+    <span class="hljs-keyword">@include</span> breakpoint(menu) {
+      <span class="hljs-attribute">font-size</span>: calc(<span class="hljs-number">100%</span> + .<span class="hljs-number">3vw</span>);
+      <span class="hljs-attribute">margin-bottom</span>: -<span class="hljs-number">1px</span>;
     }
 
-    <span class="hljs-selector-class">.highlight__title</span> <span class="hljs-selector-tag">span</span> {
-      <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">12px</span>;
+    <span class="hljs-keyword">@include</span> breakpoint(container) {
+      <span class="hljs-attribute">font-size</span>: calc(<span class="hljs-number">100%</span> + .<span class="hljs-number">8vw</span>);
     }
 
-    <span class="hljs-selector-class">.highlight__sub</span> {
-      <span class="hljs-keyword">@include</span> breakpoint(sm) {
-        <span class="hljs-attribute">margin</span>: <span class="hljs-number">1px</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>;
-      }
+    <span class="hljs-selector-tag">span</span> {
+      <span class="hljs-attribute">display</span>: inline;
+      <span class="hljs-attribute">padding</span>: <span class="hljs-number">0.45rem</span> <span class="hljs-number">1rem</span>;
+      <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+      <span class="hljs-attribute">background</span>: <span class="hljs-variable">$secondary</span>;
+      <span class="hljs-attribute">box-decoration-break</span>: clone;
+      -webkit-<span class="hljs-attribute">box-decoration-break</span>: clone;
     }
   }
+}
 </pre>
                             </code>
                             
@@ -336,7 +325,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">1.6 KB</span>
+                    <span class="Meta-value">1.4 KB</span>
                 </li>
             </ul>
         </div>
@@ -1006,6 +995,36 @@
         
         
         <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="stat--horizontal.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Horizontal</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="stat--horizontal-bg--black.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Horizontal w/ Background</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
             <a class="Tree-entityLink" href="stat--row.html" data-pjax>
                 
                     
@@ -1196,8 +1215,8 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-09-08T13:25:13.965Z">
-                9/8/2020
+            <time datetime="2020-09-25T19:15:22.640Z">
+                9/25/2020
             </time>
         </div>
     </div>
