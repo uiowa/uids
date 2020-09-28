@@ -1,16 +1,25 @@
 @import '../../assets/scss/variables';
 @import '../../assets/scss/utilities';
 
-
-// banner
-
 .banner {
   position: relative;
   overflow: hidden;
   flex-basis: 100%;
 
-  &__content {
-    z-index: 1;
+  &:focus-within .bold-headline a:focus {
+    text-decoration: underline;
+  }
+
+  &__container {
+    max-width: 81.875em;
+    margin: 0 auto;
+
+    @include breakpoint(sm) {
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      top: 0;
+    }
   }
 
   img {
@@ -20,54 +29,15 @@
   &__image {
     overflow: hidden;
     contain: paint;
-  }
 
-  &__image img {
-    display: block;
-    width: 100%;
-    -o-object-fit: cover;
-    object-fit: cover;
-  }
-
-}
-
-// banner Heights
-
-.banner {
-  &.banner--medium {
-    @include breakpoint(sm) {
-      height: 33rem;
+    img {
+      display: block;
+      width: 100%;
+      object-fit: cover;
     }
   }
 
-  &.banner--small {
-    @include breakpoint(sm) {
-      height: 18rem;
-    }
-  }
-}
-
-
-
-// headings and content
-
-// Medium and Small Variant
-.banner:not(.banner--large) {
-  .bold-headline {
-    font-size: 3rem;
-  }
-
-  p {
-    font-size: 1.3rem;
-    line-height: 1.7;
-  }
-}
-
-
-
-.banner {
-
-  .banner__content {
+  &__content {
     display: grid;
     width: 100%;
     background: #fff;
@@ -101,32 +71,6 @@
     }
   }
 
-  .banner__text {
-    @include breakpoint(sm) {
-      width: 70%;
-    }
-
-    @include breakpoint(menu) {
-      width: 60%;
-    }
-
-    @include breakpoint(container) {
-      width: 60%;
-    }
-  }
-
-  &.bg-pattern--brain,
-  &.bg-pattern--brain-reversed,
-  &.bg--gold,
-  &.banner--gradient-left-reversed {
-    color: $secondary;
-
-    p {
-      color: $secondary;
-      font-weight: normal;
-      text-shadow: none;
-    }
-  }
 
   p {
     color: #000;
@@ -137,11 +81,36 @@
       color: #fff;
       text-shadow: 0 1px 1px #000;
     }
+
+    a {
+      position: relative;
+      z-index: 1;
+
+      @include breakpoint(sm) {
+        color: #fff;
+      }
+    }
+
   }
 
+  // bg variants
+  // @todo This should probably be resolved with https://sass-lang.com/documentation/values/maps#using-maps
   &.bg-pattern--brain,
   &.bg-pattern--brain-reversed,
-  &.bg--gold {
+  &.bg--gold,
+  &.banner--gradient-left-reversed {
+    color: $secondary;
+
+    p {
+      color: $secondary;
+      font-weight: normal;
+      text-shadow: none;
+
+      a {
+        color: $secondary;
+      }
+    }
+
     .bold-headline.bold-headline--negative {
       @include breakpoint(sm) {
         color: $secondary;
@@ -157,8 +126,17 @@
   }
 
   .bold-headline {
+    a {
+      &:hover {
+        text-decoration: none;
+      }
+
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+
     &.bold-headline--negative {
-      //line-height: 1;
       color: $secondary;
 
       a {
@@ -176,36 +154,27 @@
     }
 
     margin-top: 0;
-    //padding: 0;
     margin-bottom: .7rem;
     font-size: calc(100% + 4vw);
 
     @include breakpoint(sm) {
       font-size: calc(100% + 2.5vw);
     }
+  }
 
-    @include breakpoint(menu) {
-      margin-bottom: $xsm;
-    }
-
-    @include breakpoint(md) {
-      font-size: calc(100% + 3.5vw);
+  // set larger heading size for large banner only
+  &.banner--large {
+    .bold-headline {
+      @include breakpoint(md) {
+        font-size: calc(100% + 3.5vw);
+      }
     }
   }
+
 }
 
 
-.banner__container {
-  max-width: 81.875em;
-  margin: 0 auto;
 
-  @include breakpoint(sm) {
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    top: 0;
-  }
-}
 
 // Gradients/Overlays
 
@@ -234,7 +203,7 @@
     background: none;
   }
 
-  &.banner--gradient-center-left {
+  &--gradient-center-left {
 
     &:after {
       @include breakpoint(sm) {
@@ -248,7 +217,7 @@
     }
   }
 
-  &.banner--gradient-center {
+  &--gradient-center {
 
     &:after {
       @include breakpoint(sm) {
@@ -261,8 +230,7 @@
     }
   }
 
-
-  &.banner--solid-opacity {
+  &--solid-opacity {
 
     &:after {
       @include breakpoint(sm) {
@@ -275,7 +243,7 @@
     }
   }
 
-  &.banner--solid-opacity-reversed {
+  &--solid-opacity-reversed {
 
     &:after {
       @include breakpoint(sm) {
@@ -288,13 +256,13 @@
     }
   }
 
-  &.banner--gradient-left:after {
+  &--gradient-left:after {
     @include breakpoint(sm) {
       background: linear-gradient(90deg, rgba(0, 0, 0, .86) 0, rgba(0, 0, 0, .23) 65%, transparent);
     }
   }
 
-  &.banner--gradient-left-reversed {
+  &--gradient-left-reversed {
     &:after {
       @include breakpoint(sm) {
         background: linear-gradient(90deg, #fff 1%, hsla(0, 0%, 100%, .92) 32%, hsla(0, 0%, 100%, 0));
@@ -307,7 +275,7 @@
   }
 }
 
-// Alignment
+// Alignment Variants
 
 .banner--horizontal-center {
   text-align: center;
@@ -376,7 +344,7 @@
   }
 }
 
-.banner.banner--vertical-bottom.banner--horizontal-center {
+.banner--vertical-bottom.banner--horizontal-center {
   .banner__content {
     @include breakpoint(sm) {
       max-width: 100%;
@@ -389,7 +357,7 @@
   }
 }
 
-.banner.banner--horizontal-center {
+.banner--horizontal-center {
   .banner__content {
     @include breakpoint(sm) {
 
@@ -402,7 +370,7 @@
 }
 
 
-.banner.banner--vertical-center.banner--horizontal-left {
+.banner--vertical-center.banner--horizontal-left {
   .bttn {
     margin-right: auto;
     margin-left: 0;
@@ -447,74 +415,4 @@
     margin-right: auto;
   }
 
-}
-
-
-
-.banner {
-  &:focus-within .bold-headline a:focus {
-    text-decoration: underline;
-  }
-
-  .bold-headline {
-
-    a {
-
-      &:hover,
-      &:focus {
-        text-decoration: underline;
-      }
-    }
-  }
-}
-
-.banner__content p {
-  a {
-    position: relative;
-    z-index: 1;
-
-    @include breakpoint(sm) {
-      color: #fff;
-    }
-
-    .bg-pattern--brain &,
-    .banner--gradient-left-reversed &,
-    .bg-pattern--brain-reversed & {
-      color: $secondary;
-    }
-  }
-}
-
-
-.banner--medium.banner--vertical-center.banner--horizontal-left,
-.banner--medium.banner--vertical-bottom.banner--horizontal-left,
-.banner--small.banner--vertical-center.banner--horizontal-left,
-.banner--small.banner--vertical-bottom.banner--horizontal-left {
-  .banner__text {
-    @include breakpoint(sm) {
-      width: 70%;
-    }
-
-    @include breakpoint(menu) {
-      width: 60%;
-    }
-
-    @include breakpoint(container) {
-      width: 40%;
-    }
-  }
-
-  .bold-headline {
-    @include breakpoint(sm) {
-      width: 80%;
-    }
-
-    @include breakpoint(menu) {
-      width: 70%;
-    }
-
-    @include breakpoint(container) {
-      width: 70%;
-    }
-  }
 }
