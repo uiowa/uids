@@ -1,18 +1,18 @@
 {% set link_element, show_button = false, false %}
 {% if banner_link_url is not empty %}
-	{% if banner_title is not empty %}
-		{# Title is set, use it as the linking element.  #}
-		{% set link_element = 'title' %}
-		{# If we also have link text, then we'll show a psuedo-button. #}
-		{% if banner_link_title is not empty %}
-			{% set show_button = true %}
-		{% endif %}
-	{% elseif banner_link_title is not empty %}
-		{# Title is not set, but there is link text, so use that instead. #}
-		{% set link_element = 'button' %}
-		{# Show an actual link button. #}
-		{% set show_button = true %}
-	{% endif %}
+  {% if banner_title is not empty %}
+    {# Title is set, use it as the linking element.  #}
+    {% set link_element = 'title' %}
+    {# If we also have link text, then we'll show a psuedo-button. #}
+    {% if banner_link_title is not empty %}
+      {% set show_button = true %}
+    {% endif %}
+  {% elseif banner_link_title is not empty %}
+    {# Title is not set, but there is link text, so use that instead. #}
+    {% set link_element = 'button' %}
+    {# Show an actual link button. #}
+    {% set show_button = true %}
+  {% endif %}
 {% endif %}
 
 <div class="banner banner--{{ banner_overlay }} banner--{{ banner_size }} {{ banner_classes }} {{ banner_vertical_alignment }} {{ banner_horizontal_alignment }}">
@@ -39,7 +39,7 @@
               "heading_class" : banner_title_classes,
               "heading" : banner_title,
               'heading_url': banner_link_url,
-              'heading_aria': banner_aria
+              'heading_aria': banner_aria,
             } %}
           {% endif %}
         {% endblock %}
@@ -67,3 +67,15 @@
 
   {% endblock %}
 </div>
+
+<style>
+@media (min-width: 768px) {
+  .banner--medium {
+    height: 33rem;
+  }
+
+  .banner--small {
+    height: 18rem;
+  }
+}
+</style>
