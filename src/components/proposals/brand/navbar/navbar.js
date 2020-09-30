@@ -1,5 +1,6 @@
 /*!
  * Navbar v1
+ this manages the state of the navbar
  */
 
 (function(exports) {
@@ -11,8 +12,8 @@
 
   // Shortcuts to improve speed and size
   var proto = NavBar.prototype;
-  let responsive;
-  let openDropdown;
+  var responsive;
+  var openDropdown;
 
   function mediaqueryresponse(mql){
     if (mql.matches){ // if media query matches
@@ -60,6 +61,12 @@
   }
 
   proto.dropDown = function dropDown(evt, id) {
+
+
+    if(openDropdown){
+      document.getElementById(openDropdown).className= "dropdown-content";
+     }
+
     openDropdown = id;
     var h = evt.offsetHeight - 3; // padding
     console.log(h);
