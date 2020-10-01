@@ -91,6 +91,7 @@ module.exports = {
     //filename: isDevelopment ? "[name].js" : "[name].[hash].js",
     filename: isDevelopment ? "[name].js" : "[name].js",
     path: path.resolve(__dirname, outputFolder),
-    library: 'uids',
+    // library: 'uids',
+    // ibraryTarget:'umd'
   }
 };
