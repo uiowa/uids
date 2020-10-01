@@ -90,6 +90,7 @@ module.exports = {
   output: {
     //filename: isDevelopment ? "[name].js" : "[name].[hash].js",
     filename: isDevelopment ? "[name].js" : "[name].js",
-    path: path.resolve(__dirname, outputFolder)
+    path: path.resolve(__dirname, outputFolder),
+    library: 'uids',
   }
 };

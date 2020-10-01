@@ -5,7 +5,8 @@ import '../../../src/assets/scss/navbar.module.scss';
 // no longer needed since we are exported es6 and es5 properly
 // import { uidsUtils } from 'exports-loader?exports=uidsUtils!../../../src/components/proposals/brand/navbar/navbar';
 
-import NavBar from '../../../src/components/proposals/brand/navbar/navbar';
+import NavBar from '../../../src/components/proposals/src/navbar/navbar';
+
 
 window.uidsUtils = window.uidsutils || {};
 window.uidsUtils.navbar = new NavBar();
