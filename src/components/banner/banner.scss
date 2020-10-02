@@ -92,8 +92,10 @@
 
   &[class*="bg-"] {
     .banner__content {
-      @include breakpoint(sm) {
-        position: relative;
+      position: relative;
+
+      @include breakpoint(menu) {
+        position: absolute;
       }
     }
   }
@@ -102,8 +104,7 @@
   // @todo This should probably be resolved with https://sass-lang.com/documentation/values/maps#using-maps
   &.bg-pattern--brain,
   &.bg-pattern--brain-reversed,
-  &.bg--gold,
-  &.banner--gradient-left-reversed:not([class*="bg--black"]):not([class*="bg-pattern--brain-black"]) {
+  &.bg--gold {
     color: $secondary;
 
     p {
@@ -113,6 +114,27 @@
 
       a {
         color: $secondary;
+      }
+    }
+  }
+
+  &.banner--gradient-left-reversed:not([class*="bg--black"]):not([class*="bg-pattern--brain-black"]) {
+    @include breakpoint(container) {
+      color: $secondary;
+    }
+
+    p {
+      @include breakpoint(container) {
+        color: $secondary;
+      }
+
+      font-weight: normal;
+      text-shadow: none;
+
+      a {
+        @include breakpoint(container) {
+          color: $secondary;
+        }
       }
     }
 
