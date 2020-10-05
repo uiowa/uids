@@ -2,6 +2,11 @@
   position: relative;
   overflow: hidden;
   flex-basis: 100%; }
+  @media (min-width: 768px) {
+    .banner {
+      display: flex;
+      align-items: center;
+      justify-content: center; } }
   .banner:focus-within .bold-headline a:focus {
     text-decoration: underline; }
   .banner__container {
@@ -15,13 +20,23 @@
   .banner img {
     width: 100%; }
   .banner__image {
-    overflow: hidden;
-    contain: paint; }
+    overflow: visible; }
     .banner__image img {
       display: block;
       width: 100%;
       -o-object-fit: cover;
          object-fit: cover; }
+      @media (min-width: 768px) {
+        .banner__image img {
+          display: block;
+          width: 100%;
+          -o-object-fit: cover;
+          object-fit: cover;
+          position: absolute;
+          height: 100%;
+          top: 0; } }
+  .banner__text {
+    z-index: 1; }
   .banner__content {
     display: grid;
     width: 100%;
@@ -35,14 +50,14 @@
         flex-direction: column;
         background: transparent;
         width: 100%;
-        position: absolute;
         background: transparent;
         padding: 1.25rem 0 2rem 0; }
         .banner__content > * {
           flex-basis: 100%; }
         .banner__content .bttn {
           margin-right: auto;
-          margin-left: 0; } }
+          margin-left: 0;
+          z-index: 1; } }
     @media (min-width: 84.375em) {
       .banner__content {
         padding: 1.25rem 0; } }
@@ -62,9 +77,6 @@
           color: #fff; } }
   .banner[class*="bg-"] .banner__content {
     position: relative; }
-    @media (min-width: 855px) {
-      .banner[class*="bg-"] .banner__content {
-        position: absolute; } }
   .banner.bg-pattern--brain, .banner.bg-pattern--brain-reversed, .banner.bg--gold {
     color: #151515; }
     .banner.bg-pattern--brain p, .banner.bg-pattern--brain-reversed p, .banner.bg--gold p {
@@ -93,6 +105,7 @@
     .banner.banner--gradient-left-reversed:not([class*="bg--black"]):not([class*="bg-pattern--brain-black"]) .bold-headline.bold-headline--negative a {
       color: #151515; } }
   .banner .bold-headline {
+    z-index: 1;
     margin-top: 0;
     margin-bottom: .7rem;
     font-size: calc(100% + 4vw); }
@@ -168,7 +181,6 @@
         width: 100%;
         height: 100%;
         top: 0;
-        position: absolute;
         background: transparent;
         padding: 1.25rem 0 2rem 0; }
         .banner--vertical-center .banner__content > * {
@@ -209,7 +221,6 @@
   @media (min-width: 768px) {
     .banner--vertical-bottom .banner__content {
       bottom: 3rem;
-      position: absolute;
       background: transparent;
       padding: 1.25rem 1.25rem 0 1.25rem;
       max-width: 81.875em; } }
