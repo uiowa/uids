@@ -148,11 +148,13 @@
     }
 
     .bold-headline.bold-headline--negative {
-      color: $secondary;
-      text-shadow: none;
-
-      a {
+      @include breakpoint(container) {
         color: $secondary;
+        text-shadow: none;
+
+        a {
+          color: $secondary;
+        }
       }
     }
   }
@@ -291,6 +293,7 @@
 }
 
 .banner--vertical-bottom.banner--horizontal-center {
+
   .banner__content {
     @include breakpoint(sm) {
       max-width: 100%;
@@ -305,12 +308,9 @@
 
 .banner--horizontal-center {
   .banner__content {
-    @include breakpoint(sm) {
-
-      >* {
-        margin-right: auto;
-        margin-left: auto;
-      }
+    >* {
+      margin-right: auto;
+      margin-left: auto;
     }
   }
 }
