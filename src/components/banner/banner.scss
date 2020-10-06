@@ -47,7 +47,6 @@
       position: absolute;
       height: 100%;
       top: 0;
-
     }
   }
 
@@ -56,6 +55,8 @@
   }
 
   &__content {
+    padding: $gutter;
+
     @include breakpoint(sm) {
       padding: 1.25rem 0 2rem 0;
     }
@@ -254,7 +255,16 @@
 }
 
 // Alignment Variants
-
 .banner--horizontal-center {
   text-align: center;
+}
+
+
+.banner--horizontal-center {
+  .banner__content {
+    >* {
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
 }
