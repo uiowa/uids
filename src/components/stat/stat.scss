@@ -3,12 +3,28 @@
 
 .stat__grid {
   margin: 0;
+  width: 100%;
+  transition: all .55s cubic-bezier(.95, 1.25, .375, 1.15);
+
+  &.stat--transform {
+    &:hover {
+      @include breakpoint(menu) {
+        transform: translateY(-10px);
+      }
+    }
+  }
 
   &:hover .stat__content {
     @include breakpoint(menu) {
       @include element-invisible-off;
-
+      width: 100%;
       opacity: 1;
+    }
+  }
+
+  &.element--flex-center:hover .stat__content {
+    @include breakpoint(menu) {
+      width: 80%;
     }
   }
 }
@@ -32,7 +48,7 @@
     }
 
     .element--flex-center & {
-      padding: $md $lg $sm 0;
+      padding: $md $lg $sm $lg;
       display: block;
     }
 
@@ -41,8 +57,11 @@
       color: white;
     }
 
+    // @todo This should probably be resolved with https://sass-lang.com/documentation/values/maps#using-maps
     .stat--horizontal.bg-pattern--brain-black &,
-    .stat--horizontal.bg--black & {
+    .stat--horizontal.bg--black &,
+    .bg-pattern--brain-black &,
+    .bg--black & {
       color: $primary;
     }
 
@@ -52,7 +71,7 @@
     }
 
     @include breakpoint(sm) {
-      font-size: calc(100% + 4vw);
+      font-size: 5rem;
       padding: 0 $lg $sm 0;
 
       .element--flex-center & {
@@ -66,6 +85,14 @@
     margin: 0;
     padding: 0;
     line-height: 1.4;
+    width: 80%;
+
+    @include breakpoint(menu) {
+      opacity: 0;
+      transition: 1s;
+      @include element-invisible;
+      width: 100%;
+    }
 
     .bg--black &,
     .bg-pattern--brain-black & {
@@ -77,17 +104,12 @@
       color: $secondary;
     }
 
-    @include breakpoint(menu) {
-      opacity: 0;
-      transition: 1s;
-      @include element-invisible;
+    .element--flex-center & {
+      @include breakpoint(menu) {
+        width: 80%;
+      }
     }
 
-    @include breakpoint(container) {
-      opacity: 0;
-      transition: 1s;
-      @include element-invisible;
-    }
   }
 
   &__description {
@@ -124,27 +146,29 @@
 }
 
 
-.heading__prefix,
-.heading__suffix {
-  font-size: 2.5rem;
-  vertical-align: top;
+.headline__prefix,
+.headline__suffix{
+  font-size: 3.5rem;
+  vertical-align: middle;
 }
 
-.heading__prefix {
-  margin-right: -10px;
+.headline__prefix {
+  margin-right: -15px;
 }
 
-.heading__suffix {
-  margin-left: -10px;
+.headline__suffix{
+  margin-left: -15px;
 }
 
-.stat--horizontal {
+.stat--horizontal:not(.element--flex-center) {
 
   &.bg-pattern--brain-reversed,
-  &.bg--gold {
+  &.bg--gold,
+  .bg-pattern--brain-reversed &,
+  .bg--gold & {
     .stat__content {
       @include breakpoint(container) {
-        border-top: 6px solid $secondary;
+        border-top: 8px solid $secondary;
       }
     }
   }
@@ -154,7 +178,7 @@
     font-size: 3.1rem;
 
     @include breakpoint(menu) {
-      padding: 0 $lg 0 0;
+      padding: 0 $lg $xsm 0;
       border-bottom: none;
     }
 
@@ -164,25 +188,33 @@
 
   }
 
+  &.element--flex-left {
+    flex-flow: wrap;
+  }
+
   .stat__content {
-    flex-basis: 80%;
     font-size: 1.1rem;
 
     @include breakpoint(menu) {
       padding-top: .5rem;
       margin-top: .75rem;
-      border-top: 6px solid $primary;
-      // opacity: 0;
-      // transition: 1s;
-      // @include element-invisible;
+      border-top: 8px solid $primary;
     }
 
   }
 
-  .heading__prefix,
-  .heading__suffix {
+  .headline__prefix,
+  .headline__suffix{
     font-size: 2.1rem;
-    vertical-align: top;
+    vertical-align: middle;
+  }
+
+  .headline__prefix {
+    margin-right: -10px;
+  }
+
+  .headline__suffix{
+    margin-left: -10px;
   }
 
 
@@ -195,10 +227,6 @@
       flex-basis: 50%;
       margin: 0;
     }
-
-    @include breakpoint(container) {
-      //flex-basis: 50%;
-    }
   }
 
 }
@@ -210,9 +238,11 @@
   cursor: pointer;
   transition: all .55s cubic-bezier(.95, 1.25, .375, 1.15);
 
-  &:hover {
-    @include breakpoint(menu) {
-      transform: translateY(-10px) scale(1.02);
+  &.stat--transform {
+    &:hover {
+      @include breakpoint(menu) {
+        transform: translateY(-10px) scale(1.02);
+      }
     }
   }
 }

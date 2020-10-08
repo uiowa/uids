@@ -1,153 +1,186 @@
 @import '../../assets/scss/variables';
 //// Table Elements
 
- table {
+table {
   width: 100%;
   font-size: $content-font-size;
-}
-
- table {
   border-spacing: 0;
-  border-collapse: collapse;
-  margin-top: $gutter;
-}
-
- table td,
- table th {
-  padding: $md;
-  vertical-align: top;
-  padding: $md;
-}
-
- table th {
-  color: $secondary;
-}
-
- table th:not([align]) {
-  text-align: left;
-}
-
- table thead td,
- table thead th {
-  color: $grey;
-  border-width: 0 0 2px;
-}
-
- table tfoot td,
- table tfoot th {
-  color: $grey;
-  border-width: 2px 0 0;
-}
-
- table tbody tr:last-child td,
- table tbody tr:last-child th {
-  border-bottom-width: 0;
-}
-
-table {
+  border-collapse: unset;
   color: $secondary;
   background-color: $white;
+
+  td,
+  th {
+    padding: $md;
+    vertical-align: bottom;
+    font-size: $base-font-size;
+  }
+
+  th {
+    color: $secondary;
+
+    &:not([align]) {
+      text-align: left;
+    }
+  }
+
+  thead th {
+    background-color: #fff;
+    border-bottom: 1px solid #cccccc;
+  }
+
+  tbody th {
+    background-color: #fff;
+    border-right: 1px solid #cccccc;
+    position: static;
+    left: 0;
+    padding-left: $md;
+  }
+
+  tbody tr:last-child td,
+  tbody tr:last-child th {
+    border-bottom-width: 0;
+  }
+
+  thead td,
+  thead th {
+    color: $secondary;
+  }
+
+  &.is-striped {
+    border: 1px solid #eee;
+
+    thead th {
+      background: $primary;
+      text-transform: uppercase;
+      border: none;
+    }
+
+    tbody th {
+      border: none;
+    }
+
+    tbody tr:not(.is-selected):nth-child(even),
+    tbody tr:not(.is-selected):nth-child(even) th {
+      background-color: $light;
+    }
+  }
 }
 
-table td,
-table th {
-  //vertical-align: top;
-  //border: 1px solid $light;
-  //border-width: 0 0 1px;
- // @include padding($top: $xsm, $right: $sm, $bottom: $xsm, $left: $sm);
-}
+.table {
+  &__responsive-container {
+    width: 100%;
+    position: relative;
 
-table th {
-  color: $secondary;
-}
+    &.table__row-headers--true {
 
-table th:not([align]) {
-  text-align: left;
-}
+      // A sticky heading is a heading in the JS generated table__responsive-header container.
+      .table__sticky-heading:first-child {
+        left: 0;
+      }
 
-table thead {
-  background-color: transparent;
-}
+      &.table--left-sticky-minwidth .table__sticky-heading:first-child {
+        position: sticky;
+      }
+    }
 
-table thead {
-  border-bottom: 1px solid black;
-}
+    &.table--striped {
+      border: 1px solid #eee;
 
-table thead td,
-table thead th {
-  color: $secondary;
-}
+      &.table--is-sticky-left.table--left-sticky-minwidth {
+        table.is-striped tbody th {
+          filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
+        }
 
-table.is-striped {
-  border: 1px solid #eee;
-}
+        .table__sticky-heading:first-child {
+          filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
+        }
+      }
 
-table.is-striped thead {
-  background: $primary;
-  text-transform: uppercase;
-  border: none;
-}
+      &.table--is-sticky-top {
+        .table__responsive-header {
+          transition: filter 0.3s ease-in-out;
+          filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.2));
+        }
+      }
 
-/*
-table thead td,
-table thead th {
-  color: $secondary;
-  border-width: 0 0 2px;
-}
+      table.is-striped {
+        border: none;
+      }
+    }
 
-table tfoot {
-  background-color: transparent;
-}
+    &.table--is-sticky-left.table--left-sticky-minwidth .table__sticky-heading:first-child {
+      border-right: 1px solid #ccc;
+    }
 
-table tfoot td,
-table tfoot th {
-  color: $grey;
-  border-width: 2px 0 0;
-}
+    .table__responsive-header__sticky-heading:first-child {
+      border-right: 1px solid #fff;
+      transition: border-right 0.3s ease-in-out;
+    }
 
-table tbody {
-  background-color: transparent;
-}
+    &.table--is-sticky-left.table--striped.table--left-sticky-minwidth .table__sticky-heading:first-child {
+      border-right: none;
+    }
 
-table tbody tr:last-child td,
-table tbody tr:last-child th {
-  border-bottom-width: 0;
-}
+    &.table--left-sticky-minwidth table tbody th {
+      position: sticky;
+    }
 
-table.is-bordered td,
-table.is-bordered th {
-  border-width: 1px;
-}
+    .text-formatted & div {
+      line-height: inherit;
+      font-size: $base-font-size;
+      margin-bottom: 0;
+    }
+  }
 
-table.is-bordered tr:last-child td,
-table.is-bordered tr:last-child th {
-  border-bottom-width: 1px;
-}
+  &__responsive-header {
+    position: sticky;
+    z-index: 1;
+    top: 0;
 
-table.is-fullwidth {
-  width: 100%;
-}
+    &__scroller {
+      white-space: nowrap;
+      overflow-x: hidden;
+    }
 
+    .table--striped & {
+      .table__sticky-heading {
+        background: $primary;
+        text-transform: uppercase;
+        border: none;
+      }
+    }
+  }
 
+  &__sticky-heading {
+    display: inline-block;
+    padding: $md;
+    vertical-align: bottom;
+    font-size: $base-font-size;
+    color: $secondary;
+    background-color: #fff;
+    border-bottom: 1px solid #cccccc;
+    text-align: left;
 
-table.is-narrow td,
-table.is-narrow th {
-  padding: 0.25em 0.5em;
-  @include padding($top: $xsm, $right: $sm, $bottom: $xsm, $left: $sm);
-}
-*/
-table.is-striped tbody tr:not(.is-selected):nth-child(even) {
-  background-color: $light;
-}
+    .text-positioner {
+      white-space: break-spaces;
+      display: flex;
+      align-items: flex-end;
+      width: 100%;
+      height: 100%;
+      font-weight: bold;
+    }
+  }
 
-table-container {
-  overflow: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-  max-width: 100%;
-}
+  &__container {
+    overflow-x: auto;
+  }
 
+  &.table--static {
 
-tbody tr:nth-child(odd) {
- // background: #eee;
+    tbody th,
+    thead th {
+      position: static;
+    }
+  }
 }
