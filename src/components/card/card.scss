@@ -318,7 +318,19 @@
 .card.card--horizontal {
 
   &.card--enclosed {
-    padding: $gutter;
+    padding: 2rem;
+
+    .card__media+.card__body {
+      @include breakpoint(sm) {
+        padding: 0 0 0 $gutter;
+      }
+    }
+
+    .card__body {
+      @include breakpoint(sm) {
+        padding: 0;
+      }
+    }
   }
 
   @include breakpoint(sm) {
@@ -354,9 +366,11 @@
 
   .card__body {
     padding: 2rem;
+
     @include breakpoint(sm) {
       padding: 0 0 $md $gutter;
     }
+
     min-height: 1px;
   }
 
