@@ -70,6 +70,21 @@
 
   // Starting on Events Styling.
   &--event {
+
+    &:not([class*="card--event-stacked"]) {
+      .card {
+        &__media {
+          @include breakpoint(container) {
+            display: block;
+            width: auto;
+            flex: 0 1 30%;
+            margin-right: 15px;
+            margin-left: 0;
+          }
+        }
+      }
+    }
+
     &.card {
       background-color: transparent;
 
@@ -106,7 +121,6 @@
 
           .bg--gold & {
             color: white;
-
           }
         }
 
@@ -151,10 +165,12 @@
         overflow: hidden;
         contain: paint;
 
-        @include breakpoint(container) {
-
-          height: auto;
-          margin-bottom: 0;
+        @include breakpoint(sm) {
+          display: flex;
+          justify-content: center;
+          width: 70%;
+          margin: 0 auto;
+          max-width: 200px;
         }
       }
 
@@ -214,25 +230,6 @@
 
         .bg--black & {
           color: $primary;
-        }
-      }
-
-      &__media {
-
-        @include breakpoint(sm) {
-          display: flex;
-          justify-content: center;
-          width: 70%;
-          margin: 0 auto;
-          max-width: 200px;
-        }
-
-        @include breakpoint(container) {
-          display: block;
-          width: auto;
-          flex: 0 1 30%;
-          margin-right: 15px;
-          margin-left: 0;
         }
       }
 
