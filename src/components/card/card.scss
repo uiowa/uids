@@ -241,7 +241,6 @@
         padding-left: 25px;
         align-items: center;
         line-height: 1;
-        ;
 
         .bg--black & {
           color: $light;
@@ -314,6 +313,28 @@
       .card {
         &__body {
           text-align: center;
+
+          p {
+            position: relative;
+            padding-top: 40px;
+
+            &:before {
+              position: absolute;
+              content: "";
+              height: 6px;
+              top: 18px;
+              margin: 0 auto;
+              left: 0;
+              right: 0;
+              width: 20%;
+              background: #ffcd00;
+              transition: .5s;
+
+              [class*="bg-"] & {
+                background-color: #fff;
+              }
+            }
+          }
         }
       }
 
