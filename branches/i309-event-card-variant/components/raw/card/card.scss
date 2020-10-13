@@ -20,7 +20,7 @@
   }
 
   .bttn {
-    background-image: linear-gradient(to bottom, #ffffff 0%, #ffffff 90%, #ffcd00 90%, #ffcd00 100%);
+    background-image: linear-gradient(to bottom, #ffffff00 0%, #ffffff00 90%, #ffcd00 90%, #ffcd00 100%);
     background-position: 0px -20px;
     background-size: 200% 200%;
     transition: all .25s ease-in;
@@ -50,6 +50,10 @@
     @include card-body;
   }
 
+  &__details {
+    margin: 0 0 $sm;
+  }
+
   p {
     @include card-paragraph;
   }
@@ -69,6 +73,12 @@
     &.card {
       background-color: transparent;
 
+      &__media+&__body {
+        @include breakpoint(sm) {
+          flex: 0 1 70%;
+        }
+      }
+
       &__row {
         display: flex;
         flex-direction: row;
@@ -77,7 +87,7 @@
         border: none;
         margin: 0;
 
-        @include breakpoint(container) {
+        @include breakpoint(sm) {
           display: flex;
           flex-wrap: nowrap;
           border: none;
@@ -90,7 +100,9 @@
           color: $grey;
           padding-right: $xsm;
           position: absolute;
-          margin-left: -25px;
+          margin-left: -20px;
+          font-size: 1rem;
+          line-height: 1.2;
 
           .bg--gold & {
             color: white;
@@ -115,7 +127,7 @@
         padding: 0 $mobile-width-gutter $mobile-width-gutter $mobile-width-gutter;
         flex: 0 1 100%;
 
-        @include breakpoint(sm) {
+        @include breakpoint(container) {
           text-align: center;
         }
 
@@ -163,6 +175,7 @@
           @include breakpoint(sm) {
             border: 1px solid white;
           }
+
           background: $primary;
         }
 
@@ -229,8 +242,9 @@
         font-size: $h6-font-size;
         font-weight: $font-weight-light;
         padding-left: 25px;
-        display: flex;
         align-items: center;
+        line-height: 1;
+        ;
 
         .bg--black & {
           color: $light;
@@ -270,9 +284,9 @@
       &__date {
         margin-bottom: $xsm;
         font-family: $font-family-sans-serif;
-        font-size: 1.2rem;
-        line-height: 1.2rem;
-        font-weight: $font-weight-light;
+        font-size: 1.05rem;
+        line-height: 1.4;
+        font-weight: $font-weight-normal;
 
         .bg--black & {
           color: $primary;
@@ -297,21 +311,30 @@
         }
       }
     }
+
+    // Stacked variant
+    &-stacked {
+      .card {
+        &__body {
+          text-align: center;
+        }
+      }
+
+      &.card {
+        &__row {
+          flex-wrap: wrap;
+        }
+      }
+    }
   }
 
   &__events-wrapper {
     padding-bottom: 20px;
 
-    @include breakpoint(menu) {
+    @include breakpoint(container) {
       padding-bottom: 0;
       padding: 0 3rem;
       @include flexbox;
-    }
-  }
-
-  &__media+&__body {
-    @include breakpoint(container) {
-      flex: 0 1 70%;
     }
   }
 }
@@ -353,6 +376,18 @@
     }
   }
 
+  &.card--horizontal-even {
+    >.card__media {
+      @include card-media-horizontal-even;
+    }
+
+    &:not([class*="bg-"]) {
+      .card__body {
+        padding: 2rem;
+      }
+    }
+  }
+
   >.card__media {
     @include card-media-horizontal-left;
   }
@@ -367,14 +402,17 @@
     }
   }
 
-  .card__body {
-    padding: 2rem;
+  &:not([class*="bg-"]) {
 
-    @include breakpoint(sm) {
-      padding: 0 0 $md $gutter;
+    .card__body {
+      padding: 2rem;
+
+      @include breakpoint(sm) {
+        padding: 0 0 $md $gutter;
+      }
+
+      min-height: 1px;
     }
-
-    min-height: 1px;
   }
 
   .bttn--outline {

@@ -5,7 +5,6 @@
   flex-wrap: wrap;
   margin-bottom: 1.6rem;
   text-decoration: none;
-  background: #fff;
   flex-grow: 1;
   display: flex;
   flex: 1 1 0%;
@@ -31,7 +30,7 @@
     .card .card__title:focus-within ~ .bttn svg {
       color: #151515; }
   .card .bttn {
-    background-image: linear-gradient(to bottom, #ffffff 0%, #ffffff 90%, #ffcd00 90%, #ffcd00 100%);
+    background-image: linear-gradient(to bottom, #ffffff00 0%, #ffffff00 90%, #ffcd00 90%, #ffcd00 100%);
     background-position: 0px -20px;
     background-size: 200% 200%;
     transition: all .25s ease-in; }
@@ -74,6 +73,8 @@
     .card__body ul, .card__body ol, .card__body dl, .card__body table {
       font-size: 1rem;
       line-height: 1.7; }
+  .card__details {
+    margin: 0 0 0.625rem; }
   .card p {
     margin-bottom: 0;
     margin-top: 0;
@@ -101,6 +102,9 @@
         text-decoration: underline; }
   .card--event.card {
     background-color: transparent; }
+    @media (min-width: 768px) {
+      .card--event.card__media + .card--event.card__body {
+        flex: 0 1 70%; } }
     .card--event.card__row {
       display: flex;
       flex-direction: row;
@@ -108,7 +112,7 @@
       align-content: flex-start;
       border: none;
       margin: 0; }
-      @media (min-width: 84.375em) {
+      @media (min-width: 768px) {
         .card--event.card__row {
           display: flex;
           flex-wrap: nowrap;
@@ -120,7 +124,9 @@
         color: #737373;
         padding-right: 0.325rem;
         position: absolute;
-        margin-left: -25px; }
+        margin-left: -20px;
+        font-size: 1rem;
+        line-height: 1.2; }
         .bg--gold .card--event.card__row .fas, .bg--gold
         .card--event.card__row .svg-inline--fa {
           color: white; }
@@ -135,7 +141,7 @@
     .card--event .card__body {
       padding: 0 1.25rem 1.25rem 1.25rem;
       flex: 0 1 100%; }
-      @media (min-width: 768px) {
+      @media (min-width: 84.375em) {
         .card--event .card__body {
           text-align: center; } }
       @media (min-width: 84.375em) {
@@ -211,8 +217,8 @@
       font-size: 1.2rem;
       font-weight: 300;
       padding-left: 25px;
-      display: flex;
-      align-items: center; }
+      align-items: center;
+      line-height: 1; }
       .bg--black .card--event .card__label {
         color: #f3f3f3; }
     .card--event .card__title {
@@ -238,9 +244,9 @@
     .card--event .card__date {
       margin-bottom: 0.325rem;
       font-family: "Roboto", sans-serif;
-      font-size: 1.2rem;
-      line-height: 1.2rem;
-      font-weight: 300; }
+      font-size: 1.05rem;
+      line-height: 1.4;
+      font-weight: 400; }
       .bg--black .card--event .card__date {
         color: #FFCD00; }
     .card--event .card__text {
@@ -264,16 +270,17 @@
         line-height: 1;
         font-family: "Font Awesome 5 Free";
         font-weight: 900; }
+  .card--event-stacked .card__body {
+    text-align: center; }
+  .card--event-stacked.card__row {
+    flex-wrap: wrap; }
   .card__events-wrapper {
     padding-bottom: 20px; }
-    @media (min-width: 855px) {
+    @media (min-width: 84.375em) {
       .card__events-wrapper {
         padding-bottom: 0;
         padding: 0 3rem;
         display: flex; } }
-  @media (min-width: 84.375em) {
-    .card__media + .card__body {
-      flex: 0 1 70%; } }
 
 .card.card--horizontal.card--enclosed {
   padding: 2rem; }
@@ -300,9 +307,17 @@
     flex: 1; } }
 
 @media (min-width: 768px) {
+  .card.card--horizontal.card--horizontal-even > .card__media {
+    flex: 0 0 50%;
+    width: 50%; } }
+
+.card.card--horizontal.card--horizontal-even:not([class*="bg-"]) .card__body {
+  padding: 2rem; }
+
+@media (min-width: 768px) {
   .card.card--horizontal > .card__media {
-    flex: 0 0 20%;
-    width: 20%; } }
+    flex: 0 0 25%;
+    width: 25%; } }
 
 .card.card--horizontal .card__title {
   font-family: "Zilla Slab", serif;
@@ -312,11 +327,11 @@
       padding: 0;
       margin: 0 0 .5rem; } }
 
-.card.card--horizontal .card__body {
+.card.card--horizontal:not([class*="bg-"]) .card__body {
   padding: 2rem;
   min-height: 1px; }
   @media (min-width: 768px) {
-    .card.card--horizontal .card__body {
+    .card.card--horizontal:not([class*="bg-"]) .card__body {
       padding: 0 0 1.05rem 1.25rem; } }
 
 .card.card--horizontal .bttn--outline {
