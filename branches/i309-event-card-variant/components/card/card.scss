@@ -37,8 +37,43 @@
     margin-top: $sm;
   }
 
-  .card__media {
+  &--media-right {
+    flex-direction: row-reverse;
+  }
+
+  &__media {
     @include card-media;
+
+    &--circle img {
+      align-self: start;
+
+      @include breakpoint(sm) {
+        border-radius: 50%;
+        margin-top: 0;
+        height: auto;
+        padding: 8px;
+        border: 1px solid $grey;
+      }
+
+      background: #fff;
+
+      .bg--gold & {
+        @include breakpoint(sm) {
+          border: 1px solid white;
+        }
+
+        background: $primary;
+      }
+
+      .bg--gray & {
+        background: $light;
+      }
+
+      .bg--black & {
+        background: $secondary;
+        border: 1px solid $primary;
+      }
+    }
   }
 
   &__img {
@@ -171,37 +206,6 @@
           width: 70%;
           margin: 0 auto;
           max-width: 200px;
-        }
-      }
-
-      &__media img {
-        align-self: start;
-
-        @include breakpoint(sm) {
-          border-radius: 50%;
-          margin-top: 0;
-          height: auto;
-          padding: 8px;
-          border: 1px solid $grey;
-        }
-
-        background: #fff;
-
-        .bg--gold & {
-          @include breakpoint(sm) {
-            border: 1px solid white;
-          }
-
-          background: $primary;
-        }
-
-        .bg--gray & {
-          background: $light;
-        }
-
-        .bg--black & {
-          background: $secondary;
-          border: 1px solid $primary;
         }
       }
 
