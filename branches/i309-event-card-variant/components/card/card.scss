@@ -8,6 +8,16 @@
     @include card-enclosed;
   }
 
+  &.card--enclosed.card--centered {
+    margin-top: 100px;
+
+    .card__media--circle {
+      img {
+        margin-top: -100px;
+      }
+    }
+  }
+
 
   .card__title:focus-within~.bttn {
     background-position: 0px;
@@ -37,6 +47,10 @@
     margin-top: $sm;
   }
 
+  &--centered {
+    text-align: center;
+  }
+
   &--media-right {
     flex-direction: row-reverse;
   }
@@ -44,34 +58,52 @@
   &__media {
     @include card-media;
 
-    &--circle img {
-      align-self: start;
+    &--large {
+      @include card-media-large;
+    }
 
+    &--small {
+      @include card-media-small;
+    }
+
+    &--circle {
       @include breakpoint(sm) {
-        border-radius: 50%;
-        margin-top: 0;
-        height: auto;
-        padding: 8px;
-        border: 1px solid $grey;
+        display: flex;
+        justify-content: center;
+        width: 70%;
+        margin: 0 auto;
+        max-width: 200px;
       }
 
-      background: #fff;
+      img {
+        align-self: start;
 
-      .bg--gold & {
         @include breakpoint(sm) {
-          border: 1px solid white;
+          border-radius: 50%;
+          margin-top: 0;
+          height: auto;
+          padding: 8px;
+          border: 1px solid $grey;
         }
 
-        background: $primary;
-      }
+        background: #fff;
 
-      .bg--gray & {
-        background: $light;
-      }
+        .bg--gold & {
+          @include breakpoint(sm) {
+            border: 1px solid white;
+          }
 
-      .bg--black & {
-        background: $secondary;
-        border: 1px solid $primary;
+          background: $primary;
+        }
+
+        .bg--gray & {
+          background: $light;
+        }
+
+        .bg--black & {
+          background: $secondary;
+          border: 1px solid $primary;
+        }
       }
     }
   }
@@ -101,246 +133,6 @@
     @include card-header;
   }
 
-
-
-  // Starting on Events Styling.
-  &--event {
-
-    &:not([class*="card--event-stacked"]) {
-      .card {
-        &__media {
-          @include breakpoint(container) {
-            display: block;
-            width: auto;
-            flex: 0 1 30%;
-            margin-right: 15px;
-            margin-left: 0;
-          }
-        }
-      }
-    }
-
-    &.card {
-      background-color: transparent;
-
-      &__media+&__body {
-        @include breakpoint(sm) {
-          flex: 0 1 70%;
-        }
-      }
-
-      &__row {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-content: flex-start;
-        border: none;
-        margin: 0;
-
-        @include breakpoint(sm) {
-          display: flex;
-          flex-wrap: nowrap;
-          border: none;
-          padding: 1.5rem;
-          background: transparent;
-        }
-
-        .fas,
-        .svg-inline--fa {
-          color: $grey;
-          padding-right: $xsm;
-          position: absolute;
-          margin-left: -20px;
-          font-size: 1rem;
-          line-height: 1.2;
-
-          .bg--gold & {
-            color: white;
-          }
-        }
-
-        .svg-inline--fa {
-          width: 17px;
-        }
-      }
-    }
-
-    .card {
-      position: relative;
-      transition: transform .35s, z-index .5s;
-      @include flexbox;
-      @include flex-direction($value: column);
-      @include flex($fg: 1, $fs: 1, $fb: 0%);
-
-      &__body {
-        padding: 0 $mobile-width-gutter $mobile-width-gutter $mobile-width-gutter;
-        flex: 0 1 100%;
-
-        @include breakpoint(container) {
-          text-align: center;
-        }
-
-        @include breakpoint(container) {
-          padding: 0;
-          text-align: left;
-        }
-      }
-
-      &__wrapper {
-        padding-bottom: 20px;
-
-        @include breakpoint(menu) {
-          padding-bottom: 0;
-          padding: 0 3rem;
-          @include flexbox;
-        }
-      }
-
-      &__media {
-        overflow: hidden;
-        contain: paint;
-
-        @include breakpoint(sm) {
-          display: flex;
-          justify-content: center;
-          width: 70%;
-          margin: 0 auto;
-          max-width: 200px;
-        }
-      }
-
-      .bttn {
-        padding: $xsm;
-        margin-top: $md;
-        background: transparent;
-        border: none;
-        font-size: .8rem;
-
-        &:after {
-          .bg--gold & {
-            background-color: #fff;
-          }
-        }
-
-        .bg--black &,
-        .bg--gold &,
-        .bg--gray & {
-          padding: 0 0 .4rem 0;
-        }
-
-        .bg--gray & {
-          border-color: $grey;
-        }
-
-        .bg--black & {
-          color: $primary;
-        }
-      }
-
-
-      &__label {
-        font-family: $font-family-serif;
-        font-size: $h6-font-size;
-        font-weight: $font-weight-light;
-        padding-left: 25px;
-        align-items: center;
-        line-height: 1;
-
-        .bg--black & {
-          color: $light;
-        }
-      }
-
-      &__title {
-        font-family: $font-family-serif;
-        font-size: $h6-font-size;
-        font-weight: $font-weight-bold;
-        @include margin($top: $sm, $bottom: $xsm);
-
-        a {
-          text-decoration: none;
-          color: $secondary;
-
-          &:hover,
-          &:focus {
-            text-decoration: underline;
-          }
-
-          &:after {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            right: 0;
-            bottom: 0;
-          }
-
-          .bg--black & {
-            color: white;
-          }
-        }
-      }
-
-      &__date {
-        margin-bottom: $xsm;
-        font-family: $font-family-sans-serif;
-        font-size: 1.05rem;
-        line-height: 1.4;
-        font-weight: $font-weight-normal;
-
-        .bg--black & {
-          color: $primary;
-        }
-      }
-
-      &__text {
-        @include margin($top: $sm, $bottom: $sm);
-      }
-
-      &__link {
-        text-decoration: none;
-        letter-spacing: .06rem;
-        text-transform: uppercase;
-        color: $secondary;
-        font-weight: $font-weight-light;
-
-        &:after {
-          content: "\f0da";
-          @include padding($left: $sm);
-          @include fas();
-        }
-      }
-    }
-
-    // Stacked variant
-    &-stacked {
-      .card {
-           &__details {
-             margin: 0 0 $xsm;
-           }
-
-        &__body {
-          text-align: center;
-        }
-      }
-
-      &.card {
-        &__row {
-          flex-wrap: wrap;
-        }
-      }
-    }
-  }
-
-  &__events-wrapper {
-    padding-bottom: 20px;
-
-    @include breakpoint(container) {
-      padding-bottom: 0;
-      padding: 0 3rem;
-      @include flexbox;
-    }
-  }
 }
 
 
@@ -365,36 +157,13 @@
 
   @include breakpoint(sm) {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    flex-direction: unset;
     width: 100%;
     margin-bottom: 1.6rem;
   }
 
-  >* {
-    @include breakpoint(sm) {
-      display: flex;
-      flex-direction: column;
-      flex-basis: 100%;
-      flex: 1;
-    }
-  }
 
-  &.card--horizontal-large {
-    >.card__media {
-      @include card-media-horizontal-large;
-    }
-
-  /*  &:not([class*="bg-"]):not([class*="card--enclosed"]) {
-      .card__body {
-        padding: 2rem;
-      }
-    }*/
-  }
-
-  >.card__media {
-    @include card-media-horizontal-left;
-  }
 
   .card__title {
     font-family: $font-family-serif;
@@ -402,8 +171,12 @@
 
     @include breakpoint(sm) {
       padding: 0;
-      margin: 0 0 .5rem;
+      margin: 0;
     }
+  }
+
+  .card__body {
+    flex: 0 1 100%;
   }
 
   &:not([class*="bg-"]) {
