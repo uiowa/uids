@@ -13,7 +13,7 @@
 
     .card__media--circle {
       img {
-        margin-top: -100px;
+        margin-top: -80px;
       }
     }
   }
@@ -138,35 +138,62 @@
   }
 }
 
-.fas,	
-.svg-inline--fa {	
-  color: $grey;	
-  padding-right: $xsm;	
-  position: absolute;	
-  margin-left: -20px;	
-  font-size: 1rem;	
-  line-height: 1.2;	
+.fas,
+.svg-inline--fa {
+  color: $grey;
+  padding-right: $xsm;
+  font-size: 1rem;
+  line-height: 1.2;
 
-  .bg--gold & {	
-    color: white;	
-  }	
-}	
+  .bg--gold & {
+    color: white;
+  }
+}
 
-.svg-inline--fa {	
-  width: 17px;	
+.svg-inline--fa {
+  width: 17px;
 }
 
 .card.card--horizontal {
 
+    .card__media+.card__body {
+      @include breakpoint(sm) {
+        padding: 0 0 $md 2rem;
+      }
+    }
+
   .card__media--circle {
     flex: 0 1 50%;
+    +.card__body {
+      @include breakpoint(sm) {
+        padding: 0 0 0 $gutter;
+      }
+    }
   }
+
+    .card__body {
+      flex: 0 1 100%;
+      padding: 2rem;
+
+      @include breakpoint(sm) {
+        padding: 0;
+      }
+
+      min-height: 1px;
+    }
+
 
   &.card--enclosed,
   &[class*="bg-"] {
     padding: 2rem;
 
     .card__media+.card__body {
+      @include breakpoint(sm) {
+        padding: 0 0 0 2rem;
+      }
+    }
+
+    .card__media--circle+.card__body {
       @include breakpoint(sm) {
         padding: 0 0 0 $gutter;
       }
@@ -196,18 +223,6 @@
       margin: 0 0 $xsm;
     }
   }
-
-  .card__body {
-    flex: 0 1 100%;
-    padding: 2rem;
-
-    @include breakpoint(sm) {
-      padding: 0 0 $md $gutter;
-    }
-
-    min-height: 1px;
-  }
-
 
   .bttn--outline {
     display: table;
