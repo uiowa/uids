@@ -6,26 +6,29 @@
 
   &--enclosed {
     @include card-enclosed;
-  }
 
-  &--enclosed.card--centered {
+    &.card--centered {
     margin-top: 100px;
 
-    .card__media--circle {
-      img {
-        margin-top: -80px;
+      .card__media--circle {
+        img {
+          margin-top: -80px;
+        }
       }
     }
   }
 
+  &__title {
+    @include card-header;
 
-  &__title:focus-within~.bttn {
-    background-position: 0px;
-    background-size: 200% 100%;
+    &:focus-within~.bttn {
+      background-position: 0px;
+      background-size: 200% 100%;
 
-    i,
-    svg {
-      color: $secondary;
+      i,
+      svg {
+        color: $secondary;
+      }
     }
   }
 
@@ -49,10 +52,10 @@
 
   &--centered {
     text-align: center;
-  }
 
-  &--centered[class*="bg-"] {
-    padding: 2rem;
+    &[class*="bg-"] {
+      padding: 2rem;
+    }
   }
 
   &--media-right {
@@ -131,10 +134,6 @@
 
   &__author {
     @include card-subtitle;
-  }
-
-  &__title {
-    @include card-header;
   }
 
   &__date {
@@ -255,50 +254,50 @@
       }
     }
   }
-}
 
-// @todo move card header to separate component
-.card__head {
-  flex-wrap: wrap;
-  padding: 0;
-  text-align: center;
-  @include center(horizontal);
-
-  @include breakpoint(sm) {
-    padding: 0 0 2rem 0;
-  }
-
-  @include breakpoint(menu) {
-    margin: 0;
-    display: block;
-  }
-
-  p {
-    @include brand-cool-gray;
-    margin: 0;
-  }
-
-  .bold-headline {
-    display: block;
-  }
-
-  .bttn {
-    flex-basis: 100%;
-    padding-top: $sm;
+  // @todo move card header to separate component
+  &__head {
+    flex-wrap: wrap;
+    padding: 0;
+    text-align: center;
+    @include center(horizontal);
 
     @include breakpoint(sm) {
-      padding-top: $md;
+      padding: 0 0 2rem 0;
     }
 
-    &.bttn--link:hover,
-    &.bttn--link:focus {
-      background: transparent;
-      text-decoration: underline;
+    @include breakpoint(menu) {
+      margin: 0;
+      display: block;
     }
-  }
 
-  h2 {
-    margin: 0;
-    padding: 0;
+    p {
+      @include brand-cool-gray;
+      margin: 0;
+    }
+
+    .bold-headline {
+      display: block;
+    }
+
+    .bttn {
+      flex-basis: 100%;
+      padding-top: $sm;
+
+      @include breakpoint(sm) {
+        padding-top: $md;
+      }
+
+      &.bttn--link:hover,
+      &.bttn--link:focus {
+        background: transparent;
+        text-decoration: underline;
+      }
+    }
+
+    h2 {
+      margin: 0;
+      padding: 0;
+    }
   }
 }
