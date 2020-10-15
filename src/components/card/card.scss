@@ -136,34 +136,54 @@
   &__title {
     @include card-header;
   }
-}
 
-.fas,
-.svg-inline--fa {
-  color: $grey;
-  padding-right: $xsm;
-  font-size: 1rem;
-  line-height: 1.2;
+  &__date {
+    font-family: $font-family-sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    font-weight: $font-weight-normal;
 
-  .bg--gold & {
-    color: white;
+    .bg--black & {
+      color: $primary;
+    }
   }
-}
 
-.svg-inline--fa {
-  width: 17px;
-}
+  &__label {
 
-.card.card--horizontal {
+    font-family: "Zilla Slab", serif;
+    font-size: 1.2rem;
+    font-weight: 300;
 
-    .card__media+.card__body {
-      @include breakpoint(sm) {
-        padding: 0 0 $md 2rem;
+    .fas,
+    .svg-inline--fa {
+      color: $grey;
+      padding-right: $xsm;
+      font-size: 1rem;
+      line-height: 1.2;
+
+      .bg--gold & {
+        color: white;
       }
     }
 
+    .svg-inline--fa {
+      width: 17px;
+    }
+  }
+}
+
+
+.card.card--horizontal {
+
+  .card__media+.card__body {
+    @include breakpoint(sm) {
+      padding: 0 0 $md 2rem;
+    }
+  }
+
   .card__media--circle {
     flex: 0 1 50%;
+
     +.card__body {
       @include breakpoint(sm) {
         padding: 0 0 0 $gutter;
@@ -171,16 +191,16 @@
     }
   }
 
-    .card__body {
-      flex: 0 1 100%;
-      padding: 2rem;
+  .card__body {
+    flex: 0 1 100%;
+    padding: 2rem;
 
-      @include breakpoint(sm) {
-        padding: 0;
-      }
-
-      min-height: 1px;
+    @include breakpoint(sm) {
+      padding: 0;
     }
+
+    min-height: 1px;
+  }
 
 
   &.card--enclosed,
