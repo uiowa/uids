@@ -47,6 +47,8 @@
     margin-top: 0.625rem; }
   .card--centered {
     text-align: center; }
+  .card--centered[class*="bg-"] {
+    padding: 2rem; }
   .card--media-right {
     flex-direction: row-reverse; }
   .card__media {
@@ -143,13 +145,13 @@
 .card.card--horizontal .card__media--circle {
   flex: 0 1 50%; }
 
-.card.card--horizontal.card--enclosed {
+.card.card--horizontal.card--enclosed, .card.card--horizontal[class*="bg-"] {
   padding: 2rem; }
   @media (min-width: 768px) {
-    .card.card--horizontal.card--enclosed .card__media + .card__body {
+    .card.card--horizontal.card--enclosed .card__media + .card__body, .card.card--horizontal[class*="bg-"] .card__media + .card__body {
       padding: 0 0 0 1.25rem; } }
   @media (min-width: 768px) {
-    .card.card--horizontal.card--enclosed .card__body {
+    .card.card--horizontal.card--enclosed .card__body, .card.card--horizontal[class*="bg-"] .card__body {
       padding: 0; } }
 
 @media (min-width: 768px) {
@@ -169,13 +171,11 @@
       margin: 0 0 0.325rem; } }
 
 .card.card--horizontal .card__body {
-  flex: 0 1 100%; }
-
-.card.card--horizontal:not([class*="bg-"]) .card__body {
+  flex: 0 1 100%;
   padding: 2rem;
   min-height: 1px; }
   @media (min-width: 768px) {
-    .card.card--horizontal:not([class*="bg-"]) .card__body {
+    .card.card--horizontal .card__body {
       padding: 0 0 1.05rem 1.25rem; } }
 
 .card.card--horizontal .bttn--outline {
