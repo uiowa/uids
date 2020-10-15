@@ -4,11 +4,11 @@
 .card {
   @include card;
 
-  &.card--enclosed {
+  &--enclosed {
     @include card-enclosed;
   }
 
-  &.card--enclosed.card--centered {
+  &--enclosed.card--centered {
     margin-top: 100px;
 
     .card__media--circle {
@@ -19,7 +19,7 @@
   }
 
 
-  .card__title:focus-within~.bttn {
+  &__title:focus-within~.bttn {
     background-position: 0px;
     background-size: 200% 100%;
 
@@ -41,9 +41,9 @@
     margin-top: $md;
   }
 
-  .card__author+p,
-  .card__author+.bttn,
-  .card__author+.btn {
+  &__author+p,
+  &__author+.bttn,
+  &__author+.btn {
     margin-top: $sm;
   }
 
@@ -170,90 +170,87 @@
       width: 17px;
     }
   }
-}
 
-
-.card.card--horizontal {
-
-  .card__media+.card__body {
-    @include breakpoint(sm) {
-      padding: 0 0 $md 2rem;
-    }
-  }
-
-  .card__media--circle {
-    flex: 0 1 50%;
-
-    +.card__body {
-      @include breakpoint(sm) {
-        padding: 0 0 0 $gutter;
-      }
-    }
-  }
-
-  .card__body {
-    flex: 0 1 100%;
-    padding: 2rem;
-
-    @include breakpoint(sm) {
-      padding: 0;
-    }
-
-    min-height: 1px;
-  }
-
-
-  &.card--enclosed,
-  &[class*="bg-"] {
-    padding: 2rem;
-
+  &--horizontal {
     .card__media+.card__body {
       @include breakpoint(sm) {
-        padding: 0 0 0 2rem;
+        padding: 0 0 $md 2rem;
       }
     }
 
-    .card__media--circle+.card__body {
-      @include breakpoint(sm) {
-        padding: 0 0 0 $gutter;
+    .card__media--circle {
+      flex: 0 1 50%;
+
+      +.card__body {
+        @include breakpoint(sm) {
+          padding: 0 0 0 $gutter;
+        }
       }
     }
 
     .card__body {
+      flex: 0 1 100%;
+      padding: 2rem;
+
       @include breakpoint(sm) {
         padding: 0;
       }
+
+      min-height: 1px;
     }
-  }
 
-  @include breakpoint(sm) {
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: unset;
-    width: 100%;
-    margin-bottom: 1.6rem;
-  }
 
-  .card__title {
-    font-family: $font-family-serif;
-    font-weight: $font-weight-bold;
+    &.card--enclosed,
+    &[class*="bg-"] {
+      padding: 2rem;
+
+      .card__media+.card__body {
+        @include breakpoint(sm) {
+          padding: 0 0 0 2rem;
+        }
+      }
+
+      .card__media--circle+.card__body {
+        @include breakpoint(sm) {
+          padding: 0 0 0 $gutter;
+        }
+      }
+
+      .card__body {
+        @include breakpoint(sm) {
+          padding: 0;
+        }
+      }
+    }
 
     @include breakpoint(sm) {
-      padding: 0;
-      margin: 0 0 $xsm;
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: unset;
+      width: 100%;
+      margin-bottom: 1.6rem;
     }
-  }
 
-  .bttn--outline {
-    display: table;
-    width: max-content;
+    .card__title {
+      font-family: $font-family-serif;
+      font-weight: $font-weight-bold;
 
-    &:after {
-      width: auto;
+      @include breakpoint(sm) {
+        padding: 0;
+        margin: 0 0 $xsm;
+      }
+    }
+
+    .bttn--outline {
+      display: table;
+      width: max-content;
+
+      &:after {
+        width: auto;
+      }
     }
   }
 }
-
 
 // @todo move card header to separate component
 .card__head {
