@@ -8,9 +8,9 @@
     @include card-enclosed;
 
     &.card--centered {
-    margin-top: 100px;
+      margin-top: 100px;
 
-      .card__media--circle {
+      .media--circle {
         img {
           margin-top: -80px;
         }
@@ -58,6 +58,19 @@
     }
   }
 
+  .media--circle {
+    @include breakpoint(sm) {
+      display: flex;
+      justify-content: center;
+      margin: 0 auto;
+      max-width: 160px;
+    }
+
+    img {
+      align-self: start;
+    }
+  }
+
   &--media-right {
     flex-direction: row-reverse;
   }
@@ -73,47 +86,6 @@
       @include card-media-small;
     }
 
-    &--circle {
-      @include breakpoint(sm) {
-        display: flex;
-        justify-content: center;
-        //flex: 0 1 50%;
-        margin: 0 auto;
-        max-width: 160px;
-      }
-
-      img {
-        align-self: start;
-/*
-       @include breakpoint(sm) {
-          border-radius: 50%;
-          margin-top: 0;
-          height: auto;
-          padding: 8px;
-          border: 1px solid $grey;
-        }
-
-        background: #fff;
-
-        .bg--gold & {
-          @include breakpoint(sm) {
-            border: 1px solid white;
-          }
-
-          background: $primary;
-        }
-
-        .bg--gray & {
-          background: $light;
-        }
-
-        .bg--black & {
-          background: $secondary;
-          border: 1px solid $primary;
-        }
-        */
-      }
-    }
   }
 
   &__img {
@@ -183,7 +155,7 @@
       }
     }
 
-    .card__media--circle {
+    .media--circle {
       flex: 0 1 50%;
 
       +.card__body {
@@ -215,7 +187,7 @@
         }
       }
 
-      .card__media--circle+.card__body {
+      .media--circle+.card__body {
         @include breakpoint(sm) {
           padding: 0 0 0 $gutter;
         }
