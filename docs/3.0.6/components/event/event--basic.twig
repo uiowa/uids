@@ -1,0 +1,33 @@
+{% block events_wrapper_start %}
+	<div class="events-card {{ events_classes }}">
+	{% endblock %}
+	{% block events_card_img %}
+		{% if events_card_image %}
+			<div class="events-card__image">
+				<img class="events-card__img" src="{{ events_card_image }}" alt="Alt Text">
+			</div>
+		{% endif %}
+	{% endblock %}
+	<div class="events-card__body">
+
+		{% block heading %}
+			{% if events_card_title is not empty %}
+				{% include "@headline" with {
+            "headline_level" : 'h2',
+            "headline_class" : 'events-card__title',
+            "headline_url" : events_card_link_url,
+            "headline" : events_card_title
+        } %}
+			{% endif %}
+		{% endblock %}
+
+		<div class="events-card__details">
+			<div class="events-card__date">
+				{{ events_card_date }}</div>
+			<div class="events-card__label">
+				<i class="fas fa-map-marker-alt"></i>
+				{{ events_card_tag }}</div>
+		</div>
+
+	</div>
+</div>
