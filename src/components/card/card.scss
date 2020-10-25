@@ -58,8 +58,8 @@
     text-align: center;
 
     &.card--horizontal,
-    &.card--media--right,
-    &.card--media--left {
+    &.card--media-right,
+    &.card--media-left {
       flex-direction: column;
 
       .card__media+.card__body {
@@ -95,6 +95,16 @@
   .card__media--small {
     @include breakpoint(sm) {
       max-width: 160px;
+    }
+
+    img {
+      align-self: start;
+    }
+  }
+
+  .card__media--medium {
+    @include breakpoint(sm) {
+      max-width: 25%;
     }
 
     img {
@@ -213,6 +223,11 @@
     .card__media--small {
       @include card-media-small;
     }
+
+    .card__media--small {
+      @include card-media-medium;
+    }
+
 
     .card__media+.card__body {
       @include breakpoint(sm) {
