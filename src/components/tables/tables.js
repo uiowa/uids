@@ -7,7 +7,14 @@ document.addEventListener("DOMContentLoaded", function () {
 // Instantiate tables on the page.
 function generateResponsiveTables() {
     // Only instantiate tables that are not pre defined by the user as 'table-static'.
-    let tables = document.querySelectorAll('table:not(.table--static)');
+    let selector = 'table:not(.table--static)';
+
+    // If there is a defined hook to change the selector, then change it.
+    if (typeof hook_modifyTableSelector === "function") {
+        selector = hook_modifyTableSelector(selector);
+    }
+
+    let tables = document.querySelectorAll(selector);
 
     for (let i = 0; i < tables.length; i++) {
         let table = tables[i];
@@ -90,7 +97,7 @@ function generateResponsiveTables() {
                         table.outerHTML +
                     '</div>' +
                 '</div>'
-                ;
+            ;
 
             // Grab necessary elements to measure scrolling so we can add sticky class.
             let table_bounding_box_selector = document.querySelector('#table__responsive-container--' + i);
