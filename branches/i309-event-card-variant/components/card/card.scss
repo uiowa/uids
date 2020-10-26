@@ -7,12 +7,14 @@
   &--enclosed {
     @include card-enclosed;
 
-    &.card--centered {
+    &.card--centered,
+    &.card--centered-left {
       //margin-top: 100px;
 
 
       .media--circle,
-      .card__media--small {
+      .card__media--small,
+      .card__media--medium {
         margin-top: 2rem;
 
         img {
@@ -57,9 +59,9 @@
   &--centered {
     text-align: center;
 
-    &.card--horizontal,
-    &.card--media--right,
-    &.card--media--left {
+
+    &.card--media-right,
+    &.card--media-left {
       flex-direction: column;
 
       .card__media+.card__body {
@@ -75,6 +77,7 @@
   }
 
   .card__media--small,
+  .card__media--medium,
   .card__media--large {
     @include breakpoint(sm) {
       display: flex;
@@ -95,6 +98,16 @@
   .card__media--small {
     @include breakpoint(sm) {
       max-width: 160px;
+    }
+
+    img {
+      align-self: start;
+    }
+  }
+
+  .card__media--medium {
+    @include breakpoint(sm) {
+      max-width: 60%;
     }
 
     img {
@@ -166,38 +179,6 @@
     }
   }
 
-  &.card--horizontal {
-
-    &.card--enclosed,
-    &[class*="bg-"] {
-
-
-      .card__media+.card__body {
-        @include breakpoint(sm) {
-          padding: 0 0 0 2rem;
-        }
-      }
-
-      .media--circle+.card__body {
-        @include breakpoint(sm) {
-          padding: 0 0 0 $gutter;
-        }
-      }
-
-      .card__body {
-        @include breakpoint(sm) {
-          padding: 0;
-        }
-      }
-    }
-
-    @include breakpoint(sm) {
-      flex-direction: unset;
-    }
-
-  }
-
-  &.card--horizontal,
   &.card--media-right,
   &.card--media-left {
 
@@ -213,6 +194,11 @@
     .card__media--small {
       @include card-media-small;
     }
+
+    .card__media--medium {
+      @include card-media-medium;
+    }
+
 
     .card__media+.card__body {
       @include breakpoint(sm) {
@@ -288,7 +274,7 @@
   &--media-right {
     flex-direction: row-reverse;
 
-    &.card--horizontal,
+
     &.card--enclosed,
     &.card {
       flex-direction: row-reverse;
