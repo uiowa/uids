@@ -88,14 +88,31 @@
     }
   }
 
-
-  .card__media--small {
-    @include breakpoint(sm) {
-      max-width: 160px;
+  &.media--widescreen {
+    .card__media--small {
+      @include breakpoint(sm) {
+        max-width: 50%;
+      }
     }
 
-    img {
-      align-self: start;
+    .card__media--medium {
+      @include breakpoint(sm) {
+        max-width: 100%;
+        padding: 0 2rem;
+      }
+    }
+  }
+
+  &.media--square,
+  &.media--circle {
+    .card__media--small {
+      @include breakpoint(sm) {
+        max-width: 160px;
+      }
+
+      img {
+        align-self: start;
+      }
     }
   }
 
