@@ -1,15 +1,19 @@
-<{{ headline_level }} class="{{ headline_class }}">
+{% for background in backgrounds %}
+<div class="{{ background.bg_class }} container--padded">
+  <{{ headline_level }} class="{{ headline_class }}">
   {% if headline_url %}
-<a href="{{ headline_url }}" {% if headline_aria %}aria-describedby="{{ headline_aria }}"{% endif %}>
+  <a href="{{ headline_url }}" {% if headline_aria %}aria-describedby="{{ headline_aria }}"{% endif %}>
   {% endif %}
   {% if headline_prefix %}
     <span class="headline__prefix">{{ headline_prefix }}</span>
   {% endif %}
-    <span class="headline__headline">{{ headline }}</span>
+  <span class="headline__headline">{{ headline }}</span>
   {% if headline_suffix %}
     <span class="headline__suffix">{{ headline_suffix }}</span>
   {% endif %}
   {% if headline_url %}
-    </a>
+  </a>
   {% endif %}
-</{{ headline_level }}>
+  </{{ headline_level }}>
+  </div>
+{% endfor %}
