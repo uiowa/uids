@@ -57,8 +57,8 @@ $bg-to-fg-color-map: (
 // Loop through each background.
 @each $bg-class, $background in $backgrounds {
   .#{$bg-class} {
-    background: map-deep-get($backgrounds, $bg-class, 'background');
-    @if map-deep-get($backgrounds, $bg-class, 'type') == 'pattern' {
+    background: map-get($background, 'background');
+    @if map-get($background, 'type') == 'pattern' {
       background-size: auto auto;
     }
     @if map-get($bg-to-fg-color-map, map-get($background, 'name')) {
@@ -68,30 +68,3 @@ $bg-to-fg-color-map: (
     }
   }
 }
-
-//.bg--gold {
-//  background: $primary;
-//}
-//
-//.bg--black {
-//  background: $secondary;
-//}
-//
-//.bg--gray {
-//  background: $light;
-//}
-//
-//.bg-pattern--brain {
-//  background: #fff url("#{$imgpath}/brain-pattern.svg");
-//  background-size: auto auto;
-//}
-//
-//.bg-pattern--brain--gold {
-//  background: $primary url("#{$imgpath}/brain-pattern-reversed.svg");
-//  background-size: auto auto;
-//}
-//
-//.bg-pattern--brain--black {
-//  background: $secondary url("#{$imgpath}/brain-pattern-black.svg");
-//  background-size: auto auto;
-//}

@@ -359,8 +359,8 @@
 <span class="hljs-comment">// Loop through each background.</span>
 <span class="hljs-keyword">@each</span> <span class="hljs-variable">$bg-class</span>, <span class="hljs-variable">$background</span> in <span class="hljs-variable">$backgrounds</span> {
   .#{<span class="hljs-variable">$bg-class</span>} {
-    <span class="hljs-attribute">background</span>: map-deep-get(<span class="hljs-variable">$backgrounds</span>, <span class="hljs-variable">$bg-class</span>, <span class="hljs-string">'background'</span>);
-    <span class="hljs-keyword">@if</span> map-deep-get(<span class="hljs-variable">$backgrounds</span>, <span class="hljs-variable">$bg-class</span>, <span class="hljs-string">'type'</span>) == <span class="hljs-string">'pattern'</span> {
+    <span class="hljs-attribute">background</span>: map-get(<span class="hljs-variable">$background</span>, <span class="hljs-string">'background'</span>);
+    <span class="hljs-keyword">@if</span> map-get(<span class="hljs-variable">$background</span>, <span class="hljs-string">'type'</span>) == <span class="hljs-string">'pattern'</span> {
       <span class="hljs-attribute">background-size</span>: auto auto;
     }
     <span class="hljs-keyword">@if</span> map-get(<span class="hljs-variable">$bg-to-fg-color-map</span>, map-get(<span class="hljs-variable">$background</span>, <span class="hljs-string">'name'</span>)) {
@@ -370,33 +370,6 @@
     }
   }
 }
-
-<span class="hljs-comment">//.bg--gold {</span>
-<span class="hljs-comment">//  background: $primary;</span>
-<span class="hljs-comment">//}</span>
-<span class="hljs-comment">//</span>
-<span class="hljs-comment">//.bg--black {</span>
-<span class="hljs-comment">//  background: $secondary;</span>
-<span class="hljs-comment">//}</span>
-<span class="hljs-comment">//</span>
-<span class="hljs-comment">//.bg--gray {</span>
-<span class="hljs-comment">//  background: $light;</span>
-<span class="hljs-comment">//}</span>
-<span class="hljs-comment">//</span>
-<span class="hljs-comment">//.bg-pattern--brain {</span>
-<span class="hljs-comment">//  background: #fff url("#{$imgpath}/brain-pattern.svg");</span>
-<span class="hljs-comment">//  background-size: auto auto;</span>
-<span class="hljs-comment">//}</span>
-<span class="hljs-comment">//</span>
-<span class="hljs-comment">//.bg-pattern--brain--gold {</span>
-<span class="hljs-comment">//  background: $primary url("#{$imgpath}/brain-pattern-reversed.svg");</span>
-<span class="hljs-comment">//  background-size: auto auto;</span>
-<span class="hljs-comment">//}</span>
-<span class="hljs-comment">//</span>
-<span class="hljs-comment">//.bg-pattern--brain--black {</span>
-<span class="hljs-comment">//  background: $secondary url("#{$imgpath}/brain-pattern-black.svg");</span>
-<span class="hljs-comment">//  background-size: auto auto;</span>
-<span class="hljs-comment">//}</span>
 </pre>
                             </code>
                             
@@ -413,7 +386,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">2.2 KB</span>
+                    <span class="Meta-value">1.6 KB</span>
                 </li>
             </ul>
         </div>
@@ -1360,7 +1333,7 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-10-27T14:40:43.389Z">
+            <time datetime="2020-10-27T15:12:11.992Z">
                 10/27/2020
             </time>
         </div>
