@@ -96,7 +96,7 @@ uidsTheme.addLoadPath(__dirname + '/theme/views');
 /*
  * Specify the static assets directory that contains the custom stylesheet.
  */
-uidsTheme.addStatic(__dirname + '/src/components', '/components');
+// uidsTheme.addStatic(__dirname + '/src/components', '/components');
 fractal.web.theme(uidsTheme); // tell Fractal to use the configured theme by default
 fractal.web.set('static.path', paths.static);
 fractal.web.set('builder.dest', paths.build);
