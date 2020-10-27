@@ -91,6 +91,7 @@ function generateResponsiveTables() {
             // This should be done last as to not mess up any scoping of previous functions.
             let classes = table.classList.contains('is-striped') ? 'table--striped' : '';
             table.outerHTML =
+                '<div id="table__responsive-measurer--' + i + '"></div>' +
                 '<div id="table__responsive-container--' + i + '" class="table__responsive-container table ' + classes + ' ' + row_headers + '" role="region" ' + caption_labeledby + ' tabindex="0">' +
                     header_scroller +
                     '<div class="table__container syncscroll" name="sync-table-' + i + '">' +
