@@ -332,9 +332,16 @@
     <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--stacked</span> <span class="hljs-selector-class">.card__media--large</span> {
       <span class="hljs-attribute">display</span>: block; } }
   <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>) {
-    <span class="hljs-selector-class">.card</span> <span class="hljs-selector-class">.card__media--small</span> {
+    <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.media--widescreen</span> <span class="hljs-selector-class">.card__media--small</span> {
+      <span class="hljs-attribute">max-width</span>: <span class="hljs-number">50%</span>; } }
+  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>) {
+    <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.media--widescreen</span> <span class="hljs-selector-class">.card__media--medium</span> {
+      <span class="hljs-attribute">max-width</span>: <span class="hljs-number">100%</span>;
+      <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">2rem</span>; } }
+  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>) {
+    <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.media--square</span> <span class="hljs-selector-class">.card__media--small</span>, <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.media--circle</span> <span class="hljs-selector-class">.card__media--small</span> {
       <span class="hljs-attribute">max-width</span>: <span class="hljs-number">160px</span>; } }
-  <span class="hljs-selector-class">.card</span> <span class="hljs-selector-class">.card__media--small</span> <span class="hljs-selector-tag">img</span> {
+  <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.media--square</span> <span class="hljs-selector-class">.card__media--small</span> <span class="hljs-selector-tag">img</span>, <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.media--circle</span> <span class="hljs-selector-class">.card__media--small</span> <span class="hljs-selector-tag">img</span> {
     <span class="hljs-attribute">align-self</span>: start; }
   <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>) {
     <span class="hljs-selector-class">.card</span> <span class="hljs-selector-class">.card__media--medium</span> {
@@ -512,7 +519,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">8.1 KB</span>
+                    <span class="Meta-value">8.4 KB</span>
                 </li>
             </ul>
         </div>
@@ -668,14 +675,31 @@
     }
   }
 
-
-  <span class="hljs-selector-class">.card__media--small</span> {
-    <span class="hljs-keyword">@include</span> breakpoint(sm) {
-      <span class="hljs-attribute">max-width</span>: <span class="hljs-number">160px</span>;
+  &amp;<span class="hljs-selector-class">.media--widescreen</span> {
+    <span class="hljs-selector-class">.card__media--small</span> {
+      <span class="hljs-keyword">@include</span> breakpoint(sm) {
+        <span class="hljs-attribute">max-width</span>: <span class="hljs-number">50%</span>;
+      }
     }
 
-    <span class="hljs-selector-tag">img</span> {
-      <span class="hljs-attribute">align-self</span>: start;
+    <span class="hljs-selector-class">.card__media--medium</span> {
+      <span class="hljs-keyword">@include</span> breakpoint(sm) {
+        <span class="hljs-attribute">max-width</span>: <span class="hljs-number">100%</span>;
+        <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">2rem</span>;
+      }
+    }
+  }
+
+  &amp;<span class="hljs-selector-class">.media--square</span>,
+  &amp;<span class="hljs-selector-class">.media--circle</span> {
+    <span class="hljs-selector-class">.card__media--small</span> {
+      <span class="hljs-keyword">@include</span> breakpoint(sm) {
+        <span class="hljs-attribute">max-width</span>: <span class="hljs-number">160px</span>;
+      }
+
+      <span class="hljs-selector-tag">img</span> {
+        <span class="hljs-attribute">align-self</span>: start;
+      }
     }
   }
 
@@ -916,7 +940,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">5 KB</span>
+                    <span class="Meta-value">5.3 KB</span>
                 </li>
             </ul>
         </div>
@@ -2154,8 +2178,8 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-10-26T19:20:24.769Z">
-                10/26/2020
+            <time datetime="2020-10-27T13:48:38.817Z">
+                10/27/2020
             </time>
         </div>
     </div>
