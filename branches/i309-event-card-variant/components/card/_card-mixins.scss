@@ -1,6 +1,12 @@
 @mixin card-enclosed {
   @include breakpoint(sm) {
     border: 1px solid rgba(0, 0, 0, 0.125);
+    .bg--black &,
+    .bg--gold &,
+    .bg-pattern--brain--black &,
+    .bg-pattern--brain--gold & {
+      border: 1px solid #fff;
+    }
   }
 
   .card__body {
@@ -20,6 +26,14 @@
   font-weight: $font-weight-medium;
   line-height: 1.2;
 
+    .bg--black &,
+    .bg-pattern--brain--black & {
+      color: #fff;
+      a {
+        color: #fff;
+      }
+    }
+
   a {
     text-decoration: none;
     color: $secondary;
@@ -34,10 +48,6 @@
 
 @mixin card-title {
   margin-bottom: .75rem;
-
-  .bg--black & {
-    color: #fff;
-  }
 }
 
 @mixin card-body {
@@ -107,7 +117,8 @@
   font-size: 1rem;
   line-height: 1.7;
 
-  .bg--black & {
+  .bg--black &,
+  .bg-pattern--brain--black & {
     color: #fff;
   }
 
@@ -115,7 +126,8 @@
     position: relative;
     z-index: 1;
 
-    .bg--black & {
+    .bg--black &,
+    .bg-pattern--brain--black & {
       color: $primary;
     }
   }
