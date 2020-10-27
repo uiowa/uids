@@ -21,7 +21,7 @@
     pointer-events: auto;
     position: relative;
     overflow: hidden;
-    min-height: 300px;
+    //min-height: 300px;
     //transition: all 0.4s cubic-bezier(0.61, -0.44, 0.33, 1.39);
     color: $white;
     @include flex(1, 0, 100%);
@@ -50,44 +50,44 @@
     }
 
     // banner overrides
-    .banner:after {
-      background: none;
+    .banner__image img {
+      display: block;
+      width: 100%;
+      -o-object-fit: cover;
+      object-fit: cover;
+
+      @include breakpoint(menu) {
+        height: 33rem;
+      }
     }
 
-    .banner--reversed .banner__content {
-      background: rgba(21, 21, 21, 0.7);
-      height: 100%;
-
+    .banner__text {
       @include breakpoint(sm) {
-        background: transparent;
-        height: auto;
+        opacity: 0;
+        transition: opacity .2s ease-in;
+      }
+    }
+
+    .bold-headline {
+      @include breakpoint(sm) {
+        opacity: 0;
+        transition: opacity .2s linear;
       }
     }
 
     .banner__content {
-      position: absolute;
-      bottom: 0;
-      top: unset;
-      transition: opacity .2s linear;
       opacity: 1;
 
       @include breakpoint(sm) {
         opacity: 0;
+        position: absolute;
+        bottom: 0;
+        top: unset;
+        transition: opacity .2s linear;
       }
 
       @include padding($top: $xlg, $right: $xlg, $bottom: $xlg, $left: $xlg);
       width: 100%;
-    }
-
-    .banner__content .bold-headline--serif {
-      font-family: "Zilla Slab", serif;
-      font-weight: 700;
-      margin: 0;
-    }
-
-    .banner__summary {
-      margin-bottom: 1.3rem;
-      margin-top: .5rem;
     }
 
     // Expanded overrides.
@@ -98,6 +98,17 @@
 
       .banner__content {
         opacity: 1;
+        //transition: opacity 1s linear;
+      }
+
+      .bold-headline {
+        opacity: 1;
+        transition: opacity 1s linear;
+      }
+
+      .banner__text {
+        opacity: 1;
+        transition: opacity 1.5s ease-in;
       }
 
       .slider__teaser {
@@ -105,13 +116,17 @@
       }
 
       &:after {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        content: "";
-        background: linear-gradient(transparent 1%, transparent 29%, rgba(0, 0, 0, .7));
+        @include breakpoint(sm) {
+          /*
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          content: "";
+          background: linear-gradient(transparent 1%, transparent 29%, rgba(0, 0, 0, .9));
+          */
+        }
       }
     }
   }
