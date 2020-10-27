@@ -1,0 +1,97 @@
+@import '../../assets/scss/variables';
+
+/// Map deep get
+/// @author Hugo Giraudel
+/// @access public
+/// @param {Map} $map - Map
+/// @param {Arglist} $keys - Key chain
+/// @return {*} - Desired value
+@function map-deep-get($map, $keys...) {
+  @each $key in $keys {
+    $map: map-get($map, $key);
+  }
+  @return $map;
+}
+
+$backgrounds: (
+  'bg--black': (
+    'name': 'black',
+    'type': 'color',
+    'background': $secondary,
+  ),
+  'bg--gold': (
+    'name': 'gold',
+    'type': 'color',
+    'background': $primary,
+  ),
+  'bg--gray': (
+    'name': 'gray',
+    'type': 'color',
+    'background': $light,
+  ),
+  'bg-pattern--brain': (
+    'name': 'white',
+    'type': 'pattern',
+    'background': #fff url("#{$imgpath}/brain-pattern.svg"),
+  ),
+  'bg-pattern--brain--black': (
+    'name': 'gold',
+    'type': 'pattern',
+    'background': $secondary url("#{$imgpath}/brain-pattern-black.svg"),
+  ),
+  'bg-pattern--brain--gold': (
+    'name': 'gold',
+    'type': 'pattern',
+    'background': $primary url("#{$imgpath}/brain-pattern-reversed.svg"),
+  ),
+);
+
+$bg-to-fg-color-map: (
+  'default': 'black',
+  'black': 'white',
+  'gold': 'black',
+  'gray': 'black',
+  'white': 'black',
+);
+
+// Loop through each background.
+@each $bg-class, $background in $backgrounds {
+  .#{$bg-class} {
+    background: map-deep-get($backgrounds, $bg-class, 'background');
+    @if map-deep-get($backgrounds, $bg-class, 'type') == 'pattern' {
+      background-size: auto auto;
+    }
+    @if map-get($bg-to-fg-color-map, map-get($background, 'name')) {
+      color: map-get($bg-to-fg-color-map, map-get($background, 'name'));
+    } @else {
+      color: map-get($bg-to-fg-color-map, 'default');
+    }
+  }
+}
+
+//.bg--gold {
+//  background: $primary;
+//}
+//
+//.bg--black {
+//  background: $secondary;
+//}
+//
+//.bg--gray {
+//  background: $light;
+//}
+//
+//.bg-pattern--brain {
+//  background: #fff url("#{$imgpath}/brain-pattern.svg");
+//  background-size: auto auto;
+//}
+//
+//.bg-pattern--brain--gold {
+//  background: $primary url("#{$imgpath}/brain-pattern-reversed.svg");
+//  background-size: auto auto;
+//}
+//
+//.bg-pattern--brain--black {
+//  background: $secondary url("#{$imgpath}/brain-pattern-black.svg");
+//  background-size: auto auto;
+//}
