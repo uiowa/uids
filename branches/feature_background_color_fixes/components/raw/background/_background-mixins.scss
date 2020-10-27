@@ -1,35 +1,35 @@
-@use '../../assets/scss/variables';
+@import '../../assets/scss/variables';
 
 $backgrounds: (
   'bg--black': (
     'name': 'black',
     'type': 'color',
-    'background': variables.$secondary,
+    'background': $secondary,
   ),
   'bg--gold': (
     'name': 'gold',
     'type': 'color',
-    'background': variables.$primary,
+    'background': $primary,
   ),
   'bg--gray': (
     'name': 'gray',
     'type': 'color',
-    'background': variables.$light,
+    'background': $light,
   ),
   'bg-pattern--brain': (
     'name': 'white',
     'type': 'pattern',
-    'background': #fff url("#{variables.$imgpath}/brain-pattern.svg"),
+    'background': #fff url("#{$imgpath}/brain-pattern.svg"),
   ),
   'bg-pattern--brain--black': (
-    'name': 'gold',
+    'name': 'black',
     'type': 'pattern',
-    'background': variables.$secondary url("#{variables.$imgpath}/brain-pattern-black.svg"),
+    'background': $secondary url("#{$imgpath}/brain-pattern-black.svg"),
   ),
   'bg-pattern--brain--gold': (
     'name': 'gold',
     'type': 'pattern',
-    'background': variables.$primary url("#{variables.$imgpath}/brain-pattern-reversed.svg"),
+    'background': $primary url("#{$imgpath}/brain-pattern-reversed.svg"),
   ),
 );
 
@@ -48,10 +48,17 @@ $bg-to-fg-color-map: (
       @if map-get($background, 'type') == 'pattern' {
         background-size: auto auto;
       }
+    }
+  }
+}
+
+@mixin add-fg-colors($selector_before: '', $selector_after: '') {
+  @each $bg-class, $background in $backgrounds {
+    #{$selector_before}.#{$bg-class}#{$selector_after} {
       @if map-get($bg-to-fg-color-map, map-get($background, 'name')) {
-        color: map-get($bg-to-fg-color-map, map-get($background, 'name'));
+        color: unquote(map-get($bg-to-fg-color-map, map-get($background, 'name')));
       } @else {
-        color: map-get($bg-to-fg-color-map, 'default');
+        color: unquote(map-get($bg-to-fg-color-map, 'default'));
       }
     }
   }
