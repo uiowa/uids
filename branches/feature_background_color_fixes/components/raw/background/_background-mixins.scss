@@ -1,0 +1,58 @@
+@use '../../assets/scss/variables';
+
+$backgrounds: (
+  'bg--black': (
+    'name': 'black',
+    'type': 'color',
+    'background': variables.$secondary,
+  ),
+  'bg--gold': (
+    'name': 'gold',
+    'type': 'color',
+    'background': variables.$primary,
+  ),
+  'bg--gray': (
+    'name': 'gray',
+    'type': 'color',
+    'background': variables.$light,
+  ),
+  'bg-pattern--brain': (
+    'name': 'white',
+    'type': 'pattern',
+    'background': #fff url("#{variables.$imgpath}/brain-pattern.svg"),
+  ),
+  'bg-pattern--brain--black': (
+    'name': 'gold',
+    'type': 'pattern',
+    'background': variables.$secondary url("#{variables.$imgpath}/brain-pattern-black.svg"),
+  ),
+  'bg-pattern--brain--gold': (
+    'name': 'gold',
+    'type': 'pattern',
+    'background': variables.$primary url("#{variables.$imgpath}/brain-pattern-reversed.svg"),
+  ),
+);
+
+$bg-to-fg-color-map: (
+  'default': 'black',
+  'black': 'white',
+  'gold': 'black',
+  'gray': 'black',
+  'white': 'black',
+);
+
+@mixin add-bg-rules($selector_before: '', $selector_after: '', $overrides...) {
+  @each $bg-class, $background in $backgrounds {
+    #{$selector_before}.#{$bg-class}#{$selector_after} {
+      background: map-get($background, 'background');
+      @if map-get($background, 'type') == 'pattern' {
+        background-size: auto auto;
+      }
+      @if map-get($bg-to-fg-color-map, map-get($background, 'name')) {
+        color: map-get($bg-to-fg-color-map, map-get($background, 'name'));
+      } @else {
+        color: map-get($bg-to-fg-color-map, 'default');
+      }
+    }
+  }
+}

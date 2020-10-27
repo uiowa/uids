@@ -1,70 +1,7 @@
-@import '../../assets/scss/variables';
+@import 'background-mixins';
 
-/// Map deep get
-/// @author Hugo Giraudel
-/// @access public
-/// @param {Map} $map - Map
-/// @param {Arglist} $keys - Key chain
-/// @return {*} - Desired value
-@function map-deep-get($map, $keys...) {
-  @each $key in $keys {
-    $map: map-get($map, $key);
-  }
-  @return $map;
+body {
+  background-size: auto auto;
+  @include add-bg-rules();
 }
 
-$backgrounds: (
-  'bg--black': (
-    'name': 'black',
-    'type': 'color',
-    'background': $secondary,
-  ),
-  'bg--gold': (
-    'name': 'gold',
-    'type': 'color',
-    'background': $primary,
-  ),
-  'bg--gray': (
-    'name': 'gray',
-    'type': 'color',
-    'background': $light,
-  ),
-  'bg-pattern--brain': (
-    'name': 'white',
-    'type': 'pattern',
-    'background': #fff url("#{$imgpath}/brain-pattern.svg"),
-  ),
-  'bg-pattern--brain--black': (
-    'name': 'gold',
-    'type': 'pattern',
-    'background': $secondary url("#{$imgpath}/brain-pattern-black.svg"),
-  ),
-  'bg-pattern--brain--gold': (
-    'name': 'gold',
-    'type': 'pattern',
-    'background': $primary url("#{$imgpath}/brain-pattern-reversed.svg"),
-  ),
-);
-
-$bg-to-fg-color-map: (
-  'default': 'black',
-  'black': 'white',
-  'gold': 'black',
-  'gray': 'black',
-  'white': 'black',
-);
-
-// Loop through each background.
-@each $bg-class, $background in $backgrounds {
-  .#{$bg-class} {
-    background: map-get($background, 'background');
-    @if map-get($background, 'type') == 'pattern' {
-      background-size: auto auto;
-    }
-    @if map-get($bg-to-fg-color-map, map-get($background, 'name')) {
-      color: map-get($bg-to-fg-color-map, map-get($background, 'name'));
-    } @else {
-      color: map-get($bg-to-fg-color-map, 'default');
-    }
-  }
-}
