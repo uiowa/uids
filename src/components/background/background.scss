@@ -1,7 +1,8 @@
 @import 'background-mixins';
 
-body {
-  background-size: auto auto;
-  @include add-bg-rules();
+@include add-bg-rules();
+$h_sizes: 'h1', '.h1', 'h2', '.h2', 'h3', '.h3', 'h4', '.h4', 'h5', '.h5', 'h6', '.h6';
+@each $size in $h_sizes {
+  @include add-fg-colors($selector_after: ' #{$size}');
 }
 
