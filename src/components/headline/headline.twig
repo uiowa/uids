@@ -1,5 +1,5 @@
-{% for background in backgrounds %}
-<div class="{{ background.bg_class }} container--padded">
+{% embed '@background' %}
+{% block content %}
   <{{ headline_level }} class="{{ headline_class }}">
   {% if headline_url %}
   <a href="{{ headline_url }}" {% if headline_aria %}aria-describedby="{{ headline_aria }}"{% endif %}>
@@ -16,4 +16,5 @@
   {% endif %}
   </{{ headline_level }}>
   </div>
-{% endfor %}
+{% endblock %}
+{% endembed %}
