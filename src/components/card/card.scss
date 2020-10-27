@@ -1,5 +1,7 @@
 @import '../../assets/scss/variables';
 @import '../../assets/scss/utilities';
+@import '_card-mixins.scss';
+
 
 .card {
   @include card;
@@ -74,7 +76,7 @@
   .card__media--medium,
   .card__media--large {
     @include breakpoint(sm) {
-      display: flex;
+      //display: flex;
       justify-content: center;
       margin: 0 auto;
     }
@@ -146,9 +148,41 @@
     @include card-paragraph;
   }
 
+  // color contrast
+  &.bg--black {
+    .card__label {
+      color: #fff;
+    }
+
+    .card__date {
+      color: $primary;
+    }
+
+    .card__title {
+      color: #fff;
+
+      a {
+        color: #fff;
+      }
+    }
+
+    .card__subtitle {
+      color: #ccc;
+    }
+
+    p {
+      color: #fff;
+
+      a {
+        color: $primary;
+      }
+    }
+  }
+
   &__subtitle {
     @include card-subtitle;
   }
+
 
   &__date {
     font-family: $font-family-sans-serif;
@@ -168,6 +202,10 @@
     padding-left: 20px;
     line-height: 1.3;
     margin-top: $xsm;
+
+    .bg--black & {
+      color: #fff;
+    }
 
     .fas,
     .svg-inline--fa {
