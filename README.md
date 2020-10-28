@@ -1,5 +1,5 @@
 # UI Design System (UIDS)
-A design system for the University of Iowa.
+A design system for the University of Iowa. 
 
 See the documentation at http://uids.brand.uiowa.edu.
 
