@@ -73,3 +73,11 @@ $bg-to-fg-color-map: (
     }
   }
 }
+
+@mixin background-treatments($before: '', $after: '') {
+  @each $bg-class, $background in $backgrounds {
+    .#{$bg-class} {
+      @content
+    }
+  }
+}
