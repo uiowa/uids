@@ -205,6 +205,9 @@
   <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"bg--gray container--padded"</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Gray<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">" container--padded"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>White<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"bg-pattern--brain--black container--padded"</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Brain pattern - Black<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
@@ -308,6 +311,20 @@
     }
   }
 }
+
+<span class="hljs-keyword">@mixin</span> add-color-for-bgs(<span class="hljs-variable">$before</span>: <span class="hljs-string">''</span>, <span class="hljs-variable">$after</span>: <span class="hljs-string">''</span>) {
+  <span class="hljs-comment">// Loop through $backgrounds</span>
+  <span class="hljs-keyword">@each</span> <span class="hljs-variable">$bg-class</span>, <span class="hljs-variable">$background</span> in <span class="hljs-variable">$backgrounds</span> {
+    <span class="hljs-variable">$type</span>: map-get(<span class="hljs-variable">$background</span>, <span class="hljs-string">'type'</span>);
+    <span class="hljs-variable">$text_color</span>: map-get(<span class="hljs-variable">$bg-to-fg-color-map</span>, <span class="hljs-variable">$type</span>);
+    <span class="hljs-keyword">@if</span> <span class="hljs-variable">$text_color</span> == null {
+      <span class="hljs-variable">$text_color</span>: map-get(<span class="hljs-variable">$bg-to-fg-color-map</span>, <span class="hljs-string">'default'</span>);
+    }
+    #{<span class="hljs-variable">$before</span>}.#{<span class="hljs-variable">$bg-class</span>}#{<span class="hljs-variable">$after</span>} {
+      <span class="hljs-attribute">color</span>: unquote(<span class="hljs-variable">$text_color</span>);
+    }
+  }
+}
 </pre>
                             </code>
                             
@@ -324,7 +341,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">1.6 KB</span>
+                    <span class="Meta-value">2 KB</span>
                 </li>
             </ul>
         </div>
@@ -406,6 +423,9 @@
 
 <span class="hljs-comment">// Add background rules</span>
 <span class="hljs-keyword">@include</span> add-backgrounds();
+<span class="hljs-comment">//@each $size in ('h1', 'h2', 'h3', 'h4', 'h5', 'h6') {</span>
+<span class="hljs-comment">//  @include add-color-for-bgs($after: ' #{$size}');</span>
+<span class="hljs-comment">//}</span>
 
 <span class="hljs-comment">// @todo Move this somewhere else.</span>
 <span class="hljs-selector-class">.container--padded</span> {
@@ -427,7 +447,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">215 Bytes</span>
+                    <span class="Meta-value">328 Bytes</span>
                 </li>
             </ul>
         </div>
@@ -473,8 +493,10 @@
         
         
         <li class="Meta-item">
-            <strong class="Meta-key">Referenced by <em class="Meta-count">(1)</em>:</strong>
+            <strong class="Meta-key">Referenced by <em class="Meta-count">(2)</em>:</strong>
             <span class="Meta-value Meta-value--linkList">
+            
+                <a href="headlines.html">@<span>headlines</span></a>, 
             
                 <a href="kitchen-sink.html">@<span>kitchen-sink</span></a>
             
@@ -587,11 +609,11 @@
         
         
         <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="headings.html" data-pjax>
+            <a class="Tree-entityLink" href="headlines.html" data-pjax>
                 
                     
 
-<span style="color: #A84F00;" title="WIP">Headings</span>
+<span style="color: #A84F00;" title="WIP">Headlines</span>
 
 
                 
@@ -779,21 +801,6 @@
                     
 
 <span style="color: #A84F00;" title="WIP">Button</span>
-
-
-                
-            </a>
-        </li>
-        
-    
-        
-        
-        <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="headline.html" data-pjax>
-                
-                    
-
-<span style="color: #A84F00;" title="WIP">Headline</span>
 
 
                 
@@ -1398,7 +1405,7 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-10-28T13:36:56.760Z">
+            <time datetime="2020-10-28T17:06:02.991Z">
                 10/28/2020
             </time>
         </div>
