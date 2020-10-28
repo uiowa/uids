@@ -1,5 +1,5 @@
 # UI Design System (UIDS)
-A design system for the University of Iowa. 
+A design system for the University of Iowa.
 
 See the documentation at http://uids.brand.uiowa.edu.
 
@@ -43,7 +43,7 @@ If you are starting work on a new component, please make sure that it has `statu
 ![Publish docs to GitHub Pages](https://github.com/uiowa/uids/workflows/Publish%20docs%20to%20GitHub%20Pages/badge.svg)
 GitHub Actions is used to build and deploy the Fractal artifact to the `gh-pages` branch. This branch is set to host UIDS using GitHub Pages. All pushes to a branches or tags will trigger a build.
 
-Branches can be accessed at http://uids.brand.uiowa.edu/branches/{your-branch-name}
+Branches can be accessed at http://uids.brand.uiowa.edu/branches/{your-branch-name}.
 
 ## Creating a Release
-Follow the steps outlined at https://github.com/uiowa/uids/issues/71. 
+Follow the steps outlined at https://github.com/uiowa/uids/issues/71.
