@@ -2,34 +2,31 @@
 
 $backgrounds: (
   'bg--black': (
-    'name': 'black',
-    'type': 'color',
-    'background': $secondary,
+    'type': 'black',
+    'background-color': $secondary,
   ),
   'bg--gold': (
-    'name': 'gold',
-    'type': 'color',
-    'background': $primary,
+    'type': 'gold',
+    'background-color': $primary,
   ),
   'bg--gray': (
-    'name': 'gray',
-    'type': 'color',
-    'background': $light,
+    'type': 'gray',
+    'background-color': $light,
   ),
   'bg-pattern--brain': (
-    'name': 'white',
-    'type': 'pattern',
-    'background': #fff url("#{$imgpath}/brain-pattern.svg"),
+    'type': 'white',
+    'background-color': #fff,
+    'background-image': '#{$imgpath}/brain-pattern.svg',
   ),
   'bg-pattern--brain--black': (
-    'name': 'black',
-    'type': 'pattern',
-    'background': $secondary url("#{$imgpath}/brain-pattern-black.svg"),
+    'type': 'black',
+    'background-color': $secondary,
+    'background-image': '#{$imgpath}/brain-pattern-black.svg',
   ),
   'bg-pattern--brain--gold': (
-    'name': 'gold',
-    'type': 'pattern',
-    'background': $primary url("#{$imgpath}/brain-pattern-reversed.svg"),
+    'type': 'gold',
+    'background-color': $primary,
+    'background-image': '#{$imgpath}/brain-pattern-reversed.svg',
   ),
 );
 
@@ -41,25 +38,24 @@ $bg-to-fg-color-map: (
   'white': 'black',
 );
 
-@mixin add-bg-rules($selector_before: '', $selector_after: '', $overrides...) {
+@mixin add-backgrounds($before: '', $after: '') {
+  // Loop through $backgrounds
   @each $bg-class, $background in $backgrounds {
-    #{$selector_before}.#{$bg-class}#{$selector_after} {
-      background: map-get($background, 'background');
-      @if map-get($background, 'type') == 'pattern' {
-        background-size: auto auto;
-      }
+    $background-color: map-get($background, 'background-color');
+    $background-image: map-get($background, 'background-image');
+    $type: map-get($background, 'type');
+    $text_color: map-get($bg-to-fg-color-map, $type);
+    @if $text_color == null {
+      $text_color: map-get($bg-to-fg-color-map, 'default');
     }
-  }
-}
-
-@mixin add-fg-colors($selector_before: '', $selector_after: '') {
-  @each $bg-class, $background in $backgrounds {
-    #{$selector_before}.#{$bg-class}#{$selector_after} {
-      @if map-get($bg-to-fg-color-map, map-get($background, 'name')) {
-        color: unquote(map-get($bg-to-fg-color-map, map-get($background, 'name')));
-      } @else {
-        color: unquote(map-get($bg-to-fg-color-map, 'default'));
+    #{$before}.#{$bg-class}#{$after} {
+      @if $background-color {
+        background-color: $background-color;
       }
+      @if $background-image {
+        background-image: url($background-image);
+      }
+      color: unquote($text_color);
     }
   }
 }

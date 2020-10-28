@@ -1,10 +1,11 @@
 @import 'background-mixins';
 
-@include add-bg-rules();
-$h_sizes: 'h1', '.h1', 'h2', '.h2', 'h3', '.h3', 'h4', '.h4', 'h5', '.h5', 'h6', '.h6';
-@each $size in $h_sizes {
-  @include add-fg-colors($selector_after: ' #{$size}');
+[class*="bg-pattern"] {
+  background-size: auto auto;
 }
+
+// Add background rules
+@include add-backgrounds();
 
 // @todo Move this somewhere else.
 .container--padded {
