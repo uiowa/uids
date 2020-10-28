@@ -1,49 +1,66 @@
 @import '../../assets/scss/variables';
 @import '../../assets/scss/utilities';
+@import '../typography/headings/headings.scss';
+@import 'headline-mixins';
 
-.bold-headline {
-  @include bold-headline;
+// @todo Remove `.bold-headline` variations.
 
-  &.bold-headline--negative {
-    @include bold-headline-negative;
+.bold-headline,
+.headline {
+  @include headline;
+
+  &.bold-headline--negative,
+  &.headline--negative {
+    @include headline-negative;
   }
 }
 
-.bold-headline--caps {
-  @include bold-headline-caps;
+.bold-headline--caps,
+.headline--uppercase {
+  @include headline-uppercase;
 }
 
-.bold-headline--serif {
-  @include bold-headline-serif;
+.bold-headline--serif,
+.headline--serif {
+  @include headline-serif;
 }
 
-.bold-headline--highlight {
-  @include bold-headline-highlight;
+.bold-headline--highlight,
+.headline--highlight {
+  @include headline-highlight;
 }
 
-.bold-headline--highlight span {
-  @include bold-headline-highlight-word;
+.bold-headline--caps .headline__headline span,
+.bold-headline--highlight span,
+.headline--highlight span {
+  @include headline-highlight-word;
 }
 
-.bold-headline--caps .headline__heading span {
-  @include bold-headline-highlight-caps-word;
+.bold-headline--caps .headline__heading span,
+.headline--uppercase .headline__heading span,
+.headline--uppercase .headline__text span {
+  @include headline-highlight-word-uppercase;
 }
 
-.bold-headline--underline {
-  @include bold-headline-underline;
+.bold-headline--underline,
+.headline--underline {
+  @include headline-underline;
 }
 
 // Misc
 
-h2.bold-headline {
+h2.bold-headline,
+h2.headline {
   font-size: 2.8rem;
 }
 
-.bold-headline--highlight.bold-headline--serif {
+.bold-headline--highlight.bold-headline--serif,
+.headline--highlight.headline--serif {
   font-weight: 600;
 }
 
-.bold-headline--highlight.bold-headline--caps {
+.bold-headline--highlight.bold-headline--caps,
+.headline--highlight.headline--uppercase {
   span {
     padding: 0.1rem 1rem 0;
   }

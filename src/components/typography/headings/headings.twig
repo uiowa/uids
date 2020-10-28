@@ -1,7 +1,14 @@
-<h1>First Level</h1>
-<h2>Second level</h2>
-<h3>Third level</h3>
-<h4>Fourth level</h4>
-<h5>Fifth level</h5>
-<h6>Sixth level</h6>
-
+{% embed '@background' %}
+  {% block content %}
+    {% for headline in headlines %}
+      {% for size in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] %}
+        {% set example_headline = {
+          'headline_level': size,
+          'headline_class': headline.headline_class,
+          'headline_text': size ~ ': ' ~ headline.headline_text,
+        } %}
+        {% include '@headline--default' with example_headline only %}
+      {% endfor %}
+    {% endfor %}
+  {% endblock %}
+{% endembed %}
