@@ -47,4 +47,3 @@ Branches can be accessed at http://uids.brand.uiowa.edu/branches/{your-branch-na
 
 ## Creating a Release
 Follow the steps outlined at https://github.com/uiowa/uids/issues/71. 
-
