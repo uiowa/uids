@@ -59,3 +59,17 @@ $bg-to-fg-color-map: (
     }
   }
 }
+
+@mixin add-color-for-bgs($before: '', $after: '') {
+  // Loop through $backgrounds
+  @each $bg-class, $background in $backgrounds {
+    $type: map-get($background, 'type');
+    $text_color: map-get($bg-to-fg-color-map, $type);
+    @if $text_color == null {
+      $text_color: map-get($bg-to-fg-color-map, 'default');
+    }
+    #{$before}.#{$bg-class}#{$after} {
+      color: unquote($text_color);
+    }
+  }
+}
