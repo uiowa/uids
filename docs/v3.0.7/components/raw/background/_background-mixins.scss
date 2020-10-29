@@ -1,0 +1,75 @@
+@import '../../assets/scss/variables';
+
+$backgrounds: (
+  'bg--black': (
+    'type': 'black',
+    'background-color': $secondary,
+  ),
+  'bg--gold': (
+    'type': 'gold',
+    'background-color': $primary,
+  ),
+  'bg--gray': (
+    'type': 'gray',
+    'background-color': $light,
+  ),
+  'bg-pattern--brain': (
+    'type': 'white',
+    'background-color': #fff,
+    'background-image': '#{$imgpath}/brain-pattern.svg',
+  ),
+  'bg-pattern--brain--black': (
+    'type': 'black',
+    'background-color': $secondary,
+    'background-image': '#{$imgpath}/brain-pattern-black.svg',
+  ),
+  'bg-pattern--brain--gold': (
+    'type': 'gold',
+    'background-color': $primary,
+    'background-image': '#{$imgpath}/brain-pattern-reversed.svg',
+  ),
+);
+
+$bg-to-fg-color-map: (
+  'default': 'black',
+  'black': 'white',
+  'gold': 'black',
+  'gray': 'black',
+  'white': 'black',
+);
+
+@mixin add-backgrounds($before: '', $after: '') {
+  // Loop through $backgrounds
+  @each $bg-class, $background in $backgrounds {
+    $background-color: map-get($background, 'background-color');
+    $background-image: map-get($background, 'background-image');
+    $type: map-get($background, 'type');
+    $text_color: map-get($bg-to-fg-color-map, $type);
+    @if $text_color == null {
+      $text_color: map-get($bg-to-fg-color-map, 'default');
+    }
+    #{$before}.#{$bg-class}#{$after} {
+      @if $background-color {
+        background-color: $background-color;
+      }
+      @if $background-image {
+        background-image: url($background-image);
+      }
+      color: unquote($text_color);
+    }
+  }
+}
+
+@mixin add-color-for-bgs($before: '', $after: '') {
+  // Loop through $backgrounds
+  @each $bg-class, $background in $backgrounds {
+    $type: map-get($background, 'type');
+    $text_color: map-get($bg-to-fg-color-map, $type);
+    @if $text_color == null {
+      $text_color: map-get($bg-to-fg-color-map, 'default');
+    }
+    #{$before}.#{$bg-class}#{$after} {
+      color: unquote($text_color);
+    }
+  }
+}
