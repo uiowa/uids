@@ -19,7 +19,6 @@
         }
       }
     }
-
   }
 
   // Remove padding if background section matches card bg color
@@ -42,17 +41,14 @@
       }
     }
 
-
     // Add padding if large circle stacked is enclosed or has bg color
     .media--circle.card__media--large {
       padding: 0 2rem;
     }
-
   }
 
   &--enclosed {
     @include card-enclosed;
-
 
     &.card--stacked {
 
@@ -253,6 +249,7 @@
       padding: 2rem;
     }
 
+    // Remove padding if section background matches card background
     &.bg--black {
       .bg--black & {
         padding: 0;
@@ -271,8 +268,8 @@
       }
     }
 
-    &.bg--light {
-      .bg--light & {
+    &.bg--white {
+      .bg--white & {
         padding: 0;
       }
     }
@@ -292,17 +289,6 @@
     &.bg-pattern--brain--gold {
       .bg-pattern--brain--gold & {
         padding: 0;
-      }
-    }
-
-    .card__media--large {
-      @include card-media-large;
-
-      &.media--circle {
-        @include breakpoint(sm) {
-          flex: 0 0 37%;
-          width: 37%;
-        }
       }
     }
 
@@ -329,8 +315,20 @@
       }
     }
 
+    .card__media--large {
+      @include card-media-large;
+
+      &.media--circle {
+        @include breakpoint(sm) {
+          flex: 0 0 37%;
+          width: 37%;
+        }
+      }
+    }
+
     &.media--square {
 
+      // Size adjustments for square format
       .card__media--medium {
         @include breakpoint(sm) {
           flex: 0 0 25%;
@@ -353,7 +351,8 @@
       }
     }
 
-    .media--circle {
+    // Reduce padding for small circle crop next to card__body
+    .media--circle.card__media--small {
 
       +.card__body {
         @include breakpoint(sm) {
@@ -362,12 +361,8 @@
       }
     }
 
+    // Adjust card body padding on image if "right" option is selected
     &.card--media-right {
-      .card__media.media--circle+.card__body {
-        @include breakpoint(sm) {
-          padding: 0 $gutter 0 0;
-        }
-      }
 
       .card__media+.card__body {
         @include breakpoint(sm) {
@@ -386,8 +381,6 @@
 
       min-height: 1px;
     }
-
-
 
     @include breakpoint(sm) {
       display: flex;
@@ -408,8 +401,6 @@
     }
 
     .bttn--outline {
-      //display: table;
-      //width: max-content;
 
       &:after {
         width: auto;
