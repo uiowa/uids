@@ -6,10 +6,54 @@
 .card {
   @include card;
 
+  // Adjust margin and padding for stacked circle if there is a background section color
+  [class*="bg-"] & {
+
+    &.card--stacked {
+      .media--circle {
+        margin-top: 2rem;
+
+        &.card__media--large {
+          padding: 0 2rem 0 2rem;
+          margin-top: 2rem;
+        }
+      }
+    }
+
+  }
+
+  // Remove padding if background section matches card bg color
+  .bg--gray & {
+
+    &.bg--gray.card.card--media-left:not(.card--enclosed),
+    &.bg--gray.card.card--media-left:not(.card--enclosed) {
+      padding: 0;
+    }
+  }
+
+  &--stacked {
+
+    // Adjust margin if circle is within stacked version with bg color
+    &[class*="bg-"] {
+
+      .media--circle.card__media--small,
+      .media--circle.card__media--large {
+        margin-top: 2rem;
+      }
+    }
+
+
+    // Add padding if large circle stacked is enclosed or has bg color
+    .media--circle.card__media--large {
+      padding: 0 2rem;
+    }
+
+  }
+
   &--enclosed {
     @include card-enclosed;
 
-    &.card--centered,
+
     &.card--stacked {
 
       .media--circle,
@@ -66,26 +110,12 @@
         }
       }
     }
-
-    /*
-    &[class*="bg-"]
-    &.bg--black &,
-    &.bg--gold &,
-    &.bg--gray &,
-    &.bg--light &,
-    &.bg-pattern--brain,
-    &.bg-pattern--brain--black &,
-    &.bg-pattern--brain--gold & {
-      padding: 2rem;
-    }
-*/
   }
 
   .card__media--small,
   .card__media--medium,
   .card__media--large {
     @include breakpoint(sm) {
-      //display: flex;
       justify-content: center;
       margin: 0 auto;
     }
@@ -95,6 +125,13 @@
     .card__media--large {
       @include breakpoint(sm) {
         display: block;
+      }
+    }
+
+    // set fixed small size for card stacked small circle
+    .card__media--small.media--circle {
+      @include breakpoint(sm) {
+        max-width: 150px;
       }
     }
   }
@@ -260,14 +297,53 @@
 
     .card__media--large {
       @include card-media-large;
+
+      &.media--circle {
+        @include breakpoint(sm) {
+          flex: 0 0 37%;
+          width: 37%;
+        }
+      }
     }
 
     .card__media--small {
       @include card-media-small;
+
+      &.media--circle {
+        @include breakpoint(sm) {
+          flex: 0 0 25%;
+          width: 25%;
+          max-width: 150px;
+        }
+      }
     }
 
     .card__media--medium {
       @include card-media-medium;
+
+      &.media--circle {
+        @include breakpoint(sm) {
+          flex: 0 0 25%;
+          width: 25%;
+        }
+      }
+    }
+
+    &.media--square {
+
+      .card__media--medium {
+        @include breakpoint(sm) {
+          flex: 0 0 25%;
+          width: 25%;
+        }
+      }
+
+      .card__media--large {
+        @include breakpoint(sm) {
+          flex: 0 0 37%;
+          width: 37%;
+        }
+      }
     }
 
 
