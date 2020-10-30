@@ -422,6 +422,9 @@
     <span class="hljs-selector-class">.headline</span> <span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:hover</span>,
     <span class="hljs-selector-class">.headline</span> <span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:focus</span> {
       <span class="hljs-attribute">text-decoration</span>: underline; }
+  <span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span> <span class="hljs-selector-class">.bold-headline</span> <span class="hljs-selector-tag">a</span>, <span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span>
+  <span class="hljs-selector-class">.headline</span> <span class="hljs-selector-tag">a</span> {
+    <span class="hljs-attribute">color</span>: inherit; }
   <span class="hljs-selector-class">.bold-headline</span><span class="hljs-selector-class">.bold-headline--negative</span>, <span class="hljs-selector-class">.bold-headline</span><span class="hljs-selector-class">.headline--negative</span>,
   <span class="hljs-selector-class">.headline</span><span class="hljs-selector-class">.bold-headline--negative</span>,
   <span class="hljs-selector-class">.headline</span><span class="hljs-selector-class">.headline--negative</span> {
@@ -494,8 +497,8 @@
   <span class="hljs-selector-class">.headline--underline</span> {
     <span class="hljs-attribute">box-shadow</span>: inset <span class="hljs-number">0</span> -<span class="hljs-number">0.175em</span> <span class="hljs-number">#151515</span>, inset <span class="hljs-number">0</span> -<span class="hljs-number">0.25em</span> <span class="hljs-number">#FFCD00</span>; }
 
-<span class="hljs-selector-class">.bold-headline</span>,
-<span class="hljs-selector-class">.headline</span> {
+<span class="hljs-selector-tag">h2</span> <span class="hljs-selector-class">.bold-headline</span>,
+<span class="hljs-selector-tag">h2</span> <span class="hljs-selector-class">.headline</span> {
   <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2.8rem</span>; }
 
 <span class="hljs-selector-class">.bold-headline--highlight</span><span class="hljs-selector-class">.bold-headline--serif</span>,
@@ -545,6 +548,12 @@
 <span class="hljs-selector-class">.headline</span> {
   <span class="hljs-keyword">@include</span> headline;
 
+  <span class="hljs-selector-attr">[class*="bg-"]</span> &amp; {
+    <span class="hljs-selector-tag">a</span> {
+      <span class="hljs-attribute">color</span>: inherit;
+    }
+  }
+
   &amp;<span class="hljs-selector-class">.bold-headline--negative</span>,
   &amp;<span class="hljs-selector-class">.headline--negative</span> {
     <span class="hljs-keyword">@include</span> headline-negative;
@@ -585,9 +594,11 @@
 
 <span class="hljs-comment">// Misc</span>
 
-<span class="hljs-selector-class">.bold-headline</span>,
-<span class="hljs-selector-class">.headline</span> {
-  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2.8rem</span>;
+<span class="hljs-selector-tag">h2</span> {
+  <span class="hljs-selector-class">.bold-headline</span>,
+  <span class="hljs-selector-class">.headline</span> {
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2.8rem</span>;
+  }
 }
 
 <span class="hljs-selector-class">.bold-headline--highlight</span><span class="hljs-selector-class">.bold-headline--serif</span>,
@@ -617,7 +628,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">1.3 KB</span>
+                    <span class="Meta-value">1.4 KB</span>
                 </li>
             </ul>
         </div>
@@ -1870,7 +1881,7 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-10-30T16:08:38.757Z">
+            <time datetime="2020-10-30T16:41:09.450Z">
                 10/30/2020
             </time>
         </div>
