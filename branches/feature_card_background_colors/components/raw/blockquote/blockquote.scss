@@ -1,0 +1,92 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/utilities';
+
+blockquote {
+  font-weight: $font-weight-normal;
+  font-style: none;
+  font-family: $font-family-serif;
+  border-left: 8px solid $primary;
+  padding: $lg;
+  font-size: 1.4rem;
+  line-height: 1.7;
+  @include padding($top: $xsm, $bottom: $xsm, $left: $lg);
+
+  p {
+    margin-top: 0;
+    font-weight: $font-weight-normal;
+    font-size: 1.4rem;
+  }
+
+  footer {
+    font-family: $font-family-sans-serif;
+    font-weight: $font-weight-bold;
+    margin-top: $md;
+    font-size: 1.2rem;
+  }
+
+  p+footer {
+    margin-top: 0;
+  }
+
+  .blockquote-center & {
+    text-align: center;
+    border: none;
+    @include padding($top: $xlg, $bottom: $xsm, $left: $xsm, $right: $xsm);
+
+    &:before {
+      position: absolute;
+      content: '';
+      height: 10px;
+      top: 40px;
+      margin: 0 auto;
+      left: 0;
+      right: 0;
+      width: 15%;
+      background: $primary;
+      -webkit-transition: 0.5s;
+      transition: 0.5s;
+    }
+  }
+
+  .blockquote-right & {
+    text-align: right;
+    border-left: none;
+    border-right: 8px solid $primary;
+    @include padding($top: $xsm, $bottom: $xsm, $left: 0, $right: $lg);
+  }
+
+  .bg--gold &,
+  .bg-pattern--brain-reversed &,
+  .bg-yellow & {
+    color: $secondary;
+    border-color: $white;
+
+    p,
+    a,
+    footer {
+      color: $secondary;
+    }
+  }
+
+  .bg--black &,
+  .bg-pattern--brain-black &,
+  .bg-black &,
+  .bg-dark & {
+    color: #fff;
+
+    a {
+      color: $primary;
+    }
+  }
+
+  .bg-pattern--brain & {
+    color: $secondary;
+    border-color: $secondary;
+
+    p,
+    a,
+    footer {
+      color: $secondary;
+    }
+  }
+}
