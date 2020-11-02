@@ -254,41 +254,53 @@
 
 <span class="hljs-variable">$backgrounds</span>: (
   <span class="hljs-string">'bg--black'</span>: (
-    <span class="hljs-string">'type'</span>: <span class="hljs-string">'black'</span>,
+    <span class="hljs-string">'type'</span>: <span class="hljs-string">'dark'</span>,
     <span class="hljs-string">'background-color'</span>: <span class="hljs-variable">$secondary</span>,
   ),
   <span class="hljs-string">'bg--gold'</span>: (
-    <span class="hljs-string">'type'</span>: <span class="hljs-string">'gold'</span>,
+    <span class="hljs-string">'type'</span>: <span class="hljs-string">'light'</span>,
     <span class="hljs-string">'background-color'</span>: <span class="hljs-variable">$primary</span>,
   ),
   <span class="hljs-string">'bg--gray'</span>: (
-    <span class="hljs-string">'type'</span>: <span class="hljs-string">'gray'</span>,
+    <span class="hljs-string">'type'</span>: <span class="hljs-string">'light'</span>,
     <span class="hljs-string">'background-color'</span>: <span class="hljs-variable">$light</span>,
   ),
+  <span class="hljs-string">'bg--white'</span>: (
+    <span class="hljs-string">'type'</span>: <span class="hljs-string">'light'</span>,
+    <span class="hljs-string">'background-color'</span>: <span class="hljs-variable">$white</span>,
+  ),
   <span class="hljs-string">'bg-pattern--brain'</span>: (
-    <span class="hljs-string">'type'</span>: <span class="hljs-string">'white'</span>,
-    <span class="hljs-string">'background-color'</span>: <span class="hljs-number">#fff</span>,
+    <span class="hljs-string">'type'</span>: <span class="hljs-string">'light'</span>,
+    <span class="hljs-string">'background-color'</span>: <span class="hljs-variable">$white</span>,
     <span class="hljs-string">'background-image'</span>: <span class="hljs-string">'#{$imgpath}/brain-pattern.svg'</span>,
   ),
   <span class="hljs-string">'bg-pattern--brain--black'</span>: (
-    <span class="hljs-string">'type'</span>: <span class="hljs-string">'black'</span>,
+    <span class="hljs-string">'type'</span>: <span class="hljs-string">'dark'</span>,
     <span class="hljs-string">'background-color'</span>: <span class="hljs-variable">$secondary</span>,
     <span class="hljs-string">'background-image'</span>: <span class="hljs-string">'#{$imgpath}/brain-pattern-black.svg'</span>,
   ),
   <span class="hljs-string">'bg-pattern--brain--gold'</span>: (
-    <span class="hljs-string">'type'</span>: <span class="hljs-string">'gold'</span>,
+    <span class="hljs-string">'type'</span>: <span class="hljs-string">'light'</span>,
     <span class="hljs-string">'background-color'</span>: <span class="hljs-variable">$primary</span>,
     <span class="hljs-string">'background-image'</span>: <span class="hljs-string">'#{$imgpath}/brain-pattern-reversed.svg'</span>,
   ),
 );
 
 <span class="hljs-variable">$bg-to-fg-color-map</span>: (
-  <span class="hljs-string">'default'</span>: <span class="hljs-string">'black'</span>,
-  <span class="hljs-string">'black'</span>: <span class="hljs-string">'white'</span>,
-  <span class="hljs-string">'gold'</span>: <span class="hljs-string">'black'</span>,
-  <span class="hljs-string">'gray'</span>: <span class="hljs-string">'black'</span>,
-  <span class="hljs-string">'white'</span>: <span class="hljs-string">'black'</span>,
+  <span class="hljs-string">'default'</span>: <span class="hljs-string">'dark'</span>,
+  <span class="hljs-string">'black'</span>: <span class="hljs-string">'light'</span>,
+  <span class="hljs-string">'gold'</span>: <span class="hljs-string">'dark'</span>,
+  <span class="hljs-string">'gray'</span>: <span class="hljs-string">'dark'</span>,
+  <span class="hljs-string">'white'</span>: <span class="hljs-string">'dark'</span>,
 );
+
+<span class="hljs-keyword">@mixin</span> bg-dark() {
+  <span class="hljs-attribute">color</span>: <span class="hljs-variable">$white</span>;
+}
+
+<span class="hljs-keyword">@mixin</span> bg-light() {
+  <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
+}
 
 <span class="hljs-keyword">@mixin</span> add-backgrounds(<span class="hljs-variable">$before</span>: <span class="hljs-string">''</span>, <span class="hljs-variable">$after</span>: <span class="hljs-string">''</span>) {
   <span class="hljs-comment">// Loop through $backgrounds</span>
@@ -307,7 +319,11 @@
       <span class="hljs-keyword">@if</span> <span class="hljs-variable">$background-image</span> {
         <span class="hljs-attribute">background-image</span>: url(<span class="hljs-variable">$background-image</span>);
       }
-      <span class="hljs-attribute">color</span>: unquote(<span class="hljs-variable">$text_color</span>);
+      <span class="hljs-keyword">@if</span> <span class="hljs-variable">$type</span> == <span class="hljs-string">'dark'</span> {
+        <span class="hljs-keyword">@include</span> bg-dark();
+      } <span class="hljs-keyword">@else</span> {
+        <span class="hljs-keyword">@include</span> bg-light();
+      }
     }
   }
 }
@@ -322,6 +338,14 @@
     }
     #{<span class="hljs-variable">$before</span>}.#{<span class="hljs-variable">$bg-class</span>}#{<span class="hljs-variable">$after</span>} {
       <span class="hljs-attribute">color</span>: unquote(<span class="hljs-variable">$text_color</span>);
+    }
+  }
+}
+
+<span class="hljs-keyword">@mixin</span> background-treatments(<span class="hljs-variable">$before</span>: <span class="hljs-string">''</span>, <span class="hljs-variable">$after</span>: <span class="hljs-string">''</span>) {
+  <span class="hljs-keyword">@each</span> <span class="hljs-variable">$bg-class</span>, <span class="hljs-variable">$background</span> in <span class="hljs-variable">$backgrounds</span> {
+    .#{<span class="hljs-variable">$bg-class</span>} {
+      <span class="hljs-keyword">@content</span>
     }
   }
 }
@@ -341,7 +365,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">2 KB</span>
+                    <span class="Meta-value">2.4 KB</span>
                 </li>
             </ul>
         </div>
@@ -354,35 +378,43 @@
                         <div class="FileBrowser-itemPreview">
                             
                             <code class="Code Code--lang-CSS FileBrowser-code hljs">
-                                <pre><span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-pattern"</span>]</span> {
+                                <pre><span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span> <span class="hljs-selector-tag">a</span>,
+<span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span> <span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span> <span class="hljs-selector-tag">a</span> {
+  <span class="hljs-attribute">color</span>: inherit; }
+
+<span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-pattern"</span>]</span> {
   <span class="hljs-attribute">background-size</span>: auto auto; }
 
 <span class="hljs-selector-class">.bg--black</span> {
   <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#151515</span>;
-  <span class="hljs-attribute">color</span>: white; }
+  <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>; }
 
 <span class="hljs-selector-class">.bg--gold</span> {
   <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#FFCD00</span>;
-  <span class="hljs-attribute">color</span>: black; }
+  <span class="hljs-attribute">color</span>: <span class="hljs-number">#151515</span>; }
 
 <span class="hljs-selector-class">.bg--gray</span> {
   <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#f3f3f3</span>;
-  <span class="hljs-attribute">color</span>: black; }
+  <span class="hljs-attribute">color</span>: <span class="hljs-number">#151515</span>; }
+
+<span class="hljs-selector-class">.bg--white</span> {
+  <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#fff</span>;
+  <span class="hljs-attribute">color</span>: <span class="hljs-number">#151515</span>; }
 
 <span class="hljs-selector-class">.bg-pattern--brain</span> {
   <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#fff</span>;
   <span class="hljs-attribute">background-image</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">"../../assets/images/brain-pattern.svg"</span>);
-  <span class="hljs-attribute">color</span>: black; }
+  <span class="hljs-attribute">color</span>: <span class="hljs-number">#151515</span>; }
 
 <span class="hljs-selector-class">.bg-pattern--brain--black</span> {
   <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#151515</span>;
   <span class="hljs-attribute">background-image</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">"../../assets/images/brain-pattern-black.svg"</span>);
-  <span class="hljs-attribute">color</span>: white; }
+  <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>; }
 
 <span class="hljs-selector-class">.bg-pattern--brain--gold</span> {
   <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#FFCD00</span>;
   <span class="hljs-attribute">background-image</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">"../../assets/images/brain-pattern-reversed.svg"</span>);
-  <span class="hljs-attribute">color</span>: black; }
+  <span class="hljs-attribute">color</span>: <span class="hljs-number">#151515</span>; }
 
 <span class="hljs-selector-class">.container--padded</span> {
   <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span>; }
@@ -402,7 +434,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">708 Bytes</span>
+                    <span class="Meta-value">847 Bytes</span>
                 </li>
             </ul>
         </div>
@@ -416,6 +448,13 @@
                             
                             <code class="Code Code--lang-SCSS FileBrowser-code hljs">
                                 <pre><span class="hljs-keyword">@import</span> <span class="hljs-string">'background-mixins'</span>;
+
+<span class="hljs-selector-attr">[class*="bg-"]</span> {
+  <span class="hljs-selector-tag">a</span>,
+  <span class="hljs-selector-attr">[class*="bg-"]</span> <span class="hljs-selector-tag">a</span> {
+    <span class="hljs-attribute">color</span>: inherit;
+  }
+}
 
 <span class="hljs-selector-attr">[class*="bg-pattern"]</span> {
   <span class="hljs-attribute">background-size</span>: auto auto;
@@ -447,7 +486,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">328 Bytes</span>
+                    <span class="Meta-value">398 Bytes</span>
                 </li>
             </ul>
         </div>
@@ -992,7 +1031,7 @@
                 
                     
 
-<span style="color: #187718;" title="Ready">Enclosed</span>
+<span style="color: #187718;" title="Ready">Vertical enclosed</span>
 
 
                 
@@ -1003,11 +1042,11 @@
         
         
         <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="card--horizontal.html" data-pjax>
+            <a class="Tree-entityLink" href="card--centered.html" data-pjax>
                 
                     
 
-<span style="color: #187718;" title="Ready">Horizontal</span>
+<span style="color: #187718;" title="Ready">Vertical centered w/circular image</span>
 
 
                 
@@ -1018,11 +1057,11 @@
         
         
         <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="card--horizontal_border.html" data-pjax>
+            <a class="Tree-entityLink" href="card--centered-enclosed.html" data-pjax>
                 
                     
 
-<span style="color: #187718;" title="Ready">Horizontal w/ border</span>
+<span style="color: #187718;" title="Ready">Vertical enclosed centered w/circular image</span>
 
 
                 
@@ -1037,7 +1076,97 @@
                 
                     
 
-<span style="color: #187718;" title="Ready">Collection</span>
+<span style="color: #187718;" title="Ready">Vertical collection</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="card--horizontal-small.html" data-pjax>
+                
+                    
+
+<span style="color: #187718;" title="Ready">Horizontal w/small image</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="card--horizontal-large.html" data-pjax>
+                
+                    
+
+<span style="color: #187718;" title="Ready">Horizontal w/large image</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="card--horizontal_enclosed_small.html" data-pjax>
+                
+                    
+
+<span style="color: #187718;" title="Ready">Horizontal enclosed w/small image</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="card--horizontal_enclosed_medium.html" data-pjax>
+                
+                    
+
+<span style="color: #187718;" title="Ready">Horizontal enclosed w/medium image</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="card--horizontal_border_large.html" data-pjax>
+                
+                    
+
+<span style="color: #187718;" title="Ready">Horizontal enclosed w/large image</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="card--horizontal_circular_image.html" data-pjax>
+                
+                    
+
+<span style="color: #187718;" title="Ready">Horizontal w/ circular image</span>
 
 
                 
@@ -1340,9 +1469,9 @@
         
     
         
-        <li class="Tree-item Tree-collection Tree-depth-2" data-behaviour="collection" id="tree-components-collection-layouts">
+        <li class="Tree-item Tree-collection Tree-depth-2" data-behaviour="collection" id="tree-components-collection-media">
             <h3 class="Tree-collectionLabel" data-role="toggle">
-                <span>Layouts</span>
+                <span>Media</span>
             </h3>
             <ul class="Tree-collectionItems" data-role="items">
             
@@ -1353,11 +1482,86 @@
         
         
         <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="basic-page.html" data-pjax>
+            <a class="Tree-entityLink" href="media--border.html" data-pjax>
                 
                     
 
-<span style="color: #A84F00;" title="WIP">Basic Page</span>
+<span style="color: #187718;" title="Ready">Border</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="media--circle.html" data-pjax>
+                
+                    
+
+<span style="color: #187718;" title="Ready">Circle</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="media--circle-border.html" data-pjax>
+                
+                    
+
+<span style="color: #187718;" title="Ready">Circle w/border</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="media--circle-gray.html" data-pjax>
+                
+                    
+
+<span style="color: #187718;" title="Ready">Circle w/ gray bg</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="media--circle-gold.html" data-pjax>
+                
+                    
+
+<span style="color: #187718;" title="Ready">Circle w/ gold bg</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="media--circle-black.html" data-pjax>
+                
+                    
+
+<span style="color: #187718;" title="Ready">Circle w/ black bg</span>
 
 
                 
@@ -1367,21 +1571,6 @@
     
 
             </ul>
-        </li>
-        
-    
-        
-        
-        <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="kitchen-sink.html" data-pjax>
-                
-                    
-
-<span style="color: #D10000;" title="Prototype">Kitchen Sink</span>
-
-
-                
-            </a>
         </li>
         
     
@@ -1405,8 +1594,8 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-10-29T15:36:30.057Z">
-                10/29/2020
+            <time datetime="2020-11-02T16:54:45.767Z">
+                11/2/2020
             </time>
         </div>
     </div>

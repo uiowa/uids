@@ -422,6 +422,9 @@
     <span class="hljs-selector-class">.headline</span> <span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:hover</span>,
     <span class="hljs-selector-class">.headline</span> <span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:focus</span> {
       <span class="hljs-attribute">text-decoration</span>: underline; }
+  <span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span> <span class="hljs-selector-class">.bold-headline</span> <span class="hljs-selector-tag">a</span>, <span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span>
+  <span class="hljs-selector-class">.headline</span> <span class="hljs-selector-tag">a</span> {
+    <span class="hljs-attribute">color</span>: inherit; }
   <span class="hljs-selector-class">.bold-headline</span><span class="hljs-selector-class">.bold-headline--negative</span>, <span class="hljs-selector-class">.bold-headline</span><span class="hljs-selector-class">.headline--negative</span>,
   <span class="hljs-selector-class">.headline</span><span class="hljs-selector-class">.bold-headline--negative</span>,
   <span class="hljs-selector-class">.headline</span><span class="hljs-selector-class">.headline--negative</span> {
@@ -494,8 +497,8 @@
   <span class="hljs-selector-class">.headline--underline</span> {
     <span class="hljs-attribute">box-shadow</span>: inset <span class="hljs-number">0</span> -<span class="hljs-number">0.175em</span> <span class="hljs-number">#151515</span>, inset <span class="hljs-number">0</span> -<span class="hljs-number">0.25em</span> <span class="hljs-number">#FFCD00</span>; }
 
-<span class="hljs-selector-tag">h2</span><span class="hljs-selector-class">.bold-headline</span>,
-<span class="hljs-selector-tag">h2</span><span class="hljs-selector-class">.headline</span> {
+<span class="hljs-selector-tag">h2</span> <span class="hljs-selector-class">.bold-headline</span>,
+<span class="hljs-selector-tag">h2</span> <span class="hljs-selector-class">.headline</span> {
   <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2.8rem</span>; }
 
 <span class="hljs-selector-class">.bold-headline--highlight</span><span class="hljs-selector-class">.bold-headline--serif</span>,
@@ -545,6 +548,12 @@
 <span class="hljs-selector-class">.headline</span> {
   <span class="hljs-keyword">@include</span> headline;
 
+  <span class="hljs-selector-attr">[class*="bg-"]</span> &amp; {
+    <span class="hljs-selector-tag">a</span> {
+      <span class="hljs-attribute">color</span>: inherit;
+    }
+  }
+
   &amp;<span class="hljs-selector-class">.bold-headline--negative</span>,
   &amp;<span class="hljs-selector-class">.headline--negative</span> {
     <span class="hljs-keyword">@include</span> headline-negative;
@@ -585,9 +594,11 @@
 
 <span class="hljs-comment">// Misc</span>
 
-<span class="hljs-selector-tag">h2</span><span class="hljs-selector-class">.bold-headline</span>,
-<span class="hljs-selector-tag">h2</span><span class="hljs-selector-class">.headline</span> {
-  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2.8rem</span>;
+<span class="hljs-selector-tag">h2</span> {
+  <span class="hljs-selector-class">.bold-headline</span>,
+  <span class="hljs-selector-class">.headline</span> {
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2.8rem</span>;
+  }
 }
 
 <span class="hljs-selector-class">.bold-headline--highlight</span><span class="hljs-selector-class">.bold-headline--serif</span>,
@@ -617,7 +628,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">1.3 KB</span>
+                    <span class="Meta-value">1.4 KB</span>
                 </li>
             </ul>
         </div>
@@ -674,7 +685,7 @@
         
         
         <li class="Meta-item">
-            <strong class="Meta-key">Referenced by <em class="Meta-count">(63)</em>:</strong>
+            <strong class="Meta-key">Referenced by <em class="Meta-count">(69)</em>:</strong>
             <span class="Meta-value Meta-value--linkList">
             
                 <a href="headlines.html">@<span>headlines</span></a>, 
@@ -713,11 +724,23 @@
             
                 <a href="card--enclosed.html">@<span>card--enclosed</span></a>, 
             
-                <a href="card--horizontal.html">@<span>card--horizontal</span></a>, 
+                <a href="card--centered.html">@<span>card--centered</span></a>, 
             
-                <a href="card--horizontal_border.html">@<span>card--horizontal_border</span></a>, 
+                <a href="card--centered-enclosed.html">@<span>card--centered-enclosed</span></a>, 
             
                 <a href="card--row.html">@<span>card--row</span></a>, 
+            
+                <a href="card--horizontal-small.html">@<span>card--horizontal-small</span></a>, 
+            
+                <a href="card--horizontal-large.html">@<span>card--horizontal-large</span></a>, 
+            
+                <a href="card--horizontal_enclosed_small.html">@<span>card--horizontal_enclosed_small</span></a>, 
+            
+                <a href="card--horizontal_enclosed_medium.html">@<span>card--horizontal_enclosed_medium</span></a>, 
+            
+                <a href="card--horizontal_border_large.html">@<span>card--horizontal_border_large</span></a>, 
+            
+                <a href="card--horizontal_circular_image.html">@<span>card--horizontal_circular_image</span></a>, 
             
                 <a href="stat.html">@<span>stat</span></a>, 
             
@@ -1295,7 +1318,7 @@
                 
                     
 
-<span style="color: #187718;" title="Ready">Enclosed</span>
+<span style="color: #187718;" title="Ready">Vertical enclosed</span>
 
 
                 
@@ -1306,11 +1329,11 @@
         
         
         <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="card--horizontal.html" data-pjax>
+            <a class="Tree-entityLink" href="card--centered.html" data-pjax>
                 
                     
 
-<span style="color: #187718;" title="Ready">Horizontal</span>
+<span style="color: #187718;" title="Ready">Vertical centered w/circular image</span>
 
 
                 
@@ -1321,11 +1344,11 @@
         
         
         <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="card--horizontal_border.html" data-pjax>
+            <a class="Tree-entityLink" href="card--centered-enclosed.html" data-pjax>
                 
                     
 
-<span style="color: #187718;" title="Ready">Horizontal w/ border</span>
+<span style="color: #187718;" title="Ready">Vertical enclosed centered w/circular image</span>
 
 
                 
@@ -1340,7 +1363,97 @@
                 
                     
 
-<span style="color: #187718;" title="Ready">Collection</span>
+<span style="color: #187718;" title="Ready">Vertical collection</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="card--horizontal-small.html" data-pjax>
+                
+                    
+
+<span style="color: #187718;" title="Ready">Horizontal w/small image</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="card--horizontal-large.html" data-pjax>
+                
+                    
+
+<span style="color: #187718;" title="Ready">Horizontal w/large image</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="card--horizontal_enclosed_small.html" data-pjax>
+                
+                    
+
+<span style="color: #187718;" title="Ready">Horizontal enclosed w/small image</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="card--horizontal_enclosed_medium.html" data-pjax>
+                
+                    
+
+<span style="color: #187718;" title="Ready">Horizontal enclosed w/medium image</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="card--horizontal_border_large.html" data-pjax>
+                
+                    
+
+<span style="color: #187718;" title="Ready">Horizontal enclosed w/large image</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="card--horizontal_circular_image.html" data-pjax>
+                
+                    
+
+<span style="color: #187718;" title="Ready">Horizontal w/ circular image</span>
 
 
                 
@@ -1643,9 +1756,9 @@
         
     
         
-        <li class="Tree-item Tree-collection Tree-depth-2" data-behaviour="collection" id="tree-components-collection-layouts">
+        <li class="Tree-item Tree-collection Tree-depth-2" data-behaviour="collection" id="tree-components-collection-media">
             <h3 class="Tree-collectionLabel" data-role="toggle">
-                <span>Layouts</span>
+                <span>Media</span>
             </h3>
             <ul class="Tree-collectionItems" data-role="items">
             
@@ -1656,11 +1769,86 @@
         
         
         <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="basic-page.html" data-pjax>
+            <a class="Tree-entityLink" href="media--border.html" data-pjax>
                 
                     
 
-<span style="color: #A84F00;" title="WIP">Basic Page</span>
+<span style="color: #187718;" title="Ready">Border</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="media--circle.html" data-pjax>
+                
+                    
+
+<span style="color: #187718;" title="Ready">Circle</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="media--circle-border.html" data-pjax>
+                
+                    
+
+<span style="color: #187718;" title="Ready">Circle w/border</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="media--circle-gray.html" data-pjax>
+                
+                    
+
+<span style="color: #187718;" title="Ready">Circle w/ gray bg</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="media--circle-gold.html" data-pjax>
+                
+                    
+
+<span style="color: #187718;" title="Ready">Circle w/ gold bg</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="media--circle-black.html" data-pjax>
+                
+                    
+
+<span style="color: #187718;" title="Ready">Circle w/ black bg</span>
 
 
                 
@@ -1670,21 +1858,6 @@
     
 
             </ul>
-        </li>
-        
-    
-        
-        
-        <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="kitchen-sink.html" data-pjax>
-                
-                    
-
-<span style="color: #D10000;" title="Prototype">Kitchen Sink</span>
-
-
-                
-            </a>
         </li>
         
     
@@ -1708,8 +1881,8 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-10-29T15:36:30.057Z">
-                10/29/2020
+            <time datetime="2020-11-02T16:54:45.767Z">
+                11/2/2020
             </time>
         </div>
     </div>
