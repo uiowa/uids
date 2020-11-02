@@ -9,7 +9,7 @@
   display: flex;
   flex: 1 1 0%;
   flex-direction: column;
-  border: 1px solid rgba(0, 0, 0, 0.125); }
+  border: 1px solid; }
   .card:focus-within .card__title a:focus {
     text-decoration: underline; }
   @media (min-width: 768px) {
@@ -21,6 +21,10 @@
     [class*="bg-"] .card.card--stacked .media--circle.card__media--large {
       padding: 0 2rem 0 2rem;
       margin-top: 2rem; }
+  .card.card--stacked[class*="bg-"]:not([class*="bg--white"]) .card__body {
+    padding: 2rem; }
+  .card[class*="bg-"] .card--stacked:not([class*="bg-"]) .card__body {
+    padding: 2rem; }
   .bg--gray .card.bg--gray.card.card--media-left:not(.card--enclosed), .bg--gray .card.bg--gray.card.card--media-left:not(.card--enclosed) {
     padding: 0; }
   .card--stacked[class*="bg-"] .media--circle.card__media--small,
@@ -30,12 +34,7 @@
     padding: 0 2rem; }
   @media (min-width: 768px) {
     .card--enclosed {
-      border: 1px solid rgba(0, 0, 0, 0.125); }
-      .bg--black .card--enclosed,
-      .bg--gold .card--enclosed,
-      .bg-pattern--brain--black .card--enclosed,
-      .bg-pattern--brain--gold .card--enclosed {
-        border: 1px solid #fff; } }
+      border: 1px solid; } }
   .card--enclosed .card__body {
     padding: 2rem; }
   .card--enclosed .bttn {
@@ -149,7 +148,7 @@
       position: relative;
       z-index: 1; }
   .card__subtitle {
-    color: #575757;
+    opacity: .7;
     font-family: "Zilla Slab", serif;
     font-size: 1.3rem;
     font-weight: 500;
@@ -159,9 +158,6 @@
     font-size: 1.1rem;
     line-height: 1.4;
     font-weight: 400; }
-    .bg--black .card__date,
-    .bg-pattern--brain--black .card__date {
-      color: #FFCD00; }
   .card__label {
     font-family: "Zilla Slab", serif;
     font-size: 1.2rem;
@@ -169,23 +165,14 @@
     padding-left: 20px;
     line-height: 1.3;
     margin-top: 0.325rem; }
-    .bg--black .card__label,
-    .bg-pattern--brain--black .card__label {
-      color: #fff; }
     .card__label .fas,
     .card__label .svg-inline--fa {
-      color: #737373;
+      opacity: .6;
       padding-right: 0.325rem;
       font-size: 1rem;
       line-height: 1.2;
       position: absolute;
       margin-left: -20px; }
-      .bg--gold .card__label .fas,
-      .bg-pattern--brain--gold .card__label .fas, .bg--gold
-      .card__label .svg-inline--fa,
-      .bg-pattern--brain--gold
-      .card__label .svg-inline--fa {
-        color: white; }
     .card__label .svg-inline--fa {
       width: 17px; }
   .card.card--media-right.card--enclosed, .card.card--media-right[class*=bg-], .card.card--media-left.card--enclosed, .card.card--media-left[class*=bg-] {
@@ -303,3 +290,38 @@
     .card__head h2 {
       margin: 0;
       padding: 0; }
+
+[class*="bg-"] [class*="bg-"] .card__body {
+  padding: 2rem; }
+
+.bg--gold .bg--gold.card--stacked:not(.card--enclosed) .card__body,
+.bg--white .bg--white.card--stacked:not(.card--enclosed) .card__body,
+.bg--black .bg--black.card--stacked:not(.card--enclosed) .card__body,
+.bg--gray .bg--gray.card--stacked:not(.card--enclosed) .card__body {
+  padding: 2rem 0; }
+
+.card.card--enclosed.bg--white, .card.card--enclosed.bg-pattern--brain,
+.card.card--enclosed.bg--gold .bg--white,
+.card.card--enclosed.bg--gold .bg-pattern--brain,
+.card.card--enclosed.bg-pattern--brain--gold .bg--white,
+.card.card--enclosed.bg-pattern--brain--gold .bg-pattern--brain,
+.bg--white .card.card--enclosed,
+.bg-pattern--brain .card.card--enclosed,
+.bg--gold .bg--white .card.card--enclosed,
+.bg--gold .bg-pattern--brain .card.card--enclosed,
+.bg-pattern--brain--gold .bg--white .card.card--enclosed,
+.bg-pattern--brain--gold .bg-pattern--brain .card.card--enclosed {
+  border: 1px solid rgba(0, 0, 0, 0.125); }
+
+.card.bg--white .bttn--outline, .card.bg-pattern--brain .bttn--outline,
+.card.bg--gold .bg--white .bttn--outline,
+.card.bg--gold .bg-pattern--brain .bttn--outline,
+.card.bg-pattern--brain--gold .bg--white .bttn--outline,
+.card.bg-pattern--brain--gold .bg-pattern--brain .bttn--outline,
+.bg--white .card .bttn--outline,
+.bg-pattern--brain .card .bttn--outline,
+.bg--gold .bg--white .card .bttn--outline,
+.bg--gold .bg-pattern--brain .card .bttn--outline,
+.bg-pattern--brain--gold .bg--white .card .bttn--outline,
+.bg-pattern--brain--gold .bg-pattern--brain .card .bttn--outline {
+  border-color: #FFCD00; }
