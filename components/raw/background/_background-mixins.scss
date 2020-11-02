@@ -2,41 +2,53 @@
 
 $backgrounds: (
   'bg--black': (
-    'type': 'black',
+    'type': 'dark',
     'background-color': $secondary,
   ),
   'bg--gold': (
-    'type': 'gold',
+    'type': 'light',
     'background-color': $primary,
   ),
   'bg--gray': (
-    'type': 'gray',
+    'type': 'light',
     'background-color': $light,
   ),
+  'bg--white': (
+    'type': 'light',
+    'background-color': $white,
+  ),
   'bg-pattern--brain': (
-    'type': 'white',
-    'background-color': #fff,
+    'type': 'light',
+    'background-color': $white,
     'background-image': '#{$imgpath}/brain-pattern.svg',
   ),
   'bg-pattern--brain--black': (
-    'type': 'black',
+    'type': 'dark',
     'background-color': $secondary,
     'background-image': '#{$imgpath}/brain-pattern-black.svg',
   ),
   'bg-pattern--brain--gold': (
-    'type': 'gold',
+    'type': 'light',
     'background-color': $primary,
     'background-image': '#{$imgpath}/brain-pattern-reversed.svg',
   ),
 );
 
 $bg-to-fg-color-map: (
-  'default': 'black',
-  'black': 'white',
-  'gold': 'black',
-  'gray': 'black',
-  'white': 'black',
+  'default': 'dark',
+  'black': 'light',
+  'gold': 'dark',
+  'gray': 'dark',
+  'white': 'dark',
 );
+
+@mixin bg-dark() {
+  color: $white;
+}
+
+@mixin bg-light() {
+  color: $secondary;
+}
 
 @mixin add-backgrounds($before: '', $after: '') {
   // Loop through $backgrounds
@@ -55,7 +67,11 @@ $bg-to-fg-color-map: (
       @if $background-image {
         background-image: url($background-image);
       }
-      color: unquote($text_color);
+      @if $type == 'dark' {
+        @include bg-dark();
+      } @else {
+        @include bg-light();
+      }
     }
   }
 }
@@ -70,6 +86,14 @@ $bg-to-fg-color-map: (
     }
     #{$before}.#{$bg-class}#{$after} {
       color: unquote($text_color);
+    }
+  }
+}
+
+@mixin background-treatments($before: '', $after: '') {
+  @each $bg-class, $background in $backgrounds {
+    .#{$bg-class} {
+      @content
     }
   }
 }
