@@ -444,9 +444,9 @@
   }
 }
 
-
 // set padding if background color is different from card color
-[class*="bg-"] .card.card--stacked[class*="bg-"] {
+[class*="bg-"] .card.card--stacked[class*="bg-"],
+.card.card--stacked[class*="bg-"]:not(.bg--white) {
   .card__body {
     padding: 2rem;
   }
@@ -489,4 +489,24 @@
   .bttn--outline {
     border-color: $primary;
   }
+}
+
+// Adjust padding if there's a section background color
+[class*="bg-"] .card.card--media-left,
+[class*="bg-"] .card.card--media-right {
+  padding: 1.25rem;
+}
+
+// Unset matching background color padding
+.bg--gold .bg--gold.card.card--media-left,
+.bg--gold .bg--gold.card.card--media-right,
+.bg--white .bg--white.card--media-left,
+.bg--white .bg--white.card--media-right,
+.bg--light .bg--light.card--media-left,
+.bg--light .bg--light.card--media-right,
+.bg--black .bg--black.card--media-left,
+.bg--black .bg--black.card--media-right,
+.bg--gray .bg--gray.card--media-left,
+.bg--gray .bg--gray.card--media-right {
+  padding: 0;
 }
