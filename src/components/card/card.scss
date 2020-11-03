@@ -223,55 +223,6 @@
       padding: 2rem;
     }
 
-    // Remove padding if section background matches card background
-    &.bg--black {
-      .bg--black & {
-        padding: 0;
-      }
-    }
-
-    &.bg--gold {
-      .bg--gold & {
-        padding: 0;
-      }
-    }
-
-    &.bg--gray {
-      .bg--gray & {
-        padding: 0;
-      }
-    }
-
-    &.bg--white {
-      .bg--white & {
-        padding: 0;
-      }
-    }
-
-    &.bg--light {
-      .bg--light & {
-        padding: 0;
-      }
-    }
-
-    &.bg-pattern--brain {
-      .bg-pattern--brain & {
-        padding: 0;
-      }
-    }
-
-    &.bg-pattern--brain--black {
-      .bg-pattern--brain--black & {
-        padding: 0;
-      }
-    }
-
-    &.bg-pattern--brain--gold {
-      .bg-pattern--brain--gold & {
-        padding: 0;
-      }
-    }
-
     .card__media--small {
       @include card-media-small;
 
@@ -471,6 +422,7 @@
     [class*="bg-"] & {
       border: 1px solid rgba(0, 0, 0, 0.125);
     }
+
     border: 1px solid rgba(0, 0, 0, 0.125);
   }
 }
@@ -509,15 +461,15 @@
 }
 
 // Unset matching background color padding
-.bg--gold .bg--gold.card.card--media-left,
-.bg--gold .bg--gold.card.card--media-right,
-.bg--white .bg--white.card--media-left,
-.bg--white .bg--white.card--media-right,
-.bg--light .bg--light.card--media-left,
-.bg--light .bg--light.card--media-right,
-.bg--black .bg--black.card--media-left,
-.bg--black .bg--black.card--media-right,
-.bg--gray .bg--gray.card--media-left,
-.bg--gray .bg--gray.card--media-right {
+.bg--gold .bg--gold.card.card--media-left:not(.card--enclosed),
+.bg--gold .bg--gold.card.card--media-right:not(.card--enclosed),
+.bg--white .bg--white.card--media-left:not(.card--enclosed),
+.bg--white .bg--white.card--media-right:not(.card--enclosed),
+.bg--light .bg--light.card--media-left:not(.card--enclosed),
+.bg--light .bg--light.card--media-right:not(.card--enclosed),
+.bg--black .bg--black.card--media-left:not(.card--enclosed),
+.bg--black .bg--black.card--media-right:not(.card--enclosed),
+.bg--gray .bg--gray.card--media-left:not(.card--enclosed),
+.bg--gray .bg--gray.card--media-right:not(.card--enclosed) {
   padding: 0;
 }
