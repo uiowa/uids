@@ -486,7 +486,7 @@
 
 
 // set padding if background color is different from card color
-[class*="bg-"] [class*="bg-"] {
+[class*="bg-"] card[class*="bg-"] {
   .card__body {
     padding: 2rem;
   }
@@ -505,19 +505,22 @@
 // background inherit overrides
 .card.card--enclosed {
 
-  &.bg--white,
-  &.bg-pattern--brain,
-  &.bg--gold .bg--white,
-  &.bg--gold .bg-pattern--brain,
-  &.bg-pattern--brain--gold .bg--white,
-  &.bg-pattern--brain--gold .bg-pattern--brain,
-  .bg--white &,
-  .bg-pattern--brain &,
-  .bg--gold .bg--white &,
-  .bg--gold .bg-pattern--brain &,
-  .bg-pattern--brain--gold .bg--white &,
-  .bg-pattern--brain--gold .bg-pattern--brain & {
-    border: 1px solid rgba(0, 0, 0, 0.125);
+  &[class*="bg--gold"],
+  &[class*="bg--gray"],
+  &[class*="bg--white"],
+  [class*="bg--gold"] &,
+  [class*="bg--gray"] &,
+  [class*="bg--white"] &,
+
+  [class*="bg--"] {
+    &[class*="bg--gold"],
+    &[class*="bg--gray"],
+    &[class*="bg--white"],
+    [class*="bg--gold"] &,
+    [class*="bg--gray"] &,
+    [class*="bg--white"] & {
+      border: 1px solid rgba(0, 0, 0, 0.125);
+    }
   }
 }
 
