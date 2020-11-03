@@ -465,11 +465,14 @@
 
 // set card enclosed border for only bg--white
 .card.card--enclosed {
-  [class*="bg--white"],
-  [class*="bg--light"] {
+
+  &[class*="bg--white"],
+  &[class*="bg--light"] {
     [class*="bg-"] & {
       border: 1px solid rgba(0, 0, 0, 0.125);
     }
+
+    border: 1px solid rgba(0, 0, 0, 0.125);
   }
 }
 
@@ -481,5 +484,17 @@
     .bttn--outline {
       border-color: $primary;
     }
+  }
+
+  .bttn--outline {
+    border-color: $primary;
+  }
+}
+
+.card:not([class*="bg-"]) {
+
+  a,
+  [class*="bg-"] a {
+    color: $secondary;
   }
 }

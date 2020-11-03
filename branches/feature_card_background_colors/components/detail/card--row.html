@@ -847,13 +847,22 @@
 <span class="hljs-selector-class">.bg--gray</span> <span class="hljs-selector-class">.bg--gray</span><span class="hljs-selector-class">.card--stacked</span><span class="hljs-selector-pseudo">:not(.card--enclosed)</span> <span class="hljs-selector-class">.card__body</span> {
   <span class="hljs-attribute">padding</span>: <span class="hljs-number">2rem</span> <span class="hljs-number">0</span>; }
 
-<span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span> <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--enclosed</span> <span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg--white"</span>]</span>, <span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span>
-<span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--enclosed</span> <span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg--light"</span>]</span> {
+<span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--enclosed</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg--white"</span>]</span>, <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--enclosed</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg--light"</span>]</span> {
   <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.125</span>); }
+  <span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span> <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--enclosed</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg--white"</span>]</span>, <span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span> <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--enclosed</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg--light"</span>]</span> {
+    <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.125</span>); }
 
 <span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span> <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.bg--white</span> <span class="hljs-selector-class">.bttn--outline</span>, <span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span>
 <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.bg--light</span> <span class="hljs-selector-class">.bttn--outline</span> {
   <span class="hljs-attribute">border-color</span>: <span class="hljs-number">#FFCD00</span>; }
+
+<span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.bg--white</span> <span class="hljs-selector-class">.bttn--outline</span>,
+<span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.bg--light</span> <span class="hljs-selector-class">.bttn--outline</span> {
+  <span class="hljs-attribute">border-color</span>: <span class="hljs-number">#FFCD00</span>; }
+
+<span class="hljs-selector-class">.card</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span>) <span class="hljs-selector-tag">a</span>,
+<span class="hljs-selector-class">.card</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span>) <span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span> <span class="hljs-selector-tag">a</span> {
+  <span class="hljs-attribute">color</span>: <span class="hljs-number">#151515</span>; }
 </pre>
                             </code>
                             
@@ -870,7 +879,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">11.1 KB</span>
+                    <span class="Meta-value">11.4 KB</span>
                 </li>
             </ul>
         </div>
@@ -1403,11 +1412,14 @@
 
 <span class="hljs-comment">// set card enclosed border for only bg--white</span>
 <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--enclosed</span> {
-  <span class="hljs-selector-attr">[class*="bg--white"]</span>,
-  <span class="hljs-selector-attr">[class*="bg--light"]</span> {
+
+  &amp;<span class="hljs-selector-attr">[class*="bg--white"]</span>,
+  &amp;<span class="hljs-selector-attr">[class*="bg--light"]</span> {
     <span class="hljs-selector-attr">[class*="bg-"]</span> &amp; {
       <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.125</span>);
     }
+
+    <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.125</span>);
   }
 }
 
@@ -1419,6 +1431,18 @@
     <span class="hljs-selector-class">.bttn--outline</span> {
       <span class="hljs-attribute">border-color</span>: <span class="hljs-variable">$primary</span>;
     }
+  }
+
+  <span class="hljs-selector-class">.bttn--outline</span> {
+    <span class="hljs-attribute">border-color</span>: <span class="hljs-variable">$primary</span>;
+  }
+}
+
+<span class="hljs-selector-class">.card</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*="bg-"]</span>) {
+
+  <span class="hljs-selector-tag">a</span>,
+  <span class="hljs-selector-attr">[class*="bg-"]</span> <span class="hljs-selector-tag">a</span> {
+    <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
   }
 }
 </pre>
@@ -1437,7 +1461,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">8.3 KB</span>
+                    <span class="Meta-value">8.5 KB</span>
                 </li>
             </ul>
         </div>
@@ -2657,7 +2681,7 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-11-03T15:57:21.718Z">
+            <time datetime="2020-11-03T17:51:47.044Z">
                 11/3/2020
             </time>
         </div>
