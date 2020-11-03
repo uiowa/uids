@@ -486,7 +486,7 @@
 
 
 // set padding if background color is different from card color
-[class*="bg-"] card[class*="bg-"] {
+[class*="bg-"] .card[class*="bg-"] {
   .card__body {
     padding: 2rem;
   }
@@ -513,6 +513,7 @@
   [class*="bg--white"] &,
 
   [class*="bg--"] {
+
     &[class*="bg--gold"],
     &[class*="bg--gray"],
     &[class*="bg--white"],
@@ -524,20 +525,12 @@
   }
 }
 
-.card {
+.card.bg--white {
 
-  &.bg--white,
-  &.bg-pattern--brain,
-  &.bg--gold .bg--white,
-  &.bg--gold .bg-pattern--brain,
-  &.bg-pattern--brain--gold .bg--white,
-  &.bg-pattern--brain--gold .bg-pattern--brain,
-  .bg--white &,
-  .bg-pattern--brain &,
-  .bg--gold .bg--white &,
-  .bg--gold .bg-pattern--brain &,
-  .bg-pattern--brain--gold .bg--white &,
-  .bg-pattern--brain--gold .bg-pattern--brain & {
+  [class*="bg--gold"] &,
+  [class*="bg--gray"] &,
+  [class*="bg--white"] &,
+  [class*="bg--black"] & {
     .bttn--outline {
       border-color: $primary;
     }
