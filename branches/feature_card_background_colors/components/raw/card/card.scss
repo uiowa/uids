@@ -21,35 +21,7 @@
     }
   }
 
-  // Add padding if card is on a bg or bg pattern.
-
-  &.card--stacked[class*="bg-"]:not([class*="bg--white"]) {
-    .card__body {
-      padding: 2rem;
-    }
-  }
-
-  &[class*="bg-"] {
-    .card--stacked:not([class*="bg-"]) {
-      .card__body {
-        padding: 2rem;
-      }
-    }
-  }
-
-
-  // Remove padding if background section matches card bg color
-  .bg--gray & {
-
-    &.bg--gray.card.card--media-left:not(.card--enclosed),
-    &.bg--gray.card.card--media-left:not(.card--enclosed) {
-      padding: 0;
-    }
-  }
-
   &--stacked {
-
-
 
     // Adjust margin if circle is within stacked version with bg color
     &[class*="bg-"] {
@@ -213,17 +185,11 @@
     @include card-subtitle;
   }
 
-
   &__date {
     font-family: $font-family-sans-serif;
     font-size: 1.1rem;
     line-height: 1.4;
     font-weight: $font-weight-normal;
-
-    .bg--black &,
-    .bg-pattern--brain--black & {
-      // color: $primary;
-    }
   }
 
   &__label {
@@ -234,11 +200,6 @@
     line-height: 1.3;
     margin-top: $xsm;
 
-    .bg--black &,
-    .bg-pattern--brain--black & {
-      //color: #fff;
-    }
-
     .fas,
     .svg-inline--fa {
       opacity: .6;
@@ -247,12 +208,6 @@
       line-height: 1.2;
       position: absolute;
       margin-left: -20px;
-
-
-      .bg--gold &,
-      .bg-pattern--brain--gold & {
-        // color: white;
-      }
     }
 
     .svg-inline--fa {
@@ -264,7 +219,7 @@
   &.card--media-left {
 
     &.card--enclosed,
-    &[class*=bg-] {
+    &[class*="bg-"] {
       padding: 2rem;
     }
 
@@ -289,6 +244,12 @@
 
     &.bg--white {
       .bg--white & {
+        padding: 0;
+      }
+    }
+
+    &.bg--light {
+      .bg--light & {
         padding: 0;
       }
     }
@@ -430,7 +391,6 @@
   &--media-right {
     flex-direction: row-reverse;
 
-
     &.card--enclosed,
     &.card {
       flex-direction: row-reverse;
@@ -495,6 +455,7 @@
 // unset matching background color padding
 .bg--gold .bg--gold.card--stacked:not(.card--enclosed),
 .bg--white .bg--white.card--stacked:not(.card--enclosed),
+.bg--light .bg--light.card--stacked:not(.card--enclosed),
 .bg--black .bg--black.card--stacked:not(.card--enclosed),
 .bg--gray .bg--gray.card--stacked:not(.card--enclosed) {
   .card__body {
@@ -504,23 +465,19 @@
 
 // set card enclosed border for only bg--white
 .card.card--enclosed {
-  [class*="bg--white"] {
-    [class*="bg--gold"] &,
-    [class*="bg--gray"] &,
-    [class*="bg--white"] &,
-    [class*="bg--black"] & {
+  [class*="bg--white"],
+  [class*="bg--light"] {
+    [class*="bg-"] & {
       border: 1px solid rgba(0, 0, 0, 0.125);
     }
   }
 }
 
 // set button border color for only the bg--white version
-.card.bg--white {
+.card.bg--white,
+.card.bg--light {
 
-  [class*="bg--gold"] &,
-  [class*="bg--gray"] &,
-  [class*="bg--white"] &,
-  [class*="bg--black"] & {
+  [class*="bg-"] & {
     .bttn--outline {
       border-color: $primary;
     }
