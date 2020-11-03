@@ -1,4 +1,5 @@
 @import '../../assets/scss/variables';
+@import '../../assets/scss/placeholders';
 
 $backgrounds: (
   'bg--black': (
@@ -42,22 +43,31 @@ $bg-to-fg-color-map: (
   'white': 'dark',
 );
 
-@mixin bg-dark() {
-  color: $white;
-  a {
-    color: $primary;
+@mixin bg-fg-colors($bg, $shade: 'light', $extend: true) {
+  @if $extend == true {
+    @include uids-dynamic-extend($bg) {
+      @include bg-fg-colors($bg, $shade, false);
+    }
+  }
+  @else {
+    @if $shade == 'light' {
+      color: $secondary;
+
+      a {
+        color: $secondary;
+      }
+    }
+    @else {
+      color: $white;
+
+      a {
+        color: $primary;
+      }
+    }
   }
 }
 
-@mixin bg-light() {
-  color: $secondary;
-
-  a {
-    color: $secondary;
-  }
-}
-
-@mixin add-backgrounds($before: '', $after: '') {
+@mixin add-backgrounds($before: '', $after: '', $extend: true) {
   // Loop through $backgrounds
   @each $bg-class, $background in $backgrounds {
     $background-color: map-get($background, 'background-color');
@@ -74,28 +84,26 @@ $bg-to-fg-color-map: (
       @if $background-image {
         background-image: url($background-image);
       }
-      @if $type == 'dark' {
-        @include bg-dark();
-      } @else {
-        @include bg-light();
-      }
+    }
+    #{$before}.#{$bg-class}#{$after} {
+      @include bg-fg-colors($bg-class, $type, $extend);
     }
   }
 }
 
-@mixin add-color-for-bgs($before: '', $after: '') {
-  // Loop through $backgrounds
-  @each $bg-class, $background in $backgrounds {
-    $type: map-get($background, 'type');
-    $text_color: map-get($bg-to-fg-color-map, $type);
-    @if $text_color == null {
-      $text_color: map-get($bg-to-fg-color-map, 'default');
-    }
-    #{$before}.#{$bg-class}#{$after} {
-      color: unquote($text_color);
-    }
-  }
-}
+//@mixin add-color-for-bgs($before: '', $after: '') {
+//  // Loop through $backgrounds
+//  @each $bg-class, $background in $backgrounds {
+//    $type: map-get($background, 'type');
+//    $text_color: map-get($bg-to-fg-color-map, $type);
+//    @if $text_color == null {
+//      $text_color: map-get($bg-to-fg-color-map, 'default');
+//    }
+//    #{$before}.#{$bg-class}#{$after} {
+//      color: unquote($text_color);
+//    }
+//  }
+//}
 
 @mixin background-treatments($before: '', $after: '') {
   @each $bg-class, $background in $backgrounds {
