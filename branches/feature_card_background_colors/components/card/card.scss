@@ -471,7 +471,6 @@
     [class*="bg-"] & {
       border: 1px solid rgba(0, 0, 0, 0.125);
     }
-
     border: 1px solid rgba(0, 0, 0, 0.125);
   }
 }
@@ -494,7 +493,19 @@
 // Adjust padding if there's a section background color
 [class*="bg-"] .card.card--media-left,
 [class*="bg-"] .card.card--media-right {
-  padding: 1.25rem;
+  padding: 2rem;
+}
+
+// Remove padding if there's a section background color but no card bg set
+[class*="bg-"] .card.card--media-left:not([class*="bg-"]),
+[class*="bg-"] .card.card--media-right:not([class*="bg-"]) {
+  padding: 0;
+}
+
+// Add padding if there's a section background color but no card bg set with border
+[class*="bg-"] .card.card--media-left.card--enclosed:not([class*="bg-"]),
+[class*="bg-"] .card.card--media-right.card--enclosed:not([class*="bg-"]) {
+  padding: 2rem;
 }
 
 // Unset matching background color padding

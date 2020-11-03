@@ -756,7 +756,15 @@
 
 <span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span> <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-left</span>,
 <span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span> <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-right</span> {
-  <span class="hljs-attribute">padding</span>: <span class="hljs-number">1.25rem</span>; }
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">2rem</span>; }
+
+<span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span> <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-left</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span>),
+<span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span> <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-right</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span>) {
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>; }
+
+<span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span> <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-left</span><span class="hljs-selector-class">.card--enclosed</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span>),
+<span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span> <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-right</span><span class="hljs-selector-class">.card--enclosed</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span>) {
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">2rem</span>; }
 
 <span class="hljs-selector-class">.bg--gold</span> <span class="hljs-selector-class">.bg--gold</span><span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-left</span>,
 <span class="hljs-selector-class">.bg--gold</span> <span class="hljs-selector-class">.bg--gold</span><span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-right</span>,
@@ -785,7 +793,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">11.9 KB</span>
+                    <span class="Meta-value">12.2 KB</span>
                 </li>
             </ul>
         </div>
@@ -1324,7 +1332,6 @@
     <span class="hljs-selector-attr">[class*="bg-"]</span> &amp; {
       <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.125</span>);
     }
-
     <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.125</span>);
   }
 }
@@ -1347,7 +1354,19 @@
 <span class="hljs-comment">// Adjust padding if there's a section background color</span>
 <span class="hljs-selector-attr">[class*="bg-"]</span> <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-left</span>,
 <span class="hljs-selector-attr">[class*="bg-"]</span> <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-right</span> {
-  <span class="hljs-attribute">padding</span>: <span class="hljs-number">1.25rem</span>;
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">2rem</span>;
+}
+
+<span class="hljs-comment">// Remove padding if there's a section background color but no card bg set</span>
+<span class="hljs-selector-attr">[class*="bg-"]</span> <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-left</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*="bg-"]</span>),
+<span class="hljs-selector-attr">[class*="bg-"]</span> <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-right</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*="bg-"]</span>) {
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+}
+
+<span class="hljs-comment">// Add padding if there's a section background color but no card bg set with border</span>
+<span class="hljs-selector-attr">[class*="bg-"]</span> <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-left</span><span class="hljs-selector-class">.card--enclosed</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*="bg-"]</span>),
+<span class="hljs-selector-attr">[class*="bg-"]</span> <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-right</span><span class="hljs-selector-class">.card--enclosed</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*="bg-"]</span>) {
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">2rem</span>;
 }
 
 <span class="hljs-comment">// Unset matching background color padding</span>
@@ -1379,7 +1398,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">9.1 KB</span>
+                    <span class="Meta-value">9.6 KB</span>
                 </li>
             </ul>
         </div>
@@ -2627,7 +2646,7 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-11-03T21:29:24.439Z">
+            <time datetime="2020-11-03T21:49:25.462Z">
                 11/3/2020
             </time>
         </div>
