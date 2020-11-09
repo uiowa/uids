@@ -408,22 +408,10 @@
   }
 }
 
-// unset matching background color padding
-.bg--gold .bg--gold.card--stacked:not(.card--enclosed),
-.bg--white .bg--white.card--stacked:not(.card--enclosed),
-.bg--light .bg--light.card--stacked:not(.card--enclosed),
-.bg--black .bg--black.card--stacked:not(.card--enclosed),
-.bg--gray .bg--gray.card--stacked:not(.card--enclosed) {
-  .card__body {
-    padding: 2rem 0;
-  }
-}
-
 // set card enclosed border for only bg--white
 .card.card--enclosed {
 
-  &[class*="bg--white"],
-  &[class*="bg--light"] {
+  &[class*="bg--white"] {
     [class*="bg-"] & {
       border: 1px solid rgba(0, 0, 0, 0.125);
     }
@@ -433,8 +421,7 @@
 }
 
 // set button border color for only the bg--white version
-.card.bg--white,
-.card.bg--light {
+.card.bg--white {
 
   [class*="bg-"] & {
     .bttn--outline {
@@ -447,34 +434,44 @@
   }
 }
 
-// Adjust padding if there's a section background color
-[class*="bg-"] .card.card--media-left,
-[class*="bg-"] .card.card--media-right {
-  padding: 2rem;
+[class*="bg-"] {
+  .card {
+    // Adjust padding if a card container has a background color.
+    &--media-left.card,
+    &--media-right.card {
+      padding: 2rem;
+
+      // Remove padding if there's a section background color but no card bg set
+      &:not([class*="bg-"]) {
+        padding: 0;
+      }
+
+      // Add padding if there's a section background color but no card bg set with border
+      &--enclosed:not([class*="bg-"]) {
+        padding: 2rem;
+      }
+    }
+  }
 }
 
-// Remove padding if there's a section background color but no card bg set
-[class*="bg-"] .card.card--media-left:not([class*="bg-"]),
-[class*="bg-"] .card.card--media-right:not([class*="bg-"]) {
-  //padding: 0;
-}
+@each $bg in 'bg--gold', 'bg--white', 'bg--black', 'bg--gray' {
+  .#{$bg} {
 
-// Add padding if there's a section background color but no card bg set with border
-[class*="bg-"] .card.card--media-left.card--enclosed:not([class*="bg-"]),
-[class*="bg-"] .card.card--media-right.card--enclosed:not([class*="bg-"]) {
-  padding: 2rem;
-}
+    // Unset matching background color padding
+    &--media-left,
+    &--media-right {
+      &:not(.card--enclosed) {
+        padding: 0;
+      }
+    }
 
-// Unset matching background color padding
-.bg--gold .bg--gold.card.card--media-left:not(.card--enclosed),
-.bg--gold .bg--gold.card.card--media-right:not(.card--enclosed),
-.bg--white .bg--white.card--media-left:not(.card--enclosed),
-.bg--white .bg--white.card--media-right:not(.card--enclosed),
-.bg--light .bg--light.card--media-left:not(.card--enclosed),
-.bg--light .bg--light.card--media-right:not(.card--enclosed),
-.bg--black .bg--black.card--media-left:not(.card--enclosed),
-.bg--black .bg--black.card--media-right:not(.card--enclosed),
-.bg--gray .bg--gray.card--media-left:not(.card--enclosed),
-.bg--gray .bg--gray.card--media-right:not(.card--enclosed) {
-  //padding: 0;
+    &.card {
+      // unset matching background color padding
+      &--stacked:not(.card--enclosed) {
+        .card__body {
+          padding: 2rem 0;
+        }
+      }
+    }
+  }
 }
