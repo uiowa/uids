@@ -854,17 +854,31 @@
 
 <span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span> <span class="hljs-selector-class">.card--media-left</span><span class="hljs-selector-class">.card</span>, <span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span> <span class="hljs-selector-class">.card--media-right</span><span class="hljs-selector-class">.card</span> {
   <span class="hljs-attribute">padding</span>: <span class="hljs-number">2rem</span>; }
+  <span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span> <span class="hljs-selector-class">.card--media-left</span><span class="hljs-selector-class">.card</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span>), <span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span> <span class="hljs-selector-class">.card--media-right</span><span class="hljs-selector-class">.card</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span>) {
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>; }
   <span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span> <span class="hljs-selector-class">.card--media-left</span><span class="hljs-selector-class">.card--enclosed</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span>), <span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span> <span class="hljs-selector-class">.card--media-right</span><span class="hljs-selector-class">.card--enclosed</span><span class="hljs-selector-pseudo">:not(</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">"bg-"</span>]</span>) {
     <span class="hljs-attribute">padding</span>: <span class="hljs-number">2rem</span>; }
+
+<span class="hljs-selector-class">.bg--gold--media-left</span><span class="hljs-selector-pseudo">:not(.card--enclosed)</span>, <span class="hljs-selector-class">.bg--gold--media-right</span><span class="hljs-selector-pseudo">:not(.card--enclosed)</span> {
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>; }
 
 <span class="hljs-selector-class">.bg--gold</span><span class="hljs-selector-class">.card--stacked</span><span class="hljs-selector-pseudo">:not(.card--enclosed)</span> <span class="hljs-selector-class">.card__body</span> {
   <span class="hljs-attribute">padding</span>: <span class="hljs-number">2rem</span> <span class="hljs-number">0</span>; }
 
+<span class="hljs-selector-class">.bg--white--media-left</span><span class="hljs-selector-pseudo">:not(.card--enclosed)</span>, <span class="hljs-selector-class">.bg--white--media-right</span><span class="hljs-selector-pseudo">:not(.card--enclosed)</span> {
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>; }
+
 <span class="hljs-selector-class">.bg--white</span><span class="hljs-selector-class">.card--stacked</span><span class="hljs-selector-pseudo">:not(.card--enclosed)</span> <span class="hljs-selector-class">.card__body</span> {
   <span class="hljs-attribute">padding</span>: <span class="hljs-number">2rem</span> <span class="hljs-number">0</span>; }
 
+<span class="hljs-selector-class">.bg--black--media-left</span><span class="hljs-selector-pseudo">:not(.card--enclosed)</span>, <span class="hljs-selector-class">.bg--black--media-right</span><span class="hljs-selector-pseudo">:not(.card--enclosed)</span> {
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>; }
+
 <span class="hljs-selector-class">.bg--black</span><span class="hljs-selector-class">.card--stacked</span><span class="hljs-selector-pseudo">:not(.card--enclosed)</span> <span class="hljs-selector-class">.card__body</span> {
   <span class="hljs-attribute">padding</span>: <span class="hljs-number">2rem</span> <span class="hljs-number">0</span>; }
+
+<span class="hljs-selector-class">.bg--gray--media-left</span><span class="hljs-selector-pseudo">:not(.card--enclosed)</span>, <span class="hljs-selector-class">.bg--gray--media-right</span><span class="hljs-selector-pseudo">:not(.card--enclosed)</span> {
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>; }
 
 <span class="hljs-selector-class">.bg--gray</span><span class="hljs-selector-class">.card--stacked</span><span class="hljs-selector-pseudo">:not(.card--enclosed)</span> <span class="hljs-selector-class">.card__body</span> {
   <span class="hljs-attribute">padding</span>: <span class="hljs-number">2rem</span> <span class="hljs-number">0</span>; }
@@ -884,7 +898,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">10.6 KB</span>
+                    <span class="Meta-value">11.1 KB</span>
                 </li>
             </ul>
         </div>
@@ -1403,6 +1417,11 @@
     &amp;--media-<span class="hljs-attribute">right</span><span class="hljs-selector-class">.card</span> {
       <span class="hljs-attribute">padding</span>: <span class="hljs-number">2rem</span>;
 
+      <span class="hljs-comment">// Remove padding if there's a section background color but no card bg set</span>
+      &amp;<span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*="bg-"]</span>) {
+        <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+      }
+
       <span class="hljs-comment">// Add padding if there's a section background color but no card bg set with border</span>
       &amp;--enclosed<span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*="bg-"]</span>) {
         <span class="hljs-attribute">padding</span>: <span class="hljs-number">2rem</span>;
@@ -1413,6 +1432,14 @@
 
 <span class="hljs-keyword">@each</span> <span class="hljs-variable">$bg</span> in <span class="hljs-string">'bg--gold'</span>, <span class="hljs-string">'bg--white'</span>, <span class="hljs-string">'bg--black'</span>, <span class="hljs-string">'bg--gray'</span> {
   .#{<span class="hljs-variable">$bg</span>} {
+
+    <span class="hljs-comment">// Unset matching background color padding</span>
+    &amp;--media-<span class="hljs-attribute">left</span>,
+    &amp;--media-<span class="hljs-attribute">right</span> {
+      &amp;<span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-class">.card--enclosed</span>) {
+        <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+      }
+    }
 
     &amp;<span class="hljs-selector-class">.card</span> {
       <span class="hljs-comment">// unset matching background color padding</span>
@@ -1440,7 +1467,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">8.2 KB</span>
+                    <span class="Meta-value">8.5 KB</span>
                 </li>
             </ul>
         </div>
@@ -2658,7 +2685,7 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-11-09T22:25:44.993Z">
+            <time datetime="2020-11-09T22:40:54.141Z">
                 11/9/2020
             </time>
         </div>
