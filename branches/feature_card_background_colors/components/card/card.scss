@@ -75,6 +75,16 @@
     background-position: 0px -20px;
     background-size: 200% 200%;
     transition: all .25s ease-in;
+
+    &:after {
+      transform: translate(-50%, 0) scaleX(0);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    &:hover,
+    &:focus {
+      background: transparent;
+    }
   }
 
   p+.bttn,
@@ -339,7 +349,7 @@
     .bttn--outline {
 
       &:after {
-        width: auto;
+        //width: auto;
       }
     }
   }
@@ -441,11 +451,6 @@
     &--media-right.card {
       padding: 2rem;
 
-      // Remove padding if there's a section background color but no card bg set
-      &:not([class*="bg-"]) {
-        padding: 0;
-      }
-
       // Add padding if there's a section background color but no card bg set with border
       &--enclosed:not([class*="bg-"]) {
         padding: 2rem;
@@ -456,14 +461,6 @@
 
 @each $bg in 'bg--gold', 'bg--white', 'bg--black', 'bg--gray' {
   .#{$bg} {
-
-    // Unset matching background color padding
-    &--media-left,
-    &--media-right {
-      &:not(.card--enclosed) {
-        padding: 0;
-      }
-    }
 
     &.card {
       // unset matching background color padding
