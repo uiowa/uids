@@ -77,13 +77,19 @@
     transition: all .25s ease-in;
 
     &:after {
-      transform: translate(-50%, 0) scaleX(0);
-      transition: transform 0.3s ease-in-out;
+      content: "";
+      transform: translate(-50%) scaleX(0);
+      transition: transform .3s ease-in-out;
     }
 
     &:hover,
     &:focus {
       background: transparent;
+
+      &:after {
+        transform: translate(-50%, 0) scaleX(1);
+
+      }
     }
   }
 
@@ -446,6 +452,7 @@
 
 [class*="bg-"] {
   .card {
+
     // Adjust padding if a card container has a background color.
     &--media-left.card,
     &--media-right.card {
@@ -464,7 +471,10 @@
   }
 }
 
-@each $bg in 'bg--gold', 'bg--white', 'bg--black', 'bg--gray' {
+@each $bg in 'bg--gold',
+'bg--white',
+'bg--black',
+'bg--gray' {
   .#{$bg} {
 
     // Unset matching background color padding
@@ -476,6 +486,7 @@
     }
 
     &.card {
+
       // unset matching background color padding
       &--stacked:not(.card--enclosed) {
         .card__body {

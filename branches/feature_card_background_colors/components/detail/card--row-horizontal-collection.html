@@ -622,10 +622,13 @@
     <span class="hljs-attribute">background-size</span>: <span class="hljs-number">200%</span> <span class="hljs-number">200%</span>;
     <span class="hljs-attribute">transition</span>: all .<span class="hljs-number">25s</span> ease-in; }
     <span class="hljs-selector-class">.card</span> <span class="hljs-selector-class">.bttn</span><span class="hljs-selector-pseudo">:after</span> {
-      <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translate</span>(-<span class="hljs-number">50%</span>, <span class="hljs-number">0</span>) <span class="hljs-built_in">scaleX</span>(<span class="hljs-number">0</span>);
-      <span class="hljs-attribute">transition</span>: transform <span class="hljs-number">0.3s</span> ease-in-out; }
+      <span class="hljs-attribute">content</span>: <span class="hljs-string">""</span>;
+      <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translate</span>(-<span class="hljs-number">50%</span>) <span class="hljs-built_in">scaleX</span>(<span class="hljs-number">0</span>);
+      <span class="hljs-attribute">transition</span>: transform .<span class="hljs-number">3s</span> ease-in-out; }
     <span class="hljs-selector-class">.card</span> <span class="hljs-selector-class">.bttn</span><span class="hljs-selector-pseudo">:hover</span>, <span class="hljs-selector-class">.card</span> <span class="hljs-selector-class">.bttn</span><span class="hljs-selector-pseudo">:focus</span> {
       <span class="hljs-attribute">background</span>: transparent; }
+      <span class="hljs-selector-class">.card</span> <span class="hljs-selector-class">.bttn</span><span class="hljs-selector-pseudo">:hover</span><span class="hljs-selector-pseudo">:after</span>, <span class="hljs-selector-class">.card</span> <span class="hljs-selector-class">.bttn</span><span class="hljs-selector-pseudo">:focus</span><span class="hljs-selector-pseudo">:after</span> {
+        <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translate</span>(-<span class="hljs-number">50%</span>, <span class="hljs-number">0</span>) <span class="hljs-built_in">scaleX</span>(<span class="hljs-number">1</span>); }
   <span class="hljs-selector-class">.card</span> <span class="hljs-selector-tag">p</span> + <span class="hljs-selector-class">.bttn</span>,
   <span class="hljs-selector-class">.card</span> <span class="hljs-selector-tag">p</span> + <span class="hljs-selector-class">.btn</span> {
     <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">1.05rem</span>; }
@@ -898,7 +901,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">11.1 KB</span>
+                    <span class="Meta-value">11.2 KB</span>
                 </li>
             </ul>
         </div>
@@ -1043,13 +1046,19 @@
     <span class="hljs-attribute">transition</span>: all .<span class="hljs-number">25s</span> ease-in;
 
     &amp;<span class="hljs-selector-pseudo">:after</span> {
-      <span class="hljs-attribute">transform</span>: translate(-<span class="hljs-number">50%</span>, <span class="hljs-number">0</span>) scaleX(<span class="hljs-number">0</span>);
-      <span class="hljs-attribute">transition</span>: transform <span class="hljs-number">0.3s</span> ease-in-out;
+      <span class="hljs-attribute">content</span>: <span class="hljs-string">""</span>;
+      <span class="hljs-attribute">transform</span>: translate(-<span class="hljs-number">50%</span>) scaleX(<span class="hljs-number">0</span>);
+      <span class="hljs-attribute">transition</span>: transform .<span class="hljs-number">3s</span> ease-in-out;
     }
 
     &amp;<span class="hljs-selector-pseudo">:hover</span>,
     &amp;<span class="hljs-selector-pseudo">:focus</span> {
       <span class="hljs-attribute">background</span>: transparent;
+
+      &amp;<span class="hljs-selector-pseudo">:after</span> {
+        <span class="hljs-attribute">transform</span>: translate(-<span class="hljs-number">50%</span>, <span class="hljs-number">0</span>) scaleX(<span class="hljs-number">1</span>);
+
+      }
     }
   }
 
@@ -1412,6 +1421,7 @@
 
 <span class="hljs-selector-attr">[class*="bg-"]</span> {
   <span class="hljs-selector-class">.card</span> {
+
     <span class="hljs-comment">// Adjust padding if a card container has a background color.</span>
     &amp;--media-<span class="hljs-attribute">left</span><span class="hljs-selector-class">.card</span>,
     &amp;--media-<span class="hljs-attribute">right</span><span class="hljs-selector-class">.card</span> {
@@ -1430,7 +1440,10 @@
   }
 }
 
-<span class="hljs-keyword">@each</span> <span class="hljs-variable">$bg</span> in <span class="hljs-string">'bg--gold'</span>, <span class="hljs-string">'bg--white'</span>, <span class="hljs-string">'bg--black'</span>, <span class="hljs-string">'bg--gray'</span> {
+<span class="hljs-keyword">@each</span> <span class="hljs-variable">$bg</span> in <span class="hljs-string">'bg--gold'</span>,
+<span class="hljs-string">'bg--white'</span>,
+<span class="hljs-string">'bg--black'</span>,
+<span class="hljs-string">'bg--gray'</span> {
   .#{<span class="hljs-variable">$bg</span>} {
 
     <span class="hljs-comment">// Unset matching background color padding</span>
@@ -1442,6 +1455,7 @@
     }
 
     &amp;<span class="hljs-selector-class">.card</span> {
+
       <span class="hljs-comment">// unset matching background color padding</span>
       &amp;--stacked<span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-class">.card--enclosed</span>) {
         <span class="hljs-selector-class">.card__body</span> {
@@ -1467,7 +1481,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">8.5 KB</span>
+                    <span class="Meta-value">8.6 KB</span>
                 </li>
             </ul>
         </div>
@@ -2685,8 +2699,8 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-11-09T22:40:54.141Z">
-                11/9/2020
+            <time datetime="2020-11-10T12:30:19.842Z">
+                11/10/2020
             </time>
         </div>
     </div>
