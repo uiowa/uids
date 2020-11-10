@@ -42,13 +42,99 @@
   &--outline {
     @include bttn--outline;
     border: 1px solid $primary;
-    @include bttn--focus;
+
+    &.bttn--secondary {
+
+      &:hover,
+      &:focus {
+
+        .bg--gray &,
+        .bg--gold &,
+        .bg--gold--pattern--brain &,
+        .bg-pattern--brain-reversed &,
+        .bg-pattern--brain &,
+        .bg--white--pattern--brain &,
+        .bg--white & {
+          background: $secondary;
+        }
+
+        .bg--black .bg--white &,
+        .bg--black--pattern--brain .bg--white &,
+        .bg-pattern--brain-black .bg--white &,
+        .bg--black .bg--gray &,
+        .bg--black--pattern--brain .bg--gray &,
+        .bg-pattern--brain-black .bg--gray & {
+          color: #fff;
+        }
+      }
+    }
+
+    .bg--gold & {
+      //border: 1px solid #fff;
+    }
+
+    .bg--black & {
+      //color: #fff;
+    }
+
+    i,
+    svg {
+      .bg--gold & {
+        // color: #fff;
+      }
+    }
 
     &:hover,
     &:focus {
       background: #fff;
       color: $secondary;
       @include bttn--focus;
+
+      .bg--black &,
+      .bg--black--pattern--brain &,
+      .bg-pattern--brain-black & {
+        border: 1px solid #fff;
+        color: #fff;
+        background: transparent;
+      }
+
+      .bg--black .bg--white &,
+      .bg--black--pattern--brain .bg--white &,
+      .bg-pattern--brain-black .bg--white & {
+        border: 1px solid $primary;
+        color: inherit;
+      }
+
+      .bg--black .bg--white &,
+      .bg--black--pattern--brain .bg--white &,
+      .bg-pattern--brain-black .bg--white &,
+      .bg--black .bg--gray &,
+      .bg--black--pattern--brain .bg--gray &,
+      .bg-pattern--brain-black .bg--gray &,
+      .bg--black .bg--gold &,
+      .bg--black--pattern--brain .bg--gold &,
+      .bg-pattern--brain-black .bg--gold & {
+        border: 1px solid $secondary;
+        color: $secondary;
+
+      }
+
+      &:after {
+
+
+        .bg--white &,
+        .bg--gold .bg--white &,
+        .bg--gold--pattern--brain .bg--white &,
+        .bg-pattern--brain-reversed .bg--white & {
+          background: $primary;
+        }
+
+        .bg--gold &,
+        .bg--gold--pattern--brain &,
+        .bg-pattern--brain-reversed & {
+          background: #fff;
+        }
+      }
     }
   }
 
@@ -98,7 +184,7 @@
 
       border: none;
       transform: none;
-      background: #fff;
+      //background: #fff;
 
       &:hover::after,
       &:focus::after {
@@ -118,5 +204,98 @@
     @include breakpoint(sm) {
       display: block;
     }
+  }
+
+  .card & {
+
+    &:after {
+      .bg--gold & {
+        //background-color: #fff;
+      }
+    }
+
+    .bg--black &,
+    .bg--gold &,
+    .bg--gray & {
+      //padding: 0 0 .4rem 0;
+    }
+
+    .bg--gray & {
+      //border-color: $grey;
+    }
+
+    .bg--black & {
+      //color: $primary;
+    }
+  }
+
+}
+
+// color contrast
+
+.bttn--primary {
+
+  .bg--gray &,
+  .bg--white &,
+  .bg-pattern--brain &,
+  .bg--white--pattern--brain & {
+    border: none;
+  }
+
+  .bg-pattern--brain-reversed &,
+  .bg--gold--pattern--brain &,
+  .bg--gold & {
+    background: $secondary;
+    color: $primary;
+  }
+
+  .bg-pattern--brain-reversed .bg--gray &,
+  .bg--gold .bg--gray &,
+  .bg--gold--pattern--brain .bg--gray &,
+  .bg-pattern--brain-reversed .bg--white &,
+  .bg--gold .bg--white &,
+  .bg--gold--pattern--brain .bg--white & {
+    background: $primary;
+    color: $secondary;
+    border: none;
+  }
+
+  .bg--black--pattern--brain &,
+  .bg-pattern--brain-black &,
+  .bg--black & {
+    color: $secondary;
+  }
+}
+
+.bttn--tertiary {
+  [class*=bg-] .bg--gray & {
+    border-color: $secondary;
+  }
+}
+
+.bttn--secondary {
+
+  [class*=bg-] .bg--gray &,
+  [class*=bg-] .bg--white &,
+  .bg--white &,
+  .bg--gray &,
+  .bg-pattern--brain-reversed &,
+  .bg--gold--pattern--brain &,
+  .bg--gold &,
+  .bg-pattern--brain &,
+  .bg--white--pattern--brain & {
+    color: #fff;
+    border: none;
+  }
+}
+
+.bttn--tertiary i,
+.bttn--tertiary span,
+.bttn--tertiary svg {
+
+  .bg-pattern--brain-reversed &,
+  .bg--gold--pattern--brain &,
+  .bg--gold & {
+    color: inherit;
   }
 }
