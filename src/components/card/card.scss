@@ -11,11 +11,15 @@
 
     &.card--stacked[class*="bg-"] {
       .media--circle {
-        margin-top: 2rem;
+        @include breakpoint(sm) {
+          margin-top: 2rem;
+        }
 
         &.card__media--large {
-          padding: 0 2rem 0 2rem;
-          margin-top: 2rem;
+          @include breakpoint(sm) {
+            padding: 0 2rem 0 2rem;
+            margin-top: 2rem;
+          }
         }
       }
     }
@@ -28,13 +32,17 @@
 
       .media--circle.card__media--small,
       .media--circle.card__media--large {
-        margin-top: 2rem;
+        @include breakpoint(sm) {
+          margin-top: 2rem;
+        }
       }
     }
 
     // Add padding if large circle stacked is enclosed or has bg color
     .media--circle.card__media--large {
-      padding: 0 2rem;
+      @include breakpoint(sm) {
+        padding: 0 2rem;
+      }
     }
   }
 
@@ -46,7 +54,9 @@
       .media--circle,
       .card__media--small,
       .card__media--medium {
-        margin-top: 2rem;
+        @include breakpoint(sm) {
+          margin-top: 2rem;
+        }
       }
     }
   }
@@ -241,7 +251,9 @@
 
     &.card--enclosed,
     &[class*="bg-"]:not(.bg--white) {
-      padding: 2rem;
+      @include breakpoint(sm) {
+        padding: 2rem;
+      }
     }
 
     .card__media--small {
@@ -420,7 +432,9 @@
 [class*="bg-"] .card.card--stacked[class*="bg-"],
 .card.card--stacked[class*="bg-"]:not(.bg--white) {
   .card__body {
-    padding: 2rem;
+    @include breakpoint(sm) {
+      padding: 2rem;
+    }
   }
 }
 
@@ -456,16 +470,22 @@
     // Adjust padding if a card container has a background color.
     &--media-left.card,
     &--media-right.card {
-      padding: 2rem;
+      @include breakpoint(sm) {
+        padding: 2rem;
+      }
 
       // Remove padding if there's a section background color but no card bg set
       &:not([class*="bg-"]) {
-        padding: 0;
+        @include breakpoint(sm) {
+          padding: 0;
+        }
       }
 
       // Add padding if there's a section background color but no card bg set with border
       &--enclosed:not([class*="bg-"]) {
-        padding: 2rem;
+        @include breakpoint(sm) {
+          padding: 2rem;
+        }
       }
     }
   }
@@ -481,7 +501,9 @@
     &--media-left,
     &--media-right {
       &:not(.card--enclosed) {
-        padding: 0;
+        @include breakpoint(sm) {
+          padding: 0;
+        }
       }
     }
 
@@ -490,7 +512,9 @@
       // unset matching background color padding
       &--stacked:not(.card--enclosed) {
         .card__body {
-          padding: 2rem 0;
+          @include breakpoint(sm) {
+            padding: 2rem 0;
+          }
         }
       }
     }
