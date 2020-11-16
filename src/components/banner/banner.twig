@@ -17,14 +17,26 @@
 
 <div class="banner banner--{{ banner_overlay }} banner--{{ banner_size }} {{ banner_classes }} {{ banner_vertical_alignment }} {{ banner_horizontal_alignment }}">
 
-
+  {% if banner_type == 'video' %}
+    <div class="video-controls video">
+      <button class="video-btn video-btn__pause" id="video-btn">
+        <span class="element-invisible">Pause</span>
+      </button>
+    </div>
+  {% endif %}
   {% block banner_image %}
     {% if banner_type == 'image' %}
-    {% if banner_image %}
-      <div class="banner__image">
-        <img src="{{ banner_image }}" alt="Alt Text">
-      </div>
+      {% if banner_image %}
+        <div class="banner__image">
+          <img src="{{ banner_image }}" alt="Alt Text">
+        </div>
       {% endif %}
+    {% elseif banner_type == 'video' %}
+      <video class="banner__video" autoplay="autoplay" muted="muted" loop="loop" id="video-container" poster="{{ banner_image }}">
+        <source src="{{ banner_video }}" type="video/mp4">
+      </video>
+      <!-- This picture should assume background overlay doesn't work. So it should be darker to handle contrast ratio issues. -->
+      <!--[if lt IE 9]> <img src="{{ banner_image }}" alt="{{ banner_image_alt }}" class=" ie8-poster"> <![endif]-->
     {% endif %}
   {% endblock %}
 
