@@ -1,0 +1,186 @@
+{% set link_element, show_button = false, false %}
+{% if banner_link_url is not empty %}
+  {% if banner_title is not empty %}
+    {# Title is set, use it as the linking element.  #}
+    {% set link_element = 'title' %}
+    {# If we also have link text, then we'll show a psuedo-button. #}
+    {% if banner_link_title is not empty %}
+      {% set show_button = true %}
+    {% endif %}
+  {% elseif banner_link_title is not empty %}
+    {# Title is not set, but there is link text, so use that instead. #}
+    {% set link_element = 'button' %}
+    {# Show an actual link button. #}
+    {% set show_button = true %}
+  {% endif %}
+{% endif %}
+
+<div class="banner banner--{{ banner_overlay }} banner--{{ banner_size }} {{ banner_classes }} {{ banner_vertical_alignment }} {{ banner_horizontal_alignment }}">
+
+  {% if banner_type == 'video' %}
+    <div class="video-controls video">
+      <button class="video-btn video-btn__pause" id="video-btn">
+        <span class="element-invisible">Pause</span>
+      </button>
+    </div>
+  {% endif %}
+  {% block banner_image %}
+    {% if banner_type == 'image' %}
+      {% if banner_image %}
+        <div class="banner__image">
+          <img src="{{ banner_image }}" alt="Alt Text">
+        </div>
+      {% endif %}
+    {% elseif banner_type == 'video' %}
+      <video class="banner__video" autoplay="autoplay" muted="muted" loop="loop" id="video-container" poster="{{ banner_image }}">
+        <source src="{{ banner_video }}" type="video/mp4">
+      </video>
+      <!-- This picture should assume background overlay doesn't work. So it should be darker to handle contrast ratio issues. -->
+      <!--[if lt IE 9]> <img src="{{ banner_image }}" alt="{{ banner_image_alt }}" class=" ie8-poster"> <![endif]-->
+    {% endif %}
+  {% endblock %}
+
+  {% block banner_content_wrapper %}
+    <div class="banner__container">
+      <div class="banner__content">
+
+        {% block headline %}
+          {% if banner_title is not empty %}
+            {% include '@headline' with {
+              'headline_level' : 'h2',
+              'headline_class' : banner_title_classes,
+              'headline_text' : banner_title,
+              'headline_url': banner_link_url,
+              'headline_aria': banner_aria,
+            } %}
+          {% endif %}
+        {% endblock %}
+
+        <div class="banner__text">{{ banner_text }}</div>
+
+    {% block banner_bttn %}
+      {% if banner_link_url is not empty and show_button %}
+        {% if link_element == 'button' %}
+          <a class="{{ banner_link_classes }}" href="{{ banner_link_url }}">
+            {{ banner_link_title }}
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        {% else %}
+          <div aria-hidden="true" class="{{ banner_link_classes }}"{% if banner_aria %} id="{{ banner_aria }}"{% endif %}>
+            {{ banner_link_title }}
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        {% endif %}
+      {% endif %}
+    {% endblock %}
+
+      </div>
+    </div>
+
+  {% endblock %}
+</div>
+
+{% set link_element, show_button = false, false %}
+{% if banner_link_url is not empty %}
+  {% if banner_title is not empty %}
+    {# Title is set, use it as the linking element.  #}
+    {% set link_element = 'title' %}
+    {# If we also have link text, then we'll show a psuedo-button. #}
+    {% if banner_link_title is not empty %}
+      {% set show_button = true %}
+    {% endif %}
+  {% elseif banner_link_title is not empty %}
+    {# Title is not set, but there is link text, so use that instead. #}
+    {% set link_element = 'button' %}
+    {# Show an actual link button. #}
+    {% set show_button = true %}
+  {% endif %}
+{% endif %}
+
+<div class="banner banner--{{ banner_overlay }} banner--{{ banner_size }} {{ banner_classes }} {{ banner_vertical_alignment }} {{ banner_horizontal_alignment }}">
+
+  {% if banner_type == 'video' %}
+    <div class="video-controls video">
+      <button class="video-btn video-btn__pause" id="video-btn">
+        <span class="element-invisible">Pause</span>
+      </button>
+    </div>
+  {% endif %}
+  {% block banner_image %}
+    {% if banner_type == 'image' %}
+      {% if banner_image %}
+        <div class="banner__image">
+          <img src="{{ banner_image }}" alt="Alt Text">
+        </div>
+      {% endif %}
+    {% elseif banner_type == 'video' %}
+      <video class="banner__video" autoplay="autoplay" muted="muted" loop="loop" id="video-container" poster="{{ banner_image }}">
+        <source src="{{ banner_video }}" type="video/mp4">
+      </video>
+      <!-- This picture should assume background overlay doesn't work. So it should be darker to handle contrast ratio issues. -->
+      <!--[if lt IE 9]> <img src="{{ banner_image }}" alt="{{ banner_image_alt }}" class=" ie8-poster"> <![endif]-->
+    {% endif %}
+  {% endblock %}
+
+  {% block banner_content_wrapper %}
+    <div class="banner__container">
+      <div class="banner__content">
+
+        {% block headline %}
+          {% if banner_title is not empty %}
+            {% include '@headline' with {
+              'headline_level' : 'h2',
+              'headline_class' : banner_title_classes,
+              'headline_text' : banner_title,
+              'headline_url': banner_link_url,
+              'headline_aria': banner_aria,
+            } %}
+          {% endif %}
+        {% endblock %}
+
+        <div class="banner__text">{{ banner_text }}</div>
+
+        {% block banner_bttn %}
+          {% if banner_link_url is not empty and show_button %}
+            {% if link_element == 'button' %}
+              <a class="{{ banner_link_classes }}" href="{{ banner_link_url }}">
+                {{ banner_link_title }}
+                <i class="fas fa-arrow-right"></i>
+              </a>
+            {% else %}
+              <div aria-hidden="true" class="{{ banner_link_classes }}"{% if banner_aria %} id="{{ banner_aria }}"{% endif %}>
+                {{ banner_link_title }}
+                <i class="fas fa-arrow-right"></i>
+              </div>
+            {% endif %}
+          {% endif %}
+        {% endblock %}
+
+      </div>
+    </div>
+
+  {% endblock %}
+</div>
+
+<style>
+@media (min-width: 768px) {
+  .banner--large,
+  .banner--large.banner--vertical-center:not([class*="bg-"])  {
+    min-height: 48rem;
+  }
+
+  .banner--medium,
+  .banner--medium.banner--vertical-center:not([class*="bg-"])  {
+    min-height: 33rem;
+  }
+
+  .banner--small,
+  .banner--small.banner--vertical-center:not([class*="bg-"]) {
+    min-height: 18rem;
+  }
+
+  .banner--large .bold-headline {
+    font-size: calc(100% + 3.5vw);
+  }
+}
+</style>
