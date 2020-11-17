@@ -32,7 +32,11 @@
         </div>
       {% endif %}
     {% elseif banner_type == 'video' %}
-      <video class="banner__video" autoplay="autoplay" muted="muted" loop="loop" id="video-container" poster="{{ banner_image }}">
+      {% if banner_video_autoplay %}
+      {% else %}
+        {% set banner_video_autoplay = 'autoplay' %}
+      {% endif %}
+      <video class="banner__video" autoplay="{{banner_video_autoplay}}" muted="muted" loop="loop" id="video-container" poster="{{ banner_image }}">
         <source src="{{ banner_video }}" type="video/mp4">
       </video>
       <!-- This picture should assume background overlay doesn't work. So it should be darker to handle contrast ratio issues. -->
