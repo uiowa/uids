@@ -13,7 +13,12 @@ Array.prototype.forEach.call(banners, banner => {
   if (link) {
     banner.style.cursor = 'pointer';
     banner.onmousedown = () => down = +new Date();
-    banner.onmouseup = () => {
+    banner.onmouseup = (e) => {
+      if(banner.querySelectorAll('.video-controls').length > 0) {
+        if (isEventInElement(e, banner.querySelector('.video-controls'))) {
+          return false;
+        }
+      }
       up = +new Date();
       // Trigger click event if the duration is short enough.
       if ((up - down) < 200) {
@@ -45,7 +50,10 @@ reducedMotionCheck();
 motionQuery.addListener(reducedMotionCheck);
 
 if (document.getElementById("video-btn")) {
-  document.getElementById("video-btn").addEventListener("click", pausePlay);
+  document.getElementById("video-btn").addEventListener("click", function(e) {
+    pausePlay();
+    e.stopPropagation();
+  });
 }
 
 // Pause and play
@@ -63,4 +71,13 @@ function pausePlay() {
     btn.classList.add("video-btn__play");
     btn.setAttribute("aria-label", "Play");
   }
+}
+
+function isEventInElement(event, element)   {
+  let rect = element.getBoundingClientRect();
+  let x = event.clientX;
+  if (x < rect.left || x >= rect.right) return false;
+  let y = event.clientY;
+  if (y < rect.top || y >= rect.bottom) return false;
+  return true;
 }
