@@ -66,29 +66,42 @@ banner_videos.forEach(function(item, index){
 // This function pauses the video if the user prefers reduced motion.
 function reducedMotionCheck(video, btn) {
   if (motionQuery.matches) {
+    // Pause the video.
     video.pause();
-    btn.innerHTML = "<span class='element-invisible'>" + "Play" + "</span>";
-    btn.classList.remove("video-btn__pause");
-    btn.classList.add("video-btn__play");
-    btn.setAttribute("aria-label", "Play");
+    // When the video is paused, offer the user the option to play.
+    setButtonDataPlay(btn);
   }
 }
 
 // This function toggles pause and play on a specific banner video.
 function pausePlay(video, btn) {
   if (video.paused) {
+    // Play the video.
     video.play();
-    btn.innerHTML = "<span class='element-invisible'>" + "Pause" + "</span>";
-    btn.classList.remove("video-btn__play");
-    btn.classList.add("video-btn__pause");
-    btn.setAttribute("aria-label", "Pause");
+    // When the video is playing, offer the user the option to pause.
+    setButtonDataPaused(btn);
   } else {
+    // Pause the video.
     video.pause();
-    btn.innerHTML = "<span class='element-invisible'>" + "Play" + "</span>";
-    btn.classList.remove("video-btn__pause");
-    btn.classList.add("video-btn__play");
-    btn.setAttribute("aria-label", "Play");
+    // When the video is paused, offer the user the option to play.
+    setButtonDataPlay(btn);
   }
+}
+
+// This function sets the button to show a 'Pause' Icon.
+function setButtonDataPaused(btn) {
+  btn.innerHTML = "<span class='element-invisible'>" + "Pause" + "</span>";
+  btn.classList.remove("video-btn__play");
+  btn.classList.add("video-btn__pause");
+  btn.setAttribute("aria-label", "Pause");
+}
+
+// This function sets the button to show a 'Play' Icon.
+function setButtonDataPlay(btn) {
+  btn.innerHTML = "<span class='element-invisible'>" + "Play" + "</span>";
+  btn.classList.remove("video-btn__pause");
+  btn.classList.add("video-btn__play");
+  btn.setAttribute("aria-label", "Play");
 }
 
 // This function detects if an event happens inside a specific element.
