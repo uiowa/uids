@@ -38,7 +38,7 @@ const motionQuery = matchMedia('(prefers-reduced-motion)');
 // Construct an array of all banner videos.
 let banner_videos = [];
 banners.forEach(function(item, index) {
-  banner_videos.push(item.querySelector('.banner video'));
+  banner_videos.push(item.querySelector('video'));
 });
 
 // For each banner video...
