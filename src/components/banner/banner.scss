@@ -48,16 +48,23 @@
     }
   }
 
-  video {
-    overflow: visible;
-    display: block;
-    width: 100%;
-    -o-object-fit: cover;
-    object-fit: cover;
+  .media--video {
     position: absolute;
     height: 100%;
-    top: 0;
+    width: 100%;
+
+    video {
+      overflow: visible;
+      display: block;
+      width: 100%;
+      -o-object-fit: cover;
+      object-fit: cover;
+      position: absolute;
+      height: 100%;
+      top: 0;
+    }
   }
+
 
   &__text {
     z-index: 1;
@@ -249,16 +256,12 @@
   &[class*="bg-"]:after {
     background: inherit;
   }
-
 }
 
 // Alignment Variants
 .banner--horizontal-center {
   text-align: center;
-}
 
-
-.banner--horizontal-center {
   .banner__content {
     >* {
       margin-right: auto;
@@ -267,66 +270,56 @@
   }
 }
 
-@media (hover:none),
-(hover:on-demand) {
+.media--video {
+  position: relative;
+
+  .video-controls {
+    position: absolute;
+    z-index: 1;
+    left: 1.25rem;
+    bottom: 1.25rem;
+
+    @include breakpoint(container) {
+      left: 3rem;
+      bottom: 3rem;
+    }
+  }
+
   .video-btn {
     display: none;
-  }
-}
-
-.video-controls {
-  position: absolute;
-  z-index: 1;
-  left: 1.25rem;
-  bottom: 1.25rem;
-
-  @include breakpoint(container) {
-    left: 3rem;
-    bottom: 3rem;
-  }
-
-  .banner__bottom & {
-    bottom: 50%;
-    left: 1.25rem;
-  }
-}
-
-@media only screen and (min-width: 1470px) {
-  .banner__bottom .video-controls {
-    bottom: 3rem;
-  }
-}
-
-
-.video-btn {
-  display: none;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  color: $secondary;
-  border: 1px solid white;
-  border-radius: 50%;
-  background: white;
-  font-size: 1rem;
-  padding: 0;
-
-  @include breakpoint(sm) {
-    display: block;
-  }
-
-  &::after {
-    content: "\f04b";
-    @include fas();
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    color: $secondary;
+    border: 1px solid white;
+    border-radius: 50%;
+    background: white;
     font-size: 1rem;
+    padding: 0;
+
+    @include breakpoint(sm) {
+      display: block;
+    }
+
+    &::after {
+      content: "\f04b";
+      @include fas();
+      font-size: 1rem;
+    }
+
+    &.video-btn__play::after {
+      margin-left: 3px;
+    }
+
+    &.video-btn__pause::after {
+      content: "\f04c";
+    }
   }
 
-  &.video-btn__play::after {
-    margin-left: 3px;
+  @media (hover:none),
+  (hover:on-demand) {
+    .video-btn {
+      display: none;
+    }
   }
-
-  &.video-btn__pause::after {
-    content: "\f04c";
-  }
-
-  &.video-btn__pause {}
 }
