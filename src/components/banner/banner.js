@@ -42,26 +42,28 @@ banners.forEach(function(item, index) {
 });
 
 // For each banner video...
-banner_videos.forEach(function(item, index){
-  // Give each video an id so that we can index them individually later.
-  // As well, no two elements should have the same ID, so assigning them like this ensures that is the case.
-  let video = item;
-  video.id = video.id + '-' + index;
+if(banner_videos.length > 0) {
+  banner_videos.forEach(function(item, index){
+    // Give each video an id so that we can index them individually later.
+    // As well, no two elements should have the same ID, so assigning them like this ensures that is the case.
+    let video = item;
+    video.id = video.id + '-' + index;
 
-  // Give each video button an id so that we can index them individually later.
-  // As well, no two elements should have the same ID, so assigning them like this ensures that is the case.
-  let video_btn = item.closest('.banner').querySelector('.video-controls .video-btn');
-  video_btn.id = video_btn.id + '-' + index;
+    // Give each video button an id so that we can index them individually later.
+    // As well, no two elements should have the same ID, so assigning them like this ensures that is the case.
+    let video_btn = item.closest('.banner').querySelector('.video-controls .video-btn');
+    video_btn.id = video_btn.id + '-' + index;
 
-  // Do a reduced motion check, and attach a listener to do on every time it changes.
-  reducedMotionCheck(video, video_btn);
-  motionQuery.addListener(function() {reducedMotionCheck(video, video_btn)});
+    // Do a reduced motion check, and attach a listener to do on every time it changes.
+    reducedMotionCheck(video, video_btn);
+    motionQuery.addListener(function() {reducedMotionCheck(video, video_btn)});
 
-  // Add an event listener to the button of this banner video to toggle pause/play on the video.
-  video_btn.addEventListener("click", function(e) {
-    pausePlay(video, video_btn);
+    // Add an event listener to the button of this banner video to toggle pause/play on the video.
+    video_btn.addEventListener("click", function(e) {
+      pausePlay(video, video_btn);
+    });
   });
-});
+}
 
 // This function pauses the video if the user prefers reduced motion.
 function reducedMotionCheck(video, btn) {
