@@ -1,5 +1,5 @@
 const banners = document.querySelectorAll('.banner');
-const banner_link = ['.bold-headline a', 'a.bttn'];
+const banner_link = ['.bold-headline a', '.banner-content>a.bttn'];
 
 Array.prototype.forEach.call(banners, banner => {
   let up, down, link, i;
@@ -42,7 +42,7 @@ banners.forEach(function(item, index) {
 });
 
 // For each banner video...
-if(banner_videos.length > 0) {
+if (banner_videos[0] != null) {
   banner_videos.forEach(function(item, index){
     // Give each video an id so that we can index them individually later.
     // As well, no two elements should have the same ID, so assigning them like this ensures that is the case.
