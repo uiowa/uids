@@ -44,7 +44,7 @@ jobs:
 
       - name: Get the version
         id: get_version
-        run: echo ::set-env name=BRANCH::${GITHUB_REF#refs/*/}
+        run: echo “BRANCH=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
       - name: Setup node
         uses: actions/setup-node@v2.1.0
