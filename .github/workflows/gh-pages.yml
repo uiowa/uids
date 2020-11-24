@@ -24,42 +24,42 @@ jobs:
     steps:
       # https://github.com/actions/checkout#readme
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout code
-        uses: actions/checkout@v2
+#      - name: Checkout code
+#        uses: actions/checkout@v2
 
 #      - run: echo $GITHUB_WORKSPACE
 #      - run: ls -lah $GITHUB_WORKSPACE
 
       # https://github.com/actions/checkout#readme
-      - name: Checkout docs
-        uses: actions/checkout@v2
-        with:
-          ref: gh-pages
-          path: gh-pages
+#      - name: Checkout docs
+#        uses: actions/checkout@v2
+#        with:
+#          ref: gh-pages
+#          path: gh-pages
 
       # Remove the '.git' directory in 'gh-pages' to prevent
       # any git pushing weirdness later.
-      - run: rm -rf $GITHUB_WORKSPACE/gh-pages/.git
+#      - run: rm -rf $GITHUB_WORKSPACE/gh-pages/.git
 #      - run: ls -lah $GITHUB_WORKSPACE/gh-pages
 
       - name: Get the version
         id: get_version
         run: echo "git_branch=${GITHUB_REF#refs/*/}"
 
-      - name: Setup node
-        uses: actions/setup-node@v2.1.2
-        with:
-          node-version: "12.x"
-
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: npm-packages-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: npm-packages-
-
-      - run: npm ci
-      - run: npm run docs
+#      - name: Setup node
+#        uses: actions/setup-node@v2.1.2
+#        with:
+#          node-version: "12.x"
+#
+#      - name: Cache dependencies
+#        uses: actions/cache@v2
+#        with:
+#          path: ~/.npm
+#          key: npm-packages-${{ hashFiles('**/package-lock.json') }}
+#          restore-keys: npm-packages-
+#
+#      - run: npm ci
+#      - run: npm run docs
       # Check to make sure that docs built into www.
 #      - run: ls -lah $GITHUB_WORKSPACE/www
 
@@ -69,7 +69,7 @@ jobs:
 #      - run: echo "Main check - ${{ github.ref == format('refs/heads/{0}', env.MAIN_BRANCH) }}"
 #      - run: echo "Branch check - ${{ contains(github.ref, 'refs/heads/') && github.ref != format('refs/heads/{0}', env.MAIN_BRANCH) }}"
 #      - run: echo "Tags check - ${{ startsWith(github.ref, 'refs/tags/') }}
-      - run: echo format('Branch - {0}', $git_branch)
+      - run: echo "format('Branch - {0}', $git_branch)"
 
       # Only one of the following 3 steps should run.
 
