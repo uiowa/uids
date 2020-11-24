@@ -47,11 +47,11 @@ jobs:
         run: echo "git_branch=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
       - name: Test branch is set
-        if: ${{ git_branch =! "" }}
+        if: ${{ env.git_branch =! "" }}
         run: echo "Git branch is defined."
 
       - name: Test branch is not set
-        if: ${{ git_branch == "" }}
+        if: ${{ env.git_branch == "" }}
         run: echo "Git branch is not defined."
 
 #      - name: Setup node
