@@ -47,13 +47,13 @@ jobs:
         id: get_version
         run: echo "git_branch=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
-      - name: Test branch is set
-        if: env.SOURCE_BRANCH =! ''
-        run: echo "Git branch is defined."
-
       - name: Test branch is not set
         if: env.SOURCE_BRANCH == ''
         run: echo "Git branch is not defined."
+
+      - name: Test branch is set
+        if: env.SOURCE_BRANCH =! ''
+        run: echo "Git branch is defined."
 
 #      - name: Setup node
 #        uses: actions/setup-node@v2.1.2
