@@ -113,13 +113,13 @@ jobs:
         run: if [ -d "$GITHUB_WORKSPACE/gh-pages/branches/$git_branch" ]; then rm -rf $GITHUB_WORKSPACE/gh-pages/branches/$git_branch ; fi
 
       # Look at the 'gh-pages' directory to see if everything looks right.
-      - run: ls -lah $GITHUB_WORKSPACE/gh-pages
+#      - run: ls -lah $GITHUB_WORKSPACE/gh-pages
 
       # https://github.com/JamesIves/github-pages-deploy-action#readme
-#      - name: Deploy docs 🚀
-#        uses: JamesIves/github-pages-deploy-action@releases/v3
-#        with:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#          BRANCH: ${{ env.TARGET_BRANCH }} # The branch the action should deploy to.
-#          FOLDER: gh-pages # The folder the action should deploy.
+      - name: Deploy docs 🚀
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: ${{ env.TARGET_BRANCH }} # The branch the action should deploy to.
+          FOLDER: gh-pages # The folder the action should deploy.
 
