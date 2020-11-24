@@ -27,11 +27,12 @@
   &--tertiary {
     @include bttn--tertiary;
     @include bttn--focus;
-    border: 1px solid white;
+    background: #fff;
+    border: none;
 
     &:hover,
     &:focus {
-      border: 1px solid #999;
+      //border: 1px solid #999;
     }
   }
 
@@ -41,7 +42,11 @@
 
   &--outline {
     @include bttn--outline;
-    border: 1px solid $primary;
+    border: 1px solid;
+
+    &.bttn--tertiary {
+      background: none;
+    }
 
     &.bttn--secondary {
 
@@ -270,6 +275,13 @@
 .bttn--tertiary {
   [class*=bg-] .bg--gray & {
     border-color: $secondary;
+  }
+  &:not([class*="bttn--outline"]) {
+    .bg--black--pattern--brain &,
+    .bg-pattern--brain-black &,
+    .bg--black & {
+      color: $secondary;
+    }
   }
 }
 

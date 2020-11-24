@@ -39,15 +39,15 @@ jobs:
 
       # Remove the '.git' directory in 'gh-pages' to prevent
       # any git pushing weirdness later.
-      - run: rm -rf $GITHUB_WORKSPACE/gh-pages/.git
+#      - run: rm -rf $GITHUB_WORKSPACE/gh-pages/.git
 #      - run: ls -lah $GITHUB_WORKSPACE/gh-pages
 
       - name: Get the version
         id: get_version
-        run: echo ::set-env name=BRANCH::${GITHUB_REF#refs/*/}
+        run: echo "git_branch=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
       - name: Setup node
-        uses: actions/setup-node@v2.1.0
+        uses: actions/setup-node@v2.1.2
         with:
           node-version: "12.x"
 
@@ -68,7 +68,7 @@ jobs:
 #      - run: echo "${{ env.MAIN_BRANCH }}"
 #      - run: echo "Main check - ${{ github.ref == format('refs/heads/{0}', env.MAIN_BRANCH) }}"
 #      - run: echo "Branch check - ${{ contains(github.ref, 'refs/heads/') && github.ref != format('refs/heads/{0}', env.MAIN_BRANCH) }}"
-#      - run: echo "Tags check - ${{ startsWith(github.ref, 'refs/tags/') }}"
+#      - run: echo "Tags check - ${{ startsWith(github.ref, 'refs/tags/') }}
 
       # Only one of the following 3 steps should run.
 
@@ -89,8 +89,8 @@ jobs:
         if: github.event.deleted == false && contains(github.ref, 'refs/heads/') && github.ref != format('refs/heads/{0}', env.MAIN_BRANCH)
         run: |
           if [ ! -d "$GITHUB_WORKSPACE/gh-pages/branches" ]; then mkdir $GITHUB_WORKSPACE/gh-pages/branches ; fi
-          rm -rf $GITHUB_WORKSPACE/gh-pages/branches/${{ env.BRANCH }}
-          mv $GITHUB_WORKSPACE/www/ $GITHUB_WORKSPACE/gh-pages/branches/${{ env.BRANCH }}/
+          rm -rf $GITHUB_WORKSPACE/gh-pages/branches/$git_branch
+          mv $GITHUB_WORKSPACE/www/ $GITHUB_WORKSPACE/gh-pages/branches/$git_branch/
 
       # If tags:
       #   - Copy the build to the root of 'gh-pages'.
@@ -103,13 +103,13 @@ jobs:
         run: |
           cp -a $GITHUB_WORKSPACE/www/* $GITHUB_WORKSPACE/gh-pages
           if [ ! -d "$GITHUB_WORKSPACE/gh-pages/docs" ]; then mkdir $GITHUB_WORKSPACE/gh-pages/docs ; fi
-          rm -rf $GITHUB_WORKSPACE/gh-pages/docs/${{ env.BRANCH }}
-          mv $GITHUB_WORKSPACE/www/ $GITHUB_WORKSPACE/gh-pages/docs/${{ env.BRANCH }}
+          rm -rf $GITHUB_WORKSPACE/gh-pages/docs/$git_branch
+          mv $GITHUB_WORKSPACE/www/ $GITHUB_WORKSPACE/gh-pages/docs/$git_branch
 
       # If event trigger is 'delete', remove the branch folder, if it exists.
       - name: Branch deletion preparations
         if: github.event.deleted == true
-        run: if [ -d "$GITHUB_WORKSPACE/gh-pages/branches/${{ env.BRANCH }}" ]; then rm -rf $GITHUB_WORKSPACE/gh-pages/branches/${{ env.BRANCH }} ; fi
+        run: if [ -d "$GITHUB_WORKSPACE/gh-pages/branches/$git_branch" ]; then rm -rf $GITHUB_WORKSPACE/gh-pages/branches/$git_branch ; fi
 
       # Look at the 'gh-pages' directory to see if everything looks right.
 #      - run: ls -lah $GITHUB_WORKSPACE/gh-pages
