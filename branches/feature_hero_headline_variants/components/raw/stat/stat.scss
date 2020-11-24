@@ -1,0 +1,82 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/utilities';
+
+.stat__grid {
+  margin: 0;
+}
+
+.stat {
+  position: relative;
+  &__title {
+    position: relative;
+    margin: 0;
+    text-transform: uppercase;
+    line-height: 1.2;
+    font-family: $font-family-caps-bold;
+    font-size: 4rem;
+    border-bottom: 8px solid $primary;
+    padding: $lg 0 $sm 0;
+    @include breakpoint(sm) {
+      padding: $md $lg 0;
+    }
+
+    .element--flex-center & {
+      padding: $md $lg 0;
+      display: block;
+    }
+    .bg-pattern--brain-black &,
+    .bg--black & {
+      color: white;
+    }
+    .bg-pattern--brain-reversed &,
+    .bg--gold & {
+      border-bottom: 8px solid white;
+    }
+    @include breakpoint(sm) {
+      font-size: calc(100% + 4vw);
+      padding: 0 $lg 0 0;
+      .element--flex-center & {
+        padding: 0 $lg;
+      }
+    }
+  }
+
+  &__description {
+    position: relative;
+    font-family: $font-family-caps-bold;
+    text-transform: uppercase;
+    font-size: 1.3rem;
+    line-height: 1.4;
+    width: 85%;
+    margin: $sm 0;
+    .bg-pattern--brain-black &,
+    .bg--black & {
+      color: white;
+    }
+    @include breakpoint(menu) {
+      font-size: 1.5rem;
+    }
+    .grid--3-2 & {
+      @include breakpoint(menu) {
+        width: 60%;
+      }
+    }
+  }
+}
+
+.grid--3-2 .stat__description {
+  @include breakpoint(menu) {
+    width: 60%;
+  }
+}
+
+
+.heading__prefix,
+.heading__suffix {
+  font-size: 2rem;
+  vertical-align: super;
+
+  @include breakpoint(sm) {
+    font-size: calc(100% + -2vw);
+  }
+}

@@ -1,0 +1,363 @@
+@import '../../../assets/scss/variables';
+@import '../../../assets/scss/utilities';
+
+.page__container {
+  @extend %container;
+
+  &--mixed {
+    @extend %container;
+  }
+}
+
+.flex__wrapper {
+  @include breakpoint(sm) {
+    flex-wrap: wrap;
+    @include flexbox;
+  }
+}
+
+
+// footer cta
+
+// cta
+
+.cta-row {
+  &__wrapper {
+    @include breakpoint(container) {
+      position: fixed;
+      bottom: 0;
+      z-index: 100;
+      width: 100%;
+      box-shadow: 0px 0 10px rgba(0, 0, 0, 0.4);
+    }
+
+    background: $primary;
+    padding: $lg 0;
+    margin: 0;
+
+    nav {
+      width: 100%;
+    }
+
+    .menu {
+      @include breakpoint(sm) {
+        display: flex;
+      }
+
+      li {
+        flex: 1;
+        display: block;
+      }
+    }
+
+    .bttn--outline {
+      border: 1px solid $secondary;
+      display: block;
+
+      @include breakpoint(sm) {
+        flex: 1;
+        display: block;
+      }
+    }
+  }
+
+  &__container {
+    @extend %container;
+    justify-content: space-between;
+
+    @include breakpoint(sm) {
+      display: flex;
+    }
+
+    @include breakpoint(container) {
+      padding: 0;
+    }
+  }
+}
+
+.cta-row__container .menu {
+  @extend %no-ul-list;
+
+  a {
+    margin: $md 0;
+
+    @include breakpoint(sm) {
+      margin: 0 $md;
+      height: 100%;
+    }
+
+    padding-top: $xsm;
+
+    &:before {
+      content: ' ';
+      background-repeat: no-repeat;
+      background-size: 90%;
+      width: 35px;
+      height: 35px;
+      display: inline-block;
+      margin-bottom: -5px;
+      margin-right: 5px;
+
+      @include breakpoint(sm) {
+        display: block;
+        margin: 0 auto;
+      }
+
+      @include breakpoint(container) {
+        display: inline-block;
+        margin: 0 5px -5px 0;
+      }
+    }
+
+    &.bttn--apply:before {
+      background-image: url("#{$imgpath}/apply-01.svg");
+    }
+
+    &.bttn--visit:before {
+      background-image: url("#{$imgpath}/location-01.svg");
+    }
+
+    &.bttn--ask:before {
+      background-image: url("#{$imgpath}/ask-01-01.svg");
+    }
+
+    &.bttn--connect:before {
+      background-image: url("#{$imgpath}/connect-01-01.svg");
+    }
+  }
+}
+
+.cta-row__container>a:first-child {
+  margin-left: 0;
+}
+
+.cta-row__container>a:last-child {
+  margin-right: 0;
+}
+
+// Card row
+
+.card__wrapper {
+  @include breakpoint(menu) {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.card__row,
+.hero {
+  flex: 0 0 50%;
+
+  @include breakpoint(menu) {
+    flex: 0 0 33.3%;
+  }
+
+  margin-bottom: 0rem;
+}
+
+.hero--row {
+  .bttn {
+
+    @include breakpoint(sm) {
+      margin-left: $gutter;
+      margin-bottom: $gutter;
+    }
+  }
+
+  .bold-headline {
+    font-size: 1.2rem;
+    text-align: center;
+
+    @include breakpoint(sm) {
+      margin-left: $gutter;
+      text-align: left;
+    }
+  }
+}
+
+
+// Grid sections
+
+
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+
+  @include breakpoint(container) {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    margin-bottom: -20px;
+  }
+
+  &__section {
+    flex-basis: 100%;
+  }
+
+  .grid__content {
+    padding: 0 3rem;
+  }
+
+  &__section:nth-child(1) {
+    grid-area: 1 / 1 / 2 / 3;
+    order: 1;
+  }
+
+  &__section:nth-child(2) {
+    grid-area: 1 / 3 / 2 / 5;
+    order: 2;
+  }
+
+  &__section:nth-child(3) {
+    grid-area: 2 / 1 / 5 / 5;
+    order: 3;
+  }
+
+  &__section:nth-child(4) {
+    grid-area: 1 / 5 / 3 / 9;
+    align-items: center;
+    display: flex;
+    order: 0;
+    padding: 3rem;
+  }
+
+  &__section:nth-child(5) {
+    grid-area: 3 / 5 / 5 / 7;
+    order: 4;
+  }
+
+  &__section:nth-child(6) {
+    grid-area: 3 / 7 / 5 / 9;
+  }
+}
+
+.image-grid__section.grid__content h2.bold-headline .heading__heading span {
+  color: #fff;
+  font-family: $font-family-script;
+  font-weight: normal;
+  background: none;
+  text-transform: lowercase;
+  font-size: 7rem;
+
+  display: contents;
+
+  @include breakpoint(container) {
+    font-size: 12.5rem;
+  }
+}
+
+.image-grid__section.grid__content h2.bold-headline {
+  width: 100%;
+
+  @include breakpoint(menu) {
+    font-size: calc(4em + 2.5vw);
+    width: 100%;
+  }
+
+  @include breakpoint(container) {
+    font-size: calc(4em + 3vw);
+  }
+
+  @include breakpoint(xlg) {
+    font-size: calc(4em + 3vw);
+  }
+
+  text-align: center;
+}
+
+.aerial__content-grid {
+  margin: 0 3rem;
+}
+
+
+// stats
+
+.stat__wrapper {
+  &:hover {
+    transition-delay: 4s;
+  }
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 3rem;
+  align-items: baseline;
+
+  @include breakpoint(menu) {
+    padding: 0 3rem;
+  }
+}
+
+.stat__grid {
+  flex: 0 0 100%;
+
+  @include breakpoint(sm) {
+    flex: 0 0 50%;
+    padding: 2rem 0;
+  }
+
+  @include breakpoint(menu) {
+    flex: 0 0 25%;
+    padding: 2rem 0;
+  }
+}
+
+
+// How to apply section
+
+.element--circle-list.counter-increment {
+  counter-reset: circle-counter 3;
+}
+
+.element--circle-list>li {
+  margin-bottom: $desktop-width-gutter;
+}
+
+.hero.hero--solid-opacity:hover::before,
+.hero.hero--solid-opacity:focus::before {
+  transform: translate(-50%, 0) scaleX(1);
+}
+
+.hero.hero--solid-opacity:hover:after,
+.hero.hero--solid-opacity:focus:after {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.hero.hero--solid-opacity:before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 100%;
+  height: 4px;
+  background-color: #FFF;
+  transform-origin: center;
+  transform: translate(-50%, 0) scaleX(0);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1;
+}
+
+.header-sticky .iowa-bar {
+  z-index: 3;
+}
+
+// footer
+
+.footer {
+  @include breakpoint(container) {
+    padding-bottom: 6rem;
+  }
+}
+
+// Areas of Study Hero bttn
+.hero--horizontal-left .bttn {
+  margin: 0 auto;
+
+  @include breakpoint(menu) {
+    margin-right: auto;
+    margin-left: 0;
+  }
+}
