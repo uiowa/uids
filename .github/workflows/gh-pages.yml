@@ -17,7 +17,6 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     env:
-      SOURCE_BRANCH: "${GITHUB_REF#refs/*/}"
       TARGET_BRANCH: gh-pages
       MAIN_BRANCH: main
 
@@ -48,11 +47,11 @@ jobs:
         run: echo "git_branch=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
       - name: Test branch is set
-        if: env.SOURCE_BRANCH =! ''
+        if: ${{ git_branch =! "" }}
         run: echo "Git branch is defined."
 
       - name: Test branch is not set
-        if: env.SOURCE_BRANCH == ''
+        if: ${{ git_branch == "" }}
         run: echo "Git branch is not defined."
 
 #      - name: Setup node
