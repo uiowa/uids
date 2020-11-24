@@ -42,6 +42,7 @@ jobs:
 #      - run: rm -rf $GITHUB_WORKSPACE/gh-pages/.git
 #      - run: ls -lah $GITHUB_WORKSPACE/gh-pages
 
+      - run: echo "${GITHUB_REF#refs/*/}"
       - name: Get the version
         id: get_version
         run: echo "git_branch=${GITHUB_REF#refs/*/}"
@@ -69,7 +70,6 @@ jobs:
 #      - run: echo "Main check - ${{ github.ref == format('refs/heads/{0}', env.MAIN_BRANCH) }}"
 #      - run: echo "Branch check - ${{ contains(github.ref, 'refs/heads/') && github.ref != format('refs/heads/{0}', env.MAIN_BRANCH) }}"
 #      - run: echo "Tags check - ${{ startsWith(github.ref, 'refs/tags/') }}
-      - run: echo "format('Branch - {0}', $git_branch)"
 
       # Only one of the following 3 steps should run.
 
