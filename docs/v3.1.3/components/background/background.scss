@@ -1,0 +1,39 @@
+@import 'background-mixins';
+
+[class*="bg-"],
+[class*="bg--"] {
+  a,
+  [class*="bg-"] a,
+  [class*="bg--"] a {
+    color: inherit;
+  }
+}
+
+// @todo Remove just the next line in a future release.
+[class*="bg-pattern"],
+[class*="bg--"][class*="--pattern--"] {
+  background-size: auto auto;
+  background-position: center center;
+}
+
+// Add background rules
+@include add-backgrounds();
+
+// @todo Move this somewhere else.
+.container--padded {
+  padding: 10px;
+}
+
+
+[class*="bg--"] {
+  *,
+  & [class*="bg--"] * {
+    border-color: inherit;
+
+    &:before,
+    &:after {
+      color: inherit;
+      border-color: inherit;
+    }
+  }
+}

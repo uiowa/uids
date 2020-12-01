@@ -1,0 +1,9 @@
+<nav role="navigation"{% if nav_classes|length %} class="{{ nav_classes }}"{% endif %}>
+  <ul class="menu">
+    {% block menu_items %}
+      {% for item in items %}
+        {% include "@item" with { item: item } %}
+      {% endfor %}
+    {% endblock %}
+  </ul>
+</nav>
