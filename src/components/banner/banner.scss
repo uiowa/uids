@@ -26,7 +26,7 @@
     @include breakpoint(sm) {
       z-index: 1;
       max-width: 81.875em;
-      top: 0;
+      //top: 0;
     }
   }
 
@@ -334,7 +334,6 @@
   }
 }
 
-
 // ie11
 @media all and (-ms-high-contrast: none),
 (-ms-high-contrast: active) {
@@ -342,10 +341,35 @@
     display:flex;
     justify-content:center;
     align-items:center;
+    height: 100%;
   }
   .banner__container  {
     align-items: center;
     display: flex;
     justify-content: center;
+    height: 100%;
+  }
+  .banner__image img,
+  .banner .media--video {
+    left: 0px;
+  }
+
+  .banner .banner__container {
+    min-height: 18rem;
+  }
+
+  .banner.banner--large .banner__container {
+    @include breakpoint(sm) {
+      min-height: 33rem;
+    }
+    @include breakpoint(menu) {
+      min-height: 48rem;
+    }
+  }
+
+  .banner.banner--medium .banner__container {
+    @include breakpoint(sm) {
+      min-height: 33rem;
+    }
   }
 }
