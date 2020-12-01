@@ -48,8 +48,13 @@
     }
   }
 
-  .bttn--row .bttn + .bttn {
-    margin-left:1rem;
+  .bttn--row .bttn {
+    margin: 0 1rem 1rem 0;
+    + .bttn {
+      @include breakpoint(sm) {
+       margin: 0 1rem 0 0;
+      }
+    }
   }
 
   .media--video {
@@ -326,5 +331,21 @@
     .video-btn {
       display: none;
     }
+  }
+}
+
+
+// ie11
+@media all and (-ms-high-contrast: none),
+(-ms-high-contrast: active) {
+  .banner {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  }
+  .banner__container  {
+    align-items: center;
+    display: flex;
+    justify-content: center;
   }
 }
