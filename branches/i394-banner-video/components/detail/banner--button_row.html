@@ -583,11 +583,30 @@
   <span class="hljs-selector-class">.banner</span> {
     <span class="hljs-attribute">display</span>: flex;
     <span class="hljs-attribute">justify-content</span>: center;
-    <span class="hljs-attribute">align-items</span>: center; }
+    <span class="hljs-attribute">align-items</span>: center;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>; }
   <span class="hljs-selector-class">.banner__container</span> {
     <span class="hljs-attribute">align-items</span>: center;
     <span class="hljs-attribute">display</span>: flex;
-    <span class="hljs-attribute">justify-content</span>: center; } }
+    <span class="hljs-attribute">justify-content</span>: center;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>; }
+  <span class="hljs-selector-class">.banner__image</span> <span class="hljs-selector-tag">img</span>,
+  <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-class">.media--video</span> {
+    <span class="hljs-attribute">left</span>: <span class="hljs-number">0px</span>; }
+  <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-class">.banner__container</span> {
+    <span class="hljs-attribute">min-height</span>: <span class="hljs-number">18rem</span>; } }
+
+<span class="hljs-keyword">@media</span> all <span class="hljs-keyword">and</span> (<span class="hljs-attribute">-ms-high-contrast:</span> none) <span class="hljs-keyword">and</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>), (<span class="hljs-attribute">-ms-high-contrast:</span> active) <span class="hljs-keyword">and</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>) {
+  <span class="hljs-selector-class">.banner</span><span class="hljs-selector-class">.banner--large</span> <span class="hljs-selector-class">.banner__container</span> {
+    <span class="hljs-attribute">min-height</span>: <span class="hljs-number">33rem</span>; } }
+
+<span class="hljs-keyword">@media</span> all <span class="hljs-keyword">and</span> (<span class="hljs-attribute">-ms-high-contrast:</span> none) <span class="hljs-keyword">and</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">855px</span>), (<span class="hljs-attribute">-ms-high-contrast:</span> active) <span class="hljs-keyword">and</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">855px</span>) {
+  <span class="hljs-selector-class">.banner</span><span class="hljs-selector-class">.banner--large</span> <span class="hljs-selector-class">.banner__container</span> {
+    <span class="hljs-attribute">min-height</span>: <span class="hljs-number">48rem</span>; } }
+
+<span class="hljs-keyword">@media</span> all <span class="hljs-keyword">and</span> (<span class="hljs-attribute">-ms-high-contrast:</span> none) <span class="hljs-keyword">and</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>), (<span class="hljs-attribute">-ms-high-contrast:</span> active) <span class="hljs-keyword">and</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">768px</span>) {
+  <span class="hljs-selector-class">.banner</span><span class="hljs-selector-class">.banner--medium</span> <span class="hljs-selector-class">.banner__container</span> {
+    <span class="hljs-attribute">min-height</span>: <span class="hljs-number">33rem</span>; } }
 </pre>
                             </code>
                             
@@ -604,7 +623,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">13 KB</span>
+                    <span class="Meta-value">13.8 KB</span>
                 </li>
             </ul>
         </div>
@@ -1102,7 +1121,6 @@ banners.forEach(<span class="hljs-function"><span class="hljs-keyword">function<
   }
 }
 
-
 <span class="hljs-comment">// ie11</span>
 <span class="hljs-keyword">@media</span> all <span class="hljs-keyword">and</span> (-ms-high-contrast: none),
 (-ms-high-contrast: active) {
@@ -1110,11 +1128,36 @@ banners.forEach(<span class="hljs-function"><span class="hljs-keyword">function<
     <span class="hljs-attribute">display</span>:flex;
     <span class="hljs-attribute">justify-content</span>:center;
     <span class="hljs-attribute">align-items</span>:center;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
   }
   <span class="hljs-selector-class">.banner__container</span>  {
     <span class="hljs-attribute">align-items</span>: center;
     <span class="hljs-attribute">display</span>: flex;
     <span class="hljs-attribute">justify-content</span>: center;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+  }
+  <span class="hljs-selector-class">.banner__image</span> <span class="hljs-selector-tag">img</span>,
+  <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-class">.media--video</span> {
+    <span class="hljs-attribute">left</span>: <span class="hljs-number">0px</span>;
+  }
+
+  <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-class">.banner__container</span> {
+    <span class="hljs-attribute">min-height</span>: <span class="hljs-number">18rem</span>;
+  }
+
+  <span class="hljs-selector-class">.banner</span><span class="hljs-selector-class">.banner--large</span> <span class="hljs-selector-class">.banner__container</span> {
+    <span class="hljs-keyword">@include</span> breakpoint(sm) {
+      <span class="hljs-attribute">min-height</span>: <span class="hljs-number">33rem</span>;
+    }
+    <span class="hljs-keyword">@include</span> breakpoint(menu) {
+      <span class="hljs-attribute">min-height</span>: <span class="hljs-number">48rem</span>;
+    }
+  }
+
+  <span class="hljs-selector-class">.banner</span><span class="hljs-selector-class">.banner--medium</span> <span class="hljs-selector-class">.banner__container</span> {
+    <span class="hljs-keyword">@include</span> breakpoint(sm) {
+      <span class="hljs-attribute">min-height</span>: <span class="hljs-number">33rem</span>;
+    }
   }
 }
 </pre>
@@ -1133,7 +1176,7 @@ banners.forEach(<span class="hljs-function"><span class="hljs-keyword">function<
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">5.7 KB</span>
+                    <span class="Meta-value">6.1 KB</span>
                 </li>
             </ul>
         </div>
@@ -2411,7 +2454,7 @@ banners.forEach(<span class="hljs-function"><span class="hljs-keyword">function<
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-12-01T20:56:12.648Z">
+            <time datetime="2020-12-01T21:59:57.836Z">
                 12/1/2020
             </time>
         </div>
