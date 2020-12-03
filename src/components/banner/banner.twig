@@ -71,20 +71,22 @@
 
     {% block banner_bttn %}
       {% if banner_link is not empty %}
-        <div class="bttn--row">
-        {% for link in banner_link %}
-          <a class="{{ banner_link_classes }}" href="{{ link.link_url }}">
-            {{ link.link_title }}
-            <i class="fas fa-arrow-right"></i>
-          </a>
-        {% endfor %}
-        </div>
-      {% else %}
-        {% if banner_link_url is not empty and show_button %}
-          <a class="{{ banner_link_classes }}" href="{{ banner_link_url }}">
-            {{ banner_link_title }}
-            <i class="fas fa-arrow-right"></i>
-          </a>
+        {% if banner_link|length > 1 %}
+          <div class="bttn--row">
+          {% for link in banner_link %}
+            <a class="{{ banner_link_classes }}" href="{{ link.link_url }}">
+              {{ link.link_title }}
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          {% endfor %}
+          </div>
+        {% else %}
+          {% if banner_link_url is not empty and show_button %}
+            <a class="{{ banner_link_classes }}" href="{{ banner_link_url }}">
+              {{ banner_link_title }}
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          {% endif %}
         {% endif %}
       {% endif %}
     {% endblock %}
