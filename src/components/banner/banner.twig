@@ -1,19 +1,17 @@
 {% set link_element, show_button = false, false %}
-{% if banner_link_multiple is empty %}
-  {% if banner_link_url is not empty %}
-    {% if banner_title is not empty %}
-      {# Title is set, use it as the linking element.  #}
-      {% set link_element = 'title' %}
-      {# If we also have link text, then we'll show a psuedo-button. #}
-      {% if banner_link_title is not empty %}
-        {% set show_button = true %}
-      {% endif %}
-    {% elseif banner_link_title is not empty %}
-      {# Title is not set, but there is link text, so use that instead. #}
-      {% set link_element = 'button' %}
-      {# Show an actual link button. #}
+{% if banner_link is not empty %}
+  {% if banner_title is not empty %}
+    {# Title is set, use it as the linking element.  #}
+    {% set link_element = 'title' %}
+    {# If we also have link text, then we'll show a psuedo-button. #}
+    {% if banner_link|first.link_title is not empty %}
       {% set show_button = true %}
     {% endif %}
+  {% elseif banner_link|first.link_title is not empty %}
+    {# Title is not set, but there is link text, so use that instead. #}
+    {% set link_element = 'button' %}
+    {# Show an actual link button. #}
+    {% set show_button = true %}
   {% endif %}
 {% endif %}
 
@@ -61,7 +59,7 @@
               'headline_level' : 'h2',
               'headline_class' : banner_title_classes,
               'headline_text' : banner_title,
-              'headline_url': banner_link_url,
+              'headline_url': banner_link|first.link_url,
               'headline_aria': banner_aria,
             } %}
           {% endif %}
@@ -70,9 +68,9 @@
         <div class="banner__text">{{ banner_text }}</div>
 
     {% block banner_bttn %}
-      {% if banner_link_multiple is not empty %}
+      {% if banner_link is not empty and banner_link|length > 1 %}
         <div class="bttn--row">
-        {% for link in banner_link_multiple %}
+        {% for link in banner_link %}
           <a class="{{ banner_link_classes }}" href="{{ link.link_url }}">
             {{ link.link_title }}
             <i class="fas fa-arrow-right"></i>
@@ -80,9 +78,9 @@
         {% endfor %}
         </div>
       {% else %}
-        {% if banner_link_url is not empty and show_button %}
-          <a class="{{ banner_link_classes }}" href="{{ banner_link_url }}">
-            {{ banner_link_title }}
+        {% if banner_link|first.link_url is not empty and show_button %}
+          <a class="{{ banner_link_classes }}" href="{{ banner_link|first.link_url }}">
+            {{ banner_link|first.link_title }}
             <i class="fas fa-arrow-right"></i>
           </a>
         {% endif %}
