@@ -59,7 +59,7 @@
               'headline_level' : 'h2',
               'headline_class' : banner_title_classes,
               'headline_text' : banner_title,
-              'headline_url': banner_link_url,
+              'headline_url': banner_link|first.link_url,
               'headline_aria': banner_aria,
             } %}
           {% endif %}
@@ -68,23 +68,21 @@
         <div class="banner__text">{{ banner_text }}</div>
 
     {% block banner_bttn %}
-      {% if banner_link is not empty %}
-        {% if banner_link|length > 1 %}
-          <div class="bttn--row">
-          {% for link in banner_link %}
-            <a class="{{ banner_link_classes }}" href="{{ link.link_url }}">
-              {{ link.link_title }}
-              <i class="fas fa-arrow-right"></i>
-            </a>
-          {% endfor %}
-          </div>
-        {% else %}
-          {% if banner_link_url is not empty and show_button %}
-            <a class="{{ banner_link_classes }}" href="{{ banner_link_url }}">
-              {{ banner_link_title }}
-              <i class="fas fa-arrow-right"></i>
-            </a>
-          {% endif %}
+      {% if banner_link is not empty and banner_link|length > 1 %}
+        <div class="bttn--row">
+        {% for link in banner_link %}
+          <a class="{{ banner_link_classes }}" href="{{ link.link_url }}">
+            {{ link.link_title }}
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        {% endfor %}
+        </div>
+      {% else %}
+        {% if banner_link|first.link_url is not empty and show_button %}
+          <a class="{{ banner_link_classes }}" href="{{ banner_link|first.link_url }}">
+            {{ banner_link|first.link_title }}
+            <i class="fas fa-arrow-right"></i>
+          </a>
         {% endif %}
       {% endif %}
     {% endblock %}
