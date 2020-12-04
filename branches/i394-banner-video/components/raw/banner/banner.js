@@ -1,5 +1,5 @@
 const banners = document.querySelectorAll('.banner');
-const link_queries = ['.banner-content > .headline a', '.banner__action > a.bttn'];
+const link_queries = ['.banner__content > .headline a', '.banner__action > a.bttn'];
 
 Array.prototype.forEach.call(banners, banner => {
   let up, down, links, link, i = 0;
@@ -63,7 +63,7 @@ if (banner_videos[0] != null) {
 
     // Do a reduced motion check, and attach a listener to do on every time it changes.
     reducedMotionCheck(video, video_btn);
-    motionQuery.addListener(function() {reducedMotionCheck(video, video_btn)});
+    motionQuery.addListener(function() { reducedMotionCheck(video, video_btn) });
 
     // Add an event listener to the button of this banner video to toggle pause/play on the video.
     video_btn.addEventListener("click", function(e) {
