@@ -221,9 +221,11 @@
                       <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Every Hawkeye has a role to play in <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://coronavirus.uiowa.edu"</span>&gt;</span>preventing<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span> the spread of COVID-19.<span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span> Find out what Iowa’s doing—and what you can do—to make your return to campus safer.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
                   <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
-                  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">aria-hidden</span>=<span class="hljs-string">"true"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"bttn bttn--secondary bttn--caps"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"desc-a-card"</span>&gt;</span>
-                      View Story
-                      <span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fas fa-arrow-right"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>
+                  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"banner__action"</span>&gt;</span>
+                      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">aria-hidden</span>=<span class="hljs-string">"true"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"bttn bttn--secondary bttn--caps"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"desc-a-card"</span>&gt;</span>
+                          View Story
+                          <span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fas fa-arrow-right"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>
+                      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
                   <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
               <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
@@ -627,23 +629,23 @@
                             
                             <code class="Code Code--lang-JavaScript FileBrowser-code hljs">
                                 <pre><span class="hljs-keyword">const</span> banners = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">'.banner'</span>);
-<span class="hljs-keyword">const</span> banner_link = [<span class="hljs-string">'.bold-headline a'</span>, <span class="hljs-string">'.banner-content&gt;a.bttn'</span>];
+<span class="hljs-keyword">const</span> link_queries = [<span class="hljs-string">'.banner-content &gt; .headline a'</span>, <span class="hljs-string">'.banner__action &gt; a.bttn'</span>];
 
 <span class="hljs-built_in">Array</span>.prototype.forEach.call(banners, banner =&gt; {
-  <span class="hljs-keyword">let</span> up, down, link, i;
-  <span class="hljs-comment">// Set banner_single_link to be true if there is not a .bttn-row</span>
-  <span class="hljs-keyword">let</span> banner_single_link = !banner.querySelector(<span class="hljs-string">'.bttn--row'</span>);
-  <span class="hljs-comment">// Loop through options and break on the first match if there is only one link.</span>
-  <span class="hljs-keyword">if</span> (banner_single_link) {
-    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; banner_link.length; i++) {
-      <span class="hljs-keyword">if</span> (link = banner.querySelector(banner_link[i])) {
-        <span class="hljs-keyword">break</span>;
-      }
+  <span class="hljs-keyword">let</span> up, down, links, link, i = <span class="hljs-number">0</span>;
+
+  <span class="hljs-comment">// Loop through link queries</span>
+  <span class="hljs-keyword">for</span> (i; i &lt; link_queries.length; i++) {
+    <span class="hljs-comment">// Break if we find matches.</span>
+    links = banner.querySelectorAll(link_queries[i]);
+    <span class="hljs-keyword">if</span> (links.length) {
+      <span class="hljs-keyword">break</span>;
     }
   }
 
-  <span class="hljs-comment">// If we have a match, attach behaviors if there is only one link.</span>
-  <span class="hljs-keyword">if</span> (link &amp;&amp; banner_single_link) {
+  <span class="hljs-comment">// If we have exactly one match, attach behaviors.</span>
+  <span class="hljs-keyword">if</span> (links &amp;&amp; links.length === <span class="hljs-number">1</span>) {
+    link = links[<span class="hljs-number">0</span>];
     banner.style.cursor = <span class="hljs-string">'pointer'</span>;
     banner.onmousedown = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> down = +<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
     banner.onmouseup = <span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> {
@@ -769,7 +771,7 @@ banners.forEach(<span class="hljs-function"><span class="hljs-keyword">function<
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">4.6 KB</span>
+                    <span class="Meta-value">4.4 KB</span>
                 </li>
             </ul>
         </div>
@@ -2453,7 +2455,7 @@ banners.forEach(<span class="hljs-function"><span class="hljs-keyword">function<
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-12-04T16:44:15.800Z">
+            <time datetime="2020-12-04T16:56:20.315Z">
                 12/4/2020
             </time>
         </div>

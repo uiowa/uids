@@ -53,25 +53,27 @@
 
         <div class="banner__text">{{ banner_text }}</div>
 
-    {% block banner_bttn %}
-      {% if banner_link is not empty and banner_link|length > 1 %}
-        <div class="bttn--row">
-        {% for link in banner_link %}
-          <a class="{{ banner_link_classes }}" href="{{ link.link_url }}">
-            {{ link.link_title }}
-            <i class="fas fa-arrow-right"></i>
-          </a>
-        {% endfor %}
-        </div>
-      {% else %}
-        {% if banner_link|first.link_url is not empty and show_button %}
-          <div aria-hidden="true" class="{{ banner_link_classes }}"{% if banner_aria %} id="{{ banner_aria }}"{% endif %}>
-            {{ banner_link|first.link_title }}
-            <i class="fas fa-arrow-right"></i>
+        {% block banner_bttn %}
+          {% if banner_link is not empty %}
+          <div class="banner__action">
+            {% if banner_link is not empty and banner_link|length > 1 %}
+              {% for link in banner_link %}
+                <a class="{{ banner_link_classes }}" href="{{ link.link_url }}">
+                  {{ link.link_title }}
+                  <i class="fas fa-arrow-right"></i>
+                </a>
+              {% endfor %}
+            {% else %}
+              {% if banner_link|first.link_url is not empty and show_button %}
+                <div aria-hidden="true" class="{{ banner_link_classes }}"{% if banner_aria %} id="{{ banner_aria }}"{% endif %}>
+                  {{ banner_link|first.link_title }}
+                  <i class="fas fa-arrow-right"></i>
+                </div>
+              {% endif %}
+            {% endif %}
           </div>
-        {% endif %}
-      {% endif %}
-    {% endblock %}
+          {% endif %}
+        {% endblock %}
 
       </div>
     </div>
