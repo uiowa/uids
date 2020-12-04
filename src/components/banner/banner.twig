@@ -24,28 +24,14 @@
         </div>
       {% endif %}
     {% elseif banner_type == 'video' %}
-      <div class="media--video">
-        {% if banner_video_autoplay == false %}
-          {% set banner_video_autoplay = ''%}
-          <div class="video-controls video">
-            <button class="video-btn video-btn__play" id="video-btn">
-              <span class="element-invisible">Play</span>
-            </button>
-          </div>
-        {% else %}
-          {% set banner_video_autoplay = 'autoplay="autoplay"'%}
-          <div class="video-controls video">
-            <button class="video-btn video-btn__pause" id="video-btn">
-              <span class="element-invisible">Pause</span>
-            </button>
-          </div>
-        {% endif %}
-        <video {{banner_video_autoplay}} muted="muted" loop="loop" id="video-container" poster="{{ banner_image }}">
-          <source src="{{ banner_video }}" type="video/mp4">
-        </video>
-        <!-- This picture should assume background overlay doesn't work. So it should be darker to handle contrast ratio issues. -->
-        <!--[if lt IE 9]> <img src="{{ banner_image }}" alt="{{ banner_image_alt }}" class=" ie8-poster"> <![endif]-->
-      </div>
+      {% set banner_video = {
+        'autoplay': banner_video_autoplay,
+        'poster_src': banner_image,
+        'poster_alt': banner_image_alt,
+        'src': banner_video,
+        'type': 'video/mp4',
+      } %}
+      {% include '@video' with banner_video %}
     {% endif %}
   {% endblock %}
 
