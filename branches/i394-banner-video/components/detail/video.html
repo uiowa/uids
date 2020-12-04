@@ -172,6 +172,10 @@
             
                 
                     
+                        <li class="Browser-tab Browser-tab--resources" data-role="tab">
+                            <a href="#browser-6130c127a5ebf9f31cfc4895e1193b63-panel-assets">Assets</a>
+                        </li>
+                    
                 
             
         
@@ -210,6 +214,165 @@
     
     
 
+
+<div class="Browser-panel Browser-resources" data-role="tab-panel" id="browser-6130c127a5ebf9f31cfc4895e1193b63-panel-assets">
+    <div class="FileBrowser">
+
+        <div class="FileBrowser-selectWrapper">
+            <label class="FileBrowser-select-label" for="filebrowser-select">File:</label>
+            <select class="FileBrowser-select" id="filebrowser-select">
+                
+                <option value="file-5da5aa16160010134e2314908bdcb55b">video.js</option>
+                
+                <option value="file-7febec121e127f970230f2e56275d40b">video.scss</option>
+                
+            </select>
+        </div>
+
+        
+        <div class="FileBrowser-item is-active" id="file-5da5aa16160010134e2314908bdcb55b" data-role="resource-preview">
+            <ul class="Meta">
+                <li class="Meta-item">
+                    <strong class="Meta-key">Content:</strong>
+                    <span class="Meta-value">
+                        <div class="FileBrowser-itemPreview">
+                            
+                            <code class="Code Code--lang-JavaScript FileBrowser-code hljs">
+                                <pre>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+  <span class="hljs-comment">// Check if the user prefers reduced motion.</span>
+  <span class="hljs-keyword">const</span> motionQuery = matchMedia(<span class="hljs-string">'(prefers-reduced-motion)'</span>);
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Video</span>(<span class="hljs-params">element, index</span>) </span>{
+    <span class="hljs-keyword">this</span>.element = element;
+    <span class="hljs-keyword">this</span>.video = <span class="hljs-keyword">this</span>.element.querySelector(<span class="hljs-string">'video'</span>);
+    <span class="hljs-comment">// Give each video an id so that we can index them individually later.</span>
+    <span class="hljs-comment">// As well, no two elements should have the same ID, so assigning them like this ensures that is the case.</span>
+    <span class="hljs-keyword">this</span>.video.id = <span class="hljs-keyword">this</span>.video.id + <span class="hljs-string">'-'</span> + index;
+
+    <span class="hljs-comment">// Give each video button an id so that we can index them individually later.</span>
+    <span class="hljs-comment">// As well, no two elements should have the same ID, so assigning them like this ensures that is the case.</span>
+    <span class="hljs-keyword">this</span>.video_btn = <span class="hljs-keyword">this</span>.element.querySelector(<span class="hljs-string">'.video-controls .video-btn'</span>);
+    <span class="hljs-keyword">this</span>.video_btn.id = <span class="hljs-keyword">this</span>.video_btn.id + <span class="hljs-string">'-'</span> + index;
+
+    <span class="hljs-comment">// Do a reduced motion check, and attach a listener to do on every time it changes.</span>
+    <span class="hljs-keyword">this</span>.reducedMotionCheck(<span class="hljs-keyword">this</span>.video, <span class="hljs-keyword">this</span>.video_btn);
+    motionQuery.addListener(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">this</span>.reducedMotionCheck(<span class="hljs-keyword">this</span>.video, <span class="hljs-keyword">this</span>.video_btn) });
+
+    <span class="hljs-comment">// Add an event listener to the button of this banner video to toggle pause/play on the video.</span>
+    <span class="hljs-keyword">this</span>.video_btn.addEventListener(<span class="hljs-string">'click'</span>, () =&gt; {
+      <span class="hljs-keyword">this</span>.pausePlay(<span class="hljs-keyword">this</span>.video, <span class="hljs-keyword">this</span>.video_btn);
+    });
+  }
+
+  Video.prototype.reducedMotionCheck = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">video, btn</span>) </span>{
+    <span class="hljs-keyword">if</span> (motionQuery.matches) {
+      <span class="hljs-comment">// Pause the video.</span>
+      video.pause();
+      <span class="hljs-comment">// When the video is paused, offer the user the option to play.</span>
+      <span class="hljs-keyword">this</span>.setButtonDataPlay(btn);
+    }
+  }
+
+  <span class="hljs-comment">// This function toggles pause and play on a specific banner video.</span>
+  Video.prototype.pausePlay = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">video, btn</span>) </span>{
+    <span class="hljs-keyword">if</span> (video.paused) {
+      <span class="hljs-comment">// Play the video.</span>
+      video.play();
+      <span class="hljs-comment">// When the video is playing, offer the user the option to pause.</span>
+      <span class="hljs-keyword">this</span>.setButtonDataPaused(btn);
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-comment">// Pause the video.</span>
+      video.pause();
+      <span class="hljs-comment">// When the video is paused, offer the user the option to play.</span>
+      <span class="hljs-keyword">this</span>.setButtonDataPlay(btn);
+    }
+  }
+
+  <span class="hljs-comment">// This function sets the button to show a 'Pause' Icon.</span>
+  Video.prototype.setButtonDataPaused = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">btn</span>) </span>{
+    btn.innerHTML = <span class="hljs-string">"&lt;span class='element-invisible'&gt;"</span> + <span class="hljs-string">"Pause"</span> + <span class="hljs-string">"&lt;/span&gt;"</span>;
+    btn.classList.remove(<span class="hljs-string">"video-btn__play"</span>);
+    btn.classList.add(<span class="hljs-string">"video-btn__pause"</span>);
+    btn.setAttribute(<span class="hljs-string">"aria-label"</span>, <span class="hljs-string">"Pause"</span>);
+  }
+
+  <span class="hljs-comment">// This function sets the button to show a 'Play' Icon.</span>
+  Video.prototype.setButtonDataPlay = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">btn</span>) </span>{
+    btn.innerHTML = <span class="hljs-string">"&lt;span class='element-invisible'&gt;"</span> + <span class="hljs-string">"Play"</span> + <span class="hljs-string">"&lt;/span&gt;"</span>;
+    btn.classList.remove(<span class="hljs-string">"video-btn__pause"</span>);
+    btn.classList.add(<span class="hljs-string">"video-btn__play"</span>);
+    btn.setAttribute(<span class="hljs-string">"aria-label"</span>, <span class="hljs-string">"Play"</span>);
+  }
+
+  <span class="hljs-built_in">window</span>.UidsVideo = Video;
+
+  <span class="hljs-comment">// Instantiate accordions on the page.</span>
+  <span class="hljs-keyword">const</span> videos = <span class="hljs-built_in">document</span>.getElementsByClassName(<span class="hljs-string">'media--video'</span>);
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; videos.length; i++) {
+    <span class="hljs-keyword">new</span> UidsVideo(videos[i], i);
+  }
+
+})();
+</pre>
+                            </code>
+                            
+                        </div>
+                    </span>
+                </li>
+                <li class="Meta-item">
+                    <strong class="Meta-key">URL:</strong>
+                    <span class="Meta-value"><a data-no-pjax href="../raw/video/video.js"><span>/components/raw/video/video.js</span></a></span>
+                </li>
+                <li class="Meta-item">
+                    <strong class="Meta-key">Filesystem Path:</strong>
+                    <span class="Meta-value">src/components/video/video.js</span>
+                </li>
+                <li class="Meta-item">
+                    <strong class="Meta-key">Size:</strong>
+                    <span class="Meta-value">2.9 KB</span>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="FileBrowser-item" id="file-7febec121e127f970230f2e56275d40b" data-role="resource-preview">
+            <ul class="Meta">
+                <li class="Meta-item">
+                    <strong class="Meta-key">Content:</strong>
+                    <span class="Meta-value">
+                        <div class="FileBrowser-itemPreview">
+                            
+                            <code class="Code Code--lang-SCSS FileBrowser-code hljs">
+                                <pre><span class="hljs-selector-class">.media__video</span> {
+
+  <span class="hljs-keyword">@include</span> breakpoint(sm) {
+    <span class="hljs-attribute">display</span>: block;
+  }
+}
+</pre>
+                            </code>
+                            
+                        </div>
+                    </span>
+                </li>
+                <li class="Meta-item">
+                    <strong class="Meta-key">URL:</strong>
+                    <span class="Meta-value"><a data-no-pjax href="../raw/video/video.scss"><span>/components/raw/video/video.scss</span></a></span>
+                </li>
+                <li class="Meta-item">
+                    <strong class="Meta-key">Filesystem Path:</strong>
+                    <span class="Meta-value">src/components/video/video.scss</span>
+                </li>
+                <li class="Meta-item">
+                    <strong class="Meta-key">Size:</strong>
+                    <span class="Meta-value">71 Bytes</span>
+                </li>
+            </ul>
+        </div>
+        
+    </div>
+</div>
 
 
 
@@ -1424,7 +1587,7 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-12-04T19:41:23.877Z">
+            <time datetime="2020-12-04T21:01:14.279Z">
                 12/4/2020
             </time>
         </div>
