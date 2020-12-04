@@ -198,21 +198,7 @@
 <div class="Browser-panel Browser-code is-active" data-role="tab-panel" id="browser-cb000618492fc7ad0b322b5671cf5154-panel-html">
     <code class="Code Code--lang-html hljs">
         
-        <pre><span class="hljs-tag">&lt;<span class="hljs-name">nav</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"tabs"</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"navigation"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Tabs"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"tabs primary"</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"tab is-active"</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/user/6"</span> <span class="hljs-attr">data-drupal-link-system-path</span>=<span class="hljs-string">"user/6"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"is-active"</span>&gt;</span>View<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"visually-hidden"</span>&gt;</span>(active tab)<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"tab"</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/user/6/roles"</span> <span class="hljs-attr">data-drupal-link-system-path</span>=<span class="hljs-string">"user/6/roles"</span>&gt;</span>Roles<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"tab"</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/user/6/edit"</span> <span class="hljs-attr">data-drupal-link-system-path</span>=<span class="hljs-string">"user/6/edit"</span>&gt;</span>Edit<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">nav</span>&gt;</span>
-
-<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"tabs"</span>&gt;</span>
+        <pre><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"tabs"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"tablist"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Entertainment"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"tab"</span> <span class="hljs-attr">aria-selected</span>=<span class="hljs-string">"true"</span> <span class="hljs-attr">aria-controls</span>=<span class="hljs-string">"nils-tab"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"nils"</span>&gt;</span>
             Nils Frahm
@@ -391,260 +377,272 @@
 */</span>
 (<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">let</span> tabs_elements = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">'.tabs'</span>);
-  <span class="hljs-built_in">console</span>.log(tabs_elements);
-  <span class="hljs-keyword">var</span> tablist = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">'[role="tablist"]'</span>)[<span class="hljs-number">0</span>];
-  <span class="hljs-keyword">var</span> tabs;
-  <span class="hljs-keyword">var</span> panels;
-  <span class="hljs-keyword">var</span> delay = determineDelay();
+  <span class="hljs-keyword">let</span> tabs_array_dict = [];
+  <span class="hljs-comment">// let delay = determineDelay();</span>
 
-  generateArrays(<span class="hljs-built_in">document</span>);
+  generateArrays();
 
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">generateArrays</span> (<span class="hljs-params">element</span>) </span>{
-    tabs = element.querySelectorAll(<span class="hljs-string">'[role="tab"]'</span>);
-    panels = element.querySelectorAll(<span class="hljs-string">'[role="tabpanel"]'</span>);
-  };
-
-  <span class="hljs-comment">// For easy reference</span>
-  <span class="hljs-keyword">var</span> keys = {
-    <span class="hljs-attr">end</span>: <span class="hljs-number">35</span>,
-    <span class="hljs-attr">home</span>: <span class="hljs-number">36</span>,
-    <span class="hljs-attr">left</span>: <span class="hljs-number">37</span>,
-    <span class="hljs-attr">up</span>: <span class="hljs-number">38</span>,
-    <span class="hljs-attr">right</span>: <span class="hljs-number">39</span>,
-    <span class="hljs-attr">down</span>: <span class="hljs-number">40</span>,
-    <span class="hljs-attr">delete</span>: <span class="hljs-number">46</span>
-  };
-
-  <span class="hljs-comment">// Add or substract depending on key pressed</span>
-  <span class="hljs-keyword">var</span> direction = {
-    <span class="hljs-number">37</span>: <span class="hljs-number">-1</span>,
-    <span class="hljs-number">38</span>: <span class="hljs-number">-1</span>,
-    <span class="hljs-number">39</span>: <span class="hljs-number">1</span>,
-    <span class="hljs-number">40</span>: <span class="hljs-number">1</span>
-  };
-
-  <span class="hljs-comment">// Bind listeners</span>
-  <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; tabs.length; ++i) {
-    addListeners(i);
-  };
-
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addListeners</span> (<span class="hljs-params">index</span>) </span>{
-    tabs[index].addEventListener(<span class="hljs-string">'click'</span>, clickEventListener);
-    tabs[index].addEventListener(<span class="hljs-string">'keydown'</span>, keydownEventListener);
-    tabs[index].addEventListener(<span class="hljs-string">'keyup'</span>, keyupEventListener);
-
-    <span class="hljs-comment">// Build an array with all tabs (&lt;button&gt;s) in it</span>
-    tabs[index].index = index;
-  };
-
-  <span class="hljs-comment">// When a tab is clicked, activateTab is fired to activate it</span>
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clickEventListener</span> (<span class="hljs-params">event</span>) </span>{
-    <span class="hljs-keyword">var</span> tab = event.target;
-    activateTab(tab, <span class="hljs-literal">false</span>);
-  };
-
-  <span class="hljs-comment">// Handle keydown on tabs</span>
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">keydownEventListener</span> (<span class="hljs-params">event</span>) </span>{
-    <span class="hljs-keyword">var</span> key = event.keyCode;
-
-    <span class="hljs-keyword">switch</span> (key) {
-      <span class="hljs-keyword">case</span> keys.end:
-        event.preventDefault();
-        <span class="hljs-comment">// Activate last tab</span>
-        activateTab(tabs[tabs.length - <span class="hljs-number">1</span>]);
-        <span class="hljs-keyword">break</span>;
-      <span class="hljs-keyword">case</span> keys.home:
-        event.preventDefault();
-        <span class="hljs-comment">// Activate first tab</span>
-        activateTab(tabs[<span class="hljs-number">0</span>]);
-        <span class="hljs-keyword">break</span>;
-
-      <span class="hljs-comment">// Up and down are in keydown</span>
-      <span class="hljs-comment">// because we need to prevent page scroll &gt;:)</span>
-      <span class="hljs-keyword">case</span> keys.up:
-      <span class="hljs-keyword">case</span> keys.down:
-        determineOrientation(event);
-        <span class="hljs-keyword">break</span>;
-    };
-  };
-
-  <span class="hljs-comment">// Handle keyup on tabs</span>
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">keyupEventListener</span> (<span class="hljs-params">event</span>) </span>{
-    <span class="hljs-keyword">var</span> key = event.keyCode;
-
-    <span class="hljs-keyword">switch</span> (key) {
-      <span class="hljs-keyword">case</span> keys.left:
-      <span class="hljs-keyword">case</span> keys.right:
-        determineOrientation(event);
-        <span class="hljs-keyword">break</span>;
-      <span class="hljs-keyword">case</span> keys.delete:
-        determineDeletable(event);
-        <span class="hljs-keyword">break</span>;
-    };
-  };
-
-  <span class="hljs-comment">// When a tablistâ€™s aria-orientation is set to vertical,</span>
-  <span class="hljs-comment">// only up and down arrow should function.</span>
-  <span class="hljs-comment">// In all other cases only left and right arrow function.</span>
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">determineOrientation</span> (<span class="hljs-params">event</span>) </span>{
-    <span class="hljs-keyword">var</span> key = event.keyCode;
-    <span class="hljs-keyword">var</span> vertical = tablist.getAttribute(<span class="hljs-string">'aria-orientation'</span>) == <span class="hljs-string">'vertical'</span>;
-    <span class="hljs-keyword">var</span> proceed = <span class="hljs-literal">false</span>;
-
-    <span class="hljs-keyword">if</span> (vertical) {
-      <span class="hljs-keyword">if</span> (key === keys.up || key === keys.down) {
-        event.preventDefault();
-        proceed = <span class="hljs-literal">true</span>;
-      };
-    }
-    <span class="hljs-keyword">else</span> {
-      <span class="hljs-keyword">if</span> (key === keys.left || key === keys.right) {
-        proceed = <span class="hljs-literal">true</span>;
-      };
-    };
-
-    <span class="hljs-keyword">if</span> (proceed) {
-      switchTabOnArrowPress(event);
-    };
-  };
-
-  <span class="hljs-comment">// Either focus the next, previous, first, or last tab</span>
-  <span class="hljs-comment">// depening on key pressed</span>
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">switchTabOnArrowPress</span> (<span class="hljs-params">event</span>) </span>{
-    <span class="hljs-keyword">var</span> pressed = event.keyCode;
-
-    <span class="hljs-keyword">for</span> (x = <span class="hljs-number">0</span>; x &lt; tabs.length; x++) {
-      tabs[x].addEventListener(<span class="hljs-string">'focus'</span>, focusEventHandler);
-    };
-
-    <span class="hljs-keyword">if</span> (direction[pressed]) {
-      <span class="hljs-keyword">var</span> target = event.target;
-      <span class="hljs-keyword">if</span> (target.index !== <span class="hljs-literal">undefined</span>) {
-        <span class="hljs-keyword">if</span> (tabs[target.index + direction[pressed]]) {
-          tabs[target.index + direction[pressed]].focus();
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">generateArrays</span> (<span class="hljs-params"></span>) </span>{
+    tabs_elements.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">item</span>) </span>{
+      <span class="hljs-keyword">let</span> tablist = item.querySelectorAll(<span class="hljs-string">'[role="tablist"]'</span>)[<span class="hljs-number">0</span>];
+      <span class="hljs-keyword">let</span> tabs = item.querySelectorAll(<span class="hljs-string">'[role="tab"]'</span>);
+      <span class="hljs-keyword">let</span> panels = item.querySelectorAll(<span class="hljs-string">'[role="tabpanel"]'</span>);
+      tabs_array_dict.push(
+        {
+          <span class="hljs-attr">tablist</span>: tablist,
+          <span class="hljs-attr">tabs</span>:    tabs,
+          <span class="hljs-attr">panels</span>:  panels
         }
-        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (pressed === keys.left || pressed === keys.up) {
-          focusLastTab();
-        }
-        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (pressed === keys.right || pressed == keys.down) {
-          focusFirstTab();
-        };
-      };
-    };
+      );
+    });
   };
 
-  <span class="hljs-comment">// Activates any given tab panel</span>
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">activateTab</span> (<span class="hljs-params">tab, setFocus</span>) </span>{
-    setFocus = setFocus || <span class="hljs-literal">true</span>;
-    <span class="hljs-comment">// Deactivate all other tabs</span>
-    deactivateTabs();
+  <span class="hljs-built_in">console</span>.log(tabs_array_dict);
 
-    <span class="hljs-comment">// Remove tabindex attribute</span>
-    tab.removeAttribute(<span class="hljs-string">'tabindex'</span>);
 
-    <span class="hljs-comment">// Set the tab as selected</span>
-    tab.setAttribute(<span class="hljs-string">'aria-selected'</span>, <span class="hljs-string">'true'</span>);
-
-    <span class="hljs-comment">// Get the value of aria-controls (which is an ID)</span>
-    <span class="hljs-keyword">var</span> controls = tab.getAttribute(<span class="hljs-string">'aria-controls'</span>);
-
-    <span class="hljs-comment">// Remove hidden attribute from tab panel to make it visible</span>
-    <span class="hljs-built_in">document</span>.getElementById(controls).removeAttribute(<span class="hljs-string">'hidden'</span>);
-
-    <span class="hljs-comment">// Set focus when required</span>
-    <span class="hljs-keyword">if</span> (setFocus) {
-      tab.focus();
-    };
-  };
-
-  <span class="hljs-comment">// Deactivate all tabs and tab panels</span>
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">deactivateTabs</span> (<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">for</span> (t = <span class="hljs-number">0</span>; t &lt; tabs.length; t++) {
-      tabs[t].setAttribute(<span class="hljs-string">'tabindex'</span>, <span class="hljs-string">'-1'</span>);
-      tabs[t].setAttribute(<span class="hljs-string">'aria-selected'</span>, <span class="hljs-string">'false'</span>);
-      tabs[t].removeEventListener(<span class="hljs-string">'focus'</span>, focusEventHandler);
-    };
-
-    <span class="hljs-keyword">for</span> (p = <span class="hljs-number">0</span>; p &lt; panels.length; p++) {
-      panels[p].setAttribute(<span class="hljs-string">'hidden'</span>, <span class="hljs-string">'hidden'</span>);
-    };
-  };
-
-  <span class="hljs-comment">// Make a guess</span>
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">focusFirstTab</span> (<span class="hljs-params"></span>) </span>{
-    tabs[<span class="hljs-number">0</span>].focus();
-  };
-
-  <span class="hljs-comment">// Make a guess</span>
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">focusLastTab</span> (<span class="hljs-params"></span>) </span>{
-    tabs[tabs.length - <span class="hljs-number">1</span>].focus();
-  };
-
-  <span class="hljs-comment">// Detect if a tab is deletable</span>
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">determineDeletable</span> (<span class="hljs-params">event</span>) </span>{
-    target = event.target;
-
-    <span class="hljs-keyword">if</span> (target.getAttribute(<span class="hljs-string">'data-deletable'</span>) !== <span class="hljs-literal">null</span>) {
-      <span class="hljs-comment">// Delete target tab</span>
-      deleteTab(event, target);
-
-      <span class="hljs-comment">// Update arrays related to tabs widget</span>
-      generateArrays();
-
-      <span class="hljs-comment">// Activate the closest tab to the one that was just deleted</span>
-      <span class="hljs-keyword">if</span> (target.index - <span class="hljs-number">1</span> &lt; <span class="hljs-number">0</span>) {
-        activateTab(tabs[<span class="hljs-number">0</span>]);
-      }
-      <span class="hljs-keyword">else</span> {
-        activateTab(tabs[target.index - <span class="hljs-number">1</span>]);
-      };
-    };
-  };
-
-  <span class="hljs-comment">// Deletes a tab and its panel</span>
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">deleteTab</span> (<span class="hljs-params">event</span>) </span>{
-    <span class="hljs-keyword">var</span> target = event.target;
-    <span class="hljs-keyword">var</span> panel = <span class="hljs-built_in">document</span>.getElementById(target.getAttribute(<span class="hljs-string">'aria-controls'</span>));
-
-    target.parentElement.removeChild(target);
-    panel.parentElement.removeChild(panel);
-  };
-
-  <span class="hljs-comment">// Determine whether there should be a delay</span>
-  <span class="hljs-comment">// when user navigates with the arrow keys</span>
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">determineDelay</span> (<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">var</span> hasDelay = tablist.hasAttribute(<span class="hljs-string">'data-delay'</span>);
-    <span class="hljs-keyword">var</span> delay = <span class="hljs-number">0</span>;
-
-    <span class="hljs-keyword">if</span> (hasDelay) {
-      <span class="hljs-keyword">var</span> delayValue = tablist.getAttribute(<span class="hljs-string">'data-delay'</span>);
-      <span class="hljs-keyword">if</span> (delayValue) {
-        delay = delayValue;
-      }
-      <span class="hljs-keyword">else</span> {
-        <span class="hljs-comment">// If no value is specified, default to 300ms</span>
-        delay = <span class="hljs-number">300</span>;
-      };
-    };
-
-    <span class="hljs-keyword">return</span> delay;
-  };
 
   <span class="hljs-comment">//</span>
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">focusEventHandler</span> (<span class="hljs-params">event</span>) </span>{
-    <span class="hljs-keyword">var</span> target = event.target;
-
-    setTimeout(checkTabFocus, delay, target);
-  };
-
-  <span class="hljs-comment">// Only activate tab on focus if it still has focus after the delay</span>
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">checkTabFocus</span> (<span class="hljs-params">target</span>) </span>{
-    focused = <span class="hljs-built_in">document</span>.activeElement;
-
-    <span class="hljs-keyword">if</span> (target === focused) {
-      activateTab(target, <span class="hljs-literal">false</span>);
-    };
-  };
+  <span class="hljs-comment">// // For easy reference</span>
+  <span class="hljs-comment">// var keys = {</span>
+  <span class="hljs-comment">//   end: 35,</span>
+  <span class="hljs-comment">//   home: 36,</span>
+  <span class="hljs-comment">//   left: 37,</span>
+  <span class="hljs-comment">//   up: 38,</span>
+  <span class="hljs-comment">//   right: 39,</span>
+  <span class="hljs-comment">//   down: 40,</span>
+  <span class="hljs-comment">//   delete: 46</span>
+  <span class="hljs-comment">// };</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">// // Add or substract depending on key pressed</span>
+  <span class="hljs-comment">// var direction = {</span>
+  <span class="hljs-comment">//   37: -1,</span>
+  <span class="hljs-comment">//   38: -1,</span>
+  <span class="hljs-comment">//   39: 1,</span>
+  <span class="hljs-comment">//   40: 1</span>
+  <span class="hljs-comment">// };</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">// // Bind listeners</span>
+  <span class="hljs-comment">// for (i = 0; i &lt; tabs.length; ++i) {</span>
+  <span class="hljs-comment">//   addListeners(i);</span>
+  <span class="hljs-comment">// };</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">// function addListeners (index) {</span>
+  <span class="hljs-comment">//   tabs[index].addEventListener('click', clickEventListener);</span>
+  <span class="hljs-comment">//   tabs[index].addEventListener('keydown', keydownEventListener);</span>
+  <span class="hljs-comment">//   tabs[index].addEventListener('keyup', keyupEventListener);</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">//   // Build an array with all tabs (&lt;button&gt;s) in it</span>
+  <span class="hljs-comment">//   tabs[index].index = index;</span>
+  <span class="hljs-comment">// };</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">// // When a tab is clicked, activateTab is fired to activate it</span>
+  <span class="hljs-comment">// function clickEventListener (event) {</span>
+  <span class="hljs-comment">//   var tab = event.target;</span>
+  <span class="hljs-comment">//   activateTab(tab, false);</span>
+  <span class="hljs-comment">// };</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">// // Handle keydown on tabs</span>
+  <span class="hljs-comment">// function keydownEventListener (event) {</span>
+  <span class="hljs-comment">//   var key = event.keyCode;</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">//   switch (key) {</span>
+  <span class="hljs-comment">//     case keys.end:</span>
+  <span class="hljs-comment">//       event.preventDefault();</span>
+  <span class="hljs-comment">//       // Activate last tab</span>
+  <span class="hljs-comment">//       activateTab(tabs[tabs.length - 1]);</span>
+  <span class="hljs-comment">//       break;</span>
+  <span class="hljs-comment">//     case keys.home:</span>
+  <span class="hljs-comment">//       event.preventDefault();</span>
+  <span class="hljs-comment">//       // Activate first tab</span>
+  <span class="hljs-comment">//       activateTab(tabs[0]);</span>
+  <span class="hljs-comment">//       break;</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">//     // Up and down are in keydown</span>
+  <span class="hljs-comment">//     // because we need to prevent page scroll &gt;:)</span>
+  <span class="hljs-comment">//     case keys.up:</span>
+  <span class="hljs-comment">//     case keys.down:</span>
+  <span class="hljs-comment">//       determineOrientation(event);</span>
+  <span class="hljs-comment">//       break;</span>
+  <span class="hljs-comment">//   };</span>
+  <span class="hljs-comment">// };</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">// // Handle keyup on tabs</span>
+  <span class="hljs-comment">// function keyupEventListener (event) {</span>
+  <span class="hljs-comment">//   var key = event.keyCode;</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">//   switch (key) {</span>
+  <span class="hljs-comment">//     case keys.left:</span>
+  <span class="hljs-comment">//     case keys.right:</span>
+  <span class="hljs-comment">//       determineOrientation(event);</span>
+  <span class="hljs-comment">//       break;</span>
+  <span class="hljs-comment">//     case keys.delete:</span>
+  <span class="hljs-comment">//       determineDeletable(event);</span>
+  <span class="hljs-comment">//       break;</span>
+  <span class="hljs-comment">//   };</span>
+  <span class="hljs-comment">// };</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">// // When a tablistâ€™s aria-orientation is set to vertical,</span>
+  <span class="hljs-comment">// // only up and down arrow should function.</span>
+  <span class="hljs-comment">// // In all other cases only left and right arrow function.</span>
+  <span class="hljs-comment">// function determineOrientation (event) {</span>
+  <span class="hljs-comment">//   var key = event.keyCode;</span>
+  <span class="hljs-comment">//   var vertical = tablist.getAttribute('aria-orientation') == 'vertical';</span>
+  <span class="hljs-comment">//   var proceed = false;</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">//   if (vertical) {</span>
+  <span class="hljs-comment">//     if (key === keys.up || key === keys.down) {</span>
+  <span class="hljs-comment">//       event.preventDefault();</span>
+  <span class="hljs-comment">//       proceed = true;</span>
+  <span class="hljs-comment">//     };</span>
+  <span class="hljs-comment">//   }</span>
+  <span class="hljs-comment">//   else {</span>
+  <span class="hljs-comment">//     if (key === keys.left || key === keys.right) {</span>
+  <span class="hljs-comment">//       proceed = true;</span>
+  <span class="hljs-comment">//     };</span>
+  <span class="hljs-comment">//   };</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">//   if (proceed) {</span>
+  <span class="hljs-comment">//     switchTabOnArrowPress(event);</span>
+  <span class="hljs-comment">//   };</span>
+  <span class="hljs-comment">// };</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">// // Either focus the next, previous, first, or last tab</span>
+  <span class="hljs-comment">// // depening on key pressed</span>
+  <span class="hljs-comment">// function switchTabOnArrowPress (event) {</span>
+  <span class="hljs-comment">//   var pressed = event.keyCode;</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">//   for (x = 0; x &lt; tabs.length; x++) {</span>
+  <span class="hljs-comment">//     tabs[x].addEventListener('focus', focusEventHandler);</span>
+  <span class="hljs-comment">//   };</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">//   if (direction[pressed]) {</span>
+  <span class="hljs-comment">//     var target = event.target;</span>
+  <span class="hljs-comment">//     if (target.index !== undefined) {</span>
+  <span class="hljs-comment">//       if (tabs[target.index + direction[pressed]]) {</span>
+  <span class="hljs-comment">//         tabs[target.index + direction[pressed]].focus();</span>
+  <span class="hljs-comment">//       }</span>
+  <span class="hljs-comment">//       else if (pressed === keys.left || pressed === keys.up) {</span>
+  <span class="hljs-comment">//         focusLastTab();</span>
+  <span class="hljs-comment">//       }</span>
+  <span class="hljs-comment">//       else if (pressed === keys.right || pressed == keys.down) {</span>
+  <span class="hljs-comment">//         focusFirstTab();</span>
+  <span class="hljs-comment">//       };</span>
+  <span class="hljs-comment">//     };</span>
+  <span class="hljs-comment">//   };</span>
+  <span class="hljs-comment">// };</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">// // Activates any given tab panel</span>
+  <span class="hljs-comment">// function activateTab (tab, setFocus) {</span>
+  <span class="hljs-comment">//   setFocus = setFocus || true;</span>
+  <span class="hljs-comment">//   // Deactivate all other tabs</span>
+  <span class="hljs-comment">//   deactivateTabs();</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">//   // Remove tabindex attribute</span>
+  <span class="hljs-comment">//   tab.removeAttribute('tabindex');</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">//   // Set the tab as selected</span>
+  <span class="hljs-comment">//   tab.setAttribute('aria-selected', 'true');</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">//   // Get the value of aria-controls (which is an ID)</span>
+  <span class="hljs-comment">//   var controls = tab.getAttribute('aria-controls');</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">//   // Remove hidden attribute from tab panel to make it visible</span>
+  <span class="hljs-comment">//   document.getElementById(controls).removeAttribute('hidden');</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">//   // Set focus when required</span>
+  <span class="hljs-comment">//   if (setFocus) {</span>
+  <span class="hljs-comment">//     tab.focus();</span>
+  <span class="hljs-comment">//   };</span>
+  <span class="hljs-comment">// };</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">// // Deactivate all tabs and tab panels</span>
+  <span class="hljs-comment">// function deactivateTabs () {</span>
+  <span class="hljs-comment">//   for (t = 0; t &lt; tabs.length; t++) {</span>
+  <span class="hljs-comment">//     tabs[t].setAttribute('tabindex', '-1');</span>
+  <span class="hljs-comment">//     tabs[t].setAttribute('aria-selected', 'false');</span>
+  <span class="hljs-comment">//     tabs[t].removeEventListener('focus', focusEventHandler);</span>
+  <span class="hljs-comment">//   };</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">//   for (p = 0; p &lt; panels.length; p++) {</span>
+  <span class="hljs-comment">//     panels[p].setAttribute('hidden', 'hidden');</span>
+  <span class="hljs-comment">//   };</span>
+  <span class="hljs-comment">// };</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">// // Make a guess</span>
+  <span class="hljs-comment">// function focusFirstTab () {</span>
+  <span class="hljs-comment">//   tabs[0].focus();</span>
+  <span class="hljs-comment">// };</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">// // Make a guess</span>
+  <span class="hljs-comment">// function focusLastTab () {</span>
+  <span class="hljs-comment">//   tabs[tabs.length - 1].focus();</span>
+  <span class="hljs-comment">// };</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">// // Detect if a tab is deletable</span>
+  <span class="hljs-comment">// function determineDeletable (event) {</span>
+  <span class="hljs-comment">//   target = event.target;</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">//   if (target.getAttribute('data-deletable') !== null) {</span>
+  <span class="hljs-comment">//     // Delete target tab</span>
+  <span class="hljs-comment">//     deleteTab(event, target);</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">//     // Update arrays related to tabs widget</span>
+  <span class="hljs-comment">//     generateArrays();</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">//     // Activate the closest tab to the one that was just deleted</span>
+  <span class="hljs-comment">//     if (target.index - 1 &lt; 0) {</span>
+  <span class="hljs-comment">//       activateTab(tabs[0]);</span>
+  <span class="hljs-comment">//     }</span>
+  <span class="hljs-comment">//     else {</span>
+  <span class="hljs-comment">//       activateTab(tabs[target.index - 1]);</span>
+  <span class="hljs-comment">//     };</span>
+  <span class="hljs-comment">//   };</span>
+  <span class="hljs-comment">// };</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">// // Deletes a tab and its panel</span>
+  <span class="hljs-comment">// function deleteTab (event) {</span>
+  <span class="hljs-comment">//   var target = event.target;</span>
+  <span class="hljs-comment">//   var panel = document.getElementById(target.getAttribute('aria-controls'));</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">//   target.parentElement.removeChild(target);</span>
+  <span class="hljs-comment">//   panel.parentElement.removeChild(panel);</span>
+  <span class="hljs-comment">// };</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">// // Determine whether there should be a delay</span>
+  <span class="hljs-comment">// // when user navigates with the arrow keys</span>
+  <span class="hljs-comment">// function determineDelay () {</span>
+  <span class="hljs-comment">//   var hasDelay = tablist.hasAttribute('data-delay');</span>
+  <span class="hljs-comment">//   var delay = 0;</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">//   if (hasDelay) {</span>
+  <span class="hljs-comment">//     var delayValue = tablist.getAttribute('data-delay');</span>
+  <span class="hljs-comment">//     if (delayValue) {</span>
+  <span class="hljs-comment">//       delay = delayValue;</span>
+  <span class="hljs-comment">//     }</span>
+  <span class="hljs-comment">//     else {</span>
+  <span class="hljs-comment">//       // If no value is specified, default to 300ms</span>
+  <span class="hljs-comment">//       delay = 300;</span>
+  <span class="hljs-comment">//     };</span>
+  <span class="hljs-comment">//   };</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">//   return delay;</span>
+  <span class="hljs-comment">// };</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">// //</span>
+  <span class="hljs-comment">// function focusEventHandler (event) {</span>
+  <span class="hljs-comment">//   var target = event.target;</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">//   setTimeout(checkTabFocus, delay, target);</span>
+  <span class="hljs-comment">// };</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">// // Only activate tab on focus if it still has focus after the delay</span>
+  <span class="hljs-comment">// function checkTabFocus (target) {</span>
+  <span class="hljs-comment">//   focused = document.activeElement;</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">//   if (target === focused) {</span>
+  <span class="hljs-comment">//     activateTab(target, false);</span>
+  <span class="hljs-comment">//   };</span>
+  <span class="hljs-comment">// };</span>
 }());
 </pre>
                             </code>
@@ -662,7 +660,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">6.6 KB</span>
+                    <span class="Meta-value">7.6 KB</span>
                 </li>
             </ul>
         </div>
@@ -1904,7 +1902,7 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-12-04T19:55:17.518Z">
+            <time datetime="2020-12-04T20:26:09.185Z">
                 12/4/2020
             </time>
         </div>
