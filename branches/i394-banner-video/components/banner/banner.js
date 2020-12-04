@@ -3,15 +3,19 @@ const banner_link = ['.bold-headline a', '.banner-content>a.bttn'];
 
 Array.prototype.forEach.call(banners, banner => {
   let up, down, link, i;
-  // Loop through options and break on the first match.
-  for (i = 0; i < banner_link.length; i++) {
-    if (link = banner.querySelector(banner_link[i])) {
-      break;
+  // Set banner_single_link to be true if there is not a .bttn-row
+  let banner_single_link = !banner.querySelector('.bttn--row');
+  // Loop through options and break on the first match if there is only one link.
+  if (banner_single_link) {
+    for (i = 0; i < banner_link.length; i++) {
+      if (link = banner.querySelector(banner_link[i])) {
+        break;
+      }
     }
   }
 
-  // If we have a match, attach behaviors.
-  if (link) {
+  // If we have a match, attach behaviors if there is only one link.
+  if (link && banner_single_link) {
     banner.style.cursor = 'pointer';
     banner.onmousedown = () => down = +new Date();
     banner.onmouseup = (e) => {

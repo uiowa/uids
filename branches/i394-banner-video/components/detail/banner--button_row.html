@@ -641,15 +641,19 @@
 
 <span class="hljs-built_in">Array</span>.prototype.forEach.call(banners, banner =&gt; {
   <span class="hljs-keyword">let</span> up, down, link, i;
-  <span class="hljs-comment">// Loop through options and break on the first match.</span>
-  <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; banner_link.length; i++) {
-    <span class="hljs-keyword">if</span> (link = banner.querySelector(banner_link[i])) {
-      <span class="hljs-keyword">break</span>;
+  <span class="hljs-comment">// Set banner_single_link to be true if there is not a .bttn-row</span>
+  <span class="hljs-keyword">let</span> banner_single_link = !banner.querySelector(<span class="hljs-string">'.bttn--row'</span>);
+  <span class="hljs-comment">// Loop through options and break on the first match if there is only one link.</span>
+  <span class="hljs-keyword">if</span> (banner_single_link) {
+    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; banner_link.length; i++) {
+      <span class="hljs-keyword">if</span> (link = banner.querySelector(banner_link[i])) {
+        <span class="hljs-keyword">break</span>;
+      }
     }
   }
 
-  <span class="hljs-comment">// If we have a match, attach behaviors.</span>
-  <span class="hljs-keyword">if</span> (link) {
+  <span class="hljs-comment">// If we have a match, attach behaviors if there is only one link.</span>
+  <span class="hljs-keyword">if</span> (link &amp;&amp; banner_single_link) {
     banner.style.cursor = <span class="hljs-string">'pointer'</span>;
     banner.onmousedown = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> down = +<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
     banner.onmouseup = <span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> {
@@ -775,7 +779,7 @@ banners.forEach(<span class="hljs-function"><span class="hljs-keyword">function<
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">4.3 KB</span>
+                    <span class="Meta-value">4.6 KB</span>
                 </li>
             </ul>
         </div>
@@ -2459,7 +2463,7 @@ banners.forEach(<span class="hljs-function"><span class="hljs-keyword">function<
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-12-04T14:40:14.679Z">
+            <time datetime="2020-12-04T16:44:15.800Z">
                 12/4/2020
             </time>
         </div>

@@ -65,10 +65,10 @@
         </div>
       {% else %}
         {% if banner_link|first.link_url is not empty and show_button %}
-          <a class="{{ banner_link_classes }}" href="{{ banner_link|first.link_url }}">
+          <div aria-hidden="true" class="{{ banner_link_classes }}"{% if banner_aria %} id="{{ banner_aria }}"{% endif %}>
             {{ banner_link|first.link_title }}
             <i class="fas fa-arrow-right"></i>
-          </a>
+          </div>
         {% endif %}
       {% endif %}
     {% endblock %}
