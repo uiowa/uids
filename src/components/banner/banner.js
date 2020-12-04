@@ -3,7 +3,8 @@ const banner_link = ['.bold-headline a', '.banner-content>a.bttn'];
 
 Array.prototype.forEach.call(banners, banner => {
   let up, down, link, i;
-  let banner_single_link = false;
+  // Set banner_single_link to be true if there is not a .bttn-row
+  let banner_single_link = !banner.querySelector('.bttn--row');
   // Loop through options and break on the first match if there is only one link.
   if (banner_single_link) {
     for (i = 0; i < banner_link.length; i++) {
