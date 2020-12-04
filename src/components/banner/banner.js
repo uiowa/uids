@@ -1,17 +1,21 @@
 const banners = document.querySelectorAll('.banner');
-const banner_link = ['.bold-headline a', '.banner-content>a.bttn'];
+const link_queries = ['.banner-content > .headline a', '.banner__action > a.bttn'];
 
 Array.prototype.forEach.call(banners, banner => {
-  let up, down, link, i;
-  // Loop through options and break on the first match.
-  for (i = 0; i < banner_link.length; i++) {
-    if (link = banner.querySelector(banner_link[i])) {
+  let up, down, links, link, i = 0;
+
+  // Loop through link queries
+  for (i; i < link_queries.length; i++) {
+    // Break if we find matches.
+    links = banner.querySelectorAll(link_queries[i]);
+    if (links.length) {
       break;
     }
   }
 
-  // If we have a match, attach behaviors.
-  if (link) {
+  // If we have exactly one match, attach behaviors.
+  if (links && links.length === 1) {
+    link = links[0];
     banner.style.cursor = 'pointer';
     banner.onmousedown = () => down = +new Date();
     banner.onmouseup = (e) => {
