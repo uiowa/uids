@@ -1,6 +1,6 @@
 {% set link, link_element, show_button = false, false, false %}
 {% if banner_links is not empty and banner_links|length == 1 %}
-  {% set link = banner_links[0] %}
+  {% set link = banner_links|first %}
   {% if banner_title is not empty %}
     {# Title is set, use it as the linking element.  #}
     {% set link_element = 'title' %}
@@ -65,9 +65,10 @@
                 </a>
               {% endfor %}
             {% else %}
-              {% if banner_links|first.link_url is not empty and show_button %}
+              {% set link = banner_links|first %}
+              {% if link.link_url is not empty and show_button %}
                 <div aria-hidden="true" class="{{ banner_link_classes }}"{% if banner_aria %} id="{{ banner_aria }}"{% endif %}>
-                  {{ banner_links|first.link_title }}
+                  {{ link.link_title }}
                   <i class="fas fa-arrow-right"></i>
                 </div>
               {% endif %}
