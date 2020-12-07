@@ -46,4 +46,14 @@ GitHub Actions is used to build and deploy the Fractal artifact to the `gh-pages
 Branches can be accessed at http://uids.brand.uiowa.edu/branches/{your-branch-name}.
 
 ## Creating a Release
-Follow the steps outlined at https://github.com/uiowa/uids/issues/71.
+The following is an example of the workflow and not meant to be copied and pasted verbatim. Please review the summary at https://semver.org/ to understand which type of release you should be creating. The version numbers you will use when you are actually going through this process will depend on the current version number and what type of release you are creating.
+1. `git checkout main` - Make sure you are on the `main` branch.
+2. `git pull` - Make sure you have the most recent updates.
+3. `npm version --help` to view options
+4. `npm version patch -m "https://github.com/uiowa/uids/compare/v1.4.1...v1.4.2"`
+5. `git push`
+6. `git push --tags`
+7. Go to https://github.com/uiowa/uids/releases/new and click on the "..." button to the right of the release Place the release number in the title field without the v -> 1.4.2.
+8. Paste in the compare link into the description area `https://github.com/uiowa/uids/compare/v1.4.1...v1.4.2`
+9. Then click "Publish release" button
+10. Run `npm run dist` to generate css files.
