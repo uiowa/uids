@@ -29,7 +29,7 @@
 
   generateArrays();
 
-  function generateArrays() {
+  function generateArrays () {
     tabs_elements.forEach(function(item, index) {
       item.id = 'tabs--' + index;
       let tablist = item.querySelectorAll('[role="tablist"]')[0];
@@ -42,22 +42,6 @@
           panels:  panels
         }
       );
-    });
-  }
-
-  distinctifyTabs();
-
-  function distinctifyTabs() {
-    tabs_array_dict.forEach(function(tabgroup, tabgroupIndex) {
-      tabgroup.tabs.forEach(function(tab) {
-        tab.id = 'tabgroup--' + tabgroupIndex + '-' + tab.id;
-        tab.setAttribute('aria-controls','tabgroup--' + tabgroupIndex + '-' + tab.getAttribute('aria-controls'));
-      });
-
-      tabgroup.panels.forEach(function(panel) {
-        panel.id = 'tabgroup--' + tabgroupIndex + '-' + panel.id;
-        panel.setAttribute('aria-labelledby','tabgroup--' + tabgroupIndex + '-' + panel.getAttribute('aria-labelledby'));
-      });
     });
   }
 
