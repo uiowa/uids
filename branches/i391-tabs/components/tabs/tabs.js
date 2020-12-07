@@ -53,8 +53,8 @@
       let tabs = item.tabs;
       for (let i = 0; i < item.tabs.length; ++i) {
         tabs[i].addEventListener('click', clickEventListener);
-        // tabs[i].addEventListener('keydown', keydownEventListener);
-        // tabs[i].addEventListener('keyup', keyupEventListener);
+        tabs[i].addEventListener('keydown', keydownEventListener);
+        tabs[i].addEventListener('keyup', keyupEventListener);
 
         // Build an array with all tabs (<button>s) in it
         tabs[i].index = i;
@@ -123,164 +123,109 @@
     }
   }
 
-  // // Handle keydown on tabs
-  // function keydownEventListener (event) {
-  //   var key = event.keyCode;
-  //
-  //   switch (key) {
-  //     case keys.end:
-  //       event.preventDefault();
-  //       // Activate last tab
-  //       activateTab(tabs[tabs.length - 1]);
-  //       break;
-  //     case keys.home:
-  //       event.preventDefault();
-  //       // Activate first tab
-  //       activateTab(tabs[0]);
-  //       break;
-  //
-  //     // Up and down are in keydown
-  //     // because we need to prevent page scroll >:)
-  //     case keys.up:
-  //     case keys.down:
-  //       determineOrientation(event);
-  //       break;
-  //   };
-  // };
-  //
-  // // Handle keyup on tabs
-  // function keyupEventListener (event) {
-  //   var key = event.keyCode;
-  //
-  //   switch (key) {
-  //     case keys.left:
-  //     case keys.right:
-  //       determineOrientation(event);
-  //       break;
-  //     case keys.delete:
-  //       determineDeletable(event);
-  //       break;
-  //   };
-  // };
-  //
-  // // When a tablistâ€™s aria-orientation is set to vertical,
-  // // only up and down arrow should function.
-  // // In all other cases only left and right arrow function.
-  // function determineOrientation (event) {
-  //   var key = event.keyCode;
-  //   var vertical = tablist.getAttribute('aria-orientation') == 'vertical';
-  //   var proceed = false;
-  //
-  //   if (vertical) {
-  //     if (key === keys.up || key === keys.down) {
-  //       event.preventDefault();
-  //       proceed = true;
-  //     };
-  //   }
-  //   else {
-  //     if (key === keys.left || key === keys.right) {
-  //       proceed = true;
-  //     };
-  //   };
-  //
-  //   if (proceed) {
-  //     switchTabOnArrowPress(event);
-  //   };
-  // };
-  //
-  // // Either focus the next, previous, first, or last tab
-  // // depening on key pressed
-  // function switchTabOnArrowPress (event) {
-  //   var pressed = event.keyCode;
-  //
-  //   for (x = 0; x < tabs.length; x++) {
-  //     tabs[x].addEventListener('focus', focusEventHandler);
-  //   };
-  //
-  //   if (direction[pressed]) {
-  //     var target = event.target;
-  //     if (target.index !== undefined) {
-  //       if (tabs[target.index + direction[pressed]]) {
-  //         tabs[target.index + direction[pressed]].focus();
-  //       }
-  //       else if (pressed === keys.left || pressed === keys.up) {
-  //         focusLastTab();
-  //       }
-  //       else if (pressed === keys.right || pressed == keys.down) {
-  //         focusFirstTab();
-  //       };
-  //     };
-  //   };
-  // };
-  //
+  // Handle keydown on tabs
+  function keydownEventListener (event) {
+    let key = event.keyCode;
+    let parent = event.target.parentElement.parentElement;
+    let tab_group_id = parent.id.split('--')[parent.id.split('--').length-1];
+    let tabs = tabs_array_dict[tab_group_id].tabs;
 
-  //
+    switch (key) {
+      case keys.end:
+        event.preventDefault();
+        // Activate last tab
+        activateTab(tabs[tabs.length - 1]);
+        break;
+      case keys.home:
+        event.preventDefault();
+        // Activate first tab
+        activateTab(tabs[0]);
+        break;
 
-  //
+      // Up and down are in keydown
+      // because we need to prevent page scroll >:)
+      case keys.up:
+      case keys.down:
+        determineOrientation(event);
+        break;
+    }
+  }
 
-  //
-  // // Make a guess
-  // function focusFirstTab () {
-  //   tabs[0].focus();
-  // };
-  //
-  // // Make a guess
-  // function focusLastTab () {
-  //   tabs[tabs.length - 1].focus();
-  // };
-  //
-  // // Detect if a tab is deletable
-  // function determineDeletable (event) {
-  //   target = event.target;
-  //
-  //   if (target.getAttribute('data-deletable') !== null) {
-  //     // Delete target tab
-  //     deleteTab(event, target);
-  //
-  //     // Update arrays related to tabs widget
-  //     generateArrays();
-  //
-  //     // Activate the closest tab to the one that was just deleted
-  //     if (target.index - 1 < 0) {
-  //       activateTab(tabs[0]);
-  //     }
-  //     else {
-  //       activateTab(tabs[target.index - 1]);
-  //     };
-  //   };
-  // };
-  //
-  // // Deletes a tab and its panel
-  // function deleteTab (event) {
-  //   var target = event.target;
-  //   var panel = document.getElementById(target.getAttribute('aria-controls'));
-  //
-  //   target.parentElement.removeChild(target);
-  //   panel.parentElement.removeChild(panel);
-  // };
-  //
-  // // Determine whether there should be a delay
-  // // when user navigates with the arrow keys
-  // function determineDelay () {
-  //   var hasDelay = tablist.hasAttribute('data-delay');
-  //   var delay = 0;
-  //
-  //   if (hasDelay) {
-  //     var delayValue = tablist.getAttribute('data-delay');
-  //     if (delayValue) {
-  //       delay = delayValue;
-  //     }
-  //     else {
-  //       // If no value is specified, default to 300ms
-  //       delay = 300;
-  //     };
-  //   };
-  //
-  //   return delay;
-  // };
-  //
-  // //
+  // Handle keyup on tabs
+  function keyupEventListener (event) {
+    let key = event.keyCode;
 
-  //
+    switch (key) {
+      case keys.left:
+      case keys.right:
+        determineOrientation(event);
+        break;
+    }
+  }
 
+  // When a tablistâ€™s aria-orientation is set to vertical,
+  // only up and down arrow should function.
+  // In all other cases only left and right arrow function.
+  function determineOrientation (event) {
+    let key = event.keyCode;
+    let parent = event.target.parentElement.parentElement;
+    let tab_group_id = parent.id.split('--')[parent.id.split('--').length-1];
+    let tablist = tabs_array_dict[tab_group_id].tablist;
+    let vertical = tablist.getAttribute('aria-orientation') === 'vertical';
+    let proceed = false;
+
+    if (vertical) {
+      if (key === keys.up || key === keys.down) {
+        event.preventDefault();
+        proceed = true;
+      }
+    }
+    else {
+      if (key === keys.left || key === keys.right) {
+        proceed = true;
+      }
+    }
+
+    if (proceed) {
+      switchTabOnArrowPress(event);
+    }
+  }
+  //
+  // Either focus the next, previous, first, or last tab
+  // depening on key pressed
+  function switchTabOnArrowPress (event) {
+    let pressed = event.keyCode;
+    let parent = event.target.parentElement.parentElement;
+    let tab_group_id = parent.id.split('--')[parent.id.split('--').length-1];
+    let tabs = tabs_array_dict[tab_group_id].tabs;
+
+    for (let x = 0; x < tabs.length; x++) {
+      tabs[x].addEventListener('focus', focusEventHandler);
+    }
+
+    if (direction[pressed]) {
+      let target = event.target;
+      if (target.index !== undefined) {
+        if (tabs[target.index + direction[pressed]]) {
+          tabs[target.index + direction[pressed]].focus();
+        }
+        else if (pressed === keys.left || pressed === keys.up) {
+          focusLastTab(tabs);
+        }
+        else if (pressed === keys.right || pressed === keys.down) {
+          focusFirstTab(tabs);
+        }
+      }
+    }
+  }
+
+  // Make a guess
+  function focusFirstTab (tabs) {
+    tabs[0].focus();
+  }
+
+  // Make a guess
+  function focusLastTab (tabs) {
+    tabs[tabs.length - 1].focus();
+  }
 }());
