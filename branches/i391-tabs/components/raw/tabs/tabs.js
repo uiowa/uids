@@ -5,14 +5,33 @@
 *   https://www.w3.org/TR/wai-aria-practices-1.1/examples/tabs/tabs-1/tabs.html
 */
 (function () {
+  // For easy reference
+  let keys = {
+    end: 35,
+    home: 36,
+    left: 37,
+    up: 38,
+    right: 39,
+    down: 40,
+    delete: 46
+  };
+
+  // Add or substract depending on key pressed
+  let direction = {
+    37: -1,
+    38: -1,
+    39: 1,
+    40: 1
+  };
   let tabs_elements = document.querySelectorAll('.tabs');
   let tabs_array_dict = [];
-  // let delay = determineDelay();
+  let delay = 0;
 
   generateArrays();
 
   function generateArrays () {
-    tabs_elements.forEach(function(item) {
+    tabs_elements.forEach(function(item, index) {
+      item.id = 'tabs--' + index;
       let tablist = item.querySelectorAll('[role="tablist"]')[0];
       let tabs = item.querySelectorAll('[role="tab"]');
       let panels = item.querySelectorAll('[role="tabpanel"]');
@@ -24,52 +43,86 @@
         }
       );
     });
-  };
+  }
 
-  console.log(tabs_array_dict);
+  // Bind listeners
+  addListeners();
 
+  function addListeners() {
+    tabs_array_dict.forEach(function(item) {
+      let tabs = item.tabs;
+      for (let i = 0; i < item.tabs.length; ++i) {
+        tabs[i].addEventListener('click', clickEventListener);
+        // tabs[i].addEventListener('keydown', keydownEventListener);
+        // tabs[i].addEventListener('keyup', keyupEventListener);
 
+        // Build an array with all tabs (<button>s) in it
+        tabs[i].index = i;
+      }
+    });
+  }
 
-  //
-  // // For easy reference
-  // var keys = {
-  //   end: 35,
-  //   home: 36,
-  //   left: 37,
-  //   up: 38,
-  //   right: 39,
-  //   down: 40,
-  //   delete: 46
-  // };
-  //
-  // // Add or substract depending on key pressed
-  // var direction = {
-  //   37: -1,
-  //   38: -1,
-  //   39: 1,
-  //   40: 1
-  // };
-  //
-  // // Bind listeners
-  // for (i = 0; i < tabs.length; ++i) {
-  //   addListeners(i);
-  // };
-  //
-  // function addListeners (index) {
-  //   tabs[index].addEventListener('click', clickEventListener);
-  //   tabs[index].addEventListener('keydown', keydownEventListener);
-  //   tabs[index].addEventListener('keyup', keyupEventListener);
-  //
-  //   // Build an array with all tabs (<button>s) in it
-  //   tabs[index].index = index;
-  // };
-  //
-  // // When a tab is clicked, activateTab is fired to activate it
-  // function clickEventListener (event) {
-  //   var tab = event.target;
-  //   activateTab(tab, false);
-  // };
-  //
+  // When a tab is clicked, activateTab is fired to activate it
+  function clickEventListener (event) {
+    let tab = event.target;
+    activateTab(tab, false);
+  }
+
+  // Activates any given tab panel
+  function activateTab (tab, setFocus) {
+    setFocus = setFocus || true;
+    let parent = tab.parentElement.parentElement;
+    let tab_group_id = parent.id.split('--')[parent.id.split('--').length-1];
+    // Deactivate all other tabs
+    deactivateTabs(tab_group_id);
+
+    // Remove tabindex attribute
+    tab.removeAttribute('tabindex');
+
+    // Set the tab as selected
+    tab.setAttribute('aria-selected', 'true');
+
+    // Get the value of aria-controls (which is an ID)
+    let controls = tab.getAttribute('aria-controls');
+
+    // Remove hidden attribute from tab panel to make it visible
+    document.getElementById(controls).removeAttribute('hidden');
+
+    // Set focus when required
+    if (setFocus) {
+      tab.focus();
+    }
+  }
+  // Deactivate all tabs and tab panels
+  function deactivateTabs (tab_group_id) {
+      let tabs = tabs_array_dict[tab_group_id].tabs;
+      for (let t = 0; t < tabs.length; t++) {
+        tabs[t].setAttribute('tabindex', '-1');
+        tabs[t].setAttribute('aria-selected', 'false');
+        tabs[t].removeEventListener('focus', focusEventHandler);
+      }
+
+      let panels = tabs_array_dict[tab_group_id].panels;
+      for (let p = 0; p < panels.length; p++) {
+        panels[p].setAttribute('hidden', 'hidden');
+      }
+  }
+
+  function focusEventHandler (event) {
+    let target = event.target;
+
+    setTimeout(checkTabFocus, delay, target);
+  }
+
+  // Only activate tab on focus if it still has focus after the delay
+  function checkTabFocus (target) {
+    let focused = document.activeElement;
+
+    if (target === focused) {
+      activateTab(target, false);
+    }
+  }
+
   // // Handle keydown on tabs
   // function keydownEventListener (event) {
   //   var key = event.keyCode;
@@ -160,42 +213,11 @@
   //   };
   // };
   //
-  // // Activates any given tab panel
-  // function activateTab (tab, setFocus) {
-  //   setFocus = setFocus || true;
-  //   // Deactivate all other tabs
-  //   deactivateTabs();
+
   //
-  //   // Remove tabindex attribute
-  //   tab.removeAttribute('tabindex');
+
   //
-  //   // Set the tab as selected
-  //   tab.setAttribute('aria-selected', 'true');
-  //
-  //   // Get the value of aria-controls (which is an ID)
-  //   var controls = tab.getAttribute('aria-controls');
-  //
-  //   // Remove hidden attribute from tab panel to make it visible
-  //   document.getElementById(controls).removeAttribute('hidden');
-  //
-  //   // Set focus when required
-  //   if (setFocus) {
-  //     tab.focus();
-  //   };
-  // };
-  //
-  // // Deactivate all tabs and tab panels
-  // function deactivateTabs () {
-  //   for (t = 0; t < tabs.length; t++) {
-  //     tabs[t].setAttribute('tabindex', '-1');
-  //     tabs[t].setAttribute('aria-selected', 'false');
-  //     tabs[t].removeEventListener('focus', focusEventHandler);
-  //   };
-  //
-  //   for (p = 0; p < panels.length; p++) {
-  //     panels[p].setAttribute('hidden', 'hidden');
-  //   };
-  // };
+
   //
   // // Make a guess
   // function focusFirstTab () {
@@ -258,18 +280,7 @@
   // };
   //
   // //
-  // function focusEventHandler (event) {
-  //   var target = event.target;
+
   //
-  //   setTimeout(checkTabFocus, delay, target);
-  // };
-  //
-  // // Only activate tab on focus if it still has focus after the delay
-  // function checkTabFocus (target) {
-  //   focused = document.activeElement;
-  //
-  //   if (target === focused) {
-  //     activateTab(target, false);
-  //   };
-  // };
+
 }());
