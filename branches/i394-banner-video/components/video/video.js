@@ -67,7 +67,7 @@
 
   window.UidsVideo = Video;
 
-  // Instantiate accordions on the page.
+  // Instantiate videos on the page.
   const videos = document.getElementsByClassName('media--video');
 
   for (let i = 0; i < videos.length; i++) {
