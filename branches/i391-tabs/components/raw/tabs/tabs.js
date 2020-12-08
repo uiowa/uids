@@ -5,7 +5,7 @@
 *   https://www.w3.org/TR/wai-aria-practices-1.1/examples/tabs/tabs-1/tabs.html
 */
 (function () {
-  // For easy reference
+  // For easy refer ence
   let keys = {
     end: 35,
     home: 36,
@@ -16,7 +16,7 @@
     delete: 46
   };
 
-  // Add or substract depending on key pressed
+  // Add or subtract depending on key pressed
   let direction = {
     37: -1,
     38: -1,
@@ -27,9 +27,14 @@
   let tabs_array_dict = [];
   let delay = 0;
 
-  generateArrays();
+  function Tabs() {
+    this.generateArrays();
+    this.distinctifyTabs();
+    // Bind listeners
+    this.addListeners();
+  }
 
-  function generateArrays () {
+  Tabs.prototype.generateArrays = function() {
     tabs_elements.forEach(function(item, index) {
       item.id = 'tabs--' + index;
       let tablist = item.querySelectorAll('[role="tablist"]')[0];
@@ -43,12 +48,25 @@
         }
       );
     });
-  }
+  };
 
-  // Bind listeners
-  addListeners();
+  Tabs.prototype.distinctifyTabs = function() {
+    tabs_array_dict.forEach(function(tabgroup, tabgroupIndex) {
+      tabgroup.tabs.forEach(function(tab) {
+        tab.id = 'tabgroup--' + tabgroupIndex + '-' + tab.id;
+        tab.setAttribute('aria-controls','tabgroup--' + tabgroupIndex + '-' + tab.getAttribute('aria-controls'));
+      });
 
-  function addListeners() {
+      tabgroup.panels.forEach(function(panel) {
+        panel.id = 'tabgroup--' + tabgroupIndex + '-' + panel.id;
+        panel.setAttribute('aria-labelledby','tabgroup--' + tabgroupIndex + '-' + panel.getAttribute('aria-labelledby'));
+      });
+    });
+  };
+
+
+
+  Tabs.prototype.addListeners = function() {
     tabs_array_dict.forEach(function(item) {
       let tabs = item.tabs;
       for (let i = 0; i < item.tabs.length; ++i) {
@@ -60,16 +78,16 @@
         tabs[i].index = i;
       }
     });
-  }
+  };
 
   // When a tab is clicked, activateTab is fired to activate it
-  function clickEventListener (event) {
+  function clickEventListener(event) {
     let tab = event.target;
     activateTab(tab, false);
   }
 
   // Activates any given tab panel
-  function activateTab (tab, setFocus) {
+  function activateTab(tab, setFocus) {
     setFocus = setFocus || true;
     let parent = tab.parentElement.parentElement;
     let tab_group_id = parent.id.split('--')[parent.id.split('--').length-1];
@@ -94,7 +112,7 @@
     }
   }
   // Deactivate all tabs and tab panels
-  function deactivateTabs (tab_group_id) {
+  function deactivateTabs(tab_group_id) {
       let tabs = tabs_array_dict[tab_group_id].tabs;
       for (let t = 0; t < tabs.length; t++) {
         tabs[t].setAttribute('tabindex', '-1');
@@ -108,14 +126,14 @@
       }
   }
 
-  function focusEventHandler (event) {
+  function focusEventHandler(event) {
     let target = event.target;
 
     setTimeout(checkTabFocus, delay, target);
   }
 
   // Only activate tab on focus if it still has focus after the delay
-  function checkTabFocus (target) {
+  function checkTabFocus(target) {
     let focused = document.activeElement;
 
     if (target === focused) {
@@ -124,7 +142,7 @@
   }
 
   // Handle keydown on tabs
-  function keydownEventListener (event) {
+  function keydownEventListener(event) {
     let key = event.keyCode;
     let parent = event.target.parentElement.parentElement;
     let tab_group_id = parent.id.split('--')[parent.id.split('--').length-1];
@@ -152,7 +170,7 @@
   }
 
   // Handle keyup on tabs
-  function keyupEventListener (event) {
+  function keyupEventListener(event) {
     let key = event.keyCode;
 
     switch (key) {
@@ -166,7 +184,7 @@
   // When a tablistâ€™s aria-orientation is set to vertical,
   // only up and down arrow should function.
   // In all other cases only left and right arrow function.
-  function determineOrientation (event) {
+  function determineOrientation(event) {
     let key = event.keyCode;
     let parent = event.target.parentElement.parentElement;
     let tab_group_id = parent.id.split('--')[parent.id.split('--').length-1];
@@ -190,10 +208,10 @@
       switchTabOnArrowPress(event);
     }
   }
-  //
+
   // Either focus the next, previous, first, or last tab
   // depening on key pressed
-  function switchTabOnArrowPress (event) {
+  function switchTabOnArrowPress(event) {
     let pressed = event.keyCode;
     let parent = event.target.parentElement.parentElement;
     let tab_group_id = parent.id.split('--')[parent.id.split('--').length-1];
@@ -220,12 +238,15 @@
   }
 
   // Make a guess
-  function focusFirstTab (tabs) {
+  function focusFirstTab(tabs) {
     tabs[0].focus();
   }
 
   // Make a guess
-  function focusLastTab (tabs) {
+  function focusLastTab(tabs) {
     tabs[tabs.length - 1].focus();
   }
+
+  window.UidsTabs =Tabs;
+  new UidsTabs();
 }());
