@@ -70,7 +70,6 @@
     tabs_array_dict.forEach(function(item) {
       let tabs = item.tabs;
       for (let i = 0; i < item.tabs.length; ++i) {
-        console.log(tabs[i]);
         tabs[i].addEventListener('click', clickEventListener);
         tabs[i].addEventListener('keydown', keydownEventListener);
         tabs[i].addEventListener('keyup', keyupEventListener);
@@ -83,7 +82,6 @@
 
   // When a tab is clicked, activateTab is fired to activate it
   function clickEventListener(event) {
-    console.log('click');
     let tab = event.target;
     activateTab(tab, false);
   }
@@ -145,7 +143,6 @@
 
   // Handle keydown on tabs
   function keydownEventListener(event) {
-    console.log('keydown');
     let key = event.keyCode;
     let parent = event.target.parentElement.parentElement;
     let tab_group_id = parent.id.split('--')[parent.id.split('--').length-1];
@@ -174,7 +171,6 @@
 
   // Handle keyup on tabs
   function keyupEventListener(event) {
-    console.log('keyup');
     let key = event.keyCode;
 
     switch (key) {
