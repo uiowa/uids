@@ -29,7 +29,7 @@ The command will output the server URL to visit in your browser, ex. http://loca
 ## Contributing
 While we have not done a perfect job of applying any of these standards, we recommend the following resources as a starting point for best practices that are observed by this project:
 * Writing CSS and HTML: https://codeguide.co/
-* BEM: https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/
+* Block Element Modifier (BEM) CSS syntax: https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/
 
 ### Creating a PR
 When your feature branch is ready for testing or after you have made any requested changes, you need to run the following command to make sure that the distribution files get updated:
@@ -39,16 +39,19 @@ npm run dist
 
 ### Creating a Release
 The following is an example of the workflow and not meant to be copied and pasted verbatim. Please review the summary at https://semver.org/ to understand which type of release you should be creating. The version numbers you will use when you are actually going through this process will depend on the current version number and what type of release you are creating.
+
+To see the full options for the command, run `npm version --help`.
 1. `git checkout main` - Make sure you are on the `main` branch.
 2. `git pull` - Make sure you have the most recent updates.
-3. `npm version --help` to view options
-4. `npm version patch -m "https://github.com/uiowa/uids/compare/v1.4.1...v1.4.2"`
+4. `npm version patch -m "https://github.com/uiowa/uids/compare/v3.1.0...v3.1.1"`
 5. `git push`
 6. `git push --tags`
-7. Go to https://github.com/uiowa/uids/releases/new and click on the "..." button to the right of the release Place the release number in the title field without the v -> 1.4.2.
-8. Paste in the compare link into the description area `https://github.com/uiowa/uids/compare/v1.4.1...v1.4.2`
-9. Then click "Publish release" button
-10. Run `npm run dist` to generate css files.
+7. Go to https://github.com/uiowa/uids/releases/new.
+8. Enter the "Tag version" using the version _with_ the `v` at the front (e.g. "v3.1.1").
+9. Enter the "Release title" using the version _without_ the `v` at the front (e.g. "3.1.1").
+10. Paste in the compare link into the description area: `https://github.com/uiowa/uids/compare/v3.1.0...v3.1.1`
+11. Click "Publish release" button.
+12. Profit!
 
 ### Components
 Learn about Fractal components here: https://fractal.build/guide/components/#what-defines-a-component. Note that this project uses Twig (`.twig`) instead of Handlebars (`.hbs`).
@@ -59,6 +62,7 @@ If you are starting work on a new component, please make sure that it has `statu
 
 ### Continuous Integration
 ![Publish docs to GitHub Pages](https://github.com/uiowa/uids/workflows/Publish%20docs%20to%20GitHub%20Pages/badge.svg)
+
 GitHub Actions is used to build and deploy the Fractal artifact to the `gh-pages` branch. This branch is set to host UIDS using GitHub Pages. All pushes to a branches or tags will trigger a build.
 
 Branches can be accessed at http://uids.brand.uiowa.edu/branches/{your-branch-name}.
