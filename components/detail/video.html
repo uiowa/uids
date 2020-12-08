@@ -278,32 +278,28 @@
   <span class="hljs-keyword">const</span> motionQuery = matchMedia(<span class="hljs-string">'(prefers-reduced-motion)'</span>);
 
   <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Video</span>(<span class="hljs-params">element, index</span>) </span>{
-    <span class="hljs-keyword">if</span> (element) {
-      <span class="hljs-keyword">this</span>.element = element;
-      <span class="hljs-keyword">this</span>.video = <span class="hljs-keyword">this</span>.element.querySelector(<span class="hljs-string">'video'</span>);
-      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.video) {
-        <span class="hljs-comment">// Give each video an id so that we can index them individually later.</span>
-        <span class="hljs-comment">// As well, no two elements should have the same ID, so assigning them like this ensures that is the case.</span>
-        <span class="hljs-keyword">this</span>.video.id = <span class="hljs-keyword">this</span>.video.id + <span class="hljs-string">'-'</span> + index;
+    <span class="hljs-keyword">this</span>.element = element;
+    <span class="hljs-keyword">this</span>.video = <span class="hljs-keyword">this</span>.element.querySelector(<span class="hljs-string">'video'</span>);
+    <span class="hljs-comment">// Give each video an id so that we can index them individually later.</span>
+    <span class="hljs-comment">// As well, no two elements should have the same ID, so assigning them like this ensures that is the case.</span>
+    <span class="hljs-keyword">this</span>.video.id = <span class="hljs-keyword">this</span>.video.id + <span class="hljs-string">'-'</span> + index;
 
-        <span class="hljs-comment">// Give each video button an id so that we can index them individually later.</span>
-        <span class="hljs-comment">// As well, no two elements should have the same ID, so assigning them like this ensures that is the case.</span>
-        <span class="hljs-keyword">this</span>.video_btn = <span class="hljs-keyword">this</span>.element.querySelector(<span class="hljs-string">'.video-controls .video-btn'</span>);
-        <span class="hljs-keyword">this</span>.video_btn.id = <span class="hljs-keyword">this</span>.video_btn.id + <span class="hljs-string">'-'</span> + index;
+    <span class="hljs-comment">// Give each video button an id so that we can index them individually later.</span>
+    <span class="hljs-comment">// As well, no two elements should have the same ID, so assigning them like this ensures that is the case.</span>
+    <span class="hljs-keyword">this</span>.video_btn = <span class="hljs-keyword">this</span>.element.querySelector(<span class="hljs-string">'.video-controls .video-btn'</span>);
+    <span class="hljs-keyword">this</span>.video_btn.id = <span class="hljs-keyword">this</span>.video_btn.id + <span class="hljs-string">'-'</span> + index;
 
-        <span class="hljs-comment">// Do a reduced motion check, and attach a listener to do on every time it changes.</span>
-        Video.reducedMotionCheck(<span class="hljs-keyword">this</span>.video, <span class="hljs-keyword">this</span>.video_btn);
-        motionQuery.addListener(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{ Video.reducedMotionCheck(<span class="hljs-keyword">this</span>.video, <span class="hljs-keyword">this</span>.video_btn) });
+    <span class="hljs-comment">// Do a reduced motion check, and attach a listener to do on every time it changes.</span>
+    <span class="hljs-keyword">this</span>.reducedMotionCheck(<span class="hljs-keyword">this</span>.video, <span class="hljs-keyword">this</span>.video_btn);
+    motionQuery.addListener(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">this</span>.reducedMotionCheck(<span class="hljs-keyword">this</span>.video, <span class="hljs-keyword">this</span>.video_btn) });
 
-        <span class="hljs-comment">// Add an event listener to the button of this banner video to toggle pause/play on the video.</span>
-        <span class="hljs-keyword">this</span>.video_btn.addEventListener(<span class="hljs-string">'click'</span>, () =&gt; {
-          Video.pausePlay(<span class="hljs-keyword">this</span>.video, <span class="hljs-keyword">this</span>.video_btn);
-        });
-      }
-    }
+    <span class="hljs-comment">// Add an event listener to the button of this banner video to toggle pause/play on the video.</span>
+    <span class="hljs-keyword">this</span>.video_btn.addEventListener(<span class="hljs-string">'click'</span>, () =&gt; {
+      <span class="hljs-keyword">this</span>.pausePlay(<span class="hljs-keyword">this</span>.video, <span class="hljs-keyword">this</span>.video_btn);
+    });
   }
 
-  Video.reducedMotionCheck = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">video, btn</span>) </span>{
+  Video.prototype.reducedMotionCheck = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">video, btn</span>) </span>{
     <span class="hljs-keyword">if</span> (motionQuery.matches) {
       <span class="hljs-comment">// Pause the video.</span>
       video.pause();
@@ -313,22 +309,22 @@
   }
 
   <span class="hljs-comment">// This function toggles pause and play on a specific banner video.</span>
-  Video.pausePlay = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">video, btn</span>) </span>{
+  Video.prototype.pausePlay = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">video, btn</span>) </span>{
     <span class="hljs-keyword">if</span> (video.paused) {
       <span class="hljs-comment">// Play the video.</span>
       video.play();
       <span class="hljs-comment">// When the video is playing, offer the user the option to pause.</span>
-      Video.setButtonDataPaused(btn);
+      <span class="hljs-keyword">this</span>.setButtonDataPaused(btn);
     } <span class="hljs-keyword">else</span> {
       <span class="hljs-comment">// Pause the video.</span>
       video.pause();
       <span class="hljs-comment">// When the video is paused, offer the user the option to play.</span>
-      Video.setButtonDataPlay(btn);
+      <span class="hljs-keyword">this</span>.setButtonDataPlay(btn);
     }
   }
 
   <span class="hljs-comment">// This function sets the button to show a 'Pause' Icon.</span>
-  Video.setButtonDataPaused = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">btn</span>) </span>{
+  Video.prototype.setButtonDataPaused = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">btn</span>) </span>{
     btn.innerHTML = <span class="hljs-string">"&lt;span class='element-invisible'&gt;"</span> + <span class="hljs-string">"Pause"</span> + <span class="hljs-string">"&lt;/span&gt;"</span>;
     btn.classList.remove(<span class="hljs-string">"video-btn__play"</span>);
     btn.classList.add(<span class="hljs-string">"video-btn__pause"</span>);
@@ -336,7 +332,7 @@
   }
 
   <span class="hljs-comment">// This function sets the button to show a 'Play' Icon.</span>
-  Video.setButtonDataPlay = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">btn</span>) </span>{
+  Video.prototype.setButtonDataPlay = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">btn</span>) </span>{
     btn.innerHTML = <span class="hljs-string">"&lt;span class='element-invisible'&gt;"</span> + <span class="hljs-string">"Play"</span> + <span class="hljs-string">"&lt;/span&gt;"</span>;
     btn.classList.remove(<span class="hljs-string">"video-btn__pause"</span>);
     btn.classList.add(<span class="hljs-string">"video-btn__play"</span>);
@@ -369,7 +365,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">3 KB</span>
+                    <span class="Meta-value">2.9 KB</span>
                 </li>
             </ul>
         </div>
@@ -854,7 +850,7 @@
                 
                     
 
-<span style="color: #A84F00;" title="WIP">Left (default)</span>
+<span style="color: #A84F00;" title="WIP">Blockquote Left</span>
 
 
                 
@@ -865,11 +861,11 @@
         
         
         <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="blockquote--center.html" data-pjax>
+            <a class="Tree-entityLink" href="blockquote--blockquote-center.html" data-pjax>
                 
                     
 
-<span style="color: #A84F00;" title="WIP">Center</span>
+<span style="color: #A84F00;" title="WIP">Blockquote Center</span>
 
 
                 
@@ -880,11 +876,11 @@
         
         
         <li class="Tree-item Tree-entity" data-role="item">
-            <a class="Tree-entityLink" href="blockquote--right.html" data-pjax>
+            <a class="Tree-entityLink" href="blockquote--blockquote-right.html" data-pjax>
                 
                     
 
-<span style="color: #A84F00;" title="WIP">Right</span>
+<span style="color: #A84F00;" title="WIP">Blockquote Right</span>
 
 
                 
@@ -1628,7 +1624,7 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2020-12-08T19:03:09.677Z">
+            <time datetime="2020-12-08T00:21:52.218Z">
                 12/8/2020
             </time>
         </div>
