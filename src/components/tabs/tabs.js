@@ -5,7 +5,7 @@
 *   https://www.w3.org/TR/wai-aria-practices-1.1/examples/tabs/tabs-1/tabs.html
 */
 (function () {
-  // For easy refer ence.
+  // For easy reference.
   let keys = {
     end: 35,
     home: 36,
