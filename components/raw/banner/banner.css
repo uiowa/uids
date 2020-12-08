@@ -30,6 +30,25 @@
       position: absolute;
       height: 100%;
       top: 0; }
+  .banner .banner__action .bttn {
+    margin: 0 1rem 1rem 0; }
+    @media (min-width: 768px) {
+      .banner .banner__action .bttn + .bttn {
+        margin: 0 1rem 1rem 0; } }
+  .banner .media--video {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0; }
+    .banner .media--video video {
+      overflow: visible;
+      display: block;
+      width: 100%;
+      -o-object-fit: cover;
+      object-fit: cover;
+      position: absolute;
+      height: 100%;
+      top: 0; }
   .banner__text {
     z-index: 1; }
   .banner__content {
@@ -212,7 +231,80 @@
 
 .banner--horizontal-center {
   text-align: center; }
+  .banner--horizontal-center .banner__content > * {
+    margin-right: auto;
+    margin-left: auto; }
 
-.banner--horizontal-center .banner__content > * {
-  margin-right: auto;
-  margin-left: auto; }
+.media--video {
+  position: relative; }
+  .media--video .video-controls {
+    position: absolute;
+    z-index: 1;
+    left: 1.25rem;
+    bottom: 1.25rem; }
+    @media (min-width: 84.375em) {
+      .media--video .video-controls {
+        left: 3rem;
+        bottom: 3rem; } }
+  .media--video .video-btn {
+    display: none;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    color: #151515;
+    border: 1px solid white;
+    border-radius: 50%;
+    background: white;
+    font-size: 1rem;
+    padding: 0; }
+    @media (min-width: 768px) {
+      .media--video .video-btn {
+        display: block; } }
+    .media--video .video-btn::after {
+      content: "\f04b";
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-font-smoothing: antialiased;
+      display: inline-block;
+      font-style: normal;
+      font-variant: normal;
+      text-rendering: auto;
+      line-height: 1;
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      font-size: 1rem; }
+    .media--video .video-btn.video-btn__play::after {
+      margin-left: 3px; }
+    .media--video .video-btn.video-btn__pause::after {
+      content: "\f04c"; }
+  @media (hover: none), (hover: on-demand) {
+    .media--video .video-btn {
+      display: none; } }
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; }
+  .banner__container {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 100%; }
+  .banner__image img,
+  .banner .media--video {
+    left: 0px; }
+  .banner .banner__container {
+    min-height: 18rem; } }
+
+@media all and (-ms-high-contrast: none) and (min-width: 768px), (-ms-high-contrast: active) and (min-width: 768px) {
+  .banner.banner--large .banner__container {
+    min-height: 33rem; } }
+
+@media all and (-ms-high-contrast: none) and (min-width: 855px), (-ms-high-contrast: active) and (min-width: 855px) {
+  .banner.banner--large .banner__container {
+    min-height: 48rem; } }
+
+@media all and (-ms-high-contrast: none) and (min-width: 768px), (-ms-high-contrast: active) and (min-width: 768px) {
+  .banner.banner--medium .banner__container {
+    min-height: 33rem; } }
