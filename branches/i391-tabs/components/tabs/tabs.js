@@ -62,7 +62,6 @@
 
   // When a tab is clicked, activateTab is fired to activate it.
   Tabs.prototype.clickEventListener = function(event) {
-    console.log(this);
     const tab = event.target;
     this.activateTab(tab, false);
   }
@@ -117,8 +116,8 @@
     let target = event.target;
     const that = this;
     setTimeout(function() {
-      that.checkTabFocus(event);
-    }, delay, target);
+      that.checkTabFocus(target);
+    }, delay);
   }
 
   // Only activate tab on focus if it still has focus after the delay.
@@ -199,16 +198,15 @@
   }
 
   // Either focus the next, previous, first, or last tab
-  // depening on key pressed
+  // depending on key pressed
   Tabs.prototype.switchTabOnArrowPress = function(event) {
     let pressed = event.keyCode;
     // Get the correct tabs nodelist.
-    let tabs = this.tabs;
 
     // For each tab in tabs...
-    for (let x = 0; x < tabs.length; x++) {
+    for (let x = 0; x < this.tabs.length; x++) {
       // Add a focus event handler.
-      tabs[x].addEventListener('focus', event => {
+      this.tabs[x].addEventListener('focus', event => {
         this.focusEventHandler(event);
       });
     }
@@ -219,22 +217,22 @@
       let target = event.target;
       if (target.index !== undefined) {
         // Left or right if just the left or right arrow key.
-        if (tabs[target.index + direction[pressed]]) {
-          tabs[target.index + direction[pressed]].focus();
+        if (this.tabs[target.index + direction[pressed]]) {
+          this.tabs[target.index + direction[pressed]].focus();
         }
         // Or the last tab if...
         // The left-most tab was focused and the left arrow was pressed...
         // OR...
         // The top-most tab was focused and the up arrow was pressed...
         else if (pressed === keys.left || pressed === keys.up) {
-          focusLastTab(tabs);
+          focusLastTab(this.tabs);
         }
         // Or the first tab if...
         // The right-most tab was focused and the right arrow was pressed...
         // OR...
         // The bottom-most tab was focused and the down arrow was pressed...
         else if (pressed === keys.right || pressed === keys.down) {
-          focusFirstTab(tabs);
+          focusFirstTab(this.tabs);
         }
       }
     }
