@@ -1,9 +1,6 @@
-{% set tab_item_number = 0 %}
-{% set panel_item_number = 0 %}
-
-<div class="tabs">
+<div class="tabs"{% if tablist_id is not empty %} id="{{ tablist_id }}"{% endif %}>
   <div role="tablist" aria-label="Entertainment">
-    {% for item in items %}
+    {% for tab_item_number, item in items %}
       <button role="tab"
               aria-selected="{{ (tab_item_number == 0) ? 'true' : 'false' }}"
               aria-controls="panel--{{ tab_item_number }}"
@@ -12,19 +9,17 @@
       >
         {{ item.title }}
       </button>
-      {% set tab_item_number = tab_item_number + 1 %}
     {% endfor %}
   </div>
 
-  {% for item in items %}
+  {% for panel_item_number, item in items %}
     <div tabindex="0"
          role="tabpanel"
          id="panel--{{ panel_item_number }}"
          aria-labelledby="tab--{{ panel_item_number }}"
-         {{ (panel_item_number == 0) ? '' : 'hidden=""' }}
+         {{ panel_item_number == 0 ? '' : 'hidden' }}
     >
       {{ item.content }}
     </div>
-    {% set panel_item_number = panel_item_number + 1 %}
   {% endfor %}
 </div>
