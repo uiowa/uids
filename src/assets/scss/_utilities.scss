@@ -1,4 +1,5 @@
 @import 'placeholders';
+@import 'grid';
 //=======================================================
 // Mixins
 //=======================================================
@@ -135,52 +136,6 @@
 
   @else {
     @warn "Breakpoint mixin supports: xs, sm, md, lg";
-  }
-}
-
-////// Flexbox
-
-@mixin flexbox {
-  display: flex;
-}
-
-//fg flex-grow fs flex-shrink fb flex-basis
-@mixin flex($fg: 1, $fs: 0, $fb: auto) {
-  flex: $fg $fs $fb;
-}
-
-@mixin flex-direction($value: row) {
-  flex-direction: $value;
-}
-
-@mixin flex-wrap($value: nowrap) {
-  flex-wrap: $value;
-}
-
-@mixin order($int: 0) {
-  order: $int;
-}
-
-// vertical center mixin
-@mixin center($position) {
-  display: flex;
-
-  @if $position=='both' {
-    align-items: center;
-    justify-content: center;
-  }
-
-  @else if $position=='vertical' {
-    align-items: center;
-  }
-
-  @else if $position=='horizontal' {
-    justify-content: center;
-  }
-
-  @else if $position=='none' {
-    align-items: stretch;
-    justify-content: flex-start;
   }
 }
 

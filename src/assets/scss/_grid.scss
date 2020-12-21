@@ -1,0 +1,88 @@
+////// Inner Grid
+@mixin inner-grid($parent) {
+  .inner--grid.grid--twocol--50-50 {
+    @if $parent >= 50 {
+      @media screen and (min-width: 768px) {
+        .list-container {
+          display: grid;
+          column-gap: 3rem;
+          row-gap: $gutter;
+          grid-template-columns: repeat(auto-fill, minmax(46.7%, 1fr));
+          // @todo Remove when uiowa/uiowa#2670 and uiowa/uiowa#2554 are resolved.
+          .card.card--media-left,
+          .card.card--media-right {
+            margin-bottom: 0;
+          }
+        }
+      }
+      @media screen and (min-width: 58.125em) {
+        .list-container {
+          gap: 3rem;
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+    }
+  }
+  .inner--grid.grid--threecol--33-34-33 {
+    @if $parent >= 75 {
+      @media screen and (min-width: 58.125em) {
+        .list-container {
+          display: grid;
+          gap: 3rem;
+          grid-template-columns: repeat(auto-fill, minmax(29.74%, 1fr));
+          // @todo Remove when uiowa/uiowa#2670 and uiowa/uiowa#2554 are resolved.
+          .card.card--media-left,
+          .card.card--media-right {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+////// Flexbox
+
+@mixin flexbox {
+  display: flex;
+}
+
+//fg flex-grow fs flex-shrink fb flex-basis
+@mixin flex($fg: 1, $fs: 0, $fb: auto) {
+  flex: $fg $fs $fb;
+}
+
+@mixin flex-direction($value: row) {
+  flex-direction: $value;
+}
+
+@mixin flex-wrap($value: nowrap) {
+  flex-wrap: $value;
+}
+
+@mixin order($int: 0) {
+  order: $int;
+}
+
+// vertical center mixin
+@mixin center($position) {
+  display: flex;
+
+  @if $position=='both' {
+    align-items: center;
+    justify-content: center;
+  }
+
+  @else if $position=='vertical' {
+    align-items: center;
+  }
+
+  @else if $position=='horizontal' {
+    justify-content: center;
+  }
+
+  @else if $position=='none' {
+    align-items: stretch;
+    justify-content: flex-start;
+  }
+}
