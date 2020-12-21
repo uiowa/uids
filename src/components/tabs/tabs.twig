@@ -1,13 +1,28 @@
-<nav class="tabs" role="navigation" aria-label="Tabs">
-  <ul class="tabs primary">
-    <li class="tab is-active">
-      <a href="/user/6" data-drupal-link-system-path="user/6" class="is-active">View<span class="visually-hidden">(active tab)</span></a>
-    </li>
-    <li class="tab">
-      <a href="/user/6/roles" data-drupal-link-system-path="user/6/roles">Roles</a>
-    </li>
-    <li class="tab">
-      <a href="/user/6/edit" data-drupal-link-system-path="user/6/edit">Edit</a>
-    </li>
-  </ul>
-</nav>
+{% if tablist_id is empty %}
+  {% set tablist_id = 0 %}
+{% endif %}
+<div class="tabs" id="tabs--{{ tablist_id }}">
+  <div role="tablist" aria-label="Entertainment">
+    {% for tab_item_number, item in items %}
+      <button role="tab"
+              aria-selected="{{ (tab_item_number == 0) ? 'true' : 'false' }}"
+              aria-controls="tabs--{{ tablist_id }}__panel--{{ tab_item_number }}"
+              id="tabs--{{ tablist_id }}__tab--{{ tab_item_number }}"
+              {{ (tab_item_number == 0) ? '': 'tabindex="-1"' }}
+      >
+        {{ item.title }}
+      </button>
+    {% endfor %}
+  </div>
+
+  {% for panel_item_number, item in items %}
+    <div tabindex="0"
+         role="tabpanel"
+         id="tabs--{{ tablist_id }}__panel--{{ panel_item_number }}"
+         aria-labelledby="tabs--{{ tablist_id }}__tab--{{ panel_item_number }}"
+         {{ panel_item_number == 0 ? '' : 'hidden' }}
+    >
+      {{ item.content }}
+    </div>
+  {% endfor %}
+</div>
