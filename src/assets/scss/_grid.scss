@@ -1,8 +1,9 @@
+
 ////// Inner Grid
 @mixin inner-grid($parent) {
   .inner--grid.grid--twocol--50-50 {
     @if $parent >= 50 {
-      @media screen and (min-width: 768px) {
+      @include breakpoint(sm) {
         .list-container {
           display: grid;
           column-gap: 3rem;
@@ -38,6 +39,19 @@
         }
       }
     }
+  }
+}
+
+@mixin display-grid {
+  display: grid;
+  grid-template-rows: auto;
+  grid-gap: $desktop-width-gutter;
+}
+
+%grid-base {
+  @include breakpoint(sm) {
+    @include display-grid;
+    grid-template-columns: 1fr;
   }
 }
 
