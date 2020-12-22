@@ -1,4 +1,13 @@
+@mixin twocol-grid {
+  column-gap: $desktop-width-gutter;
+  row-gap: $gutter;
+  grid-template-columns: repeat(auto-fill, minmax(46.7%, 1fr));
+}
 
+@mixin threecol-grid {
+  gap: $desktop-width-gutter;
+  grid-template-columns: repeat(auto-fill, minmax(46.7%, 1fr));
+}
 ////// Inner Grid
 @mixin inner-grid($parent) {
   .inner--grid.grid--twocol--50-50 {
@@ -6,9 +15,7 @@
       @include breakpoint(sm) {
         .list-container {
           display: grid;
-          column-gap: 3rem;
-          row-gap: $gutter;
-          grid-template-columns: repeat(auto-fill, minmax(46.7%, 1fr));
+          @include twocol-grid;
           // @todo Remove when uiowa/uiowa#2670 and uiowa/uiowa#2554 are resolved.
           .card.card--media-left,
           .card.card--media-right {
@@ -18,7 +25,7 @@
       }
       @media screen and (min-width: 58.125em) {
         .list-container {
-          gap: 3rem;
+          gap: $desktop-width-gutter;
           grid-template-columns: 1fr 1fr;
         }
       }
@@ -29,8 +36,7 @@
       @media screen and (min-width: 58.125em) {
         .list-container {
           display: grid;
-          gap: 3rem;
-          grid-template-columns: repeat(auto-fill, minmax(29.74%, 1fr));
+          @include threecol-grid;
           // @todo Remove when uiowa/uiowa#2670 and uiowa/uiowa#2554 are resolved.
           .card.card--media-left,
           .card.card--media-right {
@@ -48,12 +54,14 @@
   grid-gap: $desktop-width-gutter;
 }
 
-%grid-base {
+@mixin grid-base {
   @include breakpoint(sm) {
     @include display-grid;
     grid-template-columns: 1fr;
   }
 }
+
+
 
 ////// Flexbox
 
