@@ -1,3 +1,7 @@
+@import 'breakpoints';
+@import 'placeholders';
+@import 'grid';
+
 //=======================================================
 // Mixins
 //=======================================================
@@ -80,109 +84,6 @@
     border-left: 0;
   }
 }
-
-// Media Queries ///////////////
-
-@mixin breakpoint($class) {
-  @if $class==xs {
-    @media (max-width: 767px) {
-      @content;
-    }
-  }
-
-  @if $class==xsm {
-    @media (min-width: 600px) {
-      @content;
-    }
-  }
-
-  @else if $class==sm {
-    @media (min-width: 768px) {
-      @content;
-    }
-  }
-
-  @else if $class==menu {
-    @media (min-width: 855px) {
-      @content;
-    }
-  }
-
-  @else if $class==md {
-    @media (min-width: 992px) {
-      @content;
-    }
-  }
-
-  @else if $class==lg {
-    @media (min-width: 1200px) {
-      @content;
-    }
-  }
-
-  @else if $class==container {
-    @media (min-width: 84.375em) {
-      @content;
-    }
-  }
-
-  @else if $class==xlg {
-    @media (min-width: 106em) {
-      @content;
-    }
-  }
-
-  @else {
-    @warn "Breakpoint mixin supports: xs, sm, md, lg";
-  }
-}
-
-////// Flexbox
-
-@mixin flexbox {
-  display: flex;
-}
-
-//fg flex-grow fs flex-shrink fb flex-basis
-@mixin flex($fg: 1, $fs: 0, $fb: auto) {
-  flex: $fg $fs $fb;
-}
-
-@mixin flex-direction($value: row) {
-  flex-direction: $value;
-}
-
-@mixin flex-wrap($value: nowrap) {
-  flex-wrap: $value;
-}
-
-@mixin order($int: 0) {
-  order: $int;
-}
-
-// vertical center mixin
-@mixin center($position) {
-  display: flex;
-
-  @if $position=='both' {
-    align-items: center;
-    justify-content: center;
-  }
-
-  @else if $position=='vertical' {
-    align-items: center;
-  }
-
-  @else if $position=='horizontal' {
-    justify-content: center;
-  }
-
-  @else if $position=='none' {
-    align-items: stretch;
-    justify-content: flex-start;
-  }
-}
-
 
 //////////  Padding/Margin
 
@@ -277,155 +178,6 @@
     @include margin($top: $lg);
   }
 }
-
-// Card Mixins
-
-@mixin card-enclosed {
-  @include breakpoint(sm) {
-    border: 1px solid rgba(0, 0, 0, 0.125);
-  }
-
-  .card__body {
-    padding: 2rem;
-  }
-
-  .bttn {
-    margin-bottom: 0;
-  }
-}
-
-
-@mixin card-header {
-  margin: 0 0 $sm;
-  padding: 0;
-  font-size: 1.5rem;
-  font-weight: $font-weight-medium;
-  line-height: 1.2;
-
-  a {
-    text-decoration: none;
-    color: $secondary;
-
-    &:hover,
-    &:focus {
-      text-decoration: underline;
-    }
-  }
-}
-
-
-@mixin card-title {
-  margin-bottom: .75rem;
-}
-
-@mixin card-body {
-  flex: 1;
-  color: $secondary;
-  padding: 2rem;
-  min-height: 1px;
-  line-height: 1.7;
-
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    &:not(:first-child) {
-      margin-top: 0;
-    }
-  }
-
-  @include breakpoint(sm) {
-    padding: 2rem 0;
-  }
-
-  .card--enclosed & {
-    @include breakpoint(sm) {
-      padding: 2rem;
-    }
-  }
-  ul, ol, dl, table {
-    font-size: 1rem;
-    line-height: 1.7;
-  }
-}
-
-@mixin card-subtitle {
-  color: #666;
-  font-family: $font-family-serif;
-  font-size: 1.3rem;
-  font-weight: $font-weight-medium;
-  line-height: 1.3;
-}
-
-@mixin card {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin-bottom: 1.6rem;
-  text-decoration: none;
-  background: #fff;
-  flex-grow: 1;
-  @include flexbox;
-  @include flex($fg: 1, $fs: 1, $fb: 0%);
-  @include flex-direction($value: column);
-  border: 1px solid rgba(0, 0, 0, 0.125);
-
-  &:focus-within .card__title a:focus {
-    text-decoration: underline;
-  }
-
-  @include breakpoint(sm) {
-    border: none;
-    margin-bottom: 0;
-  }
-}
-
-@mixin card-paragraph {
-  margin-bottom: 0;
-  margin-top: 0;
-  font-size: 1rem;
-  line-height: 1.7;
-
-  a {
-    position: relative;
-    z-index: 1;
-  }
-}
-
-@mixin card-img-top {
-  min-height: 1px;
-}
-
-
-@mixin card-media {
-  flex-shrink: 0;
-  width: 100%;
-  min-height: 1px;
-
-  img {
-    flex-shrink: 0;
-    width: 100%;
-    @include card-img-top;
-  }
-}
-
-@mixin card-media-horizontal-right {
-  @include breakpoint(sm) {
-    flex: 0 0 35%;
-    max-width: 35%;
-    margin-left: $gutter;
-  }
-}
-
-@mixin card-media-horizontal-left {
-  @include breakpoint(sm) {
-    flex: 0 0 20%;
-    width: 20%;
-  }
-}
-
 
 // @todo SiteNow Mixins
 
@@ -566,11 +318,12 @@
   line-height: 1.4;
   font-size: 1.25rem;
   padding: 1rem 2rem 1rem;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
 
   i,
   svg {
     margin-left: $sm;
-    color: $primary;
   }
 }
 
@@ -612,6 +365,11 @@
 @mixin bttn--secondary {
   color: $white;
   background: $secondary;
+    i,
+    svg,
+    span {
+      color: $primary;
+    }
 }
 
 @mixin bttn--secondary__light {
@@ -620,7 +378,11 @@
 
 @mixin bttn--tertiary {
   color: $secondary;
-  background: white;
+  i,
+  svg,
+  span {
+    color: $primary;
+  }
 }
 
 @mixin bttn--transparent {
@@ -636,13 +398,13 @@
 
   i,
   span {
-    color: $primary;
+    //color: $primary;
     //font-size: $h6-font-size;
     //@include padding($right: $sm);
   }
 
   svg {
-    color: $primary;
+    //color: $primary;
     //@include padding($right: $sm);
   }
 }

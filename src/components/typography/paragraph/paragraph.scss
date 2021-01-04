@@ -59,9 +59,23 @@ pre {
   word-wrap: normal;
 }
 
+small {
+  vertical-align: middle;
+  display: inline-block;
+  line-height: 1.3;
+
+  &.small--inline {
+    display: inline;
+  }
+}
+
 sup,
 sub {
   font-size: 75%;
+}
+
+mark {
+  background-color: $primary;
 }
 
 .is-small {
@@ -99,6 +113,49 @@ sub {
   border: 1px solid transparent;
   margin: $gutter 0;
 }
+
+.element--spacer-thin {
+  border: 0;
+  height: 0;
+  clear: both;
+  float: none;
+  width: 100%;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.element--spacer-gold {
+  clear: both;
+  float: none;
+  width: 100%;
+  height: 0;
+  border: 1px solid transparent;
+  margin: 1.25rem 0;
+  &:after {
+    content: "";
+    display: block;
+    width: 33%;
+    height: 6px;
+    margin: 0;
+    background: $primary;
+  }
+  &--centered {
+    &:after {
+      margin: 0 auto;
+    }
+  }
+  [class*="bg-"] & {
+    border: none;
+  }
+  .bg-pattern--brain-reversed &,
+  .bg--gold--pattern--brain &,
+  .bg--gold & {
+    &:after {
+      background: #fff;
+    }
+  }
+}
+
 // Bold intro component class
 
 .uids-component--bold-intro,

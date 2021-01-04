@@ -1,8 +1,8 @@
 <div class="card__head">
   {% include '@headline' with {
-    'heading_level': 'h2',
-    'heading': 'Featured Stories',
-    'heading_class': 'bold-headline bold-headline--serif'
+    'headline_level': 'h2',
+    'headline_text': 'Featured Stories',
+    'headline_class': 'bold-headline bold-headline--serif',
   } %}
 
   <a href="/" class="bttn bttn--link bttn--sans-serif">View All Stories <i class="fas fa-arrow-right"></i></a>
@@ -10,18 +10,20 @@
 
 <div class="card__wrapper">
 
-  {% for item in row.items | slice(0, 3) %}
+  {% for item in items | slice(0, 3) %}
     {% set card_classes = item.card_classes ?: '' %}
     {% set card_classes = card_classes|split(' ')|merge(['card__row'])|join(' ') %}
     {% include '@card' with {
       'card_classes': card_classes,
+      'headline_class': item.card_title_class,
       'card_image': item.card_image,
       'card_link_url': item.card_link_url,
       'card_link_title': item.card_link_title,
       'card_title': item.card_title,
-      'card_text': item.card_text,
-      'card_author': item.card_author,
-      'card_aria': item.card_aria
+      'card_content': item.card_content,
+      'card_subtitle': item.card_subtitle,
+      'card_aria': item.card_aria,
+      'card_media_classes': item.card_media_classes
     } %}
   {% endfor %}
 
@@ -29,30 +31,30 @@
 
 <style>
 @media (min-width: 855px) {
-    .card__row {
-        margin-right: 1.6rem;
-        margin-bottom: 0;
-        margin-left: 1.6rem
-    }
-    .card__row:first-of-type {
-        margin-left: 0
-    }
-    .card__row:last-of-type {
-        margin-right: 0
-    }
+  .card__row {
+    margin-right: 1.6rem;
+    margin-bottom: 0;
+    margin-left: 1.6rem
+  }
+  .card__row:first-of-type {
+    margin-left: 0
+  }
+  .card__row:last-of-type {
+    margin-right: 0
+  }
 }
 
 .card__wrapper {
-    margin: 1.25rem 1.25rem
+  margin: 1.25rem 1.25rem
 }
 
 @media (min-width: 855px) {
-    .card__wrapper {
-        margin: 1.25rem 3rem 10rem;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex
-    }
+  .card__wrapper {
+    /*margin: 1.25rem 3rem 10rem;*/
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex
+  }
 }
 
 // ie11
