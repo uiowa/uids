@@ -3,117 +3,373 @@
 
 .banner {
   position: relative;
-  background: #fff;
-  color: $secondary;
+  overflow: hidden;
+  flex-basis: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  .bold-headline {
-    font-size: 2.8rem;
+  &.banner--vertical-bottom {
+    align-items: flex-end;
   }
 
-  &:after {
+  &:focus-within .bold-headline a:focus {
+    text-decoration: underline;
+  }
+
+  &__container {
+
+    margin: 0 auto;
+    width: 100%;
+    z-index: 1;
+
     @include breakpoint(sm) {
-      position: absolute;
+      z-index: 1;
+      max-width: 81.875em;
       top: 0;
-      left: 0;
-      display: block;
-      width: 100%;
-      height: 100%;
-      content: "";
-      -webkit-transition: all .5s ease-in-out;
-      transition: all .5s ease-in-out;
-      will-change: opacity;
-      background: linear-gradient(to right, #fff 1%, #ffffffeb 32%, rgba(255, 255, 255, 0) 100%);
     }
   }
 
-  &--reversed {
-    color: white;
-    background: $secondary;
-
-    .banner__content {
-      background: $secondary;
-
-      @include breakpoint(sm) {
-        background: transparent;
-      }
-    }
-
-    .bold-headline {
-      color: #fff;
-    }
-
-    &:after {
-      @include breakpoint(sm) {
-        background: linear-gradient(to right, rgba(0, 0, 0, 0.86) 0%, rgba(0, 0, 0, 0.23) 65%, rgba(0, 0, 0, 0) 100%);
-      }
-    }
+  img {
+    width: 100%;
   }
 
   &__image {
-    overflow: hidden;
-    contain: paint;
-  }
+    overflow: visible;
 
-  &__image img {
-    display: block;
-    width: 100%;
-    -o-object-fit: cover;
-    object-fit: cover;
-
-    @include breakpoint(menu) {
-      height: 33rem;
+    img {
+      display: block;
+      width: 100%;
+      -o-object-fit: cover;
+      object-fit: cover;
+      position: absolute;
+      height: 100%;
+      top: 0;
     }
   }
-}
 
-.banner__content {
-  position: relative;
-  z-index: 1;
-  padding: $xlg;
-  background: white;
+  .banner__action .bttn {
+    margin: 0 1rem 1rem 0;
+    + .bttn {
+      @include breakpoint(sm) {
+        margin: 0 1rem 1rem 0;
+      }
+    }
+  }
 
-  @include breakpoint(sm) {
+  .media--video {
     position: absolute;
-    background: transparent;
-    top: 20%;
+    height: 100%;
+    width: 100%;
+    top: 0;
+
+    video {
+      overflow: visible;
+      display: block;
+      width: 100%;
+      -o-object-fit: cover;
+      object-fit: cover;
+      position: absolute;
+      height: 100%;
+      top: 0;
+    }
+  }
+
+
+  &__text {
+    z-index: 1;
+  }
+
+  &__content {
+    padding: $gutter;
 
     @include breakpoint(sm) {
-      width: 70%;
-      padding: 0;
+      padding: 1.25rem 0 2rem 0;
     }
 
-    @include breakpoint(menu) {
-      width: 50%;
+    >* {
+      flex-basis: 100%;
+    }
+
+    .bttn {
+      margin-right: auto;
+      margin-left: 0;
+      z-index: 1;
     }
 
     @include breakpoint(container) {
-      width: 30%;
+      padding: $gutter 0;
+    }
+  }
+
+  h2:not([class*="bold-headline"]),
+  h3:not([class*="bold-headline"]),
+  h4:not([class*="bold-headline"]),
+  h5:not([class*="bold-headline"]),
+  h6:not([class*="bold-headline"]),
+  blockquote {
+    color: #fff;
+
+    a {
+      color: #fff;
+    }
+  }
+
+
+  p {
+    line-height: 1.5;
+    margin-top: 0;
+    color: #fff;
+    text-shadow: 0 1px 1px #000;
+
+    a {
+      position: relative;
+      z-index: 1;
+      color: #fff;
+    }
+  }
+
+  // bg variants
+  // @todo This should probably be resolved with https://sass-lang.com/documentation/values/maps#using-maps
+  &.bg-pattern--brain,
+  &.bg-pattern--brain-reversed,
+  &.bg--gold,
+  &.bg--light,
+  &.bg--white,
+  &.bg--gray {
+    color: $secondary;
+
+    p {
+      color: $secondary;
+      font-weight: normal;
+      text-shadow: none;
+
+      a {
+        color: $secondary;
+      }
+    }
+
+    h2:not([class*="bold-headline"]),
+    h3:not([class*="bold-headline"]),
+    h4:not([class*="bold-headline"]),
+    h5:not([class*="bold-headline"]),
+    h6:not([class*="bold-headline"]),
+    blockquote {
+      color: $secondary;
+
+      a {
+        color: $secondary;
+      }
+    }
+
+    .bold-headline.bold-headline--negative {
+      color: $secondary;
+      text-shadow: none;
+
+      a {
+        color: $secondary;
+      }
+    }
+  }
+
+  &.banner--gradient-light:not([class*="bg--black"]):not([class*="bg-pattern--brain-black"]) {
+    color: $secondary;
+
+    h2:not([class*="bold-headline"]),
+    h3:not([class*="bold-headline"]),
+    h4:not([class*="bold-headline"]),
+    h5:not([class*="bold-headline"]),
+    h6:not([class*="bold-headline"]),
+    blockquote {
+      color: $secondary;
+
+      a {
+        color: $secondary;
+      }
+    }
+
+    p {
+      color: $secondary;
+      font-weight: normal;
+      text-shadow: none;
+
+      a {
+        color: $secondary;
+      }
+    }
+
+    .bold-headline.bold-headline--negative {
+      color: $secondary;
+      text-shadow: none;
+
+      a {
+        color: $secondary;
+      }
+    }
+  }
+
+  .bold-headline {
+    z-index: 1;
+
+    a {
+      &:hover {
+        text-decoration: none;
+      }
+
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+
+    &.bold-headline--negative {
+      color: $secondary;
+
+      a {
+        color: #fff;
+      }
+
+      text-shadow: 0 1px 1px #000;
+      color: #fff;
+    }
+
+    margin-top: 0;
+    margin-bottom: .7rem;
+    font-size: calc(100% + 4vw);
+
+    @include breakpoint(sm) {
+      font-size: calc(100% + 2.5vw);
     }
   }
 }
+
+// Default overlay
 
 .banner {
+  &:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    content: "";
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+    will-change: opacity;
+    background: rgba(0, 0, 0, .5);
+  }
+
+  &:not([class*="bg-"]) {
+    background: $secondary;
+  }
+
+  &[class*="bg-"]:after {
+    background: inherit;
+  }
+}
+
+// Alignment Variants
+.banner--horizontal-center {
+  text-align: center;
+
+  .banner__content {
+    >* {
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
+}
+
+.media--video {
   position: relative;
 
-  &__container {
-    max-width: 81.875em;
-
-    @include breakpoint(sm) {
-      margin: 0 0 0 $xlg;
-    }
+  .video-controls {
+    position: absolute;
+    z-index: 1;
+    left: 1.25rem;
+    bottom: 1.25rem;
 
     @include breakpoint(container) {
-      margin: 0 auto;
+      left: 3rem;
+      bottom: 3rem;
     }
   }
 
-  &__title {
-    margin: 0;
+  .video-btn {
+    display: none;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    color: $secondary;
+    border: 1px solid white;
+    border-radius: 50%;
+    background: white;
+    font-size: 1rem;
+    padding: 0;
+
+    @include breakpoint(sm) {
+      display: block;
+    }
+
+    &::after {
+      content: "\f04b";
+      @include fas();
+      font-size: 1rem;
+    }
+
+    &.video-btn__play::after {
+      margin-left: 3px;
+    }
+
+    &.video-btn__pause::after {
+      content: "\f04c";
+    }
   }
 
-  &__summary {
-    font-weight: $font-weight-light;
-    font-size: 1.3rem;
-    @include margin($bottom: $lg, $top: $md);
+  @media (hover:none),
+  (hover:on-demand) {
+    .video-btn {
+      display: none;
+    }
+  }
+}
+
+// ie11
+@media all and (-ms-high-contrast: none),
+(-ms-high-contrast: active) {
+  .banner {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height: 100%;
+  }
+  .banner__container  {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+  }
+  .banner__image img,
+  .banner .media--video {
+    left: 0px;
+  }
+
+  .banner .banner__container {
+    min-height: 18rem;
+  }
+
+  .banner.banner--large .banner__container {
+    @include breakpoint(sm) {
+      min-height: 33rem;
+    }
+    @include breakpoint(menu) {
+      min-height: 48rem;
+    }
+  }
+
+  .banner.banner--medium .banner__container {
+    @include breakpoint(sm) {
+      min-height: 33rem;
+    }
   }
 }

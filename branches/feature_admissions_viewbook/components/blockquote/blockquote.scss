@@ -28,7 +28,9 @@ blockquote {
     margin-top: 0;
   }
 
-  .blockquote-center & {
+  // @todo 2020/12/08 Remove '.blockquote-center' class in v4.0.0
+  .blockquote-center &,
+  &.blockquote--center {
     text-align: center;
     border: none;
     @include padding($top: $xlg, $bottom: $xsm, $left: $xsm, $right: $xsm);
@@ -48,45 +50,12 @@ blockquote {
     }
   }
 
-  .blockquote-right & {
+  // @todo 2020/12/08 Remove '.blockquote-right' class in v4.0.0
+  .blockquote-right &,
+  &.blockquote--right {
     text-align: right;
     border-left: none;
     border-right: 8px solid $primary;
     @include padding($top: $xsm, $bottom: $xsm, $left: 0, $right: $lg);
-  }
-
-  .bg--gold &,
-  .bg--brain-reversed &,
-  .bg-yellow & {
-    color: $secondary;
-    border-color: $white;
-
-    p,
-    a,
-    footer {
-      color: $secondary;
-    }
-  }
-
-  .bg--black &,
-  .bg-pattern--brain-black &,
-  .bg-black &,
-  .bg-dark & {
-    color: #fff;
-
-    a {
-      color: $primary;
-    }
-  }
-
-  .bg-pattern--brain & {
-    color: $secondary;
-    border-color: $secondary;
-
-    p,
-    a,
-    footer {
-      color: $secondary;
-    }
   }
 }

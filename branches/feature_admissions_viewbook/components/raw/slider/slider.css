@@ -3,7 +3,8 @@
 
 .slider {
   flex-wrap: wrap;
-  display: flex; }
+  display: flex;
+  flex-basis: 100%; }
   @media (min-width: 768px) {
     .slider {
       align-content: stretch;
@@ -32,15 +33,22 @@
         transition-timing-function: linear;
         transition: 0.8s;
         width: 20%; } }
-    .slider__slide .banner:after {
-      background: none; }
-    .slider__slide .banner--reversed .banner__content {
-      background: rgba(21, 21, 21, 0.7);
-      height: 100%; }
-      @media (min-width: 768px) {
-        .slider__slide .banner--reversed .banner__content {
-          background: transparent;
-          height: auto; } }
+    .slider__slide .banner__image img {
+      display: block;
+      width: 100%;
+      -o-object-fit: cover;
+      object-fit: cover; }
+      @media (min-width: 855px) {
+        .slider__slide .banner__image img {
+          height: 33rem; } }
+    @media (min-width: 768px) {
+      .slider__slide .banner__text {
+        opacity: 0;
+        transition: opacity .2s ease-in; } }
+    @media (min-width: 768px) {
+      .slider__slide .bold-headline {
+        opacity: 0;
+        transition: opacity .2s linear; } }
     .slider__slide .banner__content {
       opacity: 1;
       padding-top: 2.5rem;
@@ -55,28 +63,30 @@
           bottom: 0;
           top: unset;
           transition: opacity .2s linear; } }
-    .slider__slide .banner__content .bold-headline--serif {
-      font-family: "Zilla Slab", serif;
-      font-weight: 700;
-      margin: 0; }
-    .slider__slide .banner__summary {
-      margin-bottom: 1.3rem;
-      margin-top: .5rem; }
     @media (min-width: 768px) {
       .slider__slide[aria-expanded="true"] {
         flex-grow: 1; } }
     .slider__slide[aria-expanded="true"] .banner__content {
       opacity: 1; }
+    .slider__slide[aria-expanded="true"] .bold-headline {
+      opacity: 1;
+      transition: opacity 1s linear; }
+    .slider__slide[aria-expanded="true"] .banner__text {
+      opacity: 1;
+      transition: opacity 1.5s ease-in; }
     .slider__slide[aria-expanded="true"] .slider__teaser {
       opacity: 0; }
-    .slider__slide[aria-expanded="true"]:after {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      content: "";
-      background: linear-gradient(transparent 1%, transparent 29%, rgba(0, 0, 0, 0.7)); }
+    @media (min-width: 768px) {
+      .slider__slide[aria-expanded="true"]:after {
+        /*
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          content: "";
+          background: linear-gradient(transparent 1%, transparent 29%, rgba(0, 0, 0, .9));
+          */ } }
   .slider__teaser {
     position: absolute;
     z-index: 1;
