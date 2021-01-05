@@ -6,7 +6,7 @@
 #}
 {% endembed %}
 <div class="v-dots-scroll-spacer">
-  <div class="v-dots-scroll-target" id="hero-banner"></div>
+  <div class="v-dots-scroll-target" id="banner-banner"></div>
 </div>
   {% include "@banner" with {
     "banner_type": 'image',
@@ -51,20 +51,20 @@
 {% block grid_second_column %}
 <div class="grid--threecol--33-34-33">
   <div class="list-container">
-	{% for item in hero_row.items | slice(0, 12) %}
+	{% for item in banner_row.items | slice(0, 12) %}
 		{% include '@banner' with {
-      'banner_title_classes': hero_title_classes,
-      'banner_vertical_alignment': hero_vertical_alignment,
-      'banner_horizontal_alignment': hero_horizontal_alignment,
-      'banner_title': item.hero_title,
-      'banner_text': item.hero_text,
-      'banner_image': item.hero_image,
-      'banner_type': hero_type,
-      'banner_size': hero_size,
-      'banner_overlay': hero_overlay,
-      'banner_classes': item.hero_classes,
-      'headline_url': item.hero_link_url,
-      'banner_link_classes': item.hero_link_classes,
+      'banner_title_classes': banner_title_classes,
+      'banner_vertical_alignment': banner_vertical_alignment,
+      'banner_horizontal_alignment': banner_horizontal_alignment,
+      'banner_title': item.banner_title,
+      'banner_text': item.banner_text,
+      'banner_image': item.banner_image,
+      'banner_type': banner_type,
+      'banner_size': banner_size,
+      'banner_overlay': banner_overlay,
+      'banner_classes': item.banner_classes,
+      'banner_links': item.banner_links,
+      'banner_link_classes': item.banner_link_classes,
     } %}
 	{% endfor %}
   </div>
