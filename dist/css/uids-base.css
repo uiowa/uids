@@ -586,7 +586,7 @@ aside .region,
 
 @font-face {
   font-family: 'Antonio';
-  src: url("../fonts/Antonio-Bold.woff2") format("woff2"), url("../fonts/Antonio-Bold.woff") format("woff");
+  src: url("../fonts/antonio-bold.woff2") format("woff2"), url("../fonts/antonio-bold.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -594,7 +594,7 @@ aside .region,
 
 @font-face {
   font-family: 'Antonio';
-  src: url("../fonts/Antonio-Light.woff2") format("woff2"), url("../fonts/Antonio-Light.woff") format("woff");
+  src: url("../fonts/antonio-light.woff2") format("woff2"), url("../fonts/antonio-light.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -602,7 +602,7 @@ aside .region,
 
 @font-face {
   font-family: 'Antonio';
-  src: url("../fonts/Antonio-Regular.woff2") format("woff2"), url("../fonts/Antonio-Regular.woff") format("woff");
+  src: url("../fonts/antonio-regular.woff2") format("woff2"), url("../fonts/antonio-regular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -909,9 +909,23 @@ pre {
   word-wrap: normal;
 }
 
+small {
+  vertical-align: middle;
+  display: inline-block;
+  line-height: 1.3;
+}
+
+small.small--inline {
+  display: inline;
+}
+
 sup,
 sub {
   font-size: 75%;
+}
+
+mark {
+  background-color: #FFCD00;
 }
 
 .is-small {
@@ -948,6 +962,48 @@ sub {
   height: 0;
   border: 1px solid transparent;
   margin: 1.25rem 0;
+}
+
+.element--spacer-thin {
+  border: 0;
+  height: 0;
+  clear: both;
+  float: none;
+  width: 100%;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.element--spacer-gold {
+  clear: both;
+  float: none;
+  width: 100%;
+  height: 0;
+  border: 1px solid transparent;
+  margin: 1.25rem 0;
+}
+
+.element--spacer-gold:after {
+  content: "";
+  display: block;
+  width: 33%;
+  height: 6px;
+  margin: 0;
+  background: #FFCD00;
+}
+
+.element--spacer-gold--centered:after {
+  margin: 0 auto;
+}
+
+[class*="bg-"] .element--spacer-gold {
+  border: none;
+}
+
+.bg-pattern--brain-reversed .element--spacer-gold:after,
+.bg--gold--pattern--brain .element--spacer-gold:after,
+.bg--gold .element--spacer-gold:after {
+  background: #fff;
 }
 
 .uids-component--bold-intro,
