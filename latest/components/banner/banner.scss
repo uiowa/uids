@@ -1,41 +1,6 @@
 @import '../../assets/scss/variables';
 @import '../../assets/scss/utilities';
 
-// Banner Height
-.banner {
-  min-height: 18rem;
-  // Banner Heights
-  &--large {
-    @include breakpoint(sm) {
-      min-height: 33rem;
-    }
-    @include breakpoint(menu) {
-      min-height: 48rem;
-    }
-  }
-
-  &--medium {
-    @include breakpoint(sm) {
-      min-height: 33rem;
-    }
-  }
-
-  // Override background color if button is within a gold container
-  &.bg-pattern--brain-reversed,
-  &.bg--gold {
-    .bttn--primary {
-      color: #fff;
-      background: $secondary;
-      border: 1px solid $secondary;
-
-      svg {
-        color: $primary;
-      }
-    }
-  }
-}
-
-// Banner styles
 .banner {
   position: relative;
   overflow: hidden;
@@ -243,8 +208,7 @@
     }
   }
 
-  .bold-headline,
-  .headline {
+  .bold-headline {
     z-index: 1;
 
     a {
@@ -406,68 +370,6 @@
   .banner.banner--medium .banner__container {
     @include breakpoint(sm) {
       min-height: 33rem;
-    }
-  }
-}
-
-// Gradient overlays
-.banner {
-  &--gradient-left {
-
-    &:after {
-      @include breakpoint(container) {
-        background: linear-gradient(90deg, rgba(0, 0, 0, .86) 0, rgba(0, 0, 0, .23) 65%, transparent);
-      }
-    }
-
-    &.banner--gradient-light {
-      &:after {
-        background: rgba(255, 255, 255, .7);
-
-        @include breakpoint(container) {
-          background: linear-gradient(90deg, #fff 1%, hsla(0, 0%, 100%, .92) 32%, hsla(0, 0%, 100%, 0));
-        }
-      }
-
-      &[class*="bg-"]:after {
-        background: none;
-      }
-    }
-
-    &[class*="bg-"]:after {
-      background: none;
-    }
-  }
-
-  &--gradient-bottom {
-    &:after {
-      @include breakpoint(container) {
-        background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 70%);
-      }
-    }
-
-    &.banner--gradient-light {
-      &:after {
-        background: rgba(255, 255, 255, .7);
-
-        @include breakpoint(container) {
-          background: linear-gradient(180deg, transparent 0, hsla(0, 0%, 100%, .9) 55%);
-        }
-      }
-
-      &[class*="bg-"]:after {
-        background: none;
-      }
-    }
-  }
-}
-
-// Set larger heading size for large banner only
-.banner--large {
-  .bold-headline,
-  .headline {
-    @include breakpoint(md) {
-      font-size: calc(100% + 3.5vw);
     }
   }
 }
