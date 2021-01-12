@@ -17,7 +17,14 @@
   &:hover .stat__content {
     @include breakpoint(menu) {
       @include element-invisible-off;
+      flex-basis: 100%;
       opacity: 1;
+    }
+  }
+
+  &.element--flex-center:hover .stat__content {
+    @include breakpoint(menu) {
+      flex-basis: 80%;
     }
   }
 }
@@ -43,6 +50,11 @@
     .element--flex-center & {
       padding: $md $lg $sm $lg;
       display: block;
+    }
+
+    .bg-pattern--brain-black &,
+    .bg--black & {
+      //color: white;
     }
 
     .bg-pattern--brain &,
@@ -80,11 +92,13 @@
     margin: 0;
     padding: 0;
     line-height: 1.4;
+    flex-basis: 80%;
 
     @include breakpoint(menu) {
       opacity: 0;
       transition: 1s;
       @include element-invisible;
+      flex-basis: 100%;
     }
 
     .bg--black &,
@@ -99,7 +113,7 @@
 
     .element--flex-center & {
       @include breakpoint(menu) {
-        margin: 0 10%;
+        flex-basis: 80%;
       }
     }
 
@@ -192,7 +206,6 @@
       padding-top: .5rem;
       margin-top: .75rem;
       border-top: 8px solid $primary;
-      flex-basis: 100%;
     }
 
   }
