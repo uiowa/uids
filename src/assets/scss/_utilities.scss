@@ -1,4 +1,7 @@
+@import 'breakpoints';
 @import 'placeholders';
+@import 'grid';
+
 //=======================================================
 // Mixins
 //=======================================================
@@ -81,109 +84,6 @@
     border-left: 0;
   }
 }
-
-// Media Queries ///////////////
-
-@mixin breakpoint($class) {
-  @if $class==xs {
-    @media (max-width: 767px) {
-      @content;
-    }
-  }
-
-  @if $class==xsm {
-    @media (min-width: 600px) {
-      @content;
-    }
-  }
-
-  @else if $class==sm {
-    @media (min-width: 768px) {
-      @content;
-    }
-  }
-
-  @else if $class==menu {
-    @media (min-width: 855px) {
-      @content;
-    }
-  }
-
-  @else if $class==md {
-    @media (min-width: 992px) {
-      @content;
-    }
-  }
-
-  @else if $class==lg {
-    @media (min-width: 1200px) {
-      @content;
-    }
-  }
-
-  @else if $class==container {
-    @media (min-width: 84.375em) {
-      @content;
-    }
-  }
-
-  @else if $class==xlg {
-    @media (min-width: 106em) {
-      @content;
-    }
-  }
-
-  @else {
-    @warn "Breakpoint mixin supports: xs, sm, md, lg";
-  }
-}
-
-////// Flexbox
-
-@mixin flexbox {
-  display: flex;
-}
-
-//fg flex-grow fs flex-shrink fb flex-basis
-@mixin flex($fg: 1, $fs: 0, $fb: auto) {
-  flex: $fg $fs $fb;
-}
-
-@mixin flex-direction($value: row) {
-  flex-direction: $value;
-}
-
-@mixin flex-wrap($value: nowrap) {
-  flex-wrap: $value;
-}
-
-@mixin order($int: 0) {
-  order: $int;
-}
-
-// vertical center mixin
-@mixin center($position) {
-  display: flex;
-
-  @if $position=='both' {
-    align-items: center;
-    justify-content: center;
-  }
-
-  @else if $position=='vertical' {
-    align-items: center;
-  }
-
-  @else if $position=='horizontal' {
-    justify-content: center;
-  }
-
-  @else if $position=='none' {
-    align-items: stretch;
-    justify-content: flex-start;
-  }
-}
-
 
 //////////  Padding/Margin
 
