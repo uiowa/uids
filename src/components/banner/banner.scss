@@ -289,32 +289,6 @@
   }
 }
 
-// Default overlay
-
-.banner {
-  &:after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
-    width: 100%;
-    height: 100%;
-    content: "";
-    -webkit-transition: all .5s ease-in-out;
-    transition: all .5s ease-in-out;
-    will-change: opacity;
-    background: rgba(0, 0, 0, .5);
-  }
-
-  &:not([class*="bg-"]) {
-    background: $secondary;
-  }
-
-  &[class*="bg-"]:after {
-    background: inherit;
-  }
-}
-
 // Alignment Variants
 .banner--horizontal-center {
   text-align: center;
@@ -423,6 +397,29 @@
 
 // Gradient overlays
 .banner {
+  // Default overlay
+    &:after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      content: "";
+      -webkit-transition: all .5s ease-in-out;
+      transition: all .5s ease-in-out;
+      will-change: opacity;
+      background: rgba(0, 0, 0, .5);
+    }
+
+    &:not([class*="bg-"]) {
+      background: $secondary;
+    }
+
+    &[class*="bg-"]:after {
+      background: inherit;
+    }
+
   &--gradient-left {
 
     &:after {
@@ -469,6 +466,12 @@
       &[class*="bg-"]:after {
         background: none;
       }
+    }
+  }
+
+  &--transparent {
+    &:after {
+      background: none;
     }
   }
 }
