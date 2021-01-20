@@ -240,24 +240,6 @@
       .banner .headline {
         font-size: calc(100% + 2.5vw); } }
 
-.banner:after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  content: "";
-  transition: all .5s ease-in-out;
-  will-change: opacity;
-  background: rgba(0, 0, 0, 0.5); }
-
-.banner:not([class*="bg-"]) {
-  background: #151515; }
-
-.banner[class*="bg-"]:after {
-  background: inherit; }
-
 .banner--horizontal-center {
   text-align: center; }
   .banner--horizontal-center .banner__content > * {
@@ -338,13 +320,31 @@
   .banner.banner--medium .banner__container {
     min-height: 33rem; } }
 
-@media (min-width: 84.375em) {
+.banner:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  content: "";
+  transition: all .5s ease-in-out;
+  will-change: opacity;
+  background: rgba(0, 0, 0, 0.5); }
+
+.banner:not([class*="bg-"]) {
+  background: #151515; }
+
+.banner[class*="bg-"]:after {
+  background: inherit; }
+
+@media (min-width: 768px) {
   .banner--gradient-left:after {
     background: linear-gradient(90deg, rgba(0, 0, 0, 0.86) 0, rgba(0, 0, 0, 0.23) 65%, transparent); } }
 
 .banner--gradient-left.banner--gradient-light:after {
   background: rgba(255, 255, 255, 0.7); }
-  @media (min-width: 84.375em) {
+  @media (min-width: 768px) {
     .banner--gradient-left.banner--gradient-light:after {
       background: linear-gradient(90deg, #fff 1%, rgba(255, 255, 255, 0.92) 32%, rgba(255, 255, 255, 0)); } }
 
@@ -354,17 +354,20 @@
 .banner--gradient-left[class*="bg-"]:after {
   background: none; }
 
-@media (min-width: 84.375em) {
+@media (min-width: 768px) {
   .banner--gradient-bottom:after {
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 70%); } }
 
 .banner--gradient-bottom.banner--gradient-light:after {
   background: rgba(255, 255, 255, 0.7); }
-  @media (min-width: 84.375em) {
+  @media (min-width: 768px) {
     .banner--gradient-bottom.banner--gradient-light:after {
       background: linear-gradient(180deg, transparent 0, rgba(255, 255, 255, 0.9) 55%); } }
 
 .banner--gradient-bottom.banner--gradient-light[class*="bg-"]:after {
+  background: none; }
+
+.banner--transparent:after {
   background: none; }
 
 @media (min-width: 992px) {
