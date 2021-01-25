@@ -343,10 +343,32 @@
     <span class="hljs-attribute">float</span>: left;
     <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">45.25%</span>;
     <span class="hljs-attribute">content</span>: <span class="hljs-string">''</span>; }
+  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">84.375em</span>) {
+    <span class="hljs-selector-class">.banner--large</span> {
+      <span class="hljs-attribute">min-height</span>: <span class="hljs-number">48rem</span>; } }
   <span class="hljs-selector-class">.banner--medium</span><span class="hljs-selector-pseudo">::before</span> {
     <span class="hljs-attribute">float</span>: left;
     <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">32.25%</span>;
     <span class="hljs-attribute">content</span>: <span class="hljs-string">''</span>; }
+  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">84.375em</span>) {
+    <span class="hljs-selector-class">.banner--medium</span> {
+      <span class="hljs-attribute">min-height</span>: <span class="hljs-number">33rem</span>; } }
+  <span class="hljs-selector-class">.banner--small</span><span class="hljs-selector-pseudo">::before</span> {
+    <span class="hljs-attribute">float</span>: left;
+    <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">17.75%</span>;
+    <span class="hljs-attribute">content</span>: <span class="hljs-string">''</span>; }
+  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">84.375em</span>) {
+    <span class="hljs-selector-class">.banner</span><span class="hljs-selector-pseudo">::before</span> {
+      <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">0</span>; } }
+  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">84.375em</span>) {
+    <span class="hljs-selector-class">.banner--scale</span><span class="hljs-selector-class">.banner--large</span><span class="hljs-selector-pseudo">::before</span> {
+      <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">45.25%</span>; } }
+  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">84.375em</span>) {
+    <span class="hljs-selector-class">.banner--scale</span><span class="hljs-selector-class">.banner--medium</span><span class="hljs-selector-pseudo">::before</span> {
+      <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">32.25%</span>; } }
+  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width:</span> <span class="hljs-number">84.375em</span>) {
+    <span class="hljs-selector-class">.banner--scale</span><span class="hljs-selector-class">.banner--small</span><span class="hljs-selector-pseudo">::before</span> {
+      <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">17.75%</span>; } }
   <span class="hljs-selector-class">.banner</span><span class="hljs-selector-pseudo">::after</span> {
     <span class="hljs-attribute">display</span>: block;
     <span class="hljs-attribute">content</span>: <span class="hljs-string">''</span>;
@@ -737,7 +759,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">16.3 KB</span>
+                    <span class="Meta-value">16.9 KB</span>
                 </li>
             </ul>
         </div>
@@ -843,6 +865,9 @@
       <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">45.25%</span>;
       <span class="hljs-attribute">content</span>: <span class="hljs-string">''</span>;
     }
+    <span class="hljs-keyword">@include</span> breakpoint(container) {
+      <span class="hljs-attribute">min-height</span>: <span class="hljs-number">48rem</span>;
+    }
   }
 
   &amp;--medium {
@@ -851,7 +876,49 @@
       <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">32.25%</span>;
       <span class="hljs-attribute">content</span>: <span class="hljs-string">''</span>;
     }
+    <span class="hljs-keyword">@include</span> breakpoint(container) {
+      <span class="hljs-attribute">min-height</span>: <span class="hljs-number">33rem</span>;
+    }
   }
+
+  &amp;--<span class="hljs-selector-tag">small</span> {
+    &amp;<span class="hljs-selector-pseudo">::before</span> {
+      <span class="hljs-attribute">float</span>: left;
+      <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">17.75%</span>;
+      <span class="hljs-attribute">content</span>: <span class="hljs-string">''</span>;
+    }
+  }
+
+  <span class="hljs-keyword">@include</span> breakpoint(container) {
+    &amp;<span class="hljs-selector-pseudo">::before</span> {
+      <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">0</span>;
+    }
+  }
+
+  &amp;--scale {
+    &amp;<span class="hljs-selector-class">.banner--large</span> {
+      <span class="hljs-keyword">@include</span> breakpoint(container) {
+        &amp;<span class="hljs-selector-pseudo">::before</span> {
+          <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">45.25%</span>;
+        }
+      }
+    }
+    &amp;<span class="hljs-selector-class">.banner--medium</span> {
+      <span class="hljs-keyword">@include</span> breakpoint(container) {
+        &amp;<span class="hljs-selector-pseudo">::before</span> {
+          <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">32.25%</span>;
+        }
+      }
+    }
+    &amp;<span class="hljs-selector-class">.banner--small</span> {
+      <span class="hljs-keyword">@include</span> breakpoint(container) {
+        &amp;<span class="hljs-selector-pseudo">::before</span> {
+          <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">17.75%</span>;
+        }
+      }
+    }
+  }
+
   &amp;<span class="hljs-selector-pseudo">::after</span> {
     <span class="hljs-attribute">display</span>: block;
     <span class="hljs-attribute">content</span>: <span class="hljs-string">''</span>;
@@ -1347,7 +1414,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">8.6 KB</span>
+                    <span class="Meta-value">9.4 KB</span>
                 </li>
             </ul>
         </div>
@@ -2625,7 +2692,7 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2021-01-25T14:43:49.490Z">
+            <time datetime="2021-01-25T17:53:30.724Z">
                 1/25/2021
             </time>
         </div>
