@@ -1,0 +1,58 @@
+@import 'background-mixins';
+
+[class*="bg-"],
+[class*="bg--"] {
+  a,
+  [class*="bg-"] a,
+  [class*="bg--"] a {
+    color: inherit;
+  }
+}
+
+// @todo Remove just the next line in a future release.
+[class*="bg-pattern"],
+[class*="bg--"][class*="--pattern--"] {
+  background-size: auto auto;
+  background-position: center center;
+}
+
+// Add background rules
+@include add-backgrounds();
+
+// @todo Move this somewhere else.
+.container--padded {
+  padding: 10px;
+}
+
+
+
+[class*="bg--"] {
+  *,
+  & [class*="bg--"] * {
+    border-color: inherit;
+
+    &:before,
+    &:after {
+      color: inherit;
+      border-color: inherit;
+    }
+  }
+}
+
+// border color overrides for certain background colors
+.bg--gray,
+.bg--white,
+.bg--gray,
+.bg-pattern--brain-reversed,
+.bg--gold--pattern--brain,
+.bg--gold,
+.bg-pattern--brain,
+.bg--white--pattern--brain  {
+  border-color: rgba(0,0,0,.125);
+}
+
+.bg--black--pattern--brain,
+.bg-pattern--brain-black,
+.bg--black {
+  border-color: rgba(255,255,255,.325);
+}
