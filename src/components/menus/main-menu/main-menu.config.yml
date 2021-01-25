@@ -5,15 +5,60 @@ status: wip
 context:
     field_title: Headline
     menu_type: main
-    site_type: primary
+    site_type: primary 
+    links_nav:
+      title: Additional Navigation
+      title_classes: element-invisible
+      links:
+      - link_nav_text: Admissions
+        link_nav_classes: 
+      - link_nav_text: Academics
+        link_nav_classes:
+      - link_nav_text: Research
+        link_nav_classes:
+      - link_nav_text: About
+        link_nav_classes:
+
 variants:
   - name: default
     hidden: true
+
   - name: Main Menu Secondary Horizontal
     hidden: false
     context:
       nav_type: main--secondary--horizontal
+
   - name: Main Menu Secondary Vertical
     hidden: false
     context:
       nav_type: main--secondary--vertical
+
+  - name: Main Menu Sidebar
+    hidden: false
+    context:
+      nav_type: main--sidebar
+      links_nav:
+        links:
+        - link_nav_text: Admissions
+          link_nav_classes: item--first
+        - link_nav_text: Academics
+          link_nav_classes: menuparent--active is-active
+          links:
+          - link_nav_text: Undergraduate
+            link_nav_classes:
+          - link_nav_text: Graduate
+            link_nav_classes: 
+          - link_nav_text: International
+            link_nav_classes:
+          - link_nav_text: Distance and online
+            link_nav_classes:
+          - link_nav_text: Cost and aid
+            link_nav_classes:
+        - link_nav_text: Research
+          link_nav_classes:
+        - link_nav_text: About
+          link_nav_classes:
+
+  - name: links
+    label: Links
+    hidden: true

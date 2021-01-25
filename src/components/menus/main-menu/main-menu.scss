@@ -182,6 +182,70 @@
   }
 }
 
+// Sidebar
+.main--sidebar {
+    ul.menu {
+        background-color: #fff;
+        border: 1px solid $grey-light;
+        width: 100%;
+        @include flexbox;
+        @include flex-direction(column);
+
+        & li {
+            border-bottom: 1px solid $grey-light;
+            display: block;
+            font-size: $content-font-size;
+            & a {
+                display: block;
+                position: relative;
+                @include padding($top: $md, $right: $md, $bottom: $md, $left: $md);
+                &:hover, &:focus {
+                    background-color: $light;
+                    text-decoration: underline;
+                }
+            }
+            &.is-active > a {
+                background-color: $light;
+                font-weight: bold;
+            }
+            &.item--first a {
+                border-top: 4px solid $primary;
+                font-size: $base-font-size;
+                font-weight: bold;
+                letter-spacing: .8px;
+                margin: 0 $md;
+                padding-left: 0;
+                padding-right: 0;
+                text-transform: uppercase;
+                &:hover, &:active {
+                    background-color: transparent;
+                }
+            }
+            &:last-of-type {
+                border-bottom: none;
+            }
+            &.menuparent--active {
+                background-color: $light;
+            }
+        }
+        // second level
+        & ul {
+            & li {
+                border-bottom: none;
+                font-size: $base-font-size;
+                & a {
+                    @include padding($top: $sm, $right: $md, $bottom: $sm, $left: $lg);
+                    &:before {
+                        content: "- ";
+                        position: absolute;
+                        left: $md;
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 // ie11
 @media all and (-ms-high-contrast: none),
