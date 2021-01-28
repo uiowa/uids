@@ -194,7 +194,55 @@
     @include flex-direction(column);
 
     li {
-      margin-bottom: $sm;
+      padding: 0;
+      margin: 0;
+
+      &.menu-item--active-trail {
+        order: 100;
+        background: #fff;
+        padding: 0;
+        position: relative;
+
+        &:before {
+          height: 10px;
+          position: absolute;
+          width: 100%;
+          content: '';
+          right: 0;
+          top: -10px;
+          box-shadow: 0px -16px 3px -15px rgba(0, 0, 0, 0.12) inset;
+        }
+
+        a {
+          @include padding($top: $sm, $right: $sm, $bottom: $sm, $left:$sm);
+
+          &:before {
+            width: 20px;
+            height: 20px;
+            content: '';
+            position: absolute;
+            left: calc(50% - 10px);
+            top: calc(100%);
+            background-color: transparent;
+            border-top: 10px solid $primary;
+            border-right: 10px solid transparent;
+            border-left: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+          }
+
+          &:after {
+            background: $primary;
+            bottom: -1px;
+            width: 100%;
+            height: 6px;
+          }
+        }
+      }
+
+      a {
+        @include padding($top: $sm, $right: $sm, $bottom: $sm, $left:$sm);
+        border-bottom: 1px solid #e1e1e1;
+      }
     }
   }
 }
