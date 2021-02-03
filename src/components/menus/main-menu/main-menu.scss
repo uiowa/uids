@@ -127,7 +127,7 @@
     li {
       @include breakpoint(sm) {
         font-size: calc(100% + .1vw);
-        @include center(vertical);
+        display: flex;
       }
 
       &:first-of-type a {
@@ -159,59 +159,61 @@
         }
       }
 
-      &.menu-item--active-trail {
-        background: #f1f1f1;
-        position: relative;
+      @include breakpoint(sm) {
+        &.menu-item--active-trail {
+          background: #f1f1f1;
+          position: relative;
 
-        &:before, &:after {
-          height: 100%;
-          position: absolute;
-          width: 10px;
-          content: '';
-        }
-
-        &:before {
-          right: 0;
-          box-shadow: -16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset;
-          z-index: 1;
-        }
-
-        &:after {
-          left: 0;
-          box-shadow: 16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset;
-        }
-
-        a {
-          margin: 0;
-          padding-right: 1.875rem;
-          padding-left: 1.875rem;
+          &:before, &:after {
+            height: 100%;
+            position: absolute;
+            width: 10px;
+            content: '';
+          }
 
           &:before {
-            width: 20px;
-            height: 20px;
-            content: '';
-            position: absolute;
-            left: calc(50% - 10px);
-            top: calc(100% - 1px);
-            background-color: transparent;
-            border-top: 10px solid $primary;
-            border-right: 10px solid transparent;
-            border-left: 10px solid transparent;
-            border-bottom: 10px solid transparent;
+            right: 0;
+            box-shadow: -16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset;
             z-index: 1;
           }
 
           &:after {
-            background: $primary;
-            content: '';
-            position: absolute;
-            left: 50%;
-            bottom: 0;
-            width: 100%;
-            height: 6px;
-            transform-origin: center;
-            transition: transform 0.3s ease-in-out;
-            transform: translate(-50%, 0) scaleX(1);
+            left: 0;
+            box-shadow: 16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset;
+          }
+
+          a {
+            margin: 0;
+            padding-right: 1.875rem;
+            padding-left: 1.875rem;
+
+            &:before {
+              width: 20px;
+              height: 20px;
+              content: '';
+              position: absolute;
+              left: calc(50% - 10px);
+              top: calc(100% - 1px);
+              background-color: transparent;
+              border-top: 10px solid $primary;
+              border-right: 10px solid transparent;
+              border-left: 10px solid transparent;
+              border-bottom: 10px solid transparent;
+              z-index: 1;
+            }
+
+            &:after {
+              background: $primary;
+              content: '';
+              position: absolute;
+              left: 50%;
+              bottom: 0;
+              width: 100%;
+              height: 6px;
+              transform-origin: center;
+              transition: transform 0.3s ease-in-out;
+              transform: translate(-50%, 0) scaleX(1);
+            }
           }
         }
       }
@@ -249,17 +251,19 @@
     .bg-pattern--brain-black &,
     .bg-pattern--brain-reversed & {
 
-      li.menu-item--active-trail {
-        background: #fff;
+      @include breakpoint(sm) {
+        li.menu-item--active-trail {
+          background: #fff;
 
-        &:before {
-          right: 100%;
-          box-shadow: -16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset;
-        }
+          &:before {
+            right: 100%;
+            box-shadow: -16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset;
+          }
 
-        &:after {
-          left: 100%;
-          box-shadow: 16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset;
+          &:after {
+            left: 100%;
+            box-shadow: 16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset;
+          }
         }
       }
     }
@@ -275,8 +279,10 @@
         }
       }
 
-      li.menu-item--active-trail a {
-        color: $secondary;
+      @include breakpoint(sm) {
+        li.menu-item--active-trail a {
+          color: $secondary;
+        }
       }
     }
 
