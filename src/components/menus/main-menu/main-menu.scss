@@ -187,6 +187,7 @@
   &.main--sidebar-minimal {
     ul.menu {
       border: none;
+      border-top: 4px solid $primary;
       & li {
         &.item--first a {
 
@@ -199,6 +200,7 @@
     ul.menu {
         background-color: #fff;
         border: 1px solid $grey-light;
+        border-top: 4px solid $primary;
         width: 100%;
         @include flexbox;
         @include flex-direction(column);
@@ -220,7 +222,7 @@
                 background-color: $light;
                 font-weight: bold;
             }
-            &.item--first a {
+           /* &.item--first a {
                 border-top: 4px solid $primary;
                 font-size: $base-font-size;
                 font-weight: bold;
@@ -232,7 +234,7 @@
                 &:hover, &:active {
                     background-color: transparent;
                 }
-            }
+            }*/
             &:last-of-type {
                 border-bottom: none;
             }
@@ -242,15 +244,19 @@
         }
         // second level
         & ul {
+          padding-bottom: $sm;
             & li {
                 border-bottom: none;
                 font-size: $base-font-size;
                 & a {
-                    @include padding($top: $sm, $right: $md, $bottom: $sm, $left: $lg);
+                    @include padding($top: $sm, $right: $md, $bottom: $sm, $left: 2.2rem);
                     &:before {
-                        content: "- ";
+                        content: "\f105";
                         position: absolute;
+                        font-size: .9rem;
                         left: $md;
+                        right: $md;
+                        @include fas();
                     }
                 }
             }
