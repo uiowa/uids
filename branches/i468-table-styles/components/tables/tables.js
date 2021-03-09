@@ -19,6 +19,9 @@ function generateResponsiveTables() {
     for (let i = 0; i < tables.length; i++) {
         let table = tables[i];
         if (!table.closest('.table__responsive-container')) {
+            // Set the table to have a class defining it as responsive.
+            table.classList.add('table__responsive');
+
             // Set table header HTML for future use.
             let header_HTML = '';
 
@@ -42,8 +45,6 @@ function generateResponsiveTables() {
 
               // Make a duplicate caption hidden from aria for sighted users.
               caption_HTML = '<div class="table__visual-caption" aria-hidden="true">' + caption[0].innerHTML + '</div>';
-              console.log(caption_HTML);
-
             }
 
             // Determine if there are thead TH's without scope.
