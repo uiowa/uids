@@ -24,15 +24,26 @@ function generateResponsiveTables() {
 
             //Prepare table caption variables.
             let caption_id = '';
+            let caption_HTML = '';
             let caption_labeledby = '';
 
-            //If the table catption exists and doesnt have an Id...
-            if (table.getElementsByTagName('caption')[0] && !table.getElementsByTagName('caption')[0].id) {
+            // If the table caption exists...
+            if (table.getElementsByTagName('caption')[0]) {
+              let caption = table.getElementsByTagName('caption');
+
+              // And if table caption doesnt have an Id...
+              if(!caption[0].id) {
                 caption_id = 'table--' + i;
                 caption_labeledby = 'aria-labelledby="' + caption_id + '"';
 
                 //Give the caption an Id.
-                table.getElementsByTagName('caption')[0].id = caption_id;
+                caption[0].id = caption_id;
+              }
+
+              // Make a duplicate caption hidden from aria for sighted users.
+              caption_HTML = '<div class="table__visual-caption" aria-hidden="true">' + caption[0].innerHTML + '</div>';
+              console.log(caption_HTML);
+
             }
 
             // Determine if there are thead TH's without scope.
@@ -93,6 +104,7 @@ function generateResponsiveTables() {
             table.outerHTML =
                 '<div id="table__responsive-measurer--' + i + '"></div>' +
                 '<div id="table__responsive-container--' + i + '" class="table__responsive-container table ' + classes + ' ' + row_headers + '" role="region" ' + caption_labeledby + ' tabindex="0">' +
+                    caption_HTML +
                     header_scroller +
                     '<div class="table__container syncscroll" name="sync-table-' + i + '">' +
                         table.outerHTML +
