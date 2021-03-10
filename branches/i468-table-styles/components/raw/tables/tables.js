@@ -102,6 +102,13 @@ function generateResponsiveTables() {
             // Wrap the table in a responsive table div, and make sure aria knows what caption labels it, if any.
             // This should be done last as to not mess up any scoping of previous functions.
             let classes = table.classList.contains('is-striped') ? 'table--striped' : '';
+
+            // If the table has the .gray-borders class, add .table--gray-borders to the responsive table container as well.
+            if (table.classList.contains('gray-borders')) {
+              classes += ' table--gray-borders';
+            }
+
+            // Construct the table HTML.
             table.outerHTML =
                 '<div id="table__responsive-measurer--' + i + '"></div>' +
                 '<div id="table__responsive-container--' + i + '" class="table__responsive-container table ' + classes + ' ' + row_headers + '" role="region" ' + caption_labeledby + ' tabindex="0">' +
@@ -150,7 +157,7 @@ function generateResponsiveTables() {
 function triggerTableRespond() {
     let responsive_tables = document.querySelectorAll('.table__responsive-container');
 
-    // This function can be defined by the user to add any functionaity to this.
+    // This function can be defined by the user to add any functionality to this.
     if (typeof hook_triggerTableRespond === "function") {
         hook_triggerTableRespond(responsive_tables);
     }
