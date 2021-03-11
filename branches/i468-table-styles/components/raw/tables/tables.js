@@ -22,6 +22,9 @@ function generateResponsiveTables() {
             // Set the table to have a class defining it as responsive.
             table.classList.add('table__responsive');
 
+            // If the table is default width, capture its initial width.
+            let table_offsetWidth = table.offsetWidth;
+
             // Set table header HTML for future use.
             let header_HTML = '';
 
@@ -108,10 +111,18 @@ function generateResponsiveTables() {
               classes += ' table--gray-borders';
             }
 
+            // If the table has .table--width-default then set a max width that will later be set on the measurer and the container.
+            // Also add a class to the container classes for some extra styling.
+            let table_elements_styles = '';
+            if (table.classList.contains('table--width-default')) {
+              table_elements_styles = 'style="max-width:' + table_offsetWidth + 'px"';
+              classes += ' table__responsive-container--width-default';
+            }
+
             // Construct the table HTML.
             table.outerHTML =
-                '<div id="table__responsive-measurer--' + i + '"></div>' +
-                '<div id="table__responsive-container--' + i + '" class="table__responsive-container table ' + classes + ' ' + row_headers + '" role="region" ' + caption_labeledby + ' tabindex="0">' +
+                '<div id="table__responsive-measurer--' + i + '" ' + table_elements_styles + '></div>' +
+                '<div id="table__responsive-container--' + i + '" class="table__responsive-container table ' + classes + ' ' + row_headers + '" role="region" ' + caption_labeledby + ' tabindex="0" ' + table_elements_styles + '>' +
                     caption_HTML +
                     header_scroller +
                     '<div class="table__container syncscroll" name="sync-table-' + i + '">' +
