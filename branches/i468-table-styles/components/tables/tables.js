@@ -115,7 +115,7 @@ function generateResponsiveTables() {
             // Also add a class to the container classes for some extra styling.
             let table_elements_styles = '';
             if (table.classList.contains('table--width-default')) {
-              table_elements_styles = 'style="max-width:' + table_offsetWidth + 'px"';
+              table_elements_styles = 'style="max-width:min(100%, ' + table_offsetWidth + 'px)"';
               classes += ' table__responsive-container--width-default';
             }
 
