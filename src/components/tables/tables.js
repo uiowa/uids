@@ -104,11 +104,11 @@ function generateResponsiveTables() {
 
             // Wrap the table in a responsive table div, and make sure aria knows what caption labels it, if any.
             // This should be done last as to not mess up any scoping of previous functions.
-            let classes = table.classList.contains('is-striped') ? 'table--striped' : '';
+            let classes = table.classList.contains('is-striped') ? 'table__responsive-container--is-striped' : '';
 
-            // If the table has the .gray-borders class, add .table--gray-borders to the responsive table container as well.
-            if (table.classList.contains('gray-borders')) {
-              classes += ' table--gray-borders';
+            // If the table has the .table--gray-borders class, add .table__responsive-container--gray-borders to the responsive table container as well.
+            if (table.classList.contains('table--gray-borders')) {
+              classes += ' table__responsive-container--gray-borders';
             }
 
             // If the table has .table--width-default then set a max width that will later be set on the measurer and the container.
