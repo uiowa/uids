@@ -1,5 +1,6 @@
 {% embed '@background' %}
   {% block content %}
+    {% include '@button--row' with { 'items': button } %}
     {% for headline in headlines %}
       {% set example_headline = {
         'headline_level': 'h2',
@@ -13,5 +14,7 @@
     <blockquote><p>Blockquote Text</p></blockquote>
     {% include '@card--row' with { 'items': cards } %}
     {% include '@card--row-horizontal-collection' with { 'items': horizontal_cards } %}
+
+
   {% endblock %}
 {% endembed %}
