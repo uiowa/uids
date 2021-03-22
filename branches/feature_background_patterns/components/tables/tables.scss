@@ -46,8 +46,8 @@ table {
     padding-left: $md;
   }
 
-  &.hover-highlight tbody tr:not(.is-selected),
-  &.hover-highlight tbody tr:not(.is-selected):nth-child(even) {
+  &.table--hover-highlight tbody tr:not(.is-selected),
+  &.table--hover-highlight tbody tr:not(.is-selected):nth-child(even) {
     &:hover {
       th {
         background-color: #fff3c3
@@ -78,7 +78,9 @@ table {
     color: $secondary;
   }
 
-  &.is-striped {
+  // DO NOT USE THE .is-striped CLASS. it is a legacy class, and you should be using .table--is-striped.
+  &.is-striped,
+  &.table--is-striped{
     border: 1px solid #eee;
 
     thead th {
@@ -98,23 +100,50 @@ table {
   }
 }
 
-table.gray-borders {
+table.table--gray-borders {
   border: #ddd 1px solid;
 
   & > tr,
   & > tbody > tr,
-  & > tfoot > tr {
+  & > tfoot > tr,
+  & > thead > tr,
+  & > caption {
     & > td,
     & > th {
       border: #ddd 1px solid;
     }
   }
 
-  & > thead > tr,
-  & > caption {
-    & > td,
-    & > th {
-      border: #7c7c7c 1px solid;
+  & > tbody > tr:first-child {
+    th, td {
+      border-top: none;
+    }
+  }
+
+  // DO NOT USE THE .is-striped CLASS. it is a legacy class, and you should be using .table--is-striped.
+  &.is-striped,
+  &.table--is-striped {
+    & > thead > tr,
+    & > caption {
+      & > td,
+      & > th {
+        border: #7c7c7c 1px solid;
+      }
+    }
+
+    & > thead > tr {
+      & > td,
+      & > th {
+        border-bottom: #ddd 1px solid;
+
+        &:first-child {
+          border-left: #ddd 1px solid;
+        }
+
+        &:last-child {
+          border-right: #ddd 1px solid;
+        }
+      }
     }
   }
 }
@@ -145,17 +174,22 @@ table.gray-borders {
       }
     }
 
-    &.table--striped {
+    &.table__responsive-container--is-striped {
       border: 1px solid #eee;
 
-      &.table--gray-borders {
+      &.table__responsive-container--gray-borders {
         border: unset;
       }
 
       &.table--is-sticky-left.table--left-sticky-minwidth {
-        table.is-striped tbody th {
-          filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
+        // DO NOT USE THE .is-striped CLASS. it is a legacy class, and you should be using .table--is-striped.
+        table.is-striped,
+        table.table--is-striped{
+          tbody th {
+            filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
+          }
         }
+
 
         .table__sticky-heading:first-child {
           filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
@@ -168,30 +202,52 @@ table.gray-borders {
           filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.2));
         }
       }
+
+      &.table__responsive-container--gray-borders .table__responsive-header .table__sticky-heading {
+        border-left: #7c7c7c 1px solid;
+        border-top: #7c7c7c 1px solid;
+        border-bottom: #ddd 1px solid;
+
+        &:first-child {
+          border-left: 1px solid #ddd;
+        }
+      }
     }
 
-    &.table--gray-borders {
+    &.table__responsive-container--gray-borders {
       .table__visual-caption {
         border: #7c7c7c 1px solid;
         border-bottom: none;
       }
 
+      table > tbody > tr:first-child {
+        th, td {
+          border-top: none;
+        }
+      }
+
       .table__responsive-header .table__sticky-heading {
-        border-left: #7c7c7c 1px solid;
-        border-top: #7c7c7c 1px solid;
-        border-bottom: #7c7c7c 1px solid;
+        border-left: #ddd 1px solid;
+        border-top: #ddd 1px solid;
+        border-bottom: #ddd 1px solid;
+
+        &:first-child {
+          border-left: 1px solid #ddd;
+        }
       }
     }
 
     table {
       width: 100%;
 
-      &.is-striped {
+      // DO NOT USE THE .is-striped CLASS. it is a legacy class, and you should be using .table--is-striped.
+      &.is-striped,
+      &.table--is-striped{
         border: none;
       }
 
       caption {
-        @include element-invisible;
+        @include element-invisible();
       }
     }
 
@@ -204,7 +260,7 @@ table.gray-borders {
       transition: border-right 0.3s ease-in-out;
     }
 
-    &.table--is-sticky-left.table--striped.table--left-sticky-minwidth .table__sticky-heading:first-child {
+    &.table--is-sticky-left.table__responsive-container--is-striped.table--left-sticky-minwidth .table__sticky-heading:first-child {
       border-right: none;
     }
 
@@ -240,7 +296,7 @@ table.gray-borders {
       overflow-x: hidden;
     }
 
-    .table--striped & {
+    .table__responsive-container--is-striped & {
       .table__sticky-heading {
         background: $primary;
         text-transform: uppercase;
