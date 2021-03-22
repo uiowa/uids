@@ -127,7 +127,7 @@
     li {
       @include breakpoint(sm) {
         font-size: calc(100% + .1vw);
-        @include center(vertical);
+        display: flex;
       }
 
       &:first-of-type a {
@@ -148,14 +148,73 @@
         @include breakpoint(sm) {
           position: relative;
           width: auto;
-          margin: 0 $lg;
           text-align: center;
           text-transform: uppercase;
           border: 0px;
           background-color: transparent;
           font-weight: $font-weight-medium-bold;
-          @include padding($top: $lg, $right: 0, $bottom: $lg, $left:0);
+          padding: 1.475rem 1.375rem;
+          margin: 0;
           @include center(both);
+        }
+      }
+
+      @include breakpoint(sm) {
+        &.menu-item--active-trail {
+          background: #f1f1f1;
+          position: relative;
+
+          &:before, &:after {
+            height: 100%;
+            position: absolute;
+            width: 10px;
+            content: '';
+          }
+
+          &:before {
+            right: 0;
+            box-shadow: -16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset;
+            z-index: 1;
+          }
+
+          &:after {
+            left: 0;
+            box-shadow: 16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset;
+          }
+
+          a {
+            margin: 0;
+            padding-right: 1.875rem;
+            padding-left: 1.875rem;
+
+            &:before {
+              width: 20px;
+              height: 20px;
+              content: '';
+              position: absolute;
+              left: calc(50% - 10px);
+              top: calc(100% - 1px);
+              background-color: transparent;
+              border-top: 10px solid $primary;
+              border-right: 10px solid transparent;
+              border-left: 10px solid transparent;
+              border-bottom: 10px solid transparent;
+              z-index: 1;
+            }
+
+            &:after {
+              background: $primary;
+              content: '';
+              position: absolute;
+              left: 50%;
+              bottom: 0;
+              width: 100%;
+              height: 6px;
+              transform-origin: center;
+              transition: transform 0.3s ease-in-out;
+              transform: translate(-50%, 0) scaleX(1);
+            }
+          }
         }
       }
     }
@@ -163,13 +222,17 @@
     li a:before {
       @include breakpoint(sm) {
         position: absolute;
-        right: -30px;
         bottom: 35%;
         width: 1px;
         height: 25%;
         content: "";
         background: $primary;
+        right: -1px;
       }
+    }
+
+    li a:after {
+      background-color: $brand-cool-gray;
     }
 
     li:last-of-type a {
@@ -179,9 +242,72 @@
         }
       }
     }
+
+    .bg--black &,
+    .bg--black--pattern--brain &,
+    .bg--gold &,
+    .bg--gold--pattern--brain &,
+    .bg--gray &,
+    .bg-pattern--brain-black &,
+    .bg-pattern--brain-reversed & {
+
+      @include breakpoint(sm) {
+        li.menu-item--active-trail {
+          background: #fff;
+
+          &:before {
+            right: 100%;
+            box-shadow: -16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset;
+          }
+
+          &:after {
+            left: 100%;
+            box-shadow: 16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset;
+          }
+        }
+      }
+    }
+
+    .bg--black &,
+    .bg--black--pattern--brain &,
+    .bg-pattern--brain-black & {
+      li a {
+        color: #fff;
+
+        &:after {
+          background-color: $primary;
+        }
+      }
+
+      @include breakpoint(sm) {
+        li.menu-item--active-trail a {
+          color: $secondary;
+        }
+      }
+    }
+
+    .bg--gold &,
+    .bg--gold--pattern--brain &,
+    .bg-pattern--brain-reversed & {
+      li a {
+        &:before {
+          background-color: $brand-cool-gray;
+        }
+      }
+
+      li.menu-item--active-trail a {
+        &:before {
+          border-top-color: $brand-cool-gray;
+          background-color: transparent;
+        }
+
+        &:after {
+          background-color: $brand-cool-gray;
+        }
+      }
+    }
   }
 }
-
 
 // ie11
 @media all and (-ms-high-contrast: none),

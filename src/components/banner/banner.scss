@@ -1,23 +1,48 @@
 @import '../../assets/scss/variables';
 @import '../../assets/scss/utilities';
 
-// Banner Height
 .banner {
-  min-height: 18rem;
+  // @todo Replace with https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio
+  min-height: 15rem;
+
   // Banner Heights
   &--large {
-    @include breakpoint(sm) {
-      min-height: 33rem;
-    }
-    @include breakpoint(menu) {
-      min-height: 48rem;
+    &::before {
+      float: left;
+      padding-top: 45.25%;
+      content: '';
     }
   }
 
   &--medium {
-    @include breakpoint(sm) {
-      min-height: 33rem;
+    &::before {
+      float: left;
+      padding-top: 32.25%;
+      content: '';
     }
+  }
+
+  &--small {
+    &::before {
+      float: left;
+      padding-top: 17.75%;
+      content: '';
+    }
+  }
+
+  // Full screen 100vh option
+  &--full {
+    &.banner--large {
+      @include breakpoint(container) {
+        height: 100vh;
+      }
+    }
+  }
+
+  &::after {
+    display: block;
+    content: '';
+    clear: both;
   }
 
   // Override background color if button is within a gold container
@@ -64,6 +89,10 @@
       top: 0;
     }
   }
+    
+  .media--video .video-controls { 
+    z-index: 2; 
+  }
 
   img {
     width: 100%;
@@ -81,6 +110,10 @@
       height: 100%;
       top: 0;
     }
+  }
+
+  .headline + .banner__action {
+    margin-top: 1rem;
   }
 
   .banner__action .bttn {
@@ -278,32 +311,6 @@
   }
 }
 
-// Default overlay
-
-.banner {
-  &:after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
-    width: 100%;
-    height: 100%;
-    content: "";
-    -webkit-transition: all .5s ease-in-out;
-    transition: all .5s ease-in-out;
-    will-change: opacity;
-    background: rgba(0, 0, 0, .5);
-  }
-
-  &:not([class*="bg-"]) {
-    background: $secondary;
-  }
-
-  &[class*="bg-"]:after {
-    background: inherit;
-  }
-}
-
 // Alignment Variants
 .banner--horizontal-center {
   text-align: center;
@@ -312,6 +319,15 @@
     >* {
       margin-right: auto;
       margin-left: auto;
+    }
+  }
+}
+
+// Bottom/Left Video button alignment
+.banner--horizontal-left.banner--vertical-bottom  {
+  .banner__content {
+    @include breakpoint(sm) {
+      padding-bottom: 4.25rem;
     }
   }
 }
@@ -328,6 +344,12 @@
     @include breakpoint(container) {
       left: 3rem;
       bottom: 3rem;
+    }
+    .banner--horizontal-left.banner--vertical-bottom & {
+      @include breakpoint(container) {
+        bottom: 1.5rem;
+        left: 1.5rem;
+      }
     }
   }
 
@@ -412,10 +434,33 @@
 
 // Gradient overlays
 .banner {
+  // Default overlay
+    &:after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      content: "";
+      -webkit-transition: all .5s ease-in-out;
+      transition: all .5s ease-in-out;
+      will-change: opacity;
+      background: rgba(0, 0, 0, .5);
+    }
+
+    &:not([class*="bg-"]) {
+      background: $secondary;
+    }
+
+    &[class*="bg-"]:after {
+      background: inherit;
+    }
+
   &--gradient-left {
 
     &:after {
-      @include breakpoint(container) {
+      @include breakpoint(sm) {
         background: linear-gradient(90deg, rgba(0, 0, 0, .86) 0, rgba(0, 0, 0, .23) 65%, transparent);
       }
     }
@@ -424,7 +469,7 @@
       &:after {
         background: rgba(255, 255, 255, .7);
 
-        @include breakpoint(container) {
+        @include breakpoint(sm) {
           background: linear-gradient(90deg, #fff 1%, hsla(0, 0%, 100%, .92) 32%, hsla(0, 0%, 100%, 0));
         }
       }
@@ -441,7 +486,7 @@
 
   &--gradient-bottom {
     &:after {
-      @include breakpoint(container) {
+      @include breakpoint(sm) {
         background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 70%);
       }
     }
@@ -450,7 +495,7 @@
       &:after {
         background: rgba(255, 255, 255, .7);
 
-        @include breakpoint(container) {
+        @include breakpoint(sm) {
           background: linear-gradient(180deg, transparent 0, hsla(0, 0%, 100%, .9) 55%);
         }
       }
@@ -458,6 +503,12 @@
       &[class*="bg-"]:after {
         background: none;
       }
+    }
+  }
+
+  &--transparent {
+    &:after {
+      background: none;
     }
   }
 }

@@ -1,4 +1,5 @@
 @import '../../assets/scss/variables';
+@import '../../assets/scss/utilities';
 //// Table Elements
 
 table[border] {
@@ -11,7 +12,6 @@ table[border] {
 }
 
 table {
-  width: 100%;
   font-size: $content-font-size;
   border-spacing: 0;
   border-collapse: collapse;
@@ -46,6 +46,28 @@ table {
     padding-left: $md;
   }
 
+  &.hover-highlight tbody tr:not(.is-selected),
+  &.hover-highlight tbody tr:not(.is-selected):nth-child(even) {
+    &:hover {
+      th {
+        background-color: #fff3c3
+      }
+
+      background-color: #fff3c3;
+    }
+  }
+
+  &:not(.table__responsive) caption {
+    width: 100%;
+    padding: 1.05rem;
+    text-align: center;
+    font-size: 1rem;
+    color: #fff;
+    text-transform: uppercase;
+    background-color: #333;
+    font-weight: bold;
+  }
+
   tbody tr:last-child td,
   tbody tr:last-child th {
     border-bottom-width: 0;
@@ -76,10 +98,40 @@ table {
   }
 }
 
+table.gray-borders {
+  border: #ddd 1px solid;
+
+  & > tr,
+  & > tbody > tr,
+  & > tfoot > tr {
+    & > td,
+    & > th {
+      border: #ddd 1px solid;
+    }
+  }
+
+  & > thead > tr,
+  & > caption {
+    & > td,
+    & > th {
+      border: #7c7c7c 1px solid;
+    }
+  }
+}
+
 .table {
   &__responsive-container {
     width: 100%;
     position: relative;
+
+    &--width-default {
+      width: unset;
+      display: inline-block;
+
+      table.table--width-default {
+        width: unset;
+      }
+    }
 
     &.table__row-headers--true {
 
@@ -95,6 +147,10 @@ table {
 
     &.table--striped {
       border: 1px solid #eee;
+
+      &.table--gray-borders {
+        border: unset;
+      }
 
       &.table--is-sticky-left.table--left-sticky-minwidth {
         table.is-striped tbody th {
@@ -112,9 +168,30 @@ table {
           filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.2));
         }
       }
+    }
 
-      table.is-striped {
+    &.table--gray-borders {
+      .table__visual-caption {
+        border: #7c7c7c 1px solid;
+        border-bottom: none;
+      }
+
+      .table__responsive-header .table__sticky-heading {
+        border-left: #7c7c7c 1px solid;
+        border-top: #7c7c7c 1px solid;
+        border-bottom: #7c7c7c 1px solid;
+      }
+    }
+
+    table {
+      width: 100%;
+
+      &.is-striped {
         border: none;
+      }
+
+      caption {
+        @include element-invisible;
       }
     }
 
@@ -140,6 +217,17 @@ table {
       font-size: $base-font-size;
       margin-bottom: 0;
     }
+  }
+
+  &__visual-caption {
+    width: 100%;
+    padding: 1.05rem;
+    text-align: center;
+    font-size: 1rem;
+    color: #fff;
+    text-transform: uppercase;
+    background-color: #333;
+    font-weight: bold;
   }
 
   &__responsive-header {
