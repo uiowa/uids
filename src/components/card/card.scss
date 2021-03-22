@@ -452,7 +452,7 @@
 }
 
 // set button border color for only the bg--white version
-.card.bg--white {
+.card[class*="bg--white"] {
 
   [class*="bg-"] & {
     .bttn--outline {
@@ -486,36 +486,6 @@
       &--enclosed:not([class*="bg-"]) {
         @include breakpoint(sm) {
           padding: 2rem;
-        }
-      }
-    }
-  }
-}
-
-@each $bg in 'bg--gold',
-'bg--white',
-'bg--black',
-'bg--gray' {
-  .#{$bg} {
-
-    // Unset matching background color padding
-    &--media-left,
-    &--media-right {
-      &:not(.card--enclosed) {
-        @include breakpoint(sm) {
-          padding: 0;
-        }
-      }
-    }
-
-    &.card {
-
-      // unset matching background color padding
-      &--stacked:not(.card--enclosed) {
-        .card__body {
-          @include breakpoint(sm) {
-            padding: 2rem 0;
-          }
         }
       }
     }
