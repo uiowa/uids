@@ -6,7 +6,6 @@ table[border] {
     border-color: #eee; }
 
 table {
-  width: 100%;
   font-size: 1.2rem;
   border-spacing: 0;
   border-collapse: collapse;
@@ -30,54 +29,139 @@ table {
     position: static;
     left: 0;
     padding-left: 1.05rem; }
+  table.table--hover-highlight tbody tr:not(.is-selected):hover,
+  table.table--hover-highlight tbody tr:not(.is-selected):nth-child(even):hover {
+    background-color: #fff3c3; }
+    table.table--hover-highlight tbody tr:not(.is-selected):hover th,
+    table.table--hover-highlight tbody tr:not(.is-selected):nth-child(even):hover th {
+      background-color: #fff3c3; }
+  table:not(.table__responsive) caption {
+    width: 100%;
+    padding: 1.05rem;
+    text-align: center;
+    font-size: 1rem;
+    color: #fff;
+    text-transform: uppercase;
+    background-color: #333;
+    font-weight: bold; }
   table tbody tr:last-child td,
   table tbody tr:last-child th {
     border-bottom-width: 0; }
   table thead td,
   table thead th {
     color: #151515; }
-  table.is-striped {
+  table.is-striped, table.table--is-striped {
     border: 1px solid #eee; }
-    table.is-striped thead th {
+    table.is-striped thead th, table.table--is-striped thead th {
       background: #FFCD00;
       text-transform: uppercase;
       border: none; }
-    table.is-striped tbody th {
+    table.is-striped tbody th, table.table--is-striped tbody th {
       border: none; }
     table.is-striped tbody tr:not(.is-selected):nth-child(even),
-    table.is-striped tbody tr:not(.is-selected):nth-child(even) th {
+    table.is-striped tbody tr:not(.is-selected):nth-child(even) th, table.table--is-striped tbody tr:not(.is-selected):nth-child(even),
+    table.table--is-striped tbody tr:not(.is-selected):nth-child(even) th {
       background-color: #f3f3f3; }
+
+table.table--gray-borders {
+  border: #ddd 1px solid; }
+  table.table--gray-borders > tr > td,
+  table.table--gray-borders > tr > th,
+  table.table--gray-borders > tbody > tr > td,
+  table.table--gray-borders > tbody > tr > th,
+  table.table--gray-borders > tfoot > tr > td,
+  table.table--gray-borders > tfoot > tr > th,
+  table.table--gray-borders > thead > tr > td,
+  table.table--gray-borders > thead > tr > th,
+  table.table--gray-borders > caption > td,
+  table.table--gray-borders > caption > th {
+    border: #ddd 1px solid; }
+  table.table--gray-borders > tbody > tr:first-child th, table.table--gray-borders > tbody > tr:first-child td {
+    border-top: none; }
+  table.table--gray-borders.is-striped > thead > tr > td,
+  table.table--gray-borders.is-striped > thead > tr > th,
+  table.table--gray-borders.is-striped > caption > td,
+  table.table--gray-borders.is-striped > caption > th, table.table--gray-borders.table--is-striped > thead > tr > td,
+  table.table--gray-borders.table--is-striped > thead > tr > th,
+  table.table--gray-borders.table--is-striped > caption > td,
+  table.table--gray-borders.table--is-striped > caption > th {
+    border: #7c7c7c 1px solid; }
+  table.table--gray-borders.is-striped > thead > tr > td,
+  table.table--gray-borders.is-striped > thead > tr > th, table.table--gray-borders.table--is-striped > thead > tr > td,
+  table.table--gray-borders.table--is-striped > thead > tr > th {
+    border-bottom: #ddd 1px solid;
+    border-top: #ddd 1px solid; }
+    table.table--gray-borders.is-striped > thead > tr > td:first-child,
+    table.table--gray-borders.is-striped > thead > tr > th:first-child, table.table--gray-borders.table--is-striped > thead > tr > td:first-child,
+    table.table--gray-borders.table--is-striped > thead > tr > th:first-child {
+      border-left: #ddd 1px solid; }
+    table.table--gray-borders.is-striped > thead > tr > td:last-child,
+    table.table--gray-borders.is-striped > thead > tr > th:last-child, table.table--gray-borders.table--is-striped > thead > tr > td:last-child,
+    table.table--gray-borders.table--is-striped > thead > tr > th:last-child {
+      border-right: #ddd 1px solid; }
 
 .table__responsive-container {
   width: 100%;
   position: relative; }
+  .table__responsive-container--width-default {
+    width: unset;
+    display: inline-block; }
+    .table__responsive-container--width-default table.table--width-default {
+      width: unset; }
   .table__responsive-container.table__row-headers--true .table__sticky-heading:first-child {
     left: 0; }
   .table__responsive-container.table__row-headers--true.table--left-sticky-minwidth .table__sticky-heading:first-child {
     position: -webkit-sticky;
     position: sticky; }
-  .table__responsive-container.table--striped {
+  .table__responsive-container.table__responsive-container--is-striped {
     border: 1px solid #eee; }
-    .table__responsive-container.table--striped.table--is-sticky-left.table--left-sticky-minwidth table.is-striped tbody th {
+    .table__responsive-container.table__responsive-container--is-striped.table__responsive-container--gray-borders {
+      border: unset; }
+    .table__responsive-container.table__responsive-container--is-striped.table--is-sticky-left.table--left-sticky-minwidth table.is-striped tbody th,
+    .table__responsive-container.table__responsive-container--is-striped.table--is-sticky-left.table--left-sticky-minwidth table.table--is-striped tbody th {
       -webkit-filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
               filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2)); }
-    .table__responsive-container.table--striped.table--is-sticky-left.table--left-sticky-minwidth .table__sticky-heading:first-child {
+    .table__responsive-container.table__responsive-container--is-striped.table--is-sticky-left.table--left-sticky-minwidth .table__sticky-heading:first-child {
       -webkit-filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
               filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2)); }
-    .table__responsive-container.table--striped.table--is-sticky-top .table__responsive-header {
+    .table__responsive-container.table__responsive-container--is-striped.table--is-sticky-top .table__responsive-header {
       transition: -webkit-filter 0.3s ease-in-out;
       transition: filter 0.3s ease-in-out;
       transition: filter 0.3s ease-in-out, -webkit-filter 0.3s ease-in-out;
       -webkit-filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.2));
               filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.2)); }
-    .table__responsive-container.table--striped table.is-striped {
+    .table__responsive-container.table__responsive-container--is-striped.table__responsive-container--gray-borders .table__responsive-header .table__sticky-heading {
+      border-left: #7c7c7c 1px solid;
+      border-bottom: #ddd 1px solid; }
+      .table__responsive-container.table__responsive-container--is-striped.table__responsive-container--gray-borders .table__responsive-header .table__sticky-heading:first-child {
+        border-left: 1px solid #ddd; }
+  .table__responsive-container.table__responsive-container--gray-borders .table__visual-caption {
+    border: #7c7c7c 1px solid;
+    border-bottom: none; }
+  .table__responsive-container.table__responsive-container--gray-borders table > tbody > tr:first-child th, .table__responsive-container.table__responsive-container--gray-borders table > tbody > tr:first-child td {
+    border-top: none; }
+  .table__responsive-container.table__responsive-container--gray-borders .table__responsive-header .table__sticky-heading {
+    border-left: #ddd 1px solid;
+    border-top: #ddd 1px solid;
+    border-bottom: #ddd 1px solid; }
+    .table__responsive-container.table__responsive-container--gray-borders .table__responsive-header .table__sticky-heading:first-child {
+      border-left: 1px solid #ddd; }
+  .table__responsive-container table {
+    width: 100%; }
+    .table__responsive-container table.is-striped, .table__responsive-container table.table--is-striped {
       border: none; }
+    .table__responsive-container table caption {
+      position: absolute !important;
+      height: 1px;
+      width: 1px;
+      overflow: hidden;
+      clip: rect(1px, 1px, 1px, 1px); }
   .table__responsive-container.table--is-sticky-left.table--left-sticky-minwidth .table__sticky-heading:first-child {
     border-right: 1px solid #ccc; }
   .table__responsive-container .table__responsive-header__sticky-heading:first-child {
     border-right: 1px solid #fff;
     transition: border-right 0.3s ease-in-out; }
-  .table__responsive-container.table--is-sticky-left.table--striped.table--left-sticky-minwidth .table__sticky-heading:first-child {
+  .table__responsive-container.table--is-sticky-left.table__responsive-container--is-striped.table--left-sticky-minwidth .table__sticky-heading:first-child {
     border-right: none; }
   .table__responsive-container.table--left-sticky-minwidth table tbody th {
     position: -webkit-sticky;
@@ -87,6 +171,16 @@ table {
     font-size: 1rem;
     margin-bottom: 0; }
 
+.table__visual-caption {
+  width: 100%;
+  padding: 1.05rem;
+  text-align: center;
+  font-size: 1rem;
+  color: #fff;
+  text-transform: uppercase;
+  background-color: #333;
+  font-weight: bold; }
+
 .table__responsive-header {
   position: -webkit-sticky;
   position: sticky;
@@ -95,7 +189,7 @@ table {
   .table__responsive-header__scroller {
     white-space: nowrap;
     overflow-x: hidden; }
-  .table--striped .table__responsive-header .table__sticky-heading {
+  .table__responsive-container--is-striped .table__responsive-header .table__sticky-heading {
     background: #FFCD00;
     text-transform: uppercase;
     border: none; }

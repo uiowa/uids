@@ -19,20 +19,35 @@ function generateResponsiveTables() {
     for (let i = 0; i < tables.length; i++) {
         let table = tables[i];
         if (!table.closest('.table__responsive-container')) {
+            // Set the table to have a class defining it as responsive.
+            table.classList.add('table__responsive');
+
+            // If the table is default width, capture its initial width.
+            let table_offsetWidth = table.offsetWidth;
+
             // Set table header HTML for future use.
             let header_HTML = '';
 
             //Prepare table caption variables.
             let caption_id = '';
+            let caption_HTML = '';
             let caption_labeledby = '';
 
-            //If the table catption exists and doesnt have an Id...
-            if (table.getElementsByTagName('caption')[0] && !table.getElementsByTagName('caption')[0].id) {
+            // If the table caption exists...
+            if (table.getElementsByTagName('caption')[0]) {
+              let caption = table.getElementsByTagName('caption');
+
+              // And if table caption doesnt have an Id...
+              if(!caption[0].id) {
                 caption_id = 'table--' + i;
                 caption_labeledby = 'aria-labelledby="' + caption_id + '"';
 
                 //Give the caption an Id.
-                table.getElementsByTagName('caption')[0].id = caption_id;
+                caption[0].id = caption_id;
+              }
+
+              // Make a duplicate caption hidden from aria for sighted users.
+              caption_HTML = '<div class="table__visual-caption" aria-hidden="true">' + caption[0].innerHTML + '</div>';
             }
 
             // Determine if there are thead TH's without scope.
@@ -89,10 +104,26 @@ function generateResponsiveTables() {
 
             // Wrap the table in a responsive table div, and make sure aria knows what caption labels it, if any.
             // This should be done last as to not mess up any scoping of previous functions.
-            let classes = table.classList.contains('is-striped') ? 'table--striped' : '';
+            let classes = (table.classList.contains('table--is-striped') || table.classList.contains('is-striped')) ? 'table__responsive-container--is-striped' : '';
+
+            // If the table has the .table--gray-borders class, add .table__responsive-container--gray-borders to the responsive table container as well.
+            if (table.classList.contains('table--gray-borders')) {
+              classes += ' table__responsive-container--gray-borders';
+            }
+
+            // If the table has .table--width-default then set a max width that will later be set on the measurer and the container.
+            // Also add a class to the container classes for some extra styling.
+            let table_elements_styles = '';
+            if (table.classList.contains('table--width-default')) {
+              table_elements_styles = 'style="max-width:min(100%, ' + table_offsetWidth + 'px)"';
+              classes += ' table__responsive-container--width-default';
+            }
+
+            // Construct the table HTML.
             table.outerHTML =
-                '<div id="table__responsive-measurer--' + i + '"></div>' +
-                '<div id="table__responsive-container--' + i + '" class="table__responsive-container table ' + classes + ' ' + row_headers + '" role="region" ' + caption_labeledby + ' tabindex="0">' +
+                '<div id="table__responsive-measurer--' + i + '" ' + table_elements_styles + '></div>' +
+                '<div id="table__responsive-container--' + i + '" class="table__responsive-container table ' + classes + ' ' + row_headers + '" role="region" ' + caption_labeledby + ' tabindex="0" ' + table_elements_styles + '>' +
+                    caption_HTML +
                     header_scroller +
                     '<div class="table__container syncscroll" name="sync-table-' + i + '">' +
                         table.outerHTML +
@@ -137,7 +168,7 @@ function generateResponsiveTables() {
 function triggerTableRespond() {
     let responsive_tables = document.querySelectorAll('.table__responsive-container');
 
-    // This function can be defined by the user to add any functionaity to this.
+    // This function can be defined by the user to add any functionality to this.
     if (typeof hook_triggerTableRespond === "function") {
         hook_triggerTableRespond(responsive_tables);
     }
