@@ -46,22 +46,22 @@
     }
 
     .bg-pattern--brain &,
-    .bg--white &,
-    .bg--light &,
-    .bg--gray & {
+    [class*=bg--white] &,
+    [class*=bg--gray] &,
+    [class*=bg--black] & {
       border-bottom: 8px solid $primary;
     }
 
     // @todo This should probably be resolved with https://sass-lang.com/documentation/values/maps#using-maps
     .stat--horizontal.bg-pattern--brain-black &,
-    .stat--horizontal.bg--black &,
+    .stat--horizontal[class*=bg--black] &,
     .bg-pattern--brain-black &,
-    .bg--black & {
+    [class*=bg--black] & {
       color: $primary;
     }
 
     .bg-pattern--brain-reversed &,
-    .bg--gold & {
+    [class*=bg--gold] & {
       border-bottom: 8px solid white;
     }
 
@@ -87,13 +87,13 @@
       @include element-invisible;
     }
 
-    .bg--black &,
+    [class*=bg--black] &,
     .bg-pattern--brain-black & {
       color: #ccc;
     }
 
     .bg-pattern--brain-reversed &,
-    .bg--gold & {
+    [class*=bg--gold] & {
       color: $secondary;
     }
 
@@ -116,7 +116,7 @@
     margin: $sm 0;
 
     .bg-pattern--brain-black &,
-    .bg--black & {
+    [class*=bg--black] & {
       color: white;
     }
 
@@ -156,9 +156,9 @@
 .stat--horizontal:not(.element--flex-center) {
 
   &.bg-pattern--brain-reversed,
-  &.bg--gold,
+  &[class*=bg--gold],
   .bg-pattern--brain-reversed &,
-  .bg--gold & {
+  [class*=bg--gold] & {
     .stat__content {
       @include breakpoint(container) {
         border-top: 8px solid $secondary;
