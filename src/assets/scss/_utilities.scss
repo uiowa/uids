@@ -128,6 +128,7 @@
   @include margin($top: $sm, $bottom: $sm);
   font-family: $font-family-serif;
   font-weight: $font-weight-medium-bold;
+  font-size: containerClamp(2.3rem, 3.35rem);
 }
 
 @mixin h2 {
@@ -138,6 +139,7 @@
   &:not(:first-child) {
     @include margin($top: $lg);
   }
+  font-size: containerClamp(1.95rem, 2.3rem);
 }
 
 @mixin h3 {
@@ -147,6 +149,7 @@
   &:not(:first-child) {
     @include margin($top: $lg);
   }
+  font-size: containerClamp(1.65rem, 1.9125rem);
 }
 
 @mixin h4 {
@@ -157,6 +160,7 @@
   &:not(:first-child) {
     @include margin($top: $lg);
   }
+  font-size: containerClamp(1.45rem, 1.6rem);
 }
 
 @mixin h5 {
@@ -167,6 +171,7 @@
   &:not(:first-child) {
     @include margin($top: $lg);
   }
+  font-size: containerClamp(1.3rem, 1.4rem);
 }
 
 @mixin h6 {
@@ -476,4 +481,69 @@
   text-align: left;
   width: 100%;
   padding: 1.5rem 0;
+}
+
+// This function creates a clamp rule between the sm breakpoint of 600px and our container width which is 1310 px
+@function containerClamp($minVal, $maxVal) {
+  $remsize: 16;
+  $min: $minVal;
+  $max: $maxVal;
+
+  // Make sure pixels are expressed in rems for min.
+  @if (type-of($min) == "number") and ($min != 0) {
+    @if (unit($min)  == 'px') {
+      $min: ($min/1px) / $remsize + 0rem;
+    }
+  }
+
+  // Make sure pixels are expressed in rems for max.
+  @if (type-of($max) == "number") and ($max != 0) {
+    @if (unit($max) == 'px') {
+      $max: ($max/1px) / $remsize + 0rem;
+    }
+  }
+  
+  // Calculate the slope times the x for the function.
+  $slope: ((($max/1rem * $remsize) - ($min/1rem * $remsize)) / 710);
+  $slopeX: $slope * 100;
+  // Round the slope to 4 decimal places.
+  $slopeX: decimal-round($slopeX, 4);
+  $intercept: ($min - (($slope + 0rem) * 600) / $remsize);
+  // Round the intercept to 4 decimal places.
+  $intercept: decimal-round($intercept, 4);
+  $operator: if($intercept < 0, '-', '+');
+
+  $prefVal: 'calc(' + $slopeX + 'vw ' + $operator + ' ' + $intercept +')';
+  @return unquote('clamp(' + $min + ', ' + $prefVal + ', ' + $max + ')');
+}
+
+// This is taken from here : https://gist.github.com/terkel/4373420 .
+@function decimal-round ($number, $digits: 0, $mode: round) {
+    $n: 1;
+    // $number must be a number
+    @if type-of($number) != number {
+        @warn '#{ $number } is not a number.';
+        @return $number;
+    }
+    // $digits must be a unitless number
+    @if type-of($digits) != number {
+        @warn '#{ $digits } is not a number.';
+        @return $number;
+    } @else if not unitless($digits) {
+        @warn '#{ $digits } has a unit.';
+        @return $number;
+    }
+    @for $i from 1 through $digits {
+        $n: $n * 10;
+    }
+    @if $mode == round {
+        @return round($number * $n) / $n;
+    } @else if $mode == ceil {
+        @return ceil($number * $n) / $n;
+    } @else if $mode == floor {
+        @return floor($number * $n) / $n;
+    } @else {
+        @warn '#{ $mode } is undefined keyword.';
+        @return $number;
+    }
 }
