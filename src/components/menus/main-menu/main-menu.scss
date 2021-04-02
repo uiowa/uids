@@ -31,6 +31,9 @@
 
   .menu {
     position: relative;
+    width: 100%;
+    @include flexbox;
+    @include flex-direction(column);
 
     li {
       display: block;
@@ -91,144 +94,121 @@
   }
 }
 
-// vertical only
-.main--secondary--vertical {
-  ul.menu {
-    width: 100%;
-    @include flexbox;
-    @include flex-direction(column);
+// // vertical only
+// .main--secondary--vertical {
+//   ul.menu {
+//     width: 100%;
+//     @include flexbox;
+//     @include flex-direction(column);
 
-    li {
-      margin-bottom: $sm;
-    }
-  }
-}
+//     li {
+//       margin-bottom: $sm;
+//     }
+//   }
+// }
 
 // horizontal only
-.main--secondary--horizontal {
+@include breakpoint(sm) { .main--secondary--horizontal {
   padding: $gutter 0;
-  @extend %container;
-
-  @include breakpoint(sm) {
-    padding: 0;
-  }
-
-  @include breakpoint(container) {
-    padding: 0;
-  }
+  @include container;
+  padding: 0;
 
   .menu {
-    display: block;
-
-    @include breakpoint(sm) {
-      @include flexbox;
-    }
+    flex-direction: row;
 
     li {
-      @include breakpoint(sm) {
-        font-size: calc(100% + .1vw);
-        display: flex;
-      }
+      font-size: calc(100% + .1vw);
+      display: flex;
 
       &:first-of-type a {
-        @include breakpoint(sm) {
-          margin-left: 0;
-        }
+        margin-left: 0;
       }
 
       &:last-of-type a {
-        @include breakpoint(sm) {
-          margin-right: 0;
-        }
+        margin-right: 0;
       }
 
       a, span {
         @include bttn--focus;
-
-        @include breakpoint(sm) {
-          position: relative;
-          width: auto;
-          text-align: center;
-          text-transform: uppercase;
-          border: 0px;
-          background-color: transparent;
-          font-weight: $font-weight-medium-bold;
-          padding: 1.475rem 1.375rem;
-          margin: 0;
-          @include center(both);
-        }
+        position: relative;
+        width: auto;
+        text-align: center;
+        text-transform: uppercase;
+        border: 0px;
+        background-color: transparent;
+        font-weight: $font-weight-medium-bold;
+        padding: 1.475rem 1.375rem;
+        margin: 0;
+        @include center(both);
       }
 
-      @include breakpoint(sm) {
-        &.menu-item--active-trail {
-          background: #f1f1f1;
-          position: relative;
 
-          &:before, &:after {
-            height: 100%;
-            position: absolute;
-            width: 10px;
-            content: '';
-          }
+      &.menu-item--active-trail {
+        background: #f1f1f1;
+        position: relative;
+
+        &:before, &:after {
+          height: 100%;
+          position: absolute;
+          width: 10px;
+          content: '';
+        }
+
+        &:before {
+          right: 0;
+          box-shadow: -16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset;
+          z-index: 1;
+        }
+
+        &:after {
+          left: 0;
+          box-shadow: 16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset;
+        }
+
+        a {
+          margin: 0;
+          padding-right: 1.875rem;
+          padding-left: 1.875rem;
 
           &:before {
-            right: 0;
-            box-shadow: -16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset;
+            width: 20px;
+            height: 20px;
+            content: '';
+            position: absolute;
+            left: calc(50% - 10px);
+            top: calc(100% - 1px);
+            background-color: transparent;
+            border-top: 10px solid $primary;
+            border-right: 10px solid transparent;
+            border-left: 10px solid transparent;
+            border-bottom: 10px solid transparent;
             z-index: 1;
           }
 
           &:after {
-            left: 0;
-            box-shadow: 16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset;
-          }
-
-          a {
-            margin: 0;
-            padding-right: 1.875rem;
-            padding-left: 1.875rem;
-
-            &:before {
-              width: 20px;
-              height: 20px;
-              content: '';
-              position: absolute;
-              left: calc(50% - 10px);
-              top: calc(100% - 1px);
-              background-color: transparent;
-              border-top: 10px solid $primary;
-              border-right: 10px solid transparent;
-              border-left: 10px solid transparent;
-              border-bottom: 10px solid transparent;
-              z-index: 1;
-            }
-
-            &:after {
-              background: $primary;
-              content: '';
-              position: absolute;
-              left: 50%;
-              bottom: 0;
-              width: 100%;
-              height: 6px;
-              transform-origin: center;
-              transition: transform 0.3s ease-in-out;
-              transform: translate(-50%, 0) scaleX(1);
-            }
+            background: $primary;
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            width: 100%;
+            height: 6px;
+            transform-origin: center;
+            transition: transform 0.3s ease-in-out;
+            transform: translate(-50%, 0) scaleX(1);
           }
         }
       }
     }
 
     li a:before {
-      @include breakpoint(sm) {
-        position: absolute;
-        bottom: 35%;
-        width: 1px;
-        height: 25%;
-        content: "";
-        background: $primary;
-        right: -1px;
-      }
+      position: absolute;
+      bottom: 35%;
+      width: 1px;
+      height: 25%;
+      content: "";
+      background: $primary;
+      right: -1px;
     }
 
     li a:after {
@@ -236,10 +216,8 @@
     }
 
     li:last-of-type a {
-      @include breakpoint(sm) {
-        &:before {
-          width: 0;
-        }
+      &:before {
+        width: 0;
       }
     }
 
@@ -251,19 +229,17 @@
     .bg-pattern--brain-black &,
     .bg-pattern--brain-reversed & {
 
-      @include breakpoint(sm) {
-        li.menu-item--active-trail {
-          background: #fff;
+      li.menu-item--active-trail {
+        background: #fff;
 
-          &:before {
-            right: 100%;
-            box-shadow: -16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset;
-          }
+        &:before {
+          right: 100%;
+          box-shadow: -16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset;
+        }
 
-          &:after {
-            left: 100%;
-            box-shadow: 16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset;
-          }
+        &:after {
+          left: 100%;
+          box-shadow: 16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset;
         }
       }
     }
@@ -279,10 +255,8 @@
         }
       }
 
-      @include breakpoint(sm) {
-        li.menu-item--active-trail a {
-          color: $secondary;
-        }
+      li.menu-item--active-trail a {
+        color: $secondary;
       }
     }
 
@@ -307,7 +281,7 @@
       }
     }
   }
-}
+}}
 
 // ie11
 @media all and (-ms-high-contrast: none),
