@@ -62,7 +62,8 @@
         width: 100%;
         border-bottom: 1px solid $light;
         @include padding($top: $sm, $right: $sm, $bottom: $sm, $left:0);
-        &.is-active {
+        &.is-active,
+        &:active {
           &:after {
             background: $brand-cool-gray;
             content: '';
@@ -87,8 +88,11 @@
         }
       }
 
-      &.menu-item--expanded.menu-item--active-trail a {
-        border-bottom: none;
+      &.menu-item--expanded {
+        a.is-active,
+        a:active {
+          border-bottom: none;
+        }
       }
     }
   }
@@ -142,61 +146,39 @@
         @include center(both);
       }
 
-
-      &.menu-item--active-trail {
-        background: #f1f1f1;
-        position: relative;
-
-        &:before, &:after {
-          height: 100%;
-          position: absolute;
-          width: 10px;
-          content: '';
-        }
+      a.is-active,
+      a:active {
+        background-color: #f3f3f3;
+        margin: 0;
+        padding-right: 1.875rem;
+        padding-left: 1.875rem;
 
         &:before {
-          right: 0;
-          box-shadow: -16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset;
+          width: 20px;
+          height: 20px;
+          content: '';
+          position: absolute;
+          left: calc(50% - 10px);
+          top: calc(100% - 1px);
+          background-color: transparent;
+          border-top: 10px solid $primary;
+          border-right: 10px solid transparent;
+          border-left: 10px solid transparent;
+          border-bottom: 10px solid transparent;
           z-index: 1;
         }
 
         &:after {
-          left: 0;
-          box-shadow: 16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset;
-        }
-
-        a {
-          margin: 0;
-          padding-right: 1.875rem;
-          padding-left: 1.875rem;
-
-          &:before {
-            width: 20px;
-            height: 20px;
-            content: '';
-            position: absolute;
-            left: calc(50% - 10px);
-            top: calc(100% - 1px);
-            background-color: transparent;
-            border-top: 10px solid $primary;
-            border-right: 10px solid transparent;
-            border-left: 10px solid transparent;
-            border-bottom: 10px solid transparent;
-            z-index: 1;
-          }
-
-          &:after {
-            background: $primary;
-            content: '';
-            position: absolute;
-            left: 50%;
-            bottom: 0;
-            width: 100%;
-            height: 6px;
-            transform-origin: center;
-            transition: transform 0.3s ease-in-out;
-            transform: translate(-50%, 0) scaleX(1);
-          }
+          background: $primary;
+          content: '';
+          position: absolute;
+          left: 50%;
+          bottom: 0;
+          width: 100%;
+          height: 6px;
+          transform-origin: center;
+          transition: transform 0.3s ease-in-out;
+          transform: translate(-50%, 0) scaleX(1);
         }
       }
     }
@@ -229,17 +211,10 @@
     .bg-pattern--brain-black &,
     .bg-pattern--brain-reversed & {
 
-      li.menu-item--active-trail {
-        background: #fff;
-
-        &:before {
-          right: 100%;
-          box-shadow: -16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset;
-        }
-
-        &:after {
-          left: 100%;
-          box-shadow: 16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset;
+      li {
+        a.is-active,
+        a:active {
+          background: #fff;
         }
       }
     }
@@ -255,8 +230,11 @@
         }
       }
 
-      li.menu-item--active-trail a {
-        color: $secondary;
+      li {
+        a.is-active,
+        a:active {
+          color: $secondary;
+        }
       }
     }
 
@@ -264,19 +242,24 @@
     .bg--gold--pattern--brain &,
     .bg-pattern--brain-reversed & {
       li a {
+        color: #fff;
+
         &:before {
           background-color: $brand-cool-gray;
         }
       }
 
-      li.menu-item--active-trail a {
-        &:before {
-          border-top-color: $brand-cool-gray;
-          background-color: transparent;
-        }
+      li {
+        a.is-active,
+        a:active {
+          &:before {
+            border-top-color: $brand-cool-gray;
+            background-color: transparent;
+          }
 
-        &:after {
-          background-color: $brand-cool-gray;
+          &:after {
+            background-color: $brand-cool-gray;
+          }
         }
       }
     }
