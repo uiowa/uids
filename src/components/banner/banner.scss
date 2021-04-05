@@ -47,7 +47,7 @@
 
   // Override background color if button is within a gold container
   &.bg-pattern--brain-reversed,
-  &.bg--gold {
+  &[class*="bg--gold"] {
     .bttn--primary {
       color: #fff;
       background: $secondary;
@@ -88,6 +88,10 @@
       max-width: 81.875em;
       top: 0;
     }
+  }
+    
+  .media--video .video-controls { 
+    z-index: 2; 
   }
 
   img {
@@ -197,10 +201,9 @@
   // @todo This should probably be resolved with https://sass-lang.com/documentation/values/maps#using-maps
   &.bg-pattern--brain,
   &.bg-pattern--brain-reversed,
-  &.bg--gold,
-  &.bg--light,
-  &.bg--white,
-  &.bg--gray {
+  &[class*="bg--gold"],
+  &[class*="bg--white"],
+  &[class*="bg--gray"] {
     color: $secondary;
 
     p {

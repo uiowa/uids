@@ -50,7 +50,7 @@ To see the full options for the command, run `npm version --help`.
 8. Enter the "Tag version" using the version _with_ the `v` at the front (e.g. "v3.1.1").
 9. Enter the "Release title" using the version _without_ the `v` at the front (e.g. "3.1.1").
 10. Paste in the compare link into the description area: `https://github.com/uiowa/uids/compare/v3.1.0...v3.1.1`
-11. Click "Publish release" button.
+11. Click the "Publish release" button.
 12. Profit!
 
 ### Components
