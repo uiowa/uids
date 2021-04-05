@@ -95,27 +95,26 @@
         }
       }
     }
+
+    .bg--black &,
+    .bg--black--pattern--brain &,
+    .bg-pattern--brain-black & {
+      li a {
+        color: #fff;
+
+        &:after {
+          background-color: $primary;
+          bottom: -1px;
+        }
+      }
+    }
   }
 }
 
-// // vertical only
-// .main--secondary--vertical {
-//   ul.menu {
-//     width: 100%;
-//     @include flexbox;
-//     @include flex-direction(column);
-
-//     li {
-//       margin-bottom: $sm;
-//     }
-//   }
-// }
-
 // horizontal only
 @include breakpoint(sm) { .main--secondary--horizontal {
-  padding: $gutter 0;
-  @include container;
   padding: 0;
+  @include container;
 
   .menu {
     flex-direction: row;
@@ -223,13 +222,10 @@
     .bg--black--pattern--brain &,
     .bg-pattern--brain-black & {
       li a {
-        color: #fff;
-
         &:after {
-          background-color: $primary;
+          bottom: 0;
         }
       }
-
       li {
         a.is-active,
         a:active {
@@ -242,8 +238,6 @@
     .bg--gold--pattern--brain &,
     .bg-pattern--brain-reversed & {
       li a {
-        color: #fff;
-
         &:before {
           background-color: $brand-cool-gray;
         }
