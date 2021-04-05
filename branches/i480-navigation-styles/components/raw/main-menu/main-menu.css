@@ -69,9 +69,11 @@
         padding-right: 0.625rem;
         padding-bottom: 0.625rem;
         padding-left: 0; }
-        .main--secondary--vertical .menu li a.is-active:after, .main--secondary--vertical .menu li span.is-active:after,
+        .main--secondary--vertical .menu li a.is-active:after, .main--secondary--vertical .menu li a:active:after, .main--secondary--vertical .menu li span.is-active:after, .main--secondary--vertical .menu li span:active:after,
         .main--secondary--horizontal .menu li a.is-active:after,
-        .main--secondary--horizontal .menu li span.is-active:after {
+        .main--secondary--horizontal .menu li a:active:after,
+        .main--secondary--horizontal .menu li span.is-active:after,
+        .main--secondary--horizontal .menu li span:active:after {
           background: #63666A;
           content: '';
           position: absolute;
@@ -93,8 +95,10 @@
           .main--secondary--horizontal .menu li span:hover,
           .main--secondary--horizontal .menu li span:focus {
             color: #151515; } }
-      .main--secondary--vertical .menu li.menu-item--expanded.menu-item--active-trail a,
-      .main--secondary--horizontal .menu li.menu-item--expanded.menu-item--active-trail a {
+      .main--secondary--vertical .menu li.menu-item--expanded a.is-active,
+      .main--secondary--vertical .menu li.menu-item--expanded a:active,
+      .main--secondary--horizontal .menu li.menu-item--expanded a.is-active,
+      .main--secondary--horizontal .menu li.menu-item--expanded a:active {
         border-bottom: none; }
 
 @media (min-width: 768px) {
@@ -146,49 +150,38 @@
             text-decoration: underline; }
           .main--secondary--horizontal .menu li a:hover::after, .main--secondary--horizontal .menu li a:focus::after, .main--secondary--horizontal .menu li span:hover::after, .main--secondary--horizontal .menu li span:focus::after {
             transform: translate(-50%, 0) scaleX(1); }
-        .main--secondary--horizontal .menu li.menu-item--active-trail {
-          background: #f1f1f1;
-          position: relative; }
-          .main--secondary--horizontal .menu li.menu-item--active-trail:before, .main--secondary--horizontal .menu li.menu-item--active-trail:after {
-            height: 100%;
+        .main--secondary--horizontal .menu li a.is-active,
+        .main--secondary--horizontal .menu li a:active {
+          background-color: #f3f3f3;
+          margin: 0;
+          padding-right: 1.875rem;
+          padding-left: 1.875rem; }
+          .main--secondary--horizontal .menu li a.is-active:before,
+          .main--secondary--horizontal .menu li a:active:before {
+            width: 20px;
+            height: 20px;
+            content: '';
             position: absolute;
-            width: 10px;
-            content: ''; }
-          .main--secondary--horizontal .menu li.menu-item--active-trail:before {
-            right: 0;
-            box-shadow: -16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset;
+            left: calc(50% - 10px);
+            top: calc(100% - 1px);
+            background-color: transparent;
+            border-top: 10px solid #FFCD00;
+            border-right: 10px solid transparent;
+            border-left: 10px solid transparent;
+            border-bottom: 10px solid transparent;
             z-index: 1; }
-          .main--secondary--horizontal .menu li.menu-item--active-trail:after {
-            left: 0;
-            box-shadow: 16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset; }
-          .main--secondary--horizontal .menu li.menu-item--active-trail a {
-            margin: 0;
-            padding-right: 1.875rem;
-            padding-left: 1.875rem; }
-            .main--secondary--horizontal .menu li.menu-item--active-trail a:before {
-              width: 20px;
-              height: 20px;
-              content: '';
-              position: absolute;
-              left: calc(50% - 10px);
-              top: calc(100% - 1px);
-              background-color: transparent;
-              border-top: 10px solid #FFCD00;
-              border-right: 10px solid transparent;
-              border-left: 10px solid transparent;
-              border-bottom: 10px solid transparent;
-              z-index: 1; }
-            .main--secondary--horizontal .menu li.menu-item--active-trail a:after {
-              background: #FFCD00;
-              content: '';
-              position: absolute;
-              left: 50%;
-              bottom: 0;
-              width: 100%;
-              height: 6px;
-              transform-origin: center;
-              transition: transform 0.3s ease-in-out;
-              transform: translate(-50%, 0) scaleX(1); }
+          .main--secondary--horizontal .menu li a.is-active:after,
+          .main--secondary--horizontal .menu li a:active:after {
+            background: #FFCD00;
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            width: 100%;
+            height: 6px;
+            transform-origin: center;
+            transition: transform 0.3s ease-in-out;
+            transform: translate(-50%, 0) scaleX(1); }
       .main--secondary--horizontal .menu li a:before {
         position: absolute;
         bottom: 35%;
@@ -201,32 +194,21 @@
         background-color: #63666A; }
       .main--secondary--horizontal .menu li:last-of-type a:before {
         width: 0; }
-      .bg--black .main--secondary--horizontal .menu li.menu-item--active-trail,
-      .bg--black--pattern--brain .main--secondary--horizontal .menu li.menu-item--active-trail,
-      .bg--gold .main--secondary--horizontal .menu li.menu-item--active-trail,
-      .bg--gold--pattern--brain .main--secondary--horizontal .menu li.menu-item--active-trail,
-      .bg--gray .main--secondary--horizontal .menu li.menu-item--active-trail,
-      .bg-pattern--brain-black .main--secondary--horizontal .menu li.menu-item--active-trail,
-      .bg-pattern--brain-reversed .main--secondary--horizontal .menu li.menu-item--active-trail {
+      .bg--black .main--secondary--horizontal .menu li a.is-active,
+      .bg--black .main--secondary--horizontal .menu li a:active,
+      .bg--black--pattern--brain .main--secondary--horizontal .menu li a.is-active,
+      .bg--black--pattern--brain .main--secondary--horizontal .menu li a:active,
+      .bg--gold .main--secondary--horizontal .menu li a.is-active,
+      .bg--gold .main--secondary--horizontal .menu li a:active,
+      .bg--gold--pattern--brain .main--secondary--horizontal .menu li a.is-active,
+      .bg--gold--pattern--brain .main--secondary--horizontal .menu li a:active,
+      .bg--gray .main--secondary--horizontal .menu li a.is-active,
+      .bg--gray .main--secondary--horizontal .menu li a:active,
+      .bg-pattern--brain-black .main--secondary--horizontal .menu li a.is-active,
+      .bg-pattern--brain-black .main--secondary--horizontal .menu li a:active,
+      .bg-pattern--brain-reversed .main--secondary--horizontal .menu li a.is-active,
+      .bg-pattern--brain-reversed .main--secondary--horizontal .menu li a:active {
         background: #fff; }
-        .bg--black .main--secondary--horizontal .menu li.menu-item--active-trail:before,
-        .bg--black--pattern--brain .main--secondary--horizontal .menu li.menu-item--active-trail:before,
-        .bg--gold .main--secondary--horizontal .menu li.menu-item--active-trail:before,
-        .bg--gold--pattern--brain .main--secondary--horizontal .menu li.menu-item--active-trail:before,
-        .bg--gray .main--secondary--horizontal .menu li.menu-item--active-trail:before,
-        .bg-pattern--brain-black .main--secondary--horizontal .menu li.menu-item--active-trail:before,
-        .bg-pattern--brain-reversed .main--secondary--horizontal .menu li.menu-item--active-trail:before {
-          right: 100%;
-          box-shadow: -16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset; }
-        .bg--black .main--secondary--horizontal .menu li.menu-item--active-trail:after,
-        .bg--black--pattern--brain .main--secondary--horizontal .menu li.menu-item--active-trail:after,
-        .bg--gold .main--secondary--horizontal .menu li.menu-item--active-trail:after,
-        .bg--gold--pattern--brain .main--secondary--horizontal .menu li.menu-item--active-trail:after,
-        .bg--gray .main--secondary--horizontal .menu li.menu-item--active-trail:after,
-        .bg-pattern--brain-black .main--secondary--horizontal .menu li.menu-item--active-trail:after,
-        .bg-pattern--brain-reversed .main--secondary--horizontal .menu li.menu-item--active-trail:after {
-          left: 100%;
-          box-shadow: 16px 0px 3px -15px rgba(0, 0, 0, 0.06) inset; }
       .bg--black .main--secondary--horizontal .menu li a,
       .bg--black--pattern--brain .main--secondary--horizontal .menu li a,
       .bg-pattern--brain-black .main--secondary--horizontal .menu li a {
@@ -235,22 +217,35 @@
         .bg--black--pattern--brain .main--secondary--horizontal .menu li a:after,
         .bg-pattern--brain-black .main--secondary--horizontal .menu li a:after {
           background-color: #FFCD00; }
-      .bg--black .main--secondary--horizontal .menu li.menu-item--active-trail a,
-      .bg--black--pattern--brain .main--secondary--horizontal .menu li.menu-item--active-trail a,
-      .bg-pattern--brain-black .main--secondary--horizontal .menu li.menu-item--active-trail a {
+      .bg--black .main--secondary--horizontal .menu li a.is-active,
+      .bg--black .main--secondary--horizontal .menu li a:active,
+      .bg--black--pattern--brain .main--secondary--horizontal .menu li a.is-active,
+      .bg--black--pattern--brain .main--secondary--horizontal .menu li a:active,
+      .bg-pattern--brain-black .main--secondary--horizontal .menu li a.is-active,
+      .bg-pattern--brain-black .main--secondary--horizontal .menu li a:active {
         color: #151515; }
-      .bg--gold .main--secondary--horizontal .menu li a:before,
-      .bg--gold--pattern--brain .main--secondary--horizontal .menu li a:before,
-      .bg-pattern--brain-reversed .main--secondary--horizontal .menu li a:before {
-        background-color: #63666A; }
-      .bg--gold .main--secondary--horizontal .menu li.menu-item--active-trail a:before,
-      .bg--gold--pattern--brain .main--secondary--horizontal .menu li.menu-item--active-trail a:before,
-      .bg-pattern--brain-reversed .main--secondary--horizontal .menu li.menu-item--active-trail a:before {
+      .bg--gold .main--secondary--horizontal .menu li a,
+      .bg--gold--pattern--brain .main--secondary--horizontal .menu li a,
+      .bg-pattern--brain-reversed .main--secondary--horizontal .menu li a {
+        color: #fff; }
+        .bg--gold .main--secondary--horizontal .menu li a:before,
+        .bg--gold--pattern--brain .main--secondary--horizontal .menu li a:before,
+        .bg-pattern--brain-reversed .main--secondary--horizontal .menu li a:before {
+          background-color: #63666A; }
+      .bg--gold .main--secondary--horizontal .menu li a.is-active:before,
+      .bg--gold .main--secondary--horizontal .menu li a:active:before,
+      .bg--gold--pattern--brain .main--secondary--horizontal .menu li a.is-active:before,
+      .bg--gold--pattern--brain .main--secondary--horizontal .menu li a:active:before,
+      .bg-pattern--brain-reversed .main--secondary--horizontal .menu li a.is-active:before,
+      .bg-pattern--brain-reversed .main--secondary--horizontal .menu li a:active:before {
         border-top-color: #63666A;
         background-color: transparent; }
-      .bg--gold .main--secondary--horizontal .menu li.menu-item--active-trail a:after,
-      .bg--gold--pattern--brain .main--secondary--horizontal .menu li.menu-item--active-trail a:after,
-      .bg-pattern--brain-reversed .main--secondary--horizontal .menu li.menu-item--active-trail a:after {
+      .bg--gold .main--secondary--horizontal .menu li a.is-active:after,
+      .bg--gold .main--secondary--horizontal .menu li a:active:after,
+      .bg--gold--pattern--brain .main--secondary--horizontal .menu li a.is-active:after,
+      .bg--gold--pattern--brain .main--secondary--horizontal .menu li a:active:after,
+      .bg-pattern--brain-reversed .main--secondary--horizontal .menu li a.is-active:after,
+      .bg-pattern--brain-reversed .main--secondary--horizontal .menu li a:active:after {
         background-color: #63666A; } }
 
 @media all and (-ms-high-contrast: none) and (min-width: 768px), (-ms-high-contrast: active) and (min-width: 768px) {
