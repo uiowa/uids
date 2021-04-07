@@ -54,9 +54,15 @@
   -webkit-box-decoration-break: clone;
   color: $secondary;
   text-shadow: none;
-  [class*="bg--gold"] & {
+  [class*="bg--gold"] &,
+  .bg-pattern--brain-black .bg-pattern--brain-reversed & {
     background: $secondary;
     color: #fff;
+  }
+  [class*="bg--gold"] [class*="bg--black"] &,
+  [class*="bg--gold"] [class*="bg-pattern--brain-black"] & {
+    background: $primary;
+    color: $secondary;
   }
 }
 
@@ -71,6 +77,11 @@
     background: $secondary;
     color: #fff;
     font-weight: 400;
+  }
+  [class*="bg--gold"] [class*="bg--black"] &,
+  [class*="bg--gold"] [class*="bg-pattern--brain-black"] & {
+    background: $primary;
+    color: $secondary;
   }
 }
 
@@ -93,7 +104,10 @@
   }
 
   .bg-pattern--brain-black &,
-  [class*="bg--black"] & {
+  [class*="bg--black"] &,
+  [class*="bg--gold"] [class*="bg--black"] &,
+  [class*="bg--gold"] [class*="bg-pattern--brain-black"] &,
+  .bg-pattern--brain-reversed .bg-pattern--brain-black & {
     box-shadow: inset 0 -0.175em $secondary, inset 0 -0.25em $primary;
   }
 
