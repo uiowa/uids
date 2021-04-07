@@ -30,6 +30,10 @@
   display: block;
   border-top: 4px solid $primary;
 
+  > .menu > li.menu-item--expanded > a + ul {
+    padding-bottom: $md;
+  } 
+
   .menu {
     position: relative;
     width: 100%;
@@ -70,8 +74,9 @@
         @include breakpoint(sm) {
           @include padding($top: $md, $right: $md, $bottom: $md, $left: $md);
         }
-          &.is-active,
-        &:active {
+        &.is-active {
+          font-weight: bold;
+
           &:after {
             background: transparent;
             content: '';
@@ -93,12 +98,11 @@
       }
 
       &.menu-item--expanded {
-
-        a.is-active,
-        a:active {
-          border-bottom: none;
-          font-weight: bold;
-          padding-bottom: $sm;
+        a {
+          &.is-active {
+            border-bottom: none;
+            padding-bottom: $sm;
+          }
         }
 
         ul {
@@ -211,8 +215,7 @@
         }
       }
 
-      a.is-active,
-      a:active {
+      a.is-active {
         background-color: #f3f3f3;
         margin: 0;
         padding-right: 1.875rem;
@@ -285,8 +288,7 @@
     .bg-pattern--brain-reversed & {
 
       li {
-        a.is-active,
-        a:active {
+        a.is-active {
           background: #fff;
         }
       }
@@ -301,8 +303,7 @@
         }
       }
       li {
-        a.is-active,
-        a:active {
+        a.is-active {
           color: $secondary;
         }
       }
@@ -318,8 +319,7 @@
       }
 
       li {
-        a.is-active,
-        a:active {
+        a.is-active {
           &:before {
             border-top-color: $brand-cool-gray;
             background-color: transparent;
