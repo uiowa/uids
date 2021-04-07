@@ -31,6 +31,9 @@
 .main--secondary--horizontal {
   display: block;
   border-top: 4px solid #FFCD00; }
+  .main--secondary--vertical > .menu > li.menu-item--expanded > a + ul,
+  .main--secondary--horizontal > .menu > li.menu-item--expanded > a + ul {
+    padding-bottom: 1.05rem; }
   .main--secondary--vertical .menu,
   .main--secondary--horizontal .menu {
     position: relative;
@@ -81,21 +84,23 @@
             padding-right: 1.05rem;
             padding-bottom: 1.05rem;
             padding-left: 1.05rem; } }
-        .main--secondary--vertical .menu li a.is-active:after, .main--secondary--vertical .menu li a:active:after, .main--secondary--vertical .menu li span.is-active:after, .main--secondary--vertical .menu li span:active:after,
-        .main--secondary--horizontal .menu li a.is-active:after,
-        .main--secondary--horizontal .menu li a:active:after,
-        .main--secondary--horizontal .menu li span.is-active:after,
-        .main--secondary--horizontal .menu li span:active:after {
-          background: transparent;
-          content: '';
-          position: absolute;
-          left: 50%;
-          bottom: 0;
-          width: 100%;
-          height: 4px;
-          transform-origin: center;
-          transition: transform 0.3s ease-in-out;
-          transform: translate(-50%, 0) scaleX(1); }
+        .main--secondary--vertical .menu li a.is-active, .main--secondary--vertical .menu li span.is-active,
+        .main--secondary--horizontal .menu li a.is-active,
+        .main--secondary--horizontal .menu li span.is-active {
+          font-weight: bold; }
+          .main--secondary--vertical .menu li a.is-active:after, .main--secondary--vertical .menu li span.is-active:after,
+          .main--secondary--horizontal .menu li a.is-active:after,
+          .main--secondary--horizontal .menu li span.is-active:after {
+            background: transparent;
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            width: 100%;
+            height: 4px;
+            transform-origin: center;
+            transition: transform 0.3s ease-in-out;
+            transform: translate(-50%, 0) scaleX(1); }
         .main--secondary--vertical .menu li a:hover, .main--secondary--vertical .menu li a:focus, .main--secondary--vertical .menu li span:hover, .main--secondary--vertical .menu li span:focus,
         .main--secondary--horizontal .menu li a:hover,
         .main--secondary--horizontal .menu li a:focus,
@@ -103,11 +108,8 @@
         .main--secondary--horizontal .menu li span:focus {
           text-decoration: underline; }
       .main--secondary--vertical .menu li.menu-item--expanded a.is-active,
-      .main--secondary--vertical .menu li.menu-item--expanded a:active,
-      .main--secondary--horizontal .menu li.menu-item--expanded a.is-active,
-      .main--secondary--horizontal .menu li.menu-item--expanded a:active {
+      .main--secondary--horizontal .menu li.menu-item--expanded a.is-active {
         border-bottom: none;
-        font-weight: bold;
         padding-bottom: 0.625rem; }
       .main--secondary--vertical .menu li.menu-item--expanded ul,
       .main--secondary--horizontal .menu li.menu-item--expanded ul {
@@ -236,14 +238,12 @@
             transform: translate(-50%, 0) scaleX(1); }
           .main--secondary--horizontal .menu li a:hover, .main--secondary--horizontal .menu li a:focus, .main--secondary--horizontal .menu li span:hover, .main--secondary--horizontal .menu li span:focus {
             text-decoration: none; }
-        .main--secondary--horizontal .menu li a.is-active,
-        .main--secondary--horizontal .menu li a:active {
+        .main--secondary--horizontal .menu li a.is-active {
           background-color: #f3f3f3;
           margin: 0;
           padding-right: 1.875rem;
           padding-left: 1.875rem; }
-          .main--secondary--horizontal .menu li a.is-active:before,
-          .main--secondary--horizontal .menu li a:active:before {
+          .main--secondary--horizontal .menu li a.is-active:before {
             width: 20px;
             height: 20px;
             content: '';
@@ -256,8 +256,7 @@
             border-left: 10px solid transparent;
             border-bottom: 10px solid transparent;
             z-index: 1; }
-          .main--secondary--horizontal .menu li a.is-active:after,
-          .main--secondary--horizontal .menu li a:active:after {
+          .main--secondary--horizontal .menu li a.is-active:after {
             background: #FFCD00;
             content: '';
             position: absolute;
@@ -285,49 +284,33 @@
       .main--secondary--horizontal .menu li:last-of-type a:before {
         width: 0; }
       .bg--black .main--secondary--horizontal .menu li a.is-active,
-      .bg--black .main--secondary--horizontal .menu li a:active,
       .bg--black--pattern--brain .main--secondary--horizontal .menu li a.is-active,
-      .bg--black--pattern--brain .main--secondary--horizontal .menu li a:active,
       .bg--gold .main--secondary--horizontal .menu li a.is-active,
-      .bg--gold .main--secondary--horizontal .menu li a:active,
       .bg--gold--pattern--brain .main--secondary--horizontal .menu li a.is-active,
-      .bg--gold--pattern--brain .main--secondary--horizontal .menu li a:active,
       .bg--gray .main--secondary--horizontal .menu li a.is-active,
-      .bg--gray .main--secondary--horizontal .menu li a:active,
       .bg-pattern--brain-black .main--secondary--horizontal .menu li a.is-active,
-      .bg-pattern--brain-black .main--secondary--horizontal .menu li a:active,
-      .bg-pattern--brain-reversed .main--secondary--horizontal .menu li a.is-active,
-      .bg-pattern--brain-reversed .main--secondary--horizontal .menu li a:active {
+      .bg-pattern--brain-reversed .main--secondary--horizontal .menu li a.is-active {
         background: #fff; }
       .bg--black .main--secondary--horizontal .menu li a:after,
       .bg--black--pattern--brain .main--secondary--horizontal .menu li a:after,
       .bg-pattern--brain-black .main--secondary--horizontal .menu li a:after {
         bottom: 0; }
       .bg--black .main--secondary--horizontal .menu li a.is-active,
-      .bg--black .main--secondary--horizontal .menu li a:active,
       .bg--black--pattern--brain .main--secondary--horizontal .menu li a.is-active,
-      .bg--black--pattern--brain .main--secondary--horizontal .menu li a:active,
-      .bg-pattern--brain-black .main--secondary--horizontal .menu li a.is-active,
-      .bg-pattern--brain-black .main--secondary--horizontal .menu li a:active {
+      .bg-pattern--brain-black .main--secondary--horizontal .menu li a.is-active {
         color: #151515; }
       .bg--gold .main--secondary--horizontal .menu li a:before,
       .bg--gold--pattern--brain .main--secondary--horizontal .menu li a:before,
       .bg-pattern--brain-reversed .main--secondary--horizontal .menu li a:before {
         background-color: #63666A; }
       .bg--gold .main--secondary--horizontal .menu li a.is-active:before,
-      .bg--gold .main--secondary--horizontal .menu li a:active:before,
       .bg--gold--pattern--brain .main--secondary--horizontal .menu li a.is-active:before,
-      .bg--gold--pattern--brain .main--secondary--horizontal .menu li a:active:before,
-      .bg-pattern--brain-reversed .main--secondary--horizontal .menu li a.is-active:before,
-      .bg-pattern--brain-reversed .main--secondary--horizontal .menu li a:active:before {
+      .bg-pattern--brain-reversed .main--secondary--horizontal .menu li a.is-active:before {
         border-top-color: #63666A;
         background-color: transparent; }
       .bg--gold .main--secondary--horizontal .menu li a.is-active:after,
-      .bg--gold .main--secondary--horizontal .menu li a:active:after,
       .bg--gold--pattern--brain .main--secondary--horizontal .menu li a.is-active:after,
-      .bg--gold--pattern--brain .main--secondary--horizontal .menu li a:active:after,
-      .bg-pattern--brain-reversed .main--secondary--horizontal .menu li a.is-active:after,
-      .bg-pattern--brain-reversed .main--secondary--horizontal .menu li a:active:after {
+      .bg-pattern--brain-reversed .main--secondary--horizontal .menu li a.is-active:after {
         background-color: #63666A; }
     .bg--gold .main--secondary--horizontal,
     .bg--gold--pattern--brain .main--secondary--horizontal,
