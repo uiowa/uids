@@ -28,11 +28,10 @@
 .main--secondary--vertical,
 .main--secondary--horizontal {
   display: block;
-  border-top: 4px solid $primary;
 
   > .menu > li.menu-item--expanded > a + ul {
     padding-bottom: $md;
-  } 
+  }
 
   .menu {
     position: relative;
@@ -46,7 +45,7 @@
       margin-bottom: 0;
       font-size: 1.3rem;
       line-height: 1.3;
-      border-bottom: 1px solid #c0c0c0;
+      border-bottom: 1px solid rgba(0,0,0,.125);
 
       @include breakpoint(sm) {
         width: auto;
@@ -70,10 +69,8 @@
       a, span {
         position: relative;
         width: 100%;
-        @include padding($top: $md, $right: 0, $bottom: $md, $left: 0);
-        @include breakpoint(sm) {
-          @include padding($top: $md, $right: $md, $bottom: $md, $left: $md);
-        }
+        @include padding($top: $md, $right: $md, $bottom: $md, $left: 0);
+
         &.is-active {
           font-weight: bold;
 
@@ -149,24 +146,10 @@
         color: #fff;
       }
     }
-
-    .bg--gold &,
-    .bg--gold--pattern--brain &,
-    .bg-pattern--brain-reversed & {
-      li {
-        border-bottom-color: $brand-cool-gray;
-      }
-    }
-
+    
     li:not(.menu-item--expanded) ul {
       display: none;
     }
-  }
-
-  .bg--gold &,
-  .bg--gold--pattern--brain &,
-  .bg-pattern--brain-reversed & {
-    border-top: 4px solid $brand-cool-gray;
   }
 }
 
