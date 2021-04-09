@@ -16,7 +16,7 @@ The node-gyp package requires a C compiler. If you notice node-gyp errors after 
 ### Install dependencies
 First, install NPM dependencies:
 ```
-npm install
+npm ci
 ```
 
 ### Start the local server.
