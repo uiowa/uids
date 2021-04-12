@@ -12,6 +12,7 @@ table[border] {
 }
 
 table {
+  border: 1px solid #eee;
   width: 100%;
   font-size: $content-font-size;
   border-spacing: 0;
@@ -35,16 +36,22 @@ table {
   }
 
   thead th {
-    background-color: #fff;
-    border-bottom: 1px solid #cccccc;
+    background-color: $primary;
+    border: none;
+    text-transform: uppercase;
   }
 
   tbody th {
     background-color: #fff;
-    border-right: 1px solid #cccccc;
+    border: none;
     position: static;
     left: 0;
     padding-left: $md;
+  }
+
+  tbody tr:not(.is-selected):nth-child(even),
+  tbody tr:not(.is-selected):nth-child(even) th {
+    background-color: $light;
   }
 
   &.table--hover-highlight tbody tr:not(.is-selected),
@@ -79,27 +86,6 @@ table {
     color: $secondary;
   }
 
-  // DO NOT USE THE .is-striped CLASS. it is a legacy class, and you should be using .table--is-striped.
-  &.is-striped,
-  &.table--is-striped{
-    border: 1px solid #eee;
-
-    thead th {
-      background: $primary;
-      text-transform: uppercase;
-      border: none;
-    }
-
-    tbody th {
-      border: none;
-    }
-
-    tbody tr:not(.is-selected):nth-child(even),
-    tbody tr:not(.is-selected):nth-child(even) th {
-      background-color: $light;
-    }
-  }
-
   &.table--width-default {
     width: unset;
   }
@@ -110,12 +96,34 @@ table.table--gray-borders {
 
   & > tr,
   & > tbody > tr,
-  & > tfoot > tr,
+  & > tfoot > tr {
+    & > td,
+    & > th {
+      border: #ddd 1px solid;
+    }
+  }
+
   & > thead > tr,
   & > caption {
     & > td,
     & > th {
-      border: #ddd 1px solid;
+      border: #7c7c7c 1px solid;
+    }
+  }
+
+  & > thead > tr {
+    & > td,
+    & > th {
+      border-bottom: #ddd 1px solid;
+      border-top: #ddd 1px solid;
+
+      &:first-child {
+        border-left: #ddd 1px solid;
+      }
+
+      &:last-child {
+        border-right: #ddd 1px solid;
+      }
     }
   }
 
@@ -124,38 +132,11 @@ table.table--gray-borders {
       border-top: none;
     }
   }
-
-  // DO NOT USE THE .is-striped CLASS. it is a legacy class, and you should be using .table--is-striped.
-  &.is-striped,
-  &.table--is-striped {
-    & > thead > tr,
-    & > caption {
-      & > td,
-      & > th {
-        border: #7c7c7c 1px solid;
-      }
-    }
-
-    & > thead > tr {
-      & > td,
-      & > th {
-        border-bottom: #ddd 1px solid;
-        border-top: #ddd 1px solid;
-
-        &:first-child {
-          border-left: #ddd 1px solid;
-        }
-
-        &:last-child {
-          border-right: #ddd 1px solid;
-        }
-      }
-    }
-  }
 }
 
 .table {
   &__responsive-container {
+    border: 1px solid #eee;
     width: 100%;
     position: relative;
 
@@ -181,8 +162,8 @@ table.table--gray-borders {
     }
 
     &.table__responsive-container--is-striped {
-      border: 1px solid #eee;
 
+      // @todo How does this get applied to the default case now?
       &.table__responsive-container--gray-borders {
         border: unset;
       }
@@ -195,7 +176,6 @@ table.table--gray-borders {
             filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
           }
         }
-
 
         .table__sticky-heading:first-child {
           filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
@@ -244,12 +224,6 @@ table.table--gray-borders {
 
     table {
       width: 100%;
-
-      // DO NOT USE THE .is-striped CLASS. it is a legacy class, and you should be using .table--is-striped.
-      &.is-striped,
-      &.table--is-striped{
-        border: none;
-      }
 
       caption {
         @include element-invisible();
@@ -300,25 +274,18 @@ table.table--gray-borders {
       white-space: nowrap;
       overflow-x: hidden;
     }
-
-    .table__responsive-container--is-striped & {
-      .table__sticky-heading {
-        background: $primary;
-        text-transform: uppercase;
-        border: none;
-      }
-    }
   }
 
   &__sticky-heading {
-    display: inline-block;
-    padding: $md;
-    vertical-align: bottom;
-    font-size: $base-font-size;
+    background: $primary;
+    border: none;
     color: $secondary;
-    background-color: #fff;
-    border-bottom: 1px solid #cccccc;
+    display: inline-block;
+    font-size: $base-font-size;
+    padding: $md;
     text-align: left;
+    text-transform: uppercase;
+    vertical-align: bottom;
 
     .text-positioner {
       white-space: break-spaces;
