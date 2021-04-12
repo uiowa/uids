@@ -140,6 +140,14 @@ table.table--gray-borders {
     width: 100%;
     position: relative;
 
+    table {
+      width: 100%;
+
+      caption {
+        @include element-invisible();
+      }
+    }
+
     &--width-default {
       width: unset;
       display: inline-block;
@@ -161,45 +169,16 @@ table.table--gray-borders {
       }
     }
 
-    &.table__responsive-container--is-striped {
-
-      // @todo How does this get applied to the default case now?
-      &.table__responsive-container--gray-borders {
-        border: unset;
-      }
-
-      &.table--is-sticky-left.table--left-sticky-minwidth {
-        // DO NOT USE THE .is-striped CLASS. it is a legacy class, and you should be using .table--is-striped.
-        table.is-striped,
-        table.table--is-striped{
-          tbody th {
-            filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
-          }
-        }
-
-        .table__sticky-heading:first-child {
-          filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
-        }
-      }
-
-      &.table--is-sticky-top {
-        .table__responsive-header {
-          transition: filter 0.3s ease-in-out;
-          filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.2));
-        }
-      }
-
-      &.table__responsive-container--gray-borders .table__responsive-header .table__sticky-heading {
-        border-left: #7c7c7c 1px solid;
-        border-bottom: #ddd 1px solid;
-
-        &:first-child {
-          border-left: 1px solid #ddd;
-        }
+    &.table--is-sticky-top {
+      .table__responsive-header {
+        transition: filter 0.3s ease-in-out;
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.2));
       }
     }
 
     &.table__responsive-container--gray-borders {
+      border: unset;
+
       .table__visual-caption {
         border: #7c7c7c 1px solid;
         border-bottom: none;
@@ -212,9 +191,9 @@ table.table--gray-borders {
       }
 
       .table__responsive-header .table__sticky-heading {
-        border-left: #ddd 1px solid;
-        border-top: #ddd 1px solid;
+        border-left: #7c7c7c 1px solid;
         border-bottom: #ddd 1px solid;
+        border-top: #ddd 1px solid;
 
         &:first-child {
           border-left: 1px solid #ddd;
@@ -222,25 +201,20 @@ table.table--gray-borders {
       }
     }
 
-    table {
-      width: 100%;
+    &.table--is-sticky-left.table--left-sticky-minwidth {
+      tbody th {
+        filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
+      }
 
-      caption {
-        @include element-invisible();
+      .table__sticky-heading:first-child {
+        border-right: 1px solid #ccc;
+        filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
       }
     }
 
-    &.table--is-sticky-left.table--left-sticky-minwidth .table__sticky-heading:first-child {
-      border-right: 1px solid #ccc;
-    }
-
     .table__responsive-header__sticky-heading:first-child {
-      border-right: 1px solid #fff;
-      transition: border-right 0.3s ease-in-out;
-    }
-
-    &.table--is-sticky-left.table__responsive-container--is-striped.table--left-sticky-minwidth .table__sticky-heading:first-child {
       border-right: none;
+      transition: border-right 0.3s ease-in-out;
     }
 
     &.table--left-sticky-minwidth table tbody th {
