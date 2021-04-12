@@ -1,205 +1,199 @@
 let resizeTimer;
 
 document.addEventListener("DOMContentLoaded", function () {
-    generateResponsiveTables();
+  generateResponsiveTables();
 });
 
 // Instantiate tables on the page.
 function generateResponsiveTables() {
-    // Only instantiate tables that are not pre defined by the user as 'table-static'.
-    let selector = 'table:not(.table--static)';
+  // Only instantiate tables that are not pre defined by the user as 'table-static'.
+  let selector = 'table:not(.table--static)';
 
-    // If there is a defined hook to change the selector, then change it.
-    if (typeof hook_modifyTableSelector === "function") {
-        selector = hook_modifyTableSelector(selector);
-    }
+  // If there is a defined hook to change the selector, then change it.
+  if (typeof hook_modifyTableSelector === "function") {
+    selector = hook_modifyTableSelector(selector);
+  }
 
-    let tables = document.querySelectorAll(selector);
+  let tables = document.querySelectorAll(selector);
 
-    for (let i = 0; i < tables.length; i++) {
-        let table = tables[i];
-        if (!table.closest('.table__responsive-container')) {
-            // Set the table to have a class defining it as responsive.
-            table.classList.add('table__responsive');
+  for (let i = 0; i < tables.length; i++) {
+    let table = tables[i];
+    if (!table.closest('.table__responsive-container')) {
+      // Set the table to have a class defining it as responsive.
+      table.classList.add('table__responsive');
 
-            // If the table is default width, capture its initial width.
-            let table_offsetWidth = table.offsetWidth;
+      // If the table is default width, capture its initial width.
+      let table_offsetWidth = table.offsetWidth;
 
-            // Set table header HTML for future use.
-            let header_HTML = '';
+      // Set table header HTML for future use.
+      let header_HTML = '';
 
-            //Prepare table caption variables.
-            let caption_id = '';
-            let caption_HTML = '';
-            let caption_labeledby = '';
+      //Prepare table caption variables.
+      let caption_id = '';
+      let caption_HTML = '';
+      let caption_labeledby = '';
 
-            // If the table caption exists...
-            if (table.getElementsByTagName('caption')[0]) {
-              let caption = table.getElementsByTagName('caption');
+      // If the table caption exists...
+      if (table.getElementsByTagName('caption')[0]) {
+        let caption = table.getElementsByTagName('caption');
 
-              // And if table caption doesnt have an Id...
-              if(!caption[0].id) {
-                caption_id = 'table--' + i;
-                caption_labeledby = 'aria-labelledby="' + caption_id + '"';
+        // And if table caption doesnt have an Id...
+        if(!caption[0].id) {
+          caption_id = 'table--' + i;
+          caption_labeledby = 'aria-labelledby="' + caption_id + '"';
 
-                //Give the caption an Id.
-                caption[0].id = caption_id;
-              }
-
-              // Make a duplicate caption hidden from aria for sighted users.
-              caption_HTML = '<div class="table__visual-caption" aria-hidden="true">' + caption[0].innerHTML + '</div>';
-            }
-
-            // Determine if there are thead TH's without scope.
-            if (table.querySelectorAll('thead tr th')[0] && table.querySelectorAll('thead tr')[0].lastElementChild.tagName === 'TH') {
-                let theads = table.querySelectorAll('thead tr th');
-                for (let j = 0; j < theads.length; j++) {
-                    let thead = theads[j];
-                    if (!thead.hasAttribute('scope')) {
-
-                        // If they dont have the scope attribute, give thema  scope of "col".
-                        thead.setAttribute('scope', 'col');
-                    };
-
-                    thead.classList.add("table__invisible-header");
-                    thead.setAttribute('data-table-heading', 't-' + i + '-h-' + j);
-
-                    // Give the html to header_HTML for later usage.
-                    header_HTML = header_HTML +
-                        '<div class="table__sticky-heading" data-scroller-heading="t-' + i + '-h-' + j + '">\
-                            <div class="text-positioner">' +
-                                thead.innerHTML +
-                            '</div>\
-                        </div>'
-                        ;
-                }
-            };
-
-            // Determine if there are tbody TH's without scope.
-            let trows = table.querySelectorAll('tbody tr');
-            let row_headers = '';
-            for (let j = 0; j < trows.length; j++) {
-                let trow = trows[j];
-                if (trow.firstElementChild && trow.firstElementChild.tagName === 'TH') {
-                    row_headers = 'table__row-headers--true';
-
-                    if (!trow.firstElementChild.hasAttribute('scope')) {
-                        // If they dont have the scope attribute, give thema  scope of "row".
-                        trow.firstElementChild.setAttribute('scope', 'row');
-                    };
-                }
-            }
-
-            // Create the header scroller with the header html we saved a while back.
-            let header_scroller = '';
-            if (header_HTML !== '') {
-                header_scroller = '\
-                <div id="table__header--' + i + '" class="table__responsive-header" aria-hidden="true">\
-                    <div class="table__responsive-header__scroller syncscroll" name="sync-table-' + i + '">\
-                        ' + header_HTML + '\
-                    </div>\
-                </div>';
-            }
-
-
-            // Wrap the table in a responsive table div, and make sure aria knows what caption labels it, if any.
-            // This should be done last as to not mess up any scoping of previous functions.
-          // @todo Remove this after striping is the default.
-            let classes = (table.classList.contains('table--is-striped') || table.classList.contains('is-striped')) ? 'table__responsive-container--is-striped' : '';
-
-            // If the table has the .table--gray-borders class, add .table__responsive-container--gray-borders to the responsive table container as well.
-            if (table.classList.contains('table--gray-borders')) {
-              classes += ' table__responsive-container--gray-borders';
-            }
-
-            // If the table has .table--width-default then set a max width that will later be set on the measurer and the container.
-            // Also add a class to the container classes for some extra styling.
-            let table_elements_styles = '';
-            if (table.classList.contains('table--width-default')) {
-              table_elements_styles = 'style="max-width:min(100%, ' + table_offsetWidth + 'px)"';
-              classes += ' table__responsive-container--width-default';
-            }
-
-            // Construct the table HTML.
-            table.outerHTML =
-                '<div id="table__responsive-measurer--' + i + '" ' + table_elements_styles + '></div>' +
-                '<div id="table__responsive-container--' + i + '" class="table__responsive-container table ' + classes + ' ' + row_headers + '" role="region" ' + caption_labeledby + ' tabindex="0" ' + table_elements_styles + '>' +
-                    caption_HTML +
-                    header_scroller +
-                    '<div class="table__container syncscroll" name="sync-table-' + i + '">' +
-                        table.outerHTML +
-                    '</div>' +
-                '</div>'
-            ;
-
-            // Grab necessary elements to measure scrolling so we can add sticky class.
-            let table_bounding_box_selector = document.querySelector('#table__responsive-container--' + i);
-            let table_bounding_box_selector_table_container = table_bounding_box_selector.querySelector('.table__container');
-
-            // Add listeners for sticky class application.
-            // Only add the listener for the headers if they exist.
-            if (header_HTML !== '') {
-                document.addEventListener('scroll', throttle(tableSetStickyHeaders, table_bounding_box_selector, 300));
-            }
-
-            if (table.querySelectorAll('tbody tr th').length !== 0) {
-                table_bounding_box_selector_table_container.addEventListener('scroll', throttle(tableSetStickyHeaders, table_bounding_box_selector, 300));
-            }
-            if (header_HTML !== '' || table.querySelectorAll('tbody tr th').length !== 0) {
-                tableSetStickyHeaders(table_bounding_box_selector);
-            }
+          //Give the caption an Id.
+          caption[0].id = caption_id;
         }
+
+        // Make a duplicate caption hidden from aria for sighted users.
+        caption_HTML = '<div class="table__visual-caption" aria-hidden="true">' + caption[0].innerHTML + '</div>';
+      }
+
+      // Determine if there are thead TH's without scope.
+      if (table.querySelectorAll('thead tr th')[0] && table.querySelectorAll('thead tr')[0].lastElementChild.tagName === 'TH') {
+        let theads = table.querySelectorAll('thead tr th');
+        for (let j = 0; j < theads.length; j++) {
+          let thead = theads[j];
+          if (!thead.hasAttribute('scope')) {
+
+            // If they dont have the scope attribute, give thema  scope of "col".
+            thead.setAttribute('scope', 'col');
+          };
+
+          thead.classList.add("table__invisible-header");
+          thead.setAttribute('data-table-heading', 't-' + i + '-h-' + j);
+
+          // Give the html to header_HTML for later usage.
+          header_HTML = header_HTML +
+            '<div class="table__sticky-heading" data-scroller-heading="t-' + i + '-h-' + j + '">\
+              <div class="text-positioner">' +
+                thead.innerHTML +
+              '</div>\
+            </div>'
+          ;
+        }
+      };
+
+      // Determine if there are tbody TH's without scope.
+      let trows = table.querySelectorAll('tbody tr');
+      let row_headers = '';
+      for (let j = 0; j < trows.length; j++) {
+        let trow = trows[j];
+        if (trow.firstElementChild && trow.firstElementChild.tagName === 'TH') {
+          row_headers = 'table__row-headers--true';
+
+          if (!trow.firstElementChild.hasAttribute('scope')) {
+            // If they dont have the scope attribute, give thema  scope of "row".
+            trow.firstElementChild.setAttribute('scope', 'row');
+          };
+        }
+      }
+
+      // Create the header scroller with the header html we saved a while back.
+      let header_scroller = '';
+      if (header_HTML !== '') {
+        header_scroller = '\
+          <div id="table__header--' + i + '" class="table__responsive-header" aria-hidden="true">\
+            <div class="table__responsive-header__scroller syncscroll" name="sync-table-' + i + '">\
+              ' + header_HTML + '\
+            </div>\
+          </div>';
+      }
+
+      // If the table has the .table--gray-borders class, add .table__responsive-container--gray-borders to the responsive table container as well.
+      if (table.classList.contains('table--gray-borders')) {
+        classes += ' table__responsive-container--gray-borders';
+      }
+
+      // If the table has .table--width-default then set a max width that will later be set on the measurer and the container.
+      // Also add a class to the container classes for some extra styling.
+      let table_elements_styles = '';
+      if (table.classList.contains('table--width-default')) {
+        table_elements_styles = 'style="max-width:min(100%, ' + table_offsetWidth + 'px)"';
+        classes += ' table__responsive-container--width-default';
+      }
+
+      // Construct the table HTML.
+      table.outerHTML =
+        '<div id="table__responsive-measurer--' + i + '" ' + table_elements_styles + '></div>' +
+        '<div id="table__responsive-container--' + i + '" class="table__responsive-container table ' + classes + ' ' + row_headers + '" role="region" ' + caption_labeledby + ' tabindex="0" ' + table_elements_styles + '>' +
+        caption_HTML +
+        header_scroller +
+        '<div class="table__container syncscroll" name="sync-table-' + i + '">' +
+        table.outerHTML +
+        '</div>' +
+        '</div>'
+      ;
+
+      // Grab necessary elements to measure scrolling so we can add sticky class.
+      let table_bounding_box_selector = document.querySelector('#table__responsive-container--' + i);
+      let table_bounding_box_selector_table_container = table_bounding_box_selector.querySelector('.table__container');
+
+      // Add listeners for sticky class application.
+      // Only add the listener for the headers if they exist.
+      if (header_HTML !== '') {
+        document.addEventListener('scroll', throttle(tableSetStickyHeaders, table_bounding_box_selector, 300));
+      }
+
+      if (table.querySelectorAll('tbody tr th').length !== 0) {
+        table_bounding_box_selector_table_container.addEventListener('scroll', throttle(tableSetStickyHeaders, table_bounding_box_selector, 300));
+      }
+      if (header_HTML !== '' || table.querySelectorAll('tbody tr th').length !== 0) {
+        tableSetStickyHeaders(table_bounding_box_selector);
+      }
     }
+  }
 
-    // Trigger the table to resize everything after the user has finished dragging the window.
-    // We only do this when the window is done being dragged for performance reasons.
-    window.addEventListener('resize', function () {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function () {
-            triggerTableRespond();
-        }, 250);
-    });
+  // Trigger the table to resize everything after the user has finished dragging the window.
+  // We only do this when the window is done being dragged for performance reasons.
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      triggerTableRespond();
+    }, 250);
+  });
 
-    // Trigger the table to resize everything.
-    // We do this here to resize on Instantiation.
-    triggerTableRespond();
+  // Trigger the table to resize everything.
+  // We do this here to resize on Instantiation.
+  triggerTableRespond();
 }
 
 // This function will iterate through all tables, resize them, and then resize their headers.
 function triggerTableRespond() {
-    let responsive_tables = document.querySelectorAll('.table__responsive-container');
+  let responsive_tables = document.querySelectorAll('.table__responsive-container');
 
-    // This function can be defined by the user to add any functionality to this.
-    if (typeof hook_triggerTableRespond === "function") {
-        hook_triggerTableRespond(responsive_tables);
+  // This function can be defined by the user to add any functionality to this.
+  if (typeof hook_triggerTableRespond === "function") {
+    hook_triggerTableRespond(responsive_tables);
+  }
+
+  for (let i = 0; i < responsive_tables.length; i++) {
+    // Resize the visible headers every window resize if they exist.
+    if (document.querySelector('#table__header--' + i)) {
+      resizeScrollerheaders(i);
     }
 
-    for (let i = 0; i < responsive_tables.length; i++) {
-        // Resize the visible headers every window resize if they exist.
-        if (document.querySelector('#table__header--' + i)) {
-            resizeScrollerheaders(i);
-        }
-
-        // Check if the table is greater than 400px. If it is, add the class 'left-sticky-minwidth'.
-        tableSetMinWidthClass(responsive_tables[i]);
-    }
+    // Check if the table is greater than 400px. If it is, add the class 'left-sticky-minwidth'.
+    tableSetMinWidthClass(responsive_tables[i]);
+  }
 }
 
 // This function resizes the headers for a given table "i".
 function resizeScrollerheaders(i) {
-    let invisible_headers = document.querySelectorAll('#table__header--' + i + ' + .table__container table .table__invisible-header');
-    for (let j = 0; j < invisible_headers.length; j++) {
-        let header = invisible_headers[j]
-        let header_tag = header.getAttribute('data-table-heading');
-        let header_width = header.offsetWidth;
-        let header_height = header.offsetHeight;
-        let visible_header = document.querySelector('#table__header--' + i + ' [data-scroller-heading="' + header_tag + '"]');
-        visible_header.style.width = header_width + 'px';
-        visible_header.style.height = (header_height + 1) + 'px';
-    }
-    let table_container = document.querySelector('#table__header--' + i + ' + .table__container');
-    let thead_height = table_container.querySelector('table thead').offsetHeight;
-    table_container.style.marginTop = '-' + (thead_height + 1) + 'px';
+  let invisible_headers = document.querySelectorAll('#table__header--' + i + ' + .table__container table .table__invisible-header');
+  for (let j = 0; j < invisible_headers.length; j++) {
+    let header = invisible_headers[j]
+    let header_tag = header.getAttribute('data-table-heading');
+    let header_width = header.offsetWidth;
+    let header_height = header.offsetHeight;
+    let visible_header = document.querySelector('#table__header--' + i + ' [data-scroller-heading="' + header_tag + '"]');
+    visible_header.style.width = header_width + 'px';
+    visible_header.style.height = (header_height + 1) + 'px';
+  }
+  let table_container = document.querySelector('#table__header--' + i + ' + .table__container');
+  let thead_height = table_container.querySelector('table thead').offsetHeight;
+  table_container.style.marginTop = '-' + (thead_height + 1) + 'px';
 }
 
 /*!
@@ -211,59 +205,59 @@ function resizeScrollerheaders(i) {
  */
 function tableSetStickyHeaders(elem) {
 
-    let elem_table = elem.querySelector('.table__container table');
+  let elem_table = elem.querySelector('.table__container table');
 
-    // Get container element's bounding.
-    var container_bounding = elem.getBoundingClientRect();
+  // Get container element's bounding.
+  var container_bounding = elem.getBoundingClientRect();
 
-    // Get table element's bounding.
-    var table_bounding = elem_table.getBoundingClientRect();
+  // Get table element's bounding.
+  var table_bounding = elem_table.getBoundingClientRect();
 
-    // Check if it's out of the viewport on each side.
-    var out = {};
-    out.top = table_bounding.top < 0;
-    out.left = table_bounding.left < container_bounding.left;
-    out.left_back = table_bounding.left > container_bounding.left - 60;
+  // Check if it's out of the viewport on each side.
+  var out = {};
+  out.top = table_bounding.top < 0;
+  out.left = table_bounding.left < container_bounding.left;
+  out.left_back = table_bounding.left > container_bounding.left - 60;
 
 
-    // Check if the top bounding box is out and if it is then assign appropriate class.
-    if (out.top) {
-        elem.classList.add('table--is-sticky-top');
-    }
-    else {
-        elem.classList.remove('table--is-sticky-top');
-    }
+  // Check if the top bounding box is out and if it is then assign appropriate class.
+  if (out.top) {
+    elem.classList.add('table--is-sticky-top');
+  }
+  else {
+    elem.classList.remove('table--is-sticky-top');
+  }
 
-    // Check if the left bounding box is out and if it is then assign appropriate class.
-    if (out.left) {
-        elem.classList.add('table--is-sticky-left');
-    }
-    if (out.left_back) {
-        elem.classList.remove('table--is-sticky-left');
-    }
+  // Check if the left bounding box is out and if it is then assign appropriate class.
+  if (out.left) {
+    elem.classList.add('table--is-sticky-left');
+  }
+  if (out.left_back) {
+    elem.classList.remove('table--is-sticky-left');
+  }
 };
 
 // Check if the table is greater than 400px. If it is, add the class 'left-sticky-minwidth'.
 function tableSetMinWidthClass(table) {
-    let table_width = table.offsetWidth;
+  let table_width = table.offsetWidth;
 
-    if (table_width > 400) {
-        table.classList.add("table--left-sticky-minwidth");
-    }
-    else {
-        table.classList.remove("table--left-sticky-minwidth");
-    }
+  if (table_width > 400) {
+    table.classList.add("table--left-sticky-minwidth");
+  }
+  else {
+    table.classList.remove("table--left-sticky-minwidth");
+  }
 }
 
 // For throttling scroll functions.
 function throttle(fn, argument, wait) {
-    var time = Date.now();
-    return function () {
-        if ((time + wait - Date.now()) < 0) {
-            fn(argument);
-            time = Date.now();
-        }
+  var time = Date.now();
+  return function () {
+    if ((time + wait - Date.now()) < 0) {
+      fn(argument);
+      time = Date.now();
     }
+  }
 }
 
 // This is the copied syncscroll script needed to maintain syncronized scrolling between the table and the viaual headers.
