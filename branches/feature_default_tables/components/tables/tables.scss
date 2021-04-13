@@ -12,19 +12,27 @@ table[border] {
 }
 
 table {
-  border: 1px solid #eee;
-  width: 100%;
-  font-size: $content-font-size;
-  border-spacing: 0;
-  border-collapse: collapse;
-  color: $secondary;
   background-color: $white;
+  border: 1px solid #eee;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: $secondary;
+  display: inline-block;
+  font-size: $content-font-size;
+  max-width: 100%;
+  overflow-x: auto;
+  // @todo Add white-space: nowrap?
+  width: 100%;
+
+  @include breakpoint(sm) {
+    display: table;
+  }
 
   td,
   th {
     padding: $md;
-    vertical-align: bottom;
     font-size: $base-font-size;
+    min-width: 100px;
   }
 
   th {
@@ -65,7 +73,7 @@ table {
     }
   }
 
-  &:not(.table__responsive) caption {
+  caption {
     width: 100%;
     padding: 1.05rem;
     text-align: center;
@@ -229,14 +237,6 @@ table.table--gray-borders {
   }
 
   &__visual-caption {
-    width: 100%;
-    padding: 1.05rem;
-    text-align: center;
-    font-size: 1rem;
-    color: #fff;
-    text-transform: uppercase;
-    background-color: #333;
-    font-weight: bold;
   }
 
   &__responsive-header {
@@ -259,7 +259,6 @@ table.table--gray-borders {
     padding: $md;
     text-align: left;
     text-transform: uppercase;
-    vertical-align: bottom;
 
     .text-positioner {
       white-space: break-spaces;
