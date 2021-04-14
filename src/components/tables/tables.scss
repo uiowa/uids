@@ -13,7 +13,6 @@ table[border] {
 
 table {
   background-color: $white;
-  border: 1px solid #eee;
   border-collapse: collapse;
   border-spacing: 0;
   color: $secondary;
@@ -99,8 +98,6 @@ table {
 }
 
 table.table--gray-borders {
-  border: #ddd 1px solid;
-
   & > tr,
   & > tbody > tr,
   & > tfoot > tr {
@@ -137,147 +134,6 @@ table.table--gray-borders {
   & > tbody > tr:first-child {
     th, td {
       border-top: none;
-    }
-  }
-}
-
-.table {
-  &__responsive-container {
-    border: 1px solid #eee;
-    width: 100%;
-    position: relative;
-
-    table {
-      width: 100%;
-
-      caption {
-        @include element-invisible();
-      }
-    }
-
-    &--width-default {
-      width: unset;
-      display: inline-block;
-
-      table.table--width-default {
-        width: unset;
-      }
-    }
-
-    &.table__row-headers--true {
-
-      // A sticky heading is a heading in the JS generated table__responsive-header container.
-      .table__sticky-heading:first-child {
-        left: 0;
-      }
-
-      &.table--left-sticky-minwidth .table__sticky-heading:first-child {
-        position: sticky;
-      }
-    }
-
-    &.table--is-sticky-top {
-      .table__responsive-header {
-        transition: filter 0.3s ease-in-out;
-        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.2));
-      }
-    }
-
-    &.table__responsive-container--gray-borders {
-      border: unset;
-
-      .table__visual-caption {
-        border: #7c7c7c 1px solid;
-        border-bottom: none;
-      }
-
-      table > tbody > tr:first-child {
-        th, td {
-          border-top: none;
-        }
-      }
-
-      .table__responsive-header .table__sticky-heading {
-        border-left: #7c7c7c 1px solid;
-        border-bottom: #ddd 1px solid;
-        border-top: #ddd 1px solid;
-
-        &:first-child {
-          border-left: 1px solid #ddd;
-        }
-      }
-    }
-
-    &.table--is-sticky-left.table--left-sticky-minwidth {
-      tbody th {
-        filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
-      }
-
-      .table__sticky-heading:first-child {
-        border-right: 1px solid #ccc;
-        filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.2));
-      }
-    }
-
-    .table__responsive-header__sticky-heading:first-child {
-      border-right: none;
-      transition: border-right 0.3s ease-in-out;
-    }
-
-    &.table--left-sticky-minwidth table tbody th {
-      position: sticky;
-    }
-
-    .text-formatted & div {
-      line-height: inherit;
-      font-size: $base-font-size;
-      margin-bottom: 0;
-    }
-  }
-
-  &__visual-caption {
-  }
-
-  &__responsive-header {
-    position: sticky;
-    z-index: 1;
-    top: 0;
-
-    &__scroller {
-      white-space: nowrap;
-      overflow-x: hidden;
-    }
-  }
-
-  &__sticky-heading {
-    background: $primary;
-    border: none;
-    color: $secondary;
-    display: inline-block;
-    font-size: $base-font-size;
-    padding: $md;
-    text-align: left;
-    text-transform: uppercase;
-
-    .text-positioner {
-      white-space: break-spaces;
-      display: flex;
-      align-items: flex-end;
-      width: 100%;
-      height: 100%;
-      font-weight: bold;
-    }
-  }
-
-  &__container {
-    overflow-x: auto;
-  }
-
-  &.table--static {
-
-    tbody th,
-    thead th {
-      position: static;
     }
   }
 }
