@@ -1,4 +1,4 @@
-name: Publish docs to GitHub Pages
+name: Update documentation in GitHub Pages
 
 # Triggers on pushes to branches and tags, as well a deleting a branch.
 on:
@@ -64,7 +64,8 @@ jobs:
 #      - run: ls -lah $GITHUB_WORKSPACE/www
 
       # Debugging messages.
-#      - run: echo "${{ github.ref }}"
+      - run: echo "${{ github.ref }}"
+      - run: echo "${{ toJson(github.event) }}"
 #      - run: echo "${{ env.MAIN_BRANCH }}"
 #      - run: echo "Main check - ${{ github.ref == format('refs/heads/{0}', env.MAIN_BRANCH) }}"
 #      - run: echo "Branch check - ${{ contains(github.ref, 'refs/heads/') && github.ref != format('refs/heads/{0}', env.MAIN_BRANCH) }}"
@@ -106,13 +107,14 @@ jobs:
           rm -rf $GITHUB_WORKSPACE/gh-pages/docs/$git_branch
           mv $GITHUB_WORKSPACE/www/ $GITHUB_WORKSPACE/gh-pages/docs/$git_branch
 
-      # If event trigger is 'delete', remove the branch folder, if it exists.
+      # If deleting, remove branch from docs.
       - name: Branch deletion preparations
-        if: github.event.ref_type == 'branch' && github.event.deleted == true
-        run: if [ -d "$GITHUB_WORKSPACE/gh-pages/branches/${{ github.event.ref }}" ]; then rm -rf $GITHUB_WORKSPACE/gh-pages/branches/${{ github.event.ref }} ; fi
+        if: github.event.deleted == true && github.event.ref_type == 'branch'
+        run: echo "If I were fully activated, I would be deleting the ${{ github.event.ref }} branch."
+#        run: if [ -d "$GITHUB_WORKSPACE/gh-pages/branches/${{ github.event.ref }}" ]; then rm -rf $GITHUB_WORKSPACE/gh-pages/branches/${{ github.event.ref }} ; fi
 
-      # Look at the 'gh-pages' directory to see if everything looks right.
-#      - run: ls -lah $GITHUB_WORKSPACE/gh-pages
+        # Look at the 'gh-pages' directory to see if everything looks right.
+        # - run: ls -lah $GITHUB_WORKSPACE/gh-pages
 
       # https://github.com/JamesIves/github-pages-deploy-action#readme
       - name: Deploy docs 🚀
