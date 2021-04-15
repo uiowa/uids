@@ -108,8 +108,8 @@ jobs:
 
       # If event trigger is 'delete', remove the branch folder, if it exists.
       - name: Branch deletion preparations
-        if: github.event.deleted == true
-        run: if [ -d "$GITHUB_WORKSPACE/gh-pages/branches/$git_branch" ]; then rm -rf $GITHUB_WORKSPACE/gh-pages/branches/$git_branch ; fi
+        if: github.event.ref_type == 'branch' && github.event.deleted == true
+        run: if [ -d "$GITHUB_WORKSPACE/gh-pages/branches/${{ github.event.ref }}" ]; then rm -rf $GITHUB_WORKSPACE/gh-pages/branches/${{ github.event.ref }} ; fi
 
       # Look at the 'gh-pages' directory to see if everything looks right.
 #      - run: ls -lah $GITHUB_WORKSPACE/gh-pages
