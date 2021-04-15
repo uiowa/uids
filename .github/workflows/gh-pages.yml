@@ -110,7 +110,8 @@ jobs:
       # If deleting, remove branch from docs.
       - name: Branch deletion preparations
         if: github.event.deleted == true && github.event.ref_type == 'branch'
-        run: if [ -d "$GITHUB_WORKSPACE/gh-pages/branches/${{ github.event.ref }}" ]; then rm -rf $GITHUB_WORKSPACE/gh-pages/branches/${{ github.event.ref }} ; fi
+        run: echo "If I were fully activated, I would be deleting the ${{ github.event.ref }} branch."
+#        run: if [ -d "$GITHUB_WORKSPACE/gh-pages/branches/${{ github.event.ref }}" ]; then rm -rf $GITHUB_WORKSPACE/gh-pages/branches/${{ github.event.ref }} ; fi
 
         # Look at the 'gh-pages' directory to see if everything looks right.
         # - run: ls -lah $GITHUB_WORKSPACE/gh-pages
