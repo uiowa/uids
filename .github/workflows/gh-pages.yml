@@ -1,7 +1,8 @@
-name: Publish docs to GitHub Pages
+name: Update documentation in GitHub Pages
 
 # Triggers on pushes to branches and tags, as well a deleting a branch.
 on:
+  delete:
   push:
     branches:
       - '*'
@@ -63,7 +64,8 @@ jobs:
 #      - run: ls -lah $GITHUB_WORKSPACE/www
 
       # Debugging messages.
-#      - run: echo "${{ github.ref }}"
+      - run: echo "${{ github.ref }}"
+      - run: echo "${{ toJson(github.event) }}"
 #      - run: echo "${{ env.MAIN_BRANCH }}"
 #      - run: echo "Main check - ${{ github.ref == format('refs/heads/{0}', env.MAIN_BRANCH) }}"
 #      - run: echo "Branch check - ${{ contains(github.ref, 'refs/heads/') && github.ref != format('refs/heads/{0}', env.MAIN_BRANCH) }}"
@@ -75,7 +77,7 @@ jobs:
       #   - Remove existing 'latest' directory, if it exists.
       #   - Move build into 'latest' directory.
       - name: Main branch preparations
-        if: github.ref == format('refs/heads/{0}', env.MAIN_BRANCH)
+        if: github.event.deleted == false && github.ref == format('refs/heads/{0}', env.MAIN_BRANCH)
         run: |
           rm -rf $GITHUB_WORKSPACE/gh-pages/latest
           mv $GITHUB_WORKSPACE/www $GITHUB_WORKSPACE/gh-pages/latest
@@ -85,7 +87,7 @@ jobs:
       #   - Remove existing version of docs, if it exists.
       #   - Move build into versioned folder.
       - name: Other branch preparations
-        if: contains(github.ref, 'refs/heads/') && github.ref != format('refs/heads/{0}', env.MAIN_BRANCH)
+        if: github.event.deleted == false && contains(github.ref, 'refs/heads/') && github.ref != format('refs/heads/{0}', env.MAIN_BRANCH)
         run: |
           if [ ! -d "$GITHUB_WORKSPACE/gh-pages/branches" ]; then mkdir $GITHUB_WORKSPACE/gh-pages/branches ; fi
           rm -rf $GITHUB_WORKSPACE/gh-pages/branches/$git_branch
@@ -98,15 +100,21 @@ jobs:
       #   - Move build into versioned folder.
       # @todo Do we need to have a method for checking if this is the most recent version?
       - name: Tag push preparations
-        if: startsWith(github.ref, 'refs/tags/')
+        if: github.event.deleted == false && startsWith(github.ref, 'refs/tags/')
         run: |
           cp -a $GITHUB_WORKSPACE/www/* $GITHUB_WORKSPACE/gh-pages
           if [ ! -d "$GITHUB_WORKSPACE/gh-pages/docs" ]; then mkdir $GITHUB_WORKSPACE/gh-pages/docs ; fi
           rm -rf $GITHUB_WORKSPACE/gh-pages/docs/$git_branch
           mv $GITHUB_WORKSPACE/www/ $GITHUB_WORKSPACE/gh-pages/docs/$git_branch
 
-      # Look at the 'gh-pages' directory to see if everything looks right.
-#      - run: ls -lah $GITHUB_WORKSPACE/gh-pages
+      # If deleting, remove branch from docs.
+      - name: Branch deletion preparations
+        if: github.event.deleted == true && github.event.ref_type == 'branch'
+        run: echo "If I were fully activated, I would be deleting the ${{ github.event.ref }} branch."
+#        run: if [ -d "$GITHUB_WORKSPACE/gh-pages/branches/${{ github.event.ref }}" ]; then rm -rf $GITHUB_WORKSPACE/gh-pages/branches/${{ github.event.ref }} ; fi
+
+        # Look at the 'gh-pages' directory to see if everything looks right.
+        # - run: ls -lah $GITHUB_WORKSPACE/gh-pages
 
       # https://github.com/JamesIves/github-pages-deploy-action#readme
       - name: Deploy docs 🚀
