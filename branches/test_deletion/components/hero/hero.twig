@@ -1,0 +1,29 @@
+<div class="hero">
+
+  {% block hero_media %}
+    {% if hero_type == 'video' %}
+      <video class="media__video" autoplay="autoplay" muted="muted" loop="loop" id="video-container" poster="{{ hero_image }}">
+        <source src="{{ hero_video }}" type="video/mp4">
+      </video>
+      <!-- This picture should assume background overlay doesn't work. So it should be darker to handle contrast ratio issues. -->
+      <!--[if lt IE 9]> <img src="{{ hero_image }}" alt="{{ hero_image_alt }}" class=" ie8-poster"> <![endif]-->
+    {% else %}
+      <div class="hero__image">
+        {% include "@image" %}
+      </div>
+    {% endif %}
+  {% endblock %}
+
+  {% block hero_content_wrapper %}
+    <div class="hero__content hero__content-{{ hero_content }}">
+
+      {% if hero_type == 'video' %}
+        <div class="video-controls video">
+          <button class="video-btn video-btn__pause" id="video-btn">
+            <span class="element-invisible">Pause</span>
+          </button>
+        </div>
+      {% endif %}
+    </div>
+  {% endblock %}
+</div>
