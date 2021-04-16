@@ -4,8 +4,8 @@ name: Update documentation in GitHub Pages
 on:
   delete:
   push:
-    branches:
-      - '*'
+    branches-ignore:
+      - "dependabot/**"
     tags:
       - '*'
       # @todo Change this to only reference tags starting with v.
@@ -65,7 +65,7 @@ jobs:
 
       # Debugging messages.
       - run: echo "${{ github.ref }}"
-      - run: echo "${{ toJson(github.event) }}"
+#      - run: echo "${{ toJson(github) }}"
 #      - run: echo "${{ env.MAIN_BRANCH }}"
 #      - run: echo "Main check - ${{ github.ref == format('refs/heads/{0}', env.MAIN_BRANCH) }}"
 #      - run: echo "Branch check - ${{ contains(github.ref, 'refs/heads/') && github.ref != format('refs/heads/{0}', env.MAIN_BRANCH) }}"
