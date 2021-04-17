@@ -1,0 +1,160 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/utilities';
+//// Table Elements
+
+table[border] {
+  border-style: solid;
+  border-color: #eee;
+  td,
+  th {
+    border-color: #eee;
+  }
+}
+
+table {
+  background-color: $white;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: $secondary;
+  display: inline-block;
+  font-size: $content-font-size;
+  max-width: 100%;
+  overflow-x: auto;
+  // @todo Add white-space: nowrap?
+  width: 100%;
+
+  @include breakpoint(sm) {
+    display: table;
+  }
+
+  p, ul, ol {
+    font-size: $base-font-size;
+  }
+
+  ul, ol {
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  td,
+  th {
+    padding: $md;
+    font-size: $base-font-size;
+  }
+
+  th {
+    color: $secondary;
+
+    &:not([align]) {
+      text-align: left;
+    }
+  }
+
+  thead th {
+    background-color: $primary;
+    border: none;
+    text-transform: uppercase;
+    a {
+      color: $secondary;
+    }
+  }
+
+  tbody th {
+    background-color: #fff;
+    border: none;
+    position: static;
+    left: 0;
+    padding-left: $md;
+  }
+
+  tbody tr:not(.is-selected):nth-child(even),
+  tbody tr:not(.is-selected):nth-child(even) th {
+    background-color: $light;
+  }
+
+  &.table--hover-highlight tbody tr:not(.is-selected),
+  &.table--hover-highlight tbody tr:not(.is-selected):nth-child(even) {
+    &:hover {
+      th {
+        background-color: #fff3c3
+      }
+
+      background-color: #fff3c3;
+    }
+  }
+
+  caption {
+    width: 100%;
+    padding: 1.05rem;
+    text-align: center;
+    font-size: 1rem;
+    color: #fff;
+    text-transform: uppercase;
+    background-color: #333;
+    font-weight: bold;
+  }
+
+  tbody tr:last-child td,
+  tbody tr:last-child th {
+    border-bottom-width: 0;
+  }
+
+  thead td,
+  thead th {
+    color: $secondary;
+  }
+
+  &.table--width-default {
+    width: unset;
+  }
+}
+
+.table-responsive {
+  overflow-x: auto;
+
+  table {
+    display: table;
+  }
+}
+
+table.table--gray-borders {
+  & > tr,
+  & > tbody > tr,
+  & > tfoot > tr {
+    & > td,
+    & > th {
+      border: #ddd 1px solid;
+    }
+  }
+
+  & > thead > tr,
+  & > caption {
+    & > td,
+    & > th {
+      border: #7c7c7c 1px solid;
+    }
+  }
+
+  & > thead > tr {
+    & > td,
+    & > th {
+      border-bottom: #ddd 1px solid;
+      border-top: #ddd 1px solid;
+
+      &:first-child {
+        border-left: #ddd 1px solid;
+      }
+
+      &:last-child {
+        border-right: #ddd 1px solid;
+      }
+    }
+  }
+
+  & > tbody > tr:first-child {
+    th, td {
+      border-top: none;
+    }
+  }
+}
