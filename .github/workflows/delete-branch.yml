@@ -1,0 +1,43 @@
+name: Remove deleted branch from documentation
+
+# Triggers on deletion of a ref type.
+on: delete
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "delete"
+  delete:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    env:
+      TARGET_BRANCH: gh-pages
+      MAIN_BRANCH: main
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # https://github.com/actions/checkout#readme
+      - name: Checkout docs
+        uses: actions/checkout@v2
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      # Debugging messages.
+      - run: echo "${{ github.ref }}"
+      - run: echo "${{ github.event.ref }}"
+
+      # Remove the branch from docs.
+      - name: Branch deletion preparations
+        run: if [ -d "$GITHUB_WORKSPACE/gh-pages/branches/${{ github.event.ref }}" ]; then rm -rf $GITHUB_WORKSPACE/gh-pages/branches/${{ github.event.ref }} ; fi
+
+      # Look at the 'gh-pages' directory to see if everything looks right.
+      - run: cd $GITHUB_WORKSPACE/gh-pages && git pull && git status
+
+      # https://github.com/JamesIves/github-pages-deploy-action#readme
+      - name: Deploy docs 🚀
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: ${{ env.TARGET_BRANCH }} # The branch the action should deploy to.
+          FOLDER: gh-pages # The folder the action should deploy.
+
