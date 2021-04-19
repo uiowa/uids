@@ -207,7 +207,7 @@
 
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card__wrapper&quot;</span>&gt;</span>
 
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card bg--white card--stacked card__row&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card bg--white card--stacked card__row&quot;</span> <span class="hljs-attr">data-uids-no-link</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card__media &quot;</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card__img&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://sandbox.prod.drupal.uiowa.edu/sites/sandbox.uiowa.edu/files/2021-03/feature1.jpg&quot;</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;Alt Text&quot;</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
@@ -228,10 +228,10 @@
 
             <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Molecular <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://hr.uiowa.edu&quot;</span>&gt;</span>medicine PhD<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span> student Jordan Kohlmeyer is researching new therapies for malignant peripheral nerve sheath tumors, which are deadly, resistant to drug therapies, and often unable to be operated upon due to their location.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 
-            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">aria-hidden</span>=<span class="hljs-string">&quot;true&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;bttn bttn--outline bttn--sans-serif&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;desc-a-card&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;bttn bttn--outline bttn--sans-serif bttn--full&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://uiowa.edu/&quot;</span>&gt;</span>
                 View Story
                 <span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;fas fa-arrow-right&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>
-            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
@@ -892,8 +892,9 @@
                         <div class="FileBrowser-itemPreview">
                             
                             <code class="Code Code--lang-JavaScript FileBrowser-code hljs">
-                                <pre><span class="hljs-keyword">const</span> cards = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">&#x27;.card&#x27;</span>);
+                                <pre><span class="hljs-keyword">const</span> cards = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">&#x27;.card:not([data-uids-no-link])&#x27;</span>);
 <span class="hljs-keyword">const</span> link_elements = [<span class="hljs-string">&#x27;.card__title a&#x27;</span>, <span class="hljs-string">&#x27;.card__media a&#x27;</span>, <span class="hljs-string">&#x27;a.bttn&#x27;</span>];
+
 <span class="hljs-built_in">Array</span>.prototype.forEach.call(cards, <span class="hljs-function"><span class="hljs-params">card</span> =&gt;</span> {
   <span class="hljs-keyword">let</span> up, down, link, i;
   <span class="hljs-comment">// Loop through options and break on the first match.</span>
@@ -904,6 +905,7 @@
   }
 
   <span class="hljs-comment">// If we have a match, attach behaviors.</span>
+
   <span class="hljs-keyword">if</span> (link) {
     card.style.cursor = <span class="hljs-string">&#x27;pointer&#x27;</span>;
     card.onmousedown = <span class="hljs-function">() =&gt;</span> down = +<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
@@ -932,7 +934,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">704 Bytes</span>
+                    <span class="Meta-value">731 Bytes</span>
                 </li>
             </ul>
         </div>
@@ -2827,8 +2829,8 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2021-04-18T15:25:49.832Z">
-                4/18/2021
+            <time datetime="2021-04-19T19:01:54.171Z">
+                4/19/2021
             </time>
         </div>
     </div>
