@@ -149,8 +149,10 @@
 
     // set fixed small size for card stacked small circle
     .card__media--small.media--circle {
+      max-width: 150px;
+      margin: $md auto 0;
       @include breakpoint(sm) {
-        max-width: 150px;
+        margin: 0 auto;
       }
     }
   }
@@ -172,9 +174,8 @@
   &.media--square,
   &.media--circle {
     .card__media--small {
-      @include breakpoint(sm) {
         max-width: 160px;
-      }
+        margin: 0 auto;
 
       img {
         align-self: start;
@@ -261,10 +262,12 @@
       @include card-media-small;
 
       &.media--circle {
-        @include breakpoint(sm) {
           flex: 0 0 25%;
           width: 25%;
           max-width: 150px;
+          margin: $md auto 0;
+        @include breakpoint(sm) {
+          margin: 0;
         }
       }
     }
@@ -273,10 +276,8 @@
       @include card-media-medium;
 
       &.media--circle {
-        @include breakpoint(sm) {
           flex: 0 0 25%;
           width: 25%;
-        }
       }
     }
 
@@ -284,10 +285,8 @@
       @include card-media-large;
 
       &.media--circle {
-        @include breakpoint(sm) {
           flex: 0 0 37%;
           width: 37%;
-        }
       }
     }
 
@@ -295,17 +294,13 @@
 
       // Size adjustments for square format
       .card__media--medium {
-        @include breakpoint(sm) {
           flex: 0 0 25%;
           width: 25%;
-        }
       }
 
       .card__media--large {
-        @include breakpoint(sm) {
           flex: 0 0 37%;
           width: 37%;
-        }
       }
     }
 
