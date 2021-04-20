@@ -8,15 +8,10 @@
   [class*="bg-"] & {
     &.card--stacked[class*="bg-"] {
       .media--circle {
-        @include breakpoint(sm) {
-          margin-top: 2rem;
-        }
+        margin-top: 2rem;
 
         &.card__media--large {
-          @include breakpoint(sm) {
-            padding: 0 2rem;
-            margin-top: 2rem;
-          }
+          padding: 0 2rem;
         }
       }
     }
@@ -28,28 +23,35 @@
       .media--circle.card__media--large,
       .media--circle.card__media--medium,
       .media--circle.card__media--small {
-        @include breakpoint(sm) {
-          margin-top: 2rem;
-        }
+        margin-top: 2rem;
       }
     }
     // Add padding if large circle stacked is enclosed or has bg color
-    .media--circle.card__media--large {
-      @include breakpoint(sm) {
-        padding: 0 2rem;
-      }
+    .media--circle.card__media--large,
+    .media--circle.card__media--medium {
+      padding: 0 2rem;
     }
   }
 
   &--enclosed {
     @include card-enclosed;
 
-    &.card--stacked {
+    &.card--stacked,
+    &.card--media-right,
+    &.card--media-left {
+      .card__media--medium,
+      .card__media--small,
+      .media--circle {
+        margin-top: 2rem;
+      }
+    }
+    &.card--media-right,
+    &.card--media-left {
       .card__media--medium,
       .card__media--small,
       .media--circle {
         @include breakpoint(sm) {
-          margin-top: 2rem;
+          margin-top: 0;
         }
       }
     }
@@ -139,10 +141,8 @@
     // set fixed small size for card stacked small circle
     .card__media--small.media--circle {
       max-width: 150px;
-      margin: $md auto 0;
-      @include breakpoint(sm) {
-        margin: 0 auto;
-      }
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 
@@ -164,7 +164,8 @@
   &.media--square {
     .card__media--small {
       max-width: 160px;
-      margin: 0 auto;
+      margin-left: auto;
+      margin-right: auto;
 
       img {
         align-self: start;
@@ -250,12 +251,12 @@
       @include card-media-small;
 
       &.media--circle {
-        flex: 0 0 25%;
         width: 25%;
         max-width: 150px;
-        margin: $md auto 0;
+        margin-left: auto;
+        margin-right: auto;
         @include breakpoint(sm) {
-          margin: 0;
+          flex: 0 0 25%;
         }
       }
     }
@@ -264,8 +265,12 @@
       @include card-media-medium;
 
       &.media--circle {
-        flex: 0 0 25%;
         width: 25%;
+        margin-left: auto;
+        margin-right: auto;
+        @include breakpoint(sm) {
+          flex: 0 0 25%;
+        }
       }
     }
 
@@ -273,8 +278,12 @@
       @include card-media-large;
 
       &.media--circle {
-        flex: 0 0 37%;
         width: 37%;
+        margin-left: auto;
+        margin-right: auto;
+        @include breakpoint(sm) {
+          flex: 0 0 37%;
+        }
       }
     }
 
@@ -314,10 +323,10 @@
     }
 
     .card__body {
-      flex: 0 1 100%;
       padding: 2rem;
       @include breakpoint(sm) {
         padding: 0;
+        flex: 0 1 100%;
       }
       min-height: 1px;
     }
@@ -346,11 +355,15 @@
   }
 
   &--media-right {
-    flex-direction: row-reverse;
+    @include breakpoint(sm) {
+      flex-direction: row-reverse;
+    }
 
     &.card,
     &.card--enclosed {
-      flex-direction: row-reverse;
+      @include breakpoint(sm) {
+        flex-direction: row-reverse;
+      }
     }
   }
   // @todo move card header to separate component

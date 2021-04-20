@@ -255,9 +255,8 @@
                             
                             <code class="Code Code--lang-SCSS FileBrowser-code hljs">
                                 <pre><span class="hljs-keyword">@mixin</span> card-enclosed {
-  <span class="hljs-keyword">@include</span> breakpoint(sm) {
-    <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid;
-  }
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid;
+
   <span class="hljs-selector-class">.card__body</span> {
     <span class="hljs-attribute">padding</span>: <span class="hljs-number">2rem</span>;
   }
@@ -338,7 +337,7 @@
   <span class="hljs-keyword">@include</span> flexbox;
   <span class="hljs-keyword">@include</span> flex(<span class="hljs-variable">$fg</span>: <span class="hljs-number">1</span>, <span class="hljs-variable">$fs</span>: <span class="hljs-number">1</span>, <span class="hljs-variable">$fb</span>: <span class="hljs-number">0%</span>);
   <span class="hljs-keyword">@include</span> flex-direction(<span class="hljs-variable">$value</span>: column);
-  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid;
+  <span class="hljs-comment">//border: 1px solid;</span>
 
   &amp;<span class="hljs-selector-pseudo">:focus</span>-within <span class="hljs-selector-class">.card__title</span> <span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:focus</span> {
     <span class="hljs-attribute">text-decoration</span>: underline;
@@ -446,41 +445,45 @@
   <span class="hljs-attribute">flex-grow</span>: <span class="hljs-number">1</span>;
   <span class="hljs-attribute">display</span>: flex;
   <span class="hljs-attribute">flex</span>: <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">0%</span>;
-  <span class="hljs-attribute">flex-direction</span>: column;
-  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid; }
+  <span class="hljs-attribute">flex-direction</span>: column; }
   <span class="hljs-selector-class">.card</span><span class="hljs-selector-pseudo">:focus</span>-within <span class="hljs-selector-class">.card__title</span> <span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:focus</span> {
     <span class="hljs-attribute">text-decoration</span>: underline; }
   <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
     <span class="hljs-selector-class">.card</span> {
       <span class="hljs-attribute">border</span>: none;
       <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">0</span>; } }
-  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
-    <span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg-&quot;</span>]</span> <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--stacked</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg-&quot;</span>]</span> <span class="hljs-selector-class">.media--circle</span> {
-      <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">2rem</span>; } }
-  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
+  <span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg-&quot;</span>]</span> <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--stacked</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg-&quot;</span>]</span> <span class="hljs-selector-class">.media--circle</span> {
+    <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">2rem</span>; }
     <span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg-&quot;</span>]</span> <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--stacked</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg-&quot;</span>]</span> <span class="hljs-selector-class">.media--circle</span><span class="hljs-selector-class">.card__media--large</span> {
-      <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">2rem</span>;
-      <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">2rem</span>; } }
-  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
-    <span class="hljs-selector-class">.card--stacked</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg-&quot;</span>]</span> <span class="hljs-selector-class">.media--circle</span><span class="hljs-selector-class">.card__media--large</span>,
-    <span class="hljs-selector-class">.card--stacked</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg-&quot;</span>]</span> <span class="hljs-selector-class">.media--circle</span><span class="hljs-selector-class">.card__media--medium</span>,
-    <span class="hljs-selector-class">.card--stacked</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg-&quot;</span>]</span> <span class="hljs-selector-class">.media--circle</span><span class="hljs-selector-class">.card__media--small</span> {
-      <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">2rem</span>; } }
-  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
-    <span class="hljs-selector-class">.card--stacked</span> <span class="hljs-selector-class">.media--circle</span><span class="hljs-selector-class">.card__media--large</span> {
-      <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">2rem</span>; } }
-  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
-    <span class="hljs-selector-class">.card--enclosed</span> {
-      <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid; } }
-  <span class="hljs-selector-class">.card--enclosed</span> <span class="hljs-selector-class">.card__body</span> {
-    <span class="hljs-attribute">padding</span>: <span class="hljs-number">2rem</span>; }
-  <span class="hljs-selector-class">.card--enclosed</span> <span class="hljs-selector-class">.bttn</span> {
-    <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">0</span>; }
-  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
+      <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">2rem</span>; }
+  <span class="hljs-selector-class">.card--stacked</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg-&quot;</span>]</span> <span class="hljs-selector-class">.media--circle</span><span class="hljs-selector-class">.card__media--large</span>,
+  <span class="hljs-selector-class">.card--stacked</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg-&quot;</span>]</span> <span class="hljs-selector-class">.media--circle</span><span class="hljs-selector-class">.card__media--medium</span>,
+  <span class="hljs-selector-class">.card--stacked</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg-&quot;</span>]</span> <span class="hljs-selector-class">.media--circle</span><span class="hljs-selector-class">.card__media--small</span> {
+    <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">2rem</span>; }
+  <span class="hljs-selector-class">.card--stacked</span> <span class="hljs-selector-class">.media--circle</span><span class="hljs-selector-class">.card__media--large</span>,
+  <span class="hljs-selector-class">.card--stacked</span> <span class="hljs-selector-class">.media--circle</span><span class="hljs-selector-class">.card__media--medium</span> {
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">2rem</span>; }
+  <span class="hljs-selector-class">.card--enclosed</span> {
+    <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid; }
+    <span class="hljs-selector-class">.card--enclosed</span> <span class="hljs-selector-class">.card__body</span> {
+      <span class="hljs-attribute">padding</span>: <span class="hljs-number">2rem</span>; }
+    <span class="hljs-selector-class">.card--enclosed</span> <span class="hljs-selector-class">.bttn</span> {
+      <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">0</span>; }
     <span class="hljs-selector-class">.card--enclosed</span><span class="hljs-selector-class">.card--stacked</span> <span class="hljs-selector-class">.card__media--medium</span>,
     <span class="hljs-selector-class">.card--enclosed</span><span class="hljs-selector-class">.card--stacked</span> <span class="hljs-selector-class">.card__media--small</span>,
-    <span class="hljs-selector-class">.card--enclosed</span><span class="hljs-selector-class">.card--stacked</span> <span class="hljs-selector-class">.media--circle</span> {
-      <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">2rem</span>; } }
+    <span class="hljs-selector-class">.card--enclosed</span><span class="hljs-selector-class">.card--stacked</span> <span class="hljs-selector-class">.media--circle</span>, <span class="hljs-selector-class">.card--enclosed</span><span class="hljs-selector-class">.card--media-right</span> <span class="hljs-selector-class">.card__media--medium</span>,
+    <span class="hljs-selector-class">.card--enclosed</span><span class="hljs-selector-class">.card--media-right</span> <span class="hljs-selector-class">.card__media--small</span>,
+    <span class="hljs-selector-class">.card--enclosed</span><span class="hljs-selector-class">.card--media-right</span> <span class="hljs-selector-class">.media--circle</span>, <span class="hljs-selector-class">.card--enclosed</span><span class="hljs-selector-class">.card--media-left</span> <span class="hljs-selector-class">.card__media--medium</span>,
+    <span class="hljs-selector-class">.card--enclosed</span><span class="hljs-selector-class">.card--media-left</span> <span class="hljs-selector-class">.card__media--small</span>,
+    <span class="hljs-selector-class">.card--enclosed</span><span class="hljs-selector-class">.card--media-left</span> <span class="hljs-selector-class">.media--circle</span> {
+      <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">2rem</span>; }
+    <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
+      <span class="hljs-selector-class">.card--enclosed</span><span class="hljs-selector-class">.card--media-right</span> <span class="hljs-selector-class">.card__media--medium</span>,
+      <span class="hljs-selector-class">.card--enclosed</span><span class="hljs-selector-class">.card--media-right</span> <span class="hljs-selector-class">.card__media--small</span>,
+      <span class="hljs-selector-class">.card--enclosed</span><span class="hljs-selector-class">.card--media-right</span> <span class="hljs-selector-class">.media--circle</span>, <span class="hljs-selector-class">.card--enclosed</span><span class="hljs-selector-class">.card--media-left</span> <span class="hljs-selector-class">.card__media--medium</span>,
+      <span class="hljs-selector-class">.card--enclosed</span><span class="hljs-selector-class">.card--media-left</span> <span class="hljs-selector-class">.card__media--small</span>,
+      <span class="hljs-selector-class">.card--enclosed</span><span class="hljs-selector-class">.card--media-left</span> <span class="hljs-selector-class">.media--circle</span> {
+        <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">0</span>; } }
   <span class="hljs-selector-class">.card__title</span> {
     <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0.625rem</span>;
     <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
@@ -537,10 +540,8 @@
       <span class="hljs-attribute">display</span>: block; } }
   <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--stacked</span> <span class="hljs-selector-class">.card__media--small</span><span class="hljs-selector-class">.media--circle</span> {
     <span class="hljs-attribute">max-width</span>: <span class="hljs-number">150px</span>;
-    <span class="hljs-attribute">margin</span>: <span class="hljs-number">1.05rem</span> auto <span class="hljs-number">0</span>; }
-    <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
-      <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--stacked</span> <span class="hljs-selector-class">.card__media--small</span><span class="hljs-selector-class">.media--circle</span> {
-        <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto; } }
+    <span class="hljs-attribute">margin-left</span>: auto;
+    <span class="hljs-attribute">margin-right</span>: auto; }
   <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
     <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.media--widescreen</span> <span class="hljs-selector-class">.card__media--small</span> {
       <span class="hljs-attribute">max-width</span>: <span class="hljs-number">60%</span>; } }
@@ -549,7 +550,8 @@
       <span class="hljs-attribute">max-width</span>: <span class="hljs-number">75%</span>; } }
   <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.media--circle</span> <span class="hljs-selector-class">.card__media--small</span>, <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.media--square</span> <span class="hljs-selector-class">.card__media--small</span> {
     <span class="hljs-attribute">max-width</span>: <span class="hljs-number">160px</span>;
-    <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto; }
+    <span class="hljs-attribute">margin-left</span>: auto;
+    <span class="hljs-attribute">margin-right</span>: auto; }
     <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.media--circle</span> <span class="hljs-selector-class">.card__media--small</span> <span class="hljs-selector-tag">img</span>, <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.media--square</span> <span class="hljs-selector-class">.card__media--small</span> <span class="hljs-selector-tag">img</span> {
       <span class="hljs-attribute">align-self</span>: start; }
   <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
@@ -634,27 +636,35 @@
       <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">25%</span>;
       <span class="hljs-attribute">width</span>: <span class="hljs-number">25%</span>; } }
   <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-left</span> <span class="hljs-selector-class">.card__media--small</span><span class="hljs-selector-class">.media--circle</span>, <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-right</span> <span class="hljs-selector-class">.card__media--small</span><span class="hljs-selector-class">.media--circle</span> {
-    <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">25%</span>;
     <span class="hljs-attribute">width</span>: <span class="hljs-number">25%</span>;
     <span class="hljs-attribute">max-width</span>: <span class="hljs-number">150px</span>;
-    <span class="hljs-attribute">margin</span>: <span class="hljs-number">1.05rem</span> auto <span class="hljs-number">0</span>; }
+    <span class="hljs-attribute">margin-left</span>: auto;
+    <span class="hljs-attribute">margin-right</span>: auto; }
     <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
       <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-left</span> <span class="hljs-selector-class">.card__media--small</span><span class="hljs-selector-class">.media--circle</span>, <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-right</span> <span class="hljs-selector-class">.card__media--small</span><span class="hljs-selector-class">.media--circle</span> {
-        <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>; } }
+        <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">25%</span>; } }
   <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
     <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-left</span> <span class="hljs-selector-class">.card__media--medium</span>, <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-right</span> <span class="hljs-selector-class">.card__media--medium</span> {
       <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">37.5%</span>;
       <span class="hljs-attribute">width</span>: <span class="hljs-number">37.5%</span>; } }
   <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-left</span> <span class="hljs-selector-class">.card__media--medium</span><span class="hljs-selector-class">.media--circle</span>, <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-right</span> <span class="hljs-selector-class">.card__media--medium</span><span class="hljs-selector-class">.media--circle</span> {
-    <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">25%</span>;
-    <span class="hljs-attribute">width</span>: <span class="hljs-number">25%</span>; }
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">25%</span>;
+    <span class="hljs-attribute">margin-left</span>: auto;
+    <span class="hljs-attribute">margin-right</span>: auto; }
+    <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
+      <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-left</span> <span class="hljs-selector-class">.card__media--medium</span><span class="hljs-selector-class">.media--circle</span>, <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-right</span> <span class="hljs-selector-class">.card__media--medium</span><span class="hljs-selector-class">.media--circle</span> {
+        <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">25%</span>; } }
   <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
     <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-left</span> <span class="hljs-selector-class">.card__media--large</span>, <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-right</span> <span class="hljs-selector-class">.card__media--large</span> {
       <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">50%</span>;
       <span class="hljs-attribute">width</span>: <span class="hljs-number">50%</span>; } }
   <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-left</span> <span class="hljs-selector-class">.card__media--large</span><span class="hljs-selector-class">.media--circle</span>, <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-right</span> <span class="hljs-selector-class">.card__media--large</span><span class="hljs-selector-class">.media--circle</span> {
-    <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">37%</span>;
-    <span class="hljs-attribute">width</span>: <span class="hljs-number">37%</span>; }
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">37%</span>;
+    <span class="hljs-attribute">margin-left</span>: auto;
+    <span class="hljs-attribute">margin-right</span>: auto; }
+    <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
+      <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-left</span> <span class="hljs-selector-class">.card__media--large</span><span class="hljs-selector-class">.media--circle</span>, <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-right</span> <span class="hljs-selector-class">.card__media--large</span><span class="hljs-selector-class">.media--circle</span> {
+        <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">37%</span>; } }
   <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-left</span><span class="hljs-selector-class">.media--square</span> <span class="hljs-selector-class">.card__media--medium</span>, <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-right</span><span class="hljs-selector-class">.media--square</span> <span class="hljs-selector-class">.card__media--medium</span> {
     <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">25%</span>;
     <span class="hljs-attribute">width</span>: <span class="hljs-number">25%</span>; }
@@ -671,12 +681,12 @@
     <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-left</span><span class="hljs-selector-class">.card--media-right</span> <span class="hljs-selector-class">.card__media</span> + <span class="hljs-selector-class">.card__body</span>, <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-right</span><span class="hljs-selector-class">.card--media-right</span> <span class="hljs-selector-class">.card__media</span> + <span class="hljs-selector-class">.card__body</span> {
       <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">2rem</span> <span class="hljs-number">1.05rem</span> <span class="hljs-number">0</span>; } }
   <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-left</span> <span class="hljs-selector-class">.card__body</span>, <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-right</span> <span class="hljs-selector-class">.card__body</span> {
-    <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">1</span> <span class="hljs-number">100%</span>;
     <span class="hljs-attribute">padding</span>: <span class="hljs-number">2rem</span>;
     <span class="hljs-attribute">min-height</span>: <span class="hljs-number">1px</span>; }
     <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
       <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-left</span> <span class="hljs-selector-class">.card__body</span>, <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-right</span> <span class="hljs-selector-class">.card__body</span> {
-        <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>; } }
+        <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+        <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">1</span> <span class="hljs-number">100%</span>; } }
   <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
     <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-left</span>, <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-right</span> {
       <span class="hljs-attribute">display</span>: flex;
@@ -691,10 +701,12 @@
       <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-left</span> <span class="hljs-selector-class">.card__title</span>, <span class="hljs-selector-class">.card</span><span class="hljs-selector-class">.card--media-right</span> <span class="hljs-selector-class">.card__title</span> {
         <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
         <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0.325rem</span>; } }
-  <span class="hljs-selector-class">.card--media-right</span> {
-    <span class="hljs-attribute">flex-direction</span>: row-reverse; }
+  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
+    <span class="hljs-selector-class">.card--media-right</span> {
+      <span class="hljs-attribute">flex-direction</span>: row-reverse; } }
+  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
     <span class="hljs-selector-class">.card--media-right</span><span class="hljs-selector-class">.card</span>, <span class="hljs-selector-class">.card--media-right</span><span class="hljs-selector-class">.card--enclosed</span> {
-      <span class="hljs-attribute">flex-direction</span>: row-reverse; }
+      <span class="hljs-attribute">flex-direction</span>: row-reverse; } }
   <span class="hljs-selector-class">.card__head</span> {
     <span class="hljs-attribute">flex-wrap</span>: wrap;
     <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
@@ -769,7 +781,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">11.1 KB</span>
+                    <span class="Meta-value">12 KB</span>
                 </li>
             </ul>
         </div>
@@ -847,15 +859,10 @@
   <span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg-&quot;</span>]</span> &amp; {
     &amp;<span class="hljs-selector-class">.card--stacked</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg-&quot;</span>]</span> {
       <span class="hljs-selector-class">.media--circle</span> {
-        <span class="hljs-keyword">@include</span> breakpoint(sm) {
-          <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">2rem</span>;
-        }
+        <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">2rem</span>;
 
         &amp;<span class="hljs-selector-class">.card__media--large</span> {
-          <span class="hljs-keyword">@include</span> breakpoint(sm) {
-            <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">2rem</span>;
-            <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">2rem</span>;
-          }
+          <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">2rem</span>;
         }
       }
     }
@@ -867,28 +874,35 @@
       <span class="hljs-selector-class">.media--circle</span><span class="hljs-selector-class">.card__media--large</span>,
       <span class="hljs-selector-class">.media--circle</span><span class="hljs-selector-class">.card__media--medium</span>,
       <span class="hljs-selector-class">.media--circle</span><span class="hljs-selector-class">.card__media--small</span> {
-        <span class="hljs-keyword">@include</span> breakpoint(sm) {
-          <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">2rem</span>;
-        }
+        <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">2rem</span>;
       }
     }
     <span class="hljs-comment">// Add padding if large circle stacked is enclosed or has bg color</span>
-    <span class="hljs-selector-class">.media--circle</span><span class="hljs-selector-class">.card__media--large</span> {
-      <span class="hljs-keyword">@include</span> breakpoint(sm) {
-        <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">2rem</span>;
-      }
+    <span class="hljs-selector-class">.media--circle</span><span class="hljs-selector-class">.card__media--large</span>,
+    <span class="hljs-selector-class">.media--circle</span><span class="hljs-selector-class">.card__media--medium</span> {
+      <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">2rem</span>;
     }
   }
 
   &amp;--enclosed {
     <span class="hljs-keyword">@include</span> card-enclosed;
 
-    &amp;<span class="hljs-selector-class">.card--stacked</span> {
+    &amp;<span class="hljs-selector-class">.card--stacked</span>,
+    &amp;<span class="hljs-selector-class">.card--media-right</span>,
+    &amp;<span class="hljs-selector-class">.card--media-left</span> {
+      <span class="hljs-selector-class">.card__media--medium</span>,
+      <span class="hljs-selector-class">.card__media--small</span>,
+      <span class="hljs-selector-class">.media--circle</span> {
+        <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">2rem</span>;
+      }
+    }
+    &amp;<span class="hljs-selector-class">.card--media-right</span>,
+    &amp;<span class="hljs-selector-class">.card--media-left</span> {
       <span class="hljs-selector-class">.card__media--medium</span>,
       <span class="hljs-selector-class">.card__media--small</span>,
       <span class="hljs-selector-class">.media--circle</span> {
         <span class="hljs-keyword">@include</span> breakpoint(sm) {
-          <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">2rem</span>;
+          <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">0</span>;
         }
       }
     }
@@ -978,10 +992,8 @@
     <span class="hljs-comment">// set fixed small size for card stacked small circle</span>
     <span class="hljs-selector-class">.card__media--small</span><span class="hljs-selector-class">.media--circle</span> {
       <span class="hljs-attribute">max-width</span>: <span class="hljs-number">150px</span>;
-      <span class="hljs-attribute">margin</span>: <span class="hljs-variable">$md</span> auto <span class="hljs-number">0</span>;
-      <span class="hljs-keyword">@include</span> breakpoint(sm) {
-        <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;
-      }
+      <span class="hljs-attribute">margin-left</span>: auto;
+      <span class="hljs-attribute">margin-right</span>: auto;
     }
   }
 
@@ -1003,7 +1015,8 @@
   &amp;<span class="hljs-selector-class">.media--square</span> {
     <span class="hljs-selector-class">.card__media--small</span> {
       <span class="hljs-attribute">max-width</span>: <span class="hljs-number">160px</span>;
-      <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;
+      <span class="hljs-attribute">margin-left</span>: auto;
+      <span class="hljs-attribute">margin-right</span>: auto;
 
       <span class="hljs-selector-tag">img</span> {
         <span class="hljs-attribute">align-self</span>: start;
@@ -1089,12 +1102,12 @@
       <span class="hljs-keyword">@include</span> card-media-small;
 
       &amp;<span class="hljs-selector-class">.media--circle</span> {
-        <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">25%</span>;
         <span class="hljs-attribute">width</span>: <span class="hljs-number">25%</span>;
         <span class="hljs-attribute">max-width</span>: <span class="hljs-number">150px</span>;
-        <span class="hljs-attribute">margin</span>: <span class="hljs-variable">$md</span> auto <span class="hljs-number">0</span>;
+        <span class="hljs-attribute">margin-left</span>: auto;
+        <span class="hljs-attribute">margin-right</span>: auto;
         <span class="hljs-keyword">@include</span> breakpoint(sm) {
-          <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+          <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">25%</span>;
         }
       }
     }
@@ -1103,8 +1116,12 @@
       <span class="hljs-keyword">@include</span> card-media-medium;
 
       &amp;<span class="hljs-selector-class">.media--circle</span> {
-        <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">25%</span>;
         <span class="hljs-attribute">width</span>: <span class="hljs-number">25%</span>;
+        <span class="hljs-attribute">margin-left</span>: auto;
+        <span class="hljs-attribute">margin-right</span>: auto;
+        <span class="hljs-keyword">@include</span> breakpoint(sm) {
+          <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">25%</span>;
+        }
       }
     }
 
@@ -1112,8 +1129,12 @@
       <span class="hljs-keyword">@include</span> card-media-large;
 
       &amp;<span class="hljs-selector-class">.media--circle</span> {
-        <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">37%</span>;
         <span class="hljs-attribute">width</span>: <span class="hljs-number">37%</span>;
+        <span class="hljs-attribute">margin-left</span>: auto;
+        <span class="hljs-attribute">margin-right</span>: auto;
+        <span class="hljs-keyword">@include</span> breakpoint(sm) {
+          <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">37%</span>;
+        }
       }
     }
 
@@ -1153,10 +1174,10 @@
     }
 
     <span class="hljs-selector-class">.card__body</span> {
-      <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">1</span> <span class="hljs-number">100%</span>;
       <span class="hljs-attribute">padding</span>: <span class="hljs-number">2rem</span>;
       <span class="hljs-keyword">@include</span> breakpoint(sm) {
         <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+        <span class="hljs-attribute">flex</span>: <span class="hljs-number">0</span> <span class="hljs-number">1</span> <span class="hljs-number">100%</span>;
       }
       <span class="hljs-attribute">min-height</span>: <span class="hljs-number">1px</span>;
     }
@@ -1185,11 +1206,15 @@
   }
 
   &amp;--media-<span class="hljs-attribute">right</span> {
-    <span class="hljs-attribute">flex-direction</span>: row-reverse;
+    <span class="hljs-keyword">@include</span> breakpoint(sm) {
+      <span class="hljs-attribute">flex-direction</span>: row-reverse;
+    }
 
     &amp;<span class="hljs-selector-class">.card</span>,
     &amp;<span class="hljs-selector-class">.card--enclosed</span> {
-      <span class="hljs-attribute">flex-direction</span>: row-reverse;
+      <span class="hljs-keyword">@include</span> breakpoint(sm) {
+        <span class="hljs-attribute">flex-direction</span>: row-reverse;
+      }
     }
   }
   <span class="hljs-comment">// @todo move card header to separate component</span>
@@ -1305,7 +1330,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">8.5 KB</span>
+                    <span class="Meta-value">8.8 KB</span>
                 </li>
             </ul>
         </div>
@@ -2665,7 +2690,7 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2021-04-20T15:20:36.137Z">
+            <time datetime="2021-04-20T19:28:19.803Z">
                 4/20/2021
             </time>
         </div>
