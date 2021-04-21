@@ -2,76 +2,53 @@
 @import '../../assets/scss/utilities';
 @import '_card-mixins.scss';
 
+/*
+  &.media--widescreen {
+    .card__media--small {
+      @include breakpoint(sm) {
+        max-width: 60%;
+      }
+    }
+
+    .card__media--medium {
+      @include breakpoint(sm) {
+        max-width: 75%;
+      }
+    }
+  }
+
+  &.media--circle,
+  &.media--square {
+    .card__media--small {
+      max-width: 160px;
+      margin-left: auto;
+      margin-right: auto;
+
+      img {
+        align-self: start;
+      }
+    }
+  }
+ */
+
+// Base card styles
 .card {
   @include card;
-  // Adjust margin and padding for stacked circle if there is a background section color
-  [class*="bg-"] & {
-    &.card--stacked[class*="bg-"] {
-      .media--circle {
-        margin-top: 2rem;
-
-        &.card__media--large {
-          padding: 0 2rem;
-        }
-      }
-    }
-  }
-
-  &[class*="bg-"] {
-    &.card--stacked,
-    &.card--media-right,
-    &.card--media-left {
-      .media--circle {
-        margin-top: 2rem;
-        @include breakpoint(sm) {
-          margin-top: 0;
-        }
-      }
-    }
-  }
-
-  &--stacked {
-    // Adjust margin if circle is within stacked version with bg color
-    &[class*="bg-"] {
-      .media--circle.card__media--large,
-      .media--circle.card__media--medium,
-      .media--circle.card__media--small {
-        margin-top: 2rem;
-      }
-    }
-  }
-
-  &--stacked,
-  &--media-right,
-  &--media-left {
-    // Add padding if large circle stacked is enclosed or has bg color
-    .media--circle.card__media--large {
-      padding: 0 2rem;
-      @include breakpoint(sm) {
-        padding: 0;
-      }
-    }
-  }
 
   &--enclosed {
     @include card-enclosed;
+  }
 
-    &.card--stacked,
-    &.card--media-right,
-    &.card--media-left {
-      .card__media--medium,
-      .card__media--small,
-      .media--circle {
-        margin-top: 2rem;
-      }
-    }
-    &.card--media-right,
-    &.card--media-left {
-      .card__media--medium,
-      .card__media--small,
-      .media--circle {
+  &--centered {
+    text-align: center;
+
+    &.card--media-left,
+    &.card--media-right {
+      flex-direction: column;
+
+      .card__media+.card__body {
         @include breakpoint(sm) {
-          margin-top: 0;
+          padding: 2rem 0 0;
         }
       }
     }
@@ -84,7 +61,7 @@
       font-size: 1.5rem;
     }
 
-    &:focus-within~.bttn {
+    &:focus-within ~ .bttn {
       background-position: 0;
       background-size: 200% 100%;
 
@@ -117,96 +94,15 @@
     }
   }
 
-  p+.btn,
-  p+.bttn {
+  p + .btn,
+  p + .bttn {
     margin-top: $md;
   }
 
-  &__subtitle+.btn,
-  &__subtitle+.bttn,
-  &__subtitle+p {
+  &__subtitle + .btn,
+  &__subtitle + .bttn,
+  &__subtitle + p {
     margin-top: $sm;
-  }
-
-  &--centered {
-    text-align: center;
-
-    &.card--media-left,
-    &.card--media-right {
-      flex-direction: column;
-
-      .card__media+.card__body {
-        @include breakpoint(sm) {
-          padding: 2rem 0 0;
-        }
-      }
-    }
-  }
-
-  .card__media--large,
-  .card__media--medium,
-  .card__media--small {
-    @include breakpoint(sm) {
-      justify-content: center;
-      margin: 0 auto;
-    }
-  }
-
-  &.card--stacked {
-    .card__media--large {
-      @include breakpoint(sm) {
-        display: block;
-      }
-    }
-    // set fixed small size for card stacked small circle
-    .card__media--small.media--circle {
-      max-width: 150px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .card__media--medium.media--circle {
-      width: 50%;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }
-
-  &.media--widescreen {
-    .card__media--small {
-      @include breakpoint(sm) {
-        max-width: 60%;
-      }
-    }
-
-    .card__media--medium {
-      @include breakpoint(sm) {
-        max-width: 75%;
-      }
-    }
-  }
-
-  &.media--circle,
-  &.media--square {
-    .card__media--small {
-      max-width: 160px;
-      margin-left: auto;
-      margin-right: auto;
-
-      img {
-        align-self: start;
-      }
-    }
-  }
-
-  .card__media--medium {
-    @include breakpoint(sm) {
-      max-width: 60%;
-    }
-
-    img {
-      align-self: start;
-    }
   }
 
   &__media {
@@ -263,22 +159,102 @@
       width: 17px;
     }
   }
+}
 
-  &.card--media-left,
-  &.card--media-right {
-    &.card--enclosed,
-    &[class*="bg-"]:not(.bg--white) {
+// Margin and padding adjustments for media--circle
+
+.card {
+  // Adjust margin and padding for stacked circle if there is a background section color
+  [class*="bg-"] & {
+    &.card--stacked[class*="bg-"] {
+      .media--circle {
+        margin-top: 2rem;
+
+        &.card__media--large {
+          padding: 0 2rem;
+        }
+      }
+    }
+  }
+
+  &--stacked,
+  &--media-right,
+  &--media-left {
+    // Add padding if large circle stacked is enclosed or has bg color
+    .media--circle.card__media--large {
+      padding: 0 2rem;
       @include breakpoint(sm) {
-        padding: 2rem;
+        padding: 0;
       }
     }
 
     &[class*="bg-"] {
-      .card__body {
-        padding: 2rem;
+      .media--circle {
+        margin-top: 2rem;
+        @include breakpoint(sm) {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+
+  // override the above rule for stacked
+  &--stacked {
+    &[class*="bg-"] {
+      .media--circle {
+        margin-top: 2rem;
+      }
+    }
+  }
+
+  &--enclosed {
+    &.card--stacked,
+    &.card--media-right,
+    &.card--media-left {
+      .media--circle {
+        margin-top: 2rem;
+      }
+    }
+    // remove top margin for left/right above sm breakpoint
+    &.card--media-right,
+    &.card--media-left {
+      .media--circle {
+        @include breakpoint(sm) {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}
+
+
+// Card media styles
+  .card {
+
+    .card__media--large,
+    .card__media--medium,
+    .card__media--small {
+      @include breakpoint(sm) {
+        justify-content: center;
+        margin: 0 auto;
       }
     }
 
+    /*
+    .media--circle {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    // set fixed small size for card stacked small circle
+    .card__media--small.media--circle {
+      max-width: 150px;
+    }
+
+    .card__media--medium.media--circle {
+      width: 50%;
+    }
+*/
     .card__media--small {
       @include card-media-small;
 
@@ -295,6 +271,10 @@
 
     .card__media--medium {
       @include card-media-medium;
+      //max-width: 60%;
+      img {
+        align-self: start;
+      }
 
       &.media--circle {
         width: 50%;
@@ -319,7 +299,26 @@
         }
       }
     }
+  }
 
+  
+// Card left and right
+.card {
+  &--media-left,
+  &--media-right {
+    &.card--enclosed,
+    &[class*="bg-"]:not(.bg--white) {
+      @include breakpoint(sm) {
+        padding: 2rem;
+      }
+    }
+
+    &[class*="bg-"] {
+      .card__body {
+        padding: 2rem;
+      }
+    }
+/*
     &.media--square {
       // Size adjustments for square format
       .card__media--medium {
@@ -341,7 +340,7 @@
         }
       }
     }
-
+*/
     // Reduce padding for small circle crop next to card__body
     .media--circle.card__media--small {
       +.card__body {
@@ -427,52 +426,15 @@
       }
     }
   }
-  // @todo move card header to separate component
-  &__head {
-    flex-wrap: wrap;
-    padding: 0;
-    text-align: center;
-    @include center(horizontal);
-    @include breakpoint(sm) {
-      padding: 0 0 2rem;
-    }
-    @include breakpoint(menu) {
-      margin: 0;
-      display: block;
-    }
-
-    p {
-      @include brand-cool-gray;
-      margin: 0;
-    }
-
-    .bold-headline {
-      display: block;
-    }
-
-    .bttn {
-      flex-basis: 100%;
-      padding-top: $sm;
-      @include breakpoint(sm) {
-        padding-top: $md;
-      }
-
-      &.bttn--link:focus,
-      &.bttn--link:hover {
-        background: transparent;
-        text-decoration: underline;
-      }
-    }
-
-    h2 {
-      margin: 0;
-      padding: 0;
-    }
-  }
 }
+
+
+
+
+
 // set padding if background color is different from card color
 [class*="bg-"] .card.card--stacked[class*="bg-"],
-.card.card--stacked[class*="bg-"]:not(.bg--white) {
+.card.card--stacked[class*="bg-"]:not([class*="bg--white"]) {
   .card__body {
     @include breakpoint(sm) {
       padding: 2rem;
@@ -501,6 +463,7 @@
   }
 }
 
+// Cards within sections with background colors
 [class*="bg-"] {
   .card {
     // Adjust padding if a card container has a background color.
