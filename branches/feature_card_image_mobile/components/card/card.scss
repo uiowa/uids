@@ -2,36 +2,9 @@
 @import '../../assets/scss/utilities';
 @import '_card-mixins.scss';
 
-/*
-  &.media--widescreen {
-    .card__media--small {
-      @include breakpoint(sm) {
-        max-width: 60%;
-      }
-    }
+/* Base card styles
+   ========================================================================== */
 
-    .card__media--medium {
-      @include breakpoint(sm) {
-        max-width: 75%;
-      }
-    }
-  }
-
-  &.media--circle,
-  &.media--square {
-    .card__media--small {
-      max-width: 160px;
-      margin-left: auto;
-      margin-right: auto;
-
-      img {
-        align-self: start;
-      }
-    }
-  }
- */
-
-// Base card styles
 .card {
   @include card;
 
@@ -161,7 +134,8 @@
   }
 }
 
-// Margin and padding adjustments for media--circle
+/* Margin and padding adjustments for media--circle
+   ========================================================================== */
 
 .card {
   // Adjust margin and padding for stacked circle if there is a background section color
@@ -228,7 +202,9 @@
 }
 
 
-// Card media styles
+/* Card media styles
+   ========================================================================== */
+
   .card {
 
     .card__media--large,
@@ -240,21 +216,6 @@
       }
     }
 
-    /*
-    .media--circle {
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    // set fixed small size for card stacked small circle
-    .card__media--small.media--circle {
-      max-width: 150px;
-    }
-
-    .card__media--medium.media--circle {
-      width: 50%;
-    }
-*/
     .card__media--small {
       @include card-media-small;
 
@@ -301,8 +262,10 @@
     }
   }
 
-  
-// Card left and right
+
+/* Card left/right styles
+ ========================================================================== */
+
 .card {
   &--media-left,
   &--media-right {
@@ -318,29 +281,7 @@
         padding: 2rem;
       }
     }
-/*
-    &.media--square {
-      // Size adjustments for square format
-      .card__media--medium {
-        width: 50%;
-        margin-left: auto;
-        margin-right: auto;
-        @include breakpoint(sm) {
-          flex: 0 0 25%;
-          width: 25%;
-        }
-      }
 
-      .card__media--large {
-        margin-left: auto;
-        margin-right: auto;
-        @include breakpoint(sm) {
-          flex: 0 0 37%;
-          width: 37%;
-        }
-      }
-    }
-*/
     // Reduce padding for small circle crop next to card__body
     .media--circle.card__media--small {
       +.card__body {
@@ -406,12 +347,6 @@
         margin: 0 0 $xsm;
       }
     }
-
-    .bttn--outline {
-      &:after {
-        //width: auto;
-      }
-    }
   }
 
   &--media-right {
@@ -428,9 +363,8 @@
   }
 }
 
-
-
-
+/* Background color adjustments
+ ========================================================================== */
 
 // set padding if background color is different from card color
 [class*="bg-"] .card.card--stacked[class*="bg-"],
