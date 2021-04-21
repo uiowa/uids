@@ -39,10 +39,17 @@
         margin-top: 2rem;
       }
     }
+  }
+
+  &--stacked,
+  &--media-right,
+  &--media-left {
     // Add padding if large circle stacked is enclosed or has bg color
-    .media--circle.card__media--large,
-    .media--circle.card__media--medium {
+    .media--circle.card__media--large {
       padding: 0 2rem;
+      @include breakpoint(sm) {
+        padding: 0;
+      }
     }
   }
 
@@ -154,6 +161,12 @@
     // set fixed small size for card stacked small circle
     .card__media--small.media--circle {
       max-width: 150px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .card__media--medium.media--circle {
+      width: 50%;
       margin-left: auto;
       margin-right: auto;
     }
@@ -270,12 +283,12 @@
       @include card-media-small;
 
       &.media--circle {
-        width: 25%;
         max-width: 150px;
         margin-left: auto;
         margin-right: auto;
         @include breakpoint(sm) {
           flex: 0 0 25%;
+          width: 25%;
         }
       }
     }
@@ -329,24 +342,11 @@
       }
     }
 
-    .card__media+.card__body {
-      @include breakpoint(sm) {
-        padding: 0 0 $md 2rem;
-      }
-    }
     // Reduce padding for small circle crop next to card__body
     .media--circle.card__media--small {
       +.card__body {
         @include breakpoint(sm) {
           padding: 0 0 0 $gutter;
-        }
-      }
-    }
-    // Adjust card body padding on image if "right" option is selected
-    &.card--media-right {
-      .card__media+.card__body {
-        @include breakpoint(sm) {
-          padding: 0 2rem $md 0;
         }
       }
     }
@@ -356,6 +356,29 @@
         padding: 2rem;
         @include breakpoint(sm) {
           padding: 0;
+        }
+      }
+    }
+
+    .card__media+.card__body {
+      @include breakpoint(sm) {
+        padding: 0 0 $md 2rem;
+      }
+    }
+
+    // Adjust card body padding on image if "right" option is selected
+    &.card--media-right {
+      &.card--enclosed {
+        .card__media+.card__body {
+          padding: 2rem;
+          @include breakpoint(sm) {
+            padding: 0 2rem $md 0;
+          }
+        }
+      }
+      .card__media+.card__body {
+        @include breakpoint(sm) {
+          padding: 0 2rem $md 0;
         }
       }
     }
