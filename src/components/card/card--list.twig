@@ -17,8 +17,27 @@
   {% endfor %}
 </div>
 
+<div class="card__wrapper bg--gold">
+  {% for item in items %}
+    {% set card_classes = item.card_classes ?: '' %}
+    {% include '@card' with {
+      'card_classes': card_classes,
+      'headline_class': card_title_class,
+      'card_image': item.card_image,
+      'card_link_url': card_link_url,
+      'card_link_title': card_link_title,
+      'card_title': item.card_title,
+      'card_content': card_content,
+      'card_subtitle': card_subtitle,
+      'card_aria': card_aria,
+      'card_media_classes': item.card_media_classes,
+      'card_image_classes': item.card_image_classes
+    } %}
+  {% endfor %}
+</div>
+
 <style>
   .card__wrapper {
-    margin: 1.25rem 1.25rem
+    padding: 2rem;
   }
 </style>
