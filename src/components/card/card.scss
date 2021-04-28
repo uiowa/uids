@@ -282,6 +282,15 @@
 .card {
   &--media-left,
   &--media-right {
+    .card__body {
+      padding: 0;
+    }
+    .card__media+.card__body {
+      padding: 2rem 0 0;
+      @include breakpoint(sm) {
+        padding: 0;
+      }
+    }
     @include breakpoint(sm) {
       flex-direction: row;
     }
@@ -342,9 +351,7 @@
     }
 
     .card__body {
-      padding: 2rem 0 0;
       @include breakpoint(sm) {
-        padding: 0;
         flex: 0 1 100%;
       }
       min-height: 1px;
