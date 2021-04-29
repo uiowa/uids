@@ -10,6 +10,60 @@
     @include card-enclosed;
   }
 
+  &--stacked {
+    &.card--enclosed {
+      .card__media + .card__body {
+        padding: 2rem;
+      }
+    }
+    .card__body {
+      padding: 0;
+    }
+    .card__media + .card__body {
+      padding: 2rem 0 0;
+      @include breakpoint(sm) {
+        padding: 2rem 0;
+      }
+    }
+  }
+
+  &--media-left,
+  &--media-right {
+
+    .card__body {
+      padding: 0;
+      @include breakpoint(sm) {
+        flex: 0 1 100%;
+      }
+      min-height: 1px;
+    }
+
+    .card__media + .card__body {
+      padding: 2rem 0 0;
+      @include breakpoint(sm) {
+        padding: 0;
+      }
+    }
+
+    &[class*="bg-"] {
+      .card__body {
+        padding: 2rem;
+        @include breakpoint(sm) {
+          padding: 0;
+        }
+      }
+    }
+
+    &.card--enclosed {
+      .card__body {
+        padding: 2rem;
+        @include breakpoint(sm) {
+          padding: 0;
+        }
+      }
+    }
+  }
+
   &--centered {
     text-align: center;
 
@@ -282,15 +336,7 @@
 .card {
   &--media-left,
   &--media-right {
-    .card__body {
-      padding: 0;
-    }
-    .card__media+.card__body {
-      padding: 2rem 0 0;
-      @include breakpoint(sm) {
-        padding: 0;
-      }
-    }
+
     @include breakpoint(sm) {
       flex-direction: row;
     }
@@ -301,37 +347,15 @@
       }
     }
 
-    &[class*="bg-"] {
-      .card__body {
-        padding: 2rem;
-        @include breakpoint(sm) {
-          padding: 0;
-        }
-      }
-    }
     // Reduce padding for small circle crop next to card__body
     .media--circle.card__media--small {
       +.card__body {
         @include breakpoint(sm) {
-          padding: 0 0 0 $gutter;
+         // padding: 0 0 0 $gutter;
         }
       }
     }
 
-    &.card--enclosed {
-      .card__body {
-        padding: 2rem;
-        @include breakpoint(sm) {
-          padding: 0;
-        }
-      }
-    }
-
-    .card__media+.card__body {
-      @include breakpoint(sm) {
-        padding: 0 0 $md 2rem;
-      }
-    }
     // Adjust card body padding on image if "right" option is selected
     &.card--media-right {
       &.card--enclosed {
@@ -350,12 +374,6 @@
       }
     }
 
-    .card__body {
-      @include breakpoint(sm) {
-        flex: 0 1 100%;
-      }
-      min-height: 1px;
-    }
     @include breakpoint(sm) {
       display: flex;
       flex-wrap: nowrap;
@@ -370,6 +388,15 @@
       @include breakpoint(sm) {
         padding: 0;
         margin: 0 0 $xsm;
+      }
+    }
+  }
+
+  &--media-left {
+    .card__media+.card__body {
+     // padding: 2rem 0 0;
+      @include breakpoint(sm) {
+        padding: 0 0 $md 2rem;
       }
     }
   }
