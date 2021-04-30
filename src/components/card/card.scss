@@ -22,7 +22,7 @@
     .card__media + .card__body {
       padding: 2rem 0 0;
       @include breakpoint(sm) {
-        padding: 2rem 0;
+        padding: 2rem 0 0;
       }
     }
   }
@@ -351,25 +351,7 @@
     .media--circle.card__media--small {
       +.card__body {
         @include breakpoint(sm) {
-         // padding: 0 0 0 $gutter;
-        }
-      }
-    }
-
-    // Adjust card body padding on image if "right" option is selected
-    &.card--media-right {
-      &.card--enclosed {
-        .card__media+.card__body {
-          padding: 2rem;
-          @include breakpoint(sm) {
-            padding: 0 2rem $md 0;
-          }
-        }
-      }
-
-      .card__media+.card__body {
-        @include breakpoint(sm) {
-          padding: 0 2rem $md 0;
+          // padding: 0 0 0 $gutter;
         }
       }
     }
@@ -391,10 +373,14 @@
       }
     }
   }
+  /*
+    &.card--media-right {
 
+    }
+    */
   &--media-left {
     .card__media+.card__body {
-     // padding: 2rem 0 0;
+      // padding: 2rem 0 0;
       @include breakpoint(sm) {
         padding: 0 0 $md 2rem;
       }
@@ -402,6 +388,21 @@
   }
 
   &--media-right {
+
+    &.card--enclosed {
+      .card__media+.card__body {
+        padding: 2rem;
+        @include breakpoint(sm) {
+          padding: 0 2rem $md 0;
+        }
+      }
+    }
+
+    .card__media+.card__body {
+      @include breakpoint(sm) {
+        padding: 0 2rem $md 0;
+      }
+    }
     @include breakpoint(sm) {
       flex-direction: row-reverse;
     }
