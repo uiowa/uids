@@ -1,0 +1,84 @@
+{% set link, link_element, show_button = false, false, false %}
+{% if banner_links is not empty and banner_links|length == 1 %}
+  {% set link = banner_links|first %}
+  {% if banner_title is not empty %}
+    {# Title is set, use it as the linking element.  #}
+    {% set link_element = 'title' %}
+    {# If we also have link text, then we'll show a psuedo-button. #}
+    {% if link.link_title is not empty %}
+      {% set show_button = true %}
+    {% endif %}
+  {% elseif link.link_title is not empty %}
+    {# Title is not set, but there is link text, so use that instead. #}
+    {% set link_element = 'button' %}
+    {# Show an actual link button. #}
+    {% set show_button = true %}
+  {% endif %}
+{% endif %}
+
+<div class="banner {{ banner_overlay }} banner--{{ banner_size }} {{ banner_classes }} {{ banner_vertical_alignment }} {{ banner_horizontal_alignment }}">
+  {% block banner_image %}
+    {% if banner_type == 'image' %}
+      {% if banner_image %}
+        <div class="banner__image">
+          <img src="{{ banner_image }}" alt="Alt Text">
+        </div>
+      {% endif %}
+    {% elseif banner_type == 'video' %}
+      {% set banner_video = {
+        'autoplay': banner_video_autoplay,
+        'poster_src': banner_image,
+        'poster_alt': banner_image_alt,
+        'src': banner_video,
+        'type': 'video/mp4',
+      } %}
+      {% include '@video' with banner_video %}
+    {% endif %}
+  {% endblock %}
+
+  {% block banner_content_wrapper %}
+    <div class="banner__container">
+      <div class="banner__content">
+
+        {% block headline %}
+          {% if banner_title is not empty %}
+            {% include '@headline' with {
+              'headline_level' : 'h2',
+              'headline_class' : banner_title_classes,
+              'headline_text' : banner_title,
+              'headline_url': link ? link.link_url : link,
+              'headline_aria': banner_aria,
+            } %}
+          {% endif %}
+        {% endblock %}
+
+        <div class="banner__text">{{ banner_text }}</div>
+
+        {% block banner_bttn %}
+          {% if banner_links is not empty %}
+          <div class="banner__action">
+            {% if banner_links|length > 1 %}
+              {% for link in banner_links %}
+                <a class="{{ banner_link_classes }}" href="{{ link.link_url }}">
+                  {{ link.link_title }}
+                  <i class="fas fa-arrow-right"></i>
+                </a>
+              {% endfor %}
+            {% else %}
+              {% set link = banner_links|first %}
+              {% if link.link_url is not empty and show_button %}
+                <div aria-hidden="true" class="{{ banner_link_classes }}"{% if banner_aria %} id="{{ banner_aria }}"{% endif %}>
+                  {{ link.link_title }}
+                  <i class="fas fa-arrow-right"></i>
+                </div>
+              {% endif %}
+            {% endif %}
+          </div>
+          {% endif %}
+        {% endblock %}
+
+      </div>
+    </div>
+
+  {% endblock %}
+</div>
