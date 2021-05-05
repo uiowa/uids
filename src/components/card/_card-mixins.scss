@@ -1,7 +1,6 @@
 @mixin card-enclosed {
-  @include breakpoint(sm) {
-    border: 1px solid;
-  }
+  border: 1px solid;
+
   .card__body {
     padding: 2rem;
   }
@@ -36,7 +35,10 @@
 
 @mixin card-body {
   flex: 1;
-  padding: 2rem;
+  padding: 2rem 0 0;
+  @include breakpoint(sm) {
+    padding: 2rem;
+  }
   min-height: 1px;
   line-height: 1.7;
 
@@ -82,7 +84,6 @@
   @include flexbox;
   @include flex($fg: 1, $fs: 1, $fb: 0%);
   @include flex-direction($value: column);
-  border: 1px solid;
 
   &:focus-within .card__title a:focus {
     text-decoration: underline;
