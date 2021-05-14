@@ -1,5 +1,6 @@
 const cards = document.querySelectorAll('.card:not([data-uids-no-link])');
 const link_elements = ['.card__title a', '.card__media a', 'a.bttn'];
+const RIGHT_CLICK_EVENT_ID = 3;
 
 Array.prototype.forEach.call(cards, card => {
   let up, down, link, i;
@@ -14,8 +15,16 @@ Array.prototype.forEach.call(cards, card => {
 
   if (link) {
     card.style.cursor = 'pointer';
-    card.onmousedown = () => down = +new Date();
-    card.onmouseup = () => {
+    card.onmousedown = (e) => {
+      if (e.which === RIGHT_CLICK_EVENT_ID) {
+        return;
+      }
+      down = +new Date();
+    }
+    card.onmouseup = (e) => {
+      if (e.which === RIGHT_CLICK_EVENT_ID) {
+        return;
+      }
       up = +new Date();
       // Trigger click event if the duration is short enough.
       if ((up - down) < 200) {
