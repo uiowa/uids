@@ -197,14 +197,14 @@
 <div class="Browser-panel Browser-code is-active" data-role="tab-panel" id="browser-f1d39216dca3e57bc72e6d886ced7a55-panel-html">
     <code class="Code Code--lang-html hljs">
         
-        <pre><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card bg--white card--stacked&quot;</span>&gt;</span>
+        <pre><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card click-container bg--white card--stacked&quot;</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card__media &quot;</span>&gt;</span>
               <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card__img&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://sandbox.prod.drupal.uiowa.edu/sites/sandbox.uiowa.edu/files/2021-03/feature1.jpg&quot;</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;Alt Text&quot;</span>&gt;</span>
           <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
           <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card__body&quot;</span>&gt;</span>
               <span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;headline card__title&quot;</span>&gt;</span>
-                  <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://uiowa.edu/&quot;</span> <span class="hljs-attr">aria-describedby</span>=<span class="hljs-string">&quot;desc-a-card&quot;</span>&gt;</span>
+                  <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://uiowa.edu/&quot;</span> <span class="hljs-attr">aria-describedby</span>=<span class="hljs-string">&quot;desc-a-card&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;click-target&quot;</span>&gt;</span>
                       <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;headline__text&quot;</span>&gt;</span>Dedicated to having an impact on human health<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
                   <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
               <span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
@@ -242,8 +242,6 @@
                 <option value="file-ffca3ead7e0b9faf070eaaba3685b1d6">_card-mixins.scss</option>
                 
                 <option value="file-657e560e81719eb2602fdacc931c10b9">card.css</option>
-                
-                <option value="file-f6b51fadb7e7e926a454cbece16a6558">card.js</option>
                 
                 <option value="file-268eb9f52c773491d285df6c761d1de7">card.scss</option>
                 
@@ -795,70 +793,6 @@
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
                     <span class="Meta-value">11.2 KB</span>
-                </li>
-            </ul>
-        </div>
-        
-        <div class="FileBrowser-item" id="file-f6b51fadb7e7e926a454cbece16a6558" data-role="resource-preview">
-            <ul class="Meta">
-                <li class="Meta-item">
-                    <strong class="Meta-key">Content:</strong>
-                    <span class="Meta-value">
-                        <div class="FileBrowser-itemPreview">
-                            
-                            <code class="Code Code--lang-JavaScript FileBrowser-code hljs">
-                                <pre><span class="hljs-keyword">const</span> cards = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">&#x27;.card:not([data-uids-no-link])&#x27;</span>);
-<span class="hljs-keyword">const</span> link_elements = [<span class="hljs-string">&#x27;.card__title a&#x27;</span>, <span class="hljs-string">&#x27;.card__media a&#x27;</span>, <span class="hljs-string">&#x27;a.bttn&#x27;</span>];
-<span class="hljs-keyword">const</span> RIGHT_CLICK_EVENT_ID = <span class="hljs-number">3</span>;
-
-<span class="hljs-built_in">Array</span>.prototype.forEach.call(cards, <span class="hljs-function"><span class="hljs-params">card</span> =&gt;</span> {
-  <span class="hljs-keyword">let</span> up, down, link, i;
-  <span class="hljs-comment">// Loop through options and break on the first match.</span>
-  <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; link_elements.length; i++) {
-    <span class="hljs-keyword">if</span> (link = card.querySelector(link_elements[i])) {
-      <span class="hljs-keyword">break</span>;
-    }
-  }
-
-  <span class="hljs-comment">// If we have a match, attach behaviors.</span>
-
-  <span class="hljs-keyword">if</span> (link) {
-    card.style.cursor = <span class="hljs-string">&#x27;pointer&#x27;</span>;
-    card.onmousedown = <span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> {
-      <span class="hljs-keyword">if</span> (e.which === RIGHT_CLICK_EVENT_ID) {
-        <span class="hljs-keyword">return</span>;
-      }
-      down = +<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
-    }
-    card.onmouseup = <span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> {
-      <span class="hljs-keyword">if</span> (e.which === RIGHT_CLICK_EVENT_ID) {
-        <span class="hljs-keyword">return</span>;
-      }
-      up = +<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
-      <span class="hljs-comment">// Trigger click event if the duration is short enough.</span>
-      <span class="hljs-keyword">if</span> ((up - down) &lt; <span class="hljs-number">200</span>) {
-        link.click();
-      }
-    }
-  }
-});
-</pre>
-                            </code>
-                            
-                        </div>
-                    </span>
-                </li>
-                <li class="Meta-item">
-                    <strong class="Meta-key">URL:</strong>
-                    <span class="Meta-value"><a data-no-pjax href="../raw/card/card.js"><span>/components/raw/card/card.js</span></a></span>
-                </li>
-                <li class="Meta-item">
-                    <strong class="Meta-key">Filesystem Path:</strong>
-                    <span class="Meta-value">src/components/card/card.js</span>
-                </li>
-                <li class="Meta-item">
-                    <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">919 Bytes</span>
                 </li>
             </ul>
         </div>
@@ -2783,8 +2717,8 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2021-05-14T17:46:56.135Z">
-                5/14/2021
+            <time datetime="2021-05-15T15:24:30.493Z">
+                5/15/2021
             </time>
         </div>
     </div>

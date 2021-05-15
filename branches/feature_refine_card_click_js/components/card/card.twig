@@ -25,12 +25,12 @@
   {% endif %}
 {% endif %}
 
-<div class="card {{ card_classes }}"{% if card_no_link %} data-uids-no-link{% endif %}>
+<div class="card click-container {{ card_classes }}"{% if card_no_link %} data-uids-no-link{% endif %}>
   {% block card_image %}
     {% if card_image is not empty %}
       <div class="card__media {{ card_media_classes }}">
         {% if link_element == 'image' %}
-        <a href="{{ card_link_url }}">
+        <a href="{{ card_link_url }}" class="click-target">
           {% endif %}
           <img class="{{ card_image_classes }}" src="{{ card_image }}" alt="Alt Text">
           {% if link_element == 'image' %}
@@ -49,6 +49,7 @@
           'headline_text': card_title,
           'headline_url': card_link_url,
           'headline_aria': card_aria,
+          'headline_url_class': link_element == 'title' ? 'click-target' : null,
         } %}
         {% include '@headline' with card_heading only %}
       {% endif %}
@@ -89,7 +90,7 @@
       {% if card_link_url is not empty and show_button %}
         {% set button_classes = 'bttn bttn--outline bttn--sans-serif' %}
         {% if link_element == 'button' %}
-          <a class="{{ button_classes }} bttn--full" href="{{ card_link_url }}">
+          <a class="{{ button_classes }} click-target bttn--full" href="{{ card_link_url }}">
             {{ card_link_title }}
             <i class="fas fa-arrow-right"></i>
           </a>

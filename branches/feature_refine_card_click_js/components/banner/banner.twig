@@ -16,7 +16,7 @@
   {% endif %}
 {% endif %}
 
-<div class="banner {{ banner_overlay }} banner--{{ banner_size }} {{ banner_classes }} {{ banner_vertical_alignment }} {{ banner_horizontal_alignment }}">
+<div class="banner {{ banner_overlay }} banner--{{ banner_size }} {{ banner_classes }} {{ banner_vertical_alignment }} {{ banner_horizontal_alignment }}{% if banner_links.length == 1 %} click-container{% endif %}">
   {% block banner_image %}
     {% if banner_type == 'image' %}
       {% if banner_image %}
@@ -48,6 +48,7 @@
               'headline_text' : banner_title,
               'headline_url': link ? link.link_url : link,
               'headline_aria': banner_aria,
+              'headline_url_class': link_element == 'title' ? 'click-target' : null,
             } %}
           {% endif %}
         {% endblock %}

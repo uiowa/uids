@@ -203,7 +203,7 @@
 <div class="Browser-panel Browser-code is-active" data-role="tab-panel" id="browser-204e22a3e9b5a4eda49cbdbf656315df-panel-html">
     <code class="Code Code--lang-html hljs">
         
-        <pre><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;banner banner--gradient-bottom banner--gradient-dark banner--medium  banner--vertical-center banner--horizontal-center&quot;</span>&gt;</span>
+        <pre><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;banner banner--gradient-bottom banner--gradient-dark banner--medium  banner--vertical-center banner--horizontal-center click-container&quot;</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;banner__image&quot;</span>&gt;</span>
                 <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://sandbox.prod.drupal.uiowa.edu/sites/sandbox.uiowa.edu/files/2021-03/pano.jpg&quot;</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;Alt Text&quot;</span>&gt;</span>
             <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
@@ -242,8 +242,6 @@
             <select class="FileBrowser-select" id="filebrowser-select">
                 
                 <option value="file-d3ae5d2065e10069cd7f3256218654b7">banner.css</option>
-                
-                <option value="file-a8ea051852738905187949cedf5f4884">banner.js</option>
                 
                 <option value="file-8cc560887da5bb1904c6ea4574acc256">banner.scss</option>
                 
@@ -659,85 +657,6 @@
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
                     <span class="Meta-value">16.2 KB</span>
-                </li>
-            </ul>
-        </div>
-        
-        <div class="FileBrowser-item" id="file-a8ea051852738905187949cedf5f4884" data-role="resource-preview">
-            <ul class="Meta">
-                <li class="Meta-item">
-                    <strong class="Meta-key">Content:</strong>
-                    <span class="Meta-value">
-                        <div class="FileBrowser-itemPreview">
-                            
-                            <code class="Code Code--lang-JavaScript FileBrowser-code hljs">
-                                <pre><span class="hljs-keyword">const</span> banners = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">&#x27;.banner&#x27;</span>);
-<span class="hljs-keyword">const</span> link_queries = [<span class="hljs-string">&#x27;.banner__content &gt; .headline a&#x27;</span>, <span class="hljs-string">&#x27;.banner__action &gt; a.bttn&#x27;</span>];
-
-<span class="hljs-built_in">Array</span>.prototype.forEach.call(banners, <span class="hljs-function"><span class="hljs-params">banner</span> =&gt;</span> {
-  <span class="hljs-keyword">let</span> up, down, links, link, i = <span class="hljs-number">0</span>;
-
-  <span class="hljs-comment">// Loop through link queries</span>
-  <span class="hljs-keyword">for</span> (i; i &lt; link_queries.length; i++) {
-    <span class="hljs-comment">// Break if we find matches.</span>
-    links = banner.querySelectorAll(link_queries[i]);
-    <span class="hljs-keyword">if</span> (links.length) {
-      <span class="hljs-keyword">break</span>;
-    }
-  }
-
-  <span class="hljs-comment">// If we have exactly one match, attach behaviors.</span>
-  <span class="hljs-keyword">if</span> (links &amp;&amp; links.length === <span class="hljs-number">1</span>) {
-    link = links[<span class="hljs-number">0</span>];
-    banner.style.cursor = <span class="hljs-string">&#x27;pointer&#x27;</span>;
-    banner.onmousedown = <span class="hljs-function">() =&gt;</span> down = +<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
-    banner.onmouseup = <span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> {
-      <span class="hljs-comment">// If the user is clicking on the pause/play button of a video BG element...</span>
-      <span class="hljs-comment">// Do not send an event to trigger a click on the banner link.</span>
-      <span class="hljs-keyword">if</span>(banner.querySelectorAll(<span class="hljs-string">&#x27;.video-controls&#x27;</span>).length &gt; <span class="hljs-number">0</span>) {
-        <span class="hljs-keyword">if</span> (isEventInElement(e, banner.querySelector(<span class="hljs-string">&#x27;.video-controls&#x27;</span>))) {
-          <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-        }
-      }
-
-      <span class="hljs-comment">// Trigger click event if the duration is short enough.</span>
-      up = +<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
-      <span class="hljs-keyword">if</span> ((up - down) &lt; <span class="hljs-number">200</span>) {
-        link.click();
-      }
-    }
-  }
-});
-
-<span class="hljs-comment">// This function detects if an event happens inside a specific element.</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isEventInElement</span>(<span class="hljs-params">event, element</span>)   </span>{
-  <span class="hljs-comment">// Get the elements bounds.</span>
-  <span class="hljs-keyword">let</span> rect = element.getBoundingClientRect();
-  <span class="hljs-comment">// check if the x and y pos of the event is within the bounds of the previsouly defined bounts of &#x27;element&#x27;.</span>
-  <span class="hljs-keyword">let</span> x = event.clientX;
-  <span class="hljs-keyword">if</span> (x &lt; rect.left || x &gt;= rect.right) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-  <span class="hljs-keyword">let</span> y = event.clientY;
-  <span class="hljs-keyword">if</span> (y &lt; rect.top || y &gt;= rect.bottom) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-  <span class="hljs-comment">// If it is, return true.</span>
-  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-}
-</pre>
-                            </code>
-                            
-                        </div>
-                    </span>
-                </li>
-                <li class="Meta-item">
-                    <strong class="Meta-key">URL:</strong>
-                    <span class="Meta-value"><a data-no-pjax href="../raw/banner/banner.js"><span>/components/raw/banner/banner.js</span></a></span>
-                </li>
-                <li class="Meta-item">
-                    <strong class="Meta-key">Filesystem Path:</strong>
-                    <span class="Meta-value">src/components/banner/banner.js</span>
-                </li>
-                <li class="Meta-item">
-                    <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">1.7 KB</span>
                 </li>
             </ul>
         </div>
@@ -2690,8 +2609,8 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2021-05-14T17:46:56.135Z">
-                5/14/2021
+            <time datetime="2021-05-15T15:24:30.493Z">
+                5/15/2021
             </time>
         </div>
     </div>
