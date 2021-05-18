@@ -18,13 +18,11 @@ Array.prototype.forEach.call(items, item => {
   }
   item.style.cursor = 'pointer';
   item.onmousedown = (e) => {
-    console.log(e);
     if (!ignoreClick(e)) {
       down = +new Date();
     }
   }
   item.onmouseup = (e) => {
-    console.log(e);
     if (!ignoreClick(e)) {
       up = +new Date();
       // Trigger click event if the duration is short enough.
