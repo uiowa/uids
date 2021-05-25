@@ -1,0 +1,104 @@
+// Headline
+
+@mixin headline {
+  padding: 0;
+  line-height: 1;
+
+  a {
+    color: $secondary;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+}
+
+@mixin headline-negative {
+  color: $white;
+
+  a {
+    color: $white;
+  }
+}
+
+@mixin headline-uppercase {
+  text-transform: uppercase;
+  font-family: $font-family-caps;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@mixin headline-serif {
+  font-family: $font-family-serif;
+  font-weight: $font-weight-bold;
+}
+
+@mixin headline-highlight {
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  padding: 2px 0;
+  line-height: 1.7;
+}
+
+@mixin headline-highlight-word {
+  background: $primary;
+  display: inline;
+  padding: 0.85rem 1rem;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  color: $secondary;
+  text-shadow: none;
+  [class*="bg--gold"] & {
+    background: $secondary;
+    color: #fff;
+  }
+}
+
+@mixin headline-highlight-word-uppercase {
+  background: $primary;
+  display: inline-block;
+  margin-bottom: .8rem;
+  margin-top: .8rem;
+  padding: 0.6rem 1rem;
+  color: $secondary;
+  [class*="bg--gold"] & {
+    background: $secondary;
+    color: #fff;
+    font-weight: 400;
+  }
+}
+
+@mixin headline-underline {
+  padding-bottom: $sm;
+  line-height: 1.3;
+  display: inline;
+  background-size: 1px 1em;
+  box-shadow: inset 0 -0.175em white, inset 0 -0.25em $primary;
+
+  &::after {
+    content: '\A';
+    white-space: pre;
+    margin-bottom: $gutter;
+    display: inline-block;
+  }
+
+  [class*="bg--gray"] & {
+    box-shadow: inset 0 -0.175em $light, inset 0 -0.25em $primary;
+  }
+
+  .bg-pattern--brain-black &,
+  [class*="bg--black"] & {
+    box-shadow: inset 0 -0.175em $secondary, inset 0 -0.25em $primary;
+  }
+
+  .bg-pattern--brain-reversed &,
+  [class*="bg--gold"] & {
+    box-shadow: inset 0 -0.175em $primary, inset 0 -0.25em $light;
+  }
+}
