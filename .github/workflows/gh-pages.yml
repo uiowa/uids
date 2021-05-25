@@ -3,11 +3,12 @@ name: Update documentation in GitHub Pages
 # Triggers on pushes to branches and tags, as well a deleting a branch.
 on:
   push:
-    branches-ignore:
-      - "dependabot/**"
+    branches:
+      - "main"
+      - "!dependabot/**"
     tags:
       - '*'
-      # @todo Change this to only reference tags starting with v.
+  pull_request:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -55,7 +56,7 @@ jobs:
           path: gh-pages
 
       # Debugging messages.
-      - run: echo "${{ github.ref }}"
+#      - run: echo "${{ github.ref }}"
 #      - run: echo "${{ toJson(github) }}"
 #      - run: echo "${{ env.MAIN_BRANCH }}"
 #      - run: echo "Main check - ${{ github.ref == format('refs/heads/{0}', env.MAIN_BRANCH) }}"
@@ -70,6 +71,7 @@ jobs:
       - name: Main branch preparations
         if: github.ref == format('refs/heads/{0}', env.MAIN_BRANCH)
         run: |
+          echo "${{ github.event.pull_request.base.ref }}"
           rm -rf $GITHUB_WORKSPACE/gh-pages/latest
           mv $GITHUB_WORKSPACE/www $GITHUB_WORKSPACE/gh-pages/latest
 
@@ -78,11 +80,11 @@ jobs:
       #   - Remove existing version of docs, if it exists.
       #   - Move build into versioned folder.
       - name: Other branch preparations
-        if: contains(github.ref, 'refs/heads/') && github.ref != format('refs/heads/{0}', env.MAIN_BRANCH)
+        if: contains(github.ref, 'refs/pull/')
         run: |
           if [ ! -d "$GITHUB_WORKSPACE/gh-pages/branches" ]; then mkdir $GITHUB_WORKSPACE/gh-pages/branches ; fi
-          rm -rf $GITHUB_WORKSPACE/gh-pages/branches/$git_branch
-          mv $GITHUB_WORKSPACE/www/ $GITHUB_WORKSPACE/gh-pages/branches/$git_branch/
+          rm -rf $GITHUB_WORKSPACE/gh-pages/branches/${{ github.event.pull_request.head.ref }}
+          mv $GITHUB_WORKSPACE/www/ $GITHUB_WORKSPACE/gh-pages/branches/${{ github.event.pull_request.head.ref }}/
 
       # If tags:
       #   - Copy the build to the root of 'gh-pages'.
@@ -97,9 +99,6 @@ jobs:
           if [ ! -d "$GITHUB_WORKSPACE/gh-pages/docs" ]; then mkdir $GITHUB_WORKSPACE/gh-pages/docs ; fi
           rm -rf $GITHUB_WORKSPACE/gh-pages/docs/$git_branch
           mv $GITHUB_WORKSPACE/www/ $GITHUB_WORKSPACE/gh-pages/docs/$git_branch
-
-      # Look at the 'gh-pages' directory to see if everything looks right.
-      - run: cd $GITHUB_WORKSPACE/gh-pages && git pull && git status
 
       # https://github.com/JamesIves/github-pages-deploy-action#readme
       - name: Deploy docs 🚀
