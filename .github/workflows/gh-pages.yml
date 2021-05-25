@@ -82,8 +82,8 @@ jobs:
         if: contains(github.ref, 'refs/pull/')
         run: |
           if [ ! -d "$GITHUB_WORKSPACE/gh-pages/branches" ]; then mkdir $GITHUB_WORKSPACE/gh-pages/branches ; fi
-          rm -rf $GITHUB_WORKSPACE/gh-pages/branches/$git_branch
-          mv $GITHUB_WORKSPACE/www/ $GITHUB_WORKSPACE/gh-pages/branches/$git_branch/
+          rm -rf $GITHUB_WORKSPACE/gh-pages/branches/${{ github.event.pull_request.head.ref }}
+          mv $GITHUB_WORKSPACE/www/ $GITHUB_WORKSPACE/gh-pages/branches/${{ github.event.pull_request.head.ref }}/
 
       # If tags:
       #   - Copy the build to the root of 'gh-pages'.
