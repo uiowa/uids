@@ -56,7 +56,7 @@ jobs:
           path: gh-pages
 
       # Debugging messages.
-      - run: echo "${{ github.ref }}"
+#      - run: echo "${{ github.ref }}"
 #      - run: echo "${{ toJson(github) }}"
 #      - run: echo "${{ env.MAIN_BRANCH }}"
 #      - run: echo "Main check - ${{ github.ref == format('refs/heads/{0}', env.MAIN_BRANCH) }}"
@@ -99,9 +99,6 @@ jobs:
           if [ ! -d "$GITHUB_WORKSPACE/gh-pages/docs" ]; then mkdir $GITHUB_WORKSPACE/gh-pages/docs ; fi
           rm -rf $GITHUB_WORKSPACE/gh-pages/docs/$git_branch
           mv $GITHUB_WORKSPACE/www/ $GITHUB_WORKSPACE/gh-pages/docs/$git_branch
-
-      # Look at the 'gh-pages' directory to see if everything looks right.
-      - run: cd $GITHUB_WORKSPACE/gh-pages && git pull && git status
 
       # https://github.com/JamesIves/github-pages-deploy-action#readme
       - name: Deploy docs 🚀
