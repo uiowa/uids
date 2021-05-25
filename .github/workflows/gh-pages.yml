@@ -78,7 +78,7 @@ jobs:
       #   - Remove existing version of docs, if it exists.
       #   - Move build into versioned folder.
       - name: Other branch preparations
-        if: contains(github.ref, 'refs/heads/') && github.ref != format('refs/heads/{0}', env.MAIN_BRANCH)
+        if: contains(github.ref, 'refs/pull/')
         run: |
           if [ ! -d "$GITHUB_WORKSPACE/gh-pages/branches" ]; then mkdir $GITHUB_WORKSPACE/gh-pages/branches ; fi
           rm -rf $GITHUB_WORKSPACE/gh-pages/branches/$git_branch
