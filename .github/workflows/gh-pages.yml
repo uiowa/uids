@@ -30,7 +30,7 @@ jobs:
 
       - name: Get the version
         id: get_version
-        run: echo "git_branch=${GITHUB_REF#refs/*///\//_}" >> $GITHUB_ENV
+        run: echo "git_branch=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
       - name: Setup node
         uses: actions/setup-node@v2.1.2
@@ -84,8 +84,8 @@ jobs:
         if: contains(github.ref, 'refs/pull/')
         run: |
           if [ ! -d "$GITHUB_WORKSPACE/gh-pages/branches" ]; then mkdir $GITHUB_WORKSPACE/gh-pages/branches ; fi
-          rm -rf $GITHUB_WORKSPACE/gh-pages/branches/${{ github.event.pull_request.head.ref }}
-          mv $GITHUB_WORKSPACE/www/ $GITHUB_WORKSPACE/gh-pages/branches/${{ github.event.pull_request.head.ref }}/
+          rm -rf $GITHUB_WORKSPACE/gh-pages/branches/${{ github.event.pull_request.head.ref//\//_ }}
+          mv $GITHUB_WORKSPACE/www/ $GITHUB_WORKSPACE/gh-pages/branches/${{ github.event.pull_request.head.ref//\//_ }}/
 
       # If tags:
       #   - Copy the build to the root of 'gh-pages'.
