@@ -9,6 +9,7 @@ on:
     tags:
       - '*'
   pull_request:
+    types: [opened, synchronize, reopened]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -57,7 +58,7 @@ jobs:
 
       # Debugging messages.
 #      - run: echo "${{ github.ref }}"
-#      - run: echo "${{ toJson(github) }}"
+      - run: echo "${{ toJson(github) }}"
 #      - run: echo "${{ env.MAIN_BRANCH }}"
 #      - run: echo "Main check - ${{ github.ref == format('refs/heads/{0}', env.MAIN_BRANCH) }}"
 #      - run: echo "Branch check - ${{ contains(github.ref, 'refs/heads/') && github.ref != format('refs/heads/{0}', env.MAIN_BRANCH) }}"
@@ -71,7 +72,7 @@ jobs:
       - name: Main branch preparations
         if: github.ref == format('refs/heads/{0}', env.MAIN_BRANCH)
         run: |
-          echo "${{ github.event.pull_request.base.ref }}"
+          echo "${{ github.event }}"
           rm -rf $GITHUB_WORKSPACE/gh-pages/latest
           mv $GITHUB_WORKSPACE/www $GITHUB_WORKSPACE/gh-pages/latest
 
