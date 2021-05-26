@@ -31,9 +31,9 @@ jobs:
       - name: Get the version
         id: get_version
         run: |
-          if [ github.ref == ${{ format('refs/heads/{0}', env.MAIN_BRANCH) }} ]; then branch=main target_dir=/
-          elif [ ${{ contains(github.ref, 'refs/pull/') }} ]; then branch=${${{ github.event.pull_request.head.ref }}//\//_} target_dir=/branches/
-          elif [ ${{ startsWith(github.ref, 'refs/tags/') }} ]; then branch=${GITHUB_REF#refs/*/} target_dir=/docs/ ;
+          if [ github.ref == ${{ format('refs/heads/{0}', env.MAIN_BRANCH) }} ]; then branch, target_dir = main, /
+          elif [ ${{ contains(github.ref, 'refs/pull/') }} ]; then branch, target_dir = ${${{ github.event.pull_request.head.ref }}//\//_}, /branches/
+          elif [ ${{ startsWith(github.ref, 'refs/tags/') }} ]; then branch, target_dir = ${GITHUB_REF#refs/*/}, /docs/ ;
           fi
           echo "branch=$branch" >> $GITHUB_ENV
           echo "target_dir=$target_dir" >> $GITHUB_ENV
