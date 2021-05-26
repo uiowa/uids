@@ -30,7 +30,12 @@ jobs:
 
       - name: Get the version
         id: get_version
-        run: echo "git_branch=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+        run: |
+          if [ github.ref == format('refs/heads/{0}', env.MAIN_BRANCH) ]; then target_folder=latest
+          elif [ ${{ contains(github.ref, 'refs/pull/') }} ]; then target_folder=branches/${github.event.pull_request.head.ref//\//_}
+          elif [ ${{ startsWith(github.ref, 'refs/tags/') }} ]; then target_folder=docs/${GITHUB_REF#refs/*/} ;
+          fi
+          echo "target_branch=$target_branch" >> $GITHUB_ENV
 
       - name: Setup node
         uses: actions/setup-node@v2.1.2
@@ -84,8 +89,8 @@ jobs:
         if: contains(github.ref, 'refs/pull/')
         run: |
           if [ ! -d "$GITHUB_WORKSPACE/gh-pages/branches" ]; then mkdir $GITHUB_WORKSPACE/gh-pages/branches ; fi
-          rm -rf $GITHUB_WORKSPACE/gh-pages/branches/${{ github.event.pull_request.head.ref }//\//_}
-          mv $GITHUB_WORKSPACE/www/ $GITHUB_WORKSPACE/gh-pages/branches/${{ github.event.pull_request.head.ref }//\//_}/
+          rm -rf $GITHUB_WORKSPACE/gh-pages/$target_branch
+          mv $GITHUB_WORKSPACE/www/ $GITHUB_WORKSPACE/gh-pages/$target_branch
 
       # If tags:
       #   - Copy the build to the root of 'gh-pages'.
@@ -98,8 +103,8 @@ jobs:
         run: |
           cp -a $GITHUB_WORKSPACE/www/* $GITHUB_WORKSPACE/gh-pages
           if [ ! -d "$GITHUB_WORKSPACE/gh-pages/docs" ]; then mkdir $GITHUB_WORKSPACE/gh-pages/docs ; fi
-          rm -rf $GITHUB_WORKSPACE/gh-pages/docs/$git_branch
-          mv $GITHUB_WORKSPACE/www/ $GITHUB_WORKSPACE/gh-pages/docs/$git_branch
+          rm -rf $GITHUB_WORKSPACE/gh-pages/$target_branch
+          mv $GITHUB_WORKSPACE/www/ $GITHUB_WORKSPACE/gh-pages/$target_branch
 
       # https://github.com/JamesIves/github-pages-deploy-action#readme
       - name: Deploy docs 🚀
