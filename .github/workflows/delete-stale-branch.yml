@@ -26,7 +26,7 @@ jobs:
       # Look at the 'gh-pages' directory to see if everything looks right.
       - run: |
           git fetch && git branch --list
-          for branch in $(git for-each-ref --format='%(refname)' refs/heads/); do
+          for branch in $(git for-each-ref --format='%(refname)' refs/remotes/origin); do
               git log --oneline "$branch" ^origin/main
           done
 
