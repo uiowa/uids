@@ -31,7 +31,7 @@ jobs:
       - name: Get the version
         id: get_version
         run: |
-          if [ github.ref == format('refs/heads/{0}', env.MAIN_BRANCH) ]; then target_folder=latest
+          if [ github.ref == ${{ format('refs/heads/{0}', env.MAIN_BRANCH) }} ]; then target_folder=latest
           elif [ ${{ contains(github.ref, 'refs/pull/') }} ]; then target_folder=branches/${github.event.pull_request.head.ref//\//_}
           elif [ ${{ startsWith(github.ref, 'refs/tags/') }} ]; then target_folder=docs/${GITHUB_REF#refs/*/} ;
           fi
