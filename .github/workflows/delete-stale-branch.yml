@@ -24,7 +24,11 @@ jobs:
         uses: actions/checkout@v2
 
       # Look at the 'gh-pages' directory to see if everything looks right.
-      - run: git branch --list
+      - run: |
+          git fetch && git branch --list
+          for branch in $(git for-each-ref --format='%(refname)' refs/heads/); do
+              git log --oneline "$branch" ^origin/main
+          done
 
       # https://github.com/JamesIves/github-pages-deploy-action#readme
 #      - name: Deploy docs 🚀
