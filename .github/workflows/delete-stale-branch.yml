@@ -31,14 +31,17 @@ jobs:
           branches=()
           eval "$(git for-each-ref --shell --format='branches+=(%(refname:lstrip=3))' refs/remotes/origin)"
           branches=("${branches[@]//\//_}")
-          for dir in $GITHUB_WORKSPACE/branches/*/ ; do
-            dir=${dir%/}
-            dir=${dir##*/}
-            echo "Checking $dir"
-            if [[ ! " ${branches[@]} " =~ " ${dir} " ]]; then
-              echo "Removed $dir"
+          directories=($GITHUB_WORKSPACE/branches/*/)
+          directories=(${directories[@]%/}
+          directories=(${directories[@]##*/}
+          for directory in directories ; do
+            echo "Checking $directory"
+            if [[ ! " ${branches[@]} " =~ " ${directory} " ]]; then
+              echo "Removing $directory"
+              git rm -r $GITHUB_WORKSPACE/branches/$directory
             fi
           done
+          git status
 
       # https://github.com/JamesIves/github-pages-deploy-action#readme
 #      - name: Deploy docs 🚀
