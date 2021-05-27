@@ -34,7 +34,7 @@ jobs:
           directories=($GITHUB_WORKSPACE/branches/*/)
           directories=("${directories[@]%/}")
           directories=("${directories[@]##*/}")
-          for directory in directories ; do
+          for directory in $directories ; do
             echo "Checking $directory"
             if [[ ! " ${branches[@]} " =~ " ${directory} " ]]; then
               echo "Removing $directory"
