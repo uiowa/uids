@@ -1,0 +1,79 @@
+{
+  "name": "@uiowa/uids",
+  "version": "3.4.5",
+  "description": "The UIowa Design System is specific to the University of Iowa.",
+  "keywords": [
+    "uiowa",
+    "design"
+  ],
+  "homepage": "https://uids.brand.uiowa.edu",
+  "dependencies": {
+    "autoprefixer": "^9.8.0",
+    "cssnano": "^4.1.10",
+    "del": "^5.1.0",
+    "gulp": "^4.0.0",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-imagemin": "^7.1.0",
+    "gulp-postcss": "^8.0.0",
+    "gulp-sass": "^4.1.0",
+    "gulp-sass-glob": "^1.0.9"
+  },
+  "devDependencies": {
+    "@frctl/consolidate": "^1.0.1",
+    "@frctl/fractal": "^1.5.6",
+    "@frctl/mandelbrot": "^1.4.0",
+    "@frctl/twig": "github:frctl/twig#5bc5ed1",
+    "cross-env": "^7.0.2",
+    "mono-fractal": "^1.1.2",
+    "npm-run-all": "^4.1.5",
+    "stylelint": "^9.8.0",
+    "stylelint-config-standard": "^18.2.0",
+    "xo": "^0.23.0"
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "prebuild": "gulp",
+    "css": "npm-run-all css-compile",
+    "css-compile": "node-sass --output-style expanded --include-path src/components --source-map true --source-map-contents true --precision 6 src/assets/scss/ -o dist/css/",
+    "build": "npm run docs-build",
+    "docs": "npm-run-all prebuild docs-build",
+    "docs-build": "fractal build",
+    "watch": "gulp watch",
+    "dist": "npm-run-all --parallel css",
+    "release": "npm-run-all dist docs-build release-zip",
+    "release-zip": "cross-env-shell \"rm -rf uids-$npm_package_version-dist && cp -r dist/ uids-$npm_package_version-dist && zip -r9 uids-$npm_package_version-dist.zip uids-$npm_package_version-dist && rm -rf uids-$npm_package_version-dist\"",
+    "start": "fractal start",
+    "test": "xo || stylelint src/**/*.css"
+  },
+  "stylelint": {
+    "extends": "stylelint-config-standard",
+    "rules": {
+      "property-no-unknown": [
+        true,
+        {
+          "ignoreProperties": [
+            "font-range"
+          ]
+        }
+      ]
+    }
+  },
+  "xo": {
+    "space": true,
+    "envs": "browser"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uiowa/uids.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uiowa/uids/issues"
+  },
+  "_resolved": "",
+  "_integrity": "",
+  "_from": "@uiowa/uids@github:uiowa/uids"
+}
