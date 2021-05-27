@@ -37,7 +37,7 @@ jobs:
             echo "Checking $directory"
             if [[ ! " ${branches[@]} " =~ " ${directory} " ]]; then
               echo "Removing $directory"
-              git rm -r --quiet $GITHUB_WORKSPACE/branches/$directory
+              rm -r $GITHUB_WORKSPACE/branches/$directory
             fi
           done
           git status --porcelain
