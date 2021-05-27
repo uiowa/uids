@@ -1,0 +1,520 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/utilities';
+
+.banner {
+  // @todo Replace with https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio
+  min-height: 15rem;
+
+  // Banner Heights
+  &--large {
+    &::before {
+      float: left;
+      padding-top: 45.25%;
+      content: '';
+    }
+  }
+
+  &--medium {
+    &::before {
+      float: left;
+      padding-top: 32.25%;
+      content: '';
+    }
+  }
+
+  &--small {
+    &::before {
+      float: left;
+      padding-top: 17.75%;
+      content: '';
+    }
+  }
+
+  // Full screen 100vh option
+  &--full {
+    &.banner--large {
+      @include breakpoint(container) {
+        height: 100vh;
+      }
+    }
+  }
+
+  &::after {
+    display: block;
+    content: '';
+    clear: both;
+  }
+
+  // Override background color if button is within a gold container
+  &.bg-pattern--brain-reversed,
+  &.bg--gold {
+    .bttn--primary {
+      color: #fff;
+      background: $secondary;
+      border: 1px solid $secondary;
+
+      svg {
+        color: $primary;
+      }
+    }
+  }
+}
+
+// Banner styles
+.banner {
+  position: relative;
+  overflow: hidden;
+  flex-basis: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.banner--vertical-bottom {
+    align-items: flex-end;
+  }
+
+  &:focus-within .bold-headline a:focus {
+    text-decoration: underline;
+  }
+
+  &__container {
+
+    margin: 0 auto;
+    width: 100%;
+    z-index: 1;
+
+    @include breakpoint(sm) {
+      z-index: 1;
+      max-width: 81.875em;
+      top: 0;
+    }
+  }
+
+  img {
+    width: 100%;
+  }
+
+  &__image {
+    overflow: visible;
+
+    img {
+      display: block;
+      width: 100%;
+      -o-object-fit: cover;
+      object-fit: cover;
+      position: absolute;
+      height: 100%;
+      top: 0;
+    }
+  }
+
+  .headline + .banner__action {
+    margin-top: 1rem;
+  }
+
+  .banner__action .bttn {
+    margin: 0 1rem 1rem 0;
+    + .bttn {
+      @include breakpoint(sm) {
+        margin: 0 1rem 1rem 0;
+      }
+    }
+  }
+
+  .media--video {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+
+    video {
+      overflow: visible;
+      display: block;
+      width: 100%;
+      -o-object-fit: cover;
+      object-fit: cover;
+      position: absolute;
+      height: 100%;
+      top: 0;
+    }
+  }
+
+
+  &__text {
+    z-index: 1;
+  }
+
+  &__content {
+    padding: $gutter;
+
+    @include breakpoint(sm) {
+      padding: 1.25rem 0 2rem 0;
+    }
+
+    >* {
+      flex-basis: 100%;
+    }
+
+    .bttn {
+      margin-right: auto;
+      margin-left: 0;
+      z-index: 1;
+    }
+
+    @include breakpoint(container) {
+      padding: $gutter 0;
+    }
+  }
+
+  h2:not([class*="bold-headline"]),
+  h3:not([class*="bold-headline"]),
+  h4:not([class*="bold-headline"]),
+  h5:not([class*="bold-headline"]),
+  h6:not([class*="bold-headline"]),
+  blockquote {
+    color: #fff;
+
+    a {
+      color: #fff;
+    }
+  }
+
+
+  p {
+    line-height: 1.5;
+    margin-top: 0;
+    color: #fff;
+    text-shadow: 0 1px 1px #000;
+
+    a {
+      position: relative;
+      z-index: 1;
+      color: #fff;
+    }
+  }
+
+  // bg variants
+  // @todo This should probably be resolved with https://sass-lang.com/documentation/values/maps#using-maps
+  &.bg-pattern--brain,
+  &.bg-pattern--brain-reversed,
+  &.bg--gold,
+  &.bg--light,
+  &.bg--white,
+  &.bg--gray {
+    color: $secondary;
+
+    p {
+      color: $secondary;
+      font-weight: normal;
+      text-shadow: none;
+
+      a {
+        color: $secondary;
+      }
+    }
+
+    h2:not([class*="bold-headline"]),
+    h3:not([class*="bold-headline"]),
+    h4:not([class*="bold-headline"]),
+    h5:not([class*="bold-headline"]),
+    h6:not([class*="bold-headline"]),
+    blockquote {
+      color: $secondary;
+
+      a {
+        color: $secondary;
+      }
+    }
+
+    .bold-headline.bold-headline--negative {
+      color: $secondary;
+      text-shadow: none;
+
+      a {
+        color: $secondary;
+      }
+    }
+  }
+
+  &.banner--gradient-light:not([class*="bg--black"]):not([class*="bg-pattern--brain-black"]) {
+    color: $secondary;
+
+    h2:not([class*="bold-headline"]),
+    h3:not([class*="bold-headline"]),
+    h4:not([class*="bold-headline"]),
+    h5:not([class*="bold-headline"]),
+    h6:not([class*="bold-headline"]),
+    blockquote {
+      color: $secondary;
+
+      a {
+        color: $secondary;
+      }
+    }
+
+    p {
+      color: $secondary;
+      font-weight: normal;
+      text-shadow: none;
+
+      a {
+        color: $secondary;
+      }
+    }
+
+    .bold-headline.bold-headline--negative {
+      color: $secondary;
+      text-shadow: none;
+
+      a {
+        color: $secondary;
+      }
+    }
+  }
+
+  .bold-headline,
+  .headline {
+    z-index: 1;
+
+    a {
+      &:hover {
+        text-decoration: none;
+      }
+
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+
+    &.bold-headline--negative {
+      color: $secondary;
+
+      a {
+        color: #fff;
+      }
+
+      text-shadow: 0 1px 1px #000;
+      color: #fff;
+    }
+
+    margin-top: 0;
+    margin-bottom: .7rem;
+    font-size: calc(100% + 4vw);
+
+    @include breakpoint(sm) {
+      font-size: calc(100% + 2.5vw);
+    }
+  }
+}
+
+// Alignment Variants
+.banner--horizontal-center {
+  text-align: center;
+
+  .banner__content {
+    >* {
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
+}
+
+// Bottom/Left Video button alignment
+.banner--horizontal-left.banner--vertical-bottom  {
+  .banner__content {
+    @include breakpoint(sm) {
+      padding-bottom: 4.25rem;
+    }
+  }
+}
+
+.media--video {
+  position: relative;
+
+  .video-controls {
+    position: absolute;
+    z-index: 1;
+    left: 1.25rem;
+    bottom: 1.25rem;
+
+    @include breakpoint(container) {
+      left: 3rem;
+      bottom: 3rem;
+    }
+    .banner--horizontal-left.banner--vertical-bottom & {
+      @include breakpoint(container) {
+        bottom: 1.5rem;
+        left: 1.5rem;
+      }
+    }
+  }
+
+  .video-btn {
+    display: none;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    color: $secondary;
+    border: 1px solid white;
+    border-radius: 50%;
+    background: white;
+    font-size: 1rem;
+    padding: 0;
+
+    @include breakpoint(sm) {
+      display: block;
+    }
+
+    &::after {
+      content: "\f04b";
+      @include fas();
+      font-size: 1rem;
+    }
+
+    &.video-btn__play::after {
+      margin-left: 3px;
+    }
+
+    &.video-btn__pause::after {
+      content: "\f04c";
+    }
+  }
+
+  @media (hover:none),
+  (hover:on-demand) {
+    .video-btn {
+      display: none;
+    }
+  }
+}
+
+// ie11
+@media all and (-ms-high-contrast: none),
+(-ms-high-contrast: active) {
+  .banner {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height: 100%;
+  }
+  .banner__container  {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+  }
+  .banner__image img,
+  .banner .media--video {
+    left: 0px;
+  }
+
+  .banner .banner__container {
+    min-height: 18rem;
+  }
+
+  .banner.banner--large .banner__container {
+    @include breakpoint(sm) {
+      min-height: 33rem;
+    }
+    @include breakpoint(menu) {
+      min-height: 48rem;
+    }
+  }
+
+  .banner.banner--medium .banner__container {
+    @include breakpoint(sm) {
+      min-height: 33rem;
+    }
+  }
+}
+
+// Gradient overlays
+.banner {
+  // Default overlay
+    &:after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      content: "";
+      -webkit-transition: all .5s ease-in-out;
+      transition: all .5s ease-in-out;
+      will-change: opacity;
+      background: rgba(0, 0, 0, .5);
+    }
+
+    &:not([class*="bg-"]) {
+      background: $secondary;
+    }
+
+    &[class*="bg-"]:after {
+      background: inherit;
+    }
+
+  &--gradient-left {
+
+    &:after {
+      @include breakpoint(sm) {
+        background: linear-gradient(90deg, rgba(0, 0, 0, .86) 0, rgba(0, 0, 0, .23) 65%, transparent);
+      }
+    }
+
+    &.banner--gradient-light {
+      &:after {
+        background: rgba(255, 255, 255, .7);
+
+        @include breakpoint(sm) {
+          background: linear-gradient(90deg, #fff 1%, hsla(0, 0%, 100%, .92) 32%, hsla(0, 0%, 100%, 0));
+        }
+      }
+
+      &[class*="bg-"]:after {
+        background: none;
+      }
+    }
+
+    &[class*="bg-"]:after {
+      background: none;
+    }
+  }
+
+  &--gradient-bottom {
+    &:after {
+      @include breakpoint(sm) {
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 70%);
+      }
+    }
+
+    &.banner--gradient-light {
+      &:after {
+        background: rgba(255, 255, 255, .7);
+
+        @include breakpoint(sm) {
+          background: linear-gradient(180deg, transparent 0, hsla(0, 0%, 100%, .9) 55%);
+        }
+      }
+
+      &[class*="bg-"]:after {
+        background: none;
+      }
+    }
+  }
+
+  &--transparent {
+    &:after {
+      background: none;
+    }
+  }
+}
+
+// Set larger heading size for large banner only
+.banner--large {
+  .bold-headline,
+  .headline {
+    @include breakpoint(md) {
+      font-size: calc(100% + 3.5vw);
+    }
+  }
+}
