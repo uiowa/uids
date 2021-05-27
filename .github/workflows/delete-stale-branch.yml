@@ -26,7 +26,13 @@ jobs:
       # Look at the 'gh-pages' directory to see if everything looks right.
       - run: |
           git fetch
-          for branch in $(git for-each-ref --format='%(refname:lstrip=3)' refs/remotes/origin); do
+          branches=()
+          eval "$(git for-each-ref --shell --format='branches+=(%(refname:lstrip=3))' refs/remotes/origin)"
+          directories=(branches/*/)
+          for directory in ${directories[*]; do
+            echo $directory
+          done
+          for branch in ${branches[*]}; do
             branch=${branch//\//_}
             echo $branch
           done
