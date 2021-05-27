@@ -32,8 +32,9 @@ jobs:
           eval "$(git for-each-ref --shell --format='branches+=(%(refname:lstrip=3))' refs/remotes/origin)"
           branches=("${branches[@]//\//_}")
           for dir in $GITHUB_WORKSPACE/branches/*/ ; do
+            echo "Checking $dir"
             if [[ ! " ${branches[@]} " =~ " ${dir} " ]]; then
-                echo "Removed $dir"
+              echo "Removed $dir"
             fi
           done
 
