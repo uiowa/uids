@@ -32,8 +32,8 @@ jobs:
           eval "$(git for-each-ref --shell --format='branches+=(%(refname:lstrip=3))' refs/remotes/origin)"
           branches=("${branches[@]//\//_}")
           directories=($GITHUB_WORKSPACE/branches/*/)
-          directories=(${directories[@]%/}
-          directories=(${directories[@]##*/}
+          directories=("${directories[@]%/}")
+          directories=("${directories[@]##*/}")
           for directory in directories ; do
             echo "Checking $directory"
             if [[ ! " ${branches[@]} " =~ " ${directory} " ]]; then
