@@ -29,9 +29,7 @@ jobs:
           branches=()
           eval "$(git for-each-ref --shell --format='branches+=(%(refname:lstrip=3))' refs/remotes/origin)"
           branches=("${branches[@]//\//_}")
-          dirs=($GITHUB_WORKSPACE/www/*)
-          echo ${dirs[@]}
-          for dir in $GITHUB_WORKSPACE; do
+          for dir in $GITHUB_WORKSPACE/* ; do
             echo ${dir}
           done
 
