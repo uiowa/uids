@@ -50,7 +50,9 @@ jobs:
           echo "target_dir='/'" >> $GITHUB_ENV
 
       - name: Set variables for branches
-        if: ${{ contains(github.ref, 'refs/pull/') }}
+        if: |
+          github.event_name == 'pull_request' ||
+          github.event_name == 'pull_request_target'
         run: |
           ref=${{ github.event.pull_request.head.ref }}
           echo "branch=${ref//\//_}" >> $GITHUB_ENV
