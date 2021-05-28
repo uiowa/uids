@@ -10,6 +10,8 @@ on:
       - '*'
   pull_request:
     types: [opened, synchronize, reopened]
+  pull_request_target:
+    types: [opened, synchronize, reopened]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -17,6 +19,11 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    # If the PR is coming from a fork (pull_request_target), ensure it's opened by "dependabot[bot]".
+    # Otherwise, clone it normally.
+    if: |
+      (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') ||
+      (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
     env:
       TARGET_BRANCH: gh-pages
       MAIN_BRANCH: main
@@ -26,22 +33,34 @@ jobs:
       # https://github.com/actions/checkout#readme
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout 🛎️
+        if: ${{ github.event_name != 'pull_request_target' }}
         uses: actions/checkout@v2.3.1
 
-      - name: Set target
-        id: set_target
+      - name: Checkout PR 🛎️
+        if: ${{ github.event_name == 'pull_request_target' }}
+        uses: actions/checkout@v2.3.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Set variables for main
+        if: ${{ github.ref == format('refs/heads/{0}', env.MAIN_BRANCH) }
         run: |
-          if [ ${{ github.ref }} == ${{ format('refs/heads/{0}', env.MAIN_BRANCH) }} ]; then
-            IFS=',' read -r branch target_dir <<< "latest,/"
-          elif [ ${{ contains(github.ref, 'refs/pull/') }} ]; then
-            ref=${{ github.event.pull_request.head.ref }}
-            IFS=',' read -r branch target_dir <<< "${ref//\//_},/branches/"
-          elif [ ${{ startsWith(github.ref, 'refs/tags/') }} ]; then
-            ref=${{ github.ref }}
-            IFS=',' read -r branch target_dir <<< "${ref#refs/*/},/docs/" ;
-          fi
-          echo "branch=$branch" >> $GITHUB_ENV
-          echo "target_dir=$target_dir" >> $GITHUB_ENV
+          echo "branch='latest'" >> $GITHUB_ENV
+          echo "target_dir='/'" >> $GITHUB_ENV
+
+      - name: Set variables for branches
+        if: ${{ contains(github.ref, 'refs/pull/') }}
+        run: |
+          ref=${{ github.event.pull_request.head.ref }}
+          echo "branch=${ref//\//_}" >> $GITHUB_ENV
+          echo "target_dir='/branches/'" >> $GITHUB_ENV
+
+      - name: Set variables for tags
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        run: |
+          ref=${{ github.ref }}
+          echo "branch=${ref#refs/*/}" >> $GITHUB_ENV
+          echo "target_dir='/docs/'" >> $GITHUB_ENV
 
       - name: Setup node
         uses: actions/setup-node@v2.1.2
