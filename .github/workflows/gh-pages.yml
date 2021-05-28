@@ -46,8 +46,8 @@ jobs:
           github.event_name == 'push' ||
           github.ref == format('refs/heads/{0}', env.MAIN_BRANCH)
         run: |
-          echo "branch='latest'" >> $GITHUB_ENV
-          echo "target_dir='/'" >> $GITHUB_ENV
+          echo "branch=latest" >> $GITHUB_ENV
+          echo "target_dir=/" >> $GITHUB_ENV
 
       - name: Set variables for branches
         if: |
@@ -56,14 +56,14 @@ jobs:
         run: |
           ref=${{ github.event.pull_request.head.ref }}
           echo "branch=${ref//\//_}" >> $GITHUB_ENV
-          echo "target_dir='/branches/'" >> $GITHUB_ENV
+          echo "target_dir=/branches/" >> $GITHUB_ENV
 
       - name: Set variables for tags
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
         run: |
           ref=${{ github.ref }}
           echo "branch=${ref#refs/*/}" >> $GITHUB_ENV
-          echo "target_dir='/docs/'" >> $GITHUB_ENV
+          echo "target_dir=/docs/" >> $GITHUB_ENV
 
       - name: Setup node
         uses: actions/setup-node@v2.1.2
