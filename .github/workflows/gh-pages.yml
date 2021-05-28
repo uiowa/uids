@@ -28,10 +28,10 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1
 
-      - name: Get the version
-        id: get_version
+      - name: Set target
+        id: set_target
         run: |
-          if [ github.ref == ${{ format('refs/heads/{0}', env.MAIN_BRANCH) }} ]; then
+          if [ ${{ github.ref }} == ${{ format('refs/heads/{0}', env.MAIN_BRANCH) }} ]; then
             IFS=',' read -r branch target_dir <<< "latest,/"
           elif [ ${{ contains(github.ref, 'refs/pull/') }} ]; then
             ref=${{ github.event.pull_request.head.ref }}
@@ -62,7 +62,7 @@ jobs:
 
       # https://github.com/actions/checkout#readme
       - name: Checkout docs
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.1
         with:
           ref: gh-pages
           path: gh-pages
