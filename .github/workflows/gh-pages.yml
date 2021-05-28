@@ -43,7 +43,7 @@ jobs:
 
       - name: Set variables for main
         if: |
-          github.event_name == 'push' ||
+          github.event_name == 'push' &&
           github.ref == format('refs/heads/{0}', env.MAIN_BRANCH)
         run: |
           echo "branch=latest" >> $GITHUB_ENV
