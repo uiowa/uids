@@ -1,0 +1,46 @@
+@mixin media-border {
+  padding: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+
+  [class*="bg--black"] &,
+  [class*="bg--gold"] [class*="bg--black"] &,
+  [class*="bg--gold"] .bg-pattern--brain-black &,
+  [class*="bg--white"] [class*="bg--black"] &,
+  [class*="bg--white"] .bg-pattern--brain-black &,
+  .bg-pattern--brain [class*="bg--black"] &,
+  .bg-pattern--brain .bg-pattern--brain-black &,
+  .bg-pattern--brain--gold [class*="bg--black"] &,
+  .bg-pattern--brain--gold .bg-pattern--brain-black &,
+  .bg-pattern--brain-black & {
+    border: 1px solid $primary;
+  }
+
+  [class*="bg--gold"] [class*="bg--gray"] &,
+  [class*="bg--gray"] &,
+  [class*="bg--white"] [class*="bg--gray"] &,
+  .bg-pattern--brain [class*="bg--gray"] &,
+  .bg-pattern--brain--gold [class*="bg--gray"] & {
+    border: 1px solid $brand-cool-gray;
+  }
+
+  [class*="bg--gold"] [class*="bg--white"] &,
+  [class*="bg--gold"] .bg-pattern--brain &,
+  [class*="bg--white"] &,
+  .bg-pattern--brain &,
+  .bg-pattern--brain--gold [class*="bg--white"] &,
+  .bg-pattern--brain--gold .bg-pattern--brain & {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+  }
+
+  [class*="bg--gold"] &,
+  .bg-pattern--brain--gold &,
+  .bg-pattern--brain-reversed & {
+    border: 1px solid white;
+  }
+}
+
+@mixin media-circle {
+  border-radius: 50%;
+  margin-top: 0;
+  height: auto;
+}
