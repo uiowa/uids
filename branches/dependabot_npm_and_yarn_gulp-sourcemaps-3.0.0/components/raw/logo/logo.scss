@@ -1,0 +1,68 @@
+@import '../../../assets/scss/variables';
+@import '../../../assets/scss/utilities';
+
+.logo {
+  display: block;
+}
+
+.logo--tab {
+  height: 70px;
+  width:  109px;
+  padding: 25px $gutter;
+  background: $secondary;
+
+  a:focus svg {
+    opacity: .5;
+  }
+
+  // @todo Move this to search or search-toggle?
+  .search-is-open & {
+    visibility: none;
+    opacity: 0;
+
+    @include breakpoint(menu) {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  @include breakpoint(menu) {
+    width: 154px;
+    height: 80px;
+    padding: 25px;
+  }
+
+  @include breakpoint(container) {
+    width: 188px;
+    height: 90px;
+    padding: 23px 20px;
+  }
+}
+
+.logo-icon {
+  fill: $primary;
+  height: 20px;
+
+  @include breakpoint(menu) {
+    height: 30px;
+  }
+
+  @include breakpoint(container) {
+    height: 43px;
+  }
+
+  &:hover,
+  &:focus {
+    opacity: 0.7;
+  }
+
+  // @todo Move this to header.scss?
+  .header--tertiary & {
+    margin-left: 0;
+
+    @include breakpoint(container) {
+      margin-top: 0;
+    }
+  }
+}
