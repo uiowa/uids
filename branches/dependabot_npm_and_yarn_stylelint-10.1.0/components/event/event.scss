@@ -1,0 +1,231 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/utilities';
+
+.events-card {
+  position: relative;
+  transition: transform .35s, z-index .5s;
+  @include flexbox;
+  @include flex-direction($value: column);
+  @include flex($fg: 1, $fs: 1, $fb: 0%);
+
+  &__body {
+    padding: 0 $mobile-width-gutter $mobile-width-gutter $mobile-width-gutter;
+    flex: 0 1 100%;
+
+    @include breakpoint(sm) {
+      text-align: center;
+    }
+
+    @include breakpoint(container) {
+      padding: 0;
+      text-align: left;
+    }
+  }
+
+  &__row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+
+    @include breakpoint(container) {
+      display: flex;
+      justify-content: center;
+      flex-wrap: nowrap;
+      border: none;
+      padding: 1.5rem;
+      background: transparent;
+    }
+
+    .fas,
+    .svg-inline--fa {
+      color: $grey;
+      padding-right: $xsm;
+      position: absolute;
+      margin-left: -25px;
+
+      .bg--gold & {
+        color: white;
+
+      }
+    }
+
+    .svg-inline--fa {
+      width: 17px;
+    }
+  }
+
+  &__wrapper {
+    padding-bottom: 20px;
+
+    @include breakpoint(menu) {
+      padding-bottom: 0;
+      padding: 0 3rem;
+      @include flexbox;
+    }
+  }
+
+  &__image {
+    overflow: hidden;
+    contain: paint;
+
+    @include breakpoint(container) {
+
+      height: auto;
+      margin-bottom: 0;
+    }
+  }
+
+  &__image img {
+    align-self: start;
+
+    @include breakpoint(sm) {
+      border-radius: 50%;
+      margin-top: 0;
+      height: auto;
+      padding: 8px;
+      border: 1px solid $grey;
+    }
+
+    background: #fff;
+
+    .bg--gold & {
+      @include breakpoint(sm) {
+        border: 1px solid white;
+      }
+      background: $primary;
+    }
+
+    .bg--gray & {
+      background: $light;
+    }
+
+    .bg--black & {
+      background: $secondary;
+      border: 1px solid $primary;
+    }
+  }
+
+  .bttn {
+    padding: $xsm;
+    margin-top: $md;
+    background: transparent;
+    border: none;
+    font-size: .8rem;
+
+    &:after {
+      .bg--gold & {
+        background-color: #fff;
+      }
+    }
+
+    .bg--black &,
+    .bg--gold &,
+    .bg--gray & {
+      padding: 0 0 .4rem 0;
+    }
+
+    .bg--gray & {
+      border-color: $grey;
+    }
+
+    .bg--black & {
+      color: $primary;
+    }
+  }
+
+  &__image {
+
+    @include breakpoint(sm) {
+      display: block;
+      width: 70%;
+      margin: 0 auto;
+    }
+
+    @include breakpoint(container) {
+      display: block;
+      width: auto;
+      flex: 0 1 30%;
+      margin-right: 15px;
+      margin-left: 0;
+    }
+  }
+
+
+  &__label {
+    font-family: $font-family-serif;
+    font-size: $h6-font-size;
+    font-weight: $font-weight-light;
+    padding-left: 25px;
+
+    .bg--black & {
+      color: $light;
+    }
+  }
+
+  &__title {
+    font-family: $font-family-serif;
+    font-size: $h6-font-size;
+    font-weight: $font-weight-bold;
+    @include margin($top: $sm, $bottom: $xsm);
+
+    a {
+      text-decoration: none;
+      color: $secondary;
+
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+      }
+
+      .bg--black & {
+        color: white;
+      }
+    }
+  }
+
+  &__date {
+    margin-bottom: $xsm;
+    font-family: $font-family-serif;
+    font-size: 1.2rem;
+    font-weight: $font-weight-light;
+    font-style: italic;
+
+    .bg--black & {
+      color: $primary;
+    }
+  }
+
+  &__text {
+    @include margin($top: $sm, $bottom: $sm);
+  }
+
+  &__link {
+    text-decoration: none;
+    letter-spacing: .06rem;
+    text-transform: uppercase;
+    color: $secondary;
+    font-weight: $font-weight-light;
+
+    &:after {
+      content: "\f0da";
+      @include padding($left: $sm);
+      @include fas();
+    }
+  }
+}
+
+.events-card__image+.events-card__body {
+  @include breakpoint(container) {
+    flex: 0 1 70%;
+  }
+}
