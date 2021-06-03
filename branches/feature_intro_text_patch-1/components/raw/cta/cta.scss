@@ -1,0 +1,143 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/utilities';
+
+.cta {
+  &__wrapper {
+    width: 100%;
+
+    .bold-headline {
+      margin: 0;
+      padding: 0;
+      font-size: 2.8rem;
+      line-height: 1.1;
+    }
+
+    &[class*=bg--black],
+    &.bg-pattern--brain-black {
+      .bttn {
+        color: $secondary;
+      }
+      .bold-headline {
+        color: $primary;
+      }
+    }
+
+    .bttn {
+      border: none;
+
+      &:after {
+        background-color: white;
+      }
+    }
+
+    &[class*=bg--gold] {
+      .bttn {
+        border: 1px solid $primary;
+        background: white;
+
+        &:after {
+          background-color: $secondary;
+        }
+
+        i,
+        svg {
+          color: $primary;
+        }
+      }
+    }
+  }
+
+  &__summary {
+    line-height: 1.5;
+
+    @include breakpoint(container) {
+      margin: 0;
+    }
+  }
+
+  &__container {
+    display: block;
+    padding: $xlg $mobile-width-gutter;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+
+    .element--left & {
+      justify-items: unset;
+      align-items: unset;
+      text-align: unset;
+      width: 100%;
+
+      @include breakpoint(menu) {
+        padding: $lg 0;
+      }
+    }
+
+    @include breakpoint(menu) {
+      display: grid;
+      padding: $lg $desktop-width-gutter;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-column-gap: 0px;
+      grid-row-gap: 0px;
+    }
+  }
+}
+
+.cta__container>div {
+  margin: $md;
+
+  @include breakpoint(container) {
+    margin: 0 $md;
+  }
+
+  @include breakpoint(container) {
+    flex: 1;
+  }
+}
+
+.cta__wrapper.element--left .bold-headline {
+  font-size: 3.2rem;
+}
+
+.cta__wrapper.element--left .bold-headline {
+  margin-bottom: $sm;
+  font-size: 2.5rem;
+}
+
+.cta__container {
+  .cta__title {
+    @include breakpoint(menu) {
+      margin-left: 0;
+    }
+
+    .element--left & {
+      grid-area: 1 / 1 / 2 / 3;
+    }
+  }
+
+  .cta__content {
+    @include breakpoint(menu) {
+      margin-left: 0;
+    }
+
+    .element--left & {
+      grid-area: 2 / 1 / 3 / 3;
+    }
+  }
+
+  .cta__link {
+    @include breakpoint(menu) {
+      margin-left: 0;
+    }
+
+    .element--left & {
+      grid-area: 1 / 3 / 3 / 4;
+
+      @include breakpoint(menu) {
+        text-align: right;
+        @include center(vertical);
+        justify-content: flex-end;
+      }
+    }
+  }
+}
