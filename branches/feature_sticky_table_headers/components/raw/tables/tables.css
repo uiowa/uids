@@ -84,15 +84,19 @@ table {
       position: sticky;
       top: 0;
       border-top: 0; }
-    .table-responsive.table-sticky .table--gray-borders thead th::before {
-      content: '';
-      position: absolute;
-      left: -1px;
-      top: 0;
-      width: calc(100% + 1px);
-      height: calc(100% + 1px);
-      border-left: #7c7c7c 1px solid;
-      border-bottom: #ddd 1px solid; }
+    .table-responsive.table-sticky .table--gray-borders thead th {
+      position: relative; }
+      .table-responsive.table-sticky .table--gray-borders thead th::before {
+        content: '';
+        position: absolute;
+        left: -1px;
+        top: 0;
+        width: calc(100% + 2px);
+        height: calc(100% + 1px);
+        border-left: #7c7c7c 1px solid;
+        border-bottom: #ddd 1px solid; }
+        .table-responsive.table-sticky .table--gray-borders thead th::before:first-child {
+          border-left: none; }
   .table-responsive table {
     display: table; }
 
