@@ -1,0 +1,84 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/utilities';
+
+blockquote {
+  font-weight: $font-weight-normal;
+  font-style: none;
+  font-family: $font-family-serif;
+  border-left: 8px solid $primary;
+  padding: $lg;
+  font-size: 1.4rem;
+  line-height: 1.7;
+  @include padding($top: $xsm, $bottom: $xsm, $left: $lg);
+
+  // border color overrides for certain background colors
+  .bg--gray &,
+  .bg--white &,
+  .bg--gray &,
+  .bg-pattern--brain &,
+  .bg--white--pattern--brain & {
+    border-color: $primary;
+  }
+
+  .bg-pattern--brain-reversed &,
+  .bg--gold--pattern--brain &,
+  .bg--gold & {
+    border-color: #fff;
+  }
+
+  .bg--black--pattern--brain &,
+  .bg-pattern--brain-black &,
+  .bg--black & {
+    border-color: $primary;
+  }
+
+
+  p {
+    margin-top: 0;
+    font-weight: $font-weight-normal;
+    font-size: 1.4rem;
+  }
+
+  footer {
+    font-family: $font-family-sans-serif;
+    font-weight: $font-weight-bold;
+    margin-top: $md;
+    font-size: 1.2rem;
+  }
+
+  p+footer {
+    margin-top: 0;
+  }
+
+  // @todo 2020/12/08 Remove '.blockquote-center' class in v4.0.0
+  .blockquote-center &,
+  &.blockquote--center {
+    text-align: center;
+    border: none;
+    position: relative;
+    @include padding($top: $xlg, $bottom: $xsm, $left: $xsm, $right: $xsm);
+
+    &:before {
+      position: absolute;
+      content: '';
+      height: 10px;
+      top: 0;
+      margin: 0 auto;
+      left: 0;
+      right: 0;
+      width: 15%;
+      background: $primary;
+      -webkit-transition: 0.5s;
+      transition: 0.5s;
+    }
+  }
+
+  // @todo 2020/12/08 Remove '.blockquote-right' class in v4.0.0
+  .blockquote-right &,
+  &.blockquote--right {
+    text-align: right;
+    border-left: none;
+    border-right: 8px solid $primary;
+    @include padding($top: $xsm, $bottom: $xsm, $left: 0, $right: $lg);
+  }
+}
