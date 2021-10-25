@@ -268,7 +268,16 @@
     ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget,
     tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
     ultricies mi vitae est. Mauris placerat eleifend leo.<span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></pre>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;element--two-column&quot;</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>In fermentum leo eu lectus mollis, quis dictum mi aliquet.<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Morbi eu nulla lobortis, lobortis est in, fringilla felis.<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Aliquam nec felis in sapien venenatis viverra fermentum nec lectus.<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Ut non enim metus.<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;element--two-column&quot;</span>&gt;</span>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pa<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></pre>
         
     </code>
 </div>
@@ -385,6 +394,20 @@ pre {
   <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
   <span class="hljs-attribute">height</span>: auto; }
 
+<span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
+  <span class="hljs-selector-class">.element--two-column</span> {
+    -moz-<span class="hljs-attribute">column-count</span>: <span class="hljs-number">2</span>;
+         <span class="hljs-attribute">column-count</span>: <span class="hljs-number">2</span>;
+    -moz-<span class="hljs-attribute">column-gap</span>: <span class="hljs-number">3rem</span>;
+         <span class="hljs-attribute">column-gap</span>: <span class="hljs-number">3rem</span>; } }
+
+<span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
+  <span class="hljs-selector-class">.element--three-column</span> {
+    -moz-<span class="hljs-attribute">column-count</span>: <span class="hljs-number">3</span>;
+         <span class="hljs-attribute">column-count</span>: <span class="hljs-number">3</span>;
+    -moz-<span class="hljs-attribute">column-gap</span>: <span class="hljs-number">3rem</span>;
+         <span class="hljs-attribute">column-gap</span>: <span class="hljs-number">3rem</span>; } }
+
 <span class="hljs-selector-class">.element--spacer-separator</span> {
   <span class="hljs-attribute">clear</span>: both;
   <span class="hljs-attribute">float</span>: none;
@@ -457,7 +480,7 @@ pre {
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">2.6 KB</span>
+                    <span class="Meta-value">2.9 KB</span>
                 </li>
             </ul>
         </div>
@@ -577,6 +600,20 @@ pre {
   <span class="hljs-attribute">height</span>: auto;
 }
 
+<span class="hljs-selector-class">.element--two-column</span> {
+  <span class="hljs-keyword">@include</span> breakpoint(sm) {
+    <span class="hljs-attribute">column-count</span>: <span class="hljs-number">2</span>;
+    <span class="hljs-attribute">column-gap</span>: <span class="hljs-variable">$desktop-width-gutter</span>;
+  }
+}
+
+<span class="hljs-selector-class">.element--three-column</span> {
+  <span class="hljs-keyword">@include</span> breakpoint(sm) {
+    <span class="hljs-attribute">column-count</span>: <span class="hljs-number">3</span>;
+    <span class="hljs-attribute">column-gap</span>: <span class="hljs-variable">$desktop-width-gutter</span>;
+  }
+}
+
 <span class="hljs-selector-class">.element--spacer-separator</span> {
   <span class="hljs-attribute">clear</span>: both;
   <span class="hljs-attribute">float</span>: none;
@@ -664,7 +701,7 @@ pre {
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">2.7 KB</span>
+                    <span class="Meta-value">2.9 KB</span>
                 </li>
             </ul>
         </div>
@@ -1959,8 +1996,8 @@ pre {
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2021-10-19T14:36:29.349Z">
-                10/19/2021
+            <time datetime="2021-10-25T15:27:07.452Z">
+                10/25/2021
             </time>
         </div>
     </div>
