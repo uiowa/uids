@@ -76,7 +76,7 @@ blockquote {
       margin: 0 auto;
       left: 0;
       right: 0;
-      width: 15%;
+      width: 130px;
       background: $primary;
       -webkit-transition: 0.5s;
       transition: 0.5s;
@@ -94,6 +94,42 @@ blockquote {
   }
 }
 
+blockquote.blockquote--img-below,
+blockquote.blockquote--img-above {
+  footer {
+    position: relative;
+    padding-top: 25px;
+    &:before {
+      position: absolute;
+      content: '';
+      height: 10px;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 130px;
+      background: $primary;
+      -webkit-transition: 0.5s;
+      transition: 0.5s;
+    }
+  }
+  &.blockquote--right {
+    footer {
+      &:before {
+        right: 0;
+        left: inherit;
+      }
+    }
+  }
+  &.blockquote--center {
+    footer {
+      &:before {
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
+
 blockquote.blockquote--img-below {
   .media {
     margin-right: 20px;
@@ -109,11 +145,11 @@ blockquote.blockquote--img-below {
   }
 }
 
-blockquote.blockquote--left.blockquote--img-above {
-  .media {
-    //max-width: 15%;
-  }
+blockquote.blockquote--left.blockquote--img-below {
+  border-left: none;
+  margin-left: 0;
 }
+
 blockquote.blockquote--left.blockquote--img-above {
   border-left: none;
   margin-left: 0;
@@ -124,28 +160,13 @@ blockquote.blockquote--left.blockquote--img-above {
     position: absolute;
     left: 0;
   }
-  footer {
-    position: relative;
-    &:after {
-      position: absolute;
-      content: '';
-      height: 10px;
-      bottom: -35px;
-      margin:0;
-      left: 0;
-      right: 0;
-      width: 15%;
-      background: $primary;
-      -webkit-transition: 0.5s;
-      transition: 0.5s;
-    }
-  }
+
 }
 
 blockquote.blockquote--right.blockquote--img-above {
   border-right: none;
   margin-right: 0;
-  padding-right: 240px;
+  padding-right: 250px;
   .media {
     float: right;
     margin-right: 20px;
@@ -154,23 +175,12 @@ blockquote.blockquote--right.blockquote--img-above {
   }
   footer {
     position: relative;
-    &:after {
-      position: absolute;
-      content: '';
-      height: 10px;
-      bottom: -35px;
-      margin:0;
-      right: 0;
-      right: 0;
-      width: 15%;
-      background: $primary;
-      -webkit-transition: 0.5s;
-      transition: 0.5s;
-    }
   }
 }
 
 blockquote.blockquote--img-below.blockquote--right {
+  border-right: none;
+  margin-right: 0;
   footer {
     text-align: right;
     flex-direction: row-reverse;
@@ -184,28 +194,32 @@ blockquote.blockquote--img-below.blockquote--center {
     margin: 20px auto 0;
     align-items: center;
     justify-content: center;
+    padding-top: 40px;
   }
 }
 
 blockquote.blockquote--center.blockquote--img-above {
   .media{
     position: relative;
-    margin-bottom: 50px;
-    margin: 0 auto 50px;
-    &:after {
-      position: absolute;
-      content: '';
-      height: 10px;
-      bottom: -35px;
-      margin: 0 auto;
-      left: 0;
-      right: 0;
-      width: 35%;
-      background: $primary;
-      -webkit-transition: 0.5s;
-      transition: 0.5s;
-    }
+    margin: 0 auto 15px;
   }
+  &:before {
+    position: absolute;
+    content: '';
+    height: 0px;
+    top: 15px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    width:0;
+    background: none;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    display: none;
+  }
+}
+
+blockquote.blockquote--center.blockquote--img-below {
   &:before {
     position: absolute;
     content: '';

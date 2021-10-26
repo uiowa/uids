@@ -57,7 +57,7 @@ blockquote {
       margin: 0 auto;
       left: 0;
       right: 0;
-      width: 15%;
+      width: 130px;
       background: #FFCD00;
       transition: 0.5s; }
   .blockquote-right blockquote, blockquote.blockquote--right {
@@ -68,6 +68,31 @@ blockquote {
     padding-right: 1.875rem;
     padding-bottom: 0.325rem;
     padding-left: 0; }
+
+blockquote.blockquote--img-below footer,
+blockquote.blockquote--img-above footer {
+  position: relative;
+  padding-top: 25px; }
+  blockquote.blockquote--img-below footer:before,
+  blockquote.blockquote--img-above footer:before {
+    position: absolute;
+    content: '';
+    height: 10px;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 130px;
+    background: #FFCD00;
+    transition: 0.5s; }
+
+blockquote.blockquote--img-below.blockquote--right footer:before,
+blockquote.blockquote--img-above.blockquote--right footer:before {
+  right: 0;
+  left: inherit; }
+
+blockquote.blockquote--img-below.blockquote--center footer:before,
+blockquote.blockquote--img-above.blockquote--center footer:before {
+  margin: 0 auto; }
 
 blockquote.blockquote--img-below .media {
   margin-right: 20px;
@@ -81,6 +106,10 @@ blockquote.blockquote--img-below cite {
   display: block;
   text-align: left; }
 
+blockquote.blockquote--left.blockquote--img-below {
+  border-left: none;
+  margin-left: 0; }
+
 blockquote.blockquote--left.blockquote--img-above {
   border-left: none;
   margin-left: 0;
@@ -90,24 +119,11 @@ blockquote.blockquote--left.blockquote--img-above {
     margin-right: 20px;
     position: absolute;
     left: 0; }
-  blockquote.blockquote--left.blockquote--img-above footer {
-    position: relative; }
-    blockquote.blockquote--left.blockquote--img-above footer:after {
-      position: absolute;
-      content: '';
-      height: 10px;
-      bottom: -35px;
-      margin: 0;
-      left: 0;
-      right: 0;
-      width: 15%;
-      background: #FFCD00;
-      transition: 0.5s; }
 
 blockquote.blockquote--right.blockquote--img-above {
   border-right: none;
   margin-right: 0;
-  padding-right: 240px; }
+  padding-right: 250px; }
   blockquote.blockquote--right.blockquote--img-above .media {
     float: right;
     margin-right: 20px;
@@ -115,46 +131,40 @@ blockquote.blockquote--right.blockquote--img-above {
     right: 0; }
   blockquote.blockquote--right.blockquote--img-above footer {
     position: relative; }
-    blockquote.blockquote--right.blockquote--img-above footer:after {
-      position: absolute;
-      content: '';
-      height: 10px;
-      bottom: -35px;
-      margin: 0;
-      right: 0;
-      right: 0;
-      width: 15%;
-      background: #FFCD00;
-      transition: 0.5s; }
 
-blockquote.blockquote--img-below.blockquote--right footer {
-  text-align: right;
-  flex-direction: row-reverse;
-  align-content: end; }
+blockquote.blockquote--img-below.blockquote--right {
+  border-right: none;
+  margin-right: 0; }
+  blockquote.blockquote--img-below.blockquote--right footer {
+    text-align: right;
+    flex-direction: row-reverse;
+    align-content: end; }
 
 blockquote.blockquote--img-below.blockquote--center footer {
   max-width: 40%;
   margin: 20px auto 0;
   align-items: center;
-  justify-content: center; }
+  justify-content: center;
+  padding-top: 40px; }
 
 blockquote.blockquote--center.blockquote--img-above .media {
   position: relative;
-  margin-bottom: 50px;
-  margin: 0 auto 50px; }
-  blockquote.blockquote--center.blockquote--img-above .media:after {
-    position: absolute;
-    content: '';
-    height: 10px;
-    bottom: -35px;
-    margin: 0 auto;
-    left: 0;
-    right: 0;
-    width: 35%;
-    background: #FFCD00;
-    transition: 0.5s; }
+  margin: 0 auto 15px; }
 
 blockquote.blockquote--center.blockquote--img-above:before {
+  position: absolute;
+  content: '';
+  height: 0px;
+  top: 15px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  width: 0;
+  background: none;
+  transition: 0.5s;
+  display: none; }
+
+blockquote.blockquote--center.blockquote--img-below:before {
   position: absolute;
   content: '';
   height: 0px;
