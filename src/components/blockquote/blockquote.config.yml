@@ -6,23 +6,57 @@ meta:
   dependencies:
     stylesheets:
       - /components/background/background.css
+      - /components/media/media.css
 context:
       blockquote_content: Lorem Ipsum is simply dummy text of the printing and typesetting industry.
       blockquote_footer: Footer Details in Roboto
       blockquote_cite_url: https://uiowa.edu
       blockquote_cite_text: Link
+      blockquote_image: https://sandbox.prod.drupal.uiowa.edu/sites/sandbox.uiowa.edu/files/2021-03/bg-image-square.jpg
+      blockquote_image_position:
 
 variants:
   - name: default
     label: Left (default)
     hidden: false
     context:
-      blockquote_class: blockquote
+      blockquote_class: blockquote blockquote--left
+  - name: Left with image above content
+    hidden: false
+    context:
+      blockquote_class: blockquote blockquote--left blockquote--img-above
+      blockquote_image_position: blockquote--img-above
+  - name: Left with image in footer
+    hidden: false
+    context:
+      blockquote_class: blockquote blockquote--img-below
+      blockquote_image_position: blockquote--img-below
   - name: Center
     hidden: false
     context:
       blockquote_class: blockquote--center
+      blockquote_image_position:
+  - name: Center with image above
+    hidden: false
+    context:
+      blockquote_class: blockquote--center blockquote--img blockquote--img-above
+      blockquote_image_position: blockquote--img-above
+  - name: Center with image in footer
+    hidden: false
+    context:
+      blockquote_class: blockquote--center blockquote--img blockquote--img-below
+      blockquote_image_position: blockquote--img-below
   - name: Right
     hidden: false
     context:
       blockquote_class: blockquote--right
+  - name: Right with image to the right of the content
+    hidden: false
+    context:
+      blockquote_class: blockquote--right blockquote--img blockquote--img-above
+      blockquote_image_position: blockquote--img-above
+  - name: Right with image in footer
+    hidden: false
+    context:
+      blockquote_class: blockquote--right blockquote--img blockquote--img-below
+      blockquote_image_position: blockquote--img-below

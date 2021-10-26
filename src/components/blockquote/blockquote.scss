@@ -2,6 +2,12 @@
 @import '../../assets/scss/utilities';
 
 blockquote {
+  cite {
+    display: block;
+  }
+  .media {
+    max-width: 20%;
+  }
   font-weight: $font-weight-normal;
   font-style: none;
   font-family: $font-family-serif;
@@ -53,6 +59,10 @@ blockquote {
   // @todo 2020/12/08 Remove '.blockquote-center' class in v4.0.0
   .blockquote-center &,
   &.blockquote--center {
+    img {
+      margin: 0 auto;
+      display: block;
+    }
     text-align: center;
     border: none;
     position: relative;
@@ -73,6 +83,7 @@ blockquote {
     }
   }
 
+
   // @todo 2020/12/08 Remove '.blockquote-right' class in v4.0.0
   .blockquote-right &,
   &.blockquote--right {
@@ -82,3 +93,130 @@ blockquote {
     @include padding($top: $xsm, $bottom: $xsm, $left: 0, $right: $lg);
   }
 }
+
+blockquote.blockquote--img-below {
+  .media {
+    margin-right: 20px;
+  }
+  footer {
+    display: flex;
+  }
+  cite {
+    display: block;
+    text-align: left;
+  }
+}
+
+blockquote.blockquote--left.blockquote--img-above {
+  .media {
+    max-width: 15%;
+  }
+}
+blockquote.blockquote--left.blockquote--img-above {
+  border-left: none;
+  margin-left: 0;
+  padding-left: 20%;
+  .media {
+    float: left;
+    margin-right: 20px;
+    position: absolute;
+    left: 0;
+  }
+  footer {
+    position: relative;
+    &:after {
+      position: absolute;
+      content: '';
+      height: 10px;
+      bottom: -35px;
+      margin:0;
+      left: 0;
+      right: 0;
+      width: 15%;
+      background: $primary;
+      -webkit-transition: 0.5s;
+      transition: 0.5s;
+    }
+  }
+}
+
+blockquote.blockquote--right.blockquote--img-above {
+  border-right: none;
+  margin-right: 0;
+  padding-right: 24%;
+  .media {
+    float: right;
+    margin-right: 20px;
+    position: absolute;
+    right: 0;
+  }
+  footer {
+    position: relative;
+    &:after {
+      position: absolute;
+      content: '';
+      height: 10px;
+      bottom: -35px;
+      margin:0;
+      right: 0;
+      right: 0;
+      width: 15%;
+      background: $primary;
+      -webkit-transition: 0.5s;
+      transition: 0.5s;
+    }
+  }
+}
+
+blockquote.blockquote--img-below.blockquote--right {
+  footer {
+    text-align: right;
+    flex-direction: row-reverse;
+    align-content: end;
+  }
+}
+
+blockquote.blockquote--img-below.blockquote--center {
+  footer {
+    max-width: 40%;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+blockquote.blockquote--center.blockquote--img-above {
+  .media{
+    position: relative;
+    margin-bottom: 50px;
+    margin: 0 auto 50px;
+    &:after {
+      position: absolute;
+      content: '';
+      height: 10px;
+      bottom: -35px;
+      margin: 0 auto;
+      left: 0;
+      right: 0;
+      width: 15%;
+      background: $primary;
+      -webkit-transition: 0.5s;
+      transition: 0.5s;
+    }
+  }
+  &:before {
+    position: absolute;
+    content: '';
+    height: 0px;
+    top: 15px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    width:0;
+    background: none;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    display: none;
+  }
+}
+
