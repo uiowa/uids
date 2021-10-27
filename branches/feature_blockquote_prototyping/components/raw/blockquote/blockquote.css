@@ -2,7 +2,7 @@ blockquote {
   font-weight: 400;
   font-style: none;
   font-family: "Zilla Slab", serif;
-  border-left: 8px solid #FFCD00;
+  border-left: 10px solid #FFCD00;
   padding: 1.875rem;
   font-size: 1.4rem;
   line-height: 1.7;
@@ -11,8 +11,9 @@ blockquote {
   padding-left: 1.875rem; }
   blockquote cite {
     display: block; }
-  blockquote .media {
-    max-width: 200px; }
+  blockquote .blockquote__media {
+    max-width: 200px;
+    shape-outside: circle(); }
   .bg--gray blockquote,
   .bg--white blockquote,
   .bg--gray blockquote,
@@ -53,7 +54,7 @@ blockquote {
       position: absolute;
       content: '';
       height: 10px;
-      top: 15px;
+      top: 11px;
       margin: 0 auto;
       left: 0;
       right: 0;
@@ -63,39 +64,39 @@ blockquote {
   .blockquote-right blockquote, blockquote.blockquote--right {
     text-align: right;
     border-left: none;
-    border-right: 8px solid #FFCD00;
+    border-right: 10px solid #FFCD00;
     padding-top: 0.325rem;
     padding-right: 1.875rem;
     padding-bottom: 0.325rem;
     padding-left: 0; }
 
-blockquote.blockquote--img-below footer,
-blockquote.blockquote--img-above footer {
+blockquote.blockquote--img-above .blockquote__content {
   position: relative;
-  padding-top: 25px; }
-  blockquote.blockquote--img-below footer:before,
-  blockquote.blockquote--img-above footer:before {
+  padding-bottom: 25px; }
+  blockquote.blockquote--img-above .blockquote__content:after {
     position: absolute;
     content: '';
     height: 10px;
-    top: 0;
+    bottom: 0;
     left: 0;
     right: 0;
     width: 130px;
     background: #FFCD00;
     transition: 0.5s; }
 
-blockquote.blockquote--img-below.blockquote--right footer:before,
-blockquote.blockquote--img-above.blockquote--right footer:before {
+blockquote.blockquote--img-above.blockquote--right .blockquote__content:after {
   right: 0;
   left: inherit; }
 
-blockquote.blockquote--img-below.blockquote--center footer:before,
-blockquote.blockquote--img-above.blockquote--center footer:before {
-  margin: 0 auto; }
+blockquote.blockquote--img-above.blockquote--center {
+  padding-top: 0; }
+  blockquote.blockquote--img-above.blockquote--center .blockquote__content:after {
+    margin: 0 auto; }
 
-blockquote.blockquote--img-below .media {
-  margin-right: 20px;
+blockquote.blockquote--img-below.blockquote--left .blockquote__media, blockquote.blockquote--img-below.blockquote--center .blockquote__media {
+  margin-right: 20px; }
+
+blockquote.blockquote--img-below .blockquote__media {
   max-width: 120px; }
 
 blockquote.blockquote--img-below footer {
@@ -106,65 +107,48 @@ blockquote.blockquote--img-below cite {
   display: block;
   text-align: left; }
 
-blockquote.blockquote--left.blockquote--img-below {
-  border-left: none;
-  margin-left: 0; }
+blockquote.blockquote--img-below.blockquote--right cite {
+  text-align: right; }
 
 blockquote.blockquote--left.blockquote--img-above {
   border-left: none;
   margin-left: 0;
   padding-left: 220px; }
-  blockquote.blockquote--left.blockquote--img-above .media {
+  blockquote.blockquote--left.blockquote--img-above .blockquote__media {
     float: left;
-    margin-right: 20px;
     position: absolute;
     left: 0; }
 
 blockquote.blockquote--right.blockquote--img-above {
   border-right: none;
   margin-right: 0;
-  padding-right: 250px; }
-  blockquote.blockquote--right.blockquote--img-above .media {
+  padding-right: 230px; }
+  blockquote.blockquote--right.blockquote--img-above .blockquote__media {
     float: right;
-    margin-right: 20px;
     position: absolute;
     right: 0; }
   blockquote.blockquote--right.blockquote--img-above footer {
     position: relative; }
 
-blockquote.blockquote--img-below.blockquote--right {
-  border-right: none;
-  margin-right: 0; }
-  blockquote.blockquote--img-below.blockquote--right footer {
-    text-align: right;
-    flex-direction: row-reverse;
-    align-content: end; }
+blockquote.blockquote--img-below.blockquote--right .blockquote__media {
+  margin-left: 20px; }
+
+blockquote.blockquote--img-below.blockquote--right footer {
+  text-align: right;
+  flex-direction: row-reverse;
+  align-content: end; }
 
 blockquote.blockquote--img-below.blockquote--center footer {
   max-width: 40%;
   margin: 20px auto 0;
   align-items: center;
-  justify-content: center;
-  padding-top: 40px; }
+  justify-content: center; }
 
-blockquote.blockquote--center.blockquote--img-above .media {
+blockquote.blockquote--center.blockquote--img-above .blockquote__media {
   position: relative;
   margin: 0 auto 15px; }
 
 blockquote.blockquote--center.blockquote--img-above:before {
-  position: absolute;
-  content: '';
-  height: 0px;
-  top: 15px;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
-  width: 0;
-  background: none;
-  transition: 0.5s;
-  display: none; }
-
-blockquote.blockquote--center.blockquote--img-below:before {
   position: absolute;
   content: '';
   height: 0px;
