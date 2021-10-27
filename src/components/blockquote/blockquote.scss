@@ -5,13 +5,14 @@ blockquote {
   cite {
     display: block;
   }
-  .media {
+  .blockquote__media {
     max-width: 200px;
+    shape-outside: circle();
   }
   font-weight: $font-weight-normal;
   font-style: none;
   font-family: $font-family-serif;
-  border-left: 8px solid $primary;
+  border-left: 10px solid $primary;
   padding: $lg;
   font-size: 1.4rem;
   line-height: 1.7;
@@ -72,7 +73,7 @@ blockquote {
       position: absolute;
       content: '';
       height: 10px;
-      top: 15px;
+      top: 11px;
       margin: 0 auto;
       left: 0;
       right: 0;
@@ -89,21 +90,21 @@ blockquote {
   &.blockquote--right {
     text-align: right;
     border-left: none;
-    border-right: 8px solid $primary;
+    border-right: 10px solid $primary;
     @include padding($top: $xsm, $bottom: $xsm, $left: 0, $right: $lg);
   }
 }
 
-blockquote.blockquote--img-below,
+
 blockquote.blockquote--img-above {
-  footer {
+  .blockquote__content {
     position: relative;
-    padding-top: 25px;
-    &:before {
+    padding-bottom: 25px;
+    &:after {
       position: absolute;
       content: '';
       height: 10px;
-      top: 0;
+      bottom: 0;
       left: 0;
       right: 0;
       width: 130px;
@@ -113,26 +114,34 @@ blockquote.blockquote--img-above {
     }
   }
   &.blockquote--right {
-    footer {
-      &:before {
+    .blockquote__content {
+      &:after {
         right: 0;
-        left: inherit;
+         left: inherit;
       }
     }
   }
   &.blockquote--center {
-    footer {
-      &:before {
+    padding-top: 0;
+    .blockquote__content {
+      &:after {
         margin: 0 auto;
       }
     }
   }
 }
 
+blockquote.blockquote--img-below {
+  &.blockquote--left,
+  &.blockquote--center {
+    .blockquote__media {
+      margin-right: 20px;
+    }
+  }
+}
 
 blockquote.blockquote--img-below {
-  .media {
-    margin-right: 20px;
+  .blockquote__media {
     max-width: 120px;
   }
   footer {
@@ -143,20 +152,20 @@ blockquote.blockquote--img-below {
     display: block;
     text-align: left;
   }
+  &.blockquote--right {
+    cite {
+      text-align: right;
+    }
+  }
 }
 
-blockquote.blockquote--left.blockquote--img-below {
-  border-left: none;
-  margin-left: 0;
-}
 
 blockquote.blockquote--left.blockquote--img-above {
   border-left: none;
   margin-left: 0;
   padding-left: 220px;
-  .media {
+  .blockquote__media {
     float: left;
-    margin-right: 20px;
     position: absolute;
     left: 0;
   }
@@ -166,10 +175,9 @@ blockquote.blockquote--left.blockquote--img-above {
 blockquote.blockquote--right.blockquote--img-above {
   border-right: none;
   margin-right: 0;
-  padding-right: 250px;
-  .media {
+  padding-right: 230px;
+  .blockquote__media {
     float: right;
-    margin-right: 20px;
     position: absolute;
     right: 0;
   }
@@ -179,8 +187,9 @@ blockquote.blockquote--right.blockquote--img-above {
 }
 
 blockquote.blockquote--img-below.blockquote--right {
-  border-right: none;
-  margin-right: 0;
+  .blockquote__media {
+    margin-left: 20px;
+  }
   footer {
     text-align: right;
     flex-direction: row-reverse;
@@ -194,12 +203,12 @@ blockquote.blockquote--img-below.blockquote--center {
     margin: 20px auto 0;
     align-items: center;
     justify-content: center;
-    padding-top: 40px;
+   // padding-top: 40px;
   }
 }
 
 blockquote.blockquote--center.blockquote--img-above {
-  .media{
+  .blockquote__media{
     position: relative;
     margin: 0 auto 15px;
   }
@@ -220,19 +229,6 @@ blockquote.blockquote--center.blockquote--img-above {
 }
 
 blockquote.blockquote--center.blockquote--img-below {
-  &:before {
-    position: absolute;
-    content: '';
-    height: 0px;
-    top: 15px;
-    margin: 0 auto;
-    left: 0;
-    right: 0;
-    width:0;
-    background: none;
-    -webkit-transition: 0.5s;
-    transition: 0.5s;
-    display: none;
-  }
+
 }
 
