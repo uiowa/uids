@@ -12,8 +12,7 @@ blockquote {
   blockquote cite {
     display: block; }
   blockquote .blockquote__media {
-    max-width: 200px;
-    shape-outside: circle(); }
+    max-width: 200px; }
   .bg--gray blockquote,
   .bg--white blockquote,
   .bg--gray blockquote,
@@ -70,10 +69,36 @@ blockquote {
     padding-bottom: 0.325rem;
     padding-left: 0; }
 
+blockquote.blockquote--img-above.blockquote--right .blockquote__media, blockquote.blockquote--img-above.blockquote--left .blockquote__media,
+blockquote.blockquote--img-below.blockquote--right .blockquote__media,
+blockquote.blockquote--img-below.blockquote--left .blockquote__media {
+  margin-bottom: 15px; }
+  @media (min-width: 768px) {
+    blockquote.blockquote--img-above.blockquote--right .blockquote__media, blockquote.blockquote--img-above.blockquote--left .blockquote__media,
+    blockquote.blockquote--img-below.blockquote--right .blockquote__media,
+    blockquote.blockquote--img-below.blockquote--left .blockquote__media {
+      margin-bottom: 0px; } }
+
+blockquote.blockquote--img-above.blockquote--left .blockquote__media, blockquote.blockquote--img-above.blockquote--center .blockquote__media,
+blockquote.blockquote--img-below.blockquote--left .blockquote__media,
+blockquote.blockquote--img-below.blockquote--center .blockquote__media {
+  margin-right: 20px; }
+
+blockquote.blockquote--img-above.blockquote--right .blockquote__media,
+blockquote.blockquote--img-below.blockquote--right .blockquote__media {
+  margin-left: 20px; }
+
+@media (min-width: 768px) {
+  blockquote.blockquote--img-above .blockquote__media {
+    flex: 0 1 25%; } }
+
 blockquote.blockquote--img-above .blockquote__content {
+  flex: 0 1 75%; }
+
+blockquote.blockquote--img-above .blockquote__paragraph {
   position: relative;
   padding-bottom: 25px; }
-  blockquote.blockquote--img-above .blockquote__content:after {
+  blockquote.blockquote--img-above .blockquote__paragraph:after {
     position: absolute;
     content: '';
     height: 10px;
@@ -84,17 +109,39 @@ blockquote.blockquote--img-above .blockquote__content {
     background: #FFCD00;
     transition: 0.5s; }
 
-blockquote.blockquote--img-above.blockquote--right .blockquote__content:after {
-  right: 0;
-  left: inherit; }
+blockquote.blockquote--img-above.blockquote--left, blockquote.blockquote--img-above.blockquote--right {
+  border: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap; }
+
+blockquote.blockquote--img-above.blockquote--right {
+  flex-direction: row-reverse; }
+  blockquote.blockquote--img-above.blockquote--right .blockquote__paragraph:after {
+    right: 0;
+    left: inherit; }
 
 blockquote.blockquote--img-above.blockquote--center {
   padding-top: 0; }
-  blockquote.blockquote--img-above.blockquote--center .blockquote__content:after {
+  blockquote.blockquote--img-above.blockquote--center:before {
+    position: absolute;
+    content: '';
+    height: 0px;
+    top: 15px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    width: 0;
+    background: none;
+    transition: 0.5s;
+    display: none; }
+  blockquote.blockquote--img-above.blockquote--center .blockquote__media {
+    position: relative;
+    margin: 0 auto 15px; }
+  blockquote.blockquote--img-above.blockquote--center .blockquote__paragraph:after {
     margin: 0 auto; }
-
-blockquote.blockquote--img-below.blockquote--left .blockquote__media, blockquote.blockquote--img-below.blockquote--center .blockquote__media {
-  margin-right: 20px; }
 
 blockquote.blockquote--img-below .blockquote__media {
   max-width: 120px; }
@@ -107,56 +154,18 @@ blockquote.blockquote--img-below cite {
   display: block;
   text-align: left; }
 
-blockquote.blockquote--img-below.blockquote--right cite {
-  text-align: right; }
-
-blockquote.blockquote--left.blockquote--img-above {
-  border-left: none;
-  margin-left: 0;
-  padding-left: 220px; }
-  blockquote.blockquote--left.blockquote--img-above .blockquote__media {
-    float: left;
-    position: absolute;
-    left: 0; }
-
-blockquote.blockquote--right.blockquote--img-above {
-  border-right: none;
-  margin-right: 0;
-  padding-right: 230px; }
-  blockquote.blockquote--right.blockquote--img-above .blockquote__media {
-    float: right;
-    position: absolute;
-    right: 0; }
-  blockquote.blockquote--right.blockquote--img-above footer {
-    position: relative; }
-
-blockquote.blockquote--img-below.blockquote--right .blockquote__media {
-  margin-left: 20px; }
+blockquote.blockquote--img-below.blockquote--center footer {
+  margin: 20px auto 0;
+  align-items: center;
+  justify-content: center; }
+  @media (min-width: 768px) {
+    blockquote.blockquote--img-below.blockquote--center footer {
+      max-width: 40%; } }
 
 blockquote.blockquote--img-below.blockquote--right footer {
   text-align: right;
   flex-direction: row-reverse;
   align-content: end; }
 
-blockquote.blockquote--img-below.blockquote--center footer {
-  max-width: 40%;
-  margin: 20px auto 0;
-  align-items: center;
-  justify-content: center; }
-
-blockquote.blockquote--center.blockquote--img-above .blockquote__media {
-  position: relative;
-  margin: 0 auto 15px; }
-
-blockquote.blockquote--center.blockquote--img-above:before {
-  position: absolute;
-  content: '';
-  height: 0px;
-  top: 15px;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
-  width: 0;
-  background: none;
-  transition: 0.5s;
-  display: none; }
+blockquote.blockquote--img-below.blockquote--right cite {
+  text-align: right; }
