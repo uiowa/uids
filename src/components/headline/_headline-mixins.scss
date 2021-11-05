@@ -77,9 +77,6 @@
 @mixin headline-underline {
   padding-bottom: $sm;
   line-height: 1.3;
-  //display: inline;
-  //background-size: 1px 1em;
-  //box-shadow: inset 0 -0.175em white, inset 0 -0.25em $primary;
 
   &:after {
     content: "";
@@ -90,17 +87,12 @@
     background: $primary;
   }
 
-  [class*="bg--gray"] & {
-    box-shadow: inset 0 -0.175em $light, inset 0 -0.25em $primary;
-  }
-
-  .bg-pattern--brain-black &,
-  [class*="bg--black"] & {
-    box-shadow: inset 0 -0.175em $secondary, inset 0 -0.25em $primary;
-  }
 
   .bg-pattern--brain-reversed &,
   [class*="bg--gold"] & {
     box-shadow: inset 0 -0.175em $primary, inset 0 -0.25em $light;
+    &:after {
+      background: $light;
+    }
   }
 }
