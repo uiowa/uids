@@ -5,6 +5,7 @@ blockquote {
   cite {
     display: block;
   }
+
   .blockquote__media {
     max-width: 200px;
   }
@@ -13,52 +14,49 @@ blockquote {
   font-family: $font-family-serif;
   border-left: 10px solid $primary;
   padding: $lg;
-  font-size: 1.4rem;
+  font-size: $h5-font-size;
   line-height: 1.7;
   @include padding($top: $xsm, $bottom: $xsm, $left: $lg);
-
   // border color overrides for certain background colors
   .bg--gray &,
-  .bg--white &,
   .bg--gray &,
-  .bg-pattern--brain &,
-  .bg--white--pattern--brain & {
+  .bg--white &,
+  .bg--white--pattern--brain &,
+  .bg-pattern--brain & {
     border-color: $primary;
   }
 
-  .bg-pattern--brain-reversed &,
+  .bg--gold &,
   .bg--gold--pattern--brain &,
-  .bg--gold & {
+  .bg-pattern--brain-reversed & {
     border-color: #fff;
   }
 
+  .bg--black &,
   .bg--black--pattern--brain &,
-  .bg-pattern--brain-black &,
-  .bg--black & {
+  .bg-pattern--brain-black & {
     border-color: $primary;
   }
-
 
   p {
     margin-top: 0;
     font-weight: $font-weight-normal;
-    font-size: 1.4rem;
+    font-size: $h5-font-size;
   }
 
   footer {
     font-family: $font-family-sans-serif;
     font-weight: $font-weight-bold;
     margin-top: $md;
-    font-size: 1.2rem;
+    font-size: $content-font-size;
   }
 
   p+footer {
     margin-top: 0;
   }
-
   // @todo 2020/12/08 Remove '.blockquote-center' class in v4.0.0
-  .blockquote-center &,
-  &.blockquote--center {
+  &.blockquote--center,
+  .blockquote-center & {
     img {
       margin: 0 auto;
       display: block;
@@ -82,12 +80,10 @@ blockquote {
       transition: 0.5s;
     }
   }
-
-
   // @todo 2020/12/08 Remove '.blockquote-right' class in v4.0.0
-  .blockquote-right &,
-  &.blockquote--right {
-    text-align: right;
+  &.blockquote--right,
+  .blockquote-right & {
+    text-align: end;
     border-left: none;
     border-right: 10px solid $primary;
     @include padding($top: $xsm, $bottom: $xsm, $left: 0, $right: $lg);
@@ -97,24 +93,26 @@ blockquote {
 // Shared styles for above and below options.
 blockquote.blockquote--img-above,
 blockquote.blockquote--img-below {
-  &.blockquote--right,
-  &.blockquote--left {
+  &.blockquote--left,
+  &.blockquote--right {
     .blockquote__media {
-      margin-bottom: 15px;
+      margin-bottom: $sm-md;
       @include breakpoint(sm) {
-        margin-bottom: 0px;
+        margin-bottom: 0;
       }
     }
   }
-  &.blockquote--left,
-  &.blockquote--center {
+
+  &.blockquote--center,
+  &.blockquote--left {
     .blockquote__media {
-        margin-right: 20px;
+      margin-right: $md;
     }
   }
+
   &.blockquote--right {
     .blockquote__media {
-        margin-left: 20px;
+      margin-left: $md;
     }
   }
 }
@@ -126,12 +124,15 @@ blockquote.blockquote--img-above {
       flex: 0 1 25%;
     }
   }
+
   .blockquote__content {
     flex: 0 1 75%;
   }
+
   .blockquote__paragraph {
     position: relative;
-    padding-bottom: 25px;
+    padding-bottom: $lg;
+
     &:after {
       position: absolute;
       content: '';
@@ -145,6 +146,7 @@ blockquote.blockquote--img-above {
       transition: 0.5s;
     }
   }
+
   &.blockquote--left,
   &.blockquote--right {
     border: none;
@@ -156,7 +158,8 @@ blockquote.blockquote--img-above {
   }
 
   &.blockquote--right {
-      flex-direction: row-reverse;
+    flex-direction: row-reverse;
+
     .blockquote__paragraph {
       &:after {
         right: 0;
@@ -164,26 +167,30 @@ blockquote.blockquote--img-above {
       }
     }
   }
+
   &.blockquote--center {
     padding-top: 0;
+
     &:before {
       position: absolute;
       content: '';
-      height: 0px;
-      top: 15px;
+      height: 0;
+      top: $sm-md;
       margin: 0 auto;
       left: 0;
       right: 0;
-      width:0;
+      width: 0;
       background: none;
       -webkit-transition: 0.5s;
       transition: 0.5s;
       display: none;
     }
+
     .blockquote__media {
       position: relative;
-      margin: 0 auto 15px;
+      margin: 0 auto $sm-md;
     }
+
     .blockquote__paragraph {
       &:after {
         margin: 0 auto;
@@ -197,33 +204,37 @@ blockquote.blockquote--img-below {
   .blockquote__media {
     max-width: 120px;
   }
+
   footer {
     display: flex;
-    margin-top: 20px;
+    margin-top: $md;
   }
+
   cite {
     display: block;
-    text-align: left;
+    text-align: start;
   }
+
   &.blockquote--center {
     footer {
       @include breakpoint(sm) {
         max-width: 40%;
       }
-      margin: 20px auto 0;
+      margin: $md auto 0;
       align-items: center;
       justify-content: center;
     }
   }
+
   &.blockquote--right {
     footer {
-      text-align: right;
+      text-align: end;
       flex-direction: row-reverse;
       align-content: end;
     }
+
     cite {
-      text-align: right;
+      text-align: end;
     }
   }
 }
-
