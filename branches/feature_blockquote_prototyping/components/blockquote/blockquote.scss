@@ -54,6 +54,7 @@ blockquote {
   p+footer {
     margin-top: 0;
   }
+
   // @todo 2020/12/08 Remove '.blockquote-center' class in v4.0.0
   &.blockquote--center,
   .blockquote-center & {
@@ -80,6 +81,7 @@ blockquote {
       transition: 0.5s;
     }
   }
+
   // @todo 2020/12/08 Remove '.blockquote-right' class in v4.0.0
   &.blockquote--right,
   .blockquote-right & {
@@ -88,153 +90,157 @@ blockquote {
     border-right: 10px solid $primary;
     @include padding($top: $xsm, $bottom: $xsm, $left: 0, $right: $lg);
   }
-}
 
-// Shared styles for above and below options.
-blockquote.blockquote--img-above,
-blockquote.blockquote--img-below {
-  &.blockquote--left,
-  &.blockquote--right {
-    .blockquote__media {
-      margin-bottom: $sm-md;
-      @include breakpoint(sm) {
-        margin-bottom: 0;
+  // Shared styles for above and below options.
+  &.blockquote--img-above,
+  &.blockquote--img-below {
+    &.blockquote--left,
+    &.blockquote--right {
+      .blockquote__media {
+        margin-bottom: $sm-md;
+        @include breakpoint(sm) {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    &.blockquote--center,
+    &.blockquote--left {
+      .blockquote__media {
+        margin-right: $md;
+      }
+    }
+
+    &.blockquote--right {
+      .blockquote__media {
+        margin-left: $md;
       }
     }
   }
 
-  &.blockquote--center,
-  &.blockquote--left {
+  // Blockquote image above.
+  &.blockquote--img-above {
     .blockquote__media {
-      margin-right: $md;
+      @include breakpoint(sm) {
+        flex: 0 1 25%;
+      }
     }
-  }
 
-  &.blockquote--right {
-    .blockquote__media {
-      margin-left: $md;
+    .blockquote__content {
+      flex: 0 1 75%;
     }
-  }
-}
-
-// Blockquote image above.
-blockquote.blockquote--img-above {
-  .blockquote__media {
-    @include breakpoint(sm) {
-      flex: 0 1 25%;
-    }
-  }
-
-  .blockquote__content {
-    flex: 0 1 75%;
-  }
-
-  .blockquote__paragraph {
-    position: relative;
-    padding-bottom: $lg;
-
-    &:after {
-      position: absolute;
-      content: '';
-      height: 10px;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      width: 130px;
-      background: $primary;
-      -webkit-transition: 0.5s;
-      transition: 0.5s;
-    }
-  }
-
-  &.blockquote--left,
-  &.blockquote--right {
-    border: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  &.blockquote--right {
-    flex-direction: row-reverse;
 
     .blockquote__paragraph {
-      &:after {
-        right: 0;
-        left: inherit;
-      }
-    }
-  }
-
-  &.blockquote--center {
-    padding-top: 0;
-
-    &:before {
-      position: absolute;
-      content: '';
-      height: 0;
-      top: $sm-md;
-      margin: 0 auto;
-      left: 0;
-      right: 0;
-      width: 0;
-      background: none;
-      -webkit-transition: 0.5s;
-      transition: 0.5s;
-      display: none;
-    }
-
-    .blockquote__media {
       position: relative;
-      margin: 0 auto $sm-md;
-    }
+      padding-bottom: $lg;
 
-    .blockquote__paragraph {
       &:after {
-        margin: 0 auto;
+        position: absolute;
+        content: '';
+        height: 10px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 130px;
+        background: $primary;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
       }
     }
-  }
-}
 
-// Blockquote image below.
-blockquote.blockquote--img-below {
-  .blockquote__media {
-    max-width: 120px;
-  }
-
-  footer {
-    display: flex;
-    margin-top: $md;
-  }
-
-  cite {
-    display: block;
-    text-align: start;
-  }
-
-  &.blockquote--center {
-    footer {
-      @include breakpoint(sm) {
-        max-width: 40%;
-      }
-      margin: $md auto 0;
-      align-items: center;
-      justify-content: center;
+    &.blockquote--left,
+    &.blockquote--right {
+      border: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
     }
-  }
 
-  &.blockquote--right {
-    footer {
-      text-align: end;
+    &.blockquote--right {
       flex-direction: row-reverse;
-      align-content: end;
+
+      .blockquote__paragraph {
+        &:after {
+          right: 0;
+          left: inherit;
+        }
+      }
+    }
+
+    &.blockquote--center {
+      padding-top: 0;
+
+      &:before {
+        position: absolute;
+        content: '';
+        height: 0;
+        top: $sm-md;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        width: 0;
+        background: none;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+        display: none;
+      }
+
+      .blockquote__media {
+        position: relative;
+        margin: 0 auto $sm-md;
+      }
+
+      .blockquote__paragraph {
+        &:after {
+          margin: 0 auto;
+        }
+      }
+    }
+  }
+  // Blockquote image below.
+  &.blockquote--img-below {
+    .blockquote__media {
+      max-width: 120px;
+    }
+
+    footer {
+      display: flex;
+      margin-top: $md;
     }
 
     cite {
-      text-align: end;
+      display: block;
+      text-align: start;
+    }
+
+    &.blockquote--center {
+      footer {
+        @include breakpoint(sm) {
+          max-width: 40%;
+        }
+        margin: $md auto 0;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    &.blockquote--right {
+      footer {
+        text-align: end;
+        flex-direction: row-reverse;
+        align-content: end;
+      }
+
+      cite {
+        text-align: end;
+      }
     }
   }
+
 }
+
+
+
+
