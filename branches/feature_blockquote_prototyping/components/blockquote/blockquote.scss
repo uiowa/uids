@@ -20,23 +20,25 @@ blockquote {
   line-height: 1.7;
   @include padding($top: $xsm, $bottom: $xsm, $left: $lg);
   // border color overrides for certain background colors
-  [class*=bg--gray] &,
-  [class*=bg--white] &,
+  .bg--black--pattern--brain &,
   .bg--white--pattern--brain &,
   .bg-pattern--brain &,
+  .bg-pattern--brain-black &,
   [class*=bg--black] &,
-  .bg--black--pattern--brain &,
-  .bg-pattern--brain-black & {
+  [class*=bg--gray] &,
+  [class*=bg--white] & {
     border-color: $primary;
+
     &:before {
       background: $primary;
     }
   }
 
-  [class*=bg--gold] &,
   .bg--gold--pattern--brain &,
-  .bg-pattern--brain-reversed & {
+  .bg-pattern--brain-reversed &,
+  [class*=bg--gold] & {
     border-color: #fff;
+
     &:before {
       background: #fff;
     }
@@ -64,7 +66,6 @@ blockquote {
   &.blockquote--right {
     flex-basis: 100%;
   }
-
   // @todo 2020/12/08 Remove '.blockquote-center' class in v4.0.0
   &.blockquote--center,
   .blockquote-center & {
@@ -72,7 +73,6 @@ blockquote {
       margin: 0 auto;
       display: block;
     }
-
     text-align: center;
     border: none;
     position: relative;
@@ -91,14 +91,13 @@ blockquote {
       -webkit-transition: 0.5s;
       transition: 0.5s;
 
-      [class*=bg--gold] &,
       .bg--gold--pattern--brain &,
-      .bg-pattern--brain-reversed & {
+      .bg-pattern--brain-reversed &,
+      [class*=bg--gold] & {
         background: #fff;
       }
     }
   }
-
   // @todo 2020/12/08 Remove '.blockquote-right' class in v4.0.0
   &.blockquote--right,
   .blockquote-right & {
@@ -107,7 +106,6 @@ blockquote {
     border-right-style: solid;
     @include padding($top: $xsm, $bottom: $xsm, $left: 0, $right: $lg);
   }
-
   // Shared styles for above and below options.
   &.blockquote--img-above,
   &.blockquote--img-below {
@@ -136,7 +134,6 @@ blockquote {
       }
     }
   }
-
   // Blockquote image above.
   &.blockquote--img-above {
     .blockquote__media {
@@ -167,19 +164,19 @@ blockquote {
         -webkit-transition: 0.5s;
         transition: 0.5s;
 
-        [class*=bg--gray] &,
-        [class*=bg--white] &,
+        .bg--black--pattern--brain &,
         .bg--white--pattern--brain &,
         .bg-pattern--brain &,
+        .bg-pattern--brain-black &,
         [class*=bg--black] &,
-        .bg--black--pattern--brain &,
-        .bg-pattern--brain-black & {
+        [class*=bg--gray] &,
+        [class*=bg--white] & {
           background: $primary;
         }
 
-        [class*=bg--gold] &,
         .bg--gold--pattern--brain &,
-        .bg-pattern--brain-reversed & {
+        .bg-pattern--brain-reversed &,
+        [class*=bg--gold] & {
           background: #fff;
         }
       }
