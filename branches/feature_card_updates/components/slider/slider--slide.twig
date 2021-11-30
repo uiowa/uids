@@ -1,0 +1,36 @@
+<div tabindex="0" class="slider__slide" {% if slide.slide_expanded %} aria-expanded="true" {% endif %}>
+
+  {% embed '@banner' with {
+    'banner_image' : slide.slide_banner_image,
+    'banner_link_url' : slide.slide_link,
+    'banner_title' : slide.slide_title,
+    'banner_text' : slide.slide_sub,
+    'banner_link_url' : slide.slide_sub,
+    'banner_link_classes' : slide.slide_link_class,
+    'banner_link_title' : slide.slide_link_title,
+    'banner_classes' : slide.slide_banner_class,
+    'banner_type' : 'image',
+    'banner_size' : 'medium',
+    'banner_overlay' : '',
+    'banner_vertical_alignment' : 'vertical-bottom',
+    'banner_horizontal_alignment' : 'horizontal-left',
+    'banner_title_classes' : 'headline--serif headline headline--negative headline--medium'
+  } %}
+
+    {% block banner_image %}
+      {% if banner_image %}
+        <div class="banner__image">
+          <img src="{{ slide.slide_banner_image }}">
+        </div>
+      {% endif %}
+    {% endblock %}
+
+  {% endembed %}
+
+  <div class="slider__teaser">
+    <p class="slider__teaser-heading">{{ slide.slide_title }}
+      <span aria-hidden="true" class="fas fa-plus"></span>
+    </p>
+  </div>
+
+</div>
