@@ -1,0 +1,278 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/utilities';
+
+blockquote {
+  cite {
+    display: block;
+  }
+
+  .blockquote__media {
+    max-width: 160px;
+  }
+  font-weight: $font-weight-normal;
+  font-style: none;
+  font-family: $font-family-serif;
+  border-left-style: solid;
+  border-width: 10px;
+  border-color: $primary;
+  padding: $lg;
+  font-size: 1.5rem;
+  line-height: 1.7;
+  @include padding($top: $xsm, $bottom: $xsm, $left: $lg);
+  // border color overrides for certain background colors
+  .bg--black--pattern--brain &,
+  .bg--white--pattern--brain &,
+  .bg-pattern--brain &,
+  .bg-pattern--brain-black &,
+  [class*=bg--black] &,
+  [class*=bg--gray] &,
+  [class*=bg--white] & {
+    border-color: $primary;
+
+    &:before {
+      background: $primary;
+    }
+  }
+
+  .bg--gold--pattern--brain &,
+  .bg-pattern--brain-reversed &,
+  [class*=bg--gold] & {
+    border-color: #fff;
+
+    &:before {
+      background: #fff;
+    }
+  }
+
+  p {
+    margin-top: 0;
+    font-weight: $font-weight-normal;
+    font-size: $h5-font-size;
+  }
+
+  footer {
+    font-family: $font-family-sans-serif;
+    font-weight: $font-weight-bold;
+    margin-top: $md;
+    font-size: $content-font-size;
+  }
+
+  p+footer {
+    margin-top: 0;
+  }
+
+  &.blockquote--center,
+  &.blockquote--left,
+  &.blockquote--right {
+    flex-basis: 100%;
+  }
+  // @todo 2020/12/08 Remove '.blockquote-center' class in v4.0.0
+  &.blockquote--center,
+  .blockquote-center & {
+    img {
+      margin: 0 auto;
+      display: block;
+    }
+    text-align: center;
+    border: none;
+    position: relative;
+    @include padding($top: $xlg, $bottom: $xsm, $left: $xsm, $right: $xsm);
+
+    &:before {
+      position: absolute;
+      content: '';
+      height: 10px;
+      top: 11px;
+      margin: 0 auto;
+      left: 0;
+      right: 0;
+      width: 130px;
+      background: $primary;
+      -webkit-transition: 0.5s;
+      transition: 0.5s;
+
+      .bg--gold--pattern--brain &,
+      .bg-pattern--brain-reversed &,
+      [class*=bg--gold] & {
+        background: #fff;
+      }
+    }
+  }
+  // @todo 2020/12/08 Remove '.blockquote-right' class in v4.0.0
+  &.blockquote--right,
+  .blockquote-right & {
+    text-align: end;
+    border-left: none;
+    border-right-style: solid;
+    padding: $xsm $lg;
+  }
+  // Shared styles for above and below options.
+  &.blockquote--img-above,
+  &.blockquote--img-below {
+    &.blockquote--left,
+    &.blockquote--right {
+      margin-bottom: $mobile-width-gutter;
+      .blockquote__media {
+        margin-bottom: $sm-md;
+        @include breakpoint(sm) {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    &.blockquote--center,
+    &.blockquote--left {
+      .blockquote__media {
+        margin-right: 1.3rem;
+        margin-top: .7rem;
+      }
+    }
+
+    &.blockquote--right {
+      .blockquote__media {
+        margin-left: 1.3rem;
+        margin-top: .7rem;
+      }
+    }
+  }
+  // Blockquote image above.
+  &.blockquote--img-above {
+    .blockquote__media {
+      @include breakpoint(sm) {
+        flex: 0 1 auto;
+      }
+    }
+
+    .blockquote__content {
+      @include breakpoint(sm) {
+        flex: 0 1 75%;
+      }
+    }
+
+    .blockquote__paragraph {
+      position: relative;
+      padding-bottom: $lg;
+
+      &:after {
+        position: absolute;
+        content: '';
+        height: 10px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 130px;
+        background: $primary;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+
+        .bg--black--pattern--brain &,
+        .bg--white--pattern--brain &,
+        .bg-pattern--brain &,
+        .bg-pattern--brain-black &,
+        [class*=bg--black] &,
+        [class*=bg--gray] &,
+        [class*=bg--white] & {
+          background: $primary;
+        }
+
+        .bg--gold--pattern--brain &,
+        .bg-pattern--brain-reversed &,
+        [class*=bg--gold] & {
+          background: #fff;
+        }
+      }
+    }
+
+    &.blockquote--left,
+    &.blockquote--right {
+      border: none;
+      margin-right: 0;
+      margin-left: 0;
+      padding: $md 0;
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    &.blockquote--right {
+      flex-direction: row-reverse;
+
+      .blockquote__paragraph {
+        &:after {
+          right: 0;
+          left: inherit;
+        }
+      }
+    }
+
+    &.blockquote--center {
+      padding-top: 0;
+
+      &:before {
+        position: absolute;
+        content: '';
+        height: 0;
+        top: $sm-md;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        width: 0;
+        background: none;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+        display: none;
+      }
+
+      .blockquote__media {
+        position: relative;
+        margin: 0 auto $md;
+      }
+
+      .blockquote__paragraph {
+        &:after {
+          margin: 0 auto;
+        }
+      }
+    }
+  }
+  // Blockquote image below.
+  &.blockquote--img-below {
+    .blockquote__media {
+      max-width: 100px;
+    }
+
+    footer {
+      display: flex;
+      margin-top: 0;
+      align-items: center;
+    }
+
+    cite {
+      display: block;
+      text-align: start;
+    }
+
+    &.blockquote--center {
+      footer {
+        @include breakpoint(sm) {
+          max-width: 40%;
+        }
+        margin: $xsm auto 0;
+        justify-content: center;
+        text-align: left;
+      }
+    }
+
+    &.blockquote--right {
+      footer {
+        text-align: end;
+        flex-direction: row-reverse;
+        align-content: end;
+      }
+
+      cite {
+        text-align: end;
+      }
+    }
+  }
+}
