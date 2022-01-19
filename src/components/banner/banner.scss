@@ -5,7 +5,7 @@
   // @todo Replace with https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio
   min-height: 15rem;
 
-  // Banner Heights
+  // Banner Heights for large and medium
   &--large {
     &::before {
       float: left;
@@ -18,14 +18,6 @@
     &::before {
       float: left;
       padding-top: 32.25%;
-      content: '';
-    }
-  }
-
-  &--small {
-    &::before {
-      float: left;
-      padding-top: 17.75%;
       content: '';
     }
   }
@@ -73,7 +65,7 @@
     align-items: flex-end;
   }
 
-  &:focus-within .bold-headline a:focus {
+  &:focus-within .headline a:focus {
     text-decoration: underline;
   }
 
@@ -89,9 +81,9 @@
       top: 0;
     }
   }
-    
-  .media--video .video-controls { 
-    z-index: 2; 
+
+  .media--video .video-controls {
+    z-index: 2;
   }
 
   img {
@@ -170,11 +162,11 @@
     }
   }
 
-  h2:not([class*="bold-headline"]),
-  h3:not([class*="bold-headline"]),
-  h4:not([class*="bold-headline"]),
-  h5:not([class*="bold-headline"]),
-  h6:not([class*="bold-headline"]),
+  h2:not([class*="headline"]),
+  h3:not([class*="headline"]),
+  h4:not([class*="headline"]),
+  h5:not([class*="headline"]),
+  h6:not([class*="headline"]),
   blockquote {
     color: #fff;
 
@@ -216,11 +208,11 @@
       }
     }
 
-    h2:not([class*="bold-headline"]),
-    h3:not([class*="bold-headline"]),
-    h4:not([class*="bold-headline"]),
-    h5:not([class*="bold-headline"]),
-    h6:not([class*="bold-headline"]),
+    h2:not([class*="headline"]),
+    h3:not([class*="headline"]),
+    h4:not([class*="headline"]),
+    h5:not([class*="headline"]),
+    h6:not([class*="headline"]),
     blockquote {
       color: $secondary;
 
@@ -229,7 +221,7 @@
       }
     }
 
-    .bold-headline.bold-headline--negative {
+    .headline.headline--negative {
       color: $secondary;
       text-shadow: none;
 
@@ -242,11 +234,11 @@
   &.banner--gradient-light:not([class*="bg--black"]):not([class*="bg-pattern--brain-black"]) {
     color: $secondary;
 
-    h2:not([class*="bold-headline"]),
-    h3:not([class*="bold-headline"]),
-    h4:not([class*="bold-headline"]),
-    h5:not([class*="bold-headline"]),
-    h6:not([class*="bold-headline"]),
+    h2:not([class*="headline"]),
+    h3:not([class*="headline"]),
+    h4:not([class*="headline"]),
+    h5:not([class*="headline"]),
+    h6:not([class*="headline"]),
     blockquote {
       color: $secondary;
 
@@ -265,7 +257,7 @@
       }
     }
 
-    .bold-headline.bold-headline--negative {
+    .headline.headline--negative {
       color: $secondary;
       text-shadow: none;
 
@@ -275,7 +267,6 @@
     }
   }
 
-  .bold-headline,
   .headline {
     z-index: 1;
 
@@ -289,7 +280,7 @@
       }
     }
 
-    &.bold-headline--negative {
+    &.headline--negative {
       color: $secondary;
 
       a {
@@ -299,16 +290,32 @@
       text-shadow: 0 1px 1px #000;
       color: #fff;
     }
-
     margin-top: 0;
     margin-bottom: .7rem;
-    font-size: calc(100% + 4vw);
-
-    @include breakpoint(sm) {
-      font-size: calc(100% + 2.5vw);
-    }
   }
 }
+
+// Set large heading size
+.headline--large.headline--serif,
+.headline--large {
+  font-size: 4.7rem;
+  font-size: containerClamp(2.5rem, 4.7rem);
+}
+
+// Set medium heading size
+.headline--medium.headline--serif,
+.headline--medium {
+  font-size: 3.7rem;
+  font-size: containerClamp(2.2rem, 3.7rem);
+}
+
+// Set small heading size
+.headline--small.headline--serif,
+.headline--small {
+  font-size: 2.7rem;
+  font-size: containerClamp(2rem, 2.7rem);
+}
+
 
 // Alignment Variants
 .banner--horizontal-center {
@@ -419,7 +426,7 @@
     @include breakpoint(sm) {
       min-height: 33rem;
     }
-    @include breakpoint(menu) {
+    @include breakpoint(md) {
       min-height: 48rem;
     }
   }
@@ -508,16 +515,6 @@
   &--transparent {
     &:after {
       background: none;
-    }
-  }
-}
-
-// Set larger heading size for large banner only
-.banner--large {
-  .bold-headline,
-  .headline {
-    @include breakpoint(md) {
-      font-size: calc(100% + 3.5vw);
     }
   }
 }
