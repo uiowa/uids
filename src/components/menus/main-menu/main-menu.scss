@@ -25,6 +25,7 @@
   }
 }
 // vertical and horiztonal
+
 .main--secondary--horizontal,
 .main--secondary--vertical {
   display: block;
@@ -142,12 +143,9 @@
         }
       }
     }
-
-    li:not(.menu-item--expanded) ul {
-      display: none;
-    }
   }
 }
+
 // horizontal only
 @include breakpoint(sm) {
   .main--secondary--horizontal {
@@ -323,88 +321,127 @@
   }
 }
 
-// Sidebar
-.main--sidebar {
-  &.main--sidebar-minimal {
+// vertical only
+.main--secondary--vertical {
+  &.main--secondary--vertical-minimal {
     ul.menu {
       border: none;
-      border-top: 4px solid $primary;
-      & li {
-        &.item--first a {
 
+      & li {
+        a:focus,
+        a:hover {
+          background: none;
+        }
+
+        &.is-active > a {
+          background: none;
+        }
+
+        &.menuparent--active {
+          background: none;
+        }
+
+        &.item--first a {
           padding: $md;
           margin: 0;
         }
       }
     }
   }
-    ul.menu {
-        background-color: #fff;
-        border: 1px solid $grey-light;
-        border-top: 4px solid $primary;
-        width: 100%;
-        @include flexbox;
-        @include flex-direction(column);
 
-        & li {
-            border-bottom: 1px solid $grey-light;
-            display: block;
-            font-size: $content-font-size;
-            & a {
-                display: block;
-                position: relative;
-                @include padding($top: $md, $right: $md, $bottom: $md, $left: $md);
-                &:hover, &:focus {
-                    background-color: $light;
-                    text-decoration: underline;
-                }
-            }
-            &.is-active > a {
-                background-color: $light;
-                font-weight: bold;
-            }
-           /* &.item--first a {
-                border-top: 4px solid $primary;
-                font-size: $base-font-size;
-                font-weight: bold;
-                letter-spacing: .8px;
-                margin: 0 $md;
-                padding-left: 0;
-                padding-right: 0;
-                text-transform: uppercase;
-                &:hover, &:active {
-                    background-color: transparent;
-                }
-            }*/
-            &:last-of-type {
-                border-bottom: none;
-            }
-            &.menuparent--active {
-                background-color: $light;
-            }
+  ul.menu {
+    background-color: #fff;
+    border: 1px solid $grey-light;
+    border-top: 4px solid $primary;
+    width: 100%;
+    @include flexbox;
+    @include flex-direction(column);
+
+    & li {
+      border-bottom: 1px solid rgba($grey-light, .5);
+      display: block;
+      font-size: 1.1rem;
+
+      li li {
+        display: list-item;
+      }
+
+      & a {
+        display: block;
+        position: relative;
+        @include padding($top: $md, $right: $md, $bottom: $md, $left: $md);
+
+        &:focus,
+        &:hover {
+          background-color: $light;
+          text-decoration: underline;
         }
-        // second level
-        & ul {
-          padding-bottom: $sm;
-            & li {
-                border-bottom: none;
-                font-size: $base-font-size;
-                & a {
-                    @include padding($top: $sm, $right: $md, $bottom: $sm, $left: 2.2rem);
-                    &:before {
-                        content: "\f105";
-                        position: absolute;
-                        font-size: .9rem;
-                        left: $md;
-                        right: $md;
-                        @include fas();
-                    }
-                }
-            }
-        }
+      }
+
+      &.is-active > a {
+        background-color: $light;
+        font-weight: bold;
+      }
+
+      &:last-of-type {
+        border-bottom: none;
+      }
+
+      &.menuparent--active {
+        background-color: $light;
+      }
     }
-}
+    // second level
+    & ul {
+      list-style: disc;
+      padding-bottom: $sm;
+      margin-left: 0;
 
+      & li {
+        border-bottom: none;
+        font-size: $base-font-size;
+
+        & > a {
+          @include padding($top: $sm, $right: $md, $bottom: $sm, $left: 2.2rem);
+
+          &:before {
+            content: "\f105";
+            position: absolute;
+            font-size: 0.9rem;
+            left: $md;
+            right: $md;
+            @include fas();
+          }
+        }
+      }
+    }
+    // third level
+    & ul ul {
+      margin-left: 3rem;
+
+      li a {
+        padding-left: 0.5rem;
+
+        &:before {
+          content: "";
+        }
+      }
+    }
+    // fourth level
+    & ul ul ul {
+      margin-left: 1.5rem;
+      list-style: circle;
+
+      list li a {
+        padding-left: 0.5rem;
+
+        &:before {
+          content: "";
+        }
+      }
+    }
+  }
+}
 
 // ie11
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
