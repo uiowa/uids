@@ -283,17 +283,25 @@ blockquote {
     }
   }
 
-  &.blockquote--borderless {
+  &.blockquote--no-border {
     border-width: 0;
 
+    &:before {
+      height: 0;
+    }
+
+    .blockquote__paragraph {
+      &:after {
+        height: 0;
+      }
+    }
+  }
+
+  &.blockquote--no-margin {
     &.blockquote--left,
     &.blockquote--right {
       margin-left: 0;
       margin-right: 0;
-    }
-
-    &:before {
-      height: 0;
     }
   }
 }
