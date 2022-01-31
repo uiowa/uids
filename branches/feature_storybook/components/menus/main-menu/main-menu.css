@@ -7,7 +7,8 @@
     list-style-type: none;
     margin: 0; }
 
-.nav .menu a {
+.nav .menu a,
+.nav .menu span {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
@@ -20,7 +21,8 @@
   overflow: visible;
   font-size: 1rem;
   display: flex; }
-  .nav .menu a {
+  .nav .menu a,
+  .nav .menu span {
     position: relative;
     display: inline-block;
     transition: background 0.8s ease-out;
@@ -87,7 +89,7 @@
           .main--secondary--vertical .menu li a.is-active:after,
           .main--secondary--vertical .menu li span.is-active:after {
             background: transparent;
-            content: '';
+            content: "";
             position: absolute;
             left: 50%;
             bottom: 0;
@@ -117,7 +119,9 @@
           border-bottom: none;
           font-size: 1rem; }
           .main--secondary--horizontal .menu li.menu-item--expanded ul li a,
-          .main--secondary--vertical .menu li.menu-item--expanded ul li a {
+          .main--secondary--horizontal .menu li.menu-item--expanded ul li span,
+          .main--secondary--vertical .menu li.menu-item--expanded ul li a,
+          .main--secondary--vertical .menu li.menu-item--expanded ul li span {
             padding-top: 0.625rem;
             padding-right: 1.05rem;
             padding-bottom: 0.625rem;
@@ -126,7 +130,9 @@
             flex-direction: column;
             justify-content: center; }
             .main--secondary--horizontal .menu li.menu-item--expanded ul li a:before,
-            .main--secondary--vertical .menu li.menu-item--expanded ul li a:before {
+            .main--secondary--horizontal .menu li.menu-item--expanded ul li span:before,
+            .main--secondary--vertical .menu li.menu-item--expanded ul li a:before,
+            .main--secondary--vertical .menu li.menu-item--expanded ul li span:before {
               content: "\f105";
               position: absolute;
               font-size: 0.9rem;
@@ -174,7 +180,7 @@
       .main--secondary--horizontal .menu ul {
         display: none; }
       .main--secondary--horizontal .menu li {
-        font-size: calc(100% + .1vw);
+        font-size: calc(100% + 0.1vw);
         display: flex;
         border-bottom: none; }
         .main--secondary--horizontal .menu li:first-of-type a {
@@ -227,7 +233,7 @@
           .main--secondary--horizontal .menu li a.is-active:before {
             width: 20px;
             height: 20px;
-            content: '';
+            content: "";
             position: absolute;
             left: calc(50% - 10px);
             top: calc(100% - 1px);
@@ -239,7 +245,7 @@
             z-index: 1; }
           .main--secondary--horizontal .menu li a.is-active:after {
             background: #FFCD00;
-            content: '';
+            content: "";
             position: absolute;
             left: 50%;
             bottom: 0;
@@ -250,6 +256,8 @@
             transform: translate(-50%, 0) scaleX(1); }
         .main--secondary--horizontal .menu li.menu-item--expanded {
           background-color: transparent; }
+          .main--secondary--horizontal .menu li.menu-item--expanded a.is-active {
+            padding-bottom: 1.475rem; }
           .main--secondary--horizontal .menu li.menu-item--expanded ul {
             display: none; }
       .main--secondary--horizontal .menu li a:before {

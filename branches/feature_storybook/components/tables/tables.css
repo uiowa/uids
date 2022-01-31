@@ -72,7 +72,31 @@ table {
       width: unset; }
 
 .table-responsive {
-  overflow-x: auto; }
+  overflow: auto; }
+  .table-responsive caption {
+    text-align: left; }
+    @media (min-width: 768px) {
+      .table-responsive caption {
+        text-align: center; } }
+  .table-responsive.table-sticky {
+    height: 80vh; }
+    .table-responsive.table-sticky thead {
+      position: sticky;
+      top: 0;
+      border-top: 0; }
+    .table-responsive.table-sticky .table--gray-borders thead th {
+      position: relative; }
+      .table-responsive.table-sticky .table--gray-borders thead th::before {
+        content: '';
+        position: absolute;
+        left: -1px;
+        top: 0;
+        width: calc(100% + 2px);
+        height: calc(100% + 1px);
+        border-left: #7c7c7c 1px solid;
+        border-bottom: #ddd 1px solid; }
+      .table-responsive.table-sticky .table--gray-borders thead th:first-child:before {
+        border-left: none; }
   .table-responsive table {
     display: table; }
 
