@@ -2,10 +2,10 @@
 @import '../../../assets/scss/utilities';
 
 .page__container {
-  @extend %container;
+  @include container-width;;
 
   &--mixed {
-    @extend %container;
+    @include container-width;;
   }
 }
 
@@ -24,7 +24,7 @@
 .cta-row,
 .menu-group {
   &__wrapper {
-    @include breakpoint(container) {
+    @include breakpoint(page-container) {
       position: fixed;
       bottom: 0;
       z-index: 100;
@@ -63,14 +63,14 @@
   }
 
   &__container {
-    @extend %container;
+    @include container-width;;
     justify-content: space-between;
 
     @include breakpoint(sm) {
       display: flex;
     }
 
-    @include breakpoint(container) {
+    @include breakpoint(page-container) {
       padding: 0;
     }
   }
@@ -105,7 +105,7 @@
         margin: 0 auto;
       }
 
-      @include breakpoint(container) {
+      @include breakpoint(page-container) {
         display: inline-block;
         margin: 0 5px -5px 0;
       }
@@ -188,7 +188,7 @@
   flex-wrap: wrap;
   flex-direction: row-reverse;
 
-  @include breakpoint(container) {
+  @include breakpoint(page-container) {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(4, 1fr);
@@ -248,7 +248,7 @@
 
   display: contents;
 
-  @include breakpoint(container) {
+  @include breakpoint(page-container) {
     font-size: 12.5rem;
   }
 }
@@ -261,7 +261,7 @@
     width: 100%;
   }
 
-  @include breakpoint(container) {
+  @include breakpoint(page-container) {
     font-size: calc(4em + 3vw);
   }
 
@@ -352,7 +352,7 @@
 // footer
 
 .footer {
-  @include breakpoint(container) {
+  @include breakpoint(page-container) {
     padding-bottom: 6rem;
   }
 }

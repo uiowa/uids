@@ -217,7 +217,18 @@
             <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">nav</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></pre>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+    <span class="hljs-selector-class">.menu-container</span> {
+        container: inline-size / layout;
+    }
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+    <span class="hljs-keyword">const</span> supportsContainerQueries = <span class="hljs-string">&quot;container&quot;</span> <span class="hljs-keyword">in</span> <span class="hljs-built_in">document</span>.documentElement.style;
+    <span class="hljs-keyword">if</span> (!supportsContainerQueries) {
+        <span class="hljs-keyword">import</span>(<span class="hljs-string">&quot;https://cdn.skypack.dev/container-query-polyfill&quot;</span>);
+    }
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></pre>
         
     </code>
 </div>
@@ -411,18 +422,10 @@
       <span class="hljs-selector-class">.main--secondary--vertical</span> <span class="hljs-selector-class">.menu</span> <span class="hljs-selector-tag">li</span> <span class="hljs-selector-tag">a</span> {
         <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>; }
 
-<span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
+<span class="hljs-keyword">@container</span> layout size(<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
   <span class="hljs-selector-class">.main--secondary--horizontal</span> {
     <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
-    <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> <span class="hljs-number">1.25rem</span>;
-    <span class="hljs-attribute">position</span>: relative;
-    <span class="hljs-attribute">border-top</span>: none; } }
-  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) <span class="hljs-keyword">and</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">84.375em</span>) {
-    <span class="hljs-selector-class">.main--secondary--horizontal</span> {
-      <span class="hljs-attribute">max-width</span>: <span class="hljs-number">81.875em</span>;
-      <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto; } }
-
-<span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
+    <span class="hljs-attribute">border-top</span>: none; }
     <span class="hljs-selector-class">.main--secondary--horizontal</span> <span class="hljs-selector-class">.menu</span> {
       <span class="hljs-attribute">flex-direction</span>: row; }
       <span class="hljs-selector-class">.main--secondary--horizontal</span> <span class="hljs-selector-class">.menu</span> <span class="hljs-selector-tag">ul</span> {
@@ -649,7 +652,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">15.7 KB</span>
+                    <span class="Meta-value">15.5 KB</span>
                 </li>
             </ul>
         </div>
@@ -811,10 +814,10 @@
 }
 
 <span class="hljs-comment">// horizontal only</span>
-<span class="hljs-keyword">@include</span> breakpoint(sm) {
+<span class="hljs-keyword">@container</span> layout size(<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
   <span class="hljs-selector-class">.main--secondary--horizontal</span> {
     <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">@include</span> container;
+    <span class="hljs-comment">//@include container-width;</span>
     <span class="hljs-attribute">border-top</span>: none;
 
     <span class="hljs-selector-class">.menu</span> {
@@ -1131,7 +1134,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">9 KB</span>
+                    <span class="Meta-value">9.1 KB</span>
                 </li>
             </ul>
         </div>
@@ -2672,7 +2675,7 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2022-02-01T14:18:13.780Z">
+            <time datetime="2022-02-01T16:27:54.714Z">
                 2/1/2022
             </time>
         </div>
