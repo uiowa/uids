@@ -298,11 +298,11 @@
   widows: 1;
 }
 
-@mixin container {
+@mixin container-width {
   margin: 0 $gutter;
   position: relative;
 
-  @include breakpoint(container) {
+  @include breakpoint(page-container) {
     max-width: 81.875em;
     margin: 0 auto;
   }
@@ -436,7 +436,7 @@
   margin: 0 $gutter;
   position: relative;
 
-  @include breakpoint(container) {
+  @include breakpoint(page-container) {
     max-width: 81.875em;
     margin: 0 auto;
   }
@@ -502,7 +502,7 @@
       $max: ($max/1px) / $remsize + 0rem;
     }
   }
-  
+
   // Calculate the slope times the x for the function.
   $slope: ((($max/1rem * $remsize) - ($min/1rem * $remsize)) / 710);
   $slopeX: $slope * 100;
