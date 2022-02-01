@@ -24,8 +24,7 @@
     }
   }
 }
-// vertical and horiztonal
-
+// vertical and horizontal
 .main--secondary--horizontal,
 .main--secondary--vertical {
   display: block;
@@ -106,7 +105,7 @@
 
         ul {
           display: block;
-          padding-left: 2.2rem;
+          //padding-left: 2.2rem;
 
           & li {
             border-bottom: none;
@@ -147,10 +146,12 @@
 }
 
 // horizontal only
+// @todo uncomment when container queries are implemented.
+/*
 @container layout size(min-width: 768px) {
   .main--secondary--horizontal {
     padding: 0;
-    //@include container-width;
+    @include container-width;
     border-top: none;
 
     .menu {
@@ -320,39 +321,12 @@
     }
   }
 }
+ */
 
 // vertical only
 .main--secondary--vertical {
-  &.main--secondary--vertical-minimal {
-    ul.menu {
-      border: none;
-
-      & li {
-        a:focus,
-        a:hover {
-          background: none;
-        }
-
-        &.is-active > a {
-          background: none;
-        }
-
-        &.menuparent--active {
-          background: none;
-        }
-
-        &.item--first a {
-          padding: $md;
-          margin: 0;
-        }
-      }
-    }
-  }
-
   ul.menu {
     background-color: #fff;
-    border: 1px solid $grey-light;
-    border-top: 4px solid $primary;
     width: 100%;
     @include flexbox;
     @include flex-direction(column);
@@ -373,28 +347,26 @@
 
         &:focus,
         &:hover {
-          background-color: $light;
           text-decoration: underline;
         }
       }
 
+      &.item--first a {
+        padding: $md;
+        margin: 0;
+      }
+
       &.is-active > a {
-        background-color: $light;
         font-weight: bold;
       }
 
       &:last-of-type {
         border-bottom: none;
       }
-
-      &.menuparent--active {
-        background-color: $light;
-      }
     }
     // second level
-    & ul {
+    & ul.menu {
       list-style: disc;
-      padding-bottom: $sm;
       margin-left: 0;
 
       & li {
@@ -414,10 +386,20 @@
           }
         }
       }
+
+      & li li {
+        a {
+          color: $brand-cool-gray;
+        }
+      }
     }
     // third level
-    & ul ul {
+    & ul.menu ul.menu {
       margin-left: 3rem;
+
+      li {
+        list-style: disc;
+      }
 
       li a {
         padding-left: 0.5rem;
@@ -428,11 +410,14 @@
       }
     }
     // fourth level
-    & ul ul ul {
+    & ul.menu ul.menu ul.menu  {
       margin-left: 1.5rem;
-      list-style: circle;
 
-      list li a {
+      li {
+        list-style: circle;
+      }
+
+      li a {
         padding-left: 0.5rem;
 
         &:before {

@@ -112,8 +112,7 @@
         padding-bottom: 0.625rem; }
       .main--secondary--horizontal .menu li.menu-item--expanded ul,
       .main--secondary--vertical .menu li.menu-item--expanded ul {
-        display: block;
-        padding-left: 2.2rem; }
+        display: block; }
         .main--secondary--horizontal .menu li.menu-item--expanded ul li,
         .main--secondary--vertical .menu li.menu-item--expanded ul li {
           border-bottom: none;
@@ -160,66 +159,61 @@
       .main--secondary--vertical .menu li a {
         color: #fff; }
 
+/*
 @container layout size(min-width: 768px) {
   .main--secondary--horizontal {
     padding: 0;
-    border-top: none; }
-    .main--secondary--horizontal .menu {
-      flex-direction: row; }
-      .main--secondary--horizontal .menu ul {
-        display: none; }
-      .main--secondary--horizontal .menu li {
+    @include container-width;
+    border-top: none;
+
+    .menu {
+      flex-direction: row;
+
+      ul {
+        display: none;
+      }
+
+      li {
         font-size: calc(100% + 0.1vw);
         display: flex;
-        border-bottom: none; }
-        .main--secondary--horizontal .menu li:first-of-type a {
-          margin-left: 0; }
-        .main--secondary--horizontal .menu li:last-of-type a {
-          margin-right: 0; }
-        .main--secondary--horizontal .menu li a,
-        .main--secondary--horizontal .menu li span {
+        border-bottom: none;
+
+        &:first-of-type a {
+          margin-left: 0;
+        }
+
+        &:last-of-type a {
+          margin-right: 0;
+        }
+
+        a,
+        span {
+          @include bttn--focus;
           position: relative;
           width: auto;
           text-align: center;
           text-transform: uppercase;
           border: 0;
           background-color: transparent;
-          font-weight: 600;
+          font-weight: $font-weight-medium-bold;
           padding: 1.475rem 1.375rem;
           margin: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          word-break: unset; }
-          .main--secondary--horizontal .menu li a:after,
-          .main--secondary--horizontal .menu li span:after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            bottom: 0;
-            width: 100%;
-            height: 4px;
-            background-color: #FFCD00;
-            transform-origin: center;
-            transform: translate(-50%, 0) scaleX(0);
-            transition: transform 0.3s ease-in-out; }
-          .main--secondary--horizontal .menu li a:focus,
-          .main--secondary--horizontal .menu li span:focus {
-            text-decoration: underline; }
-          .main--secondary--horizontal .menu li a:hover::after, .main--secondary--horizontal .menu li a:focus::after,
-          .main--secondary--horizontal .menu li span:hover::after,
-          .main--secondary--horizontal .menu li span:focus::after {
-            transform: translate(-50%, 0) scaleX(1); }
-          .main--secondary--horizontal .menu li a:focus, .main--secondary--horizontal .menu li a:hover,
-          .main--secondary--horizontal .menu li span:focus,
-          .main--secondary--horizontal .menu li span:hover {
-            text-decoration: none; }
-        .main--secondary--horizontal .menu li a.is-active {
+          @include center(both);
+          word-break: unset;
+
+          &:focus,
+          &:hover {
+            text-decoration: none;
+          }
+        }
+
+        a.is-active {
           background-color: #f3f3f3;
           margin: 0;
           padding-right: 1.875rem;
-          padding-left: 1.875rem; }
-          .main--secondary--horizontal .menu li a.is-active:before {
+          padding-left: 1.875rem;
+
+          &:before {
             width: 20px;
             height: 20px;
             content: "";
@@ -227,13 +221,15 @@
             left: calc(50% - 10px);
             top: calc(100% - 1px);
             background-color: transparent;
-            border-top: 10px solid #FFCD00;
+            border-top: 10px solid $primary;
             border-right: 10px solid transparent;
             border-left: 10px solid transparent;
             border-bottom: 10px solid transparent;
-            z-index: 1; }
-          .main--secondary--horizontal .menu li a.is-active:after {
-            background: #FFCD00;
+            z-index: 1;
+          }
+
+          &:after {
+            background: $primary;
             content: "";
             position: absolute;
             left: 50%;
@@ -242,68 +238,104 @@
             height: 6px;
             transform-origin: center;
             transition: transform 0.3s ease-in-out;
-            transform: translate(-50%, 0) scaleX(1); }
-        .main--secondary--horizontal .menu li.menu-item--expanded {
-          background-color: transparent; }
-          .main--secondary--horizontal .menu li.menu-item--expanded a.is-active {
-            padding-bottom: 1.475rem; }
-          .main--secondary--horizontal .menu li.menu-item--expanded ul {
-            display: none; }
-      .main--secondary--horizontal .menu li a:before {
+            transform: translate(-50%, 0) scaleX(1);
+          }
+        }
+
+        &.menu-item--expanded {
+          background-color: transparent;
+
+          a {
+            &.is-active {
+              padding-bottom: 1.475rem;
+            }
+          }
+
+          ul {
+            display: none;
+          }
+        }
+      }
+
+      li a:before {
         position: absolute;
         bottom: 35%;
         width: 1px;
         height: 25%;
         content: "";
-        background: #FFCD00;
-        right: -1px; }
-      .main--secondary--horizontal .menu li a:after {
-        background-color: #63666A; }
-      .main--secondary--horizontal .menu li:last-of-type a:before {
-        width: 0; }
-      [class*="bg--black"] .main--secondary--horizontal .menu li a.is-active,
-      [class*="bg--gold"] .main--secondary--horizontal .menu li a.is-active,
-      [class*="bg--gray"] .main--secondary--horizontal .menu li a.is-active,
-      .bg-pattern--brain-black .main--secondary--horizontal .menu li a.is-active,
-      .bg-pattern--brain-reversed .main--secondary--horizontal .menu li a.is-active {
-        background: #fff; }
-      [class*="bg--black"] .main--secondary--horizontal .menu li a:after,
-      .bg-pattern--brain-black .main--secondary--horizontal .menu li a:after {
-        bottom: 0; }
-      [class*="bg--black"] .main--secondary--horizontal .menu li a.is-active,
-      .bg-pattern--brain-black .main--secondary--horizontal .menu li a.is-active {
-        color: #151515; }
-      [class*="bg--gold"] .main--secondary--horizontal .menu li a:before,
-      .bg-pattern--brain-reversed .main--secondary--horizontal .menu li a:before {
-        background-color: #63666A; }
-      [class*="bg--gold"] .main--secondary--horizontal .menu li a.is-active:before,
-      .bg-pattern--brain-reversed .main--secondary--horizontal .menu li a.is-active:before {
-        border-top-color: #63666A;
-        background-color: transparent; }
-      [class*="bg--gold"] .main--secondary--horizontal .menu li a.is-active:after,
-      .bg-pattern--brain-reversed .main--secondary--horizontal .menu li a.is-active:after {
-        background-color: #63666A; }
-    [class*="bg--gold"] .main--secondary--horizontal,
-    .bg-pattern--brain-reversed .main--secondary--horizontal {
-      border-top: none; } }
+        background: $primary;
+        right: -1px;
+      }
 
-.main--secondary--vertical.main--secondary--vertical-minimal ul.menu {
-  border: none; }
-  .main--secondary--vertical.main--secondary--vertical-minimal ul.menu li a:focus,
-  .main--secondary--vertical.main--secondary--vertical-minimal ul.menu li a:hover {
-    background: none; }
-  .main--secondary--vertical.main--secondary--vertical-minimal ul.menu li.is-active > a {
-    background: none; }
-  .main--secondary--vertical.main--secondary--vertical-minimal ul.menu li.menuparent--active {
-    background: none; }
-  .main--secondary--vertical.main--secondary--vertical-minimal ul.menu li.item--first a {
-    padding: 1.05rem;
-    margin: 0; }
+      li a:after {
+        background-color: $brand-cool-gray;
+      }
 
+      li:last-of-type a {
+        &:before {
+          width: 0;
+        }
+      }
+
+      [class*="bg--black"] &,
+      [class*="bg--gold"] &,
+      [class*="bg--gray"] &,
+      .bg-pattern--brain-black &,
+      .bg-pattern--brain-reversed & {
+        li {
+          a.is-active {
+            background: #fff;
+          }
+        }
+      }
+
+      [class*="bg--black"] &,
+      .bg-pattern--brain-black & {
+        li a {
+          &:after {
+            bottom: 0;
+          }
+        }
+
+        li {
+          a.is-active {
+            color: $secondary;
+          }
+        }
+      }
+
+      [class*="bg--gold"] &,
+      .bg-pattern--brain-reversed & {
+        li a {
+          &:before {
+            background-color: $brand-cool-gray;
+          }
+        }
+
+        li {
+          a.is-active {
+            &:before {
+              border-top-color: $brand-cool-gray;
+              background-color: transparent;
+            }
+
+            &:after {
+              background-color: $brand-cool-gray;
+            }
+          }
+        }
+      }
+    }
+
+    [class*="bg--gold"] &,
+    .bg-pattern--brain-reversed & {
+      border-top: none;
+    }
+  }
+}
+ */
 .main--secondary--vertical ul.menu {
   background-color: #fff;
-  border: 1px solid #cacaca;
-  border-top: 4px solid #FFCD00;
   width: 100%;
   display: flex;
   flex-direction: column; }
@@ -321,28 +353,26 @@
       padding-bottom: 1.05rem;
       padding-left: 1.05rem; }
       .main--secondary--vertical ul.menu li a:focus, .main--secondary--vertical ul.menu li a:hover {
-        background-color: #f3f3f3;
         text-decoration: underline; }
+    .main--secondary--vertical ul.menu li.item--first a {
+      padding: 1.05rem;
+      margin: 0; }
     .main--secondary--vertical ul.menu li.is-active > a {
-      background-color: #f3f3f3;
       font-weight: bold; }
     .main--secondary--vertical ul.menu li:last-of-type {
       border-bottom: none; }
-    .main--secondary--vertical ul.menu li.menuparent--active {
-      background-color: #f3f3f3; }
-  .main--secondary--vertical ul.menu ul {
+  .main--secondary--vertical ul.menu ul.menu {
     list-style: disc;
-    padding-bottom: 0.625rem;
     margin-left: 0; }
-    .main--secondary--vertical ul.menu ul li {
+    .main--secondary--vertical ul.menu ul.menu li {
       border-bottom: none;
       font-size: 1rem; }
-      .main--secondary--vertical ul.menu ul li > a {
+      .main--secondary--vertical ul.menu ul.menu li > a {
         padding-top: 0.625rem;
         padding-right: 1.05rem;
         padding-bottom: 0.625rem;
         padding-left: 2.2rem; }
-        .main--secondary--vertical ul.menu ul li > a:before {
+        .main--secondary--vertical ul.menu ul.menu li > a:before {
           content: "\f105";
           position: absolute;
           font-size: 0.9rem;
@@ -357,18 +387,23 @@
           line-height: 1;
           font-family: "Font Awesome 5 Free";
           font-weight: 900; }
-  .main--secondary--vertical ul.menu ul ul {
+    .main--secondary--vertical ul.menu ul.menu li li a {
+      color: #63666A; }
+  .main--secondary--vertical ul.menu ul.menu ul.menu {
     margin-left: 3rem; }
-    .main--secondary--vertical ul.menu ul ul li a {
+    .main--secondary--vertical ul.menu ul.menu ul.menu li {
+      list-style: disc; }
+    .main--secondary--vertical ul.menu ul.menu ul.menu li a {
       padding-left: 0.5rem; }
-      .main--secondary--vertical ul.menu ul ul li a:before {
+      .main--secondary--vertical ul.menu ul.menu ul.menu li a:before {
         content: ""; }
-  .main--secondary--vertical ul.menu ul ul ul {
-    margin-left: 1.5rem;
-    list-style: circle; }
-    .main--secondary--vertical ul.menu ul ul ul list li a {
+  .main--secondary--vertical ul.menu ul.menu ul.menu ul.menu {
+    margin-left: 1.5rem; }
+    .main--secondary--vertical ul.menu ul.menu ul.menu ul.menu li {
+      list-style: circle; }
+    .main--secondary--vertical ul.menu ul.menu ul.menu ul.menu li a {
       padding-left: 0.5rem; }
-      .main--secondary--vertical ul.menu ul ul ul list li a:before {
+      .main--secondary--vertical ul.menu ul.menu ul.menu ul.menu li a:before {
         content: ""; }
 
 @media all and (-ms-high-contrast: none) and (min-width: 768px), (-ms-high-contrast: active) and (min-width: 768px) {
