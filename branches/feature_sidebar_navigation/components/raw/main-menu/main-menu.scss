@@ -21,6 +21,10 @@
       text-decoration: none;
       color: $secondary;
       @extend %font-smoothing-on;
+
+      [class*="bg--black"] & {
+        color: $light;
+      }
     }
   }
 }
@@ -45,6 +49,12 @@
       margin-bottom: 0;
       line-height: 1.3;
       border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+
+      [class*="bg--black"] &,
+      [class*="bg--gold"] & {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+      }
+
       @include breakpoint(sm) {
         width: auto;
         margin-bottom: 0;
@@ -74,7 +84,7 @@
         &.is-active {
           font-weight: bold;
 
-          &:after {
+          &::after {
             background: transparent;
             content: "";
             position: absolute;
@@ -116,7 +126,7 @@
               flex-direction: column;
               justify-content: center;
 
-              &:before {
+              &::before {
                 content: "\f105";
                 position: absolute;
                 font-size: 0.9rem;
@@ -198,7 +208,7 @@
           padding-right: 1.875rem;
           padding-left: 1.875rem;
 
-          &:before {
+          &::before {
             width: 20px;
             height: 20px;
             content: "";
@@ -213,7 +223,7 @@
             z-index: 1;
           }
 
-          &:after {
+          &::after {
             background: $primary;
             content: "";
             position: absolute;
@@ -257,7 +267,7 @@
       }
 
       li:last-of-type a {
-        &:before {
+        &::before {
           width: 0;
         }
       }
@@ -277,7 +287,7 @@
       [class*="bg--black"] &,
       .bg-pattern--brain-black & {
         li a {
-          &:after {
+          &::after {
             bottom: 0;
           }
         }
@@ -292,19 +302,19 @@
       [class*="bg--gold"] &,
       .bg-pattern--brain-reversed & {
         li a {
-          &:before {
+          &::before {
             background-color: $brand-cool-gray;
           }
         }
 
         li {
           a.is-active {
-            &:before {
+            &::before {
               border-top-color: $brand-cool-gray;
               background-color: transparent;
             }
 
-            &:after {
+            &::after {
               background-color: $brand-cool-gray;
             }
           }
@@ -323,7 +333,6 @@
 // vertical only
 .main--secondary--vertical {
   ul.menu {
-    background-color: #fff;
     width: 100%;
     @include flexbox;
     @include flex-direction(column);
@@ -373,7 +382,7 @@
         & > a {
           @include padding($top: $sm, $right: $md, $bottom: $sm, $left: 2.2rem);
 
-          &:before {
+          &::before {
             content: "\f105";
             position: absolute;
             font-size: 0.9rem;
@@ -386,7 +395,7 @@
 
       & li li {
         a {
-          color: $brand-cool-gray;
+          opacity: .8;
         }
       }
     }
@@ -401,7 +410,7 @@
       li a {
         padding-left: 0.5rem;
 
-        &:before {
+        &::before {
           content: "";
         }
       }
@@ -417,7 +426,7 @@
       li a {
         padding-left: 0.5rem;
 
-        &:before {
+        &::before {
           content: "";
         }
       }

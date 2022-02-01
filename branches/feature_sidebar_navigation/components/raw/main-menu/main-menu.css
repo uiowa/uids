@@ -28,6 +28,9 @@
     transition: background 0.8s ease-out;
     text-decoration: none;
     color: #151515; }
+    [class*="bg--black"] .nav .menu a, [class*="bg--black"]
+    .nav .menu span {
+      color: #f3f3f3; }
 
 .main--secondary--horizontal,
 .main--secondary--vertical {
@@ -48,6 +51,12 @@
       margin-bottom: 0;
       line-height: 1.3;
       border-bottom: 1px solid rgba(0, 0, 0, 0.125); }
+      [class*="bg--black"] .main--secondary--horizontal .menu li,
+      [class*="bg--gold"] .main--secondary--horizontal .menu li, [class*="bg--black"]
+      .main--secondary--vertical .menu li,
+      [class*="bg--gold"]
+      .main--secondary--vertical .menu li {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.5); }
       @media (min-width: 768px) {
         .main--secondary--horizontal .menu li,
         .main--secondary--vertical .menu li {
@@ -83,10 +92,10 @@
         .main--secondary--vertical .menu li a.is-active,
         .main--secondary--vertical .menu li span.is-active {
           font-weight: bold; }
-          .main--secondary--horizontal .menu li a.is-active:after,
-          .main--secondary--horizontal .menu li span.is-active:after,
-          .main--secondary--vertical .menu li a.is-active:after,
-          .main--secondary--vertical .menu li span.is-active:after {
+          .main--secondary--horizontal .menu li a.is-active::after,
+          .main--secondary--horizontal .menu li span.is-active::after,
+          .main--secondary--vertical .menu li a.is-active::after,
+          .main--secondary--vertical .menu li span.is-active::after {
             background: transparent;
             content: "";
             position: absolute;
@@ -127,10 +136,10 @@
             display: flex;
             flex-direction: column;
             justify-content: center; }
-            .main--secondary--horizontal .menu li.menu-item--expanded ul li a:before,
-            .main--secondary--horizontal .menu li.menu-item--expanded ul li span:before,
-            .main--secondary--vertical .menu li.menu-item--expanded ul li a:before,
-            .main--secondary--vertical .menu li.menu-item--expanded ul li span:before {
+            .main--secondary--horizontal .menu li.menu-item--expanded ul li a::before,
+            .main--secondary--horizontal .menu li.menu-item--expanded ul li span::before,
+            .main--secondary--vertical .menu li.menu-item--expanded ul li a::before,
+            .main--secondary--vertical .menu li.menu-item--expanded ul li span::before {
               content: "\f105";
               position: absolute;
               font-size: 0.9rem;
@@ -211,7 +220,7 @@
           padding-right: 1.875rem;
           padding-left: 1.875rem;
 
-          &:before {
+          &::before {
             width: 20px;
             height: 20px;
             content: "";
@@ -226,7 +235,7 @@
             z-index: 1;
           }
 
-          &:after {
+          &::after {
             background: $primary;
             content: "";
             position: absolute;
@@ -270,7 +279,7 @@
       }
 
       li:last-of-type a {
-        &:before {
+        &::before {
           width: 0;
         }
       }
@@ -290,7 +299,7 @@
       [class*="bg--black"] &,
       .bg-pattern--brain-black & {
         li a {
-          &:after {
+          &::after {
             bottom: 0;
           }
         }
@@ -305,19 +314,19 @@
       [class*="bg--gold"] &,
       .bg-pattern--brain-reversed & {
         li a {
-          &:before {
+          &::before {
             background-color: $brand-cool-gray;
           }
         }
 
         li {
           a.is-active {
-            &:before {
+            &::before {
               border-top-color: $brand-cool-gray;
               background-color: transparent;
             }
 
-            &:after {
+            &::after {
               background-color: $brand-cool-gray;
             }
           }
@@ -333,7 +342,6 @@
 }
  */
 .main--secondary--vertical ul.menu {
-  background-color: #fff;
   width: 100%;
   display: flex;
   flex-direction: column; }
@@ -370,7 +378,7 @@
         padding-right: 1.05rem;
         padding-bottom: 0.625rem;
         padding-left: 2.2rem; }
-        .main--secondary--vertical ul.menu ul.menu li > a:before {
+        .main--secondary--vertical ul.menu ul.menu li > a::before {
           content: "\f105";
           position: absolute;
           font-size: 0.9rem;
@@ -386,14 +394,14 @@
           font-family: "Font Awesome 5 Free";
           font-weight: 900; }
     .main--secondary--vertical ul.menu ul.menu li li a {
-      color: #63666A; }
+      opacity: .8; }
   .main--secondary--vertical ul.menu ul.menu ul.menu {
     margin-left: 3rem; }
     .main--secondary--vertical ul.menu ul.menu ul.menu li {
       list-style: disc; }
     .main--secondary--vertical ul.menu ul.menu ul.menu li a {
       padding-left: 0.5rem; }
-      .main--secondary--vertical ul.menu ul.menu ul.menu li a:before {
+      .main--secondary--vertical ul.menu ul.menu ul.menu li a::before {
         content: ""; }
   .main--secondary--vertical ul.menu ul.menu ul.menu ul.menu {
     margin-left: 1.5rem; }
@@ -401,7 +409,7 @@
       list-style: circle; }
     .main--secondary--vertical ul.menu ul.menu ul.menu ul.menu li a {
       padding-left: 0.5rem; }
-      .main--secondary--vertical ul.menu ul.menu ul.menu ul.menu li a:before {
+      .main--secondary--vertical ul.menu ul.menu ul.menu ul.menu li a::before {
         content: ""; }
 
 @media all and (-ms-high-contrast: none) and (min-width: 768px), (-ms-high-contrast: active) and (min-width: 768px) {
