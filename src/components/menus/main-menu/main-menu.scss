@@ -1,6 +1,32 @@
 @import "../../../assets/scss/variables";
 @import "../../../assets/scss/utilities";
 
+// Used by other menus
+.nav {
+  @include breakpoint(sm) {
+    align-items: center;
+    @include flexbox;
+  }
+
+  .menu {
+    overflow: visible;
+    font-size: $base-font-size;
+    @extend %no-ul-list;
+    @include flexbox;
+
+    a,
+    span {
+      position: relative;
+      display: inline-block;
+      transition: background 0.8s ease-out;
+      text-decoration: none;
+      color: $secondary;
+      @extend %font-smoothing-on;
+    }
+  }
+}
+
+// Used by vertical and horizontal secondary menus
 .menu-wrapper {
   @include breakpoint(sm) {
     align-items: center;
