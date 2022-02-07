@@ -8,7 +8,6 @@ const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano')
 const glob          = require('gulp-sass-glob');
 const sourcemaps    = require('gulp-sourcemaps');
-const imagemin      = require('gulp-imagemin')
 
 /*
  * Directories here
@@ -44,7 +43,6 @@ function assetsCopy() {
 // Icons
 function icons() {
   return src(`${paths.src}/assets/icons/**/*`)
-    .pipe(imagemin())
     .pipe(dest(`${paths.dest}/assets/icons`));
 }
 
