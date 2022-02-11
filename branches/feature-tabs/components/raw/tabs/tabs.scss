@@ -1,0 +1,110 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/utilities';
+
+////// Tabs
+
+.tabs {
+  margin: 0;
+  list-style-type: none;
+  background: $white;
+  @extend %no-ul-list;
+
+  &::before,
+  &::after {
+    display: table;
+    content: ' ';
+    @include flex($fb: 0);
+    @include order($int: 1);
+  }
+
+  &::after {
+    clear: both;
+  }
+}
+
+[role="tablist"] {
+  margin: 0 0 -0.1rem;
+  overflow: visible;
+  font-size: 0;
+}
+
+[role="tab"] {
+  position: relative;
+  margin: 0;
+  padding: 0.8rem 1rem;
+  border: none;
+  overflow: visible;
+  font-family: $font-family-sans-serif;
+  font-size: $content-font-size;
+  font-weight: $font-weight-medium;
+  background: white;
+
+  &:hover::before,
+  &:focus::before,
+  &[aria-selected="true"]::before {
+    position: absolute;
+    bottom: 100%;
+    right: -1px;
+    left: -1px;
+    content: "";
+  }
+
+  &[aria-selected="true"] {
+    border-bottom: 5px solid $primary;
+    border-radius: 0;
+    background: white;
+    outline: 0;
+
+    &::after {
+      position: absolute;
+      z-index: 3;
+      bottom: -1px;
+      right: 0;
+      left: 0;
+      height: 0.3rrem;
+      background: white;
+      box-shadow: none;
+      content: "";
+    }
+  }
+
+  &[aria-selected="false"] {
+    border-bottom: 5px solid $grey-light;
+    color: $med-gray;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    outline: 0;
+    border-radius: 0;
+    color: inherit;
+  }
+
+  &:hover::before,
+  &:focus::before {
+    border-color: $brand-cool-gray;
+  }
+}
+
+[role="tabpanel"] {
+  position: relative;
+  z-index: 2;
+  border-radius: 0 0.2rem 0.2rem;
+  background: white;
+  font-family: $font-family-serif;
+  padding-top: 1rem;
+
+  &.is-hidden {
+    display: none;
+  }
+
+  &:focus {
+    border-color: $brand-cool-gray;
+    outline: 0;
+  }
+}
+
+[role="tabpanel"] * + p {
+  margin-top: 1rem;
+}
