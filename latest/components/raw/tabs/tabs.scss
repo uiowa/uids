@@ -6,9 +6,11 @@
 .tabs {
   margin: 0;
   list-style-type: none;
+  border: 1px solid $grey-light;
   background: $white;
   @extend %no-ul-list;
 }
+
 
 .tabs::before,
 .tabs::after {
@@ -22,107 +24,63 @@
   clear: both;
 }
 
-[role="tablist"] {
-  margin: 0 0 -0.1rem;
-  overflow: visible;
+.tabs.vertical>li {
+  display: block;
+  float: none;
+  width: auto;
 }
 
-[role="tab"] {
-  position: relative;
-  margin: 0;
-  padding: 0.3rem 0.5rem 0.4rem;
-  border: none;
-  overflow: visible;
-  font-family: $font-family-sans-serif;
-  font-size: $content-font-size;
-  font-weight: $font-weight-medium;
-  background: white;
+.tab>a:focus,
+.tabs li>a:focus,
+.tab>a.is-active,
+.tabs li>a.is-active,
+.tab a[aria-selected=true],
+.tabs li a[aria-selected=true] {
+  color: $blk;
+  background: $primary;
 }
 
-[role="tab"]:hover::before,
-[role="tab"]:focus::before,
-[role="tab"][aria-selected="true"]::before {
-  position: absolute;
-  bottom: 100%;
-  right: -1px;
-  left: -1px;
-  content: "";
+.tabs>li>a:hover {
+  background: $grey-light;
 }
 
-[role="tab"][aria-selected="true"] {
-  border-bottom: 5px solid $primary;
-  border-radius: 0;
-  background: white;
+.tab, .tabs li {
+  float: left;
+}
+
+.tab > a, .tabs li > a {
+  display: block;
+  text-decoration: none;
+  color: $blk;
+  line-height: 1;
+  @include padding($top: $md, $right: $lg, $bottom: $md, $left:$lg);
+}
+
+[data-whatinput='mouse'] .tab > a,
+[data-whatinput='mouse'] .tabs li > a {
   outline: 0;
 }
 
-[role="tab"][aria-selected="true"]:not(:focus):not(:hover)::before {
-  //border-bottom: 5px solid $primary;
+.tabs-content {
+  clear: both;
+  padding: $lg;
+  transition: all 0.5s ease;
+  color: $secondary;
+  border: 1px solid $grey-light;
+  border-top: 0;
+  background: $white;
 }
 
-[role="tab"][aria-selected="true"]::after {
-  position: absolute;
-  z-index: 3;
-  bottom: -1px;
-  right: 0;
-  left: 0;
-  height: 0.3rrem;
-  background: white;
-  box-shadow: none;
-  content: "";
+.tabs-content.vertical {
+  border: 1px solid $light;
+  border-left: 0;
 }
 
-[role="tab"][aria-selected="false"] {
-  border-bottom: 5px solid $grey-light;
-  color: $dark;
-}
-
-[role="tab"]:hover,
-[role="tab"]:focus,
-[role="tab"]:active {
-  outline: 0;
-  border-radius: 0;
-  color: inherit;
-}
-
-[role="tab"]:hover::before,
-[role="tab"]:focus::before {
-  border-color: $brand-cool-gray;
-}
-
-[role="tabpanel"] {
-  position: relative;
-  z-index: 2;
-  padding: 0.5rem 0.5rem 0.7rem;
-  border-radius: 0 0.2rem 0.2rem;
-  background: white;
-  font-family: $font-family-serif;
-}
-
-[role="tabpanel"].is-hidden {
+.tabs-panel {
   display: none;
+  padding: $md;
 }
 
-[role="tabpanel"]:focus {
-  border-color: $brand-cool-gray;
-  outline: 0;
+.tabs-panel.is-active {
+  display: block;
 }
-
-[role="tabpanel"]:focus::after {
-  position: absolute;
-  bottom: 0;
-  right: -1px;
-  left: -1px;
-  border-bottom: 5px solid $secondary;
-  border-radius: 0 0 0.2rem 0.2rem;
-  content: "";
-}
-
-[role="tabpanel"] p {
-  margin: 0;
-}
-
-[role="tabpanel"] * + p {
-  margin-top: 1rem;
-}
-

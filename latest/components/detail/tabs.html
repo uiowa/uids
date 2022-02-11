@@ -276,6 +276,7 @@
 <span class="hljs-selector-class">.tabs</span> {
   <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
   <span class="hljs-attribute">list-style-type</span>: none;
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#cacaca</span>;
   <span class="hljs-attribute">background</span>: <span class="hljs-number">#fff</span>; }
 
 <span class="hljs-selector-class">.tabs</span><span class="hljs-selector-pseudo">::before</span>,
@@ -288,91 +289,59 @@
 <span class="hljs-selector-class">.tabs</span><span class="hljs-selector-pseudo">::after</span> {
   <span class="hljs-attribute">clear</span>: both; }
 
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tablist&quot;</span>]</span> {
-  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> -<span class="hljs-number">0.1rem</span>;
-  <span class="hljs-attribute">overflow</span>: visible; }
+<span class="hljs-selector-class">.tabs</span><span class="hljs-selector-class">.vertical</span> &gt; <span class="hljs-selector-tag">li</span> {
+  <span class="hljs-attribute">display</span>: block;
+  <span class="hljs-attribute">float</span>: none;
+  <span class="hljs-attribute">width</span>: auto; }
 
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tab&quot;</span>]</span> {
-  <span class="hljs-attribute">position</span>: relative;
-  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
-  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0.3rem</span> <span class="hljs-number">0.5rem</span> <span class="hljs-number">0.4rem</span>;
-  <span class="hljs-attribute">border</span>: none;
-  <span class="hljs-attribute">overflow</span>: visible;
-  <span class="hljs-attribute">font-family</span>: <span class="hljs-string">&quot;Roboto&quot;</span>, sans-serif;
-  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.2rem</span>;
-  <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">500</span>;
-  <span class="hljs-attribute">background</span>: white; }
+<span class="hljs-selector-class">.tab</span> &gt; <span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:focus</span>,
+<span class="hljs-selector-class">.tabs</span> <span class="hljs-selector-tag">li</span> &gt; <span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:focus</span>,
+<span class="hljs-selector-class">.tab</span> &gt; <span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.is-active</span>,
+<span class="hljs-selector-class">.tabs</span> <span class="hljs-selector-tag">li</span> &gt; <span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.is-active</span>,
+<span class="hljs-selector-class">.tab</span> <span class="hljs-selector-tag">a</span><span class="hljs-selector-attr">[aria-selected=true]</span>,
+<span class="hljs-selector-class">.tabs</span> <span class="hljs-selector-tag">li</span> <span class="hljs-selector-tag">a</span><span class="hljs-selector-attr">[aria-selected=true]</span> {
+  <span class="hljs-attribute">color</span>: <span class="hljs-number">#000</span>;
+  <span class="hljs-attribute">background</span>: <span class="hljs-number">#FFCD00</span>; }
 
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tab&quot;</span>]</span><span class="hljs-selector-pseudo">:hover</span><span class="hljs-selector-pseudo">::before</span>,
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tab&quot;</span>]</span><span class="hljs-selector-pseudo">:focus</span><span class="hljs-selector-pseudo">::before</span>,
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tab&quot;</span>]</span><span class="hljs-selector-attr">[aria-selected=<span class="hljs-string">&quot;true&quot;</span>]</span><span class="hljs-selector-pseudo">::before</span> {
-  <span class="hljs-attribute">position</span>: absolute;
-  <span class="hljs-attribute">bottom</span>: <span class="hljs-number">100%</span>;
-  <span class="hljs-attribute">right</span>: -<span class="hljs-number">1px</span>;
-  <span class="hljs-attribute">left</span>: -<span class="hljs-number">1px</span>;
-  <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;&quot;</span>; }
+<span class="hljs-selector-class">.tabs</span> &gt; <span class="hljs-selector-tag">li</span> &gt; <span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:hover</span> {
+  <span class="hljs-attribute">background</span>: <span class="hljs-number">#cacaca</span>; }
 
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tab&quot;</span>]</span><span class="hljs-selector-attr">[aria-selected=<span class="hljs-string">&quot;true&quot;</span>]</span> {
-  <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">5px</span> solid <span class="hljs-number">#FFCD00</span>;
-  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">0</span>;
-  <span class="hljs-attribute">background</span>: white;
+<span class="hljs-selector-class">.tab</span>, <span class="hljs-selector-class">.tabs</span> <span class="hljs-selector-tag">li</span> {
+  <span class="hljs-attribute">float</span>: left; }
+
+<span class="hljs-selector-class">.tab</span> &gt; <span class="hljs-selector-tag">a</span>, <span class="hljs-selector-class">.tabs</span> <span class="hljs-selector-tag">li</span> &gt; <span class="hljs-selector-tag">a</span> {
+  <span class="hljs-attribute">display</span>: block;
+  <span class="hljs-attribute">text-decoration</span>: none;
+  <span class="hljs-attribute">color</span>: <span class="hljs-number">#000</span>;
+  <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1</span>;
+  <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">1.05rem</span>;
+  <span class="hljs-attribute">padding-right</span>: <span class="hljs-number">1.875rem</span>;
+  <span class="hljs-attribute">padding-bottom</span>: <span class="hljs-number">1.05rem</span>;
+  <span class="hljs-attribute">padding-left</span>: <span class="hljs-number">1.875rem</span>; }
+
+<span class="hljs-selector-attr">[data-whatinput=<span class="hljs-string">&#x27;mouse&#x27;</span>]</span> <span class="hljs-selector-class">.tab</span> &gt; <span class="hljs-selector-tag">a</span>,
+<span class="hljs-selector-attr">[data-whatinput=<span class="hljs-string">&#x27;mouse&#x27;</span>]</span> <span class="hljs-selector-class">.tabs</span> <span class="hljs-selector-tag">li</span> &gt; <span class="hljs-selector-tag">a</span> {
   <span class="hljs-attribute">outline</span>: <span class="hljs-number">0</span>; }
 
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tab&quot;</span>]</span><span class="hljs-selector-attr">[aria-selected=<span class="hljs-string">&quot;true&quot;</span>]</span><span class="hljs-selector-pseudo">::after</span> {
-  <span class="hljs-attribute">position</span>: absolute;
-  <span class="hljs-attribute">z-index</span>: <span class="hljs-number">3</span>;
-  <span class="hljs-attribute">bottom</span>: -<span class="hljs-number">1px</span>;
-  <span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;
-  <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
-  <span class="hljs-attribute">height</span>: <span class="hljs-number">0.3</span>rrem;
-  <span class="hljs-attribute">background</span>: white;
-  <span class="hljs-attribute">box-shadow</span>: none;
-  <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;&quot;</span>; }
+<span class="hljs-selector-class">.tabs-content</span> {
+  <span class="hljs-attribute">clear</span>: both;
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">1.875rem</span>;
+  <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.5s</span> ease;
+  <span class="hljs-attribute">color</span>: <span class="hljs-number">#151515</span>;
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#cacaca</span>;
+  <span class="hljs-attribute">border-top</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">background</span>: <span class="hljs-number">#fff</span>; }
 
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tab&quot;</span>]</span><span class="hljs-selector-attr">[aria-selected=<span class="hljs-string">&quot;false&quot;</span>]</span> {
-  <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">5px</span> solid <span class="hljs-number">#cacaca</span>;
-  <span class="hljs-attribute">color</span>: <span class="hljs-number">#343a40</span>; }
+<span class="hljs-selector-class">.tabs-content</span><span class="hljs-selector-class">.vertical</span> {
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#f3f3f3</span>;
+  <span class="hljs-attribute">border-left</span>: <span class="hljs-number">0</span>; }
 
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tab&quot;</span>]</span><span class="hljs-selector-pseudo">:hover</span>,
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tab&quot;</span>]</span><span class="hljs-selector-pseudo">:focus</span>,
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tab&quot;</span>]</span><span class="hljs-selector-pseudo">:active</span> {
-  <span class="hljs-attribute">outline</span>: <span class="hljs-number">0</span>;
-  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">0</span>;
-  <span class="hljs-attribute">color</span>: inherit; }
+<span class="hljs-selector-class">.tabs-panel</span> {
+  <span class="hljs-attribute">display</span>: none;
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">1.05rem</span>; }
 
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tab&quot;</span>]</span><span class="hljs-selector-pseudo">:hover</span><span class="hljs-selector-pseudo">::before</span>,
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tab&quot;</span>]</span><span class="hljs-selector-pseudo">:focus</span><span class="hljs-selector-pseudo">::before</span> {
-  <span class="hljs-attribute">border-color</span>: <span class="hljs-number">#63666A</span>; }
-
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tabpanel&quot;</span>]</span> {
-  <span class="hljs-attribute">position</span>: relative;
-  <span class="hljs-attribute">z-index</span>: <span class="hljs-number">2</span>;
-  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0.5rem</span> <span class="hljs-number">0.5rem</span> <span class="hljs-number">0.7rem</span>;
-  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">0</span> <span class="hljs-number">0.2rem</span> <span class="hljs-number">0.2rem</span>;
-  <span class="hljs-attribute">background</span>: white;
-  <span class="hljs-attribute">font-family</span>: <span class="hljs-string">&quot;Zilla Slab&quot;</span>, serif; }
-
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tabpanel&quot;</span>]</span><span class="hljs-selector-class">.is-hidden</span> {
-  <span class="hljs-attribute">display</span>: none; }
-
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tabpanel&quot;</span>]</span><span class="hljs-selector-pseudo">:focus</span> {
-  <span class="hljs-attribute">border-color</span>: <span class="hljs-number">#63666A</span>;
-  <span class="hljs-attribute">outline</span>: <span class="hljs-number">0</span>; }
-
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tabpanel&quot;</span>]</span><span class="hljs-selector-pseudo">:focus</span><span class="hljs-selector-pseudo">::after</span> {
-  <span class="hljs-attribute">position</span>: absolute;
-  <span class="hljs-attribute">bottom</span>: <span class="hljs-number">0</span>;
-  <span class="hljs-attribute">right</span>: -<span class="hljs-number">1px</span>;
-  <span class="hljs-attribute">left</span>: -<span class="hljs-number">1px</span>;
-  <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">5px</span> solid <span class="hljs-number">#151515</span>;
-  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0.2rem</span> <span class="hljs-number">0.2rem</span>;
-  <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;&quot;</span>; }
-
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tabpanel&quot;</span>]</span> <span class="hljs-selector-tag">p</span> {
-  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>; }
-
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tabpanel&quot;</span>]</span> * + <span class="hljs-selector-tag">p</span> {
-  <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">1rem</span>; }
+<span class="hljs-selector-class">.tabs-panel</span><span class="hljs-selector-class">.is-active</span> {
+  <span class="hljs-attribute">display</span>: block; }
 </pre>
                             </code>
                             
@@ -389,7 +358,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">2 KB</span>
+                    <span class="Meta-value">1.4 KB</span>
                 </li>
             </ul>
         </div>
@@ -700,9 +669,11 @@
 <span class="hljs-selector-class">.tabs</span> {
   <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
   <span class="hljs-attribute">list-style-type</span>: none;
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-variable">$grey-light</span>;
   <span class="hljs-attribute">background</span>: <span class="hljs-variable">$white</span>;
   <span class="hljs-keyword">@extend</span> %no-ul-list;
 }
+
 
 <span class="hljs-selector-class">.tabs</span><span class="hljs-selector-pseudo">::before</span>,
 <span class="hljs-selector-class">.tabs</span><span class="hljs-selector-pseudo">::after</span> {
@@ -716,110 +687,66 @@
   <span class="hljs-attribute">clear</span>: both;
 }
 
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tablist&quot;</span>]</span> {
-  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> -<span class="hljs-number">0.1rem</span>;
-  <span class="hljs-attribute">overflow</span>: visible;
+<span class="hljs-selector-class">.tabs</span><span class="hljs-selector-class">.vertical</span>&gt;<span class="hljs-selector-tag">li</span> {
+  <span class="hljs-attribute">display</span>: block;
+  <span class="hljs-attribute">float</span>: none;
+  <span class="hljs-attribute">width</span>: auto;
 }
 
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tab&quot;</span>]</span> {
-  <span class="hljs-attribute">position</span>: relative;
-  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
-  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0.3rem</span> <span class="hljs-number">0.5rem</span> <span class="hljs-number">0.4rem</span>;
-  <span class="hljs-attribute">border</span>: none;
-  <span class="hljs-attribute">overflow</span>: visible;
-  <span class="hljs-attribute">font-family</span>: <span class="hljs-variable">$font-family-sans-serif</span>;
-  <span class="hljs-attribute">font-size</span>: <span class="hljs-variable">$content-font-size</span>;
-  <span class="hljs-attribute">font-weight</span>: <span class="hljs-variable">$font-weight-medium</span>;
-  <span class="hljs-attribute">background</span>: white;
+<span class="hljs-selector-class">.tab</span>&gt;<span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:focus</span>,
+<span class="hljs-selector-class">.tabs</span> <span class="hljs-selector-tag">li</span>&gt;<span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:focus</span>,
+<span class="hljs-selector-class">.tab</span>&gt;<span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.is-active</span>,
+<span class="hljs-selector-class">.tabs</span> <span class="hljs-selector-tag">li</span>&gt;<span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.is-active</span>,
+<span class="hljs-selector-class">.tab</span> <span class="hljs-selector-tag">a</span><span class="hljs-selector-attr">[aria-selected=true]</span>,
+<span class="hljs-selector-class">.tabs</span> <span class="hljs-selector-tag">li</span> <span class="hljs-selector-tag">a</span><span class="hljs-selector-attr">[aria-selected=true]</span> {
+  <span class="hljs-attribute">color</span>: <span class="hljs-variable">$blk</span>;
+  <span class="hljs-attribute">background</span>: <span class="hljs-variable">$primary</span>;
 }
 
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tab&quot;</span>]</span><span class="hljs-selector-pseudo">:hover</span><span class="hljs-selector-pseudo">::before</span>,
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tab&quot;</span>]</span><span class="hljs-selector-pseudo">:focus</span><span class="hljs-selector-pseudo">::before</span>,
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tab&quot;</span>]</span><span class="hljs-selector-attr">[aria-selected=<span class="hljs-string">&quot;true&quot;</span>]</span><span class="hljs-selector-pseudo">::before</span> {
-  <span class="hljs-attribute">position</span>: absolute;
-  <span class="hljs-attribute">bottom</span>: <span class="hljs-number">100%</span>;
-  <span class="hljs-attribute">right</span>: -<span class="hljs-number">1px</span>;
-  <span class="hljs-attribute">left</span>: -<span class="hljs-number">1px</span>;
-  <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;&quot;</span>;
+<span class="hljs-selector-class">.tabs</span>&gt;<span class="hljs-selector-tag">li</span>&gt;<span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:hover</span> {
+  <span class="hljs-attribute">background</span>: <span class="hljs-variable">$grey-light</span>;
 }
 
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tab&quot;</span>]</span><span class="hljs-selector-attr">[aria-selected=<span class="hljs-string">&quot;true&quot;</span>]</span> {
-  <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">5px</span> solid <span class="hljs-variable">$primary</span>;
-  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">0</span>;
-  <span class="hljs-attribute">background</span>: white;
+<span class="hljs-selector-class">.tab</span>, <span class="hljs-selector-class">.tabs</span> <span class="hljs-selector-tag">li</span> {
+  <span class="hljs-attribute">float</span>: left;
+}
+
+<span class="hljs-selector-class">.tab</span> &gt; <span class="hljs-selector-tag">a</span>, <span class="hljs-selector-class">.tabs</span> <span class="hljs-selector-tag">li</span> &gt; <span class="hljs-selector-tag">a</span> {
+  <span class="hljs-attribute">display</span>: block;
+  <span class="hljs-attribute">text-decoration</span>: none;
+  <span class="hljs-attribute">color</span>: <span class="hljs-variable">$blk</span>;
+  <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1</span>;
+  <span class="hljs-keyword">@include</span> padding(<span class="hljs-variable">$top</span>: <span class="hljs-variable">$md</span>, <span class="hljs-variable">$right</span>: <span class="hljs-variable">$lg</span>, <span class="hljs-variable">$bottom</span>: <span class="hljs-variable">$md</span>, <span class="hljs-variable">$left</span>:<span class="hljs-variable">$lg</span>);
+}
+
+<span class="hljs-selector-attr">[data-whatinput=<span class="hljs-string">&#x27;mouse&#x27;</span>]</span> <span class="hljs-selector-class">.tab</span> &gt; <span class="hljs-selector-tag">a</span>,
+<span class="hljs-selector-attr">[data-whatinput=<span class="hljs-string">&#x27;mouse&#x27;</span>]</span> <span class="hljs-selector-class">.tabs</span> <span class="hljs-selector-tag">li</span> &gt; <span class="hljs-selector-tag">a</span> {
   <span class="hljs-attribute">outline</span>: <span class="hljs-number">0</span>;
 }
 
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tab&quot;</span>]</span><span class="hljs-selector-attr">[aria-selected=<span class="hljs-string">&quot;true&quot;</span>]</span><span class="hljs-selector-pseudo">:not</span>(:focus)<span class="hljs-selector-pseudo">:not</span>(:hover)<span class="hljs-selector-pseudo">::before</span> {
-  <span class="hljs-comment">//border-bottom: 5px solid $primary;</span>
+<span class="hljs-selector-class">.tabs-content</span> {
+  <span class="hljs-attribute">clear</span>: both;
+  <span class="hljs-attribute">padding</span>: <span class="hljs-variable">$lg</span>;
+  <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.5s</span> ease;
+  <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-variable">$grey-light</span>;
+  <span class="hljs-attribute">border-top</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">background</span>: <span class="hljs-variable">$white</span>;
 }
 
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tab&quot;</span>]</span><span class="hljs-selector-attr">[aria-selected=<span class="hljs-string">&quot;true&quot;</span>]</span><span class="hljs-selector-pseudo">::after</span> {
-  <span class="hljs-attribute">position</span>: absolute;
-  <span class="hljs-attribute">z-index</span>: <span class="hljs-number">3</span>;
-  <span class="hljs-attribute">bottom</span>: -<span class="hljs-number">1px</span>;
-  <span class="hljs-attribute">right</span>: <span class="hljs-number">0</span>;
-  <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
-  <span class="hljs-attribute">height</span>: <span class="hljs-number">0.3</span>rrem;
-  <span class="hljs-attribute">background</span>: white;
-  <span class="hljs-attribute">box-shadow</span>: none;
-  <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;&quot;</span>;
+<span class="hljs-selector-class">.tabs-content</span><span class="hljs-selector-class">.vertical</span> {
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-variable">$light</span>;
+  <span class="hljs-attribute">border-left</span>: <span class="hljs-number">0</span>;
 }
 
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tab&quot;</span>]</span><span class="hljs-selector-attr">[aria-selected=<span class="hljs-string">&quot;false&quot;</span>]</span> {
-  <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">5px</span> solid <span class="hljs-variable">$grey-light</span>;
-  <span class="hljs-attribute">color</span>: <span class="hljs-variable">$dark</span>;
-}
-
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tab&quot;</span>]</span><span class="hljs-selector-pseudo">:hover</span>,
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tab&quot;</span>]</span><span class="hljs-selector-pseudo">:focus</span>,
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tab&quot;</span>]</span><span class="hljs-selector-pseudo">:active</span> {
-  <span class="hljs-attribute">outline</span>: <span class="hljs-number">0</span>;
-  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">0</span>;
-  <span class="hljs-attribute">color</span>: inherit;
-}
-
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tab&quot;</span>]</span><span class="hljs-selector-pseudo">:hover</span><span class="hljs-selector-pseudo">::before</span>,
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tab&quot;</span>]</span><span class="hljs-selector-pseudo">:focus</span><span class="hljs-selector-pseudo">::before</span> {
-  <span class="hljs-attribute">border-color</span>: <span class="hljs-variable">$brand-cool-gray</span>;
-}
-
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tabpanel&quot;</span>]</span> {
-  <span class="hljs-attribute">position</span>: relative;
-  <span class="hljs-attribute">z-index</span>: <span class="hljs-number">2</span>;
-  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0.5rem</span> <span class="hljs-number">0.5rem</span> <span class="hljs-number">0.7rem</span>;
-  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">0</span> <span class="hljs-number">0.2rem</span> <span class="hljs-number">0.2rem</span>;
-  <span class="hljs-attribute">background</span>: white;
-  <span class="hljs-attribute">font-family</span>: <span class="hljs-variable">$font-family-serif</span>;
-}
-
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tabpanel&quot;</span>]</span><span class="hljs-selector-class">.is-hidden</span> {
+<span class="hljs-selector-class">.tabs-panel</span> {
   <span class="hljs-attribute">display</span>: none;
+  <span class="hljs-attribute">padding</span>: <span class="hljs-variable">$md</span>;
 }
 
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tabpanel&quot;</span>]</span><span class="hljs-selector-pseudo">:focus</span> {
-  <span class="hljs-attribute">border-color</span>: <span class="hljs-variable">$brand-cool-gray</span>;
-  <span class="hljs-attribute">outline</span>: <span class="hljs-number">0</span>;
+<span class="hljs-selector-class">.tabs-panel</span><span class="hljs-selector-class">.is-active</span> {
+  <span class="hljs-attribute">display</span>: block;
 }
-
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tabpanel&quot;</span>]</span><span class="hljs-selector-pseudo">:focus</span><span class="hljs-selector-pseudo">::after</span> {
-  <span class="hljs-attribute">position</span>: absolute;
-  <span class="hljs-attribute">bottom</span>: <span class="hljs-number">0</span>;
-  <span class="hljs-attribute">right</span>: -<span class="hljs-number">1px</span>;
-  <span class="hljs-attribute">left</span>: -<span class="hljs-number">1px</span>;
-  <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">5px</span> solid <span class="hljs-variable">$secondary</span>;
-  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0.2rem</span> <span class="hljs-number">0.2rem</span>;
-  <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;&quot;</span>;
-}
-
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tabpanel&quot;</span>]</span> <span class="hljs-selector-tag">p</span> {
-  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
-}
-
-<span class="hljs-selector-attr">[role=<span class="hljs-string">&quot;tabpanel&quot;</span>]</span> * + <span class="hljs-selector-tag">p</span> {
-  <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">1rem</span>;
-}
-
 </pre>
                             </code>
                             
@@ -836,7 +763,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">2.2 KB</span>
+                    <span class="Meta-value">1.3 KB</span>
                 </li>
             </ul>
         </div>
@@ -2155,7 +2082,7 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2022-02-11T16:45:53.373Z">
+            <time datetime="2022-02-11T17:04:48.442Z">
                 2/11/2022
             </time>
         </div>
