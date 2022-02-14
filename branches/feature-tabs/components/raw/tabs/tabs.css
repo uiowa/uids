@@ -1,23 +1,9 @@
 .tabs {
-  list-style-type: none;
-  padding: 0;
-  margin: 0; }
-  .tabs > li {
-    display: inline-block;
-    list-style-type: none;
-    margin: 0; }
-
-.tabs {
   margin: 0;
-  list-style-type: none;
-  background: #fff; }
+  list-style-type: none; }
   .tabs::before, .tabs::after {
     display: table;
-    content: ' ';
-    flex: 1 0 0;
-    order: 1; }
-  .tabs::after {
-    clear: both; }
+    content: ' '; }
 
 [role="tablist"] {
   margin: 0 0 -0.1rem;
@@ -27,13 +13,15 @@
 [role="tab"] {
   position: relative;
   margin: 0;
-  padding: 0.8rem 1rem;
+  padding: 1rem 1rem;
   border: none;
   overflow: visible;
   font-family: "Roboto", sans-serif;
   font-size: 1.2rem;
   font-weight: 500;
-  background: white; }
+  background: none; }
+  [class*="bg--black"] [role="tab"] {
+    color: #f3f3f3; }
   [role="tab"]:hover::before, [role="tab"]:focus::before, [role="tab"][aria-selected="true"]::before {
     position: absolute;
     bottom: 100%;
@@ -43,34 +31,37 @@
   [role="tab"][aria-selected="true"] {
     border-bottom: 5px solid #FFCD00;
     border-radius: 0;
-    background: white;
     outline: 0; }
+    [class*="bg--gold"] [role="tab"][aria-selected="true"] {
+      border-bottom-color: #151515; }
+    [class*="bg--black"] [role="tab"][aria-selected="true"] {
+      color: #FFCD00; }
     [role="tab"][aria-selected="true"]::after {
       position: absolute;
       z-index: 3;
       bottom: -1px;
       right: 0;
       left: 0;
-      height: 0.3rrem;
-      background: white;
+      height: 0.3rem;
       box-shadow: none;
       content: ""; }
   [role="tab"][aria-selected="false"] {
     border-bottom: 5px solid #cacaca;
     color: #666666; }
+    [class*="bg--gold"] [role="tab"][aria-selected="false"] {
+      border-bottom-color: #f3f3f3; }
+    [class*="bg--black"] [role="tab"][aria-selected="false"] {
+      color: #f3f3f3; }
   [role="tab"]:hover, [role="tab"]:focus, [role="tab"]:active {
-    outline: 0;
-    border-radius: 0;
-    color: inherit; }
+    outline: 0; }
+    [class*="bg--black"] [role="tab"]:hover, [class*="bg--black"] [role="tab"]:focus, [class*="bg--black"] [role="tab"]:active {
+      opacity: 0.7; }
   [role="tab"]:hover::before, [role="tab"]:focus::before {
     border-color: #63666A; }
 
 [role="tabpanel"] {
   position: relative;
   z-index: 2;
-  border-radius: 0 0.2rem 0.2rem;
-  background: white;
-  font-family: "Zilla Slab", serif;
   padding-top: 1rem; }
   [role="tabpanel"].is-hidden {
     display: none; }
