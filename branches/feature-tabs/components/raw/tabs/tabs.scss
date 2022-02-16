@@ -1,10 +1,10 @@
 @import '../../assets/scss/variables';
-@import '../../assets/scss/utilities';
-////// Tabs
+@import '../../assets/scss/utilities'; 
+
 .tabs {
   margin: 0;
   list-style-type: none;
-  //@extend %no-ul-list;
+
   &::after,
   &::before {
     display: table;
@@ -31,6 +31,17 @@
   transition: background 0.8s ease-out;
   cursor: pointer;
 
+  &::before {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 5px;
+    content: "";
+    transition: 0.3s;
+    z-index: 1;
+  }
+
   [class*="bg--black"] & {
     color: $light;
   }
@@ -42,31 +53,10 @@
     &::after {
       width: 100%;
       background: $primary;
-    }
 
-    &::before {
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0;
-      height: 8px;
-      content: "";
-      transition: 0.3s;
-    }
-
-    &:focus::after,
-    &:hover::after {
-      background: $primary;
-    }
-
-    &:focus::before,
-    &:hover::before {
-      background: $brand-cool-gray;
-      width: 100%;
-    }
-
-    [class*="bg--gold"] & {
-      border-bottom-color: $secondary;
+      [class*="bg--gold"] & {
+        background: $secondary;
+      }
     }
 
     [class*="bg--black"] & {
@@ -80,10 +70,10 @@
     &::after {
       width: 100%;
       background: $grey-light;
-    }
 
-    [class*="bg--gold"] & {
-      border-bottom-color: $light;
+      [class*="bg--gold"] & {
+        background: $light;
+      }
     }
 
     [class*="bg--black"] & {
@@ -96,42 +86,35 @@
     bottom: 0;
     left: 0;
     width: 0;
-    height: 6px;
+    height: 5px;
     content: "";
     transition: 0.3s;
   }
 
-  &:focus::after,
-  &:hover::after {
-    width: 100%;
+  &:focus-visible::before,
+  &:hover::before {
     background: $brand-cool-gray;
+    width: 100%;
+
+    [class*="bg--gold"] & {
+      background: $med-gray;
+    }
   }
 
   &:active,
   &:focus,
   &:hover {
     outline: 0;
-
-    [class*="bg--black"] & {
-      opacity: 0.7;
-    }
   }
-
-  &:focus::before,
-  &:hover::before {}
 }
 
 [role="tabpanel"] {
   position: relative;
   z-index: 2;
-  padding-top: 1rem;
+  padding: $mobile-height-gutter 0;
 
   &.is-hidden {
     display: none;
-  }
-
-  &:focus {
-    outline: none;
   }
 }
 
