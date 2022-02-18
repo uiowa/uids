@@ -76,6 +76,7 @@ jobs:
           path: ~/.npm
           key: npm-packages-${{ hashFiles('**/package-lock.json') }}
           restore-keys: npm-packages-
+      - run: npm install -g npm@7
       - run: npm -v
       - run: npm ci
       - run: npm run docs
