@@ -24,8 +24,16 @@
     40: 1
   };
 
-  // this delay could be set by a function later if ever needed.
+  // This delay could be set by a function later if ever needed.
   const delay = 0;
+
+  // For every tab group...
+  let tablists = window.querySelectorAll('[role="tablist"]')[0];
+
+  // Check if it has data in the URL.
+  // If we do have data...
+  // Focus the correct tab.
+  console.log(tablists);
 
   function Tabs(element) {
     if (element) {
@@ -69,7 +77,6 @@
   // This function activates any given tab panel.
   Tabs.prototype.activateTab = function(tab, setFocus) {
     setFocus = setFocus || true;
-
     // Deactivate all other tabs.
     this.deactivateTabs();
 
@@ -84,6 +91,43 @@
 
     // Remove hidden attribute from tab panel to make it visible.
     document.getElementById(controls).removeAttribute('hidden');
+
+    /////////////////////////////
+
+    let group = tab.parentElement.parentElement.id;
+    let tabid = tab.id;
+
+    let queryParameters = window.location.search;
+
+    let historyString = '?';
+
+    if (queryParameters !== '') {
+      let paramsI = new URLSearchParams(queryParameters);
+      let paramsO = {};
+      for (const param of paramsI.entries()) {
+        paramsO[param[0]] = param[1];
+      }
+      paramsO[group] = tabid;
+
+      let keys = Object.keys(paramsO);
+      for (let i = 0; i < keys.length; i++) {
+        if (i > 0) {
+          historyString += '&'
+        }
+        historyString += keys[i] + '=' + paramsO[keys[i]];
+      }
+    }
+    else {
+      historyString += group + "=" + tabid;
+    }
+
+    // Change window location to add URL params
+    if (window.history && history.pushState) {
+      // NOTE: doesn't take into account existing params
+      history.replaceState("", "", historyString);
+    }
+
+    //////////////////////////////
 
     // Set focus when required.
     if (setFocus) {
