@@ -432,8 +432,16 @@
     <span class="hljs-number">40</span>: <span class="hljs-number">1</span>
   };
 
-  <span class="hljs-comment">// this delay could be set by a function later if ever needed.</span>
+  <span class="hljs-comment">// This delay could be set by a function later if ever needed.</span>
   <span class="hljs-keyword">const</span> delay = <span class="hljs-number">0</span>;
+
+  <span class="hljs-comment">// For every tab group...</span>
+  <span class="hljs-keyword">let</span> tablists = <span class="hljs-built_in">window</span>.querySelectorAll(<span class="hljs-string">&#x27;[role=&quot;tablist&quot;]&#x27;</span>)[<span class="hljs-number">0</span>];
+
+  <span class="hljs-comment">// Check if it has data in the URL.</span>
+  <span class="hljs-comment">// If we do have data...</span>
+  <span class="hljs-comment">// Focus the correct tab.</span>
+  <span class="hljs-built_in">console</span>.log(tablists);
 
   <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Tabs</span>(<span class="hljs-params">element</span>) </span>{
     <span class="hljs-keyword">if</span> (element) {
@@ -477,7 +485,6 @@
   <span class="hljs-comment">// This function activates any given tab panel.</span>
   Tabs.prototype.activateTab = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">tab, setFocus</span>) </span>{
     setFocus = setFocus || <span class="hljs-literal">true</span>;
-
     <span class="hljs-comment">// Deactivate all other tabs.</span>
     <span class="hljs-built_in">this</span>.deactivateTabs();
 
@@ -492,6 +499,43 @@
 
     <span class="hljs-comment">// Remove hidden attribute from tab panel to make it visible.</span>
     <span class="hljs-built_in">document</span>.getElementById(controls).removeAttribute(<span class="hljs-string">&#x27;hidden&#x27;</span>);
+
+    <span class="hljs-comment">/////////////////////////////</span>
+
+    <span class="hljs-keyword">let</span> group = tab.parentElement.parentElement.id;
+    <span class="hljs-keyword">let</span> tabid = tab.id;
+
+    <span class="hljs-keyword">let</span> queryParameters = <span class="hljs-built_in">window</span>.location.search;
+
+    <span class="hljs-keyword">let</span> historyString = <span class="hljs-string">&#x27;?&#x27;</span>;
+
+    <span class="hljs-keyword">if</span> (queryParameters !== <span class="hljs-string">&#x27;&#x27;</span>) {
+      <span class="hljs-keyword">let</span> paramsI = <span class="hljs-keyword">new</span> URLSearchParams(queryParameters);
+      <span class="hljs-keyword">let</span> paramsO = {};
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> param <span class="hljs-keyword">of</span> paramsI.entries()) {
+        paramsO[param[<span class="hljs-number">0</span>]] = param[<span class="hljs-number">1</span>];
+      }
+      paramsO[group] = tabid;
+
+      <span class="hljs-keyword">let</span> keys = <span class="hljs-built_in">Object</span>.keys(paramsO);
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; keys.length; i++) {
+        <span class="hljs-keyword">if</span> (i &gt; <span class="hljs-number">0</span>) {
+          historyString += <span class="hljs-string">&#x27;&amp;&#x27;</span>
+        }
+        historyString += keys[i] + <span class="hljs-string">&#x27;=&#x27;</span> + paramsO[keys[i]];
+      }
+    }
+    <span class="hljs-keyword">else</span> {
+      historyString += group + <span class="hljs-string">&quot;=&quot;</span> + tabid;
+    }
+
+    <span class="hljs-comment">// Change window location to add URL params</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">window</span>.history &amp;&amp; history.pushState) {
+      <span class="hljs-comment">// <span class="hljs-doctag">NOTE:</span> doesn&#x27;t take into account existing params</span>
+      history.replaceState(<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;&quot;</span>, historyString);
+    }
+
+    <span class="hljs-comment">//////////////////////////////</span>
 
     <span class="hljs-comment">// Set focus when required.</span>
     <span class="hljs-keyword">if</span> (setFocus) {
@@ -683,7 +727,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">7.6 KB</span>
+                    <span class="Meta-value">8.8 KB</span>
                 </li>
             </ul>
         </div>
@@ -2154,8 +2198,8 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2022-02-16T22:09:32.007Z">
-                2/16/2022
+            <time datetime="2022-02-18T21:50:44.481Z">
+                2/18/2022
             </time>
         </div>
     </div>
