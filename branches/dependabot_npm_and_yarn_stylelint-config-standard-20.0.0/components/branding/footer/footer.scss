@@ -6,7 +6,7 @@
   background: $secondary;
   @include padding($top: $xlg, $right: 0, $bottom: $xlg, $left: 0);
 
-  @include breakpoint(menu) {
+  @include breakpoint(md) {
     @include padding($top: $xlg, $right: 0, $bottom: 0, $left: 0);
   }
 
@@ -72,16 +72,16 @@
 
 
   &__container {
-    @extend %container;
+    @include container-width;;
 
     //padding: 0 $gutter;
-    @include breakpoint(container) {
+    @include breakpoint(page-container) {
       padding: 0;
     }
   }
 
   &__container--flex {
-    @include breakpoint(menu) {
+    @include breakpoint(md) {
       @include flexbox;
       flex-wrap: wrap;
       column-gap: $md;
@@ -131,13 +131,13 @@
   &__links--nav {
     margin-bottom: $xlg;
 
-    @include breakpoint(menu) {
+    @include breakpoint(md) {
       display: flex;
     }
   }
 
   &__links--contact {
-    @include breakpoint(menu) {
+    @include breakpoint(md) {
       flex-grow: 2;
     }
   }
@@ -151,7 +151,7 @@
       flex-wrap: wrap;
       @include flexbox;
       line-height: 2;
-      @include breakpoint(menu) {
+      @include breakpoint(md) {
         line-height: 1;
       }
     }
@@ -180,9 +180,9 @@
 
 .socket {
   &__container {
-    @extend %container;
+    @include container-width;;
 
-    @include breakpoint(container) {
+    @include breakpoint(page-container) {
       padding: 0;
     }
   }
@@ -256,7 +256,7 @@
   }
 
   &__container {
-    @extend %container;
+    @include container-width;;
     justify-content: space-between;
 
       div:first-of-type,
@@ -268,7 +268,7 @@
       display: flex;
     }
 
-    @include breakpoint(container) {
+    @include breakpoint(page-container) {
       padding: 0;
     }
   }
@@ -335,11 +335,11 @@
   padding: 0 40px 0 0;
   width: 128px;
 
-  @include breakpoint(menu) {
+  @include breakpoint(md) {
     width: 145px
   }
 
-  @include breakpoint(container) {
+  @include breakpoint(page-container) {
     width: 176px
   }
 }
