@@ -1,0 +1,226 @@
+@import '../../../assets/scss/variables';
+@import "../../../assets/scss/utilities";
+
+.aerial {
+  position: relative;
+  background: $secondary;
+  z-index: 0;
+
+  img {
+    width: 100%;
+  }
+
+  @include breakpoint(page-container) {
+    overflow: hidden;
+  }
+
+  &__video {
+    width: 100%;
+  }
+
+  &__image img {
+    display: block;
+    width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+  }
+
+}
+
+img.aerial-image {
+  display: block;
+  width: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.aerial__image {
+  overflow: hidden;
+  contain: paint;
+}
+
+// headings
+
+
+.aerial {
+  p {
+    color: #000;
+    line-height: 1.5;
+
+    @include breakpoint(sm) {
+      color: #fff;
+      margin: 0 20%;
+    }
+  }
+
+  .headline.headline--uppercase {
+      text-shadow: 0 1px 1px #000;
+      color: #fff;
+  }
+}
+
+.aerial__container {
+  max-width: 100em;
+  margin: 0 auto;
+}
+
+
+
+
+
+.aerial .aerial__content .aerial__container {
+  max-width: 81.875em;
+  margin: 0 auto;
+}
+
+
+.aerial::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  content: "";
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+  opacity: .75;
+  background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 1)));
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 1));
+  will-change: opacity;
+}
+
+@media only screen and (min-width: 889px) {
+  body {}
+}
+
+// Aerial Photo Grid
+
+/* Safari 7.1+ */
+
+_::-webkit-full-page-media,
+_:future,
+:root .aerial.aerial__grid {
+  @include breakpoint(page-container) {
+    height: 100vh;
+  }
+}
+
+_::-webkit-full-page-media,
+_:future,
+:root .aerial__image img {
+  @include breakpoint(page-container) {
+    height: 100vh;
+  }
+}
+
+.aerial.aerial__grid .aerial__content {
+  position: absolute;
+  background: transparent;
+  z-index: 100;
+}
+
+.aerial.aerial__grid {
+  .highlight__wrapper {
+    width: 95%;
+
+    @include breakpoint(page-container) {
+      width: 70%;
+    }
+  }
+
+  .headline.headline--uppercase {
+    font-size: calc(100% + 6vw);
+    line-height: 1;
+
+    @include breakpoint(sm) {
+      font-size: calc(100% + 8vw);
+    }
+  }
+}
+
+.aerial__content-grid {
+  top: 0;
+  height: 100%;
+  background: transparent;
+
+  @include breakpoint(sm) {
+    top: 0;
+  }
+}
+
+.aerial__content-grid {
+  //padding: 0 $mobile-width-gutter;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  display: grid;
+
+  @include breakpoint(sm) {
+    //padding: 0 $desktop-width-gutter;
+  }
+}
+
+.aerial__content-grid>*:nth-child(1) {
+  display: none;
+  grid-area: 2 / 1 / 3 / 2;
+
+  @include breakpoint(md) {
+    display: flex;
+    grid-area: 2 / 1 / 2 / 2;
+  }
+}
+
+.aerial__content-grid>*:nth-child(2) {
+  display: none;
+  align-self: center;
+  grid-area: 2 / 1 / 3 / 4;
+
+  @include breakpoint(md) {
+    display: none;
+    grid-area: 2 / 2 / 2 / 3;
+  }
+
+  @include breakpoint(page-container) {
+    display: block;
+  }
+}
+
+.aerial__content-grid>*:nth-child(3) {
+  display: none;
+  grid-area: 2 / 3 / 3 / 4;
+
+  @include breakpoint(md) {
+    display: flex;
+    grid-area: 2 / 3 / 2 / 4;
+  }
+}
+
+.aerial__content-grid>*:nth-child(4) {
+  align-self: center;
+  text-align: center;
+  grid-area: 1 / 1 / 3 / 4;
+
+  @include breakpoint(md) {
+    display: flex;
+    //width: 60%;
+    text-align: left;
+    grid-area: 1 / 1 / 3 / 3;
+    padding-bottom: 30%;
+  }
+
+  @include breakpoint(page-container) {
+    width: auto;
+  }
+}
+
+.aerial__content-grid>*:nth-child(5) {
+  display: none;
+  grid-area: 1 / 3 / 3 / 4;
+
+  @include breakpoint(md) {
+    display: flex;
+    padding-bottom: 60%;
+  }
+}
