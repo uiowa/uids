@@ -28,12 +28,10 @@
   const delay = 0;
 
   // For every tab group...
-  let tablists = window.querySelectorAll('[role="tablist"]')[0];
+  // let tablists = window.querySelectorAll('[role="tablist"]')[0];
 
-  // Check if it has data in the URL.
-  // If we do have data...
-  // Focus the correct tab.
-  console.log(tablists);
+
+
 
   function Tabs(element) {
     if (element) {
@@ -44,6 +42,21 @@
       this.tablist = element.querySelectorAll('[role="tablist"]')[0];
       this.tabs = element.querySelectorAll('[role="tab"]');
       this.panels = element.querySelectorAll('[role="tabpanel"]');
+
+      // Get the query parameters.
+      let paramsO = getQueryParameters();
+      let tabsContainerID = this.tablist.parentElement.id;
+
+      // If our query parameters contain config for the current tab container...
+      if (Object.keys(paramsO).includes(tabsContainerID)) {
+
+        // Get the tab to focus.
+        let tabToFocusID = paramsO[tabsContainerID];
+        let tabToFocus = document.getElementById(tabToFocusID);
+
+        // Activate the tab defined in the query parameters.
+        this.activateTab(tabToFocus, false);
+      }
       // Bind listeners
       this.addListeners();
     }
@@ -71,12 +84,11 @@
   // When a tab is clicked, activateTab is fired to activate it.
   Tabs.prototype.clickEventListener = function(event) {
     const tab = event.target;
-    this.activateTab(tab, false);
+    this.activateTab(tab, true);
   }
 
   // This function activates any given tab panel.
   Tabs.prototype.activateTab = function(tab, setFocus) {
-    setFocus = setFocus || true;
     // Deactivate all other tabs.
     this.deactivateTabs();
 
@@ -92,23 +104,22 @@
     // Remove hidden attribute from tab panel to make it visible.
     document.getElementById(controls).removeAttribute('hidden');
 
-    /////////////////////////////
-
+    // Get our tab group.
     let group = tab.parentElement.parentElement.id;
     let tabid = tab.id;
 
-    let queryParameters = window.location.search;
-
+    // Define historyString here to be used later.
     let historyString = '?';
 
-    if (queryParameters !== '') {
-      let paramsI = new URLSearchParams(queryParameters);
-      let paramsO = {};
-      for (const param of paramsI.entries()) {
-        paramsO[param[0]] = param[1];
-      }
+    // Get query parameters from URL.
+    let paramsO = getQueryParameters();
+
+    // If our query parameters are not empty...
+    if (paramsO !== {}) {
+      // Set tab group object entry.
       paramsO[group] = tabid;
 
+      // Construct the string to be added into the URL.
       let keys = Object.keys(paramsO);
       for (let i = 0; i < keys.length; i++) {
         if (i > 0) {
@@ -117,6 +128,8 @@
         historyString += keys[i] + '=' + paramsO[keys[i]];
       }
     }
+
+    // Else, create the historyString here with our new tab group.
     else {
       historyString += group + "=" + tabid;
     }
@@ -126,8 +139,6 @@
       // NOTE: doesn't take into account existing params
       history.replaceState("", "", historyString);
     }
-
-    //////////////////////////////
 
     // Set focus when required.
     if (setFocus) {
@@ -300,6 +311,26 @@
 
   for (let i = 0; i < items.length; i++) {
     new UidsTabs(items[i], i);
+  }
+
+  // This function gets the query parameters from the URL.
+  // It returns an object with tab group keys and tabs to be focused as values.
+  function getQueryParameters() {
+
+    //Get the URL query parameters.
+    let queryParameters = window.location.search;
+
+    // Construct an iterator from queryParameters.
+    let paramsI = new URLSearchParams(queryParameters);
+
+    // Construct an object with tab group keys and tabs to be focused as values.
+    let paramsO = {};
+    for (const param of paramsI.entries()) {
+      paramsO[param[0]] = param[1];
+    }
+
+    // Return the previously constructed object.
+    return paramsO;
   }
 
 }());
