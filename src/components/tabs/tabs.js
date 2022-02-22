@@ -43,20 +43,22 @@
       this.tabs = element.querySelectorAll('[role="tab"]');
       this.panels = element.querySelectorAll('[role="tabpanel"]');
 
-      // Get the query parameters.
-      let paramsO = getQueryParameters();
+      // Get the hash parameters.
+      let paramsO = getHashParameters();
       let tabsContainerID = this.tablist.parentElement.id;
 
-      // If our query parameters contain config for the current tab container...
+      // If our hash parameters contain config for the current tab container...
       if (Object.keys(paramsO).includes(tabsContainerID)) {
 
         // Get the tab to focus.
-        let tabToFocusID = paramsO[tabsContainerID];
+        let tabToFocusID = document.getElementById(tabsContainerID).children[0].children[paramsO[tabsContainerID]].id;
+
         let tabToFocus = document.getElementById(tabToFocusID);
 
-        // Activate the tab defined in the query parameters.
+        // Activate the tab defined in the hash parameters.
         this.activateTab(tabToFocus, false);
       }
+
       // Bind listeners
       this.addListeners();
     }
@@ -104,38 +106,23 @@
     // Remove hidden attribute from tab panel to make it visible.
     document.getElementById(controls).removeAttribute('hidden');
 
-    // Get our tab group.
-    let group = tab.parentElement.parentElement.id;
+    // Get our tab group, its id, and the tab's id.
+    let group = tab.parentElement.parentElement;
+    let groupid = group.id;
     let tabid = tab.id;
 
+    // Construct an array of the ids of the tab group of the button clicked.
+    let tabButtons = [];
+    let groupChildren = group.children[0].children;
+    for (const child of groupChildren) {
+      tabButtons.push(child.id);
+    }
+
     // Define historyString here to be used later.
-    let historyString = '?';
-
-    // Get query parameters from URL.
-    let paramsO = getQueryParameters();
-
-    // If our query parameters are not empty...
-    if (paramsO !== {}) {
-      // Set tab group object entry.
-      paramsO[group] = tabid;
-
-      // Construct the string to be added into the URL.
-      let keys = Object.keys(paramsO);
-      for (let i = 0; i < keys.length; i++) {
-        if (i > 0) {
-          historyString += '&'
-        }
-        historyString += keys[i] + '=' + paramsO[keys[i]];
-      }
-    }
-
-    // Else, create the historyString here with our new tab group.
-    else {
-      historyString += group + "=" + tabid;
-    }
+    let historyString = '#' + groupid + '=' + tabButtons.indexOf(tabid);
 
     // Change window location to add URL params
-    if (window.history && history.pushState) {
+    if (window.history && history.pushState && historyString !== '#') {
       // NOTE: doesn't take into account existing params
       history.replaceState("", "", historyString);
     }
@@ -313,21 +300,19 @@
     new UidsTabs(items[i], i);
   }
 
-  // This function gets the query parameters from the URL.
+  // This function gets the hash parameters from the URL.
   // It returns an object with tab group keys and tabs to be focused as values.
-  function getQueryParameters() {
+  function getHashParameters() {
 
-    //Get the URL query parameters.
-    let queryParameters = window.location.search;
+    //Get the URL hash parameters.
+    let hashParameters = window.location.hash.substr(1);
 
-    // Construct an iterator from queryParameters.
-    let paramsI = new URLSearchParams(queryParameters);
+    // Construct an array from queryParameters.
+    let paramsA = hashParameters.split('=');
 
     // Construct an object with tab group keys and tabs to be focused as values.
     let paramsO = {};
-    for (const param of paramsI.entries()) {
-      paramsO[param[0]] = param[1];
-    }
+    paramsO[paramsA[0]] = paramsA[1];
 
     // Return the previously constructed object.
     return paramsO;
