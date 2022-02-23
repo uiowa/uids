@@ -27,12 +27,6 @@
   // This delay could be set by a function later if ever needed.
   const delay = 0;
 
-  // For every tab group...
-  // let tablists = window.querySelectorAll('[role="tablist"]')[0];
-
-
-
-
   function Tabs(element) {
     if (element) {
       if (!element.hasAttribute('id')) {
