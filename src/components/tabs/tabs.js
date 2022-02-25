@@ -37,17 +37,23 @@
       this.tabs = element.querySelectorAll('[role="tab"]');
       this.panels = element.querySelectorAll('[role="tabpanel"]');
 
-      // Get the hash parameters.
-      let paramsO = getHashParameters();
-      let tabsContainerID = this.tablist.parentElement.id;
+      // If JS is activated, hide the unnecessary tabs.
+      for (let i = 0; i < this.panels.length; i++) {
+        if (i != 0) {
+          this.panels[i].hidden = true;
+        }
+      }
 
-      // If our hash parameters contain config for the current tab container...
-      if (Object.keys(paramsO).includes(tabsContainerID)) {
+      // Get the hash parameter.
+      let hash = getHashParameter();
+      let tabsContainerID = this.tablist.parentElement.id;
+      let hashPrefix = hash.split('__')[0];
+
+      // If our hash parameter's prefix contains config for the current tab container...
+      if (hashPrefix === tabsContainerID ) {
 
         // Get the tab to focus.
-        let tabToFocusID = document.getElementById(tabsContainerID).children[0].children[paramsO[tabsContainerID]].id;
-
-        let tabToFocus = document.getElementById(tabToFocusID);
+        let tabToFocus = document.getElementById(hash);
 
         // Activate the tab defined in the hash parameters.
         this.activateTab(tabToFocus, false);
@@ -100,20 +106,11 @@
     // Remove hidden attribute from tab panel to make it visible.
     document.getElementById(controls).removeAttribute('hidden');
 
-    // Get our tab group, its id, and the tab's id.
-    let group = tab.parentElement.parentElement;
-    let groupid = group.id;
+    // Get the tab's id.
     let tabid = tab.id;
 
-    // Construct an array of the ids of the tab group of the button clicked.
-    let tabButtons = [];
-    let groupChildren = group.children[0].children;
-    for (const child of groupChildren) {
-      tabButtons.push(child.id);
-    }
-
     // Define historyString here to be used later.
-    let historyString = '#' + groupid + '=' + tabButtons.indexOf(tabid);
+    let historyString = '#' + tabid;
 
     // Change window location to add URL params
     if (window.history && history.pushState && historyString !== '#') {
@@ -143,7 +140,7 @@
       // For each panel in panels...
       for (let p = 0; p < this.panels.length; p++) {
         // Set the hidden attribute so that it cant be seen.
-        this.panels[p].setAttribute('hidden', 'hidden');
+        this.panels[p].hidden = true;
       }
   }
 
@@ -295,21 +292,11 @@
   }
 
   // This function gets the hash parameters from the URL.
-  // It returns an object with tab group keys and tabs to be focused as values.
-  function getHashParameters() {
+  // It returns a string that is the tab to focus' id.
+  function getHashParameter() {
 
-    //Get the URL hash parameters.
-    let hashParameters = window.location.hash.substr(1);
-
-    // Construct an array from queryParameters.
-    let paramsA = hashParameters.split('=');
-
-    // Construct an object with tab group keys and tabs to be focused as values.
-    let paramsO = {};
-    paramsO[paramsA[0]] = paramsA[1];
-
-    // Return the previously constructed object.
-    return paramsO;
+    // Return the URL hash parameters.
+    return window.location.hash.substr(1);
   }
 
 }());
