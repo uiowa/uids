@@ -1,0 +1,113 @@
+/* Sidebar
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.Navigation-search { padding: 0 0 20px; }
+
+.Tree-title, .Search-label {
+    background-color: whitesmoke;
+    border-top: 1px solid $color-light-grey;
+    border-bottom: 1px solid $color-light-grey;
+    color: rgba(34,37,43,.37);
+    display: block;
+    font-family: $font-family;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: .75px;
+    margin-bottom: 0;
+    padding: 10px 20px 8px;
+}
+
+.Search-input {
+    border-radius: 0;
+    border: none;
+    font-size: 12px;
+    padding: 10px 20px 8px;
+}
+
+[dir="ltr"] .Tree-title { padding-left: 20px; }
+
+[dir="rtl"] .Tree-title { padding-right: 20px; }
+
+.Tree-items.Tree-depth-1 { padding-top: 5px; }
+
+.Tree-item {
+    color: rgba(34,37,43,.87);
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.Tree-aside {
+    color: rgba(34,37,43,.54);
+    font-family: inherit;
+    font-size: 12px;
+}
+
+[dir="ltr"], [dir="rtl"] {
+    .Tree-entityLink { padding: 5px 20px !important; }
+}
+
+.is-current .Tree-entityLink { background-color: white; }
+
+.Navigation-group + .Navigation-group { margin-top: 10px; }
+
+[dir="ltr"] {
+    .Tree-depth-3 > .Tree-collectionLabel { padding: 6px 20px 4px !important; }
+    .Tree-depth-4 > .Tree-collectionLabel { padding: 6px 20px 4px !important; }
+}
+
+[dir="rtl"] {
+    .Tree-depth-3 > .Tree-collectionLabel { padding: 6px 0 4px !important; }
+    .Tree-depth-4 > .Tree-collectionLabel { padding: 6px 0 4px !important; }
+}
+
+[dir="ltr"] .Tree-collectionItems .Tree-entityLink {
+    margin-left: 0 !important;
+    padding: 7px 20px !important;
+}
+
+[dir="rtl"] .Tree-collectionItems .Tree-entityLink {
+    margin-right: 0 !important;
+    padding: 7px 0 !important;
+}
+
+.Tree-collectionLabel {
+    color: rgba(34,37,43,.87);
+    font-family: inherit;
+    font-size: 14px;
+    padding: 5px 20px !important;
+    span:before {
+        background-image: url('img/icon-navigation-opened.svg') !important;
+        background-size: auto;
+        opacity: 1;
+        top: 5px;
+    }
+    &:hover {
+        background-color: transparent;
+        color: $color-grey !important;
+        transition: all 0.15s ease-out;
+    }
+}
+
+[dir="ltr"] .Tree-collectionLabel {
+    span {
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+        &:before {
+            left: initial !important;
+            right: 0 !important;
+        }
+    }
+}
+
+[dir="rtl"] .Tree-collectionLabel {
+    span {
+        margin-right: 0 !important;
+        padding-right: 0 !important;
+        &:before {
+            right: initial !important;
+            left: 0 !important;
+        }
+    }
+}
+
+.Tree-collection.is-closed .Tree-collectionLabel span:before { background-image: url('img/icon-navigation-closed.svg') !important; }
