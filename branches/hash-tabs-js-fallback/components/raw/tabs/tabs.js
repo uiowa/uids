@@ -45,18 +45,28 @@
       }
 
       // Get the hash parameter.
-      let hash = getHashParameter();
-      let tabsContainerID = this.tablist.parentElement.id;
-      let hashPrefix = hash.split('__')[0];
+      let hash = window.location.hash.substr(1);
 
-      // If our hash parameter's prefix contains config for the current tab container...
-      if (hashPrefix === tabsContainerID ) {
+      // If the hash parameter is not empty...
+      if ( hash !== '') {
 
         // Get the tab to focus.
         let tabToFocus = document.getElementById(hash);
 
-        // Activate the tab defined in the hash parameters.
-        this.activateTab(tabToFocus, false);
+        // If the defined hash parameter finds an element...
+        if ( tabToFocus !== null) {
+
+          // Get the tablist id's of the hash parameter and this tablist to compare later.
+          let tabToFocusTablistID = tabToFocus.parentElement.parentElement.id;
+          let tablistID = this.tablist.parentElement.id;
+
+          // If the tablist defined by the hash and this tablist are the same...
+          if (tabToFocusTablistID === tablistID) {
+
+            // Activate the tab defined in the hash parameters.
+            this.activateTab(tabToFocus, false);
+          }
+        }
       }
 
       // Bind listeners
@@ -128,6 +138,7 @@
   Tabs.prototype.deactivateTabs = function() {
       // Get the necessary tabs nodelist.
       let tabs = this.tabs;
+
       // For each tab in tabs...
       for (let t = 0; t < tabs.length; t++) {
         // Remove the necessary accessibility attributes.
@@ -209,6 +220,7 @@
 
     // Get the correct tablist nodelist.
     let tablist = this.tablist;
+
     // Determine the tab orientation.
     let vertical = tablist.getAttribute('aria-orientation') === 'vertical';
     let proceed = false;
@@ -289,14 +301,6 @@
 
   for (let i = 0; i < items.length; i++) {
     new UidsTabs(items[i], i);
-  }
-
-  // This function gets the hash parameters from the URL.
-  // It returns a string that is the tab to focus' id.
-  function getHashParameter() {
-
-    // Return the URL hash parameters.
-    return window.location.hash.substr(1);
   }
 
 }());
