@@ -23,6 +23,21 @@ table {
   // @todo Add white-space: nowrap?
   width: 100%;
 
+  tbody a {
+    [class*="bg--gray"] &,
+    [class*="bg--white"] &,
+    [class*="bg--black"] &,
+    [class*="bg--gold"] &,
+    .bg-pattern--brain-reversed &,
+    .bg--gold--pattern--brain &,
+    .bg-pattern--brain &,
+    .bg--white--pattern--brain &,
+    .bg--black--pattern--brain &,
+    .bg-pattern--brain-black & {
+      color: $link-color;
+    }
+  }
+
   @include breakpoint(sm) {
     display: table;
   }
@@ -57,6 +72,9 @@ table {
     text-transform: uppercase;
     a {
       color: $secondary;
+      [class*="bg--"] & {
+        color: $secondary;
+      }
     }
   }
 
