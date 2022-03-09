@@ -44,30 +44,8 @@
         }
       }
 
-      // Get the hash parameter.
-      let hash = window.location.hash.substr(1);
-
-      // If the hash parameter is not empty...
-      if ( hash !== '') {
-
-        // Get the tab to focus.
-        let tabToFocus = document.getElementById(hash);
-
-        // If the defined hash parameter finds an element...
-        if ( tabToFocus !== null) {
-
-          // Get the tablist id's of the hash parameter and this tablist to compare later.
-          let tabToFocusTablistID = tabToFocus.parentElement.parentElement.id;
-          let tablistID = this.tablist.parentElement.id;
-
-          // If the tablist defined by the hash and this tablist are the same...
-          if (tabToFocusTablistID === tablistID) {
-
-            // Activate the tab defined in the hash parameters.
-            this.activateTab(tabToFocus, false);
-          }
-        }
-      }
+      // Activate a tab based upon the hash parameters in the URL.
+      this.activateTabByHash();
 
       // Bind listeners
       this.addListeners();
@@ -76,6 +54,9 @@
 
   // This function adds listeners for events to every tab.
   Tabs.prototype.addListeners = function() {
+    // Define thisTabs as the Tabs object for later use.
+    let thisTabs = this;
+
     // Set listeners for all three necessary event types.
     for (let i = 0; i < this.tabs.length; ++i) {
       this.tabs[i].addEventListener('click', event => {
@@ -91,6 +72,13 @@
       // Build an array with all tabs (<button>s) in it.
       this.tabs[i].index = i;
     }
+
+    // Add a listener that listens for when the URL is changed.
+    window.addEventListener('popstate', function (event) {
+
+      // Activate a tab based upon the hash parameters in the URL.
+      thisTabs.activateTabByHash();
+    });
   };
 
   // When a tab is clicked, activateTab is fired to activate it.
@@ -131,6 +119,35 @@
     // Set focus when required.
     if (setFocus) {
       tab.focus();
+    }
+  }
+
+  // Activate tab defined in the hash parameter.
+  Tabs.prototype.activateTabByHash = function() {
+
+    // Get the hash parameter.
+    let hash = window.location.hash.substr(1);
+
+    // If the hash parameter is not empty...
+    if ( hash !== '') {
+
+      // Get the tab to focus.
+      let tabToFocus = document.getElementById(hash);
+
+      // If the defined hash parameter finds an element...
+      if ( tabToFocus !== null) {
+
+        // Get the tablist id's of the hash parameter and this tablist to compare later.
+        let tabToFocusTablistID = tabToFocus.parentElement.parentElement.id;
+        let tablistID = this.tablist.parentElement.id;
+
+        // If the tablist defined by the hash and this tablist are the same...
+        if (tabToFocusTablistID === tablistID) {
+
+          // Activate the tab defined in the hash parameters.
+          this.activateTab(tabToFocus, false);
+        }
+      }
     }
   }
 
