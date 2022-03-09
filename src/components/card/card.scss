@@ -36,7 +36,7 @@
     .card__body {
       padding: 0;
       @include breakpoint(sm) {
-        flex: 0 1 100%;
+        flex: 1 1 75%;
       }
       min-height: 1px;
     }
@@ -325,6 +325,12 @@
         }
       }
     }
+
+    .card__media--small {
+      &.media--circle {
+        flex: 1 0 25%;
+      }
+    }
   }
 }
 /* Card left/right styles
@@ -345,6 +351,8 @@
 
     // Reduce padding for small circle crop next to card__body
     .media--circle.card__media--small {
+      margin-bottom: 1.6rem;
+
       +.card__body {
         @include breakpoint(sm) {
           // padding: 0 0 0 $gutter;
@@ -354,10 +362,8 @@
 
     @include breakpoint(sm) {
       display: flex;
-      flex-wrap: nowrap;
       flex-direction: unset;
       width: 100%;
-      margin-bottom: 1.6rem;
     }
 
     .card__title {
