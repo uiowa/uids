@@ -452,30 +452,8 @@
         }
       }
 
-      <span class="hljs-comment">// Get the hash parameter.</span>
-      <span class="hljs-keyword">let</span> hash = <span class="hljs-built_in">window</span>.location.hash.substr(<span class="hljs-number">1</span>);
-
-      <span class="hljs-comment">// If the hash parameter is not empty...</span>
-      <span class="hljs-keyword">if</span> ( hash !== <span class="hljs-string">&#x27;&#x27;</span>) {
-
-        <span class="hljs-comment">// Get the tab to focus.</span>
-        <span class="hljs-keyword">let</span> tabToFocus = <span class="hljs-built_in">document</span>.getElementById(hash);
-
-        <span class="hljs-comment">// If the defined hash parameter finds an element...</span>
-        <span class="hljs-keyword">if</span> ( tabToFocus !== <span class="hljs-literal">null</span>) {
-
-          <span class="hljs-comment">// Get the tablist id&#x27;s of the hash parameter and this tablist to compare later.</span>
-          <span class="hljs-keyword">let</span> tabToFocusTablistID = tabToFocus.parentElement.parentElement.id;
-          <span class="hljs-keyword">let</span> tablistID = <span class="hljs-built_in">this</span>.tablist.parentElement.id;
-
-          <span class="hljs-comment">// If the tablist defined by the hash and this tablist are the same...</span>
-          <span class="hljs-keyword">if</span> (tabToFocusTablistID === tablistID) {
-
-            <span class="hljs-comment">// Activate the tab defined in the hash parameters.</span>
-            <span class="hljs-built_in">this</span>.activateTab(tabToFocus, <span class="hljs-literal">false</span>);
-          }
-        }
-      }
+      <span class="hljs-comment">// Activate a tab based upon the hash parameters in the URL.</span>
+      <span class="hljs-built_in">this</span>.activateTabByHash();
 
       <span class="hljs-comment">// Bind listeners</span>
       <span class="hljs-built_in">this</span>.addListeners();
@@ -484,6 +462,9 @@
 
   <span class="hljs-comment">// This function adds listeners for events to every tab.</span>
   Tabs.prototype.addListeners = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-comment">// Define thisTabs as the Tabs object for later use.</span>
+    <span class="hljs-keyword">let</span> thisTabs = <span class="hljs-built_in">this</span>;
+
     <span class="hljs-comment">// Set listeners for all three necessary event types.</span>
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">this</span>.tabs.length; ++i) {
       <span class="hljs-built_in">this</span>.tabs[i].addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
@@ -499,6 +480,13 @@
       <span class="hljs-comment">// Build an array with all tabs (&lt;button&gt;s) in it.</span>
       <span class="hljs-built_in">this</span>.tabs[i].index = i;
     }
+
+    <span class="hljs-comment">// Add a listener that listens for when the URL is changed.</span>
+    <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&#x27;popstate&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
+
+      <span class="hljs-comment">// Activate a tab based upon the hash parameters in the URL.</span>
+      thisTabs.activateTabByHash();
+    });
   };
 
   <span class="hljs-comment">// When a tab is clicked, activateTab is fired to activate it.</span>
@@ -539,6 +527,35 @@
     <span class="hljs-comment">// Set focus when required.</span>
     <span class="hljs-keyword">if</span> (setFocus) {
       tab.focus();
+    }
+  }
+
+  <span class="hljs-comment">// Activate tab defined in the hash parameter.</span>
+  Tabs.prototype.activateTabByHash = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+    <span class="hljs-comment">// Get the hash parameter.</span>
+    <span class="hljs-keyword">let</span> hash = <span class="hljs-built_in">window</span>.location.hash.substr(<span class="hljs-number">1</span>);
+
+    <span class="hljs-comment">// If the hash parameter is not empty...</span>
+    <span class="hljs-keyword">if</span> ( hash !== <span class="hljs-string">&#x27;&#x27;</span>) {
+
+      <span class="hljs-comment">// Get the tab to focus.</span>
+      <span class="hljs-keyword">let</span> tabToFocus = <span class="hljs-built_in">document</span>.getElementById(hash);
+
+      <span class="hljs-comment">// If the defined hash parameter finds an element...</span>
+      <span class="hljs-keyword">if</span> ( tabToFocus !== <span class="hljs-literal">null</span>) {
+
+        <span class="hljs-comment">// Get the tablist id&#x27;s of the hash parameter and this tablist to compare later.</span>
+        <span class="hljs-keyword">let</span> tabToFocusTablistID = tabToFocus.parentElement.parentElement.id;
+        <span class="hljs-keyword">let</span> tablistID = <span class="hljs-built_in">this</span>.tablist.parentElement.id;
+
+        <span class="hljs-comment">// If the tablist defined by the hash and this tablist are the same...</span>
+        <span class="hljs-keyword">if</span> (tabToFocusTablistID === tablistID) {
+
+          <span class="hljs-comment">// Activate the tab defined in the hash parameters.</span>
+          <span class="hljs-built_in">this</span>.activateTab(tabToFocus, <span class="hljs-literal">false</span>);
+        }
+      }
     }
   }
 
@@ -728,7 +745,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">9 KB</span>
+                    <span class="Meta-value">9.5 KB</span>
                 </li>
             </ul>
         </div>
@@ -2305,7 +2322,7 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2022-03-09T17:34:04.400Z">
+            <time datetime="2022-03-09T19:58:25.479Z">
                 3/9/2022
             </time>
         </div>
