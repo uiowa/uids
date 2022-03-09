@@ -32,9 +32,11 @@
   }
 
   &::after {
-    display: block;
-    content: '';
-    clear: both;
+    @include breakpoint(page-container) {
+      display: block;
+      content: '';
+      clear: both;
+    }
   }
 
   // Override background color if button is within a gold container
@@ -56,10 +58,12 @@
 .banner {
   position: relative;
   overflow: hidden;
-  flex-basis: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include breakpoint(sm) {
+    flex-basis: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   &.banner--vertical-bottom {
     align-items: flex-end;
@@ -94,13 +98,15 @@
     overflow: visible;
 
     img {
-      display: block;
-      width: 100%;
-      -o-object-fit: cover;
-      object-fit: cover;
-      position: absolute;
-      height: 100%;
-      top: 0;
+      @include breakpoint(sm) {
+        display: block;
+        width: 100%;
+        -o-object-fit: cover;
+        object-fit: cover;
+        position: absolute;
+        height: 100%;
+        top: 0;
+      }
     }
   }
 
@@ -168,10 +174,14 @@
   h5:not([class*="headline"]),
   h6:not([class*="headline"]),
   blockquote {
-    color: #fff;
+    @include breakpoint(sm) {
+      color: #fff;
+    }
 
     a {
-      color: #fff;
+      @include breakpoint(sm) {
+        color: #fff;
+      }
     }
   }
 
@@ -179,13 +189,17 @@
   p {
     line-height: 1.5;
     margin-top: 0;
-    color: #fff;
-    text-shadow: 0 1px 1px #000;
+    @include breakpoint(sm) {
+      color: #fff;
+      text-shadow: 0 1px 1px #000;
+    }
 
     a {
       position: relative;
       z-index: 1;
-      color: #fff;
+      @include breakpoint(sm) {
+        color: #fff;
+      }
     }
   }
 
@@ -284,11 +298,15 @@
       color: $secondary;
 
       a {
+        color: $secondary;
+        @include breakpoint(sm) {
+          color: #fff;
+        }
+      }
+      @include breakpoint(sm) {
+        text-shadow: 0 1px 1px #000;
         color: #fff;
       }
-
-      text-shadow: 0 1px 1px #000;
-      color: #fff;
     }
     margin-top: 0;
     margin-bottom: .7rem;
@@ -442,21 +460,25 @@
 .banner {
   // Default overlay
     &:after {
-      position: absolute;
-      top: 0;
-      left: 0;
-      display: block;
-      width: 100%;
-      height: 100%;
-      content: "";
-      -webkit-transition: all .5s ease-in-out;
-      transition: all .5s ease-in-out;
-      will-change: opacity;
-      background: rgba(0, 0, 0, .5);
+      @include breakpoint(sm) {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        content: "";
+        -webkit-transition: all .5s ease-in-out;
+        transition: all .5s ease-in-out;
+        will-change: opacity;
+        background: rgba(0, 0, 0, .5);
+      }
     }
 
     &:not([class*="bg-"]) {
-      background: $secondary;
+      @include breakpoint(sm) {
+        background: $secondary;
+      }
     }
 
     &[class*="bg-"]:after {
