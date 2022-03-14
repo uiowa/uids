@@ -4,15 +4,25 @@
   {% set accordion_type = 'single' %}
 {% endif %}
 
+{% if names is empty %}
+  {% set names = {
+    0: 'chocolate_chip',
+    1: 'sugar',
+    2: 'snickerdoodle',
+    3: 'oatmeal',
+  }
+  %}
+{% endif %}
+
 <div class="accordion
   {% if accordion.variant %} accordion--{{ variant }}{% endif %}"
   role="tablist"
   aria-multiselectable="{{ multiselectable }}"
 >
-  {% set item_number = 1 %}
+  {% set accordion_item_number = 0 %}
   {% for item in items %}
     <!-- Use the accurate heading level to maintain the document outline -->
-    <h2 id="accordion-heading-{{ item_number }}"
+    <h2 id="{{ names[accordion_item_number] }}"
       class="accordion__heading"
     >
       <button class="accordion__button"
@@ -26,11 +36,11 @@
       </button>
     </h2>
     <div id="{{ accordion_type }}-select-{{ item_number }}"
-      aria-labelledby="accordion-heading-{{ item_number }}"
+      aria-labelledby="{{ names[accordion_item_number] }}"
       class="accordion__content"
     >
       {{ item.content }}
     </div>
-    {% set item_number = item_number + 1 %}
+    {% set accordion_item_number = accordion_item_number + 1 %}
   {% endfor %}
 </div>

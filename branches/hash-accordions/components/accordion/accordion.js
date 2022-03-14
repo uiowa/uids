@@ -1,5 +1,7 @@
 (function () {
   function Accordion(element) {
+    let thisAccordion = this;
+
     // Get the accordions, and if the accordion group is multiselectable.
     this.accordions = element.getElementsByClassName("accordion__heading");
     this.multiSelectible = element.getAttribute('aria-multiselectable') === 'true' || false;
@@ -23,6 +25,13 @@
         this.toggleAccordion(this.accordions[i]);
       }
     }
+
+    // Add a listener that listens for when the URL is changed.
+    window.addEventListener('popstate', function (event) {
+
+      // Activate an accordion based upon the hash parameters in the URL.
+      thisAccordion.activateAccordionByHash();
+    });
 
     // Activate any accordion that is defined in the hash parameter if there is one.
     this.activateAccordionByHash();
