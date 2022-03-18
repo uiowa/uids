@@ -41,6 +41,11 @@
       <div class="banner__content">
 
         {% block headline %}
+          {% if banner_pre_title is not empty %}
+            <p class ="h4 banner__pre-title {{ banner_title_classes }}">
+              {{ banner_pre_title }}
+            </p>
+          {% endif %}
           {% if banner_title is not empty %}
             {% include '@headline' with {
               'headline_level' : 'h2',
