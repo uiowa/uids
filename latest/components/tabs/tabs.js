@@ -29,32 +29,26 @@
 
   function Tabs(element) {
     if (element) {
+      if (!element.hasAttribute('id')) {
+        console.warn('[UIDS] Tabs (<div class="tab">) needs unique ID to function correctly.')
+      }
       // Set references to tab elements.
       this.tablist = element.querySelectorAll('[role="tablist"]')[0];
       this.tabs = element.querySelectorAll('[role="tab"]');
       this.panels = element.querySelectorAll('[role="tabpanel"]');
 
-      // If all the necessary references are present, proceed.
-      if (this.tablist && this.tabs && this.panels) {
-
-        // Warn user if expected IDs are not present.
-        if (!element.hasAttribute('id')) {
-          console.warn('[UIDS] Tabs (<div class="tab">) needs unique ID to function correctly.')
+      // If JS is activated, hide the unnecessary tabs.
+      for (let i = 0; i < this.panels.length; i++) {
+        if (i != 0) {
+          this.panels[i].hidden = true;
         }
-
-        // If JS is activated, hide the unnecessary tabs.
-        for (let i = 0; i < this.panels.length; i++) {
-          if (i != 0) {
-            this.panels[i].hidden = true;
-          }
-        }
-
-        // Activate a tab based upon the hash parameters in the URL.
-        this.activateTabByHash();
-
-        // Bind listeners
-        this.addListeners();
       }
+
+      // Activate a tab based upon the hash parameters in the URL.
+      this.activateTabByHash();
+
+      // Bind listeners
+      this.addListeners();
     }
   }
 
@@ -320,7 +314,7 @@
   window.UidsTabs = Tabs;
 
   // Instantiate videos on the page.
-  const items = document.getElementsByClassName('tabs-collection');
+  const items = document.getElementsByClassName('tabs');
 
   for (let i = 0; i < items.length; i++) {
     new UidsTabs(items[i], i);
