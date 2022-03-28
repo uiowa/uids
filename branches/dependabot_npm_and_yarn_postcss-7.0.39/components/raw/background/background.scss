@@ -57,3 +57,20 @@
 [class*="bg--black"] {
   border-color: rgba(255,255,255,.325);
 }
+
+// override gray link color.
+[class*="bg--white"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
+[class*="bg-"] [class*="bg--white"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
+[class*="bg--gray"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
+[class*="bg-"] [class*="bg--gray"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn) {
+  color: $link-color;
+}
+
+// set link color for black and gold nesting.
+[class*="bg--white"] [class*="bg--gold"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
+[class*="bg--white"] [class*="bg--black"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
+[class*="bg--gray"] [class*="bg--gold"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
+[class*="bg--gray"] [class*="bg--black"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn) {
+  color: inherit;
+}
+
