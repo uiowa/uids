@@ -61,6 +61,33 @@
   align-items: center;
   justify-content: center;
 
+  .headline {
+    z-index: 1;
+
+    a {
+      &:hover {
+        text-decoration: none;
+      }
+
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+
+    &.headline--negative {
+      color: $secondary;
+
+      a {
+        color: #fff;
+      }
+
+      text-shadow: 0 1px 1px #000;
+      color: #fff;
+    }
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+
   &.banner--vertical-bottom {
     align-items: flex-end;
   }
@@ -105,7 +132,7 @@
   }
 
   .headline + .banner__action {
-    margin-top: 1rem;
+    margin-top: 1.5rem;
   }
 
   .banner__action .bttn {
@@ -135,9 +162,52 @@
     }
   }
 
-
   &__text {
     z-index: 1;
+  }
+
+  &__pre-title {
+    background: none;
+    line-height: 1.1;
+
+    &.headline--serif {
+      margin-bottom: 0;
+    }
+    &.headline--uppercase {
+      margin-bottom: .7rem;
+    }
+    &.headline--highlight {
+      margin-bottom: -.1rem;
+    }
+
+    &.headline--highlight {
+      span {
+        background: none;
+        [class*="bg--black"] &,
+        [class*="banner--gradient"] & {
+          color: #fff;
+        }
+        [class*="bg--gold"] & {
+          color: $secondary;
+        }
+      }
+    }
+    // Set large heading size
+    &.headline--large {
+      font-size: $h4-font-size;
+      font-size: containerClamp(1.2rem, 1.6rem);
+    }
+
+    // Set medium heading size
+    &.headline--medium {
+      font-size: 1.4rem;
+      font-size: containerClamp(1.2rem, 1.4rem);
+    }
+
+    // Set small heading size
+    &.headline--small {
+      font-size: $h5-font-size;
+    }
   }
 
   &__content {
@@ -267,53 +337,30 @@
     }
   }
 
-  .headline {
-    z-index: 1;
-
-    a {
-      &:hover {
-        text-decoration: none;
-      }
-
-      &:focus {
-        text-decoration: underline;
-      }
-    }
-
-    &.headline--negative {
-      color: $secondary;
-
-      a {
-        color: #fff;
-      }
-
-      text-shadow: 0 1px 1px #000;
-      color: #fff;
-    }
-    margin-top: 0;
-    margin-bottom: .7rem;
-  }
 }
 
 // Set large heading size
-.headline--large.headline--serif,
-.headline--large {
-  font-size: 4.7rem;
-  font-size: containerClamp(2.5rem, 4.7rem);
-}
+// Overriding the serif font size set in typography/headings.scss
+:where(h2, h3, h4, h5, h6) {
+  &.headline--large.headline--serif,
+  &.headline--large {
+    font-size: 4.7rem;
+    font-size: containerClamp(2.5rem, 4.7rem);
+  }
 
-// Set medium heading size
-.headline--medium.headline--serif,
-.headline--medium {
-  font-size: 3.7rem;
-  font-size: containerClamp(2.2rem, 3.7rem);
-}
+  // Set medium heading size
+  &.headline--medium.headline--serif,
+  &.headline--medium {
+    font-size: 3.7rem;
+    font-size: containerClamp(2.2rem, 3.7rem);
+  }
 
-// Set small heading size
-.headline--small.headline--serif,
-.headline--small {
-  font-size: 2.7rem;
-  font-size: containerClamp(2rem, 2.7rem);
+  // Set small heading size
+  &.headline--small.headline--serif,
+  &.headline--small {
+    font-size: 2.7rem;
+    font-size: containerClamp(2rem, 2.7rem);
+  }
 }
 
 
