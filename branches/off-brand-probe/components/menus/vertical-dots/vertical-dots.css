@@ -1,0 +1,155 @@
+:root {
+  --brand-gold: #FFCD00; }
+
+html {
+  scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto; } }
+
+#vertical-dots ul li span {
+  position: relative; }
+
+#vertical-dots ul li span:after {
+  left: 100%;
+  top: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-color: rgba(136, 183, 213, 0);
+  border-left-color: var(--brand-gold);
+  border-width: 8px;
+  margin-top: -8px; }
+
+#vertical-dots {
+  z-index: 2;
+  position: fixed;
+  right: -20px;
+  display: none;
+  height: 100vh;
+  top: 0;
+  padding-right: 20px;
+  align-items: center;
+  pointer-events: none; }
+  @media (min-width: 855px) {
+    #vertical-dots {
+      display: flex; } }
+  #vertical-dots ul {
+    pointer-events: all;
+    list-style: none;
+    margin: 0 10px 0 0;
+    background-color: #151515;
+    position: relative;
+    padding: 0px;
+    border-radius: 21px; }
+    #vertical-dots ul li {
+      list-style: none;
+      padding: 4px 0px; }
+      #vertical-dots ul li span {
+        padding: 0.25rem 1.2rem 0.15rem;
+        background-color: var(--brand-gold);
+        -webkit-box-decoration-break: clone;
+                box-decoration-break: clone;
+        line-height: 1.4;
+        text-transform: uppercase;
+        font-family: "Antonio", sans-serif;
+        -webkit-font-smoothing: auto;
+        -moz-osx-font-smoothing: auto;
+        right: calc(100% - 12px);
+        position: absolute;
+        white-space: nowrap;
+        top: calc(50% - 16px);
+        transform: translateX(calc(100% + 20px));
+        transition: all 0.3s ease-in-out;
+        transition-property: transform; }
+      #vertical-dots ul li a {
+        position: relative;
+        color: #151515;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 12px solid #151515;
+        background-color: var(--brand-gold);
+        display: block;
+        transition: all 0.3s ease-in-out;
+        transition-property: background-color;
+        text-decoration: none; }
+        #vertical-dots ul li a:before {
+          content: '';
+          position: absolute;
+          border-radius: 20px;
+          width: 10px;
+          height: 10px;
+          left: -1px;
+          top: -1px;
+          background-color: transparent;
+          border: 1px solid var(--brand-gold);
+          transition: all 0.3s ease-in-out;
+          transform: scale(0.2);
+          transition-property: transform, background-color; }
+        #vertical-dots ul li a:hover span {
+          transform: translateX(-21px); }
+        #vertical-dots ul li a:focus span {
+          text-decoration: underline;
+          transform: translateX(-11px); }
+        #vertical-dots ul li a.current:before {
+          transform: scale(2.2); }
+      #vertical-dots ul li:first-child {
+        position: fixed;
+        position: fixed;
+        bottom: 14%;
+        right: -14px; }
+        #vertical-dots ul li:first-child span {
+          top: 0;
+          z-index: 4;
+          right: calc(100% - 40px); }
+        #vertical-dots ul li:first-child li {
+          padding: 0px; }
+        #vertical-dots ul li:first-child a {
+          background-color: transparent;
+          box-shadow: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-decoration: none;
+          height: unset;
+          width: unset;
+          border: none;
+          padding-right: 3px; }
+          #vertical-dots ul li:first-child a:before {
+            content: unset; }
+          #vertical-dots ul li:first-child a i {
+            height: 32px;
+            width: 32px;
+            background-color: #151515;
+            z-index: 3;
+            text-align: center;
+            display: flex;
+            color: var(--brand-gold);
+            align-items: center;
+            justify-content: center;
+            border-radius: 21px;
+            margin-right: 20px;
+            padding-right: 1px; }
+        #vertical-dots ul li:first-child:hover span {
+          transform: translateX(-48px); }
+
+.v-dots-scroll-spacer,
+.vertical-dots--section {
+  position: relative; }
+  .v-dots-scroll-spacer .v-dots-scroll-target,
+  .v-dots-scroll-spacer .vertical-dots--target,
+  .vertical-dots--section .v-dots-scroll-target,
+  .vertical-dots--section .vertical-dots--target {
+    position: relative;
+    top: 0px; }
+    @media (min-width: 855px) {
+      .v-dots-scroll-spacer .v-dots-scroll-target,
+      .v-dots-scroll-spacer .vertical-dots--target,
+      .vertical-dots--section .v-dots-scroll-target,
+      .vertical-dots--section .vertical-dots--target {
+        top: -49px; } }
