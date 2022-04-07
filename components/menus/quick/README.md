@@ -1,5 +1,0 @@
-# Quick Menu
-
-## Todo
-
-## Roadmap
