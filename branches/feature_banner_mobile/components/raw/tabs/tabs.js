@@ -29,37 +29,40 @@
 
   function Tabs(element) {
     if (element) {
-      if (!element.hasAttribute('id')) {
-        console.warn('[UIDS] Tabs (<div class="tab">) needs unique ID to function correctly.')
-      }
       // Set references to tab elements.
       this.tablist = element.querySelectorAll('[role="tablist"]')[0];
       this.tabs = element.querySelectorAll('[role="tab"]');
       this.panels = element.querySelectorAll('[role="tabpanel"]');
 
-      // Get the hash parameters.
-      let paramsO = getHashParameters();
-      let tabsContainerID = this.tablist.parentElement.id;
+      // If all the necessary references are present, proceed.
+      if (this.tablist && this.tabs && this.panels) {
 
-      // If our hash parameters contain config for the current tab container...
-      if (Object.keys(paramsO).includes(tabsContainerID)) {
+        // Warn user if expected IDs are not present.
+        if (!element.hasAttribute('id')) {
+          console.warn('[UIDS] Tabs (<div class="tab">) needs unique ID to function correctly.')
+        }
 
-        // Get the tab to focus.
-        let tabToFocusID = document.getElementById(tabsContainerID).children[0].children[paramsO[tabsContainerID]].id;
+        // If JS is activated, hide the unnecessary tabs.
+        for (let i = 0; i < this.panels.length; i++) {
+          if (i != 0) {
+            this.panels[i].hidden = true;
+          }
+        }
 
-        let tabToFocus = document.getElementById(tabToFocusID);
+        // Activate a tab based upon the hash parameters in the URL.
+        this.activateTabByHash();
 
-        // Activate the tab defined in the hash parameters.
-        this.activateTab(tabToFocus, false);
+        // Bind listeners
+        this.addListeners();
       }
-
-      // Bind listeners
-      this.addListeners();
     }
   }
 
   // This function adds listeners for events to every tab.
   Tabs.prototype.addListeners = function() {
+    // Define thisTabs as the Tabs object for later use.
+    let thisTabs = this;
+
     // Set listeners for all three necessary event types.
     for (let i = 0; i < this.tabs.length; ++i) {
       this.tabs[i].addEventListener('click', event => {
@@ -75,6 +78,13 @@
       // Build an array with all tabs (<button>s) in it.
       this.tabs[i].index = i;
     }
+
+    // Add a listener that listens for when the URL is changed.
+    window.addEventListener('popstate', function (event) {
+
+      // Activate a tab based upon the hash parameters in the URL.
+      thisTabs.activateTabByHash();
+    });
   };
 
   // When a tab is clicked, activateTab is fired to activate it.
@@ -100,20 +110,11 @@
     // Remove hidden attribute from tab panel to make it visible.
     document.getElementById(controls).removeAttribute('hidden');
 
-    // Get our tab group, its id, and the tab's id.
-    let group = tab.parentElement.parentElement;
-    let groupid = group.id;
+    // Get the tab's id.
     let tabid = tab.id;
 
-    // Construct an array of the ids of the tab group of the button clicked.
-    let tabButtons = [];
-    let groupChildren = group.children[0].children;
-    for (const child of groupChildren) {
-      tabButtons.push(child.id);
-    }
-
     // Define historyString here to be used later.
-    let historyString = '#' + groupid + '=' + tabButtons.indexOf(tabid);
+    let historyString = '#' + tabid;
 
     // Change window location to add URL params
     if (window.history && history.pushState && historyString !== '#') {
@@ -127,10 +128,40 @@
     }
   }
 
+  // Activate tab defined in the hash parameter.
+  Tabs.prototype.activateTabByHash = function() {
+
+    // Get the hash parameter.
+    let hash = window.location.hash.substr(1);
+
+    // If the hash parameter is not empty...
+    if ( hash !== '') {
+
+      // Get the tab to focus.
+      let tabToFocus = document.getElementById(hash);
+
+      // If the defined hash parameter finds an element...
+      if ( tabToFocus !== null) {
+
+        // Get the tablist id's of the hash parameter and this tablist to compare later.
+        let tabToFocusTablistID = tabToFocus.parentElement.parentElement.id;
+        let tablistID = this.tablist.parentElement.id;
+
+        // If the tablist defined by the hash and this tablist are the same...
+        if (tabToFocusTablistID === tablistID) {
+
+          // Activate the tab defined in the hash parameters.
+          this.activateTab(tabToFocus, false);
+        }
+      }
+    }
+  }
+
   // Deactivate all tabs and tab panels.
   Tabs.prototype.deactivateTabs = function() {
       // Get the necessary tabs nodelist.
       let tabs = this.tabs;
+
       // For each tab in tabs...
       for (let t = 0; t < tabs.length; t++) {
         // Remove the necessary accessibility attributes.
@@ -143,7 +174,7 @@
       // For each panel in panels...
       for (let p = 0; p < this.panels.length; p++) {
         // Set the hidden attribute so that it cant be seen.
-        this.panels[p].setAttribute('hidden', 'hidden');
+        this.panels[p].hidden = true;
       }
   }
 
@@ -212,6 +243,7 @@
 
     // Get the correct tablist nodelist.
     let tablist = this.tablist;
+
     // Determine the tab orientation.
     let vertical = tablist.getAttribute('aria-orientation') === 'vertical';
     let proceed = false;
@@ -288,28 +320,10 @@
   window.UidsTabs = Tabs;
 
   // Instantiate videos on the page.
-  const items = document.getElementsByClassName('tabs');
+  const items = document.getElementsByClassName('tabs-collection');
 
   for (let i = 0; i < items.length; i++) {
     new UidsTabs(items[i], i);
-  }
-
-  // This function gets the hash parameters from the URL.
-  // It returns an object with tab group keys and tabs to be focused as values.
-  function getHashParameters() {
-
-    //Get the URL hash parameters.
-    let hashParameters = window.location.hash.substr(1);
-
-    // Construct an array from queryParameters.
-    let paramsA = hashParameters.split('=');
-
-    // Construct an object with tab group keys and tabs to be focused as values.
-    let paramsO = {};
-    paramsO[paramsA[0]] = paramsA[1];
-
-    // Return the previously constructed object.
-    return paramsO;
   }
 
 }());
