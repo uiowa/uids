@@ -1,5 +1,0 @@
-# Superfish Menu
-
-## Todo
-
-## Roadmap
