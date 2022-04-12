@@ -171,19 +171,21 @@
         font-size: $base-font-size;
 
         & > a {
-          @include padding($top: $sm, $right: $md, $bottom: $sm, $left: 0);
-          @include breakpoint(sm) {
             @include padding($top: $sm, $right: $md, $bottom: $sm, $left: 1.2rem);
-          }
 
           &::before {
+            content: "\f111";
+            position: absolute;
+            font-size: 0.3rem;
+            right: $md;
+            left: $xsm;
+            top: 1rem;
+            @include fas();
             @include breakpoint(sm) {
               content: "\f105";
-              position: absolute;
               font-size: 0.9rem;
               left: 0;
-              right: $md;
-              @include fas();
+              top: $sm;
             }
           }
         }
