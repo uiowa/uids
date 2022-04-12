@@ -1,6 +1,6 @@
 @import "../../../assets/scss/variables";
-@import "../../../assets/scss/utilities";
-// Used by other menus
+@import "../../../assets/scss/utilities"; // Used by other menus
+
 .nav {
   @include breakpoint(sm) {
     align-items: center;
@@ -25,6 +25,7 @@
   }
 }
 // Used by vertical and horizontal secondary menus
+
 .menu-wrapper {
   @include breakpoint(sm) {
     align-items: center;
@@ -159,29 +160,30 @@
     // second level
     & ul.menu {
       list-style: disc;
-      margin-left: 0;
+      margin-left: 1.5rem;
+      @include breakpoint(sm) {
+        margin-left: 0;
+      }
       padding-bottom: $sm;
 
       & li {
         border-bottom: none;
         font-size: $base-font-size;
+        list-style: disc;
 
         & > a {
-          @include padding($top: $sm, $right: $md, $bottom: $sm, $left: 1.2rem);
+          padding: $sm;
+          @include breakpoint(sm) {
+            @include padding($top: $sm, $right: $md, $bottom: $sm, $left: 1.2rem);
+          }
 
           &::before {
-            content: "\f111";
-            position: absolute;
-            font-size: 0.3rem;
-            right: $md;
-            left: $xsm;
-            top: 1rem;
-            @include fas();
             @include breakpoint(sm) {
               content: "\f105";
               font-size: 0.9rem;
               left: 0;
-              top: $sm;
+              position: absolute;
+              @include fas();
             }
           }
         }
@@ -194,10 +196,16 @@
       }
       // third level
       ul.menu {
-        margin-left: 3rem;
+        margin-left: 2rem;
+        @include breakpoint(sm) {
+          margin-left: 3rem;
+        }
 
         li {
-          list-style: disc;
+          list-style: circle;
+          @include breakpoint(sm) {
+            list-style: disc;
+          }
         }
 
         li a {
@@ -212,7 +220,10 @@
           margin-left: 1.5rem;
 
           li {
-            list-style: circle;
+            list-style: square;
+            @include breakpoint(sm) {
+              list-style: circle;
+            }
           }
 
           li a {
