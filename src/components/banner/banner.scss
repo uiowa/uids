@@ -4,7 +4,6 @@
 .banner {
   // @todo Replace with https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio
   min-height: 15rem;
-
   // Banner Heights for large and medium
   &--large {
     &::before {
@@ -21,7 +20,6 @@
       content: '';
     }
   }
-
   // Full screen 100vh option
   &--full {
     &.banner--large {
@@ -46,7 +44,6 @@
       clear: both;
     }
   }
-
   // Override background color if button is within a gold container
   &.bg-pattern--brain-reversed,
   &[class*="bg--gold"] {
@@ -61,12 +58,10 @@
     }
   }
 }
-
 // Banner styles
 .banner {
   position: relative;
   overflow: hidden;
-
   @include breakpoint(sm) {
     flex-basis: 100%;
     display: flex;
@@ -91,6 +86,7 @@
       color: $secondary;
 
       a {
+        color: $secondary;
         @include breakpoint(sm) {
           color: #fff;
         }
@@ -113,11 +109,9 @@
   }
 
   &__container {
-
     margin: 0 auto;
     width: 100%;
     z-index: 1;
-
     @include breakpoint(sm) {
       z-index: 1;
       max-width: 81.875em;
@@ -149,13 +143,13 @@
     }
   }
 
-
   .headline + .banner__action {
     margin-top: 1.5rem;
   }
 
   .banner__action .bttn {
     margin: 0 1rem 1rem 0;
+
     + .bttn {
       @include breakpoint(sm) {
         margin: 0 1rem 1rem 0;
@@ -192,9 +186,11 @@
     &.headline--serif {
       margin-bottom: 0;
     }
+
     &.headline--uppercase {
-      margin-bottom: .7rem;
+      margin-bottom: 0.7rem;
     }
+
     &.headline--highlight {
       margin-bottom: -.1rem;
     }
@@ -202,10 +198,12 @@
     &.headline--highlight {
       span {
         background: none;
+
         [class*="bg--black"] &,
         [class*="banner--gradient"] & {
           color: #fff;
         }
+
         [class*="bg--gold"] & {
           color: $secondary;
         }
@@ -216,13 +214,11 @@
       font-size: $h4-font-size;
       font-size: containerClamp(1.2rem, 1.6rem);
     }
-
     // Set medium heading size
     &.headline--medium {
       font-size: 1.4rem;
       font-size: containerClamp(1.2rem, 1.4rem);
     }
-
     // Set small heading size
     &.headline--small {
       font-size: $h5-font-size;
@@ -231,12 +227,11 @@
 
   &__content {
     padding: $gutter;
-
     @include breakpoint(sm) {
-      padding: 1.25rem 0 2rem 0;
+      padding: 1.25rem 0 2rem;
     }
 
-    >* {
+    > * {
       flex-basis: 100%;
     }
 
@@ -245,7 +240,6 @@
       margin-left: 0;
       z-index: 1;
     }
-
     @include breakpoint(page-container) {
       padding: $gutter 0;
     }
@@ -268,7 +262,6 @@
     }
   }
 
-
   p {
     line-height: 1.5;
     margin-top: 0;
@@ -285,13 +278,27 @@
       }
     }
   }
-
   // add banner--overlay class so keep text on top of image for mobile.
   &--overlay {
     flex-basis: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    &:after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      content: "";
+      -webkit-transition: all 0.5s ease-in-out;
+      transition: all 0.5s ease-in-out;
+      will-change: opacity;
+      background: rgba(0, 0, 0, .5);
+    }
+
     .banner__image {
       img {
         display: block;
@@ -303,27 +310,42 @@
         top: 0;
       }
     }
+
     p {
       color: #fff;
       text-shadow: 0 1px 1px #000;
     }
+
     a {
       color: #fff;
     }
+
+    .headline.headline--negative {
+      a {
+        color: #fff;
+      }
+    }
+
     h2:not([class*="headline"]),
     h3:not([class*="headline"]),
     h4:not([class*="headline"]),
     h5:not([class*="headline"]),
     h6:not([class*="headline"]),
     blockquote {
-        color: #fff;
+      color: #fff;
 
       a {
-          color: #fff;
+        color: #fff;
       }
     }
   }
-
+  //Patterns
+  &[class*="bg--black--pattern"],
+  &[class*="bg-pattern--brain-black"] {
+    p {
+      color: #fff;
+    }
+  }
   // bg variants
   // @todo This should probably be resolved with https://sass-lang.com/documentation/values/maps#using-maps
   &.bg-pattern--brain,
@@ -401,48 +423,42 @@
       }
     }
   }
-
 }
-
 // Set large heading size
 // Overriding the serif font size set in typography/headings.scss
+
 :where(h2, h3, h4, h5, h6) {
-  &.headline--large.headline--serif,
-  &.headline--large {
+  &.headline--large,
+  &.headline--large.headline--serif {
     font-size: 4.7rem;
     font-size: containerClamp(2.5rem, 4.7rem);
   }
-
   // Set medium heading size
-  &.headline--medium.headline--serif,
-  &.headline--medium {
+  &.headline--medium,
+  &.headline--medium.headline--serif {
     font-size: 3.7rem;
     font-size: containerClamp(2.2rem, 3.7rem);
   }
-
   // Set small heading size
-  &.headline--small.headline--serif,
-  &.headline--small {
+  &.headline--small,
+  &.headline--small.headline--serif {
     font-size: 2.7rem;
     font-size: containerClamp(2rem, 2.7rem);
   }
 }
-
-
 // Alignment Variants
 .banner--horizontal-center {
   text-align: center;
 
   .banner__content {
-    >* {
+    > * {
       margin-right: auto;
       margin-left: auto;
     }
   }
 }
-
 // Bottom/Left Video button alignment
-.banner--horizontal-left.banner--vertical-bottom  {
+.banner--horizontal-left.banner--vertical-bottom {
   .banner__content {
     @include breakpoint(sm) {
       padding-bottom: 4.25rem;
@@ -458,11 +474,11 @@
     z-index: 1;
     left: 1.25rem;
     bottom: 1.25rem;
-
     @include breakpoint(page-container) {
       left: 3rem;
       bottom: 3rem;
     }
+
     .banner--horizontal-left.banner--vertical-bottom & {
       @include breakpoint(page-container) {
         bottom: 1.5rem;
@@ -482,7 +498,6 @@
     background: white;
     font-size: 1rem;
     padding: 0;
-
     @include breakpoint(sm) {
       display: block;
     }
@@ -501,33 +516,31 @@
       content: "\f04c";
     }
   }
-
-  @media (hover:none),
-  (hover:on-demand) {
+  @media (hover:none), (hover:on-demand) {
     .video-btn {
       display: none;
     }
   }
 }
-
 // ie11
-@media all and (-ms-high-contrast: none),
-(-ms-high-contrast: active) {
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
   .banner {
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100%;
   }
-  .banner__container  {
+
+  .banner__container {
     align-items: center;
     display: flex;
     justify-content: center;
     height: 100%;
   }
-  .banner__image img,
-  .banner .media--video {
-    left: 0px;
+
+  .banner .media--video,
+  .banner__image img {
+    left: 0;
   }
 
   .banner .banner__container {
@@ -549,7 +562,6 @@
     }
   }
 }
-
 // Gradient overlays
 .banner {
   // Default overlay
@@ -562,8 +574,8 @@
       width: 100%;
       height: 100%;
       content: "";
-      -webkit-transition: all .5s ease-in-out;
-      transition: all .5s ease-in-out;
+      -webkit-transition: all 0.5s ease-in-out;
+      transition: all 0.5s ease-in-out;
       will-change: opacity;
       background: rgba(0, 0, 0, .5);
     }
@@ -580,7 +592,6 @@
   }
 
   &--gradient-left {
-
     &:after {
       @include breakpoint(sm) {
         background: linear-gradient(90deg, rgba(0, 0, 0, .86) 0, rgba(0, 0, 0, .23) 65%, transparent);
@@ -590,7 +601,6 @@
     &.banner--gradient-light {
       &:after {
         background: rgba(255, 255, 255, .7);
-
         @include breakpoint(sm) {
           background: linear-gradient(90deg, #fff 1%, hsla(0, 0%, 100%, .92) 32%, hsla(0, 0%, 100%, 0));
         }
@@ -616,7 +626,6 @@
     &.banner--gradient-light {
       &:after {
         background: rgba(255, 255, 255, .7);
-
         @include breakpoint(sm) {
           background: linear-gradient(180deg, transparent 0, hsla(0, 0%, 100%, .9) 55%);
         }
