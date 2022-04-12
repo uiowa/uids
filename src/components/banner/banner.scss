@@ -97,17 +97,17 @@
     }
 
     &.headline--negative {
-      color: $secondary;
+      color: #fff;
+      text-shadow: 0 1px 1px #000;
+      @include breakpoint(sm) {
+        color: #fff;
+      }
 
       a {
         color: $secondary;
         @include breakpoint(sm) {
           color: #fff;
         }
-      }
-      @include breakpoint(sm) {
-        text-shadow: 0 1px 1px #000;
-        color: #fff;
       }
     }
     margin-top: 0;
@@ -294,9 +294,11 @@
   }
 
   .headline.headline--negative {
+    color: #fff;
+    text-shadow: 0 1px 1px #000;
+
     a {
       color: #fff;
-      text-shadow: 0 1px 1px #000;
     }
   }
 
@@ -322,10 +324,31 @@
       display: flex;
     }
 
+    &[class*="bg"] {
+      display: flex;
+    }
+
+    &[class*="bg--black"],
+    &[class*="bg-pattern--brain-black"] {
+      display: flex;
+
+      a {
+        color: #fff;
+      }
+
+      .headline.headline--negative {
+        color: #fff;
+      }
+    }
+
     .media--video {
       position: relative;
       @include breakpoint(sm) {
         position: absolute;
+      }
+
+      .video-btn {
+        display: block;
       }
     }
 
@@ -355,6 +378,13 @@
     }
 
     .headline.headline--negative {
+      color: $secondary;
+      text-shadow: none;
+      @include breakpoint(sm) {
+        color: #fff;
+        text-shadow: 0 1px 1px #000;
+      }
+
       a {
         color: $secondary;
         text-shadow: none;
