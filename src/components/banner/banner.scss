@@ -2,6 +2,24 @@
 @import '../../assets/scss/utilities';
 
 .banner {
+  flex-basis: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    content: "";
+    -webkit-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    will-change: opacity;
+    background: rgba(0, 0, 0, .5);
+  }
   // @todo Replace with https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio
   min-height: 15rem;
   // Banner Heights for large and medium
@@ -30,17 +48,15 @@
   }
 
   &::after {
-      display: block;
-      content: '';
-      clear: both;
-
+    display: block;
+    content: '';
+    clear: both;
     @include breakpoint(page-container) {
       display: block;
       content: '';
       clear: both;
     }
   }
-
   // Override background color if button is within a gold container
   &.bg-pattern--brain-reversed,
   &[class*="bg--gold"] {
@@ -56,6 +72,7 @@
   }
 }
 // Banner styles
+
 .banner {
   position: relative;
   overflow: hidden;
@@ -128,15 +145,13 @@
     overflow: visible;
 
     img {
-
-        display: block;
-        width: 100%;
-        -o-object-fit: cover;
-        object-fit: cover;
-        position: absolute;
-        height: 100%;
-        top: 0;
-
+      display: block;
+      width: 100%;
+      -o-object-fit: cover;
+      object-fit: cover;
+      position: absolute;
+      height: 100%;
+      top: 0;
     }
   }
 
@@ -158,9 +173,7 @@
     height: 100%;
     width: 100%;
     top: 0;
-    @include breakpoint(sm) {
-      position: absolute;
-    }
+    position: absolute;
 
     video {
       overflow: visible;
@@ -270,57 +283,35 @@
       z-index: 1;
     }
   }
-  // add banner--overlay class so keep text on top of image for mobile.
 
-    flex-basis: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  p {
+    color: #fff;
+    text-shadow: 0 1px 1px #000;
 
-    &:after {
-      position: absolute;
-      top: 0;
-      left: 0;
-      display: block;
-      width: 100%;
-      height: 100%;
-      content: "";
-      -webkit-transition: all 0.5s ease-in-out;
-      transition: all 0.5s ease-in-out;
-      will-change: opacity;
-      background: rgba(0, 0, 0, .5);
+    a {
+      color: #fff;
     }
+  }
 
-
-    p {
+  .headline.headline--negative {
+    a {
       color: #fff;
       text-shadow: 0 1px 1px #000;
-      a {
-        color: #fff;
-      }
     }
+  }
 
+  h2:not([class*="headline"]),
+  h3:not([class*="headline"]),
+  h4:not([class*="headline"]),
+  h5:not([class*="headline"]),
+  h6:not([class*="headline"]),
+  blockquote {
+    color: #fff;
 
-    .headline.headline--negative {
-      a {
-        color: #fff;
-        text-shadow: 0 1px 1px #000;
-      }
-    }
-
-    h2:not([class*="headline"]),
-    h3:not([class*="headline"]),
-    h4:not([class*="headline"]),
-    h5:not([class*="headline"]),
-    h6:not([class*="headline"]),
-    blockquote {
+    a {
       color: #fff;
-
-      a {
-        color: #fff;
-      }
     }
-
+  }
 
   &--stacked {
     &:after {
@@ -330,6 +321,14 @@
     @include breakpoint(sm) {
       display: flex;
     }
+
+    .media--video {
+      position: relative;
+      @include breakpoint(sm) {
+        position: absolute;
+      }
+    }
+
     .banner__image {
       img {
         position: relative;
@@ -338,6 +337,7 @@
         }
       }
     }
+
     p {
       color: $secondary;
       text-shadow: none;
@@ -345,12 +345,12 @@
         color: #fff;
         text-shadow: 0 1px 1px #000;
       }
-    }
 
-    a {
-      color: $secondary;
-      @include breakpoint(sm) {
-        color: #fff;
+      a {
+        color: $secondary;
+        @include breakpoint(sm) {
+          color: #fff;
+        }
       }
     }
 
@@ -360,6 +360,7 @@
         text-shadow: none;
         @include breakpoint(sm) {
           color: #fff;
+          text-shadow: 0 1px 1px #000;
         }
       }
     }
@@ -491,6 +492,7 @@
   }
 }
 // Alignment Variants
+
 .banner--horizontal-center {
   text-align: center;
 
@@ -502,6 +504,7 @@
   }
 }
 // Bottom/Left Video button alignment
+
 .banner--horizontal-left.banner--vertical-bottom {
   .banner__content {
     @include breakpoint(sm) {
@@ -511,8 +514,7 @@
 }
 
 .media--video {
-  position: relative;
-
+  //position: relative;
   .video-controls {
     position: absolute;
     z-index: 1;
@@ -607,6 +609,7 @@
   }
 }
 // Gradient overlays
+
 .banner {
   // Default overlay
   &:after {
