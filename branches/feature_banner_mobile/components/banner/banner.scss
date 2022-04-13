@@ -2,9 +2,26 @@
 @import '../../assets/scss/utilities';
 
 .banner {
+  flex-basis: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    content: "";
+    -webkit-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    will-change: opacity;
+    background: rgba(0, 0, 0, .5);
+  }
   // @todo Replace with https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio
   min-height: 15rem;
-
   // Banner Heights for large and medium
   &--large {
     &::before {
@@ -21,7 +38,6 @@
       content: '';
     }
   }
-
   // Full screen 100vh option
   &--full {
     &.banner--large {
@@ -32,21 +48,15 @@
   }
 
   &::after {
+    display: block;
+    content: '';
+    clear: both;
     @include breakpoint(page-container) {
       display: block;
       content: '';
       clear: both;
     }
   }
-
-  &--overlay {
-    &:after {
-      display: block;
-      content: '';
-      clear: both;
-    }
-  }
-
   // Override background color if button is within a gold container
   &.bg-pattern--brain-reversed,
   &[class*="bg--gold"] {
@@ -61,12 +71,11 @@
     }
   }
 }
-
 // Banner styles
+
 .banner {
   position: relative;
   overflow: hidden;
-
   @include breakpoint(sm) {
     flex-basis: 100%;
     display: flex;
@@ -88,16 +97,17 @@
     }
 
     &.headline--negative {
-      color: $secondary;
+      color: #fff;
+      text-shadow: 0 1px 1px #000;
+      @include breakpoint(sm) {
+        color: #fff;
+      }
 
       a {
+        color: $secondary;
         @include breakpoint(sm) {
           color: #fff;
         }
-      }
-      @include breakpoint(sm) {
-        text-shadow: 0 1px 1px #000;
-        color: #fff;
       }
     }
     margin-top: 0;
@@ -140,11 +150,9 @@
   }
 
   &__container {
-
     margin: 0 auto;
     width: 100%;
     z-index: 1;
-
     @include breakpoint(sm) {
       z-index: 1;
       max-width: 81.875em;
@@ -164,18 +172,15 @@
     overflow: visible;
 
     img {
-      @include breakpoint(sm) {
-        display: block;
-        width: 100%;
-        -o-object-fit: cover;
-        object-fit: cover;
-        position: absolute;
-        height: 100%;
-        top: 0;
-      }
+      display: block;
+      width: 100%;
+      -o-object-fit: cover;
+      object-fit: cover;
+      position: absolute;
+      height: 100%;
+      top: 0;
     }
   }
-
 
   .headline + .banner__action {
     margin-top: 1.5rem;
@@ -183,6 +188,7 @@
 
   .banner__action .bttn {
     margin: 0 1rem 1rem 0;
+
     + .bttn {
       @include breakpoint(sm) {
         margin: 0 1rem 1rem 0;
@@ -191,10 +197,10 @@
   }
 
   .media--video {
-    position: absolute;
     height: 100%;
     width: 100%;
     top: 0;
+    position: absolute;
 
     video {
       overflow: visible;
@@ -202,9 +208,11 @@
       width: 100%;
       -o-object-fit: cover;
       object-fit: cover;
-      position: absolute;
       height: 100%;
       top: 0;
+      @include breakpoint(sm) {
+        position: absolute;
+      }
     }
   }
 
@@ -220,8 +228,9 @@
       margin-bottom: 0;
     }
     &.headline--uppercase {
-      margin-bottom: .7rem;
+      margin-bottom: 0.7rem;
     }
+
     &.headline--highlight {
       margin-bottom: -.1rem;
     }
@@ -229,10 +238,12 @@
     &.headline--highlight {
       span {
         background: none;
+
         [class*="bg--black"] &,
         [class*="banner--gradient"] & {
           color: #fff;
         }
+
         [class*="bg--gold"] & {
           color: $secondary;
         }
@@ -258,12 +269,11 @@
 
   &__content {
     padding: $gutter;
-
     @include breakpoint(sm) {
-      padding: 1.25rem 0 2rem 0;
+      padding: 1.25rem 0 2rem;
     }
 
-    >* {
+    > * {
       flex-basis: 100%;
     }
 
@@ -272,7 +282,6 @@
       margin-left: 0;
       z-index: 1;
     }
-
     @include breakpoint(page-container) {
       padding: $gutter 0;
     }
@@ -287,14 +296,7 @@
     @include breakpoint(sm) {
       color: #fff;
     }
-
-    a {
-      @include breakpoint(sm) {
-        color: #fff;
-      }
-    }
   }
-
 
   p {
     line-height: 1.5;
@@ -307,50 +309,153 @@
     a {
       position: relative;
       z-index: 1;
-      @include breakpoint(sm) {
-        color: #fff;
-      }
     }
   }
 
-  // add banner--overlay class so keep text on top of image for mobile.
-  &--overlay {
-    flex-basis: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    .banner__image {
-      img {
-        display: block;
-        width: 100%;
-        -o-object-fit: cover;
-        object-fit: cover;
-        position: absolute;
-        height: 100%;
-        top: 0;
-      }
-    }
-    p {
-      color: #fff;
-      text-shadow: 0 1px 1px #000;
-    }
+  p {
+    color: #fff;
+    text-shadow: 0 1px 1px #000;
+
     a {
       color: #fff;
     }
+  }
+
+  .headline.headline--negative {
+    color: #fff;
+    text-shadow: 0 1px 1px #000;
+
+    a {
+      color: #fff;
+    }
+  }
+
+  h2:not([class*="headline"]),
+  h3:not([class*="headline"]),
+  h4:not([class*="headline"]),
+  h5:not([class*="headline"]),
+  h6:not([class*="headline"]),
+  blockquote {
+    color: #fff;
+
+    a {
+      color: #fff;
+    }
+  }
+
+  &--stacked {
+    &:after {
+      background: none;
+    }
+    display: block;
+    @include breakpoint(sm) {
+      display: flex;
+    }
+
+    &[class*="bg"] {
+      display: flex;
+    }
+
+    &[class*="bg--black"] {
+
+    }
+
+    &[class*="bg--black"],
+    &[class*="bg-pattern--brain-black"] {
+      display: flex;
+
+      a:not([class*="bttn"]) {
+        color: #fff;
+      }
+
+      .headline.headline--negative {
+        color: #fff;
+      }
+    }
+
+    .media--video {
+      position: relative;
+      @include breakpoint(sm) {
+        position: absolute;
+      }
+
+      .video-btn {
+        display: block;
+      }
+    }
+
+    .banner__image {
+      img {
+        position: relative;
+        @include breakpoint(sm) {
+          position: absolute;
+        }
+      }
+    }
+
+    .banner__text {
+      p {
+        color: $secondary;
+        text-shadow: none;
+        @include breakpoint(sm) {
+          color: #fff;
+          text-shadow: 0 1px 1px #000;
+        }
+
+        a {
+          color: $secondary;
+          @include breakpoint(sm) {
+            color: #fff;
+          }
+        }
+      }
+    }
+
+
+    .headline.headline--negative {
+      color: $secondary;
+      text-shadow: none;
+      @include breakpoint(sm) {
+        color: #fff;
+        text-shadow: 0 1px 1px #000;
+      }
+
+      a {
+        color: $secondary;
+        text-shadow: none;
+        @include breakpoint(sm) {
+          color: #fff;
+          text-shadow: 0 1px 1px #000;
+        }
+      }
+    }
+
     h2:not([class*="headline"]),
     h3:not([class*="headline"]),
     h4:not([class*="headline"]),
     h5:not([class*="headline"]),
     h6:not([class*="headline"]),
     blockquote {
+      color: $secondary;
+      @include breakpoint(sm) {
         color: #fff;
+      }
 
       a {
+        color: $secondary;
+        @include breakpoint(sm) {
           color: #fff;
+        }
       }
     }
   }
-
+  //Patterns
+  &[class*="bg--black--pattern"],
+  &[class*="bg-pattern--brain-black"] {
+    p {
+      color: #fff;
+    }
+  }
   // bg variants
   // @todo This should probably be resolved with https://sass-lang.com/documentation/values/maps#using-maps
   &.bg-pattern--brain,
@@ -428,11 +533,10 @@
       }
     }
   }
-
 }
-
 // Set large heading size
 // Overriding the serif font size set in typography/headings.scss
+
 :where(h2, h3, h4, h5, h6) {
   &.headline--large.headline--serif,
   &.headline--large {
@@ -454,22 +558,21 @@
     font-size: containerClamp(2rem, 2.7rem);
   }
 }
-
-
 // Alignment Variants
+
 .banner--horizontal-center {
   text-align: center;
 
   .banner__content {
-    >* {
+    > * {
       margin-right: auto;
       margin-left: auto;
     }
   }
 }
-
 // Bottom/Left Video button alignment
-.banner--horizontal-left.banner--vertical-bottom  {
+
+.banner--horizontal-left.banner--vertical-bottom {
   .banner__content {
     @include breakpoint(sm) {
       padding-bottom: 4.25rem;
@@ -478,18 +581,17 @@
 }
 
 .media--video {
-  position: relative;
-
+  //position: relative;
   .video-controls {
     position: absolute;
     z-index: 1;
     left: 1.25rem;
     bottom: 1.25rem;
-
     @include breakpoint(page-container) {
       left: 3rem;
       bottom: 3rem;
     }
+
     .banner--horizontal-left.banner--vertical-bottom & {
       @include breakpoint(page-container) {
         bottom: 1.5rem;
@@ -509,7 +611,6 @@
     background: white;
     font-size: 1rem;
     padding: 0;
-
     @include breakpoint(sm) {
       display: block;
     }
@@ -528,33 +629,31 @@
       content: "\f04c";
     }
   }
-
-  @media (hover:none),
-  (hover:on-demand) {
+  @media (hover:none), (hover:on-demand) {
     .video-btn {
       display: none;
     }
   }
 }
-
 // ie11
-@media all and (-ms-high-contrast: none),
-(-ms-high-contrast: active) {
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
   .banner {
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100%;
   }
-  .banner__container  {
+
+  .banner__container {
     align-items: center;
     display: flex;
     justify-content: center;
     height: 100%;
   }
-  .banner__image img,
-  .banner .media--video {
-    left: 0px;
+
+  .banner .media--video,
+  .banner__image img {
+    left: 0;
   }
 
   .banner .banner__container {
@@ -576,8 +675,8 @@
     }
   }
 }
-
 // Gradient overlays
+
 .banner {
   // Default overlay
   &:after {
@@ -589,8 +688,8 @@
       width: 100%;
       height: 100%;
       content: "";
-      -webkit-transition: all .5s ease-in-out;
-      transition: all .5s ease-in-out;
+      -webkit-transition: all 0.5s ease-in-out;
+      transition: all 0.5s ease-in-out;
       will-change: opacity;
       background: rgba(0, 0, 0, .5);
     }
@@ -607,7 +706,6 @@
   }
 
   &--gradient-left {
-
     &:after {
       @include breakpoint(sm) {
         background: linear-gradient(90deg, rgba(0, 0, 0, .86) 0, rgba(0, 0, 0, .23) 65%, transparent);
@@ -617,7 +715,6 @@
     &.banner--gradient-light {
       &:after {
         background: rgba(255, 255, 255, .7);
-
         @include breakpoint(sm) {
           background: linear-gradient(90deg, #fff 1%, hsla(0, 0%, 100%, .92) 32%, hsla(0, 0%, 100%, 0));
         }
@@ -643,7 +740,6 @@
     &.banner--gradient-light {
       &:after {
         background: rgba(255, 255, 255, .7);
-
         @include breakpoint(sm) {
           background: linear-gradient(180deg, transparent 0, hsla(0, 0%, 100%, .9) 55%);
         }

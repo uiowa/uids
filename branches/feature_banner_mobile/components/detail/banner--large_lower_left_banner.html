@@ -211,6 +211,9 @@
             <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;banner__container&quot;</span>&gt;</span>
                 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;banner__content&quot;</span>&gt;</span>
 
+                    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;headline headline--serif headline headline--negative headline--large banner__pre-title&quot;</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;headline__text&quot;</span>&gt;</span>University of Iowa<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
                     <span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;headline headline--serif headline headline--negative headline--large&quot;</span>&gt;</span>
                         <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;headline__text&quot;</span>&gt;</span>Living on Campus<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
                     <span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
@@ -258,7 +261,22 @@
                             
                             <code class="Code Code--lang-CSS FileBrowser-code hljs">
                                 <pre><span class="hljs-selector-class">.banner</span> {
+  <span class="hljs-attribute">flex-basis</span>: <span class="hljs-number">100%</span>;
+  <span class="hljs-attribute">display</span>: flex;
+  <span class="hljs-attribute">align-items</span>: center;
+  <span class="hljs-attribute">justify-content</span>: center;
   <span class="hljs-attribute">min-height</span>: <span class="hljs-number">15rem</span>; }
+  <span class="hljs-selector-class">.banner</span>:after {
+    position: absolute;
+    <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">display</span>: block;
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+    <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;&quot;</span>;
+    <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.5s</span> ease-in-out;
+    will-change: opacity;
+    <span class="hljs-attribute">background</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.5</span>); }
   <span class="hljs-selector-class">.banner--large</span><span class="hljs-selector-pseudo">::before</span> {
     <span class="hljs-attribute">float</span>: left;
     <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">45.25%</span>;
@@ -270,15 +288,15 @@
   <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">84.375em</span>) {
     <span class="hljs-selector-class">.banner--full</span><span class="hljs-selector-class">.banner--large</span> {
       <span class="hljs-attribute">height</span>: <span class="hljs-number">100vh</span>; } }
-  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">84.375em</span>) {
-    <span class="hljs-selector-class">.banner</span><span class="hljs-selector-pseudo">::after</span> {
-      <span class="hljs-attribute">display</span>: block;
-      <span class="hljs-attribute">content</span>: <span class="hljs-string">&#x27;&#x27;</span>;
-      <span class="hljs-attribute">clear</span>: both; } }
-  <span class="hljs-selector-class">.banner--overlay</span>:after {
-    display: block;
+  <span class="hljs-selector-class">.banner</span><span class="hljs-selector-pseudo">::after</span> {
+    <span class="hljs-attribute">display</span>: block;
     <span class="hljs-attribute">content</span>: <span class="hljs-string">&#x27;&#x27;</span>;
     <span class="hljs-attribute">clear</span>: both; }
+    <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">84.375em</span>) {
+      <span class="hljs-selector-class">.banner</span><span class="hljs-selector-pseudo">::after</span> {
+        <span class="hljs-attribute">display</span>: block;
+        <span class="hljs-attribute">content</span>: <span class="hljs-string">&#x27;&#x27;</span>;
+        <span class="hljs-attribute">clear</span>: both; } }
   <span class="hljs-selector-class">.banner</span><span class="hljs-selector-class">.bg-pattern--brain-reversed</span> <span class="hljs-selector-class">.bttn--primary</span>, <span class="hljs-selector-class">.banner</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg--gold&quot;</span>]</span> <span class="hljs-selector-class">.bttn--primary</span> {
     <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
     <span class="hljs-attribute">background</span>: <span class="hljs-number">#151515</span>;
@@ -304,14 +322,16 @@
     <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-class">.headline</span> <span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:focus</span> {
       <span class="hljs-attribute">text-decoration</span>: underline; }
     <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-class">.headline</span><span class="hljs-selector-class">.headline--negative</span> {
-      <span class="hljs-attribute">color</span>: <span class="hljs-number">#151515</span>; }
-      <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
-        <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-class">.headline</span><span class="hljs-selector-class">.headline--negative</span> <span class="hljs-selector-tag">a</span> {
-          <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>; } }
+      <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+      <span class="hljs-attribute">text-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-number">#000</span>; }
       <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
         <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-class">.headline</span><span class="hljs-selector-class">.headline--negative</span> {
-          <span class="hljs-attribute">text-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-number">#000</span>;
           <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>; } }
+      <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-class">.headline</span><span class="hljs-selector-class">.headline--negative</span> <span class="hljs-selector-tag">a</span> {
+        <span class="hljs-attribute">color</span>: <span class="hljs-number">#151515</span>; }
+        <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
+          <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-class">.headline</span><span class="hljs-selector-class">.headline--negative</span> <span class="hljs-selector-tag">a</span> {
+            <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>; } }
   <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-class">.headline</span> {
     <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;
     <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">0</span>;
@@ -345,15 +365,14 @@
     <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>; }
   <span class="hljs-selector-class">.banner__image</span> {
     <span class="hljs-attribute">overflow</span>: visible; }
-    <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
-      <span class="hljs-selector-class">.banner__image</span> <span class="hljs-selector-tag">img</span> {
-        <span class="hljs-attribute">display</span>: block;
-        <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
-        -o-<span class="hljs-attribute">object-fit</span>: cover;
-        <span class="hljs-attribute">object-fit</span>: cover;
-        <span class="hljs-attribute">position</span>: absolute;
-        <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
-        <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>; } }
+    <span class="hljs-selector-class">.banner__image</span> <span class="hljs-selector-tag">img</span> {
+      <span class="hljs-attribute">display</span>: block;
+      <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+      -o-<span class="hljs-attribute">object-fit</span>: cover;
+      <span class="hljs-attribute">object-fit</span>: cover;
+      <span class="hljs-attribute">position</span>: absolute;
+      <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+      <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>; }
   <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-class">.headline</span> + <span class="hljs-selector-class">.banner__action</span> {
     <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">1.5rem</span>; }
   <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-class">.banner__action</span> <span class="hljs-selector-class">.bttn</span> {
@@ -362,19 +381,21 @@
       <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-class">.banner__action</span> <span class="hljs-selector-class">.bttn</span> + <span class="hljs-selector-class">.bttn</span> {
         <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> <span class="hljs-number">1rem</span> <span class="hljs-number">1rem</span> <span class="hljs-number">0</span>; } }
   <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-class">.media--video</span> {
-    <span class="hljs-attribute">position</span>: absolute;
     <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
     <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
-    <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>; }
+    <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">position</span>: absolute; }
     <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-class">.media--video</span> <span class="hljs-selector-tag">video</span> {
       <span class="hljs-attribute">overflow</span>: visible;
       <span class="hljs-attribute">display</span>: block;
       <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
       -o-<span class="hljs-attribute">object-fit</span>: cover;
       <span class="hljs-attribute">object-fit</span>: cover;
-      <span class="hljs-attribute">position</span>: absolute;
       <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
       <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>; }
+      <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
+        <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-class">.media--video</span> <span class="hljs-selector-tag">video</span> {
+          <span class="hljs-attribute">position</span>: absolute; } }
   <span class="hljs-selector-class">.banner__text</span> {
     <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>; }
   <span class="hljs-selector-class">.banner__pre-title</span> {
@@ -383,7 +404,7 @@
     <span class="hljs-selector-class">.banner__pre-title</span><span class="hljs-selector-class">.headline--serif</span> {
       <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">0</span>; }
     <span class="hljs-selector-class">.banner__pre-title</span><span class="hljs-selector-class">.headline--uppercase</span> {
-      <span class="hljs-attribute">margin-bottom</span>: .<span class="hljs-number">7rem</span>; }
+      <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">0.7rem</span>; }
     <span class="hljs-selector-class">.banner__pre-title</span><span class="hljs-selector-class">.headline--highlight</span> {
       <span class="hljs-attribute">margin-bottom</span>: -.<span class="hljs-number">1rem</span>; }
     <span class="hljs-selector-class">.banner__pre-title</span><span class="hljs-selector-class">.headline--highlight</span> <span class="hljs-selector-tag">span</span> {
@@ -405,7 +426,7 @@
     <span class="hljs-attribute">padding</span>: <span class="hljs-number">1.25rem</span>; }
     <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
       <span class="hljs-selector-class">.banner__content</span> {
-        <span class="hljs-attribute">padding</span>: <span class="hljs-number">1.25rem</span> <span class="hljs-number">0</span> <span class="hljs-number">2rem</span> <span class="hljs-number">0</span>; } }
+        <span class="hljs-attribute">padding</span>: <span class="hljs-number">1.25rem</span> <span class="hljs-number">0</span> <span class="hljs-number">2rem</span>; } }
     <span class="hljs-selector-class">.banner__content</span> &gt; * {
       <span class="hljs-attribute">flex-basis</span>: <span class="hljs-number">100%</span>; }
     <span class="hljs-selector-class">.banner__content</span> <span class="hljs-selector-class">.bttn</span> {
@@ -423,14 +444,6 @@
     <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">h6</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>),
     <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">blockquote</span> {
       <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>; } }
-  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
-    <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">h2</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>) <span class="hljs-selector-tag">a</span>,
-    <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">h3</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>) <span class="hljs-selector-tag">a</span>,
-    <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">h4</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>) <span class="hljs-selector-tag">a</span>,
-    <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">h5</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>) <span class="hljs-selector-tag">a</span>,
-    <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">h6</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>) <span class="hljs-selector-tag">a</span>,
-    <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">blockquote</span> <span class="hljs-selector-tag">a</span> {
-      <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>; } }
   <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">p</span> {
     <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.5</span>;
     <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">0</span>; }
@@ -441,41 +454,115 @@
     <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">p</span> <span class="hljs-selector-tag">a</span> {
       <span class="hljs-attribute">position</span>: relative;
       <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>; }
-      <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
-        <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">p</span> <span class="hljs-selector-tag">a</span> {
-          <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>; } }
-  <span class="hljs-selector-class">.banner--overlay</span> {
-    <span class="hljs-attribute">flex-basis</span>: <span class="hljs-number">100%</span>;
-    <span class="hljs-attribute">display</span>: flex;
-    <span class="hljs-attribute">align-items</span>: center;
-    <span class="hljs-attribute">justify-content</span>: center; }
-    <span class="hljs-selector-class">.banner--overlay</span> <span class="hljs-selector-class">.banner__image</span> <span class="hljs-selector-tag">img</span> {
-      <span class="hljs-attribute">display</span>: block;
-      <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
-      -o-<span class="hljs-attribute">object-fit</span>: cover;
-      <span class="hljs-attribute">object-fit</span>: cover;
-      <span class="hljs-attribute">position</span>: absolute;
-      <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
-      <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>; }
-    <span class="hljs-selector-class">.banner--overlay</span> <span class="hljs-selector-tag">p</span> {
-      <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
-      <span class="hljs-attribute">text-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-number">#000</span>; }
-    <span class="hljs-selector-class">.banner--overlay</span> <span class="hljs-selector-tag">a</span> {
+  <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">p</span> {
+    <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+    <span class="hljs-attribute">text-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-number">#000</span>; }
+    <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">p</span> <span class="hljs-selector-tag">a</span> {
       <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>; }
-    <span class="hljs-selector-class">.banner--overlay</span> <span class="hljs-selector-tag">h2</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>),
-    <span class="hljs-selector-class">.banner--overlay</span> <span class="hljs-selector-tag">h3</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>),
-    <span class="hljs-selector-class">.banner--overlay</span> <span class="hljs-selector-tag">h4</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>),
-    <span class="hljs-selector-class">.banner--overlay</span> <span class="hljs-selector-tag">h5</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>),
-    <span class="hljs-selector-class">.banner--overlay</span> <span class="hljs-selector-tag">h6</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>),
-    <span class="hljs-selector-class">.banner--overlay</span> <span class="hljs-selector-tag">blockquote</span> {
+  <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-class">.headline</span><span class="hljs-selector-class">.headline--negative</span> {
+    <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+    <span class="hljs-attribute">text-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-number">#000</span>; }
+    <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-class">.headline</span><span class="hljs-selector-class">.headline--negative</span> <span class="hljs-selector-tag">a</span> {
       <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>; }
-      <span class="hljs-selector-class">.banner--overlay</span> <span class="hljs-selector-tag">h2</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>) <span class="hljs-selector-tag">a</span>,
-      <span class="hljs-selector-class">.banner--overlay</span> <span class="hljs-selector-tag">h3</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>) <span class="hljs-selector-tag">a</span>,
-      <span class="hljs-selector-class">.banner--overlay</span> <span class="hljs-selector-tag">h4</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>) <span class="hljs-selector-tag">a</span>,
-      <span class="hljs-selector-class">.banner--overlay</span> <span class="hljs-selector-tag">h5</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>) <span class="hljs-selector-tag">a</span>,
-      <span class="hljs-selector-class">.banner--overlay</span> <span class="hljs-selector-tag">h6</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>) <span class="hljs-selector-tag">a</span>,
-      <span class="hljs-selector-class">.banner--overlay</span> <span class="hljs-selector-tag">blockquote</span> <span class="hljs-selector-tag">a</span> {
+  <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">h2</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>),
+  <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">h3</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>),
+  <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">h4</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>),
+  <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">h5</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>),
+  <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">h6</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>),
+  <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">blockquote</span> {
+    <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>; }
+    <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">h2</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>) <span class="hljs-selector-tag">a</span>,
+    <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">h3</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>) <span class="hljs-selector-tag">a</span>,
+    <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">h4</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>) <span class="hljs-selector-tag">a</span>,
+    <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">h5</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>) <span class="hljs-selector-tag">a</span>,
+    <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">h6</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>) <span class="hljs-selector-tag">a</span>,
+    <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-tag">blockquote</span> <span class="hljs-selector-tag">a</span> {
+      <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>; }
+  <span class="hljs-selector-class">.banner--stacked</span> {
+    <span class="hljs-attribute">display</span>: block; }
+    <span class="hljs-selector-class">.banner--stacked</span>:after {
+      background: none; }
+    <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
+      <span class="hljs-selector-class">.banner--stacked</span> {
+        <span class="hljs-attribute">display</span>: flex; } }
+    <span class="hljs-selector-class">.banner--stacked</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg&quot;</span>]</span> {
+      <span class="hljs-attribute">display</span>: flex; }
+    <span class="hljs-selector-class">.banner--stacked</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg--black&quot;</span>]</span>, <span class="hljs-selector-class">.banner--stacked</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg-pattern--brain-black&quot;</span>]</span> {
+      <span class="hljs-attribute">display</span>: flex; }
+      <span class="hljs-selector-class">.banner--stacked</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg--black&quot;</span>]</span> <span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bttn&quot;</span>]</span>), <span class="hljs-selector-class">.banner--stacked</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg-pattern--brain-black&quot;</span>]</span> <span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bttn&quot;</span>]</span>) {
         <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>; }
+      <span class="hljs-selector-class">.banner--stacked</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg--black&quot;</span>]</span> <span class="hljs-selector-class">.headline</span><span class="hljs-selector-class">.headline--negative</span>, <span class="hljs-selector-class">.banner--stacked</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg-pattern--brain-black&quot;</span>]</span> <span class="hljs-selector-class">.headline</span><span class="hljs-selector-class">.headline--negative</span> {
+        <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>; }
+    <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-class">.media--video</span> {
+      <span class="hljs-attribute">position</span>: relative; }
+      <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
+        <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-class">.media--video</span> {
+          <span class="hljs-attribute">position</span>: absolute; } }
+      <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-class">.media--video</span> <span class="hljs-selector-class">.video-btn</span> {
+        <span class="hljs-attribute">display</span>: block; }
+    <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-class">.banner__image</span> <span class="hljs-selector-tag">img</span> {
+      <span class="hljs-attribute">position</span>: relative; }
+      <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
+        <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-class">.banner__image</span> <span class="hljs-selector-tag">img</span> {
+          <span class="hljs-attribute">position</span>: absolute; } }
+    <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-class">.banner__text</span> <span class="hljs-selector-tag">p</span> {
+      <span class="hljs-attribute">color</span>: <span class="hljs-number">#151515</span>;
+      <span class="hljs-attribute">text-shadow</span>: none; }
+      <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
+        <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-class">.banner__text</span> <span class="hljs-selector-tag">p</span> {
+          <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+          <span class="hljs-attribute">text-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-number">#000</span>; } }
+      <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-class">.banner__text</span> <span class="hljs-selector-tag">p</span> <span class="hljs-selector-tag">a</span> {
+        <span class="hljs-attribute">color</span>: <span class="hljs-number">#151515</span>; }
+        <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
+          <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-class">.banner__text</span> <span class="hljs-selector-tag">p</span> <span class="hljs-selector-tag">a</span> {
+            <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>; } }
+    <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-class">.headline</span><span class="hljs-selector-class">.headline--negative</span> {
+      <span class="hljs-attribute">color</span>: <span class="hljs-number">#151515</span>;
+      <span class="hljs-attribute">text-shadow</span>: none; }
+      <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
+        <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-class">.headline</span><span class="hljs-selector-class">.headline--negative</span> {
+          <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+          <span class="hljs-attribute">text-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-number">#000</span>; } }
+      <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-class">.headline</span><span class="hljs-selector-class">.headline--negative</span> <span class="hljs-selector-tag">a</span> {
+        <span class="hljs-attribute">color</span>: <span class="hljs-number">#151515</span>;
+        <span class="hljs-attribute">text-shadow</span>: none; }
+        <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
+          <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-class">.headline</span><span class="hljs-selector-class">.headline--negative</span> <span class="hljs-selector-tag">a</span> {
+            <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+            <span class="hljs-attribute">text-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-number">#000</span>; } }
+    <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-tag">h2</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>),
+    <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-tag">h3</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>),
+    <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-tag">h4</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>),
+    <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-tag">h5</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>),
+    <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-tag">h6</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>),
+    <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-tag">blockquote</span> {
+      <span class="hljs-attribute">color</span>: <span class="hljs-number">#151515</span>; }
+      <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
+        <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-tag">h2</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>),
+        <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-tag">h3</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>),
+        <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-tag">h4</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>),
+        <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-tag">h5</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>),
+        <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-tag">h6</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>),
+        <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-tag">blockquote</span> {
+          <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>; } }
+      <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-tag">h2</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>) <span class="hljs-selector-tag">a</span>,
+      <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-tag">h3</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>) <span class="hljs-selector-tag">a</span>,
+      <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-tag">h4</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>) <span class="hljs-selector-tag">a</span>,
+      <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-tag">h5</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>) <span class="hljs-selector-tag">a</span>,
+      <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-tag">h6</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>) <span class="hljs-selector-tag">a</span>,
+      <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-tag">blockquote</span> <span class="hljs-selector-tag">a</span> {
+        <span class="hljs-attribute">color</span>: <span class="hljs-number">#151515</span>; }
+        <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
+          <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-tag">h2</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>) <span class="hljs-selector-tag">a</span>,
+          <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-tag">h3</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>) <span class="hljs-selector-tag">a</span>,
+          <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-tag">h4</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>) <span class="hljs-selector-tag">a</span>,
+          <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-tag">h5</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>) <span class="hljs-selector-tag">a</span>,
+          <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-tag">h6</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;headline&quot;</span>]</span>) <span class="hljs-selector-tag">a</span>,
+          <span class="hljs-selector-class">.banner--stacked</span> <span class="hljs-selector-tag">blockquote</span> <span class="hljs-selector-tag">a</span> {
+            <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>; } }
+  <span class="hljs-selector-class">.banner</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg--black--pattern&quot;</span>]</span> <span class="hljs-selector-tag">p</span>, <span class="hljs-selector-class">.banner</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg-pattern--brain-black&quot;</span>]</span> <span class="hljs-selector-tag">p</span> {
+    <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>; }
   <span class="hljs-selector-class">.banner</span><span class="hljs-selector-class">.bg-pattern--brain</span>, <span class="hljs-selector-class">.banner</span><span class="hljs-selector-class">.bg-pattern--brain-reversed</span>, <span class="hljs-selector-class">.banner</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg--gold&quot;</span>]</span>, <span class="hljs-selector-class">.banner</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg--white&quot;</span>]</span>, <span class="hljs-selector-class">.banner</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg--gray&quot;</span>]</span> {
     <span class="hljs-attribute">color</span>: <span class="hljs-number">#151515</span>; }
     <span class="hljs-selector-class">.banner</span><span class="hljs-selector-class">.bg-pattern--brain</span> <span class="hljs-selector-tag">p</span>, <span class="hljs-selector-class">.banner</span><span class="hljs-selector-class">.bg-pattern--brain-reversed</span> <span class="hljs-selector-tag">p</span>, <span class="hljs-selector-class">.banner</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg--gold&quot;</span>]</span> <span class="hljs-selector-tag">p</span>, <span class="hljs-selector-class">.banner</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg--white&quot;</span>]</span> <span class="hljs-selector-tag">p</span>, <span class="hljs-selector-class">.banner</span><span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg--gray&quot;</span>]</span> <span class="hljs-selector-tag">p</span> {
@@ -593,54 +680,54 @@
   <span class="hljs-selector-class">.banner--horizontal-left</span><span class="hljs-selector-class">.banner--vertical-bottom</span> <span class="hljs-selector-class">.banner__content</span> {
     <span class="hljs-attribute">padding-bottom</span>: <span class="hljs-number">4.25rem</span>; } }
 
-<span class="hljs-selector-class">.media--video</span> {
-  <span class="hljs-attribute">position</span>: relative; }
-  <span class="hljs-selector-class">.media--video</span> <span class="hljs-selector-class">.video-controls</span> {
-    <span class="hljs-attribute">position</span>: absolute;
-    <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;
-    <span class="hljs-attribute">left</span>: <span class="hljs-number">1.25rem</span>;
-    <span class="hljs-attribute">bottom</span>: <span class="hljs-number">1.25rem</span>; }
-    <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">84.375em</span>) {
-      <span class="hljs-selector-class">.media--video</span> <span class="hljs-selector-class">.video-controls</span> {
-        <span class="hljs-attribute">left</span>: <span class="hljs-number">3rem</span>;
-        <span class="hljs-attribute">bottom</span>: <span class="hljs-number">3rem</span>; } }
-    <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">84.375em</span>) {
-      <span class="hljs-selector-class">.banner--horizontal-left</span><span class="hljs-selector-class">.banner--vertical-bottom</span> <span class="hljs-selector-class">.media--video</span> <span class="hljs-selector-class">.video-controls</span> {
-        <span class="hljs-attribute">bottom</span>: <span class="hljs-number">1.5rem</span>;
-        <span class="hljs-attribute">left</span>: <span class="hljs-number">1.5rem</span>; } }
-  <span class="hljs-selector-class">.media--video</span> <span class="hljs-selector-class">.video-btn</span> {
-    <span class="hljs-attribute">display</span>: none;
-    <span class="hljs-attribute">width</span>: <span class="hljs-number">40px</span>;
-    <span class="hljs-attribute">height</span>: <span class="hljs-number">40px</span>;
-    <span class="hljs-attribute">cursor</span>: pointer;
-    <span class="hljs-attribute">color</span>: <span class="hljs-number">#151515</span>;
-    <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid white;
-    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">50%</span>;
-    <span class="hljs-attribute">background</span>: white;
-    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1rem</span>;
-    <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>; }
-    <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
-      <span class="hljs-selector-class">.media--video</span> <span class="hljs-selector-class">.video-btn</span> {
-        <span class="hljs-attribute">display</span>: block; } }
-    <span class="hljs-selector-class">.media--video</span> <span class="hljs-selector-class">.video-btn</span><span class="hljs-selector-pseudo">::after</span> {
-      <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;\f04b&quot;</span>;
-      -moz-osx-<span class="hljs-attribute">font-smoothing</span>: grayscale;
-      -webkit-<span class="hljs-attribute">font-smoothing</span>: antialiased;
-      <span class="hljs-attribute">display</span>: inline-block;
-      <span class="hljs-attribute">font-style</span>: normal;
-      <span class="hljs-attribute">font-variant</span>: normal;
-      <span class="hljs-attribute">text-rendering</span>: auto;
-      <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1</span>;
-      <span class="hljs-attribute">font-family</span>: <span class="hljs-string">&quot;Font Awesome 5 Free&quot;</span>;
-      <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">900</span>;
-      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1rem</span>; }
-    <span class="hljs-selector-class">.media--video</span> <span class="hljs-selector-class">.video-btn</span><span class="hljs-selector-class">.video-btn__play</span><span class="hljs-selector-pseudo">::after</span> {
-      <span class="hljs-attribute">margin-left</span>: <span class="hljs-number">3px</span>; }
-    <span class="hljs-selector-class">.media--video</span> <span class="hljs-selector-class">.video-btn</span><span class="hljs-selector-class">.video-btn__pause</span><span class="hljs-selector-pseudo">::after</span> {
-      <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;\f04c&quot;</span>; }
-  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">hover</span>: none), (<span class="hljs-attribute">hover</span>: on-demand) {
+<span class="hljs-selector-class">.media--video</span> <span class="hljs-selector-class">.video-controls</span> {
+  <span class="hljs-attribute">position</span>: absolute;
+  <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;
+  <span class="hljs-attribute">left</span>: <span class="hljs-number">1.25rem</span>;
+  <span class="hljs-attribute">bottom</span>: <span class="hljs-number">1.25rem</span>; }
+  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">84.375em</span>) {
+    <span class="hljs-selector-class">.media--video</span> <span class="hljs-selector-class">.video-controls</span> {
+      <span class="hljs-attribute">left</span>: <span class="hljs-number">3rem</span>;
+      <span class="hljs-attribute">bottom</span>: <span class="hljs-number">3rem</span>; } }
+  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">84.375em</span>) {
+    <span class="hljs-selector-class">.banner--horizontal-left</span><span class="hljs-selector-class">.banner--vertical-bottom</span> <span class="hljs-selector-class">.media--video</span> <span class="hljs-selector-class">.video-controls</span> {
+      <span class="hljs-attribute">bottom</span>: <span class="hljs-number">1.5rem</span>;
+      <span class="hljs-attribute">left</span>: <span class="hljs-number">1.5rem</span>; } }
+
+<span class="hljs-selector-class">.media--video</span> <span class="hljs-selector-class">.video-btn</span> {
+  <span class="hljs-attribute">display</span>: none;
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">40px</span>;
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">40px</span>;
+  <span class="hljs-attribute">cursor</span>: pointer;
+  <span class="hljs-attribute">color</span>: <span class="hljs-number">#151515</span>;
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid white;
+  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">50%</span>;
+  <span class="hljs-attribute">background</span>: white;
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1rem</span>;
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>; }
+  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">min-width</span>: <span class="hljs-number">768px</span>) {
     <span class="hljs-selector-class">.media--video</span> <span class="hljs-selector-class">.video-btn</span> {
-      <span class="hljs-attribute">display</span>: none; } }
+      <span class="hljs-attribute">display</span>: block; } }
+  <span class="hljs-selector-class">.media--video</span> <span class="hljs-selector-class">.video-btn</span><span class="hljs-selector-pseudo">::after</span> {
+    <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;\f04b&quot;</span>;
+    -moz-osx-<span class="hljs-attribute">font-smoothing</span>: grayscale;
+    -webkit-<span class="hljs-attribute">font-smoothing</span>: antialiased;
+    <span class="hljs-attribute">display</span>: inline-block;
+    <span class="hljs-attribute">font-style</span>: normal;
+    <span class="hljs-attribute">font-variant</span>: normal;
+    <span class="hljs-attribute">text-rendering</span>: auto;
+    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1</span>;
+    <span class="hljs-attribute">font-family</span>: <span class="hljs-string">&quot;Font Awesome 5 Free&quot;</span>;
+    <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">900</span>;
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1rem</span>; }
+  <span class="hljs-selector-class">.media--video</span> <span class="hljs-selector-class">.video-btn</span><span class="hljs-selector-class">.video-btn__play</span><span class="hljs-selector-pseudo">::after</span> {
+    <span class="hljs-attribute">margin-left</span>: <span class="hljs-number">3px</span>; }
+  <span class="hljs-selector-class">.media--video</span> <span class="hljs-selector-class">.video-btn</span><span class="hljs-selector-class">.video-btn__pause</span><span class="hljs-selector-pseudo">::after</span> {
+    <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;\f04c&quot;</span>; }
+
+<span class="hljs-keyword">@media</span> (<span class="hljs-attribute">hover</span>: none), (<span class="hljs-attribute">hover</span>: on-demand) {
+  <span class="hljs-selector-class">.media--video</span> <span class="hljs-selector-class">.video-btn</span> {
+    <span class="hljs-attribute">display</span>: none; } }
 
 <span class="hljs-keyword">@media</span> all <span class="hljs-keyword">and</span> (<span class="hljs-attribute">-ms-high-contrast</span>: none), (<span class="hljs-attribute">-ms-high-contrast</span>: active) {
   <span class="hljs-selector-class">.banner</span> {
@@ -653,9 +740,9 @@
     <span class="hljs-attribute">display</span>: flex;
     <span class="hljs-attribute">justify-content</span>: center;
     <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>; }
-  <span class="hljs-selector-class">.banner__image</span> <span class="hljs-selector-tag">img</span>,
-  <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-class">.media--video</span> {
-    <span class="hljs-attribute">left</span>: <span class="hljs-number">0px</span>; }
+  <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-class">.media--video</span>,
+  <span class="hljs-selector-class">.banner__image</span> <span class="hljs-selector-tag">img</span> {
+    <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>; }
   <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-class">.banner__container</span> {
     <span class="hljs-attribute">min-height</span>: <span class="hljs-number">18rem</span>; } }
 
@@ -680,7 +767,7 @@
     <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
     <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
     <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;&quot;</span>;
-    <span class="hljs-attribute">transition</span>: all .<span class="hljs-number">5s</span> ease-in-out;
+    <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.5s</span> ease-in-out;
     will-change: opacity;
     <span class="hljs-attribute">background</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.5</span>); } }
 
@@ -738,7 +825,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">18.8 KB</span>
+                    <span class="Meta-value">22 KB</span>
                 </li>
             </ul>
         </div>
@@ -755,9 +842,26 @@
 <span class="hljs-keyword">@import</span> <span class="hljs-string">&#x27;../../assets/scss/utilities&#x27;</span>;
 
 <span class="hljs-selector-class">.banner</span> {
+  <span class="hljs-attribute">flex-basis</span>: <span class="hljs-number">100%</span>;
+  <span class="hljs-attribute">display</span>: flex;
+  <span class="hljs-attribute">align-items</span>: center;
+  <span class="hljs-attribute">justify-content</span>: center;
+
+  &amp;:after {
+    position: absolute;
+    <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">display</span>: block;
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+    <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;&quot;</span>;
+    -webkit-<span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.5s</span> ease-in-out;
+    <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.5s</span> ease-in-out;
+    will-change: opacity;
+    <span class="hljs-attribute">background</span>: rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, .<span class="hljs-number">5</span>);
+  }
   <span class="hljs-comment">// @todo Replace with https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio</span>
   <span class="hljs-attribute">min-height</span>: <span class="hljs-number">15rem</span>;
-
   <span class="hljs-comment">// Banner Heights for large and medium</span>
   &amp;--large {
     &amp;<span class="hljs-selector-pseudo">::before</span> {
@@ -774,7 +878,6 @@
       <span class="hljs-attribute">content</span>: <span class="hljs-string">&#x27;&#x27;</span>;
     }
   }
-
   <span class="hljs-comment">// Full screen 100vh option</span>
   &amp;--full {
     &amp;<span class="hljs-selector-class">.banner--large</span> {
@@ -785,21 +888,15 @@
   }
 
   &amp;<span class="hljs-selector-pseudo">::after</span> {
+    <span class="hljs-attribute">display</span>: block;
+    <span class="hljs-attribute">content</span>: <span class="hljs-string">&#x27;&#x27;</span>;
+    <span class="hljs-attribute">clear</span>: both;
     <span class="hljs-keyword">@include</span> breakpoint(page-container) {
       <span class="hljs-attribute">display</span>: block;
       <span class="hljs-attribute">content</span>: <span class="hljs-string">&#x27;&#x27;</span>;
       <span class="hljs-attribute">clear</span>: both;
     }
   }
-
-  &amp;--overlay {
-    &amp;:after {
-      display: block;
-      <span class="hljs-attribute">content</span>: <span class="hljs-string">&#x27;&#x27;</span>;
-      <span class="hljs-attribute">clear</span>: both;
-    }
-  }
-
   <span class="hljs-comment">// Override background color if button is within a gold container</span>
   &amp;<span class="hljs-selector-class">.bg-pattern--brain-reversed</span>,
   &amp;<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg--gold&quot;</span>]</span> {
@@ -814,12 +911,11 @@
     }
   }
 }
-
 <span class="hljs-comment">// Banner styles</span>
+
 <span class="hljs-selector-class">.banner</span> {
   <span class="hljs-attribute">position</span>: relative;
   <span class="hljs-attribute">overflow</span>: hidden;
-
   <span class="hljs-keyword">@include</span> breakpoint(sm) {
     <span class="hljs-attribute">flex-basis</span>: <span class="hljs-number">100%</span>;
     <span class="hljs-attribute">display</span>: flex;
@@ -841,16 +937,17 @@
     }
 
     &amp;<span class="hljs-selector-class">.headline--negative</span> {
-      <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
+      <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+      <span class="hljs-attribute">text-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-number">#000</span>;
+      <span class="hljs-keyword">@include</span> breakpoint(sm) {
+        <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+      }
 
       <span class="hljs-selector-tag">a</span> {
+        <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
         <span class="hljs-keyword">@include</span> breakpoint(sm) {
           <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
         }
-      }
-      <span class="hljs-keyword">@include</span> breakpoint(sm) {
-        <span class="hljs-attribute">text-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-number">#000</span>;
-        <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
       }
     }
     <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">0</span>;
@@ -893,11 +990,9 @@
   }
 
   &amp;__container {
-
     <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;
     <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
     <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;
-
     <span class="hljs-keyword">@include</span> breakpoint(sm) {
       <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;
       <span class="hljs-attribute">max-width</span>: <span class="hljs-number">81.875em</span>;
@@ -917,18 +1012,15 @@
     <span class="hljs-attribute">overflow</span>: visible;
 
     <span class="hljs-selector-tag">img</span> {
-      <span class="hljs-keyword">@include</span> breakpoint(sm) {
-        <span class="hljs-attribute">display</span>: block;
-        <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
-        -o-<span class="hljs-selector-tag">object</span>-fit: cover;
-        <span class="hljs-selector-tag">object</span>-fit: cover;
-        <span class="hljs-attribute">position</span>: absolute;
-        <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
-        <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
-      }
+      <span class="hljs-attribute">display</span>: block;
+      <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+      -o-<span class="hljs-selector-tag">object</span>-fit: cover;
+      <span class="hljs-selector-tag">object</span>-fit: cover;
+      <span class="hljs-attribute">position</span>: absolute;
+      <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+      <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
     }
   }
-
 
   <span class="hljs-selector-class">.headline</span> + <span class="hljs-selector-class">.banner__action</span> {
     <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">1.5rem</span>;
@@ -936,6 +1028,7 @@
 
   <span class="hljs-selector-class">.banner__action</span> <span class="hljs-selector-class">.bttn</span> {
     <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> <span class="hljs-number">1rem</span> <span class="hljs-number">1rem</span> <span class="hljs-number">0</span>;
+
     + <span class="hljs-selector-class">.bttn</span> {
       <span class="hljs-keyword">@include</span> breakpoint(sm) {
         <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> <span class="hljs-number">1rem</span> <span class="hljs-number">1rem</span> <span class="hljs-number">0</span>;
@@ -944,10 +1037,10 @@
   }
 
   <span class="hljs-selector-class">.media--video</span> {
-    <span class="hljs-attribute">position</span>: absolute;
     <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
     <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
     <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">position</span>: absolute;
 
     <span class="hljs-selector-tag">video</span> {
       <span class="hljs-attribute">overflow</span>: visible;
@@ -955,9 +1048,11 @@
       <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
       -o-<span class="hljs-selector-tag">object</span>-fit: cover;
       <span class="hljs-selector-tag">object</span>-fit: cover;
-      <span class="hljs-attribute">position</span>: absolute;
       <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
       <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">@include</span> breakpoint(sm) {
+        <span class="hljs-attribute">position</span>: absolute;
+      }
     }
   }
 
@@ -973,8 +1068,9 @@
       <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">0</span>;
     }
     &amp;<span class="hljs-selector-class">.headline--uppercase</span> {
-      <span class="hljs-attribute">margin-bottom</span>: .<span class="hljs-number">7rem</span>;
+      <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">0.7rem</span>;
     }
+
     &amp;<span class="hljs-selector-class">.headline--highlight</span> {
       <span class="hljs-attribute">margin-bottom</span>: -.<span class="hljs-number">1rem</span>;
     }
@@ -982,10 +1078,12 @@
     &amp;<span class="hljs-selector-class">.headline--highlight</span> {
       <span class="hljs-selector-tag">span</span> {
         <span class="hljs-attribute">background</span>: none;
+
         <span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg--black&quot;</span>]</span> &amp;,
         <span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;banner--gradient&quot;</span>]</span> &amp; {
           <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
         }
+
         <span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg--gold&quot;</span>]</span> &amp; {
           <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
         }
@@ -1011,12 +1109,11 @@
 
   &amp;__content {
     <span class="hljs-attribute">padding</span>: <span class="hljs-variable">$gutter</span>;
-
     <span class="hljs-keyword">@include</span> breakpoint(sm) {
-      <span class="hljs-attribute">padding</span>: <span class="hljs-number">1.25rem</span> <span class="hljs-number">0</span> <span class="hljs-number">2rem</span> <span class="hljs-number">0</span>;
+      <span class="hljs-attribute">padding</span>: <span class="hljs-number">1.25rem</span> <span class="hljs-number">0</span> <span class="hljs-number">2rem</span>;
     }
 
-    &gt;* {
+    &gt; * {
       <span class="hljs-attribute">flex-basis</span>: <span class="hljs-number">100%</span>;
     }
 
@@ -1025,7 +1122,6 @@
       <span class="hljs-attribute">margin-left</span>: <span class="hljs-number">0</span>;
       <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;
     }
-
     <span class="hljs-keyword">@include</span> breakpoint(page-container) {
       <span class="hljs-attribute">padding</span>: <span class="hljs-variable">$gutter</span> <span class="hljs-number">0</span>;
     }
@@ -1040,14 +1136,7 @@
     <span class="hljs-keyword">@include</span> breakpoint(sm) {
       <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
     }
-
-    <span class="hljs-selector-tag">a</span> {
-      <span class="hljs-keyword">@include</span> breakpoint(sm) {
-        <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
-      }
-    }
   }
-
 
   <span class="hljs-selector-tag">p</span> {
     <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.5</span>;
@@ -1060,50 +1149,153 @@
     <span class="hljs-selector-tag">a</span> {
       <span class="hljs-attribute">position</span>: relative;
       <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;
-      <span class="hljs-keyword">@include</span> breakpoint(sm) {
-        <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
-      }
     }
   }
 
-  <span class="hljs-comment">// add banner--overlay class so keep text on top of image for mobile.</span>
-  &amp;--overlay {
-    <span class="hljs-attribute">flex-basis</span>: <span class="hljs-number">100%</span>;
-    <span class="hljs-attribute">display</span>: flex;
-    <span class="hljs-attribute">align-items</span>: center;
-    <span class="hljs-attribute">justify-content</span>: center;
-    <span class="hljs-selector-class">.banner__image</span> {
-      <span class="hljs-selector-tag">img</span> {
-        <span class="hljs-attribute">display</span>: block;
-        <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
-        -o-<span class="hljs-selector-tag">object</span>-fit: cover;
-        <span class="hljs-selector-tag">object</span>-fit: cover;
-        <span class="hljs-attribute">position</span>: absolute;
-        <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
-        <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
-      }
-    }
-    <span class="hljs-selector-tag">p</span> {
-      <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
-      <span class="hljs-attribute">text-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-number">#000</span>;
-    }
+  <span class="hljs-selector-tag">p</span> {
+    <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+    <span class="hljs-attribute">text-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-number">#000</span>;
+
     <span class="hljs-selector-tag">a</span> {
       <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
     }
+  }
+
+  <span class="hljs-selector-class">.headline</span><span class="hljs-selector-class">.headline--negative</span> {
+    <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+    <span class="hljs-attribute">text-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-number">#000</span>;
+
+    <span class="hljs-selector-tag">a</span> {
+      <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+    }
+  }
+
+  <span class="hljs-selector-tag">h2</span><span class="hljs-selector-pseudo">:not</span>([class*=&quot;headline&quot;]),
+  <span class="hljs-selector-tag">h3</span><span class="hljs-selector-pseudo">:not</span>([class*=&quot;headline&quot;]),
+  <span class="hljs-selector-tag">h4</span><span class="hljs-selector-pseudo">:not</span>([class*=&quot;headline&quot;]),
+  <span class="hljs-selector-tag">h5</span><span class="hljs-selector-pseudo">:not</span>([class*=&quot;headline&quot;]),
+  <span class="hljs-selector-tag">h6</span><span class="hljs-selector-pseudo">:not</span>([class*=&quot;headline&quot;]),
+  <span class="hljs-selector-tag">blockquote</span> {
+    <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+
+    <span class="hljs-selector-tag">a</span> {
+      <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+    }
+  }
+
+  &amp;--stacked {
+    &amp;:after {
+      background: none;
+    }
+    <span class="hljs-attribute">display</span>: block;
+    <span class="hljs-keyword">@include</span> breakpoint(sm) {
+      <span class="hljs-attribute">display</span>: flex;
+    }
+
+    &amp;<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg&quot;</span>]</span> {
+      <span class="hljs-attribute">display</span>: flex;
+    }
+
+    &amp;<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg--black&quot;</span>]</span> {
+
+    }
+
+    &amp;<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg--black&quot;</span>]</span>,
+    &amp;<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg-pattern--brain-black&quot;</span>]</span> {
+      <span class="hljs-attribute">display</span>: flex;
+
+      <span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:not</span>([class*=&quot;bttn&quot;]) {
+        <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+      }
+
+      <span class="hljs-selector-class">.headline</span><span class="hljs-selector-class">.headline--negative</span> {
+        <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+      }
+    }
+
+    <span class="hljs-selector-class">.media--video</span> {
+      <span class="hljs-attribute">position</span>: relative;
+      <span class="hljs-keyword">@include</span> breakpoint(sm) {
+        <span class="hljs-attribute">position</span>: absolute;
+      }
+
+      <span class="hljs-selector-class">.video-btn</span> {
+        <span class="hljs-attribute">display</span>: block;
+      }
+    }
+
+    <span class="hljs-selector-class">.banner__image</span> {
+      <span class="hljs-selector-tag">img</span> {
+        <span class="hljs-attribute">position</span>: relative;
+        <span class="hljs-keyword">@include</span> breakpoint(sm) {
+          <span class="hljs-attribute">position</span>: absolute;
+        }
+      }
+    }
+
+    <span class="hljs-selector-class">.banner__text</span> {
+      <span class="hljs-selector-tag">p</span> {
+        <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
+        <span class="hljs-attribute">text-shadow</span>: none;
+        <span class="hljs-keyword">@include</span> breakpoint(sm) {
+          <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+          <span class="hljs-attribute">text-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-number">#000</span>;
+        }
+
+        <span class="hljs-selector-tag">a</span> {
+          <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
+          <span class="hljs-keyword">@include</span> breakpoint(sm) {
+            <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+          }
+        }
+      }
+    }
+
+
+    <span class="hljs-selector-class">.headline</span><span class="hljs-selector-class">.headline--negative</span> {
+      <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
+      <span class="hljs-attribute">text-shadow</span>: none;
+      <span class="hljs-keyword">@include</span> breakpoint(sm) {
+        <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+        <span class="hljs-attribute">text-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-number">#000</span>;
+      }
+
+      <span class="hljs-selector-tag">a</span> {
+        <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
+        <span class="hljs-attribute">text-shadow</span>: none;
+        <span class="hljs-keyword">@include</span> breakpoint(sm) {
+          <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+          <span class="hljs-attribute">text-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-number">#000</span>;
+        }
+      }
+    }
+
     <span class="hljs-selector-tag">h2</span><span class="hljs-selector-pseudo">:not</span>([class*=&quot;headline&quot;]),
     <span class="hljs-selector-tag">h3</span><span class="hljs-selector-pseudo">:not</span>([class*=&quot;headline&quot;]),
     <span class="hljs-selector-tag">h4</span><span class="hljs-selector-pseudo">:not</span>([class*=&quot;headline&quot;]),
     <span class="hljs-selector-tag">h5</span><span class="hljs-selector-pseudo">:not</span>([class*=&quot;headline&quot;]),
     <span class="hljs-selector-tag">h6</span><span class="hljs-selector-pseudo">:not</span>([class*=&quot;headline&quot;]),
     <span class="hljs-selector-tag">blockquote</span> {
+      <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
+      <span class="hljs-keyword">@include</span> breakpoint(sm) {
         <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+      }
 
       <span class="hljs-selector-tag">a</span> {
+        <span class="hljs-attribute">color</span>: <span class="hljs-variable">$secondary</span>;
+        <span class="hljs-keyword">@include</span> breakpoint(sm) {
           <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+        }
       }
     }
   }
-
+  <span class="hljs-comment">//Patterns</span>
+  &amp;<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg--black--pattern&quot;</span>]</span>,
+  &amp;<span class="hljs-selector-attr">[class*=<span class="hljs-string">&quot;bg-pattern--brain-black&quot;</span>]</span> {
+    <span class="hljs-selector-tag">p</span> {
+      <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;
+    }
+  }
   <span class="hljs-comment">// bg variants</span>
   <span class="hljs-comment">// @todo This should probably be resolved with https://sass-lang.com/documentation/values/maps#using-maps</span>
   &amp;<span class="hljs-selector-class">.bg-pattern--brain</span>,
@@ -1181,11 +1373,10 @@
       }
     }
   }
-
 }
-
 <span class="hljs-comment">// Set large heading size</span>
 <span class="hljs-comment">// Overriding the serif font size set in typography/headings.scss</span>
+
 <span class="hljs-selector-pseudo">:where</span>(h2, h3, h4, h5, h6) {
   &amp;<span class="hljs-selector-class">.headline--large</span><span class="hljs-selector-class">.headline--serif</span>,
   &amp;<span class="hljs-selector-class">.headline--large</span> {
@@ -1207,22 +1398,21 @@
     <span class="hljs-attribute">font-size</span>: containerClamp(<span class="hljs-number">2rem</span>, <span class="hljs-number">2.7rem</span>);
   }
 }
-
-
 <span class="hljs-comment">// Alignment Variants</span>
+
 <span class="hljs-selector-class">.banner--horizontal-center</span> {
   <span class="hljs-attribute">text-align</span>: center;
 
   <span class="hljs-selector-class">.banner__content</span> {
-    &gt;* {
+    &gt; * {
       <span class="hljs-attribute">margin-right</span>: auto;
       <span class="hljs-attribute">margin-left</span>: auto;
     }
   }
 }
-
 <span class="hljs-comment">// Bottom/Left Video button alignment</span>
-<span class="hljs-selector-class">.banner--horizontal-left</span><span class="hljs-selector-class">.banner--vertical-bottom</span>  {
+
+<span class="hljs-selector-class">.banner--horizontal-left</span><span class="hljs-selector-class">.banner--vertical-bottom</span> {
   <span class="hljs-selector-class">.banner__content</span> {
     <span class="hljs-keyword">@include</span> breakpoint(sm) {
       <span class="hljs-attribute">padding-bottom</span>: <span class="hljs-number">4.25rem</span>;
@@ -1231,18 +1421,17 @@
 }
 
 <span class="hljs-selector-class">.media--video</span> {
-  <span class="hljs-attribute">position</span>: relative;
-
+  <span class="hljs-comment">//position: relative;</span>
   <span class="hljs-selector-class">.video-controls</span> {
     <span class="hljs-attribute">position</span>: absolute;
     <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;
     <span class="hljs-attribute">left</span>: <span class="hljs-number">1.25rem</span>;
     <span class="hljs-attribute">bottom</span>: <span class="hljs-number">1.25rem</span>;
-
     <span class="hljs-keyword">@include</span> breakpoint(page-container) {
       <span class="hljs-attribute">left</span>: <span class="hljs-number">3rem</span>;
       <span class="hljs-attribute">bottom</span>: <span class="hljs-number">3rem</span>;
     }
+
     <span class="hljs-selector-class">.banner--horizontal-left</span><span class="hljs-selector-class">.banner--vertical-bottom</span> &amp; {
       <span class="hljs-keyword">@include</span> breakpoint(page-container) {
         <span class="hljs-attribute">bottom</span>: <span class="hljs-number">1.5rem</span>;
@@ -1262,7 +1451,6 @@
     <span class="hljs-attribute">background</span>: white;
     <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1rem</span>;
     <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
-
     <span class="hljs-keyword">@include</span> breakpoint(sm) {
       <span class="hljs-attribute">display</span>: block;
     }
@@ -1281,33 +1469,31 @@
       <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;\f04c&quot;</span>;
     }
   }
-
-  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">hover</span>:none),
-  (<span class="hljs-attribute">hover</span>:on-demand) {
+  <span class="hljs-keyword">@media</span> (<span class="hljs-attribute">hover</span>:none), (<span class="hljs-attribute">hover</span>:on-demand) {
     <span class="hljs-selector-class">.video-btn</span> {
       <span class="hljs-attribute">display</span>: none;
     }
   }
 }
-
 <span class="hljs-comment">// ie11</span>
-<span class="hljs-keyword">@media</span> all <span class="hljs-keyword">and</span> (<span class="hljs-attribute">-ms-high-contrast</span>: none),
-(<span class="hljs-attribute">-ms-high-contrast</span>: active) {
+<span class="hljs-keyword">@media</span> all <span class="hljs-keyword">and</span> (<span class="hljs-attribute">-ms-high-contrast</span>: none), (<span class="hljs-attribute">-ms-high-contrast</span>: active) {
   <span class="hljs-selector-class">.banner</span> {
-    <span class="hljs-attribute">display</span>:flex;
-    <span class="hljs-attribute">justify-content</span>:center;
-    <span class="hljs-attribute">align-items</span>:center;
+    <span class="hljs-attribute">display</span>: flex;
+    <span class="hljs-attribute">justify-content</span>: center;
+    <span class="hljs-attribute">align-items</span>: center;
     <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
   }
-  <span class="hljs-selector-class">.banner__container</span>  {
+
+  <span class="hljs-selector-class">.banner__container</span> {
     <span class="hljs-attribute">align-items</span>: center;
     <span class="hljs-attribute">display</span>: flex;
     <span class="hljs-attribute">justify-content</span>: center;
     <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
   }
-  <span class="hljs-selector-class">.banner__image</span> <span class="hljs-selector-tag">img</span>,
-  <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-class">.media--video</span> {
-    <span class="hljs-attribute">left</span>: <span class="hljs-number">0px</span>;
+
+  <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-class">.media--video</span>,
+  <span class="hljs-selector-class">.banner__image</span> <span class="hljs-selector-tag">img</span> {
+    <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
   }
 
   <span class="hljs-selector-class">.banner</span> <span class="hljs-selector-class">.banner__container</span> {
@@ -1329,8 +1515,8 @@
     }
   }
 }
-
 <span class="hljs-comment">// Gradient overlays</span>
+
 <span class="hljs-selector-class">.banner</span> {
   <span class="hljs-comment">// Default overlay</span>
   &amp;:after {
@@ -1342,8 +1528,8 @@
       <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
       <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
       <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;&quot;</span>;
-      -webkit-<span class="hljs-attribute">transition</span>: all .<span class="hljs-number">5s</span> ease-in-out;
-      <span class="hljs-attribute">transition</span>: all .<span class="hljs-number">5s</span> ease-in-out;
+      -webkit-<span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.5s</span> ease-in-out;
+      <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.5s</span> ease-in-out;
       will-change: opacity;
       <span class="hljs-attribute">background</span>: rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, .<span class="hljs-number">5</span>);
     }
@@ -1360,7 +1546,6 @@
   }
 
   &amp;--gradient-<span class="hljs-attribute">left</span> {
-
     &amp;:after {
       @include breakpoint(sm) {
         background: linear-gradient(<span class="hljs-number">90deg</span>, rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, .<span class="hljs-number">86</span>) <span class="hljs-number">0</span>, rgba(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, .<span class="hljs-number">23</span>) <span class="hljs-number">65%</span>, transparent);
@@ -1370,7 +1555,6 @@
     &amp;<span class="hljs-selector-class">.banner--gradient-light</span> {
       &amp;:after {
         background: rgba(<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, .<span class="hljs-number">7</span>);
-
         <span class="hljs-keyword">@include</span> breakpoint(sm) {
           <span class="hljs-attribute">background</span>: linear-gradient(<span class="hljs-number">90deg</span>, <span class="hljs-number">#fff</span> <span class="hljs-number">1%</span>, hsla(<span class="hljs-number">0</span>, <span class="hljs-number">0%</span>, <span class="hljs-number">100%</span>, .<span class="hljs-number">92</span>) <span class="hljs-number">32%</span>, hsla(<span class="hljs-number">0</span>, <span class="hljs-number">0%</span>, <span class="hljs-number">100%</span>, <span class="hljs-number">0</span>));
         }
@@ -1396,7 +1580,6 @@
     &amp;<span class="hljs-selector-class">.banner--gradient-light</span> {
       &amp;:after {
         background: rgba(<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, .<span class="hljs-number">7</span>);
-
         <span class="hljs-keyword">@include</span> breakpoint(sm) {
           <span class="hljs-attribute">background</span>: linear-gradient(<span class="hljs-number">180deg</span>, transparent <span class="hljs-number">0</span>, hsla(<span class="hljs-number">0</span>, <span class="hljs-number">0%</span>, <span class="hljs-number">100%</span>, .<span class="hljs-number">9</span>) <span class="hljs-number">55%</span>);
         }
@@ -1430,7 +1613,7 @@
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">11.6 KB</span>
+                    <span class="Meta-value">13.5 KB</span>
                 </li>
             </ul>
         </div>
@@ -2529,6 +2712,156 @@
         
         
         <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="banner--large_centered_left_banner.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Large centered left banner</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity is-current" data-state="current" data-role="item">
+            <a class="Tree-entityLink" href="" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Large lower left banner</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="banner--large_lower_centered_banner.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Large lower centered banner</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="banner--large_lower_left_highlighted_banner.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Large lower left highlighted banner</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="banner--large_lower_left_highlighted_banner_uppercase.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Large lower left highlighted banner uppercase</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="banner--large-lower_centered_highlighted_banner.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Large lower centered highlighted banner</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="banner--medium_centered_left_banner.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Medium centered left banner</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="banner--medium_centered_left_banner_reversed.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Medium centered left banner reversed</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="banner--medium_caps_centered_left_banner.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Medium centered left banner uppercase</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="banner--medium_caps_centered_left_banner_reversed.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Medium centered left banner reversed uppercase</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
             <a class="Tree-entityLink" href="banner--medium_centered_banner.html" data-pjax>
                 
                     
@@ -2544,11 +2877,161 @@
         
         
         <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="banner--medium_lower_left_banner.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Medium lower left banner</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="banner--medium_centered_left_bg_color_banner.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Medium centered left w/ background pattern banner</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="banner--medium_centered_left_bg_color_reversed.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Medium centered left w/ background pattern reversed banner</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="banner--medium_centered_left_bg_color_gold.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Medium, content left-aligned, centered vertically w/ gold background pattern</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="banner--small_centered_left_banner.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Small centered left banner</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
             <a class="Tree-entityLink" href="banner--small_centered_banner.html" data-pjax>
                 
                     
 
 <span style="color: #A84F00;" title="WIP">Small, content centered</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="banner--small_caps_centered_left_banner.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Small centered left banner uppercase</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="banner--small_caps_centered_banner.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Small, content centered uppercase</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="banner--small_centered_bg_color_reversed_banner.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Small centered w/ pattern reversed banner</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="banner--small_caps_centered_bg_color_banner.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Small, content centered w/ black background pattern uppercase</span>
+
+
+                
+            </a>
+        </li>
+        
+    
+        
+        
+        <li class="Tree-item Tree-entity" data-role="item">
+            <a class="Tree-entityLink" href="banner--small_caps_centered_bg_color_reversed_banner.html" data-pjax>
+                
+                    
+
+<span style="color: #A84F00;" title="WIP">Small centered w/ pattern reversed banner uppercase</span>
 
 
                 
@@ -2809,8 +3292,8 @@
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2022-04-08T13:44:33.225Z">
-                4/8/2022
+            <time datetime="2022-04-13T16:14:50.804Z">
+                4/13/2022
             </time>
         </div>
     </div>
