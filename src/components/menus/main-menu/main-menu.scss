@@ -25,7 +25,6 @@
     }
   }
 }
-
 // Used by vertical and horizontal secondary menus
 .menu-wrapper {
   @include breakpoint(sm) {
@@ -66,17 +65,25 @@
       [class*="bg--gold"] & {
         border-bottom: 1px solid rgba(255, 255, 255, 0.5);
       }
-
       @include breakpoint(sm) {
         width: auto;
         margin-bottom: 0;
+      }
+
+      a {
+        [class*="bg--white"] &,
+        [class*="bg--"] [class*="bg--white"] &,
+        [class*="bg--gray"] &,
+        [class*="bg--"] [class*="bg--gray"] & {
+          color: #333;
+        }
       }
 
       li {
         font-size: 1.1rem;
         display: list-item;
 
-        a {
+        a, span {
           color: #333;
           border-bottom: none;
           display: block;
@@ -117,7 +124,6 @@
           color: $light;
         }
 
-
         &.is-active {
           font-weight: bold;
 
@@ -153,42 +159,60 @@
     }
     // second level
     & ul.menu {
-      list-style: disc;
-      margin-left: 0;
+      margin-left: 1.5rem;
+      @include breakpoint(sm) {
+        margin-left: 0;
+      }
       padding-bottom: $sm;
 
       & li {
         border-bottom: none;
         font-size: $base-font-size;
+        list-style: disc;
+        @include breakpoint(sm) {
+          list-style: none;
+        }
 
-        & > a {
-          @include padding($top: $sm, $right: $md, $bottom: $sm, $left: 1.2rem);
+        & > a,
+        & > span {
+          padding: $sm;
+          @include breakpoint(sm) {
+            @include padding($top: $sm, $right: $md, $bottom: $sm, $left: 1.2rem);
+          }
 
           &::before {
-            content: "\f105";
-            position: absolute;
-            font-size: 0.9rem;
-            left: 0;
-            right: $md;
-            @include fas();
+            @include breakpoint(sm) {
+              content: "\f105";
+              font-size: 0.9rem;
+              left: 0;
+              position: absolute;
+              @include fas();
+            }
           }
         }
       }
 
       & li li {
-        a {
+        a, span {
           opacity: 0.8;
         }
       }
       // third level
       ul.menu {
-        margin-left: 3rem;
-
-        li {
-          list-style: disc;
+        margin-left: 2rem;
+        @include breakpoint(sm) {
+          margin-left: 3rem;
         }
 
-        li a {
+        li {
+          list-style: circle;
+          @include breakpoint(sm) {
+            list-style: disc;
+          }
+        }
+
+        li a,
+        li span {
           padding-left: 0.5rem;
 
           &::before {
@@ -200,10 +224,14 @@
           margin-left: 1.5rem;
 
           li {
-            list-style: circle;
+            list-style: square;
+            @include breakpoint(sm) {
+              list-style: circle;
+            }
           }
 
-          li a {
+          li a,
+          li span {
             padding-left: 0.5rem;
 
             &::before {
@@ -214,181 +242,4 @@
       }
     }
   }
-  // vertical only
-  // horizontal only
-  // @todo uncomment when container queries are implemented.
-  /*
-  @container layout size(min-width: 768px) {
-    @include breakpoint(sm) {
-      padding: 0;
-      @include container-width;
-      border-top: none;
-
-      .menu {
-        flex-direction: row;
-
-        ul {
-          display: none;
-        }
-
-        li {
-          display: flex;
-          border-bottom: none;
-
-          &:first-of-type a {
-            margin-left: 0;
-          }
-
-          &:last-of-type a {
-            margin-right: 0;
-          }
-
-          a,
-          span {
-            @include bttn--focus;
-            position: relative;
-            width: auto;
-            text-align: center;
-            text-transform: uppercase;
-            border: 0;
-            background-color: transparent;
-            font-weight: $font-weight-medium-bold;
-            padding: 1.475rem 1.375rem;
-            margin: 0;
-            @include center(both);
-            word-break: unset;
-
-            &:focus,
-            &:hover {
-              text-decoration: none;
-            }
-          }
-
-          a.is-active {
-            background-color: #f3f3f3;
-            margin: 0;
-            padding-right: 1.875rem;
-            padding-left: 1.875rem;
-
-            &::before {
-              width: 20px;
-              height: 20px;
-              content: "";
-              position: absolute;
-              left: calc(50% - 10px);
-              top: calc(100% - 1px);
-              background-color: transparent;
-              border-top: 10px solid $primary;
-              border-right: 10px solid transparent;
-              border-left: 10px solid transparent;
-              border-bottom: 10px solid transparent;
-              z-index: 1;
-            }
-
-            &::after {
-              background: $primary;
-              content: "";
-              position: absolute;
-              left: 50%;
-              bottom: 0;
-              width: 100%;
-              height: 6px;
-              transform-origin: center;
-              transition: transform 0.3s ease-in-out;
-              transform: translate(-50%, 0) scaleX(1);
-            }
-          }
-
-          &.menu-item--expanded {
-            background-color: transparent;
-
-            a {
-              &.is-active {
-                padding-bottom: 1.475rem;
-              }
-            }
-
-            ul {
-              display: none;
-            }
-          }
-        }
-
-        li a:before {
-          position: absolute;
-          bottom: 35%;
-          width: 1px;
-          height: 25%;
-          content: "";
-          background: $primary;
-          right: -1px;
-        }
-
-        li a:after {
-          background-color: $brand-cool-gray;
-        }
-
-        li:last-of-type a {
-          &::before {
-            width: 0;
-          }
-        }
-
-        [class*="bg--black"] &,
-        [class*="bg--gold"] &,
-        [class*="bg--gray"] &,
-        .bg-pattern--brain-black &,
-        .bg-pattern--brain-reversed & {
-          li {
-            a.is-active {
-              background: #fff;
-            }
-          }
-        }
-
-        [class*="bg--black"] &,
-        .bg-pattern--brain-black & {
-          li a {
-            &::after {
-              bottom: 0;
-            }
-          }
-
-          li {
-            a.is-active {
-              color: $secondary;
-            }
-          }
-        }
-
-        [class*="bg--gold"] &,
-        .bg-pattern--brain-reversed & {
-          li a {
-            &::before {
-              background-color: $brand-cool-gray;
-            }
-          }
-
-          li {
-            a.is-active {
-              &::before {
-                border-top-color: $brand-cool-gray;
-                background-color: transparent;
-              }
-
-              &::after {
-                background-color: $brand-cool-gray;
-              }
-            }
-          }
-        }
-      }
-
-      [class*="bg--gold"] &,
-      .bg-pattern--brain-reversed & {
-        border-top: none;
-      }
-    }
-  }
- */
 }
