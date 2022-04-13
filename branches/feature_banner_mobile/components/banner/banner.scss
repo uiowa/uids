@@ -57,19 +57,6 @@
       clear: both;
     }
   }
-  // Override background color if button is within a gold container
-  &.bg-pattern--brain-reversed,
-  &[class*="bg--gold"] {
-    .bttn--primary {
-      color: #fff;
-      background: $secondary;
-      border: 1px solid $secondary;
-
-      svg {
-        color: $primary;
-      }
-    }
-  }
 }
 // Banner styles
 
@@ -244,7 +231,9 @@
           color: #fff;
         }
 
-        [class*="bg--gold"] & {
+        [class*="bg--gold"] &,
+        [class*="bg--white"] &,
+        [class*="bg--gray"] & {
           color: $secondary;
         }
       }
@@ -364,12 +353,15 @@
     &[class*="bg-pattern--brain-black"] {
       display: flex;
 
-      a:not([class*="bttn"]) {
+      .banner__text a {
         color: #fff;
       }
 
       .headline.headline--negative {
         color: #fff;
+        a {
+          color: #fff;
+        }
       }
     }
 
@@ -430,6 +422,16 @@
       }
     }
 
+    &[class*="bg--gray"],
+    &[class*="bg--white"]{
+      .headline.headline--negative {
+        text-shadow: none;
+        a {
+          text-shadow: none;
+        }
+      }
+    }
+
     h2:not([class*="headline"]),
     h3:not([class*="headline"]),
     h4:not([class*="headline"]),
@@ -450,7 +452,7 @@
     }
   }
   //Patterns
-  &[class*="bg--black--pattern"],
+  &[class*="bg--black"],
   &[class*="bg-pattern--brain-black"] {
     p {
       color: #fff;
