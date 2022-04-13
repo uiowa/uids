@@ -4,17 +4,6 @@
   align-items: center;
   justify-content: center;
   min-height: 15rem; }
-  .banner:after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
-    width: 100%;
-    height: 100%;
-    content: "";
-    transition: all 0.5s ease-in-out;
-    will-change: opacity;
-    background: rgba(0, 0, 0, 0.5); }
   .banner--large::before {
     float: left;
     padding-top: 45.25%;
@@ -142,7 +131,7 @@
     .banner__pre-title.headline--highlight span {
       background: none; }
       [class*="bg--black"] .banner__pre-title.headline--highlight span,
-      [class*="banner--gradient"] .banner__pre-title.headline--highlight span {
+      [class*="banner--gradient-dark"] .banner__pre-title.headline--highlight span {
         color: #fff; }
       [class*="bg--gold"] .banner__pre-title.headline--highlight span,
       [class*="bg--white"] .banner__pre-title.headline--highlight span,
@@ -221,6 +210,12 @@
         display: flex; } }
     .banner--stacked[class*="bg"] {
       display: flex; }
+    .banner--stacked:not([class*="pattern"]):not([class*="light"]) .banner__pre-title.headline--highlight span {
+      color: #151515; }
+      @media (min-width: 768px) {
+        .banner--stacked:not([class*="pattern"]):not([class*="light"]) .banner__pre-title.headline--highlight span {
+          color: #fff;
+          text-shadow: 0 1px 1px #000; } }
     .banner--stacked[class*="bg--black"], .banner--stacked[class*="bg-pattern--brain-black"] {
       display: flex; }
       .banner--stacked[class*="bg--black"] .banner__text a, .banner--stacked[class*="bg-pattern--brain-black"] .banner__text a {
@@ -267,9 +262,9 @@
           .banner--stacked .headline.headline--negative a {
             color: #fff;
             text-shadow: 0 1px 1px #000; } }
-    .banner--stacked[class*="bg--gray"] .headline.headline--negative, .banner--stacked[class*="bg--white"] .headline.headline--negative {
+    .banner--stacked[class*="bg--gray"] .headline.headline--negative, .banner--stacked[class*="bg--white"] .headline.headline--negative, .banner--stacked[class*="banner--gradient-light"] .headline.headline--negative {
       text-shadow: none; }
-      .banner--stacked[class*="bg--gray"] .headline.headline--negative a, .banner--stacked[class*="bg--white"] .headline.headline--negative a {
+      .banner--stacked[class*="bg--gray"] .headline.headline--negative a, .banner--stacked[class*="bg--white"] .headline.headline--negative a, .banner--stacked[class*="banner--gradient-light"] .headline.headline--negative a {
         text-shadow: none; }
     .banner--stacked h2:not([class*="headline"]),
     .banner--stacked h3:not([class*="headline"]),
@@ -498,6 +493,18 @@
   .banner.banner--medium .banner__container {
     min-height: 33rem; } }
 
+.banner:not([class*="banner--stacked"]):after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  content: "";
+  transition: all 0.5s ease-in-out;
+  will-change: opacity;
+  background: rgba(0, 0, 0, 0.5); }
+
 @media (min-width: 768px) {
   .banner:after {
     position: absolute;
@@ -522,11 +529,12 @@
   .banner--gradient-left:after {
     background: linear-gradient(90deg, rgba(0, 0, 0, 0.86) 0, rgba(0, 0, 0, 0.23) 65%, transparent); } }
 
-.banner--gradient-left.banner--gradient-light:after {
+@media (min-width: 768px) {
+  .banner--gradient-left.banner--gradient-light:after {
+    background: linear-gradient(90deg, #fff 1%, rgba(255, 255, 255, 0.92) 32%, rgba(255, 255, 255, 0)); } }
+
+.banner--gradient-left.banner--gradient-light:not([class*="banner--stacked"]):after {
   background: rgba(255, 255, 255, 0.7); }
-  @media (min-width: 768px) {
-    .banner--gradient-left.banner--gradient-light:after {
-      background: linear-gradient(90deg, #fff 1%, rgba(255, 255, 255, 0.92) 32%, rgba(255, 255, 255, 0)); } }
 
 .banner--gradient-left.banner--gradient-light[class*="bg-"]:after {
   background: none; }
@@ -538,11 +546,12 @@
   .banner--gradient-bottom:after {
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 70%); } }
 
-.banner--gradient-bottom.banner--gradient-light:after {
+@media (min-width: 768px) {
+  .banner--gradient-bottom.banner--gradient-light:after {
+    background: linear-gradient(180deg, transparent 0, rgba(255, 255, 255, 0.9) 55%); } }
+
+.banner--gradient-bottom.banner--gradient-light:not([class*="banner--stacked"]):after {
   background: rgba(255, 255, 255, 0.7); }
-  @media (min-width: 768px) {
-    .banner--gradient-bottom.banner--gradient-light:after {
-      background: linear-gradient(180deg, transparent 0, rgba(255, 255, 255, 0.9) 55%); } }
 
 .banner--gradient-bottom.banner--gradient-light[class*="bg-"]:after {
   background: none; }
