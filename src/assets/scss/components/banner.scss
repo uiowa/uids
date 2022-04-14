@@ -1,0 +1,107 @@
+@import '../variables';
+
+.banner {
+  position: relative;
+  overflow: hidden;
+  flex-basis: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // @todo Replace with https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio
+  min-height: 15rem;
+
+  &::after {
+    display: block;
+    content: '';
+    clear: both;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  &__image {
+    overflow: visible;
+
+    img {
+      display: block;
+      width: 100%;
+      -o-object-fit: cover;
+      object-fit: cover;
+      position: absolute;
+      height: 100%;
+      top: 0;
+    }
+  }
+
+  &__container {
+
+    margin: 0 auto;
+    width: 100%;
+    z-index: 1;
+  }
+
+  // Default overlay
+  &:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    content: "";
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+    will-change: opacity;
+    background: rgba(0, 0, 0, .5);
+  }
+
+  &:not([class*="bg-"]) {
+    background: $secondary;
+  }
+
+  &[class*="bg-"]:after {
+    background: inherit;
+  }
+
+  &--gradient-left {
+
+    &:after {
+    }
+
+    &.banner--gradient-light {
+      &:after {
+        background: rgba(255, 255, 255, .7);
+
+      }
+
+      &[class*="bg-"]:after {
+        background: none;
+      }
+    }
+
+    &[class*="bg-"]:after {
+      background: none;
+    }
+  }
+
+  &--gradient-bottom {
+
+    &.banner--gradient-light {
+      &:after {
+        background: rgba(255, 255, 255, .7);
+      }
+
+      &[class*="bg-"]:after {
+        background: none;
+      }
+    }
+  }
+
+  &--transparent {
+    &:after {
+      background: none;
+    }
+  }
+}
