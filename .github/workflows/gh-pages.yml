@@ -33,11 +33,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout 🛎️
         if: ${{ github.event_name != 'pull_request_target' }}
-        uses: actions/checkout@v2.3.1
+        uses: actions/checkout@v3
 
       - name: Checkout PR 🛎️
         if: ${{ github.event_name == 'pull_request_target' }}
-        uses: actions/checkout@v2.3.1
+        uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
@@ -66,23 +66,17 @@ jobs:
           echo "target_dir=/docs/" >> $GITHUB_ENV
 
       - name: Setup node
-        uses: actions/setup-node@v2.1.2
+        uses: actions/setup-node@v3
         with:
-          node-version: "14.x"
+          node-version: '16.x'
+          cache: 'yarn'
 
       # Update NPM to 7 to fix https://github.com/actions/setup-node/issues/214.
-      - run: npm install -g npm@7
-      - run: npm -v
+#      - run: npm install -g npm@7
+#      - run: npm -v
 
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: npm-packages-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: npm-packages-
-
-      - run: npm ci
-      - run: npm run build-storybook
+      - run: yarn i --frozen-lockfile
+      - run: yarn build-storybook
       # Check to make sure that docs built into www.
 #      - run: ls -lah $GITHUB_WORKSPACE/www
 
