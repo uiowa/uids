@@ -1,11 +1,10 @@
 @import '../../assets/scss/variables';
-@import '../../assets/scss/utilities';
-
-// --------------------------------
+@import '../../assets/scss/utilities'; // --------------------------------
 // Banner sizes
 // Use https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio
 // when there is better browser support.
 // --------------------------------
+
 .banner {
   flex-basis: 100%;
   display: flex;
@@ -48,10 +47,10 @@
     }
   }
 }
-
 // --------------------------------
 // Alignment
 // --------------------------------
+
 .banner {
   position: relative;
   overflow: hidden;
@@ -81,10 +80,10 @@
     }
   }
 }
-
 // --------------------------------
 // Container
 // --------------------------------
+
 .banner {
   &:focus-within .headline a:focus {
     text-decoration: underline;
@@ -101,10 +100,10 @@
     }
   }
 }
-
 // --------------------------------
 // Actions/buttons
 // --------------------------------
+
 .banner {
   .headline + .banner__action {
     margin-top: 1.5rem;
@@ -120,10 +119,134 @@
     }
   }
 }
+// --------------------------------
+// Pre-title
+// --------------------------------
 
+.banner {
+  &.banner--gradient-light {
+    .banner__pre-title {
+      &.headline.headline--highlight {
+        span {
+          [class*="bg--black"] & {
+            @include breakpoint(sm) {
+              color: $secondary;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &__pre-title {
+    background: none;
+    line-height: 1.1;
+
+    &.headline.headline--serif {
+      margin-bottom: 0;
+    }
+
+    &.headline.headline--uppercase {
+      margin-bottom: 0.7rem;
+    }
+
+    &.headline.headline--highlight {
+      margin-bottom: -.1rem;
+    }
+
+    &.headline.headline--highlight {
+      span {
+        background: none;
+
+        [class*="bg--"] [class*="bg--black"] &,
+        [class*="bg--black"] &,
+        [class*="bg--black"] [class*="banner--gradient-dark"]:not([class*="bg--"]) &,
+        [class*="bg--gold"] [class*="banner--gradient-dark"][class*="bg--black"] &,
+        [class*="banner--gradient-dark"]:not([class*="bg--"]):not([class*="banner--stacked"]) & {
+          color: #fff;
+        }
+
+        [class*="banner--gradient-dark"]:not([class*="bg--"]) & {
+          @include breakpoint(sm) {
+            color: #fff;
+          }
+        }
+
+        [class*="bg--gold"] [class*="banner--gradient-dark"] & {
+          color: $secondary;
+          @include breakpoint(sm) {
+            color: #fff;
+          }
+        }
+
+        [class*="bg--gold"] &,
+        [class*="bg--gold"] [class*="banner--gradient-dark"][class*="bg--gold"] &,
+        [class*="bg--gold"] [class*="banner--gradient-dark"][class*="bg--gray"] &,
+        [class*="bg--gold"] [class*="banner--gradient-dark"][class*="bg--white"] &,
+        [class*="bg--black"] [class*="banner--gradient-light"]:not([class*="banner--stacked"]) &,
+        [class*="bg--white"] &,
+        [class*="bg--gray"] & {
+          color: $secondary;
+        }
+      }
+    }
+    // Set large heading size
+    &.headline--large {
+      font-size: $h4-font-size;
+      font-size: containerClamp(1.2rem, 1.6rem);
+    }
+    // Set medium heading size
+    &.headline--medium {
+      font-size: 1.4rem;
+      font-size: containerClamp(1.2rem, 1.4rem);
+    }
+    // Set small heading size
+    &.headline--small {
+      font-size: $h5-font-size;
+    }
+  }
+
+  &__stacked {
+    //&[class*="banner--gradient-dark"]:not([class*="bg--"]) {
+    //
+    //.banner__pre-title.headline.headline--highlight {
+    //    span {
+    //      color: $secondary;
+    //      @include breakpoint(sm) {
+    //        color: #fff;
+    //      }
+    //    }
+    //  }
+    //}
+    //&[class*="banner--gradient-light"]:not([class*="bg--"]) {
+    //  .banner__pre-title.headline.headline--highlight span {
+    //    [class*="bg--black"] & {
+    //      color: #fff;
+    //    }
+    //  }
+    //  }
+    &[class*="banner--gradient-dark"] {
+      .banner__pre-title.headline--highlight span {
+        color: $secondary;
+
+        [class*="bg--black"] & {
+          color: #fff;
+          @include breakpoint(sm) {
+            // color: $secondary;
+          }
+        }
+        @include breakpoint(sm) {
+          color: #fff;
+          text-shadow: 0 1px 1px #000;
+        }
+      }
+    }
+  }
+}
 // --------------------------------
 // Text & Content
 // --------------------------------
+
 .banner {
   &__text {
     z-index: 1;
@@ -288,32 +411,25 @@
   }
 
   &--stacked {
-    &[class*="dark"] {
-      .headline--negative {
-        color: $secondary;
-        text-shadow: none;
-        @include breakpoint(sm) {
-          color: #fff;
-        }
-
-        a {
-          color: $secondary;
-          @include breakpoint(sm) {
-            color: #fff;
-          }
-        }
-
-        [class*="bg--black"] & {
-          color: #fff;
-          text-shadow: 0 1px 1px #000;
-          @include breakpoint(sm) {
-            color: #fff;
-          }
-
-          a {
-            color: #fff;
+    &[class*="banner--gradient-dark"] {
+      &:not([class*="bg--"]) {
+        .banner__text {
+          p {
+            [class*="bg--black"] & {
+              color: #fff;
+            }
+            color: $secondary;
+            text-shadow: none;
             @include breakpoint(sm) {
               color: #fff;
+              text-shadow: 0 1px 1px #000;
+            }
+
+            a {
+              color: $secondary;
+              @include breakpoint(sm) {
+                color: #fff;
+              }
             }
           }
         }
@@ -322,27 +438,25 @@
       .banner__text {
         [class*="bg--black"] & {
           p {
-            color: #fff;
-
+            //color: #fff;
             a {
               color: #fff;
             }
           }
         }
       }
+    }
 
-      .banner__pre-title.headline--highlight span {
-        color: $secondary;
-
-        [class*="bg--black"] & {
-          color: #fff;
-          @include breakpoint(sm) {
+    &[class*="banner--gradient-light"]:not([class*="bg--black"]) {
+      .banner__text {
+        [class*="bg--gold"] & {
+          p {
             color: $secondary;
+
+            a {
+              color: $secondary;
+            }
           }
-        }
-        @include breakpoint(sm) {
-          color: #fff;
-          text-shadow: 0 1px 1px #000;
         }
       }
     }
@@ -351,25 +465,20 @@
     &[class*="bg-pattern--brain-black"] {
       display: flex;
 
-      .banner__text a {
+      h2:not([class*="headline"]),
+      h3:not([class*="headline"]),
+      h4:not([class*="headline"]),
+      h5:not([class*="headline"]),
+      h6:not([class*="headline"]),
+      blockquote {
         color: #fff;
       }
-    }
 
-    .banner__text {
-      p {
-        color: $secondary;
-        text-shadow: none;
-        @include breakpoint(sm) {
-          color: #fff;
-          text-shadow: 0 1px 1px #000;
-        }
+      .banner__text p {
+        color: #fff;
 
         a {
-          color: $secondary;
-          @include breakpoint(sm) {
-            color: #fff;
-          }
+          color: #fff;
         }
       }
     }
@@ -392,12 +501,27 @@
         }
       }
     }
+
+    [class*="bg--black"] & {
+      h2:not([class*="headline"]),
+      h3:not([class*="headline"]),
+      h4:not([class*="headline"]),
+      h5:not([class*="headline"]),
+      h6:not([class*="headline"]),
+      blockquote {
+        color: #fff;
+
+        a {
+          color: #fff;
+        }
+      }
+    }
   }
 }
-
 // --------------------------------
 // Image
 // --------------------------------
+
 .banner {
   &__image {
     overflow: visible;
@@ -424,64 +548,10 @@
     }
   }
 }
-
-// --------------------------------
-// Pre-title
-// --------------------------------
-.banner {
-  &__pre-title {
-    background: none;
-    line-height: 1.1;
-
-    &.headline.headline--serif {
-      margin-bottom: 0;
-    }
-
-    &.headline.headline--uppercase {
-      margin-bottom: 0.7rem;
-    }
-
-    &.headline.headline--highlight {
-      margin-bottom: -.1rem;
-    }
-
-    &.headline.headline--highlight {
-      span {
-        background: none;
-
-        [class*="bg--"] [class*="bg--black"] &,
-        [class*="bg--black"] &,
-        [class*="banner--gradient-dark"] & {
-          color: #fff;
-        }
-
-        [class*="bg--gold"] &,
-        [class*="bg--white"] &,
-        [class*="bg--gray"] & {
-          color: $secondary;
-        }
-      }
-    }
-    // Set large heading size
-    &.headline--large {
-      font-size: $h4-font-size;
-      font-size: containerClamp(1.2rem, 1.6rem);
-    }
-    // Set medium heading size
-    &.headline--medium {
-      font-size: 1.4rem;
-      font-size: containerClamp(1.2rem, 1.4rem);
-    }
-    // Set small heading size
-    &.headline--small {
-      font-size: $h5-font-size;
-    }
-  }
-}
-
 // --------------------------------
 // Video
 // --------------------------------
+
 .banner {
   .media--video .video-controls {
     z-index: 2;
@@ -584,7 +654,6 @@
     }
   }
 }
-
 // --------------------------------
 // Stacked
 // --------------------------------
@@ -597,10 +666,10 @@
     }
   }
 }
-
 // --------------------------------
 // Gradients
 // --------------------------------
+
 .banner {
   // Default overlay
   &:after {
@@ -732,10 +801,10 @@
     background: inherit;
   }
 }
-
 // --------------------------------
 // Headlines
 // --------------------------------
+
 .banner {
   .headline {
     z-index: 1;
@@ -788,6 +857,62 @@
     }
   }
 
+  &--stacked {
+    &[class*="dark"][class*="bg--black"] {
+      .headline--negative {
+        color: #fff;
+      }
+    }
+
+    &[class*="dark"][class*="bg--gray"],
+    &[class*="dark"][class*="bg--white"] {
+      .headline--negative.headline--uppercase {
+        [class*="bg--black"] & {
+          color: $secondary;
+          text-shadow: none;
+
+          a {
+            color: $secondary;
+            text-shadow: none;
+          }
+        }
+      }
+    }
+
+    &[class*="dark"] {
+      .headline--negative {
+        color: $secondary;
+        text-shadow: none;
+        @include breakpoint(sm) {
+          color: #fff;
+          text-shadow: 0 1px 1px #000;
+        }
+
+        a {
+          color: $secondary;
+          @include breakpoint(sm) {
+            color: #fff;
+          }
+        }
+
+        [class*="bg--black"] & {
+          color: #fff;
+          text-shadow: 0 1px 1px #000;
+          @include breakpoint(sm) {
+            color: #fff;
+          }
+
+          a {
+            color: #fff;
+            @include breakpoint(sm) {
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+
   &[class*="bg--gray"] {
     .headline--negative {
       color: $secondary;
@@ -822,7 +947,6 @@
     }
   }
 }
-
 // --------------------------------
 // IE11
 // --------------------------------
@@ -865,3 +989,4 @@
     }
   }
 }
+// @todo fix bg--gray background color links
