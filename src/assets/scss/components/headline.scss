@@ -1,0 +1,48 @@
+@import "../variables";
+@import "headline-mixins";
+
+.headline {
+  @include headline;
+
+  [class*="bg-"] & {
+    a {
+      color: inherit;
+    }
+  }
+
+  &.bold-headline--negative,
+  &.headline--negative {
+    @include headline-negative;
+  }
+}
+
+.headline--center {
+  text-align: center;
+}
+
+.headline--uppercase {
+  @include headline-uppercase;
+}
+
+.headline--serif {
+  @include headline-serif;
+}
+
+.headline--highlight {
+  @include headline-highlight;
+
+  span {
+    @include headline-highlight-word;
+  }
+
+  &.headline--serif {
+    span {
+      padding: .2rem 1rem 0.5rem 1rem;
+    }
+  }
+}
+
+.headline--underline {
+  @include headline-underline;
+}
+
