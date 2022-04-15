@@ -82,16 +82,16 @@ jobs:
           restore-keys: npm-packages-
 
       - run: npm ci
-#      - run: npm run docs
+      - run: npm run build-storybook
       # Check to make sure that docs built into www.
 #      - run: ls -lah $GITHUB_WORKSPACE/www
 
       # https://github.com/actions/checkout#readme
-#      - name: Checkout docs
-#        uses: actions/checkout@v2.3.1
-#        with:
-#          ref: gh-pages
-#          path: gh-pages
+      - name: Checkout docs
+        uses: actions/checkout@v2.3.1
+        with:
+          ref: gh-pages
+          path: gh-pages
 
       # Debugging messages.
 #      - run: echo "${{ github.ref }}"
@@ -105,24 +105,24 @@ jobs:
 
       # If tags:
       #   - Copy the build to the root of 'gh-pages'.
-#      - name: Tag push preparations
-#        if: startsWith(github.ref, 'refs/tags/')
-#        run: |
-#          cp -a $GITHUB_WORKSPACE/www/* $GITHUB_WORKSPACE/gh-pages
+      - name: Tag push preparations
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          cp -a $GITHUB_WORKSPACE/storybook-static/* $GITHUB_WORKSPACE/gh-pages
 
       # If branch other than main:
       #   - Create the 'branches' directory if it doesn't exist.
       #   - Remove existing version of docs, if it exists.
       #   - Move build into versioned folder.
-#      - name: Build branch docs
-#        run: |
-#          if [ ! -d "$GITHUB_WORKSPACE/gh-pages$target_dir" ]; then mkdir -p $GITHUB_WORKSPACE/gh-pages$target_dir ; fi
-#          rm -rf $GITHUB_WORKSPACE/gh-pages$target_dir$branch
-#          mv $GITHUB_WORKSPACE/www/ $GITHUB_WORKSPACE/gh-pages$target_dir$branch
+      - name: Build branch docs
+        run: |
+          if [ ! -d "$GITHUB_WORKSPACE/gh-pages$target_dir" ]; then mkdir -p $GITHUB_WORKSPACE/gh-pages$target_dir ; fi
+          rm -rf $GITHUB_WORKSPACE/gh-pages$target_dir$branch
+          mv $GITHUB_WORKSPACE/storybook-static/ $GITHUB_WORKSPACE/gh-pages$target_dir$branch
 
       # https://github.com/JamesIves/github-pages-deploy-action#readme
-#      - name: Deploy docs 🚀
-#        uses: JamesIves/github-pages-deploy-action@4.1.3
-#        with:
-#          branch: ${{ env.TARGET_BRANCH }} # The branch the action should deploy to.
-#          folder: gh-pages
+      - name: Deploy docs 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.3
+        with:
+          branch: ${{ env.TARGET_BRANCH }} # The branch the action should deploy to.
+          folder: gh-pages
