@@ -33,9 +33,10 @@ import banner_image from '@/assets/images/viewbook/sections/122.jpg'
 <!--  </uids-banner>-->
 </template>
 
-<style>
+<style lang="scss">
 @import url('https://use.fontawesome.com/releases/v5.8.2/css/all.css');
 @import './assets/base.css';
-/*@import './assets/scss/typography/headings/headings.scss';*/
-/*@import 'typography/paragraph/paragraph.scss';*/
+@import './assets/scss/headings.scss';
+@import './assets/scss/paragraph.scss';
+@import './assets/scss/lists.scss';
 </style>

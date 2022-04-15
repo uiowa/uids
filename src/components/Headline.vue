@@ -25,6 +25,7 @@ defineProps({
 </template>
 
 <style lang="scss">
+@import '../assets/scss/headings';
 @import '../assets/scss/components/headline';
 //@import '../../node_modules/@uiowa/uids/src/components/headline/headline.scss';
 //@import '../../node_modules/@uiowa/uids/src/components/typography/headings/headings.scss';
