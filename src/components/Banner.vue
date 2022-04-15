@@ -21,7 +21,7 @@ const props = defineProps({
 })
 
 // Compose a string out of the classes passed to the component.
-function getBannerClasses() {
+function getClasses() {
   let classes = ["banner"];
   // @todo Add classes.
   Array.prototype.forEach.call(['overlay', 'size', 'vertical_alignment', 'horizontal_alignment'], setting => {
@@ -36,7 +36,7 @@ function getBannerClasses() {
 </script>
 
 <template>
-  <div :class="getBannerClasses">
+  <div :class="getClasses">
     <div class="banner__image" :if="image">
       <img :src="image" alt="" loading="lazy">
     </div>

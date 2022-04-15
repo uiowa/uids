@@ -1,29 +1,41 @@
 <script setup lang="ts">
 import UidsBanner from '@/components/Banner.vue'
+import UidsHeadline from '@/components/Headline.vue'
 import banner_image from '@/assets/images/viewbook/sections/122.jpg'
 </script>
 
 <template>
-  <uids-banner
-    title="We did it!"
-    :headline_settings="{
-
-    }"
-    :image="banner_image"
-  >
-    We love doing this stuff.
-  </uids-banner>
-  <uids-banner
-    title="No, we don't want no text"
-    :image="banner_image"
-  ></uids-banner>
-  <uids-banner
-    title="No image"
-  >
-    We can have <a href="https://uiowa.edu">links</a>!
-  </uids-banner>
+  <template v-for="n in 6" :key="n">
+    <uids-headline
+      :level="'h' + n"
+      href="https://uiowa.edu"
+    >I'm a headline</uids-headline>
+  </template>
+<!--  <uids-banner-->
+<!--    title="We did it!"-->
+<!--    :headline_settings="{-->
+<!--       classes: '',-->
+<!--      foo: '',-->
+<!--      bar: '',-->
+<!--    }"-->
+<!--    :image="banner_image"-->
+<!--  >-->
+<!--    We love doing this stuff.-->
+<!--  </uids-banner>-->
+<!--  <uids-banner-->
+<!--    title="No, we don't want no text"-->
+<!--    :image="banner_image"-->
+<!--  ></uids-banner>-->
+<!--  <uids-banner-->
+<!--    title="No image"-->
+<!--  >-->
+<!--    We can have <a href="https://uiowa.edu">links</a>!-->
+<!--  </uids-banner>-->
 </template>
 
 <style>
+@import url('https://use.fontawesome.com/releases/v5.8.2/css/all.css');
 @import './assets/base.css';
+/*@import './assets/scss/typography/headings/headings.scss';*/
+/*@import 'typography/paragraph/paragraph.scss';*/
 </style>
