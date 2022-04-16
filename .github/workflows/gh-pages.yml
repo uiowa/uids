@@ -76,7 +76,7 @@ jobs:
 #      - run: npm -v
 
       - run: yarn install --frozen-lockfile
-      - run: BASE_URL=$target_dir yarn build-storybook -o www
+      - run: BASE_URL=$target_dir$branch/ yarn build-storybook -o www
       # Check to make sure that docs built into www.
       - run: ls -lah $GITHUB_WORKSPACE/www
 
