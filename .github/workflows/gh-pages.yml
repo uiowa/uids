@@ -76,9 +76,9 @@ jobs:
 #      - run: npm -v
 
       - run: yarn install --frozen-lockfile
-      - run: yarn build-storybook
+      - run: yarn build-storybook -o www
       # Check to make sure that docs built into www.
-#      - run: ls -lah $GITHUB_WORKSPACE/www
+      - run: ls -lah $GITHUB_WORKSPACE/www
 
       # https://github.com/actions/checkout#readme
       - name: Checkout docs
@@ -102,7 +102,7 @@ jobs:
       - name: Tag push preparations
         if: startsWith(github.ref, 'refs/tags/')
         run: |
-          cp -a $GITHUB_WORKSPACE/storybook-static/* $GITHUB_WORKSPACE/gh-pages
+          cp -a $GITHUB_WORKSPACE/www/* $GITHUB_WORKSPACE/gh-pages
 
       # If branch other than main:
       #   - Create the 'branches' directory if it doesn't exist.
@@ -112,7 +112,7 @@ jobs:
         run: |
           if [ ! -d "$GITHUB_WORKSPACE/gh-pages$target_dir" ]; then mkdir -p $GITHUB_WORKSPACE/gh-pages$target_dir ; fi
           rm -rf $GITHUB_WORKSPACE/gh-pages$target_dir$branch
-          mv $GITHUB_WORKSPACE/storybook-static/ $GITHUB_WORKSPACE/gh-pages$target_dir$branch
+          mv $GITHUB_WORKSPACE/www/ $GITHUB_WORKSPACE/gh-pages$target_dir$branch
 
       # https://github.com/JamesIves/github-pages-deploy-action#readme
       - name: Deploy docs 🚀

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import './button.css';
+import '../assets/scss/components/button.scss';
 import { computed } from 'vue';
 const name = 'uids-button'
 const props = defineProps({
@@ -9,10 +9,11 @@ const props = defineProps({
   },
   size: {
     type: String,
-    validator: function (value) {
+    validator: function (value: string) {
       return ['small', 'medium', 'large'].indexOf(value) !== -1;
     },
   },
+  arrow: { type: Boolean, default: true },
 })
 
 const classes = computed(() => ({
@@ -26,10 +27,6 @@ const classes = computed(() => ({
 <template>
   <a :href="button_link" :class="classes">
     <slot></slot>
-    <i v-if="button_icon" class="fas fa-arrow-right"></i>
+    <i v-if="arrow" class="fas fa-arrow-right"></i>
   </a>
 </template>
-
-<style lang="scss">
-@import '../assets/scss/components/button';
-</style>
