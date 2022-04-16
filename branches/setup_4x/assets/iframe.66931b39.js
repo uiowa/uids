@@ -773,7 +773,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     Props doc block has been renamed to ArgsTable.
 
     https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#previewprops-renamed
-  `]))));Props.defaultProps={of:CURRENT_SELECTION};var Code="/assets/code-brackets.9ef6443e.svg",Colors="/assets/colors.ac9401f3.svg",Comments="/assets/comments.f15a6837.svg",Direction="/assets/direction.94a9917f.svg",Flow="/assets/flow.275142c6.svg",Plugin="/assets/plugin.57148314.svg",Repo="/assets/repo.fb4ece47.svg",StackAlt="/assets/stackalt.2ad81543.svg";const layoutProps={},MDXLayout="wrapper";function MDXContent(oe){var ae=oe,{components:te}=ae,re=mr(ae,["components"]);return createElement(MDXLayout,sr(rr(rr({},layoutProps),re),{components:te,mdxType:"MDXLayout"}),createElement(Meta,{title:"Example/Introduction",mdxType:"Meta"}),createElement("style",null,`
+  `]))));Props.defaultProps={of:CURRENT_SELECTION};var Code="/branches/assets/code-brackets.9ef6443e.svg",Colors="/branches/assets/colors.ac9401f3.svg",Comments="/branches/assets/comments.f15a6837.svg",Direction="/branches/assets/direction.94a9917f.svg",Flow="/branches/assets/flow.275142c6.svg",Plugin="/branches/assets/plugin.57148314.svg",Repo="/branches/assets/repo.fb4ece47.svg",StackAlt="/branches/assets/stackalt.2ad81543.svg";const layoutProps={},MDXLayout="wrapper";function MDXContent(oe){var ae=oe,{components:te}=ae,re=mr(ae,["components"]);return createElement(MDXLayout,sr(rr(rr({},layoutProps),re),{components:te,mdxType:"MDXLayout"}),createElement(Meta,{title:"Example/Introduction",mdxType:"Meta"}),createElement("style",null,`
   .subheading {
     --mediumdark: '#999999';
     font-weight: 900;
