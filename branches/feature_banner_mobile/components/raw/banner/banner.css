@@ -67,7 +67,7 @@
       margin: 0 1rem 1rem 0; } }
 
 @media (min-width: 768px) {
-  [class*="bg--black"] .banner.banner--gradient-light .banner__pre-title.headline.headline--highlight span {
+  [class*="bg--black"] .banner.banner--gradient-light:not([class*="bg-"]) .banner__pre-title.headline.headline--highlight span {
     color: #151515; } }
 
 .banner__pre-title {
@@ -85,7 +85,8 @@
     [class*="bg--black"] .banner__pre-title.headline.headline--highlight span,
     [class*="bg--black"] [class*="banner--gradient-dark"]:not([class*="bg--"]) .banner__pre-title.headline.headline--highlight span,
     [class*="bg--gold"] [class*="banner--gradient-dark"][class*="bg--black"] .banner__pre-title.headline.headline--highlight span,
-    [class*="banner--gradient-dark"]:not([class*="bg--"]):not([class*="banner--stacked"]) .banner__pre-title.headline.headline--highlight span {
+    [class*="banner--gradient-dark"]:not([class*="bg--"]):not([class*="banner--stacked"]) .banner__pre-title.headline.headline--highlight span,
+    [class*="bg--black"] [class*="banner--gradient-light"][class*="bg--black"]:not([class*="banner--stacked"]) .banner__pre-title.headline.headline--highlight span {
       color: #fff; }
     @media (min-width: 768px) {
       [class*="banner--gradient-dark"]:not([class*="bg--"]) .banner__pre-title.headline.headline--highlight span {
@@ -121,9 +122,6 @@
       color: #fff;
       text-shadow: 0 1px 1px #000; } }
 
-.banner__text {
-  z-index: 1; }
-
 .banner__content {
   padding: 1.25rem; }
   @media (min-width: 768px) {
@@ -135,251 +133,74 @@
     .banner__content {
       padding: 2rem 0 1.25rem; } }
 
-.banner h2:not([class*="headline"]),
-.banner h3:not([class*="headline"]),
-.banner h4:not([class*="headline"]),
-.banner h5:not([class*="headline"]),
-.banner h6:not([class*="headline"]),
-.banner blockquote {
+.banner__text {
+  z-index: 1;
   color: #fff; }
-  .banner h2:not([class*="headline"]) a,
-  .banner h3:not([class*="headline"]) a,
-  .banner h4:not([class*="headline"]) a,
-  .banner h5:not([class*="headline"]) a,
-  .banner h6:not([class*="headline"]) a,
-  .banner blockquote a {
+  .banner__text a {
     color: #fff; }
+  .banner__text p {
+    line-height: 1.5;
+    margin-top: 0;
+    color: #fff;
+    text-shadow: 0 1px 1px #000; }
+    @media (min-width: 768px) {
+      .banner__text p {
+        color: #fff;
+        text-shadow: 0 1px 1px #000; } }
+    .banner__text p a {
+      position: relative;
+      z-index: 1;
+      color: #fff; }
 
-.banner p {
-  line-height: 1.5;
-  margin-top: 0;
-  color: #fff;
-  text-shadow: 0 1px 1px #000; }
-  @media (min-width: 768px) {
-    .banner p {
-      color: #fff;
-      text-shadow: 0 1px 1px #000; } }
-  .banner p a {
-    position: relative;
-    z-index: 1;
-    color: #fff; }
-
-.banner[class*="bg--black"] p, .banner[class*="bg-pattern--brain-black"] p {
+[class*="bg--gray"] .banner[class*="banner--gradient-dark"]:not([class*="bg-"]):not([class*="banner--stacked"]) .banner__text a,
+[class*="bg--gold"] .banner[class*="banner--gradient-dark"]:not([class*="bg-"]):not([class*="banner--stacked"]) .banner__text a,
+[class*="bg--white"] .banner[class*="banner--gradient-dark"]:not([class*="bg-"]):not([class*="banner--stacked"]) .banner__text a {
   color: #fff; }
 
-.banner[class*="bg--gray"] h2:not([class*="headline"]),
-.banner[class*="bg--gray"] h3:not([class*="headline"]),
-.banner[class*="bg--gray"] h4:not([class*="headline"]),
-.banner[class*="bg--gray"] h5:not([class*="headline"]),
-.banner[class*="bg--gray"] h6:not([class*="headline"]),
-.banner[class*="bg--gray"] blockquote {
-  color: #151515; }
-  .banner[class*="bg--gray"] h2:not([class*="headline"]) a,
-  .banner[class*="bg--gray"] h3:not([class*="headline"]) a,
-  .banner[class*="bg--gray"] h4:not([class*="headline"]) a,
-  .banner[class*="bg--gray"] h5:not([class*="headline"]) a,
-  .banner[class*="bg--gray"] h6:not([class*="headline"]) a,
-  .banner[class*="bg--gray"] blockquote a {
-    color: #151515; }
+.banner[class*="bg--black"] .banner__text p, .banner[class*="bg-pattern--brain-black"] .banner__text p {
+  color: #fff; }
 
-.banner[class*="bg--gray"] p {
-  color: #151515;
-  font-weight: normal;
-  text-shadow: none; }
-  .banner[class*="bg--gray"] p a {
-    color: #151515; }
-
-.banner.bg-pattern--brain, .banner.bg-pattern--brain-reversed, .banner[class*="bg--gold"], .banner[class*="bg--white"], .banner[class*="banner--gradient-light"]:not([class*="pattern"]) {
+.banner[class*="bg--gray"] .banner__text {
   color: #151515; }
-  .banner.bg-pattern--brain p, .banner.bg-pattern--brain-reversed p, .banner[class*="bg--gold"] p, .banner[class*="bg--white"] p, .banner[class*="banner--gradient-light"]:not([class*="pattern"]) p {
+  .banner[class*="bg--gray"] .banner__text a {
+    color: #151515; }
+  .banner[class*="bg--gray"] .banner__text p {
     color: #151515;
     font-weight: normal;
     text-shadow: none; }
-    .banner.bg-pattern--brain p a, .banner.bg-pattern--brain-reversed p a, .banner[class*="bg--gold"] p a, .banner[class*="bg--white"] p a, .banner[class*="banner--gradient-light"]:not([class*="pattern"]) p a {
+    .banner[class*="bg--gray"] .banner__text p a {
       color: #151515; }
-  .banner.bg-pattern--brain h2:not([class*="headline"]),
-  .banner.bg-pattern--brain h3:not([class*="headline"]),
-  .banner.bg-pattern--brain h4:not([class*="headline"]),
-  .banner.bg-pattern--brain h5:not([class*="headline"]),
-  .banner.bg-pattern--brain h6:not([class*="headline"]),
-  .banner.bg-pattern--brain blockquote, .banner.bg-pattern--brain-reversed h2:not([class*="headline"]),
-  .banner.bg-pattern--brain-reversed h3:not([class*="headline"]),
-  .banner.bg-pattern--brain-reversed h4:not([class*="headline"]),
-  .banner.bg-pattern--brain-reversed h5:not([class*="headline"]),
-  .banner.bg-pattern--brain-reversed h6:not([class*="headline"]),
-  .banner.bg-pattern--brain-reversed blockquote, .banner[class*="bg--gold"] h2:not([class*="headline"]),
-  .banner[class*="bg--gold"] h3:not([class*="headline"]),
-  .banner[class*="bg--gold"] h4:not([class*="headline"]),
-  .banner[class*="bg--gold"] h5:not([class*="headline"]),
-  .banner[class*="bg--gold"] h6:not([class*="headline"]),
-  .banner[class*="bg--gold"] blockquote, .banner[class*="bg--white"] h2:not([class*="headline"]),
-  .banner[class*="bg--white"] h3:not([class*="headline"]),
-  .banner[class*="bg--white"] h4:not([class*="headline"]),
-  .banner[class*="bg--white"] h5:not([class*="headline"]),
-  .banner[class*="bg--white"] h6:not([class*="headline"]),
-  .banner[class*="bg--white"] blockquote, .banner[class*="banner--gradient-light"]:not([class*="pattern"]) h2:not([class*="headline"]),
-  .banner[class*="banner--gradient-light"]:not([class*="pattern"]) h3:not([class*="headline"]),
-  .banner[class*="banner--gradient-light"]:not([class*="pattern"]) h4:not([class*="headline"]),
-  .banner[class*="banner--gradient-light"]:not([class*="pattern"]) h5:not([class*="headline"]),
-  .banner[class*="banner--gradient-light"]:not([class*="pattern"]) h6:not([class*="headline"]),
-  .banner[class*="banner--gradient-light"]:not([class*="pattern"]) blockquote {
+
+.banner[class*="bg--gold"] .banner__text, .banner[class*="bg--white"] .banner__text, .banner[class*="banner--gradient-light"]:not([class*="bg-"]) .banner__text {
+  color: #151515; }
+  .banner[class*="bg--gold"] .banner__text p, .banner[class*="bg--white"] .banner__text p, .banner[class*="banner--gradient-light"]:not([class*="bg-"]) .banner__text p {
+    color: #151515;
+    font-weight: normal;
+    text-shadow: none; }
+    .banner[class*="bg--gold"] .banner__text p a, .banner[class*="bg--white"] .banner__text p a, .banner[class*="banner--gradient-light"]:not([class*="bg-"]) .banner__text p a {
+      color: #151515; }
+  .banner[class*="bg--gold"] .banner__text a, .banner[class*="bg--white"] .banner__text a, .banner[class*="banner--gradient-light"]:not([class*="bg-"]) .banner__text a {
     color: #151515; }
-    .banner.bg-pattern--brain h2:not([class*="headline"]) a,
-    .banner.bg-pattern--brain h3:not([class*="headline"]) a,
-    .banner.bg-pattern--brain h4:not([class*="headline"]) a,
-    .banner.bg-pattern--brain h5:not([class*="headline"]) a,
-    .banner.bg-pattern--brain h6:not([class*="headline"]) a,
-    .banner.bg-pattern--brain blockquote a, .banner.bg-pattern--brain-reversed h2:not([class*="headline"]) a,
-    .banner.bg-pattern--brain-reversed h3:not([class*="headline"]) a,
-    .banner.bg-pattern--brain-reversed h4:not([class*="headline"]) a,
-    .banner.bg-pattern--brain-reversed h5:not([class*="headline"]) a,
-    .banner.bg-pattern--brain-reversed h6:not([class*="headline"]) a,
-    .banner.bg-pattern--brain-reversed blockquote a, .banner[class*="bg--gold"] h2:not([class*="headline"]) a,
-    .banner[class*="bg--gold"] h3:not([class*="headline"]) a,
-    .banner[class*="bg--gold"] h4:not([class*="headline"]) a,
-    .banner[class*="bg--gold"] h5:not([class*="headline"]) a,
-    .banner[class*="bg--gold"] h6:not([class*="headline"]) a,
-    .banner[class*="bg--gold"] blockquote a, .banner[class*="bg--white"] h2:not([class*="headline"]) a,
-    .banner[class*="bg--white"] h3:not([class*="headline"]) a,
-    .banner[class*="bg--white"] h4:not([class*="headline"]) a,
-    .banner[class*="bg--white"] h5:not([class*="headline"]) a,
-    .banner[class*="bg--white"] h6:not([class*="headline"]) a,
-    .banner[class*="bg--white"] blockquote a, .banner[class*="banner--gradient-light"]:not([class*="pattern"]) h2:not([class*="headline"]) a,
-    .banner[class*="banner--gradient-light"]:not([class*="pattern"]) h3:not([class*="headline"]) a,
-    .banner[class*="banner--gradient-light"]:not([class*="pattern"]) h4:not([class*="headline"]) a,
-    .banner[class*="banner--gradient-light"]:not([class*="pattern"]) h5:not([class*="headline"]) a,
-    .banner[class*="banner--gradient-light"]:not([class*="pattern"]) h6:not([class*="headline"]) a,
-    .banner[class*="banner--gradient-light"]:not([class*="pattern"]) blockquote a {
-      color: #151515; }
-  [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) p, [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) p, [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) p, [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) p, [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) p {
+
+[class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="bg-"]) .banner__text, [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="bg-"]) .banner__text, [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="bg-"]).banner--stacked:not([class*="bg-"]) .banner__text {
+  color: #fff; }
+  @media (min-width: 768px) {
+    [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="bg-"]) .banner__text, [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="bg-"]) .banner__text, [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="bg-"]).banner--stacked:not([class*="bg-"]) .banner__text {
+      color: #151515; } }
+  [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="bg-"]) .banner__text a, [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="bg-"]) .banner__text a, [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="bg-"]).banner--stacked:not([class*="bg-"]) .banner__text a {
     color: #fff; }
     @media (min-width: 768px) {
-      [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) p, [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) p, [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) p, [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) p, [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) p {
+      [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="bg-"]) .banner__text a, [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="bg-"]) .banner__text a, [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="bg-"]).banner--stacked:not([class*="bg-"]) .banner__text a {
         color: #151515; } }
-    [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) p a, [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) p a, [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) p a, [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) p a, [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) p a {
-      color: #fff; }
-      @media (min-width: 768px) {
-        [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) p a, [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) p a, [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) p a, [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) p a, [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) p a {
-          color: #151515; } }
-  [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) h2:not([class*="headline"]),
-  [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) h3:not([class*="headline"]),
-  [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) h4:not([class*="headline"]),
-  [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) h5:not([class*="headline"]),
-  [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) h6:not([class*="headline"]),
-  [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) blockquote, [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) h2:not([class*="headline"]),
-  [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) h3:not([class*="headline"]),
-  [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) h4:not([class*="headline"]),
-  [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) h5:not([class*="headline"]),
-  [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) h6:not([class*="headline"]),
-  [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) blockquote, [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) h2:not([class*="headline"]),
-  [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) h3:not([class*="headline"]),
-  [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) h4:not([class*="headline"]),
-  [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) h5:not([class*="headline"]),
-  [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) h6:not([class*="headline"]),
-  [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) blockquote, [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) h2:not([class*="headline"]),
-  [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) h3:not([class*="headline"]),
-  [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) h4:not([class*="headline"]),
-  [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) h5:not([class*="headline"]),
-  [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) h6:not([class*="headline"]),
-  [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) blockquote, [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) h2:not([class*="headline"]),
-  [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) h3:not([class*="headline"]),
-  [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) h4:not([class*="headline"]),
-  [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) h5:not([class*="headline"]),
-  [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) h6:not([class*="headline"]),
-  [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) blockquote {
+  [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="bg-"]) .banner__text p, [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="bg-"]) .banner__text p, [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="bg-"]).banner--stacked:not([class*="bg-"]) .banner__text p {
     color: #fff; }
     @media (min-width: 768px) {
-      [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) h2:not([class*="headline"]),
-      [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) h3:not([class*="headline"]),
-      [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) h4:not([class*="headline"]),
-      [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) h5:not([class*="headline"]),
-      [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) h6:not([class*="headline"]),
-      [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) blockquote, [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) h2:not([class*="headline"]),
-      [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) h3:not([class*="headline"]),
-      [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) h4:not([class*="headline"]),
-      [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) h5:not([class*="headline"]),
-      [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) h6:not([class*="headline"]),
-      [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) blockquote, [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) h2:not([class*="headline"]),
-      [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) h3:not([class*="headline"]),
-      [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) h4:not([class*="headline"]),
-      [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) h5:not([class*="headline"]),
-      [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) h6:not([class*="headline"]),
-      [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) blockquote, [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) h2:not([class*="headline"]),
-      [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) h3:not([class*="headline"]),
-      [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) h4:not([class*="headline"]),
-      [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) h5:not([class*="headline"]),
-      [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) h6:not([class*="headline"]),
-      [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) blockquote, [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) h2:not([class*="headline"]),
-      [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) h3:not([class*="headline"]),
-      [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) h4:not([class*="headline"]),
-      [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) h5:not([class*="headline"]),
-      [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) h6:not([class*="headline"]),
-      [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) blockquote {
+      [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="bg-"]) .banner__text p, [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="bg-"]) .banner__text p, [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="bg-"]).banner--stacked:not([class*="bg-"]) .banner__text p {
         color: #151515; } }
-    [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) h2:not([class*="headline"]) a,
-    [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) h3:not([class*="headline"]) a,
-    [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) h4:not([class*="headline"]) a,
-    [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) h5:not([class*="headline"]) a,
-    [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) h6:not([class*="headline"]) a,
-    [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) blockquote a, [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) h2:not([class*="headline"]) a,
-    [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) h3:not([class*="headline"]) a,
-    [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) h4:not([class*="headline"]) a,
-    [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) h5:not([class*="headline"]) a,
-    [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) h6:not([class*="headline"]) a,
-    [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) blockquote a, [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) h2:not([class*="headline"]) a,
-    [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) h3:not([class*="headline"]) a,
-    [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) h4:not([class*="headline"]) a,
-    [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) h5:not([class*="headline"]) a,
-    [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) h6:not([class*="headline"]) a,
-    [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) blockquote a, [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) h2:not([class*="headline"]) a,
-    [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) h3:not([class*="headline"]) a,
-    [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) h4:not([class*="headline"]) a,
-    [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) h5:not([class*="headline"]) a,
-    [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) h6:not([class*="headline"]) a,
-    [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) blockquote a, [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) h2:not([class*="headline"]) a,
-    [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) h3:not([class*="headline"]) a,
-    [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) h4:not([class*="headline"]) a,
-    [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) h5:not([class*="headline"]) a,
-    [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) h6:not([class*="headline"]) a,
-    [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) blockquote a {
+    [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="bg-"]) .banner__text p a, [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="bg-"]) .banner__text p a, [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="bg-"]).banner--stacked:not([class*="bg-"]) .banner__text p a {
       color: #fff; }
       @media (min-width: 768px) {
-        [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) h2:not([class*="headline"]) a,
-        [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) h3:not([class*="headline"]) a,
-        [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) h4:not([class*="headline"]) a,
-        [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) h5:not([class*="headline"]) a,
-        [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) h6:not([class*="headline"]) a,
-        [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) blockquote a, [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) h2:not([class*="headline"]) a,
-        [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) h3:not([class*="headline"]) a,
-        [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) h4:not([class*="headline"]) a,
-        [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) h5:not([class*="headline"]) a,
-        [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) h6:not([class*="headline"]) a,
-        [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) blockquote a, [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) h2:not([class*="headline"]) a,
-        [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) h3:not([class*="headline"]) a,
-        [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) h4:not([class*="headline"]) a,
-        [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) h5:not([class*="headline"]) a,
-        [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) h6:not([class*="headline"]) a,
-        [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) blockquote a, [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) h2:not([class*="headline"]) a,
-        [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) h3:not([class*="headline"]) a,
-        [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) h4:not([class*="headline"]) a,
-        [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) h5:not([class*="headline"]) a,
-        [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) h6:not([class*="headline"]) a,
-        [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) blockquote a, [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) h2:not([class*="headline"]) a,
-        [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) h3:not([class*="headline"]) a,
-        [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) h4:not([class*="headline"]) a,
-        [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) h5:not([class*="headline"]) a,
-        [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) h6:not([class*="headline"]) a,
-        [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) blockquote a {
-          color: #151515; } }
-  [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) .headline.headline--negative, [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) .headline.headline--negative, [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) .headline.headline--negative, [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) .headline.headline--negative, [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) .headline.headline--negative {
-    color: #fff; }
-    @media (min-width: 768px) {
-      [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) .headline.headline--negative, [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) .headline.headline--negative, [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) .headline.headline--negative, [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) .headline.headline--negative, [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) .headline.headline--negative {
-        color: #151515; } }
-    [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) .headline.headline--negative a, [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) .headline.headline--negative a, [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) .headline.headline--negative a, [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) .headline.headline--negative a, [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) .headline.headline--negative a {
-      color: #fff; }
-      @media (min-width: 768px) {
-        [class*="bg--black"] .banner.bg-pattern--brain.banner--stacked:not([class*="pattern"]) .headline.headline--negative a, [class*="bg--black"] .banner.bg-pattern--brain-reversed.banner--stacked:not([class*="pattern"]) .headline.headline--negative a, [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="pattern"]) .headline.headline--negative a, [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="pattern"]) .headline.headline--negative a, [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="pattern"]).banner--stacked:not([class*="pattern"]) .headline.headline--negative a {
+        [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="bg-"]) .banner__text p a, [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="bg-"]) .banner__text p a, [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="bg-"]).banner--stacked:not([class*="bg-"]) .banner__text p a {
           color: #151515; } }
 
 .banner--stacked[class*="banner--gradient-dark"]:not([class*="bg--"]) .banner__text p {
@@ -396,9 +217,8 @@
     @media (min-width: 768px) {
       .banner--stacked[class*="banner--gradient-dark"]:not([class*="bg--"]) .banner__text p a {
         color: #fff; } }
-
-[class*="bg--black"] .banner--stacked[class*="banner--gradient-dark"] .banner__text p a {
-  color: #fff; }
+    [class*="bg--black"] .banner--stacked[class*="banner--gradient-dark"]:not([class*="bg--"]) .banner__text p a {
+      color: #fff; }
 
 [class*="bg--gold"] .banner--stacked[class*="banner--gradient-light"]:not([class*="bg--black"]) .banner__text p {
   color: #151515; }
@@ -407,68 +227,39 @@
 
 .banner--stacked[class*="bg--black"], .banner--stacked[class*="bg-pattern--brain-black"] {
   display: flex; }
-  .banner--stacked[class*="bg--black"] h2:not([class*="headline"]),
-  .banner--stacked[class*="bg--black"] h3:not([class*="headline"]),
-  .banner--stacked[class*="bg--black"] h4:not([class*="headline"]),
-  .banner--stacked[class*="bg--black"] h5:not([class*="headline"]),
-  .banner--stacked[class*="bg--black"] h6:not([class*="headline"]),
-  .banner--stacked[class*="bg--black"] blockquote, .banner--stacked[class*="bg-pattern--brain-black"] h2:not([class*="headline"]),
-  .banner--stacked[class*="bg-pattern--brain-black"] h3:not([class*="headline"]),
-  .banner--stacked[class*="bg-pattern--brain-black"] h4:not([class*="headline"]),
-  .banner--stacked[class*="bg-pattern--brain-black"] h5:not([class*="headline"]),
-  .banner--stacked[class*="bg-pattern--brain-black"] h6:not([class*="headline"]),
-  .banner--stacked[class*="bg-pattern--brain-black"] blockquote {
+  .banner--stacked[class*="bg--black"] .banner__text, .banner--stacked[class*="bg-pattern--brain-black"] .banner__text {
     color: #fff; }
-  .banner--stacked[class*="bg--black"] .banner__text p, .banner--stacked[class*="bg-pattern--brain-black"] .banner__text p {
-    color: #fff; }
-    .banner--stacked[class*="bg--black"] .banner__text p a, .banner--stacked[class*="bg-pattern--brain-black"] .banner__text p a {
+    .banner--stacked[class*="bg--black"] .banner__text a, .banner--stacked[class*="bg-pattern--brain-black"] .banner__text a {
       color: #fff; }
+    .banner--stacked[class*="bg--black"] .banner__text p, .banner--stacked[class*="bg-pattern--brain-black"] .banner__text p {
+      color: #fff; }
+      .banner--stacked[class*="bg--black"] .banner__text p a, .banner--stacked[class*="bg-pattern--brain-black"] .banner__text p a {
+        color: #fff; }
 
-.banner--stacked h2:not([class*="headline"]),
-.banner--stacked h3:not([class*="headline"]),
-.banner--stacked h4:not([class*="headline"]),
-.banner--stacked h5:not([class*="headline"]),
-.banner--stacked h6:not([class*="headline"]),
-.banner--stacked blockquote {
+.banner--stacked .banner__text {
   color: #151515; }
   @media (min-width: 768px) {
-    .banner--stacked h2:not([class*="headline"]),
-    .banner--stacked h3:not([class*="headline"]),
-    .banner--stacked h4:not([class*="headline"]),
-    .banner--stacked h5:not([class*="headline"]),
-    .banner--stacked h6:not([class*="headline"]),
-    .banner--stacked blockquote {
+    .banner--stacked .banner__text {
       color: #fff; } }
-  .banner--stacked h2:not([class*="headline"]) a,
-  .banner--stacked h3:not([class*="headline"]) a,
-  .banner--stacked h4:not([class*="headline"]) a,
-  .banner--stacked h5:not([class*="headline"]) a,
-  .banner--stacked h6:not([class*="headline"]) a,
-  .banner--stacked blockquote a {
+  .banner--stacked .banner__text a {
     color: #151515; }
     @media (min-width: 768px) {
-      .banner--stacked h2:not([class*="headline"]) a,
-      .banner--stacked h3:not([class*="headline"]) a,
-      .banner--stacked h4:not([class*="headline"]) a,
-      .banner--stacked h5:not([class*="headline"]) a,
-      .banner--stacked h6:not([class*="headline"]) a,
-      .banner--stacked blockquote a {
+      .banner--stacked .banner__text a {
         color: #fff; } }
 
-[class*="bg--black"] .banner--stacked h2:not([class*="headline"]),
-[class*="bg--black"] .banner--stacked h3:not([class*="headline"]),
-[class*="bg--black"] .banner--stacked h4:not([class*="headline"]),
-[class*="bg--black"] .banner--stacked h5:not([class*="headline"]),
-[class*="bg--black"] .banner--stacked h6:not([class*="headline"]),
-[class*="bg--black"] .banner--stacked blockquote {
+[class*="bg--black"] .banner--stacked .banner__text {
   color: #fff; }
-  [class*="bg--black"] .banner--stacked h2:not([class*="headline"]) a,
-  [class*="bg--black"] .banner--stacked h3:not([class*="headline"]) a,
-  [class*="bg--black"] .banner--stacked h4:not([class*="headline"]) a,
-  [class*="bg--black"] .banner--stacked h5:not([class*="headline"]) a,
-  [class*="bg--black"] .banner--stacked h6:not([class*="headline"]) a,
-  [class*="bg--black"] .banner--stacked blockquote a {
+  [class*="bg--black"] .banner--stacked .banner__text a {
     color: #fff; }
+
+[class*="bg--black"] .banner--stacked[class*="bg--white"] .banner__text, [class*="bg--black"] .banner--stacked[class*="bg--gray"] .banner__text, [class*="bg--black"] .banner--stacked[class*="bg--gold"] .banner__text {
+  color: #151515; }
+  [class*="bg--black"] .banner--stacked[class*="bg--white"] .banner__text a, [class*="bg--black"] .banner--stacked[class*="bg--gray"] .banner__text a, [class*="bg--black"] .banner--stacked[class*="bg--gold"] .banner__text a {
+    color: #151515; }
+  [class*="bg--black"] .banner--stacked[class*="bg--white"] .banner__text p, [class*="bg--black"] .banner--stacked[class*="bg--gray"] .banner__text p, [class*="bg--black"] .banner--stacked[class*="bg--gold"] .banner__text p {
+    color: #151515; }
+    [class*="bg--black"] .banner--stacked[class*="bg--white"] .banner__text p a, [class*="bg--black"] .banner--stacked[class*="bg--gray"] .banner__text p a, [class*="bg--black"] .banner--stacked[class*="bg--gold"] .banner__text p a {
+      color: #151515; }
 
 .banner__image {
   overflow: visible; }
@@ -509,7 +300,6 @@
 
 .banner .media--video .video-controls {
   position: absolute;
-  z-index: 1;
   left: 1.25rem;
   bottom: 1.25rem; }
   @media (min-width: 84.375em) {
@@ -555,6 +345,9 @@
 @media (hover: none), (hover: on-demand) {
   .banner .media--video .video-btn {
     display: none; } }
+
+.banner[class*="light"] .media--video .video-btn {
+  border: 1px solid #151515; }
 
 .banner--stacked .media--video {
   position: relative; }
@@ -702,10 +495,14 @@
 .banner--stacked[class*="dark"][class*="bg--black"] .headline--negative {
   color: #fff; }
 
-[class*="bg--black"] .banner--stacked[class*="dark"][class*="bg--gray"] .headline--negative.headline--uppercase, [class*="bg--black"] .banner--stacked[class*="dark"][class*="bg--white"] .headline--negative.headline--uppercase {
+[class*="bg--black"] .banner--stacked[class*="dark"][class*="bg--gray"] .headline--negative.headline--uppercase, [class*="bg--black"]
+.banner--stacked[class*="dark"][class*="bg--gray"] .headline--negative, [class*="bg--black"] .banner--stacked[class*="dark"][class*="bg--white"] .headline--negative.headline--uppercase, [class*="bg--black"]
+.banner--stacked[class*="dark"][class*="bg--white"] .headline--negative {
   color: #151515;
   text-shadow: none; }
-  [class*="bg--black"] .banner--stacked[class*="dark"][class*="bg--gray"] .headline--negative.headline--uppercase a, [class*="bg--black"] .banner--stacked[class*="dark"][class*="bg--white"] .headline--negative.headline--uppercase a {
+  [class*="bg--black"] .banner--stacked[class*="dark"][class*="bg--gray"] .headline--negative.headline--uppercase a, [class*="bg--black"]
+  .banner--stacked[class*="dark"][class*="bg--gray"] .headline--negative a, [class*="bg--black"] .banner--stacked[class*="dark"][class*="bg--white"] .headline--negative.headline--uppercase a, [class*="bg--black"]
+  .banner--stacked[class*="dark"][class*="bg--white"] .headline--negative a {
     color: #151515;
     text-shadow: none; }
 
@@ -742,11 +539,22 @@
 .banner[class*="bg--black"] .headline--negative a {
   color: #fff; }
 
-.banner.bg-pattern--brain .headline.headline--negative, .banner.bg-pattern--brain-reversed .headline.headline--negative, .banner[class*="bg--gold"] .headline.headline--negative, .banner[class*="bg--white"] .headline.headline--negative, .banner[class*="banner--gradient-light"]:not([class*="pattern"]) .headline.headline--negative {
+.banner[class*="bg--gold"] .headline.headline--negative, .banner[class*="bg--white"] .headline.headline--negative, .banner[class*="banner--gradient-light"]:not([class*="bg-"]) .headline.headline--negative {
   color: #151515;
   text-shadow: none; }
-  .banner.bg-pattern--brain .headline.headline--negative a, .banner.bg-pattern--brain-reversed .headline.headline--negative a, .banner[class*="bg--gold"] .headline.headline--negative a, .banner[class*="bg--white"] .headline.headline--negative a, .banner[class*="banner--gradient-light"]:not([class*="pattern"]) .headline.headline--negative a {
+  .banner[class*="bg--gold"] .headline.headline--negative a, .banner[class*="bg--white"] .headline.headline--negative a, .banner[class*="banner--gradient-light"]:not([class*="bg-"]) .headline.headline--negative a {
     color: #151515; }
+
+[class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="bg-"]) .headline.headline--negative, [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="bg-"]) .headline.headline--negative, [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="bg-"]).banner--stacked:not([class*="bg-"]) .headline.headline--negative {
+  color: #fff; }
+  @media (min-width: 768px) {
+    [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="bg-"]) .headline.headline--negative, [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="bg-"]) .headline.headline--negative, [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="bg-"]).banner--stacked:not([class*="bg-"]) .headline.headline--negative {
+      color: #151515; } }
+  [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="bg-"]) .headline.headline--negative a, [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="bg-"]) .headline.headline--negative a, [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="bg-"]).banner--stacked:not([class*="bg-"]) .headline.headline--negative a {
+    color: #fff; }
+    @media (min-width: 768px) {
+      [class*="bg--black"] .banner[class*="bg--gold"].banner--stacked:not([class*="bg-"]) .headline.headline--negative a, [class*="bg--black"] .banner[class*="bg--white"].banner--stacked:not([class*="bg-"]) .headline.headline--negative a, [class*="bg--black"] .banner[class*="banner--gradient-light"]:not([class*="bg-"]).banner--stacked:not([class*="bg-"]) .headline.headline--negative a {
+        color: #151515; } }
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
   .banner {
@@ -776,3 +584,7 @@
 @media all and (-ms-high-contrast: none) and (min-width: 768px), (-ms-high-contrast: active) and (min-width: 768px) {
   .banner.banner--medium .banner__container {
     min-height: 33rem; } }
+
+[class*="bg--gray"] [class*="banner--gradient-dark"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
+[class*="bg--white"] [class*="banner--gradient-dark"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn) {
+  color: inherit; }

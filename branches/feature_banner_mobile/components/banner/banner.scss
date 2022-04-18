@@ -124,7 +124,7 @@
 // --------------------------------
 
 .banner {
-  &.banner--gradient-light {
+  &.banner--gradient-light:not([class*="bg-"]) {
     .banner__pre-title {
       &.headline.headline--highlight {
         span {
@@ -162,7 +162,8 @@
         [class*="bg--black"] &,
         [class*="bg--black"] [class*="banner--gradient-dark"]:not([class*="bg--"]) &,
         [class*="bg--gold"] [class*="banner--gradient-dark"][class*="bg--black"] &,
-        [class*="banner--gradient-dark"]:not([class*="bg--"]):not([class*="banner--stacked"]) & {
+        [class*="banner--gradient-dark"]:not([class*="bg--"]):not([class*="banner--stacked"]) &,
+        [class*="bg--black"] [class*="banner--gradient-light"][class*="bg--black"]:not([class*="banner--stacked"]) & {
           color: #fff;
         }
 
@@ -207,24 +208,6 @@
   }
 
   &__stacked {
-    //&[class*="banner--gradient-dark"]:not([class*="bg--"]) {
-    //
-    //.banner__pre-title.headline.headline--highlight {
-    //    span {
-    //      color: $secondary;
-    //      @include breakpoint(sm) {
-    //        color: #fff;
-    //      }
-    //    }
-    //  }
-    //}
-    //&[class*="banner--gradient-light"]:not([class*="bg--"]) {
-    //  .banner__pre-title.headline.headline--highlight span {
-    //    [class*="bg--black"] & {
-    //      color: #fff;
-    //    }
-    //  }
-    //  }
     &[class*="banner--gradient-dark"] {
       .banner__pre-title.headline--highlight span {
         color: $secondary;
@@ -248,10 +231,6 @@
 // --------------------------------
 
 .banner {
-  &__text {
-    z-index: 1;
-  }
-
   &__content {
     padding: $gutter;
     @include breakpoint(sm) {
@@ -266,101 +245,98 @@
     }
   }
 
-  h2:not([class*="headline"]),
-  h3:not([class*="headline"]),
-  h4:not([class*="headline"]),
-  h5:not([class*="headline"]),
-  h6:not([class*="headline"]),
-  blockquote {
+  &__text {
+    z-index: 1;
     color: #fff;
 
     a {
       color: #fff;
+    }
+
+
+    p {
+      line-height: 1.5;
+      margin-top: 0;
+      color: #fff;
+      text-shadow: 0 1px 1px #000;
+      @include breakpoint(sm) {
+        color: #fff;
+        text-shadow: 0 1px 1px #000;
+      }
+
+      a {
+        position: relative;
+        z-index: 1;
+        color: #fff;
+      }
     }
   }
 
-  p {
-    line-height: 1.5;
-    margin-top: 0;
-    color: #fff;
-    text-shadow: 0 1px 1px #000;
-    @include breakpoint(sm) {
-      color: #fff;
-      text-shadow: 0 1px 1px #000;
-    }
-
-    a {
-      position: relative;
-      z-index: 1;
-      color: #fff;
+  &[class*="banner--gradient-dark"]:not([class*="bg-"]):not([class*="banner--stacked"]) {
+    .banner__text a {
+      [class*="bg--gray"] &,
+      [class*="bg--gold"] &,
+      [class*="bg--white"] &{
+        color: #fff;
+      }
     }
   }
   // bg color overrides
   &[class*="bg--black"],
   &[class*="bg-pattern--brain-black"] {
-    p {
+    .banner__text p {
       color: #fff;
     }
   }
 
   &[class*="bg--gray"] {
-    h2:not([class*="headline"]),
-    h3:not([class*="headline"]),
-    h4:not([class*="headline"]),
-    h5:not([class*="headline"]),
-    h6:not([class*="headline"]),
-    blockquote {
+    .banner__text {
       color: $secondary;
 
       a {
         color: $secondary;
       }
-    }
 
-    p {
-      color: $secondary;
-      font-weight: normal;
-      text-shadow: none;
 
-      a {
+      p {
         color: $secondary;
+        font-weight: normal;
+        text-shadow: none;
+
+        a {
+          color: $secondary;
+        }
       }
     }
   }
 
-  &.bg-pattern--brain,
-  &.bg-pattern--brain-reversed,
+
   &[class*="bg--gold"],
   &[class*="bg--white"],
-  &[class*="banner--gradient-light"]:not([class*="pattern"]) {
-    color: $secondary;
+  &[class*="banner--gradient-light"]:not([class*="bg-"]) {
 
-    p {
+    .banner__text {
       color: $secondary;
-      font-weight: normal;
-      text-shadow: none;
+
+      p {
+        color: $secondary;
+        font-weight: normal;
+        text-shadow: none;
+
+        a {
+          color: $secondary;
+        }
+      }
 
       a {
         color: $secondary;
       }
+
     }
 
-    h2:not([class*="headline"]),
-    h3:not([class*="headline"]),
-    h4:not([class*="headline"]),
-    h5:not([class*="headline"]),
-    h6:not([class*="headline"]),
-    blockquote {
-      color: $secondary;
-
-      a {
-        color: $secondary;
-      }
-    }
-
-    &.banner--stacked:not([class*="pattern"]) {
+    &.banner--stacked:not([class*="bg-"]) {
       [class*="bg--black"] & {
-        p {
+        .banner__text {
           color: #fff;
           @include breakpoint(sm) {
             color: $secondary;
@@ -372,43 +348,27 @@
               color: $secondary;
             }
           }
-        }
-
-        h2:not([class*="headline"]),
-        h3:not([class*="headline"]),
-        h4:not([class*="headline"]),
-        h5:not([class*="headline"]),
-        h6:not([class*="headline"]),
-        blockquote {
-          color: #fff;
-          @include breakpoint(sm) {
-            color: $secondary;
-          }
-
-          a {
+          p {
             color: #fff;
             @include breakpoint(sm) {
               color: $secondary;
             }
-          }
-        }
 
-        .headline.headline--negative {
-          color: #fff;
-          @include breakpoint(sm) {
-            color: $secondary;
-          }
-
-          a {
-            color: #fff;
-            @include breakpoint(sm) {
-              color: $secondary;
+            a {
+              color: #fff;
+              @include breakpoint(sm) {
+                color: $secondary;
+              }
             }
           }
         }
+
       }
     }
   }
+
+
+
 
   &--stacked {
     &[class*="banner--gradient-dark"] {
@@ -430,21 +390,15 @@
               @include breakpoint(sm) {
                 color: #fff;
               }
+              [class*="bg--black"] & {
+                color: #fff;
+              }
             }
           }
         }
       }
 
-      .banner__text {
-        [class*="bg--black"] & {
-          p {
-            //color: #fff;
-            a {
-              color: #fff;
-            }
-          }
-        }
-      }
+
     }
 
     &[class*="banner--gradient-light"]:not([class*="bg--black"]) {
@@ -465,30 +419,24 @@
     &[class*="bg-pattern--brain-black"] {
       display: flex;
 
-      h2:not([class*="headline"]),
-      h3:not([class*="headline"]),
-      h4:not([class*="headline"]),
-      h5:not([class*="headline"]),
-      h6:not([class*="headline"]),
-      blockquote {
-        color: #fff;
-      }
-
-      .banner__text p {
+      .banner__text {
         color: #fff;
 
         a {
           color: #fff;
         }
+        p {
+
+          color: #fff;
+
+          a {
+            color: #fff;
+          }
+        }
       }
     }
 
-    h2:not([class*="headline"]),
-    h3:not([class*="headline"]),
-    h4:not([class*="headline"]),
-    h5:not([class*="headline"]),
-    h6:not([class*="headline"]),
-    blockquote {
+    .banner__text {
       color: $secondary;
       @include breakpoint(sm) {
         color: #fff;
@@ -503,12 +451,7 @@
     }
 
     [class*="bg--black"] & {
-      h2:not([class*="headline"]),
-      h3:not([class*="headline"]),
-      h4:not([class*="headline"]),
-      h5:not([class*="headline"]),
-      h6:not([class*="headline"]),
-      blockquote {
+      .banner__text {
         color: #fff;
 
         a {
@@ -516,6 +459,30 @@
         }
       }
     }
+
+    &[class*="bg--white"],
+    &[class*="bg--gray"],
+    &[class*="bg--gold"] {
+      [class*="bg--black"] & {
+        .banner__text {
+          color: $secondary;
+
+          a {
+            color: $secondary;
+          }
+          p {
+            color: $secondary;
+
+            a {
+              color: $secondary;
+            }
+          }
+        }
+
+      }
+    }
+
+
   }
 }
 // --------------------------------
@@ -581,7 +548,6 @@
     //position: relative;
     .video-controls {
       position: absolute;
-      z-index: 1;
       left: 1.25rem;
       bottom: 1.25rem;
       @include breakpoint(page-container) {
@@ -632,6 +598,13 @@
       }
     }
   }
+
+  &[class*="light"] {
+    .media--video .video-btn {
+      border: 1px solid $secondary;
+    }
+  }
+
 
   &--stacked {
     .media--video {
@@ -866,7 +839,8 @@
 
     &[class*="dark"][class*="bg--gray"],
     &[class*="dark"][class*="bg--white"] {
-      .headline--negative.headline--uppercase {
+      .headline--negative.headline--uppercase,
+      .headline--negative {
         [class*="bg--black"] & {
           color: $secondary;
           text-shadow: none;
@@ -932,17 +906,33 @@
     }
   }
 
-  &.bg-pattern--brain,
-  &.bg-pattern--brain-reversed,
   &[class*="bg--gold"],
   &[class*="bg--white"],
-  &[class*="banner--gradient-light"]:not([class*="pattern"]) {
+  &[class*="banner--gradient-light"]:not([class*="bg-"]) {
     .headline.headline--negative {
       color: $secondary;
       text-shadow: none;
 
       a {
         color: $secondary;
+      }
+    }
+
+    &.banner--stacked:not([class*="bg-"]) {
+      [class*="bg--black"] & {
+        .headline.headline--negative {
+          color: #fff;
+          @include breakpoint(sm) {
+            color: $secondary;
+          }
+
+          a {
+            color: #fff;
+            @include breakpoint(sm) {
+              color: $secondary;
+            }
+          }
+        }
       }
     }
   }
@@ -989,4 +979,9 @@
     }
   }
 }
-// @todo fix bg--gray background color links
+
+// set link color for gray and white nesting.
+[class*="bg--gray"] [class*="banner--gradient-dark"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
+[class*="bg--white"] [class*="banner--gradient-dark"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn) {
+  color: inherit;
+}
