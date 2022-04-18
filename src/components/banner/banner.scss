@@ -162,7 +162,8 @@
         [class*="bg--black"] &,
         [class*="bg--black"] [class*="banner--gradient-dark"]:not([class*="bg--"]) &,
         [class*="bg--gold"] [class*="banner--gradient-dark"][class*="bg--black"] &,
-        [class*="banner--gradient-dark"]:not([class*="bg--"]):not([class*="banner--stacked"]) & {
+        [class*="banner--gradient-dark"]:not([class*="bg--"]):not([class*="banner--stacked"]) &,
+        [class*="bg--black"] [class*="banner--gradient-light"][class*="bg--black"]:not([class*="banner--stacked"]) & {
           color: #fff;
         }
 
@@ -332,7 +333,7 @@
   &.bg-pattern--brain-reversed,
   &[class*="bg--gold"],
   &[class*="bg--white"],
-  &[class*="banner--gradient-light"]:not([class*="pattern"]) {
+  &[class*="banner--gradient-light"]:not([class*="bg-"]) {
     color: $secondary;
 
     p {
@@ -358,7 +359,7 @@
       }
     }
 
-    &.banner--stacked:not([class*="pattern"]) {
+    &.banner--stacked:not([class*="bg-"]) {
       [class*="bg--black"] & {
         p {
           color: #fff;
@@ -430,6 +431,9 @@
               @include breakpoint(sm) {
                 color: #fff;
               }
+              [class*="bg--black"] & {
+                color: #fff;
+              }
             }
           }
         }
@@ -440,7 +444,7 @@
           p {
             //color: #fff;
             a {
-              color: #fff;
+              // color: #fff;
             }
           }
         }
@@ -472,6 +476,10 @@
       h6:not([class*="headline"]),
       blockquote {
         color: #fff;
+
+        a {
+          color: #fff;
+        }
       }
 
       .banner__text p {
@@ -516,6 +524,34 @@
         }
       }
     }
+
+    &[class*="bg--white"],
+    &[class*="bg--gray"],
+    &[class*="bg--gold"] {
+      [class*="bg--black"] & {
+        h2:not([class*="headline"]),
+        h3:not([class*="headline"]),
+        h4:not([class*="headline"]),
+        h5:not([class*="headline"]),
+        h6:not([class*="headline"]),
+        blockquote {
+          color: $secondary;
+
+          a {
+            color: $secondary;
+          }
+        }
+        p {
+          color: $secondary;
+
+          a {
+            color: $secondary;
+          }
+        }
+      }
+    }
+
+
   }
 }
 // --------------------------------
@@ -936,7 +972,7 @@
   &.bg-pattern--brain-reversed,
   &[class*="bg--gold"],
   &[class*="bg--white"],
-  &[class*="banner--gradient-light"]:not([class*="pattern"]) {
+  &[class*="banner--gradient-light"]:not([class*="bg-"]) {
     .headline.headline--negative {
       color: $secondary;
       text-shadow: none;
@@ -990,3 +1026,8 @@
   }
 }
 // @todo fix bg--gray background color links
+// set link color for black and gold nesting.
+[class*="bg--gray"] [class*="banner--gradient-dark"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
+[class*="bg--white"] [class*="banner--gradient-dark"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn) {
+  color: inherit;
+}
