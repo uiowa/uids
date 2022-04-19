@@ -14,6 +14,8 @@
   align-items: center;
   justify-content: center;
   min-height: 15rem;
+  position: relative;
+  overflow: hidden;
 
   &--large {
     &::before {
@@ -50,14 +52,11 @@
       clear: both;
     }
   }
-}
+
 // --------------------------------
 // Alignment
 // --------------------------------
 
-.banner {
-  position: relative;
-  overflow: hidden;
   @include breakpoint(sm) {
     flex-basis: 100%;
     display: flex;
@@ -83,12 +82,11 @@
       }
     }
   }
-}
+
 // --------------------------------
 // Container
 // --------------------------------
 
-.banner {
   &:focus-within .headline a:focus {
     text-decoration: underline;
   }
@@ -103,12 +101,11 @@
       top: 0;
     }
   }
-}
+
 // --------------------------------
 // Actions/buttons
 // --------------------------------
 
-.banner {
   .headline + .banner__action {
     margin-top: 1.5rem;
   }
@@ -122,12 +119,11 @@
       }
     }
   }
-}
+
 // --------------------------------
 // Pre-title
 // --------------------------------
 
-.banner {
   &__pre-title {
     background: none;
     line-height: 1.1;
@@ -224,12 +220,11 @@
       }
     }
   }
-}
+
 // --------------------------------
 // Text & Content
 // --------------------------------
 
-.banner {
   &__content {
     padding: $gutter;
     @include breakpoint(sm) {
@@ -484,12 +479,11 @@
       }
     }
   }
-}
+
 // --------------------------------
 // Image
 // --------------------------------
 
-.banner {
   &__image {
     overflow: visible;
 
@@ -514,12 +508,11 @@
       }
     }
   }
-}
+
 // --------------------------------
 // Video
 // --------------------------------
 
-.banner {
   .media--video .video-controls {
     z-index: 2;
   }
@@ -625,24 +618,22 @@
       }
     }
   }
-}
+
 // --------------------------------
 // Stacked
 // --------------------------------
 
-.banner {
   &--stacked {
     display: block;
     @include breakpoint(sm) {
       display: flex;
     }
   }
-}
+
 // --------------------------------
 // Gradients
 // --------------------------------
 
-.banner {
   // Default overlay
   &:after {
     position: absolute;
@@ -776,12 +767,11 @@
   &[class*="bg-"]:after {
     background: inherit;
   }
-}
+
 // --------------------------------
 // Headlines
 // --------------------------------
 
-.banner {
   .headline {
     z-index: 1;
 
@@ -938,6 +928,7 @@
       }
     }
   }
+
 }
 // --------------------------------
 // IE11
@@ -981,8 +972,8 @@
     }
   }
 }
-// set link color for gray and white nesting.
 
+// set link color for gray and white nesting.
 [class*="bg--gray"] [class*="banner--gradient-dark"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
 [class*="bg--white"] [class*="banner--gradient-dark"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn) {
   color: inherit;
