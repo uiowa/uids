@@ -21,9 +21,9 @@
         <h1>Acme</h1>
       </div>
       <div>
-        <my-button size="small" @click="$emit('logout')" label="Log out" v-if="user" />
-        <my-button size="small" @click="$emit('login')" label="Log in" v-if="!user" />
-        <my-button primary size="small" @click="$emit('createAccount')" label="Sign up" v-if="!user" />
+        <uids-button size="small" @click="$emit('logout')" v-if="user">Log out</uids-button>
+        <uids-button size="small" @click="$emit('login')" v-if="!user" color="secondary">Log in</uids-button>
+        <uids-button @click="$emit('createAccount')" v-if="!user">Sign up</uids-button>
       </div>
     </div>
   </header>
@@ -31,12 +31,12 @@
 
 <script>
 import './header.css';
-import MyButton from './Button.vue';
+import UidsButton from './Button.vue';
 
 export default {
   name: 'my-header',
 
-  components: { MyButton },
+  components: { UidsButton },
 
   props: {
     user: {
