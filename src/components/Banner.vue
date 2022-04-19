@@ -1,16 +1,30 @@
 <script setup lang="ts">
-// import Headline from './Headline.vue';
-// import linkButton from './linkButton.vue';
+import UidsHeadline from './Headline.vue';
+import UidsButton from './Button.vue';
+import { computed } from 'vue';
 
 const name = 'uids-banner'
 
 const props = defineProps({
-  title: { type: String, required: true },
+  title: { type: String },
   image: { type: String },
   url: { type: String },
   text: { type: String },
+  headline_settings: {
+    type: Object,
+  },
+  button_text: {
+    type: String,
+  },
   // @todo Determine how best to handle these fields going forward.
-  // overlay?: string
+  overlay_color: {
+    type: String,
+    default: 'gradient-dark',
+  },
+  overlay_to: {
+    type: String,
+    default: 'gradient-bottom',
+  },
   // size?: string
   // classes?: string
   // vertical_alignment?: string
@@ -21,43 +35,62 @@ const props = defineProps({
 })
 
 // Compose a string out of the classes passed to the component.
-function getClasses() {
+const classes = computed(() => {
   let classes = ["banner"];
+  if (props.url) {
+    classes.push('click-container')
+  }
   // @todo Add classes.
-  Array.prototype.forEach.call(['overlay', 'size', 'vertical_alignment', 'horizontal_alignment'], setting => {
+  Array.prototype.forEach.call(['overlay_color', 'overlay_to', 'size', 'vertical_alignment', 'horizontal_alignment'], setting => {
       // @todo Check if the setting is set and then add a class for it.
+      classes.push('banner--' + props[setting])
     }
   );
   return classes.join(" ");
-}
-// function getDefaultHeadlineSettings() {
-//
-// }
+})
+
+const getHeadlineSettings = computed(() => {
+  if (props.title) {
+    let headline_settings = {
+      level: 'h2',
+      classes: 'headline',
+    }
+    if (props.headline_settings) {
+      Array.prototype.forEach.call(['level', 'class'], setting => {
+        if (props.headline_settings[setting]) {
+          headline_settings[setting] = props.headline_settings[setting]
+        }
+      })
+    }
+
+    return headline_settings
+  }
+  return {}
+})
 </script>
 
 <template>
-  <div :class="getClasses">
-    <div class="banner__image" :if="image">
+  <div :class="classes">
+    <div class="banner__image" v-if="image">
       <img :src="image" alt="" loading="lazy">
     </div>
     <div class="banner__container">
       <div class="banner__content">
-        <h2 class="headline">{{ title }}</h2>
-<!--        <Headline
-          v-if="banner_title"
-          headline_level="h2"
-          :class="banner_title_classes"
-          :headline="banner_title"
-          :headline_url="link_url"
-        />-->
+        <slot name="headline">
+          <uids-headline
+            v-if="title"
+            :level="getHeadlineSettings.level"
+            :class="banner_title_classes"
+            :href="url"
+          >{{ title }}</uids-headline>
+        </slot>
         <slot></slot>
-<!--        <linkButton
-          v-if="button_text"
-          :button_link="button_link"
-          button_type="bttn bttn&#45;&#45;secondary bttn&#45;&#45;caps"
-          :button_text="button_text"
-          :button_icon="true"
-        />-->
+        <uids-button
+          v-if="url && button_text"
+          :href="url"
+          class="bttn--secondary bttn--caps"
+          :arrow="true"
+        >{{ button_text }}</uids-button>
       </div>
     </div>
   </div>

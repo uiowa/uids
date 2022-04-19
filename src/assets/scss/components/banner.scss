@@ -1,26 +1,476 @@
 @import '../variables';
+@import '../utilities';
+
+// --------------------------------
+// Banner sizes
+//
+// @todo Use https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio
+//   when there is better browser support.
+// --------------------------------
 
 .banner {
-  position: relative;
-  overflow: hidden;
   flex-basis: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  // @todo Replace with https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio
   min-height: 15rem;
+
+  &--large {
+    &::before {
+      float: left;
+      padding-top: 45.25%;
+      content: '';
+    }
+  }
+
+  &--medium {
+    &::before {
+      float: left;
+      padding-top: 32.25%;
+      content: '';
+    }
+  }
+
+  &--full {
+    &.banner--large {
+      @include breakpoint(page-container) {
+        height: 100vh;
+      }
+    }
+  }
 
   &::after {
     display: block;
     content: '';
     clear: both;
+    @include breakpoint(page-container) {
+      display: block;
+      content: '';
+      clear: both;
+    }
+  }
+}
+// --------------------------------
+// Alignment
+// --------------------------------
+
+.banner {
+  position: relative;
+  overflow: hidden;
+  @include breakpoint(sm) {
+    flex-basis: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  img {
+  &.banner--vertical-bottom {
+    align-items: flex-end;
+  }
+
+  &.banner--horizontal-center {
+    text-align: center;
+
+    blockquote {
+      border-left: none;
+    }
+
+    .banner__content {
+      > * {
+        margin-right: auto;
+        margin-left: auto;
+      }
+    }
+  }
+}
+// --------------------------------
+// Container
+// --------------------------------
+
+.banner {
+  &:focus-within .headline a:focus {
+    text-decoration: underline;
+  }
+
+  &__container {
+    margin: 0 auto;
     width: 100%;
+    z-index: 1;
+    @include breakpoint(sm) {
+      z-index: 1;
+      max-width: 81.875em;
+      top: 0;
+    }
+  }
+}
+// --------------------------------
+// Actions/buttons
+// --------------------------------
+
+.banner {
+  .headline + .banner__action {
+    margin-top: 1.5rem;
   }
 
+  .banner__action .bttn {
+    margin: 0 1rem 1rem 0;
+
+    + .bttn {
+      @include breakpoint(sm) {
+        margin: 0 1rem 1rem 0;
+      }
+    }
+  }
+}
+// --------------------------------
+// Pre-title
+// --------------------------------
+
+.banner {
+  &__pre-title {
+    background: none;
+    line-height: 1.1;
+
+    &.headline.headline--serif {
+      margin-bottom: 0;
+    }
+
+    &.headline.headline--uppercase {
+      margin-bottom: 0.7rem;
+    }
+
+    &.headline.headline--highlight {
+      margin-bottom: -.1rem;
+    }
+
+    &.headline.headline--highlight {
+      span {
+        background: none;
+
+        .banner--gradient-light:not([class*="bg-"]) & {
+          [class*="bg--black"] & {
+            @include breakpoint(sm) {
+              color: $secondary;
+            }
+          }
+        }
+
+        [class*="bg--black"] &,
+        [class*="bg--"] [class*="bg--black"] &,
+        [class*="bg--black"] [class*="banner--gradient-dark"]:not([class*="bg--"]) &,
+        [class*="bg--gold"] [class*="banner--gradient-dark"][class*="bg--black"] &,
+        [class*="banner--gradient-dark"]:not([class*="bg--"]):not([class*="banner--stacked"]) &,
+        [class*="bg--black"] [class*="banner--gradient-light"][class*="bg--black"]:not([class*="banner--stacked"]) & {
+          color: #fff;
+        }
+
+        [class*="banner--gradient-dark"]:not([class*="bg--"]) & {
+          @include breakpoint(sm) {
+            color: #fff;
+          }
+        }
+
+        [class*="bg--gold"] [class*="banner--gradient-dark"] & {
+          color: $secondary;
+          @include breakpoint(sm) {
+            color: #fff;
+          }
+        }
+
+        [class*="bg--gold"] [class*="banner--gradient-dark"][class*="bg--gold"] &,
+        [class*="bg--gold"] [class*="banner--gradient-dark"][class*="bg--gray"] &,
+        [class*="bg--gold"] [class*="banner--gradient-dark"][class*="bg--white"] &,
+        [class*="bg--black"] [class*="banner--gradient-light"]:not([class*="banner--stacked"]) &,
+        [class*="bg--white"] &,
+        [class*="bg--gold"] &,
+        [class*="bg--gray"] & {
+          color: $secondary;
+        }
+      }
+    }
+    // Set large heading size
+    &.headline--large {
+      font-size: $h4-font-size;
+      font-size: containerClamp(1.2rem, 1.6rem);
+    }
+    // Set medium heading size
+    &.headline--medium {
+      font-size: 1.4rem;
+      font-size: containerClamp(1.2rem, 1.4rem);
+    }
+    // Set small heading size
+    &.headline--small {
+      font-size: $h5-font-size;
+    }
+  }
+
+  &__stacked {
+    &[class*="banner--gradient-dark"] {
+      .banner__pre-title.headline--highlight span {
+        color: $secondary;
+
+        [class*="bg--black"] & {
+          color: #fff;
+        }
+        @include breakpoint(sm) {
+          color: #fff;
+          text-shadow: 0 1px 1px #000;
+        }
+      }
+    }
+  }
+}
+// --------------------------------
+// Text & Content
+// --------------------------------
+
+.banner {
+  &__content {
+    padding: $gutter;
+    @include breakpoint(sm) {
+      padding: 2rem 0;
+    }
+
+    > * {
+      flex-basis: 100%;
+    }
+    @include breakpoint(page-container) {
+      padding: 2rem 0 $gutter;
+    }
+  }
+
+  &__text {
+    z-index: 1;
+    color: #fff;
+
+    a {
+      color: #fff;
+    }
+
+    p {
+      line-height: 1.5;
+      margin-top: 0;
+      color: #fff;
+      text-shadow: 0 1px 1px #000;
+      @include breakpoint(sm) {
+        color: #fff;
+        text-shadow: 0 1px 1px #000;
+      }
+
+      a {
+        position: relative;
+        z-index: 1;
+        color: #fff;
+      }
+    }
+  }
+  // bg color overrides
+  &[class*="banner--gradient-dark"]:not([class*="bg-"]):not([class*="banner--stacked"]) {
+    .banner__text a {
+      [class*="bg--gray"] &,
+      [class*="bg--gold"] &,
+      [class*="bg--white"] & {
+        color: #fff;
+      }
+    }
+  }
+
+  &[class*="bg--black"] {
+    .banner__text p {
+      color: #fff;
+    }
+  }
+
+  &[class*="bg--gray"] {
+    .banner__text {
+      color: $secondary;
+
+      a {
+        color: $secondary;
+      }
+
+      p {
+        color: $secondary;
+        font-weight: normal;
+        text-shadow: none;
+
+        a {
+          color: $secondary;
+        }
+      }
+    }
+  }
+
+  &[class*="bg--gold"],
+  &[class*="bg--white"],
+  &[class*="banner--gradient-light"]:not([class*="bg-"]) {
+    .banner__text {
+      color: $secondary;
+
+      p {
+        color: $secondary;
+        font-weight: normal;
+        text-shadow: none;
+
+        a {
+          color: $secondary;
+        }
+      }
+
+      a {
+        color: $secondary;
+      }
+    }
+
+    &.banner--stacked:not([class*="bg-"]) {
+      [class*="bg--black"] & {
+        .banner__text {
+          color: #fff;
+          @include breakpoint(sm) {
+            color: $secondary;
+          }
+
+          a {
+            color: #fff;
+            @include breakpoint(sm) {
+              color: $secondary;
+            }
+          }
+
+          p {
+            color: #fff;
+            @include breakpoint(sm) {
+              color: $secondary;
+            }
+
+            a {
+              color: #fff;
+              @include breakpoint(sm) {
+                color: $secondary;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &--stacked {
+
+    .banner__text {
+      color: $secondary;
+      @include breakpoint(sm) {
+        color: #fff;
+      }
+
+      a {
+        color: $secondary;
+        @include breakpoint(sm) {
+          color: #fff;
+        }
+      }
+    }
+
+    &[class*="banner--gradient-dark"] {
+      &:not([class*="bg--"]) {
+        .banner__text {
+          p {
+            [class*="bg--black"] & {
+              color: #fff;
+            }
+            color: $secondary;
+            text-shadow: none;
+            @include breakpoint(sm) {
+              color: #fff;
+              text-shadow: 0 1px 1px #000;
+            }
+
+            a {
+              color: $secondary;
+              @include breakpoint(sm) {
+                color: #fff;
+              }
+
+              [class*="bg--black"] & {
+                color: #fff;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &[class*="banner--gradient-light"]:not([class*="bg--black"]) {
+      .banner__text {
+        [class*="bg--gold"] & {
+          p {
+            color: $secondary;
+
+            a {
+              color: $secondary;
+            }
+          }
+        }
+      }
+    }
+
+    &[class*="bg--black"] {
+      display: flex;
+      .banner__text {
+        color: #fff;
+
+        a {
+          color: #fff;
+        }
+
+        p {
+          color: #fff;
+
+          a {
+            color: #fff;
+          }
+        }
+      }
+    }
+
+    [class*="bg--black"] & {
+      .banner__text {
+        color: #fff;
+
+        a {
+          color: #fff;
+        }
+      }
+    }
+
+    &[class*="bg--white"],
+    &[class*="bg--gray"],
+    &[class*="bg--gold"] {
+      [class*="bg--black"] & {
+        .banner__text {
+          color: $secondary;
+
+          a {
+            color: $secondary;
+          }
+
+          p {
+            color: $secondary;
+
+            a {
+              color: $secondary;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+// --------------------------------
+// Image
+// --------------------------------
+
+.banner {
   &__image {
     overflow: visible;
 
@@ -35,13 +485,145 @@
     }
   }
 
-  &__container {
+  &--stacked {
+    .banner__image {
+      img {
+        position: relative;
+        @include breakpoint(sm) {
+          position: absolute;
+        }
+      }
+    }
+  }
+}
+// --------------------------------
+// Video
+// --------------------------------
 
-    margin: 0 auto;
-    width: 100%;
-    z-index: 1;
+.banner {
+  .media--video .video-controls {
+    z-index: 2;
   }
 
+  .media--video {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    position: absolute;
+
+    video {
+      overflow: visible;
+      display: block;
+      width: 100%;
+      -o-object-fit: cover;
+      object-fit: cover;
+      height: 100%;
+      top: 0;
+      @include breakpoint(sm) {
+        position: absolute;
+      }
+    }
+  }
+
+  .media--video {
+    //position: relative;
+    .video-controls {
+      position: absolute;
+      left: 1.25rem;
+      bottom: 1.25rem;
+      @include breakpoint(page-container) {
+        left: 3rem;
+        bottom: 3rem;
+      }
+
+      .banner--horizontal-left.banner--vertical-bottom & {
+        @include breakpoint(page-container) {
+          bottom: 1.5rem;
+          left: 1.5rem;
+        }
+      }
+    }
+
+    .video-btn {
+      display: none;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      color: $secondary;
+      border: 1px solid white;
+      border-radius: 50%;
+      background: white;
+      font-size: 1rem;
+      padding: 0;
+      @include breakpoint(sm) {
+        display: block;
+      }
+
+      &::after {
+        content: "\f04b";
+        @include fas();
+        font-size: 1rem;
+      }
+
+      &.video-btn__play::after {
+        margin-left: 3px;
+      }
+
+      &.video-btn__pause::after {
+        content: "\f04c";
+      }
+    }
+    @media (hover:none), (hover:on-demand) {
+      .video-btn {
+        display: none;
+      }
+    }
+  }
+
+  &[class*="banner--gradient-light"] {
+    .media--video .video-btn {
+      border: 1px solid $secondary;
+    }
+  }
+
+  &--stacked {
+    .media--video {
+      position: relative;
+      @include breakpoint(sm) {
+        position: absolute;
+      }
+
+      .video-btn {
+        display: block;
+      }
+    }
+  }
+  // Bottom/Left Video button alignment
+  &.banner--horizontal-left.banner--vertical-bottom {
+    .media--video + .banner__container .banner__content {
+      @include breakpoint(sm) {
+        padding-bottom: 4.25rem;
+      }
+    }
+  }
+}
+// --------------------------------
+// Stacked
+// --------------------------------
+
+.banner {
+  &--stacked {
+    display: block;
+    @include breakpoint(sm) {
+      display: flex;
+    }
+  }
+}
+// --------------------------------
+// Gradients
+// --------------------------------
+
+.banner {
   // Default overlay
   &:after {
     position: absolute;
@@ -51,29 +633,61 @@
     width: 100%;
     height: 100%;
     content: "";
-    -webkit-transition: all .5s ease-in-out;
-    transition: all .5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
     will-change: opacity;
-    background: rgba(0, 0, 0, .5);
   }
 
-  &:not([class*="bg-"]) {
-    background: $secondary;
-  }
+  &.banner--gradient-dark:not([class*="bg-"]) {
+    @include breakpoint(sm) {
+      background: $secondary;
+    }
 
-  &[class*="bg-"]:after {
-    background: inherit;
+    &:not([class*="banner--stacked"]) {
+      background: $secondary;
+    }
   }
 
   &--gradient-left {
+    &[class*="banner--stacked"] {
+      &:after {
+        background: none;
+        width: auto;
+        height: auto;
+        @include breakpoint(sm) {
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, rgba(0, 0, 0, .86) 0, rgba(0, 0, 0, .23) 65%, transparent);
+        }
+      }
+    }
 
     &:after {
+      background: rgba(0, 0, 0, .5);
+      @include breakpoint(sm) {
+        background: linear-gradient(90deg, rgba(0, 0, 0, .86) 0, rgba(0, 0, 0, .23) 65%, transparent);
+      }
     }
 
     &.banner--gradient-light {
+      &[class*="banner--stacked"] {
+        &:after {
+          background: none;
+          width: auto;
+          height: auto;
+          @include breakpoint(sm) {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #fff 1%, hsla(0, 0%, 100%, .92) 32%, hsla(0, 0%, 100%, 0));
+          }
+        }
+      }
+
       &:after {
         background: rgba(255, 255, 255, .7);
-
+        @include breakpoint(sm) {
+          background: linear-gradient(90deg, #fff 1%, hsla(0, 0%, 100%, .92) 32%, hsla(0, 0%, 100%, 0));
+        }
       }
 
       &[class*="bg-"]:after {
@@ -87,10 +701,45 @@
   }
 
   &--gradient-bottom {
+    &[class*="banner--stacked"] {
+      &:after {
+        background: none;
+        width: auto;
+        height: auto;
+        @include breakpoint(sm) {
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 70%);
+        }
+      }
+    }
+
+    &:after {
+      background: rgba(0, 0, 0, .5);
+      @include breakpoint(sm) {
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 70%);
+      }
+    }
 
     &.banner--gradient-light {
+      &[class*="banner--stacked"] {
+        &:after {
+          background: none;
+          width: auto;
+          height: auto;
+          @include breakpoint(sm) {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent 0, hsla(0, 0%, 100%, .9) 55%);
+          }
+        }
+      }
+
       &:after {
         background: rgba(255, 255, 255, .7);
+        @include breakpoint(sm) {
+          background: linear-gradient(180deg, transparent 0, hsla(0, 0%, 100%, .9) 55%);
+        }
       }
 
       &[class*="bg-"]:after {
@@ -104,4 +753,218 @@
       background: none;
     }
   }
+
+  &[class*="bg-"]:after {
+    background: inherit;
+  }
+}
+// --------------------------------
+// Headlines
+// --------------------------------
+
+.banner {
+  .headline {
+    z-index: 1;
+
+    a {
+      &:hover {
+        text-decoration: none;
+      }
+
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+
+  .headline--negative {
+    color: #fff;
+    text-shadow: 0 1px 1px #000;
+    @include breakpoint(sm) {
+      color: #fff;
+    }
+
+    a {
+      //color: $secondary;
+      @include breakpoint(sm) {
+        color: #fff;
+      }
+    }
+  }
+  // Overriding the serif font size set in typography/headings.scss
+  :where(h2, h3, h4, h5, h6) {
+    &.headline--large,
+    &.headline--large.headline--serif {
+      font-size: 4.7rem;
+      font-size: containerClamp(2.5rem, 4.7rem);
+    }
+    // Set medium heading size
+    &.headline--medium,
+    &.headline--medium.headline--serif {
+      font-size: 3.7rem;
+      font-size: containerClamp(2.2rem, 3.7rem);
+    }
+    // Set small heading size
+    &.headline--small,
+    &.headline--small.headline--serif {
+      font-size: 2.7rem;
+      font-size: containerClamp(2rem, 2.7rem);
+    }
+  }
+
+  &--stacked {
+    &[class*="banner--gradient-dark"][class*="bg--black"] {
+      .headline--negative {
+        color: #fff;
+      }
+    }
+
+    &[class*="banner--gradient-dark"][class*="bg--gray"],
+    &[class*="banner--gradient-dark"][class*="bg--white"] {
+      .headline--negative,
+      .headline--negative.headline--uppercase {
+        [class*="bg--black"] & {
+          color: $secondary;
+          text-shadow: none;
+
+          a {
+            color: $secondary;
+            text-shadow: none;
+          }
+        }
+      }
+    }
+    &[class*="banner--gradient-dark"] {
+      .headline--negative {
+        color: $secondary;
+        text-shadow: none;
+        @include breakpoint(sm) {
+          color: #fff;
+          text-shadow: 0 1px 1px #000;
+        }
+
+        a {
+          color: $secondary;
+          @include breakpoint(sm) {
+            color: #fff;
+          }
+        }
+
+        [class*="bg--black"] & {
+          color: #fff;
+          text-shadow: 0 1px 1px #000;
+          @include breakpoint(sm) {
+            color: #fff;
+          }
+
+          a {
+            color: #fff;
+            @include breakpoint(sm) {
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &[class*="bg--gray"] {
+    .headline--negative {
+      color: $secondary;
+      text-shadow: none;
+
+      a {
+        color: $secondary;
+      }
+    }
+  }
+
+  &[class*="bg--black"] {
+    .headline--negative {
+      a {
+        color: #fff;
+      }
+    }
+  }
+
+  &[class*="bg--gold"],
+  &[class*="bg--white"],
+  &[class*="banner--gradient-light"]:not([class*="bg-"]) {
+    .headline.headline--negative {
+      color: $secondary;
+      text-shadow: none;
+
+      a {
+        color: $secondary;
+      }
+    }
+
+    &.banner--stacked:not([class*="bg-"]) {
+      [class*="bg--black"] & {
+        .headline.headline--negative {
+          color: #fff;
+          @include breakpoint(sm) {
+            color: $secondary;
+          }
+
+          a {
+            color: #fff;
+            @include breakpoint(sm) {
+              color: $secondary;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+// --------------------------------
+// IE11
+// --------------------------------
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  .banner__container {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .banner .media--video,
+  .banner__image img {
+    left: 0;
+  }
+
+  .banner .banner__container {
+    min-height: 18rem;
+  }
+
+  .banner.banner--large .banner__container {
+    @include breakpoint(sm) {
+      min-height: 33rem;
+    }
+    @include breakpoint(md) {
+      min-height: 48rem;
+    }
+  }
+
+  .banner.banner--medium .banner__container {
+    @include breakpoint(sm) {
+      min-height: 33rem;
+    }
+  }
+}
+// set link color for gray and white nesting.
+
+[class*="bg--gray"] [class*="banner--gradient-dark"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
+[class*="bg--white"] [class*="banner--gradient-dark"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn) {
+  color: inherit;
 }

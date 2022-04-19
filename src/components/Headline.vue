@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 const name = 'uids-headine'
 defineProps({
-  text: { type: String, required: true },
   level: { type: String, default: 'h2' },
   headline_class: {
     type: String,
@@ -11,10 +11,17 @@ defineProps({
   },
   aria_describedby: { type: [String, Boolean], default: false },
 })
+
+const getClasses = computed(() => {
+  console.log('getting classes')
+  let classes = ["headline"];
+  // @todo Add other headline classes.
+  return classes.join(" ");
+})
 </script>
 
 <template>
-  <component :is="level">
+  <component :is="level" :class="getClasses">
     <a v-if="href" :href="href" :aria-describedby="aria_describedby">
       <slot></slot>
     </a>

@@ -3,9 +3,9 @@ import '../assets/scss/components/button.scss';
 import { computed } from 'vue';
 const name = 'uids-button'
 const props = defineProps({
-  primary: {
-    type: Boolean,
-    default: false,
+  color: {
+    type: String,
+    default: 'primary',
   },
   size: {
     type: String,
@@ -13,19 +13,22 @@ const props = defineProps({
       return ['small', 'medium', 'large'].indexOf(value) !== -1;
     },
   },
-  arrow: { type: Boolean, default: true },
+  arrow: {
+    type: Boolean,
+    default: true,
+  },
 })
 
 const classes = computed(() => ({
   'bttn': true,
-  'bttn--primary': props.primary,
-  'bttn--secondary': !props.primary,
+  'bttn--primary': props.color === 'primary',
+  'bttn--secondary': props.color === 'secondary',
   [`bttn--${props.size || 'medium'}`]: true,
 }))
 </script>
 
 <template>
-  <a :href="button_link" :class="classes">
+  <a :class="classes">
     <slot></slot>
     <i v-if="arrow" class="fas fa-arrow-right"></i>
   </a>
