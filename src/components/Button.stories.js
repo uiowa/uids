@@ -6,10 +6,13 @@ export default {
   component: UidsButton,
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
-    size: {
+    color: {
       control: { type: 'select' },
-      options: ['small', 'medium', 'large'],
+      options: ['primary', 'secondary'],
     },
+    arrow: {
+      control: { type: 'boolean' },
+    }
   },
 };
 
@@ -28,23 +31,14 @@ const Template = (args) => ({
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
 Primary.args = {
-  primary: true,
   label: 'Read more',
+  color: 'primary',
+  arrow: true,
 };
 
 export const Secondary = Template.bind({});
 Secondary.args = {
   label: 'Read more',
-};
-
-export const Large = Template.bind({});
-Large.args = {
-  size: 'large',
-  label: 'Read more',
-};
-
-export const Small = Template.bind({});
-Small.args = {
-  size: 'small',
-  label: 'Read more',
+  color: 'secondary',
+  arrow: true,
 };

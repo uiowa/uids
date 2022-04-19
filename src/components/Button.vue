@@ -7,12 +7,6 @@ const props = defineProps({
     type: String,
     default: 'primary',
   },
-  size: {
-    type: String,
-    validator: function (value: string) {
-      return ['small', 'medium', 'large'].indexOf(value) !== -1;
-    },
-  },
   arrow: {
     type: Boolean,
     default: true,
