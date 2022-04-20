@@ -10,7 +10,7 @@ export default create({
   colorSecondary: '#151515',
 
   // UI
-  appBg: '#FFCD00',
+  appBg: 'white',
   appContentBg: 'white',
   appBorderColor: 'grey',
   appBorderRadius: 0,
@@ -24,9 +24,9 @@ export default create({
   textInverseColor: 'white',
 
   // Toolbar default and active colors
-  barTextColor: '#FFCD00',
-  barSelectedColor: 'white',
-  barBg: '#151515',
+  barTextColor: '#63666A',
+  barSelectedColor: '#151515',
+  barBg: '#FFCD00',
 
   // Branding
   brandTitle: 'U of Iowa Design System (UIDS)',

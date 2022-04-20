@@ -36,6 +36,7 @@ import banner_image from '@/assets/images/viewbook/sections/122.jpg'
     <uids-headline
       :level="'h' + n"
       href="https://uiowa.edu"
+      class="headline--uppercase"
     >I'm a headline</uids-headline>
   </template>
 </template>

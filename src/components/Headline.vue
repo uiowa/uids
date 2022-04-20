@@ -1,32 +1,57 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 const name = 'uids-headine'
-defineProps({
-  level: { type: String, default: 'h2' },
-  headline_class: {
+const props = defineProps({
+  level: {
+    type: String,
+    default: 'h2',
+    validator: function (value) {
+      return ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].indexOf(value) !== -1;
+    },
+  },
+  class: {
     type: String,
   },
   href: {
     type: String,
   },
-  aria_describedby: { type: [String, Boolean], default: false },
-})
+  aria_describedby: {
+    type: [String, Boolean],
+    default: false,
+  },
+  highlight: {
+    type: Boolean,
+    default: false,
+  },
+  uppercase: {
+    type: Boolean,
+    default: false,
+  },
+  underline: {
+    type: Boolean,
+    default: false,
+  },
+});
 
-const getClasses = computed(() => {
-  console.log('getting classes')
-  let classes = ["headline"];
-  // @todo Add other headline classes.
-  return classes.join(" ");
-})
+const getClasses = computed(() => ({
+  'headline': true,
+  'headline--uppercase': props.uppercase,
+  'headline--underline': props.underline,
+  'headline--highlight': props.highlight,
+}));
 </script>
 
 <template>
   <component :is="level" :class="getClasses">
     <a v-if="href" :href="href" :aria-describedby="aria_describedby">
-      <slot></slot>
+      <span class="headline__text">
+        <slot></slot>
+      </span>
     </a>
     <template v-else>
-      <slot></slot>
+      <span class="headline__text">
+        <slot></slot>
+      </span>
     </template>
   </component>
 </template>
@@ -34,12 +59,4 @@ const getClasses = computed(() => {
 <style lang="scss">
 @import '../assets/scss/headings';
 @import '../assets/scss/components/headline';
-//@import '../../node_modules/@uiowa/uids/src/components/headline/headline.scss';
-//@import '../../node_modules/@uiowa/uids/src/components/typography/headings/headings.scss';
-.headline__suffix {
-  padding-left: .5rem;
-}
-.headline__prefix {
-  padding-right: .5rem;
-}
 </style>
