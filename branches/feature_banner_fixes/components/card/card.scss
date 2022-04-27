@@ -421,12 +421,17 @@
     padding: 2rem;
   }
 }
-// set card enclosed border for only bg--white
+// set card enclosed borders to override defaults set in background.scss
 .card.card--enclosed {
-  &[class*="bg--white"] {
+  &[class*="bg--white"],
+  &[class*="bg--gray"],
+  &[class*="bg--gold"] {
     [class*="bg-"] & {
       border: 1px solid rgba(0, 0, 0, 0.125);
     }
+    border: 1px solid rgba(0, 0, 0, 0.125);
+  }
+  [class*="bg--white"] & {
     border: 1px solid rgba(0, 0, 0, 0.125);
   }
 }
