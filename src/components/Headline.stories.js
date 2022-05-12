@@ -59,9 +59,7 @@ const Template = (args) => ({
   // @todo Figure out how to not bind the `default` slot to the component.
   template: `
     <uids-headline v-bind="args">
-        <template #default>
-          {{ args.default }}
-        </template>
+      <span class="headline__text" v-html="args.default"></span>
     </uids-headline>
   `,
 });
@@ -94,7 +92,7 @@ Highlight.args = {
 
 // @todo Figure out how to get this example working.
 export const HighlightedSingleWord = Template.bind({});
-// HighlightedSingleWord.args = {
-//   ...Default.args,
-//   default: `Start your <span class="highlight">story</span> here`,
-// }
+HighlightedSingleWord.args = {
+  ...Default.args,
+  default: `Start your <span class="highlight">story</span> here`,
+}

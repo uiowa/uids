@@ -46,14 +46,10 @@ const getClasses = computed(() => ({
 <template>
   <component :is="level" :class="getClasses">
     <a v-if="href" :href="href" :aria-describedby="aria_describedby">
-      <span class="headline__text">
-        <slot></slot>
-      </span>
+      <slot></slot>
     </a>
     <template v-else>
-      <span class="headline__text">
-        <slot></slot>
-      </span>
+      <slot></slot>
     </template>
   </component>
 </template>
