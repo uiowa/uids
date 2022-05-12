@@ -11,13 +11,25 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  outline: {
+    type: Boolean,
+    default: false,
+  },
+  font: {
+    type: String,
+    default: '',
+  },
 })
 
 const classes = computed(() => ({
   'bttn': true,
   'bttn--primary': props.color === 'primary',
   'bttn--secondary': props.color === 'secondary',
-  [`bttn--${props.size || 'medium'}`]: true,
+  'bttn--tertiary': props.color === 'tertiary',
+  'bttn--link': props.color === 'link',
+  'bttn--outline': props.outline,
+  'bttn--font-serif': props.font === 'serif',
+  'bttn--font-sans-serif': props.font === 'sans-serif',
 }))
 </script>
 

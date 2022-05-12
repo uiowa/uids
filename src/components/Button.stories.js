@@ -8,11 +8,18 @@ export default {
   argTypes: {
     color: {
       control: { type: 'select' },
-      options: ['primary', 'secondary'],
+      options: ['primary', 'secondary', 'tertiary', 'link'],
     },
     arrow: {
       control: { type: 'boolean' },
-    }
+    },
+    outline: {
+      control: { type: 'boolean' },
+    },
+    font: {
+      control: { type: 'select' },
+      options: ['None', 'serif', 'sans-serif']
+    },
   },
 };
 
@@ -34,11 +41,18 @@ Primary.args = {
   label: 'Read more',
   color: 'primary',
   arrow: true,
+  outline: false,
+  font: 'None',
 };
 
 export const Secondary = Template.bind({});
 Secondary.args = {
-  label: 'Read more',
+  ...Primary.args,
   color: 'secondary',
-  arrow: true,
+};
+
+export const Tertiary = Template.bind({});
+Tertiary.args = {
+  ...Primary.args,
+  color: 'tertiary',
 };
