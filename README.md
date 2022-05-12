@@ -4,7 +4,7 @@ A design system for the University of Iowa.
 See the documentation at http://uids.brand.uiowa.edu.
 
 ## Documentation
-The documentation is built with Fractal.js. You can build and run a local version to aid in development.
+The documentation uses Vue.js. You can build and run a local version to aid in development.
 
 ### Requirements
 [Node Version Manager (NVM)](https://github.com/nvm-sh/nvm) is used to lock the version of Node to the latest LTS.
@@ -13,18 +13,46 @@ After installing NVM, run `nvm use`. You may need to install the specified versi
 
 The node-gyp package requires a C compiler. If you notice node-gyp errors after installing dependencies, see the instructions for installing a C compiler based on your OS: https://github.com/nodejs/node-gyp#on-macos
 
+## Project Setup
+
 ### Install dependencies
-First, install NPM dependencies:
-```
+
+```sh
 npm ci
 ```
 
-### Start the local server.
-The following command creates and runs a temporary server to view the site locally.
-```
-npm run watch
+### Start the local server
+Compile and hot-reload for development.
+
+```sh
+npm run dev
 ```
 The command will output the server URL to visit in your browser, ex. http://localhost:3000.
+
+### Type-Check, Compile and Minify for Production
+
+```sh
+npm run build
+```
+
+### Run Unit Tests with [Vitest](https://vitest.dev/)
+
+```sh
+npm run test:unit
+```
+
+### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
+
+```sh
+npm run build
+npm run test:e2e # or `npm run test:e2e:ci` for headless testing
+```
+
+### Lint with [ESLint](https://eslint.org/)
+
+```sh
+npm run lint
+```
 
 ## Contributing
 While we have not done a perfect job of applying any of these standards, we recommend the following resources as a starting point for best practices that are observed by this project:

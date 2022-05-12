@@ -4,7 +4,7 @@ name: Update documentation in GitHub Pages
 on:
   push:
     branches:
-      - "3.x"
+      - "4.x"
     tags:
       - '*'
   pull_request:
@@ -25,7 +25,7 @@ jobs:
       (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
     env:
       TARGET_BRANCH: gh-pages
-      MAIN_BRANCH: 3.x
+      MAIN_BRANCH: 4.x
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -33,11 +33,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout 🛎️
         if: ${{ github.event_name != 'pull_request_target' }}
-        uses: actions/checkout@v2.3.1
+        uses: actions/checkout@v3
 
       - name: Checkout PR 🛎️
         if: ${{ github.event_name == 'pull_request_target' }}
-        uses: actions/checkout@v2.3.1
+        uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
@@ -66,25 +66,19 @@ jobs:
           echo "target_dir=/docs/" >> $GITHUB_ENV
 
       - name: Setup node
-        uses: actions/setup-node@v2.1.2
+        uses: actions/setup-node@v3
         with:
-          node-version: "14.x"
+          node-version: '16.x'
+          cache: 'yarn'
 
       # Update NPM to 7 to fix https://github.com/actions/setup-node/issues/214.
-      - run: npm install -g npm@7
-      - run: npm -v
+#      - run: npm install -g npm@7
+#      - run: npm -v
 
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: npm-packages-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: npm-packages-
-
-      - run: npm ci
-      - run: npm run docs
+      - run: yarn install --frozen-lockfile
+      - run: BASE_URL=$target_dir$branch/ yarn build-storybook -o www
       # Check to make sure that docs built into www.
-#      - run: ls -lah $GITHUB_WORKSPACE/www
+      - run: ls -lah $GITHUB_WORKSPACE/www
 
       # https://github.com/actions/checkout#readme
       - name: Checkout docs
