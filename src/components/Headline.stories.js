@@ -41,6 +41,10 @@ export default {
       defaultValue: '',
     },
   },
+  args: {
+    level: 'h2',
+    default: 'Start your story here',
+  },
 };
 
 // More on component templates: https://storybook.js.org/docs/vue/writing-stories/introduction#using-args
@@ -52,13 +56,19 @@ const Template = (args) => ({
     return { args };
   },
   // And then the `args` are bound to your component with `v-bind="args"`
-  template: '<uids-headline v-bind="args">{{ args.default }}</uids-headline>',
+  // @todo Figure out how to not bind the `default` slot to the component.
+  template: `
+    <uids-headline v-bind="args">
+        <template #default>
+          {{ args.default }}
+        </template>
+    </uids-headline>
+  `,
 });
 
 export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
 Default.args = {
-  level: 'h2',
   uppercase: false,
   underline: false,
   highlight: false,
@@ -83,8 +93,8 @@ Highlight.args = {
 }
 
 // @todo Figure out how to get this example working.
-// export const HighlightedSingleWord = Template.bind({});
+export const HighlightedSingleWord = Template.bind({});
 // HighlightedSingleWord.args = {
 //   ...Default.args,
-//   default: `Start your <span>Story</span> here`,
+//   default: `Start your <span class="highlight">story</span> here`,
 // }

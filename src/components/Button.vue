@@ -6,6 +6,9 @@ const props = defineProps({
   color: {
     type: String,
     default: 'primary',
+    validator: function (value) {
+      return ['primary', 'secondary', 'tertiary', 'link'].indexOf(value) !== -1;
+    },
   },
   arrow: {
     type: Boolean,

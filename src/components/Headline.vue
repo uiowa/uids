@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import '../assets/scss/headings.scss';
+import '../assets/scss/components/headline.scss';
 import { computed } from 'vue';
 const name = 'uids-headine'
 const props = defineProps({
@@ -55,8 +57,3 @@ const getClasses = computed(() => ({
     </template>
   </component>
 </template>
-
-<style lang="scss">
-@import '../assets/scss/headings';
-@import '../assets/scss/components/headline';
-</style>
