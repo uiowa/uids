@@ -41,6 +41,13 @@
       <div class="banner__content">
 
         {% block headline %}
+          {% if banner_pre_title is not empty %}
+            {% include '@headline' with {
+              'headline_level' : 'div',
+              'headline_class' : [banner_title_classes ~ ' banner__pre-title'],
+              'headline_text' : banner_pre_title,
+            } %}
+          {% endif %}
           {% if banner_title is not empty %}
             {% include '@headline' with {
               'headline_level' : 'h2',
@@ -57,24 +64,24 @@
 
         {% block banner_bttn %}
           {% if banner_links is not empty %}
-          <div class="banner__action">
-            {% if banner_links|length > 1 %}
-              {% for link in banner_links %}
-                <a class="{{ banner_link_classes }}" href="{{ link.link_url }}">
-                  {{ link.link_title }}
-                  <i class="fas fa-arrow-right"></i>
-                </a>
-              {% endfor %}
-            {% else %}
-              {% set link = banner_links|first %}
-              {% if link.link_url is not empty and show_button %}
-                <div aria-hidden="true" class="{{ banner_link_classes }}"{% if banner_aria %} id="{{ banner_aria }}"{% endif %}>
-                  {{ link.link_title }}
-                  <i class="fas fa-arrow-right"></i>
-                </div>
+            <div class="banner__action">
+              {% if banner_links|length > 1 %}
+                {% for link in banner_links %}
+                  <a class="{{ banner_link_classes }}" href="{{ link.link_url }}">
+                    {{ link.link_title }}
+                    <i class="fas fa-arrow-right"></i>
+                  </a>
+                {% endfor %}
+              {% else %}
+                {% set link = banner_links|first %}
+                {% if link.link_url is not empty and show_button %}
+                  <div aria-hidden="true" class="{{ banner_link_classes }}"{% if banner_aria %} id="{{ banner_aria }}"{% endif %}>
+                    {{ link.link_title }}
+                    <i class="fas fa-arrow-right"></i>
+                  </div>
+                {% endif %}
               {% endif %}
-            {% endif %}
-          </div>
+            </div>
           {% endif %}
         {% endblock %}
 

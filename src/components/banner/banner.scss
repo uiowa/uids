@@ -1,11 +1,22 @@
 @import '../../assets/scss/variables';
 @import '../../assets/scss/utilities';
 
-.banner {
-  // @todo Replace with https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio
-  min-height: 15rem;
+// --------------------------------
+// Banner sizes
+//
+// @todo Use https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio
+//   when there is better browser support.
+// --------------------------------
 
-  // Banner Heights for large and medium
+.banner {
+  flex-basis: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 15rem;
+  position: relative;
+  overflow: hidden;
+
   &--large {
     &::before {
       float: left;
@@ -35,46 +46,55 @@
     display: block;
     content: '';
     clear: both;
-  }
-
-  // Override background color if button is within a gold container
-  &.bg-pattern--brain-reversed,
-  &[class*="bg--gold"] {
-    .bttn--primary {
-      color: #fff;
-      background: $secondary;
-      border: 1px solid $secondary;
-
-      svg {
-        color: $primary;
-      }
+    @include breakpoint(page-container) {
+      display: block;
+      content: '';
+      clear: both;
     }
   }
-}
 
-// Banner styles
-.banner {
-  position: relative;
-  overflow: hidden;
-  flex-basis: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+// --------------------------------
+// Alignment
+// --------------------------------
+
+  @include breakpoint(sm) {
+    flex-basis: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   &.banner--vertical-bottom {
     align-items: flex-end;
   }
+
+  &.banner--horizontal-center {
+    text-align: center;
+
+    blockquote {
+      border-left: none;
+    }
+
+    .banner__content {
+      > * {
+        margin-right: auto;
+        margin-left: auto;
+      }
+    }
+  }
+
+// --------------------------------
+// Container
+// --------------------------------
 
   &:focus-within .headline a:focus {
     text-decoration: underline;
   }
 
   &__container {
-
     margin: 0 auto;
     width: 100%;
     z-index: 1;
-
     @include breakpoint(sm) {
       z-index: 1;
       max-width: 81.875em;
@@ -82,13 +102,436 @@
     }
   }
 
-  .media--video .video-controls {
-    z-index: 2;
+// --------------------------------
+// Actions/buttons
+// --------------------------------
+
+  .headline + .banner__action {
+    margin-top: 1.5rem;
   }
 
-  img {
-    width: 100%;
+  .banner__action .bttn {
+    margin: 0 1rem 1rem 0;
+
+    + .bttn {
+      @include breakpoint(sm) {
+        margin: 0 1rem 1rem 0;
+      }
+    }
+    &:last-child {
+      margin-right: 0;
+    }
   }
+
+  &.banner--gradient-light:not([class*="bg-"]) {
+    .banner__action {
+      .bttn--tertiary {
+        [class*=bg--black] & {
+          @include breakpoint(sm) {
+            color: $secondary;
+          }
+        }
+      }
+    }
+  }
+
+  &.banner--gradient-dark:not([class*="bg-"]) {
+    &.banner--stacked {
+      .banner__action {
+        .bttn--tertiary.bttn--outline {
+          @include breakpoint(sm) {
+            border-color: rgba(255,255,255,.525);
+            color: #fff;
+          }
+        }
+      }
+    }
+    &:not([class*="banner--stacked"]) {
+      .banner__action {
+        .bttn--tertiary.bttn--outline {
+          border: 1px solid #fff;
+          color: #fff;
+        }
+      }
+    }
+  }
+
+// --------------------------------
+// Pre-title
+// --------------------------------
+
+  &__pre-title {
+    background: none;
+    line-height: 1.1;
+
+    &.headline.headline--serif {
+      margin-bottom: 0;
+    }
+
+    &.headline.headline--uppercase {
+      margin-bottom: 0.7rem;
+    }
+
+    &.headline.headline--highlight {
+      margin-bottom: -.1rem;
+    }
+
+    &.headline.headline--highlight.headline--serif {
+      margin-bottom: -.4rem;
+    }
+
+    &.headline.headline--highlight {
+      span {
+        background: none;
+
+        .banner--gradient-light:not([class*="bg-"]) & {
+          [class*="bg--black"] & {
+            @include breakpoint(sm) {
+              color: $secondary;
+            }
+          }
+        }
+
+        [class*="bg--black"] &,
+        [class*="bg--"] [class*="bg--black"] &,
+        [class*="bg--black"] [class*="banner--gradient-dark"]:not([class*="bg--"]) &,
+        [class*="bg--gold"] [class*="banner--gradient-dark"][class*="bg--black"] &,
+        [class*="banner--gradient-dark"]:not([class*="bg--"]):not([class*="banner--stacked"]) &,
+        [class*="bg--black"] [class*="banner--gradient-light"][class*="bg--black"]:not([class*="banner--stacked"]) & {
+          color: #fff;
+        }
+
+        [class*="banner--gradient-dark"]:not([class*="bg--"]) & {
+          @include breakpoint(sm) {
+            color: #fff;
+          }
+        }
+
+        [class*="bg--gold"] [class*="banner--gradient-dark"] & {
+          color: $secondary;
+          @include breakpoint(sm) {
+            color: #fff;
+          }
+        }
+
+        [class*="bg--gold"] [class*="banner--gradient-dark"][class*="bg--gold"] &,
+        [class*="bg--gold"] [class*="banner--gradient-dark"][class*="bg--gray"] &,
+        [class*="bg--gold"] [class*="banner--gradient-dark"][class*="bg--white"] &,
+        [class*="bg--black"] [class*="banner--gradient-light"]:not([class*="banner--stacked"]) &,
+        [class*="bg--white"] &,
+        [class*="bg--gold"] &,
+        [class*="bg--gray"] & {
+          color: $secondary;
+        }
+      }
+    }
+    // Set large heading size
+    &.headline--large {
+      font-size: $h4-font-size;
+      font-size: containerClamp(1.2rem, 1.6rem);
+    }
+    // Set medium heading size
+    &.headline--medium {
+      font-size: 1.4rem;
+      font-size: containerClamp(1.2rem, 1.4rem);
+    }
+    // Set small heading size
+    &.headline--small {
+      font-size: $h5-font-size;
+    }
+  }
+
+  &__stacked {
+    &[class*="banner--gradient-dark"] {
+      .banner__pre-title.headline--highlight span {
+        color: $secondary;
+
+        [class*="bg--black"] & {
+          color: #fff;
+        }
+        @include breakpoint(sm) {
+          color: #fff;
+          text-shadow: 0 1px 1px #000;
+        }
+      }
+    }
+  }
+
+// --------------------------------
+// Text & Content
+// --------------------------------
+
+  &__content {
+    padding: $gutter;
+    @include breakpoint(sm) {
+      padding: 2rem 0;
+    }
+
+    > * {
+      flex-basis: 100%;
+    }
+    @include breakpoint(page-container) {
+      padding: 2rem 0 $gutter;
+    }
+  }
+
+  &__text {
+    z-index: 1;
+    color: #fff;
+
+    blockquote {
+      margin-left: 0;
+    }
+
+    a {
+      color: #fff;
+    }
+
+    p {
+      line-height: 1.5;
+      margin-top: 0;
+      color: #fff;
+      text-shadow: 0 1px 1px #000;
+      @include breakpoint(sm) {
+        color: #fff;
+        text-shadow: 0 1px 1px #000;
+      }
+
+      a {
+        position: relative;
+        z-index: 1;
+        color: #fff;
+      }
+    }
+  }
+  // bg color overrides
+  &[class*="banner--gradient-dark"]:not([class*="bg-"]):not([class*="banner--stacked"]) {
+    .banner__text a {
+      [class*="bg--gray"] &,
+      [class*="bg--gold"] &,
+      [class*="bg--white"] & {
+        color: #fff;
+      }
+    }
+  }
+
+  &[class*="bg--black"] {
+    .banner__text p {
+      color: #fff;
+    }
+  }
+
+  &[class*="banner--gradient-light"]:not([class*="bg-"]) {
+    .banner__text {
+      blockquote {
+        [class*="bg--gold"] & {
+          border-left-color: $primary;
+        }
+      }
+    }
+  }
+
+  &[class*="bg--gray"] {
+    .banner__text {
+      color: $secondary;
+
+      a {
+        color: $secondary;
+      }
+
+      p {
+        color: $secondary;
+        font-weight: normal;
+        text-shadow: none;
+
+        a {
+          color: $secondary;
+        }
+      }
+    }
+  }
+
+  &[class*="bg--gold"],
+  &[class*="bg--white"],
+  &[class*="banner--gradient-light"]:not([class*="bg-"]) {
+    .banner__text {
+      color: $secondary;
+
+      p {
+        color: $secondary;
+        font-weight: normal;
+        text-shadow: none;
+
+        a {
+          color: $secondary;
+        }
+      }
+
+      a {
+        color: $secondary;
+      }
+    }
+
+    &.banner--stacked:not([class*="bg-"]) {
+      [class*="bg--black"] & {
+        .banner__text {
+          color: #fff;
+          @include breakpoint(sm) {
+            color: $secondary;
+          }
+
+          a {
+            color: #fff;
+            @include breakpoint(sm) {
+              color: $secondary;
+            }
+          }
+
+          p {
+            color: #fff;
+            @include breakpoint(sm) {
+              color: $secondary;
+            }
+
+            a {
+              color: #fff;
+              @include breakpoint(sm) {
+                color: $secondary;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &--stacked {
+
+    .banner__text {
+      color: $secondary;
+      @include breakpoint(sm) {
+        color: #fff;
+      }
+
+      a {
+        color: $secondary;
+        @include breakpoint(sm) {
+          color: #fff;
+        }
+      }
+    }
+
+    &[class*="banner--gradient-dark"] {
+      &:not([class*="bg--"]) {
+        .banner__text {
+          p {
+            [class*="bg--black"] & {
+              color: #fff;
+            }
+            color: $secondary;
+            text-shadow: none;
+            @include breakpoint(sm) {
+              color: #fff;
+              text-shadow: 0 1px 1px #000;
+            }
+
+            a {
+              color: $secondary;
+              @include breakpoint(sm) {
+                color: #fff;
+              }
+
+              [class*="bg--black"] & {
+                color: #fff;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &[class*="banner--gradient-light"]:not([class*="bg--"]) {
+      .banner__text {
+        [class*="bg--gold"] & {
+          blockquote {
+            border-left-color: #fff;
+            @include breakpoint(sm) {
+              border-left-color: $primary;
+            }
+          }
+        }
+      }
+    }
+
+    &[class*="banner--gradient-light"]:not([class*="bg--black"]) {
+      .banner__text {
+        [class*="bg--gold"] & {
+          p {
+            color: $secondary;
+
+            a {
+              color: $secondary;
+            }
+          }
+        }
+      }
+    }
+
+    &[class*="bg--black"] {
+      display: flex;
+      .banner__text {
+        color: #fff;
+
+        a {
+          color: #fff;
+        }
+
+        p {
+          color: #fff;
+
+          a {
+            color: #fff;
+          }
+        }
+      }
+    }
+
+    [class*="bg--black"] & {
+      .banner__text {
+        color: #fff;
+
+        a {
+          color: #fff;
+        }
+      }
+    }
+
+    &[class*="bg--white"],
+    &[class*="bg--gray"],
+    &[class*="bg--gold"] {
+      [class*="bg--black"] & {
+        .banner__text {
+          color: $secondary;
+
+          a {
+            color: $secondary;
+          }
+
+          p {
+            color: $secondary;
+
+            a {
+              color: $secondary;
+            }
+          }
+        }
+      }
+    }
+  }
+
+// --------------------------------
+// Image
+// --------------------------------
 
   &__image {
     overflow: visible;
@@ -104,24 +547,30 @@
     }
   }
 
-  .headline + .banner__action {
-    margin-top: 1rem;
-  }
-
-  .banner__action .bttn {
-    margin: 0 1rem 1rem 0;
-    + .bttn {
-      @include breakpoint(sm) {
-        margin: 0 1rem 1rem 0;
+  &--stacked {
+    .banner__image {
+      img {
+        position: relative;
+        @include breakpoint(sm) {
+          position: absolute;
+        }
       }
     }
   }
 
+// --------------------------------
+// Video
+// --------------------------------
+
+  .media--video .video-controls {
+    z-index: 2;
+  }
+
   .media--video {
-    position: absolute;
     height: 100%;
     width: 100%;
     top: 0;
+    position: absolute;
 
     video {
       overflow: visible;
@@ -129,143 +578,248 @@
       width: 100%;
       -o-object-fit: cover;
       object-fit: cover;
-      position: absolute;
       height: 100%;
       top: 0;
+      @include breakpoint(sm) {
+        position: absolute;
+      }
     }
   }
 
+  .media--video {
+    //position: relative;
+    .video-controls {
+      position: absolute;
+      left: 1.25rem;
+      bottom: 1.25rem;
+      @include breakpoint(page-container) {
+        left: 3rem;
+        bottom: 3rem;
+      }
 
-  &__text {
-    z-index: 1;
+      .banner--horizontal-left.banner--vertical-bottom & {
+        @include breakpoint(page-container) {
+          bottom: 1.5rem;
+          left: 1.5rem;
+        }
+      }
+    }
+
+    .video-btn {
+      display: none;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      color: $secondary;
+      border: 1px solid white;
+      border-radius: 50%;
+      background: white;
+      font-size: 1rem;
+      padding: 0;
+      @include breakpoint(sm) {
+        display: block;
+      }
+
+      &::after {
+        content: "\f04b";
+        @include fas();
+        font-size: 1rem;
+      }
+
+      &.video-btn__play::after {
+        margin-left: 3px;
+      }
+
+      &.video-btn__pause::after {
+        content: "\f04c";
+      }
+    }
+    @media (hover:none), (hover:on-demand) {
+      .video-btn {
+        display: none;
+      }
+    }
   }
 
-  &__content {
-    padding: $gutter;
-
-    @include breakpoint(sm) {
-      padding: 1.25rem 0 2rem 0;
-    }
-
-    >* {
-      flex-basis: 100%;
-    }
-
-    .bttn {
-      margin-right: auto;
-      margin-left: 0;
-      z-index: 1;
-    }
-
-    @include breakpoint(page-container) {
-      padding: $gutter 0;
+  &[class*="banner--gradient-light"] {
+    .media--video .video-btn {
+      border: 1px solid $secondary;
     }
   }
 
-  h2:not([class*="headline"]),
-  h3:not([class*="headline"]),
-  h4:not([class*="headline"]),
-  h5:not([class*="headline"]),
-  h6:not([class*="headline"]),
-  blockquote {
-    color: #fff;
-
-    a {
-      color: #fff;
-    }
-  }
-
-
-  p {
-    line-height: 1.5;
-    margin-top: 0;
-    color: #fff;
-    text-shadow: 0 1px 1px #000;
-
-    a {
+  &--stacked {
+    .media--video {
       position: relative;
-      z-index: 1;
-      color: #fff;
+      @include breakpoint(sm) {
+        position: absolute;
+      }
+
+      .video-btn {
+        display: block;
+      }
     }
   }
-
-  // bg variants
-  // @todo This should probably be resolved with https://sass-lang.com/documentation/values/maps#using-maps
-  &.bg-pattern--brain,
-  &.bg-pattern--brain-reversed,
-  &[class*="bg--gold"],
-  &[class*="bg--white"],
-  &[class*="bg--gray"] {
-    color: $secondary;
-
-    p {
-      color: $secondary;
-      font-weight: normal;
-      text-shadow: none;
-
-      a {
-        color: $secondary;
-      }
-    }
-
-    h2:not([class*="headline"]),
-    h3:not([class*="headline"]),
-    h4:not([class*="headline"]),
-    h5:not([class*="headline"]),
-    h6:not([class*="headline"]),
-    blockquote {
-      color: $secondary;
-
-      a {
-        color: $secondary;
-      }
-    }
-
-    .headline.headline--negative {
-      color: $secondary;
-      text-shadow: none;
-
-      a {
-        color: $secondary;
+  // Bottom/Left Video button alignment
+  &.banner--horizontal-left.banner--vertical-bottom {
+    .media--video + .banner__container .banner__content {
+      @include breakpoint(sm) {
+        padding-bottom: 4.25rem;
       }
     }
   }
 
-  &.banner--gradient-light:not([class*="bg--black"]):not([class*="bg-pattern--brain-black"]) {
-    color: $secondary;
+// --------------------------------
+// Stacked
+// --------------------------------
 
-    h2:not([class*="headline"]),
-    h3:not([class*="headline"]),
-    h4:not([class*="headline"]),
-    h5:not([class*="headline"]),
-    h6:not([class*="headline"]),
-    blockquote {
-      color: $secondary;
+  &--stacked {
+    display: block;
+    @include breakpoint(sm) {
+      display: flex;
+    }
+  }
 
-      a {
-        color: $secondary;
+// --------------------------------
+// Gradients
+// --------------------------------
+
+  // Default overlay
+  &:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    content: "";
+    -webkit-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    will-change: opacity;
+  }
+
+  &.banner--gradient-dark:not([class*="bg-"]) {
+    @include breakpoint(sm) {
+      background: $secondary;
+    }
+
+    &:not([class*="banner--stacked"]) {
+      background: $secondary;
+    }
+  }
+
+  &--gradient-left {
+    &[class*="banner--stacked"] {
+      &:after {
+        background: none;
+        width: auto;
+        height: auto;
+        @include breakpoint(sm) {
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, rgba(0, 0, 0, .86) 0, rgba(0, 0, 0, .23) 65%, transparent);
+        }
       }
     }
 
-    p {
-      color: $secondary;
-      font-weight: normal;
-      text-shadow: none;
-
-      a {
-        color: $secondary;
+    &:after {
+      background: rgba(0, 0, 0, .5);
+      @include breakpoint(sm) {
+        background: linear-gradient(90deg, rgba(0, 0, 0, .86) 0, rgba(0, 0, 0, .23) 65%, transparent);
       }
     }
 
-    .headline.headline--negative {
-      color: $secondary;
-      text-shadow: none;
+    &.banner--gradient-light {
+      &[class*="banner--stacked"] {
+        &:after {
+          background: none;
+          width: auto;
+          height: auto;
+          @include breakpoint(sm) {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #fff 1%, hsla(0, 0%, 100%, .92) 32%, hsla(0, 0%, 100%, 0));
+          }
+        }
+      }
 
-      a {
-        color: $secondary;
+      &:after {
+        background: rgba(255, 255, 255, .8);
+        @include breakpoint(sm) {
+          background: linear-gradient(90deg, #fff 1%, hsla(0, 0%, 100%, .92) 32%, hsla(0, 0%, 100%, 0));
+        }
+      }
+
+      &[class*="bg-"]:after {
+        background: none;
+      }
+    }
+
+    &[class*="bg-"]:after {
+      background: none;
+    }
+  }
+
+  &--gradient-bottom {
+    &[class*="banner--stacked"] {
+      &:after {
+        background: none;
+        width: auto;
+        height: auto;
+        @include breakpoint(sm) {
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 70%);
+        }
+      }
+    }
+
+    &:after {
+      background: rgba(0, 0, 0, .5);
+      @include breakpoint(sm) {
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 70%);
+      }
+    }
+
+    &.banner--gradient-light {
+      &[class*="banner--stacked"] {
+        &:after {
+          background: none;
+          width: auto;
+          height: auto;
+          @include breakpoint(sm) {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent 0, hsla(0, 0%, 100%, .9) 55%);
+          }
+        }
+      }
+
+      &:after {
+        background: rgba(255, 255, 255, .8);
+        @include breakpoint(sm) {
+          background: linear-gradient(180deg, transparent 0, hsla(0, 0%, 100%, .9) 55%);
+        }
+      }
+
+      &[class*="bg-"]:after {
+        background: none;
       }
     }
   }
+
+  &--transparent {
+    &:after {
+      background: none;
+    }
+  }
+
+  &[class*="bg-"]:after {
+    background: inherit;
+  }
+
+// --------------------------------
+// Headlines
+// --------------------------------
 
   .headline {
     z-index: 1;
@@ -279,143 +833,173 @@
         text-decoration: underline;
       }
     }
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
 
-    &.headline--negative {
+  .headline--negative {
+    color: #fff;
+    text-shadow: 0 1px 1px #000;
+    @include breakpoint(sm) {
+      color: #fff;
+    }
+
+    a {
+      //color: $secondary;
+      @include breakpoint(sm) {
+        color: #fff;
+      }
+    }
+  }
+  // Overriding the serif font size set in typography/headings.scss
+  :where(h2, h3, h4, h5, h6) {
+    &.headline--large,
+    &.headline--large.headline--serif {
+      font-size: 4.7rem;
+      font-size: containerClamp(2.5rem, 4.7rem);
+    }
+    // Set medium heading size
+    &.headline--medium,
+    &.headline--medium.headline--serif {
+      font-size: 3.7rem;
+      font-size: containerClamp(2.2rem, 3.7rem);
+    }
+    // Set small heading size
+    &.headline--small,
+    &.headline--small.headline--serif {
+      font-size: 2.7rem;
+      font-size: containerClamp(2rem, 2.7rem);
+    }
+  }
+
+  &--stacked {
+    &[class*="banner--gradient-dark"][class*="bg--black"] {
+      .headline--negative {
+        color: #fff;
+      }
+    }
+
+    &[class*="banner--gradient-dark"][class*="bg--gray"],
+    &[class*="banner--gradient-dark"][class*="bg--white"] {
+      .headline--negative,
+      .headline--negative.headline--uppercase {
+        [class*="bg--black"] & {
+          color: $secondary;
+          text-shadow: none;
+
+          a {
+            color: $secondary;
+            text-shadow: none;
+          }
+        }
+      }
+    }
+    &[class*="banner--gradient-dark"] {
+      .headline--negative {
+        color: $secondary;
+        text-shadow: none;
+        @include breakpoint(sm) {
+          color: #fff;
+          text-shadow: 0 1px 1px #000;
+        }
+
+        a {
+          color: $secondary;
+          @include breakpoint(sm) {
+            color: #fff;
+          }
+        }
+
+        [class*="bg--black"] & {
+          color: #fff;
+          text-shadow: 0 1px 1px #000;
+          @include breakpoint(sm) {
+            color: #fff;
+          }
+
+          a {
+            color: #fff;
+            @include breakpoint(sm) {
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &[class*="bg--gray"] {
+    .headline--negative {
       color: $secondary;
+      text-shadow: none;
 
+      a {
+        color: $secondary;
+      }
+    }
+  }
+
+  &[class*="bg--black"] {
+    .headline--negative {
       a {
         color: #fff;
       }
-
-      text-shadow: 0 1px 1px #000;
-      color: #fff;
-    }
-    margin-top: 0;
-    margin-bottom: .7rem;
-  }
-}
-
-// Set large heading size
-.headline--large.headline--serif,
-.headline--large {
-  font-size: 4.7rem;
-  font-size: containerClamp(2.5rem, 4.7rem);
-}
-
-// Set medium heading size
-.headline--medium.headline--serif,
-.headline--medium {
-  font-size: 3.7rem;
-  font-size: containerClamp(2.2rem, 3.7rem);
-}
-
-// Set small heading size
-.headline--small.headline--serif,
-.headline--small {
-  font-size: 2.7rem;
-  font-size: containerClamp(2rem, 2.7rem);
-}
-
-
-// Alignment Variants
-.banner--horizontal-center {
-  text-align: center;
-
-  .banner__content {
-    >* {
-      margin-right: auto;
-      margin-left: auto;
     }
   }
-}
 
-// Bottom/Left Video button alignment
-.banner--horizontal-left.banner--vertical-bottom  {
-  .banner__content {
-    @include breakpoint(sm) {
-      padding-bottom: 4.25rem;
+  &[class*="bg--gold"],
+  &[class*="bg--white"],
+  &[class*="banner--gradient-light"]:not([class*="bg-"]) {
+    .headline.headline--negative {
+      color: $secondary;
+      text-shadow: none;
+
+      a {
+        color: $secondary;
+      }
     }
-  }
-}
 
-.media--video {
-  position: relative;
+    &.banner--stacked:not([class*="bg-"]) {
+      [class*="bg--black"] & {
+        .headline.headline--negative {
+          color: #fff;
+          @include breakpoint(sm) {
+            color: $secondary;
+          }
 
-  .video-controls {
-    position: absolute;
-    z-index: 1;
-    left: 1.25rem;
-    bottom: 1.25rem;
-
-    @include breakpoint(page-container) {
-      left: 3rem;
-      bottom: 3rem;
-    }
-    .banner--horizontal-left.banner--vertical-bottom & {
-      @include breakpoint(page-container) {
-        bottom: 1.5rem;
-        left: 1.5rem;
+          a {
+            color: #fff;
+            @include breakpoint(sm) {
+              color: $secondary;
+            }
+          }
+        }
       }
     }
   }
 
-  .video-btn {
-    display: none;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    color: $secondary;
-    border: 1px solid white;
-    border-radius: 50%;
-    background: white;
-    font-size: 1rem;
-    padding: 0;
-
-    @include breakpoint(sm) {
-      display: block;
-    }
-
-    &::after {
-      content: "\f04b";
-      @include fas();
-      font-size: 1rem;
-    }
-
-    &.video-btn__play::after {
-      margin-left: 3px;
-    }
-
-    &.video-btn__pause::after {
-      content: "\f04c";
-    }
-  }
-
-  @media (hover:none),
-  (hover:on-demand) {
-    .video-btn {
-      display: none;
-    }
-  }
 }
-
-// ie11
-@media all and (-ms-high-contrast: none),
-(-ms-high-contrast: active) {
+// --------------------------------
+// IE11
+// --------------------------------
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
   .banner {
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100%;
   }
-  .banner__container  {
+
+  .banner__container {
     align-items: center;
     display: flex;
     justify-content: center;
     height: 100%;
   }
-  .banner__image img,
-  .banner .media--video {
-    left: 0px;
+
+  .banner .media--video,
+  .banner__image img {
+    left: 0;
   }
 
   .banner .banner__container {
@@ -438,83 +1022,8 @@
   }
 }
 
-// Gradient overlays
-.banner {
-  // Default overlay
-    &:after {
-      position: absolute;
-      top: 0;
-      left: 0;
-      display: block;
-      width: 100%;
-      height: 100%;
-      content: "";
-      -webkit-transition: all .5s ease-in-out;
-      transition: all .5s ease-in-out;
-      will-change: opacity;
-      background: rgba(0, 0, 0, .5);
-    }
-
-    &:not([class*="bg-"]) {
-      background: $secondary;
-    }
-
-    &[class*="bg-"]:after {
-      background: inherit;
-    }
-
-  &--gradient-left {
-
-    &:after {
-      @include breakpoint(sm) {
-        background: linear-gradient(90deg, rgba(0, 0, 0, .86) 0, rgba(0, 0, 0, .23) 65%, transparent);
-      }
-    }
-
-    &.banner--gradient-light {
-      &:after {
-        background: rgba(255, 255, 255, .7);
-
-        @include breakpoint(sm) {
-          background: linear-gradient(90deg, #fff 1%, hsla(0, 0%, 100%, .92) 32%, hsla(0, 0%, 100%, 0));
-        }
-      }
-
-      &[class*="bg-"]:after {
-        background: none;
-      }
-    }
-
-    &[class*="bg-"]:after {
-      background: none;
-    }
-  }
-
-  &--gradient-bottom {
-    &:after {
-      @include breakpoint(sm) {
-        background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 70%);
-      }
-    }
-
-    &.banner--gradient-light {
-      &:after {
-        background: rgba(255, 255, 255, .7);
-
-        @include breakpoint(sm) {
-          background: linear-gradient(180deg, transparent 0, hsla(0, 0%, 100%, .9) 55%);
-        }
-      }
-
-      &[class*="bg-"]:after {
-        background: none;
-      }
-    }
-  }
-
-  &--transparent {
-    &:after {
-      background: none;
-    }
-  }
+// set link color for gray and white nesting.
+[class*="bg--gray"] [class*="banner--gradient-dark"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
+[class*="bg--white"] [class*="banner--gradient-dark"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn) {
+  color: inherit;
 }
