@@ -11,18 +11,6 @@
   margin: 0;
 }
 
-.footer__container, .socket__container, .footer-cta__container {
-  margin: 0 1.25rem;
-  position: relative;
-}
-
-@media (min-width: 84.375em) {
-  .footer__container, .socket__container, .footer-cta__container {
-    max-width: 81.875em;
-    margin: 0 auto;
-  }
-}
-
 /*
  p:not(:last-child),
  dl:not(:last-child),
@@ -56,13 +44,8 @@ a {
   text-decoration: underline;
 }
 
-a:hover, a:focus {
-  text-decoration: none;
-}
-
 figcaption {
   font-size: 90%;
-  color: #343a40;
   line-height: 1.5;
 }
 
@@ -98,6 +81,11 @@ mark {
   background-color: #FFCD00;
 }
 
+pre {
+  font-family: "Zilla Slab", serif;
+  line-height: 1.5;
+}
+
 .is-small {
   font-size: 0.8rem;
 }
@@ -123,6 +111,20 @@ mark {
   display: block;
   width: 100%;
   height: auto;
+}
+
+@media (min-width: 768px) {
+  .element--two-column {
+    column-count: 2;
+    column-gap: 3rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .element--three-column {
+    column-count: 3;
+    column-gap: 3rem;
+  }
 }
 
 .element--spacer-separator {
@@ -180,25 +182,19 @@ mark {
 .element--bold-intro {
   font-family: "Zilla Slab", serif;
   font-weight: 600;
-  line-height: 1.2;
-  font-size: 2.5rem;
+  line-height: 1.3;
+  font-size: 2.2rem;
+  font-size: clamp(1.6rem, calc(1.3521vw + 1.093rem), 2.2rem);
   margin-top: 0;
-  margin-bottom: 1.7rem;
 }
 
 .uids-component--light-intro,
 .element--light-intro {
   font-weight: 300;
-  line-height: 1.2;
-  font-size: 2.5rem;
+  line-height: 1.4;
+  font-size: 2.1rem;
+  font-size: clamp(1.6rem, calc(1.1268vw + 1.1775rem), 2.1rem);
   margin-top: 0;
-  margin-bottom: 1.7rem;
-}
-
-.uids-component--light-intro bold, .uids-component--light-intro strong,
-.element--light-intro bold,
-.element--light-intro strong {
-  font-weight: 400;
 }
 
 .footer__links .menu, .footer__links .menu ul li, .footer__links--icon ul,
@@ -212,18 +208,6 @@ mark {
   display: inline-block;
   list-style-type: none;
   margin: 0;
-}
-
-.footer__container, .socket__container, .footer-cta__container {
-  margin: 0 1.25rem;
-  position: relative;
-}
-
-@media (min-width: 84.375em) {
-  .footer__container, .socket__container, .footer-cta__container {
-    max-width: 81.875em;
-    margin: 0 auto;
-  }
 }
 
 .logo {
@@ -314,18 +298,6 @@ mark {
   margin: 0;
 }
 
-.footer__container, .socket__container, .footer-cta__container {
-  margin: 0 1.25rem;
-  position: relative;
-}
-
-@media (min-width: 84.375em) {
-  .footer__container, .socket__container, .footer-cta__container {
-    max-width: 81.875em;
-    margin: 0 auto;
-  }
-}
-
 .site-name {
   display: flex;
   align-items: center;
@@ -377,18 +349,6 @@ mark {
   margin: 0;
 }
 
-.footer__container, .socket__container, .footer-cta__container {
-  margin: 0 1.25rem;
-  position: relative;
-}
-
-@media (min-width: 84.375em) {
-  .footer__container, .socket__container, .footer-cta__container {
-    max-width: 81.875em;
-    margin: 0 auto;
-  }
-}
-
 .parent-site-name {
   font-weight: 300;
   flex-basis: content;
@@ -433,18 +393,6 @@ mark {
   margin: 0;
 }
 
-.footer__container, .socket__container, .footer-cta__container {
-  margin: 0 1.25rem;
-  position: relative;
-}
-
-@media (min-width: 84.375em) {
-  .footer__container, .socket__container, .footer-cta__container {
-    max-width: 81.875em;
-    margin: 0 auto;
-  }
-}
-
 .footer {
   position: relative;
   background: #151515;
@@ -461,6 +409,16 @@ mark {
     padding-bottom: 0;
     padding-left: 0;
   }
+}
+
+.footer a {
+  color: #FFCD00;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.footer a:hover, .footer a:focus {
+  text-decoration: underline;
 }
 
 .footer p {
@@ -523,6 +481,18 @@ mark {
   text-decoration: underline;
 }
 
+.footer__container {
+  margin: 0 1.25rem;
+  position: relative;
+}
+
+@media (min-width: 84.375em) {
+  .footer__container {
+    max-width: 81.875em;
+    margin: 0 auto;
+  }
+}
+
 @media (min-width: 84.375em) {
   .footer__container {
     padding: 0;
@@ -533,6 +503,7 @@ mark {
   .footer__container--flex {
     display: flex;
     flex-wrap: wrap;
+    column-gap: 1.05rem;
   }
 }
 
@@ -626,6 +597,18 @@ mark {
   clip: rect(1px, 1px, 1px, 1px);
 }
 
+.socket__container {
+  margin: 0 1.25rem;
+  position: relative;
+}
+
+@media (min-width: 84.375em) {
+  .socket__container {
+    max-width: 81.875em;
+    margin: 0 auto;
+  }
+}
+
 @media (min-width: 84.375em) {
   .socket__container {
     padding: 0;
@@ -704,7 +687,16 @@ mark {
 }
 
 .footer-cta__container {
+  margin: 0 1.25rem;
+  position: relative;
   justify-content: space-between;
+}
+
+@media (min-width: 84.375em) {
+  .footer-cta__container {
+    max-width: 81.875em;
+    margin: 0 auto;
+  }
 }
 
 .footer-cta__container div:first-of-type,
