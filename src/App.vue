@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import UidsBanner from '@/components/Banner.vue'
 import UidsHeadline from '@/components/Headline.vue'
+import UidsIowaBar from '@/components/iowa-bar/IowaBar.vue'
 import banner_image from '@/assets/images/viewbook/sections/122.jpg'
 </script>
 
 <template>
+  <uids-iowa-bar></uids-iowa-bar>
   <uids-banner
     title="We did it!"
     url="https://uiowa.edu"

@@ -58,21 +58,15 @@
   </article>
 </template>
 
-<script>
+<script setup lang="ts">
 import './page.css';
 import MyHeader from './Header.vue';
-
-export default {
-  name: 'my-page',
-
-  components: { MyHeader },
-
-  props: {
-    user: {
-      type: Object,
-    },
+const name = 'my-page'
+const props = defineProps({
+  user: {
+    type: Object,
   },
+})
 
-  emits: ['login', 'logout', 'createAccount'],
-};
+const emits = defineEmits(['login', 'logout', 'createAccount'])
 </script>

@@ -1,3 +1,3 @@
 /* eslint-disable import/prefer-default-export */
 
-export { default as HelloWorld } from './HelloWorld.vue';
+export { default as UidsLogo } from './logo/Logo.vue';
