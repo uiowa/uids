@@ -6,7 +6,7 @@ import banner_image from '@/assets/images/viewbook/sections/122.jpg'
 </script>
 
 <template>
-  <uids-iowa-bar></uids-iowa-bar>
+  <uids-iowa-bar>Graduate College</uids-iowa-bar>
   <uids-banner
     title="We did it!"
     url="https://uiowa.edu"

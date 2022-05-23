@@ -31,7 +31,10 @@ const getClasses = computed(() => ({
   <header :class="getClasses" data-uids-header>
     <div class="iowa-bar__container">
       <uids-logo></uids-logo>
-      <slot id="top-links"></slot>
+      <h1 class="site-name" v-if="$slots.default">
+        <slot></slot>
+      </h1>
+      <slot name="top-links"></slot>
     </div>
   </header>
 </template>
