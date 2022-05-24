@@ -26,7 +26,7 @@ export default {
      */
     const getClasses = computed(() => {
       let classes = ['iowa-bar']
-      if (props.narrow || context.slots.parent_title && context.slots.parent_title().length) {
+      if (props.narrow || context.slots.second_row_content) {
         classes.push('iowa-bar--narrow')
       }
 
@@ -49,20 +49,12 @@ export default {
   <header :class="getClasses" data-uids-header>
     <div class="iowa-bar__container">
       <uids-logo></uids-logo>
-      <h1 class="site-name" v-if="!$slots.parent_title">
-        <!-- @slot Default slot shows the title of the site. -->
-        <slot></slot>
-      </h1>
-      <!-- @slot Show a parent title for the site. -->
-      <slot name="parent_title" v-else></slot>
+      <!-- @slot Default slot shows content next to the logo. -->
+      <slot></slot>
     </div>
-    <div class="iowa-bar__below" v-if="showBottomBar">
+    <div class="iowa-bar__below" v-if="$slots.second_row_content">
       <div class="iowa-bar__container">
-        <h1 class="site-name" v-if="$slots.parent_title">
-          <!-- @slot Default slot shows the title of the site. -->
-          <slot></slot>
-        </h1>
-        <slot name="bottom_content"></slot>
+        <slot name="second_row_content"></slot>
       </div>
     </div>
   </header>
