@@ -1,40 +1,69 @@
-<script setup lang="ts">
-import {computed} from "vue"
+<script lang="ts">
+import { computed } from "vue"
 import './iowa-bar.scss'
 import UidsLogo from '../logo/Logo.vue'
 
-const name = 'uids-iowa-bar'
-const props = defineProps({
-  height: {
-    type: String,
-    default: 'full',
-    validator: function(value) {
-      return ['full', 'narrow'].indexOf(value) !== -1
+/**
+ * The UIDS IOWA Bar is the visual starting point for all
+ * branded websites and applications.
+ */
+export default {
+  name: 'uids-iowa-bar',
+  components: { UidsLogo },
+  props: {
+    /**
+     * Determines whether to use the narrow version of the IOWA bar.
+     */
+    narrow: {
+      type: Boolean,
+      default: false,
     },
-  },
-  name_position: {
-    type: String,
-    default: 'inline',
-    validator: function(value) {
-      return ['below', 'inline'].indexOf(value) !== -1
-    },
-  },
-})
 
-const getClasses = computed(() => ({
-  'iowa-bar': true,
-  ['iowa-bar--' + props.height]: true,
-}))
+  },
+  setup(props, context) {
+    /**
+     * Get computed classes based on properties of the component.
+     */
+    const getClasses = computed(() => {
+      let classes = ['iowa-bar']
+      if (props.narrow || context.slots.parent_title && context.slots.parent_title().length) {
+        classes.push('iowa-bar--narrow')
+      }
+
+      return classes;
+    })
+
+    const showBottomBar = computed(() => {
+      return context.slots.parent_title && context.slots.parent_title().length || context.slots.bottom_content && context.slots.bottom_content().length
+    })
+
+    return {
+      getClasses,
+      showBottomBar,
+    }
+  }
+}
 </script>
 
 <template>
   <header :class="getClasses" data-uids-header>
     <div class="iowa-bar__container">
       <uids-logo></uids-logo>
-      <h1 class="site-name" v-if="$slots.default">
+      <h1 class="site-name" v-if="!$slots.parent_title">
+        <!-- @slot Default slot shows the title of the site. -->
         <slot></slot>
       </h1>
-      <slot name="top-links"></slot>
+      <!-- @slot Show a parent title for the site. -->
+      <slot name="parent_title" v-else></slot>
+    </div>
+    <div class="iowa-bar__below" v-if="showBottomBar">
+      <div class="iowa-bar__container">
+        <h1 class="site-name" v-if="$slots.parent_title">
+          <!-- @slot Default slot shows the title of the site. -->
+          <slot></slot>
+        </h1>
+        <slot name="bottom_content"></slot>
+      </div>
     </div>
   </header>
 </template>
