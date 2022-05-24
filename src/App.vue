@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import UidsBanner from '@/components/Banner.vue'
-import UidsHeadline from '@/components/Headline.vue'
+import UidsBanner from '@/components/banner/Banner.vue'
+import UidsHeadline from '@/components/headline/Headline.vue'
 import UidsIowaBar from '@/components/brand-bar/BrandBar.vue'
 import banner_image from '@/assets/images/viewbook/sections/122.jpg'
 </script>

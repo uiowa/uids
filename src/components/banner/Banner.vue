@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import UidsHeadline from './Headline.vue';
-import UidsButton from './Button.vue';
+import UidsHeadline from '../headline/Headline.vue';
+import UidsButton from '../button/Button.vue';
 import { computed } from 'vue';
 
 const name = 'uids-banner'
@@ -97,5 +97,5 @@ const getHeadlineSettings = computed(() => {
 </template>
 
 <style lang="scss">
-@import '../assets/scss/components/banner';
+@import 'banner';
 </style>
