@@ -22,8 +22,8 @@ jobs:
     # Otherwise, clone it normally.
     if: |
       ! github.event.pull_request.draft &&
-      (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') ||
-      (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
+      ((github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') ||
+      (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]'))
     env:
       TARGET_BRANCH: gh-pages
       MAIN_BRANCH: 4.x
