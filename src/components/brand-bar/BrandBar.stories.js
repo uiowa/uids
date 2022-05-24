@@ -1,7 +1,7 @@
-import UidsIowaBar from './IowaBar.vue'
+import UidsIowaBar from './BrandBar.vue'
 
 export default {
-  title: 'Branding/Iowa Bar',
+  title: 'Branding/Brand Bar',
   component: UidsIowaBar,
   argTypes: {
     narrow: {

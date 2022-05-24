@@ -1,6 +1,6 @@
 <script lang="ts">
 import { computed } from "vue"
-import './iowa-bar.scss'
+import './brand-bar.scss'
 import UidsLogo from '../logo/Logo.vue'
 
 /**

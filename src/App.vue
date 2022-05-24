@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import UidsBanner from '@/components/Banner.vue'
 import UidsHeadline from '@/components/Headline.vue'
-import UidsIowaBar from '@/components/iowa-bar/IowaBar.vue'
+import UidsIowaBar from '@/components/brand-bar/BrandBar.vue'
 import banner_image from '@/assets/images/viewbook/sections/122.jpg'
 </script>
 
