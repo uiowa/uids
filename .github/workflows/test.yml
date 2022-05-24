@@ -1,0 +1,26 @@
+name: Tests
+
+on:
+  pull_request:
+    branches:
+      - 4.x
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --check-files --frozen-lockfile --non-interactive
+
+      - name: Test unit
+        run: yarn run test:unit
