@@ -1,10 +1,15 @@
 <script setup lang="ts">
-import UidsBanner from '@/components/Banner.vue'
-import UidsHeadline from '@/components/Headline.vue'
+import UidsBanner from '@/components/banner/Banner.vue'
+import UidsHeadline from '@/components/headline/Headline.vue'
+import UidsIowaBar from '@/components/brand-bar/BrandBar.vue'
 import banner_image from '@/assets/images/viewbook/sections/122.jpg'
 </script>
 
 <template>
+  <uids-iowa-bar>
+    <template #parent_title><div class="parent-site-name">Brand</div></template>
+    Icon Browser
+  </uids-iowa-bar>
   <uids-banner
     title="We did it!"
     url="https://uiowa.edu"
@@ -44,6 +49,7 @@ import banner_image from '@/assets/images/viewbook/sections/122.jpg'
 <style lang="scss">
 @import url('https://use.fontawesome.com/releases/v5.8.2/css/all.css');
 @import './assets/base.css';
+@import './assets/scss/reset.scss';
 @import './assets/scss/headings.scss';
 @import './assets/scss/paragraph.scss';
 @import './assets/scss/lists.scss';

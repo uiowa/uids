@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import '../assets/scss/components/button.scss';
+import './button.scss';
 import { computed } from 'vue';
 const name = 'uids-button'
 const props = defineProps({
