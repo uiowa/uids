@@ -19,10 +19,10 @@ const props = defineProps({
 
 <template>
   <div class="card">
-    <div v-if="image" class="card__image">
+    <div v-if="image" class="card__image"></div>
+    <slot name="title"></slot>
+    <slot name="details"></slot>
     <!-- @slot The default slot where the message will be displayed. -->
     <slot>Card body</slot>
-    <slot name="details"></slot>
-    <slot></slot>
   </div>
 </template>
