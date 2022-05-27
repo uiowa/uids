@@ -3,20 +3,23 @@ import './card.scss';
 const name = 'uids-card'
 const props = defineProps({
   /**
-   * A property to determine whether the message in the component is emphasized or not.
+   * A link to the resource that the card represents.
    */
   link: {
     type: String,
   },
   /**
-   * You can add additional props here.
+   * A relative or absolute URL to an image that should be displayed.
    */
+  image: {
+    type: String,
+  },
 })
 </script>
 
 <template>
   <div class="card">
-    <slot name="image"></slot>
+    <div v-if="image" class="card__image">
     <!-- @slot The default slot where the message will be displayed. -->
     <slot>Card body</slot>
     <slot name="details"></slot>
