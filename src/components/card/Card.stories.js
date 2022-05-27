@@ -1,9 +1,9 @@
-import UidsExample from './Example.vue';
+import UidsCard from './Card.vue';
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
-  title: 'Basic/Example',
-  component: UidsExample,
+  title: 'Basic/Card',
+  component: UidsCard,
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
     excited: {
@@ -15,7 +15,7 @@ export default {
 // More on component templates: https://storybook.js.org/docs/vue/writing-stories/introduction#using-args
 const Template = (args) => ({
   // Components used in your story `template` are defined in the `components` object
-  components: { UidsExample },
+  components: { UidsCard },
   // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
     return { args };
