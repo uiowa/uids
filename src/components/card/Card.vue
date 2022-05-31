@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import './card.scss';
+import './card.scss'
+import UidsHeadline from '../headline/Headline.vue'
 const name = 'uids-card'
 const props = defineProps({
   /**
@@ -19,10 +20,19 @@ const props = defineProps({
 
 <template>
   <div class="card">
-    <div v-if="image" class="card__image"></div>
-    <slot name="title"></slot>
-    <slot name="details"></slot>
-    <!-- @slot The default slot where the message will be displayed. -->
-    <slot>Card body</slot>
+    <div v-if="image" class="card__media">
+      <img class="card__img" :src="image" alt="Alt">
+    </div>
+    <header v-if="$slots.title" class="card__title">
+      <uids-headline>
+        <slot name="title">Title</slot>
+      </uids-headline>
+    </header>
+    <div v-if="$slots.details" class="card__details">
+      <slot name="details">Details</slot>
+    </div>
+    <!-- @slot The body of the card. -->
+    <slot>Body</slot>
+    <footer v-if="$slots.action"></footer>
   </div>
 </template>
