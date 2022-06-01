@@ -13,6 +13,9 @@ export default {
     link: {
       control: { type: 'text' },
     },
+    enclosed: {
+      control: { type: 'boolean' },
+    },
     image: {
       control: { type: 'text' },
     },
@@ -36,10 +39,13 @@ const Template = (args) => ({
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
     <div style="max-width: 300px">
-      <uids-card :link="args.link" :image="args.image">
+      <uids-card
+        :link="args.link"
+        :image="args.image"
+        :enclosed="args.enclosed"
+      >
         <template #title v-html="args.title" v-if="args.title"></template>
-        <template #details v-html="args.details" v-if="args.details"></template>
-        <template #default v-html="args.default" v-if="args.details"></template>
+        <template #default><div v-html="args.default"></div></template>
       </uids-card>
     </div>
   `,
@@ -50,6 +56,7 @@ export const Default = Template.bind({});
 Default.args = {
   link: '',
   image: '',
+  enclosed: true,
   title: 'Title',
   default: '<strong>Hello!</strong> Here is some card content',
 };

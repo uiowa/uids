@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import './card.scss'
 import UidsHeadline from '../headline/Headline.vue'
+import { computed } from "vue";
 const name = 'uids-card'
 const props = defineProps({
   /**
@@ -15,11 +16,23 @@ const props = defineProps({
   image: {
     type: String,
   },
+  /**
+   * Include an outline around the card.
+   */
+  enclosed: {
+    type: Boolean,
+    default: true,
+  },
 })
+
+const classes = computed(() => ({
+  'card': true,
+  'card--enclosed': props.enclosed === true,
+}))
 </script>
 
 <template>
-  <div class="card">
+  <div :class="classes">
     <div v-if="image" class="card__media">
       <img class="card__img" :src="image" alt="Alt">
     </div>

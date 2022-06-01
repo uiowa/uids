@@ -8,7 +8,7 @@ import banner_image from '@/assets/images/viewbook/sections/122.jpg'
 <template>
   <uids-iowa-bar>
     <template #parent_title><div class="parent-site-name">Brand</div></template>
-    Icon Browser
+    <template #default v-html="'<strong>Icon Browser</strong>'"></template>
   </uids-iowa-bar>
   <uids-banner
     title="We did it!"
