@@ -63,12 +63,11 @@
   }
 }
 
-.card--enclosed {
+.card--outline {
   border: 1px solid;
 
-  .card__body {
-    padding: 2rem;
-  }
+
+  //padding: 2rem;
 
   .bttn {
     margin-bottom: 0;
@@ -76,7 +75,7 @@
 }
 
 .card--stacked {
-  &.card--enclosed {
+  &.card--outline {
     .card__body {
       padding: 2rem;
     }
@@ -149,11 +148,11 @@
   width: 100%;
   min-height: 1px;
 
-  img {
-    flex-shrink: 0;
-    width: 100%;
-    min-height: 1px;
-  }
+  //img {
+  //  flex-shrink: 0;
+  //  width: 100%;
+  //  min-height: 1px;
+  //}
 }
 
 .card__img {
@@ -234,6 +233,10 @@
 
 /* Card media styles
  * ====================== */
+.card__media {
+  text-align: center;
+}
+
 .card__media--large,
 .card__media--medium,
 .card__media--small {
@@ -351,7 +354,7 @@
     }
   }
 
-  &.card--enclosed {
+  &.card--outline {
     .card__body {
       padding: 2rem;
       @include breakpoint(sm) {
@@ -360,7 +363,7 @@
     }
   }
 
-  &.card--enclosed,
+  &.card--outline,
   &[class*="bg-"]:not(.bg--white) {
     @include breakpoint(sm) {
       padding: 2rem;
@@ -404,7 +407,7 @@
 }
 
 .card--media-right {
-  &.card--enclosed {
+  &.card--outline {
     .card__media+.card__body {
       padding: 2rem;
       @include breakpoint(sm) {
@@ -423,7 +426,7 @@
   }
 
   &.card,
-  &.card--enclosed {
+  &.card--outline {
     @include breakpoint(sm) {
       flex-direction: row-reverse;
     }
@@ -449,7 +452,7 @@
   &--media-left,
   &--media-right,
   &--stacked {
-    // Add padding if large circle stacked is enclosed or has bg color
+    // Add padding if large circle stacked is outline or has bg color
     .media--circle.card__media--large {
       padding: 0 2rem;
     }
@@ -481,7 +484,7 @@
     }
   }
 
-  &--enclosed {
+  &--outline {
     &.card--media-left,
     &.card--media-right,
     &.card--stacked {
@@ -510,8 +513,8 @@
     padding: 2rem;
   }
 }
-// set card enclosed borders to override defaults set in background.scss
-.card.card--enclosed {
+// set card outline borders to override defaults set in background.scss
+.card.card--outline {
   &[class*="bg--white"],
   &[class*="bg--gray"],
   &[class*="bg--gold"] {
@@ -569,7 +572,7 @@
         }
       }
       // Add padding if there's a section background color but no card bg set with border
-      &--enclosed:not([class*="bg-"]) {
+      &--outline:not([class*="bg-"]) {
         @include breakpoint(sm) {
           padding: 2rem;
         }

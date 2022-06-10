@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import './card.scss'
+import '../media/media.scss'
 import UidsHeadline from '../headline/Headline.vue'
 import { computed } from "vue";
 const name = 'uids-card'
@@ -11,15 +12,24 @@ const props = defineProps({
     type: String,
   },
   /**
-   * A relative or absolute URL to an image that should be displayed.
+   * Determine the size of the media of the card.
    */
-  image: {
-    type: String,
+
+  // @todo: determine whether this is necessary.
+  // media_size: {
+  //   type: String,
+  // },
+
+  /**
+   * Alignment of text content.
+   */
+  text_centered: {
+    type: Boolean,
   },
   /**
    * Include an outline around the card.
    */
-  enclosed: {
+  outline: {
     type: Boolean,
     default: true,
   },
@@ -27,14 +37,15 @@ const props = defineProps({
 
 const classes = computed(() => ({
   'card': true,
-  'card--enclosed': props.enclosed === true,
+  'card--outline': props.outline === true,
+  'card--centered': props.text_centered === true,
 }))
 </script>
 
 <template>
   <div :class="classes">
-    <div v-if="image" class="card__media">
-      <img class="card__img" :src="image" alt="Alt">
+    <div v-if="$slots.media" class="card__media">
+      <slot name="media"></slot>
     </div>
     <header v-if="$slots.title" class="card__title">
       <uids-headline>
