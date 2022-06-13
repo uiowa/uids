@@ -13,6 +13,9 @@ export default {
     url: {
       control: { type: 'text' },
     },
+    link_text: {
+      control: { type: 'text' },
+    },
     outline: {
       control: { type: 'boolean' },
     },
@@ -54,9 +57,6 @@ export default {
     default: {
       control: { type: 'text' },
     },
-    action: {
-      control: { type: 'text' },
-    }
   },
 };
 
@@ -73,17 +73,16 @@ const Template = (args) => ({
     <div style="max-width: 300px">
       <uids-card
         :url="args.url"
+        :link_text="args.link_text"
         :outline="args.outline"
         :stacked="args.stacked"
         :background="args.background"
         :full_padded="args.full_padded"
         :text_centered="args.text_centered"
       >
-
         <template #media v-if="args.media"><span v-html="args.media" ></span></template>
         <template #title v-if="args.title"><div v-html="args.title" ></div></template>
         <template #default><div v-html="args.default"></div></template>
-        <template #action v-if="args.action"><div v-html="args.action"></div></template>
       </uids-card>
     </div>
   `,
@@ -93,6 +92,7 @@ export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
 Default.args = {
   url: '',
+  link_text: '',
   media: '',
   // @todo: determine whether this is necessary.
   // media_size: '',
@@ -102,7 +102,6 @@ Default.args = {
   text_centered: false,
   title: 'Title',
   default: '<strong>Hello!</strong> Here is some card content',
-  action: 'WHATS GOING ON',
 };
 
 export const LinkedCard = Template.bind({});
@@ -110,6 +109,7 @@ LinkedCard.args = {
   ...Default.args,
   media: '<img class="media--widescreen" src="' + card_image + '" alt="Alt">',
   url: 'https://uiowa.edu',
+  link_text: 'Learn more',
 }
 
 export const UiowaIconCard = Template.bind({});
