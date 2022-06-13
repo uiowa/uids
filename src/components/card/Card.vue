@@ -63,18 +63,18 @@ const classes = computed(() => ({
     <div v-if="$slots.media" class="card__media">
       <slot name="media"></slot>
     </div>
-    <div class="card__body">
-      <header v-if="$slots.title" class="card__title">
-        <uids-headline>
-          <slot name="title">Title</slot>
-        </uids-headline>
-      </header>
-      <div v-if="$slots.details" class="card__details">
-        <slot name="details">Details</slot>
-      </div>
-      <!-- @slot The body of the card. -->
-      <slot>Body</slot>
-      <footer v-if="$slots.action"></footer>
+
+    <header v-if="$slots.title" class="card__title">
+      <uids-headline>
+        <slot name="title">Title</slot>
+      </uids-headline>
+    </header>
+    <div v-if="$slots.details" class="card__details">
+      <slot name="details">Details</slot>
     </div>
+    <!-- @slot The body of the card. -->
+    <slot>Body</slot>
+    <footer v-if="$slots.action"></footer>
+
   </div>
 </template>
