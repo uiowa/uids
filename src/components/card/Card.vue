@@ -2,13 +2,15 @@
 import './card.scss'
 import '../media/media.scss'
 import UidsHeadline from '../headline/Headline.vue'
-import { computed } from "vue";
+import { computed, useSlots } from "vue";
+import UidsButton from "../button/Button.vue";
+
 const name = 'uids-card'
 const props = defineProps({
   /**
-   * A link to the resource that the card represents.
+   * A url to the resource that the card represents.
    */
-  link: {
+  url: {
     type: String,
   },
   /**
@@ -40,6 +42,17 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+
+  /**
+   * Stack the card's contents on top of each other.
+   */
+  background: {
+    type: String,
+    default: '',
+    validator: function (value) {
+      return ['bg--white', 'bg--gray', 'bg--black', 'bg--yellow'].indexOf(value) !== -1;
+    },
+  },
   /**
    * Add padding around the entirety of the contents of the card.
    */
@@ -49,13 +62,42 @@ const props = defineProps({
   },
 })
 
-const classes = computed(() => ({
-  'card': true,
-  'card--outline': props.outline === true,
-  'card--stacked': props.stacked === true,
-  'card--full-padded': props.full_padded === true,
-  'card--centered': props.text_centered === true,
-}))
+const slots = useSlots();
+
+const classes = computed(() => {
+  let classes = ['card'];
+  ['outline', 'stacked', 'full_padded', 'text_centered'].forEach((prop) => {
+    if (props[prop] === true) {
+      classes.push('card--' + prop);
+    }
+  });
+
+  if (props.background !== '') {
+    classes.push(props.background)
+  }
+
+  if(props.url) {
+    classes.push('click-container');
+  }
+
+  return classes;
+});
+
+const linkedElement = computed(() => {
+  // Do we have a url.
+  if (!props.url) {
+    return null;
+  }
+  // Do we have a title.
+  if (!slots.title) {
+    // Button is url.
+    return 'button';
+  }
+
+  // Otherwise, title is url.
+  return 'title';
+});
+
 </script>
 
 <template>
@@ -74,7 +116,11 @@ const classes = computed(() => ({
     </div>
     <!-- @slot The body of the card. -->
     <slot>Body</slot>
-    <footer v-if="$slots.action"></footer>
+    <footer v-if="url">
+      <uids-button :url="url" size="medium">
+        BUTTON TEXT
+      </uids-button>
+    </footer>
 
   </div>
 </template>
