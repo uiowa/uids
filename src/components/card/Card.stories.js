@@ -8,16 +8,16 @@ export default {
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
     // Slots
-    title: {
+    media: {
       control: { type: 'text' },
     },
-    default: {
+    title: {
       control: { type: 'text' },
     },
     details: {
       control: { type: 'text' },
     },
-    media: {
+    default: {
       control: { type: 'text' },
     },
     // Props
@@ -35,13 +35,14 @@ export default {
       control: { type: 'boolean' },
     },
     background: {
-      control: { type: 'select',
+      control: {
+        type: 'select',
         options: [
-          'bg--white',
-          'bg--gray',
-          'bg--black',
-          'bg--yellow',
-        ]
+          'black',
+          'gray',
+          'white',
+          'yellow',
+        ],
       },
     },
     media_align: {

@@ -4,6 +4,8 @@ import '../media/media.scss'
 import UidsHeadline from '../headline/Headline.vue'
 import { computed, useSlots } from "vue";
 import UidsButton from "../button/Button.vue";
+import Background from "../shared/background";
+import { className } from "../utlity";
 
 const name = 'uids-card'
 const props = defineProps({
@@ -36,16 +38,7 @@ const props = defineProps({
     default: false,
   },
 
-  /**
-   * Stack the card's contents on top of each other.
-   */
-  background: {
-    type: String,
-    default: '',
-    validator: function (value) {
-      return ['black', 'gray', 'white', 'yellow'].indexOf(value) !== -1;
-    },
-  },
+  ...Background.props,
 
   /**
    * Align media element to the left or right.
@@ -77,9 +70,7 @@ const classes = computed(() => {
     }
   });
 
-  if (props.background !== '') {
-    classes.push(`bg--${ className(props.background) }`)
-  }
+  Background.addBackgroundClass(classes, props);
 
   if(props.url) {
     classes.push('click-container');
@@ -115,10 +106,6 @@ const headlineLink = computed(() => {
   }
   return false;
 })
-
-function className(text: string): string {
-  return text.replace(/_/g, '-');
-}
 </script>
 
 <template>
