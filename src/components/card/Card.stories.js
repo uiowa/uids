@@ -94,10 +94,8 @@ Default.args = {
   url: '',
   link_text: '',
   media: '',
-  // @todo: determine whether this is necessary.
-  // media_size: '',
   outline: true,
-  stacked: true,
+  stacked: false,
   full_padded: false,
   text_centered: false,
   title: 'Title',
@@ -109,6 +107,22 @@ LinkedCard.args = {
   ...Default.args,
   media: '<img class="media--widescreen" src="' + card_image + '" alt="Alt">',
   url: 'https://uiowa.edu',
+  link_text: 'Learn more',
+}
+
+export const LinkedCardWithoutButtonText = Template.bind({});
+LinkedCardWithoutButtonText.args = {
+  ...Default.args,
+  media: '<img class="media--widescreen" src="' + card_image + '" alt="Alt">',
+  url: 'https://uiowa.edu',
+}
+
+export const LinkedCardWithoutTitle = Template.bind({});
+LinkedCardWithoutTitle.args = {
+  ...Default.args,
+  media: '<img class="media--widescreen" src="' + card_image + '" alt="Alt">',
+  url: 'https://uiowa.edu',
+  title: '',
   link_text: 'Learn more',
 }
 
