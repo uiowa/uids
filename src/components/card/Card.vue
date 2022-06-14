@@ -24,7 +24,7 @@ const props = defineProps({
   /**
    * Alignment of text content.
    */
-  text_centered: {
+  centered: {
     type: Boolean,
   },
 
@@ -54,12 +54,21 @@ const props = defineProps({
       return ['black', 'gray', 'white', 'yellow'].indexOf(value) !== -1;
     },
   },
+
+  media_align: {
+    type: String,
+    default: '',
+    validator: (value) => {
+      return ['left', 'right'].indexOf(value) !== -1;
+    },
+  },
+
   /**
    * Add padding around the entirety of the contents of the card.
    */
-  full_padded: {
+  media_padded: {
     type: Boolean,
-    default: true,
+    default: false,
   },
 })
 
@@ -67,14 +76,14 @@ const slots = useSlots();
 
 const classes = computed(() => {
   let classes = ['card'];
-  ['outline', 'stacked', 'full_padded', 'text_centered'].forEach((prop) => {
+  ['outline', 'centered', 'media_padded', 'media_align'].forEach((prop) => {
     if (props[prop] === true) {
-      classes.push(`card--${prop}`);
+      classes.push(`card--${ className(prop) }`);
     }
   });
 
   if (props.background !== '') {
-    classes.push(`bg--${props.background}`)
+    classes.push(`bg--${ className(props.background) }`)
   }
 
   if(props.url) {
@@ -111,6 +120,10 @@ const headlineLink = computed(() => {
   }
   return false;
 })
+
+function className(text: string): string {
+  return text.replace(/_/g, '-');
+}
 </script>
 
 <template>
@@ -121,13 +134,15 @@ const headlineLink = computed(() => {
 
     <header v-if="$slots.title" class="card__title">
       <uids-headline :url="headlineLink">
+        <!-- @slot The title of the card. HTML is allowed. -->
         <slot name="title">Title</slot>
       </uids-headline>
     </header>
     <div v-if="$slots.details" class="card__details">
+      <!-- @slot The callout details of the card.. -->
       <slot name="details">Details</slot>
     </div>
-    <!-- @slot The body of the card. -->
+    <!-- @slot The body content of the card. -->
     <slot>Body</slot>
     <footer v-if="url && link_text">
       <uids-button :url="url" size="medium" v-if="linkedElement === 'button'">
