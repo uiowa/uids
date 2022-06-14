@@ -72,7 +72,7 @@ const Template = (args) => ({
         :borderless="args.borderless"
         :background="args.background"
         :media_align="args.media_align"
-        :media_padded="args.full_padded"
+        :media_padded="args.media_padded"
         :centered="args.centered"
       >
         <template #media v-if="args.media"><span v-html="args.media" ></span></template>

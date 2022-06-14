@@ -12,6 +12,7 @@
   margin-bottom: 1.6rem;
   padding: 2rem;
   text-decoration: none;
+  //line-height: 1.7;
 
   @include flexbox;
   @include flex($fg: 1, $fs: 1, $fb: 0%);
@@ -29,6 +30,24 @@
   p + .btn,
   p + .bttn {
     margin-top: $md;
+  }
+
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    &:not(:first-child) {
+      margin-top: 0;
+    }
+  }
+
+  ul,
+  ol,
+  dl,
+  table {
+    font-size: 1rem;
+    line-height: 1.7;
   }
 
   p {
@@ -53,6 +72,7 @@
   margin-right: -2rem;
   margin-top: -2rem;
   margin-bottom: 2rem;
+  text-align: center;
 }
 
 .card--borderless {
@@ -72,29 +92,9 @@
 
 .card--media-padded {
   .card__media {
-    padding-left: 2rem;
-    padding-top: 2rem;
-    padding-right: 2rem;
-  }
-}
-
-.card--stacked {
-  &.card--outline {
-    .card__body {
-      padding: 2rem;
-    }
-    .card__media + .card__body {
-      padding: 2rem;
-    }
-  }
-  .card__body {
-    padding: 0;
-  }
-  .card__media + .card__body {
-    padding: 2rem 0 0;
-    @include breakpoint(sm) {
-      padding: 2rem 0 0;
-    }
+    margin-left: 0;
+    margin-top: 0;
+    margin-right: 0;
   }
 }
 
@@ -147,44 +147,11 @@
   }
 }
 
-.card__body {
-  flex: 1;
-  padding: 2rem 0 0;
-  @include breakpoint(sm) {
-    padding: 2rem;
-  }
-  min-height: 1px;
-  line-height: 1.7;
-
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    &:not(:first-child) {
-      margin-top: 0;
-    }
-  }
-
-  @include breakpoint(sm) {
-    padding: 2rem 0;
-  }
-
-  ul,
-  ol,
-  dl,
-  table {
-    font-size: 1rem;
-    line-height: 1.7;
-  }
-}
-
 .card__details {
   margin: 0 0 $sm;
 }
 
 // @todo remove card__date class in 4.x branch.
-.card__date,
 .card__meta {
   font-family: $font-family-sans-serif;
   font-size: 1.1rem;
@@ -220,9 +187,6 @@
 
 /* Card media styles
  * ====================== */
-.card__media {
-  text-align: center;
-}
 
 .card__media--large,
 .card__media--medium,
