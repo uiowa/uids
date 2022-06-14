@@ -31,17 +31,9 @@ const props = defineProps({
   /**
    * Include an outline around the card.
    */
-  outline: {
+  borderless: {
     type: Boolean,
-    default: true,
-  },
-
-  /**
-   * Stack the card's contents on top of each other.
-   */
-  stacked: {
-    type: Boolean,
-    default: true,
+    default: false,
   },
 
   /**
@@ -55,6 +47,9 @@ const props = defineProps({
     },
   },
 
+  /**
+   * Align media element to the left or right.
+   */
   media_align: {
     type: String,
     default: '',
@@ -76,7 +71,7 @@ const slots = useSlots();
 
 const classes = computed(() => {
   let classes = ['card'];
-  ['outline', 'centered', 'media_padded', 'media_align'].forEach((prop) => {
+  ['borderless', 'centered', 'media_padded', 'media_align'].forEach((prop) => {
     if (props[prop] === true) {
       classes.push(`card--${ className(prop) }`);
     }

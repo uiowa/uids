@@ -3,13 +3,16 @@
 /* Base card styles
  * ====================== */
 .card {
+  border: 1px solid;
   position: relative;
   display: flex;
   flex-direction: row;
+  flex-grow: 1;
   flex-wrap: wrap;
   margin-bottom: 1.6rem;
+  padding: 2rem;
   text-decoration: none;
-  flex-grow: 1;
+
   @include flexbox;
   @include flex($fg: 1, $fs: 1, $fb: 0%);
   @include flex-direction($value: column);
@@ -46,17 +49,20 @@
 }
 
 .card__media {
+  margin-left: -2rem;
+  margin-right: -2rem;
+  margin-top: -2rem;
   margin-bottom: 2rem;
 }
 
-.card--outline {
-  border: 1px solid;
-  padding: 2rem;
+.card--borderless {
+  border-width: 0;
+  padding: 0;
 
   .card__media {
-    margin-left: -2rem;
-    margin-right: -2rem;
-    margin-top: -2rem;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
   }
 
   .bttn {
