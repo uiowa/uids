@@ -5,6 +5,7 @@ import '../media/media.scss'
 import UidsHeadline from '../headline/Headline.vue'
 import { computed, useSlots } from "vue";
 import UidsButton from "../button/Button.vue";
+import UidsPseudoButton from "../button/PseudoButton.vue";
 import Background from "../shared/background";
 import { className } from "../utlity";
 
@@ -48,7 +49,7 @@ const props = defineProps({
     type: String,
     default: '',
     validator: (value) => {
-      return ['left', 'right'].indexOf(value) !== -1;
+      return ['media-left', 'media-right'].indexOf(value) !== -1;
     },
   },
 
@@ -65,11 +66,14 @@ const slots = useSlots();
 
 const classes = computed(() => {
   let classes = ['card'];
-  ['borderless', 'centered', 'media_padded', 'media_align'].forEach((prop) => {
+  ['borderless', 'centered', 'media_padded'].forEach((prop) => {
     if (props[prop] === true) {
       classes.push(`card--${ className(prop) }`);
     }
   });
+  if (props.media_align) {
+    classes.push(`card--${ className(props.media_align)}`);
+  }
 
   Background.addBackgroundClass(classes, props);
 
@@ -132,7 +136,7 @@ const headlineLink = computed(() => {
       <uids-button :url="url" size="medium" v-if="linkedElement === 'button'">
         {{ link_text }}
       </uids-button>
-      <div v-else>{{ link_text }}</div>
+      <uids-pseudo-button v-else>{{ link_text }}</uids-pseudo-button>
     </footer>
 
   </div>

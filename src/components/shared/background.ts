@@ -24,7 +24,7 @@ const argTypes = {
   background: {
     control: {
       type: 'select',
-      options: colors,
+      options: ['', ...colors],
     },
   },
 }

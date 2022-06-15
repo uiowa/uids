@@ -23,7 +23,6 @@
   }
 
   @include breakpoint(sm) {
-    border: none;
     margin-bottom: 0;
   }
 
@@ -163,16 +162,14 @@
  * ====================== */
 .card--borderless {
   border-width: 0;
-  padding: 0;
 
-  .card__media {
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
-  }
-
-  .bttn {
-    margin-bottom: 0;
+  &:not([class*="bg--"]) {
+    padding: 0;
+    .card__media {
+      margin-left: 0;
+      margin-right: 0;
+      margin-top: 0;
+    }
   }
 }
 
@@ -187,6 +184,109 @@
 .card--centered {
   text-align: center;
 }
+
+/* Card left/right styles
+ * ====================== */
+
+
+.card--media-left,
+.card--media-right {
+
+  > * {
+    flex-basis: 100%;
+  }
+
+  .card__media {
+    margin-bottom: -2rem;
+  }
+
+  .card__body {
+    padding: 0;
+    @include breakpoint(sm) {
+      flex: 0 1 100%;
+    }
+    min-height: 1px;
+  }
+
+  .card__media + .card__body {
+    padding: 2rem 0 0;
+    @include breakpoint(sm) {
+      padding: 0;
+    }
+  }
+
+  &[class*="bg-"] {
+    .card__body {
+      padding: 2rem;
+      @include breakpoint(sm) {
+        padding: 0;
+      }
+    }
+  }
+
+  &.card--outline {
+    .card__body {
+      padding: 2rem;
+      @include breakpoint(sm) {
+        padding: 0;
+      }
+    }
+  }
+
+  &.card--outline,
+  &[class*="bg-"]:not(.bg--white) {
+    @include breakpoint(sm) {
+      padding: 2rem;
+    }
+  }
+
+  // Reduce padding for small circle crop next to card__body
+  .media--circle.card__media--small {
+    +.card__body {
+      @include breakpoint(sm) {
+        // padding: 0 0 0 $gutter;
+      }
+    }
+  }
+
+  @include breakpoint(sm) {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: unset;
+    width: 100%;
+    margin-bottom: 1.6rem;
+  }
+
+  .card__title {
+    font-family: $font-family-serif;
+    font-weight: $font-weight-bold;
+    @include breakpoint(sm) {
+      padding: 0;
+      margin: 0 0 $xsm;
+    }
+  }
+}
+
+.card--media-left {
+  @include breakpoint(sm) {
+    flex-direction: row;
+  }
+  .card__media {
+    margin-right: 2rem;
+  }
+}
+
+.card--media-right {
+  .card__media {
+    margin-left: 2rem;
+  }
+  @include breakpoint(sm) {
+    flex-direction: row-reverse;
+  }
+}
+
+
+
 
 /* Card media styles
  * ====================== */
@@ -271,118 +371,6 @@
         flex: 0 0 25%;
         width: 25%;
       }
-    }
-  }
-}
-
-/* Card left/right styles
- * ====================== */
-.card--media-left,
-.card--media-right {
-
-  @include breakpoint(sm) {
-    flex-direction: row;
-  }
-
-  .card__body {
-    padding: 0;
-    @include breakpoint(sm) {
-      flex: 0 1 100%;
-    }
-    min-height: 1px;
-  }
-
-  .card__media + .card__body {
-    padding: 2rem 0 0;
-    @include breakpoint(sm) {
-      padding: 0;
-    }
-  }
-
-  &[class*="bg-"] {
-    .card__body {
-      padding: 2rem;
-      @include breakpoint(sm) {
-        padding: 0;
-      }
-    }
-  }
-
-  &.card--outline {
-    .card__body {
-      padding: 2rem;
-      @include breakpoint(sm) {
-        padding: 0;
-      }
-    }
-  }
-
-  &.card--outline,
-  &[class*="bg-"]:not(.bg--white) {
-    @include breakpoint(sm) {
-      padding: 2rem;
-    }
-  }
-
-  // Reduce padding for small circle crop next to card__body
-  .media--circle.card__media--small {
-    +.card__body {
-      @include breakpoint(sm) {
-        // padding: 0 0 0 $gutter;
-      }
-    }
-  }
-
-  @include breakpoint(sm) {
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: unset;
-    width: 100%;
-    margin-bottom: 1.6rem;
-  }
-
-  .card__title {
-    font-family: $font-family-serif;
-    font-weight: $font-weight-bold;
-    @include breakpoint(sm) {
-      padding: 0;
-      margin: 0 0 $xsm;
-    }
-  }
-}
-
-.card--media-left {
-  .card__media+.card__body {
-    // padding: 2rem 0 0;
-    @include breakpoint(sm) {
-      padding: 0 0 $md 2rem;
-    }
-  }
-}
-
-.card--media-right {
-  &.card--outline {
-    .card__media+.card__body {
-      padding: 2rem;
-      @include breakpoint(sm) {
-        padding: 0 2rem $md 0;
-      }
-    }
-  }
-
-  .card__media+.card__body {
-    @include breakpoint(sm) {
-      padding: 0 2rem $md 0;
-    }
-  }
-  @include breakpoint(sm) {
-    flex-direction: row-reverse;
-  }
-
-  &.card,
-  &.card--outline {
-    @include breakpoint(sm) {
-      flex-direction: row-reverse;
     }
   }
 }

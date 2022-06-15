@@ -38,7 +38,7 @@ export default {
     },
     media_align: {
       control: { type: 'select',
-        options: ['', 'left', 'right']
+        options: ['', 'media-left', 'media-right']
       },
     },
     media_padded: {
@@ -57,7 +57,7 @@ const Template = (args) => ({
   },
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
-    <div style="max-width: 300px">
+    <div style="max-width: 600px">
       <uids-card
         :url="args.url"
         :link_text="args.link_text"
