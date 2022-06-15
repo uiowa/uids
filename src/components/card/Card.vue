@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import './card.scss'
+import '../background/background.scss'
 import '../media/media.scss'
 import UidsHeadline from '../headline/Headline.vue'
 import { computed, useSlots } from "vue";
@@ -111,6 +112,7 @@ const headlineLink = computed(() => {
 <template>
   <div :class="classes">
     <div v-if="$slots.media" class="card__media">
+      <!-- @slot Media displayed at the top of the card. -->
       <slot name="media"></slot>
     </div>
 

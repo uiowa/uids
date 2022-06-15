@@ -1,0 +1,70 @@
+@import 'background-mixins';
+
+[class*="bg--"] {
+  a,
+  [class*="bg--"] a {
+    color: inherit;
+  }
+}
+
+[class*="bg--"][class*="--pattern--"] {
+  background-size: auto auto;
+  background-position: center center;
+}
+
+[class*="--pattern--particle"],
+[class*="bg--"][class*="--pattern--particle"] {
+  background-size: 1400px;
+}
+
+[class*="--pattern--community"],
+[class*="bg--"][class*="--pattern--community"] {
+  background-size: 1000px;
+}
+
+// Add background rules
+@include add-backgrounds();
+
+[class*="bg--"] {
+  *,
+  & [class*="bg--"] * {
+    border-color: inherit;
+
+    &:before,
+    &:after {
+      color: inherit;
+      border-color: inherit;
+    }
+  }
+}
+
+// border color overrides for certain background colors
+[class*="bg--gray"],
+[class*="bg--white"],
+[class*="bg--gold"],
+.bg-pattern--brain-reversed,
+.bg-pattern--brain {
+  border-color: rgba(0,0,0,.125);
+}
+
+.bg--black--pattern--brain,
+.bg-pattern--brain-black,
+[class*="bg--black"] {
+  border-color: rgba(255,255,255,.325);
+}
+
+// override gray link color.
+[class*="bg--white"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
+[class*="bg-"] [class*="bg--white"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
+[class*="bg--gray"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
+[class*="bg-"] [class*="bg--gray"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn) {
+  color: $link-color;
+}
+
+// set link color for black and gold nesting.
+[class*="bg--white"] [class*="bg--gold"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
+[class*="bg--white"] [class*="bg--black"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
+[class*="bg--gray"] [class*="bg--gold"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
+[class*="bg--gray"] [class*="bg--black"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn) {
+  color: inherit;
+}

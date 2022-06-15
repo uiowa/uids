@@ -1,5 +1,6 @@
 import UidsCard from './Card.vue';
 import card_image from '../../assets/images/viewbook/sections/122.jpg'
+import Background from "../shared/background";
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
@@ -27,23 +28,13 @@ export default {
     link_text: {
       control: { type: 'text' },
     },
+    ...Background.argTypes,
     // Modifiers
     borderless: {
       control: { type: 'boolean' },
     },
     centered: {
       control: { type: 'boolean' },
-    },
-    background: {
-      control: {
-        type: 'select',
-        options: [
-          'black',
-          'gray',
-          'white',
-          'yellow',
-        ],
-      },
     },
     media_align: {
       control: { type: 'select',
@@ -101,7 +92,7 @@ Default.args = {
 export const LinkedCard = Template.bind({});
 LinkedCard.args = {
   ...Default.args,
-  media: '<img class="media--edge-to-edge" src="' + card_image + '" alt="Alt">',
+  media: '<img src="' + card_image + '" alt="Alt">',
   url: 'https://uiowa.edu',
   link_text: 'Learn more',
 }
@@ -109,14 +100,14 @@ LinkedCard.args = {
 export const LinkedCardWithoutButtonText = Template.bind({});
 LinkedCardWithoutButtonText.args = {
   ...Default.args,
-  media: '<img class="media--edge-to-edge" src="' + card_image + '" alt="Alt">',
+  media: '<img src="' + card_image + '" alt="Alt">',
   url: 'https://uiowa.edu',
 }
 
 export const LinkedCardWithoutTitle = Template.bind({});
 LinkedCardWithoutTitle.args = {
   ...Default.args,
-  media: '<img class="media--edge-to-edge" src="' + card_image + '" alt="Alt">',
+  media: '<img src="' + card_image + '" alt="Alt">',
   url: 'https://uiowa.edu',
   title: '',
   link_text: 'Learn more',

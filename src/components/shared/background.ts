@@ -1,5 +1,12 @@
 import { className } from "../utlity";
 
+const colors = [
+  'black',
+  'gold',
+  'gray',
+  'white',
+]
+
 const props = {
   /**
    * Stack the card's contents on top of each other.
@@ -8,7 +15,16 @@ const props = {
     type: String,
     default: '',
     validator: function (value) {
-      return ['black', 'gray', 'white', 'yellow'].indexOf(value) !== -1;
+      return colors.indexOf(value) !== -1;
+    },
+  },
+}
+
+const argTypes = {
+  background: {
+    control: {
+      type: 'select',
+      options: colors,
     },
   },
 }
@@ -21,5 +37,6 @@ const addBackgroundClass = (classes: Array<string>, props: Readonly<any>) => {
 
 export default {
   props: props,
+  argTypes: argTypes,
   addBackgroundClass: addBackgroundClass,
 }
