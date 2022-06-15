@@ -137,5 +137,9 @@ FAIconCard.args = {
 export const BorderlessCard = Template.bind({});
 BorderlessCard.args = {
   ...Default.args,
+  media: '<img src="' + card_image + '" alt="Alt">',
+  url: 'https://uiowa.edu',
+  title: 'Your story starts here',
+  link_text: 'Learn more',
   borderless: true,
 }
