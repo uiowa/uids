@@ -1,0 +1,250 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/utilities';
+
+.bttn {
+  @include bttn;
+
+  &--primary {
+    @include bttn--primary;
+    border: 1px solid $primary;
+    @include bttn--focus;
+
+    &:after {
+      background-color: $secondary;
+    }
+
+    [class*="bg--"] [class*="bg--black"] &,
+    [class*="bg--black"] & {
+      color: $secondary;
+    }
+
+    [class*="bg--"] [class*="bg--gray"] &,
+    [class*="bg--"] [class*="bg--white"] &,
+    [class*="bg--gray"] &,
+    [class*="bg--white"] & {
+      border-color: $primary;
+    }
+  }
+
+  &--secondary {
+    @include bttn--secondary;
+    border: 1px solid $secondary;
+    @include bttn--focus;
+
+    &__light {
+      @include bttn--secondary__light;
+    }
+
+    [class*="bg--black"] & {
+      color: #fff;
+    }
+
+    [class*="bg-"] [class*="bg--gray"] &,
+    [class*="bg-"] [class*="bg--white"] &,
+    [class*="bg--white"] &,
+    [class*="bg--gray"] &,
+    .bg-pattern--brain-reversed &,
+    .bg-pattern--brain & {
+      color: #fff;
+    }
+
+    [class*="bg--gold"] &,
+    [class*="bg-"] [class*="bg--gold"] & {
+      color: #fff;
+    }
+  }
+
+  &--tertiary {
+    @include bttn--tertiary;
+    @include bttn--focus;
+    background: #fff;
+    border: 1px solid #fff;
+
+    [class*="bg--black"] & {
+      color: #fff;
+    }
+
+      [class*="bg--black"] & {
+        color: $secondary;
+      }
+  }
+
+  &--full {
+    @include bttn--full;
+  }
+
+  &--outline {
+    @include bttn--outline;
+    border: 1px solid;
+    border-color: rgba(0,0,0,.425);
+
+
+    [class*="bg--black"] & {
+      border-color: rgba(255,255,255,.425);
+    }
+
+    &:focus,
+    &:hover {
+      color: $secondary;
+      @include bttn--focus;
+
+
+    }
+
+    &.bttn--tertiary {
+
+      [class*="bg--black"] [class*="bg--white"] &,
+      [class*="bg--black"] [class*="bg--gray"] &,
+      [class*="bg--black"] [class*="bg--gold"] & {
+        color: $secondary;
+      }
+
+        [class*="bg--gold"] [class*="bg--black"] &,
+        [class*="bg--gold"] [class*="bg--gray"] &,
+        [class*="bg--gold"] [class*="bg--white"] & {
+          //color: $primary;
+        }
+      }
+
+    &.bttn--secondary {
+      &:focus,
+      &:hover {
+        [class*="bg--gray"] &,
+        [class*="bg--gold"] &,
+        .bg-pattern--brain-reversed &,
+        .bg-pattern--brain &,
+        [class*="bg--white"] & {
+          background: $secondary;
+        }
+
+        [class*="bg--gray"] &,
+        [class*="bg--gold"] &,
+        [class*="bg--white"] &,
+        [class*="bg-"] [class*="bg--gold"] &,
+        [class*="bg--black"] [class*="bg--gold"] &,
+        .bg-pattern--brain-black .bg--gold &,
+        [class*="bg--black"] [class*="bg--white"] &,
+        .bg-pattern--brain-black [class*="bg--white"] &,
+        [class*="bg--black"] [class*="bg--gray"] &,
+        .bg-pattern--brain-black [class*="bg--gray"] & {
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  &--transparent {
+    @include bttn--transparent;
+
+    &:focus,
+    &:hover {
+      //background: #fff;
+      //border: 1px solid white;
+    }
+
+
+    &.bttn--outline {
+      i,
+      svg {
+        [class*="bg--gold"] & {
+          color: #fff;
+        }
+      }
+    }
+
+    [class*="bg--black"] &,
+    .bg-pattern--brain-black & {
+      border: 1px solid #fff;
+      color: #fff;
+      background: transparent;
+    }
+
+    [class*="bg--black"] [class*="bg--white"] &,
+    .bg-pattern--brain-black [class*="bg--white"] & {
+      border: 1px solid $primary;
+      color: inherit;
+    }
+
+    [class*="bg--black"] [class*="bg--white"] &,
+    .bg-pattern--brain-black [class*="bg--white"] &,
+    [class*="bg--black"] [class*="bg--gray"] &,
+    .bg-pattern--brain-black [class*="bg--gray"] &,
+    [class*="bg--black"] [class*="bg--gold"] &,
+    .bg-pattern--brain-black .bg--gold & {
+      border: 1px solid $secondary;
+      color: $secondary;
+    }
+
+    &:after {
+      [class*="bg--white"] &,
+      [class*="bg--gold"] [class*="bg--white"] &,
+      .bg-pattern--brain-reversed [class*="bg--white"] & {
+        background: $primary;
+      }
+
+      [class*="bg--gold"] &,
+      .bg-pattern--brain-reversed & {
+        background: #fff;
+      }
+    }
+  }
+
+  &--caps {
+    text-transform: uppercase;
+    font-family: $font-family-caps-bold;
+  }
+
+  &--lowercase {
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 1rem;
+  }
+
+  &--sans-serif {
+    font-family: $font-family-sans-serif;
+    font-weight: $font-weight-normal;
+    font-size: 0.9rem;
+    letter-spacing: 0.04rem;
+    display: inline-block;
+
+    &:focus {
+      text-decoration: underline;
+    }
+
+    i,
+    span {
+      font-size: 0.9rem;
+    }
+
+    &.bttn--full {
+      display: flex;
+      height: 100%;
+    }
+  }
+
+  &--link {
+    color: #000;
+
+    &:focus,
+    &:hover {
+      border: none;
+      transform: none;
+
+      &:focus::after,
+      &:hover::after {
+        transform: none;
+      }
+    }
+  }
+  // @todo remove or move to uids_base?
+  &__apply {
+    margin-top: unset;
+    padding: 0.7rem;
+    border: 1px solid $white;
+    font-size: 0.95rem;
+    display: none;
+    @include breakpoint(sm) {
+      display: block;
+    }
+  }
+}
