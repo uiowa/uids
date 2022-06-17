@@ -18,10 +18,6 @@
   @include flex($fg: 1, $fs: 1, $fb: 0%);
   @include flex-direction($value: column);
 
-  &:focus-within .card__title a:focus {
-    text-decoration: underline;
-  }
-
   @include breakpoint(sm) {
     margin-bottom: 0;
   }
@@ -61,6 +57,41 @@
     }
   }
 
+  header {
+    margin: 0 0 $sm;
+    padding: 0;
+    font-size: 1.5rem;
+    font-weight: $font-weight-medium;
+    line-height: 1.2;
+
+    a {
+      text-decoration: none;
+
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+
+    &.headline {
+      font-size: 1.5rem;
+    }
+
+    &:focus-within ~ .bttn {
+      background-position: 0;
+      background-size: 200% 100%;
+
+      i,
+      svg {
+        color: $secondary;
+      }
+    }
+  }
+
+  &:focus-within header a:focus {
+    text-decoration: underline;
+  }
+
   footer {
     margin-top: 2rem;
   }
@@ -73,37 +104,6 @@
   margin-top: -2rem;
   margin-bottom: 2rem;
   text-align: center;
-}
-
-.card__title {
-  margin: 0 0 $sm;
-  padding: 0;
-  font-size: 1.5rem;
-  font-weight: $font-weight-medium;
-  line-height: 1.2;
-
-  a {
-    text-decoration: none;
-
-    &:hover,
-    &:focus {
-      text-decoration: underline;
-    }
-  }
-
-  &.headline {
-    font-size: 1.5rem;
-  }
-
-  &:focus-within ~ .bttn {
-    background-position: 0;
-    background-size: 200% 100%;
-
-    i,
-    svg {
-      color: $secondary;
-    }
-  }
 }
 
 .card__subtitle {
@@ -269,7 +269,7 @@
     margin-bottom: 1.6rem;
   }
 
-  .card__title {
+  header {
     font-family: $font-family-serif;
     font-weight: $font-weight-bold;
     @include breakpoint(sm) {

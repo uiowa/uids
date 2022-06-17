@@ -9,7 +9,7 @@ const colors = [
 
 const props = {
   /**
-   * Stack the card's contents on top of each other.
+   * Set the background color of the element.
    */
   background: {
     type: String,

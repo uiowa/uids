@@ -120,24 +120,26 @@ const headlineLink = computed(() => {
       <slot name="media"></slot>
     </div>
 
-    <header v-if="$slots.title" class="card__title">
-      <uids-headline :url="headlineLink">
-        <!-- @slot The title of the card. HTML is allowed. -->
-        <slot name="title">Title</slot>
-      </uids-headline>
-    </header>
-    <div v-if="$slots.details" class="card__details">
-      <!-- @slot The callout details of the card.. -->
-      <slot name="details">Details</slot>
+    <div class="card__body">
+      <header v-if="$slots.title">
+        <uids-headline :url="headlineLink">
+          <!-- @slot The title of the card. HTML is allowed. -->
+          <slot name="title">Title</slot>
+        </uids-headline>
+      </header>
+      <div v-if="$slots.details" class="card__details">
+        <!-- @slot The callout details of the card.. -->
+        <slot name="details">Details</slot>
+      </div>
+      <!-- @slot The body content of the card. -->
+      <slot>Body</slot>
+      <footer v-if="url && link_text">
+        <uids-button :url="url" size="medium" v-if="linkedElement === 'button'">
+          {{ link_text }}
+        </uids-button>
+        <uids-pseudo-button v-else>{{ link_text }}</uids-pseudo-button>
+      </footer>
     </div>
-    <!-- @slot The body content of the card. -->
-    <slot>Body</slot>
-    <footer v-if="url && link_text">
-      <uids-button :url="url" size="medium" v-if="linkedElement === 'button'">
-        {{ link_text }}
-      </uids-button>
-      <uids-pseudo-button v-else>{{ link_text }}</uids-pseudo-button>
-    </footer>
 
   </div>
 </template>
