@@ -55,6 +55,7 @@ const props = defineProps({
 
   /**
    * Add padding around the entirety of the contents of the card.
+   * **Note** this has no effect when paired with the borderless option.
    */
   media_padded: {
     type: Boolean,
