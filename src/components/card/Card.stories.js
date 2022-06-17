@@ -57,7 +57,7 @@ const Template = (args) => ({
   },
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
-    <div style="max-width: 600px">
+<!--    <div style="max-width: 600px">-->
       <uids-card
         :url="args.url"
         :link_text="args.link_text"
@@ -72,7 +72,7 @@ const Template = (args) => ({
         <template #details v-if="args.details"><div v-html="args.details" ></div></template>
         <template #default><div v-html="args.default"></div></template>
       </uids-card>
-    </div>
+<!--    </div>-->
   `,
 });
 
