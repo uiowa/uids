@@ -14,7 +14,7 @@ function toggle(event) {
   const button = container.querySelector('.vidbttn');
   const highlight = container.parentElement.querySelector('.highlight__wrapper');
   container.classList.toggle("active");
-  highlight.classList.toggle("active");
+  highlight.classList.add("active");
   button.classList.toggle("active");
   button.classList.toggle("paused");
 }
