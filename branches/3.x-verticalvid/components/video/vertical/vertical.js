@@ -26,6 +26,16 @@ for (i = 0; i < ctrlVideo.length; ++i) {
     // Set the video to not active/paused.
     setVideoState(event.target, false);
   };
+
+  // Get the video button for this video.
+  let vidbttn = ctrlVideo[i].parentElement.querySelector('.vidbttn');
+
+  // And when it is clicked, play it's associated video.
+  vidbttn.addEventListener('click', function (event) {
+    let video = vidbttn.parentElement.querySelector('video');
+    video.play();
+
+  }, false);
 }
 
 // This function sets the state for a video element.
