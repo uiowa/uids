@@ -1,115 +1,65 @@
-const toggleButton = document.querySelectorAll("button.vidbttn");
+// Get all the vertical videos.
 const ctrlVideo = document.querySelectorAll(".player");
-const textOverlay = document.querySelectorAll(".portrait .highlight__wrapper");
-const videoContainer = document.querySelectorAll(".embed-responsive");
-const trackElements = document.querySelectorAll("track");
-const debug = false;
 
-document.addEventListener(
-  "click",
-  function (e) {
-    if (!e.target.classList.contains("vidbttn")) return;
-    e.target.classList.toggle("paused");
+// For each one...
+for (i = 0; i < ctrlVideo.length; ++i) {
 
-    for (var i = 0; i < ctrlVideo.length; i++) {
-      ctrlVideo[i].play();
-      e.target.classList.toggle("active");
-      videoContainer[i].classList.toggle("active");
-    }
+  // Add a listener for when the video plays.
+  ctrlVideo[i].onplay = (event) => {
 
-    if (e.target.classList.contains("active")) {
-      for (var i = 0; i < ctrlVideo.length; i++) {
-        ctrlVideo[i].setAttribute("controls", "true");
-        trackElements[i].track.mode = "showing";
-        textOverlay[i].classList.add("active");
+    // For each video that is not the one that was clicked on...
+    for (j = 0; j < ctrlVideo.length; ++j) {
+      if (ctrlVideo[j] != event.target) {
 
-      }
-    } else {
-      for (var i = 0; i < ctrlVideo.length; i++) {
-        e.target.classList.remove("active");
+        // Set the video to not active/paused.
+        setVideoState(ctrlVideo[j], false);
       }
     }
 
-    for (var i = 0; i < toggleButton.length; i++) {
-      // skip clicked link
-      if (toggleButton[i] === e.target) continue;
-      ctrlVideo[i].pause();
-      toggleButton[i].classList.remove("active");
-      textOverlay[i].classList.remove("active");
-      toggleButton[i].classList.remove("paused");
-      videoContainer[i].classList.remove("active");
-      ctrlVideo[i].removeAttribute("controls", "true");
-      trackElements[i].track.mode = "hidden";
-    }
-  },
-  false
-);
+    // Then set the one clicked on to active/playing.
+    setVideoState(event.target, true);
+  };
 
-var isMobile = {
-  Android: function () {
-    return navigator.userAgent.match(/Android/i);
-  },
-  BlackBerry: function () {
-    return navigator.userAgent.match(/BlackBerry/i);
-  },
-  iOS: function () {
-    return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-  },
-  Opera: function () {
-    return navigator.userAgent.match(/Opera Mini/i);
-  },
-  Windows: function () {
-    return navigator.userAgent.match(/IEMobile/i);
-  },
-  any: function () {
-    return (
-      isMobile.Android() ||
-      isMobile.BlackBerry() ||
-      isMobile.iOS() ||
-      isMobile.Opera() ||
-      isMobile.Windows()
-    );
-  },
-};
-if (isMobile.any()) {
-  document.querySelectorAll(".player")[0].controls = true;
-  document.querySelectorAll(".player")[1].controls = true;
-  document.querySelectorAll(".player")[2].controls = true;
+  // Add a listener for when the video pauses.
+  ctrlVideo[i].onpause = (event) => {
+
+    // Set the video to not active/paused.
+    setVideoState(event.target, false);
+  };
+
+  // Get the video button for this video.
+  let vidbttn = ctrlVideo[i].parentElement.querySelector('.vidbttn');
+
+  // And when it is clicked, play it's associated video.
+  vidbttn.addEventListener('click', function (event) {
+    let video = vidbttn.parentElement.querySelector('video');
+    video.play();
+
+  }, false);
 }
 
+// This function sets the state for a video element.
+// It takes a <video> element and a boolean for active/not active.
+function setVideoState(video, active) {
 
-// Set video controls to true for small viewport
-// Define our viewportWidth variable
-var viewportWidth;
+  // Get the necessary places where classes are set.
+  const container = video.parentElement;
+  const button = container.querySelector('.vidbttn');
+  const highlight = container.parentElement.querySelector('.highlight__wrapper');
 
-// Set/update the viewportWidth value
-var setViewportWidth = function () {
-  viewportWidth = window.innerWidth || document.documentElement.clientWidth;
-};
-
-// Log the viewport width into the console
-var logWidth = function () {
-  if (viewportWidth > 768) {
-    if (debug) {
-      console.log("Wide viewport");
-    }
-  } else {
-    document.querySelectorAll(".player")[0].controls = true;
-    document.querySelectorAll(".player")[1].controls = true;
-    document.querySelectorAll(".player")[2].controls = true;
+  // If the video is active set active classes.
+  if (active) {
+    container.classList.add("active");
+    highlight.classList.add("active");
+    button.classList.add("active");
   }
-};
 
-// Set our initial width and log it
-setViewportWidth();
-logWidth();
+  // Else, make sure the video is paused and remove the active classes.
+  else {
+    video.pause();
 
-// On resize events, recalculate and log
-window.addEventListener(
-  "resize",
-  function () {
-    setViewportWidth();
-    logWidth();
-  },
-  false
-);
+    container.classList.remove("active");
+    highlight.classList.remove("active");
+    button.classList.remove("active");
+  }
+}
