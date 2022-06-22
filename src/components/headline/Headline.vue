@@ -14,7 +14,7 @@ const props = defineProps({
   class: {
     type: String,
   },
-  href: {
+  url: {
     type: String,
   },
   aria_describedby: {
@@ -45,7 +45,7 @@ const getClasses = computed(() => ({
 
 <template>
   <component :is="level" :class="getClasses">
-    <a v-if="href" :href="href" :aria-describedby="aria_describedby">
+    <a v-if="url" :href="url" :aria-describedby="aria_describedby">
       <slot></slot>
     </a>
     <template v-else>

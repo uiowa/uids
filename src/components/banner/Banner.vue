@@ -2,6 +2,7 @@
 import UidsHeadline from '../headline/Headline.vue';
 import UidsButton from '../button/Button.vue';
 import { computed } from 'vue';
+import Background from "../shared/background";
 
 const name = 'uids-banner'
 
@@ -25,6 +26,7 @@ const props = defineProps({
     type: String,
     default: 'gradient-bottom',
   },
+  ...Background.props,
   // size?: string
   // classes?: string
   // vertical_alignment?: string
@@ -46,6 +48,7 @@ const classes = computed(() => {
       classes.push('banner--' + props[setting])
     }
   );
+  Background.addBackgroundClass(classes, props);
   return classes.join(" ");
 })
 

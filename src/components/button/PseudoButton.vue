@@ -3,10 +3,6 @@ import './button.scss';
 import { computed } from 'vue';
 const name = 'uids-button'
 const props = defineProps({
-  url: {
-    type: String,
-    default: '',
-  },
   color: {
     type: String,
     default: 'primary',
@@ -52,8 +48,8 @@ const classes = computed(() => ({
 </script>
 
 <template>
-  <a :class="classes" :href="url">
+  <div :class="classes">
     <slot></slot>
     <i v-if="arrow" class="fas fa-arrow-right"></i>
-  </a>
+  </div>
 </template>

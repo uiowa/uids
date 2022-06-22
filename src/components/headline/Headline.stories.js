@@ -28,7 +28,7 @@ export default {
       control: { type: 'boolean' },
       defaultValue: false,
     },
-    href: {
+    url: {
       control: { type: 'text' },
       defaultValue: '',
     },

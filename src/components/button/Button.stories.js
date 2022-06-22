@@ -10,6 +10,10 @@ export default {
       control: { type: 'select' },
       options: ['primary', 'secondary', 'tertiary', 'link'],
     },
+    size: {
+      control: { type: 'select' },
+      options: ['small', 'medium', 'large'],
+    },
     arrow: {
       control: { type: 'boolean' },
     },
@@ -40,6 +44,7 @@ export const Primary = Template.bind({});
 Primary.args = {
   label: 'Read more',
   color: 'primary',
+  size: 'medium',
   arrow: true,
   outline: false,
   font: 'None',
