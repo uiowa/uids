@@ -12,14 +12,17 @@
   font-size: 1.25rem;
   padding: 1rem 2rem 1rem;
   -webkit-font-smoothing: auto;
-  -moz-osx-font-smoothing: auto; }
+  -moz-osx-font-smoothing: auto;
+  border: 1px solid;
+  border-color: rgba(0, 0, 0, 0.425); }
   .bttn i,
   .bttn svg {
     margin-left: 0.625rem; }
+  [class*="bg--black"] .bttn {
+    border-color: rgba(255, 255, 255, 0.425); }
   .bttn--primary {
     color: #151515;
-    background: #FFCD00;
-    border: 1px solid #FFCD00; }
+    background: #FFCD00; }
     .bttn--primary i,
     .bttn--primary svg,
     .bttn--primary span {
@@ -51,8 +54,7 @@
       border-color: #FFCD00; }
   .bttn--secondary {
     color: #fff;
-    background: #151515;
-    border: 1px solid #151515; }
+    background: #151515; }
     .bttn--secondary i,
     .bttn--secondary svg,
     .bttn--secondary span {
@@ -88,8 +90,7 @@
       color: #fff; }
   .bttn--tertiary {
     color: #151515;
-    background: #fff;
-    border: 1px solid #fff; }
+    background: #fff; }
     .bttn--tertiary i,
     .bttn--tertiary svg,
     .bttn--tertiary span {
@@ -113,94 +114,13 @@
       color: #fff; }
     [class*="bg--black"] .bttn--tertiary {
       color: #151515; }
+  .bttn--transparent {
+    background: transparent;
+    border: 1px solid; }
+  .bttn--borderless {
+    border: none; }
   .bttn--full {
     display: flex; }
-  .bttn--outline {
-    border: 1px solid #FFCD00;
-    border: 1px solid;
-    border-color: rgba(0, 0, 0, 0.425); }
-    [class*="bg--black"] .bttn--outline {
-      border-color: rgba(255, 255, 255, 0.425); }
-    .bttn--outline:focus, .bttn--outline:hover {
-      color: #151515; }
-      .bttn--outline:focus:after, .bttn--outline:hover:after {
-        content: '';
-        position: absolute;
-        left: 50%;
-        bottom: 0;
-        width: 100%;
-        height: 4px;
-        background-color: #FFCD00;
-        transform-origin: center;
-        transform: translate(-50%, 0) scaleX(0);
-        transition: transform 0.3s ease-in-out; }
-      .bttn--outline:focus:focus, .bttn--outline:hover:focus {
-        text-decoration: underline; }
-      .bttn--outline:focus:hover::after, .bttn--outline:focus:focus::after, .bttn--outline:hover:hover::after, .bttn--outline:hover:focus::after {
-        transform: translate(-50%, 0) scaleX(1); }
-    [class*="bg--black"] [class*="bg--white"] .bttn--outline.bttn--tertiary,
-    [class*="bg--black"] [class*="bg--gray"] .bttn--outline.bttn--tertiary,
-    [class*="bg--black"] [class*="bg--gold"] .bttn--outline.bttn--tertiary {
-      color: #151515; }
-    [class*="bg--gray"] .bttn--outline.bttn--secondary:focus,
-    [class*="bg--gold"] .bttn--outline.bttn--secondary:focus,
-    .bg-pattern--brain-reversed .bttn--outline.bttn--secondary:focus,
-    .bg-pattern--brain .bttn--outline.bttn--secondary:focus,
-    [class*="bg--white"] .bttn--outline.bttn--secondary:focus, [class*="bg--gray"] .bttn--outline.bttn--secondary:hover,
-    [class*="bg--gold"] .bttn--outline.bttn--secondary:hover,
-    .bg-pattern--brain-reversed .bttn--outline.bttn--secondary:hover,
-    .bg-pattern--brain .bttn--outline.bttn--secondary:hover,
-    [class*="bg--white"] .bttn--outline.bttn--secondary:hover {
-      background: #151515; }
-    [class*="bg--gray"] .bttn--outline.bttn--secondary:focus,
-    [class*="bg--gold"] .bttn--outline.bttn--secondary:focus,
-    [class*="bg--white"] .bttn--outline.bttn--secondary:focus,
-    [class*="bg-"] [class*="bg--gold"] .bttn--outline.bttn--secondary:focus,
-    [class*="bg--black"] [class*="bg--gold"] .bttn--outline.bttn--secondary:focus,
-    .bg-pattern--brain-black .bg--gold .bttn--outline.bttn--secondary:focus,
-    [class*="bg--black"] [class*="bg--white"] .bttn--outline.bttn--secondary:focus,
-    .bg-pattern--brain-black [class*="bg--white"] .bttn--outline.bttn--secondary:focus,
-    [class*="bg--black"] [class*="bg--gray"] .bttn--outline.bttn--secondary:focus,
-    .bg-pattern--brain-black [class*="bg--gray"] .bttn--outline.bttn--secondary:focus, [class*="bg--gray"] .bttn--outline.bttn--secondary:hover,
-    [class*="bg--gold"] .bttn--outline.bttn--secondary:hover,
-    [class*="bg--white"] .bttn--outline.bttn--secondary:hover,
-    [class*="bg-"] [class*="bg--gold"] .bttn--outline.bttn--secondary:hover,
-    [class*="bg--black"] [class*="bg--gold"] .bttn--outline.bttn--secondary:hover,
-    .bg-pattern--brain-black .bg--gold .bttn--outline.bttn--secondary:hover,
-    [class*="bg--black"] [class*="bg--white"] .bttn--outline.bttn--secondary:hover,
-    .bg-pattern--brain-black [class*="bg--white"] .bttn--outline.bttn--secondary:hover,
-    [class*="bg--black"] [class*="bg--gray"] .bttn--outline.bttn--secondary:hover,
-    .bg-pattern--brain-black [class*="bg--gray"] .bttn--outline.bttn--secondary:hover {
-      color: #fff; }
-  .bttn--transparent {
-    background: transparent; }
-    [class*="bg--gold"] .bttn--transparent.bttn--outline i, [class*="bg--gold"]
-    .bttn--transparent.bttn--outline svg {
-      color: #fff; }
-    [class*="bg--black"] .bttn--transparent,
-    .bg-pattern--brain-black .bttn--transparent {
-      border: 1px solid #fff;
-      color: #fff;
-      background: transparent; }
-    [class*="bg--black"] [class*="bg--white"] .bttn--transparent,
-    .bg-pattern--brain-black [class*="bg--white"] .bttn--transparent {
-      border: 1px solid #FFCD00;
-      color: inherit; }
-    [class*="bg--black"] [class*="bg--white"] .bttn--transparent,
-    .bg-pattern--brain-black [class*="bg--white"] .bttn--transparent,
-    [class*="bg--black"] [class*="bg--gray"] .bttn--transparent,
-    .bg-pattern--brain-black [class*="bg--gray"] .bttn--transparent,
-    [class*="bg--black"] [class*="bg--gold"] .bttn--transparent,
-    .bg-pattern--brain-black .bg--gold .bttn--transparent {
-      border: 1px solid #151515;
-      color: #151515; }
-    [class*="bg--white"] .bttn--transparent:after,
-    [class*="bg--gold"] [class*="bg--white"] .bttn--transparent:after,
-    .bg-pattern--brain-reversed [class*="bg--white"] .bttn--transparent:after {
-      background: #FFCD00; }
-    [class*="bg--gold"] .bttn--transparent:after,
-    .bg-pattern--brain-reversed .bttn--transparent:after {
-      background: #fff; }
   .bttn--caps {
     text-transform: uppercase;
     font-family: "Antonio", sans-serif; }
