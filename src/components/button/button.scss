@@ -10,6 +10,7 @@
     border-color: rgba(255,255,255,.425);
   }
 
+  // Options.
   &--primary {
     @include bttn--primary;
     @include bttn--focus;
@@ -66,16 +67,20 @@
     @include bttn--transparent;
     @include bttn--focus;
 
-    [class*="bg--black"] &,
-    [class*="bg--gold"] & {
+    [class*="bg--black"] & {
       color: #fff;
     }
 
     i,
     span,
     svg {
-      [class*="bg--gold"] & {
+      [class*="bg--gold"] &,
+      [class*="bg--white"] [class*="bg--gold"] & {
         color: #fff;
+      }
+      [class*="bg--white"] &,
+      [class*="bg--gold"] [class*="bg--white"] & {
+        color: $primary;
       }
     }
 
@@ -86,17 +91,18 @@
     }
 
     &:after {
-      [class*="bg--white"] &,
-      [class*="bg--gold"] [class*="bg--white"] {
-        background: $primary;
+      [class*="bg--gold"] &,
+      [class*="bg--white"] [class*="bg--gold"] & {
+        background: #fff;
       }
 
-      [class*="bg--gold"] & {
-        background: #fff;
+      [class*="bg--white"] &,
+      [class*="bg--gold"] [class*="bg--white"] & {
+        background: $primary;
       }
     }
   }
-  
+
   // Modifiers.
   &--borderless {
     border: none;
@@ -156,6 +162,7 @@
     &:hover {
       border: none;
       transform: none;
+      text-decoration: underline;
 
       &:focus::after,
       &:hover::after {
@@ -164,14 +171,14 @@
     }
   }
   // @todo remove or move to uids_base?
-  &__apply {
-    margin-top: unset;
-    padding: 0.7rem;
-    border: 1px solid $white;
-    font-size: 0.95rem;
-    display: none;
-    @include breakpoint(sm) {
-      display: block;
-    }
-  }
+  //&__apply {
+  //  margin-top: unset;
+  //  padding: 0.7rem;
+  //  border: 1px solid $white;
+  //  font-size: 0.95rem;
+  //  display: none;
+  //  @include breakpoint(sm) {
+  //    display: block;
+  //  }
+  //}
 }
