@@ -8,6 +8,14 @@
   gap: $desktop-width-gutter;
   grid-template-columns: repeat(auto-fill, minmax(29.74%, 1fr));
 }
+
+@mixin fourcol-grid {
+  gap: $desktop-width-gutter;
+  grid-template-columns: repeat(auto-fill, minmax(21%, 1fr));
+}
+
+
+
 ////// Inner Grid
 @mixin inner-grid($parent) {
   .inner--grid.grid--twocol--50-50 {
@@ -27,6 +35,21 @@
         .list-container {
           gap: $desktop-width-gutter;
           grid-template-columns: 1fr 1fr;
+        }
+      }
+    }
+  }
+  .inner--grid.grid--fourcol--25 {
+    @if $parent >= 75 {
+      @media screen and (min-width: 58.125em) {
+        .list-container {
+          display: grid;
+          @include fourcol-grid;
+          // @todo Remove when uiowa/uiowa#2670 and uiowa/uiowa#2554 are resolved.
+          .card.card--media-left,
+          .card.card--media-right {
+            margin-bottom: 0;
+          }
         }
       }
     }
