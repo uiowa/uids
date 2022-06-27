@@ -1,6 +1,7 @@
 import UidsCard from './Card.vue';
 import card_image from '../../assets/images/viewbook/sections/122.jpg'
 import Background from "../shared/background";
+import Borderless from "../shared/borderless";
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
@@ -30,9 +31,7 @@ export default {
     },
     ...Background.argTypes,
     // Modifiers
-    borderless: {
-      control: { type: 'boolean' },
-    },
+    ...Borderless.argTypes,
     centered: {
       control: { type: 'boolean' },
     },
@@ -82,7 +81,6 @@ Default.args = {
   url: '',
   link_text: '',
   media: '',
-  borderless: false,
   media_align: '',
   media_padded: false,
   centered: false,

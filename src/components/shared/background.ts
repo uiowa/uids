@@ -1,6 +1,7 @@
 import { className } from "../utlity";
 
 const colors = [
+  '',
   'black',
   'gold',
   'gray',
@@ -22,9 +23,10 @@ const props = {
 
 const argTypes = {
   background: {
+    table: { defaultValue: colors[0] },
     control: {
       type: 'select',
-      options: ['', ...colors],
+      options: colors,
     },
   },
 }
