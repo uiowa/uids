@@ -58,15 +58,10 @@ const classes = computed(() => {
     classes.push(`bttn--${ className(props.size)}`);
   }
 
-  Borderless.addBorderlessClass('bttn', classes, props);
+  Borderless.addBorderlessClass(classes, props);
 
   return classes;
 });
-
-
-
-
-
 </script>
 
 <template>

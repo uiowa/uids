@@ -17,9 +17,9 @@ const argTypes = {
   },
 }
 
-const addBorderlessClass = (prefix: string, classes: Array<string>, props: Readonly<any>) => {
+const addBorderlessClass = (classes: Array<string>, props: Readonly<any>) => {
   if (props.borderless) {
-    classes.push(`${ className(prefix) }--borderless`);
+    classes.push(`borderless`);
   }
 }
 

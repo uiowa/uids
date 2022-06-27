@@ -77,7 +77,7 @@ const classes = computed(() => {
 
   Background.addBackgroundClass(classes, props);
 
-  Borderless.addBorderlessClass('card', classes, props);
+  Borderless.addBorderlessClass(classes, props);
 
   if(props.url) {
     classes.push('click-container');
