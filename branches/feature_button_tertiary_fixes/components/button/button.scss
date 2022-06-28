@@ -61,7 +61,7 @@
     @include bttn--focus;
 
     [class*="bg--black"] &,
-    [class*="bg--black"] [class*="bg--black"] & {
+    [class*="bg--"] [class*="bg--black"] & {
       color: #fff;
       border-color: rgba(255, 255, 255, 0.425);
     }
@@ -74,7 +74,8 @@
         color: #fff;
       }
       [class*="bg--white"] &,
-      [class*="bg--gold"] [class*="bg--white"] & {
+      [class*="bg--gold"] [class*="bg--white"] &,
+      [class*="bg--gold"] [class*="bg--gray"] & {
         color: $primary;
       }
     }
@@ -83,6 +84,18 @@
     [class*="bg--black"] [class*="bg--gray"] &,
     [class*="bg--black"] [class*="bg--gold"] & {
       color: $secondary;
+    }
+
+    &:after {
+      [class*="bg--gold"] &,
+      [class*="bg--white"] [class*="bg--gold"] & {
+        background: #fff;
+      }
+
+      [class*="bg--white"] &,
+      [class*="bg--gold"] [class*="bg--white"] & {
+        background: $primary;
+      }
     }
   }
 
