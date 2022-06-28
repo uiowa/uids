@@ -6,6 +6,12 @@
   border: 1px solid;
   border-color: rgba(0,0,0,.425);
 
+  [class*="bg--"] &,
+  [class*="bg--"] [class*="bg--"] & {
+    border-color: rgba(0,0,0,.425);
+    color: $secondary;
+  }
+
   [class*="bg--black"] & {
     border-color: rgba(255,255,255,.425);
   }
@@ -14,9 +20,14 @@
   &--primary {
     @include bttn--primary;
     @include bttn--focus;
+    border-color: $primary;
+    color: $secondary;
 
-    &.bttn {
-      color: $secondary;
+    [class*="bg--"] [class*="bg--gray"] &,
+    [class*="bg--gray"] &,
+    [class*="bg--"] [class*="bg--white"] &,
+    [class*="bg--white"] & {
+      border-color: $primary;
     }
 
     &:after {
@@ -32,19 +43,9 @@
       @include bttn--secondary__light;
     }
 
-    [class*="bg--black"] & {
-      color: #fff;
-    }
-
-    [class*="bg-"] [class*="bg--gray"] &,
-    [class*="bg-"] [class*="bg--white"] &,
-    [class*="bg--white"] &,
-    [class*="bg--gray"] & {
-      color: #fff;
-    }
-
-    [class*="bg--gold"] &,
-    [class*="bg-"] [class*="bg--gold"] & {
+    [class*="bg--"] &,
+    [class*="bg--"] [class*="bg--"] & {
+      border-color: rgba(255,255,255,.425);
       color: #fff;
     }
   }
@@ -53,22 +54,16 @@
     @include bttn--tertiary;
     @include bttn--focus;
     background: #fff;
-
-    [class*="bg--black"] & {
-      color: #fff;
-    }
-
-    [class*="bg--black"] & {
-      color: $secondary;
-    }
   }
 
   &--transparent {
     @include bttn--transparent;
     @include bttn--focus;
 
-    [class*="bg--black"] & {
+    [class*="bg--black"] &,
+    [class*="bg--black"] [class*="bg--black"] & {
       color: #fff;
+      border-color: rgba(255, 255, 255, 0.425);
     }
 
     i,
@@ -88,18 +83,6 @@
     [class*="bg--black"] [class*="bg--gray"] &,
     [class*="bg--black"] [class*="bg--gold"] & {
       color: $secondary;
-    }
-
-    &:after {
-      [class*="bg--gold"] &,
-      [class*="bg--white"] [class*="bg--gold"] & {
-        background: #fff;
-      }
-
-      [class*="bg--white"] &,
-      [class*="bg--gold"] [class*="bg--white"] & {
-        background: $primary;
-      }
     }
   }
 
