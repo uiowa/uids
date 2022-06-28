@@ -1,0 +1,56 @@
+{% embed '@background' %}
+  {% block content %}
+    {% include '@button--row' with { 'items': buttons } %}
+    {% for headline in headlines %}
+      {% set example_headline = {
+        'headline_level': 'h2',
+        'headline_class': headline.headline_class,
+        'headline_url': headline.headline_url,
+        'headline_text': headline.headline_text,
+      } %}
+      {% include '@headline' with example_headline only %}
+    {% endfor %}
+    <p>Iowa's <em>leadership</em> in both the <sub>arts and sciences</sub> fosters unique <u>resources</u>, like the <a href="https://uiowa.edu">College of Medicine's Arts and Humanities Program</a>, that will help <strong>you stand out.</strong></p>
+    <blockquote><p>Blockquote Text</p></blockquote>
+    <figcaption>Figcaption <a href="/">Link</a></figcaption>
+    <table>
+      <caption>This is a default table. <a href="#">Link</a> <p><a href="#">Link</a></p></caption>
+      <thead>
+      <tr>
+        <th><a href="/">Person</a></th>
+        <th>Number</th>
+        <th>Third Column</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <th>Someone Lastname</th>
+        <td>900</td>
+        <td>Nullam quis <a href="/">Link</a> risus eget urna mollis ornare vel eu leo.<p><a href="/">Link</a></p></td>
+      </tr>
+      <tr>
+        <th>
+          <a href="#">Person Name</a>
+        </th>
+        <td>1200</td>
+        <td>Vestibulum id ligula porta felis euismod semper. Donec ullamcorper
+          nulla non metus auctor fringilla.</td>
+      </tr>
+      <tr>
+        <th>Another Person</th>
+        <td>1500</td>
+        <td>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor
+          auctor. Nullam id dolor id nibh ultricies vehicula ut id elit.</td>
+      </tr>
+      <tr>
+        <th>Last One</th>
+        <td>2800</td>
+        <td>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras
+          mattis consectetur purus sit amet fermentum.</td>
+      </tr>
+      </tbody>
+    </table>
+    {% include '@card--row' with { 'items': cards } %}
+    {% include '@card--row-horizontal-collection' with { 'items': horizontal_cards } %}
+  {% endblock %}
+{% endembed %}
