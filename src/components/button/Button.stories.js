@@ -82,3 +82,9 @@ Tertiary.args = {
   ...Primary.args,
   color: 'tertiary',
 };
+
+export const Transparent = Template.bind({});
+Transparent.args = {
+  ...Primary.args,
+  color: 'transparent',
+};
