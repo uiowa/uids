@@ -8,163 +8,144 @@
 
   [class*="bg--"] &,
   [class*="bg--"] [class*="bg--"] & {
-    border-color: rgba(0,0,0,.425);
+    border-color: rgba(0, 0, 0, .425);
     color: $secondary;
   }
 
   [class*="bg--black"] & {
-    border-color: rgba(255,255,255,.425);
+    border-color: rgba(255, 255, 255, .425);
   }
+}
+// Options.
+.bttn--primary {
+  @include bttn--primary;
+  @include bttn--focus;
+  border-color: $primary;
+  color: $secondary;
 
-  // Options.
-  &--primary {
-    @include bttn--primary;
-    @include bttn--focus;
+  [class*="bg--"] [class*="bg--gray"] &,
+  [class*="bg--gray"] &,
+  [class*="bg--"] [class*="bg--white"] &,
+  [class*="bg--white"] & {
     border-color: $primary;
+  }
+
+  &:after {
+    background-color: $secondary;
+  }
+}
+
+.bttn--secondary {
+  @include bttn--secondary;
+  @include bttn--focus;
+
+  &__light {
+    @include bttn--secondary__light;
+  }
+
+  [class*="bg--"] &,
+  [class*="bg--"] [class*="bg--"] & {
+    border-color: rgba(255,255,255,.425);
+    color: #fff;
+  }
+}
+
+.bttn--tertiary {
+  @include bttn--tertiary;
+  @include bttn--focus;
+  background: #fff;
+}
+
+.bttn--transparent {
+  @include bttn--transparent;
+  @include bttn--focus;
+
+  [class*="bg--black"] &,
+  [class*="bg--"] [class*="bg--black"] & {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.425);
+  }
+
+  i,
+  span,
+  svg {
+    [class*="bg--gold"] &,
+    [class*="bg--white"] [class*="bg--gold"] & {
+      color: #fff;
+    }
+
+    [class*="bg--white"] &,
+    [class*="bg--gold"] [class*="bg--white"] &,
+    [class*="bg--gold"] [class*="bg--gray"] & {
+      color: $primary;
+    }
+  }
+
+  [class*="bg--black"] [class*="bg--white"] &,
+  [class*="bg--black"] [class*="bg--gray"] &,
+  [class*="bg--black"] [class*="bg--gold"] & {
     color: $secondary;
-
-    [class*="bg--"] [class*="bg--gray"] &,
-    [class*="bg--gray"] &,
-    [class*="bg--"] [class*="bg--white"] &,
-    [class*="bg--white"] & {
-      border-color: $primary;
-    }
-
-    &:after {
-      background-color: $secondary;
-    }
   }
 
-  &--secondary {
-    @include bttn--secondary;
-    @include bttn--focus;
-
-    &__light {
-      @include bttn--secondary__light;
+  &:after {
+    [class*="bg--gold"] &,
+    [class*="bg--white"] [class*="bg--gold"] & {
+      background: #fff;
     }
 
-    [class*="bg--"] &,
-    [class*="bg--"] [class*="bg--"] & {
-      border-color: rgba(255,255,255,.425);
-      color: #fff;
+    [class*="bg--white"] &,
+    [class*="bg--gold"] [class*="bg--white"] & {
+      background: $primary;
     }
   }
-
-  &--tertiary {
-    @include bttn--tertiary;
-    @include bttn--focus;
-    background: #fff;
-  }
-
-  &--transparent {
-    @include bttn--transparent;
-    @include bttn--focus;
-
-    [class*="bg--black"] &,
-    [class*="bg--"] [class*="bg--black"] & {
-      color: #fff;
-      border-color: rgba(255, 255, 255, 0.425);
-    }
-
-    i,
-    span,
-    svg {
-      [class*="bg--gold"] &,
-      [class*="bg--white"] [class*="bg--gold"] & {
-        color: #fff;
-      }
-      [class*="bg--white"] &,
-      [class*="bg--gold"] [class*="bg--white"] &,
-      [class*="bg--gold"] [class*="bg--gray"] & {
-        color: $primary;
-      }
-    }
-
-    [class*="bg--black"] [class*="bg--white"] &,
-    [class*="bg--black"] [class*="bg--gray"] &,
-    [class*="bg--black"] [class*="bg--gold"] & {
-      color: $secondary;
-    }
-
-    &:after {
-      [class*="bg--gold"] &,
-      [class*="bg--white"] [class*="bg--gold"] & {
-        background: #fff;
-      }
-
-      [class*="bg--white"] &,
-      [class*="bg--gold"] [class*="bg--white"] & {
-        background: $primary;
-      }
-    }
-  }
-
-  // Modifiers.
-  &.borderless {
-
-    &.bttn--transparent {
-      &:focus,
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-
-    &.bttn--transparent:after {
-      position: static;
-    }
-  }
-
-  &--full {
-    @include bttn--full;
-  }
-
-  &--caps {
-    text-transform: uppercase;
-    font-family: $font-family-caps-bold;
-  }
-
-  &--lowercase {
-    text-transform: none;
-    letter-spacing: 0;
-    font-size: 1rem;
-  }
-
-  &--sans-serif {
-    font-family: $font-family-sans-serif;
-    font-weight: $font-weight-normal;
-    font-size: 0.9rem;
-    letter-spacing: 0.04rem;
-    display: inline-block;
-
-    &:focus {
-      text-decoration: underline;
-    }
-
-    i,
-    span {
-      font-size: 0.9rem;
-    }
-
-    &.bttn--full {
-      display: flex;
-      height: 100%;
-    }
-  }
-
-  &--link {
-    color: #000;
-    border: none;
-
+}
+// Modifiers.
+.bttn.borderless {
+  &.bttn--transparent {
     &:focus,
     &:hover {
-      border: none;
-      transform: none;
       text-decoration: underline;
-
-      &:focus::after,
-      &:hover::after {
-        transform: none;
-      }
     }
+  }
+
+  &.bttn--transparent:after {
+    position: static;
+  }
+}
+
+.bttn--full {
+  @include bttn--full;
+}
+
+.bttn--caps {
+  text-transform: uppercase;
+  font-family: $font-family-caps-bold;
+}
+
+.bttn--lowercase {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 1rem;
+}
+
+.bttn--sans-serif {
+  font-family: $font-family-sans-serif;
+  font-weight: $font-weight-normal;
+  font-size: 0.9rem;
+  letter-spacing: 0.04rem;
+  display: inline-block;
+
+  &:focus {
+    text-decoration: underline;
+  }
+
+  i,
+  span {
+    font-size: 0.9rem;
+  }
+
+  &.bttn--full {
+    display: flex;
+    height: 100%;
   }
 }
