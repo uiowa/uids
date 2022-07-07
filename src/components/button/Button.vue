@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import './button.scss';
 import { computed } from 'vue';
+import Borderless from "../shared/borderless";
+import { className } from "../utlity";
 const name = 'uids-button'
 const props = defineProps({
   url: {
@@ -11,7 +13,7 @@ const props = defineProps({
     type: String,
     default: 'primary',
     validator: function (value) {
-      return ['primary', 'secondary', 'tertiary', 'link'].indexOf(value) !== -1;
+      return ['primary', 'secondary', 'tertiary','transparent'].indexOf(value) !== -1;
     },
   },
   size: {
@@ -21,11 +23,8 @@ const props = defineProps({
       return ['small', 'medium', 'large'].indexOf(value) !== -1;
     },
   },
-  arrow: {
-    type: Boolean,
-    default: true,
-  },
-  outline: {
+  ...Borderless.props,
+  full: {
     type: Boolean,
     default: false,
   },
@@ -33,27 +32,41 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  icon: {
+    type: String,
+    default: '',
+  }
 })
 
-const classes = computed(() => ({
-  'bttn': true,
-  'bttn--primary': props.color === 'primary',
-  'bttn--secondary': props.color === 'secondary',
-  'bttn--tertiary': props.color === 'tertiary',
-  'bttn--link': props.color === 'link',
-  'bttn--outline': props.outline,
-  'bttn--font-serif': props.font === 'serif',
-  'bttn--font-sans-serif': props.font === 'sans-serif',
-  'bttn--small' :props.size === 'small',
-  'bttn--medium' :props.size === 'medium',
-  'bttn--large' :props.size === 'large',
-}))
+const classes = computed(() => {
+  let classes = ['bttn'];
+  ['full'].forEach((prop) => {
+    if (props[prop] === true) {
+      classes.push(`bttn--${ className(prop) }`);
+    }
+  });
 
+  if (props.color) {
+    classes.push(`bttn--${ className(props.color)}`);
+  }
+
+  if (props.font && props.font != 'None') {
+    classes.push(`bttn--${ className(props.font)}`);
+  }
+
+  if (props.size) {
+    classes.push(`bttn--${ className(props.size)}`);
+  }
+
+  Borderless.addBorderlessClass(classes, props);
+
+  return classes;
+});
 </script>
 
 <template>
   <a :class="classes" :href="url">
     <slot></slot>
-    <i v-if="arrow" class="fas fa-arrow-right"></i>
+    <slot name="icon"></slot>
   </a>
 </template>

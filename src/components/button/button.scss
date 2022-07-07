@@ -1,282 +1,162 @@
 @import '../../assets/scss/variables';
 @import '../../assets/scss/utilities';
+@import '../../assets/scss/border';
 
 .bttn {
   @include bttn;
+  @include border;
 
-  &--primary {
-    @include bttn--primary;
-    border: 1px solid $primary;
-    @include bttn--focus;
+  [class*="bg--"] &,
+  [class*="bg--"] [class*="bg--"] & {
+    border-color: rgba(0, 0, 0, .425);
+    color: $secondary;
+  }
 
-    &:after {
-      background-color: $secondary;
-    }
+  [class*="bg--black"] & {
+    border-color: rgba(255, 255, 255, .425);
+  }
+}
+// Options.
+.bttn--primary {
+  @include bttn--primary;
+  @include bttn--focus;
+  border-color: $primary;
+  color: $secondary;
 
-    &:after {
-      [class*="bg--gold"] & {
-        background: $primary;
-      }
-    }
+  [class*="bg--"] [class*="bg--gray"] &,
+  [class*="bg--gray"] &,
+  [class*="bg--"] [class*="bg--white"] &,
+  [class*="bg--white"] & {
+    border-color: $primary;
+  }
 
-    i,
-    svg {
-      [class*="bg--gold"] &{
-        color: $primary;
-      }
-    }
+  &:after {
+    background-color: $secondary;
+  }
+}
 
-    [class*="bg--gray"] &,
-    [class*="bg--white"] &,
-    .bg-pattern--brain & {
-      border: none;
-    }
+.bttn--secondary {
+  @include bttn--secondary;
+  @include bttn--focus;
 
-    [class*="bg--black"] [class*="bg--gold"] &,
-    [class*="bg--white"] [class*="bg--gold"] &,
-    [class*="bg--gray"] [class*="bg--gold"] &,
-    [class*="bg--gold"] [class*="bg--gold"] &,
-    .bg-pattern--brain-reversed &,
-    [class*="bg--gold"] & {
-      background: $secondary;
+  &__light {
+    @include bttn--secondary__light;
+  }
+
+  [class*="bg--"] &,
+  [class*="bg--"] [class*="bg--"] & {
+    border-color: rgba(255,255,255,.425);
+    color: #fff;
+  }
+}
+
+.bttn--tertiary {
+  @include bttn--tertiary;
+  @include bttn--focus;
+  background: #fff;
+}
+
+.bttn--transparent {
+  @include bttn--transparent;
+  @include bttn--focus;
+
+  [class*="bg--black"] &,
+  [class*="bg--"] [class*="bg--black"] & {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.425);
+  }
+
+  i,
+  span,
+  svg {
+    [class*="bg--gold"] &,
+    [class*="bg--white"] [class*="bg--gold"] & {
       color: #fff;
     }
 
-    .bg-pattern--brain-reversed [class*="bg--gray"] &,
-    [class*="bg--gold"] [class*="bg--gray"] &,
-    .bg-pattern--brain-reversed [class*="bg--white"] &,
+    [class*="bg--white"] &,
+    [class*="bg--gold"] [class*="bg--white"] &,
+    [class*="bg--gold"] [class*="bg--gray"] & {
+      color: $primary;
+    }
+  }
+
+  [class*="bg--black"] [class*="bg--white"] &,
+  [class*="bg--black"] [class*="bg--gray"] &,
+  [class*="bg--black"] [class*="bg--gold"] & {
+    color: $secondary;
+  }
+
+  &:after {
+    [class*="bg--gold"] &,
+    [class*="bg--white"] [class*="bg--gold"] & {
+      background: #fff;
+    }
+
+    [class*="bg--white"] &,
     [class*="bg--gold"] [class*="bg--white"] & {
       background: $primary;
-      color: $secondary;
-      border: none;
-      i,
-      svg {
-        color: #fff;
-      }
-      &:after {
-        background: $secondary;
-      }
-    }
-
-    [class*="bg--gold"] [class*="bg--black"] & {
-      background: $primary;
-      color: $secondary;
-      i,
-      svg {
-        color: #fff;
-      }
-      &:after {
-        background: $secondary;
-      }
-    }
-
-    [class*="bg--black"] [class*="bg--black"] &,
-    [class*="bg--white"] [class*="bg--black"] &,
-    [class*="bg--gray"] [class*="bg--black"] &,
-    .bg-pattern--brain-black &,
-    [class*="bg--black"] & {
-      color: $secondary;
     }
   }
-
-  &--secondary {
-    @include bttn--secondary;
-    border: 1px solid $secondary;
-    @include bttn--focus;
-
-    &__light {
-      @include bttn--secondary__light;
-    }
-
-    [class*="bg-"] [class*="bg--gray"] &,
-    [class*="bg-"] [class*="bg--white"] &,
-    [class*="bg--white"] &,
-    [class*="bg--gray"] &,
-    .bg-pattern--brain-reversed &,
-    .bg-pattern--brain & {
-      color: #fff;
-    }
-
-    [class*="bg--gold"] &,
-    [class*="bg-"] [class*="bg--gold"] & {
-      color: #fff;
-    }
-  }
-
-  &--tertiary {
-    @include bttn--tertiary;
-    @include bttn--focus;
-    background: #fff;
-    border: 1px solid #fff;
-
-    &:not([class*="bttn--outline"]) {
-      .bg-pattern--brain-black &,
-      [class*="bg--black"] & {
-        color: $secondary;
-      }
-    }
-  }
-
-  &--full {
-    @include bttn--full;
-  }
-
-  &--outline {
-    @include bttn--outline;
-    border: 1px solid;
-
-    &:hover,
-    &:focus {
-      background: #fff;
-      color: $secondary;
-      @include bttn--focus;
-
-      [class*="bg--black"] &,
-      .bg-pattern--brain-black & {
-        border: 1px solid #fff;
-        color: #fff;
-        background: transparent;
-      }
-
-      [class*="bg--black"] [class*="bg--white"] &,
-      .bg-pattern--brain-black [class*="bg--white"] & {
-        border: 1px solid $primary;
-        color: inherit;
-      }
-
-      [class*="bg--black"] [class*="bg--white"] &,
-      .bg-pattern--brain-black [class*="bg--white"] &,
-      [class*="bg--black"] [class*="bg--gray"] &,
-      .bg-pattern--brain-black [class*="bg--gray"] &,
-      [class*="bg--black"] [class*="bg--gold"] &,
-      .bg-pattern--brain-black .bg--gold & {
-        border: 1px solid $secondary;
-        color: $secondary;
-      }
-
-      &:after {
-        [class*="bg--white"] &,
-        [class*="bg--gold"] [class*="bg--white"] &,
-        .bg-pattern--brain-reversed [class*="bg--white"] & {
-          background: $primary;
-        }
-
-        [class*="bg--gold"] &,
-        .bg-pattern--brain-reversed & {
-          background: #fff;
-        }
-      }
-    }
-
-    &.bttn--tertiary {
-      background: none;
-
-      i,
-      svg {
-        [class*="bg--gold"] & {
-          color: $secondary;
-        }
-      }
-    }
-
-    &.bttn--secondary {
-
-      &:hover,
-      &:focus {
-
-        [class*="bg--gray"] &,
-        [class*="bg--gold"] &,
-        .bg-pattern--brain-reversed &,
-        .bg-pattern--brain &,
-        [class*="bg--white"] & {
-          background: $secondary;
-        }
-
-        [class*="bg--gray"] &,
-        [class*="bg--gold"] &,
-        [class*="bg--white"] &,
-        [class*="bg-"] [class*="bg--gold"] &,
-        [class*="bg--black"] [class*="bg--gold"] &,
-        .bg-pattern--brain-black .bg--gold &,
-        [class*="bg--black"] [class*="bg--white"] &,
-        .bg-pattern--brain-black [class*="bg--white"] &,
-        [class*="bg--black"] [class*="bg--gray"] &,
-        .bg-pattern--brain-black [class*="bg--gray"] & {
-          color: #fff;
-        }
-
-      }
-    }
-
-  }
-
-  &--transparent {
-    @include bttn--transparent;
-
-    &:hover,
-    &:focus {
-      background: #fff;
-      border: 1px solid white;
-    }
-  }
-
-  &--font-serif {
-    font-family: $font-family-serif;
-  }
-
-  &--font-sans-serif {
-    font-family: $font-family-sans-serif;
-    font-weight: $font-weight-normal;
-    font-size: .9rem;
-    letter-spacing: .04rem;
-    display: inline-block;
-
-    &:focus {
+}
+// Modifiers.
+.bttn.borderless {
+  &.bttn--transparent {
+    &:focus,
+    &:hover {
       text-decoration: underline;
     }
-
-    i,
-    span {
-      font-size: .9rem;
-    }
-
-    &.bttn--full {
-      display: flex;
-      height: 100%;
-    }
   }
 
-  &--lowercase {
-    text-transform: none;
-    letter-spacing: 0;
-    font-size: 1rem;
+  &.bttn--transparent:after {
+    position: static;
+  }
+}
+
+.bttn--large {
+  padding: 1.5rem 2.5rem 1.5rem;
+  // @todo Change this to use css variables, calc the size.
+  font-size: 1.45rem;
+}
+.bttn--small {
+  padding: 0.6rem 1rem 0.6rem;
+  // @todo Change this to use css variables, calc the size.
+  font-size: 1.05rem;
+}
+
+.bttn--full {
+  display: flex;
+}
+
+.bttn--caps {
+  text-transform: uppercase;
+  font-family: $font-family-caps-bold;
+}
+
+.bttn--lowercase {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 1rem;
+}
+
+.bttn--sans-serif {
+  font-family: $font-family-sans-serif;
+  font-weight: $font-weight-normal;
+  font-size: 0.9rem;
+  letter-spacing: 0.04rem;
+  display: inline-block;
+
+  &:focus {
+    text-decoration: underline;
   }
 
-  &--link {
-    color: #000;
-
-    &:hover,
-    &:focus {
-      border: none;
-      transform: none;
-
-      &:hover::after,
-      &:focus::after {
-        transform: none;
-      }
-    }
+  i,
+  span {
+    font-size: 0.9rem;
   }
 
-  // @todo remove or move to uids_base?
-  &__apply {
-    margin-top: unset;
-    padding: .7rem;
-    border: 1px solid $white;
-    font-size: .95rem;
-    display: none;
-
-    @include breakpoint(sm) {
-      display: block;
-    }
+  &.bttn--full {
+    display: flex;
+    height: 100%;
   }
 }

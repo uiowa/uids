@@ -1,4 +1,5 @@
 import UidsButton from './Button.vue';
+import Borderless from "../shared/borderless";
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
@@ -6,23 +7,28 @@ export default {
   component: UidsButton,
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
+    url: {
+      control: { type: 'text' },
+    },
     color: {
       control: { type: 'select' },
-      options: ['primary', 'secondary', 'tertiary', 'link'],
+      options: ['primary', 'secondary', 'tertiary', 'transparent'],
     },
     size: {
       control: { type: 'select' },
       options: ['small', 'medium', 'large'],
     },
-    arrow: {
-      control: { type: 'boolean' },
-    },
-    outline: {
+    ...Borderless.argTypes,
+    full: {
+      name: 'full width',
       control: { type: 'boolean' },
     },
     font: {
       control: { type: 'select' },
       options: ['None', 'serif', 'sans-serif']
+    },
+    icon: {
+      control: { type: 'text' },
     },
   },
 };
@@ -36,18 +42,33 @@ const Template = (args) => ({
     return { args };
   },
   // And then the `args` are bound to your component with `v-bind="args"`
-  template: '<uids-button v-bind="args">{{ args.label }}</uids-button>',
+  template: `
+    <uids-button
+      :url="args.url"
+      :color="args.color"
+      :size="args.size"
+      :borderless="args.borderless"
+      :full="args.full"
+      :font="args.font"
+      :icon="args.icon"
+    >
+      {{ args.label }}
+      <template #icon v-if="args.icon"><span v-html="args.icon" ></span></template>
+    </uids-button>
+  `,
 });
 
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
 Primary.args = {
+  url: 'https://example.com',
   label: 'Read more',
   color: 'primary',
   size: 'medium',
-  arrow: true,
-  outline: false,
+  borderless: false,
+  full: false,
   font: 'None',
+  icon: '<i class="fas fa-arrow-right"></i>',
 };
 
 export const Secondary = Template.bind({});
@@ -60,4 +81,10 @@ export const Tertiary = Template.bind({});
 Tertiary.args = {
   ...Primary.args,
   color: 'tertiary',
+};
+
+export const Transparent = Template.bind({});
+Transparent.args = {
+  ...Primary.args,
+  color: 'transparent',
 };

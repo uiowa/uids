@@ -1,9 +1,11 @@
 @import '../../assets/scss/variables';
 @import '../../assets/scss/utilities';
+@import '../../assets/scss/border';
+
 /* Base card styles
  * ====================== */
 .card {
-  border: 1px solid;
+  @include border;
   position: relative;
   display: flex;
   flex-direction: row;
@@ -221,8 +223,7 @@
 }
 
 // Remove the outline from a card.
-.card--borderless {
-  border-width: 0;
+.card.borderless {
 
   // When the card has no background, we remove padding and reset our .card__media margins.
   &:not([class*="bg--"]) {

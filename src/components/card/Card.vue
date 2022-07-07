@@ -7,6 +7,7 @@ import { computed, useSlots } from "vue";
 import UidsButton from "../button/Button.vue";
 import UidsPseudoButton from "../button/PseudoButton.vue";
 import Background from "../shared/background";
+import Borderless from "../shared/borderless";
 import { className } from "../utlity";
 
 const name = 'uids-card'
@@ -35,12 +36,10 @@ const props = defineProps({
   /**
    * Include an outline around the card.
    */
-  borderless: {
-    type: Boolean,
-    default: false,
-  },
+  ...Borderless.props,
 
   ...Background.props,
+
 
   /**
    * Align media element to the left or right.
@@ -67,7 +66,7 @@ const slots = useSlots();
 
 const classes = computed(() => {
   let classes = ['card'];
-  ['borderless', 'centered', 'media_padded'].forEach((prop) => {
+  ['centered', 'media_padded'].forEach((prop) => {
     if (props[prop] === true) {
       classes.push(`card--${ className(prop) }`);
     }
@@ -77,6 +76,8 @@ const classes = computed(() => {
   }
 
   Background.addBackgroundClass(classes, props);
+
+  Borderless.addBorderlessClass(classes, props);
 
   if(props.url) {
     classes.push('click-container');

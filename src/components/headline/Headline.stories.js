@@ -9,36 +9,36 @@ export default {
   argTypes: {
     default: {
       control: { type: 'text' },
-      defaultValue: "Start your story here",
+      table: { defaultValue: 'Start your story here' },
     },
     level: {
       control: { type: 'select' },
       options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-      defaultValue: 'h2',
+      table: { defaultValue: 'h2' },
     },
     highlight: {
       control: { type: 'boolean' },
-      defaultValue: false,
+      table: { defaultValue: false },
     },
     uppercase: {
       control: { type: 'boolean' },
-      defaultValue: false,
+      table: { defaultValue: false },
     },
     underline: {
       control: { type: 'boolean' },
-      defaultValue: false,
+      table: { defaultValue: false },
     },
     url: {
       control: { type: 'text' },
-      defaultValue: '',
+      table: { defaultValue: '' },
     },
     aria_describedby: {
       control: { type: 'text' },
-      defaultValue: '',
+      table: { defaultValue: '' },
     },
     class: {
       control: { type: 'text' },
-      defaultValue: '',
+      table: { defaultValue: '' },
     },
   },
   args: {
