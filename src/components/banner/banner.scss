@@ -1,7 +1,5 @@
 @import '../../assets/scss/variables';
-@import '../../assets/scss/utilities';
-
-// --------------------------------
+@import '../../assets/scss/utilities'; // --------------------------------
 // Banner sizes
 //
 // @todo Use https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio
@@ -30,7 +28,7 @@
       content: '';
     }
   }
-
+  // Full screen 100vh option
   &--full {
     &.banner--large {
       @include breakpoint(page-container) {
@@ -121,6 +119,32 @@
       }
     }
   }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &.banner--gradient-dark:not([class*="bg-"]) {
+    &.banner--stacked {
+      .banner__action {
+        .bttn--transparent {
+          @include breakpoint(sm) {
+            border-color: rgba(255, 255, 255, .525);
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+
+  &:not([class*="banner--stacked"]) {
+    .banner__action {
+      .bttn--transparent {
+        border: 1px solid #fff;
+        color: #fff;
+      }
+    }
+  }
 }
 // --------------------------------
 // Pre-title
@@ -141,6 +165,10 @@
 
     &.headline.headline--highlight {
       margin-bottom: -.1rem;
+    }
+
+    &.headline.headline--highlight.headline--serif {
+      margin-bottom: -.4rem;
     }
 
     &.headline.headline--highlight {
@@ -243,6 +271,10 @@
     z-index: 1;
     color: #fff;
 
+    blockquote {
+      margin-left: 0;
+    }
+
     a {
       color: #fff;
     }
@@ -278,6 +310,16 @@
   &[class*="bg--black"] {
     .banner__text p {
       color: #fff;
+    }
+  }
+
+  &[class*="banner--gradient-light"]:not([class*="bg-"]) {
+    .banner__text {
+      blockquote {
+        [class*="bg--gold"] & {
+          border-left-color: $primary;
+        }
+      }
     }
   }
 
@@ -356,7 +398,6 @@
   }
 
   &--stacked {
-
     .banner__text {
       color: $secondary;
       @include breakpoint(sm) {
@@ -400,6 +441,19 @@
       }
     }
 
+    &[class*="banner--gradient-light"]:not([class*="bg--"]) {
+      .banner__text {
+        [class*="bg--gold"] & {
+          blockquote {
+            border-left-color: #fff;
+            @include breakpoint(sm) {
+              border-left-color: $primary;
+            }
+          }
+        }
+      }
+    }
+
     &[class*="banner--gradient-light"]:not([class*="bg--black"]) {
       .banner__text {
         [class*="bg--gold"] & {
@@ -416,6 +470,7 @@
 
     &[class*="bg--black"] {
       display: flex;
+
       .banner__text {
         color: #fff;
 
@@ -836,6 +891,7 @@
         }
       }
     }
+
     &[class*="banner--gradient-dark"] {
       .headline--negative {
         color: $secondary;
