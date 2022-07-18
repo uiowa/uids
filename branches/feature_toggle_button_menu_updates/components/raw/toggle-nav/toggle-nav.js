@@ -9,8 +9,8 @@ document.addEventListener(
   function (e) {
     if (!e.target.classList.contains("toggle-nav--bttn")) return;
     // Add the active/open class
-    e.target.classList.toggle-nav("active");
-    e.target.parentNode.classList.toggle-nav("o-canvas--open");
+    e.target.classList.toggle("active");
+    e.target.parentNode.classList.toggle("o-canvas--open");
 
     if (e.target.classList.contains("active")) {
       e.target.setAttribute("aria-expanded", "true");
