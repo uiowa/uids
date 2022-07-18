@@ -14,7 +14,7 @@
 
 ////
 .iowa-bar.iowa-bar--narrow {
-  .bttn--drawer {
+  .toggle-nav--bttn {
     display: flex;
     height: 60px;
 
@@ -27,19 +27,15 @@
     }
   }
 
-  .bttn--drawer.bttn--menu.inactive {
+  .toggle-nav--bttn.inactive {
     background: #f1f1f1;
   }
 
-  .bttn--drawer.bttn--menu.active {
+  .toggle-nav--bttn.active {
     background: #fff;
   }
 
-  .bttn--drawer.bttn--search.active {
-    background: #fff;
-  }
-
-  .bttn--drawer.bttn--menu {
+  .toggle-nav--bttn {
     .o-canvas--complete & {
       background: #f1f1f1;
     }
@@ -100,18 +96,6 @@ body {
   }
 }
 
-/*
-.o-canvas__menu {
-  .uids-search {
-    display: block;
-
-    @include breakpoint(md) {
-      display: none;
-    }
-  }
-}
-*/
-
 .o-canvas__group {
   flex-basis: 100%;
 
@@ -123,7 +107,7 @@ body {
 // buttons
 
 
-.bttn--drawer.bttn--menu {
+.toggle-nav--bttn {
   .o-canvas--complete & {
     background: #fff;
   }
@@ -150,12 +134,12 @@ body {
   }
 }
 
-.bttn--drawer.bttn--menu {
+.toggle-nav--bttn {
   justify-content: left;
   width: 100%;
 }
 
-.bttn--drawer.bttn--menu.inactive {
+.toggle-nav--bttn.inactive {
   background: #f1f1f1;
 
   @include breakpoint(md) {
@@ -163,7 +147,7 @@ body {
   }
 }
 
-.bttn--drawer.bttn--menu.active {
+.toggle-nav--bttn.active {
   background: #f1f1f1;
 
   @include breakpoint(md) {
@@ -178,13 +162,10 @@ body {
   button>* {
     pointer-events: none;
   }
-
-  .bttn--primary {
-    background: none;
-  }
 }
 
-.bttn--drawer {
+.toggle-nav--bttn {
+  border: none;
   position: relative;
   display: flex;
   align-items: center;
@@ -194,6 +175,13 @@ body {
   font-weight: 700;
   font-size: 1rem;
   z-index: 2;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  line-height: 1.4;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
 
   @include breakpoint(md) {
     height: 80px;

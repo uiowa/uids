@@ -1,5 +1,5 @@
 const drawerContainer = document.querySelectorAll(".o-canvas__wrapper");
-const toggleButtons = document.querySelectorAll("button.bttn--drawer");
+const toggle-navButtons = document.querySelectorAll("button.toggle-nav--bttn");
 const canvasDrawer = document.querySelectorAll(".o-canvas__drawer");
 
 // drawer open/close functionality
@@ -7,10 +7,10 @@ const canvasDrawer = document.querySelectorAll(".o-canvas__drawer");
 document.addEventListener(
   "click",
   function (e) {
-    if (!e.target.classList.contains("bttn--drawer")) return;
+    if (!e.target.classList.contains("toggle-nav--bttn")) return;
     // Add the active/open class
-    e.target.classList.toggle("active");
-    e.target.parentNode.classList.toggle("o-canvas--open");
+    e.target.classList.toggle-nav("active");
+    e.target.parentNode.classList.toggle-nav("o-canvas--open");
 
     if (e.target.classList.contains("active")) {
       e.target.setAttribute("aria-expanded", "true");
@@ -27,14 +27,14 @@ document.addEventListener(
       document.body.classList.remove("o-canvas--lock");
     }
     // go through each link
-    for (var i = 0; i < toggleButtons.length; i++) {
+    for (var i = 0; i < toggle-navButtons.length; i++) {
       // skip clicked link
-      if (toggleButtons[i] === e.target) continue;
-      toggleButtons[i].classList.remove("active");
-      toggleButtons[i].classList.remove("inactive");
-      toggleButtons[i].setAttribute("aria-expanded", "false");
-      toggleButtons[i].parentNode.classList.remove("o-canvas--open");
-      toggleButtons[i].nextElementSibling.setAttribute("aria-hidden", "true");
+      if (toggle-navButtons[i] === e.target) continue;
+      toggle-navButtons[i].classList.remove("active");
+      toggle-navButtons[i].classList.remove("inactive");
+      toggle-navButtons[i].setAttribute("aria-expanded", "false");
+      toggle-navButtons[i].parentNode.classList.remove("o-canvas--open");
+      toggle-navButtons[i].nextElementSibling.setAttribute("aria-hidden", "true");
     }
   },
   false
@@ -51,10 +51,10 @@ document.addEventListener(
       for (let i = 0; i < drawerContainer.length; i++) {
         drawerContainer[i].classList.remove("o-canvas--open");
       }
-      for (let i = 0; i < toggleButtons.length; i++) {
-        toggleButtons[i].classList.remove("active");
-        toggleButtons[i].setAttribute("aria-expanded", "false");
-        toggleButtons[i].nextElementSibling.setAttribute("aria-hidden", "true");
+      for (let i = 0; i < toggle-navButtons.length; i++) {
+        toggle-navButtons[i].classList.remove("active");
+        toggle-navButtons[i].setAttribute("aria-expanded", "false");
+        toggle-navButtons[i].nextElementSibling.setAttribute("aria-hidden", "true");
       }
     }
   },
@@ -70,8 +70,8 @@ window.addEventListener("keydown", function (event) {
     for (let i = 0; i < drawerContainer.length; i++) {
       drawerContainer[i].classList.remove("o-canvas--open");
     }
-    for (let i = 0; i < toggleButtons.length; i++) {
-      toggleButtons[i].classList.remove("active");
+    for (let i = 0; i < toggle-navButtons.length; i++) {
+      toggle-navButtons[i].classList.remove("active");
     }
   }
 });
