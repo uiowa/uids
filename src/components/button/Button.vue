@@ -62,7 +62,7 @@ const classes = computed(() => {
 
   console.log(slots.default);
   if (!slots.default) {
-    classes.push(`bttn--no-text }`);
+    classes.push(`bttn--no-text`);
   }
 
   Borderless.addBorderlessClass(classes, props);
