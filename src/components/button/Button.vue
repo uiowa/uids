@@ -32,13 +32,9 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  no_text: {
+  light_font: {
     type: Boolean,
     default: false,
-  },
-  font: {
-    type: String,
-    default: '',
   },
   icon: {
     type: String,
@@ -50,7 +46,7 @@ const slots = useSlots();
 
 const classes = computed(() => {
   let classes = ['bttn'];
-  ['full', 'transparent'].forEach((prop) => {
+  ['full', 'transparent', 'light_font'].forEach((prop) => {
     if (props[prop] === true) {
       classes.push(`bttn--${ className(prop) }`);
     }
@@ -58,10 +54,6 @@ const classes = computed(() => {
 
   if (props.color) {
     classes.push(`bttn--${ className(props.color)}`);
-  }
-
-  if (props.font && props.font != 'None') {
-    classes.push(`bttn--${ className(props.font)}`);
   }
 
   if (props.size) {

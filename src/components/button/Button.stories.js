@@ -27,9 +27,8 @@ export default {
       name: 'transparent',
       control: { type: 'boolean' },
     },
-    font: {
-      control: { type: 'select' },
-      options: ['None', 'serif', 'sans-serif']
+    light_font: {
+      control: { type: 'boolean' },
     },
     icon: {
       control: { type: 'text' },
@@ -54,7 +53,7 @@ const Template = (args) => ({
       :borderless="args.borderless"
       :full="args.full"
       :transparent="args.transparent"
-      :font="args.font"
+      :light_font="args.light_font"
       :icon="args.icon"
     >
       <template #default v-if="args.label">{{ args.label }}</template>
@@ -73,7 +72,7 @@ Primary.args = {
   borderless: false,
   full: false,
   transparent: false,
-  font: 'None',
+  light_font: false,
   icon: '<i class="fas fa-arrow-right"></i>',
 };
 
@@ -94,3 +93,11 @@ NoText.args = {
   ...Primary.args,
   label: '',
 };
+
+export const LightFont = Template.bind({});
+LightFont.args = {
+  ...Primary.args,
+  light_font: true,
+};
+
+
