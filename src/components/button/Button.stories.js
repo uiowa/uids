@@ -12,7 +12,7 @@ export default {
     },
     color: {
       control: { type: 'select' },
-      options: ['primary', 'secondary', 'tertiary', 'transparent'],
+      options: ['primary', 'secondary', 'tertiary'],
     },
     size: {
       control: { type: 'select' },
@@ -21,6 +21,14 @@ export default {
     ...Borderless.argTypes,
     full: {
       name: 'full width',
+      control: { type: 'boolean' },
+    },
+    transparent: {
+      name: 'transparent',
+      control: { type: 'boolean' },
+    },
+    no_text: {
+      name: 'no text',
       control: { type: 'boolean' },
     },
     font: {
@@ -49,6 +57,8 @@ const Template = (args) => ({
       :size="args.size"
       :borderless="args.borderless"
       :full="args.full"
+      :transparent="args.transparent"
+      :no_text="args.no_text"
       :font="args.font"
       :icon="args.icon"
     >
@@ -67,6 +77,8 @@ Primary.args = {
   size: 'medium',
   borderless: false,
   full: false,
+  transparent: false,
+  no_text: false,
   font: 'None',
   icon: '<i class="fas fa-arrow-right"></i>',
 };
@@ -81,10 +93,4 @@ export const Tertiary = Template.bind({});
 Tertiary.args = {
   ...Primary.args,
   color: 'tertiary',
-};
-
-export const Transparent = Template.bind({});
-Transparent.args = {
-  ...Primary.args,
-  color: 'transparent',
 };

@@ -13,7 +13,7 @@ const props = defineProps({
     type: String,
     default: 'primary',
     validator: function (value) {
-      return ['primary', 'secondary', 'tertiary','transparent'].indexOf(value) !== -1;
+      return ['primary', 'secondary', 'tertiary'].indexOf(value) !== -1;
     },
   },
   size: {
@@ -25,6 +25,14 @@ const props = defineProps({
   },
   ...Borderless.props,
   full: {
+    type: Boolean,
+    default: false,
+  },
+  transparent: {
+    type: Boolean,
+    default: false,
+  },
+  no_text: {
     type: Boolean,
     default: false,
   },
@@ -41,6 +49,18 @@ const props = defineProps({
 const classes = computed(() => {
   let classes = ['bttn'];
   ['full'].forEach((prop) => {
+    if (props[prop] === true) {
+      classes.push(`bttn--${ className(prop) }`);
+    }
+  });
+
+  ['transparent'].forEach((prop) => {
+    if (props[prop] === true) {
+      classes.push(`bttn--${ className(prop) }`);
+    }
+  });
+
+  ['no_text'].forEach((prop) => {
     if (props[prop] === true) {
       classes.push(`bttn--${ className(prop) }`);
     }
