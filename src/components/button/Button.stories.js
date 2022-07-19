@@ -57,7 +57,7 @@ const Template = (args) => ({
       :font="args.font"
       :icon="args.icon"
     >
-      {{ args.label }}
+      <template #default v-if="args.label">{{ args.label }}</template>
       <template #icon v-if="args.icon"><span v-html="args.icon" ></span></template>
     </uids-button>
   `,
