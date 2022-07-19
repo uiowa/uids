@@ -27,10 +27,6 @@ export default {
       name: 'transparent',
       control: { type: 'boolean' },
     },
-    no_text: {
-      name: 'no text',
-      control: { type: 'boolean' },
-    },
     font: {
       control: { type: 'select' },
       options: ['None', 'serif', 'sans-serif']
@@ -58,7 +54,6 @@ const Template = (args) => ({
       :borderless="args.borderless"
       :full="args.full"
       :transparent="args.transparent"
-      :no_text="args.no_text"
       :font="args.font"
       :icon="args.icon"
     >
@@ -78,7 +73,6 @@ Primary.args = {
   borderless: false,
   full: false,
   transparent: false,
-  no_text: false,
   font: 'None',
   icon: '<i class="fas fa-arrow-right"></i>',
 };
@@ -93,4 +87,10 @@ export const Tertiary = Template.bind({});
 Tertiary.args = {
   ...Primary.args,
   color: 'tertiary',
+};
+
+export const NoText = Template.bind({});
+NoText.args = {
+  ...Primary.args,
+  label: '',
 };

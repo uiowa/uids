@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import './button.scss';
-import { computed } from 'vue';
+import { computed, useSlots } from 'vue';
 import Borderless from "../shared/borderless";
 import { className } from "../utlity";
 const name = 'uids-button'
@@ -46,21 +46,11 @@ const props = defineProps({
   }
 })
 
+const slots = useSlots();
+
 const classes = computed(() => {
   let classes = ['bttn'];
-  ['full'].forEach((prop) => {
-    if (props[prop] === true) {
-      classes.push(`bttn--${ className(prop) }`);
-    }
-  });
-
-  ['transparent'].forEach((prop) => {
-    if (props[prop] === true) {
-      classes.push(`bttn--${ className(prop) }`);
-    }
-  });
-
-  ['no_text'].forEach((prop) => {
+  ['full', 'transparent'].forEach((prop) => {
     if (props[prop] === true) {
       classes.push(`bttn--${ className(prop) }`);
     }
@@ -76,6 +66,10 @@ const classes = computed(() => {
 
   if (props.size) {
     classes.push(`bttn--${ className(props.size)}`);
+  }
+
+  if (!slots.default) {
+    classes.push(`bttn--no-text }`);
   }
 
   Borderless.addBorderlessClass(classes, props);
