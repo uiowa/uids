@@ -12,7 +12,7 @@ export default {
     },
     color: {
       control: { type: 'select' },
-      options: ['primary', 'secondary', 'tertiary', 'transparent'],
+      options: ['primary', 'secondary', 'tertiary'],
     },
     size: {
       control: { type: 'select' },
@@ -23,9 +23,12 @@ export default {
       name: 'full width',
       control: { type: 'boolean' },
     },
-    font: {
-      control: { type: 'select' },
-      options: ['None', 'serif', 'sans-serif']
+    transparent: {
+      name: 'transparent',
+      control: { type: 'boolean' },
+    },
+    light_font: {
+      control: { type: 'boolean' },
     },
     icon: {
       control: { type: 'text' },
@@ -49,10 +52,11 @@ const Template = (args) => ({
       :size="args.size"
       :borderless="args.borderless"
       :full="args.full"
-      :font="args.font"
+      :transparent="args.transparent"
+      :light_font="args.light_font"
       :icon="args.icon"
     >
-      {{ args.label }}
+      <template #default v-if="args.label">{{ args.label }}</template>
       <template #icon v-if="args.icon"><span v-html="args.icon" ></span></template>
     </uids-button>
   `,
@@ -67,7 +71,8 @@ Primary.args = {
   size: 'medium',
   borderless: false,
   full: false,
-  font: 'None',
+  transparent: false,
+  light_font: false,
   icon: '<i class="fas fa-arrow-right"></i>',
 };
 
@@ -83,8 +88,16 @@ Tertiary.args = {
   color: 'tertiary',
 };
 
-export const Transparent = Template.bind({});
-Transparent.args = {
+export const NoText = Template.bind({});
+NoText.args = {
   ...Primary.args,
-  color: 'transparent',
+  label: '',
 };
+
+export const LightFont = Template.bind({});
+LightFont.args = {
+  ...Primary.args,
+  light_font: true,
+};
+
+

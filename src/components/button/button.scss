@@ -56,6 +56,7 @@
   background: #fff;
 }
 
+// Modifiers.
 .bttn--transparent {
   @include bttn--transparent;
   @include bttn--focus;
@@ -99,7 +100,7 @@
     }
   }
 }
-// Modifiers.
+
 .bttn.borderless {
   &.bttn--transparent {
     &:focus,
@@ -110,6 +111,38 @@
 
   &.bttn--transparent:after {
     display: none;
+  }
+}
+
+.bttn--no-text {
+  i,
+  span,
+  svg {
+    margin-left: 0;
+  }
+  &:not([class*="bttn--secondary"]) {
+    i,
+    span,
+    svg {
+      color: $secondary;
+      [class*="bg--"] [class*="bg--black"] &,
+      [class*="bg--black"] & {
+        color: #fff;
+      }
+      [class*="bg--"] [class*="bg--white"] &,
+      [class*="bg--white"] &,
+      [class*="bg--"] [class*="bg--gray"] &,
+      [class*="bg--"] [class*="bg--gold"] & {
+        color: $secondary;
+      }
+    }
+  }
+  &.bttn--transparent.bttn--secondary {
+    i,
+    span,
+    svg {
+      color: $secondary;
+    }
   }
 }
 
@@ -139,7 +172,7 @@
   font-size: 1rem;
 }
 
-.bttn--sans-serif {
+.bttn--light-font {
   font-family: $font-family-sans-serif;
   font-weight: $font-weight-normal;
   font-size: 0.9rem;

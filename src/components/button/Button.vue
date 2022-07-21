@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import './button.scss';
-import { computed } from 'vue';
+import { computed, useSlots } from 'vue';
 import Borderless from "../shared/borderless";
 import { className } from "../utlity";
 const name = 'uids-button'
@@ -13,7 +13,7 @@ const props = defineProps({
     type: String,
     default: 'primary',
     validator: function (value) {
-      return ['primary', 'secondary', 'tertiary','transparent'].indexOf(value) !== -1;
+      return ['primary', 'secondary', 'tertiary'].indexOf(value) !== -1;
     },
   },
   size: {
@@ -28,9 +28,13 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  font: {
-    type: String,
-    default: '',
+  transparent: {
+    type: Boolean,
+    default: false,
+  },
+  light_font: {
+    type: Boolean,
+    default: false,
   },
   icon: {
     type: String,
@@ -38,9 +42,11 @@ const props = defineProps({
   }
 })
 
+const slots = useSlots();
+
 const classes = computed(() => {
   let classes = ['bttn'];
-  ['full'].forEach((prop) => {
+  ['full', 'transparent', 'light_font'].forEach((prop) => {
     if (props[prop] === true) {
       classes.push(`bttn--${ className(prop) }`);
     }
@@ -50,12 +56,13 @@ const classes = computed(() => {
     classes.push(`bttn--${ className(props.color)}`);
   }
 
-  if (props.font && props.font != 'None') {
-    classes.push(`bttn--${ className(props.font)}`);
-  }
-
   if (props.size) {
     classes.push(`bttn--${ className(props.size)}`);
+  }
+
+  console.log(slots.default);
+  if (!slots.default) {
+    classes.push(`bttn--no-text`);
   }
 
   Borderless.addBorderlessClass(classes, props);
