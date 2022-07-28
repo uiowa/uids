@@ -66,4 +66,3 @@ If you are starting work on a new component, please make sure that it has `statu
 GitHub Actions is used to build and deploy the Fractal artifact to the `gh-pages` branch. This branch is set to host UIDS using GitHub Pages. All pushes to a branches or tags will trigger a build.
 
 Branches can be accessed at http://uids.brand.uiowa.edu/branches/{your-branch-name}.
-
