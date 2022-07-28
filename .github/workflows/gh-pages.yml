@@ -41,6 +41,14 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
+      - name: Set variables for main
+        if: |
+          github.event_name == 'push' &&
+          github.ref == format('refs/heads/{0}', env.MAIN_BRANCH)
+        run: |
+          echo "branch=latest" >> $GITHUB_ENV
+          echo "target_dir=/" >> $GITHUB_ENV
+
       - name: Set variables for branches
         if: |
           github.event_name == 'pull_request' ||
