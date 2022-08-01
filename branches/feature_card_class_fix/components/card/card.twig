@@ -1,0 +1,104 @@
+{% set link_element, show_button = false, false %}
+{% if card_link_url is not empty %}
+  {% if card_title is not empty %}
+    {# Title is set, use it as the linking element.  #}
+    {% set link_element = 'title' %}
+    {# If we also have link text, then we'll show a psuedo-button. #}
+    {% if card_link_title is not empty %}
+      {% set show_button = true %}
+      {# If card_no_link is set, use button as link element. #}
+      {% if card_no_link %}
+        {% set link_element = 'button' %}
+      {% endif %}
+    {% endif %}
+  {% elseif card_link_title is not empty %}
+    {# Title is not set, but there is link text, so use that instead. #}
+    {% set link_element = 'button' %}
+    {# Show an actual link button. #}
+    {% set show_button = true %}
+  {% elseif card_image is not empty %}
+    {# If the image exists, use that as the linking element. #}
+    {% set link_element = 'image' %}
+  {% else %}
+    {# Nothing else to use, so wrap the whole card. #}
+    {% set link_element = 'card' %}
+  {% endif %}
+{% endif %}
+
+<div class="card click-container {{ card_classes }}"{% if card_no_link %} data-uids-no-link{% endif %}>
+  {% block card_image %}
+    {% if card_image is not empty %}
+      <div class="card__media {{ card_media_classes }}">
+        {% if link_element == 'image' %}
+        <a href="{{ card_link_url }}" class="click-target">
+          {% endif %}
+          <img class="{{ card_image_classes }}" src="{{ card_image }}" alt="Alt Text">
+          {% if link_element == 'image' %}
+        </a>
+        {% endif %}
+      </div>
+    {% endif %}
+  {% endblock %}
+
+  <div class="card__body">
+    {% block heading %}
+      {% if card_title is not empty %}
+        {% set card_heading = {
+          'headline_level': 'h2',
+          'headline_class': card_title_class,
+          'headline_text': card_title,
+          'headline_url': card_link_url,
+          'headline_aria': card_aria,
+          'headline_url_class': link_element == 'title' ? 'click-target' : null,
+        } %}
+        {% include '@headline' with card_heading only %}
+      {% endif %}
+    {% endblock %}
+
+    {% block card_details %}
+      {% if card__subtitle or card_tag or card_date %}
+        <div class="card__details">
+          {% block card_subtitle %}
+            {% if card_subtitle %}
+              <div class="card__subtitle">{{ card_subtitle }}</div>
+            {% endif %}
+          {% endblock %}
+          {% block card_meta %}
+            {% if card_date %}
+              <div class="card__meta">
+                {{ card_date }}
+              </div>
+            {% endif %}
+            {% if card_tag %}
+              <div class="card__meta">
+                <i class="fas fa-map-marker-alt"></i>
+                {{ card_tag }}
+              </div>
+            {% endif %}
+          {% endblock %}
+        </div>
+      {% endif %}
+    {% endblock %}
+
+    {% block card_content %}
+      {{ card_content }}
+    {% endblock %}
+
+    {% block card_bttn %}
+      {% if card_link_url is not empty and show_button %}
+        {% set button_classes = 'bttn bttn--outline bttn--sans-serif' %}
+        {% if link_element == 'button' %}
+          <a class="{{ button_classes }} click-target" href="{{ card_link_url }}">
+            {{ card_link_title }}
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        {% else %}
+          <div aria-hidden="true" class="{{ button_classes }}"{% if card_aria %} id="{{ card_aria }}"{% endif %}>
+            {{ card_link_title }}
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        {% endif %}
+      {% endif %}
+    {% endblock %}
+  </div>
+</div>
