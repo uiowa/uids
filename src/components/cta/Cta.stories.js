@@ -1,5 +1,5 @@
 import UidsCta from './Cta.vue';
-
+import UidsHeadline from '../headline/Headline.vue';
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
@@ -16,10 +16,7 @@ export default {
     details: {
       control: { type: 'text' },
     },
-    default: {
-      control: { type: 'text' },
-    },
-    link_text: {
+    button_label: {
       control: { type: 'text' },
     },
   },
@@ -38,24 +35,22 @@ const Template = (args) => ({
     <uids-cta
       :url="args.url"
       :title="args.title"
+      :button_label="args.button_label"
       :details="args.details"
-      :link_text="args.link_text"
-
     >
-    <template #default v-if="args.label">{{ args.label }}</template>
+    <template #details v-if="args.details"><div v-html="args.details" ></div></template>
+    <template #title v-if="args.title"><div :class="getClasses" v-html="args.title" ></div></template>
     </uids-cta>
   `,
 });
 
-export const Primary = Template.bind({});
+export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
-Primary.args = {
-  url: 'https://example.com',
-  label: 'Read more',
-  title: 'Buy Now',
-  details: 'Lorem Ipsum',
-  default: 'dsfad',
-  link_text: 'Buy Now',
+Default.args = {
+  url: 'https://uiowa.edu/',
+  title: 'Be a Hawkeye',
+  details: 'Iowa is where great stories begin. It\'s time to start yours. Find out how.',
+  button_label: 'Request Information',
 };
 
 
