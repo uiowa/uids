@@ -19,12 +19,21 @@ const props = defineProps({
   button_label: {
     type: String,
   },
+  button_icon: {
+    type: String,
+    default: '',
+  },
+  ...Background.props,
 });
+
+
 
 const slots = useSlots();
 
 const classes = computed(() => {
   let classes = ['cta__wrapper'];
+
+  Background.addBackgroundClass(classes, props);
 
   return classes;
 });
@@ -49,6 +58,7 @@ const classes = computed(() => {
         <footer class="cta__link" v-if="button_label" >
           <uids-button :url="url" size="medium">
             <slot name="button_label">{{ button_label }}</slot>
+            <slot name="button_icon"></slot>
           </uids-button>
         </footer>
 

@@ -1,5 +1,6 @@
 import UidsCta from './Cta.vue';
 import UidsHeadline from '../headline/Headline.vue';
+import Background from "../shared/background";
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
@@ -19,6 +20,10 @@ export default {
     button_label: {
       control: { type: 'text' },
     },
+    button_icon: {
+      control: { type: 'text' },
+    },
+    ...Background.argTypes,
   },
 };
 
@@ -34,12 +39,15 @@ const Template = (args) => ({
   template: `
     <uids-cta
       :url="args.url"
+      :background="args.background"
       :title="args.title"
       :button_label="args.button_label"
+      :button_icon="args.button_icon"
       :details="args.details"
     >
     <template #details v-if="args.details"><div v-html="args.details" ></div></template>
     <template #title v-if="args.title"><div :class="getClasses" v-html="args.title" ></div></template>
+    <template #button_icon v-if="args.button_icon"><span v-html="args.button_icon" ></span></template>
     </uids-cta>
   `,
 });
@@ -51,6 +59,7 @@ Default.args = {
   title: 'Be a Hawkeye',
   details: 'Iowa is where great stories begin. It\'s time to start yours. Find out how.',
   button_label: 'Request Information',
+  button_icon: '<i class="fas fa-arrow-right"></i>',
 };
 
 
