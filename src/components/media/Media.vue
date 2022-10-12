@@ -5,18 +5,13 @@ import { className } from "../utlity";
 
 const name = 'uids-media'
 const props = defineProps({
-  /**
-   * Text to display in a button.
-   */
-  link_text: {
-    type: String,
-  },
+
 })
 
 const slots = useSlots();
 
 const classes = computed(() => {
-  let classes = ['media media--circle'];
+  let classes = ['media'];
 
   return classes;
 });
@@ -25,6 +20,9 @@ const classes = computed(() => {
 
 <template>
   <div :class="classes">
-    <img alt="" class="" sizes="(min-width:1310px) 1310px, 100vw" srcset="https://sandbox.prod.drupal.uiowa.edu/sites/sandbox.uiowa.edu/files/2021-03/bg-image-square.jpg 384w,https://sandbox.prod.drupal.uiowa.edu/sites/sandbox.uiowa.edu/files/2021-03/bg-image-square.jpg 768w,https://sandbox.prod.drupal.uiowa.edu/sites/sandbox.uiowa.edu/files/2021-03/bg-image-square.jpg 1024w,https://sandbox.prod.drupal.uiowa.edu/sites/sandbox.uiowa.edu/files/2021-03/bg-image-square.jpg 1312w,https://sandbox.prod.drupal.uiowa.edu/sites/sandbox.uiowa.edu/files/2021-03/bg-image-square.jpg 1920w,https://sandbox.prod.drupal.uiowa.edu/sites/sandbox.uiowa.edu/files/2021-03/bg-image-square.jpg 2592w," src="" typeof="foaf:Image">
+    <div v-if="$slots.media_markup">
+      <!-- @slot Markup to be displayed in media component. -->
+      <slot name="media_markup"></slot>
+    </div>
   </div>
 </template>

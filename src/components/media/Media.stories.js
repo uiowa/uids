@@ -8,14 +8,12 @@ export default {
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
     // Slots
-    // media: {
-    //   control: { type: 'text' },
-    // },
-
-    // Props
-    link_text: {
+    media_markup: {
       control: { type: 'text' },
     },
+
+    // Props
+
   },
 };
 
@@ -29,10 +27,14 @@ const Template = (args) => ({
   },
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
-      <uids-media />
+      <uids-media>
+      <template #media_markup v-if="args.media_markup"><span v-html="args.media_markup"></span></template>
+      </uids-media>
   `,
 });
 
 export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
-Default.args = { };
+Default.args = {
+  media_markup: '',
+};
