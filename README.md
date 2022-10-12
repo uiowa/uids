@@ -25,12 +25,19 @@ npm install
 npm ci
 ```
 
-### Start the local server
+### Start the local server OR start Storybook
 Compile and hot-reload for development.
 
 ```sh
 npm run dev
 ```
+
+**OR**
+
+```sh
+yarn storybook
+```
+
 The command will output the server URL to visit in your browser, ex. http://localhost:3000.
 
 ### Type-Check, Compile and Minify for Production
