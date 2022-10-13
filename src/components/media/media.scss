@@ -1,9 +1,28 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/utilities';
+
 .media--small {
-  width: 40%;
+  @include breakpoint(sm) {
+    flex: 0 0 25%;
+    width: 25%;
+  }
 }
+
+.media--medium {
+  @include breakpoint(sm) {
+    flex: 0 0 37.5%;
+    width: 37.5%;
+  }
+}
+
+.media--large {
+  @include breakpoint(sm) {
+    flex: 0 0 50%;
+    width: 50%;
+  }
+}
+
 .media--border {
-  padding: 8px;
-  border: 1px solid rgba(0, 0, 0, 0.125);
   img {
     padding: 8px;
     border: 1px solid rgba(0, 0, 0, 0.125);
@@ -11,10 +30,12 @@
 }
 
 .media--circle {
+
   border-radius: 50%;
   margin-top: 0;
   height: auto;
   img {
+    aspect-ratio: 1 / 1;
     border-radius: 50%;
     margin-top: 0;
     height: auto;
@@ -26,5 +47,17 @@
     object-fit: cover;
     height: 100%;
     width: 100%;
+  }
+}
+
+.media--square {
+  img {
+    aspect-ratio: 1 / 1;
+  }
+}
+
+.media--widescreen {
+  img {
+    aspect-ratio: 16 / 9;
   }
 }
