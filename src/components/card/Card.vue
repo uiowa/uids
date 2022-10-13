@@ -8,6 +8,7 @@ import UidsButton from "../button/Button.vue";
 import UidsPseudoButton from "../button/PseudoButton.vue";
 import Background from "../shared/background";
 import Borderless from "../shared/borderless";
+import Media from "../shared/media";
 import { className } from "../utlity";
 
 const name = 'uids-card'
@@ -40,6 +41,7 @@ const props = defineProps({
 
   ...Background.props,
 
+  ...Media.props,
 
   /**
    * Align media element to the left or right.
@@ -86,6 +88,14 @@ const classes = computed(() => {
   return classes;
 });
 
+const mediaClasses = computed(() => {
+  let classes = ['media'];
+
+  Media.addMediaClasses(classes, props);
+
+  return classes;
+});
+
 /**
  * Determine the linked element.
  */
@@ -117,7 +127,7 @@ const headlineLink = computed(() => {
 
 <template>
   <div :class="classes">
-    <div v-if="$slots.media" class="card__media">
+    <div v-if="$slots.media" :class="mediaClasses">
       <!-- @slot Media displayed at the top of the card. -->
       <slot name="media"></slot>
     </div>

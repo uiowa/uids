@@ -2,6 +2,7 @@ import UidsCard from './Card.vue';
 import card_image from '../../assets/images/viewbook/sections/122.jpg'
 import Background from "../shared/background";
 import Borderless from "../shared/borderless";
+import Media from "../shared/media";
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
@@ -31,6 +32,7 @@ export default {
     },
     ...Background.argTypes,
     // Modifiers
+    ...Media.argTypes,
     ...Borderless.argTypes,
     centered: {
       control: { type: 'boolean' },
@@ -61,6 +63,10 @@ const Template = (args) => ({
         :url="args.url"
         :link_text="args.link_text"
         :borderless="args.borderless"
+        :media_size="args.media_size"
+        :media_shape="args.media_shape"
+        :media_border="args.media_border"
+        :media_cover="args.media_cover"
         :background="args.background"
         :media_align="args.media_align"
         :media_padded="args.media_padded"
