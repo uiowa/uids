@@ -1,5 +1,6 @@
 import UidsCard from './Card.vue';
-import card_image from '../../assets/images/viewbook/sections/122.jpg'
+import card_image from '../../assets/images/viewbook/sections/122.jpg';
+import person_image from '../../assets/images/viewbook/sections/herky2.jpeg';
 import Background from "../shared/background";
 import Borderless from "../shared/borderless";
 import Media from "../shared/media";
@@ -154,7 +155,7 @@ BorderlessCard.args = {
 export const PersonCard = Template.bind({});
 PersonCard.args = {
   ...Default.args,
-  media: '<img src="https://sandbox.prod.drupal.uiowa.edu/sites/sandbox.uiowa.edu/files/2020-11/herky2.jpeg" alt="Herky">',
+  media: '<img src="' + person_image + '" alt="Herky">',
   media_align: "media-right",
   media_size: "small",
   media_shape: "circle",
