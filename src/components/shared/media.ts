@@ -18,7 +18,7 @@ const props = {
    */
   media_size: {
     type: String,
-    default: 'medium',
+    default: '',
     validator: function (value) {
       return sizes.indexOf(value) !== -1
     },
@@ -28,7 +28,7 @@ const props = {
    */
   media_shape: {
     type: String,
-    default: 'widescreen',
+    default: '',
     validator: function (value) {
       return shapes.indexOf(value) !== -1
     },
