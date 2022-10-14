@@ -77,6 +77,10 @@ const classes = computed(() => {
     classes.push(`card--${ className(props.media_align)}`);
   }
 
+  if (!props.media_padded) {
+    classes.push(`media--cover`);
+  }
+
   Background.addBackgroundClass(classes, props);
 
   Borderless.addBorderlessClass(classes, props);

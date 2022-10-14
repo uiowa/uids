@@ -40,13 +40,6 @@ const props = {
     type: Boolean,
     default: false,
   },
-  /**
-   * Set object-fit cover on the media element.
-   */
-  media_cover: {
-    type: Boolean,
-    default: false,
-  },
 }
 
 const argTypes = {
@@ -73,13 +66,7 @@ const argTypes = {
       defaultValue: { summary: false },
     },
     control: { type: 'boolean' },
-  },
-  media_cover: {
-    table: {
-      defaultValue: { summary: false },
-    },
-    control: { type: 'boolean' },
-  },
+  }
 }
 
 const addMediaClasses = (classes: Array<string>, props: Readonly<any>) => {
@@ -91,9 +78,6 @@ const addMediaClasses = (classes: Array<string>, props: Readonly<any>) => {
   }
   if (props.media_border) {
     classes.push(`media--border`)
-  }
-  if (props.media_cover) {
-    classes.push(`media--cover`)
   }
 }
 
