@@ -122,7 +122,18 @@ const headlineLink = computed(() => {
     return props.url;
   }
   return false;
-})
+});
+
+/**
+ * Print card__details if details, subtitle or meta are available.
+ */
+const detailsElement = computed(() => {
+  // Do we have details, subtitle or meta?
+  if (slots.details || slots.subtitle || slots.meta) {
+    return true;
+  }
+  return false;
+});
 </script>
 
 <template>
@@ -139,9 +150,17 @@ const headlineLink = computed(() => {
           <slot name="title">Title</slot>
         </uids-headline>
       </header>
-      <div v-if="$slots.details" class="card__details">
+      <div v-if="detailsElement === true" class="card__details">
         <!-- @slot The callout details of the card.. -->
-        <slot name="details">Details</slot>
+        <slot name="details"></slot>
+        <div v-if="$slots.subtitle" class="card__subtitle">
+          <!-- @slot The subtitle of the card.. -->
+          <slot name="subtitle">Subtitle</slot>
+        </div>
+        <div v-if="$slots.meta" class="card__meta">
+          <!-- @slot The meta of the card.. -->
+          <slot name="meta">Meta</slot>
+        </div>
       </div>
       <!-- @slot The body content of the card. -->
       <slot>Body</slot>
@@ -152,6 +171,5 @@ const headlineLink = computed(() => {
         <uids-pseudo-button v-else>{{ link_text }}</uids-pseudo-button>
       </footer>
     </div>
-
   </div>
 </template>
