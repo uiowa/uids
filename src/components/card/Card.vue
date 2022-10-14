@@ -3,13 +3,13 @@ import './card.scss'
 import '../background/background.scss'
 import '../media/media.scss'
 import UidsHeadline from '../headline/Headline.vue'
-import { computed, useSlots } from "vue";
-import UidsButton from "../button/Button.vue";
-import UidsPseudoButton from "../button/PseudoButton.vue";
-import Background from "../shared/background";
-import Borderless from "../shared/borderless";
-import Media from "../shared/media";
-import { className } from "../utlity";
+import { computed, useSlots } from 'vue'
+import UidsButton from '../button/Button.vue'
+import UidsPseudoButton from '../button/PseudoButton.vue'
+import Background from '../shared/background'
+import Borderless from '../shared/borderless'
+import Media from '../shared/media'
+import { className } from '../utlity'
 
 const name = 'uids-card'
 const props = defineProps({
@@ -49,7 +49,7 @@ const props = defineProps({
   media_align: {
     type: String,
     default: '',
-    validator: (value) => {
+    validator: (value: string) => {
       return ['media-left', 'media-right'].indexOf(value) !== -1;
     },
   },
@@ -68,7 +68,7 @@ const slots = useSlots();
 
 const classes = computed(() => {
   let classes = ['card'];
-  ['centered', 'media_padded'].forEach((prop) => {
+  ['centered', 'media_padded'].forEach((prop: string) => {
     if (props[prop] === true) {
       classes.push(`card--${ className(prop) }`);
     }
