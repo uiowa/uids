@@ -164,4 +164,5 @@ PersonCard.args = {
   title: "Herky Hawk",
   details: "University of Iowa Mascot",
   default: "Short biography goes here.",
+  borderless: true,
 }
