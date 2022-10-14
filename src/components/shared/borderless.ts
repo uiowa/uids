@@ -1,5 +1,3 @@
-import { className } from "../utlity";
-
 const props = {
   /**
    * Set an outline on any element.
