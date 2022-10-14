@@ -51,25 +51,33 @@ const props = {
 
 const argTypes = {
   media_size: {
-    table: { defaultValue: sizes[1] },
+    table: {
+      defaultValue: { summary: sizes[1] },
+    },
     control: {
       type: 'select',
       options: sizes,
     },
   },
   media_shape: {
-    table: { defaultValue: shapes[0] },
+    table: {
+      defaultValue: { summary: shapes[0] },
+    },
     control: {
       type: 'select',
       options: shapes,
     },
   },
   media_border: {
-    table: { defaultValue: false },
+    table: {
+      defaultValue: { summary: false },
+    },
     control: { type: 'boolean' },
   },
   media_cover: {
-    table: { defaultValue: false },
+    table: {
+      defaultValue: { summary: false },
+    },
     control: { type: 'boolean' },
   },
 }

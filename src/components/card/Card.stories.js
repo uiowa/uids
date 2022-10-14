@@ -32,11 +32,12 @@ export default {
     },
     ...Background.argTypes,
     // Modifiers
-    ...Media.argTypes,
     ...Borderless.argTypes,
     centered: {
       control: { type: 'boolean' },
     },
+    // Media properties
+    ...Media.argTypes,
     media_align: {
       control: { type: 'select',
         options: ['', 'media-left', 'media-right']

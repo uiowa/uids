@@ -23,7 +23,9 @@ const props = {
 
 const argTypes = {
   background: {
-    table: { defaultValue: colors[0] },
+    table: {
+      defaultValue: { summary: colors[0] },
+    },
     control: {
       type: 'select',
       options: colors,
