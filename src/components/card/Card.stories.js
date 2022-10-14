@@ -150,3 +150,17 @@ BorderlessCard.args = {
   link_text: 'Learn more',
   borderless: true,
 }
+
+export const PersonCard = Template.bind({});
+PersonCard.args = {
+  ...Default.args,
+  media: '<img src="https://sandbox.prod.drupal.uiowa.edu/sites/sandbox.uiowa.edu/files/2020-11/herky2.jpeg" alt="Herky">',
+  media_align: "media-right",
+  media_size: "small",
+  media_shape: "circle",
+  media_border: true,
+  url: "https://uiowa.edu",
+  title: "Herky Hawk",
+  details: "University of Iowa Mascot",
+  default: "Short biography goes here.",
+}
