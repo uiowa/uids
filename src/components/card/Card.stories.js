@@ -18,9 +18,6 @@ export default {
     title: {
       control: { type: 'text' },
     },
-    details: {
-      control: { type: 'text' },
-    },
     subtitle: {
       control: { type: 'text' },
     },
@@ -82,7 +79,6 @@ const Template = (args) => ({
       >
         <template #media v-if="args.media"><span v-html="args.media" ></span></template>
         <template #title v-if="args.title"><div v-html="args.title" ></div></template>
-        <template #details v-if="args.details"><div v-html="args.details" ></div></template>
         <template #subtitle v-if="args.subtitle"><div v-html="args.subtitle" ></div></template>
         <template #meta v-if="args.meta"><div v-html="args.meta" ></div></template>
         <template #default><div v-html="args.default"></div></template>
@@ -101,7 +97,7 @@ Default.args = {
   media_padded: false,
   centered: false,
   title: 'Title',
-  details: '',
+  subtitle: '',
   default: '<strong>Hello!</strong> Here is some card content',
 };
 
