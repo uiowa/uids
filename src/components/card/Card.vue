@@ -14,7 +14,7 @@ import { className } from '../utlity'
 const name = 'uids-card'
 const props = defineProps({
   /**
-   * A url to the resource that the card represents.
+   * A URL to the resource that the card represents.
    */
   url: {
     type: String,
@@ -41,18 +41,18 @@ const props = defineProps({
 
   ...Background.props,
 
-  ...Media.props,
-
   /**
-   * Align media element to the left or right.
+   * How to lay out the content of the card. Default is stacked.
    */
-  media_align: {
+  orientation: {
     type: String,
     default: '',
     validator: (value: string) => {
-      return ['media-left', 'media-right'].indexOf(value) !== -1;
+      return ['', 'left', 'right'].indexOf(value) !== -1;
     },
   },
+
+  ...Media.props,
 
   /**
    * Add padding around the entirety of the contents of the card.
@@ -68,13 +68,13 @@ const slots = useSlots();
 
 const classes = computed(() => {
   let classes = ['card'];
-  ['centered', 'media_padded'].forEach((prop: string) => {
+  ['centered', 'media_padded'].forEach((prop) => {
     if (props[prop] === true) {
       classes.push(`card--${ className(prop) }`);
     }
   });
-  if (props.media_align) {
-    classes.push(`card--${ className(props.media_align)}`);
+  if (props.orientation) {
+    classes.push(`card--layout-${ className(props.orientation)}`);
   }
 
   if (!props.media_padded) {
@@ -104,7 +104,7 @@ const mediaClasses = computed(() => {
  * Determine the linked element.
  */
 const linkedElement = computed(() => {
-  // Do we have a url.
+  // Do we have a URL?
   if (!props.url) {
     return null;
   }
@@ -143,8 +143,10 @@ const detailsElement = computed(() => {
 <template>
   <div :class="classes">
     <div v-if="$slots.media" :class="mediaClasses">
-      <!-- @slot Media displayed at the top of the card. -->
-      <slot name="media"></slot>
+      <div class="media--inner">
+        <!-- @slot Media displayed at the top of the card. -->
+        <slot name="media"></slot>
+      </div>
     </div>
 
     <div class="card__body">

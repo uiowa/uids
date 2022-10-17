@@ -1,6 +1,7 @@
 import { className } from '../utlity'
 
 const sizes = [
+  '',
   'small',
   'medium',
   'large',
@@ -28,7 +29,7 @@ const props = {
    */
   media_shape: {
     type: String,
-    default: '',
+    default: 'widescreen',
     validator: function (value) {
       return shapes.indexOf(value) !== -1
     },
@@ -43,30 +44,38 @@ const props = {
 }
 
 const argTypes = {
-  media_size: {
-    table: {
-      defaultValue: { summary: sizes[1] },
-    },
-    control: {
-      type: 'select',
-      options: sizes,
-    },
-  },
-  media_shape: {
-    table: {
-      defaultValue: { summary: shapes[0] },
-    },
-    control: {
-      type: 'select',
-      options: shapes,
-    },
-  },
   media_border: {
+    name: 'Border',
     table: {
       defaultValue: { summary: false },
+      category: 'Media',
     },
-    control: { type: 'boolean' },
-  }
+    control: 'boolean',
+  },
+  media_shape: {
+    name: 'Shape',
+    options: shapes,
+    table: {
+      defaultValue: { summary: shapes[0] },
+      category: 'Media',
+    },
+    control: {
+      type: 'select',
+    },
+    description: 'The shape of the media element',
+  },
+  media_size: {
+    name: 'Size',
+    options: sizes,
+    table: {
+      defaultValue: { summary: sizes[1] },
+      category: 'Media',
+    },
+    control: {
+      type: 'select',
+    },
+    description: 'Set the size of the media element.',
+  },
 }
 
 const addMediaClasses = (classes: Array<string>, props: Readonly<any>) => {

@@ -23,12 +23,16 @@ const props = {
 
 const argTypes = {
   background: {
+    name: 'Background',
     table: {
       defaultValue: { summary: colors[0] },
     },
+    options: colors,
     control: {
       type: 'select',
-      options: colors,
+      labels: {
+        '': 'None',
+      },
     },
   },
 }

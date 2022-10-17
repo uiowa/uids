@@ -10,10 +10,10 @@ const props = {
 
 const argTypes = {
   borderless: {
+    name: 'No border',
     table: {
       defaultValue: { summary: false },
     },
-    defaultValue: false,
     control: { type: 'boolean' },
   },
 }
