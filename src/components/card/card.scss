@@ -168,6 +168,8 @@
 
     .media {
       margin-right: 2rem;
+      margin-left: 0;
+      margin-bottom: 0;
     }
   }
 }
@@ -179,6 +181,8 @@
 
     .media {
       margin-left: 2rem;
+      margin-right: 0;
+      margin-bottom: 0;
     }
   }
 }
@@ -223,12 +227,27 @@
 .card.borderless {
 
   // When the card has no background, we remove padding and reset our .media margins.
-  &:not([class*="bg--"], .card--media-padded) {
+  &:not([class*="bg--"]) {
     padding: 0;
     .media {
       margin-left: 0;
       margin-right: 0;
       margin-top: 0;
+    }
+    &.card--media-left {
+      .media {
+        @include breakpoint(sm) {
+          margin-right: 2rem;
+        }
+      }
+    }
+
+    &.card--media-right {
+      .media {
+        @include breakpoint(sm) {
+          margin-left: 2rem;
+        }
+      }
     }
   }
 }
