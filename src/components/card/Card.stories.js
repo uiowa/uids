@@ -44,7 +44,7 @@ export default {
     ...Media.argTypes,
     media_align: {
       control: { type: 'select',
-        options: ['', 'media-left', 'media-right']
+        options: ['', 'media-left', 'media-right', 'media-centered']
       },
     },
     media_padded: {
