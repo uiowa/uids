@@ -167,10 +167,10 @@ const detailsElement = computed(() => {
       <!-- @slot The body content of the card. -->
       <slot>Body</slot>
       <footer v-if="url && link_text">
-        <uids-button :url="url" size="medium" v-if="linkedElement === 'button'">
+        <uids-button class="bttn--transparent bttn--light-font" :url="url" size="medium" v-if="linkedElement === 'button'">
           {{ link_text }}
         </uids-button>
-        <uids-pseudo-button v-else>{{ link_text }}</uids-pseudo-button>
+        <uids-pseudo-button class="bttn--transparent bttn--light-font" v-else>{{ link_text }}</uids-pseudo-button>
       </footer>
     </div>
   </div>
