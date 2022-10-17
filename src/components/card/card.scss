@@ -149,6 +149,7 @@
   .media {
     @include breakpoint(sm) {
       margin-bottom: -2rem;
+      //margin-top: 0;
     }
   }
 
@@ -168,8 +169,15 @@
 
     .media {
       margin-right: 2rem;
-      margin-left: 0;
-      margin-bottom: 0;
+    }
+  }
+  &[class*=".card--media-padded"] {
+    .media {
+      @include breakpoint(sm) {
+        margin-left: 0;
+        margin-bottom: 0;
+        margin-top: 0;
+      }
     }
   }
 }
@@ -181,8 +189,15 @@
 
     .media {
       margin-left: 2rem;
-      margin-right: 0;
-      margin-bottom: 0;
+    }
+  }
+  &[class*=".card--media-padded"] {
+    .media {
+      @include breakpoint(sm) {
+        margin-right: 0;
+        margin-bottom: 0;
+        margin-top: 0;
+      }
     }
   }
 }
@@ -247,6 +262,25 @@
         @include breakpoint(sm) {
           margin-left: 2rem;
         }
+      }
+    }
+  }
+}
+
+// Remove media top margin if there's a background color.
+.card.card--media-padded[class*="bg--"] {
+  &.card--media-left {
+    .media {
+      @include breakpoint(sm) {
+        margin-top: 0;
+      }
+    }
+  }
+
+  &.card--media-right {
+    .media {
+      @include breakpoint(sm) {
+        margin-top: 0;
       }
     }
   }
