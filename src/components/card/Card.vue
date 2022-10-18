@@ -144,7 +144,7 @@ const detailsElement = computed(() => {
 <template>
   <div :class="classes">
     <div v-if="$slots.media" :class="mediaClasses">
-      <div class="media--inner">
+      <div class="media__inner">
         <!-- @slot Media displayed at the top of the card. -->
         <slot name="media"></slot>
       </div>

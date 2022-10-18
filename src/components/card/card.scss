@@ -99,18 +99,21 @@
 
 /* Card elements
  * ====================== */
-.media {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 0;
-  margin-bottom: 2rem;
-  text-align: center;
-}
 
-.media--inner {
-  margin-left: -2rem;
-  margin-right: -2rem;
-  margin-top: -2rem;
+.card {
+  .media {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .media__inner {
+    margin-left: -2rem;
+    margin-right: -2rem;
+    margin-top: -2rem;
+  }
 }
 
 .card__subtitle {
@@ -173,12 +176,12 @@
   @include breakpoint(sm) {
     flex-direction: row;
 
-    .media--inner {
+    .media__inner {
       margin-right: 2rem;
     }
   }
   &[class*=".card--media-padded"] {
-    .media--inner {
+    .media__inner {
       @include breakpoint(sm) {
         margin-left: 0;
         margin-bottom: 0;
@@ -193,12 +196,12 @@
   @include breakpoint(sm) {
     flex-direction: row-reverse;
 
-    .media--inner {
+    .media__inner {
       margin-left: 2rem;
     }
   }
   &[class*=".card--media-padded"] {
-    .media--inner {
+    .media__inner {
       @include breakpoint(sm) {
         margin-right: 0;
         margin-bottom: 0;
@@ -210,7 +213,7 @@
 
 // Card media will be inset like the rest of the content.
 .card--media-padded {
-  .media--inner {
+  .media__inner {
     margin-left: 0;
     margin-top: 0;
     margin-right: 0;
@@ -226,13 +229,13 @@
     }
 
     &.card--layout-left {
-      .media {
+      .media__inner {
         margin-right: 2rem;
       }
     }
 
     &.card--layout-right {
-      .media {
+      .media__inner {
         margin-left: 2rem;
       }
     }
@@ -250,13 +253,13 @@
   // When the card has no background, we remove padding and reset our .media margins.
   &:not([class*="bg--"], .card--media-centered){
     padding: 0;
-    .media {
+    .media__inner {
       margin-left: 0;
       margin-right: 0;
       margin-top: 0;
     }
     &.card--layout-left {
-      .media {
+      .media__inner {
         @include breakpoint(sm) {
           margin-right: 2rem;
         }
@@ -264,7 +267,7 @@
     }
 
     &.card--layout-right {
-      .media {
+      .media__inner {
         @include breakpoint(sm) {
           margin-left: 2rem;
         }
@@ -276,7 +279,7 @@
 // Remove media top margin if there's a background color.
 .card.card--media-padded[class*="bg--"] {
   &.card--layout-left {
-    .media {
+    .media__inner {
       @include breakpoint(sm) {
         margin-top: 0;
       }
@@ -284,7 +287,7 @@
   }
 
   &.card--layout-right {
-    .media {
+    .media__inner {
       @include breakpoint(sm) {
         margin-top: 0;
       }
