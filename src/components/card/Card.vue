@@ -111,6 +111,11 @@ const linkedElement = computed(() => {
   }
   // Do we have a title.
   if (!slots.title) {
+
+    if (!props.link_text && slots.media) {
+      return 'image';
+    }
+
     // Button is url.
     return 'button';
   }
@@ -145,8 +150,12 @@ const detailsElement = computed(() => {
   <div :class="classes">
     <div v-if="$slots.media" :class="mediaClasses">
       <div class="media__inner">
+        <a v-if="linkedElement === 'image'" :href="url">
+          <!-- @slot Media displayed at the top of the card. -->
+          <slot name="media"></slot>
+        </a>
         <!-- @slot Media displayed at the top of the card. -->
-        <slot name="media"></slot>
+        <slot name="media" v-else></slot>
       </div>
     </div>
 

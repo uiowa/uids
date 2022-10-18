@@ -135,6 +135,14 @@ LinkedCardWithoutTitle.args = {
   link_text: 'Learn more',
 }
 
+export const LinkedImageCard = Template.bind({});
+LinkedImageCard.args = {
+  ...Default.args,
+  media: '<img src="' + card_image + '" alt="Alt">',
+  url: 'https://uiowa.edu',
+  title: '',
+}
+
 export const UiowaIconCard = Template.bind({});
 UiowaIconCard.args = {
   ...Default.args,
