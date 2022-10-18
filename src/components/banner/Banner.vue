@@ -4,9 +4,7 @@ import { className } from '../utlity'
 import UidsHeadline from '../headline/Headline.vue'
 import UidsButton from '../button/Button.vue'
 import Background from '../shared/background'
-import Media from '../shared/media'
 import '../background/background.scss'
-import '../media/media.scss'
 
 const name = 'uids-banner'
 
@@ -28,8 +26,6 @@ const props = defineProps({
     default: 'gradient-bottom',
   },
   ...Background.props,
-
-  ...Media.props,
   // size?: string
   // classes?: string
   // vertical_alignment?: string
@@ -56,14 +52,6 @@ const classes = computed(() => {
   }
 
   return classes;
-});
-
-const mediaClasses = computed(() => {
-  let classes = ['media'];
-
-  Media.addMediaClasses(classes, props);
-
-  return classes;
 })
 
 const getHeadlineSettings = computed(() => {
@@ -88,15 +76,9 @@ const getHeadlineSettings = computed(() => {
 
 <template>
   <div :class="classes">
-    <div v-if="$slots.media" :class="mediaClasses">
-      <div class="media--inner">
-        <!-- @slot Media displayed at the top of the card. -->
-        <slot name="media"></slot>
-      </div>
+    <div class="banner__image" v-if="image">
+      <img :src="image" alt="" loading="lazy">
     </div>
-<!--    <div class="banner__image" v-if="image">-->
-<!--      <img :src="image" alt="" loading="lazy">-->
-<!--    </div>-->
     <div class="banner__container">
       <div class="banner__content">
         <slot name="headline">
