@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import UidsHeadline from '../headline/Headline.vue';
-import UidsButton from '../button/Button.vue';
-import { computed } from 'vue';
-import Background from "../shared/background";
+import { computed, useSlots } from 'vue'
+import { className } from '../utlity'
+import UidsHeadline from '../headline/Headline.vue'
+import UidsButton from '../button/Button.vue'
+import Background from '../shared/background'
+import Media from '../shared/media'
+import '../background/background.scss'
+import '../media/media.scss'
 
 const name = 'uids-banner'
 
@@ -11,9 +15,6 @@ const props = defineProps({
   image: { type: String },
   url: { type: String },
   text: { type: String },
-  headline_settings: {
-    type: Object,
-  },
   button_text: {
     type: String,
   },
@@ -27,6 +28,8 @@ const props = defineProps({
     default: 'gradient-bottom',
   },
   ...Background.props,
+
+  ...Media.props,
   // size?: string
   // classes?: string
   // vertical_alignment?: string
@@ -34,22 +37,33 @@ const props = defineProps({
   // title_classes?: string
   // button_link?: string
   // button_text?: string
-})
+});
 
 // Compose a string out of the classes passed to the component.
 const classes = computed(() => {
-  let classes = ["banner"];
+  let classes = ['banner'];
+
+  ['overlay_color', 'overlay_to', 'size', 'vertical_alignment', 'horizontal_alignment'].forEach((prop) => {
+    if (props[prop] === true) {
+      classes.push(`banner--${ className(prop) }`);
+    }
+  });
+
+  Background.addBackgroundClass(classes, props);
+
   if (props.url) {
     classes.push('click-container')
   }
-  // @todo Add classes.
-  Array.prototype.forEach.call(['overlay_color', 'overlay_to', 'size', 'vertical_alignment', 'horizontal_alignment'], setting => {
-      // @todo Check if the setting is set and then add a class for it.
-      classes.push('banner--' + props[setting])
-    }
-  );
-  Background.addBackgroundClass(classes, props);
-  return classes.join(" ");
+
+  return classes;
+});
+
+const mediaClasses = computed(() => {
+  let classes = ['media'];
+
+  Media.addMediaClasses(classes, props);
+
+  return classes;
 })
 
 const getHeadlineSettings = computed(() => {
@@ -74,16 +88,22 @@ const getHeadlineSettings = computed(() => {
 
 <template>
   <div :class="classes">
-    <div class="banner__image" v-if="image">
-      <img :src="image" alt="" loading="lazy">
+    <div v-if="$slots.media" :class="mediaClasses">
+      <div class="media--inner">
+        <!-- @slot Media displayed at the top of the card. -->
+        <slot name="media"></slot>
+      </div>
     </div>
+<!--    <div class="banner__image" v-if="image">-->
+<!--      <img :src="image" alt="" loading="lazy">-->
+<!--    </div>-->
     <div class="banner__container">
       <div class="banner__content">
         <slot name="headline">
           <uids-headline
             v-if="title"
             :level="getHeadlineSettings.level"
-            :class="banner_title_classes"
+            :class="getHeadlineSettings.classes"
             :href="url"
           >{{ title }}</uids-headline>
         </slot>

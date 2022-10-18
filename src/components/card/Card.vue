@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import './card.scss'
-import '../background/background.scss'
-import '../media/media.scss'
-import UidsHeadline from '../headline/Headline.vue'
 import { computed, useSlots } from 'vue'
+import { className } from '../utlity'
+import UidsHeadline from '../headline/Headline.vue'
 import UidsButton from '../button/Button.vue'
 import UidsPseudoButton from '../button/PseudoButton.vue'
 import Background from '../shared/background'
 import Borderless from '../shared/borderless'
 import Media from '../shared/media'
-import { className } from '../utlity'
+import './card.scss'
+import '../background/background.scss'
+import '../media/media.scss'
 
 const name = 'uids-card'
 const props = defineProps({
@@ -68,6 +68,7 @@ const slots = useSlots();
 
 const classes = computed(() => {
   let classes = ['card'];
+
   ['centered', 'media_padded'].forEach((prop) => {
     if (props[prop] === true) {
       classes.push(`card--${ className(prop) }`);
@@ -85,8 +86,8 @@ const classes = computed(() => {
 
   Borderless.addBorderlessClass(classes, props);
 
-  if(props.url) {
-    classes.push('click-container');
+  if (props.url) {
+    classes.push('click-container')
   }
 
   return classes;

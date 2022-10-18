@@ -71,9 +71,7 @@ const argTypes = {
       defaultValue: { summary: sizes[1] },
       category: 'Media',
     },
-    control: {
-      type: 'select',
-    },
+    control: 'select',
     description: 'Set the size of the media element.',
   },
 }
