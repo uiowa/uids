@@ -9,41 +9,29 @@ export default {
   argTypes: {
     default: {
       control: { type: 'text' },
-      table: { defaultValue: 'Start your story here' },
     },
     level: {
       control: { type: 'select' },
       options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-      table: { defaultValue: 'h2' },
     },
     highlight: {
       control: { type: 'boolean' },
-      table: { defaultValue: false },
     },
     uppercase: {
       control: { type: 'boolean' },
-      table: { defaultValue: false },
     },
     underline: {
       control: { type: 'boolean' },
-      table: { defaultValue: false },
     },
     url: {
       control: { type: 'text' },
-      table: { defaultValue: '' },
     },
     aria_describedby: {
       control: { type: 'text' },
-      table: { defaultValue: '' },
     },
     class: {
       control: { type: 'text' },
-      table: { defaultValue: '' },
     },
-  },
-  args: {
-    level: 'h2',
-    default: 'Start your story here',
   },
 };
 
@@ -70,6 +58,11 @@ Default.args = {
   uppercase: false,
   underline: false,
   highlight: false,
+  level: 'h2',
+  default: 'Start your story here',
+  url: '',
+  aria_describedby: '',
+  class: '',
 };
 
 export const Uppercase = Template.bind({});

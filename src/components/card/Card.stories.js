@@ -11,20 +11,24 @@ export default {
   argTypes: {
     // Props
     url: {
+      name: 'URL',
       control: { type: 'text' },
     },
     link_text: {
+      name: 'Link text',
       control: { type: 'text' },
     },
     ...Background.argTypes,
     // Modifiers
     ...Borderless.argTypes,
     centered: {
+      name: 'Centered',
       control: { type: 'boolean' },
     },
     // Media properties
     ...Media.argTypes,
     orientation: {
+      name: 'Orientation',
       options: ['', 'left', 'right'],
       control: {
         type: 'select',
@@ -42,18 +46,23 @@ export default {
     },
     // Slots
     media: {
+      name: 'Media',
       control: { type: 'text' },
     },
     title: {
+      name: 'Title',
       control: { type: 'text' },
     },
     subtitle: {
+      name: 'Subtitle',
       control: { type: 'text' },
     },
     meta: {
+      name: 'Meta',
       control: { type: 'text' },
     },
     default: {
+      name: 'Content',
       control: { type: 'text' },
     },
   },
