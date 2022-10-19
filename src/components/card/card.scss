@@ -283,3 +283,39 @@
     }
   }
 }
+
+
+
+// Declare which containers to query.
+@supports (contain: inline-size) {
+  article,
+  section,
+  div#root {
+    container-type: inline-size;
+  }
+  .card {
+    container-name: card;
+    container-type: inline-size;
+  }
+}
+
+
+// Set card left/right defaults based on surrounding container.
+@container (max-width: 768px)  {
+  .card--layout-left {
+    flex-direction: row;
+    flex-wrap: unset;
+    .media__inner {
+      margin-right: 2rem;
+    }
+  }
+
+  .card--layout-right {
+    flex-direction: row-reverse;
+    flex-wrap: unset;
+    .media__inner {
+      margin-left: 2rem;
+    }
+  }
+}
+
