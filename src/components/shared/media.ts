@@ -20,7 +20,7 @@ const props = {
   media_size: {
     type: String,
     default: '',
-    validator: function (value) {
+    validator: function (value: string) {
       return sizes.indexOf(value) !== -1
     },
   },
@@ -30,7 +30,7 @@ const props = {
   media_shape: {
     type: String,
     default: 'widescreen',
-    validator: function (value) {
+    validator: function (value: string) {
       return shapes.indexOf(value) !== -1
     },
   },

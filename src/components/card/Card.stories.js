@@ -4,6 +4,7 @@ import person_image from '../../assets/images/viewbook/sections/herky2.jpeg';
 import Background from "../shared/background";
 import Borderless from "../shared/borderless";
 import Media from "../shared/media";
+import {parameters} from "../../../.storybook/preview";
 
 export default {
   title: 'Basic/Card',
@@ -108,6 +109,13 @@ export default {
         category: 'Content',
       },
     },
+    parameters: {
+      //👇 The viewports object from the Essentials addon
+      viewport: {
+        viewports: parameters.viewport.viewports,
+        defaultViewport: 'mobile1',
+      },
+    },
   },
 };
 
@@ -153,7 +161,7 @@ Default.args = {
   subtitle: '',
   meta: '',
   default: '<strong>Hello!</strong> Here is some card content',
-  url: '',
+  url: ' ',
   link_text: '',
   title_style: '',
   borderless: false,
@@ -166,6 +174,13 @@ Default.args = {
   media_padded: false,
 };
 
+Default.parameters = {
+  viewport: {
+    viewports: parameters.viewport.viewports,
+    defaultViewport: 'mobile1',
+  },
+};
+
 export const LinkedCard = Template.bind({});
 LinkedCard.args = {
   ...Default.args,
@@ -174,11 +189,19 @@ LinkedCard.args = {
   link_text: 'Learn more',
 }
 
+LinkedCard.parameters = {
+  ...Default.parameters,
+}
+
 export const LinkedCardWithoutButtonText = Template.bind({});
 LinkedCardWithoutButtonText.args = {
   ...Default.args,
   media: '<img src="' + card_image + '" alt="Alt">',
   url: 'https://uiowa.edu',
+}
+
+LinkedCardWithoutButtonText.parameters = {
+  ...Default.parameters,
 }
 
 export const LinkedCardWithoutTitle = Template.bind({});
@@ -190,12 +213,20 @@ LinkedCardWithoutTitle.args = {
   link_text: 'Learn more',
 }
 
+LinkedCardWithoutTitle.parameters = {
+  ...Default.parameters,
+}
+
 export const LinkedImageCard = Template.bind({});
 LinkedImageCard.args = {
   ...Default.args,
   media: '<img src="' + card_image + '" alt="Alt">',
   url: 'https://uiowa.edu',
   title: '',
+}
+
+LinkedImageCard.parameters = {
+  ...Default.parameters,
 }
 
 export const UiowaIconCard = Template.bind({});
@@ -209,6 +240,10 @@ UiowaIconCard.args = {
   default: '',
 }
 
+UiowaIconCard.parameters = {
+  ...Default.parameters,
+}
+
 export const FAIconCard = Template.bind({});
 FAIconCard.args = {
   ...Default.args,
@@ -220,6 +255,10 @@ FAIconCard.args = {
   url: 'https://uiowa.edu',
 }
 
+FAIconCard.parameters = {
+  ...Default.parameters,
+}
+
 export const BorderlessCard = Template.bind({});
 BorderlessCard.args = {
   ...Default.args,
@@ -228,6 +267,10 @@ BorderlessCard.args = {
   title: 'Your story starts here',
   link_text: 'Learn more',
   borderless: true,
+}
+
+BorderlessCard.parameters = {
+  ...Default.parameters,
 }
 
 export const PersonCard = Template.bind({});
@@ -246,9 +289,21 @@ PersonCard.args = {
   borderless: true,
 }
 
+PersonCard.parameters = {
+  ...Default.parameters,
+  viewport: {
+    viewports: parameters.viewport.viewports,
+    defaultViewport: 'horizontalCard',
+  },
+}
+
 export const VideoCard = Template.bind({})
 VideoCard.args = {
   ...Default.args,
   media:
     '<iframe src="https://www.youtube.com/embed/iYv2KBtE7e4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
+}
+
+VideoCard.parameters = {
+  ...Default.parameters,
 }
