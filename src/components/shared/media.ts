@@ -59,9 +59,7 @@ const argTypes = {
       defaultValue: { summary: shapes[0] },
       category: 'Media',
     },
-    control: {
-      type: 'select',
-    },
+    control: 'select',
     description: 'The shape of the media element',
   },
   media_size: {
@@ -71,7 +69,12 @@ const argTypes = {
       defaultValue: { summary: sizes[1] },
       category: 'Media',
     },
-    control: 'select',
+    control: {
+      type: 'select',
+      labels: {
+        '': 'full width'
+      },
+    },
     description: 'Set the size of the media element.',
   },
 }

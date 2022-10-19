@@ -103,6 +103,7 @@ Default.args = {
   url: '',
   link_text: '',
   borderless: false,
+  background: '',
   centered: false,
   orientation: '',
   media_border: false,

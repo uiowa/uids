@@ -31,7 +31,7 @@ const argTypes = {
     control: {
       type: 'select',
       labels: {
-        '': 'None',
+        '': 'none',
       },
     },
   },
