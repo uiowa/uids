@@ -62,6 +62,15 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+
+
+  /**
+   * Title style for the headline.
+   */
+  title_style: {
+    type: String,
+    default: '',
+  },
 })
 
 const slots = useSlots();
@@ -161,7 +170,7 @@ const detailsElement = computed(() => {
 
     <div class="card__body">
       <header v-if="$slots.title">
-        <uids-headline :url="headlineLink">
+        <uids-headline :url="headlineLink" :text_style="title_style">
           <!-- @slot The title of the card. HTML is allowed. -->
           <slot name="title">Title</slot>
         </uids-headline>

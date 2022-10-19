@@ -25,9 +25,9 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  uppercase: {
-    type: Boolean,
-    default: false,
+  text_style: {
+    type: String,
+    default: '',
   },
   underline: {
     type: Boolean,
@@ -37,7 +37,8 @@ const props = defineProps({
 
 const getClasses = computed(() => ({
   'headline': true,
-  'headline--uppercase': props.uppercase,
+  'headline--uppercase': props.text_style === 'uppercase' ,
+  'headline--serif': props.text_style === 'serif' ,
   'headline--underline': props.underline,
   'headline--highlight': props.highlight,
 }));

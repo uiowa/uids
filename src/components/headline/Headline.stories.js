@@ -17,8 +17,18 @@ export default {
     highlight: {
       control: { type: 'boolean' },
     },
-    uppercase: {
-      control: { type: 'boolean' },
+    text_style: {
+      type: Boolean,
+      default: false,
+      options: ['', 'uppercase', 'serif'],
+      control: {
+        type: 'select',
+        labels: {
+          '': 'default',
+          'uppercase': 'Uppercase',
+          'serif': 'Serif',
+        },
+      },
     },
     underline: {
       control: { type: 'boolean' },
@@ -55,7 +65,7 @@ const Template = (args) => ({
 export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
 Default.args = {
-  uppercase: false,
+  text_style: '',
   underline: false,
   highlight: false,
   level: 'h2',
@@ -68,7 +78,13 @@ Default.args = {
 export const Uppercase = Template.bind({});
 Uppercase.args = {
   ...Default.args,
-  uppercase: true,
+  text_style: 'uppercase',
+};
+
+export const Serif = Template.bind({});
+Serif.args = {
+  ...Default.args,
+  text_style: 'serif',
 };
 
 export const Underline = Template.bind({});

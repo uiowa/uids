@@ -53,6 +53,18 @@ export default {
       name: 'Title',
       control: { type: 'text' },
     },
+    title_style: {
+      type: Boolean,
+      default: false,
+      options: ['', 'serif'],
+      control: {
+        type: 'select',
+        labels: {
+          '': 'default',
+          'serif': 'Serif',
+        },
+      },
+    },
     subtitle: {
       name: 'Subtitle',
       control: { type: 'text' },
@@ -82,6 +94,7 @@ const Template = (args) => ({
       <uids-card
         :url="args.url"
         :link_text="args.link_text"
+        :title_style="args.title_style"
         :borderless="args.borderless"
         :background="args.background"
         :orientation="args.orientation"
@@ -111,6 +124,7 @@ Default.args = {
   default: '<strong>Hello!</strong> Here is some card content',
   url: '',
   link_text: '',
+  title_style: '',
   borderless: false,
   background: '',
   centered: false,
