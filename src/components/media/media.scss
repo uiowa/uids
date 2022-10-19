@@ -89,13 +89,16 @@
 }
 
 // Set container query max-width sizes for images.
-@container card (max-width: 768px) {
-  .media--medium,
-  .media--medium {
-    max-width: 300px;
-  }
-  .media--large,
-  .media--large {
-    max-width: 450px;
+@supports (contain: inline-size) {
+  @container card (max-width: 768px) {
+    .media--medium,
+    .media--medium {
+      max-width: 300px;
+    }
+
+    .media--large,
+    .media--large {
+      max-width: 450px;
+    }
   }
 }

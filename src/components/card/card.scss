@@ -301,20 +301,24 @@
 
 
 // Set card left/right defaults based on surrounding container.
-@container (max-width: 768px)  {
-  .card--layout-left {
-    flex-direction: row;
-    flex-wrap: unset;
-    .media__inner {
-      margin-right: 2rem;
-    }
-  }
+@supports (contain: inline-size) {
+  @container (max-width: 768px) {
+    .card--layout-left {
+      flex-direction: row;
+      flex-wrap: unset;
 
-  .card--layout-right {
-    flex-direction: row-reverse;
-    flex-wrap: unset;
-    .media__inner {
-      margin-left: 2rem;
+      .media__inner {
+        margin-right: 2rem;
+      }
+    }
+
+    .card--layout-right {
+      flex-direction: row-reverse;
+      flex-wrap: unset;
+
+      .media__inner {
+        margin-left: 2rem;
+      }
     }
   }
 }
