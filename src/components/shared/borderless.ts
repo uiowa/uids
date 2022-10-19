@@ -13,6 +13,7 @@ const argTypes = {
     name: 'No border',
     table: {
       defaultValue: { summary: false },
+      category: 'Display options',
     },
     control: { type: 'boolean' },
   },

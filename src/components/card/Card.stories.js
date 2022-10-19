@@ -13,10 +13,16 @@ export default {
     url: {
       name: 'URL',
       control: { type: 'text' },
+      table: {
+        category: 'Content',
+      },
     },
     link_text: {
       name: 'Link text',
       control: { type: 'text' },
+      table: {
+        category: 'Content',
+      },
     },
     ...Background.argTypes,
     // Modifiers
@@ -24,6 +30,9 @@ export default {
     centered: {
       name: 'Centered',
       control: { type: 'boolean' },
+      table: {
+        category: 'Display options',
+      },
     },
     // Media properties
     ...Media.argTypes,
@@ -36,9 +45,12 @@ export default {
           '': 'stacked',
         },
       },
+      table: {
+        category: 'Display options',
+      },
     },
     media_padded: {
-      name: 'Padded media',
+      name: 'Padded',
       control: 'boolean',
       table: {
         category: 'Media',
@@ -48,12 +60,19 @@ export default {
     media: {
       name: 'Media',
       control: { type: 'text' },
+      table: {
+        category: 'Media',
+      },
     },
     title: {
       name: 'Title',
       control: { type: 'text' },
+      table: {
+        category: 'Content',
+      },
     },
     title_style: {
+      name: 'Title style',
       type: Boolean,
       default: false,
       options: ['', 'serif'],
@@ -64,18 +83,30 @@ export default {
           'serif': 'Serif',
         },
       },
+      table: {
+        category: 'Display options',
+      },
     },
     subtitle: {
       name: 'Subtitle',
       control: { type: 'text' },
+      table: {
+        category: 'Content',
+      },
     },
     meta: {
       name: 'Meta',
       control: { type: 'text' },
+      table: {
+        category: 'Content',
+      },
     },
     default: {
       name: 'Content',
       control: { type: 'text' },
+      table: {
+        category: 'Content',
+      },
     },
   },
 };
