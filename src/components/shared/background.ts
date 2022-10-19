@@ -15,7 +15,7 @@ const props = {
   background: {
     type: String,
     default: '',
-    validator: function (value) {
+    validator: function (value: string) {
       return colors.indexOf(value) !== -1
     },
   },

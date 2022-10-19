@@ -60,7 +60,6 @@ const classes = computed(() => {
     classes.push(`bttn--${ className(props.size)}`);
   }
 
-  console.log(slots.default);
   if (!slots.default) {
     classes.push(`bttn--no-text`);
   }
