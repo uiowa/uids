@@ -26,6 +26,7 @@ const argTypes = {
     name: 'Background',
     table: {
       defaultValue: { summary: colors[0] },
+      category: 'Display options',
     },
     options: colors,
     control: {
