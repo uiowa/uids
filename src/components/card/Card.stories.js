@@ -188,53 +188,39 @@ Default.parameters = {
   },
 };
 
-export const LinkedCard = Template.bind({});
-LinkedCard.args = {
+export const LinkedWithNoButtonText = Template.bind({});
+LinkedWithNoButtonText.args = {
   ...Default.args,
+  link_text: '',
 }
 
-LinkedCard.parameters = {
+LinkedWithNoButtonText.parameters = {
   ...Default.parameters,
 }
 
-export const LinkedCardWithoutButtonText = Template.bind({});
-LinkedCardWithoutButtonText.args = {
+export const LinkedWithNoTitle = Template.bind({});
+LinkedWithNoTitle.args = {
   ...Default.args,
-  media: '<img src="' + card_image + '" alt="Alt">',
-  url: 'https://uiowa.edu',
-}
-
-LinkedCardWithoutButtonText.parameters = {
-  ...Default.parameters,
-}
-
-export const LinkedCardWithoutTitle = Template.bind({});
-LinkedCardWithoutTitle.args = {
-  ...Default.args,
-  media: '<img src="' + card_image + '" alt="Alt">',
-  url: 'https://uiowa.edu',
-  title: '',
-  link_text: 'Learn more',
-}
-
-LinkedCardWithoutTitle.parameters = {
-  ...Default.parameters,
-}
-
-export const LinkedImageCard = Template.bind({});
-LinkedImageCard.args = {
-  ...Default.args,
-  media: '<img src="' + card_image + '" alt="Alt">',
-  url: 'https://uiowa.edu',
   title: '',
 }
 
-LinkedImageCard.parameters = {
+LinkedWithNoTitle.parameters = {
   ...Default.parameters,
 }
 
-export const UiowaIconCard = Template.bind({});
-UiowaIconCard.args = {
+export const LinkedImage = Template.bind({});
+LinkedImage.args = {
+  ...Default.args,
+  title: '',
+  link_text: '',
+}
+
+LinkedImage.parameters = {
+  ...Default.parameters,
+}
+
+export const ImageUsingUiowaIcon = Template.bind({});
+ImageUsingUiowaIcon.args = {
   ...Default.args,
   centered: true,
   media_padded: true,
@@ -247,12 +233,12 @@ UiowaIconCard.args = {
   default: '',
 }
 
-UiowaIconCard.parameters = {
+ImageUsingUiowaIcon.parameters = {
   ...Default.parameters,
 }
 
-export const FAIconCard = Template.bind({});
-FAIconCard.args = {
+export const ImageUsingFontAwesomeIcon = Template.bind({});
+ImageUsingFontAwesomeIcon.args = {
   ...Default.args,
   centered: true,
   media_size: 'small',
@@ -263,33 +249,28 @@ FAIconCard.args = {
   url: 'https://uiowa.edu',
 }
 
-FAIconCard.parameters = {
+ImageUsingFontAwesomeIcon.parameters = {
   ...Default.parameters,
 }
 
-export const BorderlessCard = Template.bind({});
-BorderlessCard.args = {
+export const WithNoBorder = Template.bind({});
+WithNoBorder.args = {
   ...Default.args,
-  media: '<img src="' + card_image + '" alt="Alt">',
-  url: 'https://uiowa.edu',
-  title: 'Your story starts here',
-  link_text: 'Learn more',
   borderless: true,
 }
 
-BorderlessCard.parameters = {
+WithNoBorder.parameters = {
   ...Default.parameters,
 }
 
-export const PersonCard = Template.bind({});
-PersonCard.args = {
+export const PersonProfile = Template.bind({});
+PersonProfile.args = {
   ...Default.args,
   media: '<img src="' + person_image + '" alt="Herky">',
   orientation: 'right',
   media_size: 'small',
   media_shape: 'circle',
   media_border: true,
-  url: 'https://uiowa.edu',
   title: 'Herky Hawk',
   subtitle: 'University of Iowa Mascot',
   default:
@@ -297,7 +278,7 @@ PersonCard.args = {
   borderless: true,
 }
 
-PersonCard.parameters = {
+PersonProfile.parameters = {
   ...Default.parameters,
   viewport: {
     viewports: parameters.viewport.viewports,
@@ -305,13 +286,19 @@ PersonCard.parameters = {
   },
 }
 
-export const VideoCard = Template.bind({})
-VideoCard.args = {
+export const WithVideoMedia = Template.bind({})
+WithVideoMedia.args = {
   ...Default.args,
   media:
     '<iframe src="https://www.youtube.com/embed/iYv2KBtE7e4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
 }
 
-VideoCard.parameters = {
+WithVideoMedia.parameters = {
   ...Default.parameters,
+}
+
+export const WithNoLink = Template.bind({})
+WithNoLink.args = {
+  ...Default.args,
+  url: '',
 }
