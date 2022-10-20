@@ -86,7 +86,7 @@ const classes = computed(() => {
   if (props.orientation) {
     classes.push(`card--layout-${ className(props.orientation)}`);
   }
-  
+
   Background.addBackgroundClass(classes, props);
 
   Borderless.addBorderlessClass(classes, props);
