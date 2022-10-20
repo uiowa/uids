@@ -1,33 +1,44 @@
-import UidsCard from './Card.vue';
-import card_image from '../../assets/images/viewbook/sections/122.jpg';
-import person_image from '../../assets/images/viewbook/sections/herky2.jpeg';
-import Background from "../shared/background";
-import Borderless from "../shared/borderless";
-import Media from "../shared/media";
-import {parameters} from "../../../.storybook/preview";
+import UidsCard from './Card.vue'
+import card_image from '../../assets/images/viewbook/sections/122.jpg'
+import person_image from '../../assets/images/viewbook/sections/herky2.jpeg'
+import Background from '../shared/background'
+import Borderless from '../shared/borderless'
+import Media from '../shared/media'
+import { parameters } from '../../../.storybook/preview'
 
 export default {
   title: 'Components/Card',
   component: UidsCard,
   argTypes: {
     // Props
+    headline_style: {
+      name: 'Title style',
+      options: ['', 'serif'],
+      control: {
+        type: 'select',
+        labels: {
+          '': 'default',
+          serif: 'Serif',
+        },
+      },
+      table: {
+        category: 'Display options',
+      },
+    },
     url: {
       name: 'URL',
-      control: { type: 'text' },
       table: {
         category: 'Content',
       },
     },
     link_text: {
       name: 'Link text',
-      control: { type: 'text' },
       table: {
         category: 'Content',
       },
     },
-    button_circle: {
+    link_indicator: {
       name: 'Display button when there is no link text',
-      control: 'boolean',
       if: {
         arg: 'link_text',
         truthy: false,
@@ -36,12 +47,14 @@ export default {
         category: 'Display options',
       },
     },
+    button_align_bottom: {
+      name: 'Align button to bottom',
+    },
     ...Background.argTypes,
     // Modifiers
     ...Borderless.argTypes,
     centered: {
       name: 'Centered',
-      control: 'boolean',
       table: {
         category: 'Display options',
       },
@@ -63,7 +76,6 @@ export default {
     },
     media_padded: {
       name: 'Padded',
-      control: 'boolean',
       table: {
         category: 'Media',
       },
@@ -71,32 +83,16 @@ export default {
     // Slots
     media: {
       name: 'Media',
-      control: { type: 'text' },
+      control: 'text',
       table: {
         category: 'Media',
       },
     },
     title: {
       name: 'Title',
-      control: { type: 'text' },
+      control: 'text',
       table: {
         category: 'Content',
-      },
-    },
-    title_style: {
-      name: 'Title style',
-      type: Boolean,
-      default: false,
-      options: ['', 'serif'],
-      control: {
-        type: 'select',
-        labels: {
-          '': 'default',
-          'serif': 'Serif',
-        },
-      },
-      table: {
-        category: 'Display options',
       },
     },
     subtitle: {
@@ -121,7 +117,13 @@ export default {
       },
     },
   },
-};
+  parameters: {
+    viewport: {
+      viewports: parameters.viewport.viewports,
+      defaultViewport: 'mobile2',
+    },
+  },
+}
 
 // More on component templates: https://storybook.js.org/docs/vue/writing-stories/introduction#using-args
 const Template = (args) => ({
@@ -129,16 +131,16 @@ const Template = (args) => ({
   components: { UidsCard },
   // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
-    return { args };
+    return { args }
   },
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
-<!--    <div style="max-width: 600px">-->
       <uids-card
         :url="args.url"
         :link_text="args.link_text"
-        :button_circle="args.button_circle"
-        :title_style="args.title_style"
+        :link_indicator="args.link_indicator"
+        :button_align_bottom="args.button_align_bottom"
+        :headline_style="args.headline_style"
         :borderless="args.borderless"
         :background="args.background"
         :orientation="args.orientation"
@@ -154,9 +156,8 @@ const Template = (args) => ({
         <template #meta v-if="args.meta"><div v-html="args.meta" ></div></template>
         <template #default><div v-html="args.default"></div></template>
       </uids-card>
-<!--    </div>-->
   `,
-});
+})
 
 export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
@@ -169,8 +170,9 @@ Default.args = {
     'For decades, Iowa City has been a gathering place for artists, creating a cultural hub that’s more accessible than any major city. ',
   url: 'https://uiowa.edu',
   link_text: 'Explore the arts',
-  button_circle: true,
-  title_style: '',
+  link_indicator: true,
+  button_align_bottom: false,
+  headline_style: '',
   borderless: false,
   background: '',
   centered: false,
@@ -179,23 +181,12 @@ Default.args = {
   media_size: '',
   media_shape: 'widescreen',
   media_padded: false,
-};
-
-Default.parameters = {
-  viewport: {
-    viewports: parameters.viewport.viewports,
-    defaultViewport: 'mobile1',
-  },
-};
+}
 
 export const LinkedWithNoButtonText = Template.bind({});
 LinkedWithNoButtonText.args = {
   ...Default.args,
   link_text: '',
-}
-
-LinkedWithNoButtonText.parameters = {
-  ...Default.parameters,
 }
 
 export const LinkedWithNoTitle = Template.bind({});
@@ -204,19 +195,11 @@ LinkedWithNoTitle.args = {
   title: '',
 }
 
-LinkedWithNoTitle.parameters = {
-  ...Default.parameters,
-}
-
 export const LinkedImage = Template.bind({});
 LinkedImage.args = {
   ...Default.args,
   title: '',
   link_text: '',
-}
-
-LinkedImage.parameters = {
-  ...Default.parameters,
 }
 
 export const ImageUsingUiowaIcon = Template.bind({});
@@ -228,13 +211,10 @@ ImageUsingUiowaIcon.args = {
   media_shape: 'circle',
   media_border: true,
   title: '24hour-phone',
-  media: '<img icon="24hour-phone" variant="two-color" src="https://icons.brand.uiowa.edu/brand-icons/megaphone-bullhorn-two-color.png" alt="24hour-phone" loading="lazy" class="two-color">',
+  media:
+    '<img icon="24hour-phone" variant="two-color" src="https://icons.brand.uiowa.edu/brand-icons/megaphone-bullhorn-two-color.png" alt="24hour-phone" loading="lazy" class="two-color">',
   url: 'https://uiowa.edu',
   default: '',
-}
-
-ImageUsingUiowaIcon.parameters = {
-  ...Default.parameters,
 }
 
 export const ImageUsingFontAwesomeIcon = Template.bind({});
@@ -249,18 +229,10 @@ ImageUsingFontAwesomeIcon.args = {
   url: 'https://uiowa.edu',
 }
 
-ImageUsingFontAwesomeIcon.parameters = {
-  ...Default.parameters,
-}
-
 export const WithNoBorder = Template.bind({});
 WithNoBorder.args = {
   ...Default.args,
   borderless: true,
-}
-
-WithNoBorder.parameters = {
-  ...Default.parameters,
 }
 
 export const PersonProfile = Template.bind({});
@@ -277,12 +249,10 @@ PersonProfile.args = {
     'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.',
   borderless: true,
 }
-
 PersonProfile.parameters = {
-  ...Default.parameters,
   viewport: {
     viewports: parameters.viewport.viewports,
-    defaultViewport: 'horizontalCard',
+    defaultViewport: 'tablet',
   },
 }
 
@@ -293,12 +263,14 @@ WithVideoMedia.args = {
     '<iframe src="https://www.youtube.com/embed/iYv2KBtE7e4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
 }
 
-WithVideoMedia.parameters = {
-  ...Default.parameters,
-}
-
 export const WithNoLink = Template.bind({})
 WithNoLink.args = {
   ...Default.args,
   url: '',
+}
+
+export const ButtonAlignedToBottom = Template.bind({})
+ButtonAlignedToBottom.args = {
+  ...Default.args,
+  button_align_bottom: true,
 }

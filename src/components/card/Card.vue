@@ -14,6 +14,14 @@ import '../media/media.scss'
 const name = 'uids-card'
 const props = defineProps({
   /**
+   * Title style for the headline.
+   */
+  headline_style: {
+    type: String,
+    default: '',
+  },
+
+  /**
    * A URL to the resource that the card represents.
    */
   url: {
@@ -30,9 +38,14 @@ const props = defineProps({
   /**
    * Display a circle button when there is no button text.
    */
-  button_circle: {
+  link_indicator: {
     type: Boolean,
     default: true,
+  },
+
+  button_align_bottom: {
+    type: Boolean,
+    default: false,
   },
 
   /**
@@ -70,15 +83,6 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-
-
-  /**
-   * Title style for the headline.
-   */
-  title_style: {
-    type: String,
-    default: '',
-  },
 })
 
 const slots = useSlots();
@@ -86,7 +90,7 @@ const slots = useSlots();
 const classes = computed(() => {
   let classes = ['card'];
 
-  ['centered', 'media_padded'].forEach((prop) => {
+  ['centered', 'media_padded', 'button_align_bottom'].forEach((prop) => {
     if (props[prop] === true) {
       classes.push(`card--${ className(prop) }`);
     }
@@ -118,7 +122,7 @@ const mediaClasses = computed(() => {
 const buttonClasses = computed(() => {
   let classes = ['bttn--transparent', 'bttn--light-font'];
 
-  if (props.button_circle && props.url && !props.link_text) {
+  if (props.link_indicator && props.url && !props.link_text) {
     classes.push('bttn--circle')
     classes.push('bttn--no-text')
   }
@@ -192,7 +196,7 @@ const detailsElement = computed(() => {
 
     <div class="card__body">
       <header v-if="$slots.title">
-        <uids-headline :url="headlineLink" :text_style="title_style">
+        <uids-headline :url="headlineLink" :text_style="headline_style">
           <!-- @slot The title of the card. HTML is allowed. -->
           <slot name="title">Title</slot>
         </uids-headline>
@@ -209,7 +213,7 @@ const detailsElement = computed(() => {
       </div>
       <!-- @slot The body content of the card. -->
       <slot>Body</slot>
-      <footer v-if="url && (button_circle || link_text)">
+      <footer v-if="url && (link_indicator || link_text)">
         <uids-button :class="buttonClasses" :url="url" size="medium" v-if="linkedElement === 'button'">
           {{ link_text }}
         </uids-button>
