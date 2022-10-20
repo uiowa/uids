@@ -28,6 +28,14 @@ const props = defineProps({
   },
 
   /**
+   * Display a circle button when there is no button text.
+   */
+  button_circle: {
+    type: Boolean,
+    default: true,
+  },
+
+  /**
    * Alignment of text content.
    */
   centered: {
@@ -110,7 +118,7 @@ const mediaClasses = computed(() => {
 const buttonClasses = computed(() => {
   let classes = ['bttn--transparent', 'bttn--light-font'];
 
-  if (props.url && !props.link_text) {
+  if (props.button_circle && props.url && !props.link_text) {
     classes.push('bttn--circle')
     classes.push('bttn--no-text')
   }
@@ -201,7 +209,7 @@ const detailsElement = computed(() => {
       </div>
       <!-- @slot The body content of the card. -->
       <slot>Body</slot>
-      <footer v-if="url">
+      <footer v-if="url && (button_circle || link_text)">
         <uids-button :class="buttonClasses" :url="url" size="medium" v-if="linkedElement === 'button'">
           {{ link_text }}
         </uids-button>

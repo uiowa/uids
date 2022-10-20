@@ -25,12 +25,19 @@ export default {
         category: 'Content',
       },
     },
+    button_circle: {
+      name: 'Display circle button when no link text',
+      control: 'boolean',
+      table: {
+        category: 'Display options',
+      },
+    },
     ...Background.argTypes,
     // Modifiers
     ...Borderless.argTypes,
     centered: {
       name: 'Centered',
-      control: { type: 'boolean' },
+      control: 'boolean',
       table: {
         category: 'Display options',
       },
@@ -136,6 +143,7 @@ const Template = (args) => ({
       <uids-card
         :url="args.url"
         :link_text="args.link_text"
+        :button_circle="args.button_circle"
         :title_style="args.title_style"
         :borderless="args.borderless"
         :background="args.background"
@@ -166,6 +174,7 @@ Default.args = {
   default: '<strong>Hello!</strong> Here is some card content',
   url: ' ',
   link_text: '',
+  button_circle: true,
   title_style: '',
   borderless: false,
   background: '',
