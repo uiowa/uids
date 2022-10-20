@@ -86,11 +86,7 @@ const classes = computed(() => {
   if (props.orientation) {
     classes.push(`card--layout-${ className(props.orientation)}`);
   }
-
-  if (!props.media_padded) {
-    classes.push(`media--cover`);
-  }
-
+  
   Background.addBackgroundClass(classes, props);
 
   Borderless.addBorderlessClass(classes, props);
