@@ -18,15 +18,26 @@ The node-gyp package requires a C compiler. If you notice node-gyp errors after 
 ### Install dependencies
 
 ```sh
+npm install
+```
+
+```sh
 npm ci
 ```
 
-### Start the local server
+### Start the local server OR start Storybook
 Compile and hot-reload for development.
 
 ```sh
 npm run dev
 ```
+
+**OR**
+
+```sh
+yarn storybook
+```
+
 The command will output the server URL to visit in your browser, ex. http://localhost:3000.
 
 ### Type-Check, Compile and Minify for Production
@@ -69,7 +80,7 @@ npm run dist
 The following is an example of the workflow and not meant to be copied and pasted verbatim. Please review the summary at https://semver.org/ to understand which type of release you should be creating. The version numbers you will use when you are actually going through this process will depend on the current version number and what type of release you are creating.
 
 To see the full options for the command, run `npm version --help`.
-1. `git checkout 3.x` - Make sure you are on the `3.x` branch.
+1. `git checkout 4.x` - Make sure you are on the `4.x` branch.
 2. `git pull` - Make sure you have the most recent updates.
 4. `npm version patch -m "https://github.com/uiowa/uids/compare/v3.1.0...v3.1.1"`
 5. `git push`

@@ -1,5 +1,3 @@
-import { className } from "../utlity";
-
 const props = {
   /**
    * Set an outline on any element.
@@ -12,7 +10,11 @@ const props = {
 
 const argTypes = {
   borderless: {
-    table: { defaultValue: false },
+    name: 'No border',
+    table: {
+      defaultValue: { summary: false },
+      category: 'Display options',
+    },
     control: { type: 'boolean' },
   },
 }

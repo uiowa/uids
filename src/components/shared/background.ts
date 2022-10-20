@@ -1,4 +1,4 @@
-import { className } from "../utlity";
+import { className } from '../utlity'
 
 const colors = [
   '',
@@ -15,25 +15,32 @@ const props = {
   background: {
     type: String,
     default: '',
-    validator: function (value) {
-      return colors.indexOf(value) !== -1;
+    validator: function (value: string) {
+      return colors.indexOf(value) !== -1
     },
   },
 }
 
 const argTypes = {
   background: {
-    table: { defaultValue: colors[0] },
+    name: 'Background',
+    table: {
+      defaultValue: { summary: colors[0] },
+      category: 'Display options',
+    },
+    options: colors,
     control: {
       type: 'select',
-      options: colors,
+      labels: {
+        '': 'none',
+      },
     },
   },
 }
 
 const addBackgroundClass = (classes: Array<string>, props: Readonly<any>) => {
   if (props.background !== '') {
-    classes.push(`bg--${ className(props.background) }`)
+    classes.push(`bg--${className(props.background)}`)
   }
 }
 

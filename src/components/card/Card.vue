@@ -1,19 +1,20 @@
 <script setup lang="ts">
+import { computed, useSlots } from 'vue'
+import { className } from '../utlity'
+import UidsHeadline from '../headline/Headline.vue'
+import UidsButton from '../button/Button.vue'
+import UidsPseudoButton from '../button/PseudoButton.vue'
+import Background from '../shared/background'
+import Borderless from '../shared/borderless'
+import Media from '../shared/media'
 import './card.scss'
 import '../background/background.scss'
 import '../media/media.scss'
-import UidsHeadline from '../headline/Headline.vue'
-import { computed, useSlots } from "vue";
-import UidsButton from "../button/Button.vue";
-import UidsPseudoButton from "../button/PseudoButton.vue";
-import Background from "../shared/background";
-import Borderless from "../shared/borderless";
-import { className } from "../utlity";
 
 const name = 'uids-card'
 const props = defineProps({
   /**
-   * A url to the resource that the card represents.
+   * A URL to the resource that the card represents.
    */
   url: {
     type: String,
@@ -24,6 +25,14 @@ const props = defineProps({
    */
   link_text: {
     type: String,
+  },
+
+  /**
+   * Display a circle button when there is no button text.
+   */
+  button_circle: {
+    type: Boolean,
+    default: true,
   },
 
   /**
@@ -40,17 +49,18 @@ const props = defineProps({
 
   ...Background.props,
 
-
   /**
-   * Align media element to the left or right.
+   * How to lay out the content of the card. Default is stacked.
    */
-  media_align: {
+  orientation: {
     type: String,
     default: '',
-    validator: (value) => {
-      return ['media-left', 'media-right'].indexOf(value) !== -1;
+    validator: (value: string) => {
+      return ['', 'left', 'right'].indexOf(value) !== -1;
     },
   },
+
+  ...Media.props,
 
   /**
    * Add padding around the entirety of the contents of the card.
@@ -60,42 +70,77 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+
+
+  /**
+   * Title style for the headline.
+   */
+  title_style: {
+    type: String,
+    default: '',
+  },
 })
 
 const slots = useSlots();
 
 const classes = computed(() => {
   let classes = ['card'];
+
   ['centered', 'media_padded'].forEach((prop) => {
     if (props[prop] === true) {
       classes.push(`card--${ className(prop) }`);
     }
   });
-  if (props.media_align) {
-    classes.push(`card--${ className(props.media_align)}`);
+
+  if (props.orientation) {
+    classes.push(`card--layout-${ className(props.orientation)}`);
   }
 
   Background.addBackgroundClass(classes, props);
 
   Borderless.addBorderlessClass(classes, props);
 
-  if(props.url) {
-    classes.push('click-container');
+  if (props.url) {
+    classes.push('click-container')
   }
 
   return classes;
 });
 
+const mediaClasses = computed(() => {
+  let classes = ['media'];
+
+  Media.addMediaClasses(classes, props);
+
+  return classes;
+});
+
+const buttonClasses = computed(() => {
+  let classes = ['bttn--transparent', 'bttn--light-font'];
+
+  if (props.button_circle && props.url && !props.link_text) {
+    classes.push('bttn--circle')
+    classes.push('bttn--no-text')
+  }
+
+  return classes
+})
+
 /**
  * Determine the linked element.
  */
 const linkedElement = computed(() => {
-  // Do we have a url.
+  // Do we have a URL?
   if (!props.url) {
     return null;
   }
   // Do we have a title.
   if (!slots.title) {
+
+    if (!props.link_text && slots.media) {
+      return 'image';
+    }
+
     // Button is url.
     return 'button';
   }
@@ -112,36 +157,64 @@ const headlineLink = computed(() => {
     return props.url;
   }
   return false;
-})
+});
+
+/**
+ * Print card__details if subtitle or meta are available.
+ */
+const detailsElement = computed(() => {
+  // Do we have subtitle or meta?
+  if (slots.subtitle || slots.meta) {
+    return true;
+  }
+  return false;
+});
 </script>
 
 <template>
   <div :class="classes">
-    <div v-if="$slots.media" class="card__media">
-      <!-- @slot Media displayed at the top of the card. -->
-      <slot name="media"></slot>
+    <div
+      v-if="$slots.media"
+      :class="mediaClasses"
+    >
+      <div class="media__inner">
+        <a
+          v-if="linkedElement === 'image'"
+          :href="url"
+        >
+          <!-- @slot Media displayed at the top of the card. -->
+          <slot name="media"></slot>
+        </a>
+        <!-- @slot Media displayed at the top of the card. -->
+        <slot name="media" v-else></slot>
+      </div>
     </div>
 
     <div class="card__body">
       <header v-if="$slots.title">
-        <uids-headline :url="headlineLink">
+        <uids-headline :url="headlineLink" :text_style="title_style">
           <!-- @slot The title of the card. HTML is allowed. -->
           <slot name="title">Title</slot>
         </uids-headline>
       </header>
-      <div v-if="$slots.details" class="card__details">
-        <!-- @slot The callout details of the card.. -->
-        <slot name="details">Details</slot>
+      <div v-if="detailsElement === true" class="card__details">
+        <div v-if="$slots.subtitle" class="card__subtitle">
+          <!-- @slot The subtitle of the card.. -->
+          <slot name="subtitle">Subtitle</slot>
+        </div>
+        <div v-if="$slots.meta" class="card__meta">
+          <!-- @slot The meta of the card.. -->
+          <slot name="meta">Meta</slot>
+        </div>
       </div>
       <!-- @slot The body content of the card. -->
       <slot>Body</slot>
-      <footer v-if="url && link_text">
-        <uids-button :url="url" size="medium" v-if="linkedElement === 'button'">
+      <footer v-if="url && (button_circle || link_text)">
+        <uids-button :class="buttonClasses" :url="url" size="medium" v-if="linkedElement === 'button'">
           {{ link_text }}
         </uids-button>
-        <uids-pseudo-button v-else>{{ link_text }}</uids-pseudo-button>
+        <uids-pseudo-button :class="buttonClasses" v-else>{{ link_text }}</uids-pseudo-button>
       </footer>
     </div>
-
   </div>
 </template>

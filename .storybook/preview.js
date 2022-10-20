@@ -5,6 +5,18 @@ import '../src/assets/scss/headings.scss';
 import '../src/assets/scss/paragraph.scss';
 import '../src/assets/scss/lists.scss';
 
+import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
+
+const customViewports = {
+  horizontalCard: {
+    name: 'Horizontal card',
+    styles: {
+      width: '769px',
+      height: '260px',
+    },
+  },
+};
+
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   backgrounds: {
@@ -82,4 +94,11 @@ export const parameters = {
       date: /Date$/,
     },
   },
-}
+  // More on viewports https://storybook.js.org/docs/react/essentials/viewport.
+  viewport: {
+    viewports: {
+      ...MINIMAL_VIEWPORTS,
+      ...customViewports,
+    },
+  },
+};
