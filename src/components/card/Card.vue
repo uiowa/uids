@@ -83,6 +83,7 @@ const classes = computed(() => {
       classes.push(`card--${ className(prop) }`);
     }
   });
+
   if (props.orientation) {
     classes.push(`card--layout-${ className(props.orientation)}`);
   }
@@ -105,6 +106,17 @@ const mediaClasses = computed(() => {
 
   return classes;
 });
+
+const buttonClasses = computed(() => {
+  let classes = ['bttn--transparent', 'bttn--light-font'];
+
+  if (props.url && !props.link_text) {
+    classes.push('bttn--circle')
+    classes.push('bttn--no-text')
+  }
+
+  return classes
+})
 
 /**
  * Determine the linked element.
@@ -153,9 +165,15 @@ const detailsElement = computed(() => {
 
 <template>
   <div :class="classes">
-    <div v-if="$slots.media" :class="mediaClasses">
+    <div
+      v-if="$slots.media"
+      :class="mediaClasses"
+    >
       <div class="media__inner">
-        <a v-if="linkedElement === 'image'" :href="url">
+        <a
+          v-if="linkedElement === 'image'"
+          :href="url"
+        >
           <!-- @slot Media displayed at the top of the card. -->
           <slot name="media"></slot>
         </a>
@@ -183,11 +201,11 @@ const detailsElement = computed(() => {
       </div>
       <!-- @slot The body content of the card. -->
       <slot>Body</slot>
-      <footer v-if="url && link_text">
-        <uids-button class="bttn--transparent bttn--light-font" :url="url" size="medium" v-if="linkedElement === 'button'">
+      <footer v-if="url">
+        <uids-button :class="buttonClasses" :url="url" size="medium" v-if="linkedElement === 'button'">
           {{ link_text }}
         </uids-button>
-        <uids-pseudo-button class="bttn--transparent bttn--light-font" v-else>{{ link_text }}</uids-pseudo-button>
+        <uids-pseudo-button :class="buttonClasses" v-else>{{ link_text }}</uids-pseudo-button>
       </footer>
     </div>
   </div>
