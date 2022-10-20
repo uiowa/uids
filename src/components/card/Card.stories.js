@@ -7,7 +7,7 @@ import Media from "../shared/media";
 import {parameters} from "../../../.storybook/preview";
 
 export default {
-  title: 'Basic/Card',
+  title: 'Components/Card',
   component: UidsCard,
   argTypes: {
     // Props
