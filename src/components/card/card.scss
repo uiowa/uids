@@ -161,13 +161,6 @@
     }
   }
 
-  .media__inner {
-    @include breakpoint(sm) {
-      //margin-bottom: -2rem;
-      //margin-top: 0;
-    }
-  }
-
   @include breakpoint(sm) {
     display: flex;
     flex-wrap: nowrap;
@@ -226,14 +219,6 @@
   }
 
   @include breakpoint(sm) {
-    // When combined with media alignment, the .media bottom margin should be unset above the small breakpoint.
-    &.card--layout-left,
-    &.card--layout-right {
-      .media__inner {
-        //margin-bottom: -2rem;
-      }
-    }
-
     &.card--layout-left {
       .media__inner {
         margin-right: 2rem;
@@ -300,68 +285,3 @@
     }
   }
 }
-
-
-
-// Declare which containers to query.
-@supports (contain: inline-size) {
-  // Storybook
-  div#root,
-  // Drupal
-  .layout__region {
-    container-type: inline-size;
-  }
-  .card {
-    container-name: card;
-    container-type: inline-size;
-  }
-}
-
-// Set container query max-width sizes for images.
-/*
-@supports (contain: inline-size) {
-  @container card (max-width: 955px) {
-    .card--layout-left,
-    .card--layout-right {
-      .media--small {
-        max-width: 150px;
-      }
-
-      .media--medium {
-        max-width: 300px;
-      }
-
-      .media--large {
-        max-width: 450px;
-      }
-    }
-  }
-}
-*/
-
-// Set card left/right defaults based on surrounding container.
-/*
-@supports (contain: inline-size) {
-  @container (max-width: 955px) {
-    .card--layout-left {
-      flex-direction: row;
-      flex-wrap: unset;
-
-      .media__inner {
-        margin-right: 2rem;
-        margin-bottom: -2rem;
-      }
-    }
-
-    .card--layout-right {
-      flex-direction: row-reverse;
-      flex-wrap: unset;
-
-      .media__inner {
-        margin-left: 2rem;
-        margin-bottom: -2rem;
-      }
-    }
-  }
-}
-*/
