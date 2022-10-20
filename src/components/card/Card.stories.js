@@ -26,8 +26,12 @@ export default {
       },
     },
     button_circle: {
-      name: 'Display circle button when no link text',
+      name: 'Display button when there is no link text',
       control: 'boolean',
+      if: {
+        arg: 'link_text',
+        truthy: false,
+      },
       table: {
         category: 'Display options',
       },
@@ -116,16 +120,6 @@ export default {
         category: 'Content',
       },
     },
-    parameters: {
-      //👇 The viewports object from the Essentials addon
-      viewport: {
-        viewports: parameters.viewport.viewports,
-        defaultViewport: 'mobile1',
-      },
-      table: {
-        disable: true,
-      },
-    },
   },
 };
 
@@ -167,13 +161,14 @@ const Template = (args) => ({
 export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
 Default.args = {
-  media: '',
-  title: 'Title',
+  media: '<img src="' + card_image + '" alt="Alt">',
+  title: 'Arts and Culture',
   subtitle: '',
   meta: '',
-  default: '<strong>Hello!</strong> Here is some card content',
-  url: ' ',
-  link_text: '',
+  default:
+    'For decades, Iowa City has been a gathering place for artists, creating a cultural hub that’s more accessible than any major city. ',
+  url: 'https://uiowa.edu',
+  link_text: 'Explore the arts',
   button_circle: true,
   title_style: '',
   borderless: false,
@@ -196,9 +191,6 @@ Default.parameters = {
 export const LinkedCard = Template.bind({});
 LinkedCard.args = {
   ...Default.args,
-  media: '<img src="' + card_image + '" alt="Alt">',
-  url: 'https://uiowa.edu',
-  link_text: 'Learn more',
 }
 
 LinkedCard.parameters = {
