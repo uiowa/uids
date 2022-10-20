@@ -242,7 +242,7 @@ UiowaIconCard.args = {
   media_shape: 'circle',
   media_border: true,
   title: '24hour-phone',
-  media: '<img icon="24hour-phone" variant="two-color" src="https://sandbox.imu.uiowa.edu/brand-icons/24hour-phone-two-color.png" alt="24hour-phone" loading="lazy" class="two-color">',
+  media: '<img icon="24hour-phone" variant="two-color" src="https://icons.brand.uiowa.edu/brand-icons/megaphone-bullhorn-two-color.png" alt="24hour-phone" loading="lazy" class="two-color">',
   url: 'https://uiowa.edu',
   default: '',
 }
