@@ -115,6 +115,9 @@ export default {
         viewports: parameters.viewport.viewports,
         defaultViewport: 'mobile1',
       },
+      table: {
+        disable: true,
+      },
     },
   },
 };
