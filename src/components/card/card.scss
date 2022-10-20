@@ -143,6 +143,15 @@
 /* Card modifiers
  * ====================== */
 
+// Card media will be inset like the rest of the content.
+.card--media-padded {
+  .media__inner {
+    margin-left: 0;
+    margin-top: 0;
+    margin-right: 0;
+  }
+}
+
 // Shared styles for both card media alignment options.
 .card--layout-left,
 .card--layout-right {
@@ -152,7 +161,6 @@
   }
 
   .media__inner {
-
     @include breakpoint(sm) {
       margin-bottom: 0;
       margin-left: 0;
@@ -199,38 +207,6 @@
       margin-left: 2rem;
     }
   }
-  &[class*=".card--media-padded"] {
-    .media__inner {
-      @include breakpoint(sm) {
-        margin-right: 0;
-        margin-bottom: 0;
-        margin-top: 0;
-      }
-    }
-  }
-}
-
-// Card media will be inset like the rest of the content.
-.card--media-padded {
-  .media__inner {
-    margin-left: 0;
-    margin-top: 0;
-    margin-right: 0;
-  }
-
-  @include breakpoint(sm) {
-    &.card--layout-left {
-      .media__inner {
-        margin-right: 2rem;
-      }
-    }
-
-    &.card--layout-right {
-      .media__inner {
-        margin-left: 2rem;
-      }
-    }
-  }
 }
 
 // Card content (not media) will be centered.
@@ -242,7 +218,7 @@
 .card.borderless {
 
   // When the card has no background, we remove padding and reset our .media margins.
-  &:not([class*="bg--"], .card--media-centered){
+  &:not([class*="bg--"]){
     padding: 0;
     .media__inner {
       margin-left: 0;
@@ -262,25 +238,6 @@
         @include breakpoint(sm) {
           margin-left: 2rem;
         }
-      }
-    }
-  }
-}
-
-// Remove media top margin if there's a background color.
-.card.card--media-padded[class*="bg--"] {
-  &.card--layout-left {
-    .media__inner {
-      @include breakpoint(sm) {
-        margin-top: 0;
-      }
-    }
-  }
-
-  &.card--layout-right {
-    .media__inner {
-      @include breakpoint(sm) {
-        margin-top: 0;
       }
     }
   }
