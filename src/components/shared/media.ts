@@ -11,6 +11,7 @@ const shapes = [
   'widescreen',
   'square',
   'circle',
+  'cover',
 ]
 
 const props = {
