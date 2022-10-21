@@ -103,7 +103,7 @@
     text-align: center;
     &.media--circle {
       display: block;
-      // @todo remove when container queries polfill is implemented.
+      // @todo remove when https://github.com/uiowa/uids/issues/805 is implemented.
       &.media--small {
         max-width: 150px;
       }
@@ -234,16 +234,19 @@
   }
 }
 
-.card--button-align-bottom .card__body {
-  @include breakpoint(sm) {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+.card--button-align-bottom {
+  .card__body {
+    @include breakpoint(sm) {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
+  footer {
+    @include breakpoint(sm) {
+      margin-top: auto;
+    }
+  }
+
 }
 
-.card--button-align-bottom footer {
-  @include breakpoint(sm) {
-    margin-top: auto;
-  }
-}
