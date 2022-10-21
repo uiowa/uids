@@ -2,9 +2,7 @@
 @import '../../assets/scss/utilities';
 @import '../../assets/scss/border';
 
-
-/* Base card styles
- * ====================== */
+// === Card === //
 .card {
   position: relative;
   display: flex;
@@ -91,40 +89,103 @@
   footer {
     margin-top: 2rem;
   }
+}
+// === End: Card === //
 
-  // Remove the outline from a card.
-  &.borderless {
+// === Elements === //
+// === Media === //
+.card {
+  // Overrides for shared media classes.
+  .media {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    text-align: center;
 
-    // When the card has no background, we remove padding and reset our .media margins.
-    &:not([class*="bg--"]){
-      padding: 0;
+    &.media--circle {
+      display: block;
 
-      .media__inner {
-        margin-left: 0;
-        margin-right: 0;
-        margin-top: 0;
+      // @todo remove when https://github.com/uiowa/uids/issues/805 is implemented.
+      &.media--small {
+        max-width: 150px;
       }
+    }
+  }
 
-      &.card--layout-left {
-        .media__inner {
-          @include breakpoint(sm) {
-            margin-right: 2rem;
-          }
+  // Allows the media to run edge to edge for stacked cards.
+  .media__inner {
+    margin-left: -2rem;
+    margin-right: -2rem;
+    margin-top: -2rem;
+    margin-bottom: 2rem;
+  }
+}
+// === End: Media === //
+
+// === Subtitle === //
+.card__subtitle {
+  opacity: .7;
+  font-family: $font-family-serif;
+  font-size: 1.3rem;
+  font-weight: $font-weight-medium;
+  line-height: 1.3;
+}
+// === End: Subtitle === //
+
+// === Details === //
+.card__details {
+  margin: -0.4rem 0 $sm;
+}
+// === End: Details === //
+
+// === Meta === //
+.card__meta {
+  font-family: $font-family-sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  font-weight: $font-weight-normal;
+  .fas {
+    margin-right: .3rem;
+  }
+}
+// === End: Meta === //
+// === End: Elements === //
+
+// === Modifiers === //
+// === Borderless === //
+// Remove the outline from a card.
+card.borderless {
+
+  // When the card has no background, we remove padding and reset our .media margins.
+  &:not([class*="bg--"]){
+    padding: 0;
+
+    .media__inner {
+      margin-left: 0;
+      margin-right: 0;
+      margin-top: 0;
+    }
+
+    &.card--layout-left {
+      .media__inner {
+        @include breakpoint(sm) {
+          margin-right: 2rem;
         }
       }
+    }
 
-      &.card--layout-right {
-        .media__inner {
-          @include breakpoint(sm) {
-            margin-left: 2rem;
-          }
+    &.card--layout-right {
+      .media__inner {
+        @include breakpoint(sm) {
+          margin-left: 2rem;
         }
       }
     }
   }
 }
+// === End: Borderless === //
 
-// Card content (not media) will be centered.
+// === Centered === //
 .card--centered {
   text-align: center;
 }
@@ -143,62 +204,9 @@
     }
   }
 }
+// === End: Centered === //
 
-
-/* Card elements
- * ====================== */
-
-.card {
-  .media {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 0;
-    text-align: center;
-
-    &.media--circle {
-      display: block;
-
-      // @todo remove when https://github.com/uiowa/uids/issues/805 is implemented.
-      &.media--small {
-        max-width: 150px;
-      }
-    }
-  }
-
-  .media__inner {
-    margin-left: -2rem;
-    margin-right: -2rem;
-    margin-top: -2rem;
-    margin-bottom: 2rem;
-  }
-}
-
-.card__subtitle {
-  opacity: .7;
-  font-family: $font-family-serif;
-  font-size: 1.3rem;
-  font-weight: $font-weight-medium;
-  line-height: 1.3;
-}
-
-.card__details {
-  margin: -0.4rem 0 $sm;
-}
-
-.card__meta {
-  font-family: $font-family-sans-serif;
-  font-size: 1.1rem;
-  line-height: 1.4;
-  font-weight: $font-weight-normal;
-  .fas {
-    margin-right: .3rem;
-  }
-}
-
-/* Card modifiers
- * ====================== */
-
-// Card media will be inset like the rest of the content.
+// === Media padded === //
 .card--media-padded {
   .media__inner {
     margin-left: 0;
@@ -206,16 +214,19 @@
     margin-right: 0;
   }
 }
+// === End: Media padded === //
 
-// Shared styles for both card media alignment options.
+// === Layout left and layout right shared === //
 .card--layout-left,
 .card--layout-right {
-  > * {
-    flex-basis: 100%;
-  }
+  @include breakpoint(sm) {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: unset;
+    width: 100%;
+    margin-bottom: 1.6rem;
 
-  .media__inner {
-    @include breakpoint(sm) {
+    .media__inner {
       margin-bottom: 0;
       margin-left: 0;
       margin-top: 0;
@@ -223,16 +234,13 @@
     }
   }
 
-  @include breakpoint(sm) {
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: unset;
-    width: 100%;
-    margin-bottom: 1.6rem;
+  > * {
+    flex-basis: 100%;
   }
 }
+// === End: Layout left and layout right shared === //
 
-// Align the card media left.
+// === Layout left === //
 .card--layout-left {
   @include breakpoint(sm) {
     flex-direction: row;
@@ -242,8 +250,9 @@
     }
   }
 }
+// === End: Layout left === //
 
-// Align the card media right.
+// === Layout right === //
 .card--layout-right {
   @include breakpoint(sm) {
     flex-direction: row-reverse;
@@ -253,3 +262,5 @@
     }
   }
 }
+// === End: Layout right === //
+/* === End: Card modifiers === */
