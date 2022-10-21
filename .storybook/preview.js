@@ -8,13 +8,14 @@ import '../src/assets/scss/lists.scss';
 import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
 
 const customViewports = {
-  horizontalCard: {
-    name: 'Horizontal card',
-    styles: {
-      width: '769px',
-      height: '260px',
-    },
-  },
+  // This is an example of a custom defined viewport.
+  // horizontalCard: {
+  //   name: 'Horizontal card',
+  //   styles: {
+  //     width: '780px',
+  //     height: '350px',
+  //   },
+  // },
 };
 
 export const parameters = {
