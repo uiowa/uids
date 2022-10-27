@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import UidsHeadline from '../headline/Headline.vue';
-import UidsButton from '../button/Button.vue';
-import { computed } from 'vue';
-import Background from "../shared/background";
+import { computed, useSlots } from 'vue'
+import { className } from '../utlity'
+import UidsHeadline from '../headline/Headline.vue'
+import UidsButton from '../button/Button.vue'
+import Background from '../shared/background'
+import '../background/background.scss'
 
 const name = 'uids-banner'
 
@@ -11,9 +13,6 @@ const props = defineProps({
   image: { type: String },
   url: { type: String },
   text: { type: String },
-  headline_settings: {
-    type: Object,
-  },
   button_text: {
     type: String,
   },
@@ -34,22 +33,25 @@ const props = defineProps({
   // title_classes?: string
   // button_link?: string
   // button_text?: string
-})
+});
 
 // Compose a string out of the classes passed to the component.
 const classes = computed(() => {
-  let classes = ["banner"];
+  let classes = ['banner'];
+
+  ['overlay_color', 'overlay_to', 'size', 'vertical_alignment', 'horizontal_alignment'].forEach((prop) => {
+    if (props[prop] === true) {
+      classes.push(`banner--${ className(prop) }`);
+    }
+  });
+
+  Background.addBackgroundClass(classes, props);
+
   if (props.url) {
     classes.push('click-container')
   }
-  // @todo Add classes.
-  Array.prototype.forEach.call(['overlay_color', 'overlay_to', 'size', 'vertical_alignment', 'horizontal_alignment'], setting => {
-      // @todo Check if the setting is set and then add a class for it.
-      classes.push('banner--' + props[setting])
-    }
-  );
-  Background.addBackgroundClass(classes, props);
-  return classes.join(" ");
+
+  return classes;
 })
 
 const getHeadlineSettings = computed(() => {
@@ -83,7 +85,7 @@ const getHeadlineSettings = computed(() => {
           <uids-headline
             v-if="title"
             :level="getHeadlineSettings.level"
-            :class="banner_title_classes"
+            :class="getHeadlineSettings.classes"
             :href="url"
           >{{ title }}</uids-headline>
         </slot>

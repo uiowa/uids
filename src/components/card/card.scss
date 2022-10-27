@@ -2,10 +2,8 @@
 @import '../../assets/scss/utilities';
 @import '../../assets/scss/border';
 
-/* Base card styles
- * ====================== */
+// === Card === //
 .card {
-  @include border;
   position: relative;
   display: flex;
   flex-direction: row;
@@ -14,19 +12,13 @@
   margin-bottom: 1.6rem;
   padding: 2rem;
   text-decoration: none;
-  //line-height: 1.7;
-
+  @include border;
   @include flexbox;
   @include flex($fg: 1, $fs: 1, $fb: 0%);
   @include flex-direction($value: column);
 
   @include breakpoint(sm) {
     margin-bottom: 0;
-  }
-
-  p + .btn,
-  p + .bttn {
-    margin-top: $md;
   }
 
   h2,
@@ -75,7 +67,7 @@
       }
     }
 
-    &.headline {
+    .headline {
       font-size: 1.5rem;
     }
 
@@ -95,38 +87,60 @@
   }
 
   footer {
-    margin-top: 2rem;
+    .bttn {
+      margin-top: 2rem;
+    }
   }
 }
-/* Card elements
- * ====================== */
-.card__media {
-  margin-left: -2rem;
-  margin-right: -2rem;
-  margin-top: -2rem;
-  margin-bottom: 2rem;
-  text-align: center;
-}
+// === End: Card === //
 
+// === Elements === //
+// === Media === //
+.card {
+  // Overrides for shared media classes.
+  .media {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    text-align: center;
+
+    &.media--circle {
+      display: block;
+
+      // @todo remove when https://github.com/uiowa/uids/issues/805 is implemented.
+      &.media--small {
+        max-width: 150px;
+      }
+    }
+  }
+
+  // Allows the media to run edge to edge for stacked cards.
+  .media__inner {
+    margin-left: -2rem;
+    margin-right: -2rem;
+    margin-top: -2rem;
+    margin-bottom: 2rem;
+  }
+}
+// === End: Media === //
+
+// === Subtitle === //
 .card__subtitle {
   opacity: .7;
   font-family: $font-family-serif;
   font-size: 1.3rem;
   font-weight: $font-weight-medium;
   line-height: 1.3;
-
-  & + .btn,
-  & + .bttn,
-  & + p {
-    margin-top: $sm;
-  }
 }
+// === End: Subtitle === //
 
+// === Details === //
 .card__details {
-  margin: 0 0 $sm;
+  margin: -0.4rem 0 $sm;
 }
+// === End: Details === //
 
-// @todo remove card__date class in 4.x branch.
+// === Meta === //
 .card__meta {
   font-family: $font-family-sans-serif;
   font-size: 1.1rem;
@@ -136,329 +150,125 @@
     margin-right: .3rem;
   }
 }
-// @todo remove card__label class in 4.x branch.
-.card__label {
-  font-family: "Zilla Slab", serif;
-  font-size: 1.2rem;
-  font-weight: 400;
-  padding-left: 20px;
-  line-height: 1.3;
-  margin-top: .125rem;
+// === End: Meta === //
+// === End: Elements === //
 
-  .fas,
-  .svg-inline--fa {
-    opacity: 0.6;
-    padding-right: $xsm;
-    font-size: 1rem;
-    line-height: 1.2;
-    position: absolute;
-    margin-left: -20px;
-  }
+// === Modifiers === //
+// === Borderless === //
+// Remove the outline from a card.
+.card.borderless {
 
-  .svg-inline--fa {
-    width: 17px;
-  }
-}
+  // When the card has no background, we remove padding and reset our .media margins.
+  &:not([class*="bg--"]){
+    padding: 0;
 
-/* Card modifiers
- * ====================== */
-// Shared styles for both card media alignment options.
-.card--media-left,
-.card--media-right {
-  header {
-    //@include breakpoint(sm) {
-    //  padding: 0;
-    //  margin: 0 0 $xsm;
-    //}
-  }
+    .media__inner {
+      margin-left: 0;
+      margin-right: 0;
+      margin-top: 0;
+    }
 
-  > * {
-    flex-basis: 100%;
-  }
+    &.card--layout-left {
+      .media__inner {
+        @include breakpoint(sm) {
+          margin-right: 2rem;
+        }
+      }
+    }
 
-  .card__media {
-    @include breakpoint(sm) {
-      margin-bottom: -2rem;
+    &.card--layout-right {
+      .media__inner {
+        @include breakpoint(sm) {
+          margin-left: 2rem;
+        }
+      }
     }
   }
+}
+// === End: Borderless === //
 
-  // Reduce padding for small circle crop next to card__body
-  //.media--circle.card__media--small {
-  //  +.card__body {
-  //    @include breakpoint(sm) {
-  //      // padding: 0 0 0 $gutter;
-  //    }
-  //  }
-  //}
+// === Centered === //
+.card--centered {
+  text-align: center;
+}
 
+.card--button-align-bottom {
+  &:not([class*="card--layout"]){
+    .card__body {
+      @include breakpoint(sm) {
+        flex: 1;
+      }
+    }
+  }
+  .card__body {
+    @include breakpoint(sm) {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  footer {
+    @include breakpoint(sm) {
+      margin-top: auto;
+    }
+  }
+}
+// === End: Centered === //
+
+// === Media padded === //
+.card--media-padded {
+  .media__inner {
+    margin-left: 0;
+    margin-top: 0;
+    margin-right: 0;
+  }
+}
+// === End: Media padded === //
+
+// === Layout left and layout right shared === //
+.card--layout-left,
+.card--layout-right {
   @include breakpoint(sm) {
     display: flex;
     flex-wrap: nowrap;
     flex-direction: unset;
     width: 100%;
     margin-bottom: 1.6rem;
+
+    .media__inner {
+      margin-bottom: 0;
+      margin-left: 0;
+      margin-top: 0;
+      margin-right: 0;
+    }
+  }
+
+  > * {
+    flex-basis: 100%;
   }
 }
+// === End: Layout left and layout right shared === //
 
-// Align the card media left.
-.card--media-left {
+// === Layout left === //
+.card--layout-left {
   @include breakpoint(sm) {
     flex-direction: row;
 
-    .card__media {
+    .media__inner {
       margin-right: 2rem;
     }
   }
 }
+// === End: Layout left === //
 
-// Align the card media right.
-.card--media-right {
+// === Layout right === //
+.card--layout-right {
   @include breakpoint(sm) {
     flex-direction: row-reverse;
 
-    .card__media {
+    .media__inner {
       margin-left: 2rem;
     }
   }
 }
-
-// Remove the outline from a card.
-.card.borderless {
-
-  // When the card has no background, we remove padding and reset our .card__media margins.
-  &:not([class*="bg--"]) {
-    padding: 0;
-    .card__media {
-      margin-left: 0;
-      margin-right: 0;
-      margin-top: 0;
-    }
-  }
-}
-
-// Card media will be inset like the rest of the content.
-.card--media-padded {
-  .card__media {
-    margin-left: 0;
-    margin-top: 0;
-    margin-right: 0;
-  }
-
-  @include breakpoint(sm) {
-    // When combined with media alignment, the .card__media bottom margin should be unset above the small breakpoint.
-    &.card--media-left,
-    &.card--media-right {
-      .card__media {
-        margin-bottom: 0;
-      }
-    }
-
-    &.card--media-left, {
-      .card__media {
-        margin-right: 2rem;
-      }
-    }
-
-    &.card--media-right, {
-      .card__media {
-        margin-left: 2rem;
-      }
-    }
-  }
-}
-
-// Card content (not media) will be centered.
-.card--centered {
-  text-align: center;
-}
-
-/* Card media styles
- * ====================== */
-
-//.card__media--large,
-//.card__media--medium,
-//.card__media--small {
-//  margin-left: auto;
-//  margin-right: auto;
-//  @include breakpoint(sm) {
-//    justify-content: center;
-//    margin: 0 auto;
-//  }
-//}
-//
-//.card__media--small {
-//  @include breakpoint(sm) {
-//    flex: 0 0 25%;
-//    width: 25%;
-//  }
-//
-//  &.media--circle {
-//    max-width: 150px;
-//  }
-//}
-//
-//.card__media--medium {
-//  @include breakpoint(sm) {
-//    flex: 0 0 37.5%;
-//    width: 37.5%;
-//  }
-//
-//  img {
-//    align-self: start;
-//  }
-//
-//  &.media--circle {
-//    width: 50%;
-//  }
-//}
-
-// Stacked modifications.
-//.card--stacked {
-//  .card__media--small {
-//    &.media--circle {
-//      flex: unset;
-//      width: 40%;
-//    }
-//  }
-//  .card__media--medium {
-//    &.media--circle {
-//      @include breakpoint(sm) {
-//        flex: unset;
-//        width: 60%;
-//      }
-//    }
-//  }
-//}
-
-// Left/right only
-//.card--media-left,
-//.card--media-right {
-//  .card__media--large {
-//    @include breakpoint(sm) {
-//      @include breakpoint(sm) {
-//        flex: 0 0 50%;
-//        width: 50%;
-//      }
-//    }
-//
-//    &.media--circle {
-//      @include breakpoint(sm) {
-//        flex: 0 0 37%;
-//        width: 37%;
-//      }
-//    }
-//  }
-//
-//  .card__media--medium {
-//    &.media--circle {
-//      @include breakpoint(sm) {
-//        flex: 0 0 25%;
-//        width: 25%;
-//      }
-//    }
-//  }
-//}
-
-/* Margin and padding adjustments for media--circle
- * ====================== */
-.card {
-  //&--media-left,
-  //&--media-right,
-  //&--stacked {
-  //  // Add padding if large circle stacked is outline or has bg color
-  //  .media--circle.card__media--large {
-  //    padding: 0 2rem;
-  //  }
-  //
-  //  &[class*="bg-"] {
-  //    .media--circle {
-  //      margin-top: 2rem;
-  //      @include breakpoint(sm) {
-  //        margin-top: 0;
-  //      }
-  //    }
-  //  }
-  //}
-  //// override the above rule to remove left/right padding at sm breakpoint
-  //&--media-left,
-  //&--media-right {
-  //  .media--circle.card__media--large {
-  //    @include breakpoint(sm) {
-  //      padding: 0;
-  //    }
-  //  }
-  //}
-  // override the above rule for stacked
-  //&--stacked {
-  //  &[class*="bg-"] {
-  //    .media--circle {
-  //      margin-top: 2rem;
-  //    }
-  //  }
-  //}
-
-  //&--outline {
-  //  &.card--media-left,
-  //  &.card--media-right,
-  //  &.card--stacked {
-  //    .media--circle {
-  //      margin-top: 2rem;
-  //    }
-  //  }
-  //  // remove top margin for left/right above sm breakpoint
-  //  &.card--media-left,
-  //  &.card--media-right {
-  //    .media--circle {
-  //      @include breakpoint(sm) {
-  //        margin-top: 0;
-  //      }
-  //    }
-  //  }
-  //}
-}
-
-/* Background color adjustments
- * ====================== */
-// set card outline borders to override defaults set in background.scss
-//.card.card--outline {
-//  &[class*="bg--white"],
-//  &[class*="bg--gray"],
-//  &[class*="bg--gold"] {
-//    [class*="bg-"] & {
-//      border: 1px solid rgba(0, 0, 0, 0.125);
-//    }
-//    border: 1px solid rgba(0, 0, 0, 0.125);
-//  }
-//  [class*="bg--white"] &,
-//  [class*="bg--gray"] &,
-//  [class*="bg--gold"] & {
-//    border: 1px solid rgba(0, 0, 0, 0.125);
-//  }
-//  [class*="bg--black"] & {
-//    border-color: rgba(255,255,255,.325);
-//  }
-//}
-
-// Border color adjustments
-//.card:not([class*="bg-"]) {
-//  border-color: rgba(0,0,0,.125);
-//}
-//
-//.card[class*="bg--black"] {
-//  .bttn--sans-serif {
-//    border-color: rgba(255,255,255,.425);
-//  }
-//}
-
-// set button border color for only the bg--white version
-//.card[class*="bg--white"] {
-//  [class*="bg-"] & {
-//    .bttn--outline {
-//      border-color: $primary;
-//    }
-//  }
-//
-//  .bttn--outline {
-//    border-color: $primary;
-//  }
-//}
+// === End: Layout right === //
+/* === End: Card modifiers === */

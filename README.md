@@ -18,40 +18,51 @@ The node-gyp package requires a C compiler. If you notice node-gyp errors after 
 ### Install dependencies
 
 ```sh
-npm ci
+yarn install
 ```
 
-### Start the local server
+```sh
+yarn install
+```
+
+### Start the local server OR start Storybook
 Compile and hot-reload for development.
 
 ```sh
-npm run dev
+yarn dev
 ```
+
+**OR**
+
+```sh
+yarn storybook
+```
+
 The command will output the server URL to visit in your browser, ex. http://localhost:3000.
 
 ### Type-Check, Compile and Minify for Production
 
 ```sh
-npm run build
+yarn build
 ```
 
 ### Run Unit Tests with [Vitest](https://vitest.dev/)
 
 ```sh
-npm run test:unit
+yarn test:unit
 ```
 
 ### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
 
 ```sh
-npm run build
-npm run test:e2e # or `npm run test:e2e:ci` for headless testing
+yarn build
+yarn test:e2e # or `npm run test:e2e:ci` for headless testing
 ```
 
 ### Lint with [ESLint](https://eslint.org/)
 
 ```sh
-npm run lint
+yarn lint
 ```
 
 ## Contributing
@@ -62,24 +73,24 @@ While we have not done a perfect job of applying any of these standards, we reco
 ### Creating a PR
 When your feature branch is ready for testing or after you have made any requested changes, you need to run the following command to make sure that the distribution files get updated:
 ```bash
-npm run dist
+yarn dist
 ```
 
 ### Creating a Release
 The following is an example of the workflow and not meant to be copied and pasted verbatim. Please review the summary at https://semver.org/ to understand which type of release you should be creating. The version numbers you will use when you are actually going through this process will depend on the current version number and what type of release you are creating.
 
 To see the full options for the command, run `npm version --help`.
-1. `git checkout 3.x` - Make sure you are on the `3.x` branch.
+1. `git checkout 4.x` - Make sure you are on the `4.x` branch.
 2. `git pull` - Make sure you have the most recent updates.
-4. `npm version patch -m "https://github.com/uiowa/uids/compare/v3.1.0...v3.1.1"`
-5. `git push`
-6. `git push --tags`
-7. Go to https://github.com/uiowa/uids/releases/new.
-8. Enter the "Tag version" using the version _with_ the `v` at the front (e.g. "v3.1.1").
-9. Enter the "Release title" using the version _without_ the `v` at the front (e.g. "3.1.1").
-10. Paste in the compare link into the description area: `https://github.com/uiowa/uids/compare/v3.1.0...v3.1.1`
-11. Click the "Publish release" button.
-12. Profit!
+3. `npm version patch -m "https://github.com/uiowa/uids/compare/v3.1.0...v3.1.1"`
+4. `git push`
+5. `git push --tags`
+6. Go to https://github.com/uiowa/uids/releases/new.
+7. Enter the "Tag version" using the version _with_ the `v` at the front (e.g. "v3.1.1").
+8. Enter the "Release title" using the version _without_ the `v` at the front (e.g. "3.1.1").
+9. Paste in the compare link into the description area: `https://github.com/uiowa/uids/compare/v3.1.0...v3.1.1`
+10. Click the "Publish release" button.
+11. Profit!
 
 ### Components
 Learn about Fractal components here: https://fractal.build/guide/components/#what-defines-a-component. Note that this project uses Twig (`.twig`) instead of Handlebars (`.hbs`).
