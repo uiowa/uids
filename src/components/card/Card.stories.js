@@ -49,6 +49,9 @@ export default {
     },
     button_align_bottom: {
       name: 'Align button to bottom',
+      table: {
+        category: 'Display options',
+      },
     },
     ...Background.argTypes,
     // Modifiers
