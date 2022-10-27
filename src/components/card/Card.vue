@@ -213,12 +213,12 @@ const detailsElement = computed(() => {
       </div>
       <!-- @slot The body content of the card. -->
       <slot>Body</slot>
-      <footer v-if="url && (link_indicator || link_text)">
-        <uids-button :class="buttonClasses" :url="url" size="medium" v-if="linkedElement === 'button'">
-          {{ link_text }}
-        </uids-button>
-        <uids-pseudo-button :class="buttonClasses" v-else>{{ link_text }}</uids-pseudo-button>
-      </footer>
     </div>
+    <footer v-if="url && (link_indicator || link_text)">
+      <uids-button :class="buttonClasses" :url="url" size="medium" v-if="linkedElement === 'button'">
+        {{ link_text }}
+      </uids-button>
+      <uids-pseudo-button :class="buttonClasses" v-else>{{ link_text }}</uids-pseudo-button>
+    </footer>
   </div>
 </template>
