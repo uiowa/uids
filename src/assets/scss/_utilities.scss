@@ -311,7 +311,6 @@
 // Buttons
 
 @mixin bttn {
-  @include text-crop;
   border: none;
   display: inline-block;
   align-items: center;
@@ -323,7 +322,6 @@
   text-transform: uppercase;
   line-height: 1.4;
   font-size: 1.25rem;
-  //padding: 1rem 2rem 1rem;
   padding: 1rem 2rem 1.2rem;
   -webkit-font-smoothing: auto;
   -moz-osx-font-smoothing: auto;
@@ -548,37 +546,4 @@
         @warn '#{ $mode } is undefined keyword.';
         @return $number;
     }
-}
-
-// Mixin generated at: http://text-crop.eightshapes.com.
-// @todo Replace with https://www.w3.org/TR/css-inline-3/#leading-trim when available.
-@mixin text-crop($line-height: 1.3, $top-adjustment: 0px, $bottom-adjustment: 0px) {
-  // Configured in Step 1
-  $top-crop: 4;
-  $bottom-crop: 7;
-  $crop-font-size: 36;
-  $crop-line-height: 1.2;
-
-  // Apply values to calculate em-based margins that work with any font size
-  $dynamic-top-crop: max(($top-crop + ($line-height - $crop-line-height) * ($crop-font-size / 2)), 0) / $crop-font-size;
-  $dynamic-bottom-crop: max(($bottom-crop + ($line-height - $crop-line-height) * ($crop-font-size / 2)), 0) / $crop-font-size;
-
-  // Mixin output
-  line-height: $line-height;
-
-  &::before,
-  &::after {
-    content: '';
-    display: block;
-    height: 0;
-    width: 0;
-  }
-
-  &::before {
-    margin-bottom: calc(-#{$dynamic-top-crop}em + #{$top-adjustment});
-  }
-
-  &::after {
-    margin-top: calc(-#{$dynamic-bottom-crop}em + #{$bottom-adjustment});
-  }
 }
