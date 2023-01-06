@@ -16,7 +16,7 @@ export default create({
   appBorderRadius: 0,
 
   // Typography
-  fontBase: '"Zilla Slab", serif',
+  fontBase: '"Roboto", sans-serif',
   fontCode: 'monospace',
 
   // Text colors

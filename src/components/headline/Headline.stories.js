@@ -9,41 +9,39 @@ export default {
   argTypes: {
     default: {
       control: { type: 'text' },
-      table: { defaultValue: 'Start your story here' },
     },
     level: {
       control: { type: 'select' },
       options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-      table: { defaultValue: 'h2' },
     },
     highlight: {
       control: { type: 'boolean' },
-      table: { defaultValue: false },
     },
-    uppercase: {
-      control: { type: 'boolean' },
-      table: { defaultValue: false },
+    text_style: {
+      type: Boolean,
+      default: false,
+      options: ['', 'uppercase', 'serif'],
+      control: {
+        type: 'select',
+        labels: {
+          '': 'default',
+          'uppercase': 'Uppercase',
+          'serif': 'Serif',
+        },
+      },
     },
     underline: {
       control: { type: 'boolean' },
-      table: { defaultValue: false },
     },
     url: {
       control: { type: 'text' },
-      table: { defaultValue: '' },
     },
     aria_describedby: {
       control: { type: 'text' },
-      table: { defaultValue: '' },
     },
     class: {
       control: { type: 'text' },
-      table: { defaultValue: '' },
     },
-  },
-  args: {
-    level: 'h2',
-    default: 'Start your story here',
   },
 };
 
@@ -67,15 +65,26 @@ const Template = (args) => ({
 export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
 Default.args = {
-  uppercase: false,
+  text_style: '',
   underline: false,
   highlight: false,
+  level: 'h2',
+  default: 'Start your story here',
+  url: '',
+  aria_describedby: '',
+  class: '',
 };
 
 export const Uppercase = Template.bind({});
 Uppercase.args = {
   ...Default.args,
-  uppercase: true,
+  text_style: 'uppercase',
+};
+
+export const Serif = Template.bind({});
+Serif.args = {
+  ...Default.args,
+  text_style: 'serif',
 };
 
 export const Underline = Template.bind({});
