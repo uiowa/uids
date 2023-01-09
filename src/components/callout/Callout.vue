@@ -19,6 +19,13 @@ const props = defineProps({
       return ['small', 'medium', 'large'].indexOf(value) !== -1;
     },
   },
+  alignment: {
+    type: String,
+    default: 'right',
+    validator: function (value) {
+      return ['left', 'right', 'center'].indexOf(value) !== -1;
+    },
+  },
   ...Background.props,
 });
 
@@ -27,6 +34,10 @@ const classes = computed(() => {
   Background.addBackgroundClass(classes, props);
   if (props.size) {
     classes.push(`callout--${ className(props.size)}`);
+  }
+
+  if (props.alignment) {
+    classes.push(`callout--${ className(props.alignment)}`);
   }
 
   return classes;

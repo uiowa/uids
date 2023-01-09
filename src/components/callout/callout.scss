@@ -3,16 +3,59 @@
 @import '../../assets/scss/border';
 
 :root {
-
+  --callout-spacing-lg: var(--space-lg-width-gutter);
+  --callout-spacing-sm: var(--space-sm-width-gutter);
 }
 
 // === Callout === //
-
 .callout {
-
+  padding: var(--callout-spacing-sm);
+  @include breakpoint(sm) {
+    padding: var(--callout-spacing-lg);
+  }
 }
 
+// === Modifiers === //
+// === Callout sizes === //
+.callout--small {
+  @include breakpoint(sm) {
+    flex: 0 0 25%;
+    width: 25%;
+  }
+}
 
-// === Comment start === //
+.callout--medium {
+  @include breakpoint(sm) {
+    flex: 0 0 37.5%;
+    width: 37.5%;
+  }
+}
 
-// === End: Comment start === //
+.callout--large {
+  @include breakpoint(sm) {
+    flex: 0 0 50%;
+    width: 50%;
+  }
+}
+// === End: Callout sizes === //
+
+// === Callout alignment === //
+.callout--left {
+  @include breakpoint(sm) {
+    float: left;
+  }
+}
+
+.callout--center {
+  @include breakpoint(sm) {
+    margin: 0 auto;
+  }
+}
+
+.callout--right {
+  @include breakpoint(sm) {
+    float: right;
+  }
+}
+// === End: Callout alignment === //
+// === End: Callout === //
