@@ -1,0 +1,47 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/utilities';
+
+// === Inline media sizes === //
+
+.element--small {
+  @include breakpoint(sm) {
+    width: 35%;
+  }
+}
+
+.element--medium {
+  @include breakpoint(sm) {
+    width: 45%;
+  }
+}
+
+.element--large {
+  @include breakpoint(sm) {
+    width: 55%;
+  }
+}
+
+// Set container query max-width sizes for images.
+@supports (contain: element-size) {
+  @container column (min-width: 555px) and (max-width: 755px) {
+    .element--small {
+      width: 45%;
+    }
+    .element--medium {
+      width: 55%;
+    }
+    .element--large {
+      width: 65%;
+    }
+  }
+  @container column (max-width: 555px) {
+    .element--small,
+    .element--medium,
+    .element--large {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+// === End: element media sizes === //
