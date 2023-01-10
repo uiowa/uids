@@ -5,7 +5,9 @@ import { className } from '../utlity'
 import '../background/background.scss'
 import Background from "../shared/background";
 import '../background/background.scss'
-
+import Media from '../shared/media'
+import '../media/media.scss'
+import '../size/size.scss'
 
 const name = 'uids-callout'
 const props = defineProps({
@@ -27,13 +29,14 @@ const props = defineProps({
     },
   },
   ...Background.props,
+  ...Media.props,
 });
 
 const classes = computed(() => {
   let classes = ['callout'];
   Background.addBackgroundClass(classes, props);
   if (props.size) {
-    classes.push(`callout--${ className(props.size)}`);
+    classes.push(`element--${ className(props.size)}`);
   }
 
   if (props.alignment) {
