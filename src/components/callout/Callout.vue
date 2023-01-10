@@ -4,9 +4,6 @@ import { computed, useSlots } from 'vue'
 import { className } from '../utlity'
 import '../background/background.scss'
 import Background from "../shared/background";
-import '../background/background.scss'
-import Media from '../shared/media'
-import '../media/media.scss'
 import '../size/size.scss'
 
 const name = 'uids-callout'

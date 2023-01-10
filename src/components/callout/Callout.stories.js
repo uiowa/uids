@@ -1,7 +1,6 @@
 import UidsCallout from './Callout.vue'
 import Background from '../shared/background'
 import UidsGrid from '../grid/Grid.vue'
-import Media from '../shared/media'
 
 export default {
   title: 'Components/Callout',
@@ -25,7 +24,6 @@ export default {
       control: { type: 'text' },
     },
     ...Background.argTypes,
-    media_size: Media.argTypes.media_size,
   },
 };
 
