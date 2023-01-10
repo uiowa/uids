@@ -11,50 +11,81 @@
 .callout {
   padding: var(--callout-spacing-sm);
   @include breakpoint(sm) {
-    padding: var(--callout-spacing-lg);
+    &[class*="bg-"] {
+      padding: var(--callout-spacing-lg);
+    }
   }
 }
 
 // === Modifiers === //
 // === Callout sizes === //
+
 .callout--small {
   @include breakpoint(sm) {
-    flex: 0 0 25%;
-    width: 25%;
+    width: 35%;
   }
 }
 
 .callout--medium {
   @include breakpoint(sm) {
-    flex: 0 0 37.5%;
-    width: 37.5%;
+    width: 45%;
   }
 }
 
 .callout--large {
   @include breakpoint(sm) {
-    flex: 0 0 50%;
-    width: 50%;
+    width: 55%;
   }
 }
+
+// Declare which containers to query.
+@supports (contain: inline-size) {
+  .layout__region {
+    container-type: inline-size;
+  }
+}
+
+// Set container query max-width sizes for images.
+@supports (contain: inline-size) {
+  @container (min-width: 600px) and (max-width: 855px) {
+    .callout--small,
+    .callout--medium,
+    .callout--large {
+      width: 70%;
+      height: auto;
+    }
+  }
+}
+
 // === End: Callout sizes === //
 
 // === Callout alignment === //
 .callout--left {
   @include breakpoint(sm) {
     float: left;
+    margin-block: var(--callout-spacing-sm);
+    &[class*="bg-"] {
+      margin-inline-end: var(--callout-spacing-lg);
+    }
   }
 }
 
 .callout--center {
   @include breakpoint(sm) {
     margin: 0 auto;
+    &[class*="bg-"] {
+      margin-block: var(--callout-spacing-sm);
+    }
   }
 }
 
 .callout--right {
   @include breakpoint(sm) {
     float: right;
+    margin-block: var(--callout-spacing-sm);
+    &[class*="bg-"] {
+      margin-inline-start: var(--callout-spacing-lg);
+    }
   }
 }
 // === End: Callout alignment === //

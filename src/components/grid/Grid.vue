@@ -4,9 +4,15 @@ import './grid.scss'
 <template>
   <div class="grid--threecol--33-34-33">
     <div class="list-container">
-      <slot name="column_1"></slot>
-      <slot name="column_2"></slot>
-      <slot name="column_3"></slot>
+      <div>
+        <slot name="column_1"></slot>
+      </div>
+      <div>
+        <slot name="column_2"></slot>
+      </div>
+      <div>
+        <slot name="column_3"></slot>
+      </div>
     </div>
   </div>
 </template>
