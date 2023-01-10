@@ -22,8 +22,9 @@ jobs:
     # Otherwise, clone it normally.
     if: |
       ((github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') ||
-      (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')) &&
-      github.ref != format('refs/heads/{0}', env.MAIN_BRANCH)
+      (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]'))
+#      &&
+#      github.ref != format('refs/heads/{0}', env.MAIN_BRANCH)
     env:
       TARGET_BRANCH: gh-pages
       MAIN_BRANCH: 3.x
@@ -87,7 +88,7 @@ jobs:
           path: gh-pages
 
       # Debugging messages.
-#      - run: echo "${{ github.ref }}"
+      - run: echo "${{ github.ref }}"
 #      - run: echo "${{ toJson(github) }}"
 #      - run: echo "${{ env.MAIN_BRANCH }}"
 #      - run: echo "Main check - ${{ github.ref == format('refs/heads/{0}', env.MAIN_BRANCH) }}"
