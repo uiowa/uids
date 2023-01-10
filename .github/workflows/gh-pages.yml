@@ -22,7 +22,8 @@ jobs:
     # Otherwise, clone it normally.
     if: |
       (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') ||
-      (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
+      (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]') ||
+      !(github.event_name == 'push' && github.ref == format('refs/heads/{0}', env.MAIN_BRANCH))
     env:
       TARGET_BRANCH: gh-pages
       MAIN_BRANCH: 3.x
