@@ -1,12 +1,30 @@
-<script setup lang="ts">
-import './grid.scss'
-</script>
 <template>
-  <div class="grid--threecol--33-34-33">
+  <div :class="classes">
     <div class="list-container">
-      <slot name="column_1"></slot>
-      <slot name="column_2"></slot>
-      <slot name="column_3"></slot>
+      <slot></slot>
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import './grid.scss'
+import { computed } from 'vue';
+
+const props = defineProps({
+  /**
+   * The type of grid to display.
+   */
+  type: {
+    type: String,
+    default: 'threecol--33-34-33',
+  },
+})
+
+const classes = computed(() => {
+  let classes = [];
+
+  classes.push(`grid--${ props.type }`);
+
+  return classes;
+});
+</script>
