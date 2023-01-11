@@ -1,4 +1,6 @@
 import UidsCard from './Card.vue'
+import UidsGrid from '../grid/Grid.vue'
+import UidsGridItem from '../grid/GridItem.vue'
 import card_image from '../../assets/images/viewbook/sections/122.jpg'
 import person_image from '../../assets/images/viewbook/sections/herky2.jpeg'
 import Background from '../shared/background'
@@ -276,4 +278,48 @@ export const ButtonAlignedToBottom = Template.bind({})
 ButtonAlignedToBottom.args = {
   ...Default.args,
   button_align_bottom: true,
+}
+
+const GridTemplate = (args) => ({
+  // Components used in your story `template` are defined in the `components` object
+  components: { UidsGrid, UidsGridItem, UidsCard },
+  // The story's `args` need to be mapped into the template through the `setup()` method
+  setup() {
+    return { args }
+  },
+  // And then the `args` are bound to your component with `v-bind="args"`
+  template: `
+    <uids-grid :type="args.type">
+      <uids-grid-item v-for="item in args.records" :key="item">
+        <uids-card
+          :url="args.url"
+          :link_text="args.link_text"
+          :link_indicator="args.link_indicator"
+          :button_align_bottom="args.button_align_bottom"
+          :headline_style="args.headline_style"
+          :borderless="args.borderless"
+          :background="args.background"
+          :orientation="args.orientation"
+          :media_size="args.media_size"
+          :media_shape="args.media_shape"
+          :media_border="args.media_border"
+          :media_padded="args.media_padded"
+          :centered="args.centered"
+        >
+          <template #media v-if="args.media"><span v-html="args.media" ></span></template>
+          <template #title v-if="args.title"><div v-html="args.title" ></div></template>
+          <template #subtitle v-if="args.subtitle"><div v-html="args.subtitle" ></div></template>
+          <template #meta v-if="args.meta"><div v-html="args.meta" ></div></template>
+          <template #default><div v-html="args.default"></div></template>
+        </uids-card>
+      </uids-grid-item>
+    </uids-grid>
+  `,
+})
+
+export const Grid3Columns = GridTemplate.bind({})
+Grid3Columns.args = {
+  ...Default.args,
+  type: 'threecol--33-34-33',
+  records: 3,
 }
