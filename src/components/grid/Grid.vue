@@ -1,27 +1,36 @@
-<script setup lang="ts">
-import './grid.scss'
-</script>
 <template>
-  <div class="grid--threecol--33-34-33">
+  <div :class="classes">
     <div class="list-container">
-      <div
-        v-if="$slots.column_1"
-        class="grid__column"
-      >
-        <slot name="column_1"></slot>
-      </div>
-      <div
-        v-if="$slots.column_2"
-        class="grid__column"
-      >
-        <slot name="column_2"></slot>
-      </div>
-      <div
-        v-if="$slots.column_3"
-        class="grid__column"
-      >
-        <slot name="column_3"></slot>
-      </div>
+      <slot></slot>
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import './grid.scss'
+import { computed } from 'vue';
+import { className } from '@/components/utlity';
+
+const props = defineProps({
+  /**
+   * Title style for the headline.
+   */
+  columns: {
+    type: Array,
+    default: () => [],
+  },
+
+  type: {
+    type: String,
+    default: 'threecol--33-34-33',
+  },
+})
+
+const classes = computed(() => {
+  let classes = [];
+
+  classes.push(`grid--${ props.type }`);
+
+  return classes;
+});
+</script>
