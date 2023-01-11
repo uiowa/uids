@@ -9,17 +9,11 @@
 <script setup lang="ts">
 import './grid.scss'
 import { computed } from 'vue';
-import { className } from '@/components/utlity';
 
 const props = defineProps({
   /**
-   * Title style for the headline.
+   * The type of grid to display.
    */
-  columns: {
-    type: Array,
-    default: () => [],
-  },
-
   type: {
     type: String,
     default: 'threecol--33-34-33',
