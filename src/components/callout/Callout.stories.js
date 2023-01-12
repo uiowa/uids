@@ -91,3 +91,16 @@ Grid3Columns.args = {
   records: 3,
 }
 
+export const Grid2Columns = GridTemplate.bind({})
+Grid2Columns.args = {
+  ...Default.args,
+  type: 'grid--twocol--50-50',
+  records: 2,
+}
+
+export const Grid1Columns = GridTemplate.bind({})
+Grid1Columns.args = {
+  ...Default.args,
+  type: 'onecol',
+  records: 1,
+}
