@@ -60,7 +60,7 @@ Default.args = {
 
 const GridTemplate = (args) => ({
   // Components used in your story `template` are defined in the `components` object
-  components: { UidsGrid, UidsGridItem, UidsCard },
+  components: { UidsGrid, UidsGridItem, UidsCallout },
   // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
     return { args }
@@ -79,7 +79,6 @@ const GridTemplate = (args) => ({
           <template #details v-if="args.details"><div v-html="args.details" ></div></template>
         </uids-callout>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
       </uids-grid-item>
     </uids-grid>
   `,

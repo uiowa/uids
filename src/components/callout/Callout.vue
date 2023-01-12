@@ -5,6 +5,7 @@ import { className } from '../utlity'
 import '../background/background.scss'
 import Background from "../shared/background";
 import '../size/size.scss'
+import Media from '../shared/media'
 
 const name = 'uids-callout'
 const props = defineProps({
