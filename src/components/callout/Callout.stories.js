@@ -52,7 +52,7 @@ const Template = (args) => ({
 export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
 Default.args = {
-  details: '<h2 class="headline block__headline headline headline--serif headline--underline block__headline headline--center"> <span class="headline__heading"> Resources </span> </h2> <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce feugiat ante non efficitur laoreet. Suspendisse laoreet cursus dui, eget vehicula massa.</p>',
+  details: '<h4 class="headline block__headline headline headline--serif headline--underline block__headline headline--center"> <span class="headline__heading"> Resources </span> </h4> <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce feugiat ante non efficitur laoreet. Suspendisse laoreet cursus dui, eget vehicula massa.</p>',
   size: 'medium',
   background: 'gray',
   alignment: 'right',
@@ -79,6 +79,7 @@ const GridTemplate = (args) => ({
           <template #details v-if="args.details"><div v-html="args.details" ></div></template>
         </uids-callout>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
       </uids-grid-item>
     </uids-grid>
   `,
@@ -94,7 +95,7 @@ Grid3Columns.args = {
 export const Grid2Columns = GridTemplate.bind({})
 Grid2Columns.args = {
   ...Default.args,
-  type: 'grid--twocol--50-50',
+  type: 'twocol--50-50',
   records: 2,
 }
 
@@ -102,5 +103,12 @@ export const Grid1Columns = GridTemplate.bind({})
 Grid1Columns.args = {
   ...Default.args,
   type: 'onecol',
+  records: 1,
+}
+
+export const Grid1NarrowColumn = GridTemplate.bind({})
+Grid1NarrowColumn.args = {
+  ...Default.args,
+  type: 'onecol--narrow',
   records: 1,
 }
