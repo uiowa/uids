@@ -109,6 +109,6 @@ Grid1Columns.args = {
 export const Grid1NarrowColumn = GridTemplate.bind({})
 Grid1NarrowColumn.args = {
   ...Default.args,
-  type: 'onecol--narrow',
+  type: 'onecol__narrow',
   records: 1,
 }
