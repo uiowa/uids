@@ -1,23 +1,76 @@
 @import '../../assets/scss/variables';
 @import '../../assets/scss/utilities';
 
-// === Inline media sizes === //
+:root {
+  --element-spacing-lg: var(--space-lg-width-gutter);
+  --element-spacing-sm: var(--space-sm-width-gutter);
+}
 
-.element--small {
+// === Element alignment classes  === //
+.element--alignment-left {
+  @include breakpoint(sm) {
+    float: left;
+    margin-block: var(--element-spacing-sm);
+    margin-inline-end: var(--element-spacing-sm);
+    &[class*="bg-"] {
+      margin-inline-end: var(--element-spacing-lg);
+    }
+  }
+}
+
+.element--alignment-center {
+  @include breakpoint(sm) {
+    margin: 0 auto;
+    &[class*="bg-"] {
+      margin-block: var(--element-spacing-sm);
+    }
+  }
+}
+
+.element--alignment-right {
+  @include breakpoint(sm) {
+    float: right;
+    margin-block: var(--element-spacing-sm);
+    margin-inline-start: var(--element-spacing-sm);
+    &[class*="bg-"] {
+      margin-inline-start: var(--element-spacing-lg);
+    }
+  }
+}
+
+// Set container query max-width sizes for images.
+@supports (contain: inline-size) {
+  @container column (min-width: 455px) and (max-width: 755px) {
+    .element--alignment-right {
+      float: right;
+      margin-block: var(--element-spacing-sm);
+      margin-inline-start: var(--element-spacing-sm);
+    }
+    .element--alignment-left {
+      float: left;
+      margin-block: var(--element-spacing-sm);
+      margin-inline-end: var(--element-spacing-sm);
+    }
+  }
+}
+// === End: element alignment classes === //
+
+// === Element media sizes === //
+.element--size-small {
   width: 100%;
   @include breakpoint(sm) {
     width: 35%;
   }
 }
 
-.element--medium {
+.element--size-medium {
   width: 100%;
   @include breakpoint(sm) {
     width: 45%;
   }
 }
 
-.element--large {
+.element--size-large {
   width: 100%;
   @include breakpoint(sm) {
     width: 55%;
@@ -26,25 +79,24 @@
 
 // Set container query max-width sizes for images.
 @supports (contain: inline-size) {
-  @container column (min-width: 455px) and (max-width: 755px) {
-    .element--small {
+  @container column (min-width: 400px) and (max-width: 755px) {
+    .element--size-small {
       width: 50%;
     }
-    .element--medium {
+    .element--size-medium {
       width: 60%;
     }
-    .element--large {
+    .element--size-large {
       width: 100%;
     }
   }
-  @container column (max-width: 455px) {
-    .element--small,
-    .element--medium,
-    .element--large {
+  @container column (max-width: 400px) {
+    .element--size-small,
+    .element--size-medium,
+    .element--size-large {
       width: 100%;
       height: auto;
     }
   }
 }
-
 // === End: element media sizes === //
