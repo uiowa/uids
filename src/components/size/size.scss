@@ -12,6 +12,7 @@
     float: left;
     margin-block: var(--element-spacing-sm);
     margin-inline-end: var(--element-spacing-sm);
+
     &[class*="bg-"] {
       margin-inline-end: var(--element-spacing-lg);
     }
@@ -21,6 +22,7 @@
 .element--alignment-center {
   @include breakpoint(sm) {
     margin: 0 auto;
+
     &[class*="bg-"] {
       margin-block: var(--element-spacing-sm);
     }
@@ -32,6 +34,7 @@
     float: right;
     margin-block: var(--element-spacing-sm);
     margin-inline-start: var(--element-spacing-sm);
+
     &[class*="bg-"] {
       margin-inline-start: var(--element-spacing-lg);
     }
@@ -40,12 +43,13 @@
 
 // Set container query max-width sizes for images.
 @supports (contain: inline-size) {
-  @container column (min-width: 455px) and (max-width: 755px) {
+  @container column (min-width: #{$b-xxsm}) and (max-width: #{$b-sm}) {
     .element--alignment-right {
       float: right;
       margin-block: var(--element-spacing-sm);
       margin-inline-start: var(--element-spacing-sm);
     }
+
     .element--alignment-left {
       float: left;
       margin-block: var(--element-spacing-sm);
@@ -56,22 +60,23 @@
 // === End: element alignment classes === //
 
 // === Element media sizes === //
-.element--size-small {
+*[class*="element--size-"] {
   width: 100%;
+}
+
+.element--size-small {
   @include breakpoint(sm) {
     width: 35%;
   }
 }
 
 .element--size-medium {
-  width: 100%;
   @include breakpoint(sm) {
     width: 45%;
   }
 }
 
 .element--size-large {
-  width: 100%;
   @include breakpoint(sm) {
     width: 55%;
   }
@@ -79,23 +84,37 @@
 
 // Set container query max-width sizes for images.
 @supports (contain: inline-size) {
-  @container column (min-width: 400px) and (max-width: 755px) {
+  @container column (min-width: 0px) and (max-width: calc(#{$b-sm} - 1px)) {
+    *[class*="element--size-"] {
+      width: 100%;
+    }
+  }
+
+  @container column (min-width: #{$b-xxsm}) and (max-width: #{$b-xsm}) {
     .element--size-small {
-      width: 50%;
+      width: 55%;
     }
+
     .element--size-medium {
-      width: 60%;
+      width: 100%;
     }
+
     .element--size-large {
       width: 100%;
     }
   }
-  @container column (max-width: 400px) {
-    .element--size-small,
-    .element--size-medium,
+
+  @container column (min-width: #{$b-xsm}) and (max-width: #{$b-sm}) {
+    .element--size-small {
+      width: 50%;
+    }
+
+    .element--size-medium {
+      width: 60%;
+    }
+
     .element--size-large {
       width: 100%;
-      height: auto;
     }
   }
 }

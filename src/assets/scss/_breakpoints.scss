@@ -1,49 +1,50 @@
-// Media Queries ///////////////
+@import '../../assets/scss/variables';
 
+// Media Queries ///////////////
 @mixin breakpoint($class) {
   @if $class==xs {
-    @media (max-width: 767px) {
+    @media (max-width: calc(#{b-$sm} - 1px)) {
       @content;
     }
   }
 
   @if $class==xsm {
-    @media (min-width: 600px) {
+    @media (min-width: $b-xsm) {
       @content;
     }
   }
 
   @else if $class==sm {
-    @media (min-width: 768px) {
+    @media (min-width: $b-sm) {
       @content;
     }
   }
 
   @else if $class==md {
-    @media (min-width: 855px) {
+    @media (min-width: $b-md) {
       @content;
     }
   }
 
   @else if $class==lg {
-    @media (min-width: 1200px) {
+    @media (min-width: $b-lg) {
       @content;
     }
   }
 
   @else if $class==page-container {
-    @media (min-width: 84.375em) {
+    @media (min-width: $b-page-container) {
       @content;
     }
   }
 
   @else if $class==xlg {
-    @media (min-width: 106em) {
+    @media (min-width: $b-xlg) {
       @content;
     }
   }
 
   @else {
-    @warn "Breakpoint mixin supports: xs, xsm, sm, menu, md, lg, page-container, xlg";
+    @warn "Breakpoint mixin supports: xs, xsm, sm, md, lg, page-container, xlg";
   }
 }
