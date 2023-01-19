@@ -6,23 +6,11 @@ import '../background/background.scss'
 import Background from "../shared/background";
 import '../size/size.scss'
 import Media from '../shared/media'
+import Inline from '../shared/inline'
 
 const name = 'uids-callout'
 const props = defineProps({
-  size: {
-    type: String,
-    default: 'medium',
-    validator: function (value) {
-      return ['small', 'medium', 'large'].indexOf(value) !== -1;
-    },
-  },
-  alignment: {
-    type: String,
-    default: 'right',
-    validator: function (value) {
-      return ['', 'left', 'right', 'center'].indexOf(value) !== -1;
-    },
-  },
+  // ...Inline.props,
   ...Background.props,
   ...Media.props,
 });
@@ -30,17 +18,10 @@ const props = defineProps({
 const classes = computed(() => {
   let classes = ['callout'];
   Background.addBackgroundClass(classes, props);
-  if (props.size) {
-    classes.push(`element--size-${className(props.size)}`);
-  }
-
-  if (props.alignment) {
-    classes.push(`element--alignment-${className(props.alignment)}`);
-  }
+  // Inline.addClass(classes, props);
 
   return classes;
 });
-
 </script>
 
 <template>
