@@ -31,11 +31,11 @@ const classes = computed(() => {
   let classes = ['callout'];
   Background.addBackgroundClass(classes, props);
   if (props.size) {
-    classes.push(`element--size-${ className(props.size)}`);
+    classes.push(`element--size-${className(props.size)}`);
   }
 
   if (props.alignment) {
-    classes.push(`element--alignment-${ className(props.alignment)}`);
+    classes.push(`element--alignment-${className(props.alignment)}`);
   }
 
   return classes;
