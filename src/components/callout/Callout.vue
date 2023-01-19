@@ -10,7 +10,7 @@ import Inline from '../shared/inline'
 
 const name = 'uids-callout'
 const props = defineProps({
-  // ...Inline.props,
+  ...Inline.props,
   ...Background.props,
   ...Media.props,
 });
@@ -18,7 +18,7 @@ const props = defineProps({
 const classes = computed(() => {
   let classes = ['callout'];
   Background.addBackgroundClass(classes, props);
-  // Inline.addClass(classes, props);
+  Inline.addClass(classes, props);
 
   return classes;
 });

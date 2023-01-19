@@ -1,6 +1,6 @@
 import UidsCallout from './Callout.vue'
 import Background from '../shared/background'
-import Inline from '../shared/inline'
+// import Inline from '../shared/inline'
 import { parameters } from '../../../.storybook/preview';
 
 export default {
@@ -34,10 +34,8 @@ const Template = (args) => ({
   template: `
     <uids-callout
       :background="args.background"
-      :size="args.inline_size"
-      :alignment="args.inline_alignment"
     >
-    <div v-html="args.default" ></div>
+    <template v-if="args.default"><div v-html="args.default" ></div></template>
     </uids-callout>
   `,
 });
