@@ -44,7 +44,7 @@ const Template = (args) => ({
       :size="args.size"
       :alignment="args.alignment"
     >
-    <template #details v-if="args.details"><div v-html="args.details" ></div></template>
+    <div v-html="args.details" ></div>
     </uids-callout>
   `,
 });

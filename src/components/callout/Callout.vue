@@ -9,9 +9,6 @@ import Media from '../shared/media'
 
 const name = 'uids-callout'
 const props = defineProps({
-  details: {
-    type: String,
-  },
   size: {
     type: String,
     default: 'medium',
@@ -23,7 +20,7 @@ const props = defineProps({
     type: String,
     default: 'right',
     validator: function (value) {
-      return ['left', 'right', 'center'].indexOf(value) !== -1;
+      return ['', 'left', 'right', 'center'].indexOf(value) !== -1;
     },
   },
   ...Background.props,
@@ -44,12 +41,10 @@ const classes = computed(() => {
   return classes;
 });
 
-
-
 </script>
 
 <template>
   <div :class="classes">
-    <slot name="details">{{ details }}</slot>
+    <slot></slot>
   </div>
 </template>
