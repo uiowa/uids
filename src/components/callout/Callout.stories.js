@@ -3,6 +3,7 @@ import Background from '../shared/background'
 import Inline from '../shared/inline'
 import UidsGrid from '../grid/Grid.vue'
 import UidsGridItem from '../grid/GridItem.vue'
+import { parameters } from '../../../.storybook/preview';
 
 export default {
   title: 'Components/Callout',
@@ -13,6 +14,12 @@ export default {
     default: {
       name: 'Content',
       control: { type: 'text' },
+    },
+  },
+  parameters: {
+    viewport: {
+      viewports: parameters.viewport.viewports,
+      defaultViewport: 'tablet',
     },
   },
 };
