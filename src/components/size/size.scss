@@ -84,8 +84,10 @@
 
 // Set container query max-width sizes for images.
 @supports (contain: inline-size) {
-  *[class*="element--size-"] {
-    width: 100%;
+  @container column {
+    *[class*="element--size-"] {
+      width: 100%;
+    }
   }
 
   @container column (min-width: #{$break-xxsm}) {
@@ -95,20 +97,14 @@
   }
 
   @container column (min-width: #{$break-xsm}) {
-    .element--size-small {
-      width: 50%;
-    }
     .element--size-medium {
       width: 67%;
     }
   }
 
-  @container column (min-width: #{$break-sm}) {
-  }
-
   @container column (min-width: #{$break-md}) {
     .element--size-small {
-      width: 34%;
+      width: 40%;
     }
 
     .element--size-medium {
@@ -116,17 +112,13 @@
     }
 
     .element--size-large {
-      width: 67%;
+      width: 70%;
     }
   }
 
   @container column (min-width: #{$break-lg}) {
     .element--size-small {
       width: 33%;
-    }
-
-    .element--size-medium {
-      width: 50%;
     }
 
     .element--size-large {
