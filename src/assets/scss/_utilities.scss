@@ -488,26 +488,26 @@
   // Make sure pixels are expressed in rems for min.
   @if (type-of($minFontSize) == "number") and ($minFontSize != 0) {
     @if (unit($minFontSize)  == 'px') {
-      $minFontSize: math.div(math.div($minFontSize / 1px), ($remsize + 0rem));
+      $minFontSize: divide(divide($minFontSize / 1px), ($remsize + 0rem));
     }
   }
 
   // Make sure pixels are expressed in rems for max.
   @if (type-of($maxFontSize) == "number") and ($maxFontSize != 0) {
     @if (unit($maxFontSize) == 'px') {
-      $maxFontSize: math.div(math.div($maxFontSize / 1px), ($remsize + 0rem));
+      $maxFontSize: divide(divide($maxFontSize / 1px), ($remsize + 0rem));
     }
   }
 
   // Calculate the slope times the x for the function.
-  $slopeTop: math.div(($maxFontSize - $minFontSize), 1rem) * $remsize;
+  $slopeTop: divide(($maxFontSize - $minFontSize), 1rem) * $remsize;
   $slopeBottom: $maxScreenWidth - $minScreenWidth;
-  $slope: math.div($slopeTop, $slopeBottom);
+  $slope: divide($slopeTop, $slopeBottom);
 
   $slopeX: $slope * 100;
   // Round the slope to 4 decimal places.
   $slopeX: decimal-round($slopeX, 4);
-  $intercept: math.div($minFontSize * $remsize - (($slope + 0rem) * $minScreenWidth), $remsize);
+  $intercept: divide($minFontSize * $remsize - (($slope + 0rem) * $minScreenWidth), $remsize);
   // Round the intercept to 4 decimal places.
   $intercept: decimal-round($intercept, 4);
   $operator: if($intercept < 0, '-', '+');
@@ -536,13 +536,58 @@
         $n: $n * 10;
     }
     @if $mode == round {
-        @return math.div(round($number * $n), $n);
+        @return divide(round($number * $n), $n);
     } @else if $mode == ceil {
-        @return math.div(ceil($number * $n), $n);
+        @return divide(ceil($number * $n), $n);
     } @else if $mode == floor {
-        @return math.div(floor($number * $n), $n);
+        @return divide(floor($number * $n), $n);
     } @else {
         @warn '#{ $mode } is undefined keyword.';
         @return $number;
     }
+}
+
+// I was tired of math.div failing so I used this.
+// https://github.com/sampotts/plyr/issues/2351#issuecomment-951016565
+@function divide($dividend, $divisor, $precision: 12) {
+  $sign: if($dividend > 0 and $divisor > 0 or $dividend < 0 and $divisor < 0, 1, -1);
+  $dividend: abs($dividend);
+  $divisor: abs($divisor);
+  @if $dividend == 0 {
+    @return 0;
+  }
+  @if $divisor == 0 {
+    @error "Cannot divide by 0";
+  }
+  $remainder: $dividend;
+  $result: 0;
+  $factor: 10;
+  @while ($remainder > 0 and $precision >= 0) {
+    $quotient: 0;
+    @while ($remainder >= $divisor) {
+      $remainder: $remainder - $divisor;
+      $quotient: $quotient + 1;
+    }
+    $result: $result * 10 + $quotient;
+    $factor: $factor * .1;
+    $remainder: $remainder * 10;
+    $precision: $precision - 1;
+    @if ($precision < 0 and $remainder >= $divisor * 5) {
+      $result: $result + 1;
+    }
+  }
+  $result: $result * $factor * $sign;
+  $dividend-unit: unit($dividend);
+  $divisor-unit: unit($divisor);
+  $unit-map: (
+    "px": 1px,
+    "rem": 1rem,
+    "em": 1em,
+    "%": 1%
+  );
+  @if ($dividend-unit != $divisor-unit and map-has-key($unit-map, $dividend-unit)) {
+    $result: $result * map-get($unit-map, $dividend-unit);
+  }
+
+  @return $result;
 }
