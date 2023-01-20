@@ -103,15 +103,6 @@
     margin-right: auto;
     margin-top: 0;
     text-align: center;
-
-    &.media--circle {
-      display: block;
-
-      // @todo remove when https://github.com/uiowa/uids/issues/805 is implemented.
-      &.media--small {
-        max-width: 150px;
-      }
-    }
   }
 
   // Allows the media to run edge to edge for stacked cards.
@@ -120,6 +111,23 @@
     margin-right: -2rem;
     margin-top: -2rem;
     margin-bottom: 2rem;
+  }
+
+  .media--circle {
+    display: block;
+
+    // We override padding for the circle format since it doesn't look go against the edges.
+    // Allows the media to run edge to edge for stacked cards.
+    .media__inner {
+      margin-left: 0;
+      margin-top: 0;
+      margin-right: 0;
+    }
+
+    // @todo remove when https://github.com/uiowa/uids/issues/805 is implemented.
+    &.media--small {
+      max-width: 150px;
+    }
   }
 
   .media--small {
@@ -288,7 +296,9 @@
   @include breakpoint(sm) {
     flex-direction: row;
 
-    .media__inner {
+    .media__inner,
+    // Add margin back in for media--circle since we removed it before.
+    .media--circle .media__inner {
       margin-right: 2rem;
     }
   }
@@ -300,7 +310,9 @@
   @include breakpoint(sm) {
     flex-direction: row-reverse;
 
-    .media__inner {
+    .media__inner,
+    // Add margin back in for media--circle since we removed it before.
+    .media--circle .media__inner {
       margin-left: 2rem;
     }
   }
