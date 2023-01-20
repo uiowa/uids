@@ -1,3 +1,5 @@
+@use "sass:math";
+
 @import 'breakpoints';
 @import 'placeholders';
 @import 'grid';
@@ -484,28 +486,28 @@
   // Make sure pixels are expressed in rems for min.
   @if (type-of($min) == "number") and ($min != 0) {
     @if (unit($min)  == 'px') {
-      $min: ($min/1px) / $remsize + 0rem;
+      $min: math.div(math.div($min, 1px), ($remsize + 0rem));
     }
   }
 
   // Make sure pixels are expressed in rems for max.
   @if (type-of($max) == "number") and ($max != 0) {
     @if (unit($max) == 'px') {
-      $max: ($max/1px) / $remsize + 0rem;
+      $max: math.div(math.div($max, 1px), ($remsize + 0rem));
     }
   }
 
   // Calculate the slope times the x for the function.
-  $slope: ((($max/1rem * $remsize) - ($min/1rem * $remsize)) / 710);
+  $slope: math.div(((math.div($max, 1rem) * $remsize) - (math.div($min,1rem) * $remsize)), 710);
   $slopeX: $slope * 100;
   // Round the slope to 4 decimal places.
   $slopeX: decimal-round($slopeX, 4);
-  $intercept: ($min - (($slope + 0rem) * 600) / $remsize);
+  $intercept: math.div($min - (($slope + 0rem) * 600), $remsize);
   // Round the intercept to 4 decimal places.
   $intercept: decimal-round($intercept, 4);
   $operator: if($intercept < 0, '-', '+');
 
-  $prefVal: 'calc(' + $slopeX + 'vw ' + $operator + ' ' + $intercept +')';
+  $prefVal: 'calc(' + $slopeX + 'vw ' + $operator + ' ' + $intercept + ')';
   @return unquote('clamp(' + $min + ', ' + $prefVal + ', ' + $max + ')');
 }
 
@@ -529,11 +531,11 @@
         $n: $n * 10;
     }
     @if $mode == round {
-        @return round($number * $n) / $n;
+        @return math.div(round($number * $n), $n);
     } @else if $mode == ceil {
-        @return ceil($number * $n) / $n;
+        @return math.div(ceil($number * $n), $n);
     } @else if $mode == floor {
-        @return floor($number * $n) / $n;
+        @return math.div(floor($number * $n), $n);
     } @else {
         @warn '#{ $mode } is undefined keyword.';
         @return $number;
