@@ -486,19 +486,19 @@
   // Make sure pixels are expressed in rems for min.
   @if (type-of($min) == "number") and ($min != 0) {
     @if (unit($min)  == 'px') {
-      $min: math.div(($min/1px), ($remsize + 0rem));
+      $min: math.div(math.div($min, 1px), ($remsize + 0rem));
     }
   }
 
   // Make sure pixels are expressed in rems for max.
   @if (type-of($max) == "number") and ($max != 0) {
     @if (unit($max) == 'px') {
-      $max: math.div(($max/1px), ($remsize + 0rem));
+      $max: math.div(math.div($max, 1px), ($remsize + 0rem));
     }
   }
 
   // Calculate the slope times the x for the function.
-  $slope: math.div(((math.div($max,1rem) * $remsize) - (math.div($min,1rem) * $remsize)), 710);
+  $slope: math.div(((math.div($max, 1rem) * $remsize) - (math.div($min,1rem) * $remsize)), 710);
   $slopeX: $slope * 100;
   // Round the slope to 4 decimal places.
   $slopeX: decimal-round($slopeX, 4);
