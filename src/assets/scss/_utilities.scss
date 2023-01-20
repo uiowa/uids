@@ -480,35 +480,40 @@
 // This function creates a clamp rule between the sm breakpoint of 600px and our container width which is 1310 px
 @function containerClamp($minVal, $maxVal) {
   $remsize: 16;
-  $min: $minVal;
-  $max: $maxVal;
+  $minScreenWidth: 600;
+  $maxScreenWidth: 1310;
+  $minFontSize: $minVal;
+  $maxFontSize: $maxVal;
 
   // Make sure pixels are expressed in rems for min.
-  @if (type-of($min) == "number") and ($min != 0) {
-    @if (unit($min)  == 'px') {
-      $min: math.div(math.div($min / 1px), ($remsize + 0rem));
+  @if (type-of($minFontSize) == "number") and ($minFontSize != 0) {
+    @if (unit($minFontSize)  == 'px') {
+      $minFontSize: math.div(math.div($minFontSize / 1px), ($remsize + 0rem));
     }
   }
 
   // Make sure pixels are expressed in rems for max.
-  @if (type-of($max) == "number") and ($max != 0) {
-    @if (unit($max) == 'px') {
-      $max: math.div(math.div($max / 1px), ($remsize + 0rem));
+  @if (type-of($maxFontSize) == "number") and ($maxFontSize != 0) {
+    @if (unit($maxFontSize) == 'px') {
+      $maxFontSize: math.div(math.div($maxFontSize / 1px), ($remsize + 0rem));
     }
   }
 
   // Calculate the slope times the x for the function.
-  $slope: math.div(((math.div($max, 1rem) * $remsize) - (math.div($min,1rem) * $remsize)), 710);
+  $slopeTop: math.div(($maxFontSize - $minFontSize), 1rem) * $remsize;
+  $slopeBottom: $maxScreenWidth - $minScreenWidth;
+  $slope: math.div($slopeTop, $slopeBottom);
+
   $slopeX: $slope * 100;
   // Round the slope to 4 decimal places.
   $slopeX: decimal-round($slopeX, 4);
-  $intercept: math.div($min - (($slope + 0rem) * 600), $remsize);
+  $intercept: math.div($minFontSize * $remsize - (($slope + 0rem) * $minScreenWidth), $remsize);
   // Round the intercept to 4 decimal places.
   $intercept: decimal-round($intercept, 4);
   $operator: if($intercept < 0, '-', '+');
 
   $prefVal: 'calc(' + $slopeX + 'vw ' + $operator + ' ' + $intercept + ')';
-  @return unquote('clamp(' + $min + ', ' + $prefVal + ', ' + $max + ')');
+  @return unquote('clamp(' + $minFontSize + ', ' + $prefVal + ', ' + $maxFontSize + ')');
 }
 
 // This is taken from here : https://gist.github.com/terkel/4373420 .
