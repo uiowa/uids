@@ -130,7 +130,9 @@
   @include margin($top: $sm, $bottom: $sm);
   font-family: $font-family-serif;
   font-weight: $font-weight-medium-bold;
-  font-size: containerClamp(2.3rem, 3.35rem);
+
+  // https://garyridgway.github.io/clampCalculator/?&minWidth=600&maxWidth=1310&minFont=2.3&maxFont=3.35
+  font-size: clamp(2.3rem, calc(2.3662vw + 1.4127rem), 3.35rem);
 }
 
 @mixin h2 {
@@ -141,7 +143,9 @@
   &:not(:first-child) {
     @include margin($top: $lg);
   }
-  font-size: containerClamp(1.95rem, 2.3rem);
+
+  // https://garyridgway.github.io/clampCalculator/?&minWidth=600&maxWidth=1310&minFont=1.95&maxFont=2.3
+  font-size: clamp(1.95rem, calc(0.7887vw + 1.6542rem), 2.3rem);
 }
 
 @mixin h3 {
@@ -151,7 +155,9 @@
   &:not(:first-child) {
     @include margin($top: $lg);
   }
-  font-size: containerClamp(1.65rem, 1.9125rem);
+
+  // https://garyridgway.github.io/clampCalculator/?&minWidth=600&maxWidth=1310&minFont=1.65&maxFont=1.9125
+  font-size: clamp(1.65rem, calc(0.5915vw + 1.4282rem), 1.9125rem);
 }
 
 @mixin h4 {
@@ -162,7 +168,9 @@
   &:not(:first-child) {
     @include margin($top: $lg);
   }
-  font-size: containerClamp(1.45rem, 1.6rem);
+
+  // https://garyridgway.github.io/clampCalculator/?&minWidth=600&maxWidth=1310&minFont=1.45&maxFont=1.6
+  font-size: clamp(1.45rem, calc(0.338vw + 1.3232rem), 1.6rem);
 }
 
 @mixin h5 {
@@ -173,7 +181,9 @@
   &:not(:first-child) {
     @include margin($top: $lg);
   }
-  font-size: containerClamp(1.3rem, 1.4rem);
+
+  // https://garyridgway.github.io/clampCalculator/?&minWidth=600&maxWidth=1310&minFont=1.3&maxFont=1.4
+  font-size: clamp(1.3rem, calc(0.2254vw + 1.2155rem), 1.4rem);
 }
 
 @mixin h6 {
@@ -475,119 +485,4 @@
   text-align: left;
   width: 100%;
   padding: 1.5rem 0;
-}
-
-// This function creates a clamp rule between the sm breakpoint of 600px and our container width which is 1310 px
-@function containerClamp($minVal, $maxVal) {
-  $remsize: 16;
-  $minScreenWidth: 600;
-  $maxScreenWidth: 1310;
-  $minFontSize: $minVal;
-  $maxFontSize: $maxVal;
-
-  // Make sure pixels are expressed in rems for min.
-  @if (type-of($minFontSize) == "number") and ($minFontSize != 0) {
-    @if (unit($minFontSize)  == 'px') {
-      $minFontSize: divide(divide($minFontSize / 1px), ($remsize + 0rem));
-    }
-  }
-
-  // Make sure pixels are expressed in rems for max.
-  @if (type-of($maxFontSize) == "number") and ($maxFontSize != 0) {
-    @if (unit($maxFontSize) == 'px') {
-      $maxFontSize: divide(divide($maxFontSize / 1px), ($remsize + 0rem));
-    }
-  }
-
-  // Calculate the slope times the x for the function.
-  $slopeTop: divide(($maxFontSize - $minFontSize), 1rem) * $remsize;
-  $slopeBottom: $maxScreenWidth - $minScreenWidth;
-  $slope: divide($slopeTop, $slopeBottom);
-
-  $slopeX: $slope * 100;
-  // Round the slope to 4 decimal places.
-  $slopeX: decimal-round($slopeX, 4);
-  $intercept: divide($minFontSize * $remsize - (($slope + 0rem) * $minScreenWidth), $remsize);
-  // Round the intercept to 4 decimal places.
-  $intercept: decimal-round($intercept, 4);
-  $operator: if($intercept < 0, '-', '+');
-
-  $prefVal: 'calc(' + $slopeX + 'vw ' + $operator + ' ' + $intercept + ')';
-  @return unquote('clamp(' + $minFontSize + ', ' + $prefVal + ', ' + $maxFontSize + ')');
-}
-
-// This is taken from here : https://gist.github.com/terkel/4373420 .
-@function decimal-round ($number, $digits: 0, $mode: round) {
-    $n: 1;
-    // $number must be a number
-    @if type-of($number) != number {
-        @warn '#{ $number } is not a number.';
-        @return $number;
-    }
-    // $digits must be a unitless number
-    @if type-of($digits) != number {
-        @warn '#{ $digits } is not a number.';
-        @return $number;
-    } @else if not unitless($digits) {
-        @warn '#{ $digits } has a unit.';
-        @return $number;
-    }
-    @for $i from 1 through $digits {
-        $n: $n * 10;
-    }
-    @if $mode == round {
-        @return divide(round($number * $n), $n);
-    } @else if $mode == ceil {
-        @return divide(ceil($number * $n), $n);
-    } @else if $mode == floor {
-        @return divide(floor($number * $n), $n);
-    } @else {
-        @warn '#{ $mode } is undefined keyword.';
-        @return $number;
-    }
-}
-
-// I was tired of math.div failing so I used this.
-// https://github.com/sampotts/plyr/issues/2351#issuecomment-951016565
-@function divide($dividend, $divisor, $precision: 12) {
-  $sign: if($dividend > 0 and $divisor > 0 or $dividend < 0 and $divisor < 0, 1, -1);
-  $dividend: abs($dividend);
-  $divisor: abs($divisor);
-  @if $dividend == 0 {
-    @return 0;
-  }
-  @if $divisor == 0 {
-    @error "Cannot divide by 0";
-  }
-  $remainder: $dividend;
-  $result: 0;
-  $factor: 10;
-  @while ($remainder > 0 and $precision >= 0) {
-    $quotient: 0;
-    @while ($remainder >= $divisor) {
-      $remainder: $remainder - $divisor;
-      $quotient: $quotient + 1;
-    }
-    $result: $result * 10 + $quotient;
-    $factor: $factor * .1;
-    $remainder: $remainder * 10;
-    $precision: $precision - 1;
-    @if ($precision < 0 and $remainder >= $divisor * 5) {
-      $result: $result + 1;
-    }
-  }
-  $result: $result * $factor * $sign;
-  $dividend-unit: unit($dividend);
-  $divisor-unit: unit($divisor);
-  $unit-map: (
-    "px": 1px,
-    "rem": 1rem,
-    "em": 1em,
-    "%": 1%
-  );
-  @if ($dividend-unit != $divisor-unit and map-has-key($unit-map, $dividend-unit)) {
-    $result: $result * map-get($unit-map, $dividend-unit);
-  }
-
-  @return $result;
 }
