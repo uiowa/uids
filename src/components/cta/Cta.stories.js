@@ -4,10 +4,24 @@ import Background from "../shared/background";
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
-  title: 'Basic/CTA',
+  title: 'Components/CTA',
   component: UidsCta,
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
+    headline_style: {
+      name: 'Title style',
+      options: ['', 'uppercase'],
+      control: {
+        type: 'select',
+        labels: {
+          '': 'default',
+          serif: 'Uppercase',
+        },
+      },
+      table: {
+        category: 'Display options',
+      },
+    },
     url: {
       control: { type: 'text' },
     },
@@ -44,6 +58,7 @@ const Template = (args) => ({
       :button_label="args.button_label"
       :button_icon="args.button_icon"
       :details="args.details"
+      :headline_style="args.headline_style"
     >
     <template #details v-if="args.details"><div v-html="args.details" ></div></template>
     <template #title v-if="args.title"><div :class="getClasses" v-html="args.title" ></div></template>
@@ -60,6 +75,7 @@ Default.args = {
   details: 'Iowa is where great stories begin. It\'s time to start yours. Find out how.',
   button_label: 'Request Information',
   button_icon: '<i class="fas fa-arrow-right"></i>',
+  headline_style: '',
 };
 
 

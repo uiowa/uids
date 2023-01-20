@@ -10,6 +10,13 @@ import { className } from "../utlity";
 
 const name = 'uids-cta'
 const props = defineProps({
+  /**
+   * Title style for the headline.
+   */
+  headline_style: {
+    type: String,
+    default: '',
+  },
   url: {
     type: String,
   },
@@ -38,28 +45,32 @@ const classes = computed(() => {
   return classes;
 });
 
+const buttonClasses = computed(() => {
+  let classes = [''];
+
+  return classes
+})
 
 </script>
 
 <template>
   <div :class="classes">
       <div class="cta__container">
-
-
-          <uids-headline v-if="$slots.title" uppercase="true">
-            <slot name="title"></slot>
-          </uids-headline>
-
+        <uids-headline :text_style="headline_style">
+          <!-- @slot The title of the card. HTML is allowed. -->
+          <slot name="title">Title</slot>
+        </uids-headline>
 
         <div class="cta__content" v-if="details" >
           <slot name="details">{{ details }}</slot>
         </div>
 
         <footer class="cta__link" v-if="button_label" >
-          <uids-button :url="url" size="medium">
+          <uids-button :class="buttonClasses"  :url="url" size="medium">
             <slot name="button_label">{{ button_label }}</slot>
             <slot name="button_icon"></slot>
           </uids-button>
+
         </footer>
 
       </div>
