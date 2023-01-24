@@ -116,7 +116,7 @@
   .media--circle {
     display: block;
 
-    // We override padding for the circle format since it doesn't look go against the edges.
+    // We override padding for the circle format since it doesn't look good against the edges.
     // Allows the media to run edge to edge for stacked cards.
     .media__inner {
       margin-left: 0;
@@ -131,20 +131,17 @@
   }
 
   .media--small {
+    @include breakpoint(xsm) {
+      width: 75%;
+    }
     @include breakpoint(sm) {
-      width: 25%;
+      width: 50%;
     }
   }
 
   .media--medium {
-    @include breakpoint(sm) {
-      width: 37.5%;
-    }
-  }
-
-  .media--large {
-    @include breakpoint(sm) {
-      width: 50%;
+    @include breakpoint(xsm) {
+      width: 75%;
     }
   }
 }

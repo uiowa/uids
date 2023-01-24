@@ -122,12 +122,6 @@ export default {
       },
     },
   },
-  parameters: {
-    viewport: {
-      viewports: parameters.viewport.viewports,
-      defaultViewport: 'mobile2',
-    },
-  },
 }
 
 // More on component templates: https://storybook.js.org/docs/vue/writing-stories/introduction#using-args
@@ -183,7 +177,7 @@ Default.args = {
   centered: false,
   orientation: '',
   media_border: false,
-  media_size: '',
+  media_size: 'large',
   media_shape: 'widescreen',
   media_padded: false,
 }
