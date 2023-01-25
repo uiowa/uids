@@ -2,19 +2,25 @@
 @import '../../assets/scss/utilities';
 
 :root {
-  --element-spacing-lg: var(--space-lg-width-gutter);
-  --element-spacing-sm: var(--space-sm-width-gutter);
+  --inline-margin-lg: var(--space-lg-width-gutter);
+  --inline-margin-sm: var(--space-sm-width-gutter);
+}
+
+*[class*="inline--"] {
+
+  --inline-margin-lg: var(--space-lg-width-gutter);
+  --inline-margin-sm: var(--space-sm-width-gutter);
 }
 
 // === Element alignment classes  === //
 .inline--align-left {
   @include breakpoint(sm) {
     float: left;
-    margin-block: var(--element-spacing-sm);
-    margin-inline-end: var(--element-spacing-sm);
+    margin-block: var(--inline-margin-sm);
+    margin-inline-end: var(--inline-margin-sm);
 
     &[class*="bg-"] {
-      margin-inline-end: var(--element-spacing-lg);
+      margin-inline-end: var(--inline-margin-lg);
     }
   }
 }
@@ -24,7 +30,7 @@
     margin: 0 auto;
 
     &[class*="bg-"] {
-      margin-block: var(--element-spacing-sm);
+      margin-block: var(--inline-margin-sm);
     }
   }
 }
@@ -32,11 +38,11 @@
 .inline--align-right {
   @include breakpoint(sm) {
     float: right;
-    margin-block: var(--element-spacing-sm);
-    margin-inline-start: var(--element-spacing-sm);
+    margin-block: var(--inline-margin-sm);
+    margin-inline-start: var(--inline-margin-sm);
 
     &[class*="bg-"] {
-      margin-inline-start: var(--element-spacing-lg);
+      margin-inline-start: var(--inline-margin-lg);
     }
   }
 }
@@ -46,14 +52,14 @@
   @container column (min-width: #{$break-xxsm}) and (max-width: #{$break-sm}) {
     .inline--align-right {
       float: right;
-      margin-block: var(--element-spacing-sm);
-      margin-inline-start: var(--element-spacing-sm);
+      margin-block: var(--inline-margin-sm);
+      margin-inline-start: var(--inline-margin-sm);
     }
 
     .inline--align-left {
       float: left;
-      margin-block: var(--element-spacing-sm);
-      margin-inline-end: var(--element-spacing-sm);
+      margin-block: var(--inline-margin-sm);
+      margin-inline-end: var(--inline-margin-sm);
     }
   }
 }
