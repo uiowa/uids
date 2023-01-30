@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import './callout.scss'
-import { computed, useSlots } from 'vue'
-import { className } from '../utlity'
+import { computed } from 'vue'
 import '../background/background.scss'
-import Background from "../shared/background";
-import '../size/size.scss'
+import Background from '../shared/background'
+import '../inline/inline.scss'
 import Media from '../shared/media'
-import Inline from '../shared/inline'
+import Inline from '../inline/inline'
 
 const name = 'uids-callout'
 const props = defineProps({

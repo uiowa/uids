@@ -70,11 +70,11 @@ const argTypes = {
 
 const addClass = (classes: Array<string>, props: Readonly<any>) => {
   if (props.inline_size) {
-    classes.push(`element--size-${className(props.inline_size)}`);
+    classes.push(`inline--size-${className(props.inline_size)}`);
   }
 
   if (props.inline_alignment) {
-    classes.push(`element--alignment-${className(props.inline_alignment)}`);
+    classes.push(`inline--align-${className(props.inline_alignment)}`);
   }
 }
 
