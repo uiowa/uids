@@ -40,9 +40,9 @@ const Template = (args) => ({
   `,
 });
 
-export const Default = Template.bind({});
+export const Callout = Template.bind({});
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
-Default.args = {
+Callout.args = {
   default: '<h4 class="headline block__headline headline headline--serif headline--underline block__headline headline--center"> <span class="headline__heading"> Title </span> </h4> <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce feugiat ante non efficitur laoreet. Suspendisse laoreet cursus dui, eget vehicula massa.</p>',
   // inline_size: 'small',
   background: 'gray',

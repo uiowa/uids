@@ -2,6 +2,9 @@ import UidsCallout from '../callout/Callout.vue'
 import Background from '../shared/background'
 import UidsGrid from '../grid/Grid.vue'
 import UidsGridItem from '../grid/GridItem.vue'
+import UidsFigure from './Figure.vue'
+
+import { Callout } from '../callout/Callout.stories'
 
 export default {
   title: 'Elements/Inline',
@@ -22,13 +25,35 @@ export default {
       control: { type: 'text' },
     },
     ...Background.argTypes,
+    columns: {
+      options: [1, 2, 3, 4],
+      control: 'select',
+    },
+    inline_component: {
+      name: 'Inline component',
+      options: [
+        'callout',
+        // 'image',
+        'figure',
+        // 'video',
+      ],
+      control: {
+        type: 'select',
+        labels: {
+          callout: 'Callout',
+          // image: 'Image',
+          figure: 'Figure',
+          // video: 'Video',
+        }
+      }
+    },
   },
 };
 
 // More on component templates: https://storybook.js.org/docs/vue/writing-stories/introduction#using-args
 const Template = (args) => ({
   // Components used in your story `template` are defined in the `components` object
-  components: { UidsGrid, UidsGridItem, UidsCallout },
+  components: { UidsGrid, UidsGridItem, UidsCallout, UidsFigure },
   // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
     return { args }
@@ -40,6 +65,7 @@ const Template = (args) => ({
         <template v-for="size in ['small', 'medium', 'large']" :key="size">
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
           <uids-callout
+            v-if="args.inline_component === 'callout'"
             :background="args.background"
             :inline_alignment="args.alignment"
             :inline_size="size"
@@ -47,27 +73,13 @@ const Template = (args) => ({
             <h4 class="headline block__headline headline headline--serif headline--underline block__headline headline--center">
               <span class="headline__heading"> Callout ({{ size }}) </span>
             </h4>
-            <template v-if="args.default"><div v-html="args.default" ></div></template>
-            Small
+            <template v-if="args.default"><div v-html="args.default"></div></template>
           </uids-callout>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          <figure class="inline--size-small inline--align-right" role="group">
-            <div>
-              <img width="" height="" alt="Ernst, Erika" class=" lazyloaded" data-src="https://pharmacy.uiowa.edu/sites/pharmacy.uiowa.edu/files/styles/no_crop__768w/public/2021-04/2019_08_29-Ernst%2C%20Erika%20-krbaumert-004_0.jpg?itok=tlHZZT1w" data-srcset="https://pharmacy.uiowa.edu/sites/pharmacy.uiowa.edu/files/styles/no_crop__384w/public/2021-04/2019_08_29-Ernst%2C%20Erika%20-krbaumert-004_0.jpg?itok=3znFPZ72 384w, https://pharmacy.uiowa.edu/sites/pharmacy.uiowa.edu/files/styles/no_crop__768w/public/2021-04/2019_08_29-Ernst%2C%20Erika%20-krbaumert-004_0.jpg?itok=tlHZZT1w 768w, https://pharmacy.uiowa.edu/sites/pharmacy.uiowa.edu/files/styles/no_crop__1024w/public/2021-04/2019_08_29-Ernst%2C%20Erika%20-krbaumert-004_0.jpg?itok=2afxzkLZ 1024w, https://pharmacy.uiowa.edu/sites/pharmacy.uiowa.edu/files/styles/no_crop__1312w/public/2021-04/2019_08_29-Ernst%2C%20Erika%20-krbaumert-004_0.jpg?itok=L-k1paKP 1312w, https://pharmacy.uiowa.edu/sites/pharmacy.uiowa.edu/files/styles/no_crop__2592w/public/2021-04/2019_08_29-Ernst%2C%20Erika%20-krbaumert-004_0.jpg?itok=GmyW4wuT 1398w" data-sizes="(min-width: 1024px) calc(25vw - 5em), (min-width: 768px) calc(50vw - 3.75em), 100vw" sizes="(min-width: 1024px) calc(25vw - 5em), (min-width: 768px) calc(50vw - 3.75em), 100vw" srcset="https://pharmacy.uiowa.edu/sites/pharmacy.uiowa.edu/files/styles/no_crop__384w/public/2021-04/2019_08_29-Ernst%2C%20Erika%20-krbaumert-004_0.jpg?itok=3znFPZ72 384w, https://pharmacy.uiowa.edu/sites/pharmacy.uiowa.edu/files/styles/no_crop__768w/public/2021-04/2019_08_29-Ernst%2C%20Erika%20-krbaumert-004_0.jpg?itok=tlHZZT1w 768w, https://pharmacy.uiowa.edu/sites/pharmacy.uiowa.edu/files/styles/no_crop__1024w/public/2021-04/2019_08_29-Ernst%2C%20Erika%20-krbaumert-004_0.jpg?itok=2afxzkLZ 1024w, https://pharmacy.uiowa.edu/sites/pharmacy.uiowa.edu/files/styles/no_crop__1312w/public/2021-04/2019_08_29-Ernst%2C%20Erika%20-krbaumert-004_0.jpg?itok=L-k1paKP 1312w, https://pharmacy.uiowa.edu/sites/pharmacy.uiowa.edu/files/styles/no_crop__2592w/public/2021-04/2019_08_29-Ernst%2C%20Erika%20-krbaumert-004_0.jpg?itok=GmyW4wuT 1398w" src="https://pharmacy.uiowa.edu/sites/pharmacy.uiowa.edu/files/styles/no_crop__768w/public/2021-04/2019_08_29-Ernst%2C%20Erika%20-krbaumert-004_0.jpg?itok=tlHZZT1w">
-            </div>
-            <figcaption>Erika Ernst</figcaption>
-          </figure>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          <figure class="inline--align-left inline--size-small" role="group">
-            <div>
-              <img width="1024" height="1538" alt="Ernst, Erika" class=" lazyloaded" src="https://pharmacy.uiowa.edu/sites/pharmacy.uiowa.edu/files/styles/no_crop__768w/public/2021-04/2019_08_29-Ernst%2C%20Erika%20-krbaumert-004_0.jpg" />
-            </div>
-            <figcaption>Erika Ernst</figcaption>
-          </figure>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          <uids-figure
+            v-else-if="args.inline_component === 'figure'"
+            :inline_alignment="args.alignment"
+            :inline_size="size"
+          ></uids-figure>
         </template>
       </uids-grid-item>
     </uids-grid>
@@ -82,6 +94,7 @@ Default.args = {
   alignment: 'right',
   type: 'onecol',
   records: 1,
+  inline_component: 'uids-callout',
 };
 
 export const Narrow = Template.bind({})
