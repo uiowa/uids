@@ -86,8 +86,35 @@
 
 // Set container query max-width sizes for images.
 @supports (contain: inline-size) {
-  [class*="inline--size-"] {
-    //max-width: 100%;
+
+  @container column (width < #{$break-xxsm}) {
+    .inline--size-small {
+      &.inline--align-left,
+      &.inline--align-right, {
+        margin-inline-start: 0;
+        margin-inline-end: 0;
+      }
+    }
+  }
+
+  @container column (width < #{$break-xsm}) {
+    .inline--size-medium {
+      &.inline--align-left,
+      &.inline--align-right, {
+        margin-inline-start: 0;
+        margin-inline-end: 0;
+      }
+    }
+  }
+
+  @container column (width < #{$break-md}) {
+    .inline--size-large {
+      &.inline--align-left,
+      &.inline--align-right, {
+        margin-inline-start: 0;
+        margin-inline-end: 0;
+      }
+    }
   }
 
   figure[class*="inline--size-"] {
@@ -99,12 +126,6 @@
   @container column (width < #{$break-xxsm}) {
     [class*="inline--size-"] {
       max-width: 100%;
-
-      &.inline--align-left,
-      &.inline--align-right, {
-        margin-inline-start: 0;
-        margin-inline-end: 0;
-      }
     }
   }
 
