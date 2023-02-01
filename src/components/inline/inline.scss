@@ -1,13 +1,7 @@
 @import '../../assets/scss/variables';
 @import '../../assets/scss/utilities';
 
-:root {
-  --inline-margin-lg: var(--space-lg-width-gutter);
-  --inline-margin-sm: var(--space-sm-width-gutter);
-}
-
-*[class*="inline--"] {
-
+[class*="inline--"] {
   --inline-margin-lg: var(--space-lg-width-gutter);
   --inline-margin-sm: var(--space-sm-width-gutter);
 }
@@ -66,7 +60,7 @@
 // === End: element alignment classes === //
 
 // === Element media sizes === //
-*[class*="inline--size-"] {
+[class*="inline--size-"] {
   max-width: 100%;
 }
 
@@ -90,8 +84,8 @@
 
 // Set container query max-width sizes for images.
 @supports (contain: inline-size) {
-  *[class*="inline--size-"] {
-    max-width: 100%;
+  [class*="inline--size-"] {
+    //max-width: 10000%;
   }
 
   figure[class*="inline--size-"] {
@@ -100,9 +94,14 @@
     }
   }
 
-  @container column {
-    *[class*="inline--size-"] {
+  @container column (width < #{$break-xxsm}) {
+    [class*="inline--size-"] {
       max-width: 100%;
+
+      &.inline--align-left,
+      &.inline--align-right, {
+        margin-inline-start: 0;
+      }
     }
   }
 
