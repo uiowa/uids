@@ -212,7 +212,7 @@ onMounted(() => {
 
     <div class="card__body">
       <header v-if="$slots.title">
-        <uids-headline :text_style="headline_style" class='test'>
+        <uids-headline :text_style="headline_style">
           <!-- @slot The title of the card. HTML is allowed. -->
           <a v-if="headlineLink" :href="headlineLink" class="click-target">
             <slot name="title">Title</slot>
