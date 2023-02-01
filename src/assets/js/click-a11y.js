@@ -1,9 +1,10 @@
-const items = document.querySelectorAll('.click-container:not([data-uids-no-link])');
-const link_elements = ['.click-target'];
 const RIGHT_BUTTON_CODE = 2;
 
+/**
+ * A class for setting click targets.
+ */
 class A11yClickTarget {
-  constructor(item) {
+  constructor(item, link_elements) {
     let up, down, link, i;
     // Loop through options and break on the first match.
     for (i = 0; i < link_elements.length; i++) {
@@ -41,8 +42,17 @@ class A11yClickTarget {
   }
 }
 
-Array.prototype.forEach.call(items, item => {
-  new A11yClickTarget(item);
-});
+/**
+ * Initializes the click target on the specified selectors.
+ *
+ * @param selector
+ * @param link_elements
+ */
+function applyClickA11y(selector, link_elements = ['.click-target']) {
+  const items = document.querySelectorAll(selector);
+  Array.prototype.forEach.call(items, (item) => {
+    new A11yClickTarget(item, link_elements);
+  });
+}
 
-export default A11yClickTarget
+export { applyClickA11y }
