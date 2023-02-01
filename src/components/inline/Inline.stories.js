@@ -80,6 +80,7 @@ const Template = (args) => ({
             :inline_alignment="args.alignment"
             :inline_size="size"
           ></uids-figure>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         </template>
       </uids-grid-item>
     </uids-grid>
@@ -92,9 +93,9 @@ Default.args = {
   default: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce feugiat ante non efficitur laoreet. Suspendisse laoreet cursus dui, eget vehicula massa.</p>',
   background: 'gray',
   alignment: 'right',
+  inline_component: 'callout',
   type: 'onecol',
   records: 1,
-  inline_component: 'uids-callout',
 };
 
 export const Narrow = Template.bind({})

@@ -2,119 +2,56 @@
 @import '../../assets/scss/utilities';
 
 [class*="inline--"] {
-  --inline-margin-lg: var(--space-lg-width-gutter);
-  --inline-margin-md: var(--space-md-width-gutter);
   --inline-margin-sm: var(--space-sm-width-gutter);
-  margin-block: var(--callout-spacing-sm);
+  --inline-margin-md: var(--space-md-width-gutter);
+  --inline-margin-lg: var(--space-lg-width-gutter);
 }
 
 // === Element alignment classes  === //
 .inline--align-left {
-  @include breakpoint(sm) {
-    float: left;
-    margin-block: var(--inline-margin-md);
-    margin-inline-end: var(--inline-margin-md);
+  float: left;
 
-    &[class*="bg-"] {
-      margin-inline-end: var(--inline-margin-lg);
-    }
+  &:after {
+    content: '';
   }
 }
 
 .inline--align-center {
-  @include breakpoint(sm) {
-    margin: 0 auto;
-
-    &[class*="bg-"] {
-      margin-block: var(--inline-margin-md);
-    }
-  }
+  margin: 0 auto;
 }
 
 .inline--align-right {
-  @include breakpoint(sm) {
-    float: right;
-    margin-block: var(--inline-margin-md);
-    margin-inline-start: var(--inline-margin-md);
-
-    &[class*="bg-"] {
-      margin-inline-start: var(--inline-margin-lg);
-    }
-  }
-}
-
-// Set container query max-width sizes for images.
-@supports (contain: inline-size) {
-  @container column (min-width: #{$break-xxsm}) and (max-width: #{$break-sm}) {
-    .inline--align-right {
-      float: right;
-      margin-block: var(--inline-margin-md);
-      margin-inline-start: var(--inline-margin-md);
-    }
-
-    .inline--align-left {
-      float: left;
-      margin-block: var(--inline-margin-md);
-      margin-inline-end: var(--inline-margin-md);
-    }
-  }
+  float: right;
 }
 // === End: element alignment classes === //
 
 // === Element media sizes === //
 [class*="inline--size-"] {
-  max-width: 100%;
+  width: 100%;
 }
 
 .inline--size-small {
   @include breakpoint(sm) {
-    max-width: 35%;
+    width: 35%;
   }
 }
 
 .inline--size-medium {
   @include breakpoint(sm) {
-    max-width: 45%;
+    width: 45%;
   }
 }
 
 .inline--size-large {
   @include breakpoint(sm) {
-    max-width: 55%;
+    width: 55%;
   }
 }
 
 // Set container query max-width sizes for images.
 @supports (contain: inline-size) {
-
-  @container column (width < #{$break-xxsm}) {
-    .inline--size-small {
-      &.inline--align-left,
-      &.inline--align-right, {
-        margin-inline-start: 0;
-        margin-inline-end: 0;
-      }
-    }
-  }
-
-  @container column (width < #{$break-xsm}) {
-    .inline--size-medium {
-      &.inline--align-left,
-      &.inline--align-right, {
-        margin-inline-start: 0;
-        margin-inline-end: 0;
-      }
-    }
-  }
-
-  @container column (width < #{$break-md}) {
-    .inline--size-large {
-      &.inline--align-left,
-      &.inline--align-right, {
-        margin-inline-start: 0;
-        margin-inline-end: 0;
-      }
-    }
+  [class*="inline--size-"] {
+    width: 100%;
   }
 
   figure[class*="inline--size-"] {
@@ -123,45 +60,68 @@
     }
   }
 
-  @container column (width < #{$break-xxsm}) {
-    [class*="inline--size-"] {
-      max-width: 100%;
-    }
-  }
-
   @container column (min-width: #{$break-xxsm}) {
     .inline--size-small {
-      max-width: 50%;
+      width: 50%;
+      margin-inline-start: var(--inline-margin-md);
+      margin-inline-end: var(--inline-margin-md);
+
+      &.inline--align-left {
+        margin-inline-start: 0;
+      }
+
+      &.inline--align-right {
+        margin-inline-end: 0;
+      }
     }
   }
 
   @container column (min-width: #{$break-xsm}) {
+    .inline--size-small {
+      width: 40%;
+    }
     .inline--size-medium {
-      max-width: 67%;
+      width: 67%;
+      margin-inline-start: var(--inline-margin-md);
+      margin-inline-end: var(--inline-margin-md);
+
+      &.inline--align-left {
+        margin-inline-start: 0;
+      }
+
+      &.inline--align-right {
+        margin-inline-end: 0;
+      }
     }
   }
 
   @container column (min-width: #{$break-md}) {
     .inline--size-small {
-      max-width: 40%;
+      width: 33%;
     }
 
     .inline--size-medium {
-      max-width: 50%;
+      width: 50%;
     }
 
     .inline--size-large {
-      max-width: 70%;
+      width: 70%;
+      margin-inline-start: var(--inline-margin-md);
+      margin-inline-end: var(--inline-margin-md);
+
+      &.inline--align-left {
+        margin-inline-start: 0;
+      }
+
+      &.inline--align-right {
+        margin-inline-end: 0;
+      }
     }
   }
 
   @container column (min-width: #{$break-lg}) {
-    .inline--size-small {
-      max-width: 33%;
-    }
-
     .inline--size-large {
-      max-width: 75%;
+      width: 75%;
     }
   }
 }
