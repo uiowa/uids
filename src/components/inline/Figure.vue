@@ -9,7 +9,7 @@ const props = defineProps({
 });
 
 const classes = computed(() => {
-  let classes = [];
+  let classes: string[] = [];
   Inline.addClass(classes, props);
 
   return classes;

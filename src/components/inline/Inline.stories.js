@@ -3,6 +3,7 @@ import Background from '../shared/background'
 import UidsGrid from '../grid/Grid.vue'
 import UidsGridItem from '../grid/GridItem.vue'
 import UidsFigure from './Figure.vue'
+import Media from '../media/Media.vue'
 
 import { Callout } from '../callout/Callout.stories'
 
@@ -33,7 +34,7 @@ export default {
       name: 'Inline component',
       options: [
         'callout',
-        // 'image',
+        'image',
         'figure',
         // 'video',
       ],
@@ -41,9 +42,25 @@ export default {
         type: 'select',
         labels: {
           callout: 'Callout',
-          // image: 'Image',
+          image: 'Image',
           figure: 'Figure',
           // video: 'Video',
+        }
+      }
+    },
+    solitary_size: {
+      name: 'Solitary items size',
+      options: [
+        'small',
+        'medium',
+        'Large',
+      ],
+      control: {
+        type: 'select',
+        labels: {
+          small: 'small',
+          medium: 'Medium',
+          Large: 'Large',
         }
       }
     },
@@ -53,14 +70,15 @@ export default {
 // More on component templates: https://storybook.js.org/docs/vue/writing-stories/introduction#using-args
 const Template = (args) => ({
   // Components used in your story `template` are defined in the `components` object
-  components: { UidsGrid, UidsGridItem, UidsCallout, UidsFigure },
+  components: { UidsGrid, UidsGridItem, UidsCallout, UidsFigure, Media},
   // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
     return { args }
   },
+
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
-    <uids-grid :type="args.type">
+    <uids-grid  v-if="!args.solitary" :type="args.type">
       <uids-grid-item v-for="item in args.records" :key="item">
         <template v-for="size in ['small', 'medium', 'large']" :key="size">
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -79,11 +97,43 @@ const Template = (args) => ({
             v-else-if="args.inline_component === 'figure'"
             :inline_alignment="args.alignment"
             :inline_size="size"
-          ></uids-figure>
+          />
+          <media
+            v-if="args.inline_component === 'image'"
+            :inline_alignment="args.alignment"
+            :inline_size="size"
+          />
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         </template>
       </uids-grid-item>
     </uids-grid>
+    <template v-else-if="args.solitary" v-for="item in args.records" :key="item">
+      <uids-grid v-for="size in ['small', 'medium', 'large']" :key="size" :type="args.type">
+        <uids-grid-item>
+          <uids-callout
+            v-if="args.inline_component === 'callout'"
+            :background="args.background"
+            :inline_alignment="args.alignment"
+            :inline_size="size"
+          >
+            <h4 class="headline block__headline headline headline--serif headline--underline block__headline headline--center">
+              <span class="headline__heading"> Callout ({{ size }}) </span>
+            </h4>
+            <template v-if="args.default"><div v-html="args.default"></div></template>
+          </uids-callout>
+          <uids-figure
+            v-else-if="args.inline_component === 'figure'"
+            :inline_alignment="args.alignment"
+            :inline_size="size"
+          />
+          <media
+            v-if="args.inline_component === 'image'"
+            :inline_alignment="args.alignment"
+            :inline_size="size"
+          />
+        </uids-grid-item>
+      </uids-grid>
+    </template>
   `,
 })
 
@@ -96,6 +146,7 @@ Default.args = {
   inline_component: 'callout',
   type: 'onecol',
   records: 1,
+  solitary: false,
 };
 
 export const Narrow = Template.bind({})
@@ -124,4 +175,12 @@ ThreeColumn.args = {
   ...Default.args,
   type: 'threecol--33-34-33',
   records: 3,
+}
+
+export const solitaryItems = Template.bind({});
+solitaryItems.args = {
+  ...Default.args,
+  type: 'onecol',
+  records: 1,
+  solitary: true,
 }
