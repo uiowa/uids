@@ -120,7 +120,6 @@ const Template = (args) => ({
   components: { UidsGrid, UidsGridItem, UidsCallout, UidsFigure, Media},
   // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
-    getColumns(args.grid_type);
     return { args }
   },
 
