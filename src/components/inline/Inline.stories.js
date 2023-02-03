@@ -52,11 +52,11 @@ export default {
       control: {
         type: 'select',
         labels: {
-          'onecol': getColumns('onecol'),
-          'onecol__narrow': getColumns('onecol__narrow'),
-          'twocol--50-50': getColumns('twocol--50-50'),
-          'twocol--67-33': getColumns('twocol--67-33'),
-          'threecol--33-34-33': getColumns('threecol--33-34-33')
+          'onecol': 'One column',
+          'onecol__narrow': 'One column (narrow)',
+          'twocol--50-50': 'Two columns (50%, 50%)',
+          'twocol--67-33': 'Two columns (67%, 33%)',
+          'threecol--33-34-33': 'Three columns (33%, 34%, 33%)',
         },
       },
       table: {
@@ -202,54 +202,3 @@ ThreeColumn.args = {
   grid_type: 'threecol--33-34-33',
   records: 3,
 }
-
-// Helper functions.
-function getColumns(column_class) {
-
-  // Split the portions.
-  let columnPortions = column_class.split(/['--''__']+/);
-
-  // Get just the number string.
-  let stringColumnsNumber = columnPortions[0].replace('col', '');
-
-  // Capitalize the first letter.
-  let capStringColumnsNumber = stringColumnsNumber[0].toUpperCase() + stringColumnsNumber.substring(1);
-
-  // Determine plurality.
-  let plural = stringColumnsNumber === 'one' ? '' : 's';
-
-  // Put it together.
-  let stringColumns = capStringColumnsNumber + ' column' + plural;
-
-  // Get the column widths.
-  let columnWidthsString = '';
-
-  // If we have widths...
-  if (columnPortions[1]) {
-
-    // Get them.
-    let columnWidths = columnPortions.slice(1);
-
-    // Construct the widths string, starting with an opening paren.
-    columnWidthsString = ' (';
-
-    // For every width...
-    columnWidths.forEach(function(width, index) {
-
-      // If it's a number, give it a '%' sign.
-      let isNum = Number(width) ? '%' : '';
-
-      // Then concatenate, with commas as appropriate.
-      if (index !== 0) {
-        columnWidthsString += ', ';
-      }
-      columnWidthsString += width + isNum;
-    });
-
-    // Then cap the string with an end paren.
-    columnWidthsString += ')';
-  }
-
-  // Put together the columns and the widths.
-  return stringColumns+columnWidthsString;
-};
