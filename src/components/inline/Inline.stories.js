@@ -69,7 +69,7 @@ export default {
         'callout',
         'image',
         'figure',
-        // 'video',
+        'video',
       ],
       control: {
         type: 'select',
@@ -77,7 +77,7 @@ export default {
           callout: 'Callout',
           image: 'Image',
           figure: 'Figure',
-          // video: 'Video',
+          video: 'Video',
         }
       },
       table: {
@@ -147,6 +147,13 @@ const Template = (args) => ({
           />
           <media
             v-if="args.inline_component === 'image'"
+            :media_type="'image'"
+            :inline_alignment="args.alignment"
+            :inline_size="size"
+          />
+          <media
+            v-if="args.inline_component === 'video'"
+            :media_type="'video'"
             :inline_alignment="args.alignment"
             :inline_size="size"
           />
