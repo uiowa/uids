@@ -70,6 +70,7 @@ export default {
         'image',
         'figure',
         'video',
+        'vertical_video',
       ],
       control: {
         type: 'select',
@@ -78,6 +79,7 @@ export default {
           image: 'Image',
           figure: 'Figure',
           video: 'Video',
+          vertical_video: 'Vertical video',
         }
       },
       table: {
@@ -154,6 +156,12 @@ const Template = (args) => ({
           <media
             v-if="args.inline_component === 'video'"
             :media_type="'video'"
+            :inline_alignment="args.alignment"
+            :inline_size="size"
+          />
+          <media
+            v-if="args.inline_component === 'vertical_video'"
+            :media_type="'vertical_video'"
             :inline_alignment="args.alignment"
             :inline_size="size"
           />
