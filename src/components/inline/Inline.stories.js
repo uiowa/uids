@@ -105,6 +105,25 @@ export default {
         category: 'Inline items',
       },
     },
+    aspect_ratio: {
+      name: 'Aspect ratio',
+      options: [
+        'default',
+        'ar_16_9',
+        'ar_21_9',
+      ],
+      control: {
+        type: 'select',
+        labels: {
+          default: 'Default',
+          ar_16_9: '16 / 9',
+          ar_21_9: '21 / 9',
+        }
+      },
+      table: {
+        category: 'Inline items',
+      },
+    },
     records: {
       name: 'Records',
       options: [1, 2, 3, 4],
@@ -149,19 +168,22 @@ const Template = (args) => ({
           />
           <media
             v-if="args.inline_component === 'image'"
-            :media_type="'image'"
+            :type="'image'"
+            :aspect_ratio="args.aspect_ratio ? args.aspect_ratio : ''"
             :inline_alignment="args.alignment"
             :inline_size="size"
           />
           <media
             v-if="args.inline_component === 'video'"
-            :media_type="'video'"
+            :type="'video'"
+            :aspect_ratio="args.aspect_ratio ? args.aspect_ratio : 'media--16-9'"
             :inline_alignment="args.alignment"
             :inline_size="size"
           />
           <media
             v-if="args.inline_component === 'vertical_video'"
-            :media_type="'vertical_video'"
+            :type="'vertical_video'"
+            :aspect_ratio="args.aspect_ratio ? args.aspect_ratio : ''"
             :inline_alignment="args.alignment"
             :inline_size="size"
           />
@@ -176,10 +198,11 @@ export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
 Default.args = {
   default: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce feugiat ante non efficitur laoreet. Suspendisse laoreet cursus dui, eget vehicula massa.</p>',
-  filler_content: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
+  filler_content: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
   background: 'gray',
   alignment: 'right',
   inline_component: 'callout',
+  aspect_ratio: 'default',
   grid_type: 'onecol',
   records: 1,
   item_sizes: [
