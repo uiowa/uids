@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useSlots } from 'vue'
+import { computed, onMounted, useSlots } from 'vue';
 import { className } from '../utlity'
 import UidsHeadline from '../headline/Headline.vue'
 import UidsButton from '../button/Button.vue'
@@ -10,6 +10,7 @@ import Media from '../shared/media'
 import './card.scss'
 import '../background/background.scss'
 import '../media/media.scss'
+import { applyClickA11y } from '../../assets/js/click-a11y'
 
 const name = 'uids-card'
 const props = defineProps({
@@ -127,6 +128,10 @@ const buttonClasses = computed(() => {
     classes.push('bttn--no-text')
   }
 
+  if (linkedElement.value === 'button') {
+    classes.push('click-target')
+  }
+
   return classes
 })
 
@@ -173,6 +178,13 @@ const detailsElement = computed(() => {
   }
   return false;
 });
+
+onMounted(() => {
+  if (props.url) {
+    applyClickA11y('.click-container:not([data-uids-no-link])');
+  }
+});
+
 </script>
 
 <template>
@@ -185,23 +197,35 @@ const detailsElement = computed(() => {
         <a
           v-if="linkedElement === 'image'"
           :href="url"
+          class="click-target"
         >
           <!-- @slot Media displayed at the top of the card. -->
           <slot name="media"></slot>
         </a>
         <!-- @slot Media displayed at the top of the card. -->
-        <slot name="media" v-else></slot>
+        <slot
+          name="media"
+          v-else
+        ></slot>
       </div>
     </div>
 
     <div class="card__body">
       <header v-if="$slots.title">
-        <uids-headline :url="headlineLink" :text_style="headline_style">
+        <uids-headline :text_style="headline_style">
           <!-- @slot The title of the card. HTML is allowed. -->
-          <slot name="title">Title</slot>
+          <a v-if="headlineLink" :href="headlineLink" class="click-target">
+            <slot name="title">Title</slot>
+          </a>
+          <template v-else>
+            <slot name="title">Title</slot>
+          </template>
         </uids-headline>
       </header>
-      <div v-if="detailsElement === true" class="card__details">
+      <div
+        v-if="detailsElement === true"
+        class="card__details"
+      >
         <div v-if="$slots.subtitle" class="card__subtitle">
           <!-- @slot The subtitle of the card.. -->
           <slot name="subtitle">Subtitle</slot>
