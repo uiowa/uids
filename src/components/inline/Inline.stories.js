@@ -89,7 +89,7 @@ export default {
     item_sizes: {
       name: 'Inline item sizes',
       options: [
-        'default',
+        'full',
         'small',
         'medium',
         'large',
@@ -97,7 +97,7 @@ export default {
       control: {
         type: 'check',
         labels: {
-          default: 'Default',
+          full: 'Full',
           small: 'Small',
           medium: 'Medium',
           large: 'Large',
@@ -208,7 +208,7 @@ Default.args = {
   grid_type: 'onecol',
   records: 1,
   item_sizes: [
-    'default',
+    'full',
     'small',
     'medium',
     'large'
