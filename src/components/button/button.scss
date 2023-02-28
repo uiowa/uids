@@ -13,69 +13,16 @@
       background-color: $secondary;
     }
 
-    &:after {
-      [class*="bg--gold"] & {
-        background: $primary;
-      }
-    }
-
-    i,
-    svg {
-      [class*="bg--gold"] &{
-        color: $primary;
-      }
-    }
-
-    [class*="bg--gray"] &,
-    [class*="bg--white"] &,
-    .bg-pattern--brain & {
-      border: none;
-    }
-
-    [class*="bg--black"] [class*="bg--gold"] &,
-    [class*="bg--white"] [class*="bg--gold"] &,
-    [class*="bg--gray"] [class*="bg--gold"] &,
-    [class*="bg--gold"] [class*="bg--gold"] &,
-    .bg-pattern--brain-reversed &,
-    [class*="bg--gold"] & {
-      background: $secondary;
-      color: #fff;
-    }
-
-    .bg-pattern--brain-reversed [class*="bg--gray"] &,
-    [class*="bg--gold"] [class*="bg--gray"] &,
-    .bg-pattern--brain-reversed [class*="bg--white"] &,
-    [class*="bg--gold"] [class*="bg--white"] & {
-      background: $primary;
-      color: $secondary;
-      border: none;
-      i,
-      svg {
-        color: #fff;
-      }
-      &:after {
-        background: $secondary;
-      }
-    }
-
-    [class*="bg--gold"] [class*="bg--black"] & {
-      background: $primary;
-      color: $secondary;
-      i,
-      svg {
-        color: #fff;
-      }
-      &:after {
-        background: $secondary;
-      }
-    }
-
-    [class*="bg--black"] [class*="bg--black"] &,
-    [class*="bg--white"] [class*="bg--black"] &,
-    [class*="bg--gray"] [class*="bg--black"] &,
-    .bg-pattern--brain-black &,
+    [class*="bg--"] [class*="bg--black"] &,
     [class*="bg--black"] & {
       color: $secondary;
+    }
+
+    [class*="bg--"] [class*="bg--gray"] &,
+    [class*="bg--"] [class*="bg--white"] &,
+    [class*="bg--gray"] &,
+    [class*="bg--white"] & {
+      border-color: $primary;
     }
   }
 
@@ -86,6 +33,10 @@
 
     &__light {
       @include bttn--secondary__light;
+    }
+
+    [class*="bg--black"] & {
+      color: #fff;
     }
 
     [class*="bg-"] [class*="bg--gray"] &,
@@ -109,6 +60,10 @@
     background: #fff;
     border: 1px solid #fff;
 
+    [class*="bg--black"] & {
+      color: #fff;
+    }
+
     &:not([class*="bttn--outline"]) {
       .bg-pattern--brain-black &,
       [class*="bg--black"] & {
@@ -125,9 +80,21 @@
     @include bttn--outline;
     border: 1px solid;
 
-    &:hover,
-    &:focus {
-      background: #fff;
+    [class*="bg--gray"] &,
+    [class*="bg--white"] &,
+    [class*="bg--gold"] &,
+    [class*="bg--"] [class*="bg--gray"] &,
+    [class*="bg--"] [class*="bg--white"] &,
+    [class*="bg--"] [class*="bg--gold"] & {
+      border-color: rgba(0,0,0,.425);
+    }
+
+    [class*="bg--black"] & {
+      border-color: rgba(255,255,255,.425);
+    }
+
+    &:focus,
+    &:hover {
       color: $secondary;
       @include bttn--focus;
 
@@ -171,19 +138,30 @@
     &.bttn--tertiary {
       background: none;
 
+      [class*="bg--black"] [class*="bg--white"] &,
+      [class*="bg--black"] [class*="bg--gray"] &,
+      [class*="bg--black"] [class*="bg--gold"] & {
+        color: $secondary;
+      }
+
+
       i,
       svg {
         [class*="bg--gold"] & {
-          color: $secondary;
+          color: #fff;
+        }
+
+        [class*="bg--gold"] [class*="bg--black"] &,
+        [class*="bg--gold"] [class*="bg--gray"] &,
+        [class*="bg--gold"] [class*="bg--white"] & {
+          color: $primary;
         }
       }
     }
 
     &.bttn--secondary {
-
-      &:hover,
-      &:focus {
-
+      &:focus,
+      &:hover {
         [class*="bg--gray"] &,
         [class*="bg--gold"] &,
         .bg-pattern--brain-reversed &,
@@ -204,17 +182,15 @@
         .bg-pattern--brain-black [class*="bg--gray"] & {
           color: #fff;
         }
-
       }
     }
-
   }
 
   &--transparent {
     @include bttn--transparent;
 
-    &:hover,
-    &:focus {
+    &:focus,
+    &:hover {
       background: #fff;
       border: 1px solid white;
     }
@@ -234,8 +210,8 @@
   &--sans-serif {
     font-family: $font-family-sans-serif;
     font-weight: $font-weight-normal;
-    font-size: .9rem;
-    letter-spacing: .04rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.04rem;
     display: inline-block;
 
     &:focus {
@@ -244,7 +220,7 @@
 
     i,
     span {
-      font-size: .9rem;
+      font-size: 0.9rem;
     }
 
     &.bttn--full {
@@ -256,26 +232,24 @@
   &--link {
     color: #000;
 
-    &:hover,
-    &:focus {
+    &:focus,
+    &:hover {
       border: none;
       transform: none;
 
-      &:hover::after,
-      &:focus::after {
+      &:focus::after,
+      &:hover::after {
         transform: none;
       }
     }
   }
-
   // @todo remove or move to uids_base?
   &__apply {
     margin-top: unset;
-    padding: .7rem;
+    padding: 0.7rem;
     border: 1px solid $white;
-    font-size: .95rem;
+    font-size: 0.95rem;
     display: none;
-
     @include breakpoint(sm) {
       display: block;
     }

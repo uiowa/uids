@@ -4,7 +4,7 @@ name: Update documentation in GitHub Pages
 on:
   push:
     branches:
-      - "main"
+      - "3.x"
     tags:
       - '*'
   pull_request:
@@ -19,13 +19,14 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     # If the PR is coming from a fork (pull_request_target), ensure it's opened by "dependabot[bot]".
-    # Otherwise, clone it normally.
+    # Otherwise, clone it normally. Also, skip the 3.x branch, so we don't build that to latest anymore.
     if: |
-      (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') ||
-      (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
+      ((github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]')
+      || (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]'))
+      && github.ref != 'refs/heads/3.x'
     env:
       TARGET_BRANCH: gh-pages
-      MAIN_BRANCH: main
+      MAIN_BRANCH: 3.x
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -40,14 +41,6 @@ jobs:
         uses: actions/checkout@v2.3.1
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-
-      - name: Set variables for main
-        if: |
-          github.event_name == 'push' &&
-          github.ref == format('refs/heads/{0}', env.MAIN_BRANCH)
-        run: |
-          echo "branch=latest" >> $GITHUB_ENV
-          echo "target_dir=/" >> $GITHUB_ENV
 
       - name: Set variables for branches
         if: |
@@ -101,7 +94,7 @@ jobs:
 #      - run: echo "Branch check - ${{ contains(github.ref, 'refs/heads/') && github.ref != format('refs/heads/{0}', env.MAIN_BRANCH) }}"
 #      - run: echo "Tags check - ${{ startsWith(github.ref, 'refs/tags/') }}
 
-      # Only one of the following 3 steps should run.
+      # Only one of the following 2 steps should run.
 
       # If tags:
       #   - Copy the build to the root of 'gh-pages'.

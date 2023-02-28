@@ -1,5 +1,5 @@
 const drawerContainer = document.querySelectorAll(".o-canvas__wrapper");
-const toggleButtons = document.querySelectorAll("button.bttn--drawer");
+const toggleButtons = document.querySelectorAll("button.toggle-nav__bttn");
 const canvasDrawer = document.querySelectorAll(".o-canvas__drawer");
 
 // drawer open/close functionality
@@ -7,7 +7,7 @@ const canvasDrawer = document.querySelectorAll(".o-canvas__drawer");
 document.addEventListener(
   "click",
   function (e) {
-    if (!e.target.classList.contains("bttn--drawer")) return;
+    if (!e.target.classList.contains("toggle-nav__bttn")) return;
     // Add the active/open class
     e.target.classList.toggle("active");
     e.target.parentNode.classList.toggle("o-canvas--open");
