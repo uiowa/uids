@@ -23,7 +23,7 @@ const props = defineProps({
 const classes = computed(() => {
   let classes = [];
 
-  classes.push(`grid--${ props.type }`);
+  classes.push(`grid grid--${ props.type }`);
 
   return classes;
 });

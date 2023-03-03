@@ -1,0 +1,150 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/utilities';
+
+[class*="inline--"] {
+  --inline-margin-xs: 0.5rem;
+  --inline-margin-sm: var(--space-sm-width-gutter);
+  --inline-margin-md: var(--space-md-width-gutter);
+  --inline-margin-lg: var(--space-lg-width-gutter);
+}
+
+// === Element alignment classes  === //
+.inline--align-left {
+  float: left;
+
+  &:after {
+    content: '';
+  }
+}
+
+.inline--align-center {
+  margin-inline-start: auto;
+  margin-inline-end: auto;
+}
+
+.inline--align-right {
+  float: right;
+}
+// === End: element alignment classes === //
+
+// === Element media sizes === //
+[class*="inline--size-"] {
+  width: 100%;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  margin-bottom: var(--inline-margin-sm);
+  margin-top: var(--inline-margin-xs);
+}
+
+.inline--size-full {
+  margin-bottom: var(--inline-margin-sm);
+  margin-top: var(--inline-margin-xs);
+}
+
+.inline--size-small {
+  @include breakpoint(sm) {
+    width: 35%;
+  }
+}
+
+.inline--size-medium {
+  @include breakpoint(sm) {
+    width: 45%;
+  }
+}
+
+.inline--size-large {
+  @include breakpoint(sm) {
+    width: 55%;
+  }
+}
+
+// Set container query max-width sizes for images.
+@supports (contain: inline-size) {
+  [class*="inline--size-"] {
+    width: 100%;
+  }
+
+  figure[class*="inline--size-"] {
+    img {
+      width: 100%;
+    }
+  }
+
+  @container column (min-width: #{$break-xxsm}) {
+    .inline--size-small {
+      width: 50%;
+
+      &.inline--align-center {
+        margin-inline-start: auto;
+        margin-inline-end: auto;
+      }
+
+      &.inline--align-left {
+        margin-inline-end: var(--inline-margin-md);
+      }
+
+      &.inline--align-right {
+        margin-inline-start: var(--inline-margin-md);
+      }
+    }
+  }
+
+  @container column (min-width: #{$break-xsm}) {
+    .inline--size-small {
+      width: 40%;
+    }
+    .inline--size-medium {
+      width: 67%;
+      margin-inline-start: 0;
+      margin-inline-end: 0;
+
+      &.inline--align-center {
+        margin-inline-start: auto;
+        margin-inline-end: auto;
+      }
+
+      &.inline--align-left {
+        margin-inline-end: var(--inline-margin-md);
+      }
+
+      &.inline--align-right {
+        margin-inline-start: var(--inline-margin-md);
+      }
+    }
+  }
+
+  @container column (min-width: #{$break-md}) {
+    .inline--size-small {
+      width: 33%;
+    }
+
+    .inline--size-medium {
+      width: 50%;
+    }
+
+    .inline--size-large {
+      width: 70%;
+
+      &.inline--align-center {
+        margin-inline-start: auto;
+        margin-inline-end: auto;
+      }
+
+      &.inline--align-left {
+        margin-inline-end: var(--inline-margin-md);
+      }
+
+      &.inline--align-right {
+        margin-inline-start: var(--inline-margin-md);
+      }
+    }
+  }
+
+  @container column (min-width: #{$break-lg}) {
+    .inline--size-large {
+      width: 75%;
+    }
+  }
+}
+// === End: element media sizes === //
