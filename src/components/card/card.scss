@@ -322,4 +322,25 @@
   }
 }
 // === End: Layout right === //
+
+// === Background colors === //
+// Remove padding if container background matches card background with borderless.
+$bg-colors: "white", "gray", "black", "gold";
+
+@each $color in $bg-colors {
+  .bg--#{$color} {
+    .card.bg--#{$color}[class*="borderless"] {
+      padding: 0;
+      &:not([class*="card--layout"]) {
+        .media__inner {
+          margin-left: 0;
+          margin-right: 0;
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}
+
+// === End: Background colors === //
 /* === End: Card modifiers === */
