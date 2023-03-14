@@ -15,12 +15,12 @@ export default {
     // Props
     headline_style: {
       name: 'Title style',
-      options: ['', 'serif'],
+      options: ['serif', ''],
       control: {
         type: 'select',
         labels: {
-          '': 'default',
-          serif: 'Serif',
+          'serif': 'Zilla Slab (default)',
+          '': 'Roboto',
         },
       },
       table: {
@@ -224,7 +224,7 @@ Default.args = {
   link_text: 'Explore the arts',
   link_indicator: true,
   button_align_bottom: false,
-  headline_style: '',
+  headline_style: 'serif',
   borderless: false,
   background: '',
   centered: false,
