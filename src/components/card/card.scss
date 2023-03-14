@@ -46,7 +46,7 @@
   }
 
   header {
-    margin: 0 0 $sm;
+    margin: 0 0 0.525rem;
     padding: 0;
     font-size: 1.5rem;
     font-weight: $font-weight-medium;
@@ -94,10 +94,13 @@
   // Overrides for shared media classes.
 
   .media {
-    margin-left: auto;
-    margin-right: auto;
     margin-top: 0;
     text-align: center;
+    &.media--small,
+    &.media--medium {
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 
   // Allows the media to run edge to edge for stacked cards.
@@ -121,7 +124,7 @@
 
     // @todo remove when https://github.com/uiowa/uids/issues/805 is implemented.
     &.media--small {
-      max-width: 150px;
+      min-width: 150px;
     }
   }
 
@@ -130,13 +133,13 @@
       width: 75%;
     }
     @include breakpoint(sm) {
-      width: 50%;
+      width: 30%;
     }
   }
 
   .media--medium {
     @include breakpoint(xsm) {
-      width: 75%;
+      width: 60%;
     }
   }
 }
