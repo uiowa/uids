@@ -144,12 +144,6 @@
       margin-top: 0;
       margin-right: 0;
     }
-
-    // @todo remove when https://github.com/uiowa/uids/issues/805 is implemented.
-    &.media--small,
-    &.media--medium {
-      min-width: 180px;
-    }
   }
 
   .media--square {
@@ -167,17 +161,16 @@
   }
 
   .media--small {
-    @include breakpoint(xsm) {
-      width: 75%;
-    }
+    max-width: 150px;
     @include breakpoint(sm) {
-      width: 30%;
+      max-width: 180px;
     }
   }
 
   .media--medium {
-    @include breakpoint(xsm) {
-      width: 60%;
+    max-width: 200px;
+    @include breakpoint(sm) {
+      max-width: 60%;
     }
   }
 }
@@ -310,21 +303,17 @@
     flex-basis: 100%;
   }
 
-  .media--small {
-    @include breakpoint(sm) {
-      max-width: 180px;
-    }
-  }
-
   .media--medium {
     @include breakpoint(sm) {
       flex: 0 0 35%;
+      max-width: none;
     }
   }
 
   .media--large {
     @include breakpoint(sm) {
       flex: 0 0 50%;
+      max-width: none;
     }
   }
 }
