@@ -96,6 +96,7 @@
   .media {
     margin-top: 0;
     text-align: center;
+    min-width: 150px;
 
     img {
       width: 100%;
@@ -146,6 +147,20 @@
     }
   }
 
+  .media--small {
+    max-width: 180px;
+    @include breakpoint(sm) {
+      max-width: 30%;
+    }
+  }
+
+  .media--medium {
+    max-width: 200px;
+    @include breakpoint(sm) {
+      max-width: 60%;
+    }
+  }
+
   .media--square {
     img,
     iframe {
@@ -157,20 +172,6 @@
     img,
     iframe {
       aspect-ratio: 16 / 9;
-    }
-  }
-
-  .media--small {
-    max-width: 150px;
-    @include breakpoint(sm) {
-      max-width: 180px;
-    }
-  }
-
-  .media--medium {
-    max-width: 200px;
-    @include breakpoint(sm) {
-      max-width: 60%;
     }
   }
 }
@@ -301,6 +302,13 @@
 
   > * {
     flex-basis: 100%;
+  }
+
+  .media--small {
+    max-width: 180px;
+    @include breakpoint(sm) {
+      max-width: 180px;
+    }
   }
 
   .media--medium {
