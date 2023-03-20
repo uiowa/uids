@@ -96,7 +96,7 @@
   > .media {
     margin-top: 0;
     text-align: center;
-    min-width: 150px;
+    min-width: 11.375rem;
 
     img {
       width: 100%;
@@ -147,7 +147,13 @@
       margin-right: 0;
     }
     &.media--small {
-      max-width: 150px;
+      max-width: 11.375rem;
+    }
+    &.media--medium {
+      max-width: 15.625rem;
+      @include breakpoint(sm) {
+        max-width: 60%;
+      }
     }
   }
 
@@ -297,23 +303,16 @@
     flex-basis: 100%;
   }
 
-  .media--small.media--circle {
-    max-width: 150px;
-  }
-
-  .media--small.media--square {
-    @include breakpoint(sm) {
-      max-width: 180px;
-    }
-  }
-
-  .media--small.media--widescreen {
-    @include breakpoint(sm) {
-      max-width: 250px;
-    }
+  .media--small {
+    max-width: 11.375rem;
   }
 
   .media--medium {
+    &.media--circle {
+      @include breakpoint(sm) {
+        max-width: none;
+      }
+    }
     @include breakpoint(sm) {
       flex: 0 0 35%;
     }
