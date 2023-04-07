@@ -86,13 +86,28 @@
     justify-content: left;
     font-size: 1rem;
     filter: opacity(0.75);
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    padding: 2px 0;
+    text-transform: uppercase;
+    font-family: Antonio,Antonio-fallback,sans-serif;
+    -webkit-font-smoothing: auto;
+    -moz-osx-font-smoothing: auto;
+    font-size: calc(100% - .7vw);
+    line-height: 1.7;
 
     @include breakpoint(page-container) {
       font-size: 1.1rem;
     }
 
     span {
-
+      display: inline;
+      padding: 0.45rem 1rem;
+      color: #fff;
+      background: black;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
       @include breakpoint(sm) {
         display: inline;
       }
@@ -106,7 +121,7 @@
   }
 
   .highlight__wrapper {
-    display: block;
+    display: none;
     pointer-events: none;
     text-align: left;
     position: absolute;
@@ -114,6 +129,7 @@
     right: 0;
     top: 0;
     left: 0;
+    z-index: 1;
 
     &.active {
       display: none;
@@ -247,5 +263,87 @@
 
   .embed-responsive-9by16 {
     padding-bottom: 177.78%;
+    aspect-ratio: 9/16;
   }
+}
+
+
+/*
+ * Light YouTube Embeds by @labnol
+ * Credit: https://www.labnol.org/
+ * Video title oauth added by @kmhelander
+ */
+
+//.youtube-player {
+//  position: relative;
+//  aspect-ratio: 16 / 9;  /* Modern browsers https://caniuse.com/mdn-css_properties_aspect-ratio */
+//  width: 100%;
+//  overflow: hidden;
+//  background: #000;
+//  margin: 5px;
+//}
+//
+//.youtube-player iframe {
+//  position: absolute;
+//  top: 0;
+//  left: 0;
+//  width: 100%;
+//  height: 100%;
+//  z-index: 100;
+//  background: transparent;
+//}
+
+/* Poster image */
+.youtube-player img {
+  object-fit: cover;
+  display: block;
+  left: 0;
+  bottom: 0;
+  margin: auto;
+  max-width: 100%;
+  width: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: none;
+  height: auto;
+  cursor: pointer;
+  transition: 0.4s all;
+  //padding-bottom: 177.78%;
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.youtube-player img:hover {
+  -webkit-filter: brightness(75%);
+}
+
+/* Play button on poster image */
+.youtube-player .play {
+  height: 114px;
+  width: 114px;
+  left: 50%;
+  margin-top: 100%;
+  position: relative;
+  background: url('../../assets/images/play.png') no-repeat;
+  cursor: pointer;
+  transform: translate(-50%, -50%);   /* Responsive... */
+}
+
+.youtube-player .videotitle {
+  position: absolute;
+  font-size: clamp(0.9rem, 2vw, 1.3rem);
+  color: white;
+  text-shadow: 1px 1px black;
+  left: 10px;
+  top: 10px;
 }
