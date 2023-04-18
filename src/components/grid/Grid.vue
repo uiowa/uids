@@ -1,6 +1,6 @@
 <template>
   <div :class="classes">
-    <div class="list-container">
+    <div class="list-container__inner">
       <slot></slot>
     </div>
   </div>
@@ -23,7 +23,7 @@ const props = defineProps({
 const classes = computed(() => {
   let classes = [];
 
-  classes.push(`grid grid--${ props.type }`);
+  classes.push(`list-container grid--${ props.type }`);
 
   return classes;
 });

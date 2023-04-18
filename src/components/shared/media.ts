@@ -1,7 +1,6 @@
 import { className } from '../utlity'
 
 const sizes = [
-  '',
   'small',
   'medium',
   'large',
@@ -19,7 +18,7 @@ const props = {
    */
   media_size: {
     type: String,
-    default: '',
+    default: 'large',
     validator: function (value: string) {
       return sizes.indexOf(value) !== -1
     },
@@ -66,15 +65,10 @@ const argTypes = {
     name: 'Size',
     options: sizes,
     table: {
-      defaultValue: { summary: sizes[1] },
+      defaultValue: { summary: sizes[2] },
       category: 'Media',
     },
-    control: {
-      type: 'select',
-      labels: {
-        '': 'full width'
-      },
-    },
+    control: 'select',
     description: 'Set the size of the media element.',
   },
 }

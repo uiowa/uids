@@ -15,12 +15,12 @@ export default {
     // Props
     headline_style: {
       name: 'Title style',
-      options: ['', 'serif'],
+      options: ['serif', ''],
       control: {
         type: 'select',
         labels: {
-          '': 'default',
-          serif: 'Serif',
+          'serif': 'Zilla Slab (default)',
+          '': 'Roboto',
         },
       },
       table: {
@@ -121,11 +121,52 @@ export default {
         category: 'Content',
       },
     },
-  },
-  parameters: {
-    viewport: {
-      viewports: parameters.viewport.viewports,
-      defaultViewport: 'mobile2',
+    section_background: {
+      name: 'Section background',
+      options: [
+        '',
+        'bg--black',
+        'bg--black--pattern--brain',
+        'bg--black--pattern--community',
+        'bg--black--pattern--particle',
+        'bg--gold',
+        'bg--gold--pattern--brain',
+        'bg--gold--pattern--community',
+        'bg--gold--pattern--particle',
+        'bg--gray',
+        'bg--gray--pattern--brain',
+        'bg--gray--pattern--community',
+        'bg--gray--pattern--particle',
+        'bg--white',
+        'bg--white--pattern--brain',
+        'bg--white--pattern--community',
+        'bg--white--pattern--particle',
+      ],
+      control: {
+        type: 'select',
+        labels: {
+          '': '- None -',
+          'bg--black': 'Black',
+          'bg--black--pattern--brain': 'Black - Brain pattern',
+          'bg--black--pattern--community': 'Black - Community pattern',
+          'bg--black--pattern--particle': 'Black - Particle pattern',
+          'bg--gold': 'Gold',
+          'bg--gold--pattern--brain': 'Gold - Brain pattern',
+          'bg--gold--pattern--community': 'Gold - Community pattern',
+          'bg--gold--pattern--particle': 'Gold - Particle pattern',
+          'bg--gray': 'Gray',
+          'bg--gray--pattern--brain': 'Gray - Brain pattern',
+          'bg--gray--pattern--community': 'Gray - Community pattern',
+          'bg--gray--pattern--particle': 'Gray - Particle pattern',
+          'bg--white': 'White',
+          'bg--white--pattern--brain': 'White - Brain pattern',
+          'bg--white--pattern--community': 'White - Community pattern',
+          'bg--white--pattern--particle': 'White - Particle pattern',
+        },
+      },
+      table: {
+        category: 'Container',
+      },
     },
   },
 }
@@ -140,27 +181,33 @@ const Template = (args) => ({
   },
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
-      <uids-card
-        :url="args.url"
-        :link_text="args.link_text"
-        :link_indicator="args.link_indicator"
-        :button_align_bottom="args.button_align_bottom"
-        :headline_style="args.headline_style"
-        :borderless="args.borderless"
-        :background="args.background"
-        :orientation="args.orientation"
-        :media_size="args.media_size"
-        :media_shape="args.media_shape"
-        :media_border="args.media_border"
-        :media_padded="args.media_padded"
-        :centered="args.centered"
-      >
-        <template #media v-if="args.media"><span v-html="args.media" ></span></template>
-        <template #title v-if="args.title"><div v-html="args.title" ></div></template>
-        <template #subtitle v-if="args.subtitle"><div v-html="args.subtitle" ></div></template>
-        <template #meta v-if="args.meta"><div v-html="args.meta" ></div></template>
-        <template #default><div v-html="args.default"></div></template>
-      </uids-card>
+    <div :class="args.section_background" style="padding-top: 2rem; padding-bottom: 2rem;">
+      <div class="grid--threecol--33-34-33">
+        <div class="list-container">
+          <uids-card
+            :url="args.url"
+            :link_text="args.link_text"
+            :link_indicator="args.link_indicator"
+            :button_align_bottom="args.button_align_bottom"
+            :headline_style="args.headline_style"
+            :borderless="args.borderless"
+            :background="args.background"
+            :orientation="args.orientation"
+            :media_size="args.media_size"
+            :media_shape="args.media_shape"
+            :media_border="args.media_border"
+            :media_padded="args.media_padded"
+            :centered="args.centered"
+          >
+            <template #media v-if="args.media"><span v-html="args.media" ></span></template>
+            <template #title v-if="args.title"><div v-html="args.title" ></div></template>
+            <template #subtitle v-if="args.subtitle"><div v-html="args.subtitle" ></div></template>
+            <template #meta v-if="args.meta"><div v-html="args.meta" ></div></template>
+            <template #default><div v-html="args.default"></div></template>
+          </uids-card>
+        </div>
+      </div>
+    </div>
   `,
 })
 
@@ -177,15 +224,16 @@ Default.args = {
   link_text: 'Explore the arts',
   link_indicator: true,
   button_align_bottom: false,
-  headline_style: '',
+  headline_style: 'serif',
   borderless: false,
   background: '',
   centered: false,
   orientation: '',
   media_border: false,
-  media_size: '',
+  media_size: 'large',
   media_shape: 'widescreen',
   media_padded: false,
+  section_background: '',
 }
 
 export const LinkedWithNoButtonText = Template.bind({});
@@ -289,31 +337,33 @@ const GridTemplate = (args) => ({
   },
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
-    <uids-grid :type="args.type">
-      <uids-grid-item v-for="item in args.records" :key="item">
-        <uids-card
-          :url="args.url"
-          :link_text="args.link_text"
-          :link_indicator="args.link_indicator"
-          :button_align_bottom="args.button_align_bottom"
-          :headline_style="args.headline_style"
-          :borderless="args.borderless"
-          :background="args.background"
-          :orientation="args.orientation"
-          :media_size="args.media_size"
-          :media_shape="args.media_shape"
-          :media_border="args.media_border"
-          :media_padded="args.media_padded"
-          :centered="args.centered"
-        >
-          <template #media v-if="args.media"><span v-html="args.media" ></span></template>
-          <template #title v-if="args.title"><div v-html="args.title" ></div></template>
-          <template #subtitle v-if="args.subtitle"><div v-html="args.subtitle" ></div></template>
-          <template #meta v-if="args.meta"><div v-html="args.meta" ></div></template>
-          <template #default><div v-html="args.default"></div></template>
-        </uids-card>
-      </uids-grid-item>
-    </uids-grid>
+    <div :class="args.section_background" style="padding-top: 2rem; padding-bottom: 2rem;">
+      <uids-grid :type="args.type">
+        <uids-grid-item v-for="item in args.records" :key="item">
+          <uids-card
+            :url="args.url"
+            :link_text="args.link_text"
+            :link_indicator="args.link_indicator"
+            :button_align_bottom="args.button_align_bottom"
+            :headline_style="args.headline_style"
+            :borderless="args.borderless"
+            :background="args.background"
+            :orientation="args.orientation"
+            :media_size="args.media_size"
+            :media_shape="args.media_shape"
+            :media_border="args.media_border"
+            :media_padded="args.media_padded"
+            :centered="args.centered"
+          >
+            <template #media v-if="args.media"><span v-html="args.media" ></span></template>
+            <template #title v-if="args.title"><div v-html="args.title" ></div></template>
+            <template #subtitle v-if="args.subtitle"><div v-html="args.subtitle" ></div></template>
+            <template #meta v-if="args.meta"><div v-html="args.meta" ></div></template>
+            <template #default><div v-html="args.default"></div></template>
+          </uids-card>
+        </uids-grid-item>
+      </uids-grid>
+    </div>
   `,
 })
 
