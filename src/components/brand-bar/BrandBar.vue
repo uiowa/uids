@@ -51,6 +51,7 @@ export default {
       <uids-logo></uids-logo>
       <!-- @slot Default slot shows content next to the logo. -->
       <slot></slot>
+      <slot name="top_link_content"></slot>
     </div>
     <div class="iowa-bar__below" v-if="$slots.second_row_content">
       <div class="iowa-bar__container">

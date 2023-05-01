@@ -10,6 +10,9 @@ export default {
     default: {
       control: { type: 'text' },
     },
+    top_link_content: {
+      control: { type: 'text' },
+    },
     second_row_content: {
       control: { type: 'text' },
     },
@@ -32,6 +35,7 @@ export const Default = Template.bind({})
 Default.args = {
   narrow: false,
   default: '',
+  top_link_content: '',
   second_row_content: '',
 }
 
@@ -43,6 +47,7 @@ const SiteTitleTemplate = (args) => ({
   template: `
     <uids-iowa-bar :narrow="args.narrow">
       <h1 class="site-name">{{ args.default }}</h1>
+      <div class="top-link">{{ args.top_link_content }}</div>
     </uids-iowa-bar>
 `
 })
