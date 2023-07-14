@@ -1,17 +1,14 @@
 const drawerContainer = document.querySelector(".o-canvas__wrapper");
 const toggleButtons = document.querySelectorAll("button.toggle-nav__bttn");
-const scrollUp = 'scroll-up';
-const scrollDown = 'scroll-down';
-const menuDrawer = document.querySelector('.header-not-sticky .o-canvas__drawer');
-const menuDrawerMobile = document.querySelector('.o-canvas__drawer');
-const header = document.querySelector('[data-uids-header]');
-const menuMq = window.matchMedia('(min-width: 855px)');
-let height = header.clientHeight;
-let lastScroll = 0;
+const canvasDrawer = document.querySelector('.o-canvas__drawer');
+const iowaHeader = document.querySelector('[data-uids-header]');
 
-// Set positioning of menuDrawerMobile based on iowaBar height
-let iowaBarHeight = header.offsetHeight;
-menuDrawerMobile.style.top = `${iowaBarHeight}px`;
+let exactheight = iowaHeader.clientHeight;
+let lScroll = 0;
+
+// Set positioning of canvasDrawer based on iowaBar height
+let iowaBarHeight = iowaHeader.offsetHeight;
+canvasDrawer.style.top = `${iowaBarHeight}px`;
 
 // drawer open/close functionality
 document.addEventListener("click", (e) => {
@@ -65,48 +62,27 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
-// navigation scroll
-window.addEventListener('scroll', function () {
-  const currentScroll = window.pageYOffset;
-  // remove classes if scrolled all the way up
-  if (currentScroll <= height) {
-    document.body.classList.remove(scrollUp);
-    document.body.classList.remove(scrollDown);
-    if (menuMq.matches) {
-      if (menuDrawer) {
-        menuDrawer.style.top = Math.max(height - this.scrollY) + 'px';
-      }
-    } else {
-      menuDrawerMobile.style.top = Math.max(height - this.scrollY) + 'px';
-    }
-    return;
-  }
-  // if contains lock don't add anything....
-  if (currentScroll > lastScroll && !document.body.classList.contains('o-canvas--lock')) {
-    // down
-    if (currentScroll > height) {
-      document.body.classList.remove(scrollUp);
-      document.body.classList.add(scrollDown);
-    }
-  } else if (currentScroll < lastScroll && document.body.classList.contains(scrollDown)) {
-    // up
-    document.body.classList.remove(scrollDown);
-    document.body.classList.add(scrollUp);
-  }
-  lastScroll = currentScroll;
-});
-
-window.addEventListener('orientationchange', function (event) {
-  const afterOrientationChange = function () {
-    menuDrawerMobile.style.top = Math.max(header.offsetHeight - this.scrollY) + 'px';
-    window.removeEventListener('resize', afterOrientationChange);
-  };
-  window.addEventListener('resize', afterOrientationChange);
-  return;
-});
-
 window.addEventListener('resize', function () {
-  // Update iowaBarHeight and reposition menuDrawerMobile
-  iowaBarHeight = header.offsetHeight;
-  menuDrawerMobile.style.top = `${iowaBarHeight}px`;
+  // Update iowaBarHeight and reposition canvasDrawer
+  iowaBarHeight = iowaHeader.offsetHeight;
+  canvasDrawer.style.top = `${iowaBarHeight}px`;
 });
+
+// Update canvasDrawer position on scroll if body class is "header-not-sticky"
+function adjustCanvasDrawerPosition() {
+  if (document.body.classList.contains("header-not-sticky")) {
+    const currentScroll = window.pageYOffset;
+
+    if (currentScroll > lastScroll && currentScroll > height) {
+      // Scrolling down
+      canvasDrawer.style.top = "0";
+    } else {
+      // Scrolling up or at the top
+      canvasDrawer.style.top = `${Math.max(iowaBarHeight - currentScroll, 0)}px`;
+    }
+
+    lastScroll = currentScroll;
+  }
+}
+
+window.addEventListener('scroll', adjustCanvasDrawerPosition);
