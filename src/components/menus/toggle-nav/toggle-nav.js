@@ -3,8 +3,8 @@ const toggleButtons = document.querySelectorAll("button.toggle-nav__bttn");
 const canvasDrawer = document.querySelector('.o-canvas__drawer');
 const iowaHeader = document.querySelector('[data-uids-header]');
 
-let exactheight = iowaHeader.clientHeight;
-let lScroll = 0;
+let exactHeight = iowaHeader.clientHeight;
+let previousScroll = 0;
 
 // Set positioning of canvasDrawer based on iowaBar height
 let iowaBarHeight = iowaHeader.offsetHeight;
@@ -73,7 +73,7 @@ function adjustCanvasDrawerPosition() {
   if (document.body.classList.contains("header-not-sticky")) {
     const currentScroll = window.pageYOffset;
 
-    if (currentScroll > lastScroll && currentScroll > height) {
+    if (currentScroll > previousScroll && currentScroll > exactHeight) {
       // Scrolling down
       canvasDrawer.style.top = "0";
     } else {
@@ -81,7 +81,7 @@ function adjustCanvasDrawerPosition() {
       canvasDrawer.style.top = `${Math.max(iowaBarHeight - currentScroll, 0)}px`;
     }
 
-    lastScroll = currentScroll;
+    previousScroll = currentScroll;
   }
 }
 
