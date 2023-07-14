@@ -211,49 +211,25 @@
   }
 }
 
-// sticky header for Iowa Bar Below
-
-.header-sticky.scroll-up .iowa-bar__below,
-.header-sticky.scroll-down .iowa-bar__below {
-  .search-overlay .uids-search {
-    @include breakpoint(md) {
-      margin-top: 3px;
-      border-bottom: none;
-    }
-  }
-
-  .iowa-bar__container {
-    @include breakpoint(md) {
-      min-height: 60px;
-    }
-  }
-
-  .site-name {
-    @include breakpoint(md) {
-      padding: 0;
-      transition: transform 0.4s, -webkit-transform 0.4s;
-      font-size: 1.6rem;
-    }
-  }
-
-  .search-button {
-    @include breakpoint(md) {
-      height: 60px;
-      padding: 7px 25px 7px 18px;
-    }
-  }
-}
-
 // fixed scroll bar
 
 .header-sticky.scroll-down .iowa-bar {
   @include breakpoint(md) {
     transform: translate3d(0, -100%, 0);
+    overflow: hidden;
   }
 
   .logo--tab {
     @include breakpoint(md) {
       margin-top: -17px;
+    }
+  }
+}
+
+.header-sticky.scroll-down .iowa-bar.iowa-bar--narrow {
+  .toggle-nav__bttn {
+    @include breakpoint(page-container) {
+      top: 35px;
     }
   }
 }
