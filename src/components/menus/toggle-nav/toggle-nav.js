@@ -62,27 +62,27 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
-window.addEventListener('resize', function () {
-  // Update iowaBarHeight and reposition canvasDrawer
-  iowaBarHeight = iowaHeader.offsetHeight;
-  canvasDrawer.style.top = `${iowaBarHeight}px`;
-});
+// window.addEventListener('resize', function () {
+//   // Update iowaBarHeight and reposition canvasDrawer
+//   iowaBarHeight = iowaHeader.offsetHeight;
+//   canvasDrawer.style.top = `${iowaBarHeight}px`;
+// });
 
-// Update canvasDrawer position on scroll if body class is "header-not-sticky"
-function adjustCanvasDrawerPosition() {
-  if (document.body.classList.contains("header-not-sticky")) {
-    const currentScroll = window.pageYOffset;
 
-    if (currentScroll > previousScroll && currentScroll > exactHeight) {
-      // Scrolling down
-      canvasDrawer.style.top = "0";
-    } else {
-      // Scrolling up or at the top
-      canvasDrawer.style.top = `${Math.max(iowaBarHeight - currentScroll, 0)}px`;
-    }
+// Calculate canvasDrawer position based on headerPosition
+const updateCanvasDrawerPosition = () => {
+  const headerPosition = iowaHeader.getBoundingClientRect().top;
+  canvasDrawer.style.top = `${(iowaBarHeight + headerPosition)}px`;
+};
 
-    previousScroll = currentScroll;
-  }
-}
+// Call the function initially to set the initial position
+updateCanvasDrawerPosition();
 
-window.addEventListener('scroll', adjustCanvasDrawerPosition);
+// Update canvasDrawer position on window resize
+window.addEventListener('resize', updateCanvasDrawerPosition);
+
+// Create a MutationObserver to detect changes in the header position
+const observer = new MutationObserver(updateCanvasDrawerPosition);
+
+// Observe changes in the header's attributes or subtree
+observer.observe(iowaHeader, { attributes: true, subtree: true });
