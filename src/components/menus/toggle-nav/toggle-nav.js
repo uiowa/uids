@@ -3,9 +3,6 @@ const toggleButtons = document.querySelectorAll("button.toggle-nav__bttn");
 const canvasDrawer = document.querySelector('.o-canvas__drawer');
 const iowaHeader = document.querySelector('[data-uids-header]');
 
-let exactHeight = iowaHeader.clientHeight;
-let previousScroll = 0;
-
 // Set positioning of canvasDrawer based on iowaBar height
 let iowaBarHeight = iowaHeader.offsetHeight;
 canvasDrawer.style.top = `${iowaBarHeight}px`;
