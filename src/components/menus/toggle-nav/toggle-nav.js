@@ -62,24 +62,23 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
-// window.addEventListener('resize', function () {
-//   // Update iowaBarHeight and reposition canvasDrawer
-//   iowaBarHeight = iowaHeader.offsetHeight;
-//   canvasDrawer.style.top = `${iowaBarHeight}px`;
-// });
-
-
-// Calculate canvasDrawer position based on headerPosition
+// Function to calculate canvasDrawer position based on headerPosition
 const updateCanvasDrawerPosition = () => {
   const headerPosition = iowaHeader.getBoundingClientRect().top;
-  canvasDrawer.style.top = `${(iowaBarHeight + headerPosition)}px`;
+  canvasDrawer.style.top = `${Math.max(iowaBarHeight + headerPosition, 0)}px`;
 };
 
 // Call the function initially to set the initial position
 updateCanvasDrawerPosition();
 
+// Function to handle resizing and updating iowaBarHeight and canvasDrawer position
+const handleResize = () => {
+  iowaBarHeight = iowaHeader.offsetHeight;
+  updateCanvasDrawerPosition();
+};
+
 // Update canvasDrawer position on window resize
-window.addEventListener('resize', updateCanvasDrawerPosition);
+window.addEventListener('resize', handleResize);
 
 // Create a MutationObserver to detect changes in the header position
 const observer = new MutationObserver(updateCanvasDrawerPosition);
