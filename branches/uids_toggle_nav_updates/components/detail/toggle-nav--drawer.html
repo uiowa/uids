@@ -494,8 +494,8 @@
 <span class="hljs-keyword">const</span> canvasDrawer = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;.o-canvas__drawer&#x27;</span>);
 <span class="hljs-keyword">const</span> iowaHeader = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;[data-uids-header]&#x27;</span>);
 
-<span class="hljs-keyword">let</span> exactheight = iowaHeader.clientHeight;
-<span class="hljs-keyword">let</span> lScroll = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">let</span> exactHeight = iowaHeader.clientHeight;
+<span class="hljs-keyword">let</span> previousScroll = <span class="hljs-number">0</span>;
 
 <span class="hljs-comment">// Set positioning of canvasDrawer based on iowaBar height</span>
 <span class="hljs-keyword">let</span> iowaBarHeight = iowaHeader.offsetHeight;
@@ -553,30 +553,29 @@ canvasDrawer.style.top = <span class="hljs-string">`<span class="hljs-subst">${i
   }
 });
 
-<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&#x27;resize&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-  <span class="hljs-comment">// Update iowaBarHeight and reposition canvasDrawer</span>
+<span class="hljs-comment">// Function to calculate canvasDrawer position based on headerPosition</span>
+<span class="hljs-keyword">const</span> updateCanvasDrawerPosition = <span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-keyword">const</span> headerPosition = iowaHeader.getBoundingClientRect().top;
+  canvasDrawer.style.top = <span class="hljs-string">`<span class="hljs-subst">${<span class="hljs-built_in">Math</span>.max(iowaBarHeight + headerPosition, <span class="hljs-number">0</span>)}</span>px`</span>;
+};
+
+<span class="hljs-comment">// Call the function initially to set the initial position</span>
+updateCanvasDrawerPosition();
+
+<span class="hljs-comment">// Function to handle resizing and updating iowaBarHeight and canvasDrawer position</span>
+<span class="hljs-keyword">const</span> handleResize = <span class="hljs-function">() =&gt;</span> {
   iowaBarHeight = iowaHeader.offsetHeight;
-  canvasDrawer.style.top = <span class="hljs-string">`<span class="hljs-subst">${iowaBarHeight}</span>px`</span>;
-});
+  updateCanvasDrawerPosition();
+};
 
-<span class="hljs-comment">// Update canvasDrawer position on scroll if body class is &quot;header-not-sticky&quot;</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">adjustCanvasDrawerPosition</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">document</span>.body.classList.contains(<span class="hljs-string">&quot;header-not-sticky&quot;</span>)) {
-    <span class="hljs-keyword">const</span> currentScroll = <span class="hljs-built_in">window</span>.pageYOffset;
+<span class="hljs-comment">// Update canvasDrawer position on window resize</span>
+<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&#x27;resize&#x27;</span>, handleResize);
 
-    <span class="hljs-keyword">if</span> (currentScroll &gt; lastScroll &amp;&amp; currentScroll &gt; height) {
-      <span class="hljs-comment">// Scrolling down</span>
-      canvasDrawer.style.top = <span class="hljs-string">&quot;0&quot;</span>;
-    } <span class="hljs-keyword">else</span> {
-      <span class="hljs-comment">// Scrolling up or at the top</span>
-      canvasDrawer.style.top = <span class="hljs-string">`<span class="hljs-subst">${<span class="hljs-built_in">Math</span>.max(iowaBarHeight - currentScroll, <span class="hljs-number">0</span>)}</span>px`</span>;
-    }
+<span class="hljs-comment">// Create a MutationObserver to detect changes in the header position</span>
+<span class="hljs-keyword">const</span> observer = <span class="hljs-keyword">new</span> MutationObserver(updateCanvasDrawerPosition);
 
-    lastScroll = currentScroll;
-  }
-}
-
-<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&#x27;scroll&#x27;</span>, adjustCanvasDrawerPosition);
+<span class="hljs-comment">// Observe changes in the header&#x27;s attributes or subtree</span>
+observer.observe(iowaHeader, { <span class="hljs-attr">attributes</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">subtree</span>: <span class="hljs-literal">true</span> });
 </pre>
                             </code>
                             
@@ -593,7 +592,7 @@ canvasDrawer.style.top = <span class="hljs-string">`<span class="hljs-subst">${i
                 </li>
                 <li class="Meta-item">
                     <strong class="Meta-key">Size:</strong>
-                    <span class="Meta-value">3.2 KB</span>
+                    <span class="Meta-value">3.3 KB</span>
                 </li>
             </ul>
         </div>
@@ -2203,8 +2202,8 @@ canvasDrawer.style.top = <span class="hljs-string">`<span class="hljs-subst">${i
         </div>
         <div class="Tree-aside">
             Built on:
-            <time datetime="2023-07-14T20:01:36.203Z">
-                7/14/2023
+            <time datetime="2023-07-19T13:45:26.473Z">
+                7/19/2023
             </time>
         </div>
     </div>

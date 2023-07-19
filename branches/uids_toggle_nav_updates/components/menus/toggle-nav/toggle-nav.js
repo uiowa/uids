@@ -3,8 +3,8 @@ const toggleButtons = document.querySelectorAll("button.toggle-nav__bttn");
 const canvasDrawer = document.querySelector('.o-canvas__drawer');
 const iowaHeader = document.querySelector('[data-uids-header]');
 
-let exactheight = iowaHeader.clientHeight;
-let lScroll = 0;
+let exactHeight = iowaHeader.clientHeight;
+let previousScroll = 0;
 
 // Set positioning of canvasDrawer based on iowaBar height
 let iowaBarHeight = iowaHeader.offsetHeight;
@@ -62,27 +62,26 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
-window.addEventListener('resize', function () {
-  // Update iowaBarHeight and reposition canvasDrawer
+// Function to calculate canvasDrawer position based on headerPosition
+const updateCanvasDrawerPosition = () => {
+  const headerPosition = iowaHeader.getBoundingClientRect().top;
+  canvasDrawer.style.top = `${Math.max(iowaBarHeight + headerPosition, 0)}px`;
+};
+
+// Call the function initially to set the initial position
+updateCanvasDrawerPosition();
+
+// Function to handle resizing and updating iowaBarHeight and canvasDrawer position
+const handleResize = () => {
   iowaBarHeight = iowaHeader.offsetHeight;
-  canvasDrawer.style.top = `${iowaBarHeight}px`;
-});
+  updateCanvasDrawerPosition();
+};
 
-// Update canvasDrawer position on scroll if body class is "header-not-sticky"
-function adjustCanvasDrawerPosition() {
-  if (document.body.classList.contains("header-not-sticky")) {
-    const currentScroll = window.pageYOffset;
+// Update canvasDrawer position on window resize
+window.addEventListener('resize', handleResize);
 
-    if (currentScroll > lastScroll && currentScroll > height) {
-      // Scrolling down
-      canvasDrawer.style.top = "0";
-    } else {
-      // Scrolling up or at the top
-      canvasDrawer.style.top = `${Math.max(iowaBarHeight - currentScroll, 0)}px`;
-    }
+// Create a MutationObserver to detect changes in the header position
+const observer = new MutationObserver(updateCanvasDrawerPosition);
 
-    lastScroll = currentScroll;
-  }
-}
-
-window.addEventListener('scroll', adjustCanvasDrawerPosition);
+// Observe changes in the header's attributes or subtree
+observer.observe(iowaHeader, { attributes: true, subtree: true });
