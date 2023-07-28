@@ -1,6 +1,7 @@
 @import '../../assets/scss/variables';
 @import '../../assets/scss/utilities';
 
+// === Site Name === //
 .site-name {
   display: flex;
   align-items: center;
@@ -38,7 +39,9 @@
     }
   }
 }
+// === End: Site Name === //
 
+// === Parent Site Name === //
 .parent-site-name {
   font-weight: $font-weight-light;
   flex-basis: content;
@@ -67,8 +70,9 @@
     width: auto;
   }
 }
+// === End: Parent Site Name === //
 
-
+// === Iowa Bar === //
 // Settings for the default version of the IOWA bar.
 .iowa-bar {
   position: relative;
@@ -78,9 +82,14 @@
   background: $secondary;
 
   @include breakpoint(md) {
-    height: 80px;
-    //min-height: 80px;
+    min-height: 80px;
     background: $primary;
+  }
+  
+  &:not(.iowa-bar--narrow) {
+    @include breakpoint(md) {
+      height: 80px;
+    }
   }
 
   .logo--tab {
@@ -138,7 +147,6 @@
   &--narrow {
 
     @include breakpoint(md) {
-      height: 50px;
       min-height: 50px;
       position: relative;
     }
@@ -271,78 +279,26 @@
   }
 }
 
-// sticky header for Iowa Bar Below
-
-.header-sticky.scroll-up .iowa-bar__below,
-.header-sticky.scroll-down .iowa-bar__below {
-  .o-canvas--open .o-canvas__drawer {
-    @include breakpoint(md) {
-      top: 116px;
-    }
-
-    @include breakpoint(page-container) {
-      top: 110px;
-    }
-  }
-
-  .search-overlay .uids-search {
-    @include breakpoint(md) {
-      margin-top: 3px;
-      border-bottom: none;
-    }
-  }
-
-  .iowa-bar__container {
-    @include breakpoint(md) {
-      min-height: 60px;
-    }
-  }
-
-  .site-name {
-    @include breakpoint(md) {
-      padding: 0;
-      transition: transform 0.4s, -webkit-transform 0.4s;
-      font-size: 1.6rem;
-    }
-  }
-
-  .bttn--drawer {
-    @include breakpoint(md) {
-      height: 60px;
-      padding: 3px 35px 0;
-    }
-  }
-
-  .search-button {
-    @include breakpoint(md) {
-      height: 60px;
-      padding: 7px 25px 7px 18px;
-    }
-  }
-}
-
-.header-sticky.scroll-down .iowa-bar__below {
-  .bttn--drawer {
-    @include breakpoint(md) {
-      top: 0px;
-    }
-
-    @include breakpoint(page-container) {
-      top: 30px;
-    }
-  }
-}
 
 // fixed scroll bar
 
 .header-sticky.scroll-down .iowa-bar {
   @include breakpoint(md) {
     transform: translate3d(0, -100%, 0);
+    overflow: hidden;
   }
 
   .logo--tab {
     @include breakpoint(md) {
       margin-top: -17px;
+    }
+  }
+}
+
+.header-sticky.scroll-down .iowa-bar.iowa-bar--narrow {
+  .toggle-nav__bttn {
+    @include breakpoint(page-container) {
+      top: 35px;
     }
   }
 }
@@ -358,3 +314,4 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
   }
 }
+// === End: Iowa Bar === //
