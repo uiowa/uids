@@ -1,0 +1,89 @@
+import UidsAlert from './Alert.vue';
+
+// More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
+export default {
+  title: 'Components/Alert',
+  component: UidsAlert,
+  // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
+  argTypes: {
+    type: {
+      control: { type: 'select' },
+      options: ['hawk', 'success', 'warning', 'info', 'danger', 'dismissible',],
+    },
+    default: {
+      name: 'Content',
+      control: { type: 'text' },
+      table: {
+        category: 'Content',
+      },
+    },
+  },
+};
+
+// More on component templates: https://storybook.js.org/docs/vue/writing-stories/introduction#using-args
+const Template = (args) => ({
+  // Components used in your story `template` are defined in the `components` object
+  components: { UidsAlert },
+  // The story's `args` need to be mapped into the template through the `setup()` method
+  setup() {
+    return { args };
+  },
+  // And then the `args` are bound to your component with `v-bind="args"`
+  template: '<uids-alert :type="args.alert">{{ args.default }}</uids-alert>',
+});
+
+export const Default = Template.bind({});
+// More on args: https://storybook.js.org/docs/vue/writing-stories/args
+Default.args = {
+  // label: 'Hello world',
+  type: 'hawk',
+  default: 'Body text here',
+};
+
+export const HawkAlert = Template.bind({});
+HawkAlert.args = {
+  ...Default.args,
+  type: 'hawk',
+};
+
+// export const SectionMessage = Template.bind({});
+// SectionMessage.args = {
+//   ...Default.args,
+//   type: 'section',
+// };
+//
+// export const InlineMessage = Template.bind({});
+// InlineMessage.args = {
+//   ...Default.args,
+//   type: 'inline',
+// };
+
+export const Success = Template.bind({});
+Success.args = {
+  ...Default.args,
+  type: 'success',
+};
+
+export const Warning = Template.bind({});
+Warning.args = {
+  ...Default.args,
+  type: 'warning',
+};
+
+export const Info = Template.bind({});
+Info.args = {
+  ...Default.args,
+  type: 'info',
+};
+
+export const Danger = Template.bind({});
+Danger.args = {
+  ...Default.args,
+  type: 'danger',
+};
+
+export const Dismissible = Template.bind({});
+Dismissible.args = {
+  ...Default.args,
+  type: 'dismissible',
+};
