@@ -61,13 +61,14 @@ const Template = (args) => ({
 
 export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
+const dateOptions = { timeZone: 'UTC' };
 Default.args = {
   // label: 'Hello world',
   type: '',
-  title: '',
-  subtitle: '',
-  meta:'',
-  default: '',
+  title: 'Default alert',
+  subtitle: 'This is a subtitle.',
+  meta: new Date(Date.now()).toLocaleString('en-US', dateOptions),
+  default: 'Lorem ipsum sit dolor amet.',
 };
 
 // export const HawkAlert = Template.bind({});

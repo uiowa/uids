@@ -33,18 +33,23 @@ const classes = computed(() => {
 
 <template>
   <div :class="classes">
-    <uids-headline v-if="$slots.title" :text_style="'serif'" :level="'h3'">
-      <!-- @slot The title of the card. HTML is allowed. -->
-      <slot name="title">Title</slot>
-    </uids-headline>
-    <div v-if="$slots.subtitle" class="alert__subtitle">
-      <!-- @slot The subtitle of the card.. -->
-      <slot name="subtitle">Subtitle</slot>
+    <div class="alert__icon">
+      <span class="fa-stack fa-1x"><span class="fas fa-circle fa-stack-2x"></span><span class="fa-link fas fa-stack-1x fa-inverse"></span></span>
     </div>
-    <div v-if="$slots.meta" class="alert__meta">
-      <!-- @slot The meta of the card.. -->
-      <slot name="meta">Meta</slot>
+    <div class="alert__details">
+      <uids-headline v-if="$slots.title" :text_style="'serif'" :level="'h2'">
+        <!-- @slot The title of the card. HTML is allowed. -->
+        <slot name="title">Title</slot>
+      </uids-headline>
+      <div v-if="$slots.subtitle" class="alert__subtitle">
+        <!-- @slot The subtitle of the card.. -->
+        <slot name="subtitle">Subtitle</slot>
+      </div>
+      <div v-if="$slots.meta" class="alert__meta">
+        <!-- @slot The meta of the card.. -->
+        <slot name="meta">Meta</slot>
+      </div>
+      <slot name="default">Body</slot>
     </div>
-    <slot name="default" class="alert__content">Body</slot>
   </div>
 </template>
