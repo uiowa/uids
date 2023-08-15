@@ -29,8 +29,8 @@ const Template = (args) => ({
     return { args };
   },
   // And then the `args` are bound to your component with `v-bind="args"`
-  template: '<uids-alert :type="args.alert">{{ args.default }}</uids-alert>',
-});
+  template: `<uids-alert :type="args.type">{{ args.default }}</uids-alert>`,
+})
 
 export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
