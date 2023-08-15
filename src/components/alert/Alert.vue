@@ -41,14 +41,6 @@ const classes = computed(() => {
         <!-- @slot The title of the card. HTML is allowed. -->
         <slot name="title">Title</slot>
       </uids-headline>
-      <div v-if="$slots.subtitle" class="alert__subtitle">
-        <!-- @slot The subtitle of the card.. -->
-        <slot name="subtitle">Subtitle</slot>
-      </div>
-      <div v-if="$slots.meta" class="alert__meta">
-        <!-- @slot The meta of the card.. -->
-        <slot name="meta">Meta</slot>
-      </div>
       <slot name="default">Body</slot>
     </div>
   </div>

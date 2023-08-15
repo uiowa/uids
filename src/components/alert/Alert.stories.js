@@ -17,20 +17,6 @@ export default {
         category: 'Content',
       },
     },
-    subtitle: {
-      name: 'Subtitle',
-      control: { type: 'text' },
-      table: {
-        category: 'Content',
-      },
-    },
-    meta: {
-      name: 'Meta',
-      control: { type: 'text' },
-      table: {
-        category: 'Content',
-      },
-    },
     default: {
       name: 'Content',
       control: { type: 'text' },
@@ -53,8 +39,6 @@ const Template = (args) => ({
   template: `
     <uids-alert :type="args.type">
       <template #title v-if="args.title"><div v-html="args.title" ></div></template>
-      <template #subtitle v-if="args.subtitle"><div v-html="args.subtitle" ></div></template>
-      <template #meta v-if="args.meta"><div v-html="args.meta" ></div></template>
       <template #default><div v-html="args.default"></div></template>
     </uids-alert>`,
 })
@@ -66,8 +50,6 @@ Default.args = {
   // label: 'Hello world',
   type: '',
   title: 'Default alert',
-  subtitle: 'This is a subtitle.',
-  meta: new Date(Date.now()).toLocaleString('en-US', dateOptions),
   default: 'Lorem ipsum sit dolor amet.',
 };
 
