@@ -2,6 +2,9 @@
 import './alert.scss';
 import {computed} from 'vue';
 import {className} from '../utlity';
+
+import UidsHeadline from '../headline/Headline.vue'
+
 const name = 'uids-alert'
 const props = defineProps({
   /**
@@ -9,38 +12,39 @@ const props = defineProps({
    */
   type: {
     type: String,
-    default: 'hawk',
-    // validator: (value: string) => {
-    //   return ['hawk', 'success', 'warning', 'info', 'danger', 'dismissible'].indexOf(value) !== -1;
-    // },
+    default: '',
+    validator: (value: string) => {
+      return ['hawk', 'success', 'warning', 'info', 'danger', 'dismissible'].indexOf(value) !== -1;
+    },
   },
 });
 
 const classes = computed(() => {
   let classes = ['alert'];
-  console.log('text outside if statement');
-  console.log(props.type);
 
   if (props.type) {
-    console.log('text inside if statement');
     classes.push(`alert-${ className(props.type)}`);
-    console.log(props.type);
-
   }
 
-  // classes = ['alert-warning'];
   return classes;
 });
-
-
 
 </script>
 
 <template>
   <div :class="classes">
-    <div>
-    <!-- @slot The default slot where the message will be displayed. -->
-      <slot>Body</slot>
+    <uids-headline v-if="$slots.title" :text_style="'serif'" :level="'h3'">
+      <!-- @slot The title of the card. HTML is allowed. -->
+      <slot name="title">Title</slot>
+    </uids-headline>
+    <div v-if="$slots.subtitle" class="alert__subtitle">
+      <!-- @slot The subtitle of the card.. -->
+      <slot name="subtitle">Subtitle</slot>
     </div>
+    <div v-if="$slots.meta" class="alert__meta">
+      <!-- @slot The meta of the card.. -->
+      <slot name="meta">Meta</slot>
+    </div>
+    <slot name="default" class="alert__content">Body</slot>
   </div>
 </template>
