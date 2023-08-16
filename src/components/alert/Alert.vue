@@ -3,8 +3,6 @@ import './alert.scss';
 import {computed} from 'vue';
 import {className} from '../utlity';
 
-import UidsHeadline from '../headline/Headline.vue'
-
 const name = 'uids-alert'
 const props = defineProps({
   /**
@@ -12,9 +10,9 @@ const props = defineProps({
    */
   type: {
     type: String,
-    default: '',
+    default: 'info',
     validator: (value: string) => {
-      return ['', 'success', 'warning', 'info', 'danger'].indexOf(value) !== -1;
+      return ['info', 'success', 'warning', 'danger'].indexOf(value) !== -1;
     },
   },
 
@@ -44,13 +42,6 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  /**
-   * Icon inherits color set by alert type.
-   */
-  inheritColor: {
-    type: Boolean,
-    default: false,
-  },
 
   /**
    * Vertically center icon.
@@ -61,15 +52,13 @@ const props = defineProps({
   }
 });
 
+let icon = 'link';
+
 const classes = computed(() => {
   let classes = ['alert'];
 
   if (props.type) {
     classes.push(`alert-${ className(props.type)}`);
-  }
-
-  if (props.inheritColor) {
-    classes.push('alert__inherit-color');
   }
 
   if (props.centerIconVertically) {
@@ -92,12 +81,8 @@ const classes = computed(() => {
     <div class="alert__icon">
       <span class="fa-stack fa-1x"><span class="fas fa-circle fa-stack-2x"></span><span :class="'fas fa-stack-1x fa-inverse fa-' + props.icon"></span></span>
     </div>
-    <div class="alert__details">
-      <uids-headline v-if="$slots.title" :text_style="'serif'" :level="'h2'">
-        <!-- @slot The title of the card. HTML is allowed. -->
-        <slot name="title">Title</slot>
-      </uids-headline>
-      <div class="alert__body"><slot name="default">Body</slot></div>
+    <div class="alert__content">
+      <slot name="default">Body</slot>
     </div>
   </div>
 </template>

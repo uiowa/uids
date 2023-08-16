@@ -8,14 +8,13 @@ export default {
   argTypes: {
     type: {
       name: 'Type',
-      options: ['', 'success', 'warning', 'info', 'danger'],
+      options: ['info', 'success', 'warning', 'danger'],
       control: {
         type: 'select',
         labels: {
-          '': 'Default',
+          'info': 'Info',
           'success': 'Success',
           'warning': 'Warning',
-          'info': 'Info',
           'danger': 'Danger',
         },
       },
@@ -50,23 +49,10 @@ export default {
         category: 'Properties',
       },
     },
-    inheritColor: {
-      name: 'Inherit Color',
-      table: {
-        category: 'Display options',
-      },
-    },
     centerIconVertically: {
       name: 'Center Icon Vertically',
       table: {
         category: 'Display options',
-      },
-    },
-    title: {
-      name: 'Title',
-      control: 'text',
-      table: {
-        category: 'Content',
       },
     },
     default: {
@@ -94,97 +80,50 @@ const Template = (args) => ({
       :icon="args.icon"
       :centered="args.centered"
       :dismissible="args.dismissible"
-      :inheritColor="args.inheritColor"
       :centerIconVertically="args.centerIconVertically"
     >
-      <template #title v-if="args.title"><div v-html="args.title" ></div></template>
       <template #default><div v-html="args.default"></div></template>
     </uids-alert>`,
 })
 
-export const Default = Template.bind({});
+export const Info = Template.bind({});
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
 const dateOptions = { timeZone: 'UTC' };
-Default.args = {
-  type: '',
+Info.args = {
+  type: 'info',
   icon: 'link',
   centered: false,
   dismissible: false,
-  inheritColor: false,
   centerIconVertically: false,
-  title: 'Default alert',
-  default: 'Lorem ipsum sit dolor amet.',
-};
-
-export const HawkAlert = Template.bind({});
-HawkAlert.args = {
-  ...Default.args,
-  type: 'danger',
-  icon: 'exclamation',
-  inheritColor: true,
+  default: '' +
+    '<h2 class="headline headline--serif">' +
+      'Alert title' +
+    '</h2>' +
+    'Lorem ipsum sit dolor amet.',
 };
 
 export const Success = Template.bind({});
 Success.args = {
-  ...Default.args,
+  ...Info.args,
   type: 'success',
-  inheritColor: false,
-};
-
-export const SuccessGreen = Template.bind({});
-SuccessGreen.args = {
-  ...Default.args,
-  type: 'success',
-  inheritColor: true,
 };
 
 export const Warning = Template.bind({});
 Warning.args = {
-  ...Default.args,
+  ...Info.args,
   type: 'warning',
-  inheritColor: false,
-};
-
-export const WarningYellow = Template.bind({});
-WarningYellow.args = {
-  ...Default.args,
-  type: 'warning',
-  inheritColor: true,
-};
-
-export const Info = Template.bind({});
-Info.args = {
-  ...Default.args,
-  type: 'info',
-  inheritColor: false,
-};
-
-export const InfoGrey = Template.bind({});
-InfoGrey.args = {
-  ...Default.args,
-  type: 'info',
-  inheritColor: true,
 };
 
 export const Danger = Template.bind({});
 Danger.args = {
-  ...Default.args,
+  ...Info.args,
   type: 'danger',
-  inheritColor: false,
-};
-
-export const DangerRed = Template.bind({});
-DangerRed.args = {
-  ...Default.args,
-  type: 'danger',
-  inheritColor: true,
 };
 
 export const Dismissible = Template.bind({});
 Dismissible.args = {
-  ...Default.args,
+  ...Info.args,
   type: 'success',
   icon: 'times',
   dismissible: true,
-  inheritColor: true,
 };
