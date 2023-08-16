@@ -9,13 +9,12 @@ export default {
     type: {
       name: 'Type',
       control: { type: 'select' },
-      options: ['hawk', 'success', 'warning', 'info', 'danger',],
+      options: ['hawk', 'success', 'warning', 'info', 'danger'],
     },
-    dismissible: {
-      name: 'Dismissible',
-      table: {
-        category: 'props'
-      }
+    icon: {
+      name: 'Icon',
+      control: { type: 'select' },
+      options: ['link', 'times', 'exclamation'],
     },
     centered: {
       name: 'Centered',
@@ -50,7 +49,7 @@ const Template = (args) => ({
   },
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
-    <uids-alert :type="args.type" :dismissible="args.dismissible" :centered="args.centered">
+    <uids-alert :type="args.type" :icon="args.icon" :centered="args.centered">
       <template #title v-if="args.title"><div v-html="args.title" ></div></template>
       <template #default><div v-html="args.default"></div></template>
     </uids-alert>`,
@@ -62,7 +61,7 @@ const dateOptions = { timeZone: 'UTC' };
 Default.args = {
   // label: 'Hello world',
   type: '',
-  dismissible: false,
+  icon: 'link',
   centered: false,
   title: 'Default alert',
   default: 'Lorem ipsum sit dolor amet.',

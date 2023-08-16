@@ -17,13 +17,18 @@ const props = defineProps({
       return ['hawk', 'success', 'warning', 'info', 'danger'].indexOf(value) !== -1;
     },
   },
+
   /**
-   * Alert is removable.
+   * Alert
    */
-  dismissible: {
-    type: Boolean,
-    default: false,
+  icon: {
+    type: String,
+    default: 'link',
+    validator: (value: string) => {
+      return ['link', 'times', 'exclamation'].indexOf(value) !== -1;
+    },
   },
+
   /**
    * Content alignment
    */
@@ -40,11 +45,15 @@ const classes = computed(() => {
     classes.push(`alert-${ className(props.type)}`);
   }
 
-  ['centered', 'dismissible'].forEach((prop) => {
+  ['centered'].forEach((prop) => {
     if (props[prop] === true) {
       classes.push(`alert-${ className(prop) }`);
     }
   });
+
+  if (props.icon === 'times') {
+    classes.push('alert-dismissible');
+  }
 
   return classes;
 });
@@ -54,7 +63,7 @@ const classes = computed(() => {
 <template>
   <div :class="classes">
     <div class="alert__icon">
-      <span class="fa-stack fa-1x"><span class="fas fa-circle fa-stack-2x"></span><span class="fa-link fas fa-stack-1x fa-inverse"></span></span>
+      <span class="fa-stack fa-1x"><span class="fas fa-circle fa-stack-2x"></span><span :class="'fas fa-stack-1x fa-inverse fa-' + props.icon"></span></span>
     </div>
     <div class="alert__details">
       <uids-headline v-if="$slots.title" :text_style="'serif'" :level="'h2'">
