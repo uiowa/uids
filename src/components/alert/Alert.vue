@@ -14,7 +14,7 @@ const props = defineProps({
     type: String,
     default: '',
     validator: (value: string) => {
-      return ['hawk', 'success', 'warning', 'info', 'danger'].indexOf(value) !== -1;
+      return ['', 'hawk', 'success', 'warning', 'info', 'danger'].indexOf(value) !== -1;
     },
   },
 
@@ -44,6 +44,16 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+
+  inheritColor: {
+    type: Boolean,
+    default: false,
+  },
+
+  centerIconVertically: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 const classes = computed(() => {
@@ -51,6 +61,14 @@ const classes = computed(() => {
 
   if (props.type) {
     classes.push(`alert-${ className(props.type)}`);
+  }
+
+  if (props.inheritColor) {
+    classes.push('alert__inherit-color');
+  }
+
+  if (props.centerIconVertically) {
+    classes.push('alert__center-icon-vertically');
   }
 
   ['centered', 'dismissible'].forEach((prop) => {
@@ -74,7 +92,7 @@ const classes = computed(() => {
         <!-- @slot The title of the card. HTML is allowed. -->
         <slot name="title">Title</slot>
       </uids-headline>
-      <slot name="default">Body</slot>
+      <div class="alert__body"><slot name="default">Body</slot></div>
     </div>
   </div>
 </template>
