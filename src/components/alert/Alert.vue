@@ -19,7 +19,7 @@ const props = defineProps({
   },
 
   /**
-   * Alert
+   * Displayable icon.
    */
   icon: {
     type: String,
@@ -30,9 +30,17 @@ const props = defineProps({
   },
 
   /**
-   * Content alignment
+   * Content alignment.
    */
   centered: {
+    type: Boolean,
+    default: false,
+  },
+
+  /**
+   * Alert is removable.
+   */
+  dismissible: {
     type: Boolean,
     default: false,
   },
@@ -45,15 +53,11 @@ const classes = computed(() => {
     classes.push(`alert-${ className(props.type)}`);
   }
 
-  ['centered'].forEach((prop) => {
+  ['centered', 'dismissible'].forEach((prop) => {
     if (props[prop] === true) {
       classes.push(`alert-${ className(prop) }`);
     }
   });
-
-  if (props.icon === 'times') {
-    classes.push('alert-dismissible');
-  }
 
   return classes;
 });

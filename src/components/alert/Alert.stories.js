@@ -22,6 +22,12 @@ export default {
         category: 'props',
       },
     },
+    dismissible: {
+      name: 'Dismissible',
+      table: {
+        category: 'props',
+      },
+    },
     title: {
       name: 'Title',
       control: 'text',
@@ -49,7 +55,7 @@ const Template = (args) => ({
   },
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
-    <uids-alert :type="args.type" :icon="args.icon" :centered="args.centered">
+    <uids-alert :type="args.type" :icon="args.icon" :centered="args.centered" :dismissible="args.dismissible">
       <template #title v-if="args.title"><div v-html="args.title" ></div></template>
       <template #default><div v-html="args.default"></div></template>
     </uids-alert>`,
@@ -63,43 +69,46 @@ Default.args = {
   type: '',
   icon: 'link',
   centered: false,
+  dismissible: false,
   title: 'Default alert',
   default: 'Lorem ipsum sit dolor amet.',
 };
 
-// export const HawkAlert = Template.bind({});
-// HawkAlert.args = {
-//   ...Default.args,
-//   type: 'hawk',
-// };
-//
-// export const Success = Template.bind({});
-// Success.args = {
-//   ...Default.args,
-//   type: 'success',
-// };
-//
-// export const Warning = Template.bind({});
-// Warning.args = {
-//   ...Default.args,
-//   type: 'warning',
-// };
-//
-// export const Info = Template.bind({});
-// Info.args = {
-//   ...Default.args,
-//   type: 'info',
-// };
-//
-// export const Danger = Template.bind({});
-// Danger.args = {
-//   ...Default.args,
-//   type: 'danger',
-// };
-//
-// export const Dismissible = Template.bind({});
-// Dismissible.args = {
-//   ...Default.args,
-//   type: 'success',
-//   dismissible: true,
-// };
+export const HawkAlert = Template.bind({});
+HawkAlert.args = {
+  ...Default.args,
+  type: 'hawk',
+  icon: 'exclamation',
+};
+
+export const Success = Template.bind({});
+Success.args = {
+  ...Default.args,
+  type: 'success',
+};
+
+export const Warning = Template.bind({});
+Warning.args = {
+  ...Default.args,
+  type: 'warning',
+};
+
+export const Info = Template.bind({});
+Info.args = {
+  ...Default.args,
+  type: 'info',
+};
+
+export const Danger = Template.bind({});
+Danger.args = {
+  ...Default.args,
+  type: 'danger',
+};
+
+export const Dismissible = Template.bind({});
+Dismissible.args = {
+  ...Default.args,
+  type: 'success',
+  icon: 'times',
+  dismissible: true,
+};
