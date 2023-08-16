@@ -14,7 +14,7 @@ const props = defineProps({
     type: String,
     default: '',
     validator: (value: string) => {
-      return ['', 'hawk', 'success', 'warning', 'info', 'danger'].indexOf(value) !== -1;
+      return ['', 'success', 'warning', 'info', 'danger'].indexOf(value) !== -1;
     },
   },
 

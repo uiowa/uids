@@ -8,12 +8,11 @@ export default {
   argTypes: {
     type: {
       name: 'Type',
-      options: ['', 'hawk', 'success', 'warning', 'info', 'danger'],
+      options: ['', 'success', 'warning', 'info', 'danger'],
       control: {
         type: 'select',
         labels: {
           '': 'Default',
-          'hawk': 'Hawk',
           'success': 'Success',
           'warning': 'Warning',
           'info': 'Info',
@@ -120,15 +119,7 @@ Default.args = {
 export const HawkAlert = Template.bind({});
 HawkAlert.args = {
   ...Default.args,
-  type: 'hawk',
-  icon: 'exclamation',
-  inheritColor: false,
-};
-
-export const HawkAlertRed = Template.bind({});
-HawkAlertRed.args = {
-  ...Default.args,
-  type: 'hawk',
+  type: 'danger',
   icon: 'exclamation',
   inheritColor: true,
 };
