@@ -44,12 +44,17 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-
+  /**
+   * Icon inherits color set by alert type.
+   */
   inheritColor: {
     type: Boolean,
     default: false,
   },
 
+  /**
+   * Vertically center icon.
+   */
   centerIconVertically: {
     type: Boolean,
     default: false,
