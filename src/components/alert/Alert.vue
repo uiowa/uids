@@ -14,13 +14,20 @@ const props = defineProps({
     type: String,
     default: '',
     validator: (value: string) => {
-      return ['hawk', 'success', 'warning', 'info', 'danger', 'dismissible'].indexOf(value) !== -1;
+      return ['hawk', 'success', 'warning', 'info', 'danger'].indexOf(value) !== -1;
     },
   },
   /**
    * Alert is removable.
    */
   dismissible: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * Content alignment
+   */
+  centered: {
     type: Boolean,
     default: false,
   },
@@ -35,6 +42,10 @@ const classes = computed(() => {
 
   if (props.dismissible) {
     classes.push(`alert-dismissible`);
+  }
+
+  if (props.centered) {
+    classes.push('alert-centered')
   }
 
   return classes;

@@ -17,6 +17,12 @@ export default {
         category: 'props'
       }
     },
+    centered: {
+      name: 'Centered',
+      table: {
+        category: 'props',
+      },
+    },
     title: {
       name: 'Title',
       control: 'text',
@@ -44,7 +50,7 @@ const Template = (args) => ({
   },
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
-    <uids-alert :type="args.type" :dismissible="args.dismissible">
+    <uids-alert :type="args.type" :dismissible="args.dismissible" :centered="args.centered">
       <template #title v-if="args.title"><div v-html="args.title" ></div></template>
       <template #default><div v-html="args.default"></div></template>
     </uids-alert>`,
@@ -57,6 +63,7 @@ Default.args = {
   // label: 'Hello world',
   type: '',
   dismissible: false,
+  centered: false,
   title: 'Default alert',
   default: 'Lorem ipsum sit dolor amet.',
 };
