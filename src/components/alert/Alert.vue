@@ -40,13 +40,11 @@ const classes = computed(() => {
     classes.push(`alert-${ className(props.type)}`);
   }
 
-  if (props.dismissible) {
-    classes.push(`alert-dismissible`);
-  }
-
-  if (props.centered) {
-    classes.push('alert-centered')
-  }
+  ['centered', 'dismissible'].forEach((prop) => {
+    if (props[prop] === true) {
+      classes.push(`alert-${ className(prop) }`);
+    }
+  });
 
   return classes;
 });
