@@ -94,5 +94,6 @@ Default.args = {
 // export const Dismissible = Template.bind({});
 // Dismissible.args = {
 //   ...Default.args,
-//   type: 'dismissible',
+//   type: 'success',
+//   dismissible: true,
 // };
