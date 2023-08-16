@@ -107,7 +107,6 @@ export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
 const dateOptions = { timeZone: 'UTC' };
 Default.args = {
-  // label: 'Hello world',
   type: '',
   icon: 'link',
   centered: false,
@@ -123,11 +122,26 @@ HawkAlert.args = {
   ...Default.args,
   type: 'hawk',
   icon: 'exclamation',
+  inheritColor: false,
+};
+
+export const HawkAlertRed = Template.bind({});
+HawkAlertRed.args = {
+  ...Default.args,
+  type: 'hawk',
+  icon: 'exclamation',
   inheritColor: true,
 };
 
 export const Success = Template.bind({});
 Success.args = {
+  ...Default.args,
+  type: 'success',
+  inheritColor: false,
+};
+
+export const SuccessGreen = Template.bind({});
+SuccessGreen.args = {
   ...Default.args,
   type: 'success',
   inheritColor: true,
@@ -137,6 +151,13 @@ export const Warning = Template.bind({});
 Warning.args = {
   ...Default.args,
   type: 'warning',
+  inheritColor: false,
+};
+
+export const WarningYellow = Template.bind({});
+WarningYellow.args = {
+  ...Default.args,
+  type: 'warning',
   inheritColor: true,
 };
 
@@ -144,11 +165,25 @@ export const Info = Template.bind({});
 Info.args = {
   ...Default.args,
   type: 'info',
+  inheritColor: false,
+};
+
+export const InfoGrey = Template.bind({});
+InfoGrey.args = {
+  ...Default.args,
+  type: 'info',
   inheritColor: true,
 };
 
 export const Danger = Template.bind({});
 Danger.args = {
+  ...Default.args,
+  type: 'danger',
+  inheritColor: false,
+};
+
+export const DangerRed = Template.bind({});
+DangerRed.args = {
   ...Default.args,
   type: 'danger',
   inheritColor: true,
