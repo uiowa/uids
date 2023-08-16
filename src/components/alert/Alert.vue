@@ -17,6 +17,13 @@ const props = defineProps({
       return ['hawk', 'success', 'warning', 'info', 'danger', 'dismissible'].indexOf(value) !== -1;
     },
   },
+  /**
+   * Alert is removable.
+   */
+  dismissible: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const classes = computed(() => {
@@ -24,6 +31,10 @@ const classes = computed(() => {
 
   if (props.type) {
     classes.push(`alert-${ className(props.type)}`);
+  }
+
+  if (props.dismissible) {
+    classes.push(`alert-dismissible`);
   }
 
   return classes;
