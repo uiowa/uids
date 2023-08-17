@@ -64,7 +64,7 @@ const classes = computed(() => {
   }
 
   if (props.centerIconVertically) {
-    classes.push('alert__center-icon-vertically');
+    classes.push('alert-vertically-centered');
   }
 
   ['centered', 'dismissible'].forEach((prop) => {
