@@ -17,17 +17,6 @@ const props = defineProps({
   },
 
   /**
-   * Displayable icon.
-   */
-  icon: {
-    type: String,
-    default: 'link',
-    validator: (value: string) => {
-      return ['link', 'times', 'exclamation'].indexOf(value) !== -1;
-    },
-  },
-
-  /**
    * Content alignment.
    */
   centered: {
@@ -52,7 +41,20 @@ const props = defineProps({
   }
 });
 
-let icon = 'link';
+const icon = computed(() => {
+  if (props.type == 'success') {
+    return 'check';
+  }
+  else if (props.type == 'warning') {
+    return 'triangle-exclamation';
+  }
+  else if (props.type == 'danger') {
+    return 'exclamation';
+  }
+  else {
+    return 'info';
+  }
+});
 
 const classes = computed(() => {
   let classes = ['alert'];
@@ -79,7 +81,7 @@ const classes = computed(() => {
 <template>
   <div :class="classes">
     <div class="alert__icon">
-      <span class="fa-stack fa-1x"><span class="fas fa-circle fa-stack-2x"></span><span :class="'fas fa-stack-1x fa-inverse fa-' + props.icon"></span></span>
+      <span class="fa-stack fa-1x"><span class="fas fa-circle fa-stack-2x"></span><span :class="'fas fa-stack-1x fa-inverse fa-' + icon"></span></span>
     </div>
     <div class="alert__content">
       <slot name="default">Body</slot>

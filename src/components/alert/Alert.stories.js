@@ -22,21 +22,6 @@ export default {
         category: 'Display options',
       },
     },
-    icon: {
-      name: 'Icon',
-      options: ['link', 'times', 'exclamation'],
-      control: {
-        type: 'select',
-        labels: {
-          'link': 'Link',
-          'times': 'Times',
-          'exclamation': 'Exclamation',
-        },
-      },
-      table: {
-        category: 'Display options',
-      },
-    },
     centered: {
       name: 'Centered',
       table: {
@@ -77,7 +62,6 @@ const Template = (args) => ({
   template: `
     <uids-alert
       :type="args.type"
-      :icon="args.icon"
       :centered="args.centered"
       :dismissible="args.dismissible"
       :centerIconVertically="args.centerIconVertically"
@@ -91,7 +75,6 @@ export const Info = Template.bind({});
 const dateOptions = { timeZone: 'UTC' };
 Info.args = {
   type: 'info',
-  icon: 'link',
   centered: false,
   dismissible: false,
   centerIconVertically: false,
@@ -124,6 +107,5 @@ export const Dismissible = Template.bind({});
 Dismissible.args = {
   ...Info.args,
   type: 'success',
-  icon: 'times',
   dismissible: true,
 };
