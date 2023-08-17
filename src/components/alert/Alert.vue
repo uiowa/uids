@@ -86,5 +86,8 @@ const classes = computed(() => {
     <div class="alert__content">
       <slot name="default">Body</slot>
     </div>
+    <button v-if="props.dismissible" data-dismiss="alert">
+      <i class="fas fa-times"></i>
+    </button>
   </div>
 </template>
