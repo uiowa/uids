@@ -46,7 +46,7 @@ const icon = computed(() => {
     return 'check';
   }
   else if (props.type == 'warning') {
-    return 'triangle-exclamation';
+    return 'exclamation-triangle';
   }
   else if (props.type == 'danger') {
     return 'exclamation';
