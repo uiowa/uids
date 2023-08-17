@@ -81,7 +81,7 @@ const classes = computed(() => {
 <template>
   <div :class="classes">
     <div class="alert__icon">
-      <span class="fa-stack fa-1x"><span class="fas fa-circle fa-stack-2x"></span><span :class="'fas fa-stack-1x fa-inverse fa-' + icon"></span></span>
+      <span class="fa-stack fa-1x"><span role="presentation" class="fas fa-circle fa-stack-2x"></span><span role="presentation" :class="'fas fa-stack-1x fa-inverse fa-' + icon"></span></span>
     </div>
     <slot class="alert__content" name="default">Body</slot>
     <button v-if="props.dismissible" data-dismiss="alert">

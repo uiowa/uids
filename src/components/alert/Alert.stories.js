@@ -82,7 +82,7 @@ Info.args = {
     '<h2 class="headline headline--serif">' +
       'Alert title' +
     '</h2>' +
-    'Lorem ipsum sit dolor amet.',
+    '<p>Lorem ipsum sit dolor amet.</p>',
 };
 
 export const Success = Template.bind({});
