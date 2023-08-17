@@ -2,13 +2,13 @@
 @import '../../assets/scss/utilities';
 
 .alert {
-  padding: $md;
+  padding: 1.5rem;
   border: 1px solid $grey-light;
   display: flex;
 }
 
 .alert__icon {
-  padding: 0 $lg 0 $md;
+  padding: 0 $lg 0 0;
 
   .fa-stack {
     width: 2em;
@@ -27,15 +27,19 @@
     margin: 0 0 0.4rem;
   }
 
-  p {
-    margin: 0;
+  * {
+    margin-bottom: 0;
+
+    & + *:not(h1, h2, h3, h4, h5, h6) {
+      margin-top: 1rem;
+    }
   }
 }
 
 .alert-danger {
   background: $danger-light;
 
-  .fa-circle {
+  .fa-circle, .fa-times {
     color: $danger;
   }
 }
@@ -43,7 +47,7 @@
 .alert-success {
   background: $success-light;
 
-  .fa-circle {
+  .fa-circle, .fa-times {
     color: $success;
   }
 }
@@ -51,7 +55,7 @@
 .alert-warning {
   background: $warning-light;
 
-  .fa-circle {
+  .fa-circle, .fa-times {
     color: $orange;
   }
 
@@ -63,7 +67,7 @@
 .alert-info {
   background: $info-light;
 
-  .fa-circle {
+  .fa-circle, .fa-times {
     color: $info;
   }
 }
@@ -87,5 +91,11 @@
     top: 0;
     background: transparent;
     border: none;
+    height: 42px;
+    width: 42px;
+
+    i {
+      font-size: 1.5rem;
+    }
   }
 }

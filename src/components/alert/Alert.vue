@@ -83,9 +83,7 @@ const classes = computed(() => {
     <div class="alert__icon">
       <span class="fa-stack fa-1x"><span class="fas fa-circle fa-stack-2x"></span><span :class="'fas fa-stack-1x fa-inverse fa-' + icon"></span></span>
     </div>
-    <div class="alert__content">
-      <slot name="default">Body</slot>
-    </div>
+    <slot class="alert__content" name="default">Body</slot>
     <button v-if="props.dismissible" data-dismiss="alert">
       <i class="fas fa-times"></i>
     </button>

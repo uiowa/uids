@@ -102,10 +102,3 @@ Danger.args = {
   ...Info.args,
   type: 'danger',
 };
-
-export const Dismissible = Template.bind({});
-Dismissible.args = {
-  ...Info.args,
-  type: 'success',
-  dismissible: true,
-};
