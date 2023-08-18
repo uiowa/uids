@@ -47,8 +47,7 @@ import banner_image from '@/assets/images/viewbook/sections/122.jpg'
 </template>
 
 <style lang="scss">
-@import url('https://use.fontawesome.com/releases/v5.8.2/css/all.css');
-@import './assets/base.css';
+@import './assets/base.scss';
 @import './assets/scss/reset.scss';
 @import './assets/scss/headings.scss';
 @import './assets/scss/paragraph.scss';
