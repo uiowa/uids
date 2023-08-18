@@ -42,17 +42,19 @@ const props = defineProps({
 });
 
 const icon = computed(() => {
-  if (props.type == 'success') {
-    return 'check';
-  }
-  else if (props.type == 'warning') {
-    return 'exclamation-triangle';
-  }
-  else if (props.type == 'danger') {
-    return 'exclamation';
-  }
-  else {
-    return 'info';
+  switch (props.type) {
+    case 'success':
+      return 'check';
+      break;
+    case 'warning':
+      return 'exclamation-triangle';
+      break;
+    case 'danger':
+      return 'exclamation';
+      break;
+    default:
+      return 'info';
+      break;
   }
 });
 
