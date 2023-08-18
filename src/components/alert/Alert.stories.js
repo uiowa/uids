@@ -72,7 +72,6 @@ const Template = (args) => ({
 
 export const Info = Template.bind({});
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
-const dateOptions = { timeZone: 'UTC' };
 Info.args = {
   type: 'info',
   centered: false,
