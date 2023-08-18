@@ -33,9 +33,9 @@ const props = defineProps({
   },
 
   /**
-   * Vertically center icon.
+   * Vertically center alert.
    */
-  centerIconVertically: {
+  verticallyCentered: {
     type: Boolean,
     default: false,
   }
@@ -62,16 +62,16 @@ const classes = computed(() => {
   let classes = ['alert'];
 
   if (props.type) {
-    classes.push(`alert-${ className(props.type)}`);
+    classes.push(`alert--${ className(props.type)}`);
   }
 
-  if (props.centerIconVertically) {
-    classes.push('alert-vertically-centered');
+  if (props.verticallyCentered) {
+    classes.push('alert--vertically-centered');
   }
 
   ['centered', 'dismissible'].forEach((prop) => {
     if (props[prop] === true) {
-      classes.push(`alert-${ className(prop) }`);
+      classes.push(`alert--${ className(prop) }`);
     }
   });
 

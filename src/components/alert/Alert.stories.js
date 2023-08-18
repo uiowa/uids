@@ -34,7 +34,7 @@ export default {
         category: 'Properties',
       },
     },
-    centerIconVertically: {
+    verticallyCentered: {
       name: 'Center Icon Vertically',
       table: {
         category: 'Display options',
