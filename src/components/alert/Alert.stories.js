@@ -77,11 +77,12 @@ Info.args = {
   centered: false,
   dismissible: false,
   centerIconVertically: false,
-  default: '' +
-    '<h2 class="headline headline--serif">' +
-      'Alert title' +
-    '</h2>' +
-    '<p>Lorem ipsum sit dolor amet.</p>',
+  default: `
+    <h2 class="headline headline--serif">
+      Alert title
+    </h2>
+    <p>Lorem ipsum sit dolor amet.</p>
+`,
 };
 
 export const Success = Template.bind({});
