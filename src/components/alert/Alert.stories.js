@@ -3,7 +3,6 @@ import UidsAlert from './Alert.vue';
 export default {
   title: 'Components/Alert',
   component: UidsAlert,
-  // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
     type: {
       name: 'Type',
