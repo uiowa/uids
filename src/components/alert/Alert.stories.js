@@ -50,13 +50,10 @@ export default {
 };
 
 const Template = (args) => ({
-  // Components used in your story `template` are defined in the `components` object
   components: { UidsAlert },
-  // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
     return { args };
   },
-  // And then the `args` are bound to your component with `v-bind="args"`
   template: `
     <uids-alert
       :type="args.type"
@@ -69,7 +66,6 @@ const Template = (args) => ({
 })
 
 export const Info = Template.bind({});
-// More on args: https://storybook.js.org/docs/vue/writing-stories/args
 Info.args = {
   type: 'info',
   centered: false,
