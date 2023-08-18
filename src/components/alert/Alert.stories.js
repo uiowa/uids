@@ -71,7 +71,7 @@ Info.args = {
   dismissible: false,
   centerIconVertically: false,
   default: `
-    <h2 class="headline headline--serif">
+    <h2 class="headline headline--uppercase">
       Alert title
     </h2>
     <p>Lorem ipsum sit dolor amet.</p>
