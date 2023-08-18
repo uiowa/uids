@@ -66,7 +66,7 @@ const Template = (args) => ({
       :dismissible="args.dismissible"
       :centerIconVertically="args.centerIconVertically"
     >
-      <template #default><div v-html="args.default"></div></template>
+      <div v-html="args.default"></div>
     </uids-alert>`,
 })
 
