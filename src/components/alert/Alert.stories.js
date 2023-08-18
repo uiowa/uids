@@ -35,7 +35,7 @@ export default {
       },
     },
     verticallyCentered: {
-      name: 'Center Icon Vertically',
+      name: 'Center Alert Vertically',
       table: {
         category: 'Display options',
       },
