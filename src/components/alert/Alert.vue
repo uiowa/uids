@@ -21,7 +21,13 @@ const props = defineProps({
    */
   centered: {
     type: Boolean,
-    default: false,
+  },
+
+  /**
+   * Icon visible.
+   */
+  icon: {
+    type: Boolean,
   },
 
   /**
@@ -29,7 +35,6 @@ const props = defineProps({
    */
   dismissible: {
     type: Boolean,
-    default: false,
   },
 
   /**
@@ -37,7 +42,6 @@ const props = defineProps({
    */
   verticallyCentered: {
     type: Boolean,
-    default: false,
   }
 });
 
@@ -69,7 +73,7 @@ const classes = computed(() => {
     classes.push('alert--vertically-centered');
   }
 
-  ['centered', 'dismissible'].forEach((prop) => {
+  ['centered', 'dismissible', 'icon'].forEach((prop) => {
     if (props[prop] === true) {
       classes.push(`alert--${ className(prop) }`);
     }
@@ -82,7 +86,7 @@ const classes = computed(() => {
 
 <template>
   <div :class="classes">
-    <div class="alert__icon">
+    <div v-if="props.icon" class="alert__icon">
       <span class="fa-stack fa-1x"><span role="presentation" class="fas fa-circle fa-stack-2x"></span><span role="presentation" :class="'fas fa-stack-1x fa-inverse fa-' + icon"></span></span>
     </div>
     <slot class="alert__content" name="default">Body</slot>
