@@ -26,8 +26,8 @@ export default {
         category: 'Display options',
       },
     },
-    icon: {
-      name: 'Icon',
+    iconVisible: {
+      name: 'Display Icon',
       table: {
         category: 'Display options',
       },
@@ -63,7 +63,7 @@ const Template = (args) => ({
     <uids-alert
       :type="args.type"
       :centered="args.centered"
-      :icon="args.icon"
+      :iconVisible="args.iconVisible"
       :dismissible="args.dismissible"
       :verticallyCentered="args.verticallyCentered"
     >
@@ -75,7 +75,7 @@ export const Info = Template.bind({});
 Info.args = {
   type: 'info',
   centered: false,
-  icon: true,
+  iconVisible: true,
   dismissible: false,
   verticallyCentered: false,
   default: `
