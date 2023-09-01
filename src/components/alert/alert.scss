@@ -1,0 +1,140 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/variables';
+@import '../../assets/scss/utilities';
+@import '../../assets/scss/border';
+
+// === Alert === //
+.alert {
+  --h2-font-size: 1.6rem;
+  @include border;
+  border-radius: 2px;
+  padding: 1.5rem;
+  line-height: 1.3;
+  font-size: $content-font-size;
+
+  h2 {
+    font-size: var(--h2-font-size);
+  }
+  h3 {
+    font-size: calc(0.9 * var(--h2-font-size));
+  }
+  h4 {
+    font-size: calc(0.8 * var(--h2-font-size));
+  }
+  h5 {
+    font-size: calc(0.7 * var(--h2-font-size));
+  }
+  h6 {
+    font-size: calc(0.6 * var(--h2-font-size));
+  }
+
+  * {
+    margin-bottom: 0;
+
+    & + *:not(span):not(div):not(svg) {
+      margin-top: .2rem;
+      line-height: 1.6;
+    }
+  }
+}
+// === End: Alert === //
+
+// === Alert Icon === //
+.alert__icon {
+  padding: 0  1.5rem 0 0;
+
+  .fa-stack {
+    width: 2em;
+  }
+
+  .svg-inline--fa.fa-stack-2x,
+  .svg-inline--fa.fa-stack-1x {
+    width: 100%;
+  }
+
+  .fa-1x {
+    font-size: $content-font-size;
+  }
+}
+// === End: Alert Icon === //
+
+// === Alert Colors === //
+.alert--danger {
+  background: $danger-light;
+
+  .fa-circle {
+    color: $danger;
+  }
+}
+
+.alert--success {
+  background: $success-light;
+
+  .fa-circle {
+    color: $success;
+  }
+}
+
+.alert--warning {
+  background: $warning-light;
+
+  .fa-circle {
+    color: $orange;
+  }
+
+  .fa-exclamation-triangle {
+    margin-top: -2px;
+  }
+}
+
+.alert--info {
+  background: $info-light;
+
+  .fa-circle {
+    color: $info;
+  }
+}
+// === End: Alert Icon === //
+
+// === Modifiers === //
+// === Alert horizontally centered === //
+.alert--centered {
+  display: flex;
+  justify-content: center;
+}
+// === End: Alert horizontally centered === //
+
+// === Alert vertically centered === //
+.alert--vertically-centered  {
+  display: flex;
+  align-items: center;
+}
+// === End: Alert vertically centered === //
+
+// === Alert dismissible === //
+.alert--dismissible {
+  position: relative;
+
+  button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: transparent;
+    border: none;
+    height: 42px;
+    width: 42px;
+
+    i {
+      font-size: 1.5rem;
+    }
+  }
+}
+// === End: Alert dismissible === //
+
+// === Alert icon flex property === //
+.alert--icon {
+  display: flex;
+}
+// === End: Alert icon flex property === //
+
+// === End: Modifiers === //
