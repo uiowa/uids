@@ -26,6 +26,12 @@ export default {
         category: 'Display options',
       },
     },
+    iconVisible: {
+      name: 'Display Icon',
+      table: {
+        category: 'Display options',
+      },
+    },
     dismissible: {
       name: 'Dismissible',
       table: {
@@ -57,8 +63,9 @@ const Template = (args) => ({
     <uids-alert
       :type="args.type"
       :centered="args.centered"
+      :iconVisible="args.iconVisible"
       :dismissible="args.dismissible"
-      :centerIconVertically="args.centerIconVertically"
+      :verticallyCentered="args.verticallyCentered"
     >
       <div v-html="args.default"></div>
     </uids-alert>`,
@@ -68,8 +75,9 @@ export const Info = Template.bind({});
 Info.args = {
   type: 'info',
   centered: false,
+  iconVisible: true,
   dismissible: false,
-  centerIconVertically: false,
+  verticallyCentered: false,
   default: `
     <h2 class="headline headline--serif">
       Alert title
