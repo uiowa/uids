@@ -8,14 +8,31 @@ export default {
   component: UidsCta,
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
+    // Props
     headline_style: {
       name: 'Title style',
-      options: ['', 'uppercase'],
+      options: ['uppercase', 'serif',  ''],
       control: {
         type: 'select',
         labels: {
-          '': 'default',
-          serif: 'Uppercase',
+          'uppercase': 'Antonio (default)',
+          'serif': 'Zilla Slab',
+          '': 'Roboto',
+        },
+      },
+      table: {
+        category: 'Display options',
+      },
+    },
+    orientation: {
+      name: 'Orientation',
+      options: ['', 'left', 'left-right'],
+      control: {
+        type: 'select',
+        labels: {
+          '': 'Centered (default)',
+          'left': 'Left aligned',
+          'left-right': 'Left aligned with button on the right',
         },
       },
       table: {
@@ -59,6 +76,7 @@ const Template = (args) => ({
       :button_icon="args.button_icon"
       :details="args.details"
       :headline_style="args.headline_style"
+      :orientation="args.orientation"
     >
     <template #details v-if="args.details"><div v-html="args.details" ></div></template>
     <template #title v-if="args.title"><div :class="getClasses" v-html="args.title" ></div></template>
@@ -76,6 +94,7 @@ Default.args = {
   button_label: 'Request Information',
   button_icon: '<i class="fas fa-arrow-right"></i>',
   headline_style: '',
+  orientation: '',
 };
 
 
