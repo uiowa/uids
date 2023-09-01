@@ -26,13 +26,14 @@ export default {
     },
     orientation: {
       name: 'Orientation',
-      options: ['', 'left', 'left-right'],
+      options: ['', 'left', 'left-right', 'center'],
       control: {
         type: 'select',
         labels: {
           '': 'Centered (default)',
           'left': 'Left aligned',
           'left-right': 'Left aligned with button on the right',
+          'center': 'Center',
         },
       },
       table: {

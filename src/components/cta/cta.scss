@@ -1,37 +1,84 @@
 @import '../../assets/scss/variables';
 @import '../../assets/scss/utilities';
 
-.cta__wrapper {
-    padding: $xlg $mobile-width-gutter;
-    display: flex;
-    flex-wrap: wrap;
-    text-align: center;
-    gap: 2rem;
-    justify-content: center;
+// === CTA === //
+.cta {
+  padding: $xlg $mobile-width-gutter;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  gap: 2rem;
+  justify-content: center;
 
-    > div {
-      flex-basis: 100%;
-    }
+  > div {
+    flex-basis: 100%;
+  }
+}
+// === End: CTA === //
 
-    &.cta--left {
-      @include breakpoint(md) {
-        justify-content: unset;
-        text-align: left;
-      }
-    }
+// === Modifiers === //
+// === Aligned left, button right === //
+.cta--left-right {
+  justify-content: left;
+  text-align: left;
+  @include breakpoint(md) {
+    flex-wrap: nowrap;
+  }
 
-  &.cta--left-right {
+  .cta__title {
+    flex-basis: 100%;
+  }
+
+  .cta__content,
+  .cta__link {
     @include breakpoint(md) {
-      justify-content: left;
-      text-align: left;
-      .cta__content,
-      .cta__link {
-        flex: 0 1 48%;
+      flex: 0 1 48%;
+    }
+  }
+
+  .cta__link {
+    justify-content: end;
+    align-self: baseline;
+    display: flex;
+  }
+}
+// === End: Aligned left, button right === //
+
+// === Aligned left === //
+
+.cta--left {
+  @include breakpoint(md) {
+    justify-content: unset;
+    text-align: left;
+  }
+}
+// === End: Aligned left === //
+
+// === Centered inline === //
+.cta--center {
+  @include breakpoint(md) {
+    flex-wrap: nowrap;
+    gap: 0;
+
+    .cta__link {
+      flex-basis: 30%;
+      align-self: center;
+    }
+
+    .cta__container {
+      display: flex;
+
+      .cta__title {
+        flex-basis: 30%;
+        align-self: center;
       }
-      .cta__link {
-        margin-left: auto;
+
+      .cta__content {
+        flex: 1;
+        align-self: center;
       }
     }
   }
 }
-
+// === End: Centered inline === //
+// === End: Modifiers === //
