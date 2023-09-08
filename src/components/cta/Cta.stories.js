@@ -2,6 +2,7 @@ import UidsCta from './Cta.vue';
 import UidsHeadline from '../headline/Headline.vue';
 import Background from "../shared/background";
 
+
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
   title: 'Components/CTA',
@@ -86,16 +87,33 @@ const Template = (args) => ({
   `,
 });
 
-export const Default = Template.bind({});
+export const Centered = Template.bind({});
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
-Default.args = {
+Centered.args = {
   url: 'https://uiowa.edu/',
   title: 'Be a Hawkeye',
-  details: 'Iowa is where great stories begin. It\'s time to start yours. Find out how.',
+  details: '<p>Iowa is where great stories begin. It\'s time to start yours. Find out how.</p>',
   button_label: 'Request Information',
   button_icon: '<i class="fas fa-arrow-right"></i>',
-  headline_style: '',
+  headline_style: 'uppercase',
+  background: 'gray',
   orientation: '',
 };
 
+export const CenteredGrid = Template.bind({});
+CenteredGrid.args = {
+  ...Centered.args,
+  orientation: 'center',
+}
 
+export const LeftAligned = Template.bind({});
+LeftAligned.args = {
+  ...Centered.args,
+  orientation: 'left',
+}
+
+export const LeftAlignedRightAlignedButton = Template.bind({});
+LeftAlignedRightAlignedButton.args = {
+  ...Centered.args,
+  orientation: 'left-right',
+}
