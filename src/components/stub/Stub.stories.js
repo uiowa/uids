@@ -1,10 +1,14 @@
-import UidsStub from "../../components/stub/Stub.vue";
+import UidsStub from './Stub.vue';
 
 export default {
-  title: 'Not yet implemented/Badge',
-  // https://github.com/storybookjs/storybook/issues/14442#issuecomment-1089165153
-  parameters: { options: { showPanel: false } },
-}
+  title: 'Components/Stub',
+  component: UidsStub,
+  argTypes: {
+    path: {
+      control: { type: 'text' },
+    },
+  },
+};
 
 const Template = (args) => ({
   // Components used in your story `template` are defined in the `components` object
@@ -16,10 +20,11 @@ const Template = (args) => ({
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
     <uids-stub
-      path="components/detail/badge.html"
+      path="components/detail/background.html"
     >
     </uids-stub>
   `,
 });
 
-export const Default = Template.bind({})
+export const Info = Template.bind({});
+

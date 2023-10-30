@@ -1,12 +1,12 @@
 export default {
   title: 'Not yet implemented/Colors',
   // https://github.com/storybookjs/storybook/issues/14442#issuecomment-1089165153
-  // parameters: { options: { showPanel: false } },
+  parameters: { options: { showPanel: false } },
 }
 
 const Template = (args) => ({
   template: `
-   hello colors
+   <a href="https://brand.uiowa.edu/color">Click</a>
   `,
 })
 
