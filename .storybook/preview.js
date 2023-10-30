@@ -103,4 +103,7 @@ export const parameters = {
       ...customViewports,
     },
   },
+  options: {
+    showPanel: true,
+  },
 };
