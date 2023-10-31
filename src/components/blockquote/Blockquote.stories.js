@@ -1,7 +1,7 @@
 import UidsStub from "../../components/stub/Stub.vue";
 
 export default {
-  title: 'Not yet implemented/Blockquote',
+  title: 'Not implemented/Blockquote',
   // https://github.com/storybookjs/storybook/issues/14442#issuecomment-1089165153
   parameters: { options: { showPanel: false } },
 }
@@ -17,6 +17,7 @@ const Template = (args) => ({
   template: `
     <uids-stub
       path="components/detail/blockquote--default.html"
+      title="Blockquote"
     >
     </uids-stub>
   `,

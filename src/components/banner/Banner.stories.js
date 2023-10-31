@@ -3,7 +3,7 @@ import media_image from '../../assets/images/viewbook/sections/122.jpg'
 import UidsStub from "../../components/stub/Stub.vue";
 
 export default {
-  title: 'Not yet implemented/Banner',
+  title: 'Not implemented/Banner',
   component: UidsBanner,
   argTypes: {
     media: {
@@ -25,6 +25,7 @@ const Template = (args) => ({
   template: `
     <uids-stub
       path="components/detail/banner--default.html"
+      title="Banner"
     >
     </uids-stub>
   `,

@@ -1,6 +1,6 @@
 import UidsStub from "../../components/stub/Stub.vue";
 export default {
-  title: 'Not yet implemented/background',
+  title: 'Not implemented/Background',
   // https://github.com/storybookjs/storybook/issues/14442#issuecomment-1089165153
   parameters: { options: { showPanel: false } },
 }
@@ -16,6 +16,7 @@ const Template = (args) => ({
   template: `
     <uids-stub
       path="components/detail/background.html"
+      title="Background"
     >
     </uids-stub>
   `,

@@ -1,7 +1,7 @@
 import UidsStub from "../../components/stub/Stub.vue";
 
 export default {
-  title: 'Not yet implemented/Accordion',
+  title: 'Not implemented/Accordion',
   // https://github.com/storybookjs/storybook/issues/14442#issuecomment-1089165153
   parameters: { options: { showPanel: false } },
 }
@@ -17,9 +17,15 @@ const Template = (args) => ({
   template: `
     <uids-stub
       path="components/detail/accordion.html"
+      title="Accordion"
     >
     </uids-stub>
   `,
 });
 
 export const Default = Template.bind({})
+
+Default.args = {
+  path: '',
+  previewPath: null
+};
