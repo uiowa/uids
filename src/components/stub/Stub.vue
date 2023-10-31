@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import './Stub.scss';
-import {computed} from 'vue';
+import './stub.scss';
 import {v3_URL} from '../utlity';
+import UidsButton from '../button';
 
 const name = 'uids-Stub'
 const props = defineProps({
@@ -18,5 +18,19 @@ const props = defineProps({
 </script>
 
 <template>
-  <a :href="v3_URL + path">Click</a>
+  <div>
+    <iframe src="https://uids.brand.uiowa.edu/components/preview/accordion.html" title="accordion"></iframe>
+    <uids-button
+      :url="v3_URL + path"
+      color="primary"
+      size="medium"
+      :borderless="false"
+      :full="false"
+      :transparent="false"
+      :light_font="false"
+    >
+      <template #default >View in uids3</template>
+      <template #icon ><i class='fas fa-arrow-right'></i></template>
+    </uids-button>
+  </div>
 </template>
