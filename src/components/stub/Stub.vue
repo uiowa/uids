@@ -20,12 +20,12 @@ const props = defineProps({
     default: '',
   },
 
-});
+});4
 </script>
 
 <template>
   <h2>{{title}} - Not Implemented</h2>
-  <p>We are in the process of moving this component to UIDS 4.</p>
+  <p>This component has yet to be implemented in UIDS 4.</p>
   <uids-button
     :url="v3_URL + path"
     color="primary"
