@@ -24,17 +24,11 @@ const Template = (args) => ({
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
     <uids-stub
-      path="components/detail/banner--default.html"
+      path="banner--default.html"
       title="Banner"
     >
     </uids-stub>
   `,
 });
 
-export const Default = Template.bind({})
-//
-// Default.args = {
-//   media: '<img src="' + media_image + '" alt="Alt">',
-//   title: 'Write Your Story',
-//   url: 'https://uiowa.edu',
-// }
+export const Banner = Template.bind({})

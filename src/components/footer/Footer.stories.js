@@ -16,11 +16,11 @@ const Template = (args) => ({
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
     <uids-stub
-      path="components/detail/footer.html"
+      path="footer.html"
       title="Footer"
     >
     </uids-stub>
   `,
 });
 
-export const Default = Template.bind({})
+export const Footer = Template.bind({})

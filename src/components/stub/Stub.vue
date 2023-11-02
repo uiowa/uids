@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import './stub.scss';
-import {v3_URL} from '../utlity';
+import { V3_BASE_URL } from '../utlity';
 import UidsButton from '../button';
+import UidsHeadline from '../headline';
 
-const name = 'uids-Stub'
+const name = 'uids-stub'
 const props = defineProps({
   /**
    * Path to component.
@@ -20,14 +21,18 @@ const props = defineProps({
     default: '',
   },
 
-});4
+});
+const V3_COMPONENT_PATH = 'components/detail/';
 </script>
 
 <template>
-  <h2>{{title}} - Not Implemented</h2>
+  <uids-headline
+    text_style="serif"
+    underline="true"
+  >{{title}} - Not Implemented</uids-headline>
   <p>This component has not been implemented in UIDS 4.</p>
   <uids-button
-    :url="v3_URL + path"
+    :url="V3_BASE_URL + V3_COMPONENT_PATH + path"
     color="primary"
     size="medium"
     :borderless="false"

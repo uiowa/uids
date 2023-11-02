@@ -16,11 +16,11 @@ const Template = (args) => ({
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
     <uids-stub
-      path="components/detail/blockquote--default.html"
+      path="blockquote--default.html"
       title="Blockquote"
     >
     </uids-stub>
   `,
 });
 
-export const Default = Template.bind({})
+export const Blockquote = Template.bind({})

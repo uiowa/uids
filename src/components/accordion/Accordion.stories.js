@@ -1,4 +1,4 @@
-import UidsStub from "../../components/stub/Stub.vue";
+import UidsStub from '../../components/stub/Stub.vue';
 
 export default {
   title: 'Not implemented/Accordion',
@@ -16,16 +16,11 @@ const Template = (args) => ({
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
     <uids-stub
-      path="components/detail/accordion.html"
+      path="accordion.html"
       title="Accordion"
     >
     </uids-stub>
   `,
 });
 
-export const Default = Template.bind({})
-
-Default.args = {
-  path: '',
-  previewPath: null
-};
+export const Accordion = Template.bind({})
