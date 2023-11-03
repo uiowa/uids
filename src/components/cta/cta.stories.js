@@ -26,14 +26,13 @@ export default {
     },
     orientation: {
       name: 'Orientation',
-      options: ['', 'left', 'left-right', 'center'],
+      options: ['', 'left', 'inline'],
       control: {
         type: 'select',
         labels: {
           '': 'Centered (default)',
-          'left': 'Left aligned',
-          'left-right': 'Left aligned with button on the right',
-          'center': 'Center',
+          'left': 'Left',
+          'inline': 'Inline',
         },
       },
       table: {
@@ -55,6 +54,12 @@ export default {
     button_icon: {
       control: { type: 'text' },
     },
+    button_align_right: {
+      name: 'Align button to right',
+      table: {
+        category: 'Display options',
+      },
+    },
     ...Background.argTypes,
   },
 };
@@ -75,6 +80,7 @@ const Template = (args) => ({
       :title="args.title"
       :button_label="args.button_label"
       :button_icon="args.button_icon"
+      :button_align_right="args.button_align_right"
       :details="args.details"
       :headline_style="args.headline_style"
       :orientation="args.orientation"
@@ -94,25 +100,20 @@ Centered.args = {
   details: '<p>Iowa is where great stories begin. It\'s time to start yours. Find out how.</p>',
   button_label: 'Request Information',
   button_icon: '<i class="fas fa-arrow-right"></i>',
+  button_align_right: false,
   headline_style: 'uppercase',
   background: 'gray',
   orientation: '',
 };
 
-export const CenteredGrid = Template.bind({});
-CenteredGrid.args = {
+export const Inline= Template.bind({});
+Inline.args = {
   ...Centered.args,
-  orientation: 'center',
+  orientation: 'inline',
 }
 
-export const LeftAligned = Template.bind({});
-LeftAligned.args = {
+export const Left = Template.bind({});
+Left.args = {
   ...Centered.args,
   orientation: 'left',
-}
-
-export const LeftAlignedRightAlignedButton = Template.bind({});
-LeftAlignedRightAlignedButton.args = {
-  ...Centered.args,
-  orientation: 'left-right',
 }

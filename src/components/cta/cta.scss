@@ -26,44 +26,48 @@
 
 // === Modifiers === //
 // === Aligned left, button right === //
-.cta--left-right {
-  justify-content: left;
-  text-align: left;
-  @include breakpoint(md) {
-    flex-wrap: nowrap;
-  }
-
-  .cta__title {
-    flex-basis: 100%;
-  }
-
-  .cta__content,
-  .cta__link {
+.cta--button-align-right {
+    justify-content: left;
+    text-align: left;
     @include breakpoint(md) {
-      flex: 0 1 48%;
+      flex-wrap: nowrap;
     }
-  }
 
-  .cta__link {
-    justify-content: end;
-    align-self: baseline;
-    display: flex;
+    .cta__title {
+      flex-basis: 100%;
+    }
+
+    .cta__content,
+    .cta__link {
+      @include breakpoint(md) {
+        flex: 0 1 48%;
+      }
+    }
+
+    .cta__link {
+      justify-content: end;
+      align-self: baseline;
+      display: flex;
+    }
+  &:not([class*="cta--left"]) {
+    .cta__container {
+      @include breakpoint(md) {
+        text-align: center;
+      }
+    }
   }
 }
 // === End: Aligned left, button right === //
 
 // === Aligned left === //
-
 .cta--left {
-  @include breakpoint(md) {
-    justify-content: unset;
-    text-align: left;
-  }
+  justify-content: unset;
+  text-align: left;
 }
 // === End: Aligned left === //
 
-// === Centered inline === //
-.cta--center {
+// === Inline === //
+.cta--inline {
   @include breakpoint(md) {
     flex-wrap: nowrap;
     gap: 0;
@@ -90,5 +94,5 @@
     }
   }
 }
-// === End: Centered inline === //
+// === End: Inline === //
 // === End: Modifiers === //

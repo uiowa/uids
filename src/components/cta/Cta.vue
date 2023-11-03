@@ -27,6 +27,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  button_align_right: {
+    type: Boolean,
+    default: false,
+  },
   button_label: {
     type: String,
   },
@@ -42,6 +46,12 @@ const props = defineProps({
 const classes = computed(() => {
   let classes = ['cta'];
   Background.addBackgroundClass(classes, props);
+
+  ['button_align_right'].forEach((prop) => {
+    if (props[prop] === true) {
+      classes.push(`cta--${ className(prop) }`);
+    }
+  });
 
   if (props.orientation) {
     classes.push(`cta--${ className(props.orientation)}`);
