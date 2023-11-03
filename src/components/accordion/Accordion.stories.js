@@ -1,15 +1,7 @@
-import UidsBanner from './Banner.vue'
-import media_image from '../../assets/images/viewbook/sections/122.jpg'
-import UidsStub from "../../components/stub/Stub.vue";
+import UidsStub from '../../components/stub/Stub.vue';
 
 export default {
-  title: 'Not implemented/Banner',
-  component: UidsBanner,
-  argTypes: {
-    media: {
-      control: 'text',
-    },
-  },
+  title: 'Not implemented/Accordion',
   // https://github.com/storybookjs/storybook/issues/14442#issuecomment-1089165153
   parameters: { options: { showPanel: false } },
 }
@@ -24,11 +16,11 @@ const Template = (args) => ({
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
     <uids-stub
-      path="banner--default.html"
-      title="Banner"
+      path="accordion.html"
+      title="Accordion"
     >
     </uids-stub>
   `,
 });
 
-export const Banner = Template.bind({})
+export const Accordion = Template.bind({})

@@ -103,4 +103,18 @@ export const parameters = {
       ...customViewports,
     },
   },
+  options: {
+    showPanel: true,
+    storySort: {
+      order: [
+        'Introduction',
+        'Basic',
+        'Branding',
+        ['Logo', 'Brand Bar'],
+        'Elements',
+        'Components',
+        'Not Implemented',
+      ]
+    }
+  },
 };
