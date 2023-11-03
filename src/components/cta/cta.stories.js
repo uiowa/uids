@@ -1,5 +1,4 @@
 import UidsCta from './Cta.vue';
-import UidsHeadline from '../headline/Headline.vue';
 import Background from "../shared/background";
 
 
