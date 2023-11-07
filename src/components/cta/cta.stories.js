@@ -1,4 +1,5 @@
 import UidsCta from './Cta.vue';
+import UidsHeadline from '../headline/Headline.vue';
 import Background from "../shared/background";
 
 
@@ -26,13 +27,14 @@ export default {
     },
     orientation: {
       name: 'Orientation',
-      options: ['', 'left', 'inline'],
+      options: ['', 'left', 'left-right', 'center'],
       control: {
         type: 'select',
         labels: {
           '': 'Centered (default)',
-          'left': 'Left',
-          'inline': 'Inline',
+          'left': 'Left aligned',
+          'left-right': 'Left aligned with button on the right',
+          'center': 'Center',
         },
       },
       table: {
@@ -54,12 +56,6 @@ export default {
     button_icon: {
       control: { type: 'text' },
     },
-    button_align_right: {
-      name: 'Align button to right',
-      table: {
-        category: 'Display options',
-      },
-    },
     ...Background.argTypes,
   },
 };
@@ -80,7 +76,6 @@ const Template = (args) => ({
       :title="args.title"
       :button_label="args.button_label"
       :button_icon="args.button_icon"
-      :button_align_right="args.button_align_right"
       :details="args.details"
       :headline_style="args.headline_style"
       :orientation="args.orientation"
@@ -100,20 +95,25 @@ Centered.args = {
   details: '<p>Iowa is where great stories begin. It\'s time to start yours. Find out how.</p>',
   button_label: 'Request Information',
   button_icon: '<i class="fas fa-arrow-right"></i>',
-  button_align_right: false,
   headline_style: 'uppercase',
   background: 'gray',
   orientation: '',
 };
 
-export const Inline= Template.bind({});
-Inline.args = {
+export const CenteredGrid = Template.bind({});
+CenteredGrid.args = {
   ...Centered.args,
-  orientation: 'inline',
+  orientation: 'center',
 }
 
-export const Left = Template.bind({});
-Left.args = {
+export const LeftAligned = Template.bind({});
+LeftAligned.args = {
   ...Centered.args,
   orientation: 'left',
+}
+
+export const LeftAlignedRightAlignedButton = Template.bind({});
+LeftAlignedRightAlignedButton.args = {
+  ...Centered.args,
+  orientation: 'left-right',
 }
