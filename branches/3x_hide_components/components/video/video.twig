@@ -1,0 +1,20 @@
+<div class="media--video">
+  <div class="video-controls video">
+    {% if autoplay == false %}
+      {% set autoplay = ''%}
+      <button class="video-btn video-btn__play" id="video-btn">
+        <span class="element-invisible">Play</span>
+      </button>
+    {% else %}
+      {% set autoplay = 'autoplay="autoplay"'%}
+      <button class="video-btn video-btn__pause" id="video-btn">
+        <span class="element-invisible">Pause</span>
+      </button>
+    {% endif %}
+  </div>
+  <video {{ autoplay }} muted="muted" loop="loop" id="video-container" poster="{{ poster_src }}">
+    <source src="{{ src }}" type="{{ type }}">
+  </video>
+  <!-- This picture should assume background overlay doesn't work. So it should be darker to handle contrast ratio issues. -->
+  <!--[if lt IE 9]> <img src="{{ poster_src }}" alt="{{ poster_alt }}" class=" ie8-poster"> <![endif]-->
+</div>

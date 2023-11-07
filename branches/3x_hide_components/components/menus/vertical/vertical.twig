@@ -1,0 +1,36 @@
+<nav role="navigation" aria-label="Main Navigation" class="block-superfish-alt">
+  <h2 class="block-title {{ links_nav.title_classes }}">{{ links_nav.title }}</h2>
+  <ul id="superfish-main-accordion" class="menu sf-menu sf-main sf-style-none sf-accordion sf-expanded">
+    {% for link in links_nav.links %}
+      {% include "@vertical--links" with {
+        "link_nav_url": item.link_nav_url,
+        "link_nav_title": item.link_nav_title
+      } %}
+    {% endfor %}
+  </ul>
+</nav>
+
+<style>
+  /**
+   * sfSmallscreen.
+   */
+
+  ul.sf-menu.sf-expanded ul {
+    position: relative;
+    display: block;
+  }
+
+
+  .block-superfish-alt .sf-style-none > li.sf-expanded > a.sf-depth-1.menuparent::before, .block-superfish-alt .menu > li.sf-expanded > a.sf-depth-1.menuparent::before {
+    content: "\f077";
+  }
+
+
+
+  ul.sf-menu.sf-accordion {
+    display: block !important;
+    position: absolute;
+  }
+
+</style>
+
