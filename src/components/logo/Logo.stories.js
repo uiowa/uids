@@ -1,7 +1,7 @@
 import UidsLogo from './Logo.vue'
 
 export default {
-  title: 'Branding/Logo',
+  title: 'Components/Branding/Logo',
   component: UidsLogo,
 }
 

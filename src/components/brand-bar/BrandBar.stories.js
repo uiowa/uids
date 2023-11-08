@@ -1,7 +1,7 @@
 import UidsIowaBar from './BrandBar.vue'
 
 export default {
-  title: 'Branding/Brand Bar',
+  title: 'Components/Branding/Brand Bar',
   component: UidsIowaBar,
   argTypes: {
     narrow: {
