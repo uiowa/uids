@@ -1,0 +1,16 @@
+<div class="{{ image_container_classes }}">
+  <img
+    {# alt is required. #}
+    alt="{{ image_alt }}"
+    {% if image_width %}width="{{ image_width }}"{% endif %}
+    {% if image_height %}height="{{ image_height }}"{% endif %}
+    {% if image_classes %}class="{{ image_classes }}"{% endif %}
+    {% if image_srcs is not empty %}
+      {% if image_sizes %}sizes="{{ image_sizes }}"{% endif %}
+      srcset="{% for key, srcset in image_srcs %}{{ srcset.path }} {{ srcset.size }},{% endfor %}"{% if loop.index < loop.length %},{% endif %}
+    {% endif %}
+    {# src is required. #}
+    src="{{ image_src }}"
+    typeof="foaf:Image"
+  >
+</div>
