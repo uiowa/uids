@@ -1,5 +1,0 @@
-# Viewbook
-
-## Todo
-
-## Roadmap

@@ -1,5 +1,0 @@
-# Vertical Menu
-
-## Todo
-
-## Roadmap
