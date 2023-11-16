@@ -1,0 +1,16 @@
+{% for background in backgrounds %}
+  <div class="{{ background.bg_class }} container--padded">
+    {% block content %}
+      <h2 class="headline headline--serif">{{ background.bg_name }}</h2>
+    {% endblock %}
+  </div>
+{% endfor %}
+
+<style>
+  [class*="bg--"] {
+    min-height: 600px;
+  }
+  .container--padded {
+    padding: 40px;
+  }
+</style>
