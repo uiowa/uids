@@ -1,12 +1,10 @@
 name: Update documentation in GitHub Pages
 
-# Triggers on pushes to branches and tags, as well a deleting a branch.
+# Triggers on pushes to branches, as well a deleting a branch.
 on:
   push:
     branches:
       - "3.x"
-    tags:
-      - '*'
   pull_request:
     types: [opened, synchronize, reopened]
   pull_request_target:
@@ -50,13 +48,6 @@ jobs:
           ref=${{ github.event.pull_request.head.ref }}
           echo "branch=${ref//\//_}" >> $GITHUB_ENV
           echo "target_dir=/branches/" >> $GITHUB_ENV
-
-      - name: Set variables for tags
-        if: ${{ startsWith(github.ref, 'refs/tags/') }}
-        run: |
-          ref=${{ github.ref }}
-          echo "branch=${ref#refs/*/}" >> $GITHUB_ENV
-          echo "target_dir=/docs/" >> $GITHUB_ENV
 
       - name: Setup node
         uses: actions/setup-node@v2.1.2
