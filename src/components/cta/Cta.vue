@@ -13,10 +13,7 @@ const props = defineProps({
   /**
    * Title style for the headline.
    */
-  headline_style: {
-    type: String,
-    default: '',
-  },
+  headline_style: UidsHeadline.headlineProps.text_style,
   url: {
     type: String,
   },
@@ -71,21 +68,21 @@ const buttonClasses = computed(() => {
 <template>
   <div :class="classes">
     <div class="cta__container">
-        <div class="cta__title" v-if="$slots.title">
+      <div class="cta__title" v-if="$slots.title">
         <uids-headline :text_style="headline_style">
           <!-- @slot The title of the card. HTML is allowed. -->
           <slot name="title">Title</slot>
         </uids-headline>
-        </div>
-        <div class="cta__content" v-if="details" >
-          <slot name="details">{{ details }}</slot>
-        </div>
+      </div>
+      <div class="cta__content" v-if="details" >
+        <slot name="details">{{ details }}</slot>
+      </div>
     </div>
-        <footer class="cta__link" v-if="button_label" >
-          <uids-button :class="buttonClasses"  :url="url" size="medium">
-            <slot name="button_label">{{ button_label }}</slot>
-            <slot name="button_icon"></slot>
-          </uids-button>
-        </footer>
-    </div>
+    <footer class="cta__link" v-if="button_label" >
+      <uids-button :class="buttonClasses"  :url="url" size="medium">
+        <slot name="button_label">{{ button_label }}</slot>
+        <slot name="button_icon"></slot>
+      </uids-button>
+    </footer>
+  </div>
 </template>
