@@ -9,7 +9,7 @@ import { Callout } from '../callout/Callout.stories'
 import {computed} from "vue";
 
 export default {
-  title: 'Elements/Inline',
+  title: 'Components/Inline',
   component: UidsCallout,
   argTypes: {
     alignment: {

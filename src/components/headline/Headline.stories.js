@@ -3,7 +3,7 @@ import { computed } from 'vue';
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
-  title: 'Basic/Headline',
+  title: 'Components/Headline',
   component: UidsHeadline,
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
@@ -90,18 +90,22 @@ Serif.args = {
 export const Underline = Template.bind({});
 Underline.args = {
   ...Default.args,
+  text_style: 'serif',
   underline: true,
 }
 
 export const Highlight = Template.bind({});
 Highlight.args = {
   ...Default.args,
+  text_style: 'serif',
   highlight: true,
+  default: `<span>Start your story here</span>`,
 }
 
 // @todo Figure out how to get this example working.
 export const HighlightedSingleWord = Template.bind({});
 HighlightedSingleWord.args = {
   ...Default.args,
+  text_style: 'uppercase',
   default: `Start your <span class="highlight">story</span> here`,
 }
