@@ -13,7 +13,10 @@ const props = defineProps({
   /**
    * Title style for the headline.
    */
-  headline_style: UidsHeadline.headlineProps.text_style,
+  headline_style: {
+    type: String,
+    default: '',
+  },
   url: {
     type: String,
   },
