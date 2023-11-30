@@ -1,12 +1,10 @@
 name: Update documentation in GitHub Pages
 
-# Triggers on pushes to branches and tags, as well a deleting a branch.
+# Triggers on pushes to branches, as well a deleting a branch.
 on:
   push:
     branches:
       - "3.x"
-    tags:
-      - '*'
   pull_request:
     types: [opened, synchronize, reopened]
   pull_request_target:
@@ -19,11 +17,10 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     # If the PR is coming from a fork (pull_request_target), ensure it's opened by "dependabot[bot]".
-    # Otherwise, clone it normally. Also, skip the 3.x branch, so we don't build that to latest anymore.
+    # Otherwise, clone it normally.
     if: |
-      ((github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]')
-      || (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]'))
-      && github.ref != 'refs/heads/3.x'
+      (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]')
+      || (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
     env:
       TARGET_BRANCH: gh-pages
       MAIN_BRANCH: 3.x
@@ -42,6 +39,14 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
+      - name: Set variables for main
+        if: |
+          github.event_name == 'push' &&
+          github.ref == format('refs/heads/{0}', env.MAIN_BRANCH)
+        run: |
+          echo "branch=3.x" >> $GITHUB_ENV
+          echo "target_dir=/" >> $GITHUB_ENV
+
       - name: Set variables for branches
         if: |
           github.event_name == 'pull_request' ||
@@ -50,13 +55,6 @@ jobs:
           ref=${{ github.event.pull_request.head.ref }}
           echo "branch=${ref//\//_}" >> $GITHUB_ENV
           echo "target_dir=/branches/" >> $GITHUB_ENV
-
-      - name: Set variables for tags
-        if: ${{ startsWith(github.ref, 'refs/tags/') }}
-        run: |
-          ref=${{ github.ref }}
-          echo "branch=${ref#refs/*/}" >> $GITHUB_ENV
-          echo "target_dir=/docs/" >> $GITHUB_ENV
 
       - name: Setup node
         uses: actions/setup-node@v2.1.2
@@ -95,13 +93,6 @@ jobs:
 #      - run: echo "Tags check - ${{ startsWith(github.ref, 'refs/tags/') }}
 
       # Only one of the following 2 steps should run.
-
-      # If tags:
-      #   - Copy the build to the root of 'gh-pages'.
-      - name: Tag push preparations
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          cp -a $GITHUB_WORKSPACE/www/* $GITHUB_WORKSPACE/gh-pages
 
       # If branch other than main:
       #   - Create the 'branches' directory if it doesn't exist.
