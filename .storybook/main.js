@@ -9,7 +9,11 @@ module.exports = {
     options: {
       actions: false,
     },
-  }, "@storybook/preset-scss", "@whitespace/storybook-addon-html", "@storybook/addon-mdx-gfm"],
+  },
+    "@storybook/preset-scss",
+    "@storybook/addon-links",
+    "@storybook/addon-interactions"
+  ],
 
   "framework": {
     name: "@storybook/vue3-vite",
@@ -22,7 +26,7 @@ module.exports = {
     // return the customized config
     return config;
   },
-  
+
   docs: {
     autodocs: true
   }
