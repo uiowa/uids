@@ -7,6 +7,7 @@ import '../src/assets/scss/paragraph.scss';
 import '../src/assets/scss/lists.scss';
 
 import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
+import DocumentationTemplate from '../src/components/DocumentationTemplate.mdx';
 
 const customViewports = {
   // This is an example of a custom defined viewport.
@@ -20,6 +21,9 @@ const customViewports = {
 };
 
 export const parameters = {
+  docs: {
+    page: DocumentationTemplate,
+  },
   actions: { argTypesRegex: "^on[A-Z].*" },
   backgrounds: {
     default: 'white',
