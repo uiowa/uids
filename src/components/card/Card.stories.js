@@ -12,7 +12,10 @@ import CardDocs from './CardDocs.mdx';
 export default {
   parameters: {
     docs: {
-        page: CardDocs,
+      source: {
+        code: null,
+      },
+      page: CardDocs,
     },
   },
   title: 'Components/Card',
@@ -175,7 +178,7 @@ export default {
       },
     },
   },
-}
+};
 
 // More on component templates: https://storybook.js.org/docs/vue/writing-stories/introduction#using-args
 const Template = (args) => ({

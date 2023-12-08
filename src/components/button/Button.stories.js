@@ -4,6 +4,13 @@ import Borderless from "../shared/borderless";
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
   title: 'Components/Button',
+  parameters: {
+    docs: {
+      source: {
+        code: null,
+      },
+    },
+  },
   component: UidsButton,
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {

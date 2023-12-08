@@ -14,7 +14,14 @@ export default {
       control: { type: 'text' },
     },
   },
-}
+  parameters: {
+    docs: {
+      source: {
+        code: null,
+      },
+    },
+  },
+};
 
 const Template = (args) => ({
   components: { UidsIowaBar },

@@ -11,8 +11,17 @@ export default {
     },
   },
   // https://github.com/storybookjs/storybook/issues/14442#issuecomment-1089165153
-  parameters: { options: { showPanel: false } },
-}
+  parameters: {
+    docs: {
+      source: {
+        code: null,
+      },
+    },
+    options: {
+      showPanel: false,
+    },
+  },
+};
 
 const Template = (args) => ({
   // Components used in your story `template` are defined in the `components` object
