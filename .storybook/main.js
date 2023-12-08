@@ -13,7 +13,6 @@ module.exports = {
     "@storybook/preset-scss",
     "@whitespace/storybook-addon-html",
     "@storybook/addon-links",
-    "@storybook/addon-interactions"
   ],
 
   "framework": {
