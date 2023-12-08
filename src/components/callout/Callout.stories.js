@@ -5,13 +5,6 @@ import { parameters } from '../../../.storybook/preview';
 
 export default {
   title: 'Components/Callout',
-  parameters: {
-    docs: {
-      source: {
-        code: null,
-      },
-    },
-  },
   component: UidsCallout,
   argTypes: {
     // ...Inline.argTypes,
@@ -22,6 +15,11 @@ export default {
     },
   },
   parameters: {
+    docs: {
+      source: {
+        code: null,
+      },
+    },
     viewport: {
       viewports: parameters.viewport.viewports,
       defaultViewport: 'tablet',
