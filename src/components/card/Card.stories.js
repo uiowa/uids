@@ -7,7 +7,6 @@ import Background from '../shared/background'
 import Borderless from '../shared/borderless'
 import Media from '../shared/media'
 import { parameters } from '../../../.storybook/preview'
-import CardDocs from './CardDocs.mdx';
 
 export default {
   parameters: {
@@ -15,7 +14,6 @@ export default {
       source: {
         code: null,
       },
-      page: CardDocs,
     },
   },
   title: 'Components/Card',
