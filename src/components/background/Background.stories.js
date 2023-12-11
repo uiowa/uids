@@ -1,4 +1,6 @@
 import UidsStub from "../../components/stub/Stub.vue";
+import StubDocs from './StubDocs.mdx';
+
 export default {
   title: 'Not implemented/Background',
   // https://github.com/storybookjs/storybook/issues/14442#issuecomment-1089165153
@@ -7,6 +9,7 @@ export default {
       source: {
         code: null,
       },
+      page: StubDocs,
     },
     options: {
       showPanel: false,
