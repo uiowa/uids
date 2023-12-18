@@ -13,6 +13,7 @@ export default {
     },
   },
   component: UidsCta,
+  tags: ['autodocs'],
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
     // Props

@@ -1,15 +1,13 @@
 import UidsStub from "../../components/stub/Stub.vue";
-import StubDocs from './StubDocs.mdx';
 
 export default {
-  title: 'Not implemented/Tables',
+  title: 'Not implemented/Table',
   // https://github.com/storybookjs/storybook/issues/14442#issuecomment-1089165153
   parameters: {
     docs: {
       source: {
         code: null,
       },
-      page: StubDocs,
     },
     options: {
       showPanel: false,
@@ -34,4 +32,4 @@ const Template = (args) => ({
   `,
 });
 
-export const Tables = Template.bind({})
+export const Table = Template.bind({})

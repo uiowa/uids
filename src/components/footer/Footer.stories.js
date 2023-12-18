@@ -1,5 +1,4 @@
 import UidsStub from "../../components/stub/Stub.vue";
-import StubDocs from './StubDocs.mdx';
 
 export default {
   title: 'Not implemented/Footer',
@@ -9,7 +8,6 @@ export default {
       source: {
         code: null,
       },
-      page: StubDocs,
     },
     options: {
       showPanel: false,

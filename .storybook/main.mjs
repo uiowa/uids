@@ -1,6 +1,7 @@
 const config = {
   staticDirs: ['../public'],
   "stories": [
+    "../src/**/*.mdx",
     "../src/**/*.stories.mdx",
     "../src/**/*.stories.@(js|jsx|ts|tsx)"
   ],
@@ -29,9 +30,6 @@ const config = {
     return config;
   },
 
-  docs: {
-    // autodocs: true
-  }
 };
 
 export default config;

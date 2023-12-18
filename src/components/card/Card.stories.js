@@ -6,7 +6,7 @@ import person_image from '../../assets/images/viewbook/sections/herky2.jpeg'
 import Background from '../shared/background'
 import Borderless from '../shared/borderless'
 import Media from '../shared/media'
-import { parameters } from '../../../.storybook/preview'
+import preview from '../../../.storybook/preview'
 
 export default {
   parameters: {
@@ -312,7 +312,7 @@ PersonProfile.args = {
 }
 PersonProfile.parameters = {
   viewport: {
-    viewports: parameters.viewport.viewports,
+    viewports: preview.parameters.viewport.viewports,
     defaultViewport: 'tablet',
   },
 }
