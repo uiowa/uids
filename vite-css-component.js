@@ -1,39 +1,73 @@
-import path from 'path';
+import * as path from 'path';
 import * as sass from 'sass';
 
 const files_to_compile = [
-  // Files must be declared in src/index.ts
-  // or in src/components/index.ts before listed here.
-  '/components/brand-bar/brand-bar.scss',
-  '/components/card/card.scss',
-  '/assets/scss/reset.scss',
   '/assets/scss/fonts.scss',
+  '/assets/scss/uids-basic-base.scss',
 ];
 
 export function cssPerComponentPlugin() {
   return {
     name: 'vite-css-component',
     async transform(code, id) {
-      if (id.endsWith('.scss') && files_to_compile.some((file) => id.endsWith(file))) {
-        const componentPath = id.replace(/\.scss$/, '');
-        const componentName = path.basename(componentPath);
-        const outputCssPath = `assets/css/${componentName}.css`;
+      if (id.endsWith('.scss')) {
+        const isBaseFile = files_to_compile.some(file => id.endsWith(file));
 
-        const result = sass.renderSync({
-          file: id,
-          outputStyle: 'expanded',
-        });
+        if (isBaseFile) {
+          // Extract the base file name
+          const baseFileName = path.basename(id, '.scss');
 
-        this.emitFile({
-          type: 'asset',
-          fileName: outputCssPath,
-          source: result.css.toString(),
-        });
+          // Define the output CSS path for base files
+          const outputCssPath = `dist/base/${baseFileName}.css`;
 
-        return {
-          code: `import "/@fs/${outputCssPath}";`,
-          map: null,
-        };
+          // Compile SCSS to CSS
+          const result = sass.renderSync({
+            file: id,
+            outputStyle: 'expanded',
+          });
+
+          // Emit CSS as an asset
+          this.emitFile({
+            type: 'asset',
+            fileName: outputCssPath,
+            source: result.css.toString(),
+          });
+
+          // Return import statement for the generated CSS file
+          return {
+            code: `import "/@fs/${outputCssPath}";`,
+            map: null,
+          };
+        } else {
+          // Extract the component name and path
+          const matches = id.match(/\/components\/([^/]+)\/([^/]+)\.scss/);
+          if (matches) {
+            const componentName = matches[2];
+            const componentPath = matches[1];
+
+            // Define the output CSS path based on the component structure
+            const outputCssPath = `dist/components/${componentPath}/${componentName}.css`;
+
+            // Compile SCSS to CSS
+            const result = sass.renderSync({
+              file: id,
+              outputStyle: 'expanded',
+            });
+
+            // Create CSS as an asset
+            this.emitFile({
+              type: 'asset',
+              fileName: outputCssPath,
+              source: result.css.toString(),
+            });
+
+            // Return import statement for the generated CSS file
+            return {
+              code: `import "/@fs/${outputCssPath}";`,
+              map: null,
+            };
+          }
+        }
       }
     },
   };
