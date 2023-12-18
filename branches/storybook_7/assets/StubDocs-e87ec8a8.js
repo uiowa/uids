@@ -1,0 +1,2 @@
+import{j as t}from"./jsx-runtime-a78f085f.js";import{M as o,P as s}from"./index-2bd27474.js";import{u as i}from"./index-bc972bcb.js";import"./iframe-244ff0a9.js";import"../sb-preview/runtime.js";import"./index-f4dda215.js";import"./index-11d98b33.js";import"./index-356e4a49.js";function n(r){return t.jsxs(t.Fragment,{children:[t.jsx(o,{isTemplate:!0}),`
+`,t.jsx(s,{})]})}function M(r={}){const{wrapper:e}=Object.assign({},i(),r.components);return e?t.jsx(e,Object.assign({},r,{children:t.jsx(n,r)})):n()}export{M as default};
