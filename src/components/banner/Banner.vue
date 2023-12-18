@@ -5,6 +5,7 @@ import UidsHeadline from '../headline/Headline.vue'
 import UidsButton from '../button/Button.vue'
 import Background from '../shared/background'
 import '../background/background.scss'
+import './banner.scss'
 
 const name = 'uids-banner'
 
@@ -100,7 +101,3 @@ const getHeadlineSettings = computed(() => {
     </div>
   </div>
 </template>
-
-<style lang="scss">
-@import 'banner';
-</style>
