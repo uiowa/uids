@@ -6,7 +6,8 @@ const config = {
   ],
 
   "addons": [
-    "@storybook/addon-links", {
+    "@storybook/addon-links",
+    {
       name: "@storybook/addon-essentials",
       options: {
         actions: false,
@@ -14,7 +15,6 @@ const config = {
     },
     "@storybook/preset-scss",
     "@whitespace/storybook-addon-html",
-    "@storybook/addon-links",
   ],
 
   "framework": {

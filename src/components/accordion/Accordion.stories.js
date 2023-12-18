@@ -9,7 +9,6 @@ export default {
       source: {
         code: null,
       },
-      page: StubDocs,
     },
     options: {
       showPanel: false,
