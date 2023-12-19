@@ -10,6 +10,9 @@ import {version} from '/package.json';
 
 # How to use
 
+<p>To utilize a component from UIDS you will need to use the Base CSS styles as well as the specific component CSS files listed below.
+  <br />HTML markup for each component can be found in the HTML tab on each component story.</p>
+
 ## Base CSS
 
 
@@ -17,46 +20,19 @@ import {version} from '/package.json';
 - <a href={`https://github.com/uiowa/uids/tree/gh-pages/docs/v${version}/dist/css/base/base.css`}>Base</a>
 
 ## Component CSS
+<br />
+### Brand Bar
+- <a href={`https://github.com/uiowa/uids/tree/gh-pages/docs/v${version}/dist/css/components/logo/logo.css`}>Logo</a>
+- <a href={`https://github.com/uiowa/uids/tree/gh-pages/docs/v${version}/dist/css/components/brand-bar/brand-bar.css`}>Brand Bar</a>
 
-{/*
-Dynamically generate a list of components based on the files processed by the Vite plugin.
-*/}
-{(() => {
-const processedComponents = [];
+### Alert
+- <a href={`https://github.com/uiowa/uids/tree/gh-pages/docs/v${version}/dist/css/components/alert/alert.css`}>Alert</a>
 
-// Use import.meta.glob to get a list of CSS files
-const componentFiles = import.meta.glob('/dist/css/components/**/*.css');
+### Button
+- <a href={`https://github.com/uiowa/uids/tree/gh-pages/docs/v${version}/dist/css/components/button/button.css`}>Button</a>
 
-try {
-// Extract component names from CSS files
-for (const cssFile in componentFiles) {
-const matches = cssFile.match(/\/components\/([^/]+)\/([^/]+)\.css/);
-if (matches) {
-const componentName = matches[2];
-const componentPath = matches[1];
-processedComponents.push({ name: capitalizeFirstLetter(componentName), path: componentPath });
-}
-}
+### Card
+- <a href={`https://github.com/uiowa/uids/tree/gh-pages/docs/v${version}/dist/css/components/card/card.css`}>Card</a>
 
-    // Function to capitalize the first letter
-    function capitalizeFirstLetter(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1);
-    }
-
-    // Generate the list
-    return (
-      <ul>
-        {processedComponents.map((component, index) => (
-          <li key={index}>
-            <a href={`https://github.com/uiowa/uids/tree/gh-pages/docs/v${version}/dist/css/components/${component.path}/${component.name}.css`}>
-              {component.name}
-            </a>
-          </li>
-        ))}
-      </ul>
-    );
-} catch (error) {
-console.error('Error reading Vite plugin output directory:', error);
-return null;
-}
-})()}
+### CTA
+- <a href={`https://github.com/uiowa/uids/tree/gh-pages/docs/v${version}/dist/css/components/cta/cta.css`}>CTA</a>
