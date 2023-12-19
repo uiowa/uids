@@ -2,7 +2,15 @@ import UidsLogo from './Logo.vue'
 
 export default {
   title: 'Components/Branding/Logo',
+  parameters: {
+    docs: {
+      source: {
+        code: null,
+      },
+    },
+  },
   component: UidsLogo,
+  tags: ['autodocs'],
 }
 
 const Template = (args) => ({

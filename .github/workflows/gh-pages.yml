@@ -69,14 +69,19 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
-          cache: 'yarn'
+          node-version: '18.x'
+
+      - name: Enable corepack
+        run: |
+          corepack enable
+          corepack prepare yarn@3.7.0 --activate
+          yarn set version 3.7.0
 
       # Update NPM to 7 to fix https://github.com/actions/setup-node/issues/214.
 #      - run: npm install -g npm@7
 #      - run: npm -v
 
-      - run: yarn install --frozen-lockfile
+      - run: yarn install --immutable
       - run: BASE_URL=$target_dir$branch/ yarn release -o www
       # Check to make sure that docs built into www.
       - run: ls -lah $GITHUB_WORKSPACE/www

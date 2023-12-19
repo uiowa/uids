@@ -27,14 +27,13 @@ const V3_COMPONENT_PATH = 'components/detail/';
 
 <template>
   <uids-headline
-    text_style="serif"
-    underline="true"
-  >{{title}} - Not Implemented</uids-headline>
+    level="h3"
+  >{{title}}</uids-headline>
   <p>This component has not been implemented in UIDS 4.</p>
   <uids-button
     :url="V3_BASE_URL + V3_COMPONENT_PATH + path"
     color="primary"
-    size="medium"
+    size="small"
     :borderless="false"
     :full="false"
     :transparent="false"

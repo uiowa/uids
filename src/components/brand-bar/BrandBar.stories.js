@@ -3,6 +3,7 @@ import UidsIowaBar from './BrandBar.vue'
 export default {
   title: 'Components/Branding/Brand Bar',
   component: UidsIowaBar,
+  tags: ['autodocs'],
   argTypes: {
     narrow: {
       control: { type: 'boolean' },
@@ -14,7 +15,14 @@ export default {
       control: { type: 'text' },
     },
   },
-}
+  parameters: {
+    docs: {
+      source: {
+        code: null,
+      },
+    },
+  },
+};
 
 const Template = (args) => ({
   components: { UidsIowaBar },

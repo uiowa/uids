@@ -2,7 +2,15 @@ import UidsAlert from './Alert.vue';
 
 export default {
   title: 'Components/Alert',
+  parameters: {
+    docs: {
+      source: {
+        code: null,
+      },
+    },
+  },
   component: UidsAlert,
+  tags: ['autodocs'],
   argTypes: {
     type: {
       name: 'Type',
