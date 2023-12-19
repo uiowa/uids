@@ -10,6 +10,13 @@ import {computed} from "vue";
 
 export default {
   title: 'Components/Inline',
+  parameters: {
+    docs: {
+      source: {
+        code: null,
+      },
+    },
+  },
   component: UidsCallout,
   argTypes: {
     alignment: {

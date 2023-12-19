@@ -4,7 +4,15 @@ import { computed } from 'vue';
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
   title: 'Components/Headline',
+  parameters: {
+    docs: {
+      source: {
+        code: null,
+      },
+    },
+  },
   component: UidsHeadline,
+  tags: ['autodocs'],
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
     default: {

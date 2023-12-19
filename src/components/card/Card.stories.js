@@ -6,11 +6,19 @@ import person_image from '../../assets/images/viewbook/sections/herky2.jpeg'
 import Background from '../shared/background'
 import Borderless from '../shared/borderless'
 import Media from '../shared/media'
-import { parameters } from '../../../.storybook/preview'
+import preview from '../../../.storybook/preview'
 
 export default {
+  parameters: {
+    docs: {
+      source: {
+        code: null,
+      },
+    },
+  },
   title: 'Components/Card',
   component: UidsCard,
+  tags: ['autodocs'],
   argTypes: {
     // Props
     headline_style: {
@@ -169,7 +177,7 @@ export default {
       },
     },
   },
-}
+};
 
 // More on component templates: https://storybook.js.org/docs/vue/writing-stories/introduction#using-args
 const Template = (args) => ({
@@ -304,7 +312,7 @@ PersonProfile.args = {
 }
 PersonProfile.parameters = {
   viewport: {
-    viewports: parameters.viewport.viewports,
+    viewports: preview.parameters.viewport.viewports,
     defaultViewport: 'tablet',
   },
 }
