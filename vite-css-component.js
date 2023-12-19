@@ -33,11 +33,8 @@ export function cssPerComponentPlugin() {
             source: result.css.toString(),
           });
 
-          // Return import statement for the generated CSS file
-          return {
-            code: `import "/@fs/${outputCssPath}";`,
-            map: null,
-          };
+          // No import statement needed for base files
+          return null;
         } else {
           // Extract the component name and path
           const matches = id.match(/\/components\/([^/]+)\/([^/]+)\.scss/);
@@ -61,11 +58,8 @@ export function cssPerComponentPlugin() {
               source: result.css.toString(),
             });
 
-            // Return import statement for the generated CSS file
-            return {
-              code: `import "/@fs/${outputCssPath}";`,
-              map: null,
-            };
+            // No import statement needed for component files
+            return null;
           }
         }
       }
