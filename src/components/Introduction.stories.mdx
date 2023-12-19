@@ -1,4 +1,5 @@
 import {Meta} from '@storybook/blocks';
+import {version} from '/package.json';
 
 <Meta isTemplate title="Introduction" />
 
@@ -6,3 +7,56 @@ import {Meta} from '@storybook/blocks';
 <p>
 <strong>UIDS</strong> is a design system to support building applications that support the University of Iowa brand. You can learn about the available components by browsing through them using the navigation on the left. You can read more at the <a href="https://brand.uiowa.edu/">Brand Manual website</a>.
 </p>
+
+# How to use
+
+## Base CSS
+
+
+- <a href={`https://github.com/uiowa/uids/tree/gh-pages/docs/v${version}/dist/css/base/fonts.css`}>Fonts</a>
+- <a href={`https://github.com/uiowa/uids/tree/gh-pages/docs/v${version}/dist/css/base/base.css`}>Base</a>
+
+## Component CSS
+
+{/*
+Dynamically generate a list of components based on the files processed by the Vite plugin.
+*/}
+{(() => {
+const processedComponents = [];
+
+// Use import.meta.glob to get a list of CSS files
+const componentFiles = import.meta.glob('/dist/css/components/**/*.css');
+
+try {
+// Extract component names from CSS files
+for (const cssFile in componentFiles) {
+const matches = cssFile.match(/\/components\/([^/]+)\/([^/]+)\.css/);
+if (matches) {
+const componentName = matches[2];
+const componentPath = matches[1];
+processedComponents.push({ name: capitalizeFirstLetter(componentName), path: componentPath });
+}
+}
+
+    // Function to capitalize the first letter
+    function capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    // Generate the list
+    return (
+      <ul>
+        {processedComponents.map((component, index) => (
+          <li key={index}>
+            <a href={`https://github.com/uiowa/uids/tree/gh-pages/docs/v${version}/dist/css/components/${component.path}/${component.name}.css`}>
+              {component.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    );
+} catch (error) {
+console.error('Error reading Vite plugin output directory:', error);
+return null;
+}
+})()}
