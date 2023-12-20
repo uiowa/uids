@@ -59,3 +59,7 @@ export default {
     </div>
   </header>
 </template>
+
+<style scoped lang='scss'>
+  @use 'brand-bar';
+</style>

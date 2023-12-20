@@ -89,3 +89,6 @@ const buttonClasses = computed(() => {
     </footer>
   </div>
 </template>
+<style scoped lang='scss'>
+  @use 'cta';
+</style>

@@ -1,9 +1,13 @@
+<script setup lang="ts">
+import './grid.scss'
+</script>
+
 <template>
   <div class="grid__column">
     <slot></slot>
   </div>
 </template>
 
-<script setup lang="ts">
-import './grid.scss'
-</script>
+<style scoped lang='scss'>
+  @use 'grid';
+</style>

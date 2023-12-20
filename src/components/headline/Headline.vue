@@ -42,3 +42,8 @@ const getClasses = computed(() => ({
     <slot></slot>
   </component>
 </template>
+
+<style scoped lang='scss'>
+  @use 'headline';
+  @use 'headline-mixins';
+</style>

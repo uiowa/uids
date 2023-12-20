@@ -1,11 +1,3 @@
-<template>
-  <div :class="classes">
-    <div class="list-container__inner">
-      <slot></slot>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import './grid.scss'
 import { computed } from 'vue';
@@ -28,3 +20,15 @@ const classes = computed(() => {
   return classes;
 });
 </script>
+
+<template>
+  <div :class="classes">
+    <div class="list-container__inner">
+      <slot></slot>
+    </div>
+  </div>
+</template>
+
+<style scoped lang='scss'>
+  @use 'grid';
+</style>

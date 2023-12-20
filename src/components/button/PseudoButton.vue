@@ -53,3 +53,8 @@ const classes = computed(() => ({
     <i v-if="arrow" class="fas fa-arrow-right"></i>
   </div>
 </template>
+
+
+<style scoped lang='scss'>
+  @use 'button';
+</style>

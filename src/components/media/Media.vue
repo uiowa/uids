@@ -61,3 +61,7 @@ const classes = computed(() => {
     </video>
   </div>
 </template>
+
+<style scoped lang='scss'>
+  @use 'media';
+</style>

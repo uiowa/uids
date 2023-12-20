@@ -28,3 +28,6 @@ const classes = computed(() => {
     <slot></slot>
   </div>
 </template>
+<style scoped lang='scss'>
+  @use 'callout';
+</style>

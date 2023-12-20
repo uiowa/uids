@@ -26,3 +26,6 @@ const classes = computed(() => {
     <figcaption>Erika Ernst</figcaption>
   </figure>
 </template>
+<style scoped lang='scss'>
+  @use 'inline';
+</style>

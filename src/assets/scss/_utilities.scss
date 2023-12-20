@@ -326,6 +326,81 @@
   }
 }
 
+// Extends ///////////////
+%shadow {
+  text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+
+%no-ul-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+
+  >li {
+    display: inline-block;
+    list-style-type: none;
+    margin: 0;
+  }
+}
+
+%container {
+  margin: 0 $gutter;
+  position: relative;
+
+  @include breakpoint(page-container) {
+    max-width: 81.875em;
+    margin: 0 auto;
+  }
+}
+
+// Font Smoothing ///////////////
+%font-smoothing-on {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+%font-smoothing-off {
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+}
+
+// utility classes
+
+%uids-component--center {
+  @include center(both);
+  display: block;
+  text-align: center;
+}
+
+%uids-component--flex-center {
+  @include center(both);
+  flex-flow: column nowrap;
+  text-align: center;
+
+  @include breakpoint(sm) {
+    padding: 1.5rem 0;
+  }
+}
+
+%uids-component--left {
+  text-align: left;
+  @include center(both);
+}
+
+%uids-component--flex-left {
+  flex-flow: column nowrap;
+  text-align: left;
+  width: 100%;
+  padding: 1.5rem 0;
+}
+
+
+/*****************
+ buttons should be moved into their own file and only imported
+ in button.vue, psuedobutton.vue, and card.vue
+******************/
+
 // Buttons
 
 @mixin bttn {
@@ -419,71 +494,6 @@
   }
 }
 
-// Extends ///////////////
-%shadow {
-  text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-}
-
-
-%no-ul-list {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-
-  >li {
-    display: inline-block;
-    list-style-type: none;
-    margin: 0;
-  }
-}
-
-%container {
-  margin: 0 $gutter;
-  position: relative;
-
-  @include breakpoint(page-container) {
-    max-width: 81.875em;
-    margin: 0 auto;
-  }
-}
-
-// Font Smoothing ///////////////
-%font-smoothing-on {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-%font-smoothing-off {
-  -webkit-font-smoothing: auto;
-  -moz-osx-font-smoothing: auto;
-}
-
-// utility classes
-
-%uids-component--center {
-  @include center(both);
-  display: block;
-  text-align: center;
-}
-
-%uids-component--flex-center {
-  @include center(both);
-  flex-flow: column nowrap;
-  text-align: center;
-
-  @include breakpoint(sm) {
-    padding: 1.5rem 0;
-  }
-}
-
-%uids-component--left {
-  text-align: left;
-  @include center(both);
-}
-
-%uids-component--flex-left {
-  flex-flow: column nowrap;
-  text-align: left;
-  width: 100%;
-  padding: 1.5rem 0;
-}
+/****************
+end of buttons
+****************/

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import './alert.scss';
 import {computed} from 'vue';
 import {className} from '../utlity';
 
@@ -99,3 +98,7 @@ const classes = computed(() => {
     </button>
   </div>
 </template>
+
+<style scoped lang='scss'>
+ @use 'alert';
+</style>

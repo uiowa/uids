@@ -44,3 +44,7 @@ const V3_COMPONENT_PATH = 'components/detail/';
     <template #icon ><i class='fas fa-arrow-right'></i></template>
   </uids-button>
 </template>
+
+<style scoped lang='scss'>
+  @use 'stub';
+</style>

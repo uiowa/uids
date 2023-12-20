@@ -28,3 +28,6 @@ const props = defineProps({
     </a>
   </div>
 </template>
+<style scoped lang='scss'>
+  @use 'logo';
+</style>

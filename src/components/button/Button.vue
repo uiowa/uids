@@ -76,3 +76,7 @@ const classes = computed(() => {
     <slot name="icon"></slot>
   </a>
 </template>
+
+<style scoped lang='scss'>
+  @use 'button';
+</style>
