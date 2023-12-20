@@ -3,7 +3,7 @@ import * as sass from 'sass';
 
 const files_to_compile = [
   '/assets/scss/fonts.scss',
-  '/assets/scss/uids-basic-base.scss',
+  '/assets/scss/base.scss',
 ];
 
 export function cssPerComponentPlugin() {
