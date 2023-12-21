@@ -6,7 +6,7 @@ import { defineCustomElement } from 'vue';
  * import App from './App.vue'
  */
 
-// import the elements we are producting
+// import the elements we are producing
 import Alert from './components/alert/Alert.vue';
 import Banner from './components/banner/Banner.vue';
 import BrandBar from './components/brand-bar/BrandBar.vue';

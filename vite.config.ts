@@ -3,6 +3,7 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import dts from "vite-plugin-dts";
 import path from 'path';
+import {viteStaticCopy} from "vite-plugin-static-copy";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -33,7 +34,15 @@ export default defineConfig({
   },
   plugins: [
     vue({customElement: true} ),
-    dts()
+    dts(),
+    viteStaticCopy({
+      targets: [
+        {
+          src: 'package.json',
+          dest: ''
+        }
+      ]
+    })
   ],
   resolve: {
     alias: {
