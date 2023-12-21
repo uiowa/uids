@@ -16,6 +16,7 @@ import Card from './components/card/Card.vue';
 import Cta from './components/cta/Cta.vue';
 import Grid from './components/grid/Grid.vue';
 import Headline from './components/headline/Headline.vue';
+import Figure from "@/components/inline/Figure.vue";
 import Logo from './components/logo/Logo.vue';
 import Media from './components/media/Media.vue';
 
@@ -27,6 +28,7 @@ const ButtonElement = defineCustomElement(Button);
 const CalloutElement = defineCustomElement(Callout);
 const CardElement = defineCustomElement(Card);
 const CtaElement = defineCustomElement(Cta);
+const FigureElement = defineCustomElement(Figure);
 const GridElement = defineCustomElement(Grid);
 const HeadlineElement = defineCustomElement(Headline);
 const LogoElement = defineCustomElement(Logo);
@@ -40,6 +42,7 @@ customElements.define('uids-button', ButtonElement);
 customElements.define('uids-callout', CalloutElement);
 customElements.define('uids-card', CardElement);
 customElements.define('uids-cta', CtaElement);
+customElements.define('uids-figure', FigureElement);
 customElements.define('uids-grid', GridElement);
 customElements.define('uids-headline', HeadlineElement);
 customElements.define('uids-logo', LogoElement);
@@ -69,6 +72,9 @@ function loader(): void {
     if (typeof (ceRegistry.get('uids-cta')) === 'undefined') {
       ceRegistry.define('uids-cta', CtaElement);
     }
+    if (typeof (ceRegistry.get('uids-figure')) === 'undefined') {
+      ceRegistry.define('uids-figure', FigureElement);
+    }
     if (typeof (ceRegistry.get('uids-grid')) === 'undefined') {
       ceRegistry.define('uids-grid', GridElement);
     }
@@ -96,6 +102,7 @@ declare module 'vue' {
     'CalloutElement': typeof CalloutElement,
     'CardElement': typeof CardElement,
     'CtaElement': typeof CtaElement,
+    'FigureElement': typeof FigureElement;
     'GridElement': typeof GridElement,
     'HeadlineElement': typeof HeadlineElement,
     'LogoElement': typeof LogoElement,
@@ -112,6 +119,7 @@ export {
   Callout,
   Card,
   Cta,
+  Figure,
   Grid,
   Headline,
   Logo,
@@ -123,6 +131,7 @@ export {
   CalloutElement,
   CardElement,
   CtaElement,
+  FigureElement,
   GridElement,
   HeadlineElement,
   LogoElement,
