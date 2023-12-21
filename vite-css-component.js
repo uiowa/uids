@@ -58,7 +58,7 @@ export function cssPerComponentPlugin() {
               fileName: outputCssPath,
               source: result.css.toString(),
             });
-            
+
             return null;
           }
         }
