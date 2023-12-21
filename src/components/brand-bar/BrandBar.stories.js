@@ -3,6 +3,7 @@ import UidsIowaBar from './BrandBar.vue'
 export default {
   title: 'Components/Branding/Brand Bar',
   component: UidsIowaBar,
+  tags: ['autodocs'],
   argTypes: {
     narrow: {
       control: { type: 'boolean' },

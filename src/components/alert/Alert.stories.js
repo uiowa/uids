@@ -10,6 +10,7 @@ export default {
     },
   },
   component: UidsAlert,
+  tags: ['autodocs'],
   argTypes: {
     type: {
       name: 'Type',

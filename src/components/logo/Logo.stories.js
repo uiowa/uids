@@ -10,6 +10,7 @@ export default {
     },
   },
   component: UidsLogo,
+  tags: ['autodocs'],
 }
 
 const Template = (args) => ({

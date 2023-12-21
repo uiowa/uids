@@ -1,12 +1,14 @@
 const config = {
   staticDirs: ['../public'],
   "stories": [
+    "../src/**/*.mdx",
     "../src/**/*.stories.mdx",
     "../src/**/*.stories.@(js|jsx|ts|tsx)"
   ],
 
   "addons": [
-    "@storybook/addon-links", {
+    "@storybook/addon-links",
+    {
       name: "@storybook/addon-essentials",
       options: {
         actions: false,
@@ -14,7 +16,6 @@ const config = {
     },
     "@storybook/preset-scss",
     "@whitespace/storybook-addon-html",
-    "@storybook/addon-links",
   ],
 
   "framework": {
@@ -29,9 +30,6 @@ const config = {
     return config;
   },
 
-  docs: {
-    // autodocs: true
-  }
 };
 
 export default config;

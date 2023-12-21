@@ -1,11 +1,12 @@
 import UidsCallout from './Callout.vue'
 import Background from '../shared/background'
 // import Inline from '../shared/inline'
-import { parameters } from '../../../.storybook/preview';
+import preview from '../../../.storybook/preview';
 
 export default {
   title: 'Components/Callout',
   component: UidsCallout,
+  tags: ['autodocs'],
   argTypes: {
     // ...Inline.argTypes,
     ...Background.argTypes,
@@ -21,7 +22,7 @@ export default {
       },
     },
     viewport: {
-      viewports: parameters.viewport.viewports,
+      viewports: preview.parameters.viewport.viewports,
       defaultViewport: 'tablet',
     },
   },

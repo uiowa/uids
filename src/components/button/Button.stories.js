@@ -12,6 +12,7 @@ export default {
     },
   },
   component: UidsButton,
+  tags: ['autodocs'],
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
     url: {

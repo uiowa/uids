@@ -1,7 +1,6 @@
 import UidsBanner from './Banner.vue'
 import media_image from '../../assets/images/viewbook/sections/122.jpg'
 import UidsStub from "../../components/stub/Stub.vue";
-import StubDocs from './StubDocs.mdx';
 
 export default {
   title: 'Not implemented/Banner',
@@ -17,7 +16,6 @@ export default {
       source: {
         code: null,
       },
-      page: StubDocs,
     },
     options: {
       showPanel: false,
