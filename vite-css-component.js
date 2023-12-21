@@ -10,7 +10,8 @@ export function cssPerComponentPlugin() {
   return {
     name: 'vite-css-component',
     async transform(code, id) {
-      if (id.endsWith('.scss')) {
+      // Exclude Vue SFC style blocks
+      if (id.endsWith('.scss') && !id.includes('?vue&type=style')) {
         const isBaseFile = files_to_compile.some(file => id.endsWith(file));
 
         if (isBaseFile) {
@@ -57,8 +58,7 @@ export function cssPerComponentPlugin() {
               fileName: outputCssPath,
               source: result.css.toString(),
             });
-
-            // No import statement needed for component files
+            
             return null;
           }
         }

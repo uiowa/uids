@@ -101,3 +101,7 @@ const getHeadlineSettings = computed(() => {
     </div>
   </div>
 </template>
+
+<style lang="scss">
+@import 'banner';
+</style>
