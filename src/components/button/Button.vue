@@ -1,46 +1,11 @@
 <script setup lang="ts">
 import './button.scss';
 import { computed, useSlots } from 'vue';
-import Borderless from "../shared/borderless";
-import { className } from "../utlity";
+import Borderless from '../shared/borderless';
+import { ButtonBase } from './button-base.js'
+import { className } from '../utlity';
 const name = 'uids-button'
-const props = defineProps({
-  url: {
-    type: String,
-    default: '',
-  },
-  color: {
-    type: String,
-    default: 'primary',
-    validator: function (value) {
-      return ['primary', 'secondary', 'tertiary'].indexOf(value) !== -1;
-    },
-  },
-  size: {
-    type: String,
-    default: 'medium',
-    validator: function (value) {
-      return ['small', 'medium', 'large'].indexOf(value) !== -1;
-    },
-  },
-  ...Borderless.props,
-  full: {
-    type: Boolean,
-    default: false,
-  },
-  transparent: {
-    type: Boolean,
-    default: false,
-  },
-  light_font: {
-    type: Boolean,
-    default: false,
-  },
-  icon: {
-    type: String,
-    default: '',
-  }
-})
+const props = defineProps(ButtonBase.properties)
 
 const slots = useSlots();
 
