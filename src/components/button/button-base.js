@@ -49,6 +49,7 @@ export class ButtonBase extends LitElement {
     let classes = ['bttn'];
     ['full', 'transparent', 'light_font'].forEach((prop) => {
       if (this[prop] === true) {
+        console.log(prop, this[prop])
         classes.push(`bttn--${className(prop)}`);
       }
     });
