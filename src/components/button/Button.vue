@@ -1,78 +1,26 @@
 <script setup lang="ts">
 import './button.scss';
 import { computed, useSlots } from 'vue';
-import Borderless from "../shared/borderless";
-import { className } from "../utlity";
-const name = 'uids-button'
-const props = defineProps({
-  url: {
-    type: String,
-    default: '',
-  },
-  color: {
-    type: String,
-    default: 'primary',
-    validator: function (value) {
-      return ['primary', 'secondary', 'tertiary'].indexOf(value) !== -1;
-    },
-  },
-  size: {
-    type: String,
-    default: 'medium',
-    validator: function (value) {
-      return ['small', 'medium', 'large'].indexOf(value) !== -1;
-    },
-  },
-  ...Borderless.props,
-  full: {
-    type: Boolean,
-    default: false,
-  },
-  transparent: {
-    type: Boolean,
-    default: false,
-  },
-  light_font: {
-    type: Boolean,
-    default: false,
-  },
-  icon: {
-    type: String,
-    default: '',
-  }
-})
-
-const slots = useSlots();
-
-const classes = computed(() => {
-  let classes = ['bttn'];
-  ['full', 'transparent', 'light_font'].forEach((prop) => {
-    if (props[prop] === true) {
-      classes.push(`bttn--${ className(prop) }`);
-    }
-  });
-
-  if (props.color) {
-    classes.push(`bttn--${ className(props.color)}`);
-  }
-
-  if (props.size) {
-    classes.push(`bttn--${ className(props.size)}`);
-  }
-
-  if (!slots.default) {
-    classes.push(`bttn--no-text`);
-  }
-
-  Borderless.addBorderlessClass(classes, props);
-
-  return classes;
-});
+import Borderless from '../shared/borderless';
+import { ButtonBase } from './button-base.js';
+import { className } from '../utlity';
+const name = 'uids-v-button'
+const props = defineProps(ButtonBase.properties)
+window.customElements.define('uids-base-button', ButtonBase);
 </script>
 
 <template>
-  <a :class="classes" :href="url">
+  <uids-base-button
+    :url="url"
+    :transparent="transparent"
+    :size="size"
+    :color="color"
+    :full="full"
+    :light_font="light_font"
+    :icon="icon"
+    :borderless="borderless"
+  >
     <slot></slot>
-    <slot name="icon"></slot>
-  </a>
+    <span slot="icon"><slot name="icon"></slot></span>
+  </uids-base-button>
 </template>

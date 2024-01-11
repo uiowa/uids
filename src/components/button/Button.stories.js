@@ -1,5 +1,5 @@
 import UidsButton from './Button.vue';
-import Borderless from "../shared/borderless";
+import Borderless from '../shared/borderless';
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
