@@ -2,42 +2,25 @@
 import './button.scss';
 import { computed, useSlots } from 'vue';
 import Borderless from '../shared/borderless';
-import { ButtonBase } from './button-base.js'
+import { ButtonBase } from './button-base.js';
 import { className } from '../utlity';
-const name = 'uids-button'
+const name = 'uids-v-button'
 const props = defineProps(ButtonBase.properties)
-
-const slots = useSlots();
-
-const classes = computed(() => {
-  let classes = ['bttn'];
-  ['full', 'transparent', 'light_font'].forEach((prop) => {
-    if (props[prop] === true) {
-      classes.push(`bttn--${ className(prop) }`);
-    }
-  });
-
-  if (props.color) {
-    classes.push(`bttn--${ className(props.color)}`);
-  }
-
-  if (props.size) {
-    classes.push(`bttn--${ className(props.size)}`);
-  }
-
-  if (!slots.default) {
-    classes.push(`bttn--no-text`);
-  }
-
-  Borderless.addBorderlessClass(classes, props);
-
-  return classes;
-});
+window.customElements.define('uids-base-button', ButtonBase);
 </script>
 
 <template>
-  <a :class="classes" :href="url">
+  <uids-base-button
+    :url="url"
+    :transparent="transparent"
+    :size="size"
+    :color="color"
+    :full="full"
+    :light_font="light_font"
+    :icon="icon"
+    :borderless="borderless"
+  >
     <slot></slot>
-    <slot name="icon"></slot>
-  </a>
+    <span slot="icon"><slot name="icon"></slot></span>
+  </uids-base-button>
 </template>

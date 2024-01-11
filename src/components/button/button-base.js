@@ -61,9 +61,9 @@ export class ButtonBase extends LitElement {
       classes.push(`bttn--${className(this.size)}`);
     }
 
-    if (this.defaultSlotElements().length === 0) {
-      classes.push(`bttn--no-text`);
-    }
+    // if (this.defaultSlotElements().length === 0) {
+    //   classes.push(`bttn--no-text`);
+    // }
 
     Borderless.addBorderlessClass(classes, this);
 
