@@ -1,6 +1,7 @@
 import '../src/assets/scss/reset.scss';
 import '../src/assets/scss/fonts.scss';
 import '../src/assets/scss/_base.scss';
+import '../src/assets/scss/base.scss';
 import '../src/assets/base.css';
 import '../src/assets/scss/headings.scss';
 import '../src/assets/scss/paragraph.scss';
