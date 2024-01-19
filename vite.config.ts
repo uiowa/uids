@@ -8,7 +8,6 @@ import { cssPerComponentPlugin } from './vite-css-component.js';
 export default defineConfig({
   build: {
     minify: false,
-    outDir: 'local-dist',
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
       name: "UIDS",
