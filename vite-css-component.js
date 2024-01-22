@@ -40,11 +40,10 @@ export function cssPerComponentPlugin() {
           // Extract the component name and path
           const matches = id.match(/\/components\/([^/]+)\/([^/]+)\.scss/);
           if (matches) {
-            const componentName = matches[2];
-            const componentPath = matches[1];
 
-            // Define the output CSS path based on the component structure
-            const outputCssPath = `dist/css/components/${componentPath}/${componentName}.css`;
+            let relativePath = path.relative(process.cwd(), id);
+            relativePath = path.relative(process.cwd(), id).replace('/assets/scss/', '/').replace('src', 'css');
+            const outputCssPath = 'dist/' + relativePath.replace('.scss', '.css');
 
             // Compile SCSS to CSS
             const result = sass.renderSync({
