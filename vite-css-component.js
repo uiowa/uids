@@ -15,10 +15,11 @@ export function cssPerComponentPlugin() {
         const isBaseFile = files_to_compile.some(file => id.endsWith(file));
 
         if (isBaseFile) {
+          // Extract the base file name
+          const baseFileName = path.basename(id, '.scss');
+
           // Define the output CSS path for base files
-          let relativePath = path.relative(process.cwd(), id);
-          relativePath = relativePath.replace('/assets/scss/', '/');
-          const outputCssPath = relativePath.replace('.scss', '.css');
+          const outputCssPath = `dist/css/base/${baseFileName}.css`;
 
           // Compile SCSS to CSS
           const result = sass.renderSync({
@@ -39,9 +40,11 @@ export function cssPerComponentPlugin() {
           // Extract the component name and path
           const matches = id.match(/\/components\/([^/]+)\/([^/]+)\.scss/);
           if (matches) {
+            const componentName = matches[2];
+            const componentPath = matches[1];
+
             // Define the output CSS path based on the component structure
-            const relativePath = path.relative(process.cwd(), id);
-            const outputCssPath = relativePath.replace('.scss', '.css');
+            const outputCssPath = `dist/css/components/${componentPath}/${componentName}.css`;
 
             // Compile SCSS to CSS
             const result = sass.renderSync({
@@ -63,4 +66,3 @@ export function cssPerComponentPlugin() {
     },
   };
 }
-
