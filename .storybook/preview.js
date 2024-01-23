@@ -1,11 +1,4 @@
-import '../src/assets/scss/reset.scss';
-import '../src/assets/scss/fonts.scss';
-import '../src/assets/scss/_base.scss';
-import '../src/assets/scss/base.scss';
-import '../src/assets/base.css';
-import '../src/assets/scss/headings.scss';
-import '../src/assets/scss/paragraph.scss';
-import '../src/assets/scss/lists.scss';
+import '../src/assets/scss/uids-core.scss';
 
 import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
 import DocumentationTemplate from '../src/components/DocumentationTemplate.mdx';
