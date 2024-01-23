@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import '../../assets/scss/components/alert.scss';
+import '../../scss/components/alert.scss';
 import {computed} from 'vue';
 import {className} from '../utlity';
 

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import './callout.scss'
+import '../../scss/components/callout.scss'
 import { computed } from 'vue'
-import '../background/background.scss'
+import '../../scss/components/_background.scss'
 import Background from '../shared/background'
-import '../inline/inline.scss'
+import '../../scss/components/_inline.scss'
 import Media from '../shared/media'
 import Inline from '../inline/inline'
 

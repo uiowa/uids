@@ -1,4 +1,4 @@
-import '../src/assets/scss/uids-core.scss';
+import '../src/scss/uids-core.scss';
 
 import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
 import DocumentationTemplate from '../src/components/DocumentationTemplate.mdx';

@@ -1,0 +1,99 @@
+@import '../abstracts/variables';
+@import '../abstracts/utilities';
+
+// === CTA === //
+.cta {
+  padding: $xlg $mobile-width-gutter;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  justify-content: center;
+
+  > div {
+    flex-basis: 100%;
+    display: grid;
+    gap: 1rem;
+  }
+  .cta__container {
+    margin-block-end: 1rem;
+  }
+  p {
+    margin-bottom: 0;
+  }
+}
+
+// === End: CTA === //
+
+// === Modifiers === //
+// === Aligned left, button right === //
+.cta--button-align-right {
+    justify-content: left;
+    text-align: left;
+    @include breakpoint(md) {
+      flex-wrap: nowrap;
+    }
+
+    .cta__title {
+      flex-basis: 100%;
+    }
+
+    .cta__content,
+    .cta__link {
+      @include breakpoint(md) {
+        flex: 0 1 48%;
+      }
+    }
+
+    .cta__link {
+      justify-content: end;
+      align-self: baseline;
+      display: flex;
+    }
+  &:not([class*="cta--left"]) {
+    .cta__container {
+      @include breakpoint(md) {
+        text-align: center;
+      }
+    }
+  }
+}
+// === End: Aligned left, button right === //
+
+// === Aligned left === //
+.cta--left {
+  justify-content: unset;
+  text-align: left;
+}
+// === End: Aligned left === //
+
+// === Inline === //
+.cta--inline {
+  @include breakpoint(md) {
+    flex-wrap: nowrap;
+    gap: 0;
+
+    .cta__link {
+      flex-basis: 30%;
+      align-self: center;
+      display: flex;
+      justify-content: end;
+    }
+
+    .cta__container {
+      display: flex;
+      margin-block-end: unset;
+
+      .cta__title {
+        flex-basis: 30%;
+        align-self: center;
+      }
+
+      .cta__content {
+        flex: 1;
+        align-self: center;
+      }
+    }
+  }
+}
+// === End: Inline === //
+// === End: Modifiers === //

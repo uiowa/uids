@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import '../../assets/scss/headings.scss'
-import './media.scss'
+import '../../scss/components/_media.scss';
 import { computed } from 'vue'
 import Inline from "../inline/inline";
 
