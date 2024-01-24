@@ -5,5 +5,5 @@
 </template>
 
 <script setup lang="ts">
-import '../../scss/grid.scss'
+import '../../scss/layout/_grid.scss'
 </script>

@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import '../../scss/grid.scss'
+import '../../scss/layout/_grid.scss'
 import { computed } from 'vue';
 
 const props = defineProps({
