@@ -1,4 +1,4 @@
-import{j as n}from"./jsx-runtime-dddea1db.js";import{M as e,T as r,P as a,d as p,e as c}from"./index-c2f908f6.js";import{u as i}from"./index-09fc47a6.js";import"./iframe-44795be5.js";import"../sb-preview/runtime.js";import"./index-f4dda215.js";import"./index-11d98b33.js";import"./index-356e4a49.js";function o(s){const t=Object.assign({h2:"h2",p:"p",hr:"hr"},i(),s.components);return n.jsxs(n.Fragment,{children:[n.jsx(e,{isTemplate:!0}),`
+import{j as n}from"./jsx-runtime-da2733b6.js";import{M as e,T as r,P as a,d as p,e as c}from"./index-651541de.js";import{u as i}from"./index-10b45644.js";import"./iframe-00295ce7.js";import"../sb-preview/runtime.js";import"./index-f4dda215.js";import"./index-11d98b33.js";import"./index-356e4a49.js";function o(s){const t=Object.assign({h2:"h2",p:"p",hr:"hr"},i(),s.components);return n.jsxs(n.Fragment,{children:[n.jsx(e,{isTemplate:!0}),`
 `,n.jsx(r,{}),`
 `,n.jsx(a,{}),`
 `,n.jsx(t.h2,{id:"inputs",children:"Inputs"}),`
