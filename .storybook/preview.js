@@ -1,5 +1,5 @@
 import '../src/scss/uids-core.scss';
-import '../src/scss/storybook.scss';
+import '../src/scss/_storybook.scss';
 
 import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
 import DocumentationTemplate from '../src/components/DocumentationTemplate.mdx';
