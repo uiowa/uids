@@ -354,6 +354,15 @@ aside .region,
   padding: 1.5rem 0;
 }
 
+.element-invisible,
+.visually-hidden {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
 @media (min-width: 0em) and (max-width: 768px) {
   .mobile-hidden {
     display: none;
@@ -1414,6 +1423,12 @@ li {
   padding: 0;
 }
 
+figure {
+  margin: inherit;
+  margin-block: 0;
+  margin-inline: 0;
+}
+
 .element--center {
   display: flex;
   align-items: center;
@@ -1545,6 +1560,18 @@ html {
   outline: none;
 }
 
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  :after, :before {
+    transition-duration: 0.01ms !important;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 .element--center {
   display: flex;
   align-items: center;
