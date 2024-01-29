@@ -1,8 +1,7 @@
 import '../src/scss/uids-core.scss';
-import '../src/scss/_storybook.scss';
-
 import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
 import DocumentationTemplate from '../src/components/DocumentationTemplate.mdx';
+import uidsTheme from "./uidsTheme.js";
 
 const customViewports = {
   // This is an example of a custom defined viewport.
@@ -20,6 +19,7 @@ export default {
     docs: {
       page: DocumentationTemplate,
       toc: true,
+      theme: uidsTheme,
     },
     actions: { argTypesRegex: "^on[A-Z].*" },
     backgrounds: {
