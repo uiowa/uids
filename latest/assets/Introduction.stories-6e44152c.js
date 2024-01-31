@@ -1,4 +1,4 @@
-import{M as l}from"./index-4617e5e5.js";import{v as o}from"./package-3c8c6b5c.js";import{j as e}from"./jsx-runtime-18eca16a.js";import{u as r}from"./index-cafe0a6d.js";import"./iframe-5e402366.js";import"../sb-preview/runtime.js";import"./index-f4dda215.js";import"./index-11d98b33.js";import"./index-356e4a49.js";function i(t){const s=Object.assign({h1:"h1",p:"p",h2:"h2",h3:"h3",code:"code",pre:"pre",ul:"ul",li:"li"},r(),t.components);return e.jsxs(e.Fragment,{children:[e.jsx(l,{isTemplate:!0,title:"Introduction"}),`
+import{M as l}from"./index-292733c7.js";import{v as o}from"./package-3c8c6b5c.js";import{j as e}from"./jsx-runtime-38a8b6a9.js";import{u as r}from"./index-9b90686f.js";import"./iframe-f2123e1d.js";import"../sb-preview/runtime.js";import"./index-f4dda215.js";import"./index-11d98b33.js";import"./index-356e4a49.js";function i(n){const s=Object.assign({h1:"h1",p:"p",h2:"h2",h3:"h3",code:"code",pre:"pre",ul:"ul",li:"li"},r(),n.components);return e.jsxs(e.Fragment,{children:[e.jsx(l,{isTemplate:!0,title:"Introduction"}),`
 `,e.jsx(s.h1,{id:"university-of-iowa-design-system-uids",children:"University of Iowa Design System (UIDS)"}),`
 `,e.jsxs(s.p,{children:[e.jsx("strong",{children:"UIDS"})," is a design system to support building applications that support the University of Iowa brand. You can learn about the available components by browsing through them using the navigation on the left. You can read more at the ",e.jsx("a",{href:"https://brand.uiowa.edu/",children:"Brand Manual website"}),"."]}),`
 `,e.jsx(s.h2,{id:"getting-started",children:"Getting started"}),`
@@ -18,7 +18,7 @@ import{M as l}from"./index-4617e5e5.js";import{v as o}from"./package-3c8c6b5c.js
 `,e.jsx(s.p,{children:"Include the following CSS file in your project. It will include all UIDS components."}),`
 `,e.jsxs(s.ul,{children:[`
 `,e.jsxs(s.li,{children:[`
-`,e.jsx("a",{href:`https://github.com/uiowa/uids/tree/gh-pages/docs/v${o}/dist/css/uids.css`,children:"uids.css"}),`
+`,e.jsx("strong",{children:e.jsx("a",{href:`https://github.com/uiowa/uids/tree/gh-pages/docs/v${o}/dist/css/uids.css`,children:"uids.css"})}),`
 `]}),`
 `]}),`
 `,e.jsx(s.p,{children:"Refer to component pages for HTML examples."}),`
@@ -26,7 +26,7 @@ import{M as l}from"./index-4617e5e5.js";import{v as o}from"./package-3c8c6b5c.js
 `,e.jsx(s.p,{children:"Include the following CSS file in your project. It will include only the UIDS core styles."}),`
 `,e.jsxs(s.ul,{children:[`
 `,e.jsxs(s.li,{children:[`
-`,e.jsx("a",{href:`https://github.com/uiowa/uids/tree/gh-pages/docs/v${o}/dist/css/uids-core.css`,children:"uids-core.css"}),`
+`,e.jsx("strong",{children:e.jsx("a",{href:`https://github.com/uiowa/uids/tree/gh-pages/docs/v${o}/dist/css/uids-core.css`,children:"uids-core.css"})}),`
 `]}),`
 `]}),`
-`,e.jsx(s.p,{children:"For each component you would like to include, you will need to include the CSS file for that component as well. Refer to component pages for HTML examples."})]})}function c(t={}){const{wrapper:s}=Object.assign({},r(),t.components);return s?e.jsx(s,{...t,children:e.jsx(i,{...t})}):i(t)}const a=()=>{throw new Error("Docs-only story")};a.parameters={docsOnly:!0};const n={title:"Introduction",tags:["stories-mdx"],includeStories:["__page"]};n.parameters=n.parameters||{};n.parameters.docs={...n.parameters.docs||{},page:c};const y=["__page"];export{y as __namedExportsOrder,a as __page,n as default};
+`,e.jsx(s.p,{children:"For each component you would like to include, you will need to include the CSS file for that component as well. Refer to component pages for HTML examples."})]})}function c(n={}){const{wrapper:s}=Object.assign({},r(),n.components);return s?e.jsx(s,{...n,children:e.jsx(i,{...n})}):i(n)}const a=()=>{throw new Error("Docs-only story")};a.parameters={docsOnly:!0};const t={title:"Introduction",tags:["stories-mdx"],includeStories:["__page"]};t.parameters=t.parameters||{};t.parameters.docs={...t.parameters.docs||{},page:c};const y=["__page"];export{y as __namedExportsOrder,a as __page,t as default};
