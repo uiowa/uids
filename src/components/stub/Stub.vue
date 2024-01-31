@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import './stub.scss';
 import { V3_BASE_URL } from '../utlity';
 import UidsButton from '../button';
 import UidsHeadline from '../headline';

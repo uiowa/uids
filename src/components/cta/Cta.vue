@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import './cta.scss'
-import '../background/background.scss'
+import '../../scss/components/cta.scss'
+import '../../scss/components/_background.scss'
 import UidsHeadline from '../headline/Headline.vue'
 import { computed, useSlots } from "vue";
 import UidsButton from "../button/Button.vue";

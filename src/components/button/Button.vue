@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import './button.scss';
+import '../../scss/components/button.scss';
 import { computed, useSlots } from 'vue';
 import Borderless from "../shared/borderless";
 import { className } from "../utlity";

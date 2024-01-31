@@ -1,0 +1,213 @@
+@import '../abstracts/variables';
+@import '../abstracts/utilities';
+@import 'border';
+
+.bttn {
+  @include bttn;
+  @include border;
+
+  [class*="bg--"] &,
+  [class*="bg--"] [class*="bg--"] & {
+    border-color: rgba(0, 0, 0, .425);
+    color: $secondary;
+  }
+
+  [class*="bg--black"] & {
+    border-color: rgba(255, 255, 255, .425);
+  }
+}
+// Options.
+.bttn--primary {
+  @include bttn--primary;
+  @include bttn--focus;
+  border-color: $primary;
+  color: $secondary;
+
+  [class*="bg--"] [class*="bg--gray"] &,
+  [class*="bg--gray"] &,
+  [class*="bg--"] [class*="bg--white"] &,
+  [class*="bg--white"] & {
+    border-color: $primary;
+  }
+
+  &:after {
+    background-color: $secondary;
+  }
+}
+
+.bttn--secondary {
+  @include bttn--secondary;
+  @include bttn--focus;
+
+  &__light {
+    @include bttn--secondary__light;
+  }
+
+  [class*="bg--"] &,
+  [class*="bg--"] [class*="bg--"] & {
+    border-color: rgba(255,255,255,.425);
+    color: #fff;
+  }
+}
+
+.bttn--tertiary {
+  @include bttn--tertiary;
+  @include bttn--focus;
+  background: #fff;
+}
+
+// Modifiers.
+.bttn--transparent {
+  @include bttn--transparent;
+  @include bttn--focus;
+
+  [class*="bg--black"] &,
+  [class*="bg--"] [class*="bg--black"] & {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.425);
+  }
+
+  i,
+  span,
+  svg {
+    [class*="bg--gold"] &,
+    [class*="bg--white"] [class*="bg--gold"] & {
+      color: #fff;
+    }
+
+    [class*="bg--white"] &,
+    [class*="bg--gold"] [class*="bg--white"] &,
+    [class*="bg--gold"] [class*="bg--gray"] & {
+      color: $primary;
+    }
+  }
+
+  [class*="bg--black"] [class*="bg--white"] &,
+  [class*="bg--black"] [class*="bg--gray"] &,
+  [class*="bg--black"] [class*="bg--gold"] & {
+    color: $secondary;
+  }
+}
+
+.bttn.borderless {
+  &.bttn--transparent {
+    &:focus,
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &.bttn--transparent:after {
+    display: none;
+  }
+}
+
+.bttn--no-text {
+
+  i,
+  span,
+  svg {
+    margin-left: 0;
+  }
+  &:not([class*="bttn--secondary"]) {
+    i,
+    span,
+    svg {
+      color: $secondary;
+      [class*="bg--"] [class*="bg--black"] &,
+      [class*="bg--black"] & {
+        color: #fff;
+      }
+      [class*="bg--"] [class*="bg--white"] &,
+      [class*="bg--white"] &,
+      [class*="bg--"] [class*="bg--gray"] &,
+      [class*="bg--"] [class*="bg--gold"] & {
+        color: $secondary;
+      }
+    }
+  }
+  &.bttn--transparent.bttn--secondary {
+    i,
+    span,
+    svg {
+      color: $secondary;
+    }
+  }
+}
+
+.bttn--large {
+  padding: 1.5rem 2.5rem 1.7rem;
+  // @todo Change this to use css variables, calc the size.
+  font-size: 1.45rem;
+}
+.bttn--small {
+  padding: 0.6rem 1rem 0.8rem;
+  // @todo Change this to use css variables, calc the size.
+  font-size: 1.05rem;
+}
+
+.bttn--full {
+  display: flex;
+}
+
+.bttn--caps {
+  text-transform: uppercase;
+  font-family: $font-family-caps-bold;
+}
+
+.bttn--lowercase {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 1rem;
+}
+
+.bttn--light-font {
+  font-family: $font-family-sans-serif;
+  font-weight: $font-weight-normal;
+  font-size: 0.9rem;
+  letter-spacing: 0.04rem;
+  display: inline-block;
+  padding: 1rem 2rem 1rem;
+
+  &:focus {
+    text-decoration: underline;
+  }
+
+  i,
+  span {
+    font-size: 0.9rem;
+  }
+
+  &.bttn--full {
+    display: flex;
+    height: 100%;
+  }
+}
+
+.bttn--circle {
+  padding: .55rem .7em;
+  border-radius: 50%;
+  transform: none;
+  line-height: 1;
+
+  &:after {
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: border-color .3s ease-in-out;
+    transform: none;
+    position: absolute;
+  }
+
+  &:hover:after,
+  &:focus:after {
+    transform: none;
+    transition: none;
+    border: 3px solid;
+    border-color: inherit;
+    background-color: transparent;
+  }
+}

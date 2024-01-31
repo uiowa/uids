@@ -1,4 +1,5 @@
 import UidsIowaBar from './BrandBar.vue'
+import BrandBarDocs from './BrandBarDocs.mdx';
 
 export default {
   title: 'Components/Branding/Brand Bar',
@@ -20,6 +21,7 @@ export default {
       source: {
         code: null,
       },
+      page: BrandBarDocs,
     },
   },
 };

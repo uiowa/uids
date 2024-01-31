@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import '../../assets/scss/headings.scss'
-import './headline.scss'
+import '../../scss/components/_headline.scss';
 import { computed } from 'vue'
 const name = 'uids-headine'
 const props = defineProps({

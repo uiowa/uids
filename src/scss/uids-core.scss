@@ -1,0 +1,43 @@
+@import 'abstracts/variables';
+@import 'abstracts/utilities';
+@import 'abstracts/layout-main';
+@import 'abstracts/utility-classes';
+@import 'abstracts/local-fonts';
+
+@import 'base/headings';
+@import 'base/lists';
+@import 'base/paragraph';
+@import 'base/reset';
+
+@import 'layout/grid';
+
+:root {
+  // Colors
+  --brand-primary: #FFCD00;
+  --brand-secondary: #000000;
+  // Margin/Padding
+  --space-lg-width-gutter: 3rem;
+  --space-md-width-gutter: 2rem;
+  --space-sm-width-gutter: 1.25rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+:focus:not(:focus-visible) {
+  outline: none
+}
+
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  :after, :before {
+    transition-duration: 0.01ms !important;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

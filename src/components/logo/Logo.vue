@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import './logo.scss'
+import '../../scss/components/logo.scss'
 import fallback_path from '../../assets/images/uiowa-primary.png'
 const props = defineProps({
   id: {

@@ -1,13 +1,52 @@
-import '../src/assets/scss/reset.scss';
-import '../src/assets/scss/fonts.scss';
-import '../src/assets/scss/_base.scss';
-import '../src/assets/base.css';
-import '../src/assets/scss/headings.scss';
-import '../src/assets/scss/paragraph.scss';
-import '../src/assets/scss/lists.scss';
-
+import '../src/scss/uids-core.scss';
 import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
 import DocumentationTemplate from '../src/components/DocumentationTemplate.mdx';
+import uidsTheme from "./uidsTheme.js";
+import { styled } from '@storybook/theming';
+
+const pStyles = styled.p(({ theme }) => ({
+  fontSize: "1.2rem",
+  lineHeight: "1.7",
+}));
+
+const liStyles = styled.li(({ theme }) => ({
+  fontSize: "1.2rem",
+  lineHeight: "1.7",
+  '& a': {
+    color: "#00558c",
+    textDecoration: "underline",
+  },
+}));
+
+const aStyles = styled.a(({ theme }) => ({
+  color: "#00558c",
+  textDecoration: "underline",
+}));
+
+const h1Styles = styled.h1(({ theme }) => ({
+  fontSize: "2.5rem",
+  position: "relative",
+  '&:after': {
+    content: '" "',
+    display: "block",
+    width: "75px",
+    height: "6px",
+    marginTop: "15px",
+    background: "#ffcd00",
+  },
+}));
+
+const h2Styles = styled.h2(({ theme }) => ({
+  fontSize: "2.2rem",
+  borderBottom: "none",
+  fontWeight: "300",
+}));
+
+const h3Styles = styled.h3(({ theme }) => ({
+  fontSize: "1.7rem",
+  borderBottom: "none",
+  fontWeight: "300",
+}));
 
 const customViewports = {
   // This is an example of a custom defined viewport.
@@ -25,6 +64,15 @@ export default {
     docs: {
       page: DocumentationTemplate,
       toc: true,
+      theme: uidsTheme,
+      components: {
+        p: pStyles,
+        li: liStyles,
+        a: aStyles,
+        h1: h1Styles,
+        h2: h2Styles,
+        h3: h3Styles,
+      }
     },
     actions: { argTypesRegex: "^on[A-Z].*" },
     backgrounds: {
