@@ -231,6 +231,11 @@
         @include breakpoint(sm) {
           margin-right: 2rem;
         }
+        @supports (contain: inline-size) {
+          @container column (max-width: #{$break-xxsm}) {
+            margin-right: 0;
+          }
+        }
       }
     }
 
@@ -238,6 +243,11 @@
       .media__inner {
         @include breakpoint(sm) {
           margin-left: 2rem;
+        }
+        @supports (contain: inline-size) {
+          @container column (max-width: #{$break-xxsm}) {
+            margin-left: 0;
+          }
         }
       }
     }
