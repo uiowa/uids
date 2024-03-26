@@ -323,11 +323,21 @@
     @include breakpoint(sm) {
       max-width: 11.375rem;
     }
+    @supports (contain: inline-size) {
+      @container column (max-width: #{$break-xxsm}) {
+        max-width: 100%;
+      }
+    }
   }
 
   .media--small.media--widescreen {
     @include breakpoint(sm) {
       max-width: 15.625rem;
+    }
+    @supports (contain: inline-size) {
+      @container column (max-width: #{$break-xxsm}) {
+        max-width: 100%;
+      }
     }
   }
 
@@ -363,9 +373,12 @@
   }
   @supports (contain: inline-size) {
     @container column (max-width: #{$break-xxsm}) {
-      .media__inner,
-      .media--circle .media__inner {
+      .media__inner {
         margin-right: -2rem;
+      }
+      .media--circle .media__inner {
+        margin-right: 2rem;
+        margin-left: 2rem;
       }
     }
   }
@@ -386,9 +399,12 @@
   }
   @supports (contain: inline-size) {
     @container column (max-width: #{$break-xxsm}) {
-      .media__inner,
-      .media--circle .media__inner {
+      .media__inner {
         margin-left: -2rem;
+      }
+      .media--circle .media__inner {
+        margin-right: 2rem;
+        margin-left: 2rem;
       }
     }
   }
