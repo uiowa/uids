@@ -231,6 +231,11 @@
         @include breakpoint(sm) {
           margin-right: 2rem;
         }
+        @supports (contain: inline-size) {
+          @container column (max-width: #{$break-xxsm}) {
+            margin-right: 0;
+          }
+        }
       }
     }
 
@@ -238,6 +243,11 @@
       .media__inner {
         @include breakpoint(sm) {
           margin-left: 2rem;
+        }
+        @supports (contain: inline-size) {
+          @container column (max-width: #{$break-xxsm}) {
+            margin-left: 0;
+          }
         }
       }
     }
@@ -301,6 +311,16 @@
     }
   }
 
+  @supports (contain: inline-size) {
+    @container column (max-width: #{$break-xxsm}) {
+        flex-direction: column;
+        display: block;
+        .media__inner {
+          margin: -2rem -2rem 2rem;
+        }
+      }
+    }
+
   > * {
     flex-basis: 100%;
   }
@@ -313,11 +333,21 @@
     @include breakpoint(sm) {
       max-width: 11.375rem;
     }
+    @supports (contain: inline-size) {
+      @container column (max-width: #{$break-xxsm}) {
+        max-width: 100%;
+      }
+    }
   }
 
   .media--small.media--widescreen {
     @include breakpoint(sm) {
       max-width: 15.625rem;
+    }
+    @supports (contain: inline-size) {
+      @container column (max-width: #{$break-xxsm}) {
+        max-width: 100%;
+      }
     }
   }
 
@@ -351,18 +381,41 @@
       margin-right: 2rem;
     }
   }
+  @supports (contain: inline-size) {
+    @container column (max-width: #{$break-xxsm}) {
+      .media__inner {
+        margin-right: -2rem;
+      }
+      .media--circle .media__inner {
+        margin-right: 2rem;
+        margin-left: 2rem;
+      }
+    }
+  }
 }
 // === End: Layout left === //
 
 // === Layout right === //
 .card--layout-right {
   @include breakpoint(sm) {
+
     flex-direction: row-reverse;
 
     .media__inner,
     // Add margin back in for media--circle since we removed it before.
     .media--circle .media__inner {
       margin-left: 2rem;
+    }
+  }
+  @supports (contain: inline-size) {
+    @container column (max-width: #{$break-xxsm}) {
+      .media__inner {
+        margin-left: -2rem;
+      }
+      .media--circle .media__inner {
+        margin-right: 2rem;
+        margin-left: 2rem;
+      }
     }
   }
 }
