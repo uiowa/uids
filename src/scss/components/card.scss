@@ -365,8 +365,10 @@
 
   .media--medium {
     &.media--circle {
-      @include breakpoint(sm) {
-        max-width: none;
+      @supports not (contain: inline-size) {
+        @include breakpoint(sm) {
+          max-width: none;
+        }
       }
     }
     @include breakpoint(sm) {
