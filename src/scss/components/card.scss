@@ -228,11 +228,13 @@
 
     &.card--layout-left {
       .media__inner {
-        @include breakpoint(sm) {
-          margin-right: 2rem;
+        @supports not (contain: inline-size) {
+          @include breakpoint(sm) {
+            margin-right: 2rem;
+          }
         }
         @supports (contain: inline-size) {
-          @container column (max-width: #{$break-xxsm}) {
+          @container column (min-width: #{$break-xxsm}) {
             margin-right: 0;
           }
         }
@@ -241,11 +243,13 @@
 
     &.card--layout-right {
       .media__inner {
-        @include breakpoint(sm) {
-          margin-left: 2rem;
+        @supports not (contain: inline-size) {
+          @include breakpoint(sm) {
+            margin-left: 2rem;
+          }
         }
         @supports (contain: inline-size) {
-          @container column (max-width: #{$break-xxsm}) {
+          @container column (min-width: #{$break-xxsm}) {
             margin-left: 0;
           }
         }
@@ -295,31 +299,35 @@
 // === Layout left and layout right shared === //
 .card--layout-left,
 .card--layout-right {
-  .media__inner {
 
-  }
-  @include breakpoint(sm) {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
+  @supports not (contain: inline-size) {
+    @include breakpoint(sm) {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
 
-    .media__inner {
-      margin-bottom: 0;
-      margin-left: 0;
-      margin-right: 0;
-      margin-top: 0;
+      .media__inner {
+        margin-bottom: 0;
+        margin-left: 0;
+        margin-right: 0;
+        margin-top: 0;
+      }
     }
   }
 
   @supports (contain: inline-size) {
-    @container column (max-width: #{$break-xxsm}) {
-        flex-direction: column;
-        display: block;
-        .media__inner {
-          margin: -2rem -2rem 2rem;
-        }
+    @container column (min-width: #{$break-xxsm}) {
+      flex-direction: row;
+      display: flex;
+      width: 100%;
+      .media__inner {
+        margin-bottom: 0;
+        margin-left: 0;
+        margin-right: 0;
+        margin-top: 0;
       }
     }
+  }
 
   > * {
     flex-basis: 100%;
@@ -330,23 +338,27 @@
   }
 
   .media--small.media--square {
-    @include breakpoint(sm) {
-      max-width: 11.375rem;
+    @supports not (contain: inline-size) {
+      @include breakpoint(sm) {
+        max-width: 11.375rem;
+      }
     }
     @supports (contain: inline-size) {
-      @container column (max-width: #{$break-xxsm}) {
-        max-width: 100%;
+      @container column (min-width: #{$break-xxsm}) {
+        max-width: 11.375rem;
       }
     }
   }
 
   .media--small.media--widescreen {
-    @include breakpoint(sm) {
-      max-width: 15.625rem;
+    @supports not (contain: inline-size) {
+      @include breakpoint(sm) {
+        max-width: 15.625rem;
+      }
     }
     @supports (contain: inline-size) {
-      @container column (max-width: #{$break-xxsm}) {
-        max-width: 100%;
+      @container column (min-width: #{$break-xxsm}) {
+        max-width: 15.625rem;
       }
     }
   }
@@ -372,23 +384,25 @@
 
 // === Layout left === //
 .card--layout-left {
-  @include breakpoint(sm) {
-    flex-direction: row;
+  @supports not (contain: inline-size) {
+    @include breakpoint(sm) {
+      flex-direction: row;
 
-    .media__inner,
-    // Add margin back in for media--circle since we removed it before.
-    .media--circle .media__inner {
-      margin-right: 2rem;
+      .media__inner,
+        // Add margin back in for media--circle since we removed it before.
+      .media--circle .media__inner {
+        margin-right: 2rem;
+      }
     }
   }
   @supports (contain: inline-size) {
-    @container column (max-width: #{$break-xxsm}) {
-      .media__inner {
-        margin-right: -2rem;
-      }
+    @container column (min-width: #{$break-xxsm}) {
+      flex-direction: row;
+
+      .media__inner,
+        // Add margin back in for media--circle since we removed it before.
       .media--circle .media__inner {
         margin-right: 2rem;
-        margin-left: 2rem;
       }
     }
   }
@@ -397,23 +411,22 @@
 
 // === Layout right === //
 .card--layout-right {
-  @include breakpoint(sm) {
-
-    flex-direction: row-reverse;
-
-    .media__inner,
-    // Add margin back in for media--circle since we removed it before.
-    .media--circle .media__inner {
-      margin-left: 2rem;
+  @supports not (contain: inline-size) {
+    @include breakpoint(sm) {
+      flex-direction: row-reverse;
+      .media__inner,
+        // Add margin back in for media--circle since we removed it before.
+      .media--circle .media__inner {
+        margin-left: 2rem;
+      }
     }
   }
   @supports (contain: inline-size) {
-    @container column (max-width: #{$break-xxsm}) {
-      .media__inner {
-        margin-left: -2rem;
-      }
+    @container column (min-width: #{$break-xxsm}) {
+      flex-direction: row-reverse;
+      .media__inner,
+        // Add margin back in for media--circle since we removed it before.
       .media--circle .media__inner {
-        margin-right: 2rem;
         margin-left: 2rem;
       }
     }
