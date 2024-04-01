@@ -176,6 +176,35 @@ export default {
         category: 'Container',
       },
     },
+    grid_type: {
+      name: 'Grid',
+      options: [
+        'onecol',
+        'onecol__narrow',
+        'twocol--50-50',
+        'threecol--33-34-33',
+        'fourcol--25',
+      ],
+      control: {
+        type: 'select',
+        labels: {
+          'onecol': 'One column',
+          'onecol__narrow': 'One column (narrow)',
+          'twocol--50-50': 'Two columns',
+          'threecol--33-34-33': 'Three columns',
+          'fourcol--25': 'Four columns',
+        }
+      },
+      table: {
+        category: 'Container',
+      },
+    },
+    record_count: {
+      name: '# of records',
+      table: {
+        category: 'Container',
+      },
+    }
   },
 };
 
@@ -346,8 +375,8 @@ const GridTemplate = (args) => ({
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
     <div :class="args.section_background" style="padding-top: 2rem; padding-bottom: 2rem;">
-      <uids-grid :type="args.type">
-        <uids-grid-item v-for="item in args.records" :key="item">
+      <uids-grid :type="args.grid_type">
+        <uids-grid-item v-for="item in args.record_count" :key="item">
           <uids-card
             :url="args.url"
             :link_text="args.link_text"
@@ -378,6 +407,6 @@ const GridTemplate = (args) => ({
 export const Grid3Columns = GridTemplate.bind({})
 Grid3Columns.args = {
   ...Default.args,
-  type: 'threecol--33-34-33',
-  records: 3,
+  grid_type: 'threecol--33-34-33',
+  record_count: 3,
 }
