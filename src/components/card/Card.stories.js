@@ -404,8 +404,8 @@ const GridTemplate = (args) => ({
   `,
 })
 
-export const Grid3Columns = GridTemplate.bind({})
-Grid3Columns.args = {
+export const Grid = GridTemplate.bind({})
+Grid.args = {
   ...Default.args,
   grid_type: 'threecol--33-34-33',
   record_count: 3,
