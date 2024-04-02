@@ -167,13 +167,6 @@
   margin-right: 0;
   margin-top: 0;
 }
-@supports not (contain: inline-size) {
-  @media (min-width: 768px) {
-    .card.borderless:not([class*=bg--]).card--layout-left .media__inner {
-      margin-right: 2rem;
-    }
-  }
-}
 @supports (contain: inline-size) {
   @container column (min-width: 400px) {
     .card.borderless:not([class*=bg--]).card--layout-left .media__inner {
@@ -183,13 +176,20 @@
 }
 @supports not (contain: inline-size) {
   @media (min-width: 768px) {
+    .card.borderless:not([class*=bg--]).card--layout-left .media__inner {
+      margin-right: 2rem;
+    }
+  }
+}
+@supports (contain: inline-size) {
+  @container column (min-width: 400px) {
     .card.borderless:not([class*=bg--]).card--layout-right .media__inner {
       margin-left: 2rem;
     }
   }
 }
-@supports (contain: inline-size) {
-  @container column (min-width: 400px) {
+@supports not (contain: inline-size) {
+  @media (min-width: 768px) {
     .card.borderless:not([class*=bg--]).card--layout-right .media__inner {
       margin-left: 2rem;
     }
@@ -223,8 +223,8 @@
   margin-right: 0;
 }
 
-@supports not (contain: inline-size) {
-  @media (min-width: 768px) {
+@supports (contain: inline-size) {
+  @container column (min-width: 400px) {
     .card--layout-left,
     .card--layout-right {
       display: flex;
@@ -240,12 +240,12 @@
     }
   }
 }
-@supports (contain: inline-size) {
-  @container column (min-width: 400px) {
+@supports not (contain: inline-size) {
+  @media (min-width: 768px) {
     .card--layout-left,
     .card--layout-right {
-      flex-direction: row;
       display: flex;
+      flex-direction: row;
       width: 100%;
     }
     .card--layout-left .media__inner,
@@ -265,14 +265,6 @@
 .card--layout-right .media--small.media--circle {
   max-width: 11.375rem;
 }
-@supports not (contain: inline-size) {
-  @media (min-width: 768px) {
-    .card--layout-left .media--small.media--square,
-    .card--layout-right .media--small.media--square {
-      max-width: 11.375rem;
-    }
-  }
-}
 @supports (contain: inline-size) {
   @container column (min-width: 400px) {
     .card--layout-left .media--small.media--square,
@@ -283,14 +275,22 @@
 }
 @supports not (contain: inline-size) {
   @media (min-width: 768px) {
+    .card--layout-left .media--small.media--square,
+    .card--layout-right .media--small.media--square {
+      max-width: 11.375rem;
+    }
+  }
+}
+@supports (contain: inline-size) {
+  @container column (min-width: 400px) {
     .card--layout-left .media--small.media--widescreen,
     .card--layout-right .media--small.media--widescreen {
       max-width: 15.625rem;
     }
   }
 }
-@supports (contain: inline-size) {
-  @container column (min-width: 400px) {
+@supports not (contain: inline-size) {
+  @media (min-width: 768px) {
     .card--layout-left .media--small.media--widescreen,
     .card--layout-right .media--small.media--widescreen {
       max-width: 15.625rem;
@@ -318,8 +318,8 @@
   }
 }
 
-@supports not (contain: inline-size) {
-  @media (min-width: 768px) {
+@supports (contain: inline-size) {
+  @container column (min-width: 400px) {
     .card--layout-left {
       flex-direction: row;
     }
@@ -329,8 +329,8 @@
     }
   }
 }
-@supports (contain: inline-size) {
-  @container column (min-width: 400px) {
+@supports not (contain: inline-size) {
+  @media (min-width: 768px) {
     .card--layout-left {
       flex-direction: row;
     }
@@ -341,8 +341,8 @@
   }
 }
 
-@supports not (contain: inline-size) {
-  @media (min-width: 768px) {
+@supports (contain: inline-size) {
+  @container column (min-width: 400px) {
     .card--layout-right {
       flex-direction: row-reverse;
     }
@@ -352,8 +352,8 @@
     }
   }
 }
-@supports (contain: inline-size) {
-  @container column (min-width: 400px) {
+@supports not (contain: inline-size) {
+  @media (min-width: 768px) {
     .card--layout-right {
       flex-direction: row-reverse;
     }
