@@ -1,6 +1,7 @@
 @import '../abstracts/variables';
 @import '../abstracts/utilities';
 
+
 .logo {
   display: block;
 }
@@ -15,6 +16,29 @@
     opacity: .5;
   }
 
+  @include breakpoint(md) {
+    width: 154px;
+    height: 80px;
+    padding: 25px;
+  }
+
+  @include breakpoint(page-container) {
+    width: 188px;
+    height: 90px;
+    padding: 23px 20px;
+  }
+
+  &.logo--uihc {
+    padding: 20px 1.25rem;
+    @include breakpoint(md) {
+      height: 100px;
+      padding: 27px 22px;
+    }
+    @include breakpoint(page-container) {
+      height: 116px;
+    }
+  }
+
   // @todo Move this to search or search-toggle?
   .search-is-open & {
     visibility: none;
@@ -27,22 +51,15 @@
     }
   }
 
-  @include breakpoint(md) {
-    width: 154px;
-    height: 80px;
-    padding: 25px;
-  }
-
-  @include breakpoint(page-container) {
-    width: 188px;
-    height: 90px;
-    padding: 23px 20px;
-  }
 }
 
 .logo-icon {
   fill: $uiowa-gold;
   height: 20px;
+
+  .logo-text {
+    fill: #fff;
+  }
 
   @include breakpoint(md) {
     height: 30px;
@@ -50,6 +67,17 @@
 
   @include breakpoint(page-container) {
     height: 43px;
+  }
+
+  .logo--uihc & {
+    height: 32px;
+    @include breakpoint(md) {
+      height: 47px;
+    }
+
+    @include breakpoint(page-container) {
+      height: 67px;
+    }
   }
 
   &:hover,

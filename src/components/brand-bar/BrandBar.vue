@@ -2,6 +2,10 @@
 import { computed } from "vue"
 import '../../scss/components/brand-bar.scss'
 import UidsLogo from '../logo/Logo.vue'
+import LogoUihc from '../logo-uihc/LogoUihc.vue';
+import UidsButton from '../button/Button.vue';
+import UidsPseudoButton from '../button/PseudoButton.vue';
+
 
 /**
  * The UIDS IOWA Bar is the visual starting point for all
@@ -9,7 +13,7 @@ import UidsLogo from '../logo/Logo.vue'
  */
 export default {
   name: 'uids-iowa-bar',
-  components: { UidsLogo },
+  components: { LogoUihc, UidsPseudoButton, UidsButton, UidsLogo },
   props: {
     /**
      * Determines whether to use the narrow version of the IOWA bar.
@@ -18,9 +22,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    uihc: {
+      type: Boolean,
+      default: false,
+    },
 
   },
   setup(props, context) {
+
     /**
      * Get computed classes based on properties of the component.
      */
@@ -28,6 +37,9 @@ export default {
       let classes = ['iowa-bar']
       if (props.narrow || context.slots.second_row_content) {
         classes.push('iowa-bar--narrow')
+      }
+      if (props.uihc) {
+        classes.push('iowa-bar--uihc')
       }
 
       return classes;
@@ -48,7 +60,10 @@ export default {
 <template>
   <header :class="getClasses" data-uids-header>
     <div class="iowa-bar__container">
-      <uids-logo></uids-logo>
+      <logo-uihc v-if="uihc">
+      </logo-uihc>
+      <uids-logo v-else>
+      </uids-logo>
       <!-- @slot Default slot shows content next to the logo. -->
       <slot></slot>
     </div>

@@ -15,6 +15,10 @@ export default {
     second_row_content: {
       control: { type: 'text' },
     },
+    uihc: {
+      control: { type: 'boolean' },
+    },
+
   },
   parameters: {
     docs: {
@@ -32,7 +36,7 @@ const Template = (args) => ({
     return { args }
   },
   template: `
-    <uids-iowa-bar :narrow="args.narrow">
+    <uids-iowa-bar :uihc="args.uihc" :narrow="args.narrow">
       {{ args.default }}
     </uids-iowa-bar>
   `,
@@ -43,6 +47,7 @@ Default.args = {
   narrow: false,
   default: '',
   second_row_content: '',
+  uihc: false,
 }
 
 const SiteTitleTemplate = (args) => ({
@@ -51,7 +56,7 @@ const SiteTitleTemplate = (args) => ({
     return { args }
   },
   template: `
-    <uids-iowa-bar :narrow="args.narrow">
+    <uids-iowa-bar :uihc="args.uihc" :narrow="args.narrow">
       <h1 class="site-name">{{ args.default }}</h1>
     </uids-iowa-bar>
 `
@@ -75,7 +80,7 @@ const ParentSiteTitleTemplate = (args) => ({
     return { args }
   },
   template: `
-    <uids-iowa-bar :narrow="args.narrow">
+    <uids-iowa-bar :uihc="args.uihc" :narrow="args.narrow">
       <div class="parent-site-name">{{ args.default }}</div>
       <template #second_row_content>
         <h1 class="site-name">{{ args.second_row_content }}</h1>
