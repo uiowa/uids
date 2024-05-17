@@ -3,8 +3,6 @@ import { computed } from "vue"
 import '../../scss/components/brand-bar.scss'
 import UidsLogo from '../logo/Logo.vue'
 import LogoUihc from '../logo-uihc/LogoUihc.vue';
-import UidsButton from '../button/Button.vue';
-import UidsPseudoButton from '../button/PseudoButton.vue';
 
 
 /**
@@ -13,7 +11,7 @@ import UidsPseudoButton from '../button/PseudoButton.vue';
  */
 export default {
   name: 'uids-iowa-bar',
-  components: { LogoUihc, UidsPseudoButton, UidsButton, UidsLogo },
+  components: { LogoUihc, UidsLogo },
   props: {
     /**
      * Determines whether to use the narrow version of the IOWA bar.
