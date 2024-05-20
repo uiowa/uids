@@ -2,8 +2,6 @@
 import { computed } from "vue"
 import '../../scss/components/brand-bar.scss'
 import UidsLogo from '../logo/Logo.vue'
-import LogoUihc from '../logo-uihc/LogoUihc.vue';
-
 
 /**
  * The UIDS IOWA Bar is the visual starting point for all
@@ -11,7 +9,7 @@ import LogoUihc from '../logo-uihc/LogoUihc.vue';
  */
 export default {
   name: 'uids-iowa-bar',
-  components: { LogoUihc, UidsLogo },
+  components: { UidsLogo },
   props: {
     /**
      * Determines whether to use the narrow version of the IOWA bar.
@@ -58,9 +56,7 @@ export default {
 <template>
   <header :class="getClasses" data-uids-header>
     <div class="iowa-bar__container">
-      <logo-uihc v-if="uihc">
-      </logo-uihc>
-      <uids-logo v-else>
+      <uids-logo :uihc="uihc">
       </uids-logo>
       <!-- @slot Default slot shows content next to the logo. -->
       <slot></slot>

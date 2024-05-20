@@ -1,4 +1,5 @@
 import UidsLogo from './Logo.vue'
+import BrandBarDocs from '../brand-bar/BrandBarDocs.mdx';
 
 export default {
   title: 'Components/Branding/Logo',
@@ -11,7 +12,12 @@ export default {
   },
   component: UidsLogo,
   tags: ['autodocs'],
-}
+  argTypes: {
+    uihc: {
+      control: { type: 'boolean' },
+    },
+  },
+};
 
 const Template = (args) => ({
   components: { UidsLogo },
@@ -19,7 +25,7 @@ const Template = (args) => ({
     return { args }
   },
   template: `
-    <uids-logo></uids-logo>
+    <uids-logo :uihc="args.uihc"></uids-logo>
   `,
 })
 
