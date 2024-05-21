@@ -1,5 +1,4 @@
 import UidsBanner from './Banner.vue'
-import media_image from '../../assets/images/viewbook/sections/122.jpg'
 import UidsStub from "../../components/stub/Stub.vue";
 
 export default {
