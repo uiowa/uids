@@ -1,4 +1,4 @@
-import{_ as l}from"./Logo-51108b06.js";import"./jsx-runtime-6eef64cc.js";import"./vue.esm-bundler-f09df2bf.js";import"./index-c013ead5.js";import"./_commonjsHelpers-725317a4.js";const _={title:"Components/Branding/Logo",parameters:{docs:{source:{code:null}}},component:l,tags:["autodocs"],argTypes:{healthcare:{control:{type:"boolean"}}}},p=m=>({components:{UidsLogo:l},setup(){return{args:m}},template:`
+import{_ as l}from"./Logo-6acbcafe.js";import"./jsx-runtime-6eef64cc.js";import"./vue.esm-bundler-f09df2bf.js";import"./index-c013ead5.js";import"./_commonjsHelpers-725317a4.js";const _={title:"Components/Branding/Logo",parameters:{docs:{source:{code:null}}},component:l,tags:["autodocs"],argTypes:{healthcare:{control:{type:"boolean"}}}},p=m=>({components:{UidsLogo:l},setup(){return{args:m}},template:`
     <uids-logo :healthcare="args.healthcare"></uids-logo>
   `}),e=p.bind({});e.args={healthcare:!1};const o=p.bind({});o.args={healthcare:!0};var a,r,s;e.parameters={...e.parameters,docs:{...(a=e.parameters)==null?void 0:a.docs,source:{originalSource:`args => ({
   components: {
