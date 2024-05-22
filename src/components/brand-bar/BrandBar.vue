@@ -18,7 +18,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    uihc: {
+    healthcare: {
       type: Boolean,
       default: false,
     },
@@ -34,8 +34,8 @@ export default {
       if (props.narrow || context.slots.second_row_content) {
         classes.push('iowa-bar--narrow')
       }
-      if (props.uihc) {
-        classes.push('iowa-bar--uihc')
+      if (props.healthcare) {
+        classes.push('iowa-bar--healthcare')
       }
 
       return classes;
@@ -56,7 +56,7 @@ export default {
 <template>
   <header :class="getClasses" data-uids-header>
     <div class="iowa-bar__container">
-      <uids-logo :uihc="uihc">
+      <uids-logo :healthcare="healthcare">
       </uids-logo>
       <!-- @slot Default slot shows content next to the logo. -->
       <slot></slot>
