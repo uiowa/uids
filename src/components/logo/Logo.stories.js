@@ -13,7 +13,7 @@ export default {
   component: UidsLogo,
   tags: ['autodocs'],
   argTypes: {
-    uihc: {
+    healthcare: {
       control: { type: 'boolean' },
     },
   },
@@ -25,8 +25,18 @@ const Template = (args) => ({
     return { args }
   },
   template: `
-    <uids-logo :uihc="args.uihc"></uids-logo>
+    <uids-logo :healthcare="args.healthcare"></uids-logo>
   `,
 })
 
-export const Default = Template.bind({})
+export const Iowa = Template.bind({})
+
+Iowa.args = {
+  healthcare: false,
+}
+
+export const IowaHealthCare = Template.bind({})
+
+IowaHealthCare.args = {
+  healthcare: true,
+}
