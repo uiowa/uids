@@ -1,6 +1,7 @@
 @import '../abstracts/variables';
 @import '../abstracts/utilities';
 
+// === Logo === //
 .logo {
   display: block;
 }
@@ -15,18 +16,6 @@
     opacity: .5;
   }
 
-  // @todo Move this to search or search-toggle?
-  .search-is-open & {
-    visibility: none;
-    opacity: 0;
-
-    @include breakpoint(md) {
-      display: block;
-      opacity: 1;
-      visibility: visible;
-    }
-  }
-
   @include breakpoint(md) {
     width: 154px;
     height: 80px;
@@ -39,10 +28,16 @@
     padding: 23px 20px;
   }
 }
+// === End: Logo === //
 
+// === Logo SVG === //
 .logo-icon {
   fill: $uiowa-gold;
   height: 20px;
+
+  .logo-text {
+    fill: #fff;
+  }
 
   @include breakpoint(md) {
     height: 30px;
@@ -56,13 +51,33 @@
   &:focus {
     opacity: 0.7;
   }
+}
+// === End: Logo SVG === //
 
-  // @todo Move this to header.scss?
-  .header--tertiary & {
-    margin-left: 0;
-
+// === Logo Healthcare === //
+.logo--tab {
+  &.logo--healthcare {
+    padding: 20px 1.25rem;
+    @include breakpoint(md) {
+      height: 100px;
+      padding: 23px 22px;
+    }
     @include breakpoint(page-container) {
-      margin-top: 0;
+      height: 113px;
     }
   }
 }
+
+.logo--healthcare {
+  .logo-icon {
+    height: 32px;
+    @include breakpoint(md) {
+      height: 47px;
+    }
+
+    @include breakpoint(page-container) {
+      height: 67px;
+    }
+  }
+}
+// === End: Logo Healthcare === //
