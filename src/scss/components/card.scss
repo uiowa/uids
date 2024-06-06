@@ -229,10 +229,15 @@
 // === Borderless === //
 // Remove the outline from a card.
 .card.borderless {
+  .media__inner {
+    margin-top: 0;
+  }
+
 
   // When the card has no background, we remove padding and reset our .media margins.
   &:not([class*="bg--"]){
     padding: 0;
+    padding-bottom: 2rem;
 
     .media__inner {
       margin-left: 0;
@@ -389,7 +394,7 @@ $bg-colors: "white", "gray", "black", "gold";
 @each $color in $bg-colors {
   .bg--#{$color} {
     .card.bg--#{$color}[class*="borderless"] {
-      padding: 0;
+      padding: 2rem 0;
       &:not([class*="card--layout"]) {
         .media__inner {
           margin-left: 0;
