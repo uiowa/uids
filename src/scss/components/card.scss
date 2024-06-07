@@ -2,7 +2,6 @@
 @import '../abstracts/utilities';
 @import 'border';
 
-
 @mixin container-query() {
   @supports (contain: inline-size) {
     @container column (min-width: #{$break-xxsm}) {
@@ -229,15 +228,10 @@
 // === Borderless === //
 // Remove the outline from a card.
 .card.borderless {
-  .media__inner {
-    margin-top: 0;
-  }
-
 
   // When the card has no background, we remove padding and reset our .media margins.
   &:not([class*="bg--"]){
     padding: 0;
-    padding-bottom: 2rem;
 
     .media__inner {
       margin-left: 0;
@@ -394,12 +388,26 @@ $bg-colors: "white", "gray", "black", "gold";
 @each $color in $bg-colors {
   .bg--#{$color} {
     .card.bg--#{$color}[class*="borderless"] {
-      padding: 2rem 0;
-      &:not([class*="card--layout"]) {
+      padding: 0;
         .media__inner {
           margin-left: 0;
           margin-right: 0;
           margin-top: 0;
+        }
+      &.card--layout-left {
+        @include container-query() {
+          .media__inner,
+          .media--circle .media__inner {
+            margin-right: 2rem;
+          }
+        }
+      }
+      &.card--layout-right {
+        @include container-query() {
+          .media__inner,
+          .media--circle .media__inner {
+            margin-left: 2rem;
+          }
         }
       }
     }
