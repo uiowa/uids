@@ -2,7 +2,6 @@
 @import '../abstracts/utilities';
 @import 'border';
 
-
 @mixin container-query() {
   @supports (contain: inline-size) {
     @container column (min-width: #{$break-xxsm}) {
@@ -390,11 +389,25 @@ $bg-colors: "white", "gray", "black", "gold";
   .bg--#{$color} {
     .card.bg--#{$color}[class*="borderless"] {
       padding: 0;
-      &:not([class*="card--layout"]) {
         .media__inner {
           margin-left: 0;
           margin-right: 0;
           margin-top: 0;
+        }
+      &.card--layout-left {
+        @include container-query() {
+          .media__inner,
+          .media--circle .media__inner {
+            margin-right: 2rem;
+          }
+        }
+      }
+      &.card--layout-right {
+        @include container-query() {
+          .media__inner,
+          .media--circle .media__inner {
+            margin-left: 2rem;
+          }
         }
       }
     }
