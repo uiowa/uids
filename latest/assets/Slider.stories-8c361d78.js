@@ -1,4 +1,4 @@
-import{_ as o}from"./Stub-609dcbd4.js";import"./vue.esm-bundler-f09df2bf.js";import"./utlity-a0fec18e.js";import"./Button-448c6082.js";import"./Headline-e6cd25c2.js";const l={title:"Not implemented/Slider",parameters:{docs:{source:{code:null}},options:{showPanel:!1}}},a=r=>({components:{UidsStub:o},setup(){return{args:r}},template:`
+import{_ as o}from"./Stub-86bed54b.js";import"./vue.esm-bundler-f09df2bf.js";import"./utlity-a0fec18e.js";import"./Button-d429cc7b.js";import"./Headline-e6cd25c2.js";const l={title:"Not implemented/Slider",parameters:{docs:{source:{code:null}},options:{showPanel:!1}}},a=r=>({components:{UidsStub:o},setup(){return{args:r}},template:`
     <uids-stub
       path="slider--default.html"
       title="Slider"

@@ -1,4 +1,4 @@
-import{_ as r}from"./Stub-609dcbd4.js";import"./vue.esm-bundler-f09df2bf.js";import"./utlity-a0fec18e.js";import"./Button-448c6082.js";import"./Headline-e6cd25c2.js";const i={title:"Not implemented/Blockquote",parameters:{docs:{source:{code:null}},options:{showPanel:!1}}},u=s=>({components:{UidsStub:r},setup(){return{args:s}},template:`
+import{_ as r}from"./Stub-86bed54b.js";import"./vue.esm-bundler-f09df2bf.js";import"./utlity-a0fec18e.js";import"./Button-d429cc7b.js";import"./Headline-e6cd25c2.js";const i={title:"Not implemented/Blockquote",parameters:{docs:{source:{code:null}},options:{showPanel:!1}}},u=s=>({components:{UidsStub:r},setup(){return{args:s}},template:`
     <uids-stub
       path="blockquote--default.html"
       title="Blockquote"
