@@ -415,7 +415,7 @@ export const DateHighlight = GridTemplate.bind({})
 DateHighlight.args = {
   ...Default.args,
   orientation: 'left',
-  media_size: 'small',
+  media_size: 'xx-small',
   media_shape: 'circle',
   media:
     '<div class="media-date">\n' +

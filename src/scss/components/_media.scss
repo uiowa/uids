@@ -1,12 +1,6 @@
 @import '../abstracts/variables';
 @import '../abstracts/utilities';
 
-.media--border {
-  img {
-    padding: 0.5rem;
-    border: 1px solid rgba(0, 0, 0, 0.125);
-  }
-}
 
 .media--circle {
   border-radius: 50%;
@@ -18,6 +12,32 @@
     border-radius: 50%;
     margin-top: 0;
     height: auto;
+
+    &:before {
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+    }
+  }
+}
+
+.media--border {
+  img {
+    padding: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+  }
+
+  .media-date {
+    margin: 0.5rem;
+
+    &:before {
+      content: '';
+      position: absolute;
+      width: calc(100% + 0.5rem);
+      height: calc(100% + 0.5rem);
+      border: 1px solid rgba(0, 0, 0, 0.125);
+      left: -0.25rem;
+      top: -0.25rem;
+    }
   }
 }
 
