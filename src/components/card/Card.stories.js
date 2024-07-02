@@ -411,7 +411,7 @@ Grid.args = {
   record_count: 3,
 }
 
-export const DateHighlight = GridTemplate.bind({})
+export const MediaDate = GridTemplate.bind({})
 DateHighlight.args = {
   ...Default.args,
   orientation: 'left',
