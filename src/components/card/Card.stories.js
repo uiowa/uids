@@ -418,9 +418,9 @@ DateHighlight.args = {
   media_size: 'small',
   media_shape: 'circle',
   media:
-    '<div class="date-highlight">\n' +
-    '  <span class="month">June</span>\n' +
-    '  <span class="day">9</span>\n' +
+    '<div class="media-date">\n' +
+    '  <span class="media-date--month">June</span>\n' +
+    '  <span class="media-date--day">9</span>\n' +
     '</div>',
   grid_type: 'onecol',
   record_count: 1,

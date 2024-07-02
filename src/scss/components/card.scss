@@ -116,7 +116,7 @@
       object-fit: cover;
     }
 
-    .date-highlight {
+    .media-date {
       position: relative;
       color: #000;
       background-color: #ffcd00;
@@ -125,7 +125,7 @@
       width: 6rem;
       height: 6rem;
 
-      .month {
+      .media-date--month {
         font-size: 1rem;
         display: block;
         line-height: 100%;
@@ -133,7 +133,7 @@
         font-weight: 300;
       }
 
-      .day {
+      .media-date--day {
         font-size: 2.5rem;
         display: block;
         line-height: 100%;
@@ -186,14 +186,15 @@
       margin-top: 0;
       margin-right: 0;
     }
-    &.media--small {
+    &.media--x-small {
       max-width: 9.375rem;
     }
-    &.media--medium {
+    &.media--small {
       max-width: 15.625rem;
-      @include breakpoint(sm) {
-        max-width: 60%;
-      }
+
+      //@include breakpoint(sm) {
+      //  max-width: 60%;
+      //}
     }
   }
 
@@ -344,18 +345,19 @@
     }
   }
 
+  .media--widescreen .media-date {
+    width: unset;
+  }
+
   .media--xx-small {
-    &.media--circle,
-    &.media--square {
-      max-width: 5.375rem;
-    }
+    max-width: 5.375rem;
 
     &.media--widescreen {
       @include container-query() {
         max-width: 11.375rem;
       }
 
-      .date-highlight {
+      .media-date {
         width: unset;
       }
     }
@@ -363,28 +365,36 @@
 
   .media--x-small {
     max-width: 11.375rem;
-  }
 
-  .media--x-small {
     @include container-query() {
       max-width: 11.375rem;
     }
   }
 
-  .media--x-small {
+  .media-small {
+    @supports not (contain: inline-size) {
+      @include breakpoint(sm) {
+        max-width: none;
+      }
+    }
+
+    &.media--widescreen {
+      @include container-query() {
+        max-width: 15.625rem;
+      }
+    }
+  }
+
+  ///////////////////////////////////////////////
+
+
+  .media--small {
     @include container-query() {
-      max-width: 15.625rem;
+      flex: 0 0 27.5%;
     }
   }
 
   .media--medium {
-    &.media--circle {
-      @supports not (contain: inline-size) {
-        @include breakpoint(sm) {
-          max-width: none;
-        }
-      }
-    }
     @include container-query() {
       flex: 0 0 35%;
     }
