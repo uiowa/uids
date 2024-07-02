@@ -2737,10 +2737,12 @@ html {
   position: relative;
   color: #000;
   background-color: #ffcd00;
-  padding-top: 1.2rem;
   text-align: center;
-  width: 6rem;
-  height: 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 0.6rem 0.2rem 0.6rem;
 }
 .card > .media .media-date .media-date--month {
   font-size: 1rem;
@@ -2784,11 +2786,13 @@ html {
   max-width: 15.625rem;
 }
 .card .media--square img,
-.card .media--square iframe {
+.card .media--square iframe,
+.card .media--square .media-date {
   aspect-ratio: 1/1;
 }
 .card .media--widescreen img,
-.card .media--widescreen iframe {
+.card .media--widescreen iframe,
+.card .media--widescreen .media-date {
   aspect-ratio: 16/9;
 }
 
@@ -3870,11 +3874,6 @@ figure[class*=inline--size-] img {
   padding: 1.5rem 0;
 }
 
-.media--border img {
-  padding: 0.5rem;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-}
-
 .media--circle {
   border-radius: 50%;
   margin-top: 0;
@@ -3885,6 +3884,27 @@ figure[class*=inline--size-] img {
   border-radius: 50%;
   margin-top: 0;
   height: auto;
+}
+.media--circle img:before, .media--circle .media-date:before {
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+}
+
+.media--border img {
+  padding: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+.media--border .media-date {
+  margin: 0.5rem;
+}
+.media--border .media-date:before {
+  content: "";
+  position: absolute;
+  width: calc(100% + 0.5rem);
+  height: calc(100% + 0.5rem);
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  left: -0.25rem;
+  top: -0.25rem;
 }
 
 .media--cover img {
