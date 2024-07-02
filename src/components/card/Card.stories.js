@@ -412,15 +412,15 @@ Grid.args = {
 }
 
 export const MediaDate = GridTemplate.bind({})
-DateHighlight.args = {
+MediaDate.args = {
   ...Default.args,
   orientation: 'left',
   media_size: 'xx-small',
   media_shape: 'circle',
   media:
-    '<div class="media-date">\n' +
-    '  <span class="media-date--month">June</span>\n' +
-    '  <span class="media-date--day">9</span>\n' +
+    '<div class="media--date">\n' +
+    '  <span class="media--date__month">June</span>\n' +
+    '  <span class="media--date__day">9</span>\n' +
     '</div>',
   grid_type: 'onecol',
   record_count: 1,
