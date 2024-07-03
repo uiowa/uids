@@ -4,6 +4,7 @@ const sizes = [
   'small',
   'medium',
   'large',
+  'no-crop'
 ]
 
 const shapes = [
