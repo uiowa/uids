@@ -415,7 +415,7 @@ export const MediaDate = GridTemplate.bind({})
 MediaDate.args = {
   ...Default.args,
   orientation: 'left',
-  media_size: 'small',
+  media_size: 'default',
   media_shape: 'no-crop',
   media:
     '<div class="media--date">\n' +

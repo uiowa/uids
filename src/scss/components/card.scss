@@ -116,36 +116,6 @@
       object-fit: cover;
     }
 
-    .media--date {
-      position: relative;
-      color: $uiowa-black;
-      background-color: $uiowa-gold;
-      padding-top: $gutter;
-      text-align: center;
-      width: 6rem;
-      height: 6rem;
-      margin-left: auto;
-      margin-right: auto;
-      aspect-ratio: 1 / 1;
-      border-radius: 50%;
-
-      &__month {
-        font-size: $base-font-size;
-        display: block;
-        line-height: 100%;
-        text-transform: uppercase;
-        font-weight: $font-weight-light;
-      }
-
-      &__day {
-        font-size: $h2-font-size;
-        display: block;
-        line-height: 100%;
-        margin-top: 1px;
-        font-weight: $font-weight-medium-bold;
-      }
-    }
-
     // @todo this collides with uids_base iframe styles.
     //embed,
     //iframe,
@@ -240,7 +210,39 @@
       aspect-ratio: 16 / 9;
     }
   }
+
+  .media--date {
+    position: relative;
+    color: $uiowa-black;
+    background-color: $uiowa-gold;
+    padding-top: $gutter;
+    text-align: center;
+    width: 6rem;
+    height: 6rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+
+    &__month {
+      font-size: $base-font-size;
+      display: block;
+      line-height: 100%;
+      text-transform: uppercase;
+      font-weight: $font-weight-light;
+    }
+
+    &__day {
+      font-size: $h2-font-size;
+      display: block;
+      line-height: 100%;
+      margin-top: 1px;
+      font-weight: $font-weight-medium-bold;
+    }
+  }
 }
+
 // === End: Media === //
 
 // === Subtitle === //
@@ -289,6 +291,11 @@
   // When the card has no background, we remove padding and reset our .media margins.
   &:not([class*="bg--"]){
     padding: 0;
+
+      .media--date {
+        margin-top: 0;
+      }
+
 
     .media__inner {
       margin-left: 0;
@@ -371,6 +378,12 @@
   > * {
     @include container-query() {
       flex-basis: 100%;
+    }
+  }
+
+  .media--date {
+    @include container-query() {
+      margin-top: 0;
     }
   }
 
