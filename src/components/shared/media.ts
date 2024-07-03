@@ -4,13 +4,13 @@ const sizes = [
   'small',
   'medium',
   'large',
-  'no-crop'
 ]
 
 const shapes = [
   'widescreen',
   'square',
   'circle',
+  'no-crop'
 ]
 
 const props = {
