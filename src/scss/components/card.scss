@@ -116,18 +116,16 @@
       object-fit: cover;
     }
 
-    .media--date {
+    .date-highlight {
       position: relative;
       color: #000;
       background-color: #ffcd00;
+      padding-top: 1.2rem;
       text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 0.9rem 0.6rem 0.2rem 0.6rem;
+      width: 6rem;
+      height: 6rem;
 
-      .media--date__month {
+      .month {
         font-size: 1rem;
         display: block;
         line-height: 100%;
@@ -135,7 +133,7 @@
         font-weight: 300;
       }
 
-      .media--date__day {
+      .day {
         font-size: 2.5rem;
         display: block;
         line-height: 100%;
@@ -162,9 +160,8 @@
       border: none;
     }
 
-    &.media--xx-small,
-    &.media--x-small,
-    &.media--small {
+    &.media--small.media--circle,
+    &.media--medium.media--circle {
       margin-left: auto;
       margin-right: auto;
     }
@@ -188,30 +185,27 @@
       margin-top: 0;
       margin-right: 0;
     }
-    &.media--x-small {
+    &.media--small {
       max-width: 9.375rem;
     }
-    &.media--small {
+    &.media--medium {
       max-width: 15.625rem;
-
-      //@include breakpoint(sm) {
-      //  max-width: 60%;
-      //}
+      @include breakpoint(sm) {
+        max-width: 60%;
+      }
     }
   }
 
   .media--square {
     img,
-    iframe,
-    .media--date {
+    iframe {
       aspect-ratio: 1 / 1;
     }
   }
 
   .media--widescreen {
     img,
-    iframe,
-    .media--date {
+    iframe {
       aspect-ratio: 16 / 9;
     }
   }
@@ -349,50 +343,30 @@
     }
   }
 
-  .media--widescreen .media--date {
-    width: unset;
-  }
-
-  .media--xx-small {
+  .media--small.media--circle {
     max-width: 5.375rem;
-
-    &.media--widescreen {
-      @include container-query() {
-        max-width: 11.375rem;
-      }
-    }
   }
 
-  .media--x-small {
-    max-width: 11.375rem;
-
+  .media--small.media--square {
     @include container-query() {
       max-width: 11.375rem;
     }
   }
 
-  .media--small {
-    @supports not (contain: inline-size) {
-      @include breakpoint(sm) {
-        max-width: none;
-      }
-    }
-
-    &.media--widescreen {
-      @include container-query() {
-        max-width: 15.625rem;
-      }
-    }
-  }
-
-
-  .media--small {
+  .media--small.media--widescreen {
     @include container-query() {
-      flex: 0 0 27.5%;
+      max-width: 15.625rem;
     }
   }
 
   .media--medium {
+    &.media--circle {
+      @supports not (contain: inline-size) {
+        @include breakpoint(sm) {
+          max-width: none;
+        }
+      }
+    }
     @include container-query() {
       flex: 0 0 35%;
     }
