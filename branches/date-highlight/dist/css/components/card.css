@@ -90,33 +90,6 @@
   width: 100%;
   object-fit: cover;
 }
-.card > .media .media--date {
-  position: relative;
-  color: var(--uiowa-black);
-  background-color: var(--uiowa-gold);
-  padding-top: 1.25rem;
-  text-align: center;
-  width: 6rem;
-  height: 6rem;
-  margin-left: auto;
-  margin-right: auto;
-  aspect-ratio: 1/1;
-  border-radius: 50%;
-}
-.card > .media .media--date__month {
-  font-size: 1rem;
-  display: block;
-  line-height: 100%;
-  text-transform: uppercase;
-  font-weight: 300;
-}
-.card > .media .media--date__day {
-  font-size: 2.3rem;
-  display: block;
-  line-height: 100%;
-  margin-top: 1px;
-  font-weight: 600;
-}
 .card > .media iframe {
   border: none;
 }
@@ -172,6 +145,34 @@
 .card .media--widescreen iframe {
   aspect-ratio: 16/9;
 }
+.card .media--date {
+  position: relative;
+  color: var(--uiowa-black);
+  background-color: var(--uiowa-gold);
+  padding-top: 1.25rem;
+  text-align: center;
+  width: 6rem;
+  height: 6rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2rem;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+}
+.card .media--date__month {
+  font-size: 1rem;
+  display: block;
+  line-height: 100%;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+.card .media--date__day {
+  font-size: 2.3rem;
+  display: block;
+  line-height: 100%;
+  margin-top: 1px;
+  font-weight: 600;
+}
 
 .card__subtitle {
   opacity: 0.7;
@@ -203,6 +204,9 @@
 
 .card.borderless:not([class*=bg--]) {
   padding: 0;
+}
+.card.borderless:not([class*=bg--]) .media--date {
+  margin-top: 0;
 }
 .card.borderless:not([class*=bg--]) .media__inner {
   margin-left: 0;
@@ -312,6 +316,22 @@
     .card--layout-left > *,
     .card--layout-right > * {
       flex-basis: 100%;
+    }
+  }
+}
+@supports (contain: inline-size) {
+  @container column (min-width: 400px) {
+    .card--layout-left .media--date,
+    .card--layout-right .media--date {
+      margin-top: 0;
+    }
+  }
+}
+@supports not (contain: inline-size) {
+  @media (min-width: 768px) {
+    .card--layout-left .media--date,
+    .card--layout-right .media--date {
+      margin-top: 0;
     }
   }
 }
