@@ -1,6 +1,7 @@
 import { className } from '../utlity'
 
 const sizes = [
+  'default',
   'small',
   'medium',
   'large',
