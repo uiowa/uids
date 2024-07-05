@@ -410,3 +410,18 @@ Grid.args = {
   grid_type: 'threecol--33-34-33',
   record_count: 3,
 }
+
+export const MediaDate = GridTemplate.bind({})
+MediaDate.args = {
+  ...Default.args,
+  orientation: 'left',
+  media_size: 'default',
+  media_shape: 'no-crop',
+  media:
+    '<div class="media--date">\n' +
+    '  <span class="media--date__month">June</span>\n' +
+    '  <span class="media--date__day">9</span>\n' +
+    '</div>',
+  grid_type: 'onecol',
+  record_count: 1,
+}

@@ -1,6 +1,7 @@
 import { className } from '../utlity'
 
 const sizes = [
+  'default',
   'small',
   'medium',
   'large',
@@ -10,6 +11,7 @@ const shapes = [
   'widescreen',
   'square',
   'circle',
+  'no-crop'
 ]
 
 const props = {
