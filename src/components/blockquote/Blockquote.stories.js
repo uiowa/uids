@@ -1,6 +1,6 @@
 import UidsBlockquote from './Blockquote.vue';
 import Background from "../shared/background";
-import blockquote_image from '../../assets/images/demo/herky2.jpeg'
+import blockquote_image from '../../assets/images/demo/herky-square.jpg'
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
