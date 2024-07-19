@@ -72,9 +72,7 @@ blockquote {
     margin-top: 0;
   }
 
-  &.blockquote--center,
-  &.blockquote--left,
-  &.blockquote--right {
+  &.blockquote {
     flex-basis: 100%;
   }
   // @todo 2020/12/08 Remove '.blockquote-center' class in v4.0.0
@@ -122,8 +120,11 @@ blockquote {
   // Shared styles for above and below options.
   &.blockquote--img-above,
   &.blockquote--img-below {
-    &.blockquote--left,
-    &.blockquote--right {
+    .blockquote__media {
+      margin-right: 1.3rem;
+      margin-top: 0.7rem;
+    }
+    &.blockquote:not(.blockquote--center) {
       margin-bottom: $mobile-width-gutter;
 
       .blockquote__media {
@@ -135,18 +136,11 @@ blockquote {
       }
     }
 
-    &.blockquote--center,
-    &.blockquote--left {
-      .blockquote__media {
-        margin-right: 1.3rem;
-        margin-top: 0.7rem;
-      }
-    }
-
     &.blockquote--right {
       .blockquote__media {
         margin-left: 1.3rem;
         margin-top: 0.7rem;
+        margin-right: 0;
       }
     }
   }
@@ -198,8 +192,7 @@ blockquote {
       }
     }
 
-    &.blockquote--left,
-    &.blockquote--right {
+    &.blockquote:not(.blockquote--center) {
       border: none;
       margin-right: 0;
       margin-left: 0;
@@ -258,7 +251,7 @@ blockquote {
 
     footer {
       display: flex;
-      margin-top: 0;
+      margin-top: .5rem;
       align-items: center;
     }
 
@@ -313,8 +306,7 @@ blockquote {
   }
 
   &.blockquote--remove-margin {
-    &.blockquote--left,
-    &.blockquote--right {
+    &.blockquote:not(.blockquote--center) {
       margin-left: 0;
       margin-right: 0;
     }

@@ -19,11 +19,11 @@ export default {
     // Props
     orientation: {
       name: 'Orientation',
-      options: ['left', 'center', 'right'],
+      options: ['', 'center', 'right'],
       control: {
         type: 'select',
         labels: {
-          'left': 'Left (default)',
+          '': 'Left (default)',
           'center': 'Center',
           'right': 'Right',
         },
@@ -94,7 +94,7 @@ Left.args = {
   footer: '<p>Herky the Hawk,<br/><strong>University of Iowa Mascot</strong></p>',
   media_position_bottom: false,
   background: '',
-  orientation: 'left',
+  orientation: '',
   media: '<img src="' + blockquote_image + '" alt="Alt">',
 };
 
