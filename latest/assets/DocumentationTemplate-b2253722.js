@@ -1,4 +1,4 @@
-import{j as n}from"./jsx-runtime-6eef64cc.js";import{M as e,T as r,P as a,d as p,e as m}from"./index-f71c6c91.js";import{u as i}from"./index-dc1d5b46.js";import"./index-c013ead5.js";import"./_commonjsHelpers-725317a4.js";import"./iframe-edc80a60.js";import"../sb-preview/runtime.js";import"./index-11d98b33.js";import"./index-38ad35d1.js";import"./index-356e4a49.js";function o(s){const t=Object.assign({h2:"h2",p:"p",hr:"hr"},i(),s.components);return n.jsxs(n.Fragment,{children:[n.jsx(e,{isTemplate:!0}),`
+import{j as n}from"./jsx-runtime-6eef64cc.js";import{M as e,T as r,P as a,d as p,e as m}from"./index-e4ea5f61.js";import{u as i}from"./index-dc1d5b46.js";import"./index-c013ead5.js";import"./_commonjsHelpers-725317a4.js";import"./iframe-ee2c4394.js";import"../sb-preview/runtime.js";import"./index-11d98b33.js";import"./index-38ad35d1.js";import"./index-356e4a49.js";function o(s){const t=Object.assign({h2:"h2",p:"p",hr:"hr"},i(),s.components);return n.jsxs(n.Fragment,{children:[n.jsx(e,{isTemplate:!0}),`
 `,n.jsx(r,{}),`
 `,n.jsx(a,{}),`
 `,n.jsx(t.h2,{id:"inputs",children:"Inputs"}),`
