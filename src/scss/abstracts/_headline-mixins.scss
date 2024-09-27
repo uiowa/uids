@@ -1,0 +1,106 @@
+// Headline
+
+@mixin headline {
+  padding: 0;
+  line-height: 1;
+
+  a {
+    color: $secondary;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+}
+
+@mixin headline-negative {
+  color: $white;
+
+  a {
+    color: $white;
+  }
+}
+
+@mixin headline-uppercase {
+  text-transform: uppercase;
+  font-family: $font-family-caps;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@mixin headline-serif {
+  font-family: $font-family-serif;
+  font-weight: $font-weight-bold;
+}
+
+@mixin headline-highlight {
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  padding: 2px 0;
+  line-height: 1.7;
+}
+
+@mixin headline-highlight-word {
+  background: $primary;
+  display: inline;
+  padding: 0.85rem 1rem;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  color: $secondary;
+  text-shadow: none;
+  [class*="bg--gold"] & {
+    background: $secondary;
+    color: #fff;
+  }
+}
+
+@mixin headline-highlight-word-uppercase {
+  background: $primary;
+  display: inline-block;
+  margin-bottom: .8rem;
+  margin-top: .8rem;
+  padding: .4rem 1.2rem .8rem;
+  color: $secondary;
+  [class*="bg--gold"] & {
+    background: $secondary;
+    color: #fff;
+    font-weight: 400;
+  }
+  [class*="bg--gold"] [class*="bg--black"] & {
+    background: $primary;
+    color: $secondary;
+  }
+}
+
+@mixin headline-underline {
+  padding-bottom: $sm;
+
+  &:after {
+    content: "";
+    display: block;
+    width: 75px;
+    height: 6px;
+    margin-top: 15px;
+    background: $primary;
+  }
+
+  &.headline--center {
+    &:after {
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
+
+  .bg-pattern--brain-reversed &,
+  [class*="bg--gold"] & {
+    &:after {
+      background: $light;
+    }
+  }
+}

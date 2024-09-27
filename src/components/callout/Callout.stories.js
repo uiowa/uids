@@ -1,11 +1,12 @@
 import UidsCallout from './Callout.vue'
 import Background from '../shared/background'
 // import Inline from '../shared/inline'
-import { parameters } from '../../../.storybook/preview';
+import preview from '../../../.storybook/preview';
 
 export default {
   title: 'Components/Callout',
   component: UidsCallout,
+  tags: ['autodocs'],
   argTypes: {
     // ...Inline.argTypes,
     ...Background.argTypes,
@@ -15,8 +16,13 @@ export default {
     },
   },
   parameters: {
+    docs: {
+      source: {
+        code: null,
+      },
+    },
     viewport: {
-      viewports: parameters.viewport.viewports,
+      viewports: preview.parameters.viewport.viewports,
       defaultViewport: 'tablet',
     },
   },
@@ -41,7 +47,6 @@ const Template = (args) => ({
 });
 
 export const Callout = Template.bind({});
-// More on args: https://storybook.js.org/docs/vue/writing-stories/args
 Callout.args = {
   default: '<h4 class="headline block__headline headline headline--serif headline--underline block__headline headline--center"> <span class="headline__heading"> Title </span> </h4> <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce feugiat ante non efficitur laoreet. Suspendisse laoreet cursus dui, eget vehicula massa.</p>',
   // inline_size: 'small',

@@ -1,37 +1,42 @@
 import UidsBanner from './Banner.vue'
-import media_image from '../../assets/images/viewbook/sections/122.jpg'
+import UidsStub from "../../components/stub/Stub.vue";
 
 export default {
-  title: 'Components/Banner',
+  title: 'Not implemented/Banner',
   component: UidsBanner,
   argTypes: {
     media: {
       control: 'text',
     },
   },
-}
+  // https://github.com/storybookjs/storybook/issues/14442#issuecomment-1089165153
+  parameters: {
+    docs: {
+      source: {
+        code: null,
+      },
+    },
+    options: {
+      showPanel: false,
+    },
+  },
+};
 
 const Template = (args) => ({
-  components: { UidsBanner },
+  // Components used in your story `template` are defined in the `components` object
+  components: { UidsStub },
+  // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
-    return { args }
+    return { args };
   },
+  // And then the `args` are bound to your component with `v-bind="args"`
   template: `
-    <uids-banner
-      :title="args.title"
-      :image="args.image"
-      :url="args.url"
+    <uids-stub
+      path="banner--default.html"
+      title="Banner"
     >
-      <template #media v-if="args.media"><span v-html="args.media" ></span></template>
-      <template #default><div v-html="args.default"></div></template>
-    </uids-banner>
-  `
-})
+    </uids-stub>
+  `,
+});
 
-export const Default = Template.bind({})
-
-Default.args = {
-  media: '<img src="' + media_image + '" alt="Alt">',
-  title: 'Write Your Story',
-  url: 'https://uiowa.edu',
-}
+export const Banner = Template.bind({})

@@ -1,6 +1,6 @@
 <script lang="ts">
 import { computed } from "vue"
-import './brand-bar.scss'
+import '../../scss/components/brand-bar.scss'
 import UidsLogo from '../logo/Logo.vue'
 
 /**
@@ -18,9 +18,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    healthcare: {
+      type: Boolean,
+      default: false,
+    },
 
   },
   setup(props, context) {
+
     /**
      * Get computed classes based on properties of the component.
      */
@@ -28,6 +33,9 @@ export default {
       let classes = ['iowa-bar']
       if (props.narrow || context.slots.second_row_content) {
         classes.push('iowa-bar--narrow')
+      }
+      if (props.healthcare) {
+        classes.push('iowa-bar--healthcare')
       }
 
       return classes;
@@ -48,7 +56,8 @@ export default {
 <template>
   <header :class="getClasses" data-uids-header>
     <div class="iowa-bar__container">
-      <uids-logo></uids-logo>
+      <uids-logo :healthcare="healthcare">
+      </uids-logo>
       <!-- @slot Default slot shows content next to the logo. -->
       <slot></slot>
     </div>

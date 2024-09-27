@@ -1,0 +1,50 @@
+@import 'variables';
+
+// Media Queries ///////////////
+@mixin breakpoint($class) {
+  @if $class==xxsm {
+    @media (min-width: $break-xxsm) {
+      @content;
+    }
+  }
+
+  @else if $class==xsm {
+    @media (min-width: $break-xsm) {
+      @content;
+    }
+  }
+
+  @else if $class==sm {
+    @media (min-width: $break-sm) {
+      @content;
+    }
+  }
+
+  @else if $class==md {
+    @media (min-width: $break-md) {
+      @content;
+    }
+  }
+
+  @else if $class==lg {
+    @media (min-width: $break-lg) {
+      @content;
+    }
+  }
+
+  @else if $class==xlg {
+    @media (min-width: $break-xlg) {
+      @content;
+    }
+  }
+
+  @else if $class==page-container {
+    @media (min-width: $break-page-container) {
+      @content;
+    }
+  }
+
+  @else {
+    @warn "Breakpoint mixin supports: xs, xsm, sm, md, lg, page-container, xlg";
+  }
+}

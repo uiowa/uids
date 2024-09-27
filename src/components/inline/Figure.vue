@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import '../inline/inline.scss'
+import '../../scss/components/_inline.scss'
 import Inline from '../inline/inline'
 
 const name = 'uids-figure'

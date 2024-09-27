@@ -1,0 +1,67 @@
+@import '../abstracts/variables';
+@import '../abstracts/utilities';
+// https://garyridgway.github.io/clampCalculator/?minWidth=600&maxWidth=1310
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: $font-weight-medium;
+  line-height: 1.125;
+  letter-spacing: 0;
+}
+
+h1, .h1 {
+  @include h1;
+}
+
+.h1 {
+  &.bold-headline--serif,
+  &.headline--serif {
+    @include h1;
+    font-weight: $font-weight-bold;
+  }
+}
+
+h2, .h2 {
+  @include h2;
+  // Overriding the size for Zilla so that the size is equal to Roboto.
+  &.bold-headline--serif,
+  &.headline--serif  {
+    font-size: clamp(1.75rem, calc(1.7465vw + 1.0951rem), 2.525rem);
+  }
+}
+
+h3, .h3 {
+  @include h3;
+  &.bold-headline--serif,
+  &.headline--serif  {
+    font-size: clamp(1.65rem, calc(1.0986vw + 1.238rem), 2.1375rem);
+  }
+}
+
+h4, .h4 {
+  @include h4;
+  &.bold-headline--serif,
+  &.headline--serif  {
+    font-size: clamp(1.45rem, calc(0.8451vw + 1.1331rem), 1.825rem);
+  }
+}
+
+h5, .h5 {
+  @include h5;
+  &.bold-headline--serif,
+  &.headline--serif  {
+    font-size: clamp(1.3rem, calc(0.7324vw + 1.0254rem), 1.625rem);
+  }
+}
+
+h6, .h6 {
+  @include h6;
+  &.bold-headline--serif,
+  &.headline--serif  {
+    font-size: clamp(1.2rem, calc(0.507vw + 1.0099rem), 1.425rem);
+  }
+}

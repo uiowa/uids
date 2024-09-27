@@ -1,0 +1,77 @@
+@import '../abstracts/variables';
+@import '../abstracts/utilities';
+
+.grid--onecol {
+  .list-container__inner {
+    max-width: 81.875em;
+    margin: 0 auto;
+  }
+}
+
+.grid--onecol__narrow {
+  .list-container__inner {
+    max-width: 63.75em;
+    margin: 0 auto;
+  }
+}
+
+.grid--twocol--50-50 {
+  .list-container__inner {
+    gap: $mobile-height-gutter;
+    @include grid-base;
+    @include breakpoint(sm) {
+      @include twocol-grid;
+    }
+  }
+}
+
+.grid--threecol--33-34-33 {
+  .list-container__inner {
+    gap: $mobile-height-gutter;
+    @include grid-base;
+    @include breakpoint(sm) {
+      @include threecol-grid;
+    }
+  }
+}
+
+.grid--twocol--67-33 {
+  .list-container__inner {
+    gap: $mobile-height-gutter;
+    @include grid-base;
+    @include breakpoint(sm) {
+      grid-template-columns: repeat(3, 1fr);
+
+      .grid__column:first-child {
+        grid-area: 1 / 1 / 2 / 3;
+        min-width: 0;
+      }
+    }
+
+    .grid__column:last-child {
+      @include breakpoint(sm) {
+        grid-area: 1 / 3 / 2 / 4;
+        min-width: 0;
+      }
+    }
+  }
+}
+
+.grid--fourcol--25 {
+  .list-container__inner {
+    gap: $mobile-height-gutter;
+    @include grid-base;
+    @include breakpoint(sm) {
+      @include fourcol-grid;
+    }
+  }
+}
+
+// Declare which containers to query.
+@supports (contain: inline-size) {
+  .grid__column,
+  .column-container {
+    container-type: inline-size;
+    container-name: column;
+  }
+}

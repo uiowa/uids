@@ -1,16 +1,24 @@
 import UidsCard from './Card.vue'
 import UidsGrid from '../grid/Grid.vue'
 import UidsGridItem from '../grid/GridItem.vue'
-import card_image from '../../assets/images/viewbook/sections/122.jpg'
-import person_image from '../../assets/images/viewbook/sections/herky2.jpeg'
+import card_image from '../../assets/images/demo/122.jpg'
+import person_image from '../../assets/images/demo/herky2.jpeg'
 import Background from '../shared/background'
 import Borderless from '../shared/borderless'
 import Media from '../shared/media'
-import { parameters } from '../../../.storybook/preview'
+import preview from '../../../.storybook/preview'
 
 export default {
+  parameters: {
+    docs: {
+      source: {
+        code: null,
+      },
+    },
+  },
   title: 'Components/Card',
   component: UidsCard,
+  tags: ['autodocs'],
   argTypes: {
     // Props
     headline_style: {
@@ -168,8 +176,37 @@ export default {
         category: 'Container',
       },
     },
+    grid_type: {
+      name: 'Grid',
+      options: [
+        'onecol',
+        'onecol__narrow',
+        'twocol--50-50',
+        'threecol--33-34-33',
+        'fourcol--25',
+      ],
+      control: {
+        type: 'select',
+        labels: {
+          'onecol': 'One column',
+          'onecol__narrow': 'One column (narrow)',
+          'twocol--50-50': 'Two columns',
+          'threecol--33-34-33': 'Three columns',
+          'fourcol--25': 'Four columns',
+        }
+      },
+      table: {
+        category: 'Container',
+      },
+    },
+    record_count: {
+      name: '# of records',
+      table: {
+        category: 'Container',
+      },
+    }
   },
-}
+};
 
 // More on component templates: https://storybook.js.org/docs/vue/writing-stories/introduction#using-args
 const Template = (args) => ({
@@ -304,7 +341,7 @@ PersonProfile.args = {
 }
 PersonProfile.parameters = {
   viewport: {
-    viewports: parameters.viewport.viewports,
+    viewports: preview.parameters.viewport.viewports,
     defaultViewport: 'tablet',
   },
 }
@@ -338,8 +375,8 @@ const GridTemplate = (args) => ({
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
     <div :class="args.section_background" style="padding-top: 2rem; padding-bottom: 2rem;">
-      <uids-grid :type="args.type">
-        <uids-grid-item v-for="item in args.records" :key="item">
+      <uids-grid :type="args.grid_type">
+        <uids-grid-item v-for="item in args.record_count" :key="item">
           <uids-card
             :url="args.url"
             :link_text="args.link_text"
@@ -367,9 +404,24 @@ const GridTemplate = (args) => ({
   `,
 })
 
-export const Grid3Columns = GridTemplate.bind({})
-Grid3Columns.args = {
+export const Grid = GridTemplate.bind({})
+Grid.args = {
   ...Default.args,
-  type: 'threecol--33-34-33',
-  records: 3,
+  grid_type: 'threecol--33-34-33',
+  record_count: 3,
+}
+
+export const MediaDate = GridTemplate.bind({})
+MediaDate.args = {
+  ...Default.args,
+  orientation: 'left',
+  media_size: 'default',
+  media_shape: 'no-crop',
+  media:
+    '<div class="media--date">\n' +
+    '  <span class="media--date__month">June</span>\n' +
+    '  <span class="media--date__day">9</span>\n' +
+    '</div>',
+  grid_type: 'onecol',
+  record_count: 1,
 }
