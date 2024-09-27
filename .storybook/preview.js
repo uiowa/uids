@@ -165,3 +165,4 @@ export default {
     },
   },
 };
+export const tags = ['autodocs', 'autodocs', 'autodocs'];
