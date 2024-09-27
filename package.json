@@ -1,6 +1,8 @@
 {
   "name": "uids",
-  "version": "4.0.0-alpha1",
+  "type": "module",
+  "version": "4.0.0-alpha5",
+  "license": "MIT",
   "description": "The UIowa Design System is specific to the University of Iowa.",
   "keywords": [
     "uiowa",
@@ -15,8 +17,9 @@
     "require": "dist/uids.umd.js"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "dev": "sass --watch src/scss:dist",
+    "build": "sass src/scss:dist",
+    "production": "storybook build -o www && sass src/scss:www/dist/css",
     "preview": "vite preview --port 5050",
     "test:unit": "vitest --environment jsdom",
     "test:e2e": "start-server-and-test preview http://127.0.0.1:5050/ 'cypress open'",
