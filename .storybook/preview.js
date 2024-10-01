@@ -61,6 +61,7 @@ const customViewports = {
 
 export default {
   parameters: {
+    disableSaveFromUI: true,
     docs: {
       page: DocumentationTemplate,
       toc: true,
@@ -145,6 +146,7 @@ export default {
       ],
     },
     controls: {
+      disableSaveFromUI: true,
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/,
