@@ -61,7 +61,6 @@ const customViewports = {
 
 export default {
   parameters: {
-    disableSaveFromUI: true,
     docs: {
       page: DocumentationTemplate,
       toc: true,
@@ -154,6 +153,7 @@ export default {
     },
     // More on viewports https://storybook.js.org/docs/react/essentials/viewport.
     viewport: {
+      defaultViewport: 'reset',
       viewports: {
         ...MINIMAL_VIEWPORTS,
         ...customViewports,
