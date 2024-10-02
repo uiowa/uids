@@ -22,6 +22,13 @@ const config = {
     return mergeConfig(config, {
       plugins: [vue()],
       base: process.env.BASE_URL || config.base,
+      css: {
+        preprocessorOptions: {
+          scss: {
+            api: "modern",
+          },
+        },
+      },
     });
   },
   docs: {
