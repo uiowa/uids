@@ -2,6 +2,7 @@ import UidsStub from "../../components/stub/Stub.vue";
 
 export default {
   title: 'Not implemented/Stat',
+  tags: ['!autodocs'],
   // https://github.com/storybookjs/storybook/issues/14442#issuecomment-1089165153
   parameters: {
     docs: {

@@ -1,6 +1,6 @@
 // .storybook/manager.js
 
-import { addons } from '@storybook/addons';
+import { addons } from '@storybook/manager-api';
 import uidsTheme from './uidsTheme';
 
 addons.setConfig({

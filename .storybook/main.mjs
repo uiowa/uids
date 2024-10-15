@@ -1,35 +1,39 @@
-const config = {
-  staticDirs: ['../public'],
-  "stories": [
-    "../src/**/*.mdx",
-    "../src/**/*.stories.mdx",
-    "../src/**/*.stories.@(js|jsx|ts|tsx)"
-  ],
+import { mergeConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
 
-  "addons": [
-    "@storybook/addon-links",
+const config = {
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  addons: [
+    '@storybook/addon-links',
     {
-      name: "@storybook/addon-essentials",
+      name: '@storybook/addon-essentials',
       options: {
         actions: false,
       },
     },
-    "@storybook/preset-scss",
-    "@whitespace/storybook-addon-html",
+    '@storybook/preset-scss',
+    '@whitespace/storybook-addon-html',
   ],
-
-  "framework": {
-    name: "@storybook/vue3-vite",
-    options: {}
+  framework: {
+    name: '@storybook/vue3-vite',
+    options: {},
   },
-
   async viteFinal(config, { configType }) {
-    config.base = process.env.BASE_URL || config.base;
-
-    // return the customized config
-    return config;
+    return mergeConfig(config, {
+      plugins: [vue()],
+      base: process.env.BASE_URL || config.base,
+      css: {
+        preprocessorOptions: {
+          scss: {
+            api: "modern",
+          },
+        },
+      },
+    });
   },
-
+  docs: {
+    autodocs: true,
+  },
 };
 
 export default config;
