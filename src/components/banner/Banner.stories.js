@@ -4,6 +4,7 @@ import UidsStub from "../../components/stub/Stub.vue";
 export default {
   title: 'Not implemented/Banner',
   component: UidsBanner,
+  tags: ['!autodocs'],
   argTypes: {
     media: {
       control: 'text',
