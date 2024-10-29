@@ -11,7 +11,14 @@ const config = {
         actions: false,
       },
     },
-    '@storybook/preset-scss',
+    {
+      name: 'storybook-addon-sass-postcss',
+      options: {
+        sassLoaderOptions: {
+          implementation: require('sass'),
+        }
+      },
+    },
     '@whitespace/storybook-addon-html',
   ],
   framework: {
