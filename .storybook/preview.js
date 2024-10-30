@@ -65,6 +65,11 @@ export default {
       page: DocumentationTemplate,
       toc: true,
       theme: uidsTheme,
+      canvas: {
+        // This will remove the "show code" button
+        // https://storybook.js.org/docs/api/doc-blocks/doc-block-canvas#sourcestate
+        sourceState: "none"
+      },
       components: {
         p: pStyles,
         li: liStyles,
