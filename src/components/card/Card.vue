@@ -211,6 +211,9 @@ onMounted(() => {
     </div>
 
     <div class="card__body">
+      <div v-if="$slots.pre_title" class="card__pre-title">
+        <slot name="pre_title"></slot>
+      </div>
       <header v-if="$slots.title">
         <uids-headline :text_style="headline_style">
           <!-- @slot The title of the card. HTML is allowed. -->

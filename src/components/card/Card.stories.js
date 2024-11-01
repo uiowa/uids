@@ -21,6 +21,13 @@ export default {
   tags: ['autodocs'],
   argTypes: {
     // Props
+    pre_title: {
+      name: 'Pre Title',
+      control: { type: 'text' },
+      table: {
+        category: 'Content',
+      },
+    },
     headline_style: {
       name: 'Title style',
       options: ['serif', ''],
@@ -236,6 +243,7 @@ const Template = (args) => ({
             :media_padded="args.media_padded"
             :centered="args.centered"
           >
+            <template #pre_title v-if="args.pre_title"><span v-html="args.pre_title"></span></template>
             <template #media v-if="args.media"><span v-html="args.media" ></span></template>
             <template #title v-if="args.title"><div v-html="args.title" ></div></template>
             <template #subtitle v-if="args.subtitle"><div v-html="args.subtitle" ></div></template>
@@ -363,6 +371,12 @@ export const ButtonAlignedToBottom = Template.bind({})
 ButtonAlignedToBottom.args = {
   ...Default.args,
   button_align_bottom: true,
+}
+
+export const PreTitle = Template.bind({})
+PreTitle.args = {
+  ...Default.args,
+  pre_title: '<span role="presentation" class="fas fa-solid fa-thumbtack"></span> Pinned',
 }
 
 const GridTemplate = (args) => ({
