@@ -243,8 +243,8 @@ const Template = (args) => ({
             :media_padded="args.media_padded"
             :centered="args.centered"
           >
-            <template #pre_title v-if="args.pre_title"><span v-html="args.pre_title"></span></template>
             <template #media v-if="args.media"><span v-html="args.media" ></span></template>
+            <template #pre_title v-if="args.pre_title"><span v-html="args.pre_title"></span></template>
             <template #title v-if="args.title"><div v-html="args.title" ></div></template>
             <template #subtitle v-if="args.subtitle"><div v-html="args.subtitle" ></div></template>
             <template #meta v-if="args.meta"><div v-html="args.meta" ></div></template>
@@ -260,6 +260,7 @@ export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
 Default.args = {
   media: '<img src="' + card_image + '" alt="Alt">',
+  pre_title: '',
   title: 'Arts and Culture',
   subtitle: '',
   meta: '',
