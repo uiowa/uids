@@ -22,7 +22,7 @@ export default {
   argTypes: {
     // Props
     pre_title: {
-      name: 'Pre Title',
+      name: 'Pre-title',
       control: { type: 'text' },
       table: {
         category: 'Content',
