@@ -65,6 +65,11 @@ export default {
       page: DocumentationTemplate,
       toc: true,
       theme: uidsTheme,
+      canvas: {
+        // This will remove the "show code" button
+        // https://storybook.js.org/docs/api/doc-blocks/doc-block-canvas#sourcestate
+        sourceState: "none"
+      },
       components: {
         p: pStyles,
         li: liStyles,
@@ -145,6 +150,7 @@ export default {
       ],
     },
     controls: {
+      disableSaveFromUI: true,
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/,
@@ -152,6 +158,7 @@ export default {
     },
     // More on viewports https://storybook.js.org/docs/react/essentials/viewport.
     viewport: {
+      defaultViewport: 'reset',
       viewports: {
         ...MINIMAL_VIEWPORTS,
         ...customViewports,
@@ -165,3 +172,4 @@ export default {
     },
   },
 };
+export const tags = ['autodocs', 'autodocs', 'autodocs'];
