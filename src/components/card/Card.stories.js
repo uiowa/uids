@@ -21,6 +21,13 @@ export default {
   tags: ['autodocs'],
   argTypes: {
     // Props
+    pre_title: {
+      name: 'Pre-title',
+      control: { type: 'text' },
+      table: {
+        category: 'Content',
+      },
+    },
     headline_style: {
       name: 'Title style',
       options: ['serif', ''],
@@ -237,6 +244,7 @@ const Template = (args) => ({
             :centered="args.centered"
           >
             <template #media v-if="args.media"><span v-html="args.media" ></span></template>
+            <template #pre_title v-if="args.pre_title"><span v-html="args.pre_title"></span></template>
             <template #title v-if="args.title"><div v-html="args.title" ></div></template>
             <template #subtitle v-if="args.subtitle"><div v-html="args.subtitle" ></div></template>
             <template #meta v-if="args.meta"><div v-html="args.meta" ></div></template>
@@ -252,6 +260,7 @@ export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
 Default.args = {
   media: '<img src="' + card_image + '" alt="Alt">',
+  pre_title: '',
   title: 'Arts and Culture',
   subtitle: '',
   meta: '',
@@ -363,6 +372,12 @@ export const ButtonAlignedToBottom = Template.bind({})
 ButtonAlignedToBottom.args = {
   ...Default.args,
   button_align_bottom: true,
+}
+
+export const PreTitle = Template.bind({})
+PreTitle.args = {
+  ...Default.args,
+  pre_title: '<span role="presentation" class="fas fa-solid fa-thumbtack"></span> Pinned',
 }
 
 const GridTemplate = (args) => ({

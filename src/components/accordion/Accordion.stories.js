@@ -2,6 +2,8 @@ import UidsStub from '../../components/stub/Stub.vue';
 
 export default {
   title: 'Not implemented/Accordion',
+  component: UidsStub,
+  tags: ['!autodocs'],
   // https://github.com/storybookjs/storybook/issues/14442#issuecomment-1089165153
   parameters: {
     docs: {
@@ -32,4 +34,4 @@ const Template = (args) => ({
   `,
 });
 
-export const Accordion = Template.bind({})
+export const Accordion = Template.bind({});
