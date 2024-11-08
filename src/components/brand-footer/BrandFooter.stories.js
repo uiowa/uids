@@ -1,4 +1,6 @@
 import UidsIowaFooter from './BrandFooter.vue'
+import BrandFooterDocs from './BrandFooterDocs.mdx';
+import BrandBarDocs from '../brand-bar/BrandBarDocs.mdx';
 
 const socialLinks = [
   { icon: 'facebook-square', text: 'Facebook' },
@@ -64,7 +66,15 @@ export default {
       control: { type: 'text' },
     },
   },
-}
+parameters: {
+  docs: {
+    source: {
+      code: null,
+    },
+    page: BrandBarDocs,
+  },
+},
+};
 
 const Template = (args) => ({
   components: { UidsIowaFooter },
