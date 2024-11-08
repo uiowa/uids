@@ -7,13 +7,17 @@ export default {
   name: 'uids-iowa-footer',
   components: { UidsLogo },
   props: {
-    second_row_content: {
+    parent_site_title: {
       type: String,
       default: '',
     },
-    third_row_content: {
+    contact_info: {
       type: String,
       default: '',
+    },
+    healthcare: {
+      type: Boolean,
+      default: false,
     },
 
   },
@@ -40,13 +44,13 @@ export default {
   <footer :class="getClasses">
     <div class="footer__container footer__container--flex">
       <div class="footer__links footer__links--contact">
-        <uids-logo></uids-logo>
+        <uids-logo :healthcare="healthcare" context="footer"></uids-logo>
         <!-- @slot Default slot shows content next to the logo. -->
         <slot></slot>
-        <div v-if="second_row_content">
-          <slot name="second_row_content"></slot>
+        <div v-if="parent_site_title">
+          <slot name="parent_site_title"></slot>
         </div>
-          <slot name="third_row_content"></slot>
+          <slot name="contact_info"></slot>
         <div class="socket">
           <ul class="socket__menu">
             <li>© {{ getYear }} The University of Iowa</li>

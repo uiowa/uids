@@ -56,8 +56,7 @@ export default {
 <template>
   <header :class="getClasses" data-uids-header>
     <div class="iowa-bar__container">
-      <uids-logo :healthcare="healthcare">
-      </uids-logo>
+      <uids-logo :healthcare="healthcare" context="header"></uids-logo>
       <!-- @slot Default slot shows content next to the logo. -->
       <slot></slot>
     </div>

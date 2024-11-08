@@ -1,16 +1,66 @@
 import UidsIowaFooter from './BrandFooter.vue'
 
+const socialLinks = [
+  { icon: 'facebook-square', text: 'Facebook' },
+  { icon: 'twitter-square', text: 'Twitter' },
+  { icon: 'instagram', text: 'Instagram' },
+  { icon: 'snapchat', text: 'Snapchat' },
+  { icon: 'youtube', text: 'Youtube' },
+  { icon: 'linkedin', text: 'LinkedIn' },
+  { icon: 'pinterest', text: 'Pinterest' }
+];
+
+const contactInfo = `
+  <p>
+    300 Plaza Centre One<br>
+    Iowa City, Iowa 52242<br>
+    <a href="tel:319-384-0019">
+      <span class="fa-phone fas" role="presentation"></span> 319-384-0019
+    </a><br>
+    <a href="mailto:osc-brand@uiowa.edu?subject=OSC Contact Email:">
+      <span class="fa-envelope fas" role="presentation"></span> osc-brand@uiowa.edu
+    </a>
+  </p>
+`;
+
+const socialNav = `
+  <nav role="navigation">
+    <ul class="menu">
+      ${socialLinks.map(link => `
+        <li>
+          <a href="https://uiowa.edu/">
+            <i class="fab fa-${link.icon}"></i>
+            <span class="link-text">${link.text}</span>
+          </a>
+        </li>
+      `).join('')}
+    </ul>
+  </nav>
+`;
+
+// Define default args that will be shared across all stories
+const defaultArgs = {
+  default: 'Brand Manual',
+  healthcare: false,
+  parent_site_title: 'Office of Strategic Communication',
+  contact_info: contactInfo + socialNav
+};
+
 export default {
   title: 'Components/Branding/Brand Footer',
   component: UidsIowaFooter,
+  args: defaultArgs, // Set default args at the component level
   argTypes: {
     default: {
       control: { type: 'text' },
     },
-    second_row_content: {
+    healthcare: {
+      control: { type: 'boolean' },
+    },
+    parent_site_title: {
       control: { type: 'text' },
     },
-    third_row_content: {
+    contact_info: {
       control: { type: 'text' },
     },
   },
@@ -22,18 +72,15 @@ const Template = (args) => ({
     return { args }
   },
   template: `
-    <uids-iowa-footer>
-    <div v-html="args.default"></div>
+    <uids-iowa-footer :healthcare="args.healthcare">
+      <div v-html="args.default"></div>
+      <div class="footer__links footer__links--icon" v-html="args.contact_info"></div>
     </uids-iowa-footer>
   `,
 })
 
-export const Default = Template.bind({})
-Default.args = {
-  default: 'Brand',
-  second_row_content: 'OSC',
-  third_row_content: '<a href="https://uiowa.edu/"><i class="fab fa-youtube"></i><span class="link-text">Youtube</span></a>',
-}
+export const Default = Template.bind({});
+Default.args = {};
 
 const SiteTitleTemplate = (args) => ({
   components: { UidsIowaFooter },
@@ -41,17 +88,15 @@ const SiteTitleTemplate = (args) => ({
     return { args }
   },
   template: `
-    <uids-iowa-footer>
-    <div class="site-name">{{ args.default }}</div>
-    <div class="footer__links footer__links--icon" v-html="args.third_row_content" ></div>
+    <uids-iowa-footer :healthcare="args.healthcare">
+      <div class="site-name">{{ args.default }}</div>
+      <div class="footer__links footer__links--icon" v-html="args.contact_info" ></div>
     </uids-iowa-footer>
-`
+  `
 })
 
 export const WithSiteTitle = SiteTitleTemplate.bind({})
-WithSiteTitle.args = {
-  ...Default.args,
-}
+WithSiteTitle.args = {};
 
 const ParentSiteTitleTemplate = (args) => ({
   components: { UidsIowaFooter },
@@ -59,15 +104,13 @@ const ParentSiteTitleTemplate = (args) => ({
     return { args }
   },
   template: `
-    <uids-iowa-footer>
+    <uids-iowa-footer :healthcare="args.healthcare">
       <div class="site-name">{{ args.default }}</div>
-      <div class="parent-site-name">{{ args.second_row_content  }}</div>
-      <div class="footer__links footer__links--icon" v-html="args.third_row_content" ></div>
+      <div class="parent-site-name">{{ args.parent_site_title  }}</div>
+      <div class="footer__links footer__links--icon" v-html="args.contact_info" ></div>
     </uids-iowa-footer>
-`
+  `
 })
 
 export const WithParentSiteTitle = ParentSiteTitleTemplate.bind({})
-WithParentSiteTitle.args = {
-  ...Default.args,
-}
+WithParentSiteTitle.args = {};
