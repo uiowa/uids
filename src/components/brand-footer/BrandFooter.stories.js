@@ -1,7 +1,7 @@
 import UidsIowaFooter from './BrandFooter.vue'
 
 export default {
-  title: 'Branding/Brand Footer',
+  title: 'Components/Branding/Brand Footer',
   component: UidsIowaFooter,
   argTypes: {
     default: {

@@ -1,6 +1,6 @@
 <script lang="ts">
 import { computed } from "vue"
-import './brand-footer.scss'
+import '../../scss/components/brand-footer.scss'
 import UidsLogo from '../logo/Logo.vue'
 
 export default {
