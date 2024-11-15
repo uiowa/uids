@@ -7,6 +7,7 @@ export default {
   argTypes: {
     type: {
       control: 'select',
+      name: 'Type',
       options: ['primary', 'secondary', 'cool-gray', 'blue', 'green', 'orange'],
       description: 'The color type of the badge',
       table: {
@@ -15,6 +16,7 @@ export default {
     },
     text: {
       control: 'text',
+      name: 'Text',
       description: 'The text to display in the badge',
     },
   },

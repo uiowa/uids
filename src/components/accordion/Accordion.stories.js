@@ -1,37 +1,45 @@
-import UidsStub from '../../components/stub/Stub.vue';
+import Accordion from './Accordion.vue';
 
 export default {
-  title: 'Not implemented/Accordion',
-  component: UidsStub,
-  tags: ['!autodocs'],
-  // https://github.com/storybookjs/storybook/issues/14442#issuecomment-1089165153
-  parameters: {
-    docs: {
-      source: {
-        code: null,
-      },
+  title: 'Components/Accordion',
+  component: Accordion,
+  argTypes: {
+    multiselectable: {
+      control: 'boolean',
+      name: 'Multi select'
     },
-    options: {
-      showPanel: false,
+    items: {
+      control: false,
+      table: {
+        disable: true,
+      },
     },
   },
 };
 
 const Template = (args) => ({
-  // Components used in your story `template` are defined in the `components` object
-  components: { UidsStub },
-  // The story's `args` need to be mapped into the template through the `setup()` method
+  components: { Accordion },
   setup() {
     return { args };
   },
-  // And then the `args` are bound to your component with `v-bind="args"`
   template: `
-    <uids-stub
-      path="accordion.html"
-      title="Accordion"
-    >
-    </uids-stub>
+    <Accordion v-bind="args" />
   `,
 });
 
-export const Accordion = Template.bind({});
+export const Default = Template.bind({});
+Default.args = {
+  multiselectable: false,
+  items: [
+    { title: 'Set 1 - Chocolate Chip Cookie', expanded: true, content: '<p>Details about chocolate chip cookies.</p>' },
+    { title: 'Set 1 - Sugar Cookie', content: '<p>Details about sugar cookies.</p>' },
+    { title: 'Set 2 - Snickerdoodle Cookies', content: '<p>Details about snickerdoodles.</p>' },
+    { title: 'Set 2 - Oatmeal Raisin', content: '<p>Details about oatmeal raisin cookies.</p>' },
+  ],
+};
+
+export const MultiSelect = Template.bind({});
+MultiSelect.args = {
+  ...Default.args, // Spread Default.args instead of MultiSelect.args
+  multiselectable: true,
+};

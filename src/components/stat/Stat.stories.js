@@ -8,28 +8,28 @@ export default {
   argTypes: {
     display: {
       control: 'select',
+      name: 'Display',
       options: ['default', 'horizontal'],
-      description: 'Display style of the stat',
     },
     stat_title: {
       control: 'text',
-      description: 'The main statistic number/text',
+      name: 'Title',
     },
     stat_summary: {
       control: 'text',
-      description: 'Description of the statistic',
+      name: 'Summary',
     },
     stat_content: {
       control: 'text',
-      description: 'Additional content below the summary',
+      name: 'Content',
     },
     stat_prefix: {
       control: 'text',
-      description: 'Text/symbol to display before the title',
+      name: 'Prefix',
     },
     stat_suffix: {
       control: 'text',
-      description: 'Text/symbol to display after the title',
+      name: 'Suffix',
     },
     ...Background.argTypes,
   },
