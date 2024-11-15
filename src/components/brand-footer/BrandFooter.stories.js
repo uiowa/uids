@@ -75,7 +75,7 @@ parameters: {
     source: {
       code: null,
     },
-    page: BrandBarDocs,
+    page: BrandFooterDocs,
   },
 },
 };
