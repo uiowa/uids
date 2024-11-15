@@ -1,16 +1,19 @@
+@use "sass:map";
+@use "sass:string";
+
 // Placeholders
 // Adapted from https://alistapart.com/article/dry-ing-out-your-sass-mixins/
 // and https://github.com/at-import/toolkit
 $Uids-Placeholders: () !default;
 
 @function uids-placeholder-set($id) {
-  $unique-id: unique-id();
-  $Uids-Placeholders: map-merge($Uids-Placeholders, ($id: $unique-id)) !global;
+  $unique-id: string.unique-id();
+  $Uids-Placeholders: map.merge($Uids-Placeholders, ($id: $unique-id)) !global;
   @return $unique-id;
 }
 
 @function uids-placeholder-get($id) {
-  @return map-get($Uids-Placeholders, $id);
+  @return map.get($Uids-Placeholders, $id);
 }
 
 @mixin uids-dynamic-extend($id) {

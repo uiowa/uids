@@ -55,15 +55,19 @@ export default {
   argTypes: {
     default: {
       control: { type: 'text' },
+      name: 'Site name'
     },
     healthcare: {
       control: { type: 'boolean' },
+      name: 'Healthcare'
     },
     parent_site_title: {
       control: { type: 'text' },
+      name: 'Parent site name'
     },
     contact_info: {
       control: { type: 'text' },
+      name: 'Contact information'
     },
   },
 parameters: {
@@ -106,7 +110,9 @@ const SiteTitleTemplate = (args) => ({
 })
 
 export const WithSiteTitle = SiteTitleTemplate.bind({})
-WithSiteTitle.args = {};
+WithSiteTitle.args = {
+  ...Default.args
+};
 
 const ParentSiteTitleTemplate = (args) => ({
   components: { UidsIowaFooter },
@@ -122,5 +128,7 @@ const ParentSiteTitleTemplate = (args) => ({
   `
 })
 
-export const WithParentSiteTitle = ParentSiteTitleTemplate.bind({})
-WithParentSiteTitle.args = {};
+  export const WithParentSiteTitle = ParentSiteTitleTemplate.bind({})
+  WithParentSiteTitle.args = {
+    ...Default.args
+  };
