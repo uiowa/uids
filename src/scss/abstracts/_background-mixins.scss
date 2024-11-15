@@ -1,3 +1,4 @@
+@use "sass:map";
 @import 'variables';
 @import 'placeholders';
 
@@ -119,12 +120,12 @@ $bg-to-fg-color-map: (
 @mixin add-backgrounds($before: '', $after: '', $extend: true) {
   // Loop through $backgrounds
   @each $bg-class, $background in $backgrounds {
-    $background-color: map-get($background, 'background-color');
-    $background-image: map-get($background, 'background-image');
-    $type: map-get($background, 'type');
-    $text_color: map-get($bg-to-fg-color-map, $type);
+    $background-color: map.get($background, 'background-color');
+    $background-image: map.get($background, 'background-image');
+    $type: map.get($background, 'type');
+    $text_color: map.get($bg-to-fg-color-map, $type);
     @if $text_color == null {
-      $text_color: map-get($bg-to-fg-color-map, 'default');
+      $text_color: map.get($bg-to-fg-color-map, 'default');
     }
     #{$before}.#{$bg-class}#{$after} {
       @if $background-color {
@@ -137,20 +138,6 @@ $bg-to-fg-color-map: (
     }
   }
 }
-
-//@mixin add-color-for-bgs($before: '', $after: '') {
-//  // Loop through $backgrounds
-//  @each $bg-class, $background in $backgrounds {
-//    $type: map-get($background, 'type');
-//    $text_color: map-get($bg-to-fg-color-map, $type);
-//    @if $text_color == null {
-//      $text_color: map-get($bg-to-fg-color-map, 'default');
-//    }
-//    #{$before}.#{$bg-class}#{$after} {
-//      color: unquote($text_color);
-//    }
-//  }
-//}
 
 @mixin background-treatments($before: '', $after: '') {
   @each $bg-class, $background in $backgrounds {
