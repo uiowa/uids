@@ -40,6 +40,6 @@ Default.args = {
 
 export const MultiSelect = Template.bind({});
 MultiSelect.args = {
-  ...Default.args, // Spread Default.args instead of MultiSelect.args
+  ...Default.args,
   multiselectable: true,
 };
