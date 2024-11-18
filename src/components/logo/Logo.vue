@@ -11,6 +11,11 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  context: {
+    type: String,
+    default: 'header',
+    validator: (value: string) => ['header', 'footer'].includes(value)
+  }
 });
 
 const logoLink = computed(() => {
@@ -21,9 +26,17 @@ const fallbackPath = computed(() => {
   return props.healthcare ? '../../assets/images/healthcare.png' : '../../assets/images/uiowa-primary.png';
 });
 
+const logoClasses = computed(() => {
+  return [
+    'logo',
+    props.context === 'header' ? 'logo--tab' : 'logo--footer',
+    { 'logo--healthcare': props.healthcare }
+  ];
+});
+
 </script>
 <template>
-  <div :class="['logo', 'logo--tab', { 'logo--healthcare': healthcare }]">
+  <div :class="logoClasses">
     <a :href="logoLink">
       <div class="element-invisible">{{ healthcare ? 'The University of Iowa Health Care' : 'University of Iowa' }}</div>
       <template v-if="healthcare">
