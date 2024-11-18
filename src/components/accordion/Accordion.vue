@@ -51,7 +51,7 @@ const accordionClasses = computed(() => {
           @click="toggleAccordion(index)"
         >
           {{ item.title }}
-          <i aria-hidden="true" class="fas" :class="activeIndexes.includes(index) ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+          <i aria-hidden="true" class="fas fa-chevron-up" role="presentation"></i>
         </button>
       </h2>
 

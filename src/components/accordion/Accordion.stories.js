@@ -31,10 +31,10 @@ export const Default = Template.bind({});
 Default.args = {
   multiselectable: false,
   items: [
-    { title: 'Set 1 - Chocolate Chip Cookie', expanded: true, content: '<p>Details about chocolate chip cookies.</p>' },
-    { title: 'Set 1 - Sugar Cookie', content: '<p>Details about sugar cookies.</p>' },
-    { title: 'Set 2 - Snickerdoodle Cookies', content: '<p>Details about snickerdoodles.</p>' },
-    { title: 'Set 2 - Oatmeal Raisin', content: '<p>Details about oatmeal raisin cookies.</p>' },
+    { title: 'Section 1 title', expanded: true, content: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>' },
+    { title: 'Section 2 title', content: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>' },
+    { title: 'Section 3 title', content: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>' },
+    { title: 'Section 4 title', content: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>' },
   ],
 };
 
