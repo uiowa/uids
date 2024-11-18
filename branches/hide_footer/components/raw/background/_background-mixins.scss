@@ -1,0 +1,177 @@
+@import '../../assets/scss/variables';
+@import '../../assets/scss/placeholders';
+
+$backgrounds: (
+  'bg--black--pattern--brain': (
+    'type': 'dark',
+    'background-color': $secondary,
+    'background-image': '#{$imgpath}/brain-pattern-black.svg',
+  ),
+  // @todo Remove in future version
+  'bg-pattern--brain-black': (
+    'type': 'dark',
+    'background-color': $secondary,
+    'background-image': '#{$imgpath}/brain-pattern-black.svg',
+  ),
+  'bg--black--pattern--community': (
+    'type': 'dark',
+    'background-color': $secondary,
+    'background-image': '#{$imgpath}/community-pattern--black.png',
+  ),
+  'bg--black--pattern--particle': (
+    'type': 'dark',
+    'background-color': $secondary,
+    'background-image': '#{$imgpath}/particle-pattern--black.png',
+  ),
+  'bg--black': (
+    'type': 'dark',
+    'background-color': $secondary,
+  ),
+  'bg--gold--pattern--brain': (
+    'type': 'light',
+    'background-color': $primary,
+    'background-image': '#{$imgpath}/brain-pattern-reversed.svg',
+  ),
+  // @todo Remove in future version
+  'bg-pattern--brain-reversed': (
+    'type': 'light',
+    'background-color': $primary,
+    'background-image': '#{$imgpath}/brain-pattern-reversed.svg',
+  ),
+  'bg--gold--pattern--community': (
+    'type': 'light',
+    'background-color': $primary,
+    'background-image': '#{$imgpath}/community-pattern--white.png',
+  ),
+  'bg--gold--pattern--particle': (
+    'type': 'light',
+    'background-color': $primary,
+    'background-image': '#{$imgpath}/particle-pattern.png',
+  ),
+  'bg--gold': (
+    'type': 'light',
+    'background-color': $primary,
+  ),
+  'bg--gray--pattern--brain': (
+    'type': 'light',
+    'background-color': $light,
+    'background-image': '#{$imgpath}/brain-pattern-white.svg',
+  ),
+  'bg--gray--pattern--community': (
+    'type': 'light',
+    'background-color': $light,
+    'background-image': '#{$imgpath}/community-pattern--gray.png',
+  ),
+  'bg--gray--pattern--particle': (
+    'type': 'light',
+    'background-color': $light,
+    'background-image': '#{$imgpath}/particle-pattern--white.png',
+  ),
+  'bg--gray': (
+    'type': 'light',
+    'background-color': $light,
+  ),
+  'bg--white--pattern--brain': (
+    'type': 'light',
+    'background-color': $white,
+    'background-image': '#{$imgpath}/brain-pattern.svg',
+  ),
+  // @todo Remove in future version
+  'bg-pattern--brain': (
+    'type': 'light',
+    'background-color': $white,
+    'background-image': '#{$imgpath}/brain-pattern.svg',
+  ),
+  'bg--white--pattern--community': (
+    'type': 'light',
+    'background-color': $white,
+    'background-image': '#{$imgpath}/community-pattern--gray.png',
+  ),
+  'bg--white--pattern--particle': (
+    'type': 'light',
+    'background-color': $white,
+    'background-image': '#{$imgpath}/particle-pattern--gold.png',
+  ),
+  'bg--white': (
+    'type': 'light',
+    'background-color': $white,
+  ),
+);
+
+$bg-to-fg-color-map: (
+  'default': 'dark',
+  'black': 'light',
+  'gold': 'dark',
+  'gray': 'dark',
+  'white': 'dark',
+);
+
+@mixin bg-fg-colors($bg, $shade: 'light', $extend: true) {
+  @if $extend == true {
+    @include uids-dynamic-extend($bg) {
+      @include bg-fg-colors($bg, $shade, false);
+    }
+  }
+  @else {
+    @if $shade == 'light' {
+      color: $secondary;
+
+      a {
+        color: $secondary;
+      }
+    }
+    @else {
+      color: $white;
+
+      a {
+        color: $primary;
+      }
+    }
+  }
+}
+
+@mixin add-backgrounds($before: '', $after: '', $extend: true) {
+  // Loop through $backgrounds
+  @each $bg-class, $background in $backgrounds {
+    $background-color: map-get($background, 'background-color');
+    $background-image: map-get($background, 'background-image');
+    $type: map-get($background, 'type');
+    $text_color: map-get($bg-to-fg-color-map, $type);
+    @if $text_color == null {
+      $text_color: map-get($bg-to-fg-color-map, 'default');
+    }
+    #{$before}.#{$bg-class}#{$after} {
+      @if $background-color {
+        background-color: $background-color;
+      }
+      @if $background-image {
+        background-image: url($background-image);
+      }
+    }
+    #{$before}.#{$bg-class}#{$after} {
+      @include bg-fg-colors($bg-class, $type, $extend);
+    }
+  }
+}
+
+//@mixin add-color-for-bgs($before: '', $after: '') {
+//  // Loop through $backgrounds
+//  @each $bg-class, $background in $backgrounds {
+//    $type: map-get($background, 'type');
+//    $text_color: map-get($bg-to-fg-color-map, $type);
+//    @if $text_color == null {
+//      $text_color: map-get($bg-to-fg-color-map, 'default');
+//    }
+//    #{$before}.#{$bg-class}#{$after} {
+//      color: unquote($text_color);
+//    }
+//  }
+//}
+
+@mixin background-treatments($before: '', $after: '') {
+  @each $bg-class, $background in $backgrounds {
+    .#{$bg-class} {
+      @content
+    }
+  }
+}
