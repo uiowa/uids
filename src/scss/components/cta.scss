@@ -1,6 +1,19 @@
 @import '../abstracts/variables';
 @import '../abstracts/utilities';
 
+@mixin container-query() {
+  @supports (contain: inline-size) {
+    @container column (min-width: #{$break-sm}) {
+      @content
+    }
+  }
+  @supports not (contain: inline-size) {
+    @include breakpoint(sm) {
+      @content
+    }
+  }
+}
+
 // === CTA === //
 .cta {
   padding: $xlg $mobile-width-gutter;
@@ -86,29 +99,31 @@
 // === Inline === //
 .cta--inline,
 [class*="element--inline"] {
-  @include breakpoint(md) {
-    flex-wrap: nowrap;
-    gap: 0;
+  @include container-query() {
+    @include breakpoint(md) {
+      flex-wrap: nowrap;
+      gap: 0;
 
-    .cta__link {
-      flex-basis: 30%;
-      align-self: center;
-      display: flex;
-      justify-content: center;
-    }
-
-    .cta__container {
-      display: flex;
-      margin-block-end: unset;
-
-      .cta__title {
+      .cta__link {
         flex-basis: 30%;
         align-self: center;
+        display: flex;
+        justify-content: center;
       }
 
-      .cta__content {
-        flex: 1;
-        align-self: center;
+      .cta__container {
+        display: flex;
+        margin-block-end: unset;
+
+        .cta__title {
+          flex-basis: 30%;
+          align-self: center;
+        }
+
+        .cta__content {
+          flex: 1;
+          align-self: center;
+        }
       }
     }
   }

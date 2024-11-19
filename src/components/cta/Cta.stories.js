@@ -1,5 +1,8 @@
 import UidsCta from './Cta.vue';
 import Background from "../shared/background";
+import UidsGrid from '../grid/Grid.vue';
+import UidsGridItem from '../grid/GridItem.vue';
+
 
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
@@ -173,4 +176,44 @@ export const Left = Template.bind({});
 Left.args = {
   ...Centered.args,
   orientation: 'left',
+}
+
+const GridTemplate = (args) => ({
+  // Components used in your story `template` are defined in the `components` object
+  components: { UidsGrid, UidsGridItem, UidsCta },
+  // The story's `args` need to be mapped into the template through the `setup()` method
+  setup() {
+    return { args }
+  },
+  // And then the `args` are bound to your component with `v-bind="args"`
+  template: `
+    <div :class="args.section_background" style="padding-top: 2rem; padding-bottom: 2rem;">
+      <uids-grid :type="args.grid_type">
+        <uids-grid-item v-for="item in args.record_count" :key="item">
+          <uids-cta
+            :url="args.url"
+            :background="args.background"
+            :title="args.title"
+            :button_label="args.button_label"
+            :button_icon="args.button_icon"
+            :button_align_right="args.button_align_right"
+            :details="args.details"
+            :headline_style="args.headline_style"
+            :orientation="args.orientation"
+          >
+            <template #details v-if="args.details"><div v-html="args.details" ></div></template>
+            <template #title v-if="args.title"><div :class="getClasses" v-html="args.title" ></div></template>
+            <template #button_icon v-if="args.button_icon"><span v-html="args.button_icon" ></span></template>
+          </uids-cta>
+        </uids-grid-item>
+      </uids-grid>
+    </div>
+  `,
+})
+
+export const Grid = GridTemplate.bind({})
+Grid.args = {
+  ...Centered.args,
+  grid_type: 'threecol--33-34-33',
+  record_count: 3,
 }
