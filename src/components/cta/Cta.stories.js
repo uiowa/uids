@@ -68,6 +68,53 @@ export default {
         category: 'Display options',
       },
     },
+    section_background: {
+      name: 'Section background',
+      options: [
+        '',
+        'bg--black',
+        'bg--black--pattern--brain',
+        'bg--black--pattern--community',
+        'bg--black--pattern--particle',
+        'bg--gold',
+        'bg--gold--pattern--brain',
+        'bg--gold--pattern--community',
+        'bg--gold--pattern--particle',
+        'bg--gray',
+        'bg--gray--pattern--brain',
+        'bg--gray--pattern--community',
+        'bg--gray--pattern--particle',
+        'bg--white',
+        'bg--white--pattern--brain',
+        'bg--white--pattern--community',
+        'bg--white--pattern--particle',
+      ],
+      control: {
+        type: 'select',
+        labels: {
+          '': '- None -',
+          'bg--black': 'Black',
+          'bg--black--pattern--brain': 'Black - Brain pattern',
+          'bg--black--pattern--community': 'Black - Community pattern',
+          'bg--black--pattern--particle': 'Black - Particle pattern',
+          'bg--gold': 'Gold',
+          'bg--gold--pattern--brain': 'Gold - Brain pattern',
+          'bg--gold--pattern--community': 'Gold - Community pattern',
+          'bg--gold--pattern--particle': 'Gold - Particle pattern',
+          'bg--gray': 'Gray',
+          'bg--gray--pattern--brain': 'Gray - Brain pattern',
+          'bg--gray--pattern--community': 'Gray - Community pattern',
+          'bg--gray--pattern--particle': 'Gray - Particle pattern',
+          'bg--white': 'White',
+          'bg--white--pattern--brain': 'White - Brain pattern',
+          'bg--white--pattern--community': 'White - Community pattern',
+          'bg--white--pattern--particle': 'White - Particle pattern',
+        },
+      },
+      table: {
+        category: 'Container',
+      },
+    },
     ...Background.argTypes,
   },
 };
@@ -82,6 +129,7 @@ const Template = (args) => ({
   },
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
+    <div :class="args.section_background" style="padding-top: 2rem; padding-bottom: 2rem;">
     <uids-cta
       :url="args.url"
       :background="args.background"
@@ -97,6 +145,7 @@ const Template = (args) => ({
     <template #title v-if="args.title"><div :class="getClasses" v-html="args.title" ></div></template>
     <template #button_icon v-if="args.button_icon"><span v-html="args.button_icon" ></span></template>
     </uids-cta>
+    </div>
   `,
 });
 
