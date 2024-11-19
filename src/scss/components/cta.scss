@@ -26,31 +26,31 @@
 
 // === Modifiers === //
 // === Aligned left, button right === //
-.cta--button-align-right {
-    justify-content: left;
-    text-align: left;
+.cta--button-align-right,
+[class*="bttn--right"] {
+  justify-content: left;
+  text-align: left;
+  @include breakpoint(md) {
+    flex-wrap: nowrap;
+  }
+
+  .cta__title {
+    flex-basis: 100%;
+  }
+
+  .cta__content,
+  .cta__link {
     @include breakpoint(md) {
-      flex-wrap: nowrap;
+      flex: 0 1 48%;
     }
+  }
 
-    .cta__title {
-      flex-basis: 100%;
-    }
-
-    .cta__content,
-    .cta__link {
-      @include breakpoint(md) {
-        flex: 0 1 48%;
-      }
-    }
-
-    .cta__link {
-      justify-content: end;
-      align-self: baseline;
-      display: flex;
-    }
-  &:not([class*="cta--left"]),
-  &:not([class*="element--left"]) {
+  .cta__link {
+    justify-content: flex-end;
+    align-self: baseline;
+    display: flex;
+  }
+  &:not([class*="left"]) {
     .cta__container {
       @include breakpoint(md) {
         text-align: center;
@@ -79,7 +79,7 @@
       flex-basis: 30%;
       align-self: center;
       display: flex;
-      justify-content: end;
+      justify-content: center;
     }
 
     .cta__container {

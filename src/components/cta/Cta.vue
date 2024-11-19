@@ -80,12 +80,12 @@ const buttonClasses = computed(() => {
       <div class="cta__content" v-if="details" >
         <slot name="details">{{ details }}</slot>
       </div>
+      <div class="cta__link" v-if="button_label" >
+        <uids-button :class="buttonClasses"  :url="url" size="medium">
+          <slot name="button_label">{{ button_label }}</slot>
+          <slot name="button_icon"></slot>
+        </uids-button>
+      </div>
     </div>
-    <footer class="cta__link" v-if="button_label" >
-      <uids-button :class="buttonClasses"  :url="url" size="medium">
-        <slot name="button_label">{{ button_label }}</slot>
-        <slot name="button_icon"></slot>
-      </uids-button>
-    </footer>
   </div>
 </template>
