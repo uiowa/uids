@@ -114,6 +114,9 @@
     img {
       width: 100%;
       object-fit: cover;
+      &[src$=".svg"] {
+        object-fit: unset;
+      }
     }
 
     // @todo this collides with uids_base iframe styles.
@@ -147,10 +150,17 @@
     margin-right: -2rem;
     margin-top: -2rem;
     margin-bottom: 2rem;
+    &:has(img[src$=".svg"]) {
+      background: #fff;
+    }
   }
 
   .media--circle {
     display: block;
+
+    img[src$=".svg"] {
+      padding: 15%;
+    }
 
     // We override padding for the circle format since it doesn't look good against the edges.
     // Allows the media to run edge to edge for stacked cards.
@@ -158,6 +168,9 @@
       margin-left: 0;
       margin-top: 0;
       margin-right: 0;
+      &:has(img[src$=".svg"]) {
+        border-radius: 50%;
+      }
     }
     &.media--small {
       max-width: 9.375rem;
@@ -181,12 +194,18 @@
     iframe {
       aspect-ratio: 1 / 1;
     }
+    img[src$=".svg"] {
+      transform: scale(0.6);
+    }
   }
 
   .media--widescreen {
     img,
     iframe {
       aspect-ratio: 16 / 9;
+    }
+    img[src$=".svg"] {
+      transform: scale(0.7);
     }
   }
 
@@ -381,6 +400,14 @@
   .media--date {
     @include container-query() {
       margin-top: 0;
+    }
+  }
+
+  .media--circle {
+    img[src$=".svg"] {
+      @include container-query() {
+        padding: 15%;
+      }
     }
   }
 

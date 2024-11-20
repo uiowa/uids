@@ -2,6 +2,7 @@ import UidsCard from './Card.vue'
 import UidsGrid from '../grid/Grid.vue'
 import UidsGridItem from '../grid/GridItem.vue'
 import card_image from '../../assets/images/demo/122.jpg'
+import card_icon from '../../assets/images/demo/24hour-phone-two-color.svg'
 import person_image from '../../assets/images/demo/herky2.jpeg'
 import Background from '../shared/background'
 import Borderless from '../shared/borderless'
@@ -259,7 +260,7 @@ const Template = (args) => ({
 export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
 Default.args = {
-  media: '<img src="' + card_image + '" alt="Alt">',
+  media: '<img src="' + card_icon + '" alt="Alt">',
   pre_title: '',
   title: 'Arts and Culture',
   subtitle: '',
@@ -310,8 +311,7 @@ ImageUsingUiowaIcon.args = {
   media_shape: 'circle',
   media_border: true,
   title: '24hour-phone',
-  media:
-    '<img icon="24hour-phone" variant="two-color" src="https://icons.brand.uiowa.edu/brand-icons/megaphone-bullhorn-two-color.png" alt="24hour-phone" loading="lazy" class="two-color">',
+  media: '<img src="' + card_icon + '" alt="Alt">',
   url: 'https://uiowa.edu',
   default: '',
 }
