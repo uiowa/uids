@@ -39,11 +39,6 @@
   p {
     margin-bottom: 0;
   }
-  &[class*="bg--black"] {
-    .headline {
-      color: $primary;
-    }
-  }
   .headline {
     line-height: 1.2;
   }
@@ -142,4 +137,90 @@
   }
 }
 // === End: Inline === //
+
+// === Background color adjustments === //
+[class*="bg--black"] .cta:not([class*="bg"]) {
+  .headline {
+    color: $primary;
+  }
+}
+
+.cta[class*="bg--black"] {
+  .headline {
+    color: $primary;
+  }
+}
+
+.cta__link {
+  .bttn--primary {
+
+    &:after {
+      [class*="bg--gold"] & {
+        background: $primary;
+      }
+    }
+
+    i,
+    svg {
+      [class*="bg--gold"] & {
+        color: $primary;
+      }
+    }
+
+    [class*="bg--gray"] &,
+    [class*="bg--white"] &,
+    .bg-pattern--brain & {
+      border: none;
+    }
+
+    [class*="bg--black"] [class*="bg--gold"] &,
+    [class*="bg--white"] [class*="bg--gold"] &,
+    [class*="bg--gray"] [class*="bg--gold"] &,
+    [class*="bg--gold"] [class*="bg--gold"] &,
+    [class*="bg--gold"] & {
+      background: $secondary;
+      color: #fff;
+    }
+
+
+    [class*="bg--gold"] [class*="bg--gray"] &,
+    [class*="bg--gold"] [class*="bg--white"] & {
+      background: $primary;
+      color: $secondary;
+      border: none;
+
+      i,
+      svg {
+        color: #fff;
+      }
+
+      &:after {
+        background: $secondary;
+      }
+    }
+
+    [class*="bg--gold"] [class*="bg--black"] & {
+      background: $primary;
+      color: $secondary;
+
+      i,
+      svg {
+        color: #fff;
+      }
+
+      &:after {
+        background: $secondary;
+      }
+    }
+
+    [class*="bg--black"] [class*="bg--black"] &,
+    [class*="bg--white"] [class*="bg--black"] &,
+    [class*="bg--gray"] [class*="bg--black"] &,
+    [class*="bg--black"] & {
+      color: $secondary;
+    }
+  }
+}
+
+// === End: Button color adjustments === //
 // === End: Modifiers === //
