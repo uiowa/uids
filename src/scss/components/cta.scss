@@ -22,13 +22,6 @@
   text-align: center;
   justify-content: center;
 
-  &:not([class*="left"]):not([class*="inline"]) {
-    .cta__content {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-  }
-
   > [class*="cta__"] {
     flex-basis: 100%;
     display: grid;
@@ -46,10 +39,20 @@
   p {
     margin-bottom: 0;
   }
-  .cta__title {
+  &[class*="bg--black"] {
     .headline {
-      line-height: 1.2;
+      color: $primary;
     }
+  }
+  .headline {
+    line-height: 1.2;
+  }
+}
+
+.cta:not([class*="left"]):not([class*="inline"]) {
+  .cta__content {
+    max-width: 900px;
+    margin: 0 auto;
   }
 }
 
@@ -63,9 +66,7 @@
   text-align: left;
   @include breakpoint(md) {
     flex-wrap: nowrap;
-    @include breakpoint(md) {
     display: grid;
-      }
   }
 
   .cta__title {
