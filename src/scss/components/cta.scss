@@ -151,76 +151,46 @@
   }
 }
 
-.cta__link {
-  .bttn--primary {
+@mixin button-variant($bg, $text, $after-bg: null, $icon-color: null) {
+  background: $bg;
+  color: $text;
 
+  @if $after-bg {
     &:after {
-      [class*="bg--gold"] & {
-        background: $primary;
-      }
+      background: $after-bg;
     }
+  }
 
-    i,
-    svg {
-      [class*="bg--gold"] & {
-        color: $primary;
-      }
-    }
-
-    [class*="bg--gray"] &,
-    [class*="bg--white"] &,
-    .bg-pattern--brain & {
-      border: none;
-    }
-
-    [class*="bg--black"] [class*="bg--gold"] &,
-    [class*="bg--white"] [class*="bg--gold"] &,
-    [class*="bg--gray"] [class*="bg--gold"] &,
-    [class*="bg--gold"] [class*="bg--gold"] &,
-    [class*="bg--gold"] & {
-      background: $secondary;
-      color: #fff;
-    }
-
-
-    [class*="bg--gold"] [class*="bg--gray"] &,
-    [class*="bg--gold"] [class*="bg--white"] & {
-      background: $primary;
-      color: $secondary;
-      border: none;
-
-      i,
-      svg {
-        color: #fff;
-      }
-
-      &:after {
-        background: $secondary;
-      }
-    }
-
-    [class*="bg--gold"] [class*="bg--black"] & {
-      background: $primary;
-      color: $secondary;
-
-      i,
-      svg {
-        color: #fff;
-      }
-
-      &:after {
-        background: $secondary;
-      }
-    }
-
-    [class*="bg--black"] [class*="bg--black"] &,
-    [class*="bg--white"] [class*="bg--black"] &,
-    [class*="bg--gray"] [class*="bg--black"] &,
-    [class*="bg--black"] & {
-      color: $secondary;
+  @if $icon-color {
+    i, svg {
+      color: $icon-color;
     }
   }
 }
 
+.cta__link .bttn--primary {
+  // Default gold background.
+  [class*="bg--gold"] & {
+    @include button-variant($secondary, #fff, $primary, $primary);
+
+    // Nested gold with other backgrounds.
+    &[class*="bg--gray"],
+    &[class*="bg--white"],
+    &[class*="bg--black"] {
+      @include button-variant($primary, $secondary, $secondary, #fff);
+    }
+  }
+
+  // Remove border for specific backgrounds.
+  [class*="bg--gray"] &,
+  [class*="bg--white"] & {
+    border: none;
+  }
+
+  // Black background variations.
+  [class*="bg--black"] & {
+    color: $secondary;
+  }
+}
 // === End: Button color adjustments === //
 // === End: Modifiers === //
