@@ -2,7 +2,7 @@ import UidsCard from './Card.vue'
 import UidsGrid from '../grid/Grid.vue'
 import UidsGridItem from '../grid/GridItem.vue'
 import card_image from '../../assets/images/demo/122.jpg'
-import card_icon from '../../assets/images/demo/24hour-phone-two-color.svg'
+import card_icon from '../../assets/images/demo/a-plus-paper-two-color.svg'
 import person_image from '../../assets/images/demo/herky2.jpeg'
 import Background from '../shared/background'
 import Borderless from '../shared/borderless'
@@ -260,7 +260,7 @@ const Template = (args) => ({
 export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
 Default.args = {
-  media: '<img src="' + card_icon + '" alt="Alt">',
+  media: '<img src="' + card_image + '" alt="Alt">',
   pre_title: '',
   title: 'Arts and Culture',
   subtitle: '',
@@ -422,6 +422,7 @@ const GridTemplate = (args) => ({
 export const Grid = GridTemplate.bind({})
 Grid.args = {
   ...Default.args,
+  media: '<img width="600" height="600" src="' + card_icon + '" alt="Alt">',
   grid_type: 'threecol--33-34-33',
   record_count: 3,
 }

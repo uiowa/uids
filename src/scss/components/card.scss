@@ -23,6 +23,7 @@
   flex-grow: 1;
   padding: 2rem;
   text-decoration: none;
+  gap: 2rem;
   @include border;
   @include flexbox;
   @include flex($fg: 1, $fs: 1, $fb: 0%);
@@ -116,7 +117,13 @@
       object-fit: cover;
       &[src$=".svg"] {
         object-fit: unset;
+        transform: scale(0.6);
       }
+    }
+
+    &.media--border img {
+      padding: 0;
+      border: none;
     }
 
     // @todo this collides with uids_base iframe styles.
@@ -141,6 +148,9 @@
     &.media--medium.media--circle {
       margin-left: auto;
       margin-right: auto;
+      img[src$=".svg"] {
+        width: revert-layer;
+      }
     }
   }
 
@@ -152,14 +162,25 @@
     margin-bottom: 2rem;
     &:has(img[src$=".svg"]) {
       background: #fff;
+      margin-bottom: 0;
     }
   }
 
   .media--circle {
+    &.media--border {
+      padding: 0.5rem;
+      border: 1px solid rgba(0, 0, 0, 0.125);
+      aspect-ratio: 1/1;
+    }
     display: block;
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+    img {
+      border-radius: 50%;
+    }
 
     img[src$=".svg"] {
-      padding: 15%;
+      border-radius: 0;
     }
 
     // We override padding for the circle format since it doesn't look good against the edges.
@@ -168,6 +189,7 @@
       margin-left: 0;
       margin-top: 0;
       margin-right: 0;
+      border-radius: 50%;
       &:has(img[src$=".svg"]) {
         border-radius: 50%;
       }
@@ -185,7 +207,6 @@
 
   .media--no-crop {
     flex-basis: auto;
-
     // TODO: add borders, padding, etc.
   }
 
@@ -252,7 +273,7 @@
 .card__pre-title {
   font-size: 0.75rem;
   opacity: .7;
-   i,
+  i,
   span[class*="fa-"],
   svg {
     margin-right: .2rem;
@@ -308,31 +329,14 @@
   &:not([class*="bg--"]){
     padding: 0;
 
-      .media--date {
-        margin-top: 0;
-      }
-
+    .media--date {
+      margin-top: 0;
+    }
 
     .media__inner {
       margin-left: 0;
       margin-right: 0;
       margin-top: 0;
-    }
-
-    &.card--layout-left {
-      .media__inner {
-        @include container-query() {
-          margin-right: 2rem;
-        }
-      }
-    }
-
-    &.card--layout-right {
-      .media__inner {
-        @include container-query() {
-          margin-left: 2rem;
-        }
-      }
     }
   }
 }
@@ -397,17 +401,13 @@
     }
   }
 
+  .media__inner {
+    margin-bottom: 0;
+  }
+
   .media--date {
     @include container-query() {
       margin-top: 0;
-    }
-  }
-
-  .media--circle {
-    img[src$=".svg"] {
-      @include container-query() {
-        padding: 15%;
-      }
     }
   }
 
@@ -473,12 +473,7 @@
 .card--layout-left {
   @include container-query() {
     flex-direction: row;
-
-    .media__inner,
-      // Add margin back in for media--circle since we removed it before.
-    .media--circle .media__inner {
-      margin-right: 2rem;
-    }
+    align-items: flex-start;
   }
 }
 // === End: Layout left === //
@@ -487,11 +482,7 @@
 .card--layout-right {
   @include container-query() {
     flex-direction: row-reverse;
-    .media__inner,
-      // Add margin back in for media--circle since we removed it before.
-    .media--circle .media__inner {
-      margin-left: 2rem;
-    }
+    align-items: flex-start;
   }
 }
 // === End: Layout right === //
@@ -504,26 +495,10 @@ $bg-colors: "white", "gray", "black", "gold";
   .bg--#{$color} {
     .card.bg--#{$color}[class*="borderless"] {
       padding: 0;
-        .media__inner {
-          margin-left: 0;
-          margin-right: 0;
-          margin-top: 0;
-        }
-      &.card--layout-left {
-        @include container-query() {
-          .media__inner,
-          .media--circle .media__inner {
-            margin-right: 2rem;
-          }
-        }
-      }
-      &.card--layout-right {
-        @include container-query() {
-          .media__inner,
-          .media--circle .media__inner {
-            margin-left: 2rem;
-          }
-        }
+      .media__inner {
+        margin-left: 0;
+        margin-right: 0;
+        margin-top: 0;
       }
     }
   }
