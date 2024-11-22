@@ -23,7 +23,6 @@
   flex-grow: 1;
   padding: 2rem;
   text-decoration: none;
-  gap: 2rem;
   @include border;
   @include flexbox;
   @include flex($fg: 1, $fs: 1, $fb: 0%);
@@ -115,15 +114,6 @@
     img {
       width: 100%;
       object-fit: cover;
-      &[src$=".svg"] {
-        object-fit: unset;
-        transform: scale(0.6);
-      }
-    }
-
-    &.media--border img {
-      padding: 0;
-      border: none;
     }
 
     // @todo this collides with uids_base iframe styles.
@@ -160,28 +150,10 @@
     margin-right: -2rem;
     margin-top: -2rem;
     margin-bottom: 2rem;
-    &:has(img[src$=".svg"]) {
-      background: #fff;
-      margin-bottom: 0;
-    }
   }
 
   .media--circle {
-    &.media--border {
-      padding: 0.5rem;
-      border: 1px solid rgba(0, 0, 0, 0.125);
-      aspect-ratio: 1/1;
-    }
     display: block;
-    border-radius: 50%;
-    margin-bottom: 1.5rem;
-    img {
-      border-radius: 50%;
-    }
-
-    img[src$=".svg"] {
-      border-radius: 0;
-    }
 
     // We override padding for the circle format since it doesn't look good against the edges.
     // Allows the media to run edge to edge for stacked cards.
@@ -189,10 +161,6 @@
       margin-left: 0;
       margin-top: 0;
       margin-right: 0;
-      border-radius: 50%;
-      &:has(img[src$=".svg"]) {
-        border-radius: 50%;
-      }
     }
     &.media--small {
       max-width: 9.375rem;
@@ -207,6 +175,7 @@
 
   .media--no-crop {
     flex-basis: auto;
+
     // TODO: add borders, padding, etc.
   }
 
@@ -215,9 +184,6 @@
     iframe {
       aspect-ratio: 1 / 1;
     }
-    img[src$=".svg"] {
-      transform: scale(0.6);
-    }
   }
 
   .media--widescreen {
@@ -225,8 +191,13 @@
     iframe {
       aspect-ratio: 16 / 9;
     }
-    img[src$=".svg"] {
-      transform: scale(0.7);
+    &:has([src$=".svg"]) {
+      .media__inner {
+        background: #fff;
+      }
+      img[src$=".svg"] {
+        transform: scale(0.6);
+      }
     }
   }
 
@@ -333,10 +304,27 @@
       margin-top: 0;
     }
 
+
     .media__inner {
       margin-left: 0;
       margin-right: 0;
       margin-top: 0;
+    }
+
+    &.card--layout-left {
+      .media__inner {
+        @include container-query() {
+          margin-right: 2rem;
+        }
+      }
+    }
+
+    &.card--layout-right {
+      .media__inner {
+        @include container-query() {
+          margin-left: 2rem;
+        }
+      }
     }
   }
 }
@@ -399,10 +387,6 @@
     @include container-query() {
       flex-basis: 100%;
     }
-  }
-
-  .media__inner {
-    margin-bottom: 0;
   }
 
   .media--date {
@@ -473,7 +457,12 @@
 .card--layout-left {
   @include container-query() {
     flex-direction: row;
-    align-items: flex-start;
+
+    .media__inner,
+      // Add margin back in for media--circle since we removed it before.
+    .media--circle .media__inner {
+      margin-right: 2rem;
+    }
   }
 }
 // === End: Layout left === //
@@ -482,7 +471,11 @@
 .card--layout-right {
   @include container-query() {
     flex-direction: row-reverse;
-    align-items: flex-start;
+    .media__inner,
+      // Add margin back in for media--circle since we removed it before.
+    .media--circle .media__inner {
+      margin-left: 2rem;
+    }
   }
 }
 // === End: Layout right === //
@@ -499,6 +492,22 @@ $bg-colors: "white", "gray", "black", "gold";
         margin-left: 0;
         margin-right: 0;
         margin-top: 0;
+      }
+      &.card--layout-left {
+        @include container-query() {
+          .media__inner,
+          .media--circle .media__inner {
+            margin-right: 2rem;
+          }
+        }
+      }
+      &.card--layout-right {
+        @include container-query() {
+          .media__inner,
+          .media--circle .media__inner {
+            margin-left: 2rem;
+          }
+        }
       }
     }
   }
