@@ -1,3 +1,5 @@
+@use "variables";
+
 // Headline
 
 @mixin headline {
@@ -5,7 +7,7 @@
   line-height: 1;
 
   a {
-    color: $secondary;
+    color: variables.$secondary;
     text-decoration: none;
 
     &:hover,
@@ -16,16 +18,16 @@
 }
 
 @mixin headline-negative {
-  color: $white;
+  color: variables.$white;
 
   a {
-    color: $white;
+    color: variables.$white;
   }
 }
 
 @mixin headline-uppercase {
   text-transform: uppercase;
-  font-family: $font-family-caps;
+  font-family: variables.$font-family-caps;
   -webkit-font-smoothing: auto;
   -moz-osx-font-smoothing: auto;
   font-weight: bold;
@@ -34,8 +36,8 @@
 }
 
 @mixin headline-serif {
-  font-family: $font-family-serif;
-  font-weight: $font-weight-bold;
+  font-family: variables.$font-family-serif;
+  font-weight: variables.$font-weight-bold;
 }
 
 @mixin headline-highlight {
@@ -47,39 +49,39 @@
 }
 
 @mixin headline-highlight-word {
-  background: $primary;
+  background: variables.$primary;
   display: inline;
   padding: 0.85rem 1rem;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
-  color: $secondary;
+  color: variables.$secondary;
   text-shadow: none;
   [class*="bg--gold"] & {
-    background: $secondary;
+    background: variables.$secondary;
     color: #fff;
   }
 }
 
 @mixin headline-highlight-word-uppercase {
-  background: $primary;
+  background: variables.$primary;
   display: inline-block;
   margin-bottom: .8rem;
   margin-top: .8rem;
   padding: .4rem 1.2rem .8rem;
-  color: $secondary;
+  color: variables.$secondary;
   [class*="bg--gold"] & {
-    background: $secondary;
+    background: variables.$secondary;
     color: #fff;
     font-weight: 400;
   }
   [class*="bg--gold"] [class*="bg--black"] & {
-    background: $primary;
-    color: $secondary;
+    background: variables.$primary;
+    color: variables.$secondary;
   }
 }
 
 @mixin headline-underline {
-  padding-bottom: $sm;
+  padding-bottom: variables.$sm;
 
   &:after {
     content: "";
@@ -87,7 +89,7 @@
     width: 75px;
     height: 6px;
     margin-top: 15px;
-    background: $primary;
+    background: variables.$primary;
   }
 
   &.headline--center {
@@ -100,7 +102,7 @@
   .bg-pattern--brain-reversed &,
   [class*="bg--gold"] & {
     &:after {
-      background: $light;
+      background: variables.$light;
     }
   }
 }

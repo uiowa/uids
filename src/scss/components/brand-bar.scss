@@ -1,5 +1,7 @@
-@import '../abstracts/variables';
-@import '../abstracts/utilities';
+@forward '../abstracts/variables' show $imgpath;
+@use '../abstracts/variables';
+@forward '../abstracts/utilities' show $imgpath;
+@use "../abstracts/breakpoints";
 
 // === Site Name === //
 .site-name {
@@ -10,20 +12,20 @@
   font-size: 1.8rem;
   font-weight: 300;
   line-height: 1;
-  font-family: $font-family-sans-serif;
+  font-family: variables.$font-family-sans-serif;
 
   a {
-    color: $secondary;
+    color: variables.$secondary;
     text-decoration: none;
   }
 
-  @include breakpoint(md) {
+  @include breakpoints.breakpoint(md) {
     flex-basis: content;
     margin: 1px 0 0 0;
     font-size: 2rem;
   }
 
-  @include breakpoint(page-container) {
+  @include breakpoints.breakpoint(page-container) {
     margin: 5px 0 0 0;
     text-align: left;
     font-size: 2.2rem;
@@ -33,19 +35,19 @@
 
 // === Parent Site Name === //
 .parent-site-name {
-  font-weight: $font-weight-light;
+  font-weight: variables.$font-weight-light;
   flex-basis: content;
   margin: 0 0 -10px 0;
-  padding: $md 0 0 $gutter;
+  padding: variables.$md 0 0 variables.$gutter;
   width: 100%;
-  background: $primary;
+  background: variables.$primary;
 
   a {
-    color: $secondary;
+    color: variables.$secondary;
     text-decoration: none;
   }
 
-  @include breakpoint(md) {
+  @include breakpoints.breakpoint(md) {
     background: transparent;
     display: flex;
     align-items: center;
@@ -63,26 +65,26 @@
   z-index: 2;
   display: block;
   min-height: auto;
-  background: $secondary;
+  background: variables.$secondary;
 
-  @include breakpoint(md) {
+  @include breakpoints.breakpoint(md) {
     min-height: 80px;
-    background: $primary;
+    background: variables.$primary;
   }
 
   &:not(.iowa-bar--narrow) {
-    @include breakpoint(md) {
+    @include breakpoints.breakpoint(md) {
       height: 80px;
     }
   }
 
   &.iowa-bar--healthcare {
     &:not(.iowa-bar--narrow) {
-      @include breakpoint(md) {
+      @include breakpoints.breakpoint(md) {
         height: 100px;
       }
       .logo--tab {
-        @include breakpoint(md) {
+        @include breakpoints.breakpoint(md) {
           padding-top: 27px;
         }
       }
@@ -92,7 +94,7 @@
   .logo--tab {
     margin-right: 20px;
 
-    @include breakpoint(page-container) {
+    @include breakpoints.breakpoint(page-container) {
       margin-left: -12px;
       // More padding on top in this variation.
       padding: 27px 20px 20px;
@@ -101,32 +103,32 @@
 
   .site-name {
     width: 100%;
-    padding: $gutter;
-    background: $primary;
+    padding: variables.$gutter;
+    background: variables.$primary;
 
-    @include breakpoint(md) {
+    @include breakpoints.breakpoint(md) {
       width: auto;
       background: transparent;
       padding: 0;
     }
 
-    @include breakpoint(page-container) {
+    @include breakpoints.breakpoint(page-container) {
       margin: 5px 0 0 0;
     }
   }
 
   &__container {
-    max-width: $container-width;
+    max-width: variables.$container-width;
     flex-wrap: wrap;
     justify-content: space-between;
     margin: 0 auto;
 
-    @include breakpoint(md) {
+    @include breakpoints.breakpoint(md) {
       justify-content: flex-start;
       display: flex;
     }
 
-    @include breakpoint(md) {
+    @include breakpoints.breakpoint(md) {
       margin-right: auto;
       margin-left: auto;
     }
@@ -136,12 +138,12 @@
   &--narrow {
 
     &.iowa-bar--healthcare {
-      @include breakpoint(md) {
+      @include breakpoints.breakpoint(md) {
         min-height: 50px;
         position: relative;
       }
       .logo--tab {
-        @include breakpoint(md) {
+        @include breakpoints.breakpoint(md) {
           height: 70px;
           width: 119px;
           padding: 15px;
@@ -151,14 +153,14 @@
       .logo-icon {
         height: 33px;
 
-        @include breakpoint(md) {
+        @include breakpoints.breakpoint(md) {
           height: 41px;
         }
       }
     }
 
 
-    @include breakpoint(md) {
+    @include breakpoints.breakpoint(md) {
       min-height: 50px;
       position: relative;
     }
@@ -168,13 +170,13 @@
     .logo--tab {
       margin-right: 10px;
 
-      @include breakpoint(md) {
+      @include breakpoints.breakpoint(md) {
         height: 56px;
         width: 119px;
         padding: 15px;
       }
 
-      @include breakpoint(page-container) {
+      @include breakpoints.breakpoint(page-container) {
         margin-bottom: -6px;
       }
     }
@@ -182,13 +184,13 @@
     .logo-icon {
       height: 20px;
 
-      @include breakpoint(md) {
+      @include breakpoints.breakpoint(md) {
         height: 26px;
       }
     }
 
     .parent-site-name {
-      @include breakpoint(page-container) {
+      @include breakpoints.breakpoint(page-container) {
         padding: 6px 0 0 0;
       }
     }
@@ -196,16 +198,16 @@
     .site-name {
       font-size: 1rem;
       margin: 0;
-      padding: $gutter;
-      background: $primary;
+      padding: variables.$gutter;
+      background: variables.$primary;
 
-      @include breakpoint(md) {
+      @include breakpoints.breakpoint(md) {
         background: transparent;
         font-size: 1rem;
         padding: 0;
       }
 
-      @include breakpoint(page-container) {
+      @include breakpoints.breakpoint(page-container) {
         padding: 6px 0 0 0;
       }
     }
@@ -223,7 +225,7 @@
       margin-right: 0;
       margin-left: 0;
 
-      @include breakpoint(md) {
+      @include breakpoints.breakpoint(md) {
         display: flex;
         position: unset;
         min-height: 90px;
@@ -232,7 +234,7 @@
         padding-left: 1.25rem;
       }
 
-      @include breakpoint(page-container) {
+      @include breakpoints.breakpoint(page-container) {
         margin-left: auto;
         padding-left: 0;
       }
@@ -245,14 +247,14 @@
       text-align: left;
       font-size: 1.8rem;
 
-      @include breakpoint(md) {
+      @include breakpoints.breakpoint(md) {
         width: 75%;
         padding: 25px 20px 25px 0;
         background: transparent;
         font-size: 2rem;
       }
 
-      @include breakpoint(page-container) {
+      @include breakpoints.breakpoint(page-container) {
         font-size: 2.2rem;
       }
     }

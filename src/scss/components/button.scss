@@ -1,15 +1,17 @@
-@import '../abstracts/variables';
-@import '../abstracts/utilities';
-@import 'border';
+@forward '../abstracts/variables' show $imgpath;
+@use '../abstracts/variables';
+@forward '../abstracts/utilities' show $imgpath;
+@use '../abstracts/utilities';
+@forward 'border' show $imgpath;
 
 .bttn {
-  @include bttn;
-  @include border;
+  @include utilities.bttn;
+  @include utilities.border;
 
   [class*="bg--"] &,
   [class*="bg--"] [class*="bg--"] & {
     border-color: rgba(0, 0, 0, .425);
-    color: $secondary;
+    color: variables.$secondary;
   }
 
   [class*="bg--black"] & {
@@ -18,32 +20,32 @@
 }
 // Options.
 .bttn--primary {
-  @include bttn--primary;
-  @include bttn--focus;
+  @include utilities.bttn--primary;
+  @include utilities.bttn--focus;
 
   & {
-    border-color: $primary;
-    color: $secondary;
+    border-color: variables.$primary;
+    color: variables.$secondary;
   }
 
   [class*="bg--"] [class*="bg--gray"] &,
   [class*="bg--gray"] &,
   [class*="bg--"] [class*="bg--white"] &,
   [class*="bg--white"] & {
-    border-color: $primary;
+    border-color: variables.$primary;
   }
 
   &:after {
-    background-color: $secondary;
+    background-color: variables.$secondary;
   }
 }
 
 .bttn--secondary {
-  @include bttn--secondary;
-  @include bttn--focus;
+  @include utilities.bttn--secondary;
+  @include utilities.bttn--focus;
 
   &__light {
-    @include bttn--secondary__light;
+    @include utilities.bttn--secondary__light;
   }
 
   [class*="bg--"] &,
@@ -54,8 +56,8 @@
 }
 
 .bttn--tertiary {
-  @include bttn--tertiary;
-  @include bttn--focus;
+  @include utilities.bttn--tertiary;
+  @include utilities.bttn--focus;
   & {
     background: #fff;
   }
@@ -63,8 +65,8 @@
 
 // Modifiers.
 .bttn--transparent {
-  @include bttn--transparent;
-  @include bttn--focus;
+  @include utilities.bttn--transparent;
+  @include utilities.bttn--focus;
 
   [class*="bg--black"] &,
   [class*="bg--"] [class*="bg--black"] & {
@@ -83,14 +85,14 @@
     [class*="bg--white"] &,
     [class*="bg--gold"] [class*="bg--white"] &,
     [class*="bg--gold"] [class*="bg--gray"] & {
-      color: $primary;
+      color: variables.$primary;
     }
   }
 
   [class*="bg--black"] [class*="bg--white"] &,
   [class*="bg--black"] [class*="bg--gray"] &,
   [class*="bg--black"] [class*="bg--gold"] & {
-    color: $secondary;
+    color: variables.$secondary;
   }
 }
 
@@ -118,7 +120,7 @@
     i,
     span[class*="fa-"],
     svg {
-      color: $secondary;
+      color: variables.$secondary;
       [class*="bg--"] [class*="bg--black"] &,
       [class*="bg--black"] & {
         color: #fff;
@@ -127,7 +129,7 @@
       [class*="bg--white"] &,
       [class*="bg--"] [class*="bg--gray"] &,
       [class*="bg--"] [class*="bg--gold"] & {
-        color: $secondary;
+        color: variables.$secondary;
       }
     }
   }
@@ -135,7 +137,7 @@
     i,
     span[class*="fa-"],
     svg {
-      color: $secondary;
+      color: variables.$secondary;
     }
   }
 }
@@ -157,7 +159,7 @@
 
 .bttn--caps {
   text-transform: uppercase;
-  font-family: $font-family-caps-bold;
+  font-family: variables.$font-family-caps-bold;
 }
 
 .bttn--lowercase {
@@ -167,8 +169,8 @@
 }
 
 .bttn--light-font {
-  font-family: $font-family-sans-serif;
-  font-weight: $font-weight-normal;
+  font-family: variables.$font-family-sans-serif;
+  font-weight: variables.$font-weight-normal;
   font-size: 0.9rem;
   letter-spacing: 0.04rem;
   display: inline-block;

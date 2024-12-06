@@ -1,4 +1,6 @@
-@import '../abstracts/background-mixins';
+@forward '../abstracts/background-mixins' show $imgpath;
+@use '../abstracts/background-mixins';
+@use "../abstracts/variables";
 
 [class*="bg--"] {
   a,
@@ -23,7 +25,7 @@
 }
 
 // Add background rules
-@include add-backgrounds();
+@include background-mixins.add-backgrounds();
 
 [class*="bg--"] {
   *,
@@ -58,7 +60,7 @@
 [class*="bg-"] [class*="bg--white"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
 [class*="bg--gray"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
 [class*="bg-"] [class*="bg--gray"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn) {
-  color: $link-color;
+  color: variables.$link-color;
 }
 
 // set link color for black and gold nesting.

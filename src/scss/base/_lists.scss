@@ -1,10 +1,14 @@
-@import '../abstracts/variables';
-@import '../abstracts/utilities';
+@forward '../abstracts/variables' show $imgpath;
+@use '../abstracts/variables';
+@forward '../abstracts/utilities' show $imgpath;
+@use '../abstracts/utilities';
+@use "../abstracts/breakpoints";
+@use "../abstracts/grid-mixins";
 
 ol {
   list-style-position: outside;
-  font-size: $content-font-size;
-  @include margin($top: $md, $left: $lg, $bottom: $md);
+  font-size: variables.$content-font-size;
+  @include utilities.margin($top: variables.$md, $left: variables.$lg, $bottom: variables.$md);
 }
 
 ol:not([type]) {
@@ -33,7 +37,7 @@ ol li {
 
 ul {
   list-style: disc outside;
-  font-size: $content-font-size;
+  font-size: variables.$content-font-size;
   margin-top: 1.05rem;
   margin-bottom: 1.05rem;
   margin-left: 1.875rem;
@@ -67,7 +71,7 @@ ol ol, ol ul, ul ol, ul ul {
 }
 
 dd {
-  @include margin($left: $lg);
+  @include utilities.margin($left: variables.$lg);
 }
 
 
@@ -90,9 +94,9 @@ dd {
     list-style: none;
     counter-increment: circle-counter;
     line-height: 1.7;
-    @include center(vertical);
+    @include grid-mixins.center(vertical);
 
-    @include breakpoint(sm) {
+    @include breakpoints.breakpoint(sm) {
       margin-left: 115px;
     }
 
@@ -108,19 +112,19 @@ dd {
       text-align: center;
       text-transform: uppercase;
       color: black;
-      border: 1px solid $primary;
+      border: 1px solid variables.$primary;
       border-radius: 50%;
-      background-color: $primary;
+      background-color: variables.$primary;
       box-shadow: inset 0px 0px 0px 10px white;
       text-transform: uppercase;
-      font-family: $font-family-caps;
+      font-family: variables.$font-family-caps;
       -webkit-font-smoothing: auto;
       -moz-osx-font-smoothing: auto;
       font-weight: bold;
       font-size: 2.4rem;
       line-height: 0;
 
-      @include breakpoint(sm) {
+      @include breakpoints.breakpoint(sm) {
         position: absolute;
         display: inline-block;
         margin: 0 0.5rem 0;
@@ -128,7 +132,7 @@ dd {
 
       .uids-component--gray &,
       .bg--gray & {
-        box-shadow: inset 0px 0px 0px 10px $light;
+        box-shadow: inset 0px 0px 0px 10px variables.$light;
       }
     }
   }
