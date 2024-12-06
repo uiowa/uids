@@ -1,37 +1,45 @@
-import UidsStub from '../../components/stub/Stub.vue';
+import Accordion from './Accordion.vue';
 
 export default {
-  title: 'Not implemented/Accordion',
-  component: UidsStub,
-  tags: ['!autodocs'],
-  // https://github.com/storybookjs/storybook/issues/14442#issuecomment-1089165153
-  parameters: {
-    docs: {
-      source: {
-        code: null,
-      },
+  title: 'Components/Accordion',
+  component: Accordion,
+  argTypes: {
+    multiselectable: {
+      control: 'boolean',
+      name: 'Multi select'
     },
-    options: {
-      showPanel: false,
+    items: {
+      control: false,
+      table: {
+        disable: true,
+      },
     },
   },
 };
 
 const Template = (args) => ({
-  // Components used in your story `template` are defined in the `components` object
-  components: { UidsStub },
-  // The story's `args` need to be mapped into the template through the `setup()` method
+  components: { Accordion },
   setup() {
     return { args };
   },
-  // And then the `args` are bound to your component with `v-bind="args"`
   template: `
-    <uids-stub
-      path="accordion.html"
-      title="Accordion"
-    >
-    </uids-stub>
+    <Accordion v-bind="args" />
   `,
 });
 
-export const Accordion = Template.bind({});
+export const Default = Template.bind({});
+Default.args = {
+  multiselectable: false,
+  items: [
+    { title: 'Section 1 title', expanded: true, content: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>' },
+    { title: 'Section 2 title', content: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>' },
+    { title: 'Section 3 title', content: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>' },
+    { title: 'Section 4 title', content: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>' },
+  ],
+};
+
+export const MultiSelect = Template.bind({});
+MultiSelect.args = {
+  ...Default.args,
+  multiselectable: true,
+};
