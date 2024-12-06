@@ -1,0 +1,46 @@
+{% if multiselectable == true %}
+  {% set accordion_type = 'multi' %}
+{% else %}
+  {% set accordion_type = 'single' %}
+{% endif %}
+
+{% if names is empty %}
+  {% set names = {
+    0: 'chocolate_chip',
+    1: 'sugar',
+    2: 'snickerdoodle',
+    3: 'oatmeal',
+  }
+  %}
+{% endif %}
+
+<div class="accordion
+  {% if multiselectable %} accordion--{{ accordion_type }}{% endif %}"
+  role="tablist"
+  aria-multiselectable="{{ multiselectable }}"
+>
+  {% set accordion_item_number = 0 %}
+  {% for item in items %}
+    <!-- Use the accurate heading level to maintain the document outline -->
+    <h2 id="{{ names[accordion_item_number] }}"
+      class="accordion__heading"
+    >
+      <button class="accordion__button"
+        role="tab"
+        aria-selected="{{ item.expanded | default('false') }}"
+        aria-expanded="{{ item.expanded | default('false') }}"
+        aria-controls="{{ accordion_type }}-select-{{ accordion_item_number }}"
+      >
+        {{ item.title }}
+        <i aria-hidden="true" focusable="false" class="fas fa-chevron-up"></i>
+      </button>
+    </h2>
+    <div id="{{ accordion_type }}-select-{{ accordion_item_number }}"
+      aria-labelledby="{{ names[accordion_item_number] }}"
+      class="accordion__content bg--white"
+    >
+      {{ item.content }}
+    </div>
+    {% set accordion_item_number = accordion_item_number + 1 %}
+  {% endfor %}
+</div>
