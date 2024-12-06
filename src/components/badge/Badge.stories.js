@@ -1,36 +1,68 @@
-import UidsStub from "../../components/stub/Stub.vue";
+import UidsBadge from './Badge.vue';
 
 export default {
-  title: 'Not implemented/Badge',
-  tags: ['!autodocs'],
-  // https://github.com/storybookjs/storybook/issues/14442#issuecomment-1089165153
-  parameters: {
-    docs: {
-      source: {
-        code: null,
+  title: 'Components/Badge',
+  component: UidsBadge,
+  tags: ['autodocs'],
+  argTypes: {
+    type: {
+      control: 'select',
+      name: 'Type',
+      options: ['primary', 'secondary', 'cool-gray', 'blue', 'green', 'orange'],
+      description: 'The color type of the badge',
+      table: {
+        defaultValue: { summary: 'primary' },
       },
     },
-    options: {
-      showPanel: false,
+    text: {
+      control: 'text',
+      name: 'Text',
+      description: 'The text to display in the badge',
     },
   },
 };
 
 const Template = (args) => ({
-  // Components used in your story `template` are defined in the `components` object
-  components: { UidsStub },
-  // The story's `args` need to be mapped into the template through the `setup()` method
+  components: { UidsBadge },
   setup() {
     return { args };
   },
-  // And then the `args` are bound to your component with `v-bind="args"`
-  template: `
-    <uids-stub
-      path="badge.html"
-      title="Badge"
-    >
-    </uids-stub>
-  `,
+  template: '<uids-badge v-bind="args" />',
 });
 
-export const Badge = Template.bind({})
+// Individual types
+export const Default = Template.bind({});
+Default.args = {
+  type: 'primary',
+  text: 'Primary',
+};
+
+export const Secondary = Template.bind({});
+Secondary.args = {
+  type: 'secondary',
+  text: 'Secondary',
+};
+
+export const CoolGray = Template.bind({});
+CoolGray.args = {
+  type: 'cool-gray',
+  text: 'Cool Gray',
+};
+
+export const Blue = Template.bind({});
+Blue.args = {
+  type: 'blue',
+  text: 'Blue',
+};
+
+export const Green = Template.bind({});
+Green.args = {
+  type: 'green',
+  text: 'Green',
+};
+
+export const Orange = Template.bind({});
+Orange.args = {
+  type: 'orange',
+  text: 'Orange',
+};
