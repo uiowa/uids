@@ -1,0 +1,27 @@
+import{d as x,k as I,c as p,F as C,v as w,n as B,o as h,f as d,e as E,t as L,u as O}from"./vue.esm-bundler-4mfmgVVP.js";(function(){function i(e){let o=this;this.accordions=e.getElementsByClassName("accordion__heading"),this.multiSelectible=e.getAttribute("aria-multiselectable")==="true"||!1;for(let t=0;t<this.accordions.length;t++){let a=this.accordionItemComponents(this.accordions[t]),m=this.isAccordionOpen(a.btn);a.panel.hidden=!m,a.btn.onclick=()=>{this.toggleAccordion(this.accordions[t])}}window.addEventListener("popstate",function(t){o.activateAccordionByHash()}),this.activateAccordionByHash()}i.prototype.accordionItemComponents=function(e){let o=e.querySelector("button"),t=e.nextElementSibling;return{btn:o,panel:t}},i.prototype.accordionOpen=function(e,o){let t=this.accordionItemComponents(e);t.btn.setAttribute("aria-expanded",o),t.btn.setAttribute("aria-selected",o),t.panel.hidden=!o},i.prototype.activateAccordion=function(e){this.multiSelectible||this.collapseAllAccordions(),this.accordionOpen(e,!0)},i.prototype.activateAccordionByHash=function(){let e=window.location.hash.substr(1);if(e!==""){let o=document.getElementById(e);if(o!==null){let t=o.parentElement,a=this.accordions[0].parentElement;t===a&&this.activateAccordion(o)}}},i.prototype.collapseAllAccordions=function(){for(let e=0;e<this.accordions.length;e++)this.accordionOpen(this.accordions[e],!1)},i.prototype.isAccordionOpen=function(e){return e.getAttribute("aria-expanded")==="true"||!1},i.prototype.toggleAccordion=function(e){let o=e.querySelector("button"),t=this.isAccordionOpen(o);if(!this.multiSelectible&&!t&&this.collapseAllAccordions(),this.accordionOpen(e,!t),t)history.replaceState("",""," ");else{let a="#"+o.parentElement.id;window.history&&history.pushState&&a!=="#"&&history.replaceState("","",a)}};const n=document.getElementsByClassName("accordion");for(let e=0;e<n.length;e++)new i(n[e])})();const T=["aria-multiselectable","aria-owns","active-indices"],k=["name","open"],H=["id"],M=["id","aria-labelledby","innerHTML"],q=x({__name:"Accordion",props:{multiselectable:{type:Boolean,default:!1},items:{type:Array,required:!0},activeIndices:{type:Array,required:!0}},setup(i){const n=i;let e=[];const o=[],t=()=>{if(n.items.length<1)return null;for(let c=0;c<n.items.length;c++)o.push("accordion-heading-"+c);return o.join(" ")},a=()=>{e=[];const r=n.activeIndices;return r.length<1||(n.multiselectable?e=r:(console.log("here"),e.push(r[0]))),null},m=I(()=>({accordion:!0,"accordion--multi":n.multiselectable}));return(r,c)=>(h(),p("div",{class:B(m.value),role:"tablist","aria-multiselectable":n.multiselectable,"aria-owns":t(),"active-indices":a()},[(h(!0),p(C,null,w(n.items,(b,l)=>(h(),p("div",{key:l,class:"accordion__item"},[d("details",{class:"accordion","aria-labelledby":"system-requirements-heading",name:n.multiselectable?null:"accordion-collection",open:O(e).includes(l)?"":null},[d("summary",{id:o[l],class:"accordion__heading"},[d("h2",null,[E(L(b.title)+" ",1),c[0]||(c[0]=d("i",{"aria-hidden":"true",class:"fas fa-chevron-up",role:"presentation"},null,-1))])],8,H),d("div",{id:"accordion-content-"+l,class:"accordion__content","aria-labelledby":"accordion-heading-"+l,innerHTML:b.content},null,8,M)],8,k)]))),128))],10,T))}}),N={title:"Components/Accordion",component:q,argTypes:{multiselectable:{control:"boolean",name:"Multi select"}}},S=i=>({components:{Accordion:q},setup(){return{args:i}},template:`
+    <Accordion v-bind="args" />
+  `}),s=S.bind({});s.args={multiselectable:!1,items:[{title:"Section 1 title",expanded:!0,content:"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>"},{title:"Section 2 title",content:"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>"},{title:"Section 3 title",content:"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>"},{title:"Section 4 title",content:"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>"}],activeIndices:[0]};const u=S.bind({});u.args={...s.args,multiselectable:!0};var g,f,A;s.parameters={...s.parameters,docs:{...(g=s.parameters)==null?void 0:g.docs,source:{originalSource:`args => ({
+  components: {
+    Accordion
+  },
+  setup() {
+    return {
+      args
+    };
+  },
+  template: \`
+    <Accordion v-bind="args" />
+  \`
+})`,...(A=(f=s.parameters)==null?void 0:f.docs)==null?void 0:A.source}}};var y,v,_;u.parameters={...u.parameters,docs:{...(y=u.parameters)==null?void 0:y.docs,source:{originalSource:`args => ({
+  components: {
+    Accordion
+  },
+  setup() {
+    return {
+      args
+    };
+  },
+  template: \`
+    <Accordion v-bind="args" />
+  \`
+})`,...(_=(v=u.parameters)==null?void 0:v.docs)==null?void 0:_.source}}};const U=["Default","MultiSelect"];export{s as Default,u as MultiSelect,U as __namedExportsOrder,N as default};
