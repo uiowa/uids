@@ -12,25 +12,50 @@ const props = defineProps({
     type: Array,
     required: true,
   },
+  activeIndices: {
+    type: Array,
+    required: true,
+  },
 });
 
-const activeIndexes = ref<number[]>([]);
+let activeIndexes = [];
+const itemIds = [];
 
-const toggleAccordion = (index: number) => {
-  if (props.multiselectable) {
-    if (activeIndexes.value.includes(index)) {
-      activeIndexes.value = activeIndexes.value.filter(i => i !== index);
-    } else {
-      activeIndexes.value.push(index);
-    }
-  } else {
-    if (activeIndexes.value.includes(index)) {
-      activeIndexes.value = [];
-    } else {
-      activeIndexes.value = [index];
-    }
+const ariaOwnsIds = () =>{
+  const items = props.items.length;
+  if (items < 1) {
+    return null;
   }
-};
+
+  for(let i = 0; i < props.items.length; i++) {
+    itemIds.push('accordion-heading-' + i);
+  }
+
+  return itemIds.join(' ');
+}
+
+const setActiveIndices = () => {
+  activeIndexes = [];
+  const indices = props.activeIndices;
+  const numIndices = indices.length;
+
+  if (numIndices < 1) {
+    return null;
+  }
+
+  // If the accordion is not multiselectable...
+  if (!props.multiselectable) {
+    console.log('here');
+
+    // Only let the first index be added to the list.
+    activeIndexes.push(indices[0]);
+  }
+  else {
+    activeIndexes = indices;
+  }
+
+  return null;
+}
 
 const accordionClasses = computed(() => {
   return {
@@ -41,14 +66,21 @@ const accordionClasses = computed(() => {
 </script>
 
 <template>
-  <div :class="accordionClasses" role="tablist" :aria-multiselectable="props.multiselectable">
+  <div
+    :class="accordionClasses"
+    role="tablist"
+    :aria-multiselectable="props.multiselectable"
+    :aria-owns="ariaOwnsIds()"
+    :active-indices="setActiveIndices()"
+  >
   <div v-for="(item, index) in props.items" :key="index" class="accordion__item">
     <details
       class="accordion"
       aria-labelledby="system-requirements-heading"
-      :name="props.multiselectable ? 'accordion-collection' : null"
+      :name="!props.multiselectable ? 'accordion-collection' : null"
+      :open="activeIndexes.includes(index) ? '' : null"
     >
-      <summary :id="'accordion-heading-' + index" class="accordion__heading">
+      <summary :id="itemIds[index]" class="accordion__heading">
         <h2>
           {{ item.title }}
           <i aria-hidden="true" class="fas fa-chevron-up" role="presentation"></i>
