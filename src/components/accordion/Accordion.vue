@@ -43,26 +43,20 @@ const accordionClasses = computed(() => {
 <template>
   <div :class="accordionClasses" role="tablist" :aria-multiselectable="props.multiselectable">
   <div v-for="(item, index) in props.items" :key="index" class="accordion__item">
-      <h2 :id="'accordion-heading-' + index" class="accordion__heading">
-        <button
-          class="accordion__button"
-          :aria-expanded="activeIndexes.includes(index)"
-          :aria-controls="'accordion-content-' + index"
-          @click="toggleAccordion(index)"
-        >
+    <details class="accordion" aria-labelledby="system-requirements-heading">
+      <summary :id="'accordion-heading-' + index" class="accordion__heading">
+        <h2>
           {{ item.title }}
           <i aria-hidden="true" class="fas fa-chevron-up" role="presentation"></i>
-        </button>
-      </h2>
-
+        </h2>
+      </summary>
       <div
         :id="'accordion-content-' + index"
         class="accordion__content"
-        v-show="activeIndexes.includes(index)"
         :aria-labelledby="'accordion-heading-' + index"
-      >
-        <div v-html="item.content"></div>
-      </div>
+        v-html="item.content"
+      ></div>
+    </details>
     </div>
   </div>
 </template>

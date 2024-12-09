@@ -1,72 +1,73 @@
 @use "sass:color";
 @import '../abstracts/variables';
 @import '../abstracts/utilities';
+.accordion__item {
+  &:not(:first-child) {
+    margin-top: 1rem;
+  }
+}
 
 .accordion {
-  .accordion__heading {
-    margin: 0;
-    margin-top: 1rem;
-    font-size: 1rem;
-    font-weight: $font-weight-bold;
+  --trans-time: 0.2s;
+  $accordion-grey: #edeceb;
+  --accordion-grey: #{$accordion-grey};
 
-    &:not(:first-child) {
-      margin-top: 1rem;
-    }
+  summary {
+    list-style: none;
+  }
 
-    button {
-      all: inherit;
-      font-size: 1.2rem;
-      width: 100%;
-      background-color: #edeceb;
-      color: $secondary;
-      padding: $md;
-      display: flex;
-      justify-content: space-between;
-      transition: all 0.2s ease-in-out;
-      transition-property: background-color;
-      cursor: pointer;
-
-      &:focus {
-        outline: 5px auto -webkit-focus-ring-color;
-      }
-
+  details {
+    &[open] {
       i, svg {
-        color: currentColor;
-        transform: rotate(-180deg) translate(0px, -0.1em);
-        transition: all 0.3s ease-in-out;
-        transition-property: transform, background-color;
-        background-color: transparent;
-        width: 30px !important;
-        height: 30px;
-        padding: 4px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: -0.3rem 0;
-        border-radius: 50%;
-      }
-
-      &:hover, &:focus {
-        background-color: color.scale(#edeceb, $lightness: -4%);
-
-        i {
-          transform: rotate(-180deg) translate(0px, -0.2em);
-        }
-
-        &[aria-expanded="true"] i, &[aria-expanded="true"] svg {
-          transform: rotate(0deg) translate(0px, 0em);
-        }
-      }
-
-      &[aria-expanded="true"] i, &[aria-expanded="true"] svg {
         transform: rotate(0deg) translate(0px, 0.1em);
         background-color: #fafafa;
       }
+    }
+
+    i, svg {
+      transform: rotate(-180deg) translate(0px, -0.1em);
+      transition: all var(--trans-time) ease-in-out;
+      transition-property: transform, background-color;
+      background-color: transparent;
+      width: $h5-font-size;
+      height: $h5-font-size;
+      padding: 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: -0.3rem 0;
+      border-radius: 50%;
+    }
+  }
+
+  .accordion__heading h2 {
+    all: inherit;
+    font-size: $content-font-size;
+    padding: $md;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+
+    &:focus {
+      outline: 2px auto -webkit-focus-ring-color;
+    }
+  }
+
+  summary {
+    width: 100%;
+    background-color: var(--accordion-grey);
+    display: flex;
+    cursor: pointer;
+
+    &:hover, &:focus {
+      background-color: color.scale($accordion-grey, $lightness: -4%);
     }
   }
 
   .accordion__content {
     padding: $md;
-    border: 1px solid #edeceb;
+    border: 1px solid var(--accordion-grey);
   }
 }
+
+

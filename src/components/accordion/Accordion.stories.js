@@ -8,12 +8,6 @@ export default {
       control: 'boolean',
       name: 'Multi select'
     },
-    items: {
-      control: false,
-      table: {
-        disable: true,
-      },
-    },
   },
 };
 
