@@ -1,6 +1,11 @@
 @import '../abstracts/variables';
 @import '../abstracts/utilities';
 
+// https://drafts.csswg.org/css-values-5/#interpolate-size.
+:root {
+  interpolate-size: allow-keywords;
+}
+
 .stat__grid {
   margin: 0;
   width: 100%;
@@ -9,6 +14,12 @@
   &:hover .stat__content {
     @include breakpoint(md) {
       max-height: 100vh;
+    }
+    @include breakpoint(md) {
+      @supports (interpolate-size: allow-keywords) {
+        max-height: max-content;
+        overflow: hidden;
+      }
     }
   }
 }
