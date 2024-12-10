@@ -44,9 +44,6 @@ const props = defineProps({
   url: {
     type: String,
   },
-  details: {
-    type: String,
-  },
   button_align_right: {
     type: Boolean,
     default: false,
@@ -94,7 +91,7 @@ const buttonClasses = computed(() => {
   <div :class="classes">
     <div class="banner__container">
       <div class="banner__title" v-if="$slots.title">
-        <uids-headline :text_style="headline_style"> 
+        <uids-headline :text_style="headline_size"> 
           <!-- @slot The title of the card. HTML is allowed. -->
           <slot name="title">Title</slot>
         </uids-headline>

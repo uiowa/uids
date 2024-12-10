@@ -61,9 +61,6 @@ export default {
     title: {
       control: { type: 'text' },
     },
-    details: {
-      control: { type: 'text' },
-    },
     button_label: {
       control: { type: 'text' },
     },
@@ -92,34 +89,30 @@ const Template = (args) => ({
   template: `
     <uids-banner
       :url="args.url"
-      :background="args.background"
       :title="args.title"
       :button_label="args.button_label"
       :button_icon="args.button_icon"
       :button_align_right="args.button_align_right"
-      :details="args.details"
-      :headline_style="args.headline_style"
-      :orientation="args.orientation"
+      :background="args.background"
     >
-    <template #details v-if="args.details"><div v-html="args.details" ></div></template>
     <template #title v-if="args.title"><div :class="getClasses" v-html="args.title" ></div></template>
     <template #button_icon v-if="args.button_icon"><span v-html="args.button_icon" ></span></template>
     </uids-banner>
   `,
+
 });
 
 export const Centered = Template.bind({});
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
 Centered.args = {
   url: 'https://uiowa.edu/',
-  title: 'Be a Hawkeye',
-  details: '<p>Iowa is where great stories begin. It\'s time to start yours. Find out how.</p>',
-  button_label: 'Request Information',
+  title: 'Welcome to your SiteNow site!',
+  button_label: 'Test',
   button_icon: '<i class="fas fa-arrow-right"></i>',
   button_align_right: false,
   headline_style: 'uppercase',
   background: 'gray',
-  orientation: '',
+  // orientation: '',
 };
 
 export const Inline= Template.bind({});
