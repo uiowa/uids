@@ -41,7 +41,7 @@ const classes = computed(() => {
   if (props.display === 'horizontal') {
     classes.push('stat--horizontal', 'stat--transform', 'stat__grid');
   } else {
-    classes.push('element--flex-center', 'stat--transform');
+    classes.push('element--flex-center', 'stat__grid', 'stat--transform');
   }
 
   return classes;
