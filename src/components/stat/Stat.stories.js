@@ -33,6 +33,9 @@ export default {
       control: 'text',
       name: 'Suffix',
     },
+    stat_hover: {
+      name: 'Hover',
+    },
     ...Background.argTypes,
   },
 };
@@ -53,6 +56,7 @@ Default.args = {
   stat_content: 'Among the top 2% of universities worldwide.',
   stat_prefix: '',
   stat_suffix: '+',
+  stat_hover: true,
 };
 
 export const Horizontal = Template.bind({});
@@ -61,6 +65,7 @@ Horizontal.args = {
   stat_title: '15:1',
   stat_summary: 'student-to-faculty<br /> ratio',
   stat_content: 'Among the top 2% of universities worldwide.',
+  stat_hover: true,
 };
 
 const GridTemplate = (args) => ({
@@ -82,6 +87,7 @@ const GridTemplate = (args) => ({
             :stat_content="args.stat_content"
             :stat_prefix="args.stat_prefix"
             :stat_suffix="args.stat_suffix"
+            :stat_hover="args.stat_hover"
           />
         </uids-grid-item>
       </uids-grid>
@@ -99,4 +105,5 @@ Grid.args = {
   stat_content: 'Among the top 2% of universities worldwide.',
   stat_prefix: '',
   stat_suffix: '+',
+  stat_hover: true,
 }

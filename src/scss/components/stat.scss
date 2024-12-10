@@ -6,10 +6,36 @@
   interpolate-size: allow-keywords;
 }
 
+
+.stat--static .stat__content {
+  position: static!important;
+  clip: auto;
+  height: auto;
+  width: auto;
+  overflow: auto;
+  opacity: 1;
+}
+
+
+
 .stat__grid {
   margin: 0;
   width: 100%;
   transition: all .55s cubic-bezier(.95, 1.25, .375, 1.15);
+
+  &.stat--static {
+    &:hover .stat__content {
+      @include breakpoint(md) {
+        max-height: 100vh;
+      }
+      @include breakpoint(md) {
+        @supports (interpolate-size: allow-keywords) {
+          max-height: max-content;
+          overflow: hidden;
+        }
+      }
+    }
+  }
 
   &:hover .stat__content {
     @include breakpoint(md) {
@@ -89,6 +115,14 @@
       overflow: hidden;
     }
 
+    .stat--static & {
+      @include breakpoint(md) {
+        max-height: auto;
+        transition: none;
+        overflow: unset;
+      }
+    }
+
     [class*="bg--black"] &,
     .bg-pattern--brain-black & {
       color: #ccc;
@@ -104,7 +138,6 @@
         margin: 0 10%;
       }
     }
-
   }
 
   &__description {
@@ -231,6 +264,10 @@
   margin-bottom: 0rem;
   display: flex;
   flex-wrap: wrap;
-  cursor: pointer;
+  cursor: inherit;
   transition: all .55s cubic-bezier(.95, 1.25, .375, 1.15);
+}
+
+.stat:not(.stat--static) {
+  cursor: pointer;
 }
