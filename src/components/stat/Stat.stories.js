@@ -1,5 +1,7 @@
 import UidsStat from './Stat.vue';
 import Background from "../shared/background";
+import UidsGrid from '../grid/Grid.vue';
+import UidsGridItem from '../grid/GridItem.vue';
 
 export default {
   title: 'Components/Stat',
@@ -60,3 +62,41 @@ Horizontal.args = {
   stat_summary: 'student-to-faculty<br /> ratio',
   stat_content: 'Among the top 2% of universities worldwide.',
 };
+
+const GridTemplate = (args) => ({
+  // Components used in your story `template` are defined in the `components` object
+  components: { UidsGrid, UidsGridItem, UidsStat },
+  // The story's `args` need to be mapped into the template through the `setup()` method
+  setup() {
+    return { args }
+  },
+  // And then the `args` are bound to your component with `v-bind="args"`
+  template: `
+    <div style="padding-top: 2rem; padding-bottom: 2rem;">
+      <uids-grid :type="args.grid_type">
+        <uids-grid-item v-for="item in args.record_count" :key="item">
+          <uids-stat
+            :display="args.display || 'default'"
+            :stat_title="args.stat_title"
+            :stat_summary="args.stat_summary"
+            :stat_content="args.stat_content"
+            :stat_prefix="args.stat_prefix"
+            :stat_suffix="args.stat_suffix"
+          />
+        </uids-grid-item>
+      </uids-grid>
+    </div>
+  `,
+})
+
+export const Grid = GridTemplate.bind({})
+Grid.args = {
+  display: 'default',
+  grid_type: 'threecol--33-34-33',
+  record_count: 6,
+  stat_title: '15:1',
+  stat_summary: 'student-to-faculty ratio',
+  stat_content: 'Among the top 2% of universities worldwide.',
+  stat_prefix: '',
+  stat_suffix: '+',
+}
