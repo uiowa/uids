@@ -42,11 +42,15 @@
 
   .accordion__heading h2 {
     all: inherit;
+    display: flex;
     font-size: $content-font-size;
+    font-weight: $font-weight-bold;
     padding: $md;
     justify-content: space-between;
+    -webkit-justify-content: space-between;
     align-items: center;
     cursor: pointer;
+    width: 100%;
 
     &:focus {
       outline: 2px auto -webkit-focus-ring-color;
@@ -62,6 +66,10 @@
     &:hover, &:focus {
       background-color: color.scale($accordion-grey, $lightness: -4%);
     }
+  }
+
+  summary::-webkit-details-marker {
+    display:none;
   }
 
   .accordion__content {
