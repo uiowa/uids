@@ -1,6 +1,11 @@
 @import '../abstracts/variables';
 @import '../abstracts/utilities';
 
+// https://drafts.csswg.org/css-values-5/#interpolate-size.
+:root {
+  interpolate-size: allow-keywords;
+}
+
 .stat__grid {
   margin: 0;
   width: 100%;
@@ -9,15 +14,15 @@
   &.stat--transform {
     &:hover {
       @include breakpoint(md) {
-        transform: translateY(-10px);
+        transform: translateY(0px);
       }
     }
   }
 
   &:hover .stat__content {
     @include breakpoint(md) {
-      @include element-invisible-off;
-      opacity: 1;
+      max-height: max-content;
+      overflow: hidden;
     }
   }
 }
@@ -82,9 +87,9 @@
     line-height: 1.4;
 
     @include breakpoint(md) {
-      opacity: 0;
-      transition: 1s;
-      @include element-invisible;
+      max-height: 0;
+      transition: max-height 0.35s ease-out;
+      overflow: hidden;
     }
 
     [class*="bg--black"] &,
