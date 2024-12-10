@@ -96,9 +96,6 @@ const buttonClasses = computed(() => {
           <slot name="title">Title</slot>
         </uids-headline>
       </div>
-      <div class="banner__content" v-if="details" >
-        <slot name="details">{{ details }}</slot>
-      </div>
     </div>
     <footer class="banner__link" v-if="button_label" >
       <uids-button :class="buttonClasses"  :url="url" size="medium">
