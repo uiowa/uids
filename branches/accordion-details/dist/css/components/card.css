@@ -97,6 +97,9 @@
   margin-left: auto;
   margin-right: auto;
 }
+.card > .media.media--small.media--circle img[src$=".svg"], .card > .media.media--medium.media--circle img[src$=".svg"] {
+  width: revert-layer;
+}
 .card .media__inner {
   margin-left: -2rem;
   margin-right: -2rem;
@@ -132,6 +135,12 @@
 .card .media--widescreen img,
 .card .media--widescreen iframe {
   aspect-ratio: 16/9;
+}
+.card .media--widescreen:has([src$=".svg"]) .media__inner {
+  background: #fff;
+}
+.card .media--widescreen:has([src$=".svg"]) img[src$=".svg"] {
+  object-fit: contain;
 }
 .card .media--date {
   position: relative;
