@@ -82,6 +82,10 @@ const classes = computed(() => {
     classes.push(`banner--${props.height}`);
   }
 
+  if (props.mobile_content_below_image === true) {
+    classes.push(`banner--stacked`);
+  }
+
   switch (props.content_position) {
     case 'center-center':
       classes.push('banner--vertical-center', 'banner--horizontal-center', 'banner--gradient-bottom');
