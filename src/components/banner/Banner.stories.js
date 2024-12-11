@@ -1,5 +1,6 @@
 import UidsBanner from './Banner.vue'
 import Background from "../shared/background";
+import banner_image from '../../assets/images/demo/122.jpg';
 
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
@@ -67,6 +68,13 @@ export default {
     title: {
       control: { type: 'text' },
     },
+    media: {
+      name: 'Media',
+      control: 'text',
+      table: {
+        category: 'Media',
+      },
+    },
     button_label: {
       control: { type: 'text' },
     },
@@ -103,7 +111,7 @@ const Template = (args) => ({
       :content_position="args.content_position"
       :gradient="args.gradient"
       :height="args.height"
-    >
+    ><template #media v-if="args.media"><span v-html="args.media" ></span></template>
     <template #title v-if="args.title"><div :class="getClasses" v-html="args.title" ></div></template>
     <template #button_icon v-if="args.button_icon"><span v-html="args.button_icon" ></span></template>
     </uids-banner>
@@ -123,7 +131,8 @@ Centered.args = {
   background: '',
   content_position: 'center-center',
   gradient:'dark',
-  height: 'large'
+  height: 'large',
+  media: '<img src="' + banner_image + '" alt="Alt">',
   // orientation: '',
 };
 

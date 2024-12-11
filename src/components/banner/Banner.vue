@@ -105,7 +105,7 @@ const classes = computed(() => {
 <template>
   <div :class="classes">
     <div class="banner__image">
-      <img src="https://sandbox.prod.drupal.uiowa.edu/sites/sandbox.uiowa.edu/files/2021-03/pano.jpg" alt="Alt Text">
+      <slot name="media"></slot>
     </div>
     <div class="banner__container">
       <div class="banner__content">
