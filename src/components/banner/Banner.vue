@@ -72,36 +72,48 @@ const classes = computed(() => {
     }
   });
 
-  if (props.content_position) {
-    classes.push(`banner--${ className(props.content_position)}`);
+  switch (props.content_position) {
+    case 'center-center':
+      classes.push('banner--vertical-center', 'banner--horizontal-center');
+      break;
+    case 'center-bottom':
+      classes.push('banner--vertical-bottom', 'banner--horizontal-center');
+      break;
+    case 'left-center':
+      classes.push('banner--vertical-center', 'banner--horizontal-left');
+      break;
+    case 'left-bottom':
+      classes.push('banner--vertical-bottom', 'banner--horizontal-left');
+      break;
+    default:
+      classes.push('banner--vertical-center', 'banner--horizontal-left');
   }
 
   return classes;
 });
 
-const buttonClasses = computed(() => {
-  let classes = [''];
-
-  return classes
-})
-
 </script>
 
 <template>
   <div :class="classes">
+    <div class="banner__image">
+      <img src="https://sandbox.prod.drupal.uiowa.edu/sites/sandbox.uiowa.edu/files/2021-03/pano.jpg" alt="Alt Text">
+    </div>
     <div class="banner__container">
+      <div class="banner__content">
       <div class="banner__title" v-if="$slots.title">
-        <uids-headline :text_style="headline_size"> 
+        <uids-headline :text_style="headline_size">
           <!-- @slot The title of the card. HTML is allowed. -->
           <slot name="title">Title</slot>
         </uids-headline>
       </div>
+        <footer class="banner__link" v-if="button_label" >
+          <uids-button :class="buttonClasses"  :url="url" size="medium">
+            <slot name="button_label">{{ button_label }}</slot>
+            <slot name="button_icon"></slot>
+          </uids-button>
+        </footer>
     </div>
-    <footer class="banner__link" v-if="button_label" >
-      <uids-button :class="buttonClasses"  :url="url" size="medium">
-        <slot name="button_label">{{ button_label }}</slot>
-        <slot name="button_icon"></slot>
-      </uids-button>
-    </footer>
+    </div>
   </div>
 </template>

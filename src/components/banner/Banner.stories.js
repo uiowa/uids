@@ -26,6 +26,12 @@ export default {
     content_position: {
       name: 'Content Position',
       options: ['center-center', 'center-bottom', 'left-center', 'left-bottom'],
+      labels: {
+        'center-bottom': 'Centered horizontally and bottom-aligned vertically',
+        'left-center': 'Left-aligned and centered vertically (default)',
+        'left-bottom': 'Left-aligned horizontally and bottom-aligned vertically',
+        'center-center': 'Centered horizontally and vertically'
+      },
       control: { type: 'select' },
       table: { category: 'Display options' },
     },
@@ -94,6 +100,7 @@ const Template = (args) => ({
       :button_icon="args.button_icon"
       :button_align_right="args.button_align_right"
       :background="args.background"
+      :content_position="args.content_position"
     >
     <template #title v-if="args.title"><div :class="getClasses" v-html="args.title" ></div></template>
     <template #button_icon v-if="args.button_icon"><span v-html="args.button_icon" ></span></template>
@@ -111,7 +118,8 @@ Centered.args = {
   button_icon: '<i class="fas fa-arrow-right"></i>',
   button_align_right: false,
   headline_style: 'uppercase',
-  background: 'gray',
+  background: '',
+  content_position: 'center-center',
   // orientation: '',
 };
 
