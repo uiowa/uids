@@ -5,6 +5,7 @@ import UidsHeadline from '../headline/Headline.vue'
 import { computed, useSlots } from "vue";
 import UidsButton from "../button/Button.vue";
 import Background from "../shared/background";
+import Media from '../shared/media'
 import Borderless from "../shared/borderless";
 import { className } from "../utlity";
 
@@ -56,6 +57,7 @@ const props = defineProps({
     default: '',
   },
   ...Background.props,
+  ...Media.props,
 });
 
 
