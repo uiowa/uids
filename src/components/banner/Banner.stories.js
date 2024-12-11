@@ -101,6 +101,7 @@ const Template = (args) => ({
       :button_align_right="args.button_align_right"
       :background="args.background"
       :content_position="args.content_position"
+      :gradient="args.gradient"
     >
     <template #title v-if="args.title"><div :class="getClasses" v-html="args.title" ></div></template>
     <template #button_icon v-if="args.button_icon"><span v-html="args.button_icon" ></span></template>
@@ -120,6 +121,7 @@ Centered.args = {
   headline_style: 'uppercase',
   background: '',
   content_position: 'center-center',
+  gradient:'dark',
   // orientation: '',
 };
 

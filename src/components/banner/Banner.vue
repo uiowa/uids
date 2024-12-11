@@ -72,21 +72,25 @@ const classes = computed(() => {
     }
   });
 
+  if (props.gradient) {
+    classes.push(`banner--gradient-${props.gradient}`);
+  }
+
   switch (props.content_position) {
     case 'center-center':
-      classes.push('banner--vertical-center', 'banner--horizontal-center');
+      classes.push('banner--vertical-center', 'banner--horizontal-center', 'banner--gradient-bottom');
       break;
     case 'center-bottom':
-      classes.push('banner--vertical-bottom', 'banner--horizontal-center');
+      classes.push('banner--vertical-bottom', 'banner--horizontal-center', 'banner--gradient-bottom');
       break;
     case 'left-center':
-      classes.push('banner--vertical-center', 'banner--horizontal-left');
+      classes.push('banner--vertical-center', 'banner--horizontal-left', 'banner--gradient-left');
       break;
     case 'left-bottom':
-      classes.push('banner--vertical-bottom', 'banner--horizontal-left');
+      classes.push('banner--vertical-bottom', 'banner--horizontal-left', 'banner--gradient-left');
       break;
     default:
-      classes.push('banner--vertical-center', 'banner--horizontal-left');
+      classes.push('banner--vertical-center', 'banner--horizontal-left', 'banner--gradient-left');
   }
 
   return classes;
