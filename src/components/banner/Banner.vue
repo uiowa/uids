@@ -76,6 +76,10 @@ const classes = computed(() => {
     classes.push(`banner--gradient-${props.gradient}`);
   }
 
+  if (props.height) {
+    classes.push(`banner--${props.height}`);
+  }
+
   switch (props.content_position) {
     case 'center-center':
       classes.push('banner--vertical-center', 'banner--horizontal-center', 'banner--gradient-bottom');
