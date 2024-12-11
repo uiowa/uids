@@ -123,14 +123,20 @@ Centered.args = {
   // orientation: '',
 };
 
-export const Inline= Template.bind({});
-Inline.args = {
+export const CenterBottom= Template.bind({});
+CenterBottom.args = {
   ...Centered.args,
-  orientation: 'inline',
+  content_position: 'center-bottom',
 }
 
-export const Left = Template.bind({});
-Left.args = {
+export const LeftCenter = Template.bind({});
+LeftCenter.args = {
   ...Centered.args,
-  orientation: 'left',
+  content_position: 'left-center',
+}
+
+export const LeftBottom = Template.bind({});
+LeftBottom.args = {
+  ...Centered.args,
+  content_position: 'left-bottom',
 }
