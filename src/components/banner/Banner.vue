@@ -56,6 +56,13 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  button_color: {
+    type: String,
+    default: 'primary',
+    validator: function (value) {
+      return ['primary', 'secondary', 'tertiary'].indexOf(value) !== -1;
+    },
+  },
   ...Background.props,
   ...Media.props,
 });
@@ -106,6 +113,16 @@ const classes = computed(() => {
   return classes;
 });
 
+const buttonClasses = computed(() => {
+  const classes = [];
+
+  if (props.button_color) {
+    classes.push(`bttn--${props.button_color}`);
+  }
+
+  return classes;
+});
+
 </script>
 
 <template>
@@ -122,7 +139,11 @@ const classes = computed(() => {
         </uids-headline>
       </div>
         <footer class="banner__link" v-if="button_label" >
-          <uids-button :class="buttonClasses"  :url="url" size="medium">
+          <uids-button
+            :class="buttonClasses"
+            :url="url"
+            size="medium"
+          >
             <slot name="button_label">{{ button_label }}</slot>
             <slot name="button_icon"></slot>
           </uids-button>

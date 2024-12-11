@@ -87,6 +87,10 @@ export default {
         category: 'Display options',
       },
     },
+    button_color: {
+      control: { type: 'select' },
+      options: ['primary', 'secondary', 'tertiary'],
+    },
     ...Background.argTypes,
   },
 };
@@ -106,6 +110,7 @@ const Template = (args) => ({
       :title="args.title"
       :button_label="args.button_label"
       :button_icon="args.button_icon"
+      :button_color="args.button_color"
       :button_align_right="args.button_align_right"
       :background="args.background"
       :content_position="args.content_position"
@@ -129,6 +134,7 @@ Centered.args = {
   button_label: 'Test',
   button_icon: '<i class="fas fa-arrow-right"></i>',
   button_align_right: false,
+  button_color: 'primary',
   headline_style: 'uppercase',
   background: '',
   content_position: 'center-center',
