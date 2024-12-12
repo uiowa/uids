@@ -48,21 +48,23 @@ export default {
       control: { type: 'select' },
       table: { category: 'Display options' },
     },
-    // headline_style: {
-    //   name: 'Title style',
-    //   options: ['uppercase', 'serif',  ''],
-    //   control: {
-    //     type: 'select',
-    //     labels: {
-    //       'uppercase': 'Antonio (default)',
-    //       'serif': 'Zilla Slab',
-    //       '': 'Roboto',
-    //     },
-    //   },
-    //   table: {
-    //     category: 'Display options',
-    //   },
-    // },
+    headline_style: {
+      name: 'Title style',
+      options: ['uppercase', 'serif',  ''],
+      control: {
+        type: 'select',
+        labels: {
+          'uppercase': 'Antonio (default)',
+          'uppercase-highlighted': 'Antonio highlighted',
+          'serif': 'Zilla Slab',
+          'serif-highlighted': 'Zilla Slab highlighted',
+          '': 'Roboto',
+        },
+      },
+      table: {
+        category: 'Display options',
+      },
+    },
     height: {
       name: 'Height',
       options: ['small', 'medium', 'large'],
