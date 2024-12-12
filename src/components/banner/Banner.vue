@@ -18,6 +18,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  title: {
+    type: String,
+    default: '',
+  },
   content_position: {
     type: String,
     default: '',
@@ -123,6 +127,22 @@ const buttonClasses = computed(() => {
   return classes;
 });
 
+
+const titleClass = computed(() => {
+
+  const titleClasses = [' headline--serif', 'headline--negative', 'headline--large default']
+
+
+// setup logic here 
+//build the classes to push based on options selected 
+
+
+
+
+return titleClasses;
+
+});
+
 </script>
 
 <template>
@@ -132,9 +152,8 @@ const buttonClasses = computed(() => {
     </div>
     <div class="banner__container">
       <div class="banner__content">
-      <div class="banner__title" v-if="$slots.title">
-        <uids-headline :text_style="headline_size">
-          <!-- @slot The title of the card. HTML is allowed. -->
+      <div class="banner__title">
+        <uids-headline :text_style="headline_size" :class="titleClass">
           <slot name="title">Title</slot>
         </uids-headline>
       </div>

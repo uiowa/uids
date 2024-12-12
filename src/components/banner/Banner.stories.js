@@ -108,6 +108,7 @@ const Template = (args) => ({
     <uids-banner
       :url="args.url"
       :title="args.title"
+      :headline_size="args.headline_size"
       :button_label="args.button_label"
       :button_icon="args.button_icon"
       :button_color="args.button_color"
@@ -119,7 +120,7 @@ const Template = (args) => ({
       :mobile_content_below_image="args.mobile_content_below_image"
 
     ><template #media v-if="args.media"><span v-html="args.media" ></span></template>
-    <template #title v-if="args.title"><div :class="getClasses" v-html="args.title" ></div></template>
+    <template #title v-if="args.title" v-if="args.url"><h2 :class="args.headline_options" v-html="args.title" ></h2></template>
     <template #button_icon v-if="args.button_icon"><span v-html="args.button_icon" ></span></template>
     </uids-banner>
   `,
@@ -131,6 +132,7 @@ export const Centered = Template.bind({});
 Centered.args = {
   url: 'https://uiowa.edu/',
   title: 'Welcome to your SiteNow site!',
+  headline_options: "bold-serif",
   button_label: 'Test',
   button_icon: '<i class="fas fa-arrow-right"></i>',
   button_align_right: false,
