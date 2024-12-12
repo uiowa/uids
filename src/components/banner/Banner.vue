@@ -19,6 +19,11 @@ const props = defineProps({
     default: '',
     validator: (value: string) => ['', 'large', 'medium', 'small'].includes(value)
   },
+  headline_options: {
+    type: String,
+    default: '',
+    validator: (value: string) => ['', 'bold-serif', 'All caps'].includes(value)
+  },
   title: {
     type: String,
     default: '',
@@ -123,14 +128,18 @@ const headlineClasses = computed(() => {
     classes.push(`headline--${props.headline_size}`);
   }
 
+  if (props.headline_options) {
+    classes.push(`headline--${props.headline_options}`);
+  }
+
   if (props.gradient === 'dark') {
     classes.push('headline--negative');
   } else if (props.gradient === 'light') {
     classes.push('headline--positive');
   }
-  if (props.headline_style) {
-    classes.push(`headline--${props.headline_style}`);
-  }
+  // if (props.headline_style) {
+  //   classes.push(`headline--${props.headline_style}`);
+  // }
 
   return classes;
 });
