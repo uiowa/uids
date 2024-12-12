@@ -2,12 +2,14 @@
 import '../../scss/components/banner.scss'
 import '../../scss/components/_background.scss'
 import UidsHeadline from '../headline/Headline.vue'
-import { computed, useSlots } from "vue";
+import { computed, onMounted, useSlots } from 'vue';
 import UidsButton from "../button/Button.vue";
 import Background from "../shared/background";
 import Media from '../shared/media'
 import Borderless from "../shared/borderless";
 import { className } from "../utlity";
+import { applyClickA11y } from '../../assets/js/click-a11y'
+import UidsPseudoButton from '../button/PseudoButton.vue';
 
 const name = 'uids-banner'
 const props = defineProps({
@@ -76,10 +78,15 @@ const props = defineProps({
   ...Media.props,
 });
 
+const slots = useSlots();
 
 const classes = computed(() => {
   let classes = ['banner'];
   Background.addBackgroundClass(classes, props);
+
+  if (props.url) {
+    classes.push('click-container')
+  }
 
   ['button_align_right'].forEach((prop) => {
     if (props[prop] === true) {
@@ -152,6 +159,40 @@ const headlineClasses = computed(() => {
   return classes;
 });
 
+/**
+ * Determine the linked element.
+ */
+const linkedElement = computed(() => {
+  // Do we have a URL?
+  if (!props.url) {
+    return null;
+  }
+
+  if (slots.title) {
+    return 'title';
+  }
+
+  if (props.button_label) {
+    return 'button';
+  }
+
+  if (slots.media) {
+    return 'image';
+  }
+
+  return 'button';
+});
+
+/**
+ * Print the URL if it should be attached to the headline and false otherwise.
+ */
+const headlineLink = computed(() => {
+  if (linkedElement.value === 'title') {
+    return props.url;
+  }
+  return false;
+});
+
 const buttonClasses = computed(() => {
   const classes = [];
 
@@ -160,6 +201,13 @@ const buttonClasses = computed(() => {
   }
 
   return classes;
+
+});
+
+onMounted(() => {
+  if (props.url) {
+    applyClickA11y('.click-container:not([data-uids-no-link])');
+  }
 });
 
 </script>
@@ -171,28 +219,36 @@ const buttonClasses = computed(() => {
     </div>
     <div class="banner__container">
       <div class="banner__content">
-        <div class="banner__title">
+        <header class="banner__title" v-if="$slots.title || title">
           <uids-headline
             :text_style="headline_style"
             :class="headlineClasses"
           >
-            <slot name="title">Title</slot>
+            <a v-if="headlineLink" :href="headlineLink" class="click-target">
+              <slot name="title">{{ title }}</slot>
+            </a>
+            <template v-else>
+              <slot name="title">{{ title }}</slot>
+            </template>
           </uids-headline>
-        </div>
+        </header>
 
         <div class="banner__text" v-if="content" >
           <slot name="content">{{ content }}</slot>
         </div>
+
         <footer class="banner__action" v-if="button_label" >
           <uids-button
             :class="['bttn', ...buttonClasses]"
             :url="url"
             :no_default_classes="true"
             size="medium"
-          >
+            v-if="linkedElement === 'button'">
+
             <slot name="button_label">{{ button_label }}</slot>
             <slot name="button_icon"></slot>
           </uids-button>
+          <uids-pseudo-button :class="buttonClasses" v-else>{{ button_label }}</uids-pseudo-button>
         </footer>
       </div>
     </div>
