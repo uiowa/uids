@@ -17,6 +17,7 @@ const props = defineProps({
   headline_size: {
     type: String,
     default: '',
+    validator: (value: string) => ['', 'large', 'medium', 'small'].includes(value)
   },
   title: {
     type: String,
@@ -29,8 +30,9 @@ const props = defineProps({
   gradient: {
     type: String,
     default: '',
+    validator: (value: string) => ['dark', 'light'].includes(value),
   },
-  headline_options: {
+  headline_style: {
     type: String,
     default: '',
   },
@@ -70,9 +72,6 @@ const props = defineProps({
   ...Background.props,
   ...Media.props,
 });
-
-
-
 
 
 const classes = computed(() => {
@@ -117,6 +116,25 @@ const classes = computed(() => {
   return classes;
 });
 
+const headlineClasses = computed(() => {
+  const classes = [];
+
+  if (props.headline_size) {
+    classes.push(`headline--${props.headline_size}`);
+  }
+
+  if (props.gradient === 'dark') {
+    classes.push('headline--negative');
+  } else if (props.gradient === 'light') {
+    classes.push('headline--positive');
+  }
+  if (props.headline_style) {
+    classes.push(`headline--${props.headline_style}`);
+  }
+
+  return classes;
+});
+
 const buttonClasses = computed(() => {
   const classes = [];
 
@@ -125,22 +143,6 @@ const buttonClasses = computed(() => {
   }
 
   return classes;
-});
-
-
-const titleClass = computed(() => {
-
-  const titleClasses = [' headline--serif', 'headline--negative', 'headline--large default']
-
-
-// setup logic here 
-//build the classes to push based on options selected 
-
-
-
-
-return titleClasses;
-
 });
 
 </script>
@@ -153,11 +155,14 @@ return titleClasses;
     <div class="banner__container">
       <div class="banner__content">
       <div class="banner__title">
-        <uids-headline :text_style="headline_size" :class="titleClass">
-          <slot name="title">Title</slot>
+        <uids-headline
+          :text_style="headline_style"
+          :class="headlineClasses"
+        >
+        <slot name="title">Title</slot>
         </uids-headline>
       </div>
-        <footer class="banner__link" v-if="button_label" >
+        <footer class="banner__action" v-if="button_label" >
           <uids-button
             :class="['bttn', ...buttonClasses]"
             :url="url"

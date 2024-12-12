@@ -42,11 +42,20 @@ export default {
       control: { type: 'select' },
       table: { category: 'Display options' },
     },
-    headline_options: {
-      name: 'Headline Options',
-      options: ['all-caps', 'all-caps-highlighted', 'bold-serif', 'bold-serif-highlighted'],
-      control: { type: 'select' },
-      table: { category: 'Display options' },
+    headline_style: {
+      name: 'Title style',
+      options: ['uppercase', 'serif',  ''],
+      control: {
+        type: 'select',
+        labels: {
+          'uppercase': 'Antonio (default)',
+          'serif': 'Zilla Slab',
+          '': 'Roboto',
+        },
+      },
+      table: {
+        category: 'Display options',
+      },
     },
     height: {
       name: 'Height',
@@ -117,10 +126,11 @@ const Template = (args) => ({
       :content_position="args.content_position"
       :gradient="args.gradient"
       :height="args.height"
+      :headline_style="args.headline_style"
       :mobile_content_below_image="args.mobile_content_below_image"
 
     ><template #media v-if="args.media"><span v-html="args.media" ></span></template>
-    <template #title v-if="args.title" v-if="args.url"><h2 :class="args.headline_options" v-html="args.title" ></h2></template>
+      <template #title v-if="args.title"><div :class="getClasses" v-html="args.title" ></div></template>
     <template #button_icon v-if="args.button_icon"><span v-html="args.button_icon" ></span></template>
     </uids-banner>
   `,
