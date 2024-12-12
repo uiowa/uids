@@ -78,6 +78,9 @@ export default {
     title: {
       control: { type: 'text' },
     },
+    content: {
+      control: { type: 'text' },
+    },
     media: {
       name: 'Media',
       control: 'text',
@@ -127,12 +130,13 @@ const Template = (args) => ({
       :content_position="args.content_position"
       :gradient="args.gradient"
       :height="args.height"
+      :content="args.content"
       :headline_style="args.headline_style"
       :mobile_content_below_image="args.mobile_content_below_image"
 
     ><template #media v-if="args.media"><span v-html="args.media" ></span></template>
-      <template #title v-if="args.title"><div :class="getClasses" v-html="args.title" ></div></template>
       <template #title v-if="args.title"><a :url="args.url"><span class="headline__heading" v-html="args.title" ></span></a></template>
+      <template #content><div v-html="args.content"></div></template>
       <template #button_icon v-if="args.button_icon"><span v-html="args.button_icon" ></span></template>
     </uids-banner>
   `,
@@ -144,11 +148,13 @@ export const Centered = Template.bind({});
 Centered.args = {
   url: 'https://uiowa.edu/',
   title: 'Welcome to your SiteNow site!',
+  content: '<p>Iowa is where great stories begin. It\'s time to start yours. Find out how.</p>',
   button_label: 'Test',
   button_icon: '<i class="fas fa-arrow-right"></i>',
   button_align_right: false,
   button_color: 'primary',
   headline_style: 'serif',
+  headline_size: 'large',
   background: '',
   content_position: 'center-center',
   gradient:'dark',

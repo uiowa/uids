@@ -23,6 +23,9 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  content: {
+    type: String,
+  },
   content_position: {
     type: String,
     default: '',
@@ -175,6 +178,10 @@ const buttonClasses = computed(() => {
           >
             <slot name="title">Title</slot>
           </uids-headline>
+        </div>
+
+        <div class="banner__text" v-if="content" >
+          <slot name="content">{{ content }}</slot>
         </div>
         <footer class="banner__action" v-if="button_label" >
           <uids-button
