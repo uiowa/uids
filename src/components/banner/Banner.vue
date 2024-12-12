@@ -128,8 +128,22 @@ const headlineClasses = computed(() => {
   } else if (props.gradient === 'light') {
     classes.push('headline--positive');
   }
+
   if (props.headline_style) {
-    classes.push(`headline--${props.headline_style}`);
+    switch (props.headline_style) {
+      case 'uppercase-highlight':
+        classes.push('headline--uppercase', 'headline--highlight');
+        break;
+      case 'serif-highlight':
+        classes.push('headline--serif', 'headline--highlight');
+        break;
+      case 'uppercase':
+        classes.push('headline--uppercase');
+        break;
+      case 'serif':
+        classes.push('headline--serif');
+        break;
+    }
   }
 
   return classes;

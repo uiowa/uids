@@ -44,13 +44,14 @@ export default {
     },
     headline_style: {
       name: 'Title style',
-      options: ['uppercase', 'serif',  ''],
+      options: ['uppercase', 'uppercase-highlight', 'serif', 'serif-highlight',  ''],
       control: {
         type: 'select',
         labels: {
           'uppercase': 'Antonio (default)',
+          'uppercase-highlight': 'Antonio highlighted',
           'serif': 'Zilla Slab',
-          '': 'Roboto',
+          'serif-highlight': 'Zilla Slab highlighted',
         },
       },
       table: {
@@ -147,7 +148,7 @@ Centered.args = {
   button_icon: '<i class="fas fa-arrow-right"></i>',
   button_align_right: false,
   button_color: 'primary',
-  headline_style: 'uppercase',
+  headline_style: 'serif',
   background: '',
   content_position: 'center-center',
   gradient:'dark',
