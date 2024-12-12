@@ -19,11 +19,6 @@ const props = defineProps({
     default: '',
     validator: (value: string) => ['', 'large', 'medium', 'small'].includes(value)
   },
-  headline_options: {
-    type: String,
-    default: '',
-    validator: (value: string) => ['', 'bold-serif', 'All caps'].includes(value)
-  },
   title: {
     type: String,
     default: '',
@@ -128,18 +123,14 @@ const headlineClasses = computed(() => {
     classes.push(`headline--${props.headline_size}`);
   }
 
-  if (props.headline_options) {
-    classes.push(`headline--${props.headline_options}`);
-  }
-
   if (props.gradient === 'dark') {
     classes.push('headline--negative');
   } else if (props.gradient === 'light') {
     classes.push('headline--positive');
   }
-  // if (props.headline_style) {
-  //   classes.push(`headline--${props.headline_style}`);
-  // }
+  if (props.headline_style) {
+    classes.push(`headline--${props.headline_style}`);
+  }
 
   return classes;
 });
@@ -163,14 +154,14 @@ const buttonClasses = computed(() => {
     </div>
     <div class="banner__container">
       <div class="banner__content">
-      <div class="banner__title">
-        <uids-headline
-          :text_style="headline_style"
-          :class="headlineClasses"
-        >
-        <slot name="title">Title</slot>
-        </uids-headline>
-      </div>
+        <div class="banner__title">
+          <uids-headline
+            :text_style="headline_style"
+            :class="headlineClasses"
+          >
+            <slot name="title">Title</slot>
+          </uids-headline>
+        </div>
         <footer class="banner__action" v-if="button_label" >
           <uids-button
             :class="['bttn', ...buttonClasses]"
@@ -182,7 +173,7 @@ const buttonClasses = computed(() => {
             <slot name="button_icon"></slot>
           </uids-button>
         </footer>
-    </div>
+      </div>
     </div>
   </div>
 </template>

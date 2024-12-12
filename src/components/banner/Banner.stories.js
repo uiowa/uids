@@ -24,12 +24,6 @@ export default {
       control: { type: 'select' },
       table: { category: 'Display options' },
     },
-    headline_options: {
-      name: 'Headline Options',
-      options: ['bold-serif', 'All caps',],
-      control: { type: 'select' },
-      table: { category: 'Display options' },
-    },
     content_position: {
       name: 'Content Position',
       options: ['center-center', 'center-bottom', 'left-center', 'left-bottom'],
@@ -55,9 +49,7 @@ export default {
         type: 'select',
         labels: {
           'uppercase': 'Antonio (default)',
-          'uppercase-highlighted': 'Antonio highlighted',
           'serif': 'Zilla Slab',
-          'serif-highlighted': 'Zilla Slab highlighted',
           '': 'Roboto',
         },
       },
@@ -126,7 +118,6 @@ const Template = (args) => ({
       :url="args.url"
       :title="args.title"
       :headline_size="args.headline_size"
-      :headline_option="args.headline_option"
       :button_label="args.button_label"
       :button_icon="args.button_icon"
       :button_color="args.button_color"
@@ -139,8 +130,9 @@ const Template = (args) => ({
       :mobile_content_below_image="args.mobile_content_below_image"
 
     ><template #media v-if="args.media"><span v-html="args.media" ></span></template>
-      <template #title v-if="args.title"><a :url="args.url"><span class="headline__heading" v-html="args.title" ></a></span></template>
-    <template #button_icon v-if="args.button_icon"><span v-html="args.button_icon" ></span></template>
+      <template #title v-if="args.title"><div :class="getClasses" v-html="args.title" ></div></template>
+      <template #title v-if="args.title"><a :url="args.url"><span class="headline__heading" v-html="args.title" ></span></a></template>
+      <template #button_icon v-if="args.button_icon"><span v-html="args.button_icon" ></span></template>
     </uids-banner>
   `,
 
@@ -151,7 +143,6 @@ export const Centered = Template.bind({});
 Centered.args = {
   url: 'https://uiowa.edu/',
   title: 'Welcome to your SiteNow site!',
-  headline_options: "bold-serif",
   button_label: 'Test',
   button_icon: '<i class="fas fa-arrow-right"></i>',
   button_align_right: false,
