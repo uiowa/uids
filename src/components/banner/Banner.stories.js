@@ -89,7 +89,7 @@ export default {
     },
     button_color: {
       control: { type: 'select' },
-      options: ['primary', 'secondary', 'tertiary'],
+      options: ['primary', 'secondary', 'tertiary', 'transparent'],
     },
     ...Background.argTypes,
   },

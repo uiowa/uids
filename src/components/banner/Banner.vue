@@ -64,7 +64,7 @@ const props = defineProps({
     type: String,
     default: 'primary',
     validator: function (value) {
-      return ['primary', 'secondary', 'tertiary'].indexOf(value) !== -1;
+      return ['primary', 'secondary', 'tertiary', 'transparent'].indexOf(value) !== -1;
     },
   },
   ...Background.props,
@@ -159,8 +159,9 @@ return titleClasses;
       </div>
         <footer class="banner__link" v-if="button_label" >
           <uids-button
-            :class="buttonClasses"
+            :class="['bttn', ...buttonClasses]"
             :url="url"
+            :no_default_classes="true"
             size="medium"
           >
             <slot name="button_label">{{ button_label }}</slot>
