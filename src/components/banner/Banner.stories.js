@@ -106,6 +106,9 @@ export default {
       control: { type: 'select' },
       options: ['primary', 'secondary', 'tertiary', 'transparent'],
     },
+    button_light_font: {
+      control: { type: 'boolean' },
+    },
     ...Background.argTypes,
   },
 };
@@ -131,6 +134,7 @@ const Template = (args) => ({
       :button_label_3="args.button_label_3"
       :button_icon="args.button_icon"
       :button_color="args.button_color"
+      :button_light_font="args.button_light_font"
       :background="args.background"
       :content_position="args.content_position"
       :gradient="args.gradient"
@@ -160,6 +164,7 @@ Centered.args = {
   button_label_3: 'Explore',
   button_icon: '<i class="fas fa-arrow-right"></i>',
   button_color: 'primary',
+  button_light_font: false,
   headline_style: 'serif',
   headline_size: 'large',
   background: '',

@@ -78,6 +78,10 @@ const props = defineProps({
       return ['primary', 'secondary', 'tertiary', 'transparent'].indexOf(value) !== -1;
     },
   },
+  button_light_font: {
+    type: Boolean,
+    default: false,
+  },
   ...Background.props,
   ...Media.props,
 });
@@ -210,6 +214,10 @@ const headlineLink = computed(() => {
 
 const buttonClasses = computed(() => {
   const classes = [];
+
+  if (props.button_light_font) {
+    classes.push('bttn--light-font');
+  }
 
   if (props.button_color) {
     classes.push(`bttn--${props.button_color}`);
