@@ -18,55 +18,11 @@ export default {
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
     // Props
-    headline_size: {
-      name: 'Headline Size',
-      options: ['large', 'medium', 'small'],
-      control: { type: 'select' },
-      table: { category: 'Display options' },
+    title: {
+      control: { type: 'text' },
     },
-    content_position: {
-      name: 'Content Position',
-      options: ['center-center', 'center-bottom', 'left-center', 'left-bottom'],
-      labels: {
-        'center-bottom': 'Centered horizontally and bottom-aligned vertically',
-        'left-center': 'Left-aligned and centered vertically (default)',
-        'left-bottom': 'Left-aligned horizontally and bottom-aligned vertically',
-        'center-center': 'Centered horizontally and vertically'
-      },
-      control: { type: 'select' },
-      table: { category: 'Display options' },
-    },
-    gradient: {
-      name: 'Gradient',
-      options: ['dark', 'light'],
-      control: { type: 'select' },
-      table: { category: 'Display options' },
-    },
-    headline_style: {
-      name: 'Title style',
-      options: ['uppercase', 'uppercase-highlight', 'serif', 'serif-highlight',  ''],
-      control: {
-        type: 'select',
-        labels: {
-          'uppercase': 'Antonio (default)',
-          'uppercase-highlight': 'Antonio highlighted',
-          'serif': 'Zilla Slab',
-          'serif-highlight': 'Zilla Slab highlighted',
-        },
-      },
-      table: {
-        category: 'Display options',
-      },
-    },
-    height: {
-      name: 'Height',
-      options: ['small', 'medium', 'large'],
-      control: { type: 'select' },
-      table: { category: 'Display options' },
-    },
-    mobile_content_below_image: {
-      name: '[Mobile] Content Below Image/Video',
-      control: { type: 'boolean' },
+    content: {
+      control: { type: 'text' },
     },
     url: {
       control: { type: 'text' },
@@ -75,12 +31,6 @@ export default {
       control: { type: 'text' },
     },
     url_3: {
-      control: { type: 'text' },
-    },
-    title: {
-      control: { type: 'text' },
-    },
-    content: {
       control: { type: 'text' },
     },
     media: {
@@ -109,6 +59,56 @@ export default {
     button_light_font: {
       control: { type: 'boolean' },
     },
+    headline_size: {
+      name: 'Headline Size',
+      options: ['large', 'medium', 'small'],
+      control: { type: 'select' },
+      table: { category: 'Display options' },
+    },
+    headline_style: {
+      name: 'Title style',
+      options: ['uppercase', 'uppercase-highlight', 'serif', 'serif-highlight',  ''],
+      control: {
+        type: 'select',
+        labels: {
+          'uppercase': 'Antonio (default)',
+          'uppercase-highlight': 'Antonio highlighted',
+          'serif': 'Zilla Slab',
+          'serif-highlight': 'Zilla Slab highlighted',
+        },
+      },
+      table: {
+        category: 'Display options',
+      },
+    },
+    content_position: {
+      name: 'Content Position',
+      options: ['center-center', 'center-bottom', 'left-center', 'left-bottom'],
+      labels: {
+        'center-bottom': 'Centered horizontally and bottom-aligned vertically',
+        'left-center': 'Left-aligned and centered vertically (default)',
+        'left-bottom': 'Left-aligned horizontally and bottom-aligned vertically',
+        'center-center': 'Centered horizontally and vertically'
+      },
+      control: { type: 'select' },
+      table: { category: 'Display options' },
+    },
+    gradient: {
+      name: 'Gradient',
+      options: ['dark', 'light'],
+      control: { type: 'select' },
+      table: { category: 'Display options' },
+    },
+    height: {
+      name: 'Height',
+      options: ['small', 'medium', 'large'],
+      control: { type: 'select' },
+      table: { category: 'Display options' },
+    },
+    mobile_content_below_image: {
+      name: '[Mobile] Content Below Image/Video',
+      control: { type: 'boolean' },
+    },
     ...Background.argTypes,
   },
 };
@@ -124,23 +124,23 @@ const Template = (args) => ({
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
     <uids-banner
+      :title="args.title"
+      :content="args.content"
       :url="args.url"
       :url_2="args.url_2"
       :url_3="args.url_3"
-      :title="args.title"
-      :headline_size="args.headline_size"
       :button_label="args.button_label"
       :button_label_2="args.button_label_2"
       :button_label_3="args.button_label_3"
       :button_icon="args.button_icon"
       :button_color="args.button_color"
       :button_light_font="args.button_light_font"
+      :headline_style="args.headline_style"
+      :headline_size="args.headline_size"
       :background="args.background"
       :content_position="args.content_position"
       :gradient="args.gradient"
       :height="args.height"
-      :content="args.content"
-      :headline_style="args.headline_style"
       :mobile_content_below_image="args.mobile_content_below_image"
 
     ><template #media v-if="args.media"><span v-html="args.media" ></span></template>

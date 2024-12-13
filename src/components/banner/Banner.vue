@@ -16,38 +16,12 @@ const props = defineProps({
   /**
    * Title style for the headline.
    */
-  headline_size: {
-    type: String,
-    default: '',
-    validator: (value: string) => ['', 'large', 'medium', 'small'].includes(value)
-  },
   title: {
     type: String,
     default: '',
   },
   content: {
     type: String,
-  },
-  content_position: {
-    type: String,
-    default: '',
-  },
-  gradient: {
-    type: String,
-    default: '',
-    validator: (value: string) => ['dark', 'light'].includes(value),
-  },
-  headline_style: {
-    type: String,
-    default: '',
-  },
-  height: {
-    type: String,
-    default: '',
-  },
-  mobile_content_below_image: {
-    type: Boolean,
-    default: false,
   },
   url: {
     type: String,
@@ -79,6 +53,32 @@ const props = defineProps({
     },
   },
   button_light_font: {
+    type: Boolean,
+    default: false,
+  },
+  headline_size: {
+    type: String,
+    default: '',
+    validator: (value: string) => ['', 'large', 'medium', 'small'].includes(value)
+  },
+  headline_style: {
+    type: String,
+    default: '',
+  },
+  content_position: {
+    type: String,
+    default: '',
+  },
+  gradient: {
+    type: String,
+    default: '',
+    validator: (value: string) => ['dark', 'light'].includes(value),
+  },
+  height: {
+    type: String,
+    default: '',
+  },
+  mobile_content_below_image: {
     type: Boolean,
     default: false,
   },
