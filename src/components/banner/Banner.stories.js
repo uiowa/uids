@@ -168,6 +168,7 @@ const Template = (args) => ({
       :enable_autoplay="args.enable_autoplay"
 
     ><template #media v-if="args.media"><span v-html="args.media" ></span></template>
+      <template #pre_title v-if="args.title"><span class="headline__heading" v-html="args.pre_title" ></span></template>
       <template #title v-if="args.title"><span class="headline__heading" v-html="args.title" ></span></template>
       <template #content><div v-html="args.content"></div></template>
       <template #button_icon v-if="args.button_icon"><span v-html="args.button_icon" ></span></template>
@@ -179,6 +180,7 @@ const Template = (args) => ({
 export const Centered = Template.bind({});
 Centered.args = {
   title: 'Welcome to your SiteNow site!',
+  pre_title: 'SiteNow is awesome!',
   content: '<p>Iowa is where great stories begin. It\'s time to start yours. Find out how.</p>',
   url: 'https://uiowa.edu/',
   url_2: 'https://uiowa.edu/about',

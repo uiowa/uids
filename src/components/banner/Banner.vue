@@ -176,9 +176,20 @@ const headlineClasses = computed(() => {
         break;
     }
   }
+  
 
   return classes;
 });
+
+
+const preTitleClasses = computed(() => {
+  const classes = ['headline', 'headline--serif', 'headline--negative', 'headline--large', 'banner__pre-title default'];
+  return classes;
+});
+
+
+
+
 
 /**
  * Determine the linked element.
@@ -274,10 +285,12 @@ onMounted(() => {
     <div class="banner__container">
       <div class="banner__content">
         <header class="banner__title" v-if="$slots.title || title">
+          <div :class="preTitleClasses"><slot name="pre_title">{{ pre_title }}</slot></div>
           <uids-headline
             :text_style="headline_style"
             :class="headlineClasses"
           >
+           
             <a v-if="headlineLink" :href="headlineLink" class="click-target">
               <slot name="title">{{ title }}</slot>
             </a>
