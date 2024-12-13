@@ -82,7 +82,6 @@ export default {
         "uppercase-highlight",
         "serif",
         "serif-highlight",
-        "",
       ],
       control: {
         type: "select",
@@ -246,24 +245,28 @@ Centered.args = {
   mobile_content_below_image: false,
   enable_autoplay: false,
 };
+Centered.storyName = 'Centered horizontally and vertically w/ image';
+
 export const CenterBottom= Template.bind({});
 CenterBottom.args = {
   ...Centered.args,
   content_position: 'center-bottom',
 }
+CenterBottom.storyName = 'Centered horizontally and bottom-aligned vertically w/ image';
 
 export const LeftCenter = Template.bind({});
 LeftCenter.args = {
   ...Centered.args,
   content_position: 'left-center',
 }
+LeftCenter.storyName = 'Left-aligned and centered vertically w/ image';
 
 export const LeftBottom = Template.bind({});
 LeftBottom.args = {
   ...Centered.args,
   content_position: 'left-bottom',
 }
-
+LeftBottom.storyName = 'Left-aligned horizontally and bottom-aligned vertically w/ image';
 export const Video = Template.bind({});
 Video.args = {
   ...Centered.args,
@@ -271,3 +274,4 @@ Video.args = {
   media_type: 'video',
   media: banner_video,
 };
+Video.storyName = 'Centered horizontally and vertically w/ video';
