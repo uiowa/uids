@@ -45,10 +45,6 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  remove_margin: {
-    type: Boolean,
-    default: false,
-  },
   mobile_content_below_image: {
     type: Boolean,
     default: false,

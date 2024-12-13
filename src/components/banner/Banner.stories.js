@@ -64,10 +64,6 @@ export default {
       control: { type: 'select' },
       table: { category: 'Display options' },
     },
-    remove_margin: {
-      name: 'Remove Default Top Margin',
-      control: { type: 'boolean' },
-    },
     mobile_content_below_image: {
       name: '[Mobile] Content Below Image/Video',
       control: { type: 'boolean' },
