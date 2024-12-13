@@ -1,5 +1,5 @@
 import Accordion from './Accordion.vue';
-import AccordionDocs from "./AccordionDocs.mdx";
+// import AccordionDocs from "./AccordionDocs.mdx";
 
 export default {
   title: 'Components/Accordion',
