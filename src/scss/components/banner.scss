@@ -1,10 +1,5 @@
-// @import '../../assets/scss/variables';
-// @import '../../assets/scss/utilities';
-
 @import '../abstracts/variables';
-@import '../abstracts/utilities';
-
-// --------------------------------
+@import '../abstracts/utilities'; // --------------------------------
 // Banner sizes
 //
 // @todo Use https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio
@@ -17,8 +12,6 @@
   align-items: center;
   justify-content: center;
   min-height: 15rem;
-  position: relative;
-  overflow: hidden;
 
   &--large {
     &::before {
@@ -35,7 +28,6 @@
       content: '';
     }
   }
-
   // Full screen 100vh option
   &--full {
     &.banner--large {
@@ -55,11 +47,14 @@
       clear: both;
     }
   }
-
+}
 // --------------------------------
 // Alignment
 // --------------------------------
 
+.banner {
+  position: relative;
+  overflow: hidden;
   @include breakpoint(sm) {
     flex-basis: 100%;
     display: flex;
@@ -85,11 +80,12 @@
       }
     }
   }
-
+}
 // --------------------------------
 // Container
 // --------------------------------
 
+.banner {
   &:focus-within .headline a:focus {
     text-decoration: underline;
   }
@@ -104,11 +100,12 @@
       top: 0;
     }
   }
-
+}
 // --------------------------------
 // Actions/buttons
 // --------------------------------
 
+.banner {
   .headline + .banner__action {
     margin-top: 1.5rem;
   }
@@ -121,48 +118,39 @@
         margin: 0 1rem 1rem 0;
       }
     }
-    &:last-child {
-      margin-right: 0;
-    }
   }
 
-  &.banner--gradient-light:not([class*="bg-"]) {
-    .banner__action {
-      .bttn--tertiary {
-        [class*=bg--black] & {
-          @include breakpoint(sm) {
-            color: $secondary;
-          }
-        }
-      }
-    }
+  &:last-child {
+    margin-right: 0;
   }
 
   &.banner--gradient-dark:not([class*="bg-"]) {
     &.banner--stacked {
       .banner__action {
-        .bttn--tertiary.bttn--outline {
+        .bttn--transparent {
           @include breakpoint(sm) {
-            border-color: rgba(255,255,255,.525);
+            border-color: rgba(255, 255, 255, .525);
             color: #fff;
           }
         }
       }
     }
-    &:not([class*="banner--stacked"]) {
-      .banner__action {
-        .bttn--tertiary.bttn--outline {
-          border: 1px solid #fff;
-          color: #fff;
-        }
+  }
+
+  &.banner--gradient-dark:not([class*="banner--stacked"]):not([class*="bg--white"]):not([class*="bg--gold"]) {
+    .banner__action {
+      .bttn--transparent {
+        border: 1px solid #fff;
+        color: #fff;
       }
     }
   }
-
+}
 // --------------------------------
 // Pre-title
 // --------------------------------
 
+.banner {
   &__pre-title {
     background: none;
     line-height: 1.1;
@@ -231,12 +219,16 @@
     // Set large heading size
     &.headline--large {
       font-size: $h4-font-size;
-      font-size: containerClamp(1.2rem, 1.6rem);
+
+      // https://garyridgway.github.io/clampCalculator/?&minWidth=600&maxWidth=1310&minFont=1.2&maxFont=1.6
+      font-size: clamp(1.2rem, calc(0.9014vw + 0.862rem), 1.6rem);
     }
     // Set medium heading size
     &.headline--medium {
       font-size: 1.4rem;
-      font-size: containerClamp(1.2rem, 1.4rem);
+
+      // https://garyridgway.github.io/clampCalculator/?&minWidth=600&maxWidth=1310&minFont=1.2&maxFont=1.4
+      font-size: clamp(1.2rem, calc(0.4507vw + 1.031rem), 1.4rem);
     }
     // Set small heading size
     &.headline--small {
@@ -259,11 +251,12 @@
       }
     }
   }
-
+}
 // --------------------------------
 // Text & Content
 // --------------------------------
 
+.banner {
   &__content {
     padding: $gutter;
     @include breakpoint(sm) {
@@ -409,7 +402,6 @@
   }
 
   &--stacked {
-
     .banner__text {
       color: $secondary;
       @include breakpoint(sm) {
@@ -482,6 +474,7 @@
 
     &[class*="bg--black"] {
       display: flex;
+
       .banner__text {
         color: #fff;
 
@@ -531,11 +524,12 @@
       }
     }
   }
-
+}
 // --------------------------------
 // Image
 // --------------------------------
 
+.banner {
   &__image {
     overflow: visible;
 
@@ -560,11 +554,12 @@
       }
     }
   }
-
+}
 // --------------------------------
 // Video
 // --------------------------------
 
+.banner {
   .media--video .video-controls {
     z-index: 2;
   }
@@ -670,22 +665,24 @@
       }
     }
   }
-
+}
 // --------------------------------
 // Stacked
 // --------------------------------
 
+.banner {
   &--stacked {
     display: block;
     @include breakpoint(sm) {
       display: flex;
     }
   }
-
+}
 // --------------------------------
 // Gradients
 // --------------------------------
 
+.banner {
   // Default overlay
   &:after {
     position: absolute;
@@ -746,7 +743,7 @@
       }
 
       &:after {
-        background: rgba(255, 255, 255, .8);
+        background: rgba(255, 255, 255, .7);
         @include breakpoint(sm) {
           background: linear-gradient(90deg, #fff 1%, hsla(0, 0%, 100%, .92) 32%, hsla(0, 0%, 100%, 0));
         }
@@ -798,7 +795,7 @@
       }
 
       &:after {
-        background: rgba(255, 255, 255, .8);
+        background: rgba(255, 255, 255, .7);
         @include breakpoint(sm) {
           background: linear-gradient(180deg, transparent 0, hsla(0, 0%, 100%, .9) 55%);
         }
@@ -819,11 +816,12 @@
   &[class*="bg-"]:after {
     background: inherit;
   }
-
+}
 // --------------------------------
 // Headlines
 // --------------------------------
 
+.banner {
   .headline {
     z-index: 1;
 
@@ -854,24 +852,30 @@
       }
     }
   }
-  // Overriding the serif font size set in typography/headings.scss
+  // Overriding the serif font size set in base/_headings.scss
   :where(h2, h3, h4, h5, h6) {
     &.headline--large,
     &.headline--large.headline--serif {
       font-size: 4.7rem;
-      font-size: containerClamp(2.5rem, 4.7rem);
+
+      // https://garyridgway.github.io/clampCalculator/?&minWidth=600&maxWidth=1310&minFont=2.5&maxFont=4.7
+      font-size: clamp(2.5rem, calc(4.9577vw + 0.6408rem), 4.7rem);
     }
     // Set medium heading size
     &.headline--medium,
     &.headline--medium.headline--serif {
       font-size: 3.7rem;
-      font-size: containerClamp(2.2rem, 3.7rem);
+
+      // https://garyridgway.github.io/clampCalculator/?&minWidth=600&maxWidth=1310&minFont=2.2&maxFont=3.7
+      font-size: clamp(2.2rem, calc(3.3803vw + 0.9324rem), 3.7rem);
     }
     // Set small heading size
     &.headline--small,
     &.headline--small.headline--serif {
       font-size: 2.7rem;
-      font-size: containerClamp(2rem, 2.7rem);
+
+      // https://garyridgway.github.io/clampCalculator/?&minWidth=600&maxWidth=1310&minFont=2&maxFont=2.7
+      font-size: clamp(2rem, calc(1.5775vw + 1.4085rem), 2.7rem);
     }
   }
 
@@ -897,6 +901,7 @@
         }
       }
     }
+
     &[class*="banner--gradient-dark"] {
       .headline--negative {
         color: $secondary;
@@ -980,7 +985,6 @@
       }
     }
   }
-
 }
 // --------------------------------
 // IE11
@@ -1024,8 +1028,8 @@
     }
   }
 }
-
 // set link color for gray and white nesting.
+
 [class*="bg--gray"] [class*="banner--gradient-dark"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
 [class*="bg--white"] [class*="banner--gradient-dark"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn) {
   color: inherit;
