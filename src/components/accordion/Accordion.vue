@@ -48,6 +48,8 @@ const accordionClasses = computed(() => {
       :aria-labelledby="'accordion-heading-' + index"
       :name="!props.multiselectable ? 'accordion-collection' : null"
       :open="item.active"
+      :aria-expanded="item.active"
+      :id="'accordion-item-' + index"
     >
       <summary :id="'accordion-heading-' + index" class="accordion__heading"
                role="listitem">

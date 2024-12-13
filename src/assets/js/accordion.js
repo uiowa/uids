@@ -1,16 +1,29 @@
 (function () {
   function Accordion(element) {
+    console.log('element', element);
     let thisAccordion = this;
 
-    // Get the accordions, and if the accordion group is multiselectable.
-    this.accordions = element.getElementsByClassName("accordion__heading");
+    // Get the accordionItems, and if the accordion group is multiselectable.
+    this.accordionItems = element.getElementsByClassName("accordion__heading");
     this.multiSelectible = element.getAttribute('aria-multiselectable') === 'true' || false;
 
-    // For each of the accordions...
-    for (let i = 0; i < this.accordions.length; i++) {
+    this.accordionItems.forEach(accordionItem => {
+      console.log('accordionItem', accordionItem);
+      // Get the accordion item's components.
+      let [details, summary] = this.accordionItemComponents(accordionItem);
+      console.log('details', details);
+
+      details.addEventListener("toggle", (event) => {
+        console.log('toggle');
+        this.toggleAccordion(accordionItem, details.open);
+      });
+    })
+
+    // For each of the accordionItems...
+    for (let i = 0; i < this.accordionItems.length; i++) {
 
       // Get the accordion item's components.
-      let itemComponents = this.accordionItemComponents(this.accordions[i]);
+      let itemComponents = this.accordionItemComponents(this.accordionItems[i]);
 
       // Check if the accordion is currently expanded at moment of click.
       let expanded = this.isAccordionOpen(itemComponents.btn);
@@ -22,7 +35,7 @@
       itemComponents.btn.onclick = () => {
 
         // Toggle the corresponding accordion.
-        this.toggleAccordion(this.accordions[i]);
+        this.toggleAccordion(this.accordionItems[i]);
       }
     }
 
@@ -39,34 +52,25 @@
 
   // Gets the item components for 'accordion'.
   // Returns an object that contains 'btn' and 'panel' elements.
-  Accordion.prototype.accordionItemComponents = function (accordion) {
-    let btn = accordion.querySelector('button');
-    let panel = accordion.nextElementSibling;
-
-    return {
-      'btn': btn,
-      'panel': panel
-    }
+  Accordion.prototype.accordionItemComponents = function (accordionItem) {
+    return [
+      accordionItem.querySelector('details'),
+      accordionItem.querySelector('summary'),
+    ];
   }
 
   // Define whether 'accordion' is open with 'isOpen'.
-  Accordion.prototype.accordionOpen = function (accordion, isOpen) {
+  Accordion.prototype.accordionOpen = function (accordionItem, isOpen) {
     // Get the accordion item's components.
-    let itemComponents = this.accordionItemComponents(accordion);
+    const [details] = this.accordionItemComponents(accordionItem);
 
     // Set the relevant attributes for 'accordion' based on 'isOpen'.
-    itemComponents.btn.setAttribute('aria-expanded', isOpen);
-    itemComponents.btn.setAttribute('aria-selected', isOpen);
-    itemComponents.panel.hidden = !isOpen;
+    details.setAttribute('aria-expanded', isOpen);
+    details.setAttribute('aria-selected', isOpen);
   }
 
   // Activate an 'accordion'.
   Accordion.prototype.activateAccordion = function (accordion) {
-
-    // Checks if multiple accordions can be open at once. If not, closes other accordions.
-    if (!this.multiSelectible) {
-      this.collapseAllAccordions();
-    }
 
     // Open the accordion.
     this.accordionOpen(accordion, true);
@@ -89,7 +93,7 @@
 
         // Get the accordion wrapper of the hash parameter and this accordion wrapper to compare later.
         let accordionToFocusAccordionWrapper = accordionToFocus.parentElement
-        let accordionWrapper = this.accordions[0].parentElement;
+        let accordionWrapper = this.accordionItems[0].parentElement;
 
         // If the accordion wrapper defined by the hash and this accordion wrapper are the same...
         if (accordionToFocusAccordionWrapper === accordionWrapper) {
@@ -101,44 +105,31 @@
     }
   }
 
-  // Collapse all accordions in this accordion group.
-  Accordion.prototype.collapseAllAccordions = function () {
-
-    // For each accordion...
-    for (let i = 0; i < this.accordions.length; i++) {
-
-      // Close it.
-      this.accordionOpen(this.accordions[i], false);
-    }
-  }
-
   // Check if an accordion is open by inspecting the aria attribute of the 'btn' controlling it.
   // Returns a boolean.
-  Accordion.prototype.isAccordionOpen = function (btn) {
-    return btn.getAttribute('aria-expanded') === 'true' || false;
+  Accordion.prototype.isAccordionOpen = function (accordionItem) {
+    [details] = this.accordionItemComponents(accordionItem);
+    return details.getAttribute('expanded') === 'true' || false;
   }
 
   // Toggle a specific 'accordion' open or closed.
-  Accordion.prototype.toggleAccordion = function (accordion) {
-    // Get the accordion's button element.
-    let btn = accordion.querySelector('button');
+  Accordion.prototype.toggleAccordion = function (accordionItem, open) {
 
-    // Check if the accordion is currently expanded at moment of click.
-    let expanded = this.isAccordionOpen(btn);
-
-    // Checks if multiple accordions can be open at once. If not, closes other accordions.
-    if (!this.multiSelectible && !expanded) {
-      this.collapseAllAccordions();
+    if (open === undefined) {
+      open = this.isAccordionOpen(accordionItem);
     }
+    // Get the accordion item's components.
+    const [details] = this.accordionItemComponents(accordionItem);
 
-    // Toggle the accordion.
-    this.accordionOpen(accordion, !expanded)
+    // Set the relevant attributes for 'accordion' based on 'isOpen'.
+    details.setAttribute('aria-expanded', open);
+    details.setAttribute('aria-selected', open);
 
     // If the accordion is not open (but will be)...
-    if (!expanded) {
+    if (!open) {
 
       // Define historyString here to be used later.
-      let historyString = '#' + btn.parentElement.id;
+      let historyString = '#' + accordionItem.id;
 
       // Change window location to add URL params
       if (window.history && history.pushState && historyString !== '#') {
@@ -151,15 +142,16 @@
     else {
 
       // Empty the history string.
-      history.replaceState("", "", " ");
+      history.replaceState("", "", null);
     }
   }
 
-  // Instantiate accordions on the page.
+  // Instantiate accordionItems on the page.
   const accordions = document.getElementsByClassName("accordion");
 
   for (let i = 0; i < accordions.length; i++) {
-    let accordion = new Accordion(accordions[i]);
+
+    (new Accordion(accordions[i]));
   }
 }());
 
