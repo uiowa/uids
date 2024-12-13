@@ -4,55 +4,42 @@
     let thisAccordion = this;
 
     // Get the accordionItems, and if the accordion group is multiselectable.
-    this.accordionItems = element.getElementsByClassName("accordion__heading");
+    this.accordionItems = element.querySelectorAll('details');
+    console.log('this.accordionItems', this.accordionItems);
     this.multiSelectible = element.getAttribute('aria-multiselectable') === 'true' || false;
 
-    this.accordionItems.forEach(accordionItem => {
-      console.log('accordionItem', accordionItem);
-      // Get the accordion item's components.
-      let [details, summary] = this.accordionItemComponents(accordionItem);
-      console.log('details', details);
-
-      details.addEventListener("toggle", (event) => {
-        console.log('toggle');
-        this.toggleAccordion(accordionItem, details.open);
-      });
-    })
-
-    // For each of the accordionItems...
     for (let i = 0; i < this.accordionItems.length; i++) {
-
+      console.log('accordionItem', this.accordionItems[i]);
       // Get the accordion item's components.
-      let itemComponents = this.accordionItemComponents(this.accordionItems[i]);
+      let summary = this.getSummary(this.accordionItems[i]);
 
-      // Check if the accordion is currently expanded at moment of click.
-      let expanded = this.isAccordionOpen(itemComponents.btn);
+      this.accordionItems[i].addEventListener("toggle", (event) => {
+        console.log('toggle');
+        this.toggleAccordion(this.accordionItems[i], this.accordionItems[i].open);
+      });
 
-      // If it is, un-hide its corresponding panel.
-      itemComponents.panel.hidden = !expanded;
 
-      // When the accordion's button is clicked...
-      itemComponents.btn.onclick = () => {
+      // Add a listener that listens for when the URL is changed.
+      window.addEventListener('popstate', function (event) {
 
-        // Toggle the corresponding accordion.
-        this.toggleAccordion(this.accordionItems[i]);
-      }
+        // Activate an accordion based upon the hash parameters in the URL.
+        thisAccordion.activateAccordionByHash();
+      });
+
+      // Activate any accordion that is defined in the hash parameter if there is one.
+      this.activateAccordionByHash();
     }
-
-    // Add a listener that listens for when the URL is changed.
-    window.addEventListener('popstate', function (event) {
-
-      // Activate an accordion based upon the hash parameters in the URL.
-      thisAccordion.activateAccordionByHash();
-    });
-
-    // Activate any accordion that is defined in the hash parameter if there is one.
-    this.activateAccordionByHash();
   }
 
   // Gets the item components for 'accordion'.
   // Returns an object that contains 'btn' and 'panel' elements.
+  Accordion.prototype.getSummary = function (accordionItem) {
+    return accordionItem.querySelector('summary');
+  }
   Accordion.prototype.accordionItemComponents = function (accordionItem) {
+    console.log('accordionItem', accordionItem);
+    console.log('accordionItem.querySelector("details")', accordionItem.querySelector('details'));
+    console.log('accordionItem.querySelector("summary")', accordionItem.querySelector('summary'));
     return [
       accordionItem.querySelector('details'),
       accordionItem.querySelector('summary'),
@@ -148,10 +135,12 @@
 
   // Instantiate accordionItems on the page.
   const accordions = document.getElementsByClassName("accordion");
+  console.log('accordions', accordions);
 
   for (let i = 0; i < accordions.length; i++) {
 
-    (new Accordion(accordions[i]));
+    let accordion = new Accordion(accordions[i]);
+    console.log('accordion', accordion);
   }
 }());
 
