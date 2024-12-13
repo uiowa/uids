@@ -154,11 +154,11 @@ const Template = (args) => ({
 
 export const Centered = Template.bind({});
 Centered.args = {
+  title: 'Welcome to your SiteNow site!',
+  content: '<p>Iowa is where great stories begin. It\'s time to start yours. Find out how.</p>',
   url: 'https://uiowa.edu/',
   url_2: 'https://uiowa.edu/about',
   url_3: 'https://uiowa.edu/explore',
-  title: 'Welcome to your SiteNow site!',
-  content: '<p>Iowa is where great stories begin. It\'s time to start yours. Find out how.</p>',
   button_label: 'Test',
   button_label_2: 'Learn More',
   button_label_3: 'Explore',
