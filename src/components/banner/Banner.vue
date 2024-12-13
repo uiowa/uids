@@ -176,7 +176,7 @@ const headlineClasses = computed(() => {
         break;
     }
   }
-  
+
 
   return classes;
 });
@@ -285,12 +285,12 @@ onMounted(() => {
     <div class="banner__container">
       <div class="banner__content">
         <header class="banner__title" v-if="$slots.title || title">
-          <div :class="preTitleClasses"><slot name="pre_title">{{ pre_title }}</slot></div>
+          <div :class="[headlineClasses, 'banner__pre-title', 'headline']"><slot name="pre_title">{{ pre_title }}</slot></div>
           <uids-headline
             :text_style="headline_style"
             :class="headlineClasses"
           >
-           
+
             <a v-if="headlineLink" :href="headlineLink" class="click-target">
               <slot name="title">{{ title }}</slot>
             </a>
