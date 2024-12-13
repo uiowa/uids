@@ -16,6 +16,18 @@ const props = defineProps({
   /**
    * Title style for the headline.
    */
+<<<<<<< HEAD
+=======
+  headline_size: {
+    type: String,
+    default: '',
+    validator: (value: string) => ['', 'large', 'medium', 'small'].includes(value)
+  },
+  pre_title: {
+    type: String,
+    default: '',
+  },
+>>>>>>> 5c56dbb7b9 (adding pre title)
   title: {
     type: String,
     default: '',

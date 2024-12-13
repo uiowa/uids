@@ -18,8 +18,19 @@ export default {
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
     // Props
+<<<<<<< HEAD
     title: {
       control: { type: 'text' },
+=======
+    pre_title: {
+      control: { type: 'text' },
+    },
+    headline_size: {
+      name: 'Headline Size',
+      options: ['large', 'medium', 'small'],
+      control: { type: 'select' },
+      table: { category: 'Display options' },
+>>>>>>> 5c56dbb7b9 (adding pre title)
     },
     content: {
       control: { type: 'text' },
@@ -124,8 +135,12 @@ const Template = (args) => ({
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
     <uids-banner
+<<<<<<< HEAD
       :title="args.title"
       :content="args.content"
+=======
+      :pre_title="args.pre_title"
+>>>>>>> 5c56dbb7b9 (adding pre title)
       :url="args.url"
       :url_2="args.url_2"
       :url_3="args.url_3"
