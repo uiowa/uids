@@ -56,11 +56,19 @@ const props = defineProps({
   url: {
     type: String,
   },
-  button_align_right: {
-    type: Boolean,
-    default: false,
+  url_2: {
+    type: String,
+  },
+  url_3: {
+    type: String,
   },
   button_label: {
+    type: String,
+  },
+  button_label_2: {
+    type: String,
+  },
+  button_label_3: {
     type: String,
   },
   button_icon: {
@@ -84,15 +92,9 @@ const classes = computed(() => {
   let classes = ['banner'];
   Background.addBackgroundClass(classes, props);
 
-  if (props.url) {
+  if (props.url || props.url_2) {
     classes.push('click-container')
   }
-
-  ['button_align_right'].forEach((prop) => {
-    if (props[prop] === true) {
-      classes.push(`banner--${ className(prop) }`);
-    }
-  });
 
   if (props.gradient) {
     classes.push(`banner--gradient-${props.gradient}`);
@@ -163,8 +165,7 @@ const headlineClasses = computed(() => {
  * Determine the linked element.
  */
 const linkedElement = computed(() => {
-  // Do we have a URL?
-  if (!props.url) {
+  if (!props.url && !props.url_2 && !props.url_3) {
     return null;
   }
 
@@ -187,11 +188,29 @@ const linkedElement = computed(() => {
  * Print the URL if it should be attached to the headline and false otherwise.
  */
 const headlineLink = computed(() => {
-  if (linkedElement.value === 'title') {
+  // If multiple URLs are present, do not link the headline.
+  if (props.url && (props.url_2 || props.url_3)) {
+    return false;
+  }
+
+  // If only the first URL is present, link the headline to it.
+  if (props.url) {
     return props.url;
   }
+
+  // If only the second URL is present, link the headline to it.
+  if (props.url_2) {
+    return props.url_2;
+  }
+
+  // If only the third URL is present, link the headline to it.
+  if (props.url_3) {
+    return props.url_3;
+  }
+
   return false;
 });
+
 
 const buttonClasses = computed(() => {
   const classes = [];
@@ -201,11 +220,10 @@ const buttonClasses = computed(() => {
   }
 
   return classes;
-
 });
 
 onMounted(() => {
-  if (props.url) {
+  if (props.url || props.url_2) {
     applyClickA11y('.click-container:not([data-uids-no-link])');
   }
 });
@@ -237,18 +255,46 @@ onMounted(() => {
           <slot name="content">{{ content }}</slot>
         </div>
 
-        <footer class="banner__action" v-if="button_label" >
-          <uids-button
-            :class="['bttn', ...buttonClasses]"
-            :url="url"
-            :no_default_classes="true"
-            size="medium"
-            v-if="linkedElement === 'button'">
+        <footer class="banner__action" v-if="button_label || button_label_2 || button_label_3" >
+          <!-- Render buttons when multiple URLs are present -->
+          <div v-if="url && (url_2 || url_3)" class="bttn--row">
+            <uids-button
+              :class="['bttn', ...buttonClasses]"
+              :url="url"
+              :no_default_classes="true"
+              size="medium"
+              v-if="url && button_label">
+              <slot name="button_label">{{ button_label }}</slot>
+              <slot name="button_icon"></slot>
+            </uids-button>
 
-            <slot name="button_label">{{ button_label }}</slot>
-            <slot name="button_icon"></slot>
-          </uids-button>
-          <uids-pseudo-button :class="buttonClasses" v-else>{{ button_label }}</uids-pseudo-button>
+            <uids-button
+              :class="['bttn', ...buttonClasses]"
+              :url="url_2"
+              :no_default_classes="true"
+              size="medium"
+              v-if="url_2 && button_label_2">
+              {{ button_label_2 }}
+              <slot name="button_icon"></slot>
+            </uids-button>
+
+            <uids-button
+              :class="['bttn', ...buttonClasses]"
+              :url="url_3"
+              :no_default_classes="true"
+              size="medium"
+              v-if="url_3 && button_label_3">
+              {{ button_label_3 }}
+              <slot name="button_icon"></slot>
+            </uids-button>
+          </div>
+
+          <!-- Render pseudo button when only url is present -->
+          <uids-pseudo-button
+            :class="buttonClasses"
+            v-else-if="url && !url_2 && !url_3">
+            {{ button_label }}
+          </uids-pseudo-button>
         </footer>
       </div>
     </div>

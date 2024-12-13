@@ -75,6 +75,12 @@ export default {
     url: {
       control: { type: 'text' },
     },
+    url_2: {
+      control: { type: 'text' },
+    },
+    url_3: {
+      control: { type: 'text' },
+    },
     title: {
       control: { type: 'text' },
     },
@@ -91,14 +97,14 @@ export default {
     button_label: {
       control: { type: 'text' },
     },
-    button_icon: {
+    button_label_2: {
       control: { type: 'text' },
     },
-    button_align_right: {
-      name: 'Align button to right',
-      table: {
-        category: 'Display options',
-      },
+    button_label_3: {
+      control: { type: 'text' },
+    },
+    button_icon: {
+      control: { type: 'text' },
     },
     button_color: {
       control: { type: 'select' },
@@ -120,12 +126,15 @@ const Template = (args) => ({
   template: `
     <uids-banner
       :url="args.url"
+      :url_2="args.url_2"
+      :url_3="args.url_3"
       :title="args.title"
       :headline_size="args.headline_size"
       :button_label="args.button_label"
+      :button_label_2="args.button_label_2"
+      :button_label_3="args.button_label_3"
       :button_icon="args.button_icon"
       :button_color="args.button_color"
-      :button_align_right="args.button_align_right"
       :background="args.background"
       :content_position="args.content_position"
       :gradient="args.gradient"
@@ -144,14 +153,16 @@ const Template = (args) => ({
 });
 
 export const Centered = Template.bind({});
-// More on args: https://storybook.js.org/docs/vue/writing-stories/args
 Centered.args = {
   url: 'https://uiowa.edu/',
+  url_2: 'https://uiowa.edu/about',
+  url_3: 'https://uiowa.edu/explore',
   title: 'Welcome to your SiteNow site!',
   content: '<p>Iowa is where great stories begin. It\'s time to start yours. Find out how.</p>',
   button_label: 'Test',
+  button_label_2: 'Learn More',
+  button_label_3: 'Explore',
   button_icon: '<i class="fas fa-arrow-right"></i>',
-  button_align_right: false,
   button_color: 'primary',
   headline_style: 'serif',
   headline_size: 'large',
@@ -161,9 +172,7 @@ Centered.args = {
   height: 'large',
   media: '<img src="' + banner_image + '" alt="Alt">',
   mobile_content_below_image: false,
-  // orientation: '',
 };
-
 export const CenterBottom= Template.bind({});
 CenterBottom.args = {
   ...Centered.args,
