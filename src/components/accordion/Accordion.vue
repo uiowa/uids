@@ -12,13 +12,8 @@ const props = defineProps({
     type: Array,
     required: true,
   },
-  activeIndices: {
-    type: Array,
-    required: true,
-  },
 });
 
-let activeIndexes = [];
 const itemIds = [];
 
 const ariaOwnsIds = () =>{
@@ -34,29 +29,6 @@ const ariaOwnsIds = () =>{
   return itemIds.join(' ');
 }
 
-const setActiveIndices = () => {
-  activeIndexes = [];
-  const indices = props.activeIndices;
-  const numIndices = indices.length;
-
-  if (numIndices < 1) {
-    return null;
-  }
-
-  // If the accordion is not multiselectable...
-  if (!props.multiselectable) {
-    console.log('here');
-
-    // Only let the first index be added to the list.
-    activeIndexes.push(indices[0]);
-  }
-  else {
-    activeIndexes = indices;
-  }
-
-  return null;
-}
-
 const accordionClasses = computed(() => {
   return {
     'accordion': true,
@@ -68,19 +40,17 @@ const accordionClasses = computed(() => {
 <template>
   <div
     :class="accordionClasses"
-    role="tablist"
-    :aria-multiselectable="props.multiselectable"
-    :aria-owns="ariaOwnsIds()"
-    :active-indices="setActiveIndices()"
+    role="list"
   >
-  <div v-for="(item, index) in props.items" :key="index" class="accordion__item">
-    <details
-      class="accordion"
-      aria-labelledby="system-requirements-heading"
+    <details v-for="(item, index) in props.items"
+      :key="index"
+      class="accordion__item"
+      :aria-labelledby="'accordion-heading-' + index"
       :name="!props.multiselectable ? 'accordion-collection' : null"
-      :open="activeIndexes.includes(index) ? '' : null"
+      :open="item.active"
     >
-      <summary :id="itemIds[index]" class="accordion__heading">
+      <summary :id="'accordion-heading-' + index" class="accordion__heading"
+               role="listitem">
         <h2>
           {{ item.title }}
           <i aria-hidden="true" class="fas fa-chevron-up" role="presentation"></i>
@@ -93,6 +63,5 @@ const accordionClasses = computed(() => {
         v-html="item.content"
       ></div>
     </details>
-    </div>
   </div>
 </template>
