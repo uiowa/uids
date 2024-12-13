@@ -18,58 +18,65 @@ export default {
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
     // Props
-    title: {
+    pre_title: {
+      name: 'Pre-title',
       control: { type: 'text' },
     },
-    pre_title: {
+    title: {
+      name: 'Title',
       control: { type: 'text' },
     },
     content: {
+      name: 'Excerpt',
       control: { type: 'text' },
     },
     url: {
+      name: 'First link',
       control: { type: 'text' },
     },
     url_2: {
+      name: 'Second link',
       control: { type: 'text' },
     },
     url_3: {
+      name: 'Third link',
       control: { type: 'text' },
     },
-    media: {
-      name: 'Media',
-      control: 'text',
-      table: {
-        category: 'Media',
-      },
-    },
     button_label: {
+      name: 'First link text',
       control: { type: 'text' },
     },
     button_label_2: {
+      name: 'Second link text',
       control: { type: 'text' },
     },
     button_label_3: {
+      name: 'Third link text',
       control: { type: 'text' },
     },
     button_icon: {
+      name: 'Button icon',
       control: { type: 'text' },
     },
     button_color: {
+      name: 'Button style',
       control: { type: 'select' },
       options: ['primary', 'secondary', 'tertiary', 'transparent'],
+      table: { category: 'Display options' },
     },
     button_light_font: {
+      name: 'Button light font',
       control: { type: 'boolean' },
+      table: { category: 'Display options' },
     },
     headline_size: {
-      name: 'Headline Size',
+      name: 'Headline size',
       options: ['large', 'medium', 'small'],
       control: { type: 'select' },
       table: { category: 'Display options' },
     },
     headline_style: {
-      name: 'Title style',
+      name: 'Headline options',
       options: ['uppercase', 'uppercase-highlight', 'serif', 'serif-highlight',  ''],
       control: {
         type: 'select',
@@ -80,9 +87,7 @@ export default {
           'serif-highlight': 'Zilla Slab highlighted',
         },
       },
-      table: {
-        category: 'Display options',
-      },
+      table: { category: 'Display options' },
     },
     content_position: {
       name: 'Content Position',
@@ -111,10 +116,19 @@ export default {
     mobile_content_below_image: {
       name: '[Mobile] Content Below Image/Video',
       control: { type: 'boolean' },
+      table: { category: 'Display options' },
     },
    enable_autoplay: {
       name: 'Enable autoplay for video',
       control: { type: 'boolean' },
+     table: { category: 'Display options' },
+    },
+    media: {
+      name: 'Media',
+      control: 'text',
+      table: {
+        category: 'Media',
+      },
     },
     media_type: {
       name: 'Media type',
@@ -200,13 +214,13 @@ const Template = (args) => ({
 
 export const Centered = Template.bind({});
 Centered.args = {
-  title: 'Welcome to your SiteNow site!',
-  pre_title: 'SiteNow is awesome!',
-  content: '<p>Iowa is where great stories begin. It\'s time to start yours. Find out how.</p>',
+  pre_title: 'University of Iowa',
+  title: 'Living on Campus',
+  content: '<p>A member of the <a href="/">Association</a> of American Universities since 1909 and the Big Ten Conference<br> since 1899, the University of Iowa is home to one of the most acclaimed academic medical centers<br> in the country, as well as globally recognized leadership in the study and craft of writing.</p>',
   url: 'https://uiowa.edu/',
   url_2: 'https://uiowa.edu/about',
   url_3: 'https://uiowa.edu/explore',
-  button_label: 'Test',
+  button_label: 'Apply',
   button_label_2: 'Learn More',
   button_label_3: 'Explore',
   button_icon: '<i class="fas fa-arrow-right"></i>',
