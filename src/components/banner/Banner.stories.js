@@ -135,7 +135,7 @@ const Template = (args) => ({
       :mobile_content_below_image="args.mobile_content_below_image"
 
     ><template #media v-if="args.media"><span v-html="args.media" ></span></template>
-      <template #title v-if="args.title"><a v-if="args.url" :url="args.url"><span class="headline__heading" v-html="args.title" ></span></a></template>
+      <template #title v-if="args.title"><span class="headline__heading" v-html="args.title" ></span></template>
       <template #content><div v-html="args.content"></div></template>
       <template #button_icon v-if="args.button_icon"><span v-html="args.button_icon" ></span></template>
     </uids-banner>
