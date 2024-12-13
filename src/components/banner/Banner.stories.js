@@ -5,7 +5,7 @@ import banner_video from '../../assets/video/homepage-loop.mp4';
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
-  title: "Components/Banner",
+  title: 'Components/Banner',
   parameters: {
     docs: {
       source: {
@@ -14,153 +14,146 @@ export default {
     },
   },
   component: UidsBanner,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
     // Props
     pre_title: {
-      name: "Pre-title",
-      control: { type: "text" },
+      name: 'Pre-title',
+      control: { type: 'text' },
     },
     title: {
-      name: "Title",
-      control: { type: "text" },
+      name: 'Title',
+      control: { type: 'text' },
     },
     content: {
-      name: "Excerpt",
-      control: { type: "text" },
+      name: 'Excerpt',
+      control: { type: 'text' },
     },
     url: {
-      name: "First link",
-      control: { type: "text" },
+      name: 'First link',
+      control: { type: 'text' },
     },
     url_2: {
-      name: "Second link",
-      control: { type: "text" },
+      name: 'Second link',
+      control: { type: 'text' },
     },
     url_3: {
-      name: "Third link",
-      control: { type: "text" },
+      name: 'Third link',
+      control: { type: 'text' },
     },
     button_label: {
-      name: "First link text",
-      control: { type: "text" },
+      name: 'First link text',
+      control: { type: 'text' },
     },
     button_label_2: {
-      name: "Second link text",
-      control: { type: "text" },
+      name: 'Second link text',
+      control: { type: 'text' },
     },
     button_label_3: {
-      name: "Third link text",
-      control: { type: "text" },
+      name: 'Third link text',
+      control: { type: 'text' },
     },
     button_icon: {
-      name: "Button icon",
-      control: { type: "text" },
+      name: 'Button icon',
+      control: { type: 'text' },
     },
     button_color: {
-      name: "Button style",
-      control: { type: "select" },
-      options: ["primary", "secondary", "tertiary", "transparent"],
-      table: { category: "Display options" },
+      name: 'Button style',
+      control: { type: 'select' },
+      options: ['primary', 'secondary', 'tertiary', 'transparent'],
+      table: { category: 'Display options' },
     },
     button_light_font: {
-      name: "Button light font",
-      control: { type: "boolean" },
-      table: { category: "Display options" },
+      name: 'Button light font',
+      control: { type: 'boolean' },
+      table: { category: 'Display options' },
     },
     headline_size: {
-      name: "Headline size",
-      options: ["large", "medium", "small"],
-      control: { type: "select" },
-      table: { category: "Display options" },
+      name: 'Headline size',
+      options: ['large', 'medium', 'small'],
+      control: { type: 'select' },
+      table: { category: 'Display options' },
     },
     headline_style: {
-      name: "Headline options",
-      options: [
-        "uppercase",
-        "uppercase-highlight",
-        "serif",
-        "serif-highlight",
-      ],
+      name: 'Headline options',
+      options: ['uppercase', 'uppercase-highlight', 'serif', 'serif-highlight',  ''],
       control: {
-        type: "select",
+        type: 'select',
         labels: {
-          uppercase: "Antonio (default)",
-          "uppercase-highlight": "Antonio highlighted",
-          serif: "Zilla Slab",
-          "serif-highlight": "Zilla Slab highlighted",
+          'uppercase': 'Antonio (default)',
+          'uppercase-highlight': 'Antonio highlighted',
+          'serif': 'Zilla Slab',
+          'serif-highlight': 'Zilla Slab highlighted',
         },
       },
-      table: { category: "Display options" },
+      table: { category: 'Display options' },
     },
     content_position: {
-      name: "Content Position",
-      options: ["center-center", "center-bottom", "left-center", "left-bottom"],
+      name: 'Content Position',
+      options: ['center-center', 'center-bottom', 'left-center', 'left-bottom'],
       labels: {
-        "center-bottom": "Centered horizontally and bottom-aligned vertically",
-        "left-center": "Left-aligned and centered vertically (default)",
-        "left-bottom":
-          "Left-aligned horizontally and bottom-aligned vertically",
-        "center-center": "Centered horizontally and vertically",
+        'center-bottom': 'Centered horizontally and bottom-aligned vertically',
+        'left-center': 'Left-aligned and centered vertically (default)',
+        'left-bottom': 'Left-aligned horizontally and bottom-aligned vertically',
+        'center-center': 'Centered horizontally and vertically'
       },
-      control: { type: "select" },
-      table: { category: "Display options" },
+      control: { type: 'select' },
+      table: { category: 'Display options' },
     },
     gradient: {
-      name: "Gradient",
-      options: ["dark", "light"],
-      control: { type: "select" },
-      table: { category: "Display options" },
+      name: 'Gradient',
+      options: ['dark', 'light'],
+      control: { type: 'select' },
+      table: { category: 'Display options' },
     },
     height: {
-      name: "Height",
-      options: ["small", "medium", "large"],
-      control: { type: "select" },
-      table: { category: "Display options" },
+      name: 'Height',
+      options: ['small', 'medium', 'large'],
+      control: { type: 'select' },
+      table: { category: 'Display options' },
     },
     mobile_content_below_image: {
-      name: "[Mobile] Content Below Image/Video",
-      control: { type: "boolean" },
-      table: { category: "Display options" },
+      name: '[Mobile] Content Below Image/Video',
+      control: { type: 'boolean' },
+      table: { category: 'Display options' },
     },
     enable_autoplay: {
-      name: "Enable autoplay for video",
-      control: { type: "boolean" },
-      table: { category: "Display options" },
+      name: 'Enable autoplay for video',
+      control: { type: 'boolean' },
+      table: { category: 'Display options' },
     },
     media: {
-      name: "Media",
-      control: "text",
+      name: 'Media',
+      control: 'text',
       table: {
-        category: "Media",
+        category: 'Media',
       },
     },
     media_type: {
-      name: "Media type",
-      options: ["", "video"],
+      name: 'Media type',
+      options: ['', 'video'],
       control: {
-        type: "select",
+        type: 'select',
         labels: {
-          "": "Image (default)",
-          video: "Video",
+          '': 'Image (default)',
+          'video': 'Video',
         },
       },
       table: {
-        category: "Media",
+        category: 'Media',
       },
     },
     media_poster: {
-      name: "Media poster",
-      control: { type: "text" },
+      name: 'Media poster',
+      control: { type: 'text' },
       table: {
-        category: "Media",
+        category: 'Media',
       },
     },
     ...Background.argTypes,
   },
 };
-
 
 // More on component templates: https://storybook.js.org/docs/vue/writing-stories/introduction#using-args
 const Template = (args) => ({
