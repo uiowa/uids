@@ -130,6 +130,13 @@ export default {
         category: 'Media',
       },
     },
+    media_poster: {
+      name: 'Media poster',
+      control: { type: 'text' },
+      table: {
+        category: 'Media',
+      },
+    },
     ...Background.argTypes,
   },
 };
@@ -167,7 +174,21 @@ const Template = (args) => ({
       :media_type="args.media_type"
       :enable_autoplay="args.enable_autoplay"
 
-    ><template #media v-if="args.media"><span v-html="args.media" ></span></template>
+    ><template #media v-if="args.media">
+      <video
+        v-if="args.media_type === 'video'"
+        loop
+        muted
+        width="1300"
+        height="730"
+        :poster="args.media_poster"
+        playsinline
+        :autoplay="args.enable_autoplay ? true : undefined"
+      >
+        <source :src="args.media" type="video/mp4" />
+      </video>
+      <span v-else v-html="args.media"></span>
+    </template>
       <template #pre_title v-if="args.title"><span class="headline__heading" v-html="args.pre_title" ></span></template>
       <template #title v-if="args.title"><span class="headline__heading" v-html="args.title" ></span></template>
       <template #content><div v-html="args.content"></div></template>
@@ -199,6 +220,7 @@ Centered.args = {
   height: 'large',
   media: '<img src="' + banner_image + '" alt="Alt">',
   media_type: '',
+  media_poster: banner_image,
   mobile_content_below_image: false,
   enable_autoplay: false,
 };
@@ -223,17 +245,7 @@ LeftBottom.args = {
 export const Video = Template.bind({});
 Video.args = {
   ...Centered.args,
+  enable_autoplay: true,
   media_type: 'video',
-  media: `
-      <video
-        loop
-        muted
-        width="1300"
-        height="730"
-        poster="${banner_image}"
-        playsinline
-      >
-        <source src="${banner_video}" type="video/mp4" />
-      </video>
-    `
-}
+  media: banner_video,
+};

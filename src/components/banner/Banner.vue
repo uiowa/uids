@@ -7,10 +7,9 @@ import { computed, onMounted, useSlots } from 'vue';
 import UidsButton from "../button/Button.vue";
 import Background from "../shared/background";
 import Media from '../shared/media'
-import Borderless from "../shared/borderless";
-import { className } from "../utlity";
 import { applyClickA11y } from '../../assets/js/click-a11y'
 import UidsPseudoButton from '../button/PseudoButton.vue';
+
 
 const name = 'uids-banner'
 const props = defineProps({
@@ -177,19 +176,8 @@ const headlineClasses = computed(() => {
     }
   }
 
-
   return classes;
 });
-
-
-const preTitleClasses = computed(() => {
-  const classes = ['headline', 'headline--serif', 'headline--negative', 'headline--large', 'banner__pre-title default'];
-  return classes;
-});
-
-
-
-
 
 /**
  * Determine the linked element.
@@ -260,6 +248,12 @@ onMounted(() => {
   if (props.url || props.url_2) {
     applyClickA11y('.click-container:not([data-uids-no-link])');
   }
+
+  // Initialize video.
+  const videos = document.querySelectorAll('.banner__image.media--video');
+  videos.forEach((video, index) => {
+    new window.UidsVideo(video, index);
+  });
 });
 
 </script>
