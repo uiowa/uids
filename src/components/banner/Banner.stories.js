@@ -1,7 +1,7 @@
 import UidsBanner from './Banner.vue'
 import Background from "../shared/background";
 import banner_image from '../../assets/images/demo/122.jpg';
-
+import banner_video from '../../assets/video/homepage-loop.mp4';
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
@@ -23,12 +23,6 @@ export default {
     },
     pre_title: {
       control: { type: 'text' },
-    },
-    headline_size: {
-      name: 'Headline Size',
-      options: ['large', 'medium', 'small'],
-      control: { type: 'select' },
-      table: { category: 'Display options' },
     },
     content: {
       control: { type: 'text' },
@@ -118,6 +112,24 @@ export default {
       name: '[Mobile] Content Below Image/Video',
       control: { type: 'boolean' },
     },
+   enable_autoplay: {
+      name: 'Enable autoplay for video',
+      control: { type: 'boolean' },
+    },
+    media_type: {
+      name: 'Media type',
+      options: ['', 'video'],
+      control: {
+        type: 'select',
+        labels: {
+          '': 'Image (default)',
+          'video': 'Video',
+        },
+      },
+      table: {
+        category: 'Media',
+      },
+    },
     ...Background.argTypes,
   },
 };
@@ -152,6 +164,8 @@ const Template = (args) => ({
       :gradient="args.gradient"
       :height="args.height"
       :mobile_content_below_image="args.mobile_content_below_image"
+      :media_type="args.media_type"
+      :enable_autoplay="args.enable_autoplay"
 
     ><template #media v-if="args.media"><span v-html="args.media" ></span></template>
       <template #title v-if="args.title"><span class="headline__heading" v-html="args.title" ></span></template>
@@ -182,7 +196,9 @@ Centered.args = {
   gradient:'dark',
   height: 'large',
   media: '<img src="' + banner_image + '" alt="Alt">',
+  media_type: '',
   mobile_content_below_image: false,
+  enable_autoplay: false,
 };
 export const CenterBottom= Template.bind({});
 CenterBottom.args = {
@@ -200,4 +216,22 @@ export const LeftBottom = Template.bind({});
 LeftBottom.args = {
   ...Centered.args,
   content_position: 'left-bottom',
+}
+
+export const Video = Template.bind({});
+Video.args = {
+  ...Centered.args,
+  media_type: 'video',
+  media: `
+      <video
+        loop
+        muted
+        width="1300"
+        height="730"
+        poster="${banner_image}"
+        playsinline
+      >
+        <source src="${banner_video}" type="video/mp4" />
+      </video>
+    `
 }

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import '../../scss/components/banner.scss'
 import '../../scss/components/_background.scss'
+import '../../assets/js/video.js'
 import UidsHeadline from '../headline/Headline.vue'
 import { computed, onMounted, useSlots } from 'vue';
 import UidsButton from "../button/Button.vue";
@@ -19,7 +20,6 @@ const props = defineProps({
   headline_size: {
     type: String,
     default: '',
-    validator: (value: string) => ['', 'large', 'medium', 'small'].includes(value)
   },
   pre_title: {
     type: String,
@@ -68,7 +68,6 @@ const props = defineProps({
   headline_size: {
     type: String,
     default: '',
-    validator: (value: string) => ['', 'large', 'medium', 'small'].includes(value)
   },
   headline_style: {
     type: String,
@@ -81,7 +80,6 @@ const props = defineProps({
   gradient: {
     type: String,
     default: '',
-    validator: (value: string) => ['dark', 'light'].includes(value),
   },
   height: {
     type: String,
@@ -90,6 +88,14 @@ const props = defineProps({
   mobile_content_below_image: {
     type: Boolean,
     default: false,
+  },
+  enable_autoplay: {
+    type: Boolean,
+    default: false,
+  },
+  media_type: {
+    type: String,
+    default: '',
   },
   ...Background.props,
   ...Media.props,
@@ -111,6 +117,10 @@ const classes = computed(() => {
 
   if (props.height) {
     classes.push(`banner--${props.height}`);
+  }
+
+  if (props.media_type) {
+    classes.push(`banner--${props.media_type}`);
   }
 
   if (props.mobile_content_below_image === true) {
@@ -245,8 +255,21 @@ onMounted(() => {
 
 <template>
   <div :class="classes">
-    <div class="banner__image">
+    <div class="banner__image" :class="{
+  'media--video': media_type === 'video',
+  'media--image': media_type !== 'video'
+}">
       <slot name="media"></slot>
+
+      <div class="video-controls video" v-if="media_type === 'video'">
+        <button class="video-btn video-btn__pause" id="video-btn-pause" v-if="enable_autoplay === true">
+          <span class="element-invisible">Pause</span>
+        </button>
+        <button class="video-btn video-btn__play" id="video-btn-play" v-if="enable_autoplay === false">
+          <span class="element-invisible">Play</span>
+        </button>
+      </div>
+
     </div>
     <div class="banner__container">
       <div class="banner__content">
