@@ -260,12 +260,8 @@ onMounted(() => {
 
 <template>
   <div :class="classes">
-    <div class="banner__image" :class="{
-  'media--video': media_type === 'video',
-  'media--image': media_type !== 'video'
-}">
+    <div class="banner__image" :class="{ 'media--video': media_type === 'video', 'media--image': media_type !== 'video'}">
       <slot name="media"></slot>
-
       <div class="video-controls video" v-if="media_type === 'video'">
         <button class="video-btn video-btn__pause" id="video-btn-pause" v-if="enable_autoplay === true">
           <span class="element-invisible">Pause</span>
@@ -284,7 +280,6 @@ onMounted(() => {
             :text_style="headline_style"
             :class="headlineClasses"
           >
-
             <a v-if="headlineLink" :href="headlineLink" class="click-target">
               <slot name="title">{{ title }}</slot>
             </a>
