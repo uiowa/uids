@@ -1,4 +1,5 @@
 (function () {
+  console.log('execute accordion.js');
   function Accordion(element) {
     console.log('element', element);
     let thisAccordion = this;
@@ -10,12 +11,10 @@
 
     for (let i = 0; i < this.accordionItems.length; i++) {
       console.log('accordionItem', this.accordionItems[i]);
-      // Get the accordion item's components.
-      let summary = this.getSummary(this.accordionItems[i]);
 
-      this.accordionItems[i].addEventListener("toggle", (event) => {
+      this.accordionItems[i].addEventListener('click', (event) => {
         console.log('toggle');
-        this.toggleAccordion(this.accordionItems[i], this.accordionItems[i].open);
+        thisAccordion.toggleAccordion(this.accordionItems[i], this.accordionItems[i].open);
       });
 
 
@@ -36,31 +35,12 @@
   Accordion.prototype.getSummary = function (accordionItem) {
     return accordionItem.querySelector('summary');
   }
-  Accordion.prototype.accordionItemComponents = function (accordionItem) {
-    console.log('accordionItem', accordionItem);
-    console.log('accordionItem.querySelector("details")', accordionItem.querySelector('details'));
-    console.log('accordionItem.querySelector("summary")', accordionItem.querySelector('summary'));
-    return [
-      accordionItem.querySelector('details'),
-      accordionItem.querySelector('summary'),
-    ];
-  }
-
-  // Define whether 'accordion' is open with 'isOpen'.
-  Accordion.prototype.accordionOpen = function (accordionItem, isOpen) {
-    // Get the accordion item's components.
-    const [details] = this.accordionItemComponents(accordionItem);
-
-    // Set the relevant attributes for 'accordion' based on 'isOpen'.
-    details.setAttribute('aria-expanded', isOpen);
-    details.setAttribute('aria-selected', isOpen);
-  }
 
   // Activate an 'accordion'.
   Accordion.prototype.activateAccordion = function (accordion) {
 
     // Open the accordion.
-    this.accordionOpen(accordion, true);
+    this.toggleAccordion(accordion, true);
   }
 
   // Activate any accordion that is defined in the hash parameter if there is one.
@@ -95,8 +75,7 @@
   // Check if an accordion is open by inspecting the aria attribute of the 'btn' controlling it.
   // Returns a boolean.
   Accordion.prototype.isAccordionOpen = function (accordionItem) {
-    [details] = this.accordionItemComponents(accordionItem);
-    return details.getAttribute('expanded') === 'true' || false;
+    return accordionItem.getAttribute('expanded') === 'true' || false;
   }
 
   // Toggle a specific 'accordion' open or closed.
@@ -105,12 +84,10 @@
     if (open === undefined) {
       open = this.isAccordionOpen(accordionItem);
     }
-    // Get the accordion item's components.
-    const [details] = this.accordionItemComponents(accordionItem);
 
     // Set the relevant attributes for 'accordion' based on 'isOpen'.
-    details.setAttribute('aria-expanded', open);
-    details.setAttribute('aria-selected', open);
+    accordionItem.setAttribute('aria-expanded', open);
+    accordionItem.setAttribute('aria-selected', open);
 
     // If the accordion is not open (but will be)...
     if (!open) {
@@ -133,14 +110,16 @@
     }
   }
 
+  window.UidsAccordion = Accordion;
+
   // Instantiate accordionItems on the page.
   const accordions = document.getElementsByClassName("accordion");
   console.log('accordions', accordions);
 
   for (let i = 0; i < accordions.length; i++) {
 
-    let accordion = new Accordion(accordions[i]);
+    let accordion = new UidsAccordion(accordions[i]);
     console.log('accordion', accordion);
   }
-}());
+})();
 

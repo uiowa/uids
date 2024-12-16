@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import '../../scss/components/accordion.scss'
-import '../../assets/js/accordion.js'
+import '../../assets/js/accordion.js';
 import { ref, computed, defineProps } from 'vue';
 
 const props = defineProps({
