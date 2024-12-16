@@ -81,7 +81,7 @@ export default {
       control: {
         type: 'select',
         labels: {
-          'uppercase': 'Antonio (default)',
+          'uppercase': 'Antonio',
           'uppercase-highlight': 'Antonio highlighted',
           'serif': 'Zilla Slab',
           'serif-highlight': 'Zilla Slab highlighted',
@@ -92,13 +92,15 @@ export default {
     content_position: {
       name: 'Content Position',
       options: ['center-center', 'center-bottom', 'left-center', 'left-bottom'],
-      labels: {
-        'center-bottom': 'Centered horizontally and bottom-aligned vertically',
-        'left-center': 'Left-aligned and centered vertically (default)',
-        'left-bottom': 'Left-aligned horizontally and bottom-aligned vertically',
-        'center-center': 'Centered horizontally and vertically'
+      control: {
+        type: 'select',
+        labels: {
+          'center-bottom': 'Centered horizontally and bottom-aligned vertically',
+          'left-center': 'Left-aligned and centered vertically',
+          'left-bottom': 'Left-aligned horizontally and bottom-aligned vertically',
+          'center-center': 'Centered horizontally and vertically'
+        },
       },
-      control: { type: 'select' },
       table: { category: 'Display options' },
     },
     gradient: {
@@ -121,7 +123,7 @@ export default {
     enable_autoplay: {
       name: 'Enable autoplay for video',
       control: { type: 'boolean' },
-      table: { category: 'Display options' },
+      table: { category: 'Media' },
     },
     media: {
       name: 'Media',
@@ -286,6 +288,7 @@ Centered.args = {
   media_poster: banner_image,
   mobile_content_below_image: false,
   enable_autoplay: false,
+  section_background: '',
 };
 Centered.storyName = 'Centered horizontally and vertically w/ image';
 
