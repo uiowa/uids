@@ -1,11 +1,7 @@
 @import '../abstracts/variables';
 @import '../abstracts/utilities'; // --------------------------------
-// Banner sizes
-//
-// @todo Use https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio
-//   when there is better browser support.
-// --------------------------------
 
+// === Sizes === //
 .banner {
   flex-basis: 100%;
   display: flex;
@@ -28,7 +24,7 @@
       content: '';
     }
   }
-  // Full screen 100vh option
+
   &--full {
     &.banner--large {
       @include breakpoint(page-container) {
@@ -48,11 +44,9 @@
     }
   }
 }
+// === End: Sizes === //
 
-// --------------------------------
-// Alignment
-// --------------------------------
-
+// === Alignment === //
 .banner {
   position: relative;
   overflow: hidden;
@@ -83,10 +77,9 @@
   }
 }
 
-// --------------------------------
-// Container
-// --------------------------------
+// === End: Alignment === //
 
+// === Container === //
 .banner {
   &:focus-within .headline a:focus {
     text-decoration: underline;
@@ -103,10 +96,10 @@
     }
   }
 }
-// --------------------------------
-// Actions/buttons
-// --------------------------------
 
+// === End: Container === //
+
+// === Buttons === //
 .banner {
   .headline + .banner__action {
     margin-top: 1.5rem;
@@ -115,15 +108,11 @@
   .banner__action .bttn {
     margin: 0 1rem 1rem 0;
 
-    + .bttn {
-      @include breakpoint(sm) {
+    @include breakpoint(sm) {
+      + .bttn {
         margin: 0 1rem 1rem 0;
       }
     }
-  }
-
-  &:last-child {
-    margin-right: 0;
   }
 
   // Stack buttons for horizontal center version for mobile.
@@ -132,10 +121,20 @@
       margin: 1rem auto;
       display: block;
       width: fit-content;
+
+      &:last-child {
+        margin: 1rem auto;
+      }
+
       @include breakpoint(sm) {
         margin: 0 1rem 1rem 0;
         display: inline-block;
         width: auto;
+
+        &:last-child {
+          margin-top: 0;
+          margin-right: 0;
+        }
       }
 
       + .bttn {
@@ -143,41 +142,34 @@
           margin: 0 1rem 1rem 0;
         }
       }
+    }
+  }
 
-      &:last-child {
-        margin: 1rem auto;
+  // Transparent button styles for gradient dark banners.
+  &.banner--gradient-dark {
+    // Stacked banner transparent button styles.
+    &.banner--stacked:not([class*="bg-"]) {
+      .banner__action .bttn--transparent {
         @include breakpoint(sm) {
-          margin-top: 0;
-          margin-right: 0;
+          border-color: rgba(255, 255, 255, .525);
+          color: #fff;
         }
       }
     }
-  }
 
-  // Set transparency on border for banner-stacked.
-  &.banner--gradient-dark:not([class*="bg-"]) {
-    &.banner--stacked {
-      .banner__action {
-        .bttn--transparent {
-          @include breakpoint(sm) {
-            border-color: rgba(255, 255, 255, .525);
-            color: #fff;
-          }
-        }
-      }
-    }
-  }
-
-  // Set default color for transparent button.
-  &.banner--gradient-dark:not([class*="banner--stacked"]):not([class*="bg--white"]):not([class*="bg--gold"]) {
-    .banner__action {
-      .bttn--transparent {
+    // Default transparent button styles for non-stacked banners.
+    &:not(.banner--stacked):not([class*="bg--white"]):not([class*="bg--gold"]) {
+      .banner__action .bttn--transparent {
         border: 1px solid #fff;
         color: #fff;
       }
     }
   }
 }
+
+// === End: Buttons === //
+
+
 // --------------------------------
 // Pre-title
 // --------------------------------
@@ -253,21 +245,15 @@
         }
       }
     }
-    // Set large heading size
-    &.headline--large {
-      font-size: $h4-font-size;
 
-      // https://garyridgway.github.io/clampCalculator/?&minWidth=600&maxWidth=1310&minFont=1.2&maxFont=1.6
+    &.headline--large {
       font-size: clamp(1.2rem, calc(0.9014vw + 0.862rem), 1.6rem);
     }
-    // Set medium heading size
-    &.headline--medium {
-      font-size: 1.4rem;
 
-      // https://garyridgway.github.io/clampCalculator/?&minWidth=600&maxWidth=1310&minFont=1.2&maxFont=1.4
+    &.headline--medium {
       font-size: clamp(1.2rem, calc(0.4507vw + 1.031rem), 1.4rem);
     }
-    // Set small heading size
+
     &.headline--small {
       font-size: $h5-font-size;
     }
