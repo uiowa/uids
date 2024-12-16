@@ -12,7 +12,7 @@
     for (let i = 0; i < this.accordionItems.length; i++) {
       console.log('accordionItem', this.accordionItems[i]);
 
-      this.accordionItems[i].addEventListener('click', (event) => {
+      this.accordionItems[i].addEventListener('toggle', (event) => {
         console.log('toggle');
         thisAccordion.toggleAccordion(this.accordionItems[i], this.accordionItems[i].open);
       });
