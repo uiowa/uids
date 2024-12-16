@@ -48,6 +48,7 @@
     }
   }
 }
+
 // --------------------------------
 // Alignment
 // --------------------------------
@@ -81,6 +82,7 @@
     }
   }
 }
+
 // --------------------------------
 // Container
 // --------------------------------
@@ -124,6 +126,35 @@
     margin-right: 0;
   }
 
+  // Stack buttons for horizontal center version for mobile.
+  &.banner--horizontal-center {
+    .banner__action .bttn {
+      margin: 1rem auto;
+      display: block;
+      width: fit-content;
+      @include breakpoint(sm) {
+        margin: 0 1rem 1rem 0;
+        display: inline-block;
+        width: auto;
+      }
+
+      + .bttn {
+        @include breakpoint(sm) {
+          margin: 0 1rem 1rem 0;
+        }
+      }
+
+      &:last-child {
+        margin: 1rem auto;
+        @include breakpoint(sm) {
+          margin-top: 0;
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  // Set transparency on border for banner-stacked.
   &.banner--gradient-dark:not([class*="bg-"]) {
     &.banner--stacked {
       .banner__action {
@@ -137,6 +168,7 @@
     }
   }
 
+  // Set default color for transparent button.
   &.banner--gradient-dark:not([class*="banner--stacked"]):not([class*="bg--white"]):not([class*="bg--gold"]) {
     .banner__action {
       .bttn--transparent {
@@ -177,6 +209,7 @@
       span {
         background: none;
 
+        // Keep pre-title black when there's a black section container.
         .banner--gradient-light:not([class*="bg-"]) & {
           [class*="bg--black"] & {
             @include breakpoint(sm) {
@@ -185,6 +218,7 @@
           }
         }
 
+        // Keep pre-title white when there's multiple background colors.
         [class*="bg--black"] &,
         [class*="bg--"] [class*="bg--black"] &,
         [class*="bg--black"] [class*="banner--gradient-dark"]:not([class*="bg--"]) &,
@@ -194,9 +228,10 @@
           color: #fff;
         }
 
+        // Make pre-title white if banner--stacked is selected.
         [class*="banner--gradient-dark"]:not([class*="bg--"]) & {
           @include breakpoint(sm) {
-            color: #fff;
+           color: #fff;
           }
         }
 
@@ -254,6 +289,7 @@
     }
   }
 }
+
 // --------------------------------
 // Text & Content
 // --------------------------------
@@ -302,7 +338,8 @@
       }
     }
   }
-  // bg color overrides
+
+  // bg color overrides.
   &[class*="banner--gradient-dark"]:not([class*="bg-"]):not([class*="banner--stacked"]) {
     .banner__text a {
       [class*="bg--gray"] &,
@@ -527,6 +564,7 @@
     }
   }
 }
+
 // --------------------------------
 // Image
 // --------------------------------
@@ -557,6 +595,7 @@
     }
   }
 }
+
 // --------------------------------
 // Video
 // --------------------------------
@@ -587,7 +626,7 @@
   }
 
   .media--video {
-    //position: relative;
+
     .video-controls {
       position: absolute;
       left: 1.25rem;
@@ -659,6 +698,7 @@
       }
     }
   }
+
   // Bottom/Left Video button alignment
   &.banner--horizontal-left.banner--vertical-bottom {
     .media--video + .banner__container .banner__content {
@@ -668,6 +708,7 @@
     }
   }
 }
+
 // --------------------------------
 // Stacked
 // --------------------------------
@@ -680,6 +721,7 @@
     }
   }
 }
+
 // --------------------------------
 // Gradients
 // --------------------------------
@@ -819,6 +861,7 @@
     background: inherit;
   }
 }
+
 // --------------------------------
 // Headlines
 // --------------------------------
@@ -848,12 +891,12 @@
     }
 
     a {
-      //color: $secondary;
       @include breakpoint(sm) {
         color: #fff;
       }
     }
   }
+
   // Overriding the serif font size set in base/_headings.scss
   :where(h2, h3, h4, h5, h6) {
     &.headline--large,
@@ -988,51 +1031,11 @@
     }
   }
 }
-// --------------------------------
-// IE11
-// --------------------------------
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-  .banner {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-  }
 
-  .banner__container {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    height: 100%;
-  }
 
-  .banner .media--video,
-  .banner__image img {
-    left: 0;
-  }
-
-  .banner .banner__container {
-    min-height: 18rem;
-  }
-
-  .banner.banner--large .banner__container {
-    @include breakpoint(sm) {
-      min-height: 33rem;
-    }
-    @include breakpoint(md) {
-      min-height: 48rem;
-    }
-  }
-
-  .banner.banner--medium .banner__container {
-    @include breakpoint(sm) {
-      min-height: 33rem;
-    }
-  }
-}
-// set link color for gray and white nesting.
-
+// Set link color for gray and white nesting.
 [class*="bg--gray"] [class*="banner--gradient-dark"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
 [class*="bg--white"] [class*="banner--gradient-dark"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn) {
   color: inherit;
 }
+
