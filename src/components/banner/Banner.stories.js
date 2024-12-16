@@ -1,9 +1,8 @@
 import UidsBanner from './Banner.vue'
-import Background from "../shared/background";
 import banner_image from '../../assets/images/demo/122.jpg';
 import banner_video from '../../assets/video/homepage-loop.mp4';
+import Background from "../shared/background";
 
-// More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
   title: 'Components/Banner',
   parameters: {
@@ -15,7 +14,6 @@ export default {
   },
   component: UidsBanner,
   tags: ['autodocs'],
-  // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
     // Props
     pre_title: {
@@ -120,6 +118,7 @@ export default {
       control: { type: 'boolean' },
       table: { category: 'Display options' },
     },
+    // Media properties.
     enable_autoplay: {
       name: 'Enable autoplay for video',
       control: { type: 'boolean' },
@@ -204,15 +203,12 @@ export default {
   },
 };
 
-// More on component templates: https://storybook.js.org/docs/vue/writing-stories/introduction#using-args
+
 const Template = (args) => ({
-  // Components used in your story `template` are defined in the `components` object
   components: { UidsBanner },
-  // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
     return { args };
   },
-  // And then the `args` are bound to your component with `v-bind="args"`
   template: `
     <div :class="args.section_background" style="padding-top: 2rem; padding-bottom: 2rem;">
     <uids-banner

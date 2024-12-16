@@ -1,25 +1,17 @@
 <script setup lang="ts">
+import { computed, onMounted, useSlots } from 'vue';
+import UidsButton from "../button/Button.vue";
+import UidsHeadline from '../headline/Headline.vue'
+import UidsPseudoButton from '../button/PseudoButton.vue';
+import Background from "../shared/background";
+import Media from '../shared/media'
 import '../../scss/components/banner.scss'
 import '../../scss/components/_background.scss'
 import '../../assets/js/video.js'
-import UidsHeadline from '../headline/Headline.vue'
-import { computed, onMounted, useSlots } from 'vue';
-import UidsButton from "../button/Button.vue";
-import Background from "../shared/background";
-import Media from '../shared/media'
 import { applyClickA11y } from '../../assets/js/click-a11y'
-import UidsPseudoButton from '../button/PseudoButton.vue';
-
 
 const name = 'uids-banner'
 const props = defineProps({
-  /**
-   * Title style for the headline.
-   */
-  headline_size: {
-    type: String,
-    default: '',
-  },
   pre_title: {
     type: String,
     default: '',
@@ -102,6 +94,9 @@ const props = defineProps({
 
 const slots = useSlots();
 
+/**
+ * Main banner classes.
+ */
 const classes = computed(() => {
   let classes = ['banner'];
   Background.addBackgroundClass(classes, props);
@@ -146,6 +141,9 @@ const classes = computed(() => {
   return classes;
 });
 
+/**
+ * Headline classes.
+ */
 const headlineClasses = computed(() => {
   const classes = [];
 
@@ -203,7 +201,7 @@ const linkedElement = computed(() => {
 });
 
 /**
- * Print the URL if it should be attached to the headline and false otherwise.
+ * Determine if the headline should be linked.
  */
 const headlineLink = computed(() => {
   // If multiple URLs are present, do not link the headline.
@@ -211,17 +209,14 @@ const headlineLink = computed(() => {
     return false;
   }
 
-  // If only the first URL is present, link the headline to it.
   if (props.url) {
     return props.url;
   }
 
-  // If only the second URL is present, link the headline to it.
   if (props.url_2) {
     return props.url_2;
   }
 
-  // If only the third URL is present, link the headline to it.
   if (props.url_3) {
     return props.url_3;
   }
@@ -229,7 +224,9 @@ const headlineLink = computed(() => {
   return false;
 });
 
-
+/**
+ * Button color and light font variation.
+ */
 const buttonClasses = computed(() => {
   const classes = [];
 
