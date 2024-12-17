@@ -1,3 +1,82 @@
+/**
+ * A class for controlling accordion behavior.
+ */
+class Accordion {
+  constructor(element) {
+    this.accordionItems = element.querySelectorAll('details');
+    console.log('this.accordionItems', this.accordionItems);
+    this.multiSelectible = element.getAttribute('aria-multiselectable') === 'true' || false;
+
+    Array.prototype.forEach.call(this.accordionItems, (item) => {
+      console.log('accordionItem', item);
+      item.addEventListener('toggle', (event) => {
+        console.log('toggle');
+        this.toggleAccordion(item, item.open);
+      });
+    });
+
+    window.addEventListener('popstate', (event) => {
+      this.activateAccordionByHash();
+    });
+
+    this.activateAccordionByHash();
+  }
+
+  activateAccordionByHash() {
+    let hash = window.location.hash.substr(1);
+
+    if (hash !== '') {
+      let accordionToFocus = document.getElementById(hash);
+
+      if (accordionToFocus !== null) {
+        let accordionToFocusAccordionWrapper = accordionToFocus.parentElement
+        let accordionWrapper = this.accordionItems[0].parentElement;
+
+        if (accordionToFocusAccordionWrapper === accordionWrapper) {
+          this.toggleAccordion(accordionToFocus, true);
+        }
+      }
+    }
+  }
+
+  isAccordionOpen(accordionItem) {
+    return accordionItem.getAttribute('expanded') === 'true' || false;
+  }
+
+  toggleAccordion(accordionItem, open) {
+    if (open === undefined) {
+      open = this.isAccordionOpen(accordionItem);
+    }
+
+    accordionItem.setAttribute('aria-expanded', open);
+    accordionItem.setAttribute('aria-selected', open);
+
+    if (!open) {
+      let historyString = '#' + accordionItem.id;
+
+      if (window.history && history.pushState && historyString !== '#') {
+        history.replaceState("", "", historyString);
+      }
+    } else {
+      history.replaceState("", "", null);
+    }
+  }
+}
+
+/**
+ * Initializes the accordion on each of the specified selectors.
+ *
+ * @param selector
+ */
+function applyAccordion(selector) {
+  const items = document.querySelectorAll(selector);
+
+  Array.prototype.forEach.call(items, (item) => {
+    new Accordion(item);
+  });
+}
+
+// @todo Remove this when the above is finalized.
 (function () {
   console.log('execute accordion.js');
   function Accordion(element) {
@@ -109,17 +188,7 @@
       history.replaceState("", "", null);
     }
   }
-
-  window.UidsAccordion = Accordion;
-
-  // Instantiate accordionItems on the page.
-  const accordions = document.getElementsByClassName("accordion");
-  console.log('accordions', accordions);
-
-  for (let i = 0; i < accordions.length; i++) {
-
-    let accordion = new UidsAccordion(accordions[i]);
-    console.log('accordion', accordion);
-  }
 })();
+
+export { applyAccordion }
 
