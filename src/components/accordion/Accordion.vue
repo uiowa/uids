@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import '../../scss/components/accordion.scss'
+import { applyAccordion } from "../../assets/js/accordion.js";
 import '../../assets/js/accordion.js';
-import { ref, computed, defineProps } from 'vue';
+import {ref, computed, defineProps, onMounted} from 'vue';
 
 const props = defineProps({
   multiselectable: {
@@ -35,12 +36,17 @@ const accordionClasses = computed(() => {
     'accordion--multi': props.multiselectable,
   };
 });
+
+onMounted(() => {
+  applyAccordion('.accordion');
+});
+
 </script>
 
 <template>
   <div
     :class="accordionClasses"
-    role="list"
+    role="tablist"
   >
     <details v-for="(item, index) in props.items"
       :key="index"
@@ -48,11 +54,13 @@ const accordionClasses = computed(() => {
       :aria-labelledby="'accordion-heading-' + index"
       :name="!props.multiselectable ? 'accordion-collection' : null"
       :open="item.active"
-      :aria-expanded="item.active"
+             :aria-owns="ariaOwnsIds()"
       :id="'accordion-item-' + index"
     >
       <summary :id="'accordion-heading-' + index" class="accordion__heading"
-               role="listitem">
+               :aria-expanded="item.active ? 'true' : 'false'"
+               :aria-selected="item.active ? 'true' : 'false'"
+               role="tab">
         <h2>
           {{ item.title }}
           <i aria-hidden="true" class="fas fa-chevron-up" role="presentation"></i>
