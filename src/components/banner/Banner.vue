@@ -309,7 +309,6 @@ onMounted(() => {
               size="medium"
               v-if="url_3 && button_label_3">
               {{ button_label_3 }}
-              <slot name="button_icon"></slot>
             </uids-button>
           </div>
 
