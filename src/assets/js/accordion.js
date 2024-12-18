@@ -3,19 +3,18 @@
  */
 class Accordion {
   constructor(element) {
-    this.accordionItems = element.querySelectorAll('details');
-    console.log('this.accordionItems', this.accordionItems);
+    const accordionItems = element.querySelectorAll('details');
 
-    Array.prototype.forEach.call(this.accordionItems, (item) => {
-      console.log('accordionItem', item);
+    // Loop through each accordion item and add a listener for when the accordion is toggled.
+    Array.prototype.forEach.call(accordionItems, (item) => {
       item.addEventListener('toggle', (event) => {
-        console.log('toggle');
         this.toggleAccordion(item, item.open);
       });
     });
 
     // Add a listener that listens for when the URL is changed.
     window.addEventListener('popstate', (event) => {
+      // Activate an accordion based upon the hash parameters in the URL.
       this.activateAccordionByHash();
     });
 
