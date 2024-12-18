@@ -47,6 +47,7 @@ onMounted(() => {
   <div
     :class="accordionClasses"
     role="tablist"
+    :aria-owns="ariaOwnsIds()"
   >
     <details v-for="(item, index) in props.items"
       :key="index"
@@ -54,7 +55,6 @@ onMounted(() => {
       :aria-labelledby="'accordion-heading-' + index"
       :name="!props.multiselectable ? 'accordion-collection' : null"
       :open="item.open"
-      :aria-owns="ariaOwnsIds()"
       :id="'accordion-item-' + index"
     >
       <summary :id="'accordion-heading-' + index" class="accordion__heading"
