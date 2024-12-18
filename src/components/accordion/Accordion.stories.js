@@ -1,24 +1,14 @@
 import Accordion from './Accordion.vue';
-// import AccordionDocs from "./AccordionDocs.mdx";
 
 export default {
   title: 'Components/Accordion',
   component: Accordion,
-  // tags: ['autodocs'],
   argTypes: {
     multiselectable: {
       control: 'boolean',
       name: 'Multi select'
     },
   },
-  // parameters: {
-    // docs: {
-    //   source: {
-    //     code: null,
-    //   },
-    //   page: AccordionDocs,
-    // },
-  // },
 };
 
 const Template = (args) => ({
