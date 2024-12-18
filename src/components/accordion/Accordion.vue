@@ -53,13 +53,13 @@ onMounted(() => {
       class="accordion__item"
       :aria-labelledby="'accordion-heading-' + index"
       :name="!props.multiselectable ? 'accordion-collection' : null"
-      :open="item.active"
+      :open="item.open"
       :aria-owns="ariaOwnsIds()"
       :id="'accordion-item-' + index"
     >
       <summary :id="'accordion-heading-' + index" class="accordion__heading"
-        :aria-expanded="item.active ? 'true' : 'false'"
-        :aria-selected="item.active ? 'true' : 'false'"
+        :aria-expanded="item.open ? 'true' : 'false'"
+        :aria-selected="item.open ? 'true' : 'false'"
         role="tab"
       >
         <h2>
