@@ -45,10 +45,9 @@ const props = defineProps({
 const slots = useSlots();
 
 const classes = computed(() => {
-  let classes = [];
+  let classes = ['bttn'];
 
-  classes.push('bttn');
-
+  // If these props are set to true, add the corresponding class.
   ['full', 'transparent', 'light_font'].forEach((prop) => {
     if (props[prop] === true) {
       classes.push(`bttn--${ className(prop) }`);
@@ -63,6 +62,7 @@ const classes = computed(() => {
     classes.push(`bttn--${ className(props.size)}`);
   }
 
+  // If there is no text in the default slot, add the no-text class.
   if (!slots.default) {
     classes.push(`bttn--no-text`);
   }
