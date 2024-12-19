@@ -213,23 +213,6 @@ const headlineLink = computed(() => {
   return false;
 });
 
-/**
- * Button color and light font variation.
- */
-const buttonClasses = computed(() => {
-  const classes = [];
-
-  if (props.button_light_font) {
-    classes.push('bttn--light-font');
-  }
-
-  if (props.button_color) {
-    classes.push(`bttn--${props.button_color}`);
-  }
-
-  return classes;
-});
-
 onMounted(() => {
   if (props.url || props.url_2) {
     applyClickA11y('.click-container:not([data-uids-no-link])');
@@ -260,64 +243,62 @@ onMounted(() => {
     </div>
     <div class="banner__container">
       <div class="banner__content">
-        <header class="banner__title" v-if="$slots.title || title">
-          <div :class="[headlineClasses, 'banner__pre-title', 'headline']"><slot name="pre_title">{{ pre_title }}</slot></div>
+        <header class="banner__title" v-if="$slots.title || $slots.pre_title">
+          <div :class="[headlineClasses, 'banner__pre-title', 'headline']" v-if="$slots.pre_title">
+            <slot name="pre_title"></slot>
+          </div>
           <uids-headline
             :text_style="headline_style"
             :class="headlineClasses"
           >
             <a v-if="headlineLink" :href="headlineLink" class="click-target">
-              <slot name="title">{{ title }}</slot>
+              <slot name="title"></slot>
             </a>
             <template v-else>
-              <slot name="title">{{ title }}</slot>
+              <slot name="title"></slot>
             </template>
           </uids-headline>
         </header>
 
-        <div class="banner__text" v-if="content" >
-          <slot name="content">{{ content }}</slot>
+        <div class="banner__text" v-if="$slots.content" >
+          <slot name="content"></slot>
         </div>
 
         <footer class="banner__action" v-if="button_label || button_label_2 || button_label_3" >
-          <!-- Render buttons when multiple URLs are present -->
-          <div v-if="url && (url_2 || url_3)" class="bttn--row">
-            <uids-button
-              :url="url"
+          <slot name="buttons">
+            <!-- Render buttons when multiple URLs are present -->
+            <div v-if="url && (url_2 || url_3)" class="bttn--row">
+              <uids-button
+                :url="url"
+                :color="button_color"
+                :light_font="button_light_font"
+                size="medium"
+                v-if="url && button_label">{{ button_label }}</uids-button>
+
+              <uids-button
+                :url="url_2"
+                :color="button_color"
+                :light_font="button_light_font"
+                size="medium"
+                v-if="url_2 && button_label_2">{{ button_label_2 }}</uids-button>
+
+              <uids-button
+                :url="url_3"
+                :color="button_color"
+                :light_font="button_light_font"
+                size="medium"
+                v-if="url_3 && button_label_3">{{ button_label_3 }}</uids-button>
+            </div>
+
+            <!-- Render pseudo button when only url is present -->
+            <uids-pseudo-button
               :color="button_color"
               :light_font="button_light_font"
               size="medium"
-              v-if="url && button_label">
-              <slot name="button_label">{{ button_label }}</slot>
-            </uids-button>
-
-            <uids-button
-              :url="url_2"
-              :color="button_color"
-              :light_font="button_light_font"
-              size="medium"
-              v-if="url_2 && button_label_2">
-              {{ button_label_2 }}
-            </uids-button>
-
-            <uids-button
-              :url="url_3"
-              :color="button_color"
-              :light_font="button_light_font"
-              size="medium"
-              v-if="url_3 && button_label_3">
-              {{ button_label_3 }}
-            </uids-button>
-          </div>
-
-          <!-- Render pseudo button when only url is present -->
-          <uids-pseudo-button
-            :color="button_color"
-            :light_font="button_light_font"
-            size="medium"
-            v-else-if="url && !url_2 && !url_3">
-            {{ button_label }}
-          </uids-pseudo-button>
+              v-else-if="url && !url_2 && !url_3">
+              {{ button_label }}
+            </uids-pseudo-button>
+          </slot>
         </footer>
       </div>
     </div>

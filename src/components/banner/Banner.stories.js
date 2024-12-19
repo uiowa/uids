@@ -212,16 +212,12 @@ const Template = (args) => ({
   template: `
     <div :class="args.section_background" style="padding-top: 2rem; padding-bottom: 2rem;">
     <uids-banner
-      :title="args.title"
-      :content="args.content"
-      :pre_title="args.pre_title"
       :url="args.url"
       :url_2="args.url_2"
       :url_3="args.url_3"
       :button_label="args.button_label"
       :button_label_2="args.button_label_2"
       :button_label_3="args.button_label_3"
-      :button_icon="args.button_icon"
       :button_color="args.button_color"
       :button_light_font="args.button_light_font"
       :headline_style="args.headline_style"
@@ -252,7 +248,6 @@ const Template = (args) => ({
       <template #pre_title v-if="args.title"><span class="headline__heading" v-html="args.pre_title" ></span></template>
       <template #title v-if="args.title"><span class="headline__heading" v-html="args.title" ></span></template>
       <template #content><div v-html="args.content"></div></template>
-      <template #button_icon v-if="args.button_icon"><span v-html="args.button_icon" ></span></template>
     </uids-banner>
     </div>
   `,
