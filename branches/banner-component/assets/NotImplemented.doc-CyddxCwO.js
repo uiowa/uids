@@ -1,0 +1,5 @@
+import{ae as t,af as r,ag as e}from"./index-yJ_c4rlz.js";import{u as i}from"./index-CY3Dc8Ag.js";import{Slider as s}from"./Slider.stories-BEwfwdit.js";import{Tabs as p}from"./Tabs.stories-BL0ZEwcx.js";import"./iframe-C8Qb9X2_.js";import"../sb-preview/runtime.js";import"./index-DZVNkkTA.js";import"./index-D-8MO0q_.js";import"./index-DrFu-skq.js";import"./Stub.vue_vue_type_script_setup_true_lang-6_AIJ2HQ.js";import"./vue.esm-bundler-CTz9PpS2.js";import"./utlity-CAV5GFHh.js";import"./Button.vue_vue_type_script_setup_true_lang-Y8KXRQsg.js";import"./Headline.vue_vue_type_script_setup_true_lang-XdG-P5Z6.js";function m(o){const n={h1:"h1",p:"p",...i(),...o.components};return t.jsxs(t.Fragment,{children:[t.jsx(r,{title:"Not Implemented"}),`
+`,t.jsx(n.h1,{id:"not-implemented",children:"Not implemented"}),`
+`,t.jsx(n.p,{children:"The following components are not implemented in UIDS 4 as of this time."}),`
+`,t.jsx(e,{of:s}),`
+`,t.jsx(e,{of:p})]})}function w(o={}){const{wrapper:n}={...i(),...o.components};return n?t.jsx(n,{...o,children:t.jsx(m,{...o})}):m(o)}export{w as default};
