@@ -1,4 +1,4 @@
-import{_ as a}from"./Stub.vue_vue_type_script_setup_true_lang-BTKPUpqw.js";import"./vue.esm-bundler-B_OG6i5n.js";import"./utlity-CAV5GFHh.js";import"./Button.vue_vue_type_script_setup_true_lang--NIkMegI.js";import"./Headline.vue_vue_type_script_setup_true_lang-Bv-0cPYD.js";const c={title:"Not implemented/Tabs",tags:["!autodocs"],parameters:{docs:{source:{code:null}},options:{showPanel:!1}}},r=o=>({components:{UidsStub:a},setup(){return{args:o}},template:`
+import{_ as a}from"./Stub.vue_vue_type_script_setup_true_lang-HMrx09FB.js";import"./vue.esm-bundler-B_OG6i5n.js";import"./utlity-CAV5GFHh.js";import"./Button.vue_vue_type_script_setup_true_lang-Bl6XAfQF.js";import"./Headline.vue_vue_type_script_setup_true_lang-Bv-0cPYD.js";const c={title:"Not implemented/Tabs",tags:["!autodocs"],parameters:{docs:{source:{code:null}},options:{showPanel:!1}}},r=o=>({components:{UidsStub:a},setup(){return{args:o}},template:`
     <uids-stub
       path="tabs.html"
       title="Tabs"
