@@ -283,29 +283,27 @@ onMounted(() => {
           <!-- Render buttons when multiple URLs are present -->
           <div v-if="url && (url_2 || url_3)" class="bttn--row">
             <uids-button
-              :class="['bttn', ...buttonClasses]"
               :url="url"
-              :no_default_classes="true"
+              :color="button_color"
+              :light_font="button_light_font"
               size="medium"
               v-if="url && button_label">
               <slot name="button_label">{{ button_label }}</slot>
-              <slot name="button_icon"></slot>
             </uids-button>
 
             <uids-button
-              :class="['bttn', ...buttonClasses]"
               :url="url_2"
-              :no_default_classes="true"
+              :color="button_color"
+              :light_font="button_light_font"
               size="medium"
               v-if="url_2 && button_label_2">
               {{ button_label_2 }}
-              <slot name="button_icon"></slot>
             </uids-button>
 
             <uids-button
-              :class="['bttn', ...buttonClasses]"
               :url="url_3"
-              :no_default_classes="true"
+              :color="button_color"
+              :light_font="button_light_font"
               size="medium"
               v-if="url_3 && button_label_3">
               {{ button_label_3 }}
@@ -314,7 +312,9 @@ onMounted(() => {
 
           <!-- Render pseudo button when only url is present -->
           <uids-pseudo-button
-            :class="buttonClasses"
+            :color="button_color"
+            :light_font="button_light_font"
+            size="medium"
             v-else-if="url && !url_2 && !url_3">
             {{ button_label }}
           </uids-pseudo-button>

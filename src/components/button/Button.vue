@@ -40,10 +40,6 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  no_default_classes: {
-    type: Boolean,
-    default: false,
-  }
 })
 
 const slots = useSlots();
@@ -51,29 +47,27 @@ const slots = useSlots();
 const classes = computed(() => {
   let classes = [];
 
-  if (!props.no_default_classes) {
-    classes.push('bttn');
+  classes.push('bttn');
 
-    ['full', 'transparent', 'light_font'].forEach((prop) => {
-      if (props[prop] === true) {
-        classes.push(`bttn--${ className(prop) }`);
-      }
-    });
-
-    if (props.color) {
-      classes.push(`bttn--${ className(props.color)}`);
+  ['full', 'transparent', 'light_font'].forEach((prop) => {
+    if (props[prop] === true) {
+      classes.push(`bttn--${ className(prop) }`);
     }
+  });
 
-    if (props.size) {
-      classes.push(`bttn--${ className(props.size)}`);
-    }
-
-    if (!slots.default) {
-      classes.push(`bttn--no-text`);
-    }
-
-    Borderless.addBorderlessClass(classes, props);
+  if (props.color) {
+    classes.push(`bttn--${ className(props.color)}`);
   }
+
+  if (props.size) {
+    classes.push(`bttn--${ className(props.size)}`);
+  }
+
+  if (!slots.default) {
+    classes.push(`bttn--no-text`);
+  }
+
+  Borderless.addBorderlessClass(classes, props);
 
   return classes;
 });
