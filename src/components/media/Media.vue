@@ -66,7 +66,7 @@ const classes = computed(() => {
       <source src="https://sandbox.prod.drupal.uiowa.edu/sites/sandbox.uiowa.edu/files/2020-12/homepage-loop.mp4" type="video/mp4">
     </video>
 
-    <div class="video-controls video" v-else-if="type === 'remote_video'">
+    <div class="video-controls video" v-if="type === 'remote_video'">
       <button class="video-btn video-btn__pause" id="video-btn-pause" v-if="enable_autoplay === true">
         <span class="element-invisible">Pause</span>
       </button>
