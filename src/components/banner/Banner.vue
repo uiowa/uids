@@ -2,6 +2,7 @@
 import { computed, onMounted, useSlots } from 'vue';
 import UidsButton from "../button/Button.vue";
 import UidsHeadline from '../headline/Headline.vue'
+import UidsMedia from '../media/Media.vue'
 import UidsPseudoButton from '../button/PseudoButton.vue';
 import Background from "../shared/background";
 import Media from '../shared/media'
@@ -237,16 +238,13 @@ onMounted(() => {
 
 <template>
   <div :class="classes">
-    <div class="banner__image" :class="{ 'media--video': media_type === 'video', 'media--image': media_type !== 'video'}">
-      <slot name="media"></slot>
-      <div class="video-controls video" v-if="media_type === 'video'">
-        <button class="video-btn video-btn__pause" id="video-btn-pause" v-if="enable_autoplay === true">
-          <span class="element-invisible">Pause</span>
-        </button>
-        <button class="video-btn video-btn__play" id="video-btn-play" v-if="enable_autoplay === false">
-          <span class="element-invisible">Play</span>
-        </button>
-      </div>
+    <div class="banner__image" :class="{ 'media--video': media_type === 'remote_video', 'media--image': media_type !== 'video'}">
+      <uids-media
+        :type="media_type"
+        :enable_autoplay="enable_autoplay"
+      >
+        <slot name="media"></slot>
+      </uids-media>
 
     </div>
     <div class="banner__container">

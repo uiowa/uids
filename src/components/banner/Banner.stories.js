@@ -1,7 +1,6 @@
 import UidsBanner from './Banner.vue'
-import banner_image from '../../assets/images/demo/122.jpg';
-import banner_video from '../../assets/video/homepage-loop.mp4';
 import Background from "../shared/background";
+
 
 export default {
   title: 'Components/Banner',
@@ -134,79 +133,18 @@ export default {
       control: { type: 'boolean' },
       table: { category: 'Media' },
     },
-    media: {
-      name: 'Media',
-      control: 'text',
-      table: {
-        category: 'Media',
-      },
-    },
     media_type: {
       name: 'Media type',
-      options: ['', 'video'],
+      options: ['image', 'remote_video'],
       control: {
         type: 'select',
         labels: {
-          '': 'Image (default)',
-          'video': 'Video',
+          'image': 'Image (default)',
+          'remote_video': 'Video',
         },
       },
       table: {
         category: 'Media',
-      },
-    },
-    media_poster: {
-      name: 'Media poster',
-      control: { type: 'text' },
-      table: {
-        category: 'Media',
-      },
-    },
-    section_background: {
-      name: 'Section background',
-      options: [
-        '',
-        'bg--black',
-        'bg--black--pattern--brain',
-        'bg--black--pattern--community',
-        'bg--black--pattern--particle',
-        'bg--gold',
-        'bg--gold--pattern--brain',
-        'bg--gold--pattern--community',
-        'bg--gold--pattern--particle',
-        'bg--gray',
-        'bg--gray--pattern--brain',
-        'bg--gray--pattern--community',
-        'bg--gray--pattern--particle',
-        'bg--white',
-        'bg--white--pattern--brain',
-        'bg--white--pattern--community',
-        'bg--white--pattern--particle',
-      ],
-      control: {
-        type: 'select',
-        labels: {
-          '': '- None -',
-          'bg--black': 'Black',
-          'bg--black--pattern--brain': 'Black - Brain pattern',
-          'bg--black--pattern--community': 'Black - Community pattern',
-          'bg--black--pattern--particle': 'Black - Particle pattern',
-          'bg--gold': 'Gold',
-          'bg--gold--pattern--brain': 'Gold - Brain pattern',
-          'bg--gold--pattern--community': 'Gold - Community pattern',
-          'bg--gold--pattern--particle': 'Gold - Particle pattern',
-          'bg--gray': 'Gray',
-          'bg--gray--pattern--brain': 'Gray - Brain pattern',
-          'bg--gray--pattern--community': 'Gray - Community pattern',
-          'bg--gray--pattern--particle': 'Gray - Particle pattern',
-          'bg--white': 'White',
-          'bg--white--pattern--brain': 'White - Brain pattern',
-          'bg--white--pattern--community': 'White - Community pattern',
-          'bg--white--pattern--particle': 'White - Particle pattern',
-        },
-      },
-      table: {
-        category: 'Container',
       },
     },
     ...Background.argTypes,
@@ -241,21 +179,7 @@ const Template = (args) => ({
       :media_type="args.media_type"
       :enable_autoplay="args.enable_autoplay"
 
-    ><template #media v-if="args.media">
-      <video
-        v-if="args.media_type === 'video'"
-        loop
-        muted
-        width="1300"
-        height="730"
-        :poster="args.media_poster"
-        playsinline
-        :autoplay="args.enable_autoplay ? true : undefined"
-      >
-        <source :src="args.media" type="video/mp4" />
-      </video>
-      <span v-else v-html="args.media"></span>
-    </template>
+    > <template #media v-if="args.media"><span v-html="args.media" ></span></template>
       <template #pre_title v-if="args.title"><span class="headline__heading" v-html="args.pre_title" ></span></template>
       <template #title v-if="args.title"><span class="headline__heading" v-html="args.title" ></span></template>
       <template #content><div v-html="args.content"></div></template>
@@ -286,9 +210,7 @@ Centered.args = {
   vertical_alignment: 'center',
   gradient:'dark',
   height: 'large',
-  media: '<img src="' + banner_image + '" alt="Alt">',
-  media_type: '',
-  media_poster: banner_image,
+  media_type: 'image',
   mobile_content_below_image: false,
   enable_autoplay: false,
   section_background: '',
@@ -322,7 +244,6 @@ export const Video = Template.bind({});
 Video.args = {
   ...Centered.args,
   enable_autoplay: true,
-  media_type: 'video',
-  media: banner_video,
+  media_type: 'remote_video',
 };
 Video.storyName = 'Centered horizontally and vertically w/ video';
