@@ -1,23 +1,39 @@
 @import '../abstracts/variables';
 @import '../abstracts/utilities';
 
+// https://drafts.csswg.org/css-values-5/#interpolate-size.
+:root {
+  interpolate-size: allow-keywords;
+}
+
 .stat__grid {
   margin: 0;
   width: 100%;
   transition: all .55s cubic-bezier(.95, 1.25, .375, 1.15);
 
-  &.stat--transform {
-    &:hover {
+  &.stat--static {
+    &:hover .stat__content {
       @include breakpoint(md) {
-        transform: translateY(-10px);
+        max-height: 100vh;
+      }
+      @include breakpoint(md) {
+        @supports (interpolate-size: allow-keywords) {
+          max-height: max-content;
+          overflow: hidden;
+        }
       }
     }
   }
 
   &:hover .stat__content {
     @include breakpoint(md) {
-      @include element-invisible-off;
-      opacity: 1;
+      max-height: 100vh;
+    }
+    @include breakpoint(md) {
+      @supports (interpolate-size: allow-keywords) {
+        max-height: max-content;
+        overflow: hidden;
+      }
     }
   }
 }
@@ -82,9 +98,17 @@
     line-height: 1.4;
 
     @include breakpoint(md) {
-      opacity: 0;
-      transition: 1s;
-      @include element-invisible;
+      max-height: 0;
+      transition: max-height 0.4s ease-in-out;
+      overflow: hidden;
+    }
+
+    .stat--static & {
+      @include breakpoint(md) {
+        max-height: max-content;
+        transition: none;
+        overflow: unset;
+      }
     }
 
     [class*="bg--black"] &,
@@ -102,7 +126,6 @@
         margin: 0 10%;
       }
     }
-
   }
 
   &__description {
@@ -229,14 +252,10 @@
   margin-bottom: 0rem;
   display: flex;
   flex-wrap: wrap;
-  cursor: pointer;
+  cursor: inherit;
   transition: all .55s cubic-bezier(.95, 1.25, .375, 1.15);
+}
 
-  &.stat--transform {
-    &:hover {
-      @include breakpoint(md) {
-        transform: translateY(-10px) scale(1.02);
-      }
-    }
-  }
+.stat:not(.stat--static) {
+  cursor: pointer;
 }
