@@ -53,7 +53,11 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  content_position: {
+  horizontal_alignment: {
+    type: String,
+    default: '',
+  },
+  vertical_alignment: {
     type: String,
     default: '',
   },
@@ -110,21 +114,25 @@ const classes = computed(() => {
     classes.push(`banner--stacked`);
   }
 
-  switch (props.content_position) {
-    case 'center-center':
-      classes.push('banner--vertical-center', 'banner--horizontal-center', 'banner--gradient-bottom');
-      break;
-    case 'center-bottom':
-      classes.push('banner--vertical-bottom', 'banner--horizontal-center', 'banner--gradient-bottom');
-      break;
-    case 'left-center':
-      classes.push('banner--vertical-center', 'banner--horizontal-left', 'banner--gradient-left');
-      break;
-    case 'left-bottom':
-      classes.push('banner--vertical-bottom', 'banner--horizontal-left', 'banner--gradient-left');
-      break;
-    default:
-      classes.push('banner--vertical-center', 'banner--horizontal-left', 'banner--gradient-left');
+  // Horizontal alignment.
+  if (props.horizontal_alignment === 'center') {
+    classes.push('banner--horizontal-center');
+  } else if (props.horizontal_alignment === 'left') {
+    classes.push('banner--horizontal-left', 'banner--gradient-left');
+  } else {
+    classes.push('banner--gradient-bottom');
+  }
+
+  // Vertical alignment.
+  if (props.vertical_alignment === 'center') {
+    classes.push('banner--vertical-center');
+  } else if (props.vertical_alignment === 'bottom') {
+    classes.push('banner--vertical-bottom');
+  }
+
+  // Add gradient-bottom unless horizontal alignment is 'left'.
+  if (props.horizontal_alignment !== 'left') {
+    classes.push('banner--gradient-bottom');
   }
 
   return classes;

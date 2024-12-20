@@ -87,16 +87,26 @@ export default {
       },
       table: { category: 'Display options' },
     },
-    content_position: {
-      name: 'Content Position',
-      options: ['center-center', 'center-bottom', 'left-center', 'left-bottom'],
+    horizontal_alignment: {
+      name: 'Horizontal alignment',
+      options: ['left', 'center'],
       control: {
         type: 'select',
         labels: {
-          'center-bottom': 'Centered horizontally and bottom-aligned vertically',
-          'left-center': 'Left-aligned and centered vertically',
-          'left-bottom': 'Left-aligned horizontally and bottom-aligned vertically',
-          'center-center': 'Centered horizontally and vertically'
+          'left': 'Left',
+          'center': 'Center',
+        },
+      },
+      table: { category: 'Display options' },
+    },
+    vertical_alignment: {
+      name: 'Vertical alignment',
+      options: ['center', 'bottom'],
+      control: {
+        type: 'select',
+        labels: {
+          'center': 'Center',
+          'bottom': 'Bottom',
         },
       },
       table: { category: 'Display options' },
@@ -114,7 +124,7 @@ export default {
       table: { category: 'Display options' },
     },
     mobile_content_below_image: {
-      name: '[Mobile] Content Below Image/Video',
+      name: '[Mobile] Content below image/video',
       control: { type: 'boolean' },
       table: { category: 'Display options' },
     },
@@ -223,7 +233,8 @@ const Template = (args) => ({
       :headline_style="args.headline_style"
       :headline_size="args.headline_size"
       :background="args.background"
-      :content_position="args.content_position"
+      :horizontal_alignment="args.horizontal_alignment"
+      :vertical_alignment="args.vertical_alignment"
       :gradient="args.gradient"
       :height="args.height"
       :mobile_content_below_image="args.mobile_content_below_image"
@@ -271,7 +282,8 @@ Centered.args = {
   headline_style: 'serif',
   headline_size: 'large',
   background: '',
-  content_position: 'center-center',
+  horizontal_alignment: 'center',
+  vertical_alignment: 'center',
   gradient:'dark',
   height: 'large',
   media: '<img src="' + banner_image + '" alt="Alt">',
@@ -286,21 +298,24 @@ Centered.storyName = 'Centered horizontally and vertically w/ image';
 export const CenterBottom= Template.bind({});
 CenterBottom.args = {
   ...Centered.args,
-  content_position: 'center-bottom',
+  horizontal_alignment: 'center',
+  vertical_alignment: 'bottom',
 }
 CenterBottom.storyName = 'Centered horizontally and bottom-aligned vertically w/ image';
 
 export const LeftCenter = Template.bind({});
 LeftCenter.args = {
   ...Centered.args,
-  content_position: 'left-center',
+  horizontal_alignment: 'left',
+  vertical_alignment: 'center',
 }
 LeftCenter.storyName = 'Left-aligned and centered vertically w/ image';
 
 export const LeftBottom = Template.bind({});
 LeftBottom.args = {
   ...Centered.args,
-  content_position: 'left-bottom',
+  horizontal_alignment: 'left',
+  vertical_alignment: 'bottom',
 }
 LeftBottom.storyName = 'Left-aligned horizontally and bottom-aligned vertically w/ image';
 export const Video = Template.bind({});
