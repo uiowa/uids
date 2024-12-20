@@ -8,6 +8,25 @@ const colors = [
   'white',
 ]
 
+const allBackgroundOptions = {
+  'bg--black': 'Black',
+  'bg--black--pattern--brain': 'Black - Brain pattern',
+  'bg--black--pattern--community': 'Black - Community pattern',
+  'bg--black--pattern--particle': 'Black - Particle pattern',
+  'bg--gold': 'Gold',
+  'bg--gold--pattern--brain': 'Gold - Brain pattern',
+  'bg--gold--pattern--community': 'Gold - Community pattern',
+  'bg--gold--pattern--particle': 'Gold - Particle pattern',
+  'bg--gray': 'Gray',
+  'bg--gray--pattern--brain': 'Gray - Brain pattern',
+  'bg--gray--pattern--community': 'Gray - Community pattern',
+  'bg--gray--pattern--particle': 'Gray - Particle pattern',
+  'bg--white': 'White',
+  'bg--white--pattern--brain': 'White - Brain pattern',
+  'bg--white--pattern--community': 'White - Community pattern',
+  'bg--white--pattern--particle': 'White - Particle pattern',
+}
+
 const props = {
   /**
    * Set the background color of the element.
@@ -48,4 +67,5 @@ export default {
   props: props,
   argTypes: argTypes,
   addBackgroundClass: addBackgroundClass,
+  allBackgroundOptions: allBackgroundOptions,
 }
