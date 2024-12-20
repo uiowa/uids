@@ -1,21 +1,36 @@
+:root {
+  interpolate-size: allow-keywords;
+}
+
 .stat__grid {
   margin: 0;
   width: 100%;
   transition: all 0.55s cubic-bezier(0.95, 1.25, 0.375, 1.15);
 }
 @media (min-width: 980px) {
-  .stat__grid.stat--transform:hover {
-    transform: translateY(-10px);
+  .stat__grid.stat--static:hover .stat__content {
+    max-height: 100vh;
+  }
+}
+@media (min-width: 980px) {
+  @supports (interpolate-size: allow-keywords) {
+    .stat__grid.stat--static:hover .stat__content {
+      max-height: max-content;
+      overflow: hidden;
+    }
   }
 }
 @media (min-width: 980px) {
   .stat__grid:hover .stat__content {
-    position: static !important;
-    clip: auto;
-    height: auto;
-    width: auto;
-    overflow: auto;
-    opacity: 1;
+    max-height: 100vh;
+  }
+}
+@media (min-width: 980px) {
+  @supports (interpolate-size: allow-keywords) {
+    .stat__grid:hover .stat__content {
+      max-height: max-content;
+      overflow: hidden;
+    }
   }
 }
 
@@ -68,13 +83,16 @@
 }
 @media (min-width: 980px) {
   .stat__content {
-    opacity: 0;
-    transition: 1s;
-    position: absolute !important;
-    height: 1px;
-    width: 1px;
+    max-height: 0;
+    transition: max-height 0.4s ease-in-out;
     overflow: hidden;
-    clip: rect(1px, 1px, 1px, 1px);
+  }
+}
+@media (min-width: 980px) {
+  .stat--static .stat__content {
+    max-height: max-content;
+    transition: none;
+    overflow: unset;
   }
 }
 [class*=bg--black] .stat__content, .bg-pattern--brain-black .stat__content {
@@ -192,13 +210,12 @@
   margin-bottom: 0rem;
   display: flex;
   flex-wrap: wrap;
-  cursor: pointer;
+  cursor: inherit;
   transition: all 0.55s cubic-bezier(0.95, 1.25, 0.375, 1.15);
 }
-@media (min-width: 980px) {
-  .stat__grid.stat--horizontal.stat--transform:hover {
-    transform: translateY(-10px) scale(1.02);
-  }
+
+.stat:not(.stat--static) {
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=stat.css.map */
