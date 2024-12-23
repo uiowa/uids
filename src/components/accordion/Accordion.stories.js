@@ -8,12 +8,6 @@ export default {
       control: 'boolean',
       name: 'Multi select'
     },
-    items: {
-      control: false,
-      table: {
-        disable: true,
-      },
-    },
   },
 };
 
@@ -27,19 +21,32 @@ const Template = (args) => ({
   `,
 });
 
+let items = [
+  { title: 'Brand Bar', content: '<p>The brand bar must appear at the top of all core websites to create immediate association with the university.</p>' },
+  { title: 'Brand Footer', content: '<p>A consistent footer across all web experiences reinforces the connection with Iowa and helps users find important details such as contact information and essential hyperlinks. Footers must appear across all pages of a website.</p>' },
+  { title: 'Logo', content: '<p>Block IOWA logo tab in black, hyperlinked to uiowa.edu. Use the ALT text "University of Iowa homepage."</p>' },
+  { title: 'Favicon', content: '<p>Although small, favicons play an important role in visually unifying web pages. Favicons are the symbols used for browser tabs, bookmarks, or shortcuts pinned to the home screen or desktop of a phone, tablet, or computer.</p>' },
+];
+
 export const Default = Template.bind({});
 Default.args = {
   multiselectable: false,
-  items: [
-    { title: 'Section 1 title', expanded: true, content: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>' },
-    { title: 'Section 2 title', content: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>' },
-    { title: 'Section 3 title', content: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>' },
-    { title: 'Section 4 title', content: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>' },
-  ],
+  items: items,
 };
 
 export const MultiSelect = Template.bind({});
 MultiSelect.args = {
   ...Default.args,
   multiselectable: true,
+};
+
+export const OpenByDefault = Template.bind({});
+OpenByDefault.args = {
+  ...Default.args,
+  items: [
+    { open: true, ...items[0] },
+    { ...items[1] },
+    { ...items[2] },
+    { ...items[3] },
+  ],
 };
