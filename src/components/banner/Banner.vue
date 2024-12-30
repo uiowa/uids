@@ -13,27 +13,9 @@ import { applyClickA11y } from '../../assets/js/click-a11y'
 
 const name = 'uids-banner'
 const props = defineProps({
-  url: {
-    type: String,
-  },
-  url_2: {
-    type: String,
-  },
-  url_3: {
-    type: String,
-  },
-  button_label: {
-    type: String,
-  },
-  button_label_2: {
-    type: String,
-  },
-  button_label_3: {
-    type: String,
-  },
-  button_icon: {
-    type: String,
-    default: '',
+  buttons: {
+    type: Array,
+    default: () => [],
   },
   button_color: {
     type: String,
@@ -54,6 +36,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  headline_highlight: {
+    type: Boolean,
+    default: false,
+  },
   horizontal_alignment: {
     type: String,
     default: '',
@@ -64,7 +50,10 @@ const props = defineProps({
   },
   gradient: {
     type: String,
-    default: '',
+    default: 'dark',
+    validator: function (value) {
+      return ['dark', 'light'].indexOf(value) !== -1;
+    },
   },
   height: {
     type: String,
@@ -74,7 +63,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  enable_autoplay: {
+  media_enable_autoplay: {
     type: Boolean,
     default: false,
   },
@@ -142,27 +131,15 @@ const classes = computed(() => {
 /**
  * Headline classes.
  */
-const headlineClasses = computed(() => {
+const additionalHeadlineClasses = computed(() => {
   const classes = [];
 
   if (props.headline_size) {
     classes.push(`headline--${props.headline_size}`);
   }
 
-  if (props.gradient === 'dark') {
-    classes.push('headline--negative');
-  } else if (props.gradient === 'light') {
-    classes.push('headline--positive');
-  }
-
   if (props.headline_style) {
     switch (props.headline_style) {
-      case 'uppercase-highlight':
-        classes.push('headline--uppercase', 'headline--highlight');
-        break;
-      case 'serif-highlight':
-        classes.push('headline--serif', 'headline--highlight');
-        break;
       case 'uppercase':
         classes.push('headline--uppercase');
         break;
@@ -170,6 +147,9 @@ const headlineClasses = computed(() => {
         classes.push('headline--serif');
         break;
     }
+  }
+  if (props.headline_highlight) {
+    classes.push('headline--highlight');
   }
 
   return classes;
@@ -238,24 +218,16 @@ onMounted(() => {
 
 <template>
   <div :class="classes">
-    <div class="banner__image" :class="{ 'media--video': media_type === 'remote_video', 'media--image': media_type !== 'video'}">
-      <uids-media
-        :type="media_type"
-        :enable_autoplay="enable_autoplay"
-      >
-        <slot name="media"></slot>
-      </uids-media>
-
-    </div>
+    <slot name="media"></slot>
     <div class="banner__container">
       <div class="banner__content">
         <header class="banner__title" v-if="$slots.title || $slots.pre_title">
-          <div :class="[headlineClasses, 'banner__pre-title', 'headline']" v-if="$slots.pre_title">
+          <div :class="[additionalHeadlineClasses, 'banner__pre-title', 'headline']" v-if="$slots.pre_title">
             <slot name="pre_title"></slot>
           </div>
           <uids-headline
             :text_style="headline_style"
-            :class="headlineClasses"
+            :class="additionalHeadlineClasses"
           >
             <a v-if="headlineLink" :href="headlineLink" class="click-target">
               <slot name="title"></slot>
@@ -266,44 +238,29 @@ onMounted(() => {
           </uids-headline>
         </header>
 
-        <div class="banner__text" v-if="$slots.content" >
-          <slot name="content"></slot>
+        <div class="banner__text" v-if="$slots.default" >
+          <slot></slot>
         </div>
 
-        <footer class="banner__action" v-if="button_label || button_label_2 || button_label_3" >
+        <footer class="banner__action" v-if="buttons.length > 0">
           <slot name="buttons">
-            <!-- Render buttons when multiple URLs are present -->
-            <div v-if="url && (url_2 || url_3)" class="bttn--row">
-              <uids-button
-                :url="url"
-                :color="button_color"
-                :light_font="button_light_font"
-                size="medium"
-                v-if="url && button_label">{{ button_label }}</uids-button>
-
-              <uids-button
-                :url="url_2"
-                :color="button_color"
-                :light_font="button_light_font"
-                size="medium"
-                v-if="url_2 && button_label_2">{{ button_label_2 }}</uids-button>
-
-              <uids-button
-                :url="url_3"
-                :color="button_color"
-                :light_font="button_light_font"
-                size="medium"
-                v-if="url_3 && button_label_3">{{ button_label_3 }}</uids-button>
-            </div>
-
             <!-- Render pseudo button when only url is present -->
             <uids-pseudo-button
-              :color="button_color"
-              :light_font="button_light_font"
+              v-if="buttons.length === 1"
+              v-bind="buttons[0]"
               size="medium"
-              v-else-if="url && !url_2 && !url_3">
-              {{ button_label }}
+              :color="button_color"
+              v-html="buttons[0].label">
             </uids-pseudo-button>
+            <div v-else-if="buttons.length > 0" class="bttn--row">
+              <uids-button
+                v-for="(button, index) in buttons"
+                v-bind="button[index]"
+                size="medium"
+                :color="button_color"
+                v-html="button.label">
+              </uids-button>
+            </div>
           </slot>
         </footer>
       </div>

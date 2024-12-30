@@ -1,8 +1,12 @@
 import UidsBanner from './Banner.vue'
 import Background from "../shared/background";
 
+import ExampleImage from '../media/ExampleImage.vue';
+import * as ButtonStories from '../button/Button.stories';
+import ExampleVideoFile from "../media/ExampleVideoFile.vue";
 
 export default {
+  components: {ExampleVideoFile},
   title: 'Components/Banner',
   parameters: {
     docs: {
@@ -15,76 +19,38 @@ export default {
   tags: ['autodocs'],
   argTypes: {
     // Props
-    pre_title: {
-      name: 'Pre-title',
-      control: { type: 'text' },
-    },
-    title: {
-      name: 'Title',
-      control: { type: 'text' },
-    },
-    content: {
-      name: 'Excerpt',
-      control: { type: 'text' },
-    },
-    url: {
-      name: 'First link',
-      control: { type: 'text' },
-    },
-    url_2: {
-      name: 'Second link',
-      control: { type: 'text' },
-    },
-    url_3: {
-      name: 'Third link',
-      control: { type: 'text' },
-    },
-    button_label: {
-      name: 'First link text',
-      control: { type: 'text' },
-    },
-    button_label_2: {
-      name: 'Second link text',
-      control: { type: 'text' },
-    },
-    button_label_3: {
-      name: 'Third link text',
-      control: { type: 'text' },
-    },
-    button_icon: {
-      name: 'Button icon',
-      control: { type: 'text' },
-    },
     button_color: {
       name: 'Button style',
       control: { type: 'select' },
       options: ['primary', 'secondary', 'tertiary', 'transparent'],
-      table: { category: 'Display options' },
+      table: { category: 'Buttons' },
     },
     button_light_font: {
       name: 'Button light font',
       control: { type: 'boolean' },
-      table: { category: 'Display options' },
+      table: { category: 'Buttons' },
     },
     headline_size: {
       name: 'Headline size',
       options: ['large', 'medium', 'small'],
       control: { type: 'select' },
-      table: { category: 'Display options' },
+      table: { category: 'Headline' },
     },
     headline_style: {
       name: 'Headline options',
-      options: ['uppercase', 'uppercase-highlight', 'serif', 'serif-highlight',  ''],
+      options: ['uppercase', 'serif'],
       control: {
         type: 'select',
         labels: {
           'uppercase': 'Antonio',
-          'uppercase-highlight': 'Antonio highlighted',
           'serif': 'Zilla Slab',
-          'serif-highlight': 'Zilla Slab highlighted',
         },
       },
-      table: { category: 'Display options' },
+      table: { category: 'Headline' },
+    },
+    headline_highlight: {
+      name: 'Headline highlight',
+      table: { category: 'Headline' },
     },
     horizontal_alignment: {
       name: 'Horizontal alignment',
@@ -128,19 +94,19 @@ export default {
       table: { category: 'Display options' },
     },
     // Media properties.
-    enable_autoplay: {
-      name: 'Enable autoplay for video',
-      control: { type: 'boolean' },
-      table: { category: 'Media' },
-    },
+    // media_enable_autoplay: {
+    //   name: 'Enable autoplay for video',
+    //   control: { type: 'boolean' },
+    //   table: { category: 'Media' },
+    // },
     media_type: {
       name: 'Media type',
-      options: ['image', 'remote_video'],
+      options: ['image', 'video'],
       control: {
         type: 'select',
         labels: {
           'image': 'Image (default)',
-          'remote_video': 'Video',
+          'video': 'Video',
         },
       },
       table: {
@@ -164,103 +130,69 @@ export default {
         category: 'Container',
       },
     },
-    ...Background.argTypes,
+    // ...Background.argTypes,
   },
 };
 
+const Template = {
+  render: (args) => ({
+    components: { UidsBanner, ExampleImage, ExampleVideoFile },
+    setup() {
+      return { args };
+    },
+    template: `
+      <uids-banner v-bind="args">
+        <template #media>
+          ${args.background_media}
+        </template>
+        <template #pre_title v-if="args.title"><span class="headline__heading" v-html="args.pre_title" ></span></template>
+        <template #title v-if="args.title"><span class="headline__heading" v-html="args.title" ></span></template>
+        ${args.content}
+      </uids-banner>`,
+  }),
+}
 
-const Template = (args) => ({
-  components: { UidsBanner },
-  setup() {
-    return { args };
+export const BackgroundImage = {
+  ...Template,
+  args: {
+    background_media: `<example-image />`,
+    pre_title: 'University of Iowa',
+    title: 'Living on Campus',
+    content: '<p>A member of the <a href="/">Association</a> of American Universities since 1909 and the Big Ten Conference<br> since 1899, the University of Iowa is home to one of the most acclaimed academic medical centers<br> in the country, as well as globally recognized leadership in the study and craft of writing.</p>',
+    headline_style: 'serif',
+    headline_highlight: false,
+    headline_size: 'large',
+    horizontal_alignment: 'center',
+    vertical_alignment: 'center',
+    gradient:'dark',
+    height: 'large',
+    button_light_font: false,
+    button_color: 'primary',
+    buttons: [
+      { ...ButtonStories.Primary.args, label: 'Read More ' + ButtonStories.Primary.args.icon, color: 'primary' },
+    ],
+  }
+}
+
+export const BackgroundVideo = {
+  ...Template,
+  args: {
+    ...BackgroundImage.args,
+    background_media: `<example-video-file />`,
+    props: {
+      ...BackgroundImage.args.props,
+    },
   },
-  template: `
-    <div :class="args.section_background" style="padding-top: 2rem; padding-bottom: 2rem;">
-    <uids-banner
-      :url="args.url"
-      :url_2="args.url_2"
-      :url_3="args.url_3"
-      :button_label="args.button_label"
-      :button_label_2="args.button_label_2"
-      :button_label_3="args.button_label_3"
-      :button_color="args.button_color"
-      :button_light_font="args.button_light_font"
-      :headline_style="args.headline_style"
-      :headline_size="args.headline_size"
-      :background="args.background"
-      :horizontal_alignment="args.horizontal_alignment"
-      :vertical_alignment="args.vertical_alignment"
-      :gradient="args.gradient"
-      :height="args.height"
-      :mobile_content_below_image="args.mobile_content_below_image"
-      :media_type="args.media_type"
-      :enable_autoplay="args.enable_autoplay"
-
-    > <template #media v-if="args.media"><span v-html="args.media" ></span></template>
-      <template #pre_title v-if="args.title"><span class="headline__heading" v-html="args.pre_title" ></span></template>
-      <template #title v-if="args.title"><span class="headline__heading" v-html="args.title" ></span></template>
-      <template #content><div v-html="args.content"></div></template>
-    </uids-banner>
-    </div>
-  `,
-
-});
-
-export const Centered = Template.bind({});
-Centered.args = {
-  pre_title: 'University of Iowa',
-  title: 'Living on Campus',
-  content: '<p>A member of the <a href="/">Association</a> of American Universities since 1909 and the Big Ten Conference<br> since 1899, the University of Iowa is home to one of the most acclaimed academic medical centers<br> in the country, as well as globally recognized leadership in the study and craft of writing.</p>',
-  url: 'https://uiowa.edu/',
-  url_2: 'https://uiowa.edu/about',
-  url_3: 'https://uiowa.edu/explore',
-  button_label: 'Apply',
-  button_label_2: 'Learn More',
-  button_label_3: 'Explore',
-  button_icon: '<i class="fas fa-arrow-right"></i>',
-  button_color: 'primary',
-  button_light_font: false,
-  headline_style: 'serif',
-  headline_size: 'large',
-  background: '',
-  horizontal_alignment: 'center',
-  vertical_alignment: 'center',
-  gradient:'dark',
-  height: 'large',
-  media_type: 'image',
-  mobile_content_below_image: false,
-  enable_autoplay: false,
-  section_background: '',
-};
-Centered.storyName = 'Centered horizontally and vertically w/ image';
-
-export const CenterBottom= Template.bind({});
-CenterBottom.args = {
-  ...Centered.args,
-  horizontal_alignment: 'center',
-  vertical_alignment: 'bottom',
 }
-CenterBottom.storyName = 'Centered horizontally and bottom-aligned vertically w/ image';
 
-export const LeftCenter = Template.bind({});
-LeftCenter.args = {
-  ...Centered.args,
-  horizontal_alignment: 'left',
-  vertical_alignment: 'center',
+export const MultipleButtons = {
+  ...Template,
+  args: {
+    ...BackgroundImage.args,
+    buttons: [
+      { ...ButtonStories.Primary.args, label: 'Apply ' + ButtonStories.Primary.args.icon },
+      { ...ButtonStories.Primary.args, label: 'Learn More ' + ButtonStories.Primary.args.icon, url: 'https://uiowa.edu/about' },
+      { ...ButtonStories.Primary.args, label: 'Explore ' + ButtonStories.Primary.args.icon, url: 'https://uiowa.edu/explore' },
+    ],
+  }
 }
-LeftCenter.storyName = 'Left-aligned and centered vertically w/ image';
-
-export const LeftBottom = Template.bind({});
-LeftBottom.args = {
-  ...Centered.args,
-  horizontal_alignment: 'left',
-  vertical_alignment: 'bottom',
-}
-LeftBottom.storyName = 'Left-aligned horizontally and bottom-aligned vertically w/ image';
-export const Video = Template.bind({});
-Video.args = {
-  ...Centered.args,
-  enable_autoplay: true,
-  media_type: 'remote_video',
-};
-Video.storyName = 'Centered horizontally and vertically w/ video';

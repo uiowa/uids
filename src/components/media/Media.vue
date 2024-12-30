@@ -67,10 +67,10 @@ const classes = computed(() => {
     </video>
 
     <div class="video-controls video" v-if="type === 'remote_video'">
-      <button class="video-btn video-btn__pause" id="video-btn-pause" v-if="enable_autoplay === true">
+      <button class="video-btn video-btn__pause" id="video-btn-pause" v-if="enable_autoplay">
         <span class="element-invisible">Pause</span>
       </button>
-      <button class="video-btn video-btn__play" id="video-btn-play" v-if="enable_autoplay === false">
+      <button class="video-btn video-btn__play" id="video-btn-play" v-else>
         <span class="element-invisible">Play</span>
       </button>
     </div>
