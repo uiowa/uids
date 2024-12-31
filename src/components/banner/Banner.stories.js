@@ -6,7 +6,6 @@ import * as ButtonStories from '../button/Button.stories';
 import ExampleVideoFile from "../media/ExampleVideoFile.vue";
 
 export default {
-  components: {ExampleVideoFile},
   title: 'Components/Banner',
   parameters: {
     docs: {
@@ -18,6 +17,9 @@ export default {
   component: UidsBanner,
   tags: ['autodocs'],
   argTypes: {
+    background_media: {
+      table: { disable: true },
+    },
     // Props
     button_color: {
       name: 'Button style',
@@ -89,48 +91,10 @@ export default {
       table: { category: 'Display options' },
     },
     mobile_content_below_image: {
-      name: '[Mobile] Content below image/video',
+      name: 'Content below media (Mobile-only)',
       control: { type: 'boolean' },
       table: { category: 'Display options' },
     },
-    // Media properties.
-    // media_enable_autoplay: {
-    //   name: 'Enable autoplay for video',
-    //   control: { type: 'boolean' },
-    //   table: { category: 'Media' },
-    // },
-    media_type: {
-      name: 'Media type',
-      options: ['image', 'video'],
-      control: {
-        type: 'select',
-        labels: {
-          'image': 'Image (default)',
-          'video': 'Video',
-        },
-      },
-      table: {
-        category: 'Media',
-      },
-    },
-    section_background: {
-      name: 'Section background',
-      options: [
-        '',
-        ...Object.keys(Background.allBackgroundOptions),
-      ],
-      control: {
-        type: 'select',
-        labels: {
-          '': '- None -',
-          ...Background.allBackgroundOptions,
-        },
-      },
-      table: {
-        category: 'Container',
-      },
-    },
-    // ...Background.argTypes,
   },
 };
 
@@ -141,14 +105,26 @@ const Template = {
       return { args };
     },
     template: `
-      <uids-banner v-bind="args">
-        <template #media>
-          ${args.background_media}
-        </template>
-        <template #pre_title v-if="args.title"><span class="headline__heading" v-html="args.pre_title" ></span></template>
-        <template #title v-if="args.title"><span class="headline__heading" v-html="args.title" ></span></template>
-        ${args.content}
-      </uids-banner>`,
+    <uids-banner
+      :headline_style="args.headline_style"
+      :headline_size="args.headline_size"
+      :headline_highlight="args.headline_highlight"
+      :gradient="args.gradient"
+      :height="args.height"
+      :horizontal_alignment="args.horizontal_alignment"
+      :vertical_alignment="args.vertical_alignment"
+      :buttons="args.buttons"
+      :button_light_font="args.button_light_font"
+      :button_color="args.button_color"
+      :mobile_content_below_image="args.mobile_content_below_image"
+    >
+      <template #media>
+        ${args.background_media}
+      </template>
+      <template #pre_title v-if="args.title"><span class="headline__heading" v-html="args.pre_title" ></span></template>
+      <template #title v-if="args.title"><span class="headline__heading" v-html="args.title" ></span></template>
+      ${args.content}
+    </uids-banner>`,
   }),
 }
 
@@ -166,6 +142,7 @@ export const BackgroundImage = {
     vertical_alignment: 'center',
     gradient:'dark',
     height: 'large',
+    mobile_content_below_image: true,
     button_light_font: false,
     button_color: 'primary',
     buttons: [

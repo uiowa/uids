@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import '../../scss/components/button.scss';
 import { computed } from 'vue';
+import {className} from "../utlity";
 const name = 'uids-button'
 const props = defineProps({
   color: {
@@ -29,21 +30,35 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  light_font: {
+    type: Boolean,
+    default: false,
+  },
 })
 
-const classes = computed(() => ({
-  'bttn': true,
-  'bttn--primary': props.color === 'primary',
-  'bttn--secondary': props.color === 'secondary',
-  'bttn--tertiary': props.color === 'tertiary',
-  'bttn--link': props.color === 'link',
-  'bttn--outline': props.outline,
-  'bttn--font-serif': props.font === 'serif',
-  'bttn--font-sans-serif': props.font === 'sans-serif',
-  'bttn--small' :props.size === 'small',
-  'bttn--medium' :props.size === 'medium',
-  'bttn--large' :props.size === 'large',
-}))
+const classes = computed(() => {
+  let classes = ['bttn'];
+
+  ['light_font', 'outline'].forEach((prop) => {
+    if (props[prop] === true) {
+      classes.push(`bttn--${ className(prop) }`);
+    }
+  })
+
+  if (props.color) {
+    classes.push(`bttn--${ className(props.color)}`);
+  }
+
+  if (props.font) {
+    classes.push(`bttn--font-${ className(props.font)}`);
+  }
+
+  if (props.size) {
+    classes.push(`bttn--${ className(props.size)}`);
+  }
+
+  return classes;
+})
 
 </script>
 

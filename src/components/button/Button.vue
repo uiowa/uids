@@ -13,7 +13,7 @@ const props = defineProps({
     type: String,
     default: 'primary',
     validator: function (value) {
-      return ['primary', 'secondary', 'tertiary'].indexOf(value) !== -1;
+      return ['primary', 'secondary', 'tertiary', 'link'].indexOf(value) !== -1;
     },
   },
   size: {

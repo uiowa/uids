@@ -63,10 +63,6 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  media_enable_autoplay: {
-    type: Boolean,
-    default: false,
-  },
   media_type: {
     type: String,
     default: '',
@@ -183,27 +179,15 @@ const linkedElement = computed(() => {
  */
 const headlineLink = computed(() => {
   // If multiple URLs are present, do not link the headline.
-  if (props.url && (props.url_2 || props.url_3)) {
+  if (props.buttons.length > 1) {
     return false;
   }
 
-  if (props.url) {
-    return props.url;
-  }
-
-  if (props.url_2) {
-    return props.url_2;
-  }
-
-  if (props.url_3) {
-    return props.url_3;
-  }
-
-  return false;
+  return props.buttons[0].url || false;
 });
 
 onMounted(() => {
-  if (props.url || props.url_2) {
+  if (props.buttons.length > 0) {
     applyClickA11y('.click-container:not([data-uids-no-link])');
   }
 
@@ -242,22 +226,23 @@ onMounted(() => {
           <slot></slot>
         </div>
 
-        <footer class="banner__action" v-if="buttons.length > 0">
+        <footer class="banner__action" v-if="buttons.length > 0 || $slots.buttons">
           <slot name="buttons">
             <!-- Render pseudo button when only url is present -->
             <uids-pseudo-button
               v-if="buttons.length === 1"
-              v-bind="buttons[0]"
               size="medium"
               :color="button_color"
+              :light_font="button_light_font"
               v-html="buttons[0].label">
             </uids-pseudo-button>
             <div v-else-if="buttons.length > 0" class="bttn--row">
               <uids-button
-                v-for="(button, index) in buttons"
-                v-bind="button[index]"
+                v-for="(button, i) in buttons"
+                :url="button.url"
                 size="medium"
                 :color="button_color"
+                :light_font="button_light_font"
                 v-html="button.label">
               </uids-button>
             </div>
