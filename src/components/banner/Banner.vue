@@ -63,12 +63,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  media_type: {
+  background: {
     type: String,
     default: '',
   },
-  ...Background.props,
-  ...Media.props,
 });
 
 const slots = useSlots();
@@ -80,20 +78,16 @@ const classes = computed(() => {
   let classes = ['banner'];
   Background.addBackgroundClass(classes, props);
 
-  if (props.url || props.url_2) {
+  if (props.buttons.length === 1) {
     classes.push('click-container')
   }
 
-  if (props.gradient) {
+  if (props.gradient && props.background === '') {
     classes.push(`banner--gradient-${props.gradient}`);
   }
 
   if (props.height) {
     classes.push(`banner--${props.height}`);
-  }
-
-  if (props.media_type) {
-    classes.push(`banner--${props.media_type}`);
   }
 
   if (props.mobile_content_below_image === true) {
@@ -125,10 +119,10 @@ const classes = computed(() => {
 });
 
 /**
- * Headline classes.
+ * Pre-title classes.
  */
-const additionalHeadlineClasses = computed(() => {
-  const classes = [];
+const preTitleClasses = computed(() => {
+  const classes = ['headline', 'banner__pre-title'];
 
   if (props.headline_size) {
     classes.push(`headline--${props.headline_size}`);
@@ -144,34 +138,8 @@ const additionalHeadlineClasses = computed(() => {
         break;
     }
   }
-  if (props.headline_highlight) {
-    classes.push('headline--highlight');
-  }
 
   return classes;
-});
-
-/**
- * Determine the linked element.
- */
-const linkedElement = computed(() => {
-  if (!props.url && !props.url_2 && !props.url_3) {
-    return null;
-  }
-
-  if (slots.title) {
-    return 'title';
-  }
-
-  if (props.button_label) {
-    return 'button';
-  }
-
-  if (slots.media) {
-    return 'image';
-  }
-
-  return 'button';
 });
 
 /**
@@ -206,12 +174,13 @@ onMounted(() => {
     <div class="banner__container">
       <div class="banner__content">
         <header class="banner__title" v-if="$slots.title || $slots.pre_title">
-          <div :class="[additionalHeadlineClasses, 'banner__pre-title', 'headline']" v-if="$slots.pre_title">
+          <div :class="preTitleClasses" v-if="$slots.pre_title">
             <slot name="pre_title"></slot>
           </div>
           <uids-headline
             :text_style="headline_style"
-            :class="additionalHeadlineClasses"
+            :highlight="headline_highlight"
+            :class="`headline--${props.headline_size}`"
           >
             <a v-if="headlineLink" :href="headlineLink" class="click-target">
               <slot name="title"></slot>

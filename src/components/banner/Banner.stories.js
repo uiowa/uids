@@ -17,10 +17,38 @@ export default {
   component: UidsBanner,
   tags: ['autodocs'],
   argTypes: {
+    // Utility arg for dynamically setting the background.
     background_media: {
       table: { disable: true },
     },
+    // Slots
+    pre_title: {
+      name: 'Pre-title',
+    },
+    title: {
+      name: 'Title',
+    },
+    content: {
+      name: 'Content',
+    },
     // Props
+    background: {
+      name: 'Background',
+      options: [
+        '',
+        ...Object.keys(Background.allBackgroundOptions),
+      ],
+      control: {
+        type: 'select',
+        labels: {
+          '': 'Image or video',
+          ...Background.allBackgroundOptions,
+        },
+      }
+    },
+    buttons: {
+      name: 'Buttons',
+    },
     button_color: {
       name: 'Button style',
       control: { type: 'select' },
@@ -39,7 +67,7 @@ export default {
       table: { category: 'Headline' },
     },
     headline_style: {
-      name: 'Headline options',
+      name: 'Headline style',
       options: ['uppercase', 'serif'],
       control: {
         type: 'select',
@@ -80,6 +108,7 @@ export default {
     },
     gradient: {
       name: 'Gradient',
+      default: 'dark',
       options: ['dark', 'light'],
       control: { type: 'select' },
       table: { category: 'Display options' },
@@ -106,6 +135,7 @@ const Template = {
     },
     template: `
     <uids-banner
+      :background="args.background"
       :headline_style="args.headline_style"
       :headline_size="args.headline_size"
       :headline_highlight="args.headline_highlight"
@@ -118,7 +148,7 @@ const Template = {
       :button_color="args.button_color"
       :mobile_content_below_image="args.mobile_content_below_image"
     >
-      <template #media>
+      <template #media v-if="args.background === ''">
         ${args.background_media}
       </template>
       <template #pre_title v-if="args.title"><span class="headline__heading" v-html="args.pre_title" ></span></template>
@@ -131,6 +161,7 @@ const Template = {
 export const BackgroundImage = {
   ...Template,
   args: {
+    background: '',
     background_media: `<example-image />`,
     pre_title: 'University of Iowa',
     title: 'Living on Campus',
@@ -156,9 +187,16 @@ export const BackgroundVideo = {
   args: {
     ...BackgroundImage.args,
     background_media: `<example-video-file />`,
-    props: {
-      ...BackgroundImage.args.props,
-    },
+  },
+}
+
+export const BackgroundPattern = {
+  ...Template,
+  args: {
+    ...BackgroundImage.args,
+    background: 'gold--pattern--particle',
+    background_media: '',
+    gradient: 'light',
   },
 }
 
