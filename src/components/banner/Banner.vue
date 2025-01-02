@@ -154,7 +154,7 @@ onMounted(() => {
   }
 
   // Initialize video.
-  const videos = document.querySelectorAll('.banner__image.media--video');
+  const videos = document.querySelectorAll('.media--video');
   videos.forEach((video, index) => {
     new window.UidsVideo(video, index);
   });
