@@ -69,8 +69,6 @@ const props = defineProps({
   },
 });
 
-const slots = useSlots();
-
 /**
  * Main banner classes.
  */
@@ -95,23 +93,19 @@ const classes = computed(() => {
   }
 
   // Horizontal alignment.
-  if (props.horizontal_alignment === 'center') {
-    classes.push('banner--horizontal-center');
-  } else if (props.horizontal_alignment === 'left') {
-    classes.push('banner--horizontal-left', 'banner--gradient-left');
-  } else {
-    classes.push('banner--gradient-bottom');
+  if (props.horizontal_alignment) {
+    classes.push(`banner--horizontal-${props.horizontal_alignment}`);
   }
 
   // Vertical alignment.
-  if (props.vertical_alignment === 'center') {
-    classes.push('banner--vertical-center');
-  } else if (props.vertical_alignment === 'bottom') {
-    classes.push('banner--vertical-bottom');
+  if (props.vertical_alignment) {
+    classes.push(`banner--vertical-${props.vertical_alignment}`);
   }
 
-  // Add gradient-bottom unless horizontal alignment is 'left'.
-  if (props.horizontal_alignment !== 'left') {
+  if (props.horizontal_alignment === 'left') {
+    classes.push('banner--gradient-left');
+  }
+  else {
     classes.push('banner--gradient-bottom');
   }
 
