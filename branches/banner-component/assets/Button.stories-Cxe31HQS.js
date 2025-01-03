@@ -12,7 +12,7 @@ import{_ as z,B}from"./Button.vue_vue_type_script_setup_true_lang-ChQE5Vxq.js";i
       <template #default v-if="args.label">{{ args.label }}</template>
       <template #icon v-if="args.icon"><span v-html="args.icon" ></span></template>
     </uids-button>
-  `}),e=a.bind({});e.args={url:"https://uiowa.com",label:"Read more",color:"primary",size:"medium",borderless:!1,full:!1,transparent:!1,light_font:!1,icon:'<i class="fas fa-arrow-right"></i>'};const n=a.bind({});n.args={...e.args,color:"secondary"};const t=a.bind({});t.args={...e.args,color:"tertiary"};const r=a.bind({});r.args={...e.args,label:""};const s=a.bind({});s.args={...e.args,light_font:!0};var o,l,i;e.parameters={...e.parameters,docs:{...(o=e.parameters)==null?void 0:o.docs,source:{originalSource:`args => ({
+  `}),e=a.bind({});e.args={url:"https://uiowa.edu",label:"Read more",color:"primary",size:"medium",borderless:!1,full:!1,transparent:!1,light_font:!1,icon:'<i class="fas fa-arrow-right"></i>'};const n=a.bind({});n.args={...e.args,color:"secondary"};const t=a.bind({});t.args={...e.args,color:"tertiary"};const r=a.bind({});r.args={...e.args,label:""};const s=a.bind({});s.args={...e.args,light_font:!0};var o,l,i;e.parameters={...e.parameters,docs:{...(o=e.parameters)==null?void 0:o.docs,source:{originalSource:`args => ({
   // Components used in your story \`template\` are defined in the \`components\` object
   components: {
     UidsButton
