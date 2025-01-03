@@ -206,7 +206,7 @@ onMounted(() => {
                 size="medium"
                 :color="button_color"
                 :light_font="button_light_font"
-                v-html="button.label">
+                ><span v-html="button.label"></span>
               </uids-button>
             </div>
           </slot>
