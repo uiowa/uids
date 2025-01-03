@@ -120,7 +120,7 @@ export default {
       table: { category: 'Display options' },
     },
     mobile_content_below_image: {
-      name: 'Content below media (Mobile-only)',
+      name: 'Content below media (mobile-only)',
       control: { type: 'boolean' },
       table: { category: 'Display options' },
     },
