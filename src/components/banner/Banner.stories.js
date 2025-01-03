@@ -229,6 +229,7 @@ export const BackgroundImage = {
     ],
   }
 }
+BackgroundImage.storyName = 'Background image';
 
 export const BackgroundVideo = {
   ...Template,
@@ -237,6 +238,7 @@ export const BackgroundVideo = {
     background_media: `<example-video-file />`,
   },
 }
+BackgroundVideo.storyName = 'Background video';
 
 export const BackgroundPattern = {
   ...Template,
@@ -247,6 +249,7 @@ export const BackgroundPattern = {
     gradient: 'light',
   },
 }
+BackgroundPattern.storyName = 'Background pattern';
 
 export const MultipleButtons = {
   ...Template,
@@ -259,3 +262,4 @@ export const MultipleButtons = {
     ],
   }
 }
+MultipleButtons.storyName = 'Multiple buttons';
