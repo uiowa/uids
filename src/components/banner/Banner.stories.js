@@ -134,7 +134,6 @@ const Template = {
       return { args };
     },
     template: `
-      <div :class="args.section_background" style="padding-top: 2rem; padding-bottom: 2rem;">
     <uids-banner
       :background="args.background"
       :headline_style="args.headline_style"
@@ -155,7 +154,7 @@ const Template = {
       <template #pre_title v-if="args.title"><span class="headline__heading" v-html="args.pre_title" ></span></template>
       <template #title v-if="args.title"><span class="headline__heading" v-html="args.title" ></span></template>
       ${args.content}
-    </uids-banner></div>`,
+    </uids-banner>`,
   }),
 }
 
