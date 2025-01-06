@@ -1,102 +1,216 @@
 <script setup lang="ts">
-import { computed, useSlots } from 'vue'
-import { className } from '../utlity'
+import { computed, onMounted, useSlots } from 'vue';
+import UidsButton from "../button/Button.vue";
 import UidsHeadline from '../headline/Headline.vue'
-import UidsButton from '../button/Button.vue'
-import Background from '../shared/background'
+import UidsMedia from '../media/Media.vue'
+import UidsPseudoButton from '../button/PseudoButton.vue';
+import Background from "../shared/background";
+import Media from '../shared/media'
+import '../../scss/components/banner.scss'
 import '../../scss/components/_background.scss'
-import '../../scss/components/_banner.scss'
+import '../../assets/js/video.js'
+import { applyClickA11y } from '../../assets/js/click-a11y'
 
 const name = 'uids-banner'
-
 const props = defineProps({
-  title: { type: String },
-  image: { type: String },
-  url: { type: String },
-  text: { type: String },
-  button_text: {
-    type: String,
+  buttons: {
+    type: Array,
+    default: () => [],
   },
-  // @todo Determine how best to handle these fields going forward.
-  overlay_color: {
+  button_color: {
     type: String,
-    default: 'gradient-dark',
+    default: 'primary',
+    validator: function (value) {
+      return ['primary', 'secondary', 'tertiary', 'transparent'].indexOf(value) !== -1;
+    },
   },
-  overlay_to: {
+  button_light_font: {
+    type: Boolean,
+    default: false,
+  },
+  headline_size: {
     type: String,
-    default: 'gradient-bottom',
+    default: '',
   },
-  ...Background.props,
-  // size?: string
-  // classes?: string
-  // vertical_alignment?: string
-  // horizontal_alignment?: string
-  // title_classes?: string
-  // button_link?: string
-  // button_text?: string
+  headline_style: {
+    type: String,
+    default: '',
+  },
+  headline_highlight: {
+    type: Boolean,
+    default: false,
+  },
+  horizontal_alignment: {
+    type: String,
+    default: '',
+  },
+  vertical_alignment: {
+    type: String,
+    default: '',
+  },
+  gradient: {
+    type: String,
+    default: 'dark',
+    validator: function (value) {
+      return ['dark', 'light'].indexOf(value) !== -1;
+    },
+  },
+  height: {
+    type: String,
+    default: '',
+  },
+  mobile_content_below_image: {
+    type: Boolean,
+    default: false,
+  },
+  background: {
+    type: String,
+    default: '',
+  },
 });
 
-// Compose a string out of the classes passed to the component.
+/**
+ * Main banner classes.
+ */
 const classes = computed(() => {
   let classes = ['banner'];
-
-  ['overlay_color', 'overlay_to', 'size', 'vertical_alignment', 'horizontal_alignment'].forEach((prop) => {
-    if (props[prop] === true) {
-      classes.push(`banner--${ className(prop) }`);
-    }
-  });
-
   Background.addBackgroundClass(classes, props);
 
-  if (props.url) {
+  if (props.buttons.length === 1) {
     classes.push('click-container')
   }
 
-  return classes;
-})
-
-const getHeadlineSettings = computed(() => {
-  if (props.title) {
-    let headline_settings = {
-      level: 'h2',
-      classes: 'headline',
-    }
-    if (props.headline_settings) {
-      Array.prototype.forEach.call(['level', 'class'], setting => {
-        if (props.headline_settings[setting]) {
-          headline_settings[setting] = props.headline_settings[setting]
-        }
-      })
-    }
-
-    return headline_settings
+  if (props.gradient && props.background === '') {
+    classes.push(`banner--gradient-${props.gradient}`);
   }
-  return {}
-})
+
+  if (props.height) {
+    classes.push(`banner--${props.height}`);
+  }
+
+  if (props.mobile_content_below_image === true) {
+    classes.push(`banner--stacked`);
+  }
+
+  // Horizontal alignment.
+  if (props.horizontal_alignment) {
+    classes.push(`banner--horizontal-${props.horizontal_alignment}`);
+  }
+
+  // Vertical alignment.
+  if (props.vertical_alignment) {
+    classes.push(`banner--vertical-${props.vertical_alignment}`);
+  }
+
+  if (props.horizontal_alignment === 'left') {
+    classes.push('banner--gradient-left');
+  }
+  else {
+    classes.push('banner--gradient-bottom');
+  }
+
+  return classes;
+});
+
+/**
+ * Pre-title classes.
+ */
+const preTitleClasses = computed(() => {
+  const classes = ['headline', 'banner__pre-title'];
+
+  if (props.headline_size) {
+    classes.push(`headline--${props.headline_size}`);
+  }
+
+  if (props.headline_style) {
+    switch (props.headline_style) {
+      case 'uppercase':
+        classes.push('headline--uppercase');
+        break;
+      case 'serif':
+        classes.push('headline--serif');
+        break;
+    }
+  }
+
+  return classes;
+});
+
+/**
+ * Determine if the headline should be linked.
+ */
+const headlineLink = computed(() => {
+  // If multiple URLs are present, do not link the headline.
+  if (props.buttons.length > 1) {
+    return false;
+  }
+
+  return props.buttons[0].url || false;
+});
+
+onMounted(() => {
+  if (props.buttons.length > 0) {
+    applyClickA11y('.click-container:not([data-uids-no-link])');
+  }
+
+  // Initialize video.
+  const videos = document.querySelectorAll('.media--video');
+  videos.forEach((video, index) => {
+    new window.UidsVideo(video, index);
+  });
+});
+
 </script>
 
 <template>
   <div :class="classes">
-    <div class="banner__image" v-if="image">
-      <img :src="image" alt="" loading="lazy">
-    </div>
+    <slot name="media"></slot>
     <div class="banner__container">
       <div class="banner__content">
-        <slot name="headline">
+        <header class="banner__title" v-if="$slots.title || $slots.pre_title">
+          <div :class="preTitleClasses" v-if="$slots.pre_title">
+            <slot name="pre_title"></slot>
+          </div>
           <uids-headline
-            v-if="title"
-            :level="getHeadlineSettings.level"
-            :class="getHeadlineSettings.classes"
-            :href="url"
-          >{{ title }}</uids-headline>
-        </slot>
-        <slot></slot>
-        <uids-button
-          v-if="url && button_text"
-          :href="url"
-          class="bttn--secondary bttn--caps"
-          :arrow="true"
-        >{{ button_text }}</uids-button>
+            :text_style="headline_style"
+            :highlight="headline_highlight"
+            :class="`headline--${props.headline_size}`"
+          >
+            <a v-if="headlineLink" :href="headlineLink" class="click-target">
+              <slot name="title"></slot>
+            </a>
+            <template v-else>
+              <slot name="title"></slot>
+            </template>
+          </uids-headline>
+        </header>
+
+        <div class="banner__text" v-if="$slots.default" >
+          <slot></slot>
+        </div>
+
+        <footer class="banner__action" v-if="buttons.length > 0 || $slots.buttons">
+          <slot name="buttons">
+            <!-- Render pseudo button when only url is present -->
+            <uids-pseudo-button
+              v-if="buttons.length === 1"
+              size="medium"
+              :color="button_color"
+              :light_font="button_light_font"
+              v-html="buttons[0].label">
+            </uids-pseudo-button>
+            <div v-else-if="buttons.length > 0" class="bttn--row">
+              <uids-button
+                v-for="(button, i) in buttons"
+                :url="button.url"
+                size="medium"
+                :color="button_color"
+                :light_font="button_light_font"
+                ><span v-html="button.label"></span>
+              </uids-button>
+            </div>
+          </slot>
+        </footer>
       </div>
     </div>
   </div>
