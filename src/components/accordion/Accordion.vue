@@ -47,19 +47,18 @@ onMounted(() => {
   <div
     :class="accordionClasses"
     role="tablist"
+    :aria-multiselectable="props.multiselectable ? 'true' : 'false'"
     :aria-owns="ariaOwnsIds()"
   >
     <details v-for="(item, index) in props.items"
       :key="index"
       class="accordion__item"
-      :aria-labelledby="'accordion-heading-' + index"
       :name="!props.multiselectable ? 'accordion-collection' : null"
       :open="item.open"
       :id="'accordion-item-' + index"
+      role="none"
     >
       <summary :id="'accordion-heading-' + index" class="accordion__heading"
-        :aria-expanded="item.open ? 'true' : 'false'"
-        :aria-selected="item.open ? 'true' : 'false'"
         role="tab"
       >
         <h2>
@@ -70,7 +69,6 @@ onMounted(() => {
       <div
         :id="'accordion-content-' + index"
         class="accordion__content"
-        :aria-labelledby="'accordion-heading-' + index"
         v-html="item.content"
       ></div>
     </details>
