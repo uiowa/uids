@@ -46,10 +46,6 @@ class Accordion {
    */
   toggleAccordionItem(accordionItem, isOpening) {
 
-    // Set the relevant attributes for 'accordion' based on 'open'.
-    accordionItem.setAttribute('aria-expanded', isOpening);
-    accordionItem.setAttribute('aria-selected', isOpening);
-
     // Check if the accordion was clicked.
     const clicked = accordionItem.getAttribute('data-accordion-clicked');
     if (clicked) {
