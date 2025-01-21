@@ -12,16 +12,30 @@
   $accordion-grey: #edeceb;
   --accordion-grey: #{$accordion-grey};
 
-  summary {
-    list-style: none;
-  }
-
   details {
     &[open] {
-      i, svg {
-        transform: rotate(0deg) translate(0px, 0.1em);
-        background-color: #fafafa;
+      summary {
+        i, svg {
+          transform: rotate(0deg) translate(0px, 0.1em);
+          background-color: #fafafa;
+        }
       }
+    }
+  }
+
+  summary {
+    list-style: none;
+    width: 100%;
+    background-color: var(--accordion-grey);
+    display: flex;
+    cursor: pointer;
+
+    &:hover, &:focus {
+      background-color: color.scale($accordion-grey, $lightness: -4%);
+    }
+
+    &::-webkit-details-marker {
+      visibility: hidden;
     }
 
     i, svg {
@@ -54,21 +68,6 @@
 
     &:focus {
       outline: 2px auto -webkit-focus-ring-color;
-    }
-  }
-
-  summary {
-    width: 100%;
-    background-color: var(--accordion-grey);
-    display: flex;
-    cursor: pointer;
-
-    &:hover, &:focus {
-      background-color: color.scale($accordion-grey, $lightness: -4%);
-    }
-
-    &::-webkit-details-marker {
-      visibility: hidden;
     }
   }
 
