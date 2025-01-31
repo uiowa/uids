@@ -96,10 +96,11 @@ export default {
     },
     vertical_alignment: {
       name: 'Vertical alignment',
-      options: ['center', 'bottom'],
+      options: ['top', 'center', 'bottom'],
       control: {
         type: 'select',
         labels: {
+          'top': 'Top',
           'center': 'Center',
           'bottom': 'Bottom',
         },

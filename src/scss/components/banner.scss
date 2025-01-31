@@ -57,6 +57,10 @@
     justify-content: center;
   }
 
+  &.banner--vertical-top {
+    align-items: flex-start;
+  }
+
   &.banner--vertical-bottom {
     align-items: flex-end;
   }
@@ -610,11 +614,15 @@
       position: absolute;
       left: 1.25rem;
       bottom: 1.25rem;
+
       @include breakpoint(page-container) {
         left: 3rem;
         bottom: 3rem;
       }
 
+      // @TODO: these will currently never match any of our rules, as they evaluate to,
+      //  .banner--horizontal-left.banner--vertical-bottom .banner .media--video .video-controls
+      //  And since there is a space right here ----------^ They dont scope correctly.
       .banner--horizontal-left.banner--vertical-bottom & {
         @include breakpoint(page-container) {
           bottom: 1.5rem;
