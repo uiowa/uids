@@ -83,6 +83,7 @@ const classes = computed(() => {
   if (props.gradient && props.background === '') {
     classes.push(`banner--gradient-${props.gradient}`);
   }
+  console.log(props.background === '')
 
   if (props.height) {
     classes.push(`banner--${props.height}`);
@@ -102,11 +103,13 @@ const classes = computed(() => {
     classes.push(`banner--vertical-${props.vertical_alignment}`);
   }
 
-  if (props.horizontal_alignment === 'left') {
-    classes.push('banner--gradient-left');
-  }
-  else {
-    classes.push('banner--gradient-bottom');
+  if (props.background === '') {
+    if (props.horizontal_alignment === 'left') {
+      classes.push('banner--gradient-left');
+    }
+    else {
+      classes.push('banner--gradient-bottom');
+    }
   }
 
   return classes;
