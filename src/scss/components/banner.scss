@@ -100,6 +100,16 @@
       top: 0;
     }
   }
+
+  &:not([class*="bg-"]) {
+    .banner__container {
+      background: white;
+
+      @include breakpoint(sm) {
+        background: unset;
+      }
+    }
+  }
 }
 
 // === End: Container === //
@@ -202,25 +212,6 @@
       span {
         background: none;
 
-        // Keep pre-title black when there's a black section container.
-        .banner--gradient-light:not([class*="bg-"]) & {
-          [class*="bg--black"] & {
-            @include breakpoint(sm) {
-              color: $secondary;
-            }
-          }
-        }
-
-        // Keep pre-title white when there's multiple background colors.
-        [class*="bg--black"] &,
-        [class*="bg--"] [class*="bg--black"] &,
-        [class*="bg--black"] [class*="banner--gradient-dark"]:not([class*="bg--"]) &,
-        [class*="bg--gold"] [class*="banner--gradient-dark"][class*="bg--black"] &,
-        [class*="banner--gradient-dark"]:not([class*="bg--"]):not([class*="banner--stacked"]) &,
-        [class*="bg--black"] [class*="banner--gradient-light"][class*="bg--black"]:not([class*="banner--stacked"]) & {
-          color: #fff;
-        }
-
         // Make pre-title white if banner--stacked is selected.
         [class*="banner--gradient-dark"]:not([class*="bg--"]) & {
           @include breakpoint(sm) {
@@ -233,16 +224,6 @@
           @include breakpoint(sm) {
             color: #fff;
           }
-        }
-
-        [class*="bg--gold"] [class*="banner--gradient-dark"][class*="bg--gold"] &,
-        [class*="bg--gold"] [class*="banner--gradient-dark"][class*="bg--gray"] &,
-        [class*="bg--gold"] [class*="banner--gradient-dark"][class*="bg--white"] &,
-        [class*="bg--black"] [class*="banner--gradient-light"]:not([class*="banner--stacked"]) &,
-        [class*="bg--white"] &,
-        [class*="bg--gold"] &,
-        [class*="bg--gray"] & {
-          color: $secondary;
         }
       }
     }
@@ -393,38 +374,6 @@
         color: $secondary;
       }
     }
-
-    &.banner--stacked:not([class*="bg-"]) {
-      [class*="bg--black"] & {
-        .banner__text {
-          color: #fff;
-          @include breakpoint(sm) {
-            color: $secondary;
-          }
-
-          a {
-            color: #fff;
-            @include breakpoint(sm) {
-              color: $secondary;
-            }
-          }
-
-          p {
-            color: #fff;
-            @include breakpoint(sm) {
-              color: $secondary;
-            }
-
-            a {
-              color: #fff;
-              @include breakpoint(sm) {
-                color: $secondary;
-              }
-            }
-          }
-        }
-      }
-    }
   }
 
   &--stacked {
@@ -446,9 +395,6 @@
       &:not([class*="bg--"]) {
         .banner__text {
           p {
-            [class*="bg--black"] & {
-              color: #fff;
-            }
             color: $secondary;
             text-shadow: none;
             @include breakpoint(sm) {
@@ -461,37 +407,6 @@
               @include breakpoint(sm) {
                 color: #fff;
               }
-
-              [class*="bg--black"] & {
-                color: #fff;
-              }
-            }
-          }
-        }
-      }
-    }
-
-    &[class*="banner--gradient-light"]:not([class*="bg--"]) {
-      .banner__text {
-        [class*="bg--gold"] & {
-          blockquote {
-            border-left-color: #fff;
-            @include breakpoint(sm) {
-              border-left-color: $primary;
-            }
-          }
-        }
-      }
-    }
-
-    &[class*="banner--gradient-light"]:not([class*="bg--black"]) {
-      .banner__text {
-        [class*="bg--gold"] & {
-          p {
-            color: $secondary;
-
-            a {
-              color: $secondary;
             }
           }
         }
@@ -513,38 +428,6 @@
 
           a {
             color: #fff;
-          }
-        }
-      }
-    }
-
-    [class*="bg--black"] & {
-      .banner__text {
-        color: #fff;
-
-        a {
-          color: #fff;
-        }
-      }
-    }
-
-    &[class*="bg--white"],
-    &[class*="bg--gray"],
-    &[class*="bg--gold"] {
-      [class*="bg--black"] & {
-        .banner__text {
-          color: $secondary;
-
-          a {
-            color: $secondary;
-          }
-
-          p {
-            color: $secondary;
-
-            a {
-              color: $secondary;
-            }
           }
         }
       }
@@ -899,26 +782,8 @@
   }
 
   &--stacked {
-    &[class*="banner--gradient-dark"][class*="bg--black"] {
-      .headline {
-        color: #fff;
-      }
-    }
-
-    &[class*="banner--gradient-dark"][class*="bg--gray"],
-    &[class*="banner--gradient-dark"][class*="bg--white"] {
-      .headline,
-      .headline.headline--uppercase {
-        [class*="bg--black"] & {
-          color: $secondary;
-          text-shadow: none;
-
-          a {
-            color: $secondary;
-            text-shadow: none;
-          }
-        }
-      }
+    .headline {
+      color: #fff;
     }
 
     &[class*="banner--gradient-dark"] {
@@ -934,21 +799,6 @@
           color: $secondary;
           @include breakpoint(sm) {
             color: #fff;
-          }
-        }
-
-        [class*="bg--black"] & {
-          color: #fff;
-          text-shadow: 0 1px 1px #000;
-          @include breakpoint(sm) {
-            color: #fff;
-          }
-
-          a {
-            color: #fff;
-            @include breakpoint(sm) {
-              color: #fff;
-            }
           }
         }
       }
