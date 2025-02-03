@@ -103,6 +103,7 @@ const classes = computed(() => {
     classes.push(`banner--vertical-${props.vertical_alignment}`);
   }
 
+  // Only apply a gradient if we don't have a background.
   if (props.background === '') {
     if (props.horizontal_alignment === 'left') {
       classes.push('banner--gradient-left');
