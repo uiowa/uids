@@ -1,4 +1,4 @@
-import{ae as n,af as o,ah as a,ai as c,aj as d,al as h}from"./index-DOpextm-.js";import{u as r}from"./index-Cy9YMTBQ.js";import{v as e}from"./package-Chrc7M3U.js";import"./iframe-z-rbf6bh.js";import"../sb-preview/runtime.js";import"./index-i39XpuQg.js";import"./index-D-8MO0q_.js";import"./index-DrFu-skq.js";function i(t){const s={a:"a",h2:"h2",hr:"hr",li:"li",p:"p",strong:"strong",ul:"ul",...r(),...t.components};return n.jsxs(n.Fragment,{children:[n.jsx(o,{isTemplate:!0}),`
+import{ae as n,af as r,ah as a,ai as c,aj as d,al as h}from"./index-DUVtxO6E.js";import{u as i}from"./index-DRZR5jZS.js";import{v as e}from"./package-Chrc7M3U.js";import"./iframe-DZGmg6I8.js";import"../sb-preview/runtime.js";import"./index-i39XpuQg.js";import"./index-D-8MO0q_.js";import"./index-DrFu-skq.js";function o(t){const s={a:"a",h2:"h2",hr:"hr",li:"li",p:"p",strong:"strong",ul:"ul",...i(),...t.components};return n.jsxs(n.Fragment,{children:[n.jsx(r,{isTemplate:!0}),`
 `,n.jsx(a,{}),`
 `,n.jsx(s.h2,{id:"usage",children:"Usage"}),`
 `,n.jsxs(s.p,{children:["Make sure you are familiar with the ",n.jsx(s.a,{href:"../?path=/docs/introduction#getting-started",children:n.jsx(s.strong,{children:"Getting Started"})})," guide first."]}),`
@@ -8,7 +8,7 @@ import{ae as n,af as o,ah as a,ai as c,aj as d,al as h}from"./index-DOpextm-.js"
 `,n.jsx("strong",{children:n.jsx("a",{href:`https://github.com/uiowa/uids/tree/gh-pages/docs/v${e}/dist/css/components/logo.css`,children:"logo.css"})}),`
 `]}),`
 `,n.jsxs(s.li,{children:[`
-`,n.jsx("strong",{children:n.jsx("a",{href:`https://github.com/uiowa/uids/tree/gh-pages/docs/v${e}/dist/css/components/brand-bar.css`,children:"brand-bar.css"})}),`
+`,n.jsx("strong",{children:n.jsx("a",{href:`https://github.com/uiowa/uids/tree/gh-pages/docs/v${e}/dist/css/components/brand-footer.css`,children:"brand-footer.css"})}),`
 `]}),`
 `]}),`
 `,n.jsx(s.p,{children:"Refer to the HTML tab for example HTML."}),`
@@ -19,4 +19,4 @@ import{ae as n,af as o,ah as a,ai as c,aj as d,al as h}from"./index-DOpextm-.js"
 `,n.jsx(s.hr,{}),`
 `,n.jsx(s.h2,{id:"additional-variations",children:"Additional variations"}),`
 `,n.jsx(s.p,{children:"Listed below are additional variations of the component."}),`
-`,n.jsx(h,{})]})}function b(t={}){const{wrapper:s}={...r(),...t.components};return s?n.jsx(s,{...t,children:n.jsx(i,{...t})}):i(t)}export{b as default};
+`,n.jsx(h,{})]})}function w(t={}){const{wrapper:s}={...i(),...t.components};return s?n.jsx(s,{...t,children:n.jsx(o,{...t})}):o(t)}export{w as default};
