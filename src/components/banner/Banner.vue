@@ -59,6 +59,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  extra_padding: {
+    type: Boolean,
+    default: false,
+  },
   mobile_content_below_image: {
     type: Boolean,
     default: false,
@@ -83,10 +87,13 @@ const classes = computed(() => {
   if (props.gradient && props.background === '') {
     classes.push(`banner--gradient-${props.gradient}`);
   }
-  console.log(props.background === '')
 
   if (props.height) {
     classes.push(`banner--${props.height}`);
+  }
+
+  if (props.extra_padding) {
+    classes.push(`banner--extra-padding`);
   }
 
   if (props.mobile_content_below_image === true) {

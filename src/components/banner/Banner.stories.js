@@ -120,6 +120,10 @@ export default {
       control: { type: 'select' },
       table: { category: 'Display options' },
     },
+    extra_padding: {
+      name: 'Extra padding',
+      control: { type: 'boolean' }
+    },
     mobile_content_below_image: {
       name: 'Content below media (mobile-only)',
       control: { type: 'boolean' },
@@ -142,6 +146,7 @@ const Template = {
       :headline_highlight="args.headline_highlight"
       :gradient="args.gradient"
       :height="args.height"
+      :extra_padding="args.extra_padding"
       :horizontal_alignment="args.horizontal_alignment"
       :vertical_alignment="args.vertical_alignment"
       :buttons="args.buttons"
@@ -174,6 +179,7 @@ export const BackgroundImage = {
     vertical_alignment: 'center',
     gradient:'dark',
     height: 'large',
+    extra_padding: false,
     mobile_content_below_image: true,
     button_light_font: false,
     button_color: 'primary',

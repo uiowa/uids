@@ -265,14 +265,28 @@
   &__content {
     padding: $gutter;
     @include breakpoint(sm) {
-      padding: 2rem 0;
+      padding: $mobile-height-gutter;
     }
 
     > * {
       flex-basis: 100%;
     }
     @include breakpoint(page-container) {
-      padding: 2rem 0 $gutter;
+      padding: $mobile-height-gutter $gutter;
+    }
+  }
+
+  &.banner--extra-padding {
+    .banner__content {
+      padding: $mobile-height-gutter;
+
+      @include breakpoint(sm) {
+        padding: $desktop-width-gutter;
+      }
+
+      @include breakpoint(page-container) {
+        padding: $desktop-width-gutter $mobile-height-gutter;
+      }
     }
   }
 
