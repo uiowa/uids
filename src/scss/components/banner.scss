@@ -187,7 +187,6 @@
 // === Pre-title === //
 .banner {
   &__pre-title {
-    background: none;
     line-height: 1.1;
 
     &.headline.headline--serif {
@@ -215,6 +214,107 @@
 }
 
 // === End: Pre-title === //
+
+// === Headline === //
+.banner {
+  .headline {
+    z-index: 1;
+
+    a {
+      color: #fff;
+
+      &:hover {
+        text-decoration: none;
+      }
+
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+
+  &.banner--gradient-dark {
+    .headline {
+      color: #fff;
+      text-shadow: 0 1px 1px #000;
+      @include breakpoint(sm) {
+        color: #fff;
+      }
+
+      a {
+        @include breakpoint(sm) {
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  // Overriding the serif font size set in base/_headings.scss
+  :where(h2, h3, h4, h5, h6) {
+    &.headline--large,
+    &.headline--large.headline--serif {
+      font-size: 4.7rem;
+
+      // https://garyridgway.github.io/clampCalculator/?&minWidth=600&maxWidth=1310&minFont=2.5&maxFont=4.7
+      font-size: clamp(2.5rem, calc(4.9577vw + 0.6408rem), 4.7rem);
+    }
+    // Set medium heading size
+    &.headline--medium,
+    &.headline--medium.headline--serif {
+      font-size: 3.7rem;
+
+      // https://garyridgway.github.io/clampCalculator/?&minWidth=600&maxWidth=1310&minFont=2.2&maxFont=3.7
+      font-size: clamp(2.2rem, calc(3.3803vw + 0.9324rem), 3.7rem);
+    }
+    // Set small heading size
+    &.headline--small,
+    &.headline--small.headline--serif {
+      font-size: 2.7rem;
+
+      // https://garyridgway.github.io/clampCalculator/?&minWidth=600&maxWidth=1310&minFont=2&maxFont=2.7
+      font-size: clamp(2rem, calc(1.5775vw + 1.4085rem), 2.7rem);
+    }
+  }
+
+  &--stacked {
+
+    &[class*="banner--gradient-dark"] {
+      .headline {
+        color: $secondary;
+        text-shadow: none;
+        @include breakpoint(sm) {
+          color: #fff;
+          text-shadow: 0 1px 1px #000;
+        }
+
+        a {
+          color: $secondary;
+          @include breakpoint(sm) {
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+
+  &[class*="bg--gold"],
+  &[class*="bg--white"],
+  &[class*="bg--gray"],
+  &[class*="banner--gradient-light"] {
+    .headline {
+      color: $secondary;
+      text-shadow: none;
+
+      a {
+        color: $secondary;
+      }
+    }
+  }
+}
+
+// === End: Headline === //
 
 // === Text/buttons === //
 .banner {
@@ -278,7 +378,7 @@
   }
 
   // bg color overrides.
-  &[class*="banner--gradient-dark"]:not([class*="bg-"]):not([class*="banner--stacked"]) {
+  &[class*="banner--gradient-dark"]:not([class*="banner--stacked"]) {
     .banner__text a {
       [class*="bg--gray"] &,
       [class*="bg--gold"] &,
@@ -294,7 +394,7 @@
     }
   }
 
-  &[class*="banner--gradient-light"]:not([class*="bg-"]) {
+  &[class*="banner--gradient-light"] {
     .banner__text {
       blockquote {
         [class*="bg--gold"] & {
@@ -326,7 +426,7 @@
 
   &[class*="bg--gold"],
   &[class*="bg--white"],
-  &[class*="banner--gradient-light"]:not([class*="bg-"]) {
+  &[class*="banner--gradient-light"] {
     .banner__text {
       color: $secondary;
 
@@ -362,21 +462,19 @@
     }
 
     &[class*="banner--gradient-dark"] {
-      &:not([class*="bg--"]) {
-        .banner__text {
-          p {
+      .banner__text {
+        p {
+          color: $secondary;
+          text-shadow: none;
+          @include breakpoint(sm) {
+            color: #fff;
+            text-shadow: 0 1px 1px #000;
+          }
+
+          a {
             color: $secondary;
-            text-shadow: none;
             @include breakpoint(sm) {
               color: #fff;
-              text-shadow: 0 1px 1px #000;
-            }
-
-            a {
-              color: $secondary;
-              @include breakpoint(sm) {
-                color: #fff;
-              }
             }
           }
         }
@@ -473,16 +571,6 @@
         left: 3rem;
         bottom: 3rem;
       }
-
-      // @TODO: these will currently never match any of our rules, as they evaluate to,
-      //  .banner--horizontal-left.banner--vertical-bottom .banner .media--video .video-controls
-      //  And since there is a space right here ----------^ They dont scope correctly.
-      .banner--horizontal-left.banner--vertical-bottom & {
-        @include breakpoint(page-container) {
-          bottom: 1.5rem;
-          left: 1.5rem;
-        }
-      }
     }
 
     .video-btn {
@@ -541,7 +629,7 @@
   }
 
   // Left Video button alignment
-  &.banner--horizontal-left{
+  &.banner--horizontal-left {
     .media--video + .banner__container .banner__content {
       @include breakpoint(sm) {
         padding-bottom: 4.25rem;
@@ -687,125 +775,3 @@
   }
 }
 // === End: Gradients === //
-
-// === Headline === //
-.banner {
-  .headline {
-    z-index: 1;
-
-    a {
-      color: #fff;
-
-      &:hover {
-        text-decoration: none;
-      }
-
-      &:focus {
-        text-decoration: underline;
-      }
-    }
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
-
-  &.banner--gradient-dark {
-    .headline {
-      color: #fff;
-      text-shadow: 0 1px 1px #000;
-      @include breakpoint(sm) {
-        color: #fff;
-      }
-
-      a {
-        @include breakpoint(sm) {
-          color: #fff;
-        }
-      }
-    }
-  }
-
-  // Overriding the serif font size set in base/_headings.scss
-  :where(h2, h3, h4, h5, h6) {
-    &.headline--large,
-    &.headline--large.headline--serif {
-      font-size: 4.7rem;
-
-      // https://garyridgway.github.io/clampCalculator/?&minWidth=600&maxWidth=1310&minFont=2.5&maxFont=4.7
-      font-size: clamp(2.5rem, calc(4.9577vw + 0.6408rem), 4.7rem);
-    }
-    // Set medium heading size
-    &.headline--medium,
-    &.headline--medium.headline--serif {
-      font-size: 3.7rem;
-
-      // https://garyridgway.github.io/clampCalculator/?&minWidth=600&maxWidth=1310&minFont=2.2&maxFont=3.7
-      font-size: clamp(2.2rem, calc(3.3803vw + 0.9324rem), 3.7rem);
-    }
-    // Set small heading size
-    &.headline--small,
-    &.headline--small.headline--serif {
-      font-size: 2.7rem;
-
-      // https://garyridgway.github.io/clampCalculator/?&minWidth=600&maxWidth=1310&minFont=2&maxFont=2.7
-      font-size: clamp(2rem, calc(1.5775vw + 1.4085rem), 2.7rem);
-    }
-  }
-
-  &--stacked {
-    .headline {
-      color: #fff;
-    }
-
-    &[class*="banner--gradient-dark"] {
-      .headline {
-        color: $secondary;
-        text-shadow: none;
-        @include breakpoint(sm) {
-          color: #fff;
-          text-shadow: 0 1px 1px #000;
-        }
-
-        a {
-          color: $secondary;
-          @include breakpoint(sm) {
-            color: #fff;
-          }
-        }
-      }
-    }
-  }
-
-  &[class*="bg--gray"] {
-    .headline {
-      color: $secondary;
-      text-shadow: none;
-
-      a {
-        color: $secondary;
-      }
-    }
-  }
-
-  &[class*="bg--black"] {
-    .headline {
-      a {
-        color: #fff;
-      }
-    }
-  }
-
-  &[class*="bg--gold"],
-  &[class*="bg--white"],
-  &[class*="banner--gradient-light"]:not([class*="bg-"]) {
-    .headline {
-      color: $secondary;
-      text-shadow: none;
-
-      a {
-        color: $secondary;
-      }
-    }
-  }
-}
-
-// === End: Headline === //
