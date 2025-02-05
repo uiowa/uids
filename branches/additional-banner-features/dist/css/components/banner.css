@@ -133,7 +133,6 @@
 }
 
 .banner__pre-title {
-  background: none;
   line-height: 1.1;
 }
 .banner__pre-title.headline.headline--serif {
@@ -152,6 +151,72 @@
 }
 .banner__pre-title.headline--small {
   font-size: 1.4rem;
+}
+
+.banner .headline {
+  z-index: 1;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+.banner .headline a {
+  color: #fff;
+}
+.banner .headline a:hover {
+  text-decoration: none;
+}
+.banner .headline a:focus {
+  text-decoration: underline;
+}
+.banner.banner--gradient-dark .headline {
+  color: #fff;
+  text-shadow: 0 1px 1px #000;
+}
+@media (min-width: 768px) {
+  .banner.banner--gradient-dark .headline {
+    color: #fff;
+  }
+}
+@media (min-width: 768px) {
+  .banner.banner--gradient-dark .headline a {
+    color: #fff;
+  }
+}
+.banner :where(h2, h3, h4, h5, h6).headline--large, .banner :where(h2, h3, h4, h5, h6).headline--large.headline--serif {
+  font-size: 4.7rem;
+  font-size: clamp(2.5rem, 4.9577vw + 0.6408rem, 4.7rem);
+}
+.banner :where(h2, h3, h4, h5, h6).headline--medium, .banner :where(h2, h3, h4, h5, h6).headline--medium.headline--serif {
+  font-size: 3.7rem;
+  font-size: clamp(2.2rem, 3.3803vw + 0.9324rem, 3.7rem);
+}
+.banner :where(h2, h3, h4, h5, h6).headline--small, .banner :where(h2, h3, h4, h5, h6).headline--small.headline--serif {
+  font-size: 2.7rem;
+  font-size: clamp(2rem, 1.5775vw + 1.4085rem, 2.7rem);
+}
+.banner--stacked[class*=banner--gradient-dark] .headline {
+  color: var(--brand-secondary);
+  text-shadow: none;
+}
+@media (min-width: 768px) {
+  .banner--stacked[class*=banner--gradient-dark] .headline {
+    color: #fff;
+    text-shadow: 0 1px 1px #000;
+  }
+}
+.banner--stacked[class*=banner--gradient-dark] .headline a {
+  color: var(--brand-secondary);
+}
+@media (min-width: 768px) {
+  .banner--stacked[class*=banner--gradient-dark] .headline a {
+    color: #fff;
+  }
+}
+.banner[class*=bg--gold] .headline, .banner[class*=bg--white] .headline, .banner[class*=bg--gray] .headline, .banner[class*=banner--gradient-light] .headline {
+  color: var(--brand-secondary);
+  text-shadow: none;
+}
+.banner[class*=bg--gold] .headline a, .banner[class*=bg--white] .headline a, .banner[class*=bg--gray] .headline a, .banner[class*=banner--gradient-light] .headline a {
+  color: var(--brand-secondary);
 }
 
 .banner__content {
@@ -211,13 +276,13 @@
   z-index: 1;
   color: #fff;
 }
-[class*=bg--gray] .banner[class*=banner--gradient-dark]:not([class*=bg-]):not([class*=banner--stacked]) .banner__text a, [class*=bg--gold] .banner[class*=banner--gradient-dark]:not([class*=bg-]):not([class*=banner--stacked]) .banner__text a, [class*=bg--white] .banner[class*=banner--gradient-dark]:not([class*=bg-]):not([class*=banner--stacked]) .banner__text a {
+[class*=bg--gray] .banner[class*=banner--gradient-dark]:not([class*=banner--stacked]) .banner__text a, [class*=bg--gold] .banner[class*=banner--gradient-dark]:not([class*=banner--stacked]) .banner__text a, [class*=bg--white] .banner[class*=banner--gradient-dark]:not([class*=banner--stacked]) .banner__text a {
   color: #fff;
 }
 .banner[class*=bg--black] .banner__text p {
   color: #fff;
 }
-[class*=bg--gold] .banner[class*=banner--gradient-light]:not([class*=bg-]) .banner__text blockquote {
+[class*=bg--gold] .banner[class*=banner--gradient-light] .banner__text blockquote {
   border-left-color: var(--brand-primary);
 }
 .banner[class*=bg--gray] .banner__text {
@@ -234,18 +299,18 @@
 .banner[class*=bg--gray] .banner__text p a {
   color: var(--brand-secondary);
 }
-.banner[class*=bg--gold] .banner__text, .banner[class*=bg--white] .banner__text, .banner[class*=banner--gradient-light]:not([class*=bg-]) .banner__text {
+.banner[class*=bg--gold] .banner__text, .banner[class*=bg--white] .banner__text, .banner[class*=banner--gradient-light] .banner__text {
   color: var(--brand-secondary);
 }
-.banner[class*=bg--gold] .banner__text p, .banner[class*=bg--white] .banner__text p, .banner[class*=banner--gradient-light]:not([class*=bg-]) .banner__text p {
+.banner[class*=bg--gold] .banner__text p, .banner[class*=bg--white] .banner__text p, .banner[class*=banner--gradient-light] .banner__text p {
   color: var(--brand-secondary);
   font-weight: normal;
   text-shadow: none;
 }
-.banner[class*=bg--gold] .banner__text p a, .banner[class*=bg--white] .banner__text p a, .banner[class*=banner--gradient-light]:not([class*=bg-]) .banner__text p a {
+.banner[class*=bg--gold] .banner__text p a, .banner[class*=bg--white] .banner__text p a, .banner[class*=banner--gradient-light] .banner__text p a {
   color: var(--brand-secondary);
 }
-.banner[class*=bg--gold] .banner__text a, .banner[class*=bg--white] .banner__text a, .banner[class*=banner--gradient-light]:not([class*=bg-]) .banner__text a {
+.banner[class*=bg--gold] .banner__text a, .banner[class*=bg--white] .banner__text a, .banner[class*=banner--gradient-light] .banner__text a {
   color: var(--brand-secondary);
 }
 .banner--stacked .banner__text {
@@ -264,21 +329,21 @@
     color: #fff;
   }
 }
-.banner--stacked[class*=banner--gradient-dark]:not([class*=bg--]) .banner__text p {
+.banner--stacked[class*=banner--gradient-dark] .banner__text p {
   color: var(--brand-secondary);
   text-shadow: none;
 }
 @media (min-width: 768px) {
-  .banner--stacked[class*=banner--gradient-dark]:not([class*=bg--]) .banner__text p {
+  .banner--stacked[class*=banner--gradient-dark] .banner__text p {
     color: #fff;
     text-shadow: 0 1px 1px #000;
   }
 }
-.banner--stacked[class*=banner--gradient-dark]:not([class*=bg--]) .banner__text p a {
+.banner--stacked[class*=banner--gradient-dark] .banner__text p a {
   color: var(--brand-secondary);
 }
 @media (min-width: 768px) {
-  .banner--stacked[class*=banner--gradient-dark]:not([class*=bg--]) .banner__text p a {
+  .banner--stacked[class*=banner--gradient-dark] .banner__text p a {
     color: #fff;
   }
 }
@@ -351,12 +416,6 @@
   .banner .media--video .video-controls {
     left: 3rem;
     bottom: 3rem;
-  }
-}
-@media (min-width: 84.375em) {
-  .banner--horizontal-left.banner--vertical-bottom .banner .media--video .video-controls {
-    bottom: 1.5rem;
-    left: 1.5rem;
   }
 }
 .banner .media--video .video-btn {
@@ -534,85 +593,6 @@
 }
 .banner[class*=bg-]:after {
   background: inherit;
-}
-
-.banner .headline {
-  z-index: 1;
-  margin-top: 0;
-  margin-bottom: 1rem;
-}
-.banner .headline a {
-  color: #fff;
-}
-.banner .headline a:hover {
-  text-decoration: none;
-}
-.banner .headline a:focus {
-  text-decoration: underline;
-}
-.banner.banner--gradient-dark .headline {
-  color: #fff;
-  text-shadow: 0 1px 1px #000;
-}
-@media (min-width: 768px) {
-  .banner.banner--gradient-dark .headline {
-    color: #fff;
-  }
-}
-@media (min-width: 768px) {
-  .banner.banner--gradient-dark .headline a {
-    color: #fff;
-  }
-}
-.banner :where(h2, h3, h4, h5, h6).headline--large, .banner :where(h2, h3, h4, h5, h6).headline--large.headline--serif {
-  font-size: 4.7rem;
-  font-size: clamp(2.5rem, 4.9577vw + 0.6408rem, 4.7rem);
-}
-.banner :where(h2, h3, h4, h5, h6).headline--medium, .banner :where(h2, h3, h4, h5, h6).headline--medium.headline--serif {
-  font-size: 3.7rem;
-  font-size: clamp(2.2rem, 3.3803vw + 0.9324rem, 3.7rem);
-}
-.banner :where(h2, h3, h4, h5, h6).headline--small, .banner :where(h2, h3, h4, h5, h6).headline--small.headline--serif {
-  font-size: 2.7rem;
-  font-size: clamp(2rem, 1.5775vw + 1.4085rem, 2.7rem);
-}
-.banner--stacked .headline {
-  color: #fff;
-}
-.banner--stacked[class*=banner--gradient-dark] .headline {
-  color: var(--brand-secondary);
-  text-shadow: none;
-}
-@media (min-width: 768px) {
-  .banner--stacked[class*=banner--gradient-dark] .headline {
-    color: #fff;
-    text-shadow: 0 1px 1px #000;
-  }
-}
-.banner--stacked[class*=banner--gradient-dark] .headline a {
-  color: var(--brand-secondary);
-}
-@media (min-width: 768px) {
-  .banner--stacked[class*=banner--gradient-dark] .headline a {
-    color: #fff;
-  }
-}
-.banner[class*=bg--gray] .headline {
-  color: var(--brand-secondary);
-  text-shadow: none;
-}
-.banner[class*=bg--gray] .headline a {
-  color: var(--brand-secondary);
-}
-.banner[class*=bg--black] .headline a {
-  color: #fff;
-}
-.banner[class*=bg--gold] .headline, .banner[class*=bg--white] .headline, .banner[class*=banner--gradient-light]:not([class*=bg-]) .headline {
-  color: var(--brand-secondary);
-  text-shadow: none;
-}
-.banner[class*=bg--gold] .headline a, .banner[class*=bg--white] .headline a, .banner[class*=banner--gradient-light]:not([class*=bg-]) .headline a {
-  color: var(--brand-secondary);
 }
 
 /*# sourceMappingURL=banner.css.map */
