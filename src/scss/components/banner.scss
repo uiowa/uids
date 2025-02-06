@@ -334,6 +334,7 @@
 
 // === End: Headline === //
 
+
 // === Text/buttons === //
 .banner {
   &__content {
@@ -350,10 +351,48 @@
     }
   }
 
+  // Extra padding.
   &.banner--extra-padding {
     .banner__content {
       @include container-query() {
         padding: 6rem;
+      }
+    }
+
+    &:has(.media--video) {
+      .banner__content {
+        padding-bottom: 8rem;
+        @include breakpoint(page-container) {
+          padding-bottom: 8rem;
+        }
+      }
+
+      &.banner--stacked {
+        .banner__content {
+          @include breakpoint(sm) {
+            padding-bottom: 8rem;
+          }
+        }
+      }
+    }
+  }
+
+  // Add more padding for play/pause button for banners with video.
+  &:has(.media--video) {
+    .banner__content {
+      padding-bottom: 4rem;
+      @include breakpoint(page-container) {
+        padding-bottom: 6rem;
+      }
+    }
+    &.banner--stacked {
+      .banner__content {
+        @include breakpoint(sm) {
+          padding-bottom: 4rem;
+        }
+        @include breakpoint(page-container) {
+          padding-bottom: 6rem;
+        }
       }
     }
   }
@@ -553,6 +592,7 @@
 
 // === Video === //
 .banner {
+
   .media--video .video-controls {
     z-index: 2;
   }
@@ -577,17 +617,23 @@
     }
   }
 
+  &.banner--extra-padding {
+    .media--video {
+      .video-controls {
+        @include container-query() {
+          left: 6rem;
+          bottom: 4rem;
+        }
+      }
+    }
+  }
+
   .media--video {
 
     .video-controls {
       position: absolute;
-      left: 1.25rem;
-      bottom: 1.25rem;
-
-      @include breakpoint(page-container) {
-        left: 3rem;
-        bottom: 3rem;
-      }
+      left: $mobile-height-gutter;
+      bottom: $gutter;
     }
 
     .video-btn {
@@ -641,15 +687,6 @@
 
       .video-btn {
         display: block;
-      }
-    }
-  }
-
-  // Left Video button alignment
-  &.banner--horizontal-left {
-    .media--video + .banner__container .banner__content {
-      @include breakpoint(sm) {
-        padding-bottom: 4.25rem;
       }
     }
   }
@@ -836,3 +873,30 @@
   }
 }
 // === End: Gradients === //
+
+// === Background colors === //
+// Remove left/right padding if container background matches banner background.
+
+$bg-colors: "white", "gray", "black", "gold";
+
+@each $color in $bg-colors {
+  .layout[class*="bg--#{$color}"] {
+    .banner[class*="bg--#{$color}"] {
+      .banner__content {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+  }
+}
+
+// Special case for no background class
+.layout:not([class*="bg-"]) {
+  .banner.bg--white {
+    .banner__content {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+// === End: Background colors === //
