@@ -877,11 +877,22 @@
 // === Background colors === //
 // Remove left/right padding if container background matches banner background.
 
-$bg-colors: "white", "gray", "black", "gold";
+$bg-colors: "white", "black", "gray", "gold";
 
+// Simple background colors and pattern variants
 @each $color in $bg-colors {
-  .layout[class*="bg--#{$color}"] {
-    .banner[class*="bg--#{$color}"] {
+  div.bg--#{$color} {
+    .banner.bg--#{$color} {
+      .banner__content {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+  }
+
+  // Pattern variant for each color
+  div[class*="bg--#{$color}--pattern"] {
+    .banner[class*="bg--#{$color}--pattern"] {
       .banner__content {
         padding-left: 0;
         padding-right: 0;
@@ -890,8 +901,8 @@ $bg-colors: "white", "gray", "black", "gold";
   }
 }
 
-// Special case for no background class
-.layout:not([class*="bg-"]) {
+// Special case for no background class.
+div:not([class*="bg-"]) {
   .banner.bg--white {
     .banner__content {
       padding-left: 0;
