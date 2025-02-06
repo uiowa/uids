@@ -174,7 +174,7 @@ export const BackgroundImage = {
     background_media: `<example-image />`,
     pre_title: 'University of Iowa',
     title: 'Living on Campus',
-    content: '<p>A member of the <a href="/">Association</a> of American Universities since 1909 and the Big Ten Conference<br> since 1899, the University of Iowa is home to one of the most acclaimed academic medical centers<br> in the country, as well as globally recognized leadership in the study and craft of writing.</p>',
+    content: '<p>A member of the <a href="/">Association</a> of American Universities since 1909 and the Big Ten Conference since 1899, the University of Iowa is home to one of the most acclaimed academic medical centers in the country, as well as globally recognized leadership in the study and craft of writing.</p>',
     headline_style: 'serif',
     headline_highlight: false,
     headline_size: 'large',
