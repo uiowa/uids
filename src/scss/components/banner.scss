@@ -1,6 +1,20 @@
 @import '../abstracts/variables';
 @import '../abstracts/utilities'; // --------------------------------
 
+@mixin container-query() {
+  @supports (contain: inline-size) {
+    @container column (min-width: #{$break-xsm}) {
+      @content
+    }
+  }
+  @supports not (contain: inline-size) {
+    @include breakpoint(sm) {
+      @content
+    }
+  }
+}
+
+
 // === Sizes === //
 .banner {
   flex-basis: 100%;
@@ -255,27 +269,31 @@
   :where(h2, h3, h4, h5, h6) {
     &.headline--large,
     &.headline--large.headline--serif {
-      font-size: 4.7rem;
+      font-size: 2.6rem;
 
-      // https://garyridgway.github.io/clampCalculator/?&minWidth=600&maxWidth=1310&minFont=2.5&maxFont=4.7
-      font-size: clamp(2.5rem, calc(4.9577vw + 0.6408rem), 4.7rem);
+      @include container-query() {
+        font-size: clamp(2.5rem, calc(4.9577vw + 0.6408rem), 4.7rem);
+      }
     }
     // Set medium heading size
     &.headline--medium,
     &.headline--medium.headline--serif {
-      font-size: 3.7rem;
+      font-size: 2.2rem;
 
-      // https://garyridgway.github.io/clampCalculator/?&minWidth=600&maxWidth=1310&minFont=2.2&maxFont=3.7
-      font-size: clamp(2.2rem, calc(3.3803vw + 0.9324rem), 3.7rem);
+      @include container-query() {
+        font-size: clamp(2.2rem, calc(3.3803vw + 0.9324rem), 3.7rem);
+      }
     }
     // Set small heading size
     &.headline--small,
     &.headline--small.headline--serif {
-      font-size: 2.7rem;
-
-      // https://garyridgway.github.io/clampCalculator/?&minWidth=600&maxWidth=1310&minFont=2&maxFont=2.7
-      font-size: clamp(2rem, calc(1.5775vw + 1.4085rem), 2.7rem);
+      font-size: 1.8rem;
+      @include container-query() {
+        font-size: clamp(2rem, calc(1.5775vw + 1.4085rem), 2.7rem);
+      }
     }
+
+
   }
 
   &--stacked {
@@ -328,20 +346,14 @@
       flex-basis: 100%;
     }
     @include breakpoint(page-container) {
-      padding: $mobile-height-gutter $gutter;
+      padding: $mobile-height-gutter;
     }
   }
 
   &.banner--extra-padding {
     .banner__content {
-      padding: $mobile-height-gutter;
-
-      @include breakpoint(sm) {
+      @include container-query() {
         padding: 6rem;
-      }
-
-      @include breakpoint(page-container) {
-        padding: 6rem $mobile-height-gutter;
       }
     }
   }
