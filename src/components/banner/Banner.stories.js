@@ -1,6 +1,7 @@
 import UidsBanner from './Banner.vue'
 import Background from "../shared/background";
-
+import UidsGrid from '../grid/Grid.vue'
+import UidsGridItem from '../grid/GridItem.vue'
 import ExampleImage from '../media/ExampleImage.vue';
 import * as ButtonStories from '../button/Button.stories';
 import ExampleVideoFile from "../media/ExampleVideoFile.vue";
@@ -222,3 +223,49 @@ export const MultipleButtons = {
   }
 }
 MultipleButtons.storyName = 'Multiple buttons';
+
+const GridTemplate = (args) => ({
+  components: { UidsGrid, UidsGridItem, UidsBanner },
+  setup() {
+    return { args };
+  },
+  template: `
+    <div style="padding-top: 2rem; padding-bottom: 2rem;">
+      <uids-grid :type="args.grid_type">
+        <uids-grid-item v-for="item in args.record_count" :key="item">
+          <uids-banner
+            :background="args.background"
+            :headline_style="args.headline_style"
+            :headline_size="args.headline_size"
+            :headline_highlight="args.headline_highlight"
+            :gradient="args.gradient"
+            :height="args.height"
+            :extra_padding="args.extra_padding"
+            :horizontal_alignment="args.horizontal_alignment"
+            :vertical_alignment="args.vertical_alignment"
+            :buttons="args.buttons"
+            :button_light_font="args.button_light_font"
+            :button_color="args.button_color"
+            :mobile_content_below_image="args.mobile_content_below_image"
+          >
+            <template #media v-if="args.background === ''">
+              <example-image />
+            </template>
+            <template #pre_title><span class="headline__heading">University of Iowa</span></template>
+            <template #title><span class="headline__heading">Living on Campus</span></template>
+            <p>A member of the Association of American Universities since 1909. Discover the rich academic tradition and vibrant campus life.</p>
+          </uids-banner>
+        </uids-grid-item>
+      </uids-grid>
+    </div>
+  `,
+});
+
+export const Grid = GridTemplate.bind({});
+Grid.args = {
+  ...BackgroundImage.args,
+  grid_type: 'threecol--33-34-33',
+  record_count: 3,
+  height: 'medium',
+  headline_size: 'medium',
+};
