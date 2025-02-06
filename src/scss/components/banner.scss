@@ -676,6 +676,50 @@
     }
   }
 
+  &--gradient-top {
+    &[class*="banner--stacked"] {
+      &:after {
+        background: none;
+        width: auto;
+        height: auto;
+        @include breakpoint(sm) {
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(180deg, rgba(0, 0, 0, 0.86) 0%, rgba(0, 0, 0, 0.23) 65%, transparent);
+        }
+      }
+    }
+
+    &:after {
+      background: rgba(0, 0, 0, .5);
+      @include breakpoint(sm) {
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.86) 0%, rgba(0, 0, 0, 0.23) 65%, transparent);
+      }
+    }
+
+    &.banner--gradient-light {
+      &[class*="banner--stacked"] {
+        &:after {
+          background: none;
+          width: auto;
+          height: auto;
+          @include breakpoint(sm) {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #fff 1%, hsla(0, 0%, 100%, .92) 32%, hsla(0, 0%, 100%, 0));
+          }
+        }
+      }
+
+      &:after {
+        background: rgba(255, 255, 255, .7);
+        @include breakpoint(sm) {
+          background: linear-gradient(90deg, #fff 1%, hsla(0, 0%, 100%, .92) 32%, hsla(0, 0%, 100%, 0));
+        }
+      }
+    }
+  }
+
   &--gradient-left {
     &[class*="banner--stacked"] {
       &:after {
