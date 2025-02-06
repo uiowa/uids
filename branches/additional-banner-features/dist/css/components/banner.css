@@ -288,6 +288,37 @@
     }
   }
 }
+.banner.banner--extra-padding:has(.media--video) .banner__content {
+  padding-bottom: 8rem;
+}
+@media (min-width: 84.375em) {
+  .banner.banner--extra-padding:has(.media--video) .banner__content {
+    padding-bottom: 8rem;
+  }
+}
+@media (min-width: 768px) {
+  .banner.banner--extra-padding:has(.media--video).banner--stacked .banner__content {
+    padding-bottom: 8rem;
+  }
+}
+.banner:has(.media--video) .banner__content {
+  padding-bottom: 4rem;
+}
+@media (min-width: 84.375em) {
+  .banner:has(.media--video) .banner__content {
+    padding-bottom: 6rem;
+  }
+}
+@media (min-width: 768px) {
+  .banner:has(.media--video).banner--stacked .banner__content {
+    padding-bottom: 4rem;
+  }
+}
+@media (min-width: 84.375em) {
+  .banner:has(.media--video).banner--stacked .banner__content {
+    padding-bottom: 6rem;
+  }
+}
 .banner__text {
   z-index: 1;
   color: #fff;
@@ -461,16 +492,26 @@
     position: absolute;
   }
 }
+@supports (contain: inline-size) {
+  @container column (min-width: 600px) {
+    .banner.banner--extra-padding .media--video .video-controls {
+      left: 6rem;
+      bottom: 4rem;
+    }
+  }
+}
+@supports not (contain: inline-size) {
+  @media (min-width: 768px) {
+    .banner.banner--extra-padding .media--video .video-controls {
+      left: 6rem;
+      bottom: 4rem;
+    }
+  }
+}
 .banner .media--video .video-controls {
   position: absolute;
-  left: 1.25rem;
+  left: 2rem;
   bottom: 1.25rem;
-}
-@media (min-width: 84.375em) {
-  .banner .media--video .video-controls {
-    left: 3rem;
-    bottom: 3rem;
-  }
 }
 .banner .media--video .video-btn {
   display: none;
@@ -526,11 +567,6 @@
 }
 .banner--stacked .media--video .video-btn {
   display: block;
-}
-@media (min-width: 768px) {
-  .banner.banner--horizontal-left .media--video + .banner__container .banner__content {
-    padding-bottom: 4.25rem;
-  }
 }
 
 .banner--stacked {
@@ -687,6 +723,31 @@
 }
 .banner[class*=bg-]:after {
   background: inherit;
+}
+
+.layout[class*=bg--white] .banner[class*=bg--white] .banner__content {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.layout[class*=bg--gray] .banner[class*=bg--gray] .banner__content {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.layout[class*=bg--black] .banner[class*=bg--black] .banner__content {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.layout[class*=bg--gold] .banner[class*=bg--gold] .banner__content {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.layout:not([class*=bg-]) .banner.bg--white .banner__content {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 /*# sourceMappingURL=banner.css.map */
