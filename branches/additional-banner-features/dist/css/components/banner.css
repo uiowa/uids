@@ -182,16 +182,55 @@
   }
 }
 .banner :where(h2, h3, h4, h5, h6).headline--large, .banner :where(h2, h3, h4, h5, h6).headline--large.headline--serif {
-  font-size: 4.7rem;
-  font-size: clamp(2.5rem, 4.9577vw + 0.6408rem, 4.7rem);
+  font-size: 2.6rem;
+}
+@supports (contain: inline-size) {
+  @container column (min-width: 600px) {
+    .banner :where(h2, h3, h4, h5, h6).headline--large, .banner :where(h2, h3, h4, h5, h6).headline--large.headline--serif {
+      font-size: clamp(2.5rem, 4.9577vw + 0.6408rem, 4.7rem);
+    }
+  }
+}
+@supports not (contain: inline-size) {
+  @media (min-width: 768px) {
+    .banner :where(h2, h3, h4, h5, h6).headline--large, .banner :where(h2, h3, h4, h5, h6).headline--large.headline--serif {
+      font-size: clamp(2.5rem, 4.9577vw + 0.6408rem, 4.7rem);
+    }
+  }
 }
 .banner :where(h2, h3, h4, h5, h6).headline--medium, .banner :where(h2, h3, h4, h5, h6).headline--medium.headline--serif {
-  font-size: 3.7rem;
-  font-size: clamp(2.2rem, 3.3803vw + 0.9324rem, 3.7rem);
+  font-size: 2.2rem;
+}
+@supports (contain: inline-size) {
+  @container column (min-width: 600px) {
+    .banner :where(h2, h3, h4, h5, h6).headline--medium, .banner :where(h2, h3, h4, h5, h6).headline--medium.headline--serif {
+      font-size: clamp(2.2rem, 3.3803vw + 0.9324rem, 3.7rem);
+    }
+  }
+}
+@supports not (contain: inline-size) {
+  @media (min-width: 768px) {
+    .banner :where(h2, h3, h4, h5, h6).headline--medium, .banner :where(h2, h3, h4, h5, h6).headline--medium.headline--serif {
+      font-size: clamp(2.2rem, 3.3803vw + 0.9324rem, 3.7rem);
+    }
+  }
 }
 .banner :where(h2, h3, h4, h5, h6).headline--small, .banner :where(h2, h3, h4, h5, h6).headline--small.headline--serif {
-  font-size: 2.7rem;
-  font-size: clamp(2rem, 1.5775vw + 1.4085rem, 2.7rem);
+  font-size: 1.8rem;
+}
+@supports (contain: inline-size) {
+  @container column (min-width: 600px) {
+    .banner :where(h2, h3, h4, h5, h6).headline--small, .banner :where(h2, h3, h4, h5, h6).headline--small.headline--serif {
+      font-size: clamp(2rem, 1.5775vw + 1.4085rem, 2.7rem);
+    }
+  }
+}
+@supports not (contain: inline-size) {
+  @media (min-width: 768px) {
+    .banner :where(h2, h3, h4, h5, h6).headline--small, .banner :where(h2, h3, h4, h5, h6).headline--small.headline--serif {
+      font-size: clamp(2rem, 1.5775vw + 1.4085rem, 2.7rem);
+    }
+  }
 }
 .banner--stacked[class*=banner--gradient-dark] .headline {
   color: var(--brand-secondary);
@@ -232,20 +271,21 @@
 }
 @media (min-width: 84.375em) {
   .banner__content {
-    padding: 2rem 1.25rem;
+    padding: 2rem;
   }
 }
-.banner.banner--extra-padding .banner__content {
-  padding: 2rem;
-}
-@media (min-width: 768px) {
-  .banner.banner--extra-padding .banner__content {
-    padding: 6rem;
+@supports (contain: inline-size) {
+  @container column (min-width: 600px) {
+    .banner.banner--extra-padding .banner__content {
+      padding: 6rem;
+    }
   }
 }
-@media (min-width: 84.375em) {
-  .banner.banner--extra-padding .banner__content {
-    padding: 6rem 2rem;
+@supports not (contain: inline-size) {
+  @media (min-width: 768px) {
+    .banner.banner--extra-padding .banner__content {
+      padding: 6rem;
+    }
   }
 }
 .banner__text {
