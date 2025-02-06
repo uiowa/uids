@@ -316,6 +316,20 @@
   z-index: 1;
   color: #fff;
 }
+@supports (contain: inline-size) {
+  @container column (min-width: 600px) {
+    .banner__text {
+      max-width: 75%;
+    }
+  }
+}
+@supports not (contain: inline-size) {
+  @media (min-width: 768px) {
+    .banner__text {
+      max-width: 75%;
+    }
+  }
+}
 [class*=bg--gray] .banner[class*=banner--gradient-dark]:not([class*=banner--stacked]) .banner__text a, [class*=bg--gold] .banner[class*=banner--gradient-dark]:not([class*=banner--stacked]) .banner__text a, [class*=bg--white] .banner[class*=banner--gradient-dark]:not([class*=banner--stacked]) .banner__text a {
   color: #fff;
 }
