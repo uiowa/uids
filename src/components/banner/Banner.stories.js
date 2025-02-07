@@ -256,7 +256,7 @@ export const MultipleButtons = {
 MultipleButtons.storyName = 'Multiple buttons';
 
 const GridTemplate = (args) => ({
-  components: { UidsGrid, UidsGridItem, UidsBanner, ExampleImage  },
+  components: { UidsGrid, UidsGridItem, UidsBanner, ExampleImage, ExampleVideoFile },
   setup() {
     return { args };
   },
@@ -280,7 +280,7 @@ const GridTemplate = (args) => ({
             :mobile_content_below_image="args.mobile_content_below_image"
           >
             <template #media v-if="args.background === ''">
-              <example-image />
+              ${args.background_media}
             </template>
             <template #pre_title><span class="headline__heading">University of Iowa</span></template>
             <template #title><span class="headline__heading">Living on Campus</span></template>
@@ -292,11 +292,30 @@ const GridTemplate = (args) => ({
   `,
 });
 
-export const Grid = GridTemplate.bind({});
-Grid.args = {
+export const GridImage = GridTemplate.bind({});
+GridImage.args = {
   ...BackgroundImage.args,
   grid_type: 'threecol--33-34-33',
   record_count: 3,
   height: 'medium',
   headline_size: 'medium',
 };
+GridImage.storyName = 'Background image grid';
+
+export const GridVideo = GridTemplate.bind({});
+GridVideo.args = {
+  ...BackgroundImage.args,
+  background_media: `<example-video-file />`,
+  grid_type: 'threecol--33-34-33',
+  record_count: 3,
+  height: 'medium',
+  headline_size: 'medium',
+  horizontal_alignment: 'left',
+  vertical_alignment: 'bottom',
+  buttons: [
+    { ...ButtonStories.Primary.args, label: 'Apply ' + ButtonStories.Primary.args.icon },
+    { ...ButtonStories.Primary.args, label: 'Learn More ' + ButtonStories.Primary.args.icon, url: 'https://uiowa.edu/about' },
+    { ...ButtonStories.Primary.args, label: 'Explore ' + ButtonStories.Primary.args.icon, url: 'https://uiowa.edu/explore' },
+  ],
+};
+GridVideo.storyName = 'Background video grid';
