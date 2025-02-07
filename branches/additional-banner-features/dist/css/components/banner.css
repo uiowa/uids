@@ -276,15 +276,31 @@
 }
 @supports (contain: inline-size) {
   @container column (min-width: 600px) {
-    .banner.banner--extra-padding .banner__content {
+    .banner.banner--extra-padding:not(.banner--stacked) .banner__content {
       padding: 6rem;
     }
   }
 }
 @supports not (contain: inline-size) {
   @media (min-width: 768px) {
-    .banner.banner--extra-padding .banner__content {
+    .banner.banner--extra-padding:not(.banner--stacked) .banner__content {
       padding: 6rem;
+    }
+  }
+}
+@media (min-width: 768px) {
+  @supports (contain: inline-size) {
+    @container column (min-width: 600px) {
+      .banner.banner--extra-padding.banner--stacked .banner__content {
+        padding: 6rem;
+      }
+    }
+  }
+  @supports not (contain: inline-size) {
+    @media (min-width: 768px) and (min-width: 768px) {
+      .banner.banner--extra-padding.banner--stacked .banner__content {
+        padding: 6rem;
+      }
     }
   }
 }
@@ -613,9 +629,18 @@
 .banner--gradient-top:after {
   background: rgba(0, 0, 0, 0.5);
 }
-@media (min-width: 768px) {
-  .banner--gradient-top:after {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.65) 70%, transparent 100%);
+@supports (contain: inline-size) {
+  @container column (min-width: 600px) {
+    .banner--gradient-top:after {
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.65) 70%, transparent 100%);
+    }
+  }
+}
+@supports not (contain: inline-size) {
+  @media (min-width: 768px) {
+    .banner--gradient-top:after {
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.65) 70%, transparent 100%);
+    }
   }
 }
 .banner--gradient-top.banner--gradient-light[class*=banner--stacked]:after {
@@ -633,9 +658,18 @@
 .banner--gradient-top.banner--gradient-light:after {
   background: rgba(255, 255, 255, 0.7);
 }
-@media (min-width: 768px) {
-  .banner--gradient-top.banner--gradient-light:after {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 55%, transparent 100%);
+@supports (contain: inline-size) {
+  @container column (min-width: 600px) {
+    .banner--gradient-top.banner--gradient-light:after {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 55%, transparent 100%);
+    }
+  }
+}
+@supports not (contain: inline-size) {
+  @media (min-width: 768px) {
+    .banner--gradient-top.banner--gradient-light:after {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 55%, transparent 100%);
+    }
   }
 }
 .banner--gradient-left[class*=banner--stacked]:after {
@@ -653,9 +687,18 @@
 .banner--gradient-left:after {
   background: rgba(0, 0, 0, 0.5);
 }
-@media (min-width: 768px) {
-  .banner--gradient-left:after {
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0.86) 0%, rgba(0, 0, 0, 0.23) 65%, transparent);
+@supports (contain: inline-size) {
+  @container column (min-width: 600px) {
+    .banner--gradient-left:after {
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.86) 0%, rgba(0, 0, 0, 0.23) 65%, transparent);
+    }
+  }
+}
+@supports not (contain: inline-size) {
+  @media (min-width: 768px) {
+    .banner--gradient-left:after {
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.86) 0%, rgba(0, 0, 0, 0.23) 65%, transparent);
+    }
   }
 }
 .banner--gradient-left.banner--gradient-light[class*=banner--stacked]:after {
@@ -673,9 +716,18 @@
 .banner--gradient-left.banner--gradient-light:after {
   background: rgba(255, 255, 255, 0.7);
 }
-@media (min-width: 768px) {
-  .banner--gradient-left.banner--gradient-light:after {
-    background: linear-gradient(90deg, rgb(255, 255, 255) 1%, rgba(255, 255, 255, 0.92) 32%, transparent 100%);
+@supports (contain: inline-size) {
+  @container column (min-width: 600px) {
+    .banner--gradient-left.banner--gradient-light:after {
+      background: linear-gradient(90deg, rgb(255, 255, 255) 1%, rgba(255, 255, 255, 0.92) 32%, transparent 100%);
+    }
+  }
+}
+@supports not (contain: inline-size) {
+  @media (min-width: 768px) {
+    .banner--gradient-left.banner--gradient-light:after {
+      background: linear-gradient(90deg, rgb(255, 255, 255) 1%, rgba(255, 255, 255, 0.92) 32%, transparent 100%);
+    }
   }
 }
 .banner--gradient-bottom[class*=banner--stacked]:after {
@@ -693,9 +745,18 @@
 .banner--gradient-bottom:after {
   background: rgba(0, 0, 0, 0.5);
 }
-@media (min-width: 768px) {
-  .banner--gradient-bottom:after {
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.65) 70%, transparent 100%);
+@supports (contain: inline-size) {
+  @container column (min-width: 600px) {
+    .banner--gradient-bottom:after {
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.65) 70%, transparent 100%);
+    }
+  }
+}
+@supports not (contain: inline-size) {
+  @media (min-width: 768px) {
+    .banner--gradient-bottom:after {
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.65) 70%, transparent 100%);
+    }
   }
 }
 .banner--gradient-bottom.banner--gradient-light[class*=banner--stacked]:after {
@@ -713,9 +774,18 @@
 .banner--gradient-bottom.banner--gradient-light:after {
   background: rgba(255, 255, 255, 0.7);
 }
-@media (min-width: 768px) {
-  .banner--gradient-bottom.banner--gradient-light:after {
-    background: linear-gradient(0deg, rgba(255, 255, 255, 0.9) 55%, transparent 100%);
+@supports (contain: inline-size) {
+  @container column (min-width: 600px) {
+    .banner--gradient-bottom.banner--gradient-light:after {
+      background: linear-gradient(0deg, rgba(255, 255, 255, 0.9) 55%, transparent 100%);
+    }
+  }
+}
+@supports not (contain: inline-size) {
+  @media (min-width: 768px) {
+    .banner--gradient-bottom.banner--gradient-light:after {
+      background: linear-gradient(0deg, rgba(255, 255, 255, 0.9) 55%, transparent 100%);
+    }
   }
 }
 .banner--transparent:after {
