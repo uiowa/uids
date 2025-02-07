@@ -258,82 +258,64 @@
   color: var(--brand-secondary);
 }
 
-.banner__content {
-  padding: 1.25rem;
+.banner {
+  --banner-padding: 1.25rem;
+  --banner-text-max-width: 1;
 }
 @media (min-width: 768px) {
-  .banner__content {
-    padding: 2rem;
+  .banner {
+    --banner-padding: 2rem;
   }
+}
+@supports (contain: inline-size) {
+  @container column (min-width: 600px) {
+    .banner {
+      --banner-text-max-width: .75;
+    }
+  }
+}
+@supports not (contain: inline-size) {
+  @media (min-width: 768px) {
+    .banner {
+      --banner-text-max-width: .75;
+    }
+  }
+}
+.banner__content {
+  padding: var(--banner-padding);
 }
 .banner__content > * {
   flex-basis: 100%;
 }
-@media (min-width: 84.375em) {
-  .banner__content {
-    padding: 2rem;
-  }
-}
 @supports (contain: inline-size) {
   @container column (min-width: 600px) {
-    .banner.banner--extra-padding:not(.banner--stacked) .banner__content {
-      padding: 6rem;
+    .banner.banner--extra-padding {
+      --banner-padding: 6rem;
     }
   }
 }
 @supports not (contain: inline-size) {
   @media (min-width: 768px) {
-    .banner.banner--extra-padding:not(.banner--stacked) .banner__content {
-      padding: 6rem;
+    .banner.banner--extra-padding {
+      --banner-padding: 6rem;
     }
+  }
+}
+.banner.banner--extra-padding:has(.media--video) .banner__content {
+  padding-bottom: 8rem;
+}
+@media (min-width: 84.375em) {
+  .banner.banner--extra-padding:has(.media--video) .banner__content {
+    padding-bottom: 8rem;
   }
 }
 @media (min-width: 768px) {
-  @supports (contain: inline-size) {
-    @container column (min-width: 600px) {
-      .banner.banner--extra-padding.banner--stacked .banner__content {
-        padding: 6rem;
-      }
-    }
-  }
-  @supports not (contain: inline-size) {
-    @media (min-width: 768px) and (min-width: 768px) {
-      .banner.banner--extra-padding.banner--stacked .banner__content {
-        padding: 6rem;
-      }
-    }
-  }
-}
-@supports (contain: inline-size) {
-  @container column (min-width: 600px) {
-    .banner.banner--extra-padding:has(.media--video) .banner__content {
-      padding-bottom: 8rem;
-    }
-  }
-}
-@supports not (contain: inline-size) {
-  @media (min-width: 768px) {
-    .banner.banner--extra-padding:has(.media--video) .banner__content {
-      padding-bottom: 8rem;
-    }
-  }
-}
-@supports (contain: inline-size) {
-  @container column (min-width: 600px) {
-    .banner.banner--extra-padding:has(.media--video).banner--stacked .banner__content {
-      padding-bottom: 8rem;
-    }
-  }
-}
-@supports not (contain: inline-size) {
-  @media (min-width: 768px) {
-    .banner.banner--extra-padding:has(.media--video).banner--stacked .banner__content {
-      padding-bottom: 8rem;
-    }
+  .banner.banner--extra-padding:has(.media--video).banner--stacked .banner__content {
+    padding-bottom: 8rem;
   }
 }
 .banner:has(.media--video) .banner__content {
-  padding-bottom: 5rem;
+  padding-bottom: 4rem;
 }
 @media (min-width: 84.375em) {
   .banner:has(.media--video) .banner__content {
@@ -342,7 +324,7 @@
 }
 @media (min-width: 768px) {
   .banner:has(.media--video).banner--stacked .banner__content {
-    padding-bottom: 5rem;
+    padding-bottom: 4rem;
   }
 }
 @media (min-width: 84.375em) {
@@ -525,16 +507,14 @@
 }
 @supports (contain: inline-size) {
   @container column (min-width: 600px) {
-    @media (min-width: 768px) {
-      .banner.banner--extra-padding .media--video .video-controls {
-        left: 6rem;
-        bottom: 4rem;
-      }
+    .banner.banner--extra-padding .media--video .video-controls {
+      left: 6rem;
+      bottom: 4rem;
     }
   }
 }
 @supports not (contain: inline-size) {
-  @media (min-width: 768px) and (min-width: 768px) {
+  @media (min-width: 768px) {
     .banner.banner--extra-padding .media--video .video-controls {
       left: 6rem;
       bottom: 4rem;
@@ -543,16 +523,11 @@
 }
 .banner .media--video .video-controls {
   position: absolute;
-  left: 1.25rem;
+  left: 2rem;
   bottom: 1.25rem;
 }
-@media (min-width: 768px) {
-  .banner .media--video .video-controls {
-    left: 2rem;
-    bottom: 2rem;
-  }
-}
 .banner .media--video .video-btn {
+  display: none;
   width: 40px;
   height: 40px;
   cursor: pointer;
@@ -651,18 +626,9 @@
 .banner--gradient-top:after {
   background: rgba(0, 0, 0, 0.5);
 }
-@supports (contain: inline-size) {
-  @container column (min-width: 600px) {
-    .banner--gradient-top:after {
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0.65) 70%, transparent 100%);
-    }
-  }
-}
-@supports not (contain: inline-size) {
-  @media (min-width: 768px) {
-    .banner--gradient-top:after {
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0.65) 70%, transparent 100%);
-    }
+@media (min-width: 768px) {
+  .banner--gradient-top:after {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.65) 70%, transparent 100%);
   }
 }
 .banner--gradient-top.banner--gradient-light[class*=banner--stacked]:after {
@@ -680,18 +646,9 @@
 .banner--gradient-top.banner--gradient-light:after {
   background: rgba(255, 255, 255, 0.7);
 }
-@supports (contain: inline-size) {
-  @container column (min-width: 600px) {
-    .banner--gradient-top.banner--gradient-light:after {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 55%, transparent 100%);
-    }
-  }
-}
-@supports not (contain: inline-size) {
-  @media (min-width: 768px) {
-    .banner--gradient-top.banner--gradient-light:after {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 55%, transparent 100%);
-    }
+@media (min-width: 768px) {
+  .banner--gradient-top.banner--gradient-light:after {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 55%, transparent 100%);
   }
 }
 .banner--gradient-left[class*=banner--stacked]:after {
@@ -703,24 +660,15 @@
   .banner--gradient-left[class*=banner--stacked]:after {
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0.86) 0%, rgba(0, 0, 0, 0.23) 65%, transparent);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.66) calc(max(100% - 81.875em, 0px) * 0.5), rgba(0, 0, 0, 0.35) calc(calc(100% - max(100% - 81.875em, 0px)) * var(--banner-text-max-width) + max(100% - 81.875em, 0px) * 0.5 + var(--banner-padding) * 0.5), transparent);
   }
 }
 .banner--gradient-left:after {
   background: rgba(0, 0, 0, 0.5);
 }
-@supports (contain: inline-size) {
-  @container column (min-width: 600px) {
-    .banner--gradient-left:after {
-      background: linear-gradient(90deg, rgba(0, 0, 0, 0.86) 0%, rgba(0, 0, 0, 0.23) 65%, transparent);
-    }
-  }
-}
-@supports not (contain: inline-size) {
-  @media (min-width: 768px) {
-    .banner--gradient-left:after {
-      background: linear-gradient(90deg, rgba(0, 0, 0, 0.86) 0%, rgba(0, 0, 0, 0.23) 65%, transparent);
-    }
+@media (min-width: 768px) {
+  .banner--gradient-left:after {
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.66) calc(max(100% - 81.875em, 0px) * 0.5), rgba(0, 0, 0, 0.35) calc(calc(100% - max(100% - 81.875em, 0px)) * var(--banner-text-max-width) + max(100% - 81.875em, 0px) * 0.5 + var(--banner-padding) * 0.5), transparent);
   }
 }
 .banner--gradient-left.banner--gradient-light[class*=banner--stacked]:after {
@@ -738,18 +686,9 @@
 .banner--gradient-left.banner--gradient-light:after {
   background: rgba(255, 255, 255, 0.7);
 }
-@supports (contain: inline-size) {
-  @container column (min-width: 600px) {
-    .banner--gradient-left.banner--gradient-light:after {
-      background: linear-gradient(90deg, rgb(255, 255, 255) 1%, rgba(255, 255, 255, 0.92) 32%, transparent 100%);
-    }
-  }
-}
-@supports not (contain: inline-size) {
-  @media (min-width: 768px) {
-    .banner--gradient-left.banner--gradient-light:after {
-      background: linear-gradient(90deg, rgb(255, 255, 255) 1%, rgba(255, 255, 255, 0.92) 32%, transparent 100%);
-    }
+@media (min-width: 768px) {
+  .banner--gradient-left.banner--gradient-light:after {
+    background: linear-gradient(90deg, rgb(255, 255, 255) 1%, rgba(255, 255, 255, 0.92) 32%, transparent 100%);
   }
 }
 .banner--gradient-bottom[class*=banner--stacked]:after {
@@ -767,18 +706,9 @@
 .banner--gradient-bottom:after {
   background: rgba(0, 0, 0, 0.5);
 }
-@supports (contain: inline-size) {
-  @container column (min-width: 600px) {
-    .banner--gradient-bottom:after {
-      background: linear-gradient(0deg, rgba(0, 0, 0, 0.65) 70%, transparent 100%);
-    }
-  }
-}
-@supports not (contain: inline-size) {
-  @media (min-width: 768px) {
-    .banner--gradient-bottom:after {
-      background: linear-gradient(0deg, rgba(0, 0, 0, 0.65) 70%, transparent 100%);
-    }
+@media (min-width: 768px) {
+  .banner--gradient-bottom:after {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.65) 70%, transparent 100%);
   }
 }
 .banner--gradient-bottom.banner--gradient-light[class*=banner--stacked]:after {
@@ -796,18 +726,9 @@
 .banner--gradient-bottom.banner--gradient-light:after {
   background: rgba(255, 255, 255, 0.7);
 }
-@supports (contain: inline-size) {
-  @container column (min-width: 600px) {
-    .banner--gradient-bottom.banner--gradient-light:after {
-      background: linear-gradient(0deg, rgba(255, 255, 255, 0.9) 55%, transparent 100%);
-    }
-  }
-}
-@supports not (contain: inline-size) {
-  @media (min-width: 768px) {
-    .banner--gradient-bottom.banner--gradient-light:after {
-      background: linear-gradient(0deg, rgba(255, 255, 255, 0.9) 55%, transparent 100%);
-    }
+@media (min-width: 768px) {
+  .banner--gradient-bottom.banner--gradient-light:after {
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.9) 55%, transparent 100%);
   }
 }
 .banner--transparent:after {
