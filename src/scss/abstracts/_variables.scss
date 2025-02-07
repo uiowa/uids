@@ -106,24 +106,37 @@ $banner-text-width: calc(#{$banner-content-width} * var(--banner-text-max-width)
 $banner-gradient-first-delimiter: calc($banner-margin * 0.5);
 
 // The --banner-padding variable is set in the banner.scss file.
-$banner-gradient-second-delimiter: calc($banner-text-width + $banner-gradient-first-delimiter + (var(--banner-padding) * 0.5));
+$banner-gradient-second-delimiter: calc($banner-text-width + $banner-gradient-first-delimiter);
 
 // THIS IS ONLY FOR TESTING.
-//$gradient-dark-horizontal:
-//  rgba(30, 105, 235, 1) calc(#{$banner-gradient-first-delimiter}),
-//  rgba(55, 231, 231, 1) #{$banner-gradient-first-delimiter},
-//  rgba(55, 231, 231, 1) calc(#{$banner-gradient-second-delimiter}),
-//  rgba(30, 105, 235, 1) #{$banner-gradient-second-delimiter},
-//  rgba(30, 105, 235, 1) 100%;
+$gradient-test:
+  rgba(30, 105, 235, 1) calc(#{$banner-gradient-first-delimiter}),
+  rgba(55, 231, 231, 1) #{$banner-gradient-first-delimiter},
+  rgba(55, 231, 231, 1) calc(#{$banner-gradient-second-delimiter}),
+  rgba(30, 105, 235, 1) #{$banner-gradient-second-delimiter},
+  rgba(30, 105, 235, 1) 100%;
 
-$a1: 0.66;
-$a2: 0.35;
+$a0: 0.88;
+$a1: 0.84;
+$a2: 0.55;
+$a3: 0.0;
 $gradient-dark-horizontal:
+  rgba(0, 0, 0, $a0) 0%,
   rgba(0, 0, 0, $a1) #{$banner-gradient-first-delimiter},
   rgba(0, 0, 0, $a2) #{$banner-gradient-second-delimiter},
-  transparent;
+  rgba(0, 0, 0, $a3);
 
-//$gradient-dark-horizontal: rgba(0, 0, 0, 0.86) 0%, rgba(0, 0, 0, 0.23) 65%, transparent;
-$gradient-light-horizontal: rgba(255, 255, 255, 1) 1%, rgba(255, 255, 255, 0.92) 32%, transparent 100%;
+$a0: 0.88;
+$a1: 0.84;
+$a2: 0.55;
+$a3: 0.0;
+$gradient-light-horizontal:
+  rgba(255, 255, 255, $a0) 0%,
+  rgba(255, 255, 255, $a1) #{$banner-gradient-first-delimiter},
+  rgba(255, 255, 255, $a2) #{$banner-gradient-second-delimiter},
+  rgba(255, 255, 255, $a3);
+
+//$gradient-dark-horizontal: $gradient-test;
+//$gradient-light-horizontal: $gradient-test;
 $gradient-dark-vertical: rgba(0, 0, 0, 0.65) 70%, transparent 100%;
 $gradient-light-vertical: rgba(255, 255, 255, .9) 55%, transparent 100%;
