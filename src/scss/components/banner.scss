@@ -110,7 +110,7 @@
 
     @include breakpoint(sm) {
       z-index: 1;
-      max-width: 81.875em;
+      max-width: $container-width;
       top: 0;
     }
   }
@@ -337,51 +337,43 @@
 
 // === Text/buttons === //
 .banner {
+  --banner-padding: #{$gutter};
+  --banner-text-max-width: 1;
+
+  @include breakpoint(sm) {
+    --banner-padding: #{$mobile-height-gutter};
+  }
+
+  @include container-query() {
+    --banner-text-max-width: .75;
+  }
+
   &__content {
-    padding: $gutter;
-    @include breakpoint(sm) {
-      padding: $mobile-height-gutter;
-    }
+    padding: var(--banner-padding);
 
     > * {
       flex-basis: 100%;
-    }
-    @include breakpoint(page-container) {
-      padding: $mobile-height-gutter;
     }
   }
 
   // Extra padding.
   &.banner--extra-padding {
-    &:not(.banner--stacked) {
-      .banner__content {
-        @include container-query() {
-          padding: 6rem;
-        }
-      }
+    @include container-query() {
+      --banner-padding: 6rem;
     }
-
-    &.banner--stacked {
-      .banner__content {
-        @include breakpoint(sm) {
-          @include container-query() {
-            padding: 6rem;
-          }
-        }
-      }
-    }
-
 
     &:has(.media--video) {
       .banner__content {
-        @include container-query() {
+        padding-bottom: 8rem;
+
+        @include breakpoint(page-container) {
           padding-bottom: 8rem;
         }
       }
 
       &.banner--stacked {
         .banner__content {
-          @include container-query() {
+          @include breakpoint(sm) {
             padding-bottom: 8rem;
           }
         }
@@ -392,7 +384,8 @@
   // Add more padding for play/pause button for banners with video.
   &:has(.media--video) {
     .banner__content {
-      padding-bottom: 5rem;
+      padding-bottom: 4rem;
+
       @include breakpoint(page-container) {
         padding-bottom: 6rem;
       }
@@ -400,8 +393,9 @@
     &.banner--stacked {
       .banner__content {
         @include breakpoint(sm) {
-          padding-bottom: 5rem;
+          padding-bottom: 4rem;
         }
+
         @include breakpoint(page-container) {
           padding-bottom: 6rem;
         }
@@ -427,6 +421,7 @@
       margin-top: 0;
       color: #fff;
       text-shadow: 0 1px 1px #000;
+
       @include breakpoint(sm) {
         color: #fff;
         text-shadow: 0 1px 1px #000;
@@ -633,10 +628,8 @@
     .media--video {
       .video-controls {
         @include container-query() {
-          @include breakpoint(sm) {
-            left: 6rem;
-            bottom: 4rem;
-          }
+          left: 6rem;
+          bottom: 4rem;
         }
       }
     }
@@ -646,15 +639,12 @@
 
     .video-controls {
       position: absolute;
-      left: $gutter;
+      left: $mobile-height-gutter;
       bottom: $gutter;
-      @include breakpoint(sm) {
-        left: $mobile-height-gutter;
-        bottom: $mobile-height-gutter;
-      }
     }
 
     .video-btn {
+      display: none;
       width: 40px;
       height: 40px;
       cursor: pointer;
@@ -664,6 +654,7 @@
       background: white;
       font-size: 1rem;
       padding: 0;
+
       @include breakpoint(sm) {
         display: block;
       }
@@ -763,7 +754,7 @@
 
     &:after {
       background: rgba(0, 0, 0, .5);
-      @include container-query() {
+      @include breakpoint(sm) {
         background: linear-gradient(180deg, #{$gradient-dark-vertical});
       }
     }
@@ -784,7 +775,7 @@
 
       &:after {
         background: rgba(255, 255, 255, .7);
-        @include container-query() {
+        @include breakpoint(sm) {
           background: linear-gradient(180deg, #{$gradient-light-vertical});
         }
       }
@@ -797,17 +788,17 @@
         background: none;
         width: auto;
         height: auto;
-          @include breakpoint(sm) {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, #{$gradient-dark-horizontal});
-          }
+        @include breakpoint(sm) {
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, #{$gradient-dark-horizontal});
+        }
       }
     }
 
     &:after {
       background: rgba(0, 0, 0, .5);
-      @include container-query() {
+      @include breakpoint(sm) {
         background: linear-gradient(90deg, #{$gradient-dark-horizontal});
       }
     }
@@ -828,7 +819,7 @@
 
       &:after {
         background: rgba(255, 255, 255, .7);
-        @include container-query() {
+        @include breakpoint(sm) {
           background: linear-gradient(90deg, #{$gradient-light-horizontal});
         }
       }
@@ -851,7 +842,7 @@
 
     &:after {
       background: rgba(0, 0, 0, .5);
-      @include container-query() {
+      @include breakpoint(sm) {
         background: linear-gradient(0deg, #{$gradient-dark-vertical});
       }
     }
@@ -872,7 +863,7 @@
 
       &:after {
         background: rgba(255, 255, 255, .7);
-        @include container-query() {
+        @include breakpoint(sm) {
           background: linear-gradient(0deg, #{$gradient-light-vertical});
         }
       }
@@ -907,7 +898,7 @@ $bg-colors: "white", "black", "gray", "gold";
     }
   }
 
-  // Pattern variant for each color.
+  // Pattern variant for each color
   div[class*="bg--#{$color}--pattern"] {
     .banner[class*="bg--#{$color}--pattern"] {
       .banner__content {
