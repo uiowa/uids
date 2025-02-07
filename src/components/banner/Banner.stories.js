@@ -130,6 +130,35 @@ export default {
       control: { type: 'boolean' },
       table: { category: 'Display options' },
     },
+    grid_type: {
+      name: 'Grid',
+      options: [
+        'onecol',
+        'onecol__narrow',
+        'twocol--50-50',
+        'threecol--33-34-33',
+        'fourcol--25',
+      ],
+      control: {
+        type: 'select',
+        labels: {
+          'onecol': 'One column',
+          'onecol__narrow': 'One column (narrow)',
+          'twocol--50-50': 'Two columns',
+          'threecol--33-34-33': 'Three columns',
+          'fourcol--25': 'Four columns',
+        }
+      },
+      table: {
+        category: 'Container',
+      },
+    },
+    record_count: {
+      name: '# of records',
+      table: {
+        category: 'Container',
+      },
+    }
   },
 };
 
@@ -227,7 +256,7 @@ export const MultipleButtons = {
 MultipleButtons.storyName = 'Multiple buttons';
 
 const GridTemplate = (args) => ({
-  components: { UidsGrid, UidsGridItem, UidsBanner },
+  components: { UidsGrid, UidsGridItem, UidsBanner, ExampleImage  },
   setup() {
     return { args };
   },
