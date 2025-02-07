@@ -13,7 +13,7 @@ const props = defineProps({
     type: String,
     default: 'primary',
     validator: function (value) {
-      return ['primary', 'secondary', 'tertiary'].indexOf(value) !== -1;
+      return ['primary', 'secondary', 'tertiary', 'link'].indexOf(value) !== -1;
     },
   },
   size: {
@@ -39,13 +39,15 @@ const props = defineProps({
   icon: {
     type: String,
     default: '',
-  }
+  },
 })
 
 const slots = useSlots();
 
 const classes = computed(() => {
   let classes = ['bttn'];
+
+  // If these props are set to true, add the corresponding class.
   ['full', 'transparent', 'light_font'].forEach((prop) => {
     if (props[prop] === true) {
       classes.push(`bttn--${ className(prop) }`);
@@ -60,6 +62,7 @@ const classes = computed(() => {
     classes.push(`bttn--${ className(props.size)}`);
   }
 
+  // If there is no text in the default slot, add the no-text class.
   if (!slots.default) {
     classes.push(`bttn--no-text`);
   }

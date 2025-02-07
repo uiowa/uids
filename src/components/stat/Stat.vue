@@ -26,6 +26,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  stat_hover: {
+    type: Boolean,
+    default: true,
+  },
   display: {
     type: String,
     default: 'default',
@@ -39,9 +43,13 @@ const classes = computed(() => {
   Background.addBackgroundClass(classes, props);
 
   if (props.display === 'horizontal') {
-    classes.push('stat--horizontal', 'stat--transform', 'stat__grid');
+    classes.push('stat--horizontal', 'stat__grid');
   } else {
-    classes.push('element--flex-center', 'stat--transform');
+    classes.push('element--flex-center');
+  }
+
+  if (!props.stat_hover) {
+    classes.push('stat--static');
   }
 
   return classes;
@@ -49,7 +57,7 @@ const classes = computed(() => {
 </script>
 
 <template>
-  <div :class="classes">
+  <div :class="['stat', 'stat__grid', 'stat--transform', ...classes]">
     <div v-if="stat_title">
       <h2 class="stat__title">
         <span v-if="stat_prefix" class="headline__prefix">{{ stat_prefix }}</span>

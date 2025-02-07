@@ -2,71 +2,80 @@
 @use '../abstracts/variables';
 @use '../abstracts/utilities';
 
-.accordion {
-  .accordion__heading {
-    margin: 0;
+.accordion__item {
+  &:not(:first-child) {
     margin-top: 1rem;
-    font-size: 1rem;
-    font-weight: variables.$font-weight-bold;
+  }
+}
 
-    &:not(:first-child) {
-      margin-top: 1rem;
+.accordion {
+  --trans-time: 0.2s;
+  $accordion-grey: #edeceb;
+  --accordion-grey: #{$accordion-grey};
+
+  details {
+    &[open] {
+      summary {
+        i, svg {
+          transform: rotate(0deg) translate(0px, 0.1em);
+          background-color: #fafafa;
+        }
+      }
+    }
+  }
+
+  summary {
+    list-style: none;
+    width: 100%;
+    background-color: var(--accordion-grey);
+    display: flex;
+    cursor: pointer;
+
+    &:hover, &:focus {
+      background-color: color.scale($accordion-grey, variables.$lightness: -4%);
     }
 
-    button {
-      all: inherit;
-      font-size: 1.2rem;
-      width: 100%;
-      background-color: #edeceb;
-      color: variables.$secondary;
-      padding: variables.$md;
+    &::-webkit-details-marker {
+      visibility: hidden;
+    }
+
+    i, svg {
+      transform: rotate(-180deg) translate(0px, -0.1em);
+      transition: all var(--trans-time) ease-in-out;
+      transition-property: transform, background-color;
+      background-color: transparent;
+      width: variables.$h5-font-size;
+      height: variables.$h5-font-size;
+      padding: 4px;
       display: flex;
-      justify-content: space-between;
-      transition: all 0.2s ease-in-out;
-      transition-property: background-color;
-      cursor: pointer;
+      justify-content: center;
+      align-items: center;
+      margin: -0.3rem 0;
+      border-radius: 50%;
+    }
+  }
 
-      &:focus {
-        outline: 5px auto -webkit-focus-ring-color;
-      }
+  .accordion__heading :is(h2, h3, h4, h5, h6) {
+    all: inherit;
+    display: flex;
+    font-size: variables.$content-font-size;
+    font-weight: variables.$font-weight-bold;
+    padding: variables.$md;
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    width: 100%;
 
-      i, svg {
-        color: currentColor;
-        transform: rotate(-180deg) translate(0px, -0.1em);
-        transition: all 0.3s ease-in-out;
-        transition-property: transform, background-color;
-        background-color: transparent;
-        width: 30px !important;
-        height: 30px;
-        padding: 4px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: -0.3rem 0;
-        border-radius: 50%;
-      }
-
-      &:hover, &:focus {
-        background-color: color.scale(#edeceb, $lightness: -4%);
-
-        i {
-          transform: rotate(-180deg) translate(0px, -0.2em);
-        }
-
-        &[aria-expanded="true"] i, &[aria-expanded="true"] svg {
-          transform: rotate(0deg) translate(0px, 0em);
-        }
-      }
-
-      &[aria-expanded="true"] i, &[aria-expanded="true"] svg {
-        transform: rotate(0deg) translate(0px, 0.1em);
-        background-color: #fafafa;
-      }
+    &:focus {
+      outline: 2px auto -webkit-focus-ring-color;
     }
   }
 
   .accordion__content {
     padding: variables.$md;
-    border: 1px solid #edeceb;
+    border: 1px solid var(--accordion-grey);
   }
 }
+
+
