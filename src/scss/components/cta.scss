@@ -1,6 +1,19 @@
 @import '../abstracts/variables';
 @import '../abstracts/utilities';
 
+@mixin container-query() {
+  @supports (contain: inline-size) {
+    @container column (min-width: #{$break-sm}) {
+      @content
+    }
+  }
+  @supports not (contain: inline-size) {
+    @include breakpoint(sm) {
+      @content
+    }
+  }
+}
+
 // === CTA === //
 .cta {
   padding: $xlg $mobile-width-gutter;
@@ -9,10 +22,16 @@
   text-align: center;
   justify-content: center;
 
-  > div {
+  > [class*="cta__"] {
     flex-basis: 100%;
     display: grid;
     gap: 1rem;
+  }
+  &.cta--left,
+  &[class*="element--left"] {
+    > [class*="cta__"] {
+      gap: .5rem;
+    }
   }
   .cta__container {
     margin-block-end: 1rem;
@@ -20,36 +39,55 @@
   p {
     margin-bottom: 0;
   }
+  .headline {
+    line-height: 1.2;
+    font-size: 2.8rem;
+    margin-bottom: 0;
+  }
+}
+
+.cta:not([class*="--left"]):not([class*="--inline"]) {
+  .cta__content {
+    max-width: 900px;
+    margin: 0 auto;
+  }
 }
 
 // === End: CTA === //
 
 // === Modifiers === //
 // === Aligned left, button right === //
-.cta--button-align-right {
-    justify-content: left;
-    text-align: left;
+.cta--button-align-right,
+[class*="bttn--right"] {
+  justify-content: left;
+  text-align: left;
+  @include breakpoint(md) {
+    flex-wrap: nowrap;
+    display: grid;
+  }
+
+  .cta__title {
+    flex-basis: 100%;
     @include breakpoint(md) {
-      flex-wrap: nowrap;
+      grid-area: 1/1/2/3;
     }
+  }
 
-    .cta__title {
-      flex-basis: 100%;
+  .cta__content {
+    @include breakpoint(md) {
+      grid-area: 2/1/3/3;
     }
+  }
 
-    .cta__content,
-    .cta__link {
-      @include breakpoint(md) {
-        flex: 0 1 48%;
-      }
-    }
-
-    .cta__link {
-      justify-content: end;
+  .cta__link {
+    @include breakpoint(md) {
+      grid-area: 1/3/3/4;
+      justify-content: flex-end;
       align-self: baseline;
       display: flex;
     }
-  &:not([class*="cta--left"]) {
+  }
+  &:not([class*="left"]) {
     .cta__container {
       @include breakpoint(md) {
         text-align: center;
@@ -60,40 +98,101 @@
 // === End: Aligned left, button right === //
 
 // === Aligned left === //
-.cta--left {
+.cta--left,
+[class*="element--left"] {
   justify-content: unset;
   text-align: left;
+  padding-inline-start: 0;
 }
 // === End: Aligned left === //
 
 // === Inline === //
-.cta--inline {
-  @include breakpoint(md) {
-    flex-wrap: nowrap;
-    gap: 0;
+.cta--inline,
+[class*="element--inline"] {
+  @include container-query() {
+    @include breakpoint(md) {
+      flex-wrap: nowrap;
+      gap: 0;
 
-    .cta__link {
-      flex-basis: 30%;
-      align-self: center;
-      display: flex;
-      justify-content: end;
-    }
-
-    .cta__container {
-      display: flex;
-      margin-block-end: unset;
-
-      .cta__title {
+      .cta__link {
         flex-basis: 30%;
         align-self: center;
+        display: flex;
+        justify-content: center;
       }
 
-      .cta__content {
-        flex: 1;
-        align-self: center;
+      .cta__container {
+        display: flex;
+        margin-block-end: unset;
+
+        .cta__title {
+          flex-basis: 30%;
+          align-self: center;
+        }
+
+        .cta__content {
+          flex: 1;
+          align-self: center;
+        }
       }
     }
   }
 }
 // === End: Inline === //
+
+// === Background color adjustments === //
+[class*="bg--black"] .cta:not([class*="bg"]) {
+  .headline {
+    color: $primary;
+  }
+}
+
+.cta[class*="bg--black"] {
+  .headline {
+    color: $primary;
+  }
+}
+
+@mixin button-variant($bg, $text, $after-bg: null, $icon-color: null) {
+  background: $bg;
+  color: $text;
+
+  @if $after-bg {
+    &:after {
+      background: $after-bg;
+    }
+  }
+
+  @if $icon-color {
+    i, svg {
+      color: $icon-color;
+    }
+  }
+}
+
+.cta__link .bttn--primary {
+  // Default gold background.
+  [class*="bg--gold"] & {
+    @include button-variant($secondary, #fff, $primary, $primary);
+
+    // Nested gold with other backgrounds.
+    &[class*="bg--gray"],
+    &[class*="bg--white"],
+    &[class*="bg--black"] {
+      @include button-variant($primary, $secondary, $secondary, #fff);
+    }
+  }
+
+  // Remove border for specific backgrounds.
+  [class*="bg--gray"] &,
+  [class*="bg--white"] & {
+    border: none;
+  }
+
+  // Black background variations.
+  [class*="bg--black"] & {
+    color: $secondary;
+  }
+}
+// === End: Button color adjustments === //
 // === End: Modifiers === //
