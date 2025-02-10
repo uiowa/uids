@@ -100,42 +100,58 @@ $soft-drop-shadow: 0px 1px 2px rgba(0, 0, 0, 0.4);
 
 // Gradients.
 
+// Get the margin on the .banner__container, if there is any.
 $banner-margin: max(calc(100% - #{$container-width}), 0px);
+
+// Get the width of the .banner__container.
 $banner-content-width: calc(100% - #{$banner-margin});
+
+// Above 600px .banner__text content is only 75% of its container width.
+// This allows us to make sure that the gradient covers the whole textbox.
 $banner-text-width: calc(#{$banner-content-width} * var(--banner-text-max-width));
+
+// Calculate the first delimiter, which is only the left margin of the .banner__container.
 $banner-gradient-first-delimiter: calc($banner-margin * 0.5);
 
-// The --banner-padding variable is set in the banner.scss file.
-$banner-gradient-second-delimiter: calc($banner-text-width + $banner-gradient-first-delimiter);
+// Calculate the second delimiter, which is the first delimiter and the width of the text.
+$banner-gradient-second-delimiter: calc($banner-gradient-first-delimiter + $banner-text-width);
 
-// THIS IS ONLY FOR TESTING.
-$gradient-test:
-  rgba(30, 105, 235, 1) calc(#{$banner-gradient-first-delimiter}),
-  rgba(55, 231, 231, 1) #{$banner-gradient-first-delimiter}, // Comment this out for smooth.
-  rgba(55, 231, 231, 1) calc(#{$banner-gradient-second-delimiter}),
-  rgba(30, 105, 235, 1) #{$banner-gradient-second-delimiter}, // Comment this out for smooth.
-  rgba(30, 105, 235, 1) 100%;
-
+// Gradient alpha values for *dark* horizontal gradient.
+// Basically, how transparent is the black for each delimiter.
 $a0: 0.88;
-$a1: 0.84;
-$a2: 0.55;
+$a1: 0.75;
+$a2: 0.4;
 $a3: 0.0;
+
+// Create a dark gradient to be used in banner.scss that goes across the delimiters.
 $gradient-dark-horizontal:
   rgba(0, 0, 0, $a0) 0%,
   rgba(0, 0, 0, $a1) #{$banner-gradient-first-delimiter},
   rgba(0, 0, 0, $a2) #{$banner-gradient-second-delimiter},
-  rgba(0, 0, 0, $a2) #{$banner-gradient-second-delimiter},
   rgba(0, 0, 0, $a3);
 
+// Gradient alpha values for *light* horizontal gradients.
+// Basically, how transparent is the white for each delimiter.
 $a0: 0.88;
 $a1: 0.84;
-$a2: 0.55;
-$a3: 0.0;
+$a2: 0.3;
+$a3: 0.1;
+
+// Create a light gradient to be used in banner.scss that goes across the delimiters.
 $gradient-light-horizontal:
   rgba(255, 255, 255, $a0) 0%,
   rgba(255, 255, 255, $a1) #{$banner-gradient-first-delimiter},
   rgba(255, 255, 255, $a2) #{$banner-gradient-second-delimiter},
   rgba(255, 255, 255, $a3);
+
+// THIS IS ONLY FOR TESTING.
+$gradient-test:
+  hsl(48, 100%, $a0*100) 0%,
+  hsl(48, 100%, $a1*100) calc(#{$banner-gradient-first-delimiter}),
+    //hsl(48, 100%, $a2*100) calc(#{$banner-gradient-first-delimiter}), // Comment this out for smooth.
+  hsl(48, 100%, $a2*100) calc(#{$banner-gradient-second-delimiter}),
+    //hsl(48, 100%, $a3*100) calc(#{$banner-gradient-second-delimiter}), // Comment this out for smooth.
+  hsl(48, 100%, $a3*100) 100%;
 
 //$gradient-dark-horizontal: $gradient-test;
 //$gradient-light-horizontal: $gradient-test;

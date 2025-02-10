@@ -266,6 +266,12 @@
     }
   }
 
+  &.banner--gradient-light {
+    .headline {
+      text-shadow: 0 1px 3px #fff;
+    }
+  }
+
   // Overriding the serif font size set in base/_headings.scss
   :where(h2, h3, h4, h5, h6) {
     &.headline--large,
@@ -523,6 +529,8 @@
 
     &[class*="banner--gradient-dark"] {
       .banner__text {
+        filter: drop-shadow(0px 1px 7px rgba(0, 0, 0, 50%));
+
         p {
           color: $secondary;
           text-shadow: none;
@@ -537,6 +545,23 @@
             @include breakpoint(sm) {
               color: #fff;
             }
+          }
+        }
+      }
+
+      .banner__title {
+        filter: drop-shadow(0px 1px 7px rgba(0, 0, 0, 50%));
+      }
+    }
+
+    &[class*="banner--gradient-light"] {
+      .banner__text {
+        p {
+
+          @include breakpoint(sm) {
+
+            // This glow allows the text to sit over darker images better.
+            text-shadow: 0 1px 9px rgb(255, 255, 255, 50%);
           }
         }
       }
