@@ -282,9 +282,9 @@ const GridTemplate = (args) => ({
             <template #media v-if="args.background === ''">
               ${args.background_media}
             </template>
-            <template #pre_title><span class="headline__heading">University of Iowa</span></template>
-            <template #title><span class="headline__heading">Living on Campus</span></template>
-            <p>A member of the Association of American Universities since 1909. Discover the rich academic tradition and vibrant campus life.</p>
+            <template #pre_title v-if="args.title"><span class="headline__heading" v-html="args.pre_title" ></span></template>
+            <template #title v-if="args.title"><span class="headline__heading" v-html="args.title" ></span></template>
+            ${args.content}
           </uids-banner>
         </uids-grid-item>
       </uids-grid>
