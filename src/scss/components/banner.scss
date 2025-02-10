@@ -374,14 +374,14 @@
       .banner__content {
         padding-bottom: 8rem;
 
-        @include breakpoint(page-container) {
+        @include container-query() {
           padding-bottom: 8rem;
         }
       }
 
       &.banner--stacked {
         .banner__content {
-          @include breakpoint(sm) {
+          @include container-query() {
             padding-bottom: 8rem;
           }
         }
@@ -392,7 +392,7 @@
   // Add more padding for play/pause button for banners with video.
   &:has(.media--video) {
     .banner__content {
-      padding-bottom: 4rem;
+      padding-bottom: 5rem;
 
       @include breakpoint(page-container) {
         padding-bottom: 6rem;
@@ -401,7 +401,7 @@
     &.banner--stacked {
       .banner__content {
         @include breakpoint(sm) {
-          padding-bottom: 4rem;
+          padding-bottom: 5rem;
         }
 
         @include breakpoint(page-container) {
@@ -652,8 +652,10 @@
     .media--video {
       .video-controls {
         @include container-query() {
-          left: 6rem;
-          bottom: 4rem;
+          @include breakpoint(sm) {
+            left: 6rem;
+            bottom: 4rem;
+          }
         }
       }
     }
@@ -663,12 +665,16 @@
 
     .video-controls {
       position: absolute;
-      left: $mobile-height-gutter;
+      left: $gutter;
       bottom: $gutter;
+
+      @include breakpoint(sm) {
+        left: $mobile-height-gutter;
+        bottom: $mobile-height-gutter;
+      }
     }
 
     .video-btn {
-      display: none;
       width: 40px;
       height: 40px;
       cursor: pointer;
