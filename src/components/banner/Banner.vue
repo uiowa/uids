@@ -118,7 +118,7 @@ const classes = computed(() => {
     }
     else if (
       props.vertical_alignment === 'bottom' ||
-      props.vertical_alignment === 'center'
+      props.horizontal_alignment === 'center'
     ) {
       classes.push('banner--gradient-bottom');
     }
