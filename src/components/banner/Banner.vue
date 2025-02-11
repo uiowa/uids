@@ -112,16 +112,15 @@ const classes = computed(() => {
 
   // Only apply a gradient if we don't have a background.
   if (props.background === '') {
-    if (props.horizontal_alignment === 'left') {
-      classes.push('banner--gradient-left');
+
+    if (props.vertical_alignment === 'top') {
+      classes.push('banner--gradient-top');
+    }
+    else if (props.vertical_alignment === 'bottom') {
+      classes.push('banner--gradient-bottom');
     }
     else {
-      if (props.vertical_alignment === 'top') {
-        classes.push('banner--gradient-top');
-      }
-      else {
-        classes.push('banner--gradient-bottom');
-      }
+      classes.push('banner--gradient-left');
     }
   }
 
