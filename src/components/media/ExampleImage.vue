@@ -4,8 +4,7 @@ const name = 'example-image'
 const props = defineProps({
   src: {
     type: String,
-    //default: 'https://sandbox.prod.drupal.uiowa.edu/sites/sandbox.uiowa.edu/files/2021-03/pano.jpg',
-    default: 'https://default.prod.drupal.uiowa.edu/sites/default/files/styles/ultrawide__2592_x_1111/public/2020-10/Block-IOWA-GOLD-ffcd00_14_1.png',
+    default: 'https://sandbox.prod.drupal.uiowa.edu/sites/sandbox.uiowa.edu/files/2021-03/pano.jpg',
   },
   height: {
     type: Number,
