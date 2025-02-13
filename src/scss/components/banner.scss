@@ -1,5 +1,6 @@
 @use '../abstracts/variables';
 @use '../abstracts/utilities';
+@use "../abstracts/breakpoints";
 
 // --------------------------------
 
@@ -29,7 +30,7 @@
 
   &--full {
     &.banner--large {
-      @include breakpoint(page-container) {
+      @include breakpoints.breakpoint(page-container) {
         height: 100vh;
       }
     }
@@ -39,7 +40,7 @@
     display: block;
     content: '';
     clear: both;
-    @include breakpoint(page-container) {
+    @include breakpoints.breakpoint(page-container) {
       display: block;
       content: '';
       clear: both;
@@ -52,7 +53,7 @@
 .banner {
   position: relative;
   overflow: hidden;
-  @include breakpoint(sm) {
+  @include breakpoints.breakpoint(sm) {
     flex-basis: 100%;
     display: flex;
     align-items: center;
@@ -91,7 +92,7 @@
     margin: 0 auto;
     width: 100%;
     z-index: 1;
-    @include breakpoint(sm) {
+    @include breakpoints.breakpoint(sm) {
       z-index: 1;
       max-width: 81.875em;
       top: 0;
@@ -110,7 +111,7 @@
   .banner__action .bttn {
     margin: 0 1rem 1rem 0;
 
-    @include breakpoint(sm) {
+    @include breakpoints.breakpoint(sm) {
       + .bttn {
         margin: 0 1rem 1rem 0;
       }
@@ -128,7 +129,7 @@
         margin: 1rem auto;
       }
 
-      @include breakpoint(sm) {
+      @include breakpoints.breakpoint(sm) {
         margin: 0 1rem 1rem 0;
         display: inline-block;
         width: auto;
@@ -140,7 +141,7 @@
       }
 
       + .bttn {
-        @include breakpoint(sm) {
+        @include breakpoints.breakpoint(sm) {
           margin: 0 1rem 1rem 0;
         }
       }
@@ -152,7 +153,7 @@
     // Stacked banner transparent button styles.
     &.banner--stacked:not([class*="bg-"]) {
       .banner__action .bttn--transparent {
-        @include breakpoint(sm) {
+        @include breakpoints.breakpoint(sm) {
           border-color: rgba(255, 255, 255, .525);
           color: #fff;
         }
@@ -202,8 +203,8 @@
         // Keep pre-title black when there's a black section container.
         .banner--gradient-light:not([class*="bg-"]) & {
           [class*="bg--black"] & {
-            @include breakpoint(sm) {
-              color: $secondary;
+            @include breakpoints.breakpoint(sm) {
+              color: variables.$secondary;
             }
           }
         }
@@ -220,14 +221,14 @@
 
         // Make pre-title white if banner--stacked is selected.
         [class*="banner--gradient-dark"]:not([class*="bg--"]) & {
-          @include breakpoint(sm) {
+          @include breakpoints.breakpoint(sm) {
            color: #fff;
           }
         }
 
         [class*="bg--gold"] [class*="banner--gradient-dark"] & {
-          color: $secondary;
-          @include breakpoint(sm) {
+          color: variables.$secondary;
+          @include breakpoints.breakpoint(sm) {
             color: #fff;
           }
         }
@@ -239,7 +240,7 @@
         [class*="bg--white"] &,
         [class*="bg--gold"] &,
         [class*="bg--gray"] & {
-          color: $secondary;
+          color: variables.$secondary;
         }
       }
     }
@@ -253,19 +254,19 @@
     }
 
     &.headline--small {
-      font-size: $h5-font-size;
+      font-size: variables.$h5-font-size;
     }
   }
 
   &__stacked {
     &[class*="banner--gradient-dark"] {
       .banner__pre-title.headline--highlight span {
-        color: $secondary;
+        color: variables.$secondary;
 
         [class*="bg--black"] & {
           color: #fff;
         }
-        @include breakpoint(sm) {
+        @include breakpoints.breakpoint(sm) {
           color: #fff;
           text-shadow: 0 1px 1px #000;
         }
@@ -279,16 +280,16 @@
 // === Text/buttons === //
 .banner {
   &__content {
-    padding: $gutter;
-    @include breakpoint(sm) {
+    padding: variables.$gutter;
+    @include breakpoints.breakpoint(sm) {
       padding: 2rem 0;
     }
 
     > * {
       flex-basis: 100%;
     }
-    @include breakpoint(page-container) {
-      padding: 2rem 0 $gutter;
+    @include breakpoints.breakpoint(page-container) {
+      padding: 2rem 0 variables.$gutter;
     }
   }
 
@@ -309,7 +310,7 @@
       margin-top: 0;
       color: #fff;
       text-shadow: 0 1px 1px #000;
-      @include breakpoint(sm) {
+      @include breakpoints.breakpoint(sm) {
         color: #fff;
         text-shadow: 0 1px 1px #000;
       }
@@ -343,7 +344,7 @@
     .banner__text {
       blockquote {
         [class*="bg--gold"] & {
-          border-left-color: $primary;
+          border-left-color: variables.$primary;
         }
       }
     }
@@ -351,19 +352,19 @@
 
   &[class*="bg--gray"] {
     .banner__text {
-      color: $secondary;
+      color: variables.$secondary;
 
       a {
-        color: $secondary;
+        color: variables.$secondary;
       }
 
       p {
-        color: $secondary;
+        color: variables.$secondary;
         font-weight: normal;
         text-shadow: none;
 
         a {
-          color: $secondary;
+          color: variables.$secondary;
         }
       }
     }
@@ -373,20 +374,20 @@
   &[class*="bg--white"],
   &[class*="banner--gradient-light"]:not([class*="bg-"]) {
     .banner__text {
-      color: $secondary;
+      color: variables.$secondary;
 
       p {
-        color: $secondary;
+        color: variables.$secondary;
         font-weight: normal;
         text-shadow: none;
 
         a {
-          color: $secondary;
+          color: variables.$secondary;
         }
       }
 
       a {
-        color: $secondary;
+        color: variables.$secondary;
       }
     }
 
@@ -394,27 +395,27 @@
       [class*="bg--black"] & {
         .banner__text {
           color: #fff;
-          @include breakpoint(sm) {
-            color: $secondary;
+          @include breakpoints.breakpoint(sm) {
+            color: variables.$secondary;
           }
 
           a {
             color: #fff;
-            @include breakpoint(sm) {
-              color: $secondary;
+            @include breakpoints.breakpoint(sm) {
+              color: variables.$secondary;
             }
           }
 
           p {
             color: #fff;
-            @include breakpoint(sm) {
-              color: $secondary;
+            @include breakpoints.breakpoint(sm) {
+              color: variables.$secondary;
             }
 
             a {
               color: #fff;
-              @include breakpoint(sm) {
-                color: $secondary;
+              @include breakpoints.breakpoint(sm) {
+                color: variables.$secondary;
               }
             }
           }
@@ -425,14 +426,14 @@
 
   &--stacked {
     .banner__text {
-      color: $secondary;
-      @include breakpoint(sm) {
+      color: variables.$secondary;
+      @include breakpoints.breakpoint(sm) {
         color: #fff;
       }
 
       a {
-        color: $secondary;
-        @include breakpoint(sm) {
+        color: variables.$secondary;
+        @include breakpoints.breakpoint(sm) {
           color: #fff;
         }
       }
@@ -445,16 +446,16 @@
             [class*="bg--black"] & {
               color: #fff;
             }
-            color: $secondary;
+            color: variables.$secondary;
             text-shadow: none;
-            @include breakpoint(sm) {
+            @include breakpoints.breakpoint(sm) {
               color: #fff;
               text-shadow: 0 1px 1px #000;
             }
 
             a {
-              color: $secondary;
-              @include breakpoint(sm) {
+              color: variables.$secondary;
+              @include breakpoints.breakpoint(sm) {
                 color: #fff;
               }
 
@@ -472,8 +473,8 @@
         [class*="bg--gold"] & {
           blockquote {
             border-left-color: #fff;
-            @include breakpoint(sm) {
-              border-left-color: $primary;
+            @include breakpoints.breakpoint(sm) {
+              border-left-color: variables.$primary;
             }
           }
         }
@@ -484,10 +485,10 @@
       .banner__text {
         [class*="bg--gold"] & {
           p {
-            color: $secondary;
+            color: variables.$secondary;
 
             a {
-              color: $secondary;
+              color: variables.$secondary;
             }
           }
         }
@@ -529,17 +530,17 @@
     &[class*="bg--gold"] {
       [class*="bg--black"] & {
         .banner__text {
-          color: $secondary;
+          color: variables.$secondary;
 
           a {
-            color: $secondary;
+            color: variables.$secondary;
           }
 
           p {
-            color: $secondary;
+            color: variables.$secondary;
 
             a {
-              color: $secondary;
+              color: variables.$secondary;
             }
           }
         }
@@ -570,7 +571,7 @@
     .media--image {
       img {
         position: relative;
-        @include breakpoint(sm) {
+        @include breakpoints.breakpoint(sm) {
           position: absolute;
         }
       }
@@ -599,7 +600,7 @@
       object-fit: cover;
       height: 100%;
       top: 0;
-      @include breakpoint(sm) {
+      @include breakpoints.breakpoint(sm) {
         position: absolute;
       }
     }
@@ -611,13 +612,13 @@
       position: absolute;
       left: 1.25rem;
       bottom: 1.25rem;
-      @include breakpoint(page-container) {
+      @include breakpoints.breakpoint(page-container) {
         left: 3rem;
         bottom: 3rem;
       }
 
       .banner--horizontal-left.banner--vertical-bottom & {
-        @include breakpoint(page-container) {
+        @include breakpoints.breakpoint(page-container) {
           bottom: 1.5rem;
           left: 1.5rem;
         }
@@ -629,19 +630,19 @@
       width: 40px;
       height: 40px;
       cursor: pointer;
-      color: $secondary;
+      color: variables.$secondary;
       border: 1px solid white;
       border-radius: 50%;
       background: white;
       font-size: 1rem;
       padding: 0;
-      @include breakpoint(sm) {
+      @include breakpoints.breakpoint(sm) {
         display: block;
       }
 
       &::after {
         content: "\f04b";
-        @include fas();
+        @include utilities.fas();
         font-size: 1rem;
       }
 
@@ -662,14 +663,14 @@
 
   &[class*="banner--gradient-light"] {
     .media--video .video-btn {
-      border: 1px solid $secondary;
+      border: 1px solid variables.$secondary;
     }
   }
 
   &--stacked {
     .media--video {
       position: relative;
-      @include breakpoint(sm) {
+      @include breakpoints.breakpoint(sm) {
         position: absolute;
       }
 
@@ -682,7 +683,7 @@
   // Bottom/Left Video button alignment
   &.banner--horizontal-left.banner--vertical-bottom {
     .media--video + .banner__container .banner__content {
-      @include breakpoint(sm) {
+      @include breakpoints.breakpoint(sm) {
         padding-bottom: 4.25rem;
       }
     }
@@ -694,7 +695,7 @@
 .banner {
   &--stacked {
     display: block;
-    @include breakpoint(sm) {
+    @include breakpoints.breakpoint(sm) {
       display: flex;
     }
   }
@@ -718,12 +719,12 @@
   }
 
   &.banner--gradient-dark:not([class*="bg-"]) {
-    @include breakpoint(sm) {
-      background: $secondary;
+    @include breakpoints.breakpoint(sm) {
+      background: variables.$secondary;
     }
 
     &:not([class*="banner--stacked"]) {
-      background: $secondary;
+      background: variables.$secondary;
     }
   }
 
@@ -733,7 +734,7 @@
         background: none;
         width: auto;
         height: auto;
-        @include breakpoint(sm) {
+        @include breakpoints.breakpoint(sm) {
           width: 100%;
           height: 100%;
           background: linear-gradient(90deg, rgba(0, 0, 0, .86) 0, rgba(0, 0, 0, .23) 65%, transparent);
@@ -743,7 +744,7 @@
 
     &:after {
       background: rgba(0, 0, 0, .5);
-      @include breakpoint(sm) {
+      @include breakpoints.breakpoint(sm) {
         background: linear-gradient(90deg, rgba(0, 0, 0, .86) 0, rgba(0, 0, 0, .23) 65%, transparent);
       }
     }
@@ -754,7 +755,7 @@
           background: none;
           width: auto;
           height: auto;
-          @include breakpoint(sm) {
+          @include breakpoints.breakpoint(sm) {
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, #fff 1%, hsla(0, 0%, 100%, .92) 32%, hsla(0, 0%, 100%, 0));
@@ -764,7 +765,7 @@
 
       &:after {
         background: rgba(255, 255, 255, .7);
-        @include breakpoint(sm) {
+        @include breakpoints.breakpoint(sm) {
           background: linear-gradient(90deg, #fff 1%, hsla(0, 0%, 100%, .92) 32%, hsla(0, 0%, 100%, 0));
         }
       }
@@ -785,7 +786,7 @@
         background: none;
         width: auto;
         height: auto;
-        @include breakpoint(sm) {
+        @include breakpoints.breakpoint(sm) {
           width: 100%;
           height: 100%;
           background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 70%);
@@ -795,7 +796,7 @@
 
     &:after {
       background: rgba(0, 0, 0, .5);
-      @include breakpoint(sm) {
+      @include breakpoints.breakpoint(sm) {
         background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 70%);
       }
     }
@@ -806,7 +807,7 @@
           background: none;
           width: auto;
           height: auto;
-          @include breakpoint(sm) {
+          @include breakpoints.breakpoint(sm) {
             width: 100%;
             height: 100%;
             background: linear-gradient(180deg, transparent 0, hsla(0, 0%, 100%, .9) 55%);
@@ -816,7 +817,7 @@
 
       &:after {
         background: rgba(255, 255, 255, .7);
-        @include breakpoint(sm) {
+        @include breakpoints.breakpoint(sm) {
           background: linear-gradient(180deg, transparent 0, hsla(0, 0%, 100%, .9) 55%);
         }
       }
@@ -863,12 +864,12 @@
     .headline {
       color: #fff;
       text-shadow: 0 1px 1px #000;
-      @include breakpoint(sm) {
+      @include breakpoints.breakpoint(sm) {
         color: #fff;
       }
 
       a {
-        @include breakpoint(sm) {
+        @include breakpoints.breakpoint(sm) {
           color: #fff;
         }
       }
@@ -914,11 +915,11 @@
       .headline,
       .headline.headline--uppercase {
         [class*="bg--black"] & {
-          color: $secondary;
+          color: variables.$secondary;
           text-shadow: none;
 
           a {
-            color: $secondary;
+            color: variables.$secondary;
             text-shadow: none;
           }
         }
@@ -927,16 +928,16 @@
 
     &[class*="banner--gradient-dark"] {
       .headline {
-        color: $secondary;
+        color: variables.$secondary;
         text-shadow: none;
-        @include breakpoint(sm) {
+        @include breakpoints.breakpoint(sm) {
           color: #fff;
           text-shadow: 0 1px 1px #000;
         }
 
         a {
-          color: $secondary;
-          @include breakpoint(sm) {
+          color: variables.$secondary;
+          @include breakpoints.breakpoint(sm) {
             color: #fff;
           }
         }
@@ -944,13 +945,13 @@
         [class*="bg--black"] & {
           color: #fff;
           text-shadow: 0 1px 1px #000;
-          @include breakpoint(sm) {
+          @include breakpoints.breakpoint(sm) {
             color: #fff;
           }
 
           a {
             color: #fff;
-            @include breakpoint(sm) {
+            @include breakpoints.breakpoint(sm) {
               color: #fff;
             }
           }
@@ -961,11 +962,11 @@
 
   &[class*="bg--gray"] {
     .headline {
-      color: $secondary;
+      color: variables.$secondary;
       text-shadow: none;
 
       a {
-        color: $secondary;
+        color: variables.$secondary;
       }
     }
   }
@@ -982,11 +983,11 @@
   &[class*="bg--white"],
   &[class*="banner--gradient-light"]:not([class*="bg-"]) {
     .headline {
-      color: $secondary;
+      color: variables.$secondary;
       text-shadow: none;
 
       a {
-        color: $secondary;
+        color: variables.$secondary;
       }
     }
 
@@ -994,14 +995,14 @@
       [class*="bg--black"] & {
         .headline {
           color: #fff;
-          @include breakpoint(sm) {
-            color: $secondary;
+          @include breakpoints.breakpoint(sm) {
+            color: variables.$secondary;
           }
 
           a {
             color: #fff;
-            @include breakpoint(sm) {
-              color: $secondary;
+            @include breakpoints.breakpoint(sm) {
+              color: variables.$secondary;
             }
           }
         }
