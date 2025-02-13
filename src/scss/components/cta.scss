@@ -1,7 +1,5 @@
-@forward '../abstracts/variables' show $imgpath;
 @use '../abstracts/variables';
-@forward '../abstracts/utilities' show $imgpath;
-@use "../abstracts/breakpoints";
+@use '../abstracts/utilities';
 
 // === CTA === //
 .cta {
@@ -31,7 +29,7 @@
 .cta--button-align-right {
     justify-content: left;
     text-align: left;
-    @include breakpoints.breakpoint(md) {
+    @include utilities.breakpoint(md) {
       flex-wrap: nowrap;
     }
 
@@ -41,7 +39,7 @@
 
     .cta__content,
     .cta__link {
-      @include breakpoints.breakpoint(md) {
+      @include utilities.breakpoint(md) {
         flex: 0 1 48%;
       }
     }
@@ -53,7 +51,7 @@
     }
   &:not([class*="cta--left"]) {
     .cta__container {
-      @include breakpoints.breakpoint(md) {
+      @include utilities.breakpoint(md) {
         text-align: center;
       }
     }
@@ -70,7 +68,7 @@
 
 // === Inline === //
 .cta--inline {
-  @include breakpoints.breakpoint(md) {
+  @include utilities.breakpoint(md) {
     flex-wrap: nowrap;
     gap: 0;
 

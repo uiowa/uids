@@ -1,9 +1,5 @@
-@forward '../abstracts/variables' show $imgpath;
 @use '../abstracts/variables';
-@forward '../abstracts/utilities' show $imgpath;
 @use '../abstracts/utilities';
-@forward 'border' show $imgpath;
-@use "../abstracts/breakpoints";
 @use "../abstracts/grid-mixins";
 
 @mixin container-query() {
@@ -13,7 +9,7 @@
     }
   }
   @supports not (contain: inline-size) {
-    @include breakpoints.breakpoint(sm) {
+    @include utilities.breakpoint(sm) {
       @content
     }
   }
@@ -171,7 +167,7 @@
     }
     &.media--medium {
       max-width: 15.625rem;
-      @include breakpoints.breakpoint(sm) {
+      @include utilities.breakpoint(sm) {
         max-width: 60%;
       }
     }
@@ -342,19 +338,19 @@
 .card--button-align-bottom {
   &:not([class*="card--layout"]){
     .card__body {
-      @include breakpoints.breakpoint(sm) {
+      @include utilities.breakpoint(sm) {
         flex: 1;
       }
     }
   }
   .card__body {
-    @include breakpoints.breakpoint(sm) {
+    @include utilities.breakpoint(sm) {
       display: flex;
       flex-direction: column;
     }
   }
   footer {
-    @include breakpoints.breakpoint(sm) {
+    @include utilities.breakpoint(sm) {
       margin-top: auto;
     }
   }
@@ -439,7 +435,7 @@
   .media--medium {
     &.media--circle {
       @supports not (contain: inline-size) {
-        @include breakpoints.breakpoint(sm) {
+        @include utilities.breakpoint(sm) {
           max-width: none;
         }
       }
