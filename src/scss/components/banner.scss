@@ -728,75 +728,50 @@
 
 // === Gradients === //
 .banner {
-  // Default overlay
-  &[class*="banner--gradient"]:after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
-    width: 100%;
-    height: 100%;
-    content: "";
-    -webkit-transition: all 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out;
-    will-change: opacity;
-  }
+  // Excludes matches for all bg--* classes.
+  &:not([class*="bg--"]) {
 
-  &.banner--gradient-dark {
-    @include breakpoint(sm) {
-      background: $secondary;
-    }
-
-    &:not([class*="banner--stacked"]) {
-      background: $secondary;
-    }
-  }
-
-  &--gradient-top {
-    &[class*="banner--stacked"] {
-      &:after {
-        background: none;
-        width: auto;
-        height: auto;
-        @include breakpoint(sm) {
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(0deg, #{$gradient-dark-vertical});
-        }
-      }
-    }
-
+    // Default overlay
     &:after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      content: "";
+      -webkit-transition: all 0.5s ease-in-out;
+      transition: all 0.5s ease-in-out;
+      will-change: opacity;
+      // Default is dark overlay/gradient.
       background: rgba(0, 0, 0, .5);
       @include container-query() {
-        background: linear-gradient(0deg, #{$gradient-dark-vertical});
+        background: linear-gradient(90deg, #{$gradient-dark-horizontal});
       }
     }
 
-    &.banner--gradient-light {
-      &[class*="banner--stacked"] {
-        &:after {
-          background: none;
-          width: auto;
-          height: auto;
-          @include breakpoint(sm) {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(0deg, #{$gradient-light-vertical});
-          }
-        }
+    // @todo Make this the default.
+    &.banner--gradient-dark {
+      @include breakpoint(sm) {
+        background: $secondary;
       }
 
+      &:not([class*="banner--stacked"]) {
+        background: $secondary;
+      }
+    }
+
+    // Modifications for light gradient.
+    &.banner--gradient-light {
       &:after {
         background: rgba(255, 255, 255, .7);
         @include container-query() {
-          background: linear-gradient(0deg, #{$gradient-light-vertical});
+          background: linear-gradient(90deg, #{$gradient-light-horizontal});
         }
       }
     }
-  }
 
-  &--gradient-left {
+    // Modifications for stacked banners.
     &[class*="banner--stacked"] {
       &:after {
         background: none;
@@ -808,52 +783,54 @@
           background: linear-gradient(90deg, #{$gradient-dark-horizontal});
         }
       }
-    }
 
-    &:after {
-      background: rgba(0, 0, 0, .5);
-      @include container-query() {
-        background: linear-gradient(90deg, #{$gradient-dark-horizontal});
+      &.banner--gradient-light:after {
+        @include breakpoint(sm) {
+          background: linear-gradient(90deg, #{$gradient-light-horizontal});
+        }
       }
-    }
 
-    &.banner--gradient-light {
-      &[class*="banner--stacked"] {
+      &.banner--vertical-top {
         &:after {
-          background: none;
-          width: auto;
-          height: auto;
           @include breakpoint(sm) {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, #{$gradient-light-horizontal});
+            background: linear-gradient(0deg, #{$gradient-dark-vertical});
+          }
+        }
+
+        &.banner--gradient-light {
+          &:after {
+            background: rgba(255, 255, 255, .7);
+            @include container-query() {
+              background: linear-gradient(0deg, #{$gradient-light-vertical});
+            }
           }
         }
       }
 
-      &:after {
-        background: rgba(255, 255, 255, .7);
-        @include container-query() {
-          background: linear-gradient(90deg, #{$gradient-light-horizontal});
+      // If vertical alignment, set top gradient rules.
+      &.banner--vertical-top {
+        &:after {
+          background: rgba(0, 0, 0, .5);
+          @include container-query() {
+            background: linear-gradient(0deg, #{$gradient-dark-vertical});
+          }
+        }
+
+        &.banner--gradient-light {
+          &:after {
+            background: rgba(255, 255, 255, .7);
+            @include container-query() {
+              background: linear-gradient(0deg, #{$gradient-light-vertical});
+            }
+          }
         }
       }
     }
+
   }
 
+  // @todo Convert this to use vertical bottom alignment class and move into not() condition above.
   &--gradient-bottom {
-    &[class*="banner--stacked"] {
-      &:after {
-        background: none;
-        width: auto;
-        height: auto;
-        @include breakpoint(sm) {
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(180deg, #{$gradient-dark-vertical});
-        }
-      }
-    }
-
     &:after {
       background: rgba(0, 0, 0, .5);
       @include container-query() {
@@ -861,29 +838,33 @@
       }
     }
 
-    &.banner--gradient-light {
-      &[class*="banner--stacked"] {
-        &:after {
-          background: none;
-          width: auto;
-          height: auto;
-          @include breakpoint(sm) {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, #{$gradient-light-vertical});
-          }
+    &[class*="banner--stacked"] {
+      &:after {
+        @include breakpoint(sm) {
+          background: linear-gradient(180deg, #{$gradient-dark-vertical});
         }
       }
+    }
 
+    &.banner--gradient-light {
       &:after {
         background: rgba(255, 255, 255, .7);
         @include container-query() {
           background: linear-gradient(180deg, #{$gradient-light-vertical});
         }
       }
+
+      &[class*="banner--stacked"] {
+        &:after {
+          @include breakpoint(sm) {
+            background: linear-gradient(180deg, #{$gradient-light-vertical});
+          }
+        }
+      }
     }
   }
 
+  // @todo Clarify use of this.
   &--transparent {
     &:after {
       background: none;
