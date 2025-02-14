@@ -14,15 +14,26 @@
   }
 }
 
+// === Banner === //
+.banner {
+  display: flex;
+  flex-basis: 100%;
+  // Default vertical alignment is centered.
+  align-items: center;
+  // Default horizontal alignment is centered.
+  justify-content: center;
+  // Default
+  min-height: 15rem;
+
+  &::after {
+    display: block;
+    content: '';
+    clear: both;
+  }
+}
 
 // === Sizes === //
 .banner {
-  flex-basis: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 15rem;
-
   &--large {
     &::before {
       float: left;
@@ -44,17 +55,6 @@
       @include breakpoint(page-container) {
         height: 100vh;
       }
-    }
-  }
-
-  &::after {
-    display: block;
-    content: '';
-    clear: both;
-    @include breakpoint(page-container) {
-      display: block;
-      content: '';
-      clear: both;
     }
   }
 }
