@@ -183,53 +183,51 @@ onMounted(() => {
 <template>
   <div :class="classes">
     <slot name="media"></slot>
-    <div class="banner__container">
-      <div class="banner__content">
-        <header class="banner__title" v-if="$slots.title || $slots.pre_title">
-          <div :class="preTitleClasses" v-if="$slots.pre_title">
-            <slot name="pre_title"></slot>
-          </div>
-          <uids-headline
-            :text_style="headline_style"
-            :highlight="headline_highlight"
-            :class="`headline--${props.headline_size}`"
-          >
-            <a v-if="headlineLink" :href="headlineLink" class="click-target">
-              <slot name="title"></slot>
-            </a>
-            <template v-else>
-              <slot name="title"></slot>
-            </template>
-          </uids-headline>
-        </header>
-
-        <div class="banner__text" v-if="$slots.default" >
-          <slot></slot>
+    <div class="banner__content">
+      <header class="banner__title" v-if="$slots.title || $slots.pre_title">
+        <div :class="preTitleClasses" v-if="$slots.pre_title">
+          <slot name="pre_title"></slot>
         </div>
+        <uids-headline
+          :text_style="headline_style"
+          :highlight="headline_highlight"
+          :class="`headline--${props.headline_size}`"
+        >
+          <a v-if="headlineLink" :href="headlineLink" class="click-target">
+            <slot name="title"></slot>
+          </a>
+          <template v-else>
+            <slot name="title"></slot>
+          </template>
+        </uids-headline>
+      </header>
 
-        <footer class="banner__action" v-if="buttons.length > 0 || $slots.buttons">
-          <slot name="buttons">
-            <!-- Render pseudo button when only url is present -->
-            <uids-pseudo-button
-              v-if="buttons.length === 1"
+      <div class="banner__text" v-if="$slots.default" >
+        <slot></slot>
+      </div>
+
+      <footer class="banner__action" v-if="buttons.length > 0 || $slots.buttons">
+        <slot name="buttons">
+          <!-- Render pseudo button when only url is present -->
+          <uids-pseudo-button
+            v-if="buttons.length === 1"
+            size="medium"
+            :color="button_color"
+            :light_font="button_light_font"
+            v-html="buttons[0].label">
+          </uids-pseudo-button>
+          <div v-else-if="buttons.length > 0" class="bttn--row">
+            <uids-button
+              v-for="(button, i) in buttons"
+              :url="button.url"
               size="medium"
               :color="button_color"
               :light_font="button_light_font"
-              v-html="buttons[0].label">
-            </uids-pseudo-button>
-            <div v-else-if="buttons.length > 0" class="bttn--row">
-              <uids-button
-                v-for="(button, i) in buttons"
-                :url="button.url"
-                size="medium"
-                :color="button_color"
-                :light_font="button_light_font"
-                ><span v-html="button.label"></span>
-              </uids-button>
-            </div>
-          </slot>
-        </footer>
-      </div>
+              ><span v-html="button.label"></span>
+            </uids-button>
+          </div>
+        </slot>
+      </footer>
     </div>
   </div>
 </template>

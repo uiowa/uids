@@ -25,6 +25,16 @@
   // Default
   min-height: 15rem;
 
+  position: relative;
+  overflow: hidden;
+
+  @include breakpoint(sm) {
+    flex-basis: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   &::after {
     display: block;
     content: '';
@@ -62,15 +72,6 @@
 
 // === Alignment === //
 .banner {
-  position: relative;
-  overflow: hidden;
-  @include breakpoint(sm) {
-    flex-basis: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
   &.banner--vertical-top {
     align-items: flex-start;
   }
@@ -94,16 +95,15 @@
     }
   }
 }
-
 // === End: Alignment === //
 
-// === Container === //
+// === Content === //
 .banner {
   &:focus-within .headline a:focus {
     text-decoration: underline;
   }
 
-  &__container {
+  &__content {
     margin: 0 auto;
     width: 100%;
     z-index: 1;
@@ -116,7 +116,7 @@
   }
 
   &.banner--stacked:not([class*="bg-"]) {
-    .banner__container {
+    .banner__content {
       background: white;
 
       @include breakpoint(sm) {
