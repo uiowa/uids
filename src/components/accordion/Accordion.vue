@@ -55,10 +55,9 @@ onMounted(() => {
       class="accordion__item"
       :name="!props.multiselectable ? 'accordion-collection' : null"
       :open="item.open"
-      :id="'accordion-item-' + index"
       role="none"
     >
-      <summary :id="'accordion-heading-' + index" class="accordion__heading"
+      <summary :id="item.id" class="accordion__heading"
         role="tab"
       >
         <h2>
@@ -67,7 +66,6 @@ onMounted(() => {
         </h2>
       </summary>
       <div
-        :id="'accordion-content-' + index"
         class="accordion__content"
         v-html="item.content"
       ></div>
