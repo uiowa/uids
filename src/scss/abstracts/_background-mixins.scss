@@ -1,87 +1,87 @@
-@use "sass:map";
-@import 'variables';
-@import 'placeholders';
+@use 'sass:map';
+@use 'variables';
+@use 'placeholders';
 
 $backgrounds: (
   // Black.
   'bg--black--pattern--brain': (
     'type': 'dark',
-    'background-color': $secondary,
-    'background-image': '#{$imgpath}/brain-pattern-black.svg',
+    'background-color': variables.$secondary,
+    'background-image': '#{variables.$imgpath}/brain-pattern-black.svg',
   ),
   'bg--black--pattern--community': (
     'type': 'dark',
-    'background-color': $secondary,
-    'background-image': '#{$imgpath}/community-pattern--black.png',
+    'background-color': variables.$secondary,
+    'background-image': '#{variables.$imgpath}/community-pattern--black.png',
   ),
   'bg--black--pattern--particle': (
     'type': 'dark',
-    'background-color': $secondary,
-    'background-image': '#{$imgpath}/particle-pattern--black.png',
+    'background-color': variables.$secondary,
+    'background-image': '#{variables.$imgpath}/particle-pattern--black.png',
   ),
   'bg--black': (
     'type': 'dark',
-    'background-color': $secondary,
+    'background-color': variables.$secondary,
   ),
   // Gold.
   'bg--gold--pattern--brain': (
     'type': 'light',
-    'background-color': $primary,
-    'background-image': '#{$imgpath}/brain-pattern-reversed.svg',
+    'background-color': variables.$primary,
+    'background-image': '#{variables.$imgpath}/brain-pattern-reversed.svg',
   ),
   'bg--gold--pattern--community': (
     'type': 'light',
-    'background-color': $primary,
-    'background-image': '#{$imgpath}/community-pattern--white.png',
+    'background-color': variables.$primary,
+    'background-image': '#{variables.$imgpath}/community-pattern--white.png',
   ),
   'bg--gold--pattern--particle': (
     'type': 'light',
-    'background-color': $primary,
-    'background-image': '#{$imgpath}/particle-pattern.png',
+    'background-color': variables.$primary,
+    'background-image': '#{variables.$imgpath}/particle-pattern.png',
   ),
   'bg--gold': (
     'type': 'light',
-    'background-color': $primary,
+    'background-color': variables.$primary,
   ),
   // Gray.
   'bg--gray--pattern--brain': (
     'type': 'light',
-    'background-color': $light,
-    'background-image': '#{$imgpath}/brain-pattern-white.svg',
+    'background-color': variables.$light,
+    'background-image': '#{variables.$imgpath}/brain-pattern-white.svg',
   ),
   'bg--gray--pattern--community': (
     'type': 'light',
-    'background-color': $light,
-    'background-image': '#{$imgpath}/community-pattern--gray.png',
+    'background-color': variables.$light,
+    'background-image': '#{variables.$imgpath}/community-pattern--gray.png',
   ),
   'bg--gray--pattern--particle': (
     'type': 'light',
-    'background-color': $light,
-    'background-image': '#{$imgpath}/particle-pattern--white.png',
+    'background-color': variables.$light,
+    'background-image': '#{variables.$imgpath}/particle-pattern--white.png',
   ),
   'bg--gray': (
     'type': 'light',
-    'background-color': $light,
+    'background-color': variables.$light,
   ),
   // White.
   'bg--white--pattern--brain': (
     'type': 'light',
-    'background-color': $white,
-    'background-image': '#{$imgpath}/brain-pattern.svg',
+    'background-color': variables.$white,
+    'background-image': '#{variables.$imgpath}/brain-pattern.svg',
   ),
   'bg--white--pattern--community': (
     'type': 'light',
-    'background-color': $white,
-    'background-image': '#{$imgpath}/community-pattern--gray.png',
+    'background-color': variables.$white,
+    'background-image': '#{variables.$imgpath}/community-pattern--gray.png',
   ),
   'bg--white--pattern--particle': (
     'type': 'light',
-    'background-color': $white,
-    'background-image': '#{$imgpath}/particle-pattern--gold.png',
+    'background-color': variables.$white,
+    'background-image': '#{variables.$imgpath}/particle-pattern--gold.png',
   ),
   'bg--white': (
     'type': 'light',
-    'background-color': $white,
+    'background-color': variables.$white,
   ),
 );
 
@@ -95,23 +95,23 @@ $bg-to-fg-color-map: (
 
 @mixin bg-fg-colors($bg, $shade: 'light', $extend: true) {
   @if $extend == true {
-    @include uids-dynamic-extend($bg) {
+    @include placeholders.uids-dynamic-extend($bg) {
       @include bg-fg-colors($bg, $shade, false);
     }
   }
   @else {
     @if $shade == 'light' {
-      color: $secondary;
+      color: variables.$secondary;
 
       a {
-        color: $secondary;
+        color: variables.$secondary;
       }
     }
     @else {
-      color: $white;
+      color: variables.$white;
 
       a {
-        color: $primary;
+        color: variables.$primary;
       }
     }
   }

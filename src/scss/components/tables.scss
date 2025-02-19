@@ -1,5 +1,5 @@
-@import '../abstracts/variables';
-@import '../abstracts/utilities';
+@use '../abstracts/variables';
+@use '../abstracts/utilities';
 
 //// Table Elements
 table[border] {
@@ -12,12 +12,12 @@ table[border] {
 }
 
 table {
-  background-color: $white;
+  background-color: variables.$white;
   border-collapse: collapse;
   border-spacing: 0;
-  color: $secondary;
+  color: variables.$secondary;
   display: inline-block;
-  font-size: $content-font-size;
+  font-size: variables.$content-font-size;
   line-height: 1.15;
   max-width: 100%;
   overflow-x: auto;
@@ -35,16 +35,16 @@ table {
     .bg--white--pattern--brain &,
     .bg--black--pattern--brain &,
     .bg-pattern--brain-black & {
-      color: $link-color;
+      color: variables.$link-color;
     }
   }
 
-  @include breakpoint(sm) {
+  @include utilities.breakpoint(sm) {
     display: table;
   }
 
   p, ul, ol {
-    font-size: $base-font-size;
+    font-size: variables.$base-font-size;
   }
 
   ul, ol {
@@ -55,12 +55,12 @@ table {
 
   td,
   th {
-    padding: $md;
-    font-size: $base-font-size;
+    padding: variables.$md;
+    font-size: variables.$base-font-size;
   }
 
   th {
-    color: $secondary;
+    color: variables.$secondary;
 
     &:not([align]) {
       text-align: left;
@@ -68,13 +68,13 @@ table {
   }
 
   thead th {
-    background-color: $primary;
+    background-color: variables.$primary;
     border: none;
     text-transform: uppercase;
     a {
-      color: $secondary;
+      color: variables.$secondary;
       [class*="bg--"] & {
-        color: $secondary;
+        color: variables.$secondary;
       }
     }
   }
@@ -84,12 +84,12 @@ table {
     border: none;
     position: static;
     left: 0;
-    padding-left: $md;
+    padding-left: variables.$md;
   }
 
   tbody tr:not(.is-selected):nth-child(even),
   tbody tr:not(.is-selected):nth-child(even) th {
-    background-color: $light;
+    background-color: variables.$light;
   }
 
   &.table--hover-highlight tbody tr:not(.is-selected),
@@ -113,10 +113,10 @@ table {
     font-weight: bold;
     a,
     :where(p) a:not(.bttn) {
-      color: $primary;
+      color: variables.$primary;
       [class*="bg--"] &,
       [class*="bg--"] [class*="bg--"] & {
-        color: $primary;
+        color: variables.$primary;
       }
     }
   }
@@ -128,7 +128,7 @@ table {
 
   thead td,
   thead th {
-    color: $secondary;
+    color: variables.$secondary;
   }
 
   &.table--width-default {
@@ -144,7 +144,7 @@ table {
 
   caption {
     text-align: left;
-    @include breakpoint(sm) {
+    @include utilities.breakpoint(sm) {
       text-align: center;
     }
   }

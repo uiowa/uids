@@ -1,23 +1,26 @@
+@use 'breakpoints';
+@use 'variables';
+
 @mixin twocol-grid {
-  column-gap: $desktop-width-gutter;
-  row-gap: $gutter;
+  column-gap: variables.$desktop-width-gutter;
+  row-gap: variables.$gutter;
   grid-template-columns: repeat(auto-fill, minmax(46.7%, 1fr));
 }
 
 @mixin threecol-grid {
-  gap: $desktop-width-gutter;
+  gap: variables.$desktop-width-gutter;
   grid-template-columns: repeat(auto-fill, minmax(29.74%, 1fr));
 }
 
 @mixin fourcol-grid {
-  gap: $desktop-width-gutter;
+  gap: variables.$desktop-width-gutter;
   grid-template-columns: repeat(auto-fill, minmax(21%, 1fr));
 }
 ////// Inner Grid
 @mixin inner-grid($parent) {
   .list-container--grid.grid--twocol--50-50 {
     @if $parent >= 50 {
-      @include breakpoint(sm) {
+      @include breakpoints.breakpoint(sm) {
         .list-container__inner {
           display: grid;
           @include twocol-grid;
@@ -25,7 +28,7 @@
       }
       @media screen and (min-width: 58.125em) {
         .list-container__inner {
-          gap: $desktop-width-gutter;
+          gap: variables.$desktop-width-gutter;
           grid-template-columns: 1fr 1fr;
         }
       }
@@ -56,11 +59,11 @@
 @mixin display-grid {
   display: grid;
   grid-template-rows: auto;
-  grid-gap: $desktop-width-gutter;
+  grid-gap: variables.$desktop-width-gutter;
 }
 
 @mixin grid-base {
-  @include breakpoint(sm) {
+  @include breakpoints.breakpoint(sm) {
     @include display-grid;
     grid-template-columns: 1fr;
   }

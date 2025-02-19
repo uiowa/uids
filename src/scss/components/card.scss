@@ -1,15 +1,15 @@
-@import '../abstracts/variables';
-@import '../abstracts/utilities';
-@import 'border';
+@use '../abstracts/variables';
+@use '../abstracts/utilities';
+@forward 'border';
 
 @mixin container-query() {
   @supports (contain: inline-size) {
-    @container column (min-width: #{$break-xxsm}) {
+    @container column (min-width: #{variables.$break-xxsm}) {
       @content
     }
   }
   @supports not (contain: inline-size) {
-    @include breakpoint(sm) {
+    @include utilities.breakpoint(sm) {
       @content
     }
   }
@@ -23,10 +23,10 @@
   flex-grow: 1;
   padding: 2rem;
   text-decoration: none;
-  @include border;
-  @include flexbox;
-  @include flex($fg: 1, $fs: 1, $fb: 0%);
-  @include flex-direction($value: column);
+  @include utilities.border;
+  @include utilities.flexbox;
+  @include utilities.flex($fg: 1, $fs: 1, $fb: 0%);
+  @include utilities.flex-direction($value: column);
 
   h2,
   h3,
@@ -62,7 +62,7 @@
     margin: 0 0 0.525rem;
     padding: 0;
     font-size: 1.5rem;
-    font-weight: $font-weight-medium;
+    font-weight: variables.$font-weight-medium;
     line-height: 1.2;
 
     a {
@@ -84,7 +84,7 @@
 
       i,
       svg {
-        color: $secondary;
+        color: variables.$secondary;
       }
     }
   }
@@ -167,7 +167,7 @@
     }
     &.media--medium {
       max-width: 15.625rem;
-      @include breakpoint(sm) {
+      @include utilities.breakpoint(sm) {
         max-width: 60%;
       }
     }
@@ -203,8 +203,8 @@
 
   .media--date {
     position: relative;
-    padding-top: $gutter;
-    border: 1px solid $uiowa-gold;
+    padding-top: variables.$gutter;
+    border: 1px solid variables.$uiowa-gold;
     text-align: center;
     width: 6rem;
     height: 6rem;
@@ -215,25 +215,25 @@
     border-radius: 50%;
 
     &__month {
-      font-size: $base-font-size;
+      font-size: variables.$base-font-size;
       display: block;
       line-height: 100%;
       text-transform: uppercase;
-      font-weight: $font-weight-light;
+      font-weight: variables.$font-weight-light;
     }
 
     &__day {
-      font-size: $h2-font-size;
+      font-size: variables.$h2-font-size;
       display: block;
       line-height: 100%;
       margin-top: 1px;
-      font-weight: $font-weight-medium-bold;
+      font-weight: variables.$font-weight-medium-bold;
     }
   }
   // We should revisit to have appropriate color/styling for each background color option.
   &[class*="bg--gold"]{
     .media--date {
-      border: 1px solid $uiowa-black;
+      border: 1px solid variables.$uiowa-black;
     }
   }
 }
@@ -255,9 +255,9 @@
 // === Subtitle === //
 .card__subtitle {
   opacity: .7;
-  font-family: $font-family-serif;
+  font-family: variables.$font-family-serif;
   font-size: 1.3rem;
-  font-weight: $font-weight-medium;
+  font-weight: variables.$font-weight-medium;
   line-height: 1.4;
   margin-top: -0.4rem;
 }
@@ -265,16 +265,16 @@
 
 // === Details === //
 .card__details {
-  margin: 0 0 $sm;
+  margin: 0 0 variables.$sm;
 }
 // === End: Details === //
 
 // === Meta === //
 .card__meta {
-  font-family: $font-family-sans-serif;
+  font-family: variables.$font-family-sans-serif;
   font-size: 1.1rem;
   line-height: 1.4;
-  font-weight: $font-weight-normal;
+  font-weight: variables.$font-weight-normal;
   .fas {
     margin-right: .3rem;
   }
@@ -338,19 +338,19 @@
 .card--button-align-bottom {
   &:not([class*="card--layout"]){
     .card__body {
-      @include breakpoint(sm) {
+      @include utilities.breakpoint(sm) {
         flex: 1;
       }
     }
   }
   .card__body {
-    @include breakpoint(sm) {
+    @include utilities.breakpoint(sm) {
       display: flex;
       flex-direction: column;
     }
   }
   footer {
-    @include breakpoint(sm) {
+    @include utilities.breakpoint(sm) {
       margin-top: auto;
     }
   }
@@ -435,7 +435,7 @@
   .media--medium {
     &.media--circle {
       @supports not (contain: inline-size) {
-        @include breakpoint(sm) {
+        @include utilities.breakpoint(sm) {
           max-width: none;
         }
       }
