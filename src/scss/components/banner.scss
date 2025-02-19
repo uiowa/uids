@@ -1,14 +1,14 @@
-@import '../abstracts/variables';
-@import '../abstracts/utilities'; // --------------------------------
+@use '../abstracts/variables';
+@use '../abstracts/utilities';
 
 @mixin container-query() {
   @supports (contain: inline-size) {
-    @container column (min-width: #{$break-xsm}) {
+    @container column (min-width: #{variables.$break-xsm}) {
       @content
     }
   }
   @supports not (contain: inline-size) {
-    @include breakpoint(sm) {
+    @include utilities.breakpoint(sm) {
       @content
     }
   }
@@ -28,7 +28,7 @@
   position: relative;
   overflow: hidden;
 
-  @include breakpoint(sm) {
+  @include utilities.breakpoint(sm) {
     flex-basis: 100%;
     display: flex;
     align-items: center;
@@ -62,7 +62,7 @@
 
   &--full {
     &.banner--large {
-      @include breakpoint(page-container) {
+      @include utilities.breakpoint(page-container) {
         height: 100vh;
       }
     }
@@ -108,9 +108,9 @@
     width: 100%;
     z-index: 1;
 
-    @include breakpoint(sm) {
+    @include utilities.breakpoint(sm) {
       z-index: 1;
-      max-width: $container-width;
+      max-width: variables.$container-width;
       top: 0;
     }
   }
@@ -119,7 +119,7 @@
     .banner__content {
       background: white;
 
-      @include breakpoint(sm) {
+      @include utilities.breakpoint(sm) {
         background: unset;
       }
     }
@@ -137,7 +137,7 @@
   .banner__action .bttn {
     margin: 0 1rem 1rem 0;
 
-    @include breakpoint(sm) {
+    @include utilities.breakpoint(sm) {
       + .bttn {
         margin: 0 1rem 1rem 0;
       }
@@ -155,7 +155,7 @@
         margin: 1rem auto;
       }
 
-      @include breakpoint(sm) {
+      @include utilities.breakpoint(sm) {
         margin: 0 1rem 1rem 0;
         display: inline-block;
         width: auto;
@@ -167,7 +167,7 @@
       }
 
       + .bttn {
-        @include breakpoint(sm) {
+        @include utilities.breakpoint(sm) {
           margin: 0 1rem 1rem 0;
         }
       }
@@ -179,7 +179,7 @@
     // Stacked banner transparent button styles.
     &.banner--stacked:not([class*="bg-"]) {
       .banner__action .bttn--transparent {
-        @include breakpoint(sm) {
+        @include utilities.breakpoint(sm) {
           border-color: rgba(255, 255, 255, .525);
           color: #fff;
         }
@@ -222,7 +222,7 @@
     }
 
     &.headline--small {
-      font-size: $h5-font-size;
+      font-size: variables.$h5-font-size;
     }
   }
 }
@@ -254,12 +254,12 @@
       color: #fff;
       text-shadow: 0 1px 3px #000;
 
-      @include breakpoint(sm) {
+      @include utilities.breakpoint(sm) {
         color: #fff;
       }
 
       a {
-        @include breakpoint(sm) {
+        @include utilities.breakpoint(sm) {
           color: #fff;
         }
       }
@@ -307,17 +307,17 @@
 
     &[class*="banner--gradient-dark"] {
       .headline {
-        color: $secondary;
+        color: variables.$secondary;
         text-shadow: none;
 
-        @include breakpoint(sm) {
+        @include utilities.breakpoint(sm) {
           color: #fff;
           //text-shadow: 0 1px 1px #000;
         }
 
         a {
-          color: $secondary;
-          @include breakpoint(sm) {
+          color: variables.$secondary;
+          @include utilities.breakpoint(sm) {
             color: #fff;
           }
         }
@@ -330,11 +330,11 @@
   &[class*="bg--gray"],
   &[class*="banner--gradient-light"] {
     .headline {
-      color: $secondary;
+      color: variables.$secondary;
       text-shadow: none;
 
       a {
-        color: $secondary;
+        color: variables.$secondary;
       }
     }
   }
@@ -345,11 +345,11 @@
 
 // === Text/buttons === //
 .banner {
-  --banner-padding: #{$gutter};
+  --banner-padding: #{variables.$gutter};
   --banner-text-max-width: 1;
 
-  @include breakpoint(sm) {
-    --banner-padding: #{$mobile-height-gutter};
+  @include utilities.breakpoint(sm) {
+    --banner-padding: #{variables.$mobile-height-gutter};
   }
 
   @include container-query() {
@@ -392,17 +392,17 @@
     .banner__content {
       padding-bottom: 5rem;
 
-      @include breakpoint(page-container) {
+      @include utilities.breakpoint(page-container) {
         padding-bottom: 6rem;
       }
     }
     &.banner--stacked {
       .banner__content {
-        @include breakpoint(sm) {
+        @include utilities.breakpoint(sm) {
           padding-bottom: 5rem;
         }
 
-        @include breakpoint(page-container) {
+        @include utilities.breakpoint(page-container) {
           padding-bottom: 6rem;
         }
       }
@@ -462,7 +462,7 @@
     .banner__text {
       blockquote {
         [class*="bg--gold"] & {
-          border-left-color: $primary;
+          border-left-color: variables.$primary;
         }
       }
     }
@@ -470,19 +470,19 @@
 
   &[class*="bg--gray"] {
     .banner__text {
-      color: $secondary;
+      color: variables.$secondary;
 
       a {
-        color: $secondary;
+        color: variables.$secondary;
       }
 
       p {
-        color: $secondary;
+        color: variables.$secondary;
         font-weight: normal;
         text-shadow: none;
 
         a {
-          color: $secondary;
+          color: variables.$secondary;
         }
       }
     }
@@ -492,34 +492,34 @@
   &[class*="bg--white"],
   &[class*="banner--gradient-light"] {
     .banner__text {
-      color: $secondary;
+      color: variables.$secondary;
 
       p {
-        color: $secondary;
+        color: variables.$secondary;
         font-weight: normal;
         text-shadow: none;
 
         a {
-          color: $secondary;
+          color: variables.$secondary;
         }
       }
 
       a {
-        color: $secondary;
+        color: variables.$secondary;
       }
     }
   }
 
   &--stacked {
     .banner__text {
-      color: $secondary;
-      @include breakpoint(sm) {
+      color: variables.$secondary;
+      @include utilities.breakpoint(sm) {
         color: #fff;
       }
 
       a {
-        color: $secondary;
-        @include breakpoint(sm) {
+        color: variables.$secondary;
+        @include utilities.breakpoint(sm) {
           color: #fff;
         }
       }
@@ -527,11 +527,11 @@
 
     &[class*="banner--gradient-dark"] {
       .banner__text * {
-        color: $secondary;
+        color: variables.$secondary;
         text-shadow: none;
       }
 
-      @include breakpoint(sm) {
+      @include utilities.breakpoint(sm) {
         .banner__text * {
           color: #fff;
           text-shadow: 0 1px 3px #000;
@@ -544,7 +544,7 @@
     }
 
     &[class*="banner--gradient-light"] {
-      @include breakpoint(sm) {
+      @include utilities.breakpoint(sm) {
         .banner__container {
           // This glow allows the text to sit over darker images better.
           filter: drop-shadow(0 1px 9px rgb(255, 255, 255, 50%));
@@ -596,7 +596,7 @@
     .media--image {
       img {
         position: relative;
-        @include breakpoint(sm) {
+        @include utilities.breakpoint(sm) {
           position: absolute;
         }
       }
@@ -626,7 +626,7 @@
       object-fit: cover;
       height: 100%;
       top: 0;
-      @include breakpoint(sm) {
+      @include utilities.breakpoint(sm) {
         position: absolute;
       }
     }
@@ -636,7 +636,7 @@
     .media--video {
       .video-controls {
         @include container-query() {
-          @include breakpoint(sm) {
+          @include utilities.breakpoint(sm) {
             left: 6rem;
             bottom: 4rem;
           }
@@ -649,12 +649,12 @@
 
     .video-controls {
       position: absolute;
-      left: $gutter;
-      bottom: $gutter;
+      left: variables.$gutter;
+      bottom: variables.$gutter;
 
-      @include breakpoint(sm) {
-        left: $mobile-height-gutter;
-        bottom: $mobile-height-gutter;
+      @include utilities.breakpoint(sm) {
+        left: variables.$mobile-height-gutter;
+        bottom: variables.$mobile-height-gutter;
       }
     }
 
@@ -662,20 +662,20 @@
       width: 40px;
       height: 40px;
       cursor: pointer;
-      color: $secondary;
+      color: variables.$secondary;
       border: 1px solid white;
       border-radius: 50%;
       background: white;
       font-size: 1rem;
       padding: 0;
 
-      @include breakpoint(sm) {
+      @include utilities.breakpoint(sm) {
         display: block;
       }
 
       &::after {
         content: "\f04b";
-        @include fas();
+        @include utilities.fas();
         font-size: 1rem;
       }
 
@@ -696,14 +696,14 @@
 
   &[class*="banner--gradient-light"] {
     .media--video .video-btn {
-      border: 1px solid $secondary;
+      border: 1px solid variables.$secondary;
     }
   }
 
   &--stacked {
     .media--video {
       position: relative;
-      @include breakpoint(sm) {
+      @include utilities.breakpoint(sm) {
         position: absolute;
       }
 
@@ -719,7 +719,7 @@
 .banner {
   &--stacked {
     display: block;
-    @include breakpoint(sm) {
+    @include utilities.breakpoint(sm) {
       display: flex;
     }
   }
@@ -746,18 +746,18 @@
       // Default is dark overlay/gradient.
       background: rgba(0, 0, 0, .5);
       @include container-query() {
-        background: linear-gradient(90deg, #{$gradient-dark-horizontal});
+        background: linear-gradient(90deg, #{variables.$gradient-dark-horizontal});
       }
     }
 
     // @todo Make this the default.
     &.banner--gradient-dark {
-      @include breakpoint(sm) {
-        background: $secondary;
+      @include utilities.breakpoint(sm) {
+        background: variables.$secondary;
       }
 
       &:not([class*="banner--stacked"]) {
-        background: $secondary;
+        background: variables.$secondary;
       }
     }
 
@@ -766,7 +766,7 @@
       &:after {
         background: rgba(255, 255, 255, .7);
         @include container-query() {
-          background: linear-gradient(90deg, #{$gradient-light-horizontal});
+          background: linear-gradient(90deg, #{variables.$gradient-light-horizontal});
         }
       }
     }
@@ -777,23 +777,23 @@
         background: none;
         width: auto;
         height: auto;
-        @include breakpoint(sm) {
+        @include utilities.breakpoint(sm) {
           width: 100%;
           height: 100%;
-          background: linear-gradient(90deg, #{$gradient-dark-horizontal});
+          background: linear-gradient(90deg, #{variables.$gradient-dark-horizontal});
         }
       }
 
       &.banner--gradient-light:after {
-        @include breakpoint(sm) {
-          background: linear-gradient(90deg, #{$gradient-light-horizontal});
+        @include utilities.breakpoint(sm) {
+          background: linear-gradient(90deg, #{variables.$gradient-light-horizontal});
         }
       }
 
       &.banner--vertical-top {
         &:after {
-          @include breakpoint(sm) {
-            background: linear-gradient(0deg, #{$gradient-dark-vertical});
+          @include utilities.breakpoint(sm) {
+            background: linear-gradient(0deg, #{variables.$gradient-dark-vertical});
           }
         }
 
@@ -801,7 +801,7 @@
           &:after {
             background: rgba(255, 255, 255, .7);
             @include container-query() {
-              background: linear-gradient(0deg, #{$gradient-light-vertical});
+              background: linear-gradient(0deg, #{variables.$gradient-light-vertical});
             }
           }
         }
@@ -812,7 +812,7 @@
         &:after {
           background: rgba(0, 0, 0, .5);
           @include container-query() {
-            background: linear-gradient(0deg, #{$gradient-dark-vertical});
+            background: linear-gradient(0deg, #{variables.$gradient-dark-vertical});
           }
         }
 
@@ -820,7 +820,7 @@
           &:after {
             background: rgba(255, 255, 255, .7);
             @include container-query() {
-              background: linear-gradient(0deg, #{$gradient-light-vertical});
+              background: linear-gradient(0deg, #{variables.$gradient-light-vertical});
             }
           }
         }
@@ -834,14 +834,14 @@
     &:after {
       background: rgba(0, 0, 0, .5);
       @include container-query() {
-        background: linear-gradient(180deg, #{$gradient-dark-vertical});
+        background: linear-gradient(180deg, #{variables.$gradient-dark-vertical});
       }
     }
 
     &[class*="banner--stacked"] {
       &:after {
-        @include breakpoint(sm) {
-          background: linear-gradient(180deg, #{$gradient-dark-vertical});
+        @include utilities.breakpoint(sm) {
+          background: linear-gradient(180deg, #{variables.$gradient-dark-vertical});
         }
       }
     }
@@ -850,14 +850,14 @@
       &:after {
         background: rgba(255, 255, 255, .7);
         @include container-query() {
-          background: linear-gradient(180deg, #{$gradient-light-vertical});
+          background: linear-gradient(180deg, #{variables.$gradient-light-vertical});
         }
       }
 
       &[class*="banner--stacked"] {
         &:after {
-          @include breakpoint(sm) {
-            background: linear-gradient(180deg, #{$gradient-light-vertical});
+          @include utilities.breakpoint(sm) {
+            background: linear-gradient(180deg, #{variables.$gradient-light-vertical});
           }
         }
       }

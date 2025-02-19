@@ -1,5 +1,5 @@
-@import '../abstracts/variables';
-@import '../abstracts/utilities';
+@use '../abstracts/variables';
+@use '../abstracts/utilities';
 
 // https://drafts.csswg.org/css-values-5/#interpolate-size.
 :root {
@@ -13,10 +13,10 @@
 
   &.stat--static {
     &:hover .stat__content {
-      @include breakpoint(md) {
+      @include utilities.breakpoint(md) {
         max-height: 100vh;
       }
-      @include breakpoint(md) {
+      @include utilities.breakpoint(md) {
         @supports (interpolate-size: allow-keywords) {
           max-height: max-content;
           overflow: hidden;
@@ -26,10 +26,10 @@
   }
 
   &:hover .stat__content {
-    @include breakpoint(md) {
+    @include utilities.breakpoint(md) {
       max-height: 100vh;
     }
-    @include breakpoint(md) {
+    @include utilities.breakpoint(md) {
       @supports (interpolate-size: allow-keywords) {
         max-height: max-content;
         overflow: hidden;
@@ -46,18 +46,18 @@
     margin: 0;
     text-transform: uppercase;
     line-height: 1;
-    font-family: $font-family-caps-bold;
+    font-family: variables.$font-family-caps-bold;
     font-weight: bold;
     font-size: 4rem;
-    border-bottom: 8px solid $primary;
-    padding: $lg 0 $sm 0;
+    border-bottom: 8px solid variables.$primary;
+    padding: variables.$lg 0 variables.$sm 0;
 
-    @include breakpoint(sm) {
-      padding: $md $lg $sm 0;
+    @include utilities.breakpoint(sm) {
+      padding: variables.$md variables.$lg variables.$sm 0;
     }
 
     .element--flex-center & {
-      padding: $md $lg $sm $lg;
+      padding: variables.$md variables.$lg variables.$sm variables.$lg;
       display: block;
     }
 
@@ -65,7 +65,7 @@
     [class*="bg--white"] &,
     [class*="bg--gray"] &,
     [class*="bg--black"] & {
-      border-bottom: 8px solid $primary;
+      border-bottom: 8px solid variables.$primary;
     }
 
     // @todo This should probably be resolved with https://sass-lang.com/documentation/values/maps#using-maps
@@ -73,7 +73,7 @@
     .stat--horizontal[class*="bg--black"] &,
     .bg-pattern--brain-black &,
     [class*="bg--black"] & {
-      color: $primary;
+      color: variables.$primary;
     }
 
     .bg-pattern--brain-reversed &,
@@ -81,12 +81,12 @@
       border-bottom: 8px solid white;
     }
 
-    @include breakpoint(sm) {
+    @include utilities.breakpoint(sm) {
       font-size: 5rem;
-      padding: 0 $lg $sm 0;
+      padding: 0 variables.$lg variables.$sm 0;
 
       .element--flex-center & {
-        padding: 0 $lg $sm;
+        padding: 0 variables.$lg variables.$sm;
       }
     }
   }
@@ -97,14 +97,14 @@
     padding: 0;
     line-height: 1.4;
 
-    @include breakpoint(md) {
+    @include utilities.breakpoint(md) {
       max-height: 0;
       transition: max-height 0.4s ease-in-out;
       overflow: hidden;
     }
 
     .stat--static & {
-      @include breakpoint(md) {
+      @include utilities.breakpoint(md) {
         max-height: max-content;
         transition: none;
         overflow: unset;
@@ -118,11 +118,11 @@
 
     .bg-pattern--brain-reversed &,
     [class*="bg--gold"] & {
-      color: $secondary;
+      color: variables.$secondary;
     }
 
     .element--flex-center & {
-      @include breakpoint(md) {
+      @include utilities.breakpoint(md) {
         margin: 0 10%;
       }
     }
@@ -130,25 +130,25 @@
 
   &__description {
     position: relative;
-    font-family: $font-family-caps-bold;
+    font-family: variables.$font-family-caps-bold;
     font-weight: bold;
     text-transform: uppercase;
     font-size: 1.3rem;
     line-height: 1.2;
     width: 85%;
-    margin: $sm 0;
+    margin: variables.$sm 0;
 
     .bg-pattern--brain-black &,
     [class*="bg--black"] & {
       color: white;
     }
 
-    @include breakpoint(md) {
+    @include utilities.breakpoint(md) {
       font-size: 1.5rem;
     }
 
     .grid--3-2 & {
-      @include breakpoint(md) {
+      @include utilities.breakpoint(md) {
         width: 60%;
       }
     }
@@ -156,7 +156,7 @@
 }
 
 .grid--3-2 .stat__description {
-  @include breakpoint(md) {
+  @include utilities.breakpoint(md) {
     width: 60%;
   }
 }
@@ -183,8 +183,8 @@
   .bg-pattern--brain-reversed &,
   [class*="bg--gold"] & {
     .stat__content {
-      @include breakpoint(page-container) {
-        border-top: 8px solid $secondary;
+      @include utilities.breakpoint(page-container) {
+        border-top: 8px solid variables.$secondary;
       }
     }
   }
@@ -193,12 +193,12 @@
   .stat__title {
     font-size: 3.1rem;
 
-    @include breakpoint(md) {
-      padding: 0 $lg $xsm 0;
+    @include utilities.breakpoint(md) {
+      padding: 0 variables.$lg variables.$xsm 0;
       border-bottom: none;
     }
 
-    @include breakpoint(page-container) {
+    @include utilities.breakpoint(page-container) {
       flex-basis: 50%;
     }
 
@@ -211,10 +211,10 @@
   .stat__content {
     font-size: 1.1rem;
 
-    @include breakpoint(md) {
+    @include utilities.breakpoint(md) {
       padding-top: .5rem;
       margin-top: .75rem;
-      border-top: 8px solid $primary;
+      border-top: 8px solid variables.$primary;
       flex-basis: 100%;
     }
 
@@ -240,7 +240,7 @@
     font-size: 1.3rem;
     margin: 0.625rem 0 0;
 
-    @include breakpoint(md) {
+    @include utilities.breakpoint(md) {
       flex-basis: 50%;
       margin: 0;
     }
