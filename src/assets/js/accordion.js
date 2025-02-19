@@ -13,8 +13,7 @@ class Accordion {
       });
 
       // Add a listener for when the summary element is clicked.
-      const summary = item.querySelector('summary');
-      summary.addEventListener('click', (event) => {
+      this.getAccordionItemSummary(item).addEventListener('click', (event) => {
         this.accordionItemClick(item);
       });
     });
@@ -53,8 +52,9 @@ class Accordion {
 
       // If the accordion is not open (but will be)...
       if (isOpening) {
+        const summaryId = this.getAccordionItemSummary(accordionItem).id;
         // Define historyString here to be used later.
-        const historyString = '#' + accordionItem.id;
+        const historyString = '#' + summaryId;
 
         // Change window location to add URL params
         if (window.history && history.pushState && historyString !== '#') {
@@ -71,6 +71,18 @@ class Accordion {
   }
 
   /**
+   * Gets the summary element of an accordion item.
+   *
+   * @param accordionItem
+   *   The details element of an accordion item.
+   * @returns {*}
+   *   The summary element of the accordion item.
+   */
+  getAccordionItemSummary(accordionItem) {
+    return accordionItem.querySelector('summary');
+  }
+
+  /**
    * Opens an accordion based on the hash in the URL.
    */
   static focusAccordionItemByHash() {
@@ -81,16 +93,11 @@ class Accordion {
     // If the hash parameter is not empty...
     if (hash !== '') {
       // Get the accordion to focus.
-      const hashedAccordionItem = document.getElementById(hash);
+      const hashedSummaryItem = document.getElementById(hash);
 
       // If the defined hash parameter finds an element...
-      if (hashedAccordionItem !== null) {
-        // If the summary element is present...
-        const summary = hashedAccordionItem.querySelector('summary');
-        if (summary) {
-          // Trigger click event for summary.
-          summary.click();
-        }
+      if (hashedSummaryItem !== null) {
+        hashedSummaryItem.click();
       }
     }
   }
