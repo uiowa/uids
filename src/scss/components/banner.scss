@@ -780,35 +780,18 @@
 
     // === Top Gradient === //
     &.banner--vertical-top {
-      &:after {
+      &:after, &[class*="banner--stacked"]:after {
         background: rgba(0, 0, 0, .5);
         @include container-query() {
           background: linear-gradient(0deg, #{variables.$gradient-dark-vertical});
         }
       }
 
-      &[class*="banner--stacked"] {
-        &:after {
-          background: rgba(0, 0, 0, .5);
-          @include container-query() {
-            background: linear-gradient(0deg, #{variables.$gradient-dark-vertical});
-          }
-        }
-      }
-
       &.banner--gradient-light {
-        &:after {
+        &:after, &[class*="banner--stacked"]:after {
           background: rgba(255, 255, 255, .7);
           @include container-query() {
             background: linear-gradient(0deg, #{variables.$gradient-light-vertical});
-          }
-        }
-        &[class*="banner--stacked"] {
-          &:after {
-            background: rgba(255, 255, 255, .7);
-            @include container-query() {
-              background: linear-gradient(0deg, #{variables.$gradient-light-vertical});
-            }
           }
         }
       }
@@ -816,36 +799,19 @@
 
     // === Bottom Gradient === //
     &.banner--vertical-bottom,
-    &.banner--vertical-center {
-      &:after {
+    &.banner--vertical-center:not(.banner--horizontal-left) {
+      &:after, &[class*="banner--stacked"]:after {
         background: rgba(0, 0, 0, .5);
         @include container-query() {
           background: linear-gradient(180deg, #{variables.$gradient-dark-vertical});
         }
       }
 
-      &[class*="banner--stacked"] {
-        &:after {
-          background: rgba(0, 0, 0, .5);
-          @include container-query() {
-            background: linear-gradient(180deg, #{variables.$gradient-dark-vertical});
-          }
-        }
-      }
-
       &.banner--gradient-light {
-        &:after {
+        &:after, &[class*="banner--stacked"]:after  {
           background: rgba(255, 255, 255, .7);
           @include container-query() {
             background: linear-gradient(180deg, #{variables.$gradient-light-vertical});
-          }
-        }
-        &[class*="banner--stacked"] {
-          &:after {
-            background: rgba(255, 255, 255, .7);
-            @include container-query() {
-              background: linear-gradient(180deg, #{variables.$gradient-light-vertical});
-            }
           }
         }
       }
