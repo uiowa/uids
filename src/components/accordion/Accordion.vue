@@ -18,14 +18,10 @@ const props = defineProps({
 const itemIds = [];
 
 const ariaOwnsIds = () =>{
-  const items = props.items.length;
-  if (items < 1) {
-    return null;
-  }
-
-  for(let i = 0; i < props.items.length; i++) {
-    itemIds.push('accordion-heading-' + i);
-  }
+  const itemIds = [];
+  props.items.forEach((item, index) => {
+    itemIds.push(item.id);
+  });
 
   return itemIds.join(' ');
 }
