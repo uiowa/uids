@@ -1,6 +1,7 @@
-@use "sass:color";
-@import '../abstracts/variables';
-@import '../abstracts/utilities';
+@use 'sass:color';
+@use '../abstracts/variables';
+@use '../abstracts/utilities';
+
 .accordion__item {
   &:not(:first-child) {
     margin-top: 1rem;
@@ -31,7 +32,7 @@
     cursor: pointer;
 
     &:hover, &:focus {
-      background-color: color.scale($accordion-grey, $lightness: -4%);
+      background-color: color.scale($accordion-grey, variables.$lightness: -4%);
     }
 
     &::-webkit-details-marker {
@@ -43,8 +44,8 @@
       transition: all var(--trans-time) ease-in-out;
       transition-property: transform, background-color;
       background-color: transparent;
-      width: $h5-font-size;
-      height: $h5-font-size;
+      width: variables.$h5-font-size;
+      height: variables.$h5-font-size;
       padding: 4px;
       display: flex;
       justify-content: center;
@@ -57,9 +58,9 @@
   .accordion__heading :is(h2, h3, h4, h5, h6) {
     all: inherit;
     display: flex;
-    font-size: $content-font-size;
-    font-weight: $font-weight-bold;
-    padding: $md;
+    font-size: variables.$content-font-size;
+    font-weight: variables.$font-weight-bold;
+    padding: variables.$md;
     justify-content: space-between;
     -webkit-justify-content: space-between;
     align-items: center;
@@ -72,7 +73,7 @@
   }
 
   .accordion__content {
-    padding: $md;
+    padding: variables.$md;
     border: 1px solid var(--accordion-grey);
   }
 }

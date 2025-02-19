@@ -1,5 +1,5 @@
-@import '../abstracts/variables';
-@import '../abstracts/utilities';
+@use '../abstracts/variables';
+@use '../abstracts/utilities';
 
 .slider__slide:first-child:focus-within {
   margin-left: 2px;
@@ -7,10 +7,10 @@
 
 .slider {
   flex-wrap: wrap;
-  @include flexbox;
+  @include utilities.flexbox;
   flex-basis: 100%;
 
-  @include breakpoint(sm) {
+  @include utilities.breakpoint(sm) {
     align-content: stretch;
     align-items: stretch;
     flex-direction: row;
@@ -24,8 +24,8 @@
     overflow: hidden;
     //min-height: 300px;
     //transition: all 0.4s cubic-bezier(0.61, -0.44, 0.33, 1.39);
-    color: $white;
-    @include flex(1, 0, 100%);
+    color: variables.$white;
+    @include utilities.flex(1, 0, 100%);
 
     &:focus {
       z-index: 2;
@@ -39,7 +39,7 @@
       margin-right: 2px;
     }
 
-    @include breakpoint(md) {
+    @include utilities.breakpoint(md) {
       align-self: auto;
       flex: unset;
       order: 0;
@@ -53,7 +53,7 @@
     // banner overrides
 
     .banner--medium {
-      @include breakpoint(sm) {
+      @include utilities.breakpoint(sm) {
         min-height: 33rem;
       }
     }
@@ -64,20 +64,20 @@
       -o-object-fit: cover;
       object-fit: cover;
 
-      @include breakpoint(md) {
+      @include utilities.breakpoint(md) {
         height: 33rem;
       }
     }
 
     .banner__text {
-      @include breakpoint(sm) {
+      @include utilities.breakpoint(sm) {
         opacity: 0;
         transition: opacity .2s ease-in;
       }
     }
 
     .headline {
-      @include breakpoint(sm) {
+      @include utilities.breakpoint(sm) {
         opacity: 0;
         transition: opacity .2s linear;
       }
@@ -85,10 +85,10 @@
 
     .banner__content {
       opacity: 1;
-      @include padding($top: $xlg, $right: $xlg, $bottom: $xlg, $left: $xlg);
+      @include utilities.padding($top: variables.$xlg, $right: variables.$xlg, $bottom: variables.$xlg, $left: variables.$xlg);
       width: 100%;
 
-      @include breakpoint(sm) {
+      @include utilities.breakpoint(sm) {
         opacity: 0;
         position: absolute;
         bottom: 0;
@@ -99,7 +99,7 @@
 
     // Expanded overrides.
     &[aria-expanded="true"] {
-      @include breakpoint(sm) {
+      @include utilities.breakpoint(sm) {
         flex-grow: 1;
         transition: 0.3s;
       }
@@ -124,7 +124,7 @@
       }
 
       &:after {
-        @include breakpoint(sm) {
+        @include utilities.breakpoint(sm) {
           /*
           position: absolute;
           top: 0;
@@ -144,15 +144,15 @@
     z-index: 1;
     bottom: 0;
     width: 100%;
-    padding: $md;
+    padding: variables.$md;
     //transition: opacity .4s linear;
     opacity: 0;
-    color: $white;
+    color: variables.$white;
     background: rgba(0, 0, 0, 0.75);
     box-shadow: 0 5px 30px 10px rgba(0, 0, 0, 0.3);
-    @include center(vertical);
+    @include utilities.center(vertical);
 
-    @include breakpoint(sm) {
+    @include utilities.breakpoint(sm) {
       opacity: 1;
     }
   }
@@ -160,25 +160,25 @@
   &__teaser-heading {
     display: flex;
     margin: 0;
-    color: $white;
-    font-size: $h6-font-size;
-    font-weight: $font-weight-medium-bold;
+    color: variables.$white;
+    font-size: variables.$h6-font-size;
+    font-weight: variables.$font-weight-medium-bold;
     font-style: normal;
     line-height: 1;
     padding-right: 2rem;
-    @include center(vertical);
+    @include utilities.center(vertical);
 
     span {
-      padding-left: $sm;
+      padding-left: variables.$sm;
       position: absolute;
       right: 20px;
 
       &.fa-plus:before {
-        padding: $xsm;
-        color: $primary;
-        border: 1px solid $white;
+        padding: variables.$xsm;
+        color: variables.$primary;
+        border: 1px solid variables.$white;
         border-radius: 50%;
-        font-size: $small-font-size;
+        font-size: variables.$small-font-size;
       }
     }
   }

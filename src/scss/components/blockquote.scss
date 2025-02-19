@@ -1,19 +1,19 @@
-@import '../abstracts/variables';
-@import '../abstracts/utilities';
+@use '../abstracts/variables';
+@use '../abstracts/utilities';
 
 // === Blockquote === //
 
 blockquote {
-  font-weight: $font-weight-normal;
+  font-weight: variables.$font-weight-normal;
   font-style: normal;
-  font-family: $font-family-serif;
+  font-family: variables.$font-family-serif;
   border-left-style: solid;
   border-width: 10px;
-  border-color: $primary;
-  padding: $lg;
+  border-color: variables.$primary;
+  padding: variables.$lg;
   font-size: 1.5rem;
   line-height: 1.7;
-  @include padding($top: $xsm, $bottom: $xsm, $left: $lg);
+  @include utilities.padding($top: variables.$xsm, $bottom: variables.$xsm, $left: variables.$lg);
 
   cite {
     display: block;
@@ -34,10 +34,10 @@ blockquote {
   [class*="bg--"] [class*="bg--gray"] &,
   [class*="bg--white"] &,
   [class*="bg--"] [class*="bg--white"] &, {
-    border-color: $primary;
+    border-color: variables.$primary;
 
     &::before {
-      background: $primary;
+      background: variables.$primary;
     }
   }
 
@@ -53,17 +53,17 @@ blockquote {
 
   p {
     margin-top: 0;
-    font-weight: $font-weight-normal;
+    font-weight: variables.$font-weight-normal;
     font-size: 1.5rem;
   }
 
   footer {
-    font-family: $font-family-sans-serif;
-    margin-top: $md;
-    font-size: $content-font-size;
+    font-family: variables.$font-family-sans-serif;
+    margin-top: variables.$md;
+    font-size: variables.$content-font-size;
     line-height: 1.5;
     p {
-      font-size: $content-font-size;
+      font-size: variables.$content-font-size;
       line-height: 1.5;
     }
   }
@@ -87,7 +87,7 @@ blockquote {
     border: none;
     position: relative;
 
-    @include padding($top: $xlg, $bottom: $xsm, $left: $xsm, $right: $xsm);
+    @include utilities.padding($top: variables.$xlg, $bottom: variables.$xsm, $left: variables.$xsm, $right: variables.$xsm);
 
     &::before {
       position: absolute;
@@ -98,7 +98,7 @@ blockquote {
       left: 0;
       right: 0;
       width: 130px;
-      background: $primary;
+      background: variables.$primary;
       -webkit-transition: 0.5s;
       transition: 0.5s;
 
@@ -115,7 +115,7 @@ blockquote {
     text-align: end;
     border-left: none;
     border-right-style: solid;
-    padding: $xsm $lg;
+    padding: variables.$xsm variables.$lg;
   }
   // Shared styles for above and below options.
   &.blockquote--img-above,
@@ -125,12 +125,12 @@ blockquote {
       margin-top: 0.7rem;
     }
     &.blockquote:not(.blockquote--center) {
-      margin-bottom: $mobile-width-gutter;
+      margin-bottom: variables.$mobile-width-gutter;
 
       .blockquote__media {
-        margin-bottom: $sm-md;
+        margin-bottom: variables.$sm-md;
 
-        @include breakpoint(sm) {
+        @include utilities.breakpoint(sm) {
           margin-bottom: 0;
         }
       }
@@ -147,20 +147,20 @@ blockquote {
   // Blockquote image above.
   &.blockquote--img-above {
     .blockquote__media {
-      @include breakpoint(sm) {
+      @include utilities.breakpoint(sm) {
         flex: 0 1 auto;
       }
     }
 
     .blockquote__content {
-      @include breakpoint(sm) {
+      @include utilities.breakpoint(sm) {
         flex: 0 1 75%;
       }
     }
 
     .blockquote__paragraph {
       position: relative;
-      padding-bottom: $lg;
+      padding-bottom: variables.$lg;
 
       &::after {
         position: absolute;
@@ -170,7 +170,7 @@ blockquote {
         left: 0;
         right: 0;
         width: 130px;
-        background: $primary;
+        background: variables.$primary;
         -webkit-transition: 0.5s;
         transition: 0.5s;
 
@@ -181,7 +181,7 @@ blockquote {
         [class*="bg--black"] &,
         [class*="bg--gray"] &,
         [class*="bg--white"] & {
-          background: $primary;
+          background: variables.$primary;
         }
 
         .bg--gold--pattern--brain &,
@@ -196,7 +196,7 @@ blockquote {
       border: none;
       margin-right: 0;
       margin-left: 0;
-      padding: $md 0;
+      padding: variables.$md 0;
       display: flex;
       align-items: flex-start;
       flex-wrap: wrap;
@@ -220,7 +220,7 @@ blockquote {
         position: absolute;
         content: '';
         height: 0;
-        top: $sm-md;
+        top: variables.$sm-md;
         margin: 0 auto;
         left: 0;
         right: 0;
@@ -233,7 +233,7 @@ blockquote {
 
       .blockquote__media {
         position: relative;
-        margin: 0 auto $md;
+        margin: 0 auto variables.$md;
       }
 
       .blockquote__paragraph {
@@ -265,7 +265,7 @@ blockquote {
         margin: .5rem auto 0;
         justify-content: center;
         text-align: left;
-        @include breakpoint(sm) {
+        @include utilities.breakpoint(sm) {
           max-width: 40%;
         }
       }
