@@ -731,6 +731,24 @@
   // Excludes matches for all bg--* classes.
   &:not([class*="bg--"]) {
 
+    // Set banner container background color defaults
+    // for proper color contrast while image is loading.
+    @include utilities.breakpoint(sm) {
+      background: variables.$secondary;
+      &.banner--gradient-light {
+        background: #fff;
+      }
+    }
+
+    // Set banner container background color defaults
+    // for proper color contrast while image is loading.
+    &:not([class*="banner--stacked"]) {
+      background: variables.$secondary;
+      &.banner--gradient-light {
+        background: #fff;
+      }
+    }
+
     // Default overlay
     &:after {
       position: absolute;
@@ -750,18 +768,7 @@
       }
     }
 
-    // @todo Make this the default.
-    &.banner--gradient-dark {
-      @include utilities.breakpoint(sm) {
-        background: variables.$secondary;
-      }
-
-      &:not([class*="banner--stacked"]) {
-        background: variables.$secondary;
-      }
-    }
-
-    // Modifications for light gradient.
+    // === Light Gradient === //
     &.banner--gradient-light {
       &:after {
         background: rgba(255, 255, 255, .7);
@@ -771,7 +778,46 @@
       }
     }
 
-    // Modifications for stacked banners.
+    // === Top Gradient === //
+    &.banner--vertical-top:not(.banner--horizontal-left) {
+      &:after {
+        background: rgba(0, 0, 0, .5);
+        @include container-query() {
+          background: linear-gradient(0deg, #{variables.$gradient-dark-vertical});
+        }
+      }
+
+      &.banner--gradient-light {
+        &:after {
+          background: rgba(255, 255, 255, .7);
+          @include container-query() {
+            background: linear-gradient(0deg, #{variables.$gradient-light-vertical});
+          }
+        }
+      }
+    }
+
+    // === Bottom Gradient === //
+    &.banner--vertical-bottom:not(.banner--horizontal-left),
+    &.banner--vertical-center:not(.banner--horizontal-left) {
+      &:after {
+        background: rgba(0, 0, 0, .5);
+        @include container-query() {
+          background: linear-gradient(180deg, #{variables.$gradient-dark-vertical});
+        }
+      }
+
+      &.banner--gradient-light {
+        &:after {
+          background: rgba(255, 255, 255, .7);
+          @include container-query() {
+            background: linear-gradient(180deg, #{variables.$gradient-light-vertical});
+          }
+        }
+      }
+    }
+
+    // Modifications for default left-right gradient for stacked banners.
     &[class*="banner--stacked"] {
       &:after {
         background: none;
@@ -789,85 +835,6 @@
           background: linear-gradient(90deg, #{variables.$gradient-light-horizontal});
         }
       }
-
-      &.banner--vertical-top {
-        &:after {
-          @include utilities.breakpoint(sm) {
-            background: linear-gradient(0deg, #{variables.$gradient-dark-vertical});
-          }
-        }
-
-        &.banner--gradient-light {
-          &:after {
-            background: rgba(255, 255, 255, .7);
-            @include container-query() {
-              background: linear-gradient(0deg, #{variables.$gradient-light-vertical});
-            }
-          }
-        }
-      }
-
-      // If vertical alignment, set top gradient rules.
-      &.banner--vertical-top {
-        &:after {
-          background: rgba(0, 0, 0, .5);
-          @include container-query() {
-            background: linear-gradient(0deg, #{variables.$gradient-dark-vertical});
-          }
-        }
-
-        &.banner--gradient-light {
-          &:after {
-            background: rgba(255, 255, 255, .7);
-            @include container-query() {
-              background: linear-gradient(0deg, #{variables.$gradient-light-vertical});
-            }
-          }
-        }
-      }
-    }
-
-  }
-
-  // @todo Convert this to use vertical bottom alignment class and move into not() condition above.
-  &--gradient-bottom {
-    &:after {
-      background: rgba(0, 0, 0, .5);
-      @include container-query() {
-        background: linear-gradient(180deg, #{variables.$gradient-dark-vertical});
-      }
-    }
-
-    &[class*="banner--stacked"] {
-      &:after {
-        @include utilities.breakpoint(sm) {
-          background: linear-gradient(180deg, #{variables.$gradient-dark-vertical});
-        }
-      }
-    }
-
-    &.banner--gradient-light {
-      &:after {
-        background: rgba(255, 255, 255, .7);
-        @include container-query() {
-          background: linear-gradient(180deg, #{variables.$gradient-light-vertical});
-        }
-      }
-
-      &[class*="banner--stacked"] {
-        &:after {
-          @include utilities.breakpoint(sm) {
-            background: linear-gradient(180deg, #{variables.$gradient-light-vertical});
-          }
-        }
-      }
-    }
-  }
-
-  // @todo Clarify use of this.
-  &--transparent {
-    &:after {
-      background: none;
     }
   }
 
