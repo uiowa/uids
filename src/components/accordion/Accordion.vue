@@ -18,14 +18,10 @@ const props = defineProps({
 const itemIds = [];
 
 const ariaOwnsIds = () =>{
-  const items = props.items.length;
-  if (items < 1) {
-    return null;
-  }
-
-  for(let i = 0; i < props.items.length; i++) {
-    itemIds.push('accordion-heading-' + i);
-  }
+  const itemIds = [];
+  props.items.forEach((item, index) => {
+    itemIds.push(item.id);
+  });
 
   return itemIds.join(' ');
 }
@@ -55,10 +51,9 @@ onMounted(() => {
       class="accordion__item"
       :name="!props.multiselectable ? 'accordion-collection' : null"
       :open="item.open"
-      :id="'accordion-item-' + index"
       role="none"
     >
-      <summary :id="'accordion-heading-' + index" class="accordion__heading"
+      <summary :id="item.id" class="accordion__heading"
         role="tab"
       >
         <h2>
@@ -67,7 +62,6 @@ onMounted(() => {
         </h2>
       </summary>
       <div
-        :id="'accordion-content-' + index"
         class="accordion__content"
         v-html="item.content"
       ></div>
