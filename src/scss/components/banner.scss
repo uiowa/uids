@@ -187,7 +187,7 @@
     }
 
     // Default transparent button styles for non-stacked banners.
-    &:not(.banner--stacked):not([class*="bg--white"]):not([class*="bg--gold"]) {
+    &:not(.banner--stacked):not(.bg--white):not(.bg--gold) {
       .banner__action .bttn--transparent {
         border: 1px solid #fff;
         color: #fff;
@@ -305,7 +305,7 @@
 
   &--stacked {
 
-    &[class*="banner--gradient-dark"] {
+    &.banner--gradient-dark {
       .headline {
         color: variables.$secondary;
         text-shadow: none;
@@ -325,10 +325,10 @@
     }
   }
 
-  &[class*="bg--gold"],
-  &[class*="bg--white"],
-  &[class*="bg--gray"],
-  &[class*="banner--gradient-light"] {
+  &.bg--gold,
+  &.bg--white,
+  &.bg--gray,
+  &.banner--gradient-light {
     .headline {
       color: variables.$secondary;
       text-shadow: none;
@@ -442,33 +442,33 @@
   }
 
   // bg color overrides.
-  &[class*="banner--gradient-dark"]:not([class*="banner--stacked"]) {
+  &.banner--gradient-dark:not(.banner--stacked) {
     .banner__text a {
-      [class*="bg--gray"] &,
-      [class*="bg--gold"] &,
-      [class*="bg--white"] & {
+      .bg--gray &,
+      .bg--gold &,
+      .bg--white & {
         color: #fff;
       }
     }
   }
 
-  &[class*="bg--black"] {
+  &.bg--black {
     .banner__text p {
       color: #fff;
     }
   }
 
-  &[class*="banner--gradient-light"] {
+  &.banner--gradient-light {
     .banner__text {
       blockquote {
-        [class*="bg--gold"] & {
+        .bg--gold & {
           border-left-color: variables.$primary;
         }
       }
     }
   }
 
-  &[class*="bg--gray"] {
+  &.bg--gray {
     .banner__text {
       color: variables.$secondary;
 
@@ -488,9 +488,9 @@
     }
   }
 
-  &[class*="bg--gold"],
-  &[class*="bg--white"],
-  &[class*="banner--gradient-light"] {
+  &.bg--gold,
+  &.bg--white,
+  &.banner--gradient-light {
     .banner__text {
       color: variables.$secondary;
 
@@ -525,7 +525,7 @@
       }
     }
 
-    &[class*="banner--gradient-dark"] {
+    &.banner--gradient-dark {
       .banner__text * {
         color: variables.$secondary;
         text-shadow: none;
@@ -543,7 +543,7 @@
       }
     }
 
-    &[class*="banner--gradient-light"] {
+    &.banner--gradient-light {
       @include container-query() {
         .banner__container {
           // This glow allows the text to sit over darker images better.
@@ -552,7 +552,7 @@
       }
     }
 
-    &[class*="bg--black"] {
+    &.bg--black {
       display: flex;
 
       .banner__text {
@@ -694,7 +694,7 @@
     }
   }
 
-  &[class*="banner--gradient-light"] {
+  &.banner--gradient-light {
     .media--video .video-btn {
       border: 1px solid variables.$secondary;
     }
