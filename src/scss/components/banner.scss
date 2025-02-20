@@ -28,12 +28,13 @@
   position: relative;
   overflow: hidden;
 
-  @include utilities.breakpoint(sm) {
-    flex-basis: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  // @todo The block below appears to be redundant.
+  //@include utilities.breakpoint(sm) {
+  //  flex-basis: 100%;
+  //  display: flex;
+  //  align-items: center;
+  //  justify-content: center;
+  //}
 
   &::after {
     display: block;
@@ -42,79 +43,21 @@
   }
 }
 
-// === Sizes === //
-.banner {
-  &--large {
-    &::before {
-      float: left;
-      padding-top: 45.25%;
-      content: '';
-    }
-  }
-
-  &--medium {
-    &::before {
-      float: left;
-      padding-top: 32.25%;
-      content: '';
-    }
-  }
-
-  &--full {
-    &.banner--large {
-      @include utilities.breakpoint(page-container) {
-        height: 100vh;
-      }
-    }
-  }
-}
-// === End: Sizes === //
-
-// === Alignment === //
-.banner {
-  &.banner--vertical-top {
-    align-items: flex-start;
-  }
-
-  &.banner--vertical-bottom {
-    align-items: flex-end;
-  }
-
-  &.banner--horizontal-center {
-    text-align: center;
-
-    blockquote {
-      border-left: none;
-    }
-
-    .banner__content {
-      > * {
-        margin-right: auto;
-        margin-left: auto;
-      }
-    }
-  }
-}
-// === End: Alignment === //
-
 // === Content === //
-.banner {
-  &:focus-within .headline a:focus {
-    text-decoration: underline;
-  }
+.banner__content {
+  margin: 0 auto;
+  width: 100%;
+  z-index: 1;
 
-  &__content {
-    margin: 0 auto;
-    width: 100%;
+  @include utilities.breakpoint(sm) {
     z-index: 1;
-
-    @include utilities.breakpoint(sm) {
-      z-index: 1;
-      max-width: variables.$container-width;
-      top: 0;
-    }
+    max-width: variables.$container-width;
+    top: 0;
   }
+}
 
+// @todo Move to banner--stacked section.
+.banner {
   &.banner--stacked:not([class*="bg-"]) {
     .banner__content {
       background: white;
@@ -125,8 +68,7 @@
     }
   }
 }
-
-// === End: Container === //
+// === End: Content === //
 
 // === Buttons === //
 .banner {
@@ -144,6 +86,7 @@
     }
   }
 
+  // @todo Move to alignment section.
   // Stack buttons for horizontal center version for mobile.
   &.banner--horizontal-center {
     .banner__action .bttn {
@@ -174,6 +117,7 @@
     }
   }
 
+  // @todo Move to gradients section.
   // Transparent button styles for gradient dark banners.
   &.banner--gradient-dark {
     // Stacked banner transparent button styles.
@@ -195,39 +139,7 @@
     }
   }
 }
-
 // === End: Buttons === //
-
-// === Pre-title === //
-.banner {
-  &__pre-title {
-    line-height: 1.1;
-
-    &.headline.headline--serif {
-      margin-bottom: 0;
-      font-weight: 500;
-    }
-
-    &.headline.headline--uppercase {
-      margin-bottom: 0.7rem;
-      font-weight: 500;
-    }
-
-    &.headline--large {
-      font-size: clamp(1.2rem, calc(0.9014vw + 0.862rem), 1.6rem);
-    }
-
-    &.headline--medium {
-      font-size: clamp(1.2rem, calc(0.4507vw + 1.031rem), 1.4rem);
-    }
-
-    &.headline--small {
-      font-size: variables.$h5-font-size;
-    }
-  }
-}
-
-// === End: Pre-title === //
 
 // === Headline === //
 .banner {
@@ -249,6 +161,11 @@
     margin-bottom: 1rem;
   }
 
+  &:focus-within .headline a:focus {
+    text-decoration: underline;
+  }
+
+  // @todo Move to gradients section.
   &.banner--gradient-dark {
     .headline {
       color: #fff;
@@ -303,6 +220,7 @@
 
   }
 
+  // @todo Move to stacked section.
   &--stacked {
 
     &.banner--gradient-dark {
@@ -342,6 +260,36 @@
 
 // === End: Headline === //
 
+// === Pre-title === //
+.banner {
+  &__pre-title {
+    line-height: 1.1;
+
+    &.headline.headline--serif {
+      margin-bottom: 0;
+      font-weight: 500;
+    }
+
+    &.headline.headline--uppercase {
+      margin-bottom: 0.7rem;
+      font-weight: 500;
+    }
+
+    &.headline--large {
+      font-size: clamp(1.2rem, calc(0.9014vw + 0.862rem), 1.6rem);
+    }
+
+    &.headline--medium {
+      font-size: clamp(1.2rem, calc(0.4507vw + 1.031rem), 1.4rem);
+    }
+
+    &.headline--small {
+      font-size: variables.$h5-font-size;
+    }
+  }
+}
+
+// === End: Pre-title === //
 
 // === Text/buttons === //
 .banner {
@@ -715,13 +663,62 @@
 }
 // === End: Video === //
 
-// === Stacked === //
-.banner {
-  &--stacked {
-    display: block;
-    @include container-query() {
-      display: flex;
+// === Sizes === //
+.banner--large {
+  &::before {
+    float: left;
+    padding-top: 45.25%;
+    content: '';
+  }
+}
+.banner--medium {
+  &::before {
+    float: left;
+    padding-top: 32.25%;
+    content: '';
+  }
+}
+.banner--full {
+  &.banner--large {
+    @include utilities.breakpoint(page-container) {
+      height: 100vh;
     }
+  }
+}
+// === End: Sizes === //
+
+// === Alignment === //
+.banner {
+  &.banner--vertical-top {
+    align-items: flex-start;
+  }
+
+  &.banner--vertical-bottom {
+    align-items: flex-end;
+  }
+
+  &.banner--horizontal-center {
+    text-align: center;
+
+    blockquote {
+      border-left: none;
+    }
+
+    .banner__content {
+      > * {
+        margin-right: auto;
+        margin-left: auto;
+      }
+    }
+  }
+}
+// === End: Alignment === //
+
+// === Stacked === //
+.banner--stacked {
+  display: block;
+  @include container-query() {
+    display: flex;
   }
 }
 // === End: Stacked === //
