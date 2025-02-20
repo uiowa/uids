@@ -110,18 +110,6 @@ const classes = computed(() => {
     classes.push(`banner--vertical-${props.vertical_alignment}`);
   }
 
-  // @todo Remove this section when banner SCSS changes are complete.
-  // Only apply a gradient if we don't have a background.
-  if (props.background === '') {
-
-    if (
-      props.vertical_alignment === 'bottom' ||
-      props.horizontal_alignment === 'center'
-    ) {
-      classes.push('banner--gradient-bottom');
-    }
-  }
-
   return classes;
 });
 
