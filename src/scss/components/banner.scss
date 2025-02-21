@@ -35,8 +35,7 @@
 }
 // === End: Banner base === //
 
-
-// === Media === //
+// === Media/Overlay === //
 .banner .media {
   height: 100%;
   width: 100%;
@@ -52,6 +51,28 @@
     object-fit: cover;
     top: 0;
     overflow: visible;
+  }
+
+  // Overlay/Gradient.
+  &:after {
+    display: block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    content: "";
+    -webkit-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    will-change: opacity;
+    // Default is dark overlay.
+    background: rgba(0, 0, 0, .5);
+    // Gradient comes in at the xsm container breakpoint.
+    @include container-query() {
+      // Default gradient is bottom-aligned.
+      // @todo Figure out how to get this working with the new gradient variables.
+      background: linear-gradient(0deg, black, transparent);
+    }
   }
 
   // Video.
@@ -103,18 +124,93 @@
   }
 }
 
-.banner {
+// A negative match for all backgrounds, which is the same
+// as a positive match for banners with a media element.
+.banner:not([class^="bg--"]) {
 
-  &.banner--gradient-light {
-    .media--video .video-btn {
-      border: 1px solid variables.$secondary;
+  // Set banner container background color defaults
+  // for proper color contrast while image is loading.
+  @include container-query() {
+    background: variables.$secondary;
+    &.banner--gradient-light {
+      background: #fff;
     }
   }
 
-  &--stacked {
+  // Set banner container background color defaults
+  // for proper color contrast while image is loading.
+  //&:not(.banner--stacked) {
+  //  background: variables.$secondary;
+  //  &.banner--gradient-light {
+  //    background: #fff;
+  //  }
+  //}
+
+  // === Top Gradient === //
+  &.banner--vertical-top {
+    &:after,
+    &.banner--stacked:after {
+      //background: rgba(0, 0, 0, .5);
+      @include container-query() {
+        background: linear-gradient(0deg, #{variables.$gradient-dark-vertical});
+      }
+    }
+
+    &.banner--gradient-light {
+      &:after,
+      &.banner--stacked:after {
+        //background: rgba(255, 255, 255, .7);
+        @include container-query() {
+          background: linear-gradient(0deg, #{variables.$gradient-light-vertical});
+        }
+      }
+    }
+  }
+
+  // === Bottom Gradient === //
+  &.banner--vertical-bottom,
+  &.banner--vertical-center:not(.banner--horizontal-left) {
+    &:after,
+    &.banner--stacked:after {
+      //background: rgba(0, 0, 0, .5);
+      @include container-query() {
+        background: linear-gradient(180deg, #{variables.$gradient-dark-vertical});
+      }
+    }
+
+    &.banner--gradient-light {
+      &:after,
+      &.banner--stacked:after  {
+        //background: rgba(255, 255, 255, .7);
+        @include container-query() {
+          background: linear-gradient(180deg, #{variables.$gradient-light-vertical});
+        }
+      }
+    }
+  }
+
+  // Modifications for default left-right gradient for stacked banners.
+  &.banner--stacked {
+    &:after {
+      background: none;
+
+      @include container-query() {
+        background: linear-gradient(90deg, #{variables.$gradient-dark-horizontal});
+      }
+    }
+
+    &.banner--gradient-light:after {
+      @include container-query() {
+        background: linear-gradient(90deg, #{variables.$gradient-light-horizontal});
+      }
+    }
   }
 }
-// === End: Video === //
+
+.banner[class^="bg--"]:after {
+  background: inherit;
+}
+// === End: Media/Overlay === //
 
 // === Content === //
 .banner__content {
@@ -149,17 +245,6 @@
 .banner--extra-padding .banner__content {
   @include container-query() {
     --banner-padding: 6rem;
-  }
-}
-
-// @todo Move to banner--stacked section.
-.banner--stacked:not([class*="bg-"]) {
-  .banner__content {
-    background: white;
-
-    @include container-query() {
-      background: unset;
-    }
   }
 }
 // === End: Content === //
@@ -530,6 +615,41 @@
 }
 // === End: Buttons === //
 
+
+// === Stacked === //
+.banner--stacked {
+  display: block;
+  @include container-query() {
+    display: flex;
+  }
+
+  .media {
+    position: relative;
+    @include container-query() {
+      position: absolute;
+    }
+
+    .video-btn {
+      display: block;
+    }
+  }
+}
+
+.banner--stacked:not([class^="bg--"]) {
+  &:after {
+    background: none;
+  }
+
+  .banner__content {
+    background: white;
+
+    @include container-query() {
+      background: unset;
+    }
+  }
+}
+// === End: Stacked === //
+
 // === Sizes === //
 .banner--large {
   &::before {
@@ -555,190 +675,43 @@
 // === End: Sizes === //
 
 // === Alignment === //
-.banner {
-  &.banner--vertical-top {
-    align-items: flex-start;
+.banner--vertical-top {
+  align-items: flex-start;
+}
+
+.banner--vertical-bottom {
+  align-items: flex-end;
+}
+
+.banner--horizontal-center {
+  text-align: center;
+
+  blockquote {
+    border-left: none;
   }
 
-  &.banner--vertical-bottom {
-    align-items: flex-end;
-  }
-
-  &.banner--horizontal-center {
-    text-align: center;
-
-    blockquote {
-      border-left: none;
-    }
-
-    .banner__content {
-      > * {
-        margin-right: auto;
-        margin-left: auto;
-      }
+  .banner__content {
+    > * {
+      margin-right: auto;
+      margin-left: auto;
     }
   }
 }
 // === End: Alignment === //
 
-// === Gradients === //
-.banner {
-  // Excludes matches for all bg--* classes.
-  &:not([class^="bg--"]) {
-
-    // Set banner container background color defaults
-    // for proper color contrast while image is loading.
+// === Light Gradient === //
+.banner--gradient-light {
+  .media:after {
+    //background: rgba(255, 255, 255, .7);
     @include container-query() {
-      background: variables.$secondary;
-      &.banner--gradient-light {
-        background: #fff;
-      }
-    }
-
-    // Set banner container background color defaults
-    // for proper color contrast while image is loading.
-    //&:not(.banner--stacked) {
-    //  background: variables.$secondary;
-    //  &.banner--gradient-light {
-    //    background: #fff;
-    //  }
-    //}
-
-    // Default overlay
-    &:after {
-      position: absolute;
-      top: 0;
-      left: 0;
-      display: block;
-      width: 100%;
-      height: 100%;
-      content: "";
-      -webkit-transition: all 0.5s ease-in-out;
-      transition: all 0.5s ease-in-out;
-      will-change: opacity;
-      // Default is dark overlay.
-      background: rgba(0, 0, 0, .5);
-      // Gradient comes in at the xsm container breakpoint.
-      @include container-query() {
-        // Default gradient is
-        background: linear-gradient(90deg, #{variables.$gradient-dark-horizontal});
-      }
-    }
-
-    &.banner--stacked {
-      &:after {
-        background: none;
-      }
-    }
-
-    &:not(.banner--stacked) {
-      &:after {
-        //background: rgba(0, 0, 0, .5);
-      }
-
-      &.banner--gradient-light {
-        &:after {
-          background: rgba(255, 255, 255, .7);
-        }
-      }
-    }
-
-    // === Light Gradient === //
-    &.banner--gradient-light {
-      &:after {
-        //background: rgba(255, 255, 255, .7);
-        @include container-query() {
-          background: linear-gradient(90deg, #{variables.$gradient-light-horizontal});
-        }
-      }
-    }
-
-    // === Top Gradient === //
-    &.banner--vertical-top {
-      &:after,
-      &.banner--stacked:after {
-        //background: rgba(0, 0, 0, .5);
-        @include container-query() {
-          background: linear-gradient(0deg, #{variables.$gradient-dark-vertical});
-        }
-      }
-
-      &.banner--gradient-light {
-        &:after,
-        &.banner--stacked:after {
-          //background: rgba(255, 255, 255, .7);
-          @include container-query() {
-            background: linear-gradient(0deg, #{variables.$gradient-light-vertical});
-          }
-        }
-      }
-    }
-
-    // === Bottom Gradient === //
-    &.banner--vertical-bottom,
-    &.banner--vertical-center:not(.banner--horizontal-left) {
-      &:after,
-      &.banner--stacked:after {
-        //background: rgba(0, 0, 0, .5);
-        @include container-query() {
-          background: linear-gradient(180deg, #{variables.$gradient-dark-vertical});
-        }
-      }
-
-      &.banner--gradient-light {
-        &:after,
-        &.banner--stacked:after  {
-          //background: rgba(255, 255, 255, .7);
-          @include container-query() {
-            background: linear-gradient(180deg, #{variables.$gradient-light-vertical});
-          }
-        }
-      }
-    }
-
-    // Modifications for default left-right gradient for stacked banners.
-    &.banner--stacked {
-      &:after {
-        background: none;
-
-        @include container-query() {
-          background: linear-gradient(90deg, #{variables.$gradient-dark-horizontal});
-        }
-      }
-
-      &.banner--gradient-light:after {
-        @include container-query() {
-          background: linear-gradient(90deg, #{variables.$gradient-light-horizontal});
-        }
-      }
+      background: linear-gradient(90deg, #{variables.$gradient-light-horizontal});
     }
   }
 
-  &[class^="bg--"]:after {
-    background: inherit;
+  .media .video-btn {
+    border: 1px solid variables.$secondary;
   }
 }
-// === End: Gradients === //
-
-// === Stacked === //
-.banner--stacked {
-  display: block;
-  @include container-query() {
-    display: flex;
-  }
-
-  .media {
-    position: relative;
-    @include container-query() {
-      position: absolute;
-    }
-
-    .video-btn {
-      display: block;
-    }
-  }
-}
-// === End: Stacked === //
 
 // === Background colors === //
 // Remove left/right padding if container background matches banner background.
