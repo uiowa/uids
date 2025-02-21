@@ -123,7 +123,8 @@ export default {
     },
     extra_padding: {
       name: 'Extra padding',
-      control: { type: 'boolean' }
+      control: { type: 'boolean' },
+      table: { category: 'Display options' },
     },
     mobile_content_below_image: {
       name: 'Content below media (mobile-only)',

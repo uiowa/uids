@@ -3,7 +3,7 @@
 
 @mixin container-query() {
   @supports (contain: inline-size) {
-    @container column (min-width: #{variables.$break-xsm}) {
+    @container column (min-width: #{variables.$break-sm}) {
       @content
     }
   }
@@ -38,113 +38,72 @@
 
 // === Media === //
 .banner .media {
+  height: 100%;
+  width: 100%;
+  position: absolute;
   overflow: visible;
 
   img,
   video {
     display: block;
+    height: 100%;
     width: 100%;
     -o-object-fit: cover;
     object-fit: cover;
-    height: 100%;
     top: 0;
-  }
-}
-
-.banner {
-  .media--image {
-
-    img {
-      position: absolute;
-    }
+    overflow: visible;
   }
 
-  &--stacked {
-    .media--image {
-      img {
-        position: relative;
-        @include container-query() {
-          position: absolute;
-        }
-      }
-    }
-  }
-}
-
-.banner {
-  .media--video {
-    height: 100%;
-    width: 100%;
-    top: 0;
+  // Video.
+  .video-controls {
     position: absolute;
+    z-index: 2;
+    left: variables.$gutter;
+    bottom: variables.$gutter;
 
-    video {
-      overflow: visible;
-      @include utilities.breakpoint(sm) {
-        position: absolute;
-      }
+    @include utilities.breakpoint(sm) {
+      left: variables.$mobile-height-gutter;
+      bottom: variables.$mobile-height-gutter;
+    }
+  }
+
+  .video-btn {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    color: variables.$secondary;
+    border: 1px solid white;
+    border-radius: 50%;
+    background: white;
+    font-size: 1rem;
+    padding: 0;
+
+    @include utilities.breakpoint(sm) {
+      display: block;
     }
 
-    .video-controls {
-      position: absolute;
-      z-index: 2;
-      left: variables.$gutter;
-      bottom: variables.$gutter;
-
-      @include utilities.breakpoint(sm) {
-        left: variables.$mobile-height-gutter;
-        bottom: variables.$mobile-height-gutter;
-      }
-    }
-
-    .video-btn {
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-      color: variables.$secondary;
-      border: 1px solid white;
-      border-radius: 50%;
-      background: white;
+    &::after {
+      content: "\f04b";
+      @include utilities.fas();
       font-size: 1rem;
-      padding: 0;
-
-      @include utilities.breakpoint(sm) {
-        display: block;
-      }
-
-      &::after {
-        content: "\f04b";
-        @include utilities.fas();
-        font-size: 1rem;
-      }
-
-      &.video-btn__play::after {
-        margin-left: 3px;
-      }
-
-      &.video-btn__pause::after {
-        content: "\f04c";
-      }
     }
-    @media (hover:none), (hover:on-demand) {
-      .video-btn {
-        display: none;
-      }
+
+    &.video-btn__play::after {
+      margin-left: 3px;
+    }
+
+    &.video-btn__pause::after {
+      content: "\f04c";
     }
   }
-
-  &.banner--extra-padding {
-    .media--video {
-      .video-controls {
-        @include container-query() {
-          @include utilities.breakpoint(sm) {
-            left: 6rem;
-            bottom: 4rem;
-          }
-        }
-      }
+  @media (hover:none), (hover:on-demand) {
+    .video-btn {
+      display: none;
     }
   }
+}
+
+.banner {
 
   &.banner--gradient-light {
     .media--video .video-btn {
@@ -153,16 +112,6 @@
   }
 
   &--stacked {
-    .media--video {
-      position: relative;
-      @include container-query() {
-        position: absolute;
-      }
-
-      .video-btn {
-        display: block;
-      }
-    }
   }
 }
 // === End: Video === //
@@ -196,54 +145,11 @@
   }
 }
 
-
-
-.banner {
-
-  // Extra padding.
-  &.banner--extra-padding {
-    @include container-query() {
-      --banner-padding: 6rem;
-    }
-
-    //&:has(.media--video) {
-    //  .banner__content {
-    //    @include container-query() {
-    //      padding-bottom: 8rem;
-    //    }
-    //  }
-    //
-    //  &.banner--stacked {
-    //    .banner__content {
-    //      @include container-query() {
-    //        padding-bottom: 8rem;
-    //      }
-    //    }
-    //  }
-    //}
+// Extra padding.
+.banner--extra-padding .banner__content {
+  @include container-query() {
+    --banner-padding: 6rem;
   }
-
-  // Add more padding for play/pause button for banners with video.
-  //&:has(.media--video) {
-  //  .banner__content {
-  //    padding-bottom: 5rem;
-  //
-  //    @include utilities.breakpoint(page-container) {
-  //      padding-bottom: 6rem;
-  //    }
-  //  }
-  //  &.banner--stacked {
-  //    .banner__content {
-  //      @include container-query() {
-  //        padding-bottom: 5rem;
-  //      }
-  //
-  //      @include utilities.breakpoint(page-container) {
-  //        padding-bottom: 6rem;
-  //      }
-  //    }
-  //  }
-  //}
 }
 
 // @todo Move to banner--stacked section.
@@ -675,15 +581,6 @@
 }
 // === End: Alignment === //
 
-// === Stacked === //
-.banner--stacked {
-  display: block;
-  @include container-query() {
-    display: flex;
-  }
-}
-// === End: Stacked === //
-
 // === Gradients === //
 .banner {
   // Excludes matches for all bg--* classes.
@@ -721,7 +618,9 @@
       will-change: opacity;
       // Default is dark overlay.
       background: rgba(0, 0, 0, .5);
+      // Gradient comes in at the xsm container breakpoint.
       @include container-query() {
+        // Default gradient is
         background: linear-gradient(90deg, #{variables.$gradient-dark-horizontal});
       }
     }
@@ -821,6 +720,26 @@
 }
 // === End: Gradients === //
 
+// === Stacked === //
+.banner--stacked {
+  display: block;
+  @include container-query() {
+    display: flex;
+  }
+
+  .media {
+    position: relative;
+    @include container-query() {
+      position: absolute;
+    }
+
+    .video-btn {
+      display: block;
+    }
+  }
+}
+// === End: Stacked === //
+
 // === Background colors === //
 // Remove left/right padding if container background matches banner background.
 
@@ -828,8 +747,8 @@ $bg-colors: "white", "black", "gray", "gold";
 
 // Simple background colors and pattern variants
 @each $color in $bg-colors {
-  div[class*="bg--#{$color}"] {
-    .banner[class*="bg--#{$color}"] {
+  div[class^="bg--#{$color}"] {
+    .banner[class^="bg--#{$color}"] {
       .banner__content {
         padding-left: 0;
         padding-right: 0;
