@@ -131,7 +131,8 @@
     }
 
     // Default transparent button styles for non-stacked banners.
-    &:not(.banner--stacked):not(.bg--white):not(.bg--gold) {
+    // @todo Add comment describing why class^="bg--*" is used.
+    &:not(.banner--stacked):not([class^="bg--white"]):not([class^="bg--gold"]) {
       .banner__action .bttn--transparent {
         border: 1px solid #fff;
         color: #fff;
@@ -243,9 +244,10 @@
     }
   }
 
-  &.bg--gold,
-  &.bg--white,
-  &.bg--gray,
+  // 'bg--*' selectors match solid color and patterns.
+  &[class^="bg--gold"],
+  &[class^="bg--white"],
+  &[class^="bg--gray"],
   &.banner--gradient-light {
     .headline {
       color: variables.$secondary;
@@ -392,15 +394,17 @@
   // bg color overrides.
   &.banner--gradient-dark:not(.banner--stacked) {
     .banner__text a {
-      .bg--gray &,
-      .bg--gold &,
-      .bg--white & {
+      // Matches background colors and patterns.
+      [class^="bg--gray"] &,
+      [class^="bg--gold"] &,
+      [class^="bg--white"] & {
         color: #fff;
       }
     }
   }
 
-  &.bg--black {
+  // Match black background color and patterns.
+  &[class^="bg--black"] {
     .banner__text p {
       color: #fff;
     }
@@ -409,14 +413,16 @@
   &.banner--gradient-light {
     .banner__text {
       blockquote {
-        .bg--gold & {
+        // Match gold background color and patterns.
+        [class^="bg--gold"] & {
           border-left-color: variables.$primary;
         }
       }
     }
   }
 
-  &.bg--gray {
+  // Match gray background color and patterns.
+  &[class^="bg--gray"] {
     .banner__text {
       color: variables.$secondary;
 
@@ -436,8 +442,9 @@
     }
   }
 
-  &.bg--gold,
-  &.bg--white,
+  // Matches white and gold background colors and patterns.
+  &[class*="bg--gold"],
+  &[class*="bg--white"],
   &.banner--gradient-light {
     .banner__text {
       color: variables.$secondary;
@@ -500,7 +507,8 @@
       }
     }
 
-    &.bg--black {
+    // Match black background color and patterns.
+    &[class^="bg--black"] {
       display: flex;
 
       .banner__text {
@@ -877,8 +885,9 @@ $bg-colors: "white", "black", "gray", "gold";
   }
 }
 
-// Special case for no background class.
-div:not([class*="bg-"]) {
+// When the containing element has no background color
+// and the banner has a solid white background, remove padding.
+div:not([class^="bg--"]) {
   .banner.bg--white {
     .banner__content {
       padding-left: 0;
