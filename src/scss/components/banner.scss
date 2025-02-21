@@ -14,7 +14,7 @@
   }
 }
 
-// === Banner === //
+// === Banner base === //
 .banner {
   display: flex;
   flex-basis: 100%;
@@ -24,17 +24,8 @@
   justify-content: center;
   // Default
   min-height: 15rem;
-
   position: relative;
   overflow: hidden;
-
-  // @todo The block below appears to be redundant.
-  //@include utilities.breakpoint(sm) {
-  //  flex-basis: 100%;
-  //  display: flex;
-  //  align-items: center;
-  //  justify-content: center;
-  //}
 
   &::after {
     display: block;
@@ -42,106 +33,230 @@
     clear: both;
   }
 }
+// === End: Banner base === //
+
+
+// === Media === //
+.banner .media {
+  overflow: visible;
+
+  img,
+  video {
+    display: block;
+    width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    height: 100%;
+    top: 0;
+  }
+}
+
+.banner {
+  .media--image {
+
+    img {
+      position: absolute;
+    }
+  }
+
+  &--stacked {
+    .media--image {
+      img {
+        position: relative;
+        @include container-query() {
+          position: absolute;
+        }
+      }
+    }
+  }
+}
+
+.banner {
+  .media--video {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    position: absolute;
+
+    video {
+      overflow: visible;
+      @include utilities.breakpoint(sm) {
+        position: absolute;
+      }
+    }
+
+    .video-controls {
+      position: absolute;
+      z-index: 2;
+      left: variables.$gutter;
+      bottom: variables.$gutter;
+
+      @include utilities.breakpoint(sm) {
+        left: variables.$mobile-height-gutter;
+        bottom: variables.$mobile-height-gutter;
+      }
+    }
+
+    .video-btn {
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      color: variables.$secondary;
+      border: 1px solid white;
+      border-radius: 50%;
+      background: white;
+      font-size: 1rem;
+      padding: 0;
+
+      @include utilities.breakpoint(sm) {
+        display: block;
+      }
+
+      &::after {
+        content: "\f04b";
+        @include utilities.fas();
+        font-size: 1rem;
+      }
+
+      &.video-btn__play::after {
+        margin-left: 3px;
+      }
+
+      &.video-btn__pause::after {
+        content: "\f04c";
+      }
+    }
+    @media (hover:none), (hover:on-demand) {
+      .video-btn {
+        display: none;
+      }
+    }
+  }
+
+  &.banner--extra-padding {
+    .media--video {
+      .video-controls {
+        @include container-query() {
+          @include utilities.breakpoint(sm) {
+            left: 6rem;
+            bottom: 4rem;
+          }
+        }
+      }
+    }
+  }
+
+  &.banner--gradient-light {
+    .media--video .video-btn {
+      border: 1px solid variables.$secondary;
+    }
+  }
+
+  &--stacked {
+    .media--video {
+      position: relative;
+      @include container-query() {
+        position: absolute;
+      }
+
+      .video-btn {
+        display: block;
+      }
+    }
+  }
+}
+// === End: Video === //
 
 // === Content === //
 .banner__content {
+  --banner-padding: #{variables.$gutter};
+  --banner-text-max-width: 1;
+
+  @include utilities.breakpoint(sm) {
+    --banner-padding: #{variables.$mobile-height-gutter};
+  }
+
+  @include container-query() {
+    --banner-text-max-width: .75;
+  }
+
   margin: 0 auto;
   width: 100%;
   z-index: 1;
+  padding: var(--banner-padding);
 
   @include utilities.breakpoint(sm) {
     z-index: 1;
     max-width: variables.$container-width;
     top: 0;
   }
+
+  > * {
+    flex-basis: 100%;
+  }
+}
+
+
+
+.banner {
+
+  // Extra padding.
+  &.banner--extra-padding {
+    @include container-query() {
+      --banner-padding: 6rem;
+    }
+
+    //&:has(.media--video) {
+    //  .banner__content {
+    //    @include container-query() {
+    //      padding-bottom: 8rem;
+    //    }
+    //  }
+    //
+    //  &.banner--stacked {
+    //    .banner__content {
+    //      @include container-query() {
+    //        padding-bottom: 8rem;
+    //      }
+    //    }
+    //  }
+    //}
+  }
+
+  // Add more padding for play/pause button for banners with video.
+  //&:has(.media--video) {
+  //  .banner__content {
+  //    padding-bottom: 5rem;
+  //
+  //    @include utilities.breakpoint(page-container) {
+  //      padding-bottom: 6rem;
+  //    }
+  //  }
+  //  &.banner--stacked {
+  //    .banner__content {
+  //      @include container-query() {
+  //        padding-bottom: 5rem;
+  //      }
+  //
+  //      @include utilities.breakpoint(page-container) {
+  //        padding-bottom: 6rem;
+  //      }
+  //    }
+  //  }
+  //}
 }
 
 // @todo Move to banner--stacked section.
-.banner {
-  &.banner--stacked:not([class*="bg-"]) {
-    .banner__content {
-      background: white;
+.banner--stacked:not([class*="bg-"]) {
+  .banner__content {
+    background: white;
 
-      @include container-query() {
-        background: unset;
-      }
+    @include container-query() {
+      background: unset;
     }
   }
 }
 // === End: Content === //
-
-// === Buttons === //
-.banner {
-  .headline + .banner__action {
-    margin-top: 1.5rem;
-  }
-
-  .banner__action .bttn {
-    margin: 0 1rem 1rem 0;
-
-    @include utilities.breakpoint(sm) {
-      + .bttn {
-        margin: 0 1rem 1rem 0;
-      }
-    }
-  }
-
-  // @todo Move to alignment section.
-  // Stack buttons for horizontal center version for mobile.
-  &.banner--horizontal-center {
-    .banner__action .bttn {
-      margin: 1rem auto;
-      display: block;
-      width: fit-content;
-
-      &:last-child {
-        margin: 1rem auto;
-      }
-
-      @include utilities.breakpoint(sm) {
-        margin: 0 1rem 1rem 0;
-        display: inline-block;
-        width: auto;
-
-        &:last-child {
-          margin-top: 0;
-          margin-right: 0;
-        }
-      }
-
-      + .bttn {
-        @include utilities.breakpoint(sm) {
-          margin: 0 1rem 1rem 0;
-        }
-      }
-    }
-  }
-
-  // @todo Move to gradients section.
-  // Transparent button styles for gradient dark banners.
-  &.banner--gradient-dark {
-    // Stacked banner transparent button styles.
-    &.banner--stacked:not([class*="bg-"]) {
-      .banner__action .bttn--transparent {
-        @include container-query() {
-          border-color: rgba(255, 255, 255, .525);
-          color: #fff;
-        }
-      }
-    }
-
-    // Default transparent button styles for non-stacked banners.
-    // @todo Add comment describing why class^="bg--*" is used.
-    &:not(.banner--stacked):not([class^="bg--white"]):not([class^="bg--gold"]) {
-      .banner__action .bttn--transparent {
-        border: 1px solid #fff;
-        color: #fff;
-      }
-    }
-  }
-}
-// === End: Buttons === //
-
 // === Headline === //
 .banner {
   .headline {
@@ -294,103 +409,40 @@
 // === End: Pre-title === //
 
 // === Text/buttons === //
-.banner {
-  --banner-padding: #{variables.$gutter};
-  --banner-text-max-width: 1;
 
-  @include utilities.breakpoint(sm) {
-    --banner-padding: #{variables.$mobile-height-gutter};
+.banner__text {
+  z-index: 1;
+  color: #fff;
+  margin-bottom: 1.05rem;
+
+  blockquote {
+    margin-left: 0;
   }
 
-  @include container-query() {
-    --banner-text-max-width: .75;
-  }
-
-  &__content {
-    padding: var(--banner-padding);
-
-    > * {
-      flex-basis: 100%;
-    }
-  }
-
-  // Extra padding.
-  &.banner--extra-padding {
-    @include container-query() {
-      --banner-padding: 6rem;
-    }
-
-    &:has(.media--video) {
-      .banner__content {
-        @include container-query() {
-          padding-bottom: 8rem;
-        }
-      }
-
-      &.banner--stacked {
-        .banner__content {
-          @include container-query() {
-            padding-bottom: 8rem;
-          }
-        }
-      }
-    }
-  }
-
-  // Add more padding for play/pause button for banners with video.
-  &:has(.media--video) {
-    .banner__content {
-      padding-bottom: 5rem;
-
-      @include utilities.breakpoint(page-container) {
-        padding-bottom: 6rem;
-      }
-    }
-    &.banner--stacked {
-      .banner__content {
-        @include container-query() {
-          padding-bottom: 5rem;
-        }
-
-        @include utilities.breakpoint(page-container) {
-          padding-bottom: 6rem;
-        }
-      }
-    }
-  }
-
-  &__text {
-    z-index: 1;
+  a {
     color: #fff;
-    margin-bottom: 1.05rem;
+  }
 
-    blockquote {
-      margin-left: 0;
-    }
+  p {
+    line-height: 1.5;
+    margin-top: 0;
+    color: #fff;
+    text-shadow: 0 1px 1px #000;
 
     a {
+      position: relative;
+      z-index: 1;
       color: #fff;
-    }
-
-    p {
-      line-height: 1.5;
-      margin-top: 0;
-      color: #fff;
-      text-shadow: 0 1px 1px #000;
-
-      a {
-        position: relative;
-        z-index: 1;
-        color: #fff;
-      }
-    }
-
-    // Set max-width for line-length readability.
-    @include container-query() {
-      max-width: 75%;
     }
   }
 
+  // Set max-width for line-length readability.
+  @include container-query() {
+    max-width: 75%;
+  }
+}
+
+.banner {
   // bg color overrides.
   &.banner--gradient-dark:not(.banner--stacked) {
     .banner__text a {
@@ -529,147 +581,48 @@
     }
   }
 }
-
 // === End: Text/buttons === //
 
-// === Image === //
+// === Buttons === //
 .banner {
-  .media--image {
-    overflow: visible;
+  .headline + .banner__action {
+    margin-top: 1.5rem;
+  }
 
-    img {
-      display: block;
-      width: 100%;
-      -o-object-fit: cover;
-      object-fit: cover;
-      position: absolute;
-      height: 100%;
-      top: 0;
+  .banner__action .bttn {
+    margin: 0 1rem 1rem 0;
+
+    @include utilities.breakpoint(sm) {
+      + .bttn {
+        margin: 0 1rem 1rem 0;
+      }
     }
   }
 
-  &--stacked {
-    .media--image {
-      img {
-        position: relative;
+  // @todo Move to gradients section.
+  // Transparent button styles for gradient dark banners.
+  &.banner--gradient-dark {
+    // Stacked banner transparent button styles.
+    &.banner--stacked:not([class*="bg-"]) {
+      .banner__action .bttn--transparent {
         @include container-query() {
-          position: absolute;
+          border-color: rgba(255, 255, 255, .525);
+          color: #fff;
         }
+      }
+    }
+
+    // Default transparent button styles for non-stacked banners.
+    // @todo Add comment describing why class^="bg--*" is used.
+    &:not(.banner--stacked):not([class^="bg--white"]):not([class^="bg--gold"]) {
+      .banner__action .bttn--transparent {
+        border: 1px solid #fff;
+        color: #fff;
       }
     }
   }
 }
-// === End: Image === //
-
-// === Video === //
-.banner {
-
-  .media--video .video-controls {
-    z-index: 2;
-  }
-
-  .media--video {
-    height: 100%;
-    width: 100%;
-    top: 0;
-    position: absolute;
-
-    video {
-      overflow: visible;
-      display: block;
-      width: 100%;
-      -o-object-fit: cover;
-      object-fit: cover;
-      height: 100%;
-      top: 0;
-      @include utilities.breakpoint(sm) {
-        position: absolute;
-      }
-    }
-  }
-
-  &.banner--extra-padding {
-    .media--video {
-      .video-controls {
-        @include container-query() {
-          @include utilities.breakpoint(sm) {
-            left: 6rem;
-            bottom: 4rem;
-          }
-        }
-      }
-    }
-  }
-
-  .media--video {
-
-    .video-controls {
-      position: absolute;
-      left: variables.$gutter;
-      bottom: variables.$gutter;
-
-      @include utilities.breakpoint(sm) {
-        left: variables.$mobile-height-gutter;
-        bottom: variables.$mobile-height-gutter;
-      }
-    }
-
-    .video-btn {
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-      color: variables.$secondary;
-      border: 1px solid white;
-      border-radius: 50%;
-      background: white;
-      font-size: 1rem;
-      padding: 0;
-
-      @include utilities.breakpoint(sm) {
-        display: block;
-      }
-
-      &::after {
-        content: "\f04b";
-        @include utilities.fas();
-        font-size: 1rem;
-      }
-
-      &.video-btn__play::after {
-        margin-left: 3px;
-      }
-
-      &.video-btn__pause::after {
-        content: "\f04c";
-      }
-    }
-    @media (hover:none), (hover:on-demand) {
-      .video-btn {
-        display: none;
-      }
-    }
-  }
-
-  &.banner--gradient-light {
-    .media--video .video-btn {
-      border: 1px solid variables.$secondary;
-    }
-  }
-
-  &--stacked {
-    .media--video {
-      position: relative;
-      @include container-query() {
-        position: absolute;
-      }
-
-      .video-btn {
-        display: block;
-      }
-    }
-  }
-}
-// === End: Video === //
+// === End: Buttons === //
 
 // === Sizes === //
 .banner--large {
