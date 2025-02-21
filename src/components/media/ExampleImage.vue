@@ -18,7 +18,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="media--image">
+  <div class="media media--image">
     <img :width="width" :height="height" alt="A" class="lazyloaded" :src="src" />
   </div>
 </template>
