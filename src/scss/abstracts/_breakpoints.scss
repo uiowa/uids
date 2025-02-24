@@ -48,3 +48,16 @@
     @warn "Breakpoint mixin supports: xs, xsm, sm, md, lg, page-container, xlg";
   }
 }
+
+@mixin container-query($size: variables.$break-sm, $type: min) {
+  @supports (contain: inline-size) {
+    @container column (#{$type}-width: #{$size}) {
+      @content
+    }
+  }
+  @supports not (contain: inline-size) {
+    @media (#{$type}-width: #{$size}) {
+      @content
+    }
+  }
+}
