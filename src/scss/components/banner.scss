@@ -142,11 +142,11 @@ $gradient-light-vertical: transparent 0%, rgba(255, 255, 255, .9) 55%;
   .video-controls {
     position: absolute;
     z-index: 2;
-    left: variables.$gutter;
+    right: variables.$gutter;
     bottom: variables.$gutter;
 
-    @include utilities.breakpoint(sm) {
-      left: variables.$mobile-height-gutter;
+    @include container-query {
+      right: variables.$mobile-height-gutter;
       bottom: variables.$mobile-height-gutter;
     }
   }
@@ -210,6 +210,8 @@ $gradient-light-vertical: transparent 0%, rgba(255, 255, 255, .9) 55%;
 // === Headline === //
 .banner {
   .headline {
+    color: #fff;
+    text-shadow: 0 1px 3px #000;
     z-index: 1;
 
     a {
@@ -229,30 +231,6 @@ $gradient-light-vertical: transparent 0%, rgba(255, 255, 255, .9) 55%;
 
   &:focus-within .headline a:focus {
     text-decoration: underline;
-  }
-
-  // @todo Move to gradients section.
-  &.banner--gradient-dark {
-    .headline {
-      color: #fff;
-      text-shadow: 0 1px 3px #000;
-
-      @include utilities.breakpoint(sm) {
-        color: #fff;
-      }
-
-      a {
-        @include utilities.breakpoint(sm) {
-          color: #fff;
-        }
-      }
-    }
-  }
-
-  &.banner--overlay-light {
-    .headline {
-      text-shadow: 0 1px 3px #fff;
-    }
   }
 
   // Overriding the serif font size set in base/_headings.scss
@@ -684,6 +662,10 @@ $gradient-light-vertical: transparent 0%, rgba(255, 255, 255, .9) 55%;
     .video-btn {
       border: 1px solid variables.$secondary;
     }
+  }
+
+  .headline {
+    text-shadow: 0 1px 3px #fff;
   }
 }
 
