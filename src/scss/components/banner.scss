@@ -118,7 +118,6 @@ $gradient-light-vertical: transparent 0%, rgba(255, 255, 255, .9) 55%;
 
   // Overlay/Gradient.
   &:after {
-
     display: block;
     position: absolute;
     height: 100%;
@@ -207,12 +206,6 @@ $gradient-light-vertical: transparent 0%, rgba(255, 255, 255, .9) 55%;
   }
 }
 
-// Extra padding.
-.banner--extra-padding .banner__content {
-  @include container-query() {
-    --banner-padding: 6rem;
-  }
-}
 // === End: Content === //
 // === Headline === //
 .banner {
@@ -256,7 +249,7 @@ $gradient-light-vertical: transparent 0%, rgba(255, 255, 255, .9) 55%;
     }
   }
 
-  &.banner--gradient-light {
+  &.banner--overlay-light {
     .headline {
       text-shadow: 0 1px 3px #fff;
     }
@@ -320,7 +313,7 @@ $gradient-light-vertical: transparent 0%, rgba(255, 255, 255, .9) 55%;
   &[class^="bg--gold"],
   &[class^="bg--white"],
   &[class^="bg--gray"],
-  &.banner--gradient-light {
+  &.banner--overlay-light {
     .headline {
       color: variables.$secondary;
       text-shadow: none;
@@ -419,7 +412,7 @@ $gradient-light-vertical: transparent 0%, rgba(255, 255, 255, .9) 55%;
     }
   }
 
-  &.banner--gradient-light {
+  &.banner--overlay-light {
     .banner__text {
       blockquote {
         // Match gold background color and patterns.
@@ -454,7 +447,7 @@ $gradient-light-vertical: transparent 0%, rgba(255, 255, 255, .9) 55%;
   // Matches white and gold background colors and patterns.
   &[class*="bg--gold"],
   &[class*="bg--white"],
-  &.banner--gradient-light {
+  &.banner--overlay-light {
     .banner__text {
       color: variables.$secondary;
 
@@ -507,7 +500,7 @@ $gradient-light-vertical: transparent 0%, rgba(255, 255, 255, .9) 55%;
       }
     }
 
-    &.banner--gradient-light {
+    &.banner--overlay-light {
       @include container-query() {
         .banner__container {
           // This glow allows the text to sit over darker images better.
@@ -668,13 +661,20 @@ $gradient-light-vertical: transparent 0%, rgba(255, 255, 255, .9) 55%;
 }
 
 .banner--horizontal-left {
-  --banner-gradient-direction: 90deg;
+  //--banner-gradient-direction: 90deg;
   text-align: left;
 }
 // === End: Alignment === //
 
 // === Light Gradient === //
-.banner--gradient-light {
+.banner--overlay-btt {
+  --banner-overlay-direction: 0deg;
+}
+
+.banner--overlay-ltr {
+  --banner-overlay-direction: 90deg;
+}
+.banner--overlay-light {
   --banner-overlay-color: rgba(255, 255, 255, .7);
   --banner-gradient-color: #{$gradient-light-horizontal};
   // Override background color for media element loading.

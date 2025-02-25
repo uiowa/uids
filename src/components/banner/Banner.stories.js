@@ -108,22 +108,32 @@ export default {
       },
       table: { category: 'Display options' },
     },
-    gradient: {
-      name: 'Gradient',
-      default: 'dark',
-      options: ['dark', 'light'],
-      control: { type: 'select' },
-      table: { category: 'Display options' },
+    media_overlay_type: {
+      name: 'Overlay type',
+      options: ['', 'btt', 'ttb', 'ltr'],
+      control: {
+        type: 'select',
+        labels: {
+          '': 'Solid',
+          'btt': 'Bottom to top',
+          'ttb': 'Top to bottom',
+          'ltr': 'Left to right',
+        }
+      },
+      table: {
+        category: 'Display options',
+      },
+    },
+    media_overlay_light: {
+      name: 'Overlay light',
+      table: {
+        category: 'Display options',
+      },
     },
     height: {
       name: 'Height',
       options: ['small', 'medium', 'large'],
       control: { type: 'select' },
-      table: { category: 'Display options' },
-    },
-    extra_padding: {
-      name: 'Extra padding',
-      control: { type: 'boolean' },
       table: { category: 'Display options' },
     },
     mobile_content_below_image: {
@@ -176,7 +186,8 @@ const Template = {
       :headline_style="args.headline_style"
       :headline_size="args.headline_size"
       :headline_highlight="args.headline_highlight"
-      :gradient="args.gradient"
+      :media_overlay_type="args.media_overlay_type"
+      :media_overlay_light="args.media_overlay_light"
       :height="args.height"
       :extra_padding="args.extra_padding"
       :horizontal_alignment="args.horizontal_alignment"
@@ -210,7 +221,8 @@ export const BackgroundImage = {
     headline_size: 'large',
     horizontal_alignment: 'center',
     vertical_alignment: 'center',
-    gradient:'dark',
+    media_overlay_type: '',
+    media_overlay_light: false,
     height: 'large',
     extra_padding: false,
     mobile_content_below_image: true,
@@ -238,7 +250,6 @@ export const BackgroundPattern = {
     ...BackgroundImage.args,
     background: 'gold--pattern--particle',
     background_media: '',
-    gradient: 'light',
   },
 }
 BackgroundPattern.storyName = 'Background pattern';
@@ -270,7 +281,8 @@ const GridTemplate = (args) => ({
             :headline_style="args.headline_style"
             :headline_size="args.headline_size"
             :headline_highlight="args.headline_highlight"
-            :gradient="args.gradient"
+            :media_overlay_type="args.media_overlay_type"
+            :media_overlay_light="args.media_overlay_light"
             :height="args.height"
             :extra_padding="args.extra_padding"
             :horizontal_alignment="args.horizontal_alignment"

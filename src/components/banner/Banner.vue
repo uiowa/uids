@@ -48,6 +48,17 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  media_overlay_type: {
+    type: String,
+    default: '',
+    validator: function (value) {
+      return ['', 'btt', 'ttb', 'ltr'].indexOf(value) !== -1;
+    },
+  },
+  media_overlay_light: {
+    type: Boolean,
+    default: false,
+  },
   gradient: {
     type: String,
     default: 'dark',
@@ -84,16 +95,8 @@ const classes = computed(() => {
     classes.push('click-container')
   }
 
-  if (props.gradient && props.background === '') {
-    classes.push(`banner--gradient-${props.gradient}`);
-  }
-
   if (props.height) {
     classes.push(`banner--${props.height}`);
-  }
-
-  if (props.extra_padding) {
-    classes.push(`banner--extra-padding`);
   }
 
   if (props.mobile_content_below_image === true) {
@@ -108,6 +111,14 @@ const classes = computed(() => {
   // Vertical alignment.
   if (props.vertical_alignment) {
     classes.push(`banner--vertical-${props.vertical_alignment}`);
+  }
+
+  if (props.media_overlay_type) {
+    classes.push(`banner--overlay-${props.media_overlay_type}`);
+  }
+
+  if (props.media_overlay_light) {
+    classes.push(`banner--overlay-light`);
   }
 
   return classes;
