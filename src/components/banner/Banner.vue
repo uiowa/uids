@@ -2,10 +2,8 @@
 import { computed, onMounted, useSlots } from 'vue';
 import UidsButton from "../button/Button.vue";
 import UidsHeadline from '../headline/Headline.vue'
-import UidsMedia from '../media/Media.vue'
 import UidsPseudoButton from '../button/PseudoButton.vue';
 import Background from "../shared/background";
-import Media from '../shared/media'
 import '../../scss/components/banner.scss'
 import '../../scss/components/_background.scss'
 import '../../assets/js/video.js'
