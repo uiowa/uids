@@ -8,7 +8,7 @@
   --banner-overlay-color-rbg: 0, 0, 0;
   --banner-overlay-solid-opacity: .5;
   --banner-overlay-gradient-midpoint: 40%;
-  --banner-overlay-gradient: rgba(var(--banner-overlay-color-rbg), .9) 0%, rgba(var(--banner-overlay-color-rbg), .6) var(--banner-overlay-gradient-midpoint), transparent;
+  --banner-overlay-gradient: rgba(var(--banner-overlay-color-rbg), .8) 0%, rgba(var(--banner-overlay-color-rbg), .6) var(--banner-overlay-gradient-midpoint), transparent;
   --banner-text-color: #fff;
 
   @include utilities.breakpoint(sm) {
@@ -263,15 +263,6 @@
   .headline + .banner__action {
     margin-top: 1.5rem;
   }
-
-  // Default transparent button styles for non-stacked banners.
-  // @todo Add comment describing why class*="bg--*" is used.
-  &:not(.banner--stacked):not([class*="bg--white"]):not([class*="bg--gold"]) {
-    .banner__action .bttn--transparent {
-      border: 1px solid #fff;
-      color: #fff;
-    }
-  }
 }
 
 .banner__action .bttn {
@@ -341,13 +332,6 @@
     .banner__text * {
       color: variables.$secondary;
       text-shadow: none;
-    }
-
-    .banner__action .bttn--transparent {
-      @include container-query() {
-        border-color: rgba(255, 255, 255, .525);
-        color: #fff;
-      }
     }
   }
 }
