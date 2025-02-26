@@ -21,10 +21,12 @@
 
   display: flex;
   flex-basis: 100%;
+  flex-direction: column;
   // Default vertical alignment is centered.
   align-items: center;
   // Default horizontal alignment is centered.
   justify-content: center;
+  // Small banner height.
   min-height: 15rem;
   position: relative;
   overflow: hidden;
@@ -198,33 +200,10 @@
 
   }
 
-  // @todo Move to stacked section.
-  &--stacked {
-
-    &.banner--gradient-dark {
-      .headline {
-        color: variables.$secondary;
-        text-shadow: none;
-
-        @include container-query() {
-          color: #fff;
-          //text-shadow: 0 1px 1px #000;
-        }
-
-        a {
-          color: variables.$secondary;
-          @include container-query() {
-            color: #fff;
-          }
-        }
-      }
-    }
-  }
-
   // 'bg--*' selectors match solid color and patterns.
-  &[class^="bg--gold"],
-  &[class^="bg--white"],
-  &[class^="bg--gray"],
+  &[class*="bg--gold"],
+  &[class*="bg--white"],
+  &[class*="bg--gray"],
   &.banner--overlay-light {
     .headline {
       color: variables.$secondary;
@@ -309,16 +288,16 @@
   &.banner--gradient-dark:not(.banner--stacked) {
     .banner__text a {
       // Matches background colors and patterns.
-      [class^="bg--gray"] &,
-      [class^="bg--gold"] &,
-      [class^="bg--white"] & {
+      [class*="bg--gray"] &,
+      [class*="bg--gold"] &,
+      [class*="bg--white"] & {
         color: #fff;
       }
     }
   }
 
   // Match black background color and patterns.
-  &[class^="bg--black"] {
+  &[class*="bg--black"] {
     .banner__text p {
       color: #fff;
     }
@@ -328,7 +307,7 @@
     .banner__text {
       blockquote {
         // Match gold background color and patterns.
-        [class^="bg--gold"] & {
+        [class*="bg--gold"] & {
           border-left-color: variables.$primary;
         }
       }
@@ -336,7 +315,7 @@
   }
 
   // Match gray background color and patterns.
-  &[class^="bg--gray"] {
+  &[class*="bg--gray"] {
     .banner__text {
       color: variables.$secondary;
 
@@ -378,70 +357,6 @@
       }
     }
   }
-
-  &--stacked {
-    .banner__text {
-      color: variables.$secondary;
-      @include container-query() {
-        color: #fff;
-      }
-
-      a {
-        color: variables.$secondary;
-        @include container-query() {
-          color: #fff;
-        }
-      }
-    }
-
-    &.banner--gradient-dark {
-      .banner__text * {
-        color: variables.$secondary;
-        text-shadow: none;
-      }
-
-      @include container-query() {
-        .banner__text * {
-          color: #fff;
-          text-shadow: 0 1px 3px #000;
-        }
-
-        .headline {
-          text-shadow: 0 1px 1px #000;
-        }
-      }
-    }
-
-    &.banner--overlay-light {
-      @include container-query() {
-        .banner__container {
-          // This glow allows the text to sit over darker images better.
-          filter: drop-shadow(0 1px 9px rgb(255, 255, 255, 50%));
-        }
-      }
-    }
-
-    // Match black background color and patterns.
-    &[class^="bg--black"] {
-      display: flex;
-
-      .banner__text {
-        color: #fff;
-
-        a {
-          color: #fff;
-        }
-
-        p {
-          color: #fff;
-
-          a {
-            color: #fff;
-          }
-        }
-      }
-    }
-  }
 }
 // === End: Text/buttons === //
 
@@ -475,8 +390,8 @@
     }
 
     // Default transparent button styles for non-stacked banners.
-    // @todo Add comment describing why class^="bg--*" is used.
-    &:not(.banner--stacked):not([class^="bg--white"]):not([class^="bg--gold"]) {
+    // @todo Add comment describing why class*="bg--*" is used.
+    &:not(.banner--stacked):not([class*="bg--white"]):not([class*="bg--gold"]) {
       .banner__action .bttn--transparent {
         border: 1px solid #fff;
         color: #fff;
@@ -489,16 +404,10 @@
 
 // === Stacked === //
 .banner--stacked {
-  display: block;
-
-  @include container-query() {
-    display: flex;
-  }
-
-  .media {
-    // We use a max-width rule here to avoid having a bunch
-    // of override rules to unset these.
-    @include container-query($type: max) {
+  // We use a max-width rule here to avoid having a bunch
+  // of override rules to unset these.
+  @include container-query($type: max) {
+    .media {
       position: relative;
 
       &:after {
@@ -506,15 +415,55 @@
       }
     }
 
-    .video-btn {
-      display: block;
+    .headline {
+      color: variables.$secondary;
+      text-shadow: none;
+
+      a {
+        color: variables.$secondary;
+      }
+    }
+
+    .banner__text {
+      color: variables.$secondary;
+
+      a {
+        color: variables.$secondary;
+      }
+    }
+
+    .banner__text * {
+      color: variables.$secondary;
+      text-shadow: none;
+    }
+  }
+
+  // @todo Understand why this is needed.
+  // Match black background color and patterns.
+  &[class*="bg--black"] {
+    display: flex;
+
+    .banner__text {
+      color: #fff;
+
+      a {
+        color: #fff;
+      }
+
+      p {
+        color: #fff;
+
+        a {
+          color: #fff;
+        }
+      }
     }
   }
 }
 
 // Add a white background to the content element
 // if the banner is stacked and has no background color.
-.banner--stacked:not([class^="bg--"]) {
+.banner--stacked:not([class*="bg--"]) {
   @include container-query($type: max) {
     .banner__content {
       background: white;
@@ -525,18 +474,10 @@
 
 // === Sizes === //
 .banner--large {
-  &::before {
-    float: left;
-    padding-top: 45.25%;
-    content: '';
-  }
+  min-height: 45rem;
 }
 .banner--medium {
-  &::before {
-    float: left;
-    padding-top: 32.25%;
-    content: '';
-  }
+  min-height: 30rem;
 }
 .banner--full {
   &.banner--large {
@@ -609,6 +550,11 @@
     }
   }
 
+  .banner__container {
+    // This glow allows the text to sit over darker images better.
+    filter: drop-shadow(0 1px 9px rgb(255, 255, 255, 50%));
+  }
+
   .headline {
     text-shadow: 0 1px 3px #fff;
   }
@@ -622,8 +568,8 @@ $bg-colors: "white", "black", "gray", "gold";
 
 // Simple background colors and pattern variants
 @each $color in $bg-colors {
-  div[class^="bg--#{$color}"] {
-    .banner[class^="bg--#{$color}"] {
+  div[class*="bg--#{$color}"] {
+    .banner[class*="bg--#{$color}"] {
       .banner__content {
         padding-left: 0;
         padding-right: 0;
@@ -634,7 +580,7 @@ $bg-colors: "white", "black", "gray", "gold";
 
 // When the containing element has no background color
 // and the banner has a solid white background, remove padding.
-div:not([class^="bg--"]) {
+div:not([class*="bg--"]) {
   .banner.bg--white {
     .banner__content {
       padding-left: 0;

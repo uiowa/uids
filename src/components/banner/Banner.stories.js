@@ -121,13 +121,13 @@ export default {
         }
       },
       table: {
-        category: 'Display options',
+        category: 'Media',
       },
     },
     media_overlay_light: {
       name: 'Overlay light',
       table: {
-        category: 'Display options',
+        category: 'Media',
       },
     },
     height: {
@@ -137,9 +137,9 @@ export default {
       table: { category: 'Display options' },
     },
     mobile_content_below_image: {
-      name: 'Content below media (mobile-only)',
+      name: 'Mobile - Display media above content',
       control: { type: 'boolean' },
-      table: { category: 'Display options' },
+      table: { category: 'Media' },
     },
     grid_type: {
       name: 'Grid',
@@ -223,7 +223,6 @@ export const BackgroundImage = {
     media_overlay_type: '',
     media_overlay_light: false,
     height: 'large',
-    extra_padding: false,
     mobile_content_below_image: true,
     button_light_font: false,
     button_color: 'primary',
