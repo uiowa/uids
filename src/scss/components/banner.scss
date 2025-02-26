@@ -227,6 +227,11 @@
   color: var(--banner-text-color);
   margin-bottom: 1.05rem;
 
+  // Set max-width for line-length readability.
+  @include container-query() {
+    max-width: 75%;
+  }
+
   blockquote {
     margin-left: 0;
   }
@@ -247,9 +252,12 @@
     }
   }
 
-  // Set max-width for line-length readability.
-  @include container-query() {
-    max-width: 75%;
+  // Set the border color for blockquote when background is gold.
+  blockquote {
+    // Match gold background color and patterns.
+    [class*="bg--gold"] & {
+      border-left-color: #{variables.$primary};
+    }
   }
 }
 
@@ -284,11 +292,6 @@
   &[class*="bg--gray"],
   &.banner--overlay-light:not([class*="bg--"]) {
     --banner-text-color: #{variables.$secondary};
-
-    // @todo Decide if this is necessary.
-    .headline {
-      text-shadow: none;
-    }
   }
 }
 // === End: Background colors === //
@@ -324,14 +327,9 @@
       color: #{variables.$secondary};
       text-shadow: none;
 
-      a {
+      * {
         color: #{variables.$secondary};
       }
-    }
-
-    .banner__text * {
-      color: #{variables.$secondary};
-      text-shadow: none;
     }
   }
 }
@@ -417,16 +415,6 @@
 
     .video-btn {
       border: 1px solid #{variables.$secondary};
-    }
-  }
-
-  // @todo Decide if this is necessary.
-  .banner__text {
-    blockquote {
-      // Match gold background color and patterns.
-      [class*="bg--gold"] & {
-        border-left-color: #{variables.$primary};
-      }
     }
   }
 }
