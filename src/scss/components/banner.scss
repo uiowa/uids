@@ -30,7 +30,7 @@
 // === Media === //
 .banner .media {
   // Background color for media element loading.
-  background: variables.$secondary;
+  background: #{variables.$secondary};
   height: 100%;
   width: 100%;
   position: absolute;
@@ -71,12 +71,12 @@
   .video-controls {
     position: absolute;
     z-index: 2;
-    right: variables.$gutter;
-    bottom: variables.$gutter;
+    right: #{variables.$gutter};
+    bottom: #{variables.$gutter};
 
     @include container-query {
-      right: variables.$mobile-height-gutter;
-      bottom: variables.$mobile-height-gutter;
+      right: #{variables.$mobile-height-gutter};
+      bottom: #{variables.$mobile-height-gutter};
     }
   }
 
@@ -84,14 +84,14 @@
     width: 40px;
     height: 40px;
     cursor: pointer;
-    color: variables.$secondary;
+    color: #{variables.$secondary};
     border: 1px solid white;
     border-radius: 50%;
     background: white;
     font-size: 1rem;
     padding: 0;
 
-    @include utilities.breakpoint(sm) {
+    @include container-query() {
       display: block;
     }
 
@@ -126,7 +126,7 @@
 
   @include container-query() {
     z-index: 1;
-    max-width: variables.$container-width;
+    max-width: #{variables.$container-width};
     top: 0;
   }
 
@@ -216,7 +216,7 @@
   }
 
   &.headline--small {
-    font-size: variables.$h5-font-size;
+    font-size: #{variables.$h5-font-size};
   }
 }
 // === End: Pre-title === //
@@ -283,7 +283,7 @@
   &[class*="bg--white"],
   &[class*="bg--gray"],
   &.banner--overlay-light:not([class*="bg--"]) {
-    --banner-text-color: variables.$secondary;
+    --banner-text-color: #{variables.$secondary};
 
     // @todo Decide if this is necessary.
     .headline {
@@ -312,25 +312,25 @@
     }
 
     .headline {
-      color: variables.$secondary;
+      color: #{variables.$secondary};
       text-shadow: none;
 
       a {
-        color: variables.$secondary;
+        color: #{variables.$secondary};
       }
     }
 
     .banner__text {
-      color: variables.$secondary;
+      color: #{variables.$secondary};
       text-shadow: none;
 
       a {
-        color: variables.$secondary;
+        color: #{variables.$secondary};
       }
     }
 
     .banner__text * {
-      color: variables.$secondary;
+      color: #{variables.$secondary};
       text-shadow: none;
     }
   }
@@ -416,7 +416,7 @@
     background: #fff;
 
     .video-btn {
-      border: 1px solid variables.$secondary;
+      border: 1px solid #{variables.$secondary};
     }
   }
 
@@ -425,7 +425,7 @@
     blockquote {
       // Match gold background color and patterns.
       [class*="bg--gold"] & {
-        border-left-color: variables.$primary;
+        border-left-color: #{variables.$primary};
       }
     }
   }
