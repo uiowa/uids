@@ -5,18 +5,14 @@
 // === Banner base === //
 .banner {
   --banner-padding: #{variables.$gutter};
-  --banner-text-max-width: 1;
   --banner-overlay-color-rbg: 0, 0, 0;
   --banner-overlay-solid-opacity: .5;
   --banner-overlay-gradient-midpoint: 40%;
   --banner-overlay-gradient: rgba(var(--banner-overlay-color-rbg), .9) 0%, rgba(var(--banner-overlay-color-rbg), .6) var(--banner-overlay-gradient-midpoint), transparent;
+  --banner-text-color: #fff;
 
   @include utilities.breakpoint(sm) {
     --banner-padding: #{variables.$mobile-height-gutter};
-  }
-
-  @include container-query() {
-    --banner-text-max-width: .75;
   }
 
   display: flex;
@@ -32,7 +28,7 @@
 }
 // === End: Banner base === //
 
-// === Media/Overlay === //
+// === Media === //
 .banner .media {
   // Background color for media element loading.
   background: variables.$secondary;
@@ -120,7 +116,7 @@
     }
   }
 }
-// === End: Media/Overlay === //
+// === End: Media === //
 
 // === Content === //
 .banner__content {
@@ -129,7 +125,7 @@
   z-index: 1;
   padding: var(--banner-padding);
 
-  @include utilities.breakpoint(sm) {
+  @include container-query() {
     z-index: 1;
     max-width: variables.$container-width;
     top: 0;
@@ -139,19 +135,19 @@
     flex-basis: 100%;
   }
 }
-
 // === End: Content === //
+
 // === Headline === //
 .banner {
   .headline {
-    color: #fff;
+    color: var(--banner-text-color);
     margin-top: 0;
     margin-bottom: 1rem;
     text-shadow: 0 1px 3px #000;
     z-index: 1;
 
     a {
-      color: #fff;
+      color: var(--banner-text-color);
 
       &:hover {
         text-decoration: none;
@@ -194,64 +190,42 @@
         font-size: clamp(2rem, calc(1.5775vw + 1.4085rem), 2.7rem);
       }
     }
-
-
-  }
-
-  // 'bg--*' selectors match solid color and patterns.
-  &[class*="bg--gold"],
-  &[class*="bg--white"],
-  &[class*="bg--gray"],
-  &.banner--overlay-light {
-    .headline {
-      color: variables.$secondary;
-      text-shadow: none;
-
-      a {
-        color: variables.$secondary;
-      }
-    }
   }
 }
-
 // === End: Headline === //
 
 // === Pre-title === //
-.banner {
-  &__pre-title {
-    line-height: 1.1;
+.banner__pre-title {
+  line-height: 1.1;
 
-    &.headline.headline--serif {
-      margin-bottom: 0;
-      font-weight: 500;
-    }
+  &.headline.headline--serif {
+    margin-bottom: 0;
+    font-weight: 500;
+  }
 
-    &.headline.headline--uppercase {
-      margin-bottom: 0.7rem;
-      font-weight: 500;
-    }
+  &.headline.headline--uppercase {
+    margin-bottom: 0.7rem;
+    font-weight: 500;
+  }
 
-    &.headline--large {
-      font-size: clamp(1.2rem, calc(0.9014vw + 0.862rem), 1.6rem);
-    }
+  &.headline--large {
+    font-size: clamp(1.2rem, calc(0.9014vw + 0.862rem), 1.6rem);
+  }
 
-    &.headline--medium {
-      font-size: clamp(1.2rem, calc(0.4507vw + 1.031rem), 1.4rem);
-    }
+  &.headline--medium {
+    font-size: clamp(1.2rem, calc(0.4507vw + 1.031rem), 1.4rem);
+  }
 
-    &.headline--small {
-      font-size: variables.$h5-font-size;
-    }
+  &.headline--small {
+    font-size: variables.$h5-font-size;
   }
 }
-
 // === End: Pre-title === //
 
 // === Text/buttons === //
-
 .banner__text {
   z-index: 1;
-  color: #fff;
+  color: var(--banner-text-color);
   margin-bottom: 1.05rem;
 
   blockquote {
@@ -259,88 +233,25 @@
   }
 
   a {
-    color: #fff;
+    color: var(--banner-text-color);
   }
 
   p {
     line-height: 1.5;
     margin-top: 0;
-    color: #fff;
+    color:var(--banner-text-color);
     text-shadow: 0 1px 1px #000;
 
     a {
       position: relative;
       z-index: 1;
-      color: #fff;
+      color: var(--banner-text-color);
     }
   }
 
   // Set max-width for line-length readability.
   @include container-query() {
     max-width: 75%;
-  }
-}
-
-// @todo Move to background color overrides section.
-// bg color overrides.
-.banner__text a {
-  // Matches background colors and patterns.
-  [class*="bg--gray"] &,
-  [class*="bg--gold"] &,
-  [class*="bg--white"] & {
-    color: #fff;
-  }
-}
-.banner {
-  // Match black background color and patterns.
-  &[class*="bg--black"] {
-    .banner__text p {
-      color: #fff;
-    }
-  }
-
-  // Match gray background color and patterns.
-  &[class*="bg--gray"] {
-    .banner__text {
-      color: variables.$secondary;
-
-      a {
-        color: variables.$secondary;
-      }
-
-      p {
-        color: variables.$secondary;
-        font-weight: normal;
-        text-shadow: none;
-
-        a {
-          color: variables.$secondary;
-        }
-      }
-    }
-  }
-
-  // Matches white and gold background colors and patterns.
-  &[class*="bg--gold"],
-  &[class*="bg--white"],
-  &.banner--overlay-light {
-    .banner__text {
-      color: variables.$secondary;
-
-      p {
-        color: variables.$secondary;
-        font-weight: normal;
-        text-shadow: none;
-
-        a {
-          color: variables.$secondary;
-        }
-      }
-
-      a {
-        color: variables.$secondary;
-      }
-    }
   }
 }
 // === End: Text/buttons === //
@@ -351,41 +262,43 @@
     margin-top: 1.5rem;
   }
 
-  .banner__action .bttn {
-    margin: 0 1rem 1rem 0;
-
-    @include utilities.breakpoint(sm) {
-      + .bttn {
-        margin: 0 1rem 1rem 0;
-      }
+  // Default transparent button styles for non-stacked banners.
+  // @todo Add comment describing why class*="bg--*" is used.
+  &:not(.banner--stacked):not([class*="bg--white"]):not([class*="bg--gold"]) {
+    .banner__action .bttn--transparent {
+      border: 1px solid #fff;
+      color: #fff;
     }
   }
+}
 
-  // @todo Move to gradients section.
-  // Transparent button styles for gradient dark banners.
-  &.banner--gradient-dark {
-    // Stacked banner transparent button styles.
-    &.banner--stacked:not([class*="bg-"]) {
-      .banner__action .bttn--transparent {
-        @include container-query() {
-          border-color: rgba(255, 255, 255, .525);
-          color: #fff;
-        }
-      }
-    }
+.banner__action .bttn {
+  margin: 0 1rem 1rem 0;
 
-    // Default transparent button styles for non-stacked banners.
-    // @todo Add comment describing why class*="bg--*" is used.
-    &:not(.banner--stacked):not([class*="bg--white"]):not([class*="bg--gold"]) {
-      .banner__action .bttn--transparent {
-        border: 1px solid #fff;
-        color: #fff;
-      }
+  @include container-query() {
+    + .bttn {
+      margin: 0 1rem 1rem 0;
     }
   }
 }
 // === End: Buttons === //
 
+// === Background colors === //
+// 'bg--*' selectors match solid color and patterns.
+.banner {
+  &[class*="bg--gold"],
+  &[class*="bg--white"],
+  &[class*="bg--gray"],
+  &.banner--overlay-light:not([class*="bg--"]) {
+    --banner-text-color: variables.$secondary;
+
+    // @todo Decide if this is necessary.
+    .headline {
+      text-shadow: none;
+    }
+  }
+}
+// === End: Background colors === //
 
 // === Stacked === //
 // if the banner is stacked and has no background color.
@@ -426,25 +339,29 @@
       color: variables.$secondary;
       text-shadow: none;
     }
+
+    .banner__action .bttn--transparent {
+      @include container-query() {
+        border-color: rgba(255, 255, 255, .525);
+        color: #fff;
+      }
+    }
   }
 }
 // === End: Stacked === //
 
 // === Sizes === //
-.banner--large {
-  &::before {
-    float: left;
-    padding-top: 45.25%;
-    content: '';
-  }
+.banner--large::before {
+  float: left;
+  padding-top: 45.25%;
+  content: '';
 }
-.banner--medium {
-  &::before {
-    float: left;
-    padding-top: 32.25%;
-    content: '';
-  }
+.banner--medium::before {
+  float: left;
+  padding-top: 32.25%;
+  content: '';
 }
+
 .banner--full {
   &.banner--large {
     @include utilities.breakpoint(page-container) {
