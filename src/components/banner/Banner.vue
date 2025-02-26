@@ -73,6 +73,8 @@ const props = defineProps({
   },
 });
 
+const slots = useSlots();
+
 /**
  * Main banner classes.
  */
@@ -102,12 +104,14 @@ const classes = computed(() => {
     classes.push(`banner--vertical-${props.vertical_alignment}`);
   }
 
-  if (props.media_overlay_type) {
-    classes.push(`banner--overlay-${props.media_overlay_type}`);
-  }
+  if (slots.media) {
+    if (props.media_overlay_type) {
+      classes.push(`banner--overlay-${props.media_overlay_type}`);
+    }
 
-  if (props.media_overlay_light) {
-    classes.push(`banner--overlay-light`);
+    if (props.media_overlay_light) {
+      classes.push(`banner--overlay-light`);
+    }
   }
 
   return classes;
