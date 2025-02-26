@@ -21,12 +21,10 @@
 
   display: flex;
   flex-basis: 100%;
-  flex-direction: column;
   // Default vertical alignment is centered.
   align-items: center;
   // Default horizontal alignment is centered.
   justify-content: center;
-  // Small banner height.
   min-height: 15rem;
   position: relative;
   overflow: hidden;
@@ -283,34 +281,21 @@
   }
 }
 
-.banner {
-  // bg color overrides.
-  &.banner--gradient-dark:not(.banner--stacked) {
-    .banner__text a {
-      // Matches background colors and patterns.
-      [class*="bg--gray"] &,
-      [class*="bg--gold"] &,
-      [class*="bg--white"] & {
-        color: #fff;
-      }
-    }
+// @todo Move to background color overrides section.
+// bg color overrides.
+.banner__text a {
+  // Matches background colors and patterns.
+  [class*="bg--gray"] &,
+  [class*="bg--gold"] &,
+  [class*="bg--white"] & {
+    color: #fff;
   }
-
+}
+.banner {
   // Match black background color and patterns.
   &[class*="bg--black"] {
     .banner__text p {
       color: #fff;
-    }
-  }
-
-  &.banner--overlay-light {
-    .banner__text {
-      blockquote {
-        // Match gold background color and patterns.
-        [class*="bg--gold"] & {
-          border-left-color: variables.$primary;
-        }
-      }
     }
   }
 
@@ -403,10 +388,15 @@
 
 
 // === Stacked === //
-.banner--stacked {
-  // We use a max-width rule here to avoid having a bunch
-  // of override rules to unset these.
+// if the banner is stacked and has no background color.
+.banner--stacked:not([class*="bg--"]) {
+  // We use a max-width rule here to avoid having to
+  // override these rules in other places.
   @include container-query($type: max) {
+
+    background: white;
+    display: block;
+
     .media {
       position: relative;
 
@@ -437,47 +427,23 @@
       text-shadow: none;
     }
   }
-
-  // @todo Understand why this is needed.
-  // Match black background color and patterns.
-  &[class*="bg--black"] {
-    display: flex;
-
-    .banner__text {
-      color: #fff;
-
-      a {
-        color: #fff;
-      }
-
-      p {
-        color: #fff;
-
-        a {
-          color: #fff;
-        }
-      }
-    }
-  }
-}
-
-// Add a white background to the content element
-// if the banner is stacked and has no background color.
-.banner--stacked:not([class*="bg--"]) {
-  @include container-query($type: max) {
-    .banner__content {
-      background: white;
-    }
-  }
 }
 // === End: Stacked === //
 
 // === Sizes === //
 .banner--large {
-  min-height: 45rem;
+  &::before {
+    float: left;
+    padding-top: 45.25%;
+    content: '';
+  }
 }
 .banner--medium {
-  min-height: 30rem;
+  &::before {
+    float: left;
+    padding-top: 32.25%;
+    content: '';
+  }
 }
 .banner--full {
   &.banner--large {
@@ -557,6 +523,16 @@
 
   .headline {
     text-shadow: 0 1px 3px #fff;
+  }
+
+  // @todo Decide if this is necessary.
+  .banner__text {
+    blockquote {
+      // Match gold background color and patterns.
+      [class*="bg--gold"] & {
+        border-left-color: variables.$primary;
+      }
+    }
   }
 }
 // === End: Overlay/Gradient === //
