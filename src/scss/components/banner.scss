@@ -8,7 +8,8 @@
   --banner-text-max-width: 1;
   --banner-overlay-color-rbg: 0, 0, 0;
   --banner-overlay-solid-opacity: .5;
-  --banner-overlay-gradient: rgba(var(--banner-overlay-color-rbg), .9) 0%, rgba(var(--banner-overlay-color-rbg), .6) 70%, transparent;
+  --banner-overlay-gradient-midpoint: 40%;
+  --banner-overlay-gradient: rgba(var(--banner-overlay-color-rbg), .9) 0%, rgba(var(--banner-overlay-color-rbg), .6) var(--banner-overlay-gradient-midpoint), transparent;
 
   @include utilities.breakpoint(sm) {
     --banner-padding: #{variables.$mobile-height-gutter};
@@ -144,6 +145,8 @@
 .banner {
   .headline {
     color: #fff;
+    margin-top: 0;
+    margin-bottom: 1rem;
     text-shadow: 0 1px 3px #000;
     z-index: 1;
 
@@ -158,8 +161,6 @@
         text-decoration: underline;
       }
     }
-    margin-top: 0;
-    margin-bottom: 1rem;
   }
 
   &:focus-within .headline a:focus {
@@ -575,25 +576,26 @@
 }
 // === End: Alignment === //
 
-// === Light Gradient === //
+// === Overlay/Gradient === //
 .banner--overlay-btt,
 .banner--overlay-ttb,
 .banner--overlay-ltr {
   .media:after {
     // Gradient comes in at the sm container breakpoint.
     @include container-query() {
-      background: linear-gradient(var(--banner-overlay-direction), var(--banner-overlay-gradient));
+      background: linear-gradient(var(--banner-overlay-gradient-direction), var(--banner-overlay-gradient));
     }
   }
 }
 .banner--overlay-btt {
-  --banner-overlay-direction: 0deg;
+  --banner-overlay-gradient-direction: 0deg;
 }
 .banner--overlay-ttb {
-  --banner-overlay-direction: 180deg;
+  --banner-overlay-gradient-direction: 180deg;
 }
 .banner--overlay-ltr {
-  --banner-overlay-direction: 90deg;
+  --banner-overlay-gradient-direction: 90deg;
+  --banner-overlay-gradient-midpoint: 70%;
 }
 .banner--overlay-light {
   --banner-overlay-color-rbg: 255, 255, 255;
@@ -611,6 +613,7 @@
     text-shadow: 0 1px 3px #fff;
   }
 }
+// === End: Overlay/Gradient === //
 
 // === Background colors === //
 // Remove left/right padding if container background matches banner background.
