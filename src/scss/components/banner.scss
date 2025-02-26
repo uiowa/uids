@@ -2,73 +2,13 @@
 @use '../abstracts/utilities';
 @use '../abstracts/breakpoints' as *;
 
-// Gradients.
-
-// Get the margin on the .banner__container, if there is any.
-$banner-margin: max(calc(100% - #{variables.$container-width}), 0px);
-
-// Get the width of the .banner__container.
-$banner-content-width: calc(100% - #{$banner-margin});
-
-// Above 600px .banner__text content is only 75% of its container width.
-// This allows us to make sure that the gradient covers the whole textbox.
-$banner-text-width: calc(#{$banner-content-width} * var(--banner-text-max-width));
-
-// Calculate the first delimiter, which is only the left margin of the .banner__container.
-$banner-gradient-first-delimiter: calc($banner-margin * 0.5);
-
-// Calculate the second delimiter, which is the first delimiter and the width of the text.
-$banner-gradient-second-delimiter: calc($banner-gradient-first-delimiter + $banner-text-width);
-
-// Gradient alpha values for *dark* horizontal gradient.
-// Basically, how transparent is the black for each delimiter.
-$a0: 0.88;
-$a1: 0.75;
-$a2: 0.4;
-$a3: 0.0;
-
-// Create a dark gradient to be used in banner.scss that goes across the delimiters.
-$gradient-dark-horizontal:
-  rgba(0, 0, 0, $a0) 0%,
-  rgba(0, 0, 0, $a1) #{$banner-gradient-first-delimiter},
-  rgba(0, 0, 0, $a2) #{$banner-gradient-second-delimiter},
-  rgba(0, 0, 0, $a3);
-
-// Gradient alpha values for *light* horizontal gradients.
-// Basically, how transparent is the white for each delimiter.
-$a0: 0.88;
-$a1: 0.84;
-$a2: 0.3;
-$a3: 0.1;
-
-// Create a light gradient to be used in banner.scss that goes across the delimiters.
-$gradient-light-horizontal:
-  rgba(255, 255, 255, $a0) 0%,
-  rgba(255, 255, 255, $a1) #{$banner-gradient-first-delimiter},
-  rgba(255, 255, 255, $a2) #{$banner-gradient-second-delimiter},
-  rgba(255, 255, 255, $a3);
-
-// THIS IS ONLY FOR TESTING.
-$gradient-test:
-  hsl(48, 100%, $a0*100%) 0%,
-  hsl(48, 100%, $a1*100%) calc(#{$banner-gradient-first-delimiter}),
-    //hsl(48, 100%, $a2*100%) calc(#{$banner-gradient-first-delimiter}), // Comment this out for smooth.
-  hsl(48, 100%, $a2*100%) calc(#{$banner-gradient-second-delimiter}),
-    //hsl(48, 100%, $a3*100%) calc(#{$banner-gradient-second-delimiter}), // Comment this out for smooth.
-  hsl(48, 100%, $a3*100%) 100%;
-
-//$gradient-dark-horizontal: $gradient-test;
-//$gradient-light-horizontal: $gradient-test;
-$gradient-dark-vertical: transparent 0%, rgba(0, 0, 0, 0.65) 70%;
-$gradient-light-vertical: transparent 0%, rgba(255, 255, 255, .9) 55%;
-
 // === Banner base === //
 .banner {
   --banner-padding: #{variables.$gutter};
   --banner-text-max-width: 1;
-  --banner-gradient-direction: 0deg;
-  --banner-gradient-color: #{$gradient-dark-horizontal};
-  --banner-overlay-color: rgba(0, 0, 0, .5);
+  --banner-overlay-color-rbg: 0, 0, 0;
+  --banner-overlay-solid-opacity: .5;
+  --banner-overlay-gradient: rgba(var(--banner-overlay-color-rbg), .9) 0%, rgba(var(--banner-overlay-color-rbg), .6) 70%, transparent;
 
   @include utilities.breakpoint(sm) {
     --banner-padding: #{variables.$mobile-height-gutter};
@@ -84,7 +24,6 @@ $gradient-light-vertical: transparent 0%, rgba(255, 255, 255, .9) 55%;
   align-items: center;
   // Default horizontal alignment is centered.
   justify-content: center;
-  // Default
   min-height: 15rem;
   position: relative;
   overflow: hidden;
@@ -129,13 +68,7 @@ $gradient-light-vertical: transparent 0%, rgba(255, 255, 255, .9) 55%;
     transition: all 0.5s ease-in-out;
     will-change: opacity;
     // Default is dark overlay.
-    background: var(--banner-overlay-color);
-    // Gradient comes in at the xsm container breakpoint.
-    @include container-query() {
-      // Default gradient is bottom-aligned.
-      // @todo Figure out how to get this working with the new gradient variables.
-      background: linear-gradient(var(--banner-gradient-direction), var(--banner-gradient-color));
-    }
+    background: rgb(var(--banner-overlay-color-rbg), var(--banner-overlay-solid-opacity));
   }
 
   // Video.
@@ -615,7 +548,6 @@ $gradient-light-vertical: transparent 0%, rgba(255, 255, 255, .9) 55%;
 
 // === Alignment === //
 .banner--vertical-top {
-  --banner-gradient-direction: 180deg;
   align-items: flex-start;
 }
 
@@ -639,22 +571,33 @@ $gradient-light-vertical: transparent 0%, rgba(255, 255, 255, .9) 55%;
 }
 
 .banner--horizontal-left {
-  //--banner-gradient-direction: 90deg;
   text-align: left;
 }
 // === End: Alignment === //
 
 // === Light Gradient === //
+.banner--overlay-btt,
+.banner--overlay-ttb,
+.banner--overlay-ltr {
+  .media:after {
+    // Gradient comes in at the sm container breakpoint.
+    @include container-query() {
+      background: linear-gradient(var(--banner-overlay-direction), var(--banner-overlay-gradient));
+    }
+  }
+}
 .banner--overlay-btt {
   --banner-overlay-direction: 0deg;
 }
-
+.banner--overlay-ttb {
+  --banner-overlay-direction: 180deg;
+}
 .banner--overlay-ltr {
   --banner-overlay-direction: 90deg;
 }
 .banner--overlay-light {
-  --banner-overlay-color: rgba(255, 255, 255, .7);
-  --banner-gradient-color: #{$gradient-light-horizontal};
+  --banner-overlay-color-rbg: 255, 255, 255;
+  --banner-overlay-solid-opacity: .7;
   // Override background color for media element loading.
   .media {
     background: #fff;

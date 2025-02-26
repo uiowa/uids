@@ -59,20 +59,9 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  gradient: {
-    type: String,
-    default: 'dark',
-    validator: function (value) {
-      return ['dark', 'light'].indexOf(value) !== -1;
-    },
-  },
   height: {
     type: String,
     default: '',
-  },
-  extra_padding: {
-    type: Boolean,
-    default: false,
   },
   mobile_content_below_image: {
     type: Boolean,
