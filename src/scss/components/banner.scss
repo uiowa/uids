@@ -24,7 +24,6 @@
   min-height: 15rem;
   position: relative;
   overflow: hidden;
-
 }
 // === End: Banner base === //
 
@@ -240,7 +239,6 @@
     line-height: 1.5;
     margin-top: 0;
     color:var(--banner-text-color);
-    text-shadow: 0 1px 1px #000;
 
     a {
       position: relative;
@@ -253,6 +251,10 @@
   @include container-query() {
     max-width: 75%;
   }
+}
+
+.banner:not([class*="bg--"]) .banner__text {
+  text-shadow: 0 1px 1px rgb(var(--banner-overlay-color-rbg));
 }
 // === End: Text/buttons === //
 
@@ -329,6 +331,7 @@
 
     .banner__text {
       color: variables.$secondary;
+      text-shadow: none;
 
       a {
         color: variables.$secondary;
