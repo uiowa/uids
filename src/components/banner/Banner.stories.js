@@ -5,6 +5,7 @@ import UidsGridItem from '../grid/GridItem.vue'
 import ExampleImage from '../media/ExampleImage.vue';
 import * as ButtonStories from '../button/Button.stories';
 import ExampleVideoFile from "../media/ExampleVideoFile.vue";
+import BackgroundStories from "../background/Background.stories.js";
 
 export default {
   title: 'Components/Banner',
@@ -142,51 +143,7 @@ export default {
       table: { category: 'Media' },
     },
     section_background: {
-      name: 'Section background',
-      options: [
-        '',
-        'bg--black',
-        'bg--black--pattern--brain',
-        'bg--black--pattern--community',
-        'bg--black--pattern--particle',
-        'bg--gold',
-        'bg--gold--pattern--brain',
-        'bg--gold--pattern--community',
-        'bg--gold--pattern--particle',
-        'bg--gray',
-        'bg--gray--pattern--brain',
-        'bg--gray--pattern--community',
-        'bg--gray--pattern--particle',
-        'bg--white',
-        'bg--white--pattern--brain',
-        'bg--white--pattern--community',
-        'bg--white--pattern--particle',
-      ],
-      control: {
-        type: 'select',
-        labels: {
-          '': '- None -',
-          'bg--black': 'Black',
-          'bg--black--pattern--brain': 'Black - Brain pattern',
-          'bg--black--pattern--community': 'Black - Community pattern',
-          'bg--black--pattern--particle': 'Black - Particle pattern',
-          'bg--gold': 'Gold',
-          'bg--gold--pattern--brain': 'Gold - Brain pattern',
-          'bg--gold--pattern--community': 'Gold - Community pattern',
-          'bg--gold--pattern--particle': 'Gold - Particle pattern',
-          'bg--gray': 'Gray',
-          'bg--gray--pattern--brain': 'Gray - Brain pattern',
-          'bg--gray--pattern--community': 'Gray - Community pattern',
-          'bg--gray--pattern--particle': 'Gray - Particle pattern',
-          'bg--white': 'White',
-          'bg--white--pattern--brain': 'White - Brain pattern',
-          'bg--white--pattern--community': 'White - Community pattern',
-          'bg--white--pattern--particle': 'White - Particle pattern',
-        },
-      },
-      table: {
-        category: 'Container',
-      },
+      ...BackgroundStories.argTypes.section_background,
     },
     grid_type: {
       name: 'Grid',
