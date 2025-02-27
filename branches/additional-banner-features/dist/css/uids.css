@@ -870,7 +870,7 @@ p {
 }
 
 a {
-  color: #00558C;
+  color: var(--link-color);
   text-decoration: underline;
 }
 
@@ -1134,6 +1134,7 @@ hr {
   --uiowa-black: #000000;
   --brand-primary: var(--uiowa-gold);
   --brand-secondary: var(--uiowa-black);
+  --link-color: #00558C;
   --space-lg-width-gutter: 3rem;
   --space-md-width-gutter: 2rem;
   --space-sm-width-gutter: 1.25rem;
@@ -1552,7 +1553,7 @@ html {
 [class*=bg-] [class*=bg--white] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
 [class*=bg--gray] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
 [class*=bg-] [class*=bg--gray] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn) {
-  color: #00558C;
+  color: var(--link-color);
 }
 
 [class*=bg--white] [class*=bg--gold] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
@@ -1603,8 +1604,9 @@ html {
   --banner-overlay-color-rgb: 0, 0, 0;
   --banner-overlay-solid-opacity: .5;
   --banner-overlay-gradient-midpoint: 40%;
-  --banner-overlay-gradient: rgba(var(--banner-overlay-color-rgb), .8) 0%, rgba(var(--banner-overlay-color-rgb), .6) var(--banner-overlay-gradient-midpoint), transparent;
+  --banner-overlay-gradient: rgb(var(--banner-overlay-color-rgb), .8) 0%, rgb(var(--banner-overlay-color-rgb), .6) var(--banner-overlay-gradient-midpoint), transparent;
   --banner-text-color: #fff;
+  --link-color: var(--banner-text-color);
   display: flex;
   flex-basis: 100%;
   align-items: center;
@@ -1769,9 +1771,6 @@ html {
   margin-bottom: 1rem;
   z-index: 1;
 }
-.banner .headline a {
-  color: var(--banner-text-color);
-}
 .banner .headline a:hover {
   text-decoration: none;
 }
@@ -1876,9 +1875,6 @@ html {
 .banner__text blockquote {
   margin-left: 0;
 }
-.banner__text a {
-  color: var(--banner-text-color);
-}
 .banner__text p {
   line-height: 1.5;
   margin-top: 0;
@@ -1887,7 +1883,6 @@ html {
 .banner__text p a {
   position: relative;
   z-index: 1;
-  color: var(--banner-text-color);
 }
 [class*=bg--gold] .banner__text blockquote {
   border-left-color: #f3f3f3;
@@ -1940,9 +1935,6 @@ html {
       color: var(--brand-secondary);
       text-shadow: none;
     }
-    .banner--stacked:not([class*=bg--]) .headline a {
-      color: var(--brand-secondary);
-    }
     .banner--stacked:not([class*=bg--]) .banner__text {
       color: var(--brand-secondary);
       text-shadow: none;
@@ -1967,9 +1959,6 @@ html {
     .banner--stacked:not([class*=bg--]) .headline {
       color: var(--brand-secondary);
       text-shadow: none;
-    }
-    .banner--stacked:not([class*=bg--]) .headline a {
-      color: var(--brand-secondary);
     }
     .banner--stacked:not([class*=bg--]) .banner__text {
       color: var(--brand-secondary);
@@ -4603,7 +4592,7 @@ table {
   width: 100%;
 }
 [class*=bg--gray] table tbody a, [class*=bg--white] table tbody a, [class*=bg--black] table tbody a, [class*=bg--gold] table tbody a, .bg-pattern--brain-reversed table tbody a, .bg--gold--pattern--brain table tbody a, .bg-pattern--brain table tbody a, .bg--white--pattern--brain table tbody a, .bg--black--pattern--brain table tbody a, .bg-pattern--brain-black table tbody a {
-  color: #00558C;
+  color: var(--link-color);
 }
 @media (min-width: 768px) {
   table {
