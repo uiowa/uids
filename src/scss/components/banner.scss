@@ -259,10 +259,6 @@
     }
   }
 }
-
-.banner:not([class*="bg--"]) .banner__text {
-  text-shadow: 0 1px 3px rgb(var(--banner-overlay-color-rbg));
-}
 // === End: Text/buttons === //
 
 // === Buttons === //
@@ -288,9 +284,16 @@
 .banner {
   &[class*="bg--gold"],
   &[class*="bg--white"],
-  &[class*="bg--gray"],
-  &.banner--overlay-light:not([class*="bg--"]) {
+  &[class*="bg--gray"] {
     --banner-text-color: #{variables.$secondary};
+  }
+}
+// Add text shadow to the headline and text when there is
+// no background class.
+.banner:not([class*="bg--"]) {
+  .headline,
+  .banner__text {
+    text-shadow: 0 1px 3px rgb(var(--banner-overlay-color-rbg));
   }
 }
 // === End: Background colors === //
@@ -408,6 +411,7 @@
 .banner--overlay-light {
   --banner-overlay-color-rbg: 255, 255, 255;
   --banner-overlay-solid-opacity: .7;
+  --banner-text-color: #{variables.$secondary};
   // Override background color for media element loading.
   .media {
     background: #fff;
