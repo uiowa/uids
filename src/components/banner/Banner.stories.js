@@ -141,6 +141,53 @@ export default {
       control: { type: 'boolean' },
       table: { category: 'Media' },
     },
+    section_background: {
+      name: 'Section background',
+      options: [
+        '',
+        'bg--black',
+        'bg--black--pattern--brain',
+        'bg--black--pattern--community',
+        'bg--black--pattern--particle',
+        'bg--gold',
+        'bg--gold--pattern--brain',
+        'bg--gold--pattern--community',
+        'bg--gold--pattern--particle',
+        'bg--gray',
+        'bg--gray--pattern--brain',
+        'bg--gray--pattern--community',
+        'bg--gray--pattern--particle',
+        'bg--white',
+        'bg--white--pattern--brain',
+        'bg--white--pattern--community',
+        'bg--white--pattern--particle',
+      ],
+      control: {
+        type: 'select',
+        labels: {
+          '': '- None -',
+          'bg--black': 'Black',
+          'bg--black--pattern--brain': 'Black - Brain pattern',
+          'bg--black--pattern--community': 'Black - Community pattern',
+          'bg--black--pattern--particle': 'Black - Particle pattern',
+          'bg--gold': 'Gold',
+          'bg--gold--pattern--brain': 'Gold - Brain pattern',
+          'bg--gold--pattern--community': 'Gold - Community pattern',
+          'bg--gold--pattern--particle': 'Gold - Particle pattern',
+          'bg--gray': 'Gray',
+          'bg--gray--pattern--brain': 'Gray - Brain pattern',
+          'bg--gray--pattern--community': 'Gray - Community pattern',
+          'bg--gray--pattern--particle': 'Gray - Particle pattern',
+          'bg--white': 'White',
+          'bg--white--pattern--brain': 'White - Brain pattern',
+          'bg--white--pattern--community': 'White - Community pattern',
+          'bg--white--pattern--particle': 'White - Particle pattern',
+        },
+      },
+      table: {
+        category: 'Container',
+      },
+    },
     grid_type: {
       name: 'Grid',
       options: [
@@ -180,29 +227,29 @@ const Template = {
       return { args };
     },
     template: `
-      <div class="column-container">
-    <uids-banner
-      :background="args.background"
-      :headline_style="args.headline_style"
-      :headline_size="args.headline_size"
-      :headline_highlight="args.headline_highlight"
-      :media_overlay_type="args.media_overlay_type"
-      :media_overlay_light="args.media_overlay_light"
-      :height="args.height"
-      :horizontal_alignment="args.horizontal_alignment"
-      :vertical_alignment="args.vertical_alignment"
-      :buttons="args.buttons"
-      :button_light_font="args.button_light_font"
-      :button_color="args.button_color"
-      :mobile_content_below_image="args.mobile_content_below_image"
-    >
-      <template #media v-if="args.background === ''">
-        ${args.background_media}
-      </template>
-      <template #pre_title v-if="args.title"><span class="headline__heading" v-html="args.pre_title" ></span></template>
-      <template #title v-if="args.title"><span class="headline__heading" v-html="args.title" ></span></template>
-      ${args.content}
-    </uids-banner>
+      <div class="column-container" :class="args.section_background" style="padding-top: 2rem; padding-bottom: 2rem;">
+        <uids-banner
+          :background="args.background"
+          :headline_style="args.headline_style"
+          :headline_size="args.headline_size"
+          :headline_highlight="args.headline_highlight"
+          :media_overlay_type="args.media_overlay_type"
+          :media_overlay_light="args.media_overlay_light"
+          :height="args.height"
+          :horizontal_alignment="args.horizontal_alignment"
+          :vertical_alignment="args.vertical_alignment"
+          :buttons="args.buttons"
+          :button_light_font="args.button_light_font"
+          :button_color="args.button_color"
+          :mobile_content_below_image="args.mobile_content_below_image"
+        >
+          <template #media v-if="args.background === ''">
+            ${args.background_media}
+          </template>
+          <template #pre_title v-if="args.title"><span class="headline__heading" v-html="args.pre_title" ></span></template>
+          <template #title v-if="args.title"><span class="headline__heading" v-html="args.title" ></span></template>
+          ${args.content}
+        </uids-banner>
       </div>`,
   }),
 }
@@ -229,6 +276,7 @@ export const BackgroundImage = {
     buttons: [
       { ...ButtonStories.Primary.args, label: 'Read More ' + ButtonStories.Primary.args.icon, color: 'primary' },
     ],
+    section_background: '',
   }
 }
 BackgroundImage.storyName = 'Background image';
@@ -291,7 +339,7 @@ const GridTemplate = (args) => ({
     return { args };
   },
   template: `
-    <div style="padding-top: 2rem; padding-bottom: 2rem;">
+    <div :class="args.section_background" style="padding-top: 2rem; padding-bottom: 2rem;">
       <uids-grid :type="args.grid_type">
         <uids-grid-item v-for="item in args.record_count" :key="item">
           <uids-banner
