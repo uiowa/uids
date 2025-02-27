@@ -293,10 +293,6 @@
   border-left-color: #f3f3f3;
 }
 
-.banner:not([class*=bg--]) .banner__text {
-  text-shadow: 0 1px 3px rgb(var(--banner-overlay-color-rbg));
-}
-
 .banner .headline + .banner__action {
   margin-top: 1.5rem;
 }
@@ -319,8 +315,13 @@
   }
 }
 
-.banner[class*=bg--gold], .banner[class*=bg--white], .banner[class*=bg--gray], .banner.banner--overlay-light:not([class*=bg--]) {
+.banner[class*=bg--gold], .banner[class*=bg--white], .banner[class*=bg--gray] {
   --banner-text-color: var(--brand-secondary);
+}
+
+.banner:not([class*=bg--]) .headline,
+.banner:not([class*=bg--]) .banner__text {
+  text-shadow: 0 1px 3px rgb(var(--banner-overlay-color-rbg));
 }
 
 @supports (contain: inline-size) {
@@ -456,6 +457,7 @@
 .banner--overlay-light {
   --banner-overlay-color-rbg: 255, 255, 255;
   --banner-overlay-solid-opacity: .7;
+  --banner-text-color: var(--brand-secondary);
 }
 .banner--overlay-light .media {
   background: #fff;
