@@ -114,7 +114,7 @@ export default {
       control: {
         type: 'select',
         labels: {
-          '': 'Solid',
+          '': 'No gradient',
           'btt': 'Bottom to top',
           'ttb': 'Top to bottom',
           'ltr': 'Left to right',
