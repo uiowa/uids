@@ -1,9 +1,11 @@
 import UidsBanner from './Banner.vue'
 import Background from "../shared/background";
-
+import UidsGrid from '../grid/Grid.vue'
+import UidsGridItem from '../grid/GridItem.vue'
 import ExampleImage from '../media/ExampleImage.vue';
 import * as ButtonStories from '../button/Button.stories';
 import ExampleVideoFile from "../media/ExampleVideoFile.vue";
+import BackgroundStories from "../background/Background.stories.js";
 
 export default {
   title: 'Components/Banner',
@@ -96,22 +98,38 @@ export default {
     },
     vertical_alignment: {
       name: 'Vertical alignment',
-      options: ['center', 'bottom'],
+      options: ['top', 'center', 'bottom'],
       control: {
         type: 'select',
         labels: {
+          'top': 'Top',
           'center': 'Center',
           'bottom': 'Bottom',
         },
       },
       table: { category: 'Display options' },
     },
-    gradient: {
-      name: 'Gradient',
-      default: 'dark',
-      options: ['dark', 'light'],
-      control: { type: 'select' },
-      table: { category: 'Display options' },
+    media_overlay_type: {
+      name: 'Overlay type',
+      options: ['', 'btt', 'ttb', 'ltr'],
+      control: {
+        type: 'select',
+        labels: {
+          '': 'No gradient',
+          'btt': 'Bottom to top',
+          'ttb': 'Top to bottom',
+          'ltr': 'Left to right',
+        }
+      },
+      table: {
+        category: 'Media',
+      },
+    },
+    media_overlay_light: {
+      name: 'Overlay light',
+      table: {
+        category: 'Media',
+      },
     },
     height: {
       name: 'Height',
@@ -120,10 +138,42 @@ export default {
       table: { category: 'Display options' },
     },
     mobile_content_below_image: {
-      name: 'Content below media (mobile-only)',
+      name: 'Mobile - Display media above content',
       control: { type: 'boolean' },
-      table: { category: 'Display options' },
+      table: { category: 'Media' },
     },
+    section_background: {
+      ...BackgroundStories.argTypes.section_background,
+    },
+    grid_type: {
+      name: 'Grid',
+      options: [
+        'onecol',
+        'onecol__narrow',
+        'twocol--50-50',
+        'threecol--33-34-33',
+        'fourcol--25',
+      ],
+      control: {
+        type: 'select',
+        labels: {
+          'onecol': 'One column',
+          'onecol__narrow': 'One column (narrow)',
+          'twocol--50-50': 'Two columns',
+          'threecol--33-34-33': 'Three columns',
+          'fourcol--25': 'Four columns',
+        }
+      },
+      table: {
+        category: 'Container',
+      },
+    },
+    record_count: {
+      name: '# of records',
+      table: {
+        category: 'Container',
+      },
+    }
   },
 };
 
@@ -134,27 +184,30 @@ const Template = {
       return { args };
     },
     template: `
-    <uids-banner
-      :background="args.background"
-      :headline_style="args.headline_style"
-      :headline_size="args.headline_size"
-      :headline_highlight="args.headline_highlight"
-      :gradient="args.gradient"
-      :height="args.height"
-      :horizontal_alignment="args.horizontal_alignment"
-      :vertical_alignment="args.vertical_alignment"
-      :buttons="args.buttons"
-      :button_light_font="args.button_light_font"
-      :button_color="args.button_color"
-      :mobile_content_below_image="args.mobile_content_below_image"
-    >
-      <template #media v-if="args.background === ''">
-        ${args.background_media}
-      </template>
-      <template #pre_title v-if="args.title"><span class="headline__heading" v-html="args.pre_title" ></span></template>
-      <template #title v-if="args.title"><span class="headline__heading" v-html="args.title" ></span></template>
-      ${args.content}
-    </uids-banner>`,
+      <div class="column-container" :class="args.section_background" style="padding-top: 2rem; padding-bottom: 2rem;">
+        <uids-banner
+          :background="args.background"
+          :headline_style="args.headline_style"
+          :headline_size="args.headline_size"
+          :headline_highlight="args.headline_highlight"
+          :media_overlay_type="args.media_overlay_type"
+          :media_overlay_light="args.media_overlay_light"
+          :height="args.height"
+          :horizontal_alignment="args.horizontal_alignment"
+          :vertical_alignment="args.vertical_alignment"
+          :buttons="args.buttons"
+          :button_light_font="args.button_light_font"
+          :button_color="args.button_color"
+          :mobile_content_below_image="args.mobile_content_below_image"
+        >
+          <template #media v-if="args.background === ''">
+            ${args.background_media}
+          </template>
+          <template #pre_title v-if="args.title"><span class="headline__heading" v-html="args.pre_title" ></span></template>
+          <template #title v-if="args.title"><span class="headline__heading" v-html="args.title" ></span></template>
+          ${args.content}
+        </uids-banner>
+      </div>`,
   }),
 }
 
@@ -165,13 +218,14 @@ export const BackgroundImage = {
     background_media: `<example-image />`,
     pre_title: 'University of Iowa',
     title: 'Living on Campus',
-    content: '<p>A member of the <a href="/">Association</a> of American Universities since 1909 and the Big Ten Conference<br> since 1899, the University of Iowa is home to one of the most acclaimed academic medical centers<br> in the country, as well as globally recognized leadership in the study and craft of writing.</p>',
+    content: '<p>A member of the <a href="/">Association</a> of American Universities since 1909 and the Big Ten Conference since 1899, the University of Iowa is home to one of the most acclaimed academic medical centers in the country, as well as globally recognized leadership in the study and craft of writing.</p>',
     headline_style: 'serif',
     headline_highlight: false,
     headline_size: 'large',
     horizontal_alignment: 'center',
     vertical_alignment: 'center',
-    gradient:'dark',
+    media_overlay_type: '',
+    media_overlay_light: false,
     height: 'large',
     mobile_content_below_image: true,
     button_light_font: false,
@@ -179,6 +233,7 @@ export const BackgroundImage = {
     buttons: [
       { ...ButtonStories.Primary.args, label: 'Read More ' + ButtonStories.Primary.args.icon, color: 'primary' },
     ],
+    section_background: '',
   }
 }
 BackgroundImage.storyName = 'Background image';
@@ -198,7 +253,6 @@ export const BackgroundPattern = {
     ...BackgroundImage.args,
     background: 'gold--pattern--particle',
     background_media: '',
-    gradient: 'light',
   },
 }
 BackgroundPattern.storyName = 'Background pattern';
@@ -215,3 +269,88 @@ export const MultipleButtons = {
   }
 }
 MultipleButtons.storyName = 'Multiple buttons';
+
+export const KitchenSink = {
+  ...Template,
+  args: {
+    ...BackgroundImage.args,
+    content: '<p>A member of the <a href="/">Association</a> of American Universities since 1909 and the Big Ten Conference since 1899, the University of Iowa is home to one of the most acclaimed academic medical centers in the country, as well as globally recognized leadership in the study and craft of writing.</p><blockquote>\n' +
+      '<p>Nam at tortor in tellus interdum sagittis. Morbi vestibulum volutpat enim.</p>\n' +
+      '</blockquote><blockquote>\n' +
+      'Nam at tortor in tellus interdum sagittis. Morbi vestibulum volutpat enim.\n' +
+      '</blockquote><h2>Heading 2</h2>\n' +
+      '\n' +
+      '<h3>Heading 3</h3>\n' +
+      '\n' +
+      '<h4>Heading 4</h4>\n' +
+      '\n' +
+      '<h5>Heading 5</h5>\n' +
+      '\n' +
+      '<h6>Heading 6</h6>',
+  }
+}
+
+const GridTemplate = (args) => ({
+  components: { UidsGrid, UidsGridItem, UidsBanner, ExampleImage, ExampleVideoFile },
+  setup() {
+    return { args };
+  },
+  template: `
+    <div :class="args.section_background" style="padding-top: 2rem; padding-bottom: 2rem;">
+      <uids-grid :type="args.grid_type">
+        <uids-grid-item v-for="item in args.record_count" :key="item">
+          <uids-banner
+            :background="args.background"
+            :headline_style="args.headline_style"
+            :headline_size="args.headline_size"
+            :headline_highlight="args.headline_highlight"
+            :media_overlay_type="args.media_overlay_type"
+            :media_overlay_light="args.media_overlay_light"
+            :height="args.height"
+            :horizontal_alignment="args.horizontal_alignment"
+            :vertical_alignment="args.vertical_alignment"
+            :buttons="args.buttons"
+            :button_light_font="args.button_light_font"
+            :button_color="args.button_color"
+            :mobile_content_below_image="args.mobile_content_below_image"
+          >
+            <template #media v-if="args.background === ''">
+              ${args.background_media}
+            </template>
+            <template #pre_title v-if="args.title"><span class="headline__heading" v-html="args.pre_title" ></span></template>
+            <template #title v-if="args.title"><span class="headline__heading" v-html="args.title" ></span></template>
+            ${args.content}
+          </uids-banner>
+        </uids-grid-item>
+      </uids-grid>
+    </div>
+  `,
+});
+
+export const GridImage = GridTemplate.bind({});
+GridImage.args = {
+  ...BackgroundImage.args,
+  grid_type: 'threecol--33-34-33',
+  record_count: 3,
+  height: 'medium',
+  headline_size: 'medium',
+};
+GridImage.storyName = 'Background image grid';
+
+export const GridVideo = GridTemplate.bind({});
+GridVideo.args = {
+  ...BackgroundImage.args,
+  background_media: `<example-video-file />`,
+  grid_type: 'threecol--33-34-33',
+  record_count: 3,
+  height: 'medium',
+  headline_size: 'medium',
+  horizontal_alignment: 'left',
+  vertical_alignment: 'bottom',
+  buttons: [
+    { ...ButtonStories.Primary.args, label: 'Apply ' + ButtonStories.Primary.args.icon },
+    { ...ButtonStories.Primary.args, label: 'Learn More ' + ButtonStories.Primary.args.icon, url: 'https://uiowa.edu/about' },
+    { ...ButtonStories.Primary.args, label: 'Explore ' + ButtonStories.Primary.args.icon, url: 'https://uiowa.edu/explore' },
+  ],
+};
+GridVideo.storyName = 'Background video grid';

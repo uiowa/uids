@@ -2,10 +2,8 @@
 import { computed, onMounted, useSlots } from 'vue';
 import UidsButton from "../button/Button.vue";
 import UidsHeadline from '../headline/Headline.vue'
-import UidsMedia from '../media/Media.vue'
 import UidsPseudoButton from '../button/PseudoButton.vue';
 import Background from "../shared/background";
-import Media from '../shared/media'
 import '../../scss/components/banner.scss'
 import '../../scss/components/_background.scss'
 import '../../assets/js/video.js'
@@ -48,12 +46,16 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  gradient: {
+  media_overlay_type: {
     type: String,
-    default: 'dark',
+    default: '',
     validator: function (value) {
-      return ['dark', 'light'].indexOf(value) !== -1;
+      return ['', 'btt', 'ttb', 'ltr'].indexOf(value) !== -1;
     },
+  },
+  media_overlay_light: {
+    type: Boolean,
+    default: false,
   },
   height: {
     type: String,
@@ -69,6 +71,8 @@ const props = defineProps({
   },
 });
 
+const slots = useSlots();
+
 /**
  * Main banner classes.
  */
@@ -78,10 +82,6 @@ const classes = computed(() => {
 
   if (props.buttons.length === 1) {
     classes.push('click-container')
-  }
-
-  if (props.gradient && props.background === '') {
-    classes.push(`banner--gradient-${props.gradient}`);
   }
 
   if (props.height) {
@@ -102,11 +102,14 @@ const classes = computed(() => {
     classes.push(`banner--vertical-${props.vertical_alignment}`);
   }
 
-  if (props.horizontal_alignment === 'left') {
-    classes.push('banner--gradient-left');
-  }
-  else {
-    classes.push('banner--gradient-bottom');
+  if (slots.media) {
+    if (props.media_overlay_type) {
+      classes.push(`banner--overlay-${props.media_overlay_type}`);
+    }
+
+    if (props.media_overlay_light) {
+      classes.push(`banner--overlay-light`);
+    }
   }
 
   return classes;
@@ -165,53 +168,51 @@ onMounted(() => {
 <template>
   <div :class="classes">
     <slot name="media"></slot>
-    <div class="banner__container">
-      <div class="banner__content">
-        <header class="banner__title" v-if="$slots.title || $slots.pre_title">
-          <div :class="preTitleClasses" v-if="$slots.pre_title">
-            <slot name="pre_title"></slot>
-          </div>
-          <uids-headline
-            :text_style="headline_style"
-            :highlight="headline_highlight"
-            :class="`headline--${props.headline_size}`"
-          >
-            <a v-if="headlineLink" :href="headlineLink" class="click-target">
-              <slot name="title"></slot>
-            </a>
-            <template v-else>
-              <slot name="title"></slot>
-            </template>
-          </uids-headline>
-        </header>
-
-        <div class="banner__text" v-if="$slots.default" >
-          <slot></slot>
+    <div class="banner__content">
+      <header class="banner__title" v-if="$slots.title || $slots.pre_title">
+        <div :class="preTitleClasses" v-if="$slots.pre_title">
+          <slot name="pre_title"></slot>
         </div>
+        <uids-headline
+          :text_style="headline_style"
+          :highlight="headline_highlight"
+          :class="`headline--${props.headline_size}`"
+        >
+          <a v-if="headlineLink" :href="headlineLink" class="click-target">
+            <slot name="title"></slot>
+          </a>
+          <template v-else>
+            <slot name="title"></slot>
+          </template>
+        </uids-headline>
+      </header>
 
-        <footer class="banner__action" v-if="buttons.length > 0 || $slots.buttons">
-          <slot name="buttons">
-            <!-- Render pseudo button when only url is present -->
-            <uids-pseudo-button
-              v-if="buttons.length === 1"
+      <div class="banner__text" v-if="$slots.default" >
+        <slot></slot>
+      </div>
+
+      <footer class="banner__action" v-if="buttons.length > 0 || $slots.buttons">
+        <slot name="buttons">
+          <!-- Render pseudo button when only url is present -->
+          <uids-pseudo-button
+            v-if="buttons.length === 1"
+            size="medium"
+            :color="button_color"
+            :light_font="button_light_font"
+            v-html="buttons[0].label">
+          </uids-pseudo-button>
+          <div v-else-if="buttons.length > 0" class="bttn--row">
+            <uids-button
+              v-for="(button, i) in buttons"
+              :url="button.url"
               size="medium"
               :color="button_color"
               :light_font="button_light_font"
-              v-html="buttons[0].label">
-            </uids-pseudo-button>
-            <div v-else-if="buttons.length > 0" class="bttn--row">
-              <uids-button
-                v-for="(button, i) in buttons"
-                :url="button.url"
-                size="medium"
-                :color="button_color"
-                :light_font="button_light_font"
-                ><span v-html="button.label"></span>
-              </uids-button>
-            </div>
-          </slot>
-        </footer>
-      </div>
+              ><span v-html="button.label"></span>
+            </uids-button>
+          </div>
+        </slot>
+      </footer>
     </div>
   </div>
 </template>

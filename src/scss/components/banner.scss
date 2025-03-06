@@ -1,851 +1,153 @@
 @use '../abstracts/variables';
 @use '../abstracts/utilities';
+@use '../abstracts/breakpoints' as *;
 
-// --------------------------------
-
-// === Sizes === //
+// === Banner base === //
 .banner {
-  flex-basis: 100%;
+  --banner-padding: #{variables.$gutter};
+  --banner-overlay-color-rgb: 0, 0, 0;
+  --banner-overlay-solid-opacity: .5;
+  --banner-overlay-gradient-midpoint: 40%;
+  --banner-overlay-gradient: rgb(var(--banner-overlay-color-rgb), .8) 0%, rgb(var(--banner-overlay-color-rgb), .6) var(--banner-overlay-gradient-midpoint), transparent;
+  --banner-text-color: #fff;
+  --banner-bg-failsafe: #{variables.$secondary};
+  --link-color: var(--banner-text-color);
+
   display: flex;
+  flex-basis: 100%;
+  // Default vertical alignment is centered.
   align-items: center;
+  // Default horizontal alignment is centered.
   justify-content: center;
   min-height: 15rem;
-
-  &--large {
-    &::before {
-      float: left;
-      padding-top: 45.25%;
-      content: '';
-    }
-  }
-
-  &--medium {
-    &::before {
-      float: left;
-      padding-top: 32.25%;
-      content: '';
-    }
-  }
-
-  &--full {
-    &.banner--large {
-      @include utilities.breakpoint(page-container) {
-        height: 100vh;
-      }
-    }
-  }
-
-  &::after {
-    display: block;
-    content: '';
-    clear: both;
-    @include utilities.breakpoint(page-container) {
-      display: block;
-      content: '';
-      clear: both;
-    }
-  }
-}
-// === End: Sizes === //
-
-// === Alignment === //
-.banner {
   position: relative;
   overflow: hidden;
+
   @include utilities.breakpoint(sm) {
-    flex-basis: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  &.banner--vertical-bottom {
-    align-items: flex-end;
-  }
-
-  &.banner--horizontal-center {
-    text-align: center;
-
-    blockquote {
-      border-left: none;
-    }
-
-    .banner__content {
-      > * {
-        margin-right: auto;
-        margin-left: auto;
-      }
-    }
+    --banner-padding: #{variables.$mobile-height-gutter};
   }
 }
+// === End: Banner base === //
 
-// === End: Alignment === //
+// === Media === //
+.banner .media {
+  // Background color for media element loading.
+  background: #{variables.$secondary};
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  overflow: visible;
 
-// === Container === //
-.banner {
-  &:focus-within .headline a:focus {
-    text-decoration: underline;
+  @include container-query() {
+    position: absolute;
   }
 
-  &__container {
-    margin: 0 auto;
-    width: 100%;
-    z-index: 1;
-    @include utilities.breakpoint(sm) {
-      z-index: 1;
-      max-width: 81.875em;
-      top: 0;
-    }
-  }
-}
-
-// === End: Container === //
-
-// === Buttons === //
-.banner {
-  .headline + .banner__action {
-    margin-top: 1.5rem;
-  }
-
-  .banner__action .bttn {
-    margin: 0 1rem 1rem 0;
-
-    @include utilities.breakpoint(sm) {
-      + .bttn {
-        margin: 0 1rem 1rem 0;
-      }
-    }
-  }
-
-  // Stack buttons for horizontal center version for mobile.
-  &.banner--horizontal-center {
-    .banner__action .bttn {
-      margin: 1rem auto;
-      display: block;
-      width: fit-content;
-
-      &:last-child {
-        margin: 1rem auto;
-      }
-
-      @include utilities.breakpoint(sm) {
-        margin: 0 1rem 1rem 0;
-        display: inline-block;
-        width: auto;
-
-        &:last-child {
-          margin-top: 0;
-          margin-right: 0;
-        }
-      }
-
-      + .bttn {
-        @include utilities.breakpoint(sm) {
-          margin: 0 1rem 1rem 0;
-        }
-      }
-    }
-  }
-
-  // Transparent button styles for gradient dark banners.
-  &.banner--gradient-dark {
-    // Stacked banner transparent button styles.
-    &.banner--stacked:not([class*="bg-"]) {
-      .banner__action .bttn--transparent {
-        @include utilities.breakpoint(sm) {
-          border-color: rgba(255, 255, 255, .525);
-          color: #fff;
-        }
-      }
-    }
-
-    // Default transparent button styles for non-stacked banners.
-    &:not(.banner--stacked):not([class*="bg--white"]):not([class*="bg--gold"]) {
-      .banner__action .bttn--transparent {
-        border: 1px solid #fff;
-        color: #fff;
-      }
-    }
-  }
-}
-
-// === End: Buttons === //
-
-// === Pre-title === //
-.banner {
-  &__pre-title {
-    background: none;
-    line-height: 1.1;
-
-    &.headline.headline--serif {
-      margin-bottom: 0;
-      font-weight: 500;
-    }
-
-    &.headline.headline--uppercase {
-      margin-bottom: 0.7rem;
-      font-weight: 500;
-    }
-
-    &.headline.headline--highlight {
-      margin-bottom: -.1rem;
-    }
-
-    &.headline.headline--highlight.headline--serif {
-      margin-bottom: -.4rem;
-    }
-
-    &.headline.headline--highlight {
-      span {
-        background: none;
-
-        // Keep pre-title black when there's a black section container.
-        .banner--gradient-light:not([class*="bg-"]) & {
-          [class*="bg--black"] & {
-            @include utilities.breakpoint(sm) {
-              color: variables.$secondary;
-            }
-          }
-        }
-
-        // Keep pre-title white when there's multiple background colors.
-        [class*="bg--black"] &,
-        [class*="bg--"] [class*="bg--black"] &,
-        [class*="bg--black"] [class*="banner--gradient-dark"]:not([class*="bg--"]) &,
-        [class*="bg--gold"] [class*="banner--gradient-dark"][class*="bg--black"] &,
-        [class*="banner--gradient-dark"]:not([class*="bg--"]):not([class*="banner--stacked"]) &,
-        [class*="bg--black"] [class*="banner--gradient-light"][class*="bg--black"]:not([class*="banner--stacked"]) & {
-          color: #fff;
-        }
-
-        // Make pre-title white if banner--stacked is selected.
-        [class*="banner--gradient-dark"]:not([class*="bg--"]) & {
-          @include utilities.breakpoint(sm) {
-           color: #fff;
-          }
-        }
-
-        [class*="bg--gold"] [class*="banner--gradient-dark"] & {
-          color: variables.$secondary;
-          @include utilities.breakpoint(sm) {
-            color: #fff;
-          }
-        }
-
-        [class*="bg--gold"] [class*="banner--gradient-dark"][class*="bg--gold"] &,
-        [class*="bg--gold"] [class*="banner--gradient-dark"][class*="bg--gray"] &,
-        [class*="bg--gold"] [class*="banner--gradient-dark"][class*="bg--white"] &,
-        [class*="bg--black"] [class*="banner--gradient-light"]:not([class*="banner--stacked"]) &,
-        [class*="bg--white"] &,
-        [class*="bg--gold"] &,
-        [class*="bg--gray"] & {
-          color: variables.$secondary;
-        }
-      }
-    }
-
-    &.headline--large {
-      font-size: clamp(1.2rem, calc(0.9014vw + 0.862rem), 1.6rem);
-    }
-
-    &.headline--medium {
-      font-size: clamp(1.2rem, calc(0.4507vw + 1.031rem), 1.4rem);
-    }
-
-    &.headline--small {
-      font-size: variables.$h5-font-size;
-    }
-  }
-
-  &__stacked {
-    &[class*="banner--gradient-dark"] {
-      .banner__pre-title.headline--highlight span {
-        color: variables.$secondary;
-
-        [class*="bg--black"] & {
-          color: #fff;
-        }
-        @include utilities.breakpoint(sm) {
-          color: #fff;
-          text-shadow: 0 1px 1px #000;
-        }
-      }
-    }
-  }
-}
-
-// === End: Pre-title === //
-
-// === Text/buttons === //
-.banner {
-  &__content {
-    padding: variables.$gutter;
-    @include utilities.breakpoint(sm) {
-      padding: 2rem 0;
-    }
-
-    > * {
-      flex-basis: 100%;
-    }
-    @include utilities.breakpoint(page-container) {
-      padding: 2rem 0 variables.$gutter;
-    }
-  }
-
-  &__text {
-    z-index: 1;
-    color: #fff;
-
-    blockquote {
-      margin-left: 0;
-    }
-
-    a {
-      color: #fff;
-    }
-
-    p {
-      line-height: 1.5;
-      margin-top: 0;
-      color: #fff;
-      text-shadow: 0 1px 1px #000;
-      @include utilities.breakpoint(sm) {
-        color: #fff;
-        text-shadow: 0 1px 1px #000;
-      }
-
-      a {
-        position: relative;
-        z-index: 1;
-        color: #fff;
-      }
-    }
-  }
-
-  // bg color overrides.
-  &[class*="banner--gradient-dark"]:not([class*="bg-"]):not([class*="banner--stacked"]) {
-    .banner__text a {
-      [class*="bg--gray"] &,
-      [class*="bg--gold"] &,
-      [class*="bg--white"] & {
-        color: #fff;
-      }
-    }
-  }
-
-  &[class*="bg--black"] {
-    .banner__text p {
-      color: #fff;
-    }
-  }
-
-  &[class*="banner--gradient-light"]:not([class*="bg-"]) {
-    .banner__text {
-      blockquote {
-        [class*="bg--gold"] & {
-          border-left-color: variables.$primary;
-        }
-      }
-    }
-  }
-
-  &[class*="bg--gray"] {
-    .banner__text {
-      color: variables.$secondary;
-
-      a {
-        color: variables.$secondary;
-      }
-
-      p {
-        color: variables.$secondary;
-        font-weight: normal;
-        text-shadow: none;
-
-        a {
-          color: variables.$secondary;
-        }
-      }
-    }
-  }
-
-  &[class*="bg--gold"],
-  &[class*="bg--white"],
-  &[class*="banner--gradient-light"]:not([class*="bg-"]) {
-    .banner__text {
-      color: variables.$secondary;
-
-      p {
-        color: variables.$secondary;
-        font-weight: normal;
-        text-shadow: none;
-
-        a {
-          color: variables.$secondary;
-        }
-      }
-
-      a {
-        color: variables.$secondary;
-      }
-    }
-
-    &.banner--stacked:not([class*="bg-"]) {
-      [class*="bg--black"] & {
-        .banner__text {
-          color: #fff;
-          @include utilities.breakpoint(sm) {
-            color: variables.$secondary;
-          }
-
-          a {
-            color: #fff;
-            @include utilities.breakpoint(sm) {
-              color: variables.$secondary;
-            }
-          }
-
-          p {
-            color: #fff;
-            @include utilities.breakpoint(sm) {
-              color: variables.$secondary;
-            }
-
-            a {
-              color: #fff;
-              @include utilities.breakpoint(sm) {
-                color: variables.$secondary;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  &--stacked {
-    .banner__text {
-      color: variables.$secondary;
-      @include utilities.breakpoint(sm) {
-        color: #fff;
-      }
-
-      a {
-        color: variables.$secondary;
-        @include utilities.breakpoint(sm) {
-          color: #fff;
-        }
-      }
-    }
-
-    &[class*="banner--gradient-dark"] {
-      &:not([class*="bg--"]) {
-        .banner__text {
-          p {
-            [class*="bg--black"] & {
-              color: #fff;
-            }
-            color: variables.$secondary;
-            text-shadow: none;
-            @include utilities.breakpoint(sm) {
-              color: #fff;
-              text-shadow: 0 1px 1px #000;
-            }
-
-            a {
-              color: variables.$secondary;
-              @include utilities.breakpoint(sm) {
-                color: #fff;
-              }
-
-              [class*="bg--black"] & {
-                color: #fff;
-              }
-            }
-          }
-        }
-      }
-    }
-
-    &[class*="banner--gradient-light"]:not([class*="bg--"]) {
-      .banner__text {
-        [class*="bg--gold"] & {
-          blockquote {
-            border-left-color: #fff;
-            @include utilities.breakpoint(sm) {
-              border-left-color: variables.$primary;
-            }
-          }
-        }
-      }
-    }
-
-    &[class*="banner--gradient-light"]:not([class*="bg--black"]) {
-      .banner__text {
-        [class*="bg--gold"] & {
-          p {
-            color: variables.$secondary;
-
-            a {
-              color: variables.$secondary;
-            }
-          }
-        }
-      }
-    }
-
-    &[class*="bg--black"] {
-      display: flex;
-
-      .banner__text {
-        color: #fff;
-
-        a {
-          color: #fff;
-        }
-
-        p {
-          color: #fff;
-
-          a {
-            color: #fff;
-          }
-        }
-      }
-    }
-
-    [class*="bg--black"] & {
-      .banner__text {
-        color: #fff;
-
-        a {
-          color: #fff;
-        }
-      }
-    }
-
-    &[class*="bg--white"],
-    &[class*="bg--gray"],
-    &[class*="bg--gold"] {
-      [class*="bg--black"] & {
-        .banner__text {
-          color: variables.$secondary;
-
-          a {
-            color: variables.$secondary;
-          }
-
-          p {
-            color: variables.$secondary;
-
-            a {
-              color: variables.$secondary;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-// === End: Text/buttons === //
-
-// === Image === //
-.banner {
-  .media--image {
-    overflow: visible;
-
-    img {
-      display: block;
-      width: 100%;
-      -o-object-fit: cover;
-      object-fit: cover;
-      position: absolute;
-      height: 100%;
-      top: 0;
-    }
-  }
-
-  &--stacked {
-    .media--image {
-      img {
-        position: relative;
-        @include utilities.breakpoint(sm) {
-          position: absolute;
-        }
-      }
-    }
-  }
-}
-// === End: Image === //
-
-// === Video === //
-.banner {
-  .media--video .video-controls {
-    z-index: 2;
-  }
-
-  .media--video {
+  img,
+  video {
+    display: block;
     height: 100%;
     width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
     top: 0;
-    position: absolute;
-
-    video {
-      overflow: visible;
-      display: block;
-      width: 100%;
-      -o-object-fit: cover;
-      object-fit: cover;
-      height: 100%;
-      top: 0;
-      @include utilities.breakpoint(sm) {
-        position: absolute;
-      }
-    }
+    overflow: visible;
   }
 
-  .media--video {
-
-    .video-controls {
-      position: absolute;
-      left: 1.25rem;
-      bottom: 1.25rem;
-      @include utilities.breakpoint(page-container) {
-        left: 3rem;
-        bottom: 3rem;
-      }
-
-      .banner--horizontal-left.banner--vertical-bottom & {
-        @include utilities.breakpoint(page-container) {
-          bottom: 1.5rem;
-          left: 1.5rem;
-        }
-      }
-    }
-
-    .video-btn {
-      display: none;
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-      color: variables.$secondary;
-      border: 1px solid white;
-      border-radius: 50%;
-      background: white;
-      font-size: 1rem;
-      padding: 0;
-      @include utilities.breakpoint(sm) {
-        display: block;
-      }
-
-      &::after {
-        content: "\f04b";
-        @include utilities.fas();
-        font-size: 1rem;
-      }
-
-      &.video-btn__play::after {
-        margin-left: 3px;
-      }
-
-      &.video-btn__pause::after {
-        content: "\f04c";
-      }
-    }
-    @media (hover:none), (hover:on-demand) {
-      .video-btn {
-        display: none;
-      }
-    }
-  }
-
-  &[class*="banner--gradient-light"] {
-    .media--video .video-btn {
-      border: 1px solid variables.$secondary;
-    }
-  }
-
-  &--stacked {
-    .media--video {
-      position: relative;
-      @include utilities.breakpoint(sm) {
-        position: absolute;
-      }
-
-      .video-btn {
-        display: block;
-      }
-    }
-  }
-
-  // Bottom/Left Video button alignment
-  &.banner--horizontal-left.banner--vertical-bottom {
-    .media--video + .banner__container .banner__content {
-      @include utilities.breakpoint(sm) {
-        padding-bottom: 4.25rem;
-      }
-    }
-  }
-}
-// === End: Video === //
-
-// === Stacked === //
-.banner {
-  &--stacked {
-    display: block;
-    @include utilities.breakpoint(sm) {
-      display: flex;
-    }
-  }
-}
-// === End: Stacked === //
-
-// === Gradients === //
-.banner {
-  // Default overlay
+  // Overlay/Gradient.
   &:after {
+    display: block;
     position: absolute;
+    height: 100%;
+    width: 100%;
     top: 0;
     left: 0;
-    display: block;
-    width: 100%;
-    height: 100%;
     content: "";
     -webkit-transition: all 0.5s ease-in-out;
     transition: all 0.5s ease-in-out;
     will-change: opacity;
+    // Default is dark overlay.
+    background: rgb(var(--banner-overlay-color-rgb), var(--banner-overlay-solid-opacity));
   }
 
-  &.banner--gradient-dark:not([class*="bg-"]) {
-    @include utilities.breakpoint(sm) {
-      background: variables.$secondary;
-    }
+  // Video.
+  .video-controls {
+    position: absolute;
+    z-index: 2;
+    right: #{variables.$gutter};
+    bottom: #{variables.$gutter};
 
-    &:not([class*="banner--stacked"]) {
-      background: variables.$secondary;
-    }
-  }
-
-  &--gradient-left {
-    &[class*="banner--stacked"] {
-      &:after {
-        background: none;
-        width: auto;
-        height: auto;
-        @include utilities.breakpoint(sm) {
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, rgba(0, 0, 0, .86) 0, rgba(0, 0, 0, .23) 65%, transparent);
-        }
-      }
-    }
-
-    &:after {
-      background: rgba(0, 0, 0, .5);
-      @include utilities.breakpoint(sm) {
-        background: linear-gradient(90deg, rgba(0, 0, 0, .86) 0, rgba(0, 0, 0, .23) 65%, transparent);
-      }
-    }
-
-    &.banner--gradient-light {
-      &[class*="banner--stacked"] {
-        &:after {
-          background: none;
-          width: auto;
-          height: auto;
-          @include utilities.breakpoint(sm) {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, #fff 1%, hsla(0, 0%, 100%, .92) 32%, hsla(0, 0%, 100%, 0));
-          }
-        }
-      }
-
-      &:after {
-        background: rgba(255, 255, 255, .7);
-        @include utilities.breakpoint(sm) {
-          background: linear-gradient(90deg, #fff 1%, hsla(0, 0%, 100%, .92) 32%, hsla(0, 0%, 100%, 0));
-        }
-      }
-
-      &[class*="bg-"]:after {
-        background: none;
-      }
-    }
-
-    &[class*="bg-"]:after {
-      background: none;
+    @include container-query {
+      right: #{variables.$mobile-height-gutter};
+      bottom: #{variables.$mobile-height-gutter};
     }
   }
 
-  &--gradient-bottom {
-    &[class*="banner--stacked"] {
-      &:after {
-        background: none;
-        width: auto;
-        height: auto;
-        @include utilities.breakpoint(sm) {
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 70%);
-        }
-      }
+  .video-btn {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    color: #{variables.$secondary};
+    border: 1px solid white;
+    border-radius: 50%;
+    background: white;
+    font-size: 1rem;
+    padding: 0;
+
+    @include container-query() {
+      display: block;
     }
 
-    &:after {
-      background: rgba(0, 0, 0, .5);
-      @include utilities.breakpoint(sm) {
-        background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 70%);
-      }
+    &::after {
+      content: "\f04b";
+      @include utilities.fas();
+      font-size: 1rem;
     }
 
-    &.banner--gradient-light {
-      &[class*="banner--stacked"] {
-        &:after {
-          background: none;
-          width: auto;
-          height: auto;
-          @include utilities.breakpoint(sm) {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, transparent 0, hsla(0, 0%, 100%, .9) 55%);
-          }
-        }
-      }
+    &.video-btn__play::after {
+      margin-left: 3px;
+    }
 
-      &:after {
-        background: rgba(255, 255, 255, .7);
-        @include utilities.breakpoint(sm) {
-          background: linear-gradient(180deg, transparent 0, hsla(0, 0%, 100%, .9) 55%);
-        }
-      }
-
-      &[class*="bg-"]:after {
-        background: none;
-      }
+    &.video-btn__pause::after {
+      content: "\f04c";
     }
   }
-
-  &--transparent {
-    &:after {
-      background: none;
+  @media (hover:none), (hover:on-demand) {
+    .video-btn {
+      display: none;
     }
-  }
-
-  &[class*="bg-"]:after {
-    background: inherit;
   }
 }
-// === End: Gradients === //
+// === End: Media === //
+
+// === Content === //
+.banner__content {
+  margin: 0 auto;
+  width: 100%;
+  z-index: 1;
+  padding: var(--banner-padding);
+
+  @include container-query() {
+    z-index: 1;
+    max-width: #{variables.$container-width};
+    top: 0;
+  }
+
+  > * {
+    flex-basis: 100%;
+  }
+}
+// === End: Content === //
 
 // === Headline === //
 .banner {
   .headline {
+    color: var(--banner-text-color);
+    margin-top: 0;
+    margin-bottom: 1rem;
     z-index: 1;
 
     a {
-      color: #fff;
+      color: var(--link-color);
 
       &:hover {
         text-decoration: none;
@@ -855,168 +157,294 @@
         text-decoration: underline;
       }
     }
-    margin-top: 0;
-    margin-bottom: 1rem;
   }
 
-  &.banner--gradient-dark {
-    .headline {
-      color: #fff;
-      text-shadow: 0 1px 1px #000;
-      @include utilities.breakpoint(sm) {
-        color: #fff;
-      }
-
-      a {
-        @include utilities.breakpoint(sm) {
-          color: #fff;
-        }
-      }
-    }
+  &:focus-within .headline a:focus {
+    text-decoration: underline;
   }
 
   // Overriding the serif font size set in base/_headings.scss
   :where(h2, h3, h4, h5, h6) {
     &.headline--large,
     &.headline--large.headline--serif {
-      font-size: 4.7rem;
+      font-size: 2.6rem;
 
-      // https://garyridgway.github.io/clampCalculator/?&minWidth=600&maxWidth=1310&minFont=2.5&maxFont=4.7
-      font-size: clamp(2.5rem, calc(4.9577vw + 0.6408rem), 4.7rem);
+      @include container-query() {
+        font-size: clamp(2.5rem, calc(4.9577vw + 0.6408rem), 4.7rem);
+      }
     }
     // Set medium heading size
     &.headline--medium,
     &.headline--medium.headline--serif {
-      font-size: 3.7rem;
+      font-size: 2.2rem;
 
-      // https://garyridgway.github.io/clampCalculator/?&minWidth=600&maxWidth=1310&minFont=2.2&maxFont=3.7
-      font-size: clamp(2.2rem, calc(3.3803vw + 0.9324rem), 3.7rem);
+      @include container-query() {
+        font-size: clamp(2.2rem, calc(3.3803vw + 0.9324rem), 3.7rem);
+      }
     }
     // Set small heading size
     &.headline--small,
     &.headline--small.headline--serif {
-      font-size: 2.7rem;
-
-      // https://garyridgway.github.io/clampCalculator/?&minWidth=600&maxWidth=1310&minFont=2&maxFont=2.7
-      font-size: clamp(2rem, calc(1.5775vw + 1.4085rem), 2.7rem);
-    }
-  }
-
-  &--stacked {
-    &[class*="banner--gradient-dark"][class*="bg--black"] {
-      .headline {
-        color: #fff;
-      }
-    }
-
-    &[class*="banner--gradient-dark"][class*="bg--gray"],
-    &[class*="banner--gradient-dark"][class*="bg--white"] {
-      .headline,
-      .headline.headline--uppercase {
-        [class*="bg--black"] & {
-          color: variables.$secondary;
-          text-shadow: none;
-
-          a {
-            color: variables.$secondary;
-            text-shadow: none;
-          }
-        }
-      }
-    }
-
-    &[class*="banner--gradient-dark"] {
-      .headline {
-        color: variables.$secondary;
-        text-shadow: none;
-        @include utilities.breakpoint(sm) {
-          color: #fff;
-          text-shadow: 0 1px 1px #000;
-        }
-
-        a {
-          color: variables.$secondary;
-          @include utilities.breakpoint(sm) {
-            color: #fff;
-          }
-        }
-
-        [class*="bg--black"] & {
-          color: #fff;
-          text-shadow: 0 1px 1px #000;
-          @include utilities.breakpoint(sm) {
-            color: #fff;
-          }
-
-          a {
-            color: #fff;
-            @include utilities.breakpoint(sm) {
-              color: #fff;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  &[class*="bg--gray"] {
-    .headline {
-      color: variables.$secondary;
-      text-shadow: none;
-
-      a {
-        color: variables.$secondary;
-      }
-    }
-  }
-
-  &[class*="bg--black"] {
-    .headline {
-      a {
-        color: #fff;
-      }
-    }
-  }
-
-  &[class*="bg--gold"],
-  &[class*="bg--white"],
-  &[class*="banner--gradient-light"]:not([class*="bg-"]) {
-    .headline {
-      color: variables.$secondary;
-      text-shadow: none;
-
-      a {
-        color: variables.$secondary;
-      }
-    }
-
-    &.banner--stacked:not([class*="bg-"]) {
-      [class*="bg--black"] & {
-        .headline {
-          color: #fff;
-          @include utilities.breakpoint(sm) {
-            color: variables.$secondary;
-          }
-
-          a {
-            color: #fff;
-            @include utilities.breakpoint(sm) {
-              color: variables.$secondary;
-            }
-          }
-        }
+      font-size: 1.8rem;
+      @include container-query() {
+        font-size: clamp(2rem, calc(1.5775vw + 1.4085rem), 2.7rem);
       }
     }
   }
 }
-
 // === End: Headline === //
 
-// === Misc === //
-// Set link color for gray and white nesting.
-[class*="bg--gray"] [class*="banner--gradient-dark"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
-[class*="bg--white"] [class*="banner--gradient-dark"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn) {
-  color: inherit;
-}
-// === End: Misc === //
+// === Pre-title === //
+.banner__pre-title {
+  line-height: 1.1;
 
+  &.headline.headline--serif {
+    margin-bottom: 0;
+    font-weight: 500;
+  }
+
+  &.headline.headline--uppercase {
+    margin-bottom: 0.7rem;
+    font-weight: 500;
+  }
+
+  &.headline--large {
+    font-size: clamp(1.2rem, calc(0.9014vw + 0.862rem), 1.6rem);
+  }
+
+  &.headline--medium {
+    font-size: clamp(1.2rem, calc(0.4507vw + 1.031rem), 1.4rem);
+  }
+
+  &.headline--small {
+    font-size: #{variables.$h5-font-size};
+  }
+}
+// === End: Pre-title === //
+
+// === Text/buttons === //
+.banner__text {
+  z-index: 1;
+  color: var(--banner-text-color);
+  margin-bottom: 1.05rem;
+
+  // Set max-width for line-length readability.
+  @include container-query() {
+    max-width: 75%;
+  }
+
+  blockquote {
+    margin-left: 0;
+  }
+
+  p {
+    line-height: 1.5;
+    margin-top: 0;
+    color: var(--banner-text-color);
+
+    a {
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  // Set the border color for blockquote when background is gold.
+  blockquote {
+    // Match gold background color and patterns.
+    [class*="bg--gold"] & {
+      border-left-color: #{variables.$light};
+    }
+  }
+}
+// === End: Text/buttons === //
+
+// === Buttons === //
+.banner {
+  .headline + .banner__action {
+    margin-top: 1.5rem;
+  }
+}
+
+.banner__action .bttn {
+  margin: 0 1rem 1rem 0;
+
+  @include container-query() {
+    + .bttn {
+      margin: 0 1rem 1rem 0;
+    }
+  }
+}
+// === End: Buttons === //
+
+// === Background colors === //
+// 'bg--*' selectors match solid color and patterns.
+.banner {
+  &[class*="bg--gold"],
+  &[class*="bg--white"],
+  &[class*="bg--gray"] {
+    --banner-text-color: #{variables.$secondary};
+  }
+}
+// Add text shadow to the headline and text when there is
+// no background class.
+.banner:not([class*="bg--"]) {
+  background-color: var(--banner-bg-failsafe);
+
+  .headline,
+  .banner__text {
+    text-shadow: 0 1px 3px rgb(var(--banner-overlay-color-rgb));
+  }
+}
+// === End: Background colors === //
+
+// === Stacked === //
+// if the banner is stacked and has no background color.
+.banner--stacked:not([class*="bg--"]) {
+  // We use a max-width rule here to avoid having to
+  // override these rules in other places.
+  @include container-query($type: max) {
+    --link-color: #{variables.$secondary};
+    --banner-bg-failsafe: white;
+
+    display: block;
+
+    .media {
+      position: relative;
+
+      &:after {
+        background: none !important;
+      }
+    }
+
+    .headline {
+      color: #{variables.$secondary};
+      text-shadow: none;
+    }
+
+    .banner__text {
+      color: #{variables.$secondary};
+      text-shadow: none;
+
+      * {
+        color: #{variables.$secondary};
+      }
+    }
+  }
+}
+// === End: Stacked === //
+
+// === Sizes === //
+.banner--large::before {
+  float: left;
+  padding-top: 45.25%;
+  content: '';
+}
+.banner--medium::before {
+  float: left;
+  padding-top: 32.25%;
+  content: '';
+}
+
+.banner--full {
+  &.banner--large {
+    @include utilities.breakpoint(page-container) {
+      height: 100vh;
+    }
+  }
+}
+// === End: Sizes === //
+
+// === Alignment === //
+.banner--vertical-top {
+  align-items: flex-start;
+}
+
+.banner--vertical-bottom {
+  align-items: flex-end;
+}
+
+.banner--horizontal-center {
+  text-align: center;
+
+  blockquote {
+    border-left: none;
+  }
+
+  .banner__content {
+    > * {
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
+}
+
+.banner--horizontal-left {
+  text-align: left;
+}
+// === End: Alignment === //
+
+// === Overlay/Gradient === //
+.banner--overlay-btt,
+.banner--overlay-ttb,
+.banner--overlay-ltr {
+  .media:after {
+    // Gradient comes in at the sm container breakpoint.
+    @include container-query() {
+      background: linear-gradient(var(--banner-overlay-gradient-direction), var(--banner-overlay-gradient));
+    }
+  }
+}
+.banner--overlay-btt {
+  --banner-overlay-gradient-direction: 0deg;
+}
+.banner--overlay-ttb {
+  --banner-overlay-gradient-direction: 180deg;
+}
+.banner--overlay-ltr {
+  --banner-overlay-gradient-direction: 90deg;
+  --banner-overlay-gradient-midpoint: 70%;
+}
+.banner--overlay-light {
+  --banner-overlay-color-rgb: 255, 255, 255;
+  --banner-overlay-solid-opacity: .7;
+  --banner-text-color: #{variables.$secondary};
+  --banner-bg-failsafe: white;
+  // Override background color for media element loading.
+  .media {
+    background: #fff;
+
+    .video-btn {
+      border: 1px solid #{variables.$secondary};
+    }
+  }
+}
+// === End: Overlay/Gradient === //
+
+// === Background colors === //
+// Remove left/right padding if container background matches banner background.
+
+$bg-colors: "white", "black", "gray", "gold";
+
+// Simple background colors and pattern variants
+@each $color in $bg-colors {
+  div[class*="bg--#{$color}"] {
+    .banner[class*="bg--#{$color}"] {
+      .banner__content {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+  }
+}
+
+// When the containing element has no background color
+// and the banner has a solid white background, remove padding.
+div:not([class*="bg--"]) {
+  .banner.bg--white {
+    .banner__content {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+// === End: Background colors === //
