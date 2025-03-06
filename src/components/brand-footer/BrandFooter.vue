@@ -61,7 +61,7 @@ export default {
               <a href="https://opsmanual.uiowa.edu/community-policies/nondiscrimination-statement">UI Nondiscrimination Statement</a>
             </li>
             <li>
-              <a href="https://uiowa.edu/accessibility">Accessibility</a>
+              <a href="https://accessibility.uiowa.edu/">Accessibility</a>
             </li>
           </ul>
         </div>
