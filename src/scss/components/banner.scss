@@ -10,6 +10,7 @@
   --banner-overlay-gradient-midpoint: 40%;
   --banner-overlay-gradient: rgb(var(--banner-overlay-color-rgb), .8) 0%, rgb(var(--banner-overlay-color-rgb), .6) var(--banner-overlay-gradient-midpoint), transparent;
   --banner-text-color: #fff;
+  --banner-bg-failsafe: #{variables.$secondary};
   --link-color: var(--banner-text-color);
 
   display: flex;
@@ -287,6 +288,8 @@
 // Add text shadow to the headline and text when there is
 // no background class.
 .banner:not([class*="bg--"]) {
+  background-color: var(--banner-bg-failsafe);
+
   .headline,
   .banner__text {
     text-shadow: 0 1px 3px rgb(var(--banner-overlay-color-rgb));
@@ -301,8 +304,8 @@
   // override these rules in other places.
   @include container-query($type: max) {
     --link-color: #{variables.$secondary};
+    --banner-bg-failsafe: white;
 
-    background: white;
     display: block;
 
     .media {
@@ -405,6 +408,7 @@
   --banner-overlay-color-rgb: 255, 255, 255;
   --banner-overlay-solid-opacity: .7;
   --banner-text-color: #{variables.$secondary};
+  --banner-bg-failsafe: white;
   // Override background color for media element loading.
   .media {
     background: #fff;
