@@ -5,6 +5,7 @@
   --banner-overlay-gradient-midpoint: 40%;
   --banner-overlay-gradient: rgb(var(--banner-overlay-color-rgb), .8) 0%, rgb(var(--banner-overlay-color-rgb), .6) var(--banner-overlay-gradient-midpoint), transparent;
   --banner-text-color: #fff;
+  --banner-bg-failsafe: var(--brand-secondary);
   --link-color: var(--banner-text-color);
   display: flex;
   flex-basis: 100%;
@@ -316,6 +317,9 @@
   --banner-text-color: var(--brand-secondary);
 }
 
+.banner:not([class*=bg--]) {
+  background-color: var(--banner-bg-failsafe);
+}
 .banner:not([class*=bg--]) .headline,
 .banner:not([class*=bg--]) .banner__text {
   text-shadow: 0 1px 3px rgb(var(--banner-overlay-color-rgb));
@@ -325,7 +329,7 @@
   @container column (max-width: 768px) {
     .banner--stacked:not([class*=bg--]) {
       --link-color: var(--brand-secondary);
-      background: white;
+      --banner-bg-failsafe: white;
       display: block;
     }
     .banner--stacked:not([class*=bg--]) .media {
@@ -351,7 +355,7 @@
   @media (max-width: 768px) {
     .banner--stacked:not([class*=bg--]) {
       --link-color: var(--brand-secondary);
-      background: white;
+      --banner-bg-failsafe: white;
       display: block;
     }
     .banner--stacked:not([class*=bg--]) .media {
@@ -451,6 +455,7 @@
   --banner-overlay-color-rgb: 255, 255, 255;
   --banner-overlay-solid-opacity: .7;
   --banner-text-color: var(--brand-secondary);
+  --banner-bg-failsafe: white;
 }
 .banner--overlay-light .media {
   background: #fff;
