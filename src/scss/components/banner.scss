@@ -1,6 +1,5 @@
 @use '../abstracts/variables';
 @use '../abstracts/utilities';
-@use '../abstracts/breakpoints' as *;
 
 // === Banner base === //
 .banner {
@@ -8,7 +7,7 @@
   --banner-overlay-color-rgb: 0, 0, 0;
   --banner-overlay-solid-opacity: .5;
   --banner-overlay-gradient-midpoint: 40%;
-  --banner-overlay-gradient: rgb(var(--banner-overlay-color-rgb), .6) 0%, rgb(var(--banner-overlay-color-rgb), .4) var(--banner-overlay-gradient-midpoint), transparent;
+  --banner-overlay-gradient: rgb(var(--banner-overlay-color-rgb), .8) 0%, rgb(var(--banner-overlay-color-rgb), .6) var(--banner-overlay-gradient-midpoint), transparent;
   --banner-text-color: #fff;
   --banner-bg-failsafe: #{variables.$secondary};
   --link-color: var(--banner-text-color);
@@ -38,7 +37,7 @@
   position: absolute;
   overflow: visible;
 
-  @include container-query() {
+  @include utilities.container-query() {
     position: absolute;
   }
 
@@ -76,7 +75,7 @@
     right: #{variables.$gutter};
     bottom: #{variables.$gutter};
 
-    @include container-query {
+    @include utilities.container-query {
       right: #{variables.$mobile-height-gutter};
       bottom: #{variables.$mobile-height-gutter};
     }
@@ -93,7 +92,7 @@
     font-size: 1rem;
     padding: 0;
 
-    @include container-query() {
+    @include utilities.container-query() {
       display: block;
     }
 
@@ -126,7 +125,7 @@
   z-index: 1;
   padding: var(--banner-padding);
 
-  @include container-query() {
+  @include utilities.container-query() {
     z-index: 1;
     max-width: #{variables.$container-width};
     top: 0;
@@ -169,7 +168,7 @@
     &.headline--large.headline--serif {
       font-size: 2.6rem;
 
-      @include container-query() {
+      @include utilities.container-query() {
         font-size: clamp(2.5rem, calc(4.9577vw + 0.6408rem), 4.7rem);
       }
     }
@@ -178,7 +177,7 @@
     &.headline--medium.headline--serif {
       font-size: 2.2rem;
 
-      @include container-query() {
+      @include utilities.container-query() {
         font-size: clamp(2.2rem, calc(3.3803vw + 0.9324rem), 3.7rem);
       }
     }
@@ -186,7 +185,7 @@
     &.headline--small,
     &.headline--small.headline--serif {
       font-size: 1.8rem;
-      @include container-query() {
+      @include utilities.container-query() {
         font-size: clamp(2rem, calc(1.5775vw + 1.4085rem), 2.7rem);
       }
     }
@@ -229,7 +228,7 @@
   margin-bottom: 1.05rem;
 
   // Set max-width for line-length readability.
-  @include container-query() {
+  @include utilities.container-query() {
     max-width: 75%;
   }
 
@@ -268,7 +267,7 @@
 .banner__action .bttn {
   margin: 0 1rem 1rem 0;
 
-  @include container-query() {
+  @include utilities.container-query() {
     + .bttn {
       margin: 0 1rem 1rem 0;
     }
@@ -302,7 +301,7 @@
 .banner--stacked:not([class*="bg--"]) {
   // We use a max-width rule here to avoid having to
   // override these rules in other places.
-  @include container-query($type: max) {
+  @include utilities.container-query($type: max) {
     --link-color: #{variables.$secondary};
     --banner-bg-failsafe: white;
 
@@ -389,7 +388,7 @@
 .banner--overlay-ltr {
   .media:after {
     // Gradient comes in at the sm container breakpoint.
-    @include container-query() {
+    @include utilities.container-query() {
       background: linear-gradient(var(--banner-overlay-gradient-direction), var(--banner-overlay-gradient));
     }
   }
