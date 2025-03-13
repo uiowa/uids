@@ -131,6 +131,12 @@ export default {
         category: 'Media',
       },
     },
+    narrow: {
+      name: 'Narrow',
+      table: {
+        category: 'Display options',
+      },
+    },
     height: {
       name: 'Height',
       options: ['small', 'medium', 'large'],
@@ -193,6 +199,7 @@ const Template = {
           :media_overlay_type="args.media_overlay_type"
           :media_overlay_light="args.media_overlay_light"
           :height="args.height"
+          :narrow="args.narrow"
           :horizontal_alignment="args.horizontal_alignment"
           :vertical_alignment="args.vertical_alignment"
           :buttons="args.buttons"
@@ -217,7 +224,7 @@ export const BackgroundImage = {
     background: '',
     background_media: `<example-image />`,
     pre_title: 'University of Iowa',
-    title: 'Living on Campus',
+    title: 'Your path to success starts here',
     content: '<p>A member of the <a href="/">Association</a> of American Universities since 1909 and the Big Ten Conference since 1899, the University of Iowa is home to one of the most acclaimed academic medical centers in the country, as well as globally recognized leadership in the study and craft of writing.</p>',
     headline_style: 'serif',
     headline_highlight: false,
@@ -227,6 +234,7 @@ export const BackgroundImage = {
     media_overlay_type: '',
     media_overlay_light: false,
     height: 'large',
+    narrow: false,
     mobile_content_below_image: true,
     button_light_font: false,
     button_color: 'primary',
@@ -307,6 +315,7 @@ const GridTemplate = (args) => ({
             :media_overlay_type="args.media_overlay_type"
             :media_overlay_light="args.media_overlay_light"
             :height="args.height"
+            :narrow="args.narrow"
             :horizontal_alignment="args.horizontal_alignment"
             :vertical_alignment="args.vertical_alignment"
             :buttons="args.buttons"

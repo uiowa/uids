@@ -61,6 +61,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  narrow: {
+    type: Boolean,
+    default: false,
+  },
   mobile_content_below_image: {
     type: Boolean,
     default: false,
@@ -91,6 +95,12 @@ const classes = computed(() => {
   if (props.mobile_content_below_image === true) {
     classes.push(`banner--stacked`);
   }
+
+  // Narrow container.
+  if (props.narrow) {
+    classes.push(`banner--narrow`);
+  }
+
 
   // Horizontal alignment.
   if (props.horizontal_alignment) {

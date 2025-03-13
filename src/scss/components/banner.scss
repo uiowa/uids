@@ -230,7 +230,7 @@
 
   // Set max-width for line-length readability.
   @include container-query() {
-    max-width: 75%;
+   // max-width: 75%;
   }
 
   blockquote {
@@ -382,6 +382,29 @@
   text-align: left;
 }
 // === End: Alignment === //
+
+// === Banner narrow === //
+.banner--narrow  {
+  .banner__content {
+    @include container-query() {
+      max-width: 75%;
+    }
+    @include container-query($size: variables.$break-page-container) {
+      max-width: 57.75em;
+    }
+  }
+  &.banner--horizontal-left {
+    .banner__content {
+      @include container-query() {
+       margin-left: 0;
+      }
+      @include container-query($size: variables.$break-page-container) {
+        margin-left: calc(50% - 81.875em / 2);
+      }
+    }
+  }
+}
+// === End: Banner narrow === //
 
 // === Overlay/Gradient === //
 .banner--overlay-btt,
