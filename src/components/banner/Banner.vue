@@ -111,13 +111,14 @@ const classes = computed(() => {
     classes.push(`banner--vertical-${props.vertical_alignment}`);
   }
 
+  // Overlay light.
+  if (props.media_overlay_light) {
+    classes.push(`banner--overlay-light`);
+  }
+
   if (slots.media) {
     if (props.media_overlay_type) {
       classes.push(`banner--overlay-${props.media_overlay_type}`);
-    }
-
-    if (props.media_overlay_light) {
-      classes.push(`banner--overlay-light`);
     }
   }
 
