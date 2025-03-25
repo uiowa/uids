@@ -1,5 +1,5 @@
 <template>
-  <div class="grid__column">
+  <div class="grid__column" style="display: grid;">
     <slot></slot>
   </div>
 </template>
