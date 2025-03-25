@@ -285,10 +285,10 @@ export const KitchenSink = {
     content: '<p>A member of the <a href="/">Association</a> of American Universities since 1909 and the Big Ten Conference since 1899, the University of Iowa is home to one of the most acclaimed academic medical centers in the country, as well as globally recognized leadership in the study and craft of writing.</p><blockquote>\n' +
       '<p>Nam at tortor in tellus interdum sagittis. Morbi vestibulum volutpat enim.</p>\n' +
       '</blockquote><blockquote>\n' +
-      'Nam at tortor in tellus interdum sagittis. Morbi vestibulum volutpat enim.\n' +
+      'Nam at tortor in <a href="/">tellus</a> interdum sagittis. Morbi vestibulum volutpat enim.\n' +
       '</blockquote><h2>Heading 2</h2>\n' +
       '\n' +
-      '<h3>Heading 3</h3>\n' +
+      '<h3><a href="/">Heading 3</a></h3>\n' +
       '\n' +
       '<h4>Heading 4</h4>\n' +
       '\n' +
