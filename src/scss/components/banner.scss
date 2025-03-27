@@ -9,7 +9,7 @@
   --banner-overlay-color-rgb: 0, 0, 0;
   --banner-overlay-solid-opacity: .5;
   --banner-overlay-gradient-midpoint: 40%;
-  --banner-overlay-gradient: rgb(var(--banner-overlay-color-rgb), .7) 0%, rgb(var(--banner-overlay-color-rgb), .6) var(--banner-overlay-gradient-midpoint), transparent;
+  --banner-overlay-gradient: rgb(var(--banner-overlay-color-rgb), .9) 0%, rgb(var(--banner-overlay-color-rgb), .6) var(--banner-overlay-gradient-midpoint), transparent;
   --banner-text-color: #fff;
   --banner-bg-failsafe: #{variables.$secondary};
   --link-color: var(--banner-text-color);
@@ -473,11 +473,12 @@
 // Remove left/right padding if container background matches banner background.
 
 $bg-colors: "white", "black", "gray", "gold";
+$bg-patterns: "pattern--brain", "pattern--community", "pattern--particle";
 
-// Simple background colors and pattern variants
+// Color-only case (no pattern)
 @each $color in $bg-colors {
-  div[class*="bg--#{$color}"] {
-    .banner[class*="bg--#{$color}"] {
+  div[class*="bg--#{$color}"]:not([class*="pattern--"]) {
+    .banner[class*="bg--#{$color}"]:not([class*="pattern--"]) {
       .banner__content {
         padding-left: 0;
         padding-right: 0;
@@ -485,6 +486,20 @@ $bg-colors: "white", "black", "gray", "gold";
     }
   }
 }
+
+// Patterns only.
+@each $pattern in $bg-patterns {
+  div[class*="#{$pattern}"] {
+    .banner[class*="#{$pattern}"] {
+      .banner__content {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+  }
+}
+
+
 
 // When the containing element has no background color
 // and the banner has a solid white background, remove padding.
