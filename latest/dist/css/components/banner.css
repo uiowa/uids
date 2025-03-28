@@ -3,7 +3,7 @@
   --banner-overlay-color-rgb: 0, 0, 0;
   --banner-overlay-solid-opacity: .5;
   --banner-overlay-gradient-midpoint: 40%;
-  --banner-overlay-gradient: rgb(var(--banner-overlay-color-rgb), .7) 0%, rgb(var(--banner-overlay-color-rgb), .6) var(--banner-overlay-gradient-midpoint), transparent;
+  --banner-overlay-gradient: rgb(var(--banner-overlay-color-rgb), .8) 0%, rgb(var(--banner-overlay-color-rgb), .6) var(--banner-overlay-gradient-midpoint), transparent;
   --banner-text-color: #fff;
   --banner-bg-failsafe: var(--brand-secondary);
   --link-color: var(--banner-text-color);
@@ -131,16 +131,11 @@
 .banner .media .video-btn.video-btn__pause::after {
   content: "\f04c";
 }
-@media (hover: none), (hover: on-demand) {
-  .banner .media .video-btn {
-    display: none;
-  }
-}
 
 .banner__content {
   margin: 0 auto;
   width: 100%;
-  z-index: 1;
+  z-index: 0;
   padding: var(--banner-padding);
 }
 @supports (contain: inline-size) {
@@ -264,6 +259,12 @@
 .banner__text blockquote {
   margin-left: 0;
 }
+.banner__text blockquote a {
+  color: var(--banner-text-color);
+}
+.banner__text h2 a, .banner__text h3 a, .banner__text h4 a, .banner__text h5 a, .banner__text h6 a {
+  color: var(--banner-text-color);
+}
 .banner__text p {
   line-height: 1.5;
   margin-top: 0;
@@ -272,6 +273,7 @@
 .banner__text p a {
   position: relative;
   z-index: 1;
+  color: var(--banner-text-color);
 }
 [class*=bg--gold] .banner__text blockquote {
   border-left-color: #f3f3f3;
@@ -325,6 +327,7 @@
     }
     .banner--stacked:not([class*=bg--]) .media {
       position: relative;
+      height: auto;
     }
     .banner--stacked:not([class*=bg--]) .media:after {
       background: none !important;
@@ -332,6 +335,10 @@
     .banner--stacked:not([class*=bg--]) .headline {
       color: var(--brand-secondary);
       text-shadow: none;
+    }
+    .banner--stacked:not([class*=bg--]) .bttn--transparent {
+      color: var(--brand-secondary);
+      border-color: var(--brand-secondary);
     }
     .banner--stacked:not([class*=bg--]) .banner__text {
       color: var(--brand-secondary);
@@ -351,6 +358,7 @@
     }
     .banner--stacked:not([class*=bg--]) .media {
       position: relative;
+      height: auto;
     }
     .banner--stacked:not([class*=bg--]) .media:after {
       background: none !important;
@@ -358,6 +366,10 @@
     .banner--stacked:not([class*=bg--]) .headline {
       color: var(--brand-secondary);
       text-shadow: none;
+    }
+    .banner--stacked:not([class*=bg--]) .bttn--transparent {
+      color: var(--brand-secondary);
+      border-color: var(--brand-secondary);
     }
     .banner--stacked:not([class*=bg--]) .banner__text {
       color: var(--brand-secondary);
@@ -499,35 +511,54 @@
   --banner-overlay-gradient-midpoint: 70%;
 }
 
-.banner--overlay-light {
+.banner--overlay-light:not([class*=bg--]) {
   --banner-overlay-color-rgb: 255, 255, 255;
   --banner-overlay-solid-opacity: .7;
   --banner-text-color: var(--brand-secondary);
   --banner-bg-failsafe: white;
 }
-.banner--overlay-light .media {
+.banner--overlay-light:not([class*=bg--]) .headline,
+.banner--overlay-light:not([class*=bg--]) .banner__text {
+  text-shadow: none;
+}
+.banner--overlay-light:not([class*=bg--]) .media {
   background: #fff;
 }
-.banner--overlay-light .media .video-btn {
+.banner--overlay-light:not([class*=bg--]) .media .video-btn {
   border: 1px solid var(--brand-secondary);
 }
 
-div[class*=bg--white] .banner[class*=bg--white] .banner__content {
+div[class*=bg--white]:not([class*=pattern--]) .banner[class*=bg--white]:not([class*=pattern--]) .banner__content {
   padding-left: 0;
   padding-right: 0;
 }
 
-div[class*=bg--black] .banner[class*=bg--black] .banner__content {
+div[class*=bg--black]:not([class*=pattern--]) .banner[class*=bg--black]:not([class*=pattern--]) .banner__content {
   padding-left: 0;
   padding-right: 0;
 }
 
-div[class*=bg--gray] .banner[class*=bg--gray] .banner__content {
+div[class*=bg--gray]:not([class*=pattern--]) .banner[class*=bg--gray]:not([class*=pattern--]) .banner__content {
   padding-left: 0;
   padding-right: 0;
 }
 
-div[class*=bg--gold] .banner[class*=bg--gold] .banner__content {
+div[class*=bg--gold]:not([class*=pattern--]) .banner[class*=bg--gold]:not([class*=pattern--]) .banner__content {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+div[class*=pattern--brain] .banner[class*=pattern--brain] .banner__content {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+div[class*=pattern--community] .banner[class*=pattern--community] .banner__content {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+div[class*=pattern--particle] .banner[class*=pattern--particle] .banner__content {
   padding-left: 0;
   padding-right: 0;
 }
