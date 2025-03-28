@@ -223,7 +223,7 @@ Default.args = {
   subtitle: '',
   meta: '',
   default:
-    'For decades, Iowa City has been a gathering place for artists, creating a cultural hub that’s more accessible than any major city. ',
+    'For decades, <a href="/">Iowa City</a> has been a gathering place for artists, creating a cultural hub that’s more accessible than any major city. ',
   url: 'https://uiowa.edu',
   link_text: 'Explore the arts',
   link_indicator: true,

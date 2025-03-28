@@ -7,7 +7,7 @@
   --banner-overlay-color-rgb: 0, 0, 0;
   --banner-overlay-solid-opacity: .5;
   --banner-overlay-gradient-midpoint: 40%;
-  --banner-overlay-gradient: rgb(var(--banner-overlay-color-rgb), .7) 0%, rgb(var(--banner-overlay-color-rgb), .6) var(--banner-overlay-gradient-midpoint), transparent;
+  --banner-overlay-gradient: rgb(var(--banner-overlay-color-rgb), .8) 0%, rgb(var(--banner-overlay-color-rgb), .6) var(--banner-overlay-gradient-midpoint), transparent;
   --banner-text-color: #fff;
   --banner-bg-failsafe: #{variables.$secondary};
   --link-color: var(--banner-text-color);
@@ -110,11 +110,6 @@
       content: "\f04c";
     }
   }
-  @media (hover:none), (hover:on-demand) {
-    .video-btn {
-      display: none;
-    }
-  }
 }
 // === End: Media === //
 
@@ -122,7 +117,7 @@
 .banner__content {
   margin: 0 auto;
   width: 100%;
-  z-index: 1;
+  z-index: 0;
   padding: var(--banner-padding);
 
   @include utilities.container-query() {
@@ -229,6 +224,15 @@
 
   blockquote {
     margin-left: 0;
+    a {
+      color: var(--banner-text-color);
+    }
+  }
+
+  h2, h3, h4, h5, h6 {
+    a {
+      color: var(--banner-text-color);
+    }
   }
 
   p {
@@ -239,6 +243,7 @@
     a {
       position: relative;
       z-index: 1;
+      color: var(--banner-text-color);
     }
   }
 
@@ -309,6 +314,7 @@
 
     .media {
       position: relative;
+      height: auto;
 
       &:after {
         background: none !important;
@@ -318,6 +324,11 @@
     .headline {
       color: #{variables.$secondary};
       text-shadow: none;
+    }
+
+    .bttn--transparent {
+      color: #{variables.$secondary};
+      border-color: #{variables.$secondary};
     }
 
     .banner__text {
@@ -426,11 +437,19 @@
   --banner-overlay-gradient-direction: 90deg;
   --banner-overlay-gradient-midpoint: 70%;
 }
-.banner--overlay-light {
+// if the banner overlay light is selected and has no background color.
+.banner--overlay-light:not([class*="bg--"]) {
   --banner-overlay-color-rgb: 255, 255, 255;
   --banner-overlay-solid-opacity: .7;
   --banner-text-color: #{variables.$secondary};
   --banner-bg-failsafe: white;
+
+  // Remove text shadow for better legibility.
+  .headline,
+  .banner__text {
+    text-shadow: none;
+  }
+
   // Override background color for media element loading.
   .media {
     background: #fff;
@@ -447,11 +466,24 @@
 // Remove left/right padding if container background matches banner background.
 
 $bg-colors: "white", "black", "gray", "gold";
+$bg-patterns: "pattern--brain", "pattern--community", "pattern--particle";
 
-// Simple background colors and pattern variants
+// Background color only case (no pattern)
 @each $color in $bg-colors {
-  div[class*="bg--#{$color}"] {
-    .banner[class*="bg--#{$color}"] {
+  div[class*="bg--#{$color}"]:not([class*="pattern--"]) {
+    .banner[class*="bg--#{$color}"]:not([class*="pattern--"]) {
+      .banner__content {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+  }
+}
+
+// Patterns only.
+@each $pattern in $bg-patterns {
+  div[class*="#{$pattern}"] {
+    .banner[class*="#{$pattern}"] {
       .banner__content {
         padding-left: 0;
         padding-right: 0;
