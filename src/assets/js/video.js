@@ -22,9 +22,27 @@
         motionQuery.addListener(function() { Video.reducedMotionCheck(this.video, this.video_btn) });
 
         // Add an event listener to the button of this banner video to toggle pause/play on the video.
-        this.video_btn.addEventListener('click', () => {
-          Video.pausePlay(this.video, this.video_btn);
+        const videoInstance = this;
+        this.video_btn.addEventListener('click', function () {
+          Video.pausePlay(videoInstance.video, videoInstance.video_btn);
         });
+
+        // Add event listeners to keep button state in sync with video.
+        this.video.addEventListener('pause', function() {
+          // When the video is paused show the play button.
+          Video.setButtonDataPlay(videoInstance.video_btn);
+        });
+
+        this.video.addEventListener('play', function() {
+          // When the video is playing, show the pause button.
+          Video.setButtonDataPaused(videoInstance.video_btn);
+        });
+        // Set initial button state based on video's paused state.
+        if (this.video.paused) {
+          Video.setButtonDataPlay(this.video_btn);
+        } else {
+          Video.setButtonDataPaused(this.video_btn);
+        }
       }
     }
   }
