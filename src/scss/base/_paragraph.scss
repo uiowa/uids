@@ -204,3 +204,43 @@ hr {
   font-size: clamp(1.6rem, calc(1.1268vw + 1.1775rem), 2.1rem);
   margin-top: 0;
 }
+
+// mark
+mark {
+  background-color: variables.$primary;
+  padding: 0.1em;
+
+  // Nested class for deletion styling
+  &.deletion {
+    background-color: variables.$danger-light;
+  }
+
+  // Accessibility pseudo-elements for screen readers
+  &::before,
+  &::after {
+    clip-path: inset(100%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  &::before {
+    content: " [highlight start] ";
+  }
+
+  &::after {
+    content: " [highlight end] ";
+  }
+
+  .bg--gold & {
+    background-color: #fff;
+    color: variables.$uiowa-black;
+
+    &.deletion {
+      background-color: variables.$uiowa-black;
+      color: variables.$uiowa-gold;
+    }
+  }
+}
