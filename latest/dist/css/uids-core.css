@@ -1015,6 +1015,36 @@ hr {
   margin-top: 0;
 }
 
+mark {
+  background-color: var(--brand-primary);
+  padding: 0.1em;
+}
+mark.deletion {
+  background-color: rgb(247.3909090909, 226.012987013, 220.7590909091);
+}
+mark::before, mark::after {
+  clip-path: inset(100%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+mark::before {
+  content: " [highlight start] ";
+}
+mark::after {
+  content: " [highlight end] ";
+}
+.bg--gold mark {
+  background-color: #fff;
+  color: var(--uiowa-black);
+}
+.bg--gold mark.deletion {
+  background-color: var(--uiowa-black);
+  color: var(--uiowa-gold);
+}
+
 .grid--onecol .list-container__inner {
   max-width: 81.875em;
   margin: 0 auto;
