@@ -219,7 +219,6 @@ mark {
   &::before,
   &::after {
     clip-path: inset(100%);
-    clip: rect(1px, 1px, 1px, 1px);
     height: 1px;
     overflow: hidden;
     position: absolute;
@@ -234,15 +233,14 @@ mark {
   &::after {
     content: " [highlight end] ";
   }
-}
-.bg--gold {
-  mark{
+
+  .bg--gold & {
     background-color: #fff;
     color: variables.$uiowa-black;
+
     &.deletion {
       background-color: variables.$uiowa-black;
       color: variables.$uiowa-gold;
     }
   }
 }
-
