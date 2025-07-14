@@ -65,6 +65,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  flex: {
+    type: Boolean,
+    default: false,
+  },
   mobile_content_below_image: {
     type: Boolean,
     default: false,
@@ -99,6 +103,10 @@ const classes = computed(() => {
   // Narrow container.
   if (props.narrow) {
     classes.push(`banner--narrow`);
+  }
+
+  if (props.flex) {
+    classes.push(`banner--flex`);
   }
 
   // Horizontal alignment.

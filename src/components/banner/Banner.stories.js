@@ -133,12 +133,18 @@ export default {
     },
     height: {
       name: 'Height',
-      options: ['small', 'medium', 'large'],
+      options: ['tiny', 'small', 'medium', 'large'],
       control: { type: 'select' },
       table: { category: 'Display options' },
     },
     narrow: {
       name: 'Narrow',
+      table: {
+        category: 'Display options',
+      },
+    },
+    flex: {
+      name: 'Flex',
       table: {
         category: 'Display options',
       },
@@ -200,6 +206,7 @@ const Template = {
           :media_overlay_light="args.media_overlay_light"
           :height="args.height"
           :narrow="args.narrow"
+          :flex="args.flex"
           :horizontal_alignment="args.horizontal_alignment"
           :vertical_alignment="args.vertical_alignment"
           :buttons="args.buttons"
@@ -225,7 +232,7 @@ export const BackgroundImage = {
     background_media: `<example-image />`,
     pre_title: 'University of Iowa',
     title: 'Your path to success starts here',
-    content: '<p>A member of the <a href="/">Association</a> of American Universities since 1909 and the Big Ten Conference since 1899, the University of Iowa is home to one of the most acclaimed academic medical centers in the country, as well as globally recognized leadership in the study and craft of writing.</p>',
+    content: '<p>A member of the <a href="/">Association</a> of American Universities since 1909 and the Big Ten Conference since 1899.</p>',
     headline_style: 'serif',
     headline_highlight: false,
     headline_size: 'large',
@@ -235,6 +242,7 @@ export const BackgroundImage = {
     media_overlay_light: false,
     height: 'large',
     narrow: true,
+    flex: false,
     mobile_content_below_image: true,
     button_light_font: false,
     button_color: 'primary',
@@ -316,6 +324,7 @@ const GridTemplate = (args) => ({
             :media_overlay_light="args.media_overlay_light"
             :height="args.height"
             :narrow="args.narrow"
+            :flex="args.flex"
             :horizontal_alignment="args.horizontal_alignment"
             :vertical_alignment="args.vertical_alignment"
             :buttons="args.buttons"
