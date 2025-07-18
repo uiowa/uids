@@ -11,7 +11,6 @@ import { applyClickA11y } from '../../assets/js/click-a11y'
 
 const name = 'uids-banner'
 const props = defineProps({
-  // Headline object prop
   headline: {
     type: Object,
     default: () => ({
