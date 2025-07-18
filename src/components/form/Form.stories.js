@@ -1,5 +1,4 @@
 import UidsForm from './Form.vue'
-import BrandBarDocs from '../brand-bar/BrandBarDocs.mdx';
 
 export default {
   title: 'Components/Form',
