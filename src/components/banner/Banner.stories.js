@@ -84,6 +84,10 @@ export default {
       name: 'Headline highlight',
       table: { category: 'Headline' },
     },
+    headline_underline: {
+      name: 'Headline underline',
+      table: { category: 'Headline' },
+    },
     horizontal_alignment: {
       name: 'Horizontal alignment',
       options: ['left', 'center'],
@@ -196,6 +200,7 @@ const Template = {
           :headline_style="args.headline_style"
           :headline_size="args.headline_size"
           :headline_highlight="args.headline_highlight"
+          :headline_underline="args.headline_underline"
           :media_overlay_type="args.media_overlay_type"
           :media_overlay_light="args.media_overlay_light"
           :height="args.height"
@@ -228,6 +233,7 @@ export const BackgroundImage = {
     content: '<p>A member of the <a href="/">Association</a> of American Universities since 1909 and the Big Ten Conference since 1899, the University of Iowa is home to one of the most acclaimed academic medical centers in the country, as well as globally recognized leadership in the study and craft of writing.</p>',
     headline_style: 'serif',
     headline_highlight: false,
+    headline_underline: false,
     headline_size: 'large',
     horizontal_alignment: 'left',
     vertical_alignment: 'center',
@@ -312,6 +318,7 @@ const GridTemplate = (args) => ({
             :headline_style="args.headline_style"
             :headline_size="args.headline_size"
             :headline_highlight="args.headline_highlight"
+            :headline_underline="args.headline_underline"
             :media_overlay_type="args.media_overlay_type"
             :media_overlay_light="args.media_overlay_light"
             :height="args.height"

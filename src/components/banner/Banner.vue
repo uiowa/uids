@@ -38,6 +38,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  headline_underline: {
+    type: Boolean,
+    default: false,
+  },
   horizontal_alignment: {
     type: String,
     default: '',
@@ -186,6 +190,7 @@ onMounted(() => {
         <uids-headline
           :text_style="headline_style"
           :highlight="headline_highlight"
+          :underline="headline_underline"
           :class="`headline--${props.headline_size}`"
         >
           <a v-if="headlineLink" :href="headlineLink" class="click-target">
