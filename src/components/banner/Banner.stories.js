@@ -7,6 +7,17 @@ import * as ButtonStories from '../button/Button.stories';
 import ExampleVideoFile from "../media/ExampleVideoFile.vue";
 import BackgroundStories from "../background/Background.stories.js";
 
+const createHeadline = (overrides = {}) => ({
+  text: 'Your path to success starts here',
+  level: 'h2',
+  text_style: 'serif',
+  size: 'large',
+  highlight: false,
+  underline: false,
+  url: '',
+  ...overrides
+});
+
 export default {
   title: 'Components/Banner',
   parameters: {
@@ -26,9 +37,6 @@ export default {
     // Slots
     pre_title: {
       name: 'Pre-title',
-    },
-    title: {
-      name: 'Title',
     },
     content: {
       name: 'Content',
@@ -61,32 +69,6 @@ export default {
       name: 'Button light font',
       control: { type: 'boolean' },
       table: { category: 'Buttons' },
-    },
-    headline_size: {
-      name: 'Headline size',
-      options: ['large', 'medium', 'small'],
-      control: { type: 'select' },
-      table: { category: 'Headline' },
-    },
-    headline_style: {
-      name: 'Headline style',
-      options: ['uppercase', 'serif'],
-      control: {
-        type: 'select',
-        labels: {
-          'uppercase': 'Antonio',
-          'serif': 'Zilla Slab',
-        },
-      },
-      table: { category: 'Headline' },
-    },
-    headline_highlight: {
-      name: 'Headline highlight',
-      table: { category: 'Headline' },
-    },
-    headline_underline: {
-      name: 'Headline underline',
-      table: { category: 'Headline' },
     },
     horizontal_alignment: {
       name: 'Horizontal alignment',
@@ -196,11 +178,9 @@ const Template = {
     template: `
       <div class="column-container" :class="args.section_background" style="padding-top: 2rem; padding-bottom: 2rem;">
         <uids-banner
+          :headline="args.headline"
+          :pre_title="args.pre_title"
           :background="args.background"
-          :headline_style="args.headline_style"
-          :headline_size="args.headline_size"
-          :headline_highlight="args.headline_highlight"
-          :headline_underline="args.headline_underline"
           :media_overlay_type="args.media_overlay_type"
           :media_overlay_light="args.media_overlay_light"
           :height="args.height"
@@ -216,7 +196,6 @@ const Template = {
             ${args.background_media}
           </template>
           <template #pre_title v-if="args.title"><span class="headline__heading" v-html="args.pre_title" ></span></template>
-          <template #title v-if="args.title"><span class="headline__heading" v-html="args.title" ></span></template>
           ${args.content}
         </uids-banner>
       </div>`,
@@ -229,12 +208,8 @@ export const BackgroundImage = {
     background: '',
     background_media: `<example-image />`,
     pre_title: 'University of Iowa',
-    title: 'Your path to success starts here',
     content: '<p>A member of the <a href="/">Association</a> of American Universities since 1909 and the Big Ten Conference since 1899, the University of Iowa is home to one of the most acclaimed academic medical centers in the country, as well as globally recognized leadership in the study and craft of writing.</p>',
-    headline_style: 'serif',
-    headline_highlight: false,
-    headline_underline: false,
-    headline_size: 'large',
+    headline: createHeadline(),
     horizontal_alignment: 'left',
     vertical_alignment: 'center',
     media_overlay_type: '',
@@ -288,6 +263,9 @@ export const KitchenSink = {
   ...Template,
   args: {
     ...BackgroundImage.args,
+    headline: createHeadline({
+      highlight: true,
+    }),
     content: '<p>A member of the <a href="/">Association</a> of American Universities since 1909 and the Big Ten Conference since 1899, the University of Iowa is home to one of the most acclaimed academic medical centers in the country, as well as globally recognized leadership in the study and craft of writing.</p><blockquote>\n' +
       '<p>Nam at tortor in tellus interdum sagittis. Morbi vestibulum volutpat enim.</p>\n' +
       '</blockquote><blockquote>\n' +
@@ -314,11 +292,9 @@ const GridTemplate = (args) => ({
       <uids-grid :type="args.grid_type">
         <uids-grid-item v-for="item in args.record_count" :key="item">
           <uids-banner
+            :pre_title="args.pre_title"
+            :headline="args.headline"
             :background="args.background"
-            :headline_style="args.headline_style"
-            :headline_size="args.headline_size"
-            :headline_highlight="args.headline_highlight"
-            :headline_underline="args.headline_underline"
             :media_overlay_type="args.media_overlay_type"
             :media_overlay_light="args.media_overlay_light"
             :height="args.height"
@@ -333,8 +309,6 @@ const GridTemplate = (args) => ({
             <template #media v-if="args.background === ''">
               ${args.background_media}
             </template>
-            <template #pre_title v-if="args.title"><span class="headline__heading" v-html="args.pre_title" ></span></template>
-            <template #title v-if="args.title"><span class="headline__heading" v-html="args.title" ></span></template>
             ${args.content}
           </uids-banner>
         </uids-grid-item>
@@ -346,10 +320,10 @@ const GridTemplate = (args) => ({
 export const GridImage = GridTemplate.bind({});
 GridImage.args = {
   ...BackgroundImage.args,
+  headline: createHeadline({ size: 'medium' }),
   grid_type: 'threecol--33-34-33',
   record_count: 3,
   height: 'medium',
-  headline_size: 'medium',
 };
 GridImage.storyName = 'Background image grid';
 

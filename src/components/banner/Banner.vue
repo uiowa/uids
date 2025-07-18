@@ -11,6 +11,23 @@ import { applyClickA11y } from '../../assets/js/click-a11y'
 
 const name = 'uids-banner'
 const props = defineProps({
+  // Headline object prop
+  headline: {
+    type: Object,
+    default: () => ({
+      text: '',
+      level: 'h2',
+      text_style: '',
+      size: 'large',
+      highlight: false,
+      underline: false,
+      url: ''
+    }),
+  },
+  pre_title: {
+    type: String,
+    default: '',
+  },
   buttons: {
     type: Array,
     default: () => [],
@@ -23,22 +40,6 @@ const props = defineProps({
     },
   },
   button_light_font: {
-    type: Boolean,
-    default: false,
-  },
-  headline_size: {
-    type: String,
-    default: '',
-  },
-  headline_style: {
-    type: String,
-    default: '',
-  },
-  headline_highlight: {
-    type: Boolean,
-    default: false,
-  },
-  headline_underline: {
     type: Boolean,
     default: false,
   },
@@ -135,12 +136,12 @@ const classes = computed(() => {
 const preTitleClasses = computed(() => {
   const classes = ['headline', 'banner__pre-title'];
 
-  if (props.headline_size) {
-    classes.push(`headline--${props.headline_size}`);
+  if (props.headline.size) {
+    classes.push(`headline--${props.headline.size}`);
   }
 
-  if (props.headline_style) {
-    switch (props.headline_style) {
+  if (props.headline.text_style) {
+    switch (props.headline.text_style) {
       case 'uppercase':
         classes.push('headline--uppercase');
         break;
@@ -183,22 +184,21 @@ onMounted(() => {
   <div :class="classes">
     <slot name="media"></slot>
     <div class="banner__content">
-      <header class="banner__title" v-if="$slots.title || $slots.pre_title">
-        <div :class="preTitleClasses" v-if="$slots.pre_title">
-          <slot name="pre_title"></slot>
+      <header class="banner__title" v-if="pre_title || headline.text">
+        <div :class="preTitleClasses" v-if="pre_title">
+          <span class="headline__heading" v-html="pre_title"></span>
         </div>
         <uids-headline
-          :text_style="headline_style"
-          :highlight="headline_highlight"
-          :underline="headline_underline"
-          :class="`headline--${props.headline_size}`"
+          :level="headline.level"
+          :text_style="headline.text_style"
+          :highlight="headline.highlight"
+          :underline="headline.underline"
+          :class="`headline--${headline.size}`"
         >
           <a v-if="headlineLink" :href="headlineLink" class="click-target">
-            <slot name="title"></slot>
+            <span class="headline__heading" v-html="headline.text"></span>
           </a>
-          <template v-else>
-            <slot name="title"></slot>
-          </template>
+          <span v-else class="headline__heading" v-html="headline.text"></span>
         </uids-headline>
       </header>
 
