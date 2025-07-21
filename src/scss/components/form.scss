@@ -2,22 +2,7 @@
 @use '../abstracts/utilities';
 
 // Generalized styles.
-#{utilities.typeSelectors(
-  'text',
-  'password',
-  'date',
-  'datetime',
-  'datetime-local',
-  'month',
-  'week',
-  'email',
-  'number',
-  'search',
-  'tel',
-  'time',
-  'url',
-  'color',
-)},
+#{utilities.typeSelectors()},
 textarea,
 select {
   display: block;
@@ -121,6 +106,80 @@ textarea {
     box-shadow: none;
     -webkit-text-fill-color: #63666A;
   }
+}
+
+[type="checkbox"],
+[type="radio"] {
+  height: 1.2rem;
+  min-width: 1.2rem;
+  margin: 0 .35rem 0 .25rem;
+  -webkit-transform: scale(1.3, 1.3);
+
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0;
+
+  &+label,
+  &+label {
+    font-weight: variables.$font-weight-normal;
+    display: inline-block;
+    vertical-align: baseline;
+    @include utilities.margin(variables.$right: variables.$sm, variables.$bottom: 0, variables.$left: variables.$xsm);
+
+    &[for] {
+      cursor: pointer;
+    }
+  }
+
+  label>&,
+  label>& {
+    @include utilities.margin(variables.$right: variables.$sm);
+  }
+}
+
+[type="number"] {
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    height: auto;
+  }
+}
+
+[type="search"] {
+  outline-offset: -2px;
+  -webkit-appearance: textfield;
+
+  &::-webkit-search-decoration {
+    -webkit-appearance: none;
+  }
+}
+
+[type="submit"],
+[type="button"] {
+  border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  @include utilities.bttn;
+  font-family: variables.$font-family-caps-bold;
+
+  &.button--small {
+    padding: 0.6rem 1rem 0.8rem;
+    font-size: 1.05rem;
+  }
+
+  &.button--full-width {
+    width: 100%;
+  }
+}
+
+[type='file'],
+[type='checkbox'],
+[type='radio'] {
+  @include utilities.margin(variables.$top: 0, variables.$right: 0, variables.$bottom: variables.$sm);
+}
+
+[type='file'] {
+  width: 100%;
 }
 
 form {}

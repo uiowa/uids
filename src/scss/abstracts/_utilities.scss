@@ -5,6 +5,7 @@
 @use 'placeholders';
 @use 'grid-mixins';
 @use 'variables';
+@use 'sass:list';
 
 //=======================================================
 // Mixins
@@ -489,8 +490,27 @@
 // (eg. `#{typeSelectors('text', 'date', 'month')} { STYLE RULES }`.
 @function typeSelectors($types...) {
   $out: ();
+  @if list.length($types) == 0 {
+    $types: [
+      'text',
+      'password',
+      'date',
+      'datetime',
+      'datetime-local',
+      'month',
+      'week',
+      'email',
+      'number',
+      'search',
+      'tel',
+      'time',
+      'url',
+      'color'
+    ]
+  }
+
   @each $type in $types {
-    $out: append($out, '[type="#{$type}"], ');
+    $out: list.append($out, '[type="#{$type}"], ');
   }
   @return $out;
 }
