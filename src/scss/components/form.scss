@@ -1,44 +1,23 @@
-form {
+@use '../abstracts/variables';
+@use '../abstracts/utilities';
 
-}
-input {}
-label {}
-select {
-  box-sizing: border-box;
-  width: 100%;
-}
-textarea {
-  height: auto;
-  min-height: 100px;
-  overflow: auto;
-  max-width: 100%;
-
-  &[rows] {
-    height: auto;
-  }
-}
-button {}
-fieldset {}
-legend {}
-datalist {}
-output {}
-option {}
-optgroup {}
-
-[type='text'],
-[type='password'],
-[type='date'],
-[type='datetime'],
-[type='datetime-local'],
-[type='month'],
-[type='week'],
-[type='email'],
-[type='number'],
-[type='search'],
-[type='tel'],
-[type='time'],
-[type='url'],
-[type='color'],
+// Generalized styles.
+#{utilities.typeSelectors(
+  'text',
+  'password',
+  'date',
+  'datetime',
+  'datetime-local',
+  'month',
+  'week',
+  'email',
+  'number',
+  'search',
+  'tel',
+  'time',
+  'url',
+  'color',
+)},
 textarea,
 select {
   display: block;
@@ -58,26 +37,108 @@ select {
   font-weight: normal;
   line-height: 1.5;
   appearance: none;
+
+  &:focus {
+    transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
+    border: 1px solid #8a8a8a;
+    outline: none;
+    background-color: #fefefe;
+    box-shadow: 0 0 5px #cacaca;
+  }
+
+  // Error styles.
+  &.error {
+    border: 1px solid variables.$danger;
+    background-color: variables.$danger-light;
+
+    &:focus {
+      border: 1px solid variables.$danger;
+      box-shadow: 0 0 5px variables.$danger-light;
+    }
+  }
 }
 
-[type='text']:focus,
-[type='password']:focus,
-[type='date']:focus,
-[type='datetime']:focus,
-[type='datetime-local']:focus,
-[type='month']:focus,
-[type='week']:focus,
-[type='email']:focus,
-[type='number']:focus,
-[type='search']:focus,
-[type='tel']:focus,
-[type='time']:focus,
-[type='url']:focus,
-[type='color']:focus,
-textarea:focus {
-  transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
-  border: 1px solid #8a8a8a;
-  outline: none;
-  background-color: #fefefe;
-  box-shadow: 0 0 5px #cacaca;
+input {
+  &.form-autocomplete {
+    background-position: 98% center;
+  }
+
+  &[type='search'] {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  &[id^='edit-submit'][type='submit'],
+  &[id^='edit-actions-submit'] {
+    @include utilities.bttn--primary;
+  }
+
+  &#edit-preview {
+    //@include utilities.bttn--outline;
+    @include utilities.bttn--tertiary;
+    @include utilities.margin(variables.$left: variables.$md);
+  }
+
+  // Make fields respect field width settings
+  &[size]:not([size='60']) {
+    width: inherit;
+  }
+
+  + .description,
+  + .field-prefix,
+  + .field-suffix {
+    position: relative;
+    top: -0.75rem;
+    inset-block-start: -0.75rem;
+  }
 }
+
+textarea {
+  height: auto;
+  min-height: 100px;
+  overflow: auto;
+  max-width: 100%;
+
+  &[rows] {
+    height: auto;
+  }
+}
+
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+}
+
+input,
+textarea {
+  &:disabled,
+  &[readonly] {
+    cursor: not-allowed;
+    color: #63666A;
+    border-color: #bababf;
+    background-color: #f3f3f3 !important;
+    box-shadow: none;
+    -webkit-text-fill-color: #63666A;
+  }
+}
+
+form {}
+input {}
+label {}
+select {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+
+
+
+
+button {}
+fieldset {}
+legend {}
+datalist {}
+output {}
+option {}
+optgroup {}

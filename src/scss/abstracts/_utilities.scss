@@ -483,3 +483,14 @@
   width: 100%;
   padding: 1.5rem 0;
 }
+
+// Type selector function.
+// Note, remember to interpolate when you use this.
+// (eg. `#{typeSelectors('text', 'date', 'month')} { STYLE RULES }`.
+@function typeSelectors($types...) {
+  $out: ();
+  @each $type in $types {
+    $out: append($out, '[type="#{$type}"], ');
+  }
+  @return $out;
+}
