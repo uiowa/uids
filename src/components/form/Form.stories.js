@@ -1,4 +1,5 @@
 import UidsForm from './Form.vue'
+import FormDocs from './FormDocs.mdx';
 
 export default {
   title: 'Components/Form',
@@ -7,6 +8,7 @@ export default {
       source: {
         code: null,
       },
+      page: FormDocs,
     },
   },
   component: UidsForm,
