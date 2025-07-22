@@ -396,6 +396,78 @@ const props = defineProps({
         </div>
       </fieldset>
 
+
+      <div class="form-item form-item-multiselect">
+        <label>Multi select</label>
+        <select multiple="multiple" name="multiselect[]" id="edit-multiselect" class="form-select"><option value="High School">High School</option><option value="Associate Degree">Associate Degree</option><option value="Graduate or Professional Degree">Graduate or Professional Degree</option><option value="Some College">Some College</option></select>
+      </div>
+
+
+      <fieldset>
+        <legend>
+          <span class="fieldset-legend">Academic Interests</span>
+        </legend>
+        <div class="fieldset-wrapper">
+          <div class="form-type-checkbox--switch">
+            <div class="form-type-checkbox form-item">
+              <input type="checkbox" name="academic_group[251]" value="251">
+              <label class="checkbox">Business, Economics, and Management</label>
+            </div>
+
+            <div class="form-type-checkbox form-item">
+              <input type="checkbox" name="academic_group[261]" value="261">
+              <label class="checkbox">Education</label>
+            </div>
+
+            <div class="form-type-checkbox form-item">
+              <input type="checkbox" name="academic_group[256]" value="256">
+              <label class="checkbox">Engineering and Computing</label>
+            </div>
+
+            <div class="form-type-checkbox form-item">
+              <input type="checkbox" name="academic_group[286]" value="286">
+              <label class="checkbox">Health Sciences</label>
+            </div>
+
+            <div class="form-type-checkbox form-item">
+              <input type="checkbox" name="academic_group[271]" value="271">
+              <label class="checkbox">Languages, Culture, and Society</label>
+            </div>
+
+            <div class="form-type-checkbox form-item">
+              <input type="checkbox" name="academic_group[276]" value="276">
+              <label class="checkbox">Life and Natural Sciences</label>
+            </div>
+
+            <div class="form-type-checkbox form-item">
+              <input type="checkbox" name="academic_group[266]" value="266">
+              <label class="checkbox">Math and Quantitative Sciences</label>
+            </div>
+
+            <div class="form-type-checkbox form-item">
+              <input type="checkbox" name="academic_group[301]" value="301">
+              <label class="checkbox">Preprofessional Programs</label>
+            </div>
+
+            <div class="form-type-checkbox form-item">
+              <input type="checkbox" name="academic_group[291]" value="291">
+              <label class="checkbox">Social Sciences and Policy</label>
+            </div>
+
+            <div class="form-type-checkbox form-item">
+              <input type="checkbox" name="academic_group[296]" value="296">
+              <label class="checkbox">Visual and Performing Arts</label>
+            </div>
+
+            <div class="form-type-checkbox form-item">
+              <input type="checkbox" name="academic_group[281]" value="281">
+              <label class="checkbox">Writing, Communications, Literature, and Media</label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+
     </div>
 
     <uids-button
