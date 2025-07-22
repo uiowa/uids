@@ -81,7 +81,7 @@ const props = defineProps({
       <div class="form-item">
         <label>State</label>
         <select>
-          <option value=""></option>
+          <option value="">- None - </option>
           <option value="AL">Alabama</option>
           <option value="AK">Alaska</option>
           <option value="AS">American Samoa</option>
@@ -145,6 +145,7 @@ const props = defineProps({
       <div class="form-item">
         <label>Country</label>
         <select>
+          <option value="">- None - </option>
           <option value="US">United States</option>
           <option value="CA">Canada</option>
           <option value="MX">Mexico</option>
@@ -164,7 +165,7 @@ const props = defineProps({
       <div class="form-item">
         <label>Country of Citizenship</label>
         <select>
-          <option value=""></option>
+          <option value="">- None - </option>
           <option value="US">United States</option>
           <option value="CA">Canada</option>
           <option value="MX">Mexico</option>
@@ -194,7 +195,7 @@ const props = defineProps({
       <div class="form-item">
         <label>Planned Enrollment Term</label>
         <select>
-          <option value=""></option>
+          <option value="">- None - </option>
           <option value="1146">Spring 2026</option>
           <option value="1147">Summer 2026</option>
           <option value="1134">Fall 2026</option>
@@ -210,7 +211,7 @@ const props = defineProps({
       <div class="form-item">
         <label>What type of student will you be?</label>
         <select>
-          <option value=""></option>
+          <option value="">- None - </option>
           <option value="FIRST_YEAR">First-Year</option>
           <option value="TRANSFER">Transfer</option>
         </select>
@@ -224,7 +225,7 @@ const props = defineProps({
       <div class="form-item">
         <label>Primary Academic Interest</label>
         <select>
-          <option value=""></option>
+          <option value="">- None - </option>
           <option value="330">Accounting</option>
           <option value="6">Actuarial Science</option>
           <option value="8">African American Studies</option>
@@ -255,7 +256,7 @@ const props = defineProps({
       <div class="form-item">
         <label>Secondary Academic Interest</label>
         <select>
-          <option value=""></option>
+          <option value="">- None - </option>
           <option value="330">Accounting</option>
           <option value="6">Actuarial Science</option>
           <option value="8">African American Studies</option>
@@ -286,7 +287,7 @@ const props = defineProps({
       <div class="form-item">
         <label>Additional Academic Interest</label>
         <select>
-          <option value=""></option>
+          <option value="">- None - </option>
           <option value="330">Accounting</option>
           <option value="6">Actuarial Science</option>
           <option value="8">African American Studies</option>
