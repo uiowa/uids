@@ -15,73 +15,76 @@ const props = defineProps({
       <h2>Student Information</h2>
 
       <div class="form-item">
-        <label>First Name</label>
-        <input maxlength="50" type="text">
+        <label for="first-name">First Name</label>
+        <input id="first-name" maxlength="50" type="text">
       </div>
 
       <div class="form-item">
-        <label>Last Name</label>
-        <input maxlength="50" type="text">
+        <label for="last-name">Last Name</label>
+        <input id="last-name" maxlength="50" type="text">
       </div>
 
       <div class="form-item">
-        <label>Email Address</label>
-        <input maxlength="255" type="email">
+        <label for="email">Email Address</label>
+        <input id="email" maxlength="255" type="email">
       </div>
 
       <div class="form-item">
-        <label>Home Phone</label>
-        <input maxlength="12" type="tel">
+        <label for="home-phone">Home Phone</label>
+        <input id="home-phone" maxlength="12" type="tel">
       </div>
 
       <div class="form-item">
-        <label>Cell Phone</label>
-        <input maxlength="12" type="tel">
+        <label for="cell-phone">Cell Phone</label>
+        <input id="cell-phone" maxlength="12" type="tel">
       </div>
 
       <div class="form-item">
         <label>Do you authorize The University of Iowa to send you text messages about important information and deadlines?</label>
         <div class="form-type-radio form-item">
-        <input type="radio" name="permissionToText" value="true">
-        <label class="radio">Yes</label>
-      </div>
-      <div class="form-type-radio form-item">
-       <input type="radio" name="permissionToText" value="false">
-       <label class="radio">No</label>
-      </div>
+          <input id="text-permission-yes" type="radio" name="permissionToText" value="true">
+          <label for="text-permission-yes" class="radio">Yes</label>
+        </div>
+        <div class="form-type-radio form-item">
+          <input id="text-permission-no" type="radio" name="permissionToText" value="false">
+          <label for="text-permission-no" class="radio">No</label>
+        </div>
       </div>
 
       <div class="form-item">
         <label>Do you authorize The University of Iowa to send you text messages about important information and deadlines?</label>
         <div class="form-type-radio form-type-radio--side form-item">
-          <input type="radio" name="permissionToText" value="true">
-          <label class="radio">Yes</label>
+          <input id="text-permission-yes-2" type="radio" name="permissionToText2" value="true">
+          <label for="text-permission-yes-2" class="radio">Yes</label>
         </div>
         <div class="form-type-radio form-type-radio--side form-item">
-          <input type="radio" name="permissionToText" value="false">
-          <label class="radio">No</label>
+          <input id="text-permission-no-2" type="radio" name="permissionToText2" value="false">
+          <label for="text-permission-no-2" class="radio">No</label>
         </div>
       </div>
 
       <div class="form-item">
-        <label>Address</label>
-        <input maxlength="64" type="text">
+        <label for="address">Address</label>
+        <input id="address" maxlength="64" type="text">
       </div>
 
       <div class="form-item">
-        <label>Address 2</label>
-        <input maxlength="30" type="text">
+        <label for="address-2">Address 2</label>
+        <input id="address-2" maxlength="30" type="text">
       </div>
 
       <div class="form-item">
-        <label>City</label>
-        <input maxlength="30" type="text">
+        <label for="city">City</label>
+        <input id="city" maxlength="30" type="text">
       </div>
 
       <div class="form-item">
         <label>State</label>
         <select>
           <option value="">- None - </option>
+        <label for="state">State</label>
+        <select id="state">
+          <option value=""></option>
           <option value="AL">Alabama</option>
           <option value="AK">Alaska</option>
           <option value="AS">American Samoa</option>
@@ -138,14 +141,13 @@ const props = defineProps({
       </div>
 
       <div class="form-item">
-        <label>ZIP Code</label>
-        <input maxlength="10" type="text">
+        <label for="zip-code">ZIP Code</label>
+        <input id="zip-code" maxlength="10" type="text">
       </div>
 
       <div class="form-item">
-        <label>Country</label>
-        <select>
-          <option value="">- None - </option>
+        <label for="country">Country</label>
+        <select id="country">
           <option value="US">United States</option>
           <option value="CA">Canada</option>
           <option value="MX">Mexico</option>
@@ -163,9 +165,9 @@ const props = defineProps({
       </div>
 
       <div class="form-item">
-        <label>Country of Citizenship</label>
-        <select>
-          <option value="">- None - </option>
+        <label for="citizenship">Country of Citizenship</label>
+        <select id="citizenship">
+          <option value=""></option>
           <option value="US">United States</option>
           <option value="CA">Canada</option>
           <option value="MX">Mexico</option>
@@ -183,19 +185,19 @@ const props = defineProps({
       </div>
 
       <div class="form-item">
-        <label>Birth Date</label>
-        <input type="date">
+        <label for="birth-date">Birth Date</label>
+        <input id="birth-date" type="date">
       </div>
 
       <div class="form-item">
-        <label>High School Graduation Year</label>
-        <input maxlength="4" placeholder="yyyy" type="text">
+        <label for="graduation-year">High School Graduation Year</label>
+        <input id="graduation-year" maxlength="4" placeholder="yyyy" type="text">
       </div>
 
       <div class="form-item">
-        <label>Planned Enrollment Term</label>
-        <select>
-          <option value="">- None - </option>
+        <label for="enrollment-term">Planned Enrollment Term</label>
+        <select id="enrollment-term">
+          <option value=""></option>
           <option value="1146">Spring 2026</option>
           <option value="1147">Summer 2026</option>
           <option value="1134">Fall 2026</option>
@@ -209,9 +211,9 @@ const props = defineProps({
       </div>
 
       <div class="form-item">
-        <label>What type of student will you be?</label>
-        <select>
-          <option value="">- None - </option>
+        <label for="student-type">What type of student will you be?</label>
+        <select id="student-type">
+          <option value=""></option>
           <option value="FIRST_YEAR">First-Year</option>
           <option value="TRANSFER">Transfer</option>
         </select>
@@ -223,9 +225,9 @@ const props = defineProps({
             </span>
 
       <div class="form-item">
-        <label>Primary Academic Interest</label>
-        <select>
-          <option value="">- None - </option>
+        <label for="primary-interest">Primary Academic Interest</label>
+        <select id="primary-interest">
+          <option value=""></option>
           <option value="330">Accounting</option>
           <option value="6">Actuarial Science</option>
           <option value="8">African American Studies</option>
@@ -254,9 +256,9 @@ const props = defineProps({
       </div>
 
       <div class="form-item">
-        <label>Secondary Academic Interest</label>
-        <select>
-          <option value="">- None - </option>
+        <label for="secondary-interest">Secondary Academic Interest</label>
+        <select id="secondary-interest">
+          <option value=""></option>
           <option value="330">Accounting</option>
           <option value="6">Actuarial Science</option>
           <option value="8">African American Studies</option>
@@ -285,9 +287,9 @@ const props = defineProps({
       </div>
 
       <div class="form-item">
-        <label>Additional Academic Interest</label>
-        <select>
-          <option value="">- None - </option>
+        <label for="additional-interest">Additional Academic Interest</label>
+        <select id="additional-interest">
+          <option value=""></option>
           <option value="330">Accounting</option>
           <option value="6">Actuarial Science</option>
           <option value="8">African American Studies</option>
@@ -318,53 +320,53 @@ const props = defineProps({
       <h2>Additional Information</h2>
 
       <fieldset>
-      <legend>
-        <span class="fieldset-legend">Select any additional subjects that you would like to receive information about.</span>
-      </legend>
-      <div class="form-item">
-        <div class="form-type-checkbox form-item">
-          <input type="checkbox" value="FINANCIAL_AID">
-          <label class="checkbox">Costs & Financial Aid</label>
+        <legend>
+          <span class="fieldset-legend">Select any additional subjects that you would like to receive information about.</span>
+        </legend>
+        <div class="form-item">
+          <div class="form-type-checkbox form-item">
+            <input id="financial-aid" type="checkbox" value="FINANCIAL_AID">
+            <label for="financial-aid" class="checkbox">Costs & Financial Aid</label>
+          </div>
+          <div class="form-type-checkbox form-item">
+            <input id="marching-band" type="checkbox" value="MARCHING_BAND">
+            <label for="marching-band" class="checkbox">Hawkeye Marching Band</label>
+          </div>
+          <div class="form-type-checkbox form-item">
+            <input id="rotc-air-force" type="checkbox" value="ROTC_AIR_FORCE">
+            <label for="rotc-air-force" class="checkbox">ROTC - Air Force (Aerospace Studies)</label>
+          </div>
+          <div class="form-type-checkbox form-item">
+            <input id="rotc-army" type="checkbox" value="ROTC_ARMY">
+            <label for="rotc-army" class="checkbox">ROTC - Army (Military Science)</label>
+          </div>
+          <div class="form-type-checkbox form-item">
+            <input id="study-abroad" type="checkbox" value="STUDY_ABROAD">
+            <label for="study-abroad" class="checkbox">Study Abroad</label>
+          </div>
+          <div class="form-type-checkbox form-item">
+            <input id="band" type="checkbox" value="BAND">
+            <label for="band" class="checkbox">University Concert Bands and Jazz Bands</label>
+          </div>
+          <div class="form-type-checkbox form-item">
+            <input id="honors" type="checkbox" value="HONORS">
+            <label for="honors" class="checkbox">University Honors Program</label>
+          </div>
+          <div class="form-type-checkbox form-item">
+            <input id="veteran-services" type="checkbox" value="VETERAN_SERVICES">
+            <label for="veteran-services" class="checkbox">Veteran & Military Connected Student Services</label>
+          </div>
         </div>
-        <div class="form-type-checkbox form-item">
-          <input type="checkbox" value="MARCHING_BAND">
-          <label class="checkbox">Hawkeye Marching Band</label>
-        </div>
-        <div class="form-type-checkbox form-item">
-          <input type="checkbox" value="ROTC_AIR_FORCE">
-          <label class="checkbox">ROTC - Air Force (Aerospace Studies)</label>
-        </div>
-        <div class="form-type-checkbox form-item">
-          <input type="checkbox" value="ROTC_ARMY">
-          <label class="checkbox">ROTC - Army (Military Science)</label>
-        </div>
-        <div class="form-type-checkbox form-item">
-          <input type="checkbox" value="STUDY_ABROAD">
-          <label class="checkbox">Study Abroad</label>
-        </div>
-        <div class="form-type-checkbox form-item">
-          <input type="checkbox" value="BAND">
-          <label class="checkbox">University Concert Bands and Jazz Bands</label>
-        </div>
-        <div class="form-type-checkbox form-item">
-          <input type="checkbox" value="HONORS">
-          <label class="checkbox">University Honors Program</label>
-        </div>
-        <div class="form-type-checkbox form-item">
-          <input type="checkbox" value="VETERAN_SERVICES">
-          <label class="checkbox">Veteran & Military Connected Student Services</label>
-        </div>
-      </div>
       </fieldset>
 
       <div class="form-item">
-        <label>Disabled</label>
-        <input type="text" name="disabled" value="" size="60" maxlength="255" placeholder="This field is disabled" disabled="disabled">
+        <label for="disabled-field">Disabled</label>
+        <input id="disabled-field" type="text" name="disabled" value="" size="60" maxlength="255" placeholder="This field is disabled" disabled="disabled">
       </div>
 
       <div class="form-item">
-        <label>Readonly</label>
-        <input type="text" name="readonly" value="" size="60" maxlength="255" placeholder="Readonly" readonly="readonly">
+        <label for="readonly-field">Readonly</label>
+        <input id="readonly-field" type="text" name="readonly" value="" size="60" maxlength="255" placeholder="Readonly" readonly="readonly">
       </div>
 
       <fieldset>
@@ -373,44 +375,44 @@ const props = defineProps({
         </legend>
         <div class="form-item">
           <div class="form-type-checkbox form-type-checkbox--side form-item">
-            <input type="checkbox" value="FINANCIAL_AID">
-            <label class="checkbox">Costs & Financial Aid</label>
+            <input id="financial-aid-2" type="checkbox" value="FINANCIAL_AID">
+            <label for="financial-aid-2" class="checkbox">Costs & Financial Aid</label>
           </div>
           <div class="form-type-checkbox form-type-checkbox--side form-item">
-            <input type="checkbox" value="MARCHING_BAND">
-            <label class="checkbox">Hawkeye Marching Band</label>
+            <input id="marching-band-2" type="checkbox" value="MARCHING_BAND">
+            <label for="marching-band-2" class="checkbox">Hawkeye Marching Band</label>
           </div>
           <div class="form-type-checkbox form-type-checkbox--side form-item">
-            <input type="checkbox" value="ROTC_AIR_FORCE">
-            <label class="checkbox">ROTC - Air Force (Aerospace Studies)</label>
+            <input id="rotc-air-force-2" type="checkbox" value="ROTC_AIR_FORCE">
+            <label for="rotc-air-force-2" class="checkbox">ROTC - Air Force (Aerospace Studies)</label>
           </div>
           <div class="form-type-checkbox form-type-checkbox--side form-item">
-            <input type="checkbox" value="ROTC_ARMY">
-            <label class="checkbox">ROTC - Army (Military Science)</label>
+            <input id="rotc-army-2" type="checkbox" value="ROTC_ARMY">
+            <label for="rotc-army-2" class="checkbox">ROTC - Army (Military Science)</label>
           </div>
           <div class="form-type-checkbox form-type-checkbox--side form-item">
-            <input type="checkbox" value="STUDY_ABROAD">
-            <label class="checkbox">Study Abroad</label>
+            <input id="study-abroad-2" type="checkbox" value="STUDY_ABROAD">
+            <label for="study-abroad-2" class="checkbox">Study Abroad</label>
           </div>
           <div class="form-type-checkbox form-type-checkbox--side form-item">
-            <input type="checkbox" value="BAND">
-            <label class="checkbox">University Concert Bands and Jazz Bands</label>
+            <input id="band-2" type="checkbox" value="BAND">
+            <label for="band-2" class="checkbox">University Concert Bands and Jazz Bands</label>
           </div>
           <div class="form-type-checkbox form-type-checkbox--side form-item">
-            <input type="checkbox" value="HONORS">
-            <label class="checkbox">University Honors Program</label>
+            <input id="honors-2" type="checkbox" value="HONORS">
+            <label for="honors-2" class="checkbox">University Honors Program</label>
           </div>
           <div class="form-type-checkbox form-type-checkbox--side form-item">
-            <input type="checkbox" value="VETERAN_SERVICES">
-            <label class="checkbox">Veteran & Military Connected Student Services</label>
+            <input id="veteran-services-2" type="checkbox" value="VETERAN_SERVICES">
+            <label for="veteran-services-2" class="checkbox">Veteran & Military Connected Student Services</label>
           </div>
         </div>
       </fieldset>
 
 
       <div class="form-item form-item-multiselect">
-        <label>Multi select</label>
-        <select multiple="multiple" name="multiselect[]" id="edit-multiselect" class="form-select"><option value="High School">High School</option><option value="Associate Degree">Associate Degree</option><option value="Graduate or Professional Degree">Graduate or Professional Degree</option><option value="Some College">Some College</option></select>
+        <label for="multiselect">Multi select</label>
+        <select id="multiselect" multiple="multiple" name="multiselect[]" class="form-select"><option value="High School">High School</option><option value="Associate Degree">Associate Degree</option><option value="Graduate or Professional Degree">Graduate or Professional Degree</option><option value="Some College">Some College</option></select>
       </div>
 
 
@@ -421,58 +423,58 @@ const props = defineProps({
         <div class="fieldset-wrapper">
           <div class="form-type-checkbox--switch">
             <div class="form-type-checkbox form-item">
-              <input type="checkbox" name="academic_group[251]" value="251">
-              <label class="checkbox">Business, Economics, and Management</label>
+              <input id="academic-business" type="checkbox" name="academic_group[251]" value="251">
+              <label for="academic-business" class="checkbox">Business, Economics, and Management</label>
             </div>
 
             <div class="form-type-checkbox form-item">
-              <input type="checkbox" name="academic_group[261]" value="261">
-              <label class="checkbox">Education</label>
+              <input id="academic-education" type="checkbox" name="academic_group[261]" value="261">
+              <label for="academic-education" class="checkbox">Education</label>
             </div>
 
             <div class="form-type-checkbox form-item">
-              <input type="checkbox" name="academic_group[256]" value="256">
-              <label class="checkbox">Engineering and Computing</label>
+              <input id="academic-engineering" type="checkbox" name="academic_group[256]" value="256">
+              <label for="academic-engineering" class="checkbox">Engineering and Computing</label>
             </div>
 
             <div class="form-type-checkbox form-item">
-              <input type="checkbox" name="academic_group[286]" value="286">
-              <label class="checkbox">Health Sciences</label>
+              <input id="academic-health" type="checkbox" name="academic_group[286]" value="286">
+              <label for="academic-health" class="checkbox">Health Sciences</label>
             </div>
 
             <div class="form-type-checkbox form-item">
-              <input type="checkbox" name="academic_group[271]" value="271">
-              <label class="checkbox">Languages, Culture, and Society</label>
+              <input id="academic-languages" type="checkbox" name="academic_group[271]" value="271">
+              <label for="academic-languages" class="checkbox">Languages, Culture, and Society</label>
             </div>
 
             <div class="form-type-checkbox form-item">
-              <input type="checkbox" name="academic_group[276]" value="276">
-              <label class="checkbox">Life and Natural Sciences</label>
+              <input id="academic-life-sciences" type="checkbox" name="academic_group[276]" value="276">
+              <label for="academic-life-sciences" class="checkbox">Life and Natural Sciences</label>
             </div>
 
             <div class="form-type-checkbox form-item">
-              <input type="checkbox" name="academic_group[266]" value="266">
-              <label class="checkbox">Math and Quantitative Sciences</label>
+              <input id="academic-math" type="checkbox" name="academic_group[266]" value="266">
+              <label for="academic-math" class="checkbox">Math and Quantitative Sciences</label>
             </div>
 
             <div class="form-type-checkbox form-item">
-              <input type="checkbox" name="academic_group[301]" value="301">
-              <label class="checkbox">Preprofessional Programs</label>
+              <input id="academic-preprofessional" type="checkbox" name="academic_group[301]" value="301">
+              <label for="academic-preprofessional" class="checkbox">Preprofessional Programs</label>
             </div>
 
             <div class="form-type-checkbox form-item">
-              <input type="checkbox" name="academic_group[291]" value="291">
-              <label class="checkbox">Social Sciences and Policy</label>
+              <input id="academic-social-sciences" type="checkbox" name="academic_group[291]" value="291">
+              <label for="academic-social-sciences" class="checkbox">Social Sciences and Policy</label>
             </div>
 
             <div class="form-type-checkbox form-item">
-              <input type="checkbox" name="academic_group[296]" value="296">
-              <label class="checkbox">Visual and Performing Arts</label>
+              <input id="academic-visual-arts" type="checkbox" name="academic_group[296]" value="296">
+              <label for="academic-visual-arts" class="checkbox">Visual and Performing Arts</label>
             </div>
 
             <div class="form-type-checkbox form-item">
-              <input type="checkbox" name="academic_group[281]" value="281">
-              <label class="checkbox">Writing, Communications, Literature, and Media</label>
+              <input id="academic-writing" type="checkbox" name="academic_group[281]" value="281">
+              <label for="academic-writing" class="checkbox">Writing, Communications, Literature, and Media</label>
             </div>
           </div>
         </div>
