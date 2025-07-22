@@ -12,6 +12,7 @@ const props = defineProps({
 <template>
   <form class="uids-form" method="POST" action="">
     <div class="form">
+      <p>Required fields are marked with an asterisk (<abbr class="req" title="required">*</abbr>).</p>
       <h2>Student Information</h2>
 
       <div class="form-item">
@@ -25,7 +26,7 @@ const props = defineProps({
       </div>
 
       <div class="form-item">
-        <label for="email">Email Address</label>
+        <label class="form-required"  for="email">Email Address</label>
         <input id="email" maxlength="255" type="email">
       </div>
 
@@ -365,6 +366,15 @@ const props = defineProps({
         <label for="readonly-field">Readonly</label>
         <input id="readonly-field" type="text" name="readonly" value="" size="60" maxlength="255" placeholder="Readonly" readonly="readonly">
       </div>
+
+      <div class="form-item">
+        <label for="edit-textarea">Textarea</label>
+        <textarea id="edit-textarea" name="textarea" rows="5" cols="60" aria-describedby="edit-textarea--description"></textarea>
+        <div id="edit-textarea--description" class="description">Textarea description goes here.</div>
+      </div>
+
+
+
 
       <fieldset>
         <legend>
