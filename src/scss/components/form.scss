@@ -2,240 +2,258 @@
 @use '../abstracts/utilities';
 
 // Generalized styles.
-
-// === Spacing === //
-.form-item,
-.form-actions {
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
-
-// === Labels === //
-label {
-  display: block;
-  margin: 0 0 .3rem;
-  font-size: 1.1rem;
-  font-weight: variables.$font-weight-bold;
-  line-height: 1.6;
-}
-
-[type="checkbox"] + label,
-[type="radio"] + label {
-  font-weight: 400;
-}
-
-#{utilities.typeSelectors()},
-textarea,
-select {
-  display: block;
-  box-sizing: border-box;
-  width: 100%;
-  height: 3.5rem;
-  margin: 0 0 1rem;
-  padding: 0.5rem;
-  transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
-  color: #0a0a0a;
-  border: 1px solid #cacaca;
-  //border-radius: 3px;
-  background-color: #fefefe;
-  box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
-  font-family: inherit;
-  font-size: 1rem;
-  font-weight: normal;
-  line-height: 1.5;
-  appearance: none;
-
-  &:focus {
-    transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
-    border: 1px solid #8a8a8a;
-    outline: none;
-    background-color: #fefefe;
-    box-shadow: 0 0 5px #cacaca;
+.uids-form {
+  // === Spacing === //
+  .form-item,
+  .form-actions {
+    margin-top: 1em;
+    margin-bottom: 1em;
   }
 
-  // Error styles.
-  &.error {
-    border: 1px solid variables.$danger;
-    background-color: variables.$danger-light;
-
-    &:focus {
-      border: 1px solid variables.$danger;
-      box-shadow: 0 0 5px variables.$danger-light;
-    }
-  }
-}
-
-input {
-  &.form-autocomplete {
-    background-position: 98% center;
-  }
-
-  &[type='search'] {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-
-  &[id^='edit-submit'][type='submit'],
-  &[id^='edit-actions-submit'] {
-    @include utilities.bttn--primary;
-  }
-
-  &#edit-preview {
-    //@include utilities.bttn--outline;
-    @include utilities.bttn--tertiary;
-    @include utilities.margin(variables.$left: variables.$md);
-  }
-
-  // Make fields respect field width settings
-  &[size]:not([size='60']) {
-    width: inherit;
-  }
-
-  + .description,
-  + .field-prefix,
-  + .field-suffix {
-    position: relative;
-    top: -0.75rem;
-    inset-block-start: -0.75rem;
-  }
-}
-
-textarea {
-  height: auto;
-  min-height: 100px;
-  overflow: auto;
-  max-width: 100%;
-
-  &[rows] {
-    height: auto;
-  }
-}
-
-optgroup,
-select,
-textarea {
-  font-family: inherit;
-}
-
-input,
-textarea {
-  &:disabled,
-  &[readonly] {
-    cursor: not-allowed;
-    color: #63666A;
-    border-color: #bababf;
-    background-color: #f3f3f3 !important;
-    box-shadow: none;
-    -webkit-text-fill-color: #63666A;
-  }
-}
-
-
-// === Checkbox/Radios === //
-.form-type-checkbox,
-.form-type-radio {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  &[class*="side"] {
-    display: inline-flex;
-    &.form-item {
-      margin-top: .5rem;
-      margin-bottom: .5rem;
-    }
-  }
-}
-
-[type="checkbox"],
-[type="radio"] {
-  height: 1.2rem;
-  min-width: 1.2rem;
-  margin: 0 .35rem 0 .25rem;
-  -webkit-transform: scale(1.3, 1.3);
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 0;
-
-  &+label,
-  &+label {
-    font-weight: variables.$font-weight-normal;
-    display: inline-block;
-    vertical-align: baseline;
-    @include utilities.margin(variables.$right: variables.$lg, variables.$bottom: 0, variables.$left: variables.$sm);
-
-    &[for] {
-      cursor: pointer;
-    }
-  }
-
-  label>&,
-  label>& {
-    @include utilities.margin(variables.$right: variables.$sm);
-  }
-}
-
-[type="number"] {
-  &::-webkit-inner-spin-button,
-  &::-webkit-outer-spin-button {
-    height: auto;
-  }
-}
-
-[type="search"] {
-  outline-offset: -2px;
-  -webkit-appearance: textfield;
-
-  &::-webkit-search-decoration {
-    -webkit-appearance: none;
-  }
-}
-
-[type="submit"],
-[type="button"] {
-  border: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  @include utilities.bttn;
-  font-family: variables.$font-family-caps-bold;
-
-  &.button--small {
-    padding: 0.6rem 1rem 0.8rem;
-    font-size: 1.05rem;
-  }
-
-  &.button--full-width {
-    width: 100%;
-  }
-}
-
-[type='file'] {
-  @include utilities.margin(variables.$top: 0, variables.$right: 0, variables.$bottom: variables.$sm);
-  width: 100%;
-}
-
-form {}
-input {}
-label {}
-select {
-  box-sizing: border-box;
-  width: 100%;
-}
-
-button {}
-fieldset {
-  margin: 1rem 0;
-  border: none;
-  padding: 0;
-  legend {
+  // === Labels === //
+  label {
     display: block;
+    margin: 0 0 .3rem;
     font-size: 1.1rem;
     font-weight: variables.$font-weight-bold;
     line-height: 1.6;
   }
+
+  [type="checkbox"] + label,
+  [type="radio"] + label {
+    font-weight: 400;
+  }
+
+  #{utilities.typeSelectors()},
+  textarea,
+  select {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    height: 3.5rem;
+    margin: 0 0 1rem;
+    padding: 0.5rem;
+    transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
+    color: #0a0a0a;
+    border: 1px solid #cacaca;
+    //border-radius: 3px;
+    background-color: #fefefe;
+    box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: normal;
+    line-height: 1.5;
+    appearance: none;
+
+    &:focus {
+      transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
+      border: 1px solid #8a8a8a;
+      outline: none;
+      background-color: #fefefe;
+      box-shadow: 0 0 5px #cacaca;
+    }
+
+    // Error styles.
+    &.error {
+      border: 1px solid variables.$danger;
+      background-color: variables.$danger-light;
+
+      &:focus {
+        border: 1px solid variables.$danger;
+        box-shadow: 0 0 5px variables.$danger-light;
+      }
+    }
+  }
+
+  input {
+    &.form-autocomplete {
+      background-position: 98% center;
+    }
+
+    &[type='search'] {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    &[id^='edit-submit'][type='submit'],
+    &[id^='edit-actions-submit'] {
+      @include utilities.bttn--primary;
+    }
+
+    // Make fields respect field width settings
+    &[size]:not([size='60']) {
+      width: inherit;
+    }
+
+    + .description,
+    + .field-prefix,
+    + .field-suffix {
+      position: relative;
+      top: -0.75rem;
+      inset-block-start: -0.75rem;
+    }
+  }
+
+  textarea {
+    height: auto;
+    min-height: 100px;
+    overflow: auto;
+    max-width: 100%;
+
+    &[rows] {
+      height: auto;
+    }
+  }
+
+  optgroup,
+  select,
+  textarea {
+    font-family: inherit;
+  }
+
+  input,
+  textarea {
+    &:disabled,
+    &[readonly] {
+      cursor: not-allowed;
+      color: #63666A;
+      border-color: #bababf;
+      background-color: #f3f3f3 !important;
+      box-shadow: none;
+      -webkit-text-fill-color: #63666A;
+    }
+  }
+
+
+  // === Checkbox/Radios === //
+  .form-type-checkbox,
+  .form-type-radio {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    &[class*="side"] {
+      display: inline-flex;
+
+      &.form-item {
+        margin-top: .5rem;
+        margin-bottom: .5rem;
+      }
+    }
+  }
+
+  [type="checkbox"],
+  [type="radio"] {
+    height: 1.2rem;
+    min-width: 1.2rem;
+    margin: 0 .35rem 0 .25rem;
+    -webkit-transform: scale(1.3, 1.3);
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+
+    & + label,
+    & + label {
+      font-weight: variables.$font-weight-normal;
+      display: inline-block;
+      vertical-align: baseline;
+      display: inline-block;
+      margin-bottom: 0;
+      margin-left: .325rem;
+      margin-right: 1rem;
+
+      &[for] {
+        cursor: pointer;
+      }
+    }
+
+    label > &,
+    label > & {
+
+    }
+  }
+
+  [type="number"] {
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      height: auto;
+    }
+  }
+
+  [type="search"] {
+    outline-offset: -2px;
+    -webkit-appearance: textfield;
+
+    &::-webkit-search-decoration {
+      -webkit-appearance: none;
+    }
+  }
+
+  [type="submit"],
+  [type="button"] {
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    @include utilities.bttn;
+    font-family: variables.$font-family-caps-bold;
+
+    &.button--small {
+      padding: 0.6rem 1rem 0.8rem;
+      font-size: 1.05rem;
+    }
+
+    &.button--full-width {
+      width: 100%;
+    }
+  }
+
+  [type='file'] {
+    width: 100%;
+  }
+
+  form {
+  }
+
+  input {
+  }
+
+  label {
+  }
+
+  select {
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  button {
+  }
+
+  fieldset {
+    margin: 1rem 0;
+    border: none;
+    padding: 0;
+
+    legend {
+      display: block;
+      font-size: 1.1rem;
+      font-weight: variables.$font-weight-bold;
+      line-height: 1.6;
+    }
+  }
+
+  legend {
+  }
+
+  datalist {
+  }
+
+  output {
+  }
+
+  option {
+  }
+
+  optgroup {
+  }
 }
-legend {}
-datalist {}
-output {}
-option {}
-optgroup {}

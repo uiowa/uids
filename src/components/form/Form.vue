@@ -10,7 +10,7 @@ const props = defineProps({
 
 </script>
 <template>
-  <form method="POST" action="">
+  <form class="uids-form" method="POST" action="">
     <div class="form">
       <h2>Student Information</h2>
 
