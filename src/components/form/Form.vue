@@ -356,6 +356,16 @@ const props = defineProps({
       </div>
       </fieldset>
 
+      <div class="form-item">
+        <label>Disabled</label>
+        <input type="text" name="disabled" value="" size="60" maxlength="255" placeholder="This field is disabled" disabled="disabled">
+      </div>
+
+      <div class="form-item">
+        <label>Readonly</label>
+        <input type="text" name="readonly" value="" size="60" maxlength="255" placeholder="Readonly" readonly="readonly">
+      </div>
+
       <fieldset>
         <legend>
           <span class="fieldset-legend">Select any additional subjects that you would like to receive information about.</span>
