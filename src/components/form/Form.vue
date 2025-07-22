@@ -10,240 +10,329 @@ const props = defineProps({
 
 </script>
 <template>
-  <form method="POST" action="" id="webInquiry">
-    <div class="well">
+  <form method="POST" action="">
+    <div class="form">
       <h2>Student Information</h2>
-      <br>
-      <div class="control-group">
-        <label class="control-label required" for="webInquiry.firstName">First Name</label>
-        <div class="controls">
-          <input maxlength="50" name="webInquiry.firstName" id="webInquiry.firstName" type="text">
-        </div>
+
+      <div class="form-item">
+        <label>First Name</label>
+        <input maxlength="50" type="text">
       </div>
-      <div class="control-group">
-        <label class="control-label required" for="webInquiry.lastName">Last Name</label>
-        <div class="controls">
-          <input maxlength="50" name="webInquiry.lastName" id="webInquiry.lastName" type="text">
-        </div>
+
+      <div class="form-item">
+        <label>Last Name</label>
+        <input maxlength="50" type="text">
       </div>
-      <div class="control-group">
-        <label class="control-label required" for="webInquiry.email">Email Address</label>
-        <div class="controls">
-          <input maxlength="255" name="webInquiry.email" id="webInquiry.email" type="text">
-        </div>
+
+      <div class="form-item">
+        <label>Email Address</label>
+        <input maxlength="255" type="email">
       </div>
-      <div class="control-group">
-        <label class="control-label required" for="webInquiry.homePhone">Home Phone</label>
-        <div class="controls">
-          <input size="10" maxlength="12" name="webInquiry.homePhone" id="webInquiry.homePhone" onkeydown="javascript:return maskInput(this.value,this,'3,7','-',event);" type="text">
-        </div>
+
+      <div class="form-item">
+        <label>Home Phone</label>
+        <input maxlength="12" type="tel">
       </div>
-      <div class="control-group">
-        <label class="control-label required" for="webInquiry.cellPhone">Cell Phone</label>
-        <div class="controls">
-          <input size="10" maxlength="12" name="webInquiry.cellPhone" id="webInquiry.cellPhone" onkeydown="javascript:return maskInput(this.value,this,'3,7','-',event);" type="text">
-        </div>
+
+      <div class="form-item">
+        <label>Cell Phone</label>
+        <input maxlength="12" type="tel">
       </div>
-      <div class="control-group">
-        <label class="control-label required" for="webInquiry.permissionToText">Do you authorize
-          The University of Iowa to send you text messages about important information and
-          deadlines </label>
-        <div class="controls">
-          <input name="webInquiry.permissionToText" id="webInquiry.permissionToTextYes" type="radio" value="true">
-          Yes <br>
-          <input name="webInquiry.permissionToText" id="webInquiry.permissionToTextNo" type="radio" value="false">
-          No
-        </div>
+
+      <div class="form-item">
+        <label>Do you authorize The University of Iowa to send you text messages about important information and deadlines?</label>
+        <label class="radio">
+          <input type="radio" name="permissionToText" value="true"> Yes
+        </label>
+        <label class="radio">
+          <input type="radio" name="permissionToText" value="false"> No
+        </label>
       </div>
-      <br>
-      <div class="control-group">
-        <label class="control-label required" for="webInquiry.street1">Address</label>
-        <div class="controls">
-          <input maxlength="64" name="webInquiry.street1" id="webInquiry.street1" type="text">
-        </div>
+
+      <div class="form-item">
+        <label>Address</label>
+        <input maxlength="64" type="text">
       </div>
-      <div class="control-group">
-        <label class="control-label required" for="webInquiry.street2">Address 2</label>
-        <div class="controls">
-          <input maxlength="30" name="webInquiry.street2" id="webInquiry.street2" type="text">
-        </div>
+
+      <div class="form-item">
+        <label>Address 2</label>
+        <input maxlength="30" type="text">
       </div>
-      <div class="control-group">
-        <label class="control-label required" for="webInquiry.city">City</label>
-        <div class="controls">
-          <input maxlength="30" name="webInquiry.city" id="webInquiry.city" type="text">
-        </div>
+
+      <div class="form-item">
+        <label>City</label>
+        <input maxlength="30" type="text">
       </div>
-      <div id="uspsAddressType">
-        <div class="control-group">
-          <label class="control-label required" for="webInquiry.state">State</label>
-          <div class="controls">
-            <select name="webInquiry.state" id="state">
-              <option value=""></option>
-              <option value="AL">Alabama</option><option value="AK">Alaska</option><option value="AS">American Samoa</option><option value="AZ">Arizona</option><option value="AR">Arkansas</option><option value="CA">California</option><option value="CO">Colorado</option><option value="CT">Connecticut</option><option value="DE">Delaware</option><option value="DC">District Of Columbia</option><option value="FM">Federated States Of Micronesia</option><option value="FL">Florida</option><option value="GA">Georgia</option><option value="GU">Guam</option><option value="HI">Hawaii</option><option value="ID">Idaho</option><option value="IL">Illinois</option><option value="IN">Indiana</option><option value="IA">Iowa</option><option value="KS">Kansas</option><option value="KY">Kentucky</option><option value="LA">Louisiana</option><option value="ME">Maine</option><option value="MH">Marshall Islands</option><option value="MD">Maryland</option><option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="MS">Mississippi</option><option value="MO">Missouri</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NV">Nevada</option><option value="NH">New Hampshire</option><option value="NJ">New Jersey</option><option value="NM">New Mexico</option><option value="NY">New York</option><option value="NC">North Carolina</option><option value="ND">North Dakota</option><option value="MP">Northern Mariana Islands</option><option value="OH">Ohio</option><option value="OK">Oklahoma</option><option value="OR">Oregon</option><option value="PW">Palau</option><option value="PA">Pennsylvania</option><option value="PR">Puerto Rico</option><option value="RI">Rhode Island</option><option value="SC">South Carolina</option><option value="SD">South Dakota</option><option value="TN">Tennessee</option><option value="TX">Texas</option><option value="UT">Utah</option><option value="VT">Vermont</option><option value="VI">Virgin Islands</option><option value="VA">Virginia</option><option value="WA">Washington</option><option value="WV">West Virginia</option><option value="WI">Wisconsin</option><option value="WY">Wyoming</option><option value="AE">Armed Forces Africa/Canada/Europe/Middle East</option><option value="AA">Armed Forces Americas</option><option value="AP">Armed Forces Pacific</option>
-            </select>
-          </div>
-        </div>
-        <div class="control-group">
-          <label class="control-label required" for="webInquiry.zipCode">ZIP Code</label>
-          <div class="controls">
-            <input maxlength="10" name="webInquiry.zipCode" id="webInquiry.zipCode" type="text">
-          </div>
-        </div>
+
+      <div class="form-item">
+        <label>State</label>
+        <select>
+          <option value=""></option>
+          <option value="AL">Alabama</option>
+          <option value="AK">Alaska</option>
+          <option value="AS">American Samoa</option>
+          <option value="AZ">Arizona</option>
+          <option value="AR">Arkansas</option>
+          <option value="CA">California</option>
+          <option value="CO">Colorado</option>
+          <option value="CT">Connecticut</option>
+          <option value="DE">Delaware</option>
+          <option value="DC">District Of Columbia</option>
+          <option value="FL">Florida</option>
+          <option value="GA">Georgia</option>
+          <option value="HI">Hawaii</option>
+          <option value="ID">Idaho</option>
+          <option value="IL">Illinois</option>
+          <option value="IN">Indiana</option>
+          <option value="IA">Iowa</option>
+          <option value="KS">Kansas</option>
+          <option value="KY">Kentucky</option>
+          <option value="LA">Louisiana</option>
+          <option value="ME">Maine</option>
+          <option value="MD">Maryland</option>
+          <option value="MA">Massachusetts</option>
+          <option value="MI">Michigan</option>
+          <option value="MN">Minnesota</option>
+          <option value="MS">Mississippi</option>
+          <option value="MO">Missouri</option>
+          <option value="MT">Montana</option>
+          <option value="NE">Nebraska</option>
+          <option value="NV">Nevada</option>
+          <option value="NH">New Hampshire</option>
+          <option value="NJ">New Jersey</option>
+          <option value="NM">New Mexico</option>
+          <option value="NY">New York</option>
+          <option value="NC">North Carolina</option>
+          <option value="ND">North Dakota</option>
+          <option value="OH">Ohio</option>
+          <option value="OK">Oklahoma</option>
+          <option value="OR">Oregon</option>
+          <option value="PA">Pennsylvania</option>
+          <option value="RI">Rhode Island</option>
+          <option value="SC">South Carolina</option>
+          <option value="SD">South Dakota</option>
+          <option value="TN">Tennessee</option>
+          <option value="TX">Texas</option>
+          <option value="UT">Utah</option>
+          <option value="VT">Vermont</option>
+          <option value="VA">Virginia</option>
+          <option value="WA">Washington</option>
+          <option value="WV">West Virginia</option>
+          <option value="WI">Wisconsin</option>
+          <option value="WY">Wyoming</option>
+        </select>
       </div>
-      <div id="intAddressType" style="display: none;">
-        <div class="control-group">
-          <label class="control-label required" for="webInquiry.province">Province</label>
-          <div class="controls">
-            <input maxlength="30" name="webInquiry.province" id="webInquiry.province" type="text">
-          </div>
-        </div>
-        <div class="control-group">
-          <label class="control-label required" for="webInquiry.postalCode">Postal
-            Code</label>
-          <div class="controls">
-            <input maxlength="20" name="webInquiry.postalCode" id="webInquiry.postalCode" type="text">
-          </div>
-        </div>
+
+      <div class="form-item">
+        <label>ZIP Code</label>
+        <input maxlength="10" type="text">
       </div>
-      <div class="control-group">
-        <label class="control-label required" for="webInquiry.country">Country</label>
-        <div class="controls">
-          <select name="webInquiry.country" id="country">
-            <option value="US">United States</option><option value="AF">Afghanistan</option><option value="AX">Aland Islands</option><option value="AL">Albania</option><option value="AG">Algeria</option><option value="AN">Andorra</option><option value="AO">Angola</option><option value="AV">Anguilla</option><option value="AY">Antarctica</option><option value="AC">Antigua And Barbuda</option><option value="AR">Argentina</option><option value="AM">Armenia</option><option value="AA">Aruba</option><option value="AT">Ashmore And Cartier Islands</option><option value="AS">Australia</option><option value="AU">Austria</option><option value="AJ">Azerbaijan</option><option value="BF">Bahamas, The</option><option value="BA">Bahrain</option><option value="FQ">Baker Island</option><option value="BG">Bangladesh</option><option value="BB">Barbados</option><option value="BS">Bassas Da India</option><option value="BO">Belarus</option><option value="BE">Belgium</option><option value="BH">Belize</option><option value="BN">Benin</option><option value="BD">Bermuda</option><option value="BT">Bhutan</option><option value="BL">Bolivia</option><option value="BK">Bosnia And Herzegovina</option><option value="BC">Botswana</option><option value="BV">Bouvet Island</option><option value="BR">Brazil</option><option value="IO">British Indian Ocean Territory</option><option value="BX">Brunei</option><option value="BU">Bulgaria</option><option value="UV">Burkina Faso</option><option value="BY">Burundi</option><option value="CB">Cambodia</option><option value="CM">Cameroon</option><option value="CA">Canada</option><option value="CV">Cape Verde</option><option value="CJ">Cayman Islands</option><option value="CT">Central African Republic</option><option value="CD">Chad</option><option value="CI">Chile</option><option value="CH">China</option><option value="KT">Christmas Island</option><option value="IP">Clipperton Island</option><option value="CK">Cocos (Keeling) Islands</option><option value="CO">Colombia</option><option value="CN">Comoros</option><option value="CF">Congo</option><option value="CG">Congo, Democratic Republic Of The</option><option value="CW">Cook Islands</option><option value="CR">Coral Sea Islands</option><option value="CS">Costa Rica</option><option value="IV">Cote D Ivoire</option><option value="HR">Croatia</option><option value="CU">Cuba</option><option value="UC">Curacao</option><option value="CY">Cyprus</option><option value="EZ">Czechia</option><option value="DA">Denmark</option><option value="DJ">Djibouti</option><option value="DO">Dominica</option><option value="DR">Dominican Republic</option><option value="EC">Ecuador</option><option value="EG">Egypt</option><option value="ES">El Salvador</option><option value="EK">Equatorial Guinea</option><option value="ER">Eritrea</option><option value="EN">Estonia</option><option value="WZ">Eswatini</option><option value="ET">Ethiopia</option><option value="EU">Europa Island</option><option value="FK">Falkland Islands (Islas Malvinas)</option><option value="FO">Faroe Islands</option><option value="FJ">Fiji</option><option value="FI">Finland</option><option value="FR">France</option><option value="FG">French Guiana</option><option value="FP">French Polynesia</option><option value="FS">French Southern And Antarctic Lands</option><option value="GB">Gabon</option><option value="GA">Gambia, The</option><option value="GZ">Gaza Strip</option><option value="GG">Georgia</option><option value="GM">Germany</option><option value="GH">Ghana</option><option value="GI">Gibraltar</option><option value="GO">Glorioso Islands</option><option value="GR">Greece</option><option value="GL">Greenland</option><option value="GJ">Grenada</option><option value="GP">Guadeloupe</option><option value="GT">Guatemala</option><option value="GK">Guernsey</option><option value="GV">Guinea</option><option value="PU">Guinea-Bissau</option><option value="GY">Guyana</option><option value="HA">Haiti</option><option value="HM">Heard Island And Mcdonald Slands</option><option value="VT">Vatican City</option><option value="HO">Honduras</option><option value="HK">Hong Kong</option><option value="HU">Hungary</option><option value="IC">Iceland</option><option value="IN">India</option><option value="ID">Indonesia</option><option value="IR">Iran</option><option value="IZ">Iraq</option><option value="EI">Ireland</option><option value="IM">Isle Of Man</option><option value="IS">Israel</option><option value="IT">Italy</option><option value="JM">Jamaica</option><option value="JN">Jan Mayen</option><option value="JA">Japan</option><option value="JE">Jersey</option><option value="JO">Jordan</option><option value="JU">Juan De Nova Island</option><option value="KZ">Kazakhstan</option><option value="KE">Kenya</option><option value="KR">Kiribati</option><option value="KN">North Korea</option><option value="KS">South Korea</option><option value="KV">Kosovo</option><option value="KU">Kuwait</option><option value="KG">Kyrgyzstan</option><option value="LA">Laos</option><option value="LG">Latvia</option><option value="LE">Lebanon</option><option value="LT">Lesotho</option><option value="LI">Liberia</option><option value="LY">Libya</option><option value="LS">Liechtenstein</option><option value="LH">Lithuania</option><option value="LU">Luxembourg</option><option value="MC">Macau</option><option value="MA">Madagascar</option><option value="MI">Malawi</option><option value="MY">Malaysia</option><option value="MV">Maldives</option><option value="ML">Mali</option><option value="MT">Malta</option><option value="RM">Marshall Islands</option><option value="MB">Martinique</option><option value="MR">Mauritania</option><option value="MP">Mauritius</option><option value="MF">Mayotte</option><option value="MX">Mexico</option><option value="FM">Micronesia, Federated States Of</option><option value="MD">Moldova</option><option value="MN">Monaco</option><option value="MG">Mongolia</option><option value="MJ">Montenegro</option><option value="MH">Montserrat</option><option value="MO">Morocco</option><option value="MZ">Mozambique</option><option value="BM">Myanmar</option><option value="WA">Namibia</option><option value="NR">Nauru</option><option value="BQ">Navassa Island</option><option value="NP">Nepal</option><option value="NL">Netherlands</option><option value="NT">Netherlands Antilles</option><option value="U2">Neutral Zone</option><option value="NC">New Caledonia</option><option value="NZ">New Zealand</option><option value="NU">Nicaragua</option><option value="NG">Niger</option><option value="NI">Nigeria</option><option value="NE">Niue</option><option value="NF">Norfolk Island</option><option value="MK">North Macedonia</option><option value="NO">Norway</option><option value="MU">Oman</option><option value="PK">Pakistan</option><option value="PS">Palau</option><option value="LQ">Palmyra Atoll</option><option value="PM">Panama</option><option value="PP">Papua New Guinea</option><option value="PF">Paracel Islands</option><option value="PA">Paraguay</option><option value="PE">Peru</option><option value="RP">Philippines</option><option value="PC">Pitcairn Islands</option><option value="PL">Poland</option><option value="PO">Portugal</option><option value="QA">Qatar</option><option value="SS">Republic Of South Sudan</option><option value="RE">Reunion</option><option value="RO">Romania</option><option value="RS">Russia</option><option value="RW">Rwanda</option><option value="TB">Saint Barthelemy</option><option value="SH">Saint Helena</option><option value="SC">Saint Kitts And Nevis</option><option value="ST">Saint Lucia</option><option value="RN">Saint Martin</option><option value="SB">Saint Pierre And Miquelon</option><option value="VC">Saint Vincent And The Grenadines</option><option value="WS">Samoa</option><option value="SM">San Marino</option><option value="TP">Sao Tome And Principe</option><option value="SA">Saudi Arabia</option><option value="SG">Senegal</option><option value="RB">Serbia</option><option value="SE">Seychelles</option><option value="SL">Sierra Leone</option><option value="SN">Singapore</option><option value="NN">Sint Maarten</option><option value="LO">Slovakia</option><option value="SI">Slovenia</option><option value="BP">Solomon Islands</option><option value="SO">Somalia</option><option value="SF">South Africa</option><option value="SX">South Georgia And The South Sandwich Islands</option><option value="SP">Spain</option><option value="PG">Spratly Islands</option><option value="CE">Sri Lanka</option><option value="U3">Stateless</option><option value="SU">Sudan</option><option value="NS">Suriname</option><option value="SV">Svalbard</option><option value="SW">Sweden</option><option value="SZ">Switzerland</option><option value="SY">Syria</option><option value="TW">Taiwan</option><option value="TI">Tajikistan</option><option value="TZ">Tanzania</option><option value="TH">Thailand</option><option value="TT">Timor-Leste</option><option value="TO">Togo</option><option value="TL">Tokelau</option><option value="TN">Tonga</option><option value="TD">Trinidad And Tobago</option><option value="TE">Tromelin Island</option><option value="TS">Tunisia</option><option value="TU">Turkiye</option><option value="TX">Turkmenistan</option><option value="TK">Turks And Caicos Islands</option><option value="TV">Tuvalu</option><option value="UG">Uganda</option><option value="UP">Ukraine</option><option value="AE">United Arab Emirates</option><option value="UK">United Kingdom</option><option value="U5">Unknown</option><option value="UY">Uruguay</option><option value="UZ">Uzbekistan</option><option value="NH">Vanuatu</option><option value="VE">Venezuela</option><option value="VM">Vietnam</option><option value="VI">British Virgin Islands</option><option value="WF">Wallis And Futuna</option><option value="WE">West Bank</option><option value="WI">Western Sahara</option><option value="YM">Yemen</option><option value="ZA">Zambia</option><option value="ZI">Zimbabwe</option>
-          </select>
-        </div>
+
+      <div class="form-item">
+        <label>Country</label>
+        <select>
+          <option value="US">United States</option>
+          <option value="CA">Canada</option>
+          <option value="MX">Mexico</option>
+          <option value="GB">United Kingdom</option>
+          <option value="FR">France</option>
+          <option value="DE">Germany</option>
+          <option value="IT">Italy</option>
+          <option value="ES">Spain</option>
+          <option value="AU">Australia</option>
+          <option value="JP">Japan</option>
+          <option value="CH">China</option>
+          <option value="IN">India</option>
+          <option value="BR">Brazil</option>
+        </select>
       </div>
-      <br>
-      <div class="control-group">
-        <label class="control-label required" for="webInquiry.citizenshipCountry">Country of
-          Citizenship</label>
-        <div class="controls">
-          <select name="webInquiry.citizenshipCountry" id="citizenshipCountry">
-            <option value=""></option>
-            <option value="US">United States</option><option value="AF">Afghanistan</option><option value="AX">Aland Islands</option><option value="AL">Albania</option><option value="AG">Algeria</option><option value="AN">Andorra</option><option value="AO">Angola</option><option value="AV">Anguilla</option><option value="AY">Antarctica</option><option value="AC">Antigua And Barbuda</option><option value="AR">Argentina</option><option value="AM">Armenia</option><option value="AA">Aruba</option><option value="AT">Ashmore And Cartier Islands</option><option value="AS">Australia</option><option value="AU">Austria</option><option value="AJ">Azerbaijan</option><option value="BF">Bahamas, The</option><option value="BA">Bahrain</option><option value="FQ">Baker Island</option><option value="BG">Bangladesh</option><option value="BB">Barbados</option><option value="BS">Bassas Da India</option><option value="BO">Belarus</option><option value="BE">Belgium</option><option value="BH">Belize</option><option value="BN">Benin</option><option value="BD">Bermuda</option><option value="BT">Bhutan</option><option value="BL">Bolivia</option><option value="BK">Bosnia And Herzegovina</option><option value="BC">Botswana</option><option value="BV">Bouvet Island</option><option value="BR">Brazil</option><option value="IO">British Indian Ocean Territory</option><option value="BX">Brunei</option><option value="BU">Bulgaria</option><option value="UV">Burkina Faso</option><option value="BY">Burundi</option><option value="CB">Cambodia</option><option value="CM">Cameroon</option><option value="CA">Canada</option><option value="CV">Cape Verde</option><option value="CJ">Cayman Islands</option><option value="CT">Central African Republic</option><option value="CD">Chad</option><option value="CI">Chile</option><option value="CH">China</option><option value="KT">Christmas Island</option><option value="IP">Clipperton Island</option><option value="CK">Cocos (Keeling) Islands</option><option value="CO">Colombia</option><option value="CN">Comoros</option><option value="CF">Congo</option><option value="CG">Congo, Democratic Republic Of The</option><option value="CW">Cook Islands</option><option value="CR">Coral Sea Islands</option><option value="CS">Costa Rica</option><option value="IV">Cote D Ivoire</option><option value="HR">Croatia</option><option value="CU">Cuba</option><option value="UC">Curacao</option><option value="CY">Cyprus</option><option value="EZ">Czechia</option><option value="DA">Denmark</option><option value="DJ">Djibouti</option><option value="DO">Dominica</option><option value="DR">Dominican Republic</option><option value="EC">Ecuador</option><option value="EG">Egypt</option><option value="ES">El Salvador</option><option value="EK">Equatorial Guinea</option><option value="ER">Eritrea</option><option value="EN">Estonia</option><option value="WZ">Eswatini</option><option value="ET">Ethiopia</option><option value="EU">Europa Island</option><option value="FK">Falkland Islands (Islas Malvinas)</option><option value="FO">Faroe Islands</option><option value="FJ">Fiji</option><option value="FI">Finland</option><option value="FR">France</option><option value="FG">French Guiana</option><option value="FP">French Polynesia</option><option value="FS">French Southern And Antarctic Lands</option><option value="GB">Gabon</option><option value="GA">Gambia, The</option><option value="GZ">Gaza Strip</option><option value="GG">Georgia</option><option value="GM">Germany</option><option value="GH">Ghana</option><option value="GI">Gibraltar</option><option value="GO">Glorioso Islands</option><option value="GR">Greece</option><option value="GL">Greenland</option><option value="GJ">Grenada</option><option value="GP">Guadeloupe</option><option value="GT">Guatemala</option><option value="GK">Guernsey</option><option value="GV">Guinea</option><option value="PU">Guinea-Bissau</option><option value="GY">Guyana</option><option value="HA">Haiti</option><option value="HM">Heard Island And Mcdonald Slands</option><option value="VT">Vatican City</option><option value="HO">Honduras</option><option value="HK">Hong Kong</option><option value="HU">Hungary</option><option value="IC">Iceland</option><option value="IN">India</option><option value="ID">Indonesia</option><option value="IR">Iran</option><option value="IZ">Iraq</option><option value="EI">Ireland</option><option value="IM">Isle Of Man</option><option value="IS">Israel</option><option value="IT">Italy</option><option value="JM">Jamaica</option><option value="JN">Jan Mayen</option><option value="JA">Japan</option><option value="JE">Jersey</option><option value="JO">Jordan</option><option value="JU">Juan De Nova Island</option><option value="KZ">Kazakhstan</option><option value="KE">Kenya</option><option value="KR">Kiribati</option><option value="KN">North Korea</option><option value="KS">South Korea</option><option value="KV">Kosovo</option><option value="KU">Kuwait</option><option value="KG">Kyrgyzstan</option><option value="LA">Laos</option><option value="LG">Latvia</option><option value="LE">Lebanon</option><option value="LT">Lesotho</option><option value="LI">Liberia</option><option value="LY">Libya</option><option value="LS">Liechtenstein</option><option value="LH">Lithuania</option><option value="LU">Luxembourg</option><option value="MC">Macau</option><option value="MA">Madagascar</option><option value="MI">Malawi</option><option value="MY">Malaysia</option><option value="MV">Maldives</option><option value="ML">Mali</option><option value="MT">Malta</option><option value="RM">Marshall Islands</option><option value="MB">Martinique</option><option value="MR">Mauritania</option><option value="MP">Mauritius</option><option value="MF">Mayotte</option><option value="MX">Mexico</option><option value="FM">Micronesia, Federated States Of</option><option value="MD">Moldova</option><option value="MN">Monaco</option><option value="MG">Mongolia</option><option value="MJ">Montenegro</option><option value="MH">Montserrat</option><option value="MO">Morocco</option><option value="MZ">Mozambique</option><option value="BM">Myanmar</option><option value="WA">Namibia</option><option value="NR">Nauru</option><option value="BQ">Navassa Island</option><option value="NP">Nepal</option><option value="NL">Netherlands</option><option value="NT">Netherlands Antilles</option><option value="U2">Neutral Zone</option><option value="NC">New Caledonia</option><option value="NZ">New Zealand</option><option value="NU">Nicaragua</option><option value="NG">Niger</option><option value="NI">Nigeria</option><option value="NE">Niue</option><option value="NF">Norfolk Island</option><option value="MK">North Macedonia</option><option value="NO">Norway</option><option value="MU">Oman</option><option value="PK">Pakistan</option><option value="PS">Palau</option><option value="LQ">Palmyra Atoll</option><option value="PM">Panama</option><option value="PP">Papua New Guinea</option><option value="PF">Paracel Islands</option><option value="PA">Paraguay</option><option value="PE">Peru</option><option value="RP">Philippines</option><option value="PC">Pitcairn Islands</option><option value="PL">Poland</option><option value="PO">Portugal</option><option value="QA">Qatar</option><option value="SS">Republic Of South Sudan</option><option value="RE">Reunion</option><option value="RO">Romania</option><option value="RS">Russia</option><option value="RW">Rwanda</option><option value="TB">Saint Barthelemy</option><option value="SH">Saint Helena</option><option value="SC">Saint Kitts And Nevis</option><option value="ST">Saint Lucia</option><option value="RN">Saint Martin</option><option value="SB">Saint Pierre And Miquelon</option><option value="VC">Saint Vincent And The Grenadines</option><option value="WS">Samoa</option><option value="SM">San Marino</option><option value="TP">Sao Tome And Principe</option><option value="SA">Saudi Arabia</option><option value="SG">Senegal</option><option value="RB">Serbia</option><option value="SE">Seychelles</option><option value="SL">Sierra Leone</option><option value="SN">Singapore</option><option value="NN">Sint Maarten</option><option value="LO">Slovakia</option><option value="SI">Slovenia</option><option value="BP">Solomon Islands</option><option value="SO">Somalia</option><option value="SF">South Africa</option><option value="SX">South Georgia And The South Sandwich Islands</option><option value="SP">Spain</option><option value="PG">Spratly Islands</option><option value="CE">Sri Lanka</option><option value="U3">Stateless</option><option value="SU">Sudan</option><option value="NS">Suriname</option><option value="SV">Svalbard</option><option value="SW">Sweden</option><option value="SZ">Switzerland</option><option value="SY">Syria</option><option value="TW">Taiwan</option><option value="TI">Tajikistan</option><option value="TZ">Tanzania</option><option value="TH">Thailand</option><option value="TT">Timor-Leste</option><option value="TO">Togo</option><option value="TL">Tokelau</option><option value="TN">Tonga</option><option value="TD">Trinidad And Tobago</option><option value="TE">Tromelin Island</option><option value="TS">Tunisia</option><option value="TU">Turkiye</option><option value="TX">Turkmenistan</option><option value="TK">Turks And Caicos Islands</option><option value="TV">Tuvalu</option><option value="UG">Uganda</option><option value="UP">Ukraine</option><option value="AE">United Arab Emirates</option><option value="UK">United Kingdom</option><option value="U5">Unknown</option><option value="UY">Uruguay</option><option value="UZ">Uzbekistan</option><option value="NH">Vanuatu</option><option value="VE">Venezuela</option><option value="VM">Vietnam</option><option value="VI">British Virgin Islands</option><option value="WF">Wallis And Futuna</option><option value="WE">West Bank</option><option value="WI">Western Sahara</option><option value="YM">Yemen</option><option value="ZA">Zambia</option><option value="ZI">Zimbabwe</option>
-          </select>
-        </div>
+
+      <div class="form-item">
+        <label>Country of Citizenship</label>
+        <select>
+          <option value=""></option>
+          <option value="US">United States</option>
+          <option value="CA">Canada</option>
+          <option value="MX">Mexico</option>
+          <option value="GB">United Kingdom</option>
+          <option value="FR">France</option>
+          <option value="DE">Germany</option>
+          <option value="IT">Italy</option>
+          <option value="ES">Spain</option>
+          <option value="AU">Australia</option>
+          <option value="JP">Japan</option>
+          <option value="CH">China</option>
+          <option value="IN">India</option>
+          <option value="BR">Brazil</option>
+        </select>
       </div>
-      <div id="permanentResident" class="control-group" style="display: none;">
-        <fieldset>
-          <label class="control-label required" for="webInquiry.permanentResident">Are you a
-            permanent resident of the United States?</label>
-          <div class="controls">
-            <label class="radio inline" for="permanentResidentY">
-              <input name="webInquiry.permanentResident" id="permanentResidentY" type="radio" value="true"> Yes
-            </label>
-            <label class="radio inline" for="permanentResidentN">
-              <input name="webInquiry.permanentResident" id="permanentResidentN" type="radio" value="false"> No
-            </label>
-          </div>
-        </fieldset>
+
+      <div class="form-item">
+        <label>Birth Date</label>
+        <input type="date">
       </div>
-      <br>
-      <div class="control-group">
-        <label class="control-label required" for="webInquiry.birthDate">Birth Date</label>
-        <div class="controls">
-          <input maxlength="10" name="webInquiry.birthDate" id="webInquiry.birthDate" placeholder="mm/dd/yyyy" type="text">
-        </div>
+
+      <div class="form-item">
+        <label>High School Graduation Year</label>
+        <input maxlength="4" placeholder="yyyy" type="text">
       </div>
-      <div class="control-group">
-        <label class="control-label required" for="webInquiry.anticipatedGraduationYear">High
-          School Graduation Year</label>
-        <div class="controls">
-          <input maxlength="4" name="webInquiry.anticipatedGraduationYear" id="webInquiry.anticipatedGraduationYear" placeholder="yyyy" type="text">
-        </div>
+
+      <div class="form-item">
+        <label>Planned Enrollment Term</label>
+        <select>
+          <option value=""></option>
+          <option value="1146">Spring 2026</option>
+          <option value="1147">Summer 2026</option>
+          <option value="1134">Fall 2026</option>
+          <option value="1149">Spring 2027</option>
+          <option value="1150">Summer 2027</option>
+          <option value="1135">Fall 2027</option>
+          <option value="1152">Spring 2028</option>
+          <option value="1153">Summer 2028</option>
+          <option value="1136">Fall 2028</option>
+        </select>
       </div>
-      <div class="control-group">
-        <label class="control-label required" for="webInquiry.plannedEnrollmentSession">Planned
-          Enrollment Term</label>
-        <div class="controls">
-          <select name="webInquiry.plannedEnrollmentSession" id="webInquiry.plannedEnrollmentSession">
-            <option value=""></option>
-            <option value="1146">Spring 2026</option><option value="1147">Summer 2026</option><option value="1134">Fall 2026</option><option value="1149">Spring 2027</option><option value="1150">Summer 2027</option><option value="1135">Fall 2027</option><option value="1152">Spring 2028</option><option value="1153">Summer 2028</option><option value="1136">Fall 2028</option><option value="1155">Spring 2029</option><option value="1156">Summer 2029</option><option value="1137">Fall 2029</option><option value="1159">Spring 2030</option><option value="1162">Summer 2030</option><option value="1138">Fall 2030</option><option value="1161">Spring 2031</option><option value="1163">Summer 2031</option><option value="1139">Fall 2031</option><option value="1165">Spring 2032</option><option value="1166">Summer 2032</option><option value="1140">Fall 2032</option><option value="1141">Fall 2033</option><option value="1142">Fall 2034</option>
-          </select>
-        </div>
+
+      <div class="form-item">
+        <label>What type of student will you be?</label>
+        <select>
+          <option value=""></option>
+          <option value="FIRST_YEAR">First-Year</option>
+          <option value="TRANSFER">Transfer</option>
+        </select>
       </div>
-      <div class="control-group">
-        <label class="control-label required" for="webInquiry.prospectTypeGroup">What type of
-          student will you be?</label>
-        <div class="controls">
-          <select name="webInquiry.prospectTypeGroup" id="webInquiry.prospectTypeGroup">
-            <option value=""></option>
-            <option value="FIRST_YEAR">First-Year</option><option value="TRANSFER">Transfer</option>
-          </select>
-        </div>
-      </div>
-      <br>
+
       <h2>Academic Interests</h2>
       <span class="help-block">
-                                        Select up to three areas of study to receive additional information about that subject.
-                                        You can find additional information in our full <a href="http://admissions.uiowa.edu/academics/undergraduate-areas-of-study" target="_blank">areas of study list</a>.
-                                    </span>
-      <div class="control-group">
-        <label class="control-label required" for="webInquiry.primaryInterest">Primary Academic
-          Interest</label>
-        <div class="controls">
-          <select name="webInquiry.primaryInterest" id="webInquiry.primaryInterest">
-            <option value=""></option>
-            <option value="330">Accounting</option><option value="6">Actuarial Science</option><option value="8">African American Studies</option><option value="17">Ancient Civilization</option><option value="18">Anthropology</option><option value="22">Applied Physics</option><option value="24">Art</option><option value="1658">Art History</option><option value="1657">Art History: Global and Interdisciplinary Connections</option><option value="30">Asian Languages and Literature</option><option value="362">Astronomy</option><option value="34">Bachelor of Applied Studies</option><option value="656">Bachelor of Business Administration (Management)</option><option value="1496">Bachelor of Liberal Studies</option><option value="1707">Biochemistry and Molecular Biology</option><option value="41">Biology</option><option value="323">Biomedical Engineering</option><option value="1216">Biomedical Sciences</option><option value="329">Business (pre)</option><option value="1650">Business Analytics and Information Systems</option><option value="906">Chemical Engineering</option><option value="366">Chemistry</option><option value="310">Chiropractic (pre)</option><option value="57">Cinema</option><option value="907">Civil Engineering</option><option value="60">Classical Languages</option><option value="410">Classics Post-Bac</option><option value="67">Communication Studies</option><option value="77">Computer Science</option><option value="1371">Computer Science and Engineering</option><option value="1741">Counseling and Behavioral Health Services</option><option value="1298">Criminology, Law and Justice</option><option value="349">Critical Cultural Competence</option><option value="85">Dance</option><option value="1544">Data Science</option><option value="307">Dentistry (pre)</option><option value="654">Disability Studies</option><option value="1782">Earth and Environmental Sciences</option><option value="1743">Economics</option><option value="880">Education</option><option value="902">Electrical Engineering</option><option value="92">Elementary Education</option><option value="296">Engineering</option><option value="107">English</option><option value="1368">English and Creative Writing</option><option value="939">Enterprise Leadership</option><option value="109">Entrepreneurial Management</option><option value="1503">Environmental Engineering</option><option value="886">Environmental Policy and Planning</option><option value="430">Environmental Sciences</option><option value="339">Ethics and Public Policy</option><option value="1701">Exercise Science</option><option value="332">Finance</option><option value="121">French</option><option value="652">Fundraising and Philanthropy Communication</option><option value="300">Gender, Women's, and Sexuality Studies</option><option value="308">Geography</option><option value="126">Geoscience</option><option value="898">German</option><option value="1372">Global Health Studies</option><option value="1373">Global Health Studies</option><option value="1702">Health Promotion</option><option value="1703">Health Studies</option><option value="641">Health and Human Physiology: Health Promotion</option><option value="139">History</option><option value="926">Human Physiology</option><option value="1291">Human Rights</option><option value="327">Industrial Engineering</option><option value="305">Informatics</option><option value="147">International Business</option><option value="884">International Relations</option><option value="148">International Studies</option><option value="149">Italian</option><option value="151">Journalism and Mass Communication</option><option value="153">Latin American Studies</option><option value="224">Law (pre)</option><option value="411">Leadership Studies</option><option value="159">Linguistics</option><option value="650">Management</option><option value="335">Marketing</option><option value="379">Mathematics</option><option value="328">Mechanical Engineering</option><option value="64">Medical Laboratory Science</option><option value="225">Medicine (pre)</option><option value="170">Medieval Studies</option><option value="171">Microbiology</option><option value="311">Mortuary Science (pre)</option><option value="176">Museum Studies</option><option value="178">Music</option><option value="11">Native American and Indigenous Studies</option><option value="1493">Neuroscience</option><option value="1590">Nonprofit Leadership and Philanthropy (Online)</option><option value="915">Nuclear Medicine Technology</option><option value="188">Nursing</option><option value="1399">Nursing (RN-BSN program for currently licensed nurses)</option><option value="908">Occupational Therapy (pre)</option><option value="192">Open Major</option><option value="312">Optometry (pre)</option><option value="208">Pharmacy (pre)</option><option value="210">Philosophy</option><option value="302">Physical Therapy (pre)</option><option value="226">Physician Assistant (pre)</option><option value="219">Physics</option><option value="313">Podiatric Medicine (pre)</option><option value="222">Political Science</option><option value="1523">Pre-Athletic Training</option><option value="1451">Pre-Child Life</option><option value="1712">Pre-Dietetics</option><option value="235">Psychology</option><option value="303">Public Health</option><option value="916">Radiation Sciences</option><option value="241">Religious Studies</option><option value="304">Risk Management and Insurance</option><option value="243">Russian</option><option value="282">Science Education</option><option value="1585">Science Studies: Biology Emphasis</option><option value="1586">Science Studies: Chemistry Emphasis</option><option value="1587">Science Studies: Earth Science Emphasis</option><option value="1588">Science Studies: Physics Emphasis</option><option value="1605">Screenwriting Arts</option><option value="687">Secondary Education Interest</option><option value="1728">Social Work</option><option value="251">Sociology</option><option value="254">Spanish</option><option value="257">Speech and Hearing Science</option><option value="1709">Sport Media and Culture</option><option value="938">Sport and Recreation Management</option><option value="259">Statistics</option><option value="1779">Statistics</option><option value="345">Sustainability</option><option value="1584">Sustainability Science</option><option value="263">Technological Entrepreneurship</option><option value="287">Theatre Arts</option><option value="1670">Therapeutic Recreation: NCTRC Certification</option><option value="1668">Therapeutic Recreation:Inclusive Recreation</option><option value="1690">Translation</option><option value="314">Veterinary Medicine (pre)</option>
-          </select>
-        </div>
+                Select up to three areas of study to receive additional information about that subject.
+            </span>
+
+      <div class="form-item">
+        <label>Primary Academic Interest</label>
+        <select>
+          <option value=""></option>
+          <option value="330">Accounting</option>
+          <option value="6">Actuarial Science</option>
+          <option value="8">African American Studies</option>
+          <option value="18">Anthropology</option>
+          <option value="24">Art</option>
+          <option value="41">Biology</option>
+          <option value="329">Business (pre)</option>
+          <option value="77">Computer Science</option>
+          <option value="85">Dance</option>
+          <option value="880">Education</option>
+          <option value="107">English</option>
+          <option value="296">Engineering</option>
+          <option value="139">History</option>
+          <option value="151">Journalism and Mass Communication</option>
+          <option value="224">Law (pre)</option>
+          <option value="379">Mathematics</option>
+          <option value="225">Medicine (pre)</option>
+          <option value="178">Music</option>
+          <option value="188">Nursing</option>
+          <option value="210">Philosophy</option>
+          <option value="219">Physics</option>
+          <option value="222">Political Science</option>
+          <option value="235">Psychology</option>
+          <option value="287">Theatre Arts</option>
+        </select>
       </div>
-      <div class="control-group">
-        <label class="control-label" for="webInquiry.secondaryInterest">Secondary Academic
-          Interest</label>
-        <div class="controls">
-          <select name="webInquiry.secondaryInterest" id="webInquiry.secondaryInterest">
-            <option value=""></option>
-            <option value="330">Accounting</option><option value="6">Actuarial Science</option><option value="8">African American Studies</option><option value="17">Ancient Civilization</option><option value="18">Anthropology</option><option value="22">Applied Physics</option><option value="24">Art</option><option value="1658">Art History</option><option value="1657">Art History: Global and Interdisciplinary Connections</option><option value="30">Asian Languages and Literature</option><option value="362">Astronomy</option><option value="34">Bachelor of Applied Studies</option><option value="656">Bachelor of Business Administration (Management)</option><option value="1496">Bachelor of Liberal Studies</option><option value="1707">Biochemistry and Molecular Biology</option><option value="41">Biology</option><option value="323">Biomedical Engineering</option><option value="1216">Biomedical Sciences</option><option value="329">Business (pre)</option><option value="1650">Business Analytics and Information Systems</option><option value="906">Chemical Engineering</option><option value="366">Chemistry</option><option value="310">Chiropractic (pre)</option><option value="57">Cinema</option><option value="907">Civil Engineering</option><option value="60">Classical Languages</option><option value="410">Classics Post-Bac</option><option value="67">Communication Studies</option><option value="77">Computer Science</option><option value="1371">Computer Science and Engineering</option><option value="1741">Counseling and Behavioral Health Services</option><option value="1298">Criminology, Law and Justice</option><option value="349">Critical Cultural Competence</option><option value="85">Dance</option><option value="1544">Data Science</option><option value="307">Dentistry (pre)</option><option value="654">Disability Studies</option><option value="1782">Earth and Environmental Sciences</option><option value="1743">Economics</option><option value="880">Education</option><option value="902">Electrical Engineering</option><option value="92">Elementary Education</option><option value="296">Engineering</option><option value="107">English</option><option value="1368">English and Creative Writing</option><option value="939">Enterprise Leadership</option><option value="109">Entrepreneurial Management</option><option value="1503">Environmental Engineering</option><option value="886">Environmental Policy and Planning</option><option value="430">Environmental Sciences</option><option value="339">Ethics and Public Policy</option><option value="1701">Exercise Science</option><option value="332">Finance</option><option value="121">French</option><option value="652">Fundraising and Philanthropy Communication</option><option value="300">Gender, Women's, and Sexuality Studies</option><option value="308">Geography</option><option value="126">Geoscience</option><option value="898">German</option><option value="1372">Global Health Studies</option><option value="1373">Global Health Studies</option><option value="1702">Health Promotion</option><option value="1703">Health Studies</option><option value="641">Health and Human Physiology: Health Promotion</option><option value="139">History</option><option value="926">Human Physiology</option><option value="1291">Human Rights</option><option value="327">Industrial Engineering</option><option value="305">Informatics</option><option value="147">International Business</option><option value="884">International Relations</option><option value="148">International Studies</option><option value="149">Italian</option><option value="151">Journalism and Mass Communication</option><option value="153">Latin American Studies</option><option value="224">Law (pre)</option><option value="411">Leadership Studies</option><option value="159">Linguistics</option><option value="650">Management</option><option value="335">Marketing</option><option value="379">Mathematics</option><option value="328">Mechanical Engineering</option><option value="64">Medical Laboratory Science</option><option value="225">Medicine (pre)</option><option value="170">Medieval Studies</option><option value="171">Microbiology</option><option value="311">Mortuary Science (pre)</option><option value="176">Museum Studies</option><option value="178">Music</option><option value="11">Native American and Indigenous Studies</option><option value="1493">Neuroscience</option><option value="1590">Nonprofit Leadership and Philanthropy (Online)</option><option value="915">Nuclear Medicine Technology</option><option value="188">Nursing</option><option value="1399">Nursing (RN-BSN program for currently licensed nurses)</option><option value="908">Occupational Therapy (pre)</option><option value="192">Open Major</option><option value="312">Optometry (pre)</option><option value="208">Pharmacy (pre)</option><option value="210">Philosophy</option><option value="302">Physical Therapy (pre)</option><option value="226">Physician Assistant (pre)</option><option value="219">Physics</option><option value="313">Podiatric Medicine (pre)</option><option value="222">Political Science</option><option value="1523">Pre-Athletic Training</option><option value="1451">Pre-Child Life</option><option value="1712">Pre-Dietetics</option><option value="235">Psychology</option><option value="303">Public Health</option><option value="916">Radiation Sciences</option><option value="241">Religious Studies</option><option value="304">Risk Management and Insurance</option><option value="243">Russian</option><option value="282">Science Education</option><option value="1585">Science Studies: Biology Emphasis</option><option value="1586">Science Studies: Chemistry Emphasis</option><option value="1587">Science Studies: Earth Science Emphasis</option><option value="1588">Science Studies: Physics Emphasis</option><option value="1605">Screenwriting Arts</option><option value="687">Secondary Education Interest</option><option value="1728">Social Work</option><option value="251">Sociology</option><option value="254">Spanish</option><option value="257">Speech and Hearing Science</option><option value="1709">Sport Media and Culture</option><option value="938">Sport and Recreation Management</option><option value="259">Statistics</option><option value="1779">Statistics</option><option value="345">Sustainability</option><option value="1584">Sustainability Science</option><option value="263">Technological Entrepreneurship</option><option value="287">Theatre Arts</option><option value="1670">Therapeutic Recreation: NCTRC Certification</option><option value="1668">Therapeutic Recreation:Inclusive Recreation</option><option value="1690">Translation</option><option value="314">Veterinary Medicine (pre)</option>
-          </select>
-        </div>
+
+      <div class="form-item">
+        <label>Secondary Academic Interest</label>
+        <select>
+          <option value=""></option>
+          <option value="330">Accounting</option>
+          <option value="6">Actuarial Science</option>
+          <option value="8">African American Studies</option>
+          <option value="18">Anthropology</option>
+          <option value="24">Art</option>
+          <option value="41">Biology</option>
+          <option value="329">Business (pre)</option>
+          <option value="77">Computer Science</option>
+          <option value="85">Dance</option>
+          <option value="880">Education</option>
+          <option value="107">English</option>
+          <option value="296">Engineering</option>
+          <option value="139">History</option>
+          <option value="151">Journalism and Mass Communication</option>
+          <option value="224">Law (pre)</option>
+          <option value="379">Mathematics</option>
+          <option value="225">Medicine (pre)</option>
+          <option value="178">Music</option>
+          <option value="188">Nursing</option>
+          <option value="210">Philosophy</option>
+          <option value="219">Physics</option>
+          <option value="222">Political Science</option>
+          <option value="235">Psychology</option>
+          <option value="287">Theatre Arts</option>
+        </select>
       </div>
-      <div class="control-group">
-        <label class="control-label" for="webInquiry.additionalInterest">Additional Academic
-          Interest</label>
-        <div class="controls">
-          <select name="webInquiry.additionalInterest" id="webInquiry.additionalInterest">
-            <option value=""></option>
-            <option value="330">Accounting</option><option value="6">Actuarial Science</option><option value="8">African American Studies</option><option value="17">Ancient Civilization</option><option value="18">Anthropology</option><option value="22">Applied Physics</option><option value="24">Art</option><option value="1658">Art History</option><option value="1657">Art History: Global and Interdisciplinary Connections</option><option value="30">Asian Languages and Literature</option><option value="362">Astronomy</option><option value="34">Bachelor of Applied Studies</option><option value="656">Bachelor of Business Administration (Management)</option><option value="1496">Bachelor of Liberal Studies</option><option value="1707">Biochemistry and Molecular Biology</option><option value="41">Biology</option><option value="323">Biomedical Engineering</option><option value="1216">Biomedical Sciences</option><option value="329">Business (pre)</option><option value="1650">Business Analytics and Information Systems</option><option value="906">Chemical Engineering</option><option value="366">Chemistry</option><option value="310">Chiropractic (pre)</option><option value="57">Cinema</option><option value="907">Civil Engineering</option><option value="60">Classical Languages</option><option value="410">Classics Post-Bac</option><option value="67">Communication Studies</option><option value="77">Computer Science</option><option value="1371">Computer Science and Engineering</option><option value="1741">Counseling and Behavioral Health Services</option><option value="1298">Criminology, Law and Justice</option><option value="349">Critical Cultural Competence</option><option value="85">Dance</option><option value="1544">Data Science</option><option value="307">Dentistry (pre)</option><option value="654">Disability Studies</option><option value="1782">Earth and Environmental Sciences</option><option value="1743">Economics</option><option value="880">Education</option><option value="902">Electrical Engineering</option><option value="92">Elementary Education</option><option value="296">Engineering</option><option value="107">English</option><option value="1368">English and Creative Writing</option><option value="939">Enterprise Leadership</option><option value="109">Entrepreneurial Management</option><option value="1503">Environmental Engineering</option><option value="886">Environmental Policy and Planning</option><option value="430">Environmental Sciences</option><option value="339">Ethics and Public Policy</option><option value="1701">Exercise Science</option><option value="332">Finance</option><option value="121">French</option><option value="652">Fundraising and Philanthropy Communication</option><option value="300">Gender, Women's, and Sexuality Studies</option><option value="308">Geography</option><option value="126">Geoscience</option><option value="898">German</option><option value="1372">Global Health Studies</option><option value="1373">Global Health Studies</option><option value="1702">Health Promotion</option><option value="1703">Health Studies</option><option value="641">Health and Human Physiology: Health Promotion</option><option value="139">History</option><option value="926">Human Physiology</option><option value="1291">Human Rights</option><option value="327">Industrial Engineering</option><option value="305">Informatics</option><option value="147">International Business</option><option value="884">International Relations</option><option value="148">International Studies</option><option value="149">Italian</option><option value="151">Journalism and Mass Communication</option><option value="153">Latin American Studies</option><option value="224">Law (pre)</option><option value="411">Leadership Studies</option><option value="159">Linguistics</option><option value="650">Management</option><option value="335">Marketing</option><option value="379">Mathematics</option><option value="328">Mechanical Engineering</option><option value="64">Medical Laboratory Science</option><option value="225">Medicine (pre)</option><option value="170">Medieval Studies</option><option value="171">Microbiology</option><option value="311">Mortuary Science (pre)</option><option value="176">Museum Studies</option><option value="178">Music</option><option value="11">Native American and Indigenous Studies</option><option value="1493">Neuroscience</option><option value="1590">Nonprofit Leadership and Philanthropy (Online)</option><option value="915">Nuclear Medicine Technology</option><option value="188">Nursing</option><option value="1399">Nursing (RN-BSN program for currently licensed nurses)</option><option value="908">Occupational Therapy (pre)</option><option value="192">Open Major</option><option value="312">Optometry (pre)</option><option value="208">Pharmacy (pre)</option><option value="210">Philosophy</option><option value="302">Physical Therapy (pre)</option><option value="226">Physician Assistant (pre)</option><option value="219">Physics</option><option value="313">Podiatric Medicine (pre)</option><option value="222">Political Science</option><option value="1523">Pre-Athletic Training</option><option value="1451">Pre-Child Life</option><option value="1712">Pre-Dietetics</option><option value="235">Psychology</option><option value="303">Public Health</option><option value="916">Radiation Sciences</option><option value="241">Religious Studies</option><option value="304">Risk Management and Insurance</option><option value="243">Russian</option><option value="282">Science Education</option><option value="1585">Science Studies: Biology Emphasis</option><option value="1586">Science Studies: Chemistry Emphasis</option><option value="1587">Science Studies: Earth Science Emphasis</option><option value="1588">Science Studies: Physics Emphasis</option><option value="1605">Screenwriting Arts</option><option value="687">Secondary Education Interest</option><option value="1728">Social Work</option><option value="251">Sociology</option><option value="254">Spanish</option><option value="257">Speech and Hearing Science</option><option value="1709">Sport Media and Culture</option><option value="938">Sport and Recreation Management</option><option value="259">Statistics</option><option value="1779">Statistics</option><option value="345">Sustainability</option><option value="1584">Sustainability Science</option><option value="263">Technological Entrepreneurship</option><option value="287">Theatre Arts</option><option value="1670">Therapeutic Recreation: NCTRC Certification</option><option value="1668">Therapeutic Recreation:Inclusive Recreation</option><option value="1690">Translation</option><option value="314">Veterinary Medicine (pre)</option>
-          </select>
-        </div>
+
+      <div class="form-item">
+        <label>Additional Academic Interest</label>
+        <select>
+          <option value=""></option>
+          <option value="330">Accounting</option>
+          <option value="6">Actuarial Science</option>
+          <option value="8">African American Studies</option>
+          <option value="18">Anthropology</option>
+          <option value="24">Art</option>
+          <option value="41">Biology</option>
+          <option value="329">Business (pre)</option>
+          <option value="77">Computer Science</option>
+          <option value="85">Dance</option>
+          <option value="880">Education</option>
+          <option value="107">English</option>
+          <option value="296">Engineering</option>
+          <option value="139">History</option>
+          <option value="151">Journalism and Mass Communication</option>
+          <option value="224">Law (pre)</option>
+          <option value="379">Mathematics</option>
+          <option value="225">Medicine (pre)</option>
+          <option value="178">Music</option>
+          <option value="188">Nursing</option>
+          <option value="210">Philosophy</option>
+          <option value="219">Physics</option>
+          <option value="222">Political Science</option>
+          <option value="235">Psychology</option>
+          <option value="287">Theatre Arts</option>
+        </select>
       </div>
-      <br>
+
       <h2>Additional Information</h2>
       <span class="help-block">
-                                        Select any additional subjects that you would like to receive information about.
-                                    </span>
-      <div class="control-group">
-        <div class="controls">
-          <label class="checkbox">
-            <input name="webInquiry.informationRequests" type="checkbox" value="FINANCIAL_AID"> Costs &amp; Financial Aid
-          </label>
-          <label class="checkbox">
-            <input name="webInquiry.informationRequests" type="checkbox" value="MARCHING_BAND"> Hawkeye Marching Band
-          </label>
-          <label class="checkbox">
-            <input name="webInquiry.informationRequests" type="checkbox" value="ROTC_AIR_FORCE"> ROTC - Air Force (Aerospace Studies)
-          </label>
-          <label class="checkbox">
-            <input name="webInquiry.informationRequests" type="checkbox" value="ROTC_ARMY"> ROTC - Army (Military Science)
-          </label>
-          <label class="checkbox">
-            <input name="webInquiry.informationRequests" type="checkbox" value="STUDY_ABROAD"> Study Abroad
-          </label>
-          <label class="checkbox">
-            <input name="webInquiry.informationRequests" type="checkbox" value="BAND"> University Concert Bands and Jazz Bands
-          </label>
-          <label class="checkbox">
-            <input name="webInquiry.informationRequests" type="checkbox" value="HONORS"> University Honors Program
-          </label>
-          <label class="checkbox">
-            <input name="webInquiry.informationRequests" type="checkbox" value="VETERAN_SERVICES"> Veteran &amp; Military Connected Student Services
-          </label>
-        </div>
+                Select any additional subjects that you would like to receive information about.
+            </span>
+
+      <div class="form-item">
+        <label class="checkbox">
+          <input type="checkbox" value="FINANCIAL_AID"> Costs & Financial Aid
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" value="MARCHING_BAND"> Hawkeye Marching Band
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" value="ROTC_AIR_FORCE"> ROTC - Air Force (Aerospace Studies)
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" value="ROTC_ARMY"> ROTC - Army (Military Science)
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" value="STUDY_ABROAD"> Study Abroad
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" value="BAND"> University Concert Bands and Jazz Bands
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" value="HONORS"> University Honors Program
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" value="VETERAN_SERVICES"> Veteran & Military Connected Student Services
+        </label>
       </div>
     </div>
-    <br><br>
+
     <uids-button
       url='/'
       color='primary'
