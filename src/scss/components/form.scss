@@ -2,6 +2,28 @@
 @use '../abstracts/utilities';
 
 // Generalized styles.
+
+// === Spacing === //
+.form-item,
+.form-actions {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+// === Labels === //
+label {
+  display: block;
+  margin: 0 0 .3rem;
+  font-size: 1.1rem;
+  font-weight: variables.$font-weight-bold;
+  line-height: 1.6;
+}
+
+[type="checkbox"] + label,
+[type="radio"] + label {
+  font-weight: 400;
+}
+
 #{utilities.typeSelectors()},
 textarea,
 select {
@@ -108,13 +130,28 @@ textarea {
   }
 }
 
+
+// === Checkbox/Radios === //
+.form-type-checkbox,
+.form-type-radio {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  &[class*="side"] {
+    display: inline-flex;
+    &.form-item {
+      margin-top: .5rem;
+      margin-bottom: .5rem;
+    }
+  }
+}
+
 [type="checkbox"],
 [type="radio"] {
   height: 1.2rem;
   min-width: 1.2rem;
   margin: 0 .35rem 0 .25rem;
   -webkit-transform: scale(1.3, 1.3);
-
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   padding: 0;
@@ -124,7 +161,7 @@ textarea {
     font-weight: variables.$font-weight-normal;
     display: inline-block;
     vertical-align: baseline;
-    @include utilities.margin(variables.$right: variables.$sm, variables.$bottom: 0, variables.$left: variables.$xsm);
+    @include utilities.margin(variables.$right: variables.$lg, variables.$bottom: 0, variables.$left: variables.$sm);
 
     &[for] {
       cursor: pointer;
@@ -172,13 +209,8 @@ textarea {
   }
 }
 
-[type='file'],
-[type='checkbox'],
-[type='radio'] {
-  @include utilities.margin(variables.$top: 0, variables.$right: 0, variables.$bottom: variables.$sm);
-}
-
 [type='file'] {
+  @include utilities.margin(variables.$top: 0, variables.$right: 0, variables.$bottom: variables.$sm);
   width: 100%;
 }
 
@@ -190,12 +222,17 @@ select {
   width: 100%;
 }
 
-
-
-
-
 button {}
-fieldset {}
+fieldset {
+  border: none;
+  padding: 0;
+  legend {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: variables.$font-weight-bold;
+    line-height: 1.6;
+  }
+}
 legend {}
 datalist {}
 output {}

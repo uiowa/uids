@@ -41,12 +41,26 @@ const props = defineProps({
 
       <div class="form-item">
         <label>Do you authorize The University of Iowa to send you text messages about important information and deadlines?</label>
-        <label class="radio">
-          <input type="radio" name="permissionToText" value="true"> Yes
-        </label>
-        <label class="radio">
-          <input type="radio" name="permissionToText" value="false"> No
-        </label>
+        <div class="form-type-radio form-item">
+        <input type="radio" name="permissionToText" value="true">
+        <label class="radio">Yes</label>
+      </div>
+      <div class="form-type-radio form-item">
+       <input type="radio" name="permissionToText" value="false">
+       <label class="radio">No</label>
+      </div>
+      </div>
+
+      <div class="form-item">
+        <label>Do you authorize The University of Iowa to send you text messages about important information and deadlines?</label>
+        <div class="form-type-radio form-type-radio--side form-item">
+          <input type="radio" name="permissionToText" value="true">
+          <label class="radio">Yes</label>
+        </div>
+        <div class="form-type-radio form-type-radio--side form-item">
+          <input type="radio" name="permissionToText" value="false">
+          <label class="radio">No</label>
+        </div>
       </div>
 
       <div class="form-item">
@@ -301,36 +315,87 @@ const props = defineProps({
       </div>
 
       <h2>Additional Information</h2>
-      <span class="help-block">
-                Select any additional subjects that you would like to receive information about.
-            </span>
 
+      <fieldset>
+      <legend>
+        <span class="fieldset-legend">Select any additional subjects that you would like to receive information about.</span>
+      </legend>
       <div class="form-item">
-        <label class="checkbox">
-          <input type="checkbox" value="FINANCIAL_AID"> Costs & Financial Aid
-        </label>
-        <label class="checkbox">
-          <input type="checkbox" value="MARCHING_BAND"> Hawkeye Marching Band
-        </label>
-        <label class="checkbox">
-          <input type="checkbox" value="ROTC_AIR_FORCE"> ROTC - Air Force (Aerospace Studies)
-        </label>
-        <label class="checkbox">
-          <input type="checkbox" value="ROTC_ARMY"> ROTC - Army (Military Science)
-        </label>
-        <label class="checkbox">
-          <input type="checkbox" value="STUDY_ABROAD"> Study Abroad
-        </label>
-        <label class="checkbox">
-          <input type="checkbox" value="BAND"> University Concert Bands and Jazz Bands
-        </label>
-        <label class="checkbox">
-          <input type="checkbox" value="HONORS"> University Honors Program
-        </label>
-        <label class="checkbox">
-          <input type="checkbox" value="VETERAN_SERVICES"> Veteran & Military Connected Student Services
-        </label>
+        <div class="form-type-checkbox form-item">
+          <input type="checkbox" value="FINANCIAL_AID">
+          <label class="checkbox">Costs & Financial Aid</label>
+        </div>
+        <div class="form-type-checkbox form-item">
+          <input type="checkbox" value="MARCHING_BAND">
+          <label class="checkbox">Hawkeye Marching Band</label>
+        </div>
+        <div class="form-type-checkbox form-item">
+          <input type="checkbox" value="ROTC_AIR_FORCE">
+          <label class="checkbox">ROTC - Air Force (Aerospace Studies)</label>
+        </div>
+        <div class="form-type-checkbox form-item">
+          <input type="checkbox" value="ROTC_ARMY">
+          <label class="checkbox">ROTC - Army (Military Science)</label>
+        </div>
+        <div class="form-type-checkbox form-item">
+          <input type="checkbox" value="STUDY_ABROAD">
+          <label class="checkbox">Study Abroad</label>
+        </div>
+        <div class="form-type-checkbox form-item">
+          <input type="checkbox" value="BAND">
+          <label class="checkbox">University Concert Bands and Jazz Bands</label>
+        </div>
+        <div class="form-type-checkbox form-item">
+          <input type="checkbox" value="HONORS">
+          <label class="checkbox">University Honors Program</label>
+        </div>
+        <div class="form-type-checkbox form-item">
+          <input type="checkbox" value="VETERAN_SERVICES">
+          <label class="checkbox">Veteran & Military Connected Student Services</label>
+        </div>
       </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>
+          <span class="fieldset-legend">Select any additional subjects that you would like to receive information about.</span>
+        </legend>
+        <div class="form-item">
+          <div class="form-type-checkbox form-type-checkbox--side form-item">
+            <input type="checkbox" value="FINANCIAL_AID">
+            <label class="checkbox">Costs & Financial Aid</label>
+          </div>
+          <div class="form-type-checkbox form-type-checkbox--side form-item">
+            <input type="checkbox" value="MARCHING_BAND">
+            <label class="checkbox">Hawkeye Marching Band</label>
+          </div>
+          <div class="form-type-checkbox form-type-checkbox--side form-item">
+            <input type="checkbox" value="ROTC_AIR_FORCE">
+            <label class="checkbox">ROTC - Air Force (Aerospace Studies)</label>
+          </div>
+          <div class="form-type-checkbox form-type-checkbox--side form-item">
+            <input type="checkbox" value="ROTC_ARMY">
+            <label class="checkbox">ROTC - Army (Military Science)</label>
+          </div>
+          <div class="form-type-checkbox form-type-checkbox--side form-item">
+            <input type="checkbox" value="STUDY_ABROAD">
+            <label class="checkbox">Study Abroad</label>
+          </div>
+          <div class="form-type-checkbox form-type-checkbox--side form-item">
+            <input type="checkbox" value="BAND">
+            <label class="checkbox">University Concert Bands and Jazz Bands</label>
+          </div>
+          <div class="form-type-checkbox form-type-checkbox--side form-item">
+            <input type="checkbox" value="HONORS">
+            <label class="checkbox">University Honors Program</label>
+          </div>
+          <div class="form-type-checkbox form-type-checkbox--side form-item">
+            <input type="checkbox" value="VETERAN_SERVICES">
+            <label class="checkbox">Veteran & Military Connected Student Services</label>
+          </div>
+        </div>
+      </fieldset>
+
     </div>
 
     <uids-button
