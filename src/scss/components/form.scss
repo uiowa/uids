@@ -14,9 +14,9 @@
   label {
     display: block;
     margin: 0 0 .3rem;
-    font-size: 1.1rem;
+    font-size: variables.$label-font-size;
     font-weight: variables.$font-weight-bold;
-    line-height: 1.6;
+    line-height: 1.8;
   }
 
   label.form-required {
@@ -51,7 +51,7 @@
     padding: 0.5rem;
     transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
     color: var(--brand-secondary);
-    border: 1px solid #cacaca;
+    border: 1px solid variables.$grey-light;
     background-color: #fefefe;
     box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
     font-family: inherit;
@@ -65,7 +65,7 @@
       border: 1px solid #8a8a8a;
       outline: none;
       background-color: #fefefe;
-      box-shadow: 0 0 5px #cacaca;
+      box-shadow: 0 0 5px variables.$grey-light;
     }
 
     // Error styles.
@@ -140,7 +140,7 @@
   .form-type-radio {
     display: flex;
     flex-wrap: wrap;
-    align-items: flex-start;
+    align-items: center;
 
     &[class*="side"] {
       display: inline-flex;
@@ -156,7 +156,7 @@
   [type="radio"] {
     height: 1.2rem;
     min-width: 1.2rem;
-    margin: .25rem .35rem 0 .25rem;
+    margin: 0 .35rem 0 .25rem;
     -webkit-transform: scale(1.3, 1.3);
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -167,7 +167,6 @@
       font-weight: variables.$font-weight-normal;
       display: inline-block;
       vertical-align: baseline;
-      display: inline-block;
       margin-bottom: 0;
       margin-left: .625rem;
       margin-right: 1rem;
@@ -186,7 +185,6 @@
 
   // Todo, make more accessible: https://www.w3.org/WAI/ARIA/apg/patterns/switch/examples/switch-checkbox/.
   .form-type-checkbox--switch {
-
     [type="checkbox"] {
       -webkit-appearance: none;
       -moz-appearance: none;
@@ -317,7 +315,7 @@
 
     legend {
       display: block;
-      font-size: 1.1rem;
+      font-size: variables.$label-font-size;
       font-weight: variables.$font-weight-bold;
       line-height: 1.6;
     }
@@ -325,26 +323,57 @@
 
   details {
     &.details-multi-select {
+      position: relative;
+
       summary {
         cursor: pointer;
-        color: #737373;
+        color: variables.$grey;
         display: flex;
         align-items: center;
+        margin-bottom: 0;
+      }
+
+      .multi-select-toggle {
+
+        border: none;
+        border-bottom: 1px solid variables.$grey-light;
+        color: variables.$grey;
+        display: block;
+        //font-size: .8rem;
+        padding: .85rem .425rem;
+        text-decoration: none;
       }
 
       .details-wrapper {
-        border: 1px solid #cacaca;
+        border: 1px solid variables.$grey-light;
         display: flex;
         flex-direction: column;
         padding: 0;
         position: absolute;
-        top: calc(var(--elemHeight) - 1px);
+        top: calc(3.5rem - 1px);
         width: calc(100% - 2px);
         z-index: 500;
-        background: #fff;
+        background: variables.$white;
         box-shadow: 0 0 7px rgba(0, 0, 0, .15);
         max-height: 346px;
         overflow: auto;
+      }
+
+      .details-multi-select-checkboxes {
+        padding: .5rem 0;
+
+        .form-type-checkbox {
+          align-items: center;
+          display: flex;
+          margin-bottom: 1rem;
+          margin-right: 0;
+          margin-top: 1rem;
+          padding: 0 .5rem;
+        }
+
+        label {
+          font-size: variables.$small-font-size;
+        }
       }
     }
   }

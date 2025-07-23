@@ -416,6 +416,94 @@ const props = defineProps({
         </div>
       </fieldset>
 
+      <details class="form-item details-multi-select">
+        <summary>Genre<span class="summary"></span></summary>
+        <div class="details-wrapper">
+          <div class="form-checkboxes">
+            <a class="multi-select-toggle" href="#">Select All</a>
+            <div class="details-multi-select-checkboxes">
+              <div class=" form-type-checkbox">
+                <input type="checkbox" id="edit-field-event-genre-value-childrens--Y2idzqPWjuo" name="field_event_genre_value[Childrens]" value="Childrens" class="form-checkbox">
+
+                <label for="edit-field-event-genre-value-childrens--Y2idzqPWjuo" class="option">Children's</label>
+              </div>
+
+              <div class=" form-type-checkbox">
+                <input type="checkbox" id="edit-field-event-genre-value-essay--qn92WZNFxVQ" name="field_event_genre_value[Essay]" value="Essay" class="form-checkbox">
+
+                <label for="edit-field-event-genre-value-essay--qn92WZNFxVQ" class="option">Essay</label>
+              </div>
+
+              <div class=" form-type-checkbox">
+                <input type="checkbox" id="edit-field-event-genre-value-fantasy--qsdFbcezUn0" name="field_event_genre_value[Fantasy]" value="Fantasy" class="form-checkbox">
+
+                <label for="edit-field-event-genre-value-fantasy--qsdFbcezUn0" class="option">Fantasy</label>
+              </div>
+
+              <div class=" form-type-checkbox">
+                <input type="checkbox" id="edit-field-event-genre-value-fiction--F547iWBi4wg" name="field_event_genre_value[Fiction]" value="Fiction" class="form-checkbox">
+
+                <label for="edit-field-event-genre-value-fiction--F547iWBi4wg" class="option">Fiction</label>
+              </div>
+
+              <div class=" form-type-checkbox">
+                <input type="checkbox" id="edit-field-event-genre-value-hybridforms--NgTo0EtnD_A" name="field_event_genre_value[HybridForms]" value="HybridForms" class="form-checkbox">
+
+                <label for="edit-field-event-genre-value-hybridforms--NgTo0EtnD_A" class="option">Hybrid Forms</label>
+              </div>
+
+              <div class=" form-type-checkbox">
+                <input type="checkbox" id="edit-field-event-genre-value-memoir--HVUn8CLgzqg" name="field_event_genre_value[Memoir]" value="Memoir" class="form-checkbox">
+
+                <label for="edit-field-event-genre-value-memoir--HVUn8CLgzqg" class="option">Memoir</label>
+              </div>
+
+              <div class=" form-type-checkbox">
+                <input type="checkbox" id="edit-field-event-genre-value-middlegrade--ueW_97yE7nY" name="field_event_genre_value[MiddleGrade]" value="MiddleGrade" class="form-checkbox">
+
+                <label for="edit-field-event-genre-value-middlegrade--ueW_97yE7nY" class="option">Middle Grade</label>
+              </div>
+
+              <div class=" form-type-checkbox">
+                <input type="checkbox" id="edit-field-event-genre-value-nonfiction--RO3rViX_wJI" name="field_event_genre_value[Nonfiction]" value="Nonfiction" class="form-checkbox">
+
+                <label for="edit-field-event-genre-value-nonfiction--RO3rViX_wJI" class="option">Nonfiction</label>
+              </div>
+
+              <div class=" form-type-checkbox">
+                <input type="checkbox" id="edit-field-event-genre-value-novel--nY9Utkyye3w" name="field_event_genre_value[Novel]" value="Novel" class="form-checkbox">
+
+                <label for="edit-field-event-genre-value-novel--nY9Utkyye3w" class="option">Novel</label>
+              </div>
+
+              <div class=" form-type-checkbox">
+                <input type="checkbox" id="edit-field-event-genre-value-playwriting--nTE1KzbGVyM" name="field_event_genre_value[Playwriting]" value="Playwriting" class="form-checkbox">
+
+                <label for="edit-field-event-genre-value-playwriting--nTE1KzbGVyM" class="option">Playwriting</label>
+              </div>
+
+              <div class="form-type-checkbox">
+                <input type="checkbox" id="edit-field-event-genre-value-poetry--YJd6UDHH86E" name="field_event_genre_value[Poetry]" value="Poetry" class="form-checkbox">
+
+                <label for="edit-field-event-genre-value-poetry--YJd6UDHH86E" class="option">Poetry</label>
+              </div>
+
+              <div class="form-type-checkbox">
+                <input type="checkbox" id="edit-field-event-genre-value-sciencefiction--s7nRw8QKJ44" name="field_event_genre_value[ScienceFiction]" value="ScienceFiction" class="form-checkbox">
+
+                <label for="edit-field-event-genre-value-sciencefiction--s7nRw8QKJ44" class="option">Science Fiction</label>
+              </div>
+
+              <div class="form-type-checkbox">
+                <input type="checkbox" id="edit-field-event-genre-value-screenwriting--3SCKNL7gdww" name="field_event_genre_value[Screenwriting]" value="Screenwriting" class="form-checkbox">
+
+                <label for="edit-field-event-genre-value-screenwriting--3SCKNL7gdww" class="option">Screenwriting</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </details>
+
 
       <div class="form-item form-item-multiselect">
         <label for="multiselect">Multi select</label>
@@ -504,93 +592,7 @@ const props = defineProps({
       <i class="fas fa-arrow-right"></i>
     </uids-button>
 
-    <details open="" class="details-multi-select">
-      <summary>Genre<span class="summary"></span></summary>
-      <div class="details-wrapper">
-        <div class="form-checkboxes">
-          <a class="bef-toggle bef-toggle--select-all" href="#">Select All</a>
-          <div class="form-checkboxes">
-            <div class=" form-type-checkbox">
-              <input type="checkbox" id="edit-field-event-genre-value-childrens--Y2idzqPWjuo" name="field_event_genre_value[Childrens]" value="Childrens" class="form-checkbox">
 
-              <label for="edit-field-event-genre-value-childrens--Y2idzqPWjuo" class="option">Children's</label>
-            </div>
-
-            <div class=" form-type-checkbox">
-              <input type="checkbox" id="edit-field-event-genre-value-essay--qn92WZNFxVQ" name="field_event_genre_value[Essay]" value="Essay" class="form-checkbox">
-
-              <label for="edit-field-event-genre-value-essay--qn92WZNFxVQ" class="option">Essay</label>
-            </div>
-
-            <div class=" form-type-checkbox">
-              <input type="checkbox" id="edit-field-event-genre-value-fantasy--qsdFbcezUn0" name="field_event_genre_value[Fantasy]" value="Fantasy" class="form-checkbox">
-
-              <label for="edit-field-event-genre-value-fantasy--qsdFbcezUn0" class="option">Fantasy</label>
-            </div>
-
-            <div class=" form-type-checkbox">
-              <input type="checkbox" id="edit-field-event-genre-value-fiction--F547iWBi4wg" name="field_event_genre_value[Fiction]" value="Fiction" class="form-checkbox">
-
-              <label for="edit-field-event-genre-value-fiction--F547iWBi4wg" class="option">Fiction</label>
-            </div>
-
-            <div class=" form-type-checkbox">
-              <input type="checkbox" id="edit-field-event-genre-value-hybridforms--NgTo0EtnD_A" name="field_event_genre_value[HybridForms]" value="HybridForms" class="form-checkbox">
-
-              <label for="edit-field-event-genre-value-hybridforms--NgTo0EtnD_A" class="option">Hybrid Forms</label>
-            </div>
-
-            <div class=" form-type-checkbox">
-              <input type="checkbox" id="edit-field-event-genre-value-memoir--HVUn8CLgzqg" name="field_event_genre_value[Memoir]" value="Memoir" class="form-checkbox">
-
-              <label for="edit-field-event-genre-value-memoir--HVUn8CLgzqg" class="option">Memoir</label>
-            </div>
-
-            <div class=" form-type-checkbox">
-              <input type="checkbox" id="edit-field-event-genre-value-middlegrade--ueW_97yE7nY" name="field_event_genre_value[MiddleGrade]" value="MiddleGrade" class="form-checkbox">
-
-              <label for="edit-field-event-genre-value-middlegrade--ueW_97yE7nY" class="option">Middle Grade</label>
-            </div>
-
-            <div class=" form-type-checkbox">
-              <input type="checkbox" id="edit-field-event-genre-value-nonfiction--RO3rViX_wJI" name="field_event_genre_value[Nonfiction]" value="Nonfiction" class="form-checkbox">
-
-              <label for="edit-field-event-genre-value-nonfiction--RO3rViX_wJI" class="option">Nonfiction</label>
-            </div>
-
-            <div class=" form-type-checkbox">
-              <input type="checkbox" id="edit-field-event-genre-value-novel--nY9Utkyye3w" name="field_event_genre_value[Novel]" value="Novel" class="form-checkbox">
-
-              <label for="edit-field-event-genre-value-novel--nY9Utkyye3w" class="option">Novel</label>
-            </div>
-
-            <div class=" form-type-checkbox">
-              <input type="checkbox" id="edit-field-event-genre-value-playwriting--nTE1KzbGVyM" name="field_event_genre_value[Playwriting]" value="Playwriting" class="form-checkbox">
-
-              <label for="edit-field-event-genre-value-playwriting--nTE1KzbGVyM" class="option">Playwriting</label>
-            </div>
-
-            <div class="form-type-checkbox">
-              <input type="checkbox" id="edit-field-event-genre-value-poetry--YJd6UDHH86E" name="field_event_genre_value[Poetry]" value="Poetry" class="form-checkbox">
-
-              <label for="edit-field-event-genre-value-poetry--YJd6UDHH86E" class="option">Poetry</label>
-            </div>
-
-            <div class="form-type-checkbox">
-              <input type="checkbox" id="edit-field-event-genre-value-sciencefiction--s7nRw8QKJ44" name="field_event_genre_value[ScienceFiction]" value="ScienceFiction" class="form-checkbox">
-
-              <label for="edit-field-event-genre-value-sciencefiction--s7nRw8QKJ44" class="option">Science Fiction</label>
-            </div>
-
-            <div class="form-type-checkbox">
-              <input type="checkbox" id="edit-field-event-genre-value-screenwriting--3SCKNL7gdww" name="field_event_genre_value[Screenwriting]" value="Screenwriting" class="form-checkbox">
-
-              <label for="edit-field-event-genre-value-screenwriting--3SCKNL7gdww" class="option">Screenwriting</label>
-            </div>
-          </div>
-        </div>
-      </div>
-    </details>
 
     <button type="submit" form="form1" value="Submit">Submit</button>
   </form>
