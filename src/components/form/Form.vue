@@ -14,7 +14,7 @@ const props = defineProps({
     <div class="form">
       <p>Required fields are marked with an asterisk (<abbr class="req" title="required">*</abbr>).</p>
       <h2>Student Information</h2>
-      
+
       <div class="form-item">
         <label for="first-name">First Name</label>
         <input id="first-name" maxlength="50" type="text">
@@ -503,7 +503,6 @@ const props = defineProps({
         <summary>Genre<span class="summary"></span></summary>
         <div class="details-wrapper">
           <div class="form-checkboxes">
-            <a class="multi-select-toggle" href="#">Select All</a>
             <!-- Add fieldset and legend for accessibility -->
             <fieldset class="details-multi-select-checkboxes">
               <legend class="visually-hidden">Select one or more genres</legend>
@@ -664,8 +663,6 @@ const props = defineProps({
       Hello world
       <i class="fas fa-arrow-right"></i>
     </uids-button>
-
-
 
     <button type="submit" form="form1" value="Submit">Submit</button>
   </form>
