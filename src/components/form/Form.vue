@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import '../../scss/components/form.scss'
 import '../../scss/layout/_grid.scss'
+import '../../scss/components/_background.scss'
 import UidsButton from '../button/Button.vue'
 
 const props = defineProps({
