@@ -14,7 +14,7 @@ const props = defineProps({
     <div class="form">
       <p>Required fields are marked with an asterisk (<abbr class="req" title="required">*</abbr>).</p>
       <h2>Student Information</h2>
-
+      
       <div class="form-item">
         <label for="first-name">First Name</label>
         <input id="first-name" maxlength="50" type="text">
@@ -504,85 +504,75 @@ const props = defineProps({
         <div class="details-wrapper">
           <div class="form-checkboxes">
             <a class="multi-select-toggle" href="#">Select All</a>
-            <div class="details-multi-select-checkboxes">
-              <div class=" form-type-checkbox">
-                <input type="checkbox" id="edit-field-event-genre-value-childrens--Y2idzqPWjuo" name="field_event_genre_value[Childrens]" value="Childrens" class="form-checkbox">
+            <!-- Add fieldset and legend for accessibility -->
+            <fieldset class="details-multi-select-checkboxes">
+              <legend class="visually-hidden">Select one or more genres</legend>
 
+              <div class="form-type-checkbox">
+                <input type="checkbox" id="edit-field-event-genre-value-childrens--Y2idzqPWjuo" name="field_event_genre_value[Childrens]" value="Childrens" class="form-checkbox">
                 <label for="edit-field-event-genre-value-childrens--Y2idzqPWjuo" class="option">Children's</label>
               </div>
 
-              <div class=" form-type-checkbox">
+              <div class="form-type-checkbox">
                 <input type="checkbox" id="edit-field-event-genre-value-essay--qn92WZNFxVQ" name="field_event_genre_value[Essay]" value="Essay" class="form-checkbox">
-
                 <label for="edit-field-event-genre-value-essay--qn92WZNFxVQ" class="option">Essay</label>
               </div>
 
-              <div class=" form-type-checkbox">
+              <div class="form-type-checkbox">
                 <input type="checkbox" id="edit-field-event-genre-value-fantasy--qsdFbcezUn0" name="field_event_genre_value[Fantasy]" value="Fantasy" class="form-checkbox">
-
                 <label for="edit-field-event-genre-value-fantasy--qsdFbcezUn0" class="option">Fantasy</label>
               </div>
 
-              <div class=" form-type-checkbox">
+              <div class="form-type-checkbox">
                 <input type="checkbox" id="edit-field-event-genre-value-fiction--F547iWBi4wg" name="field_event_genre_value[Fiction]" value="Fiction" class="form-checkbox">
-
                 <label for="edit-field-event-genre-value-fiction--F547iWBi4wg" class="option">Fiction</label>
               </div>
 
-              <div class=" form-type-checkbox">
+              <div class="form-type-checkbox">
                 <input type="checkbox" id="edit-field-event-genre-value-hybridforms--NgTo0EtnD_A" name="field_event_genre_value[HybridForms]" value="HybridForms" class="form-checkbox">
-
                 <label for="edit-field-event-genre-value-hybridforms--NgTo0EtnD_A" class="option">Hybrid Forms</label>
               </div>
 
-              <div class=" form-type-checkbox">
+              <div class="form-type-checkbox">
                 <input type="checkbox" id="edit-field-event-genre-value-memoir--HVUn8CLgzqg" name="field_event_genre_value[Memoir]" value="Memoir" class="form-checkbox">
-
                 <label for="edit-field-event-genre-value-memoir--HVUn8CLgzqg" class="option">Memoir</label>
               </div>
 
-              <div class=" form-type-checkbox">
+              <div class="form-type-checkbox">
                 <input type="checkbox" id="edit-field-event-genre-value-middlegrade--ueW_97yE7nY" name="field_event_genre_value[MiddleGrade]" value="MiddleGrade" class="form-checkbox">
-
                 <label for="edit-field-event-genre-value-middlegrade--ueW_97yE7nY" class="option">Middle Grade</label>
               </div>
 
-              <div class=" form-type-checkbox">
+              <div class="form-type-checkbox">
                 <input type="checkbox" id="edit-field-event-genre-value-nonfiction--RO3rViX_wJI" name="field_event_genre_value[Nonfiction]" value="Nonfiction" class="form-checkbox">
-
                 <label for="edit-field-event-genre-value-nonfiction--RO3rViX_wJI" class="option">Nonfiction</label>
               </div>
 
-              <div class=" form-type-checkbox">
+              <div class="form-type-checkbox">
                 <input type="checkbox" id="edit-field-event-genre-value-novel--nY9Utkyye3w" name="field_event_genre_value[Novel]" value="Novel" class="form-checkbox">
-
                 <label for="edit-field-event-genre-value-novel--nY9Utkyye3w" class="option">Novel</label>
               </div>
 
-              <div class=" form-type-checkbox">
+              <div class="form-type-checkbox">
                 <input type="checkbox" id="edit-field-event-genre-value-playwriting--nTE1KzbGVyM" name="field_event_genre_value[Playwriting]" value="Playwriting" class="form-checkbox">
-
                 <label for="edit-field-event-genre-value-playwriting--nTE1KzbGVyM" class="option">Playwriting</label>
               </div>
 
               <div class="form-type-checkbox">
                 <input type="checkbox" id="edit-field-event-genre-value-poetry--YJd6UDHH86E" name="field_event_genre_value[Poetry]" value="Poetry" class="form-checkbox">
-
                 <label for="edit-field-event-genre-value-poetry--YJd6UDHH86E" class="option">Poetry</label>
               </div>
 
               <div class="form-type-checkbox">
                 <input type="checkbox" id="edit-field-event-genre-value-sciencefiction--s7nRw8QKJ44" name="field_event_genre_value[ScienceFiction]" value="ScienceFiction" class="form-checkbox">
-
                 <label for="edit-field-event-genre-value-sciencefiction--s7nRw8QKJ44" class="option">Science Fiction</label>
               </div>
 
               <div class="form-type-checkbox">
                 <input type="checkbox" id="edit-field-event-genre-value-screenwriting--3SCKNL7gdww" name="field_event_genre_value[Screenwriting]" value="Screenwriting" class="form-checkbox">
-
                 <label for="edit-field-event-genre-value-screenwriting--3SCKNL7gdww" class="option">Screenwriting</label>
               </div>
-            </div>
+            </fieldset>
           </div>
         </div>
       </details>
@@ -601,57 +591,57 @@ const props = defineProps({
         <div class="fieldset-wrapper">
           <div class="form-type-checkbox--switch">
             <div class="form-type-checkbox form-item">
-              <input id="academic-business" type="checkbox" name="academic_group[251]" value="251">
+              <input role="switch" id="academic-business" type="checkbox" name="academic_group[251]" value="251">
               <label for="academic-business" class="checkbox">Business, Economics, and Management</label>
             </div>
 
             <div class="form-type-checkbox form-item">
-              <input id="academic-education" type="checkbox" name="academic_group[261]" value="261">
+              <input role="switch" id="academic-education" type="checkbox" name="academic_group[261]" value="261">
               <label for="academic-education" class="checkbox">Education</label>
             </div>
 
             <div class="form-type-checkbox form-item">
-              <input id="academic-engineering" type="checkbox" name="academic_group[256]" value="256">
+              <input role="switch" id="academic-engineering" type="checkbox" name="academic_group[256]" value="256">
               <label for="academic-engineering" class="checkbox">Engineering and Computing</label>
             </div>
 
             <div class="form-type-checkbox form-item">
-              <input id="academic-health" type="checkbox" name="academic_group[286]" value="286">
+              <input role="switch" id="academic-health" type="checkbox" name="academic_group[286]" value="286">
               <label for="academic-health" class="checkbox">Health Sciences</label>
             </div>
 
             <div class="form-type-checkbox form-item">
-              <input id="academic-languages" type="checkbox" name="academic_group[271]" value="271">
+              <input role="switch" id="academic-languages" type="checkbox" name="academic_group[271]" value="271">
               <label for="academic-languages" class="checkbox">Languages, Culture, and Society</label>
             </div>
 
             <div class="form-type-checkbox form-item">
-              <input id="academic-life-sciences" type="checkbox" name="academic_group[276]" value="276">
+              <input role="switch" id="academic-life-sciences" type="checkbox" name="academic_group[276]" value="276">
               <label for="academic-life-sciences" class="checkbox">Life and Natural Sciences</label>
             </div>
 
             <div class="form-type-checkbox form-item">
-              <input id="academic-math" type="checkbox" name="academic_group[266]" value="266">
+              <input role="switch" id="academic-math" type="checkbox" name="academic_group[266]" value="266">
               <label for="academic-math" class="checkbox">Math and Quantitative Sciences</label>
             </div>
 
             <div class="form-type-checkbox form-item">
-              <input id="academic-preprofessional" type="checkbox" name="academic_group[301]" value="301">
+              <input role="switch" id="academic-preprofessional" type="checkbox" name="academic_group[301]" value="301">
               <label for="academic-preprofessional" class="checkbox">Preprofessional Programs</label>
             </div>
 
             <div class="form-type-checkbox form-item">
-              <input id="academic-social-sciences" type="checkbox" name="academic_group[291]" value="291">
+              <input role="switch" id="academic-social-sciences" type="checkbox" name="academic_group[291]" value="291">
               <label for="academic-social-sciences" class="checkbox">Social Sciences and Policy</label>
             </div>
 
             <div class="form-type-checkbox form-item">
-              <input id="academic-visual-arts" type="checkbox" name="academic_group[296]" value="296">
+              <input role="switch" id="academic-visual-arts" type="checkbox" name="academic_group[296]" value="296">
               <label for="academic-visual-arts" class="checkbox">Visual and Performing Arts</label>
             </div>
 
             <div class="form-type-checkbox form-item">
-              <input id="academic-writing" type="checkbox" name="academic_group[281]" value="281">
+              <input role="switch" id="academic-writing" type="checkbox" name="academic_group[281]" value="281">
               <label for="academic-writing" class="checkbox">Writing, Communications, Literature, and Media</label>
             </div>
           </div>

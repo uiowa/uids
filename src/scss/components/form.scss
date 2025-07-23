@@ -10,7 +10,7 @@
     margin-bottom: 1em;
   }
 
-  // === Labels === //
+  // === Labels/Description === //
   label {
     display: block;
     margin: 0 0 .3rem;
@@ -47,48 +47,9 @@
     flex-basis: 100%;
   }
 
+  // === End: Labels/Description === //
 
-  #{utilities.typeSelectors()},
-  textarea,
-  select,
-  details.details-multi-select summary {
-    display: block;
-    box-sizing: border-box;
-    width: 100%;
-    height: 3.5rem;
-    margin: 0 0 1rem;
-    padding: 0.5rem;
-    transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
-    color: var(--brand-secondary);
-    border: 1px solid variables.$grey-light;
-    background-color: #fefefe;
-    box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
-    font-family: inherit;
-    font-size: 1rem;
-    font-weight: normal;
-    line-height: 1.5;
-    appearance: none;
-
-    &:focus {
-      transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
-      border: 1px solid #8a8a8a;
-      outline: none;
-      background-color: #fefefe;
-      box-shadow: 0 0 5px variables.$grey-light;
-    }
-
-    // Error styles.
-    &.error {
-      border: 1px solid variables.$danger;
-      background-color: variables.$danger-light;
-
-      &:focus {
-        border: 1px solid variables.$danger;
-        box-shadow: 0 0 5px variables.$danger-light;
-      }
-    }
-  }
-
+  // === Input types === //
   input {
     &.form-autocomplete {
       background-position: 98% center;
@@ -143,6 +104,47 @@
     }
   }
 
+  [type="number"] {
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      height: auto;
+    }
+  }
+
+  [type="search"] {
+    outline-offset: -2px;
+    -webkit-appearance: textfield;
+
+    &::-webkit-search-decoration {
+      -webkit-appearance: none;
+    }
+  }
+
+  [type="submit"],
+  [type="button"] {
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    @include utilities.bttn;
+    font-family: variables.$font-family-caps-bold;
+
+    &.button--small {
+      padding: 0.6rem 1rem 0.8rem;
+      font-size: 1.05rem;
+    }
+
+    &.button--full-width {
+      width: 100%;
+    }
+  }
+
+  [type='file'] {
+    width: 100%;
+    margin-bottom: .625rem;
+  }
+  // === End: Input types === //
+
 
   // === Checkbox/Radios === //
   .form-type-checkbox,
@@ -192,7 +194,7 @@
     }
   }
 
-  // Todo, make more accessible: https://www.w3.org/WAI/ARIA/apg/patterns/switch/examples/switch-checkbox/.
+
   .form-type-checkbox--switch {
     [type="checkbox"] {
       -webkit-appearance: none;
@@ -210,8 +212,9 @@
       background-color: variables.$grey-light;
       transition: background-color ease 0.3s;
       margin-top: 0;
-      &:focus  {
-        background: variables.$grey;
+      &:focus-visible  {
+        background: variables.$light;
+        outline: 1px solid variables.$secondary;
       }
     }
 
@@ -245,45 +248,48 @@
       left: 32px;
     }
   }
+  // === End: Checkbox/Radios === //
 
-  [type="number"] {
-    &::-webkit-inner-spin-button,
-    &::-webkit-outer-spin-button {
-      height: auto;
-    }
-  }
-
-  [type="search"] {
-    outline-offset: -2px;
-    -webkit-appearance: textfield;
-
-    &::-webkit-search-decoration {
-      -webkit-appearance: none;
-    }
-  }
-
-  [type="submit"],
-  [type="button"] {
-    border: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    @include utilities.bttn;
-    font-family: variables.$font-family-caps-bold;
-
-    &.button--small {
-      padding: 0.6rem 1rem 0.8rem;
-      font-size: 1.05rem;
-    }
-
-    &.button--full-width {
-      width: 100%;
-    }
-  }
-
-  [type='file'] {
+  // === Select and details === //
+  #{utilities.typeSelectors()},
+  textarea,
+  select,
+  details.details-multi-select summary {
+    display: block;
+    box-sizing: border-box;
     width: 100%;
-    margin-bottom: .625rem;
+    height: 3.5rem;
+    margin: 0 0 1rem;
+    padding: 0.5rem;
+    transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
+    color: var(--brand-secondary);
+    border: 1px solid variables.$grey-light;
+    background-color: #fefefe;
+    box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: normal;
+    line-height: 1.5;
+    appearance: none;
+
+    &:focus {
+      transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
+      border: 1px solid #8a8a8a;
+      outline: none;
+      background-color: #fefefe;
+      box-shadow: 0 0 5px variables.$grey-light;
+    }
+
+    // Error styles.
+    &.error {
+      border: 1px solid variables.$danger;
+      background-color: variables.$danger-light;
+
+      &:focus {
+        border: 1px solid variables.$danger;
+        box-shadow: 0 0 5px variables.$danger-light;
+      }
+    }
   }
 
   select,
@@ -317,6 +323,34 @@
     }
   }
 
+  select[multiple] {
+    border: 1px solid variables.$grey;
+    padding: 0.5rem;
+    font-size: 1.25rem;
+    cursor: pointer;
+    line-height: 1.1;
+    background-color: #fff;
+    padding-right: 0;
+    height: 10rem;
+
+    option {
+      white-space: normal;
+      font-size: 1.1rem;
+      padding: .5rem .5rem .5rem .75rem;
+    }
+
+    &:not(:disabled) option {
+      transition: 120ms all ease-in;
+
+      &:checked {
+        padding-left: 0.5em;
+        color: black;
+      }
+    }
+  }
+  // === End: Select and details === //
+
+  // === Fieldset === //
   fieldset {
     margin: 1.5rem 0;
     border: none;
@@ -329,7 +363,9 @@
       line-height: 1.6;
     }
   }
+  // === End: Fieldset === //
 
+  // === Details === //
   details {
     &.details-multi-select {
       position: relative;
@@ -346,9 +382,8 @@
 
         border: none;
         border-bottom: 1px solid variables.$grey-light;
-        color: variables.$grey;
+        color: variables.$brand-cool-gray;
         display: block;
-        //font-size: .8rem;
         padding: .85rem .425rem;
         text-decoration: none;
       }
