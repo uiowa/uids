@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import '../../scss/components/form.scss'
+import '../../scss/layout/_grid.scss'
 import UidsButton from '../button/Button.vue'
-// import '../../scss/components/logo.scss'
 
 const props = defineProps({
 
@@ -21,9 +21,90 @@ const props = defineProps({
       </div>
 
       <div class="form-item">
+        <label for="middle-name">Middle Name</label>
+        <input id="middle-name" maxlength="50" type="text">
+      </div>
+
+      <div class="form-item">
         <label for="last-name">Last Name</label>
         <input id="last-name" maxlength="50" type="text">
       </div>
+
+      <div class="grid--twocol--50-50 grid--gap__sm">
+        <div class="list-container__inner">
+          <div class="form-item">
+            <label for="first-name">First Name</label>
+            <input id="first-name" maxlength="50" type="text">
+          </div>
+
+          <div class="form-item">
+            <label for="last-name">Last Name</label>
+            <input id="last-name" maxlength="50" type="text">
+          </div>
+        </div>
+      </div>
+
+      <div class="grid--threecol--33-34-33 grid--gap__sm">
+        <div class="list-container__inner">
+          <div class="form-item">
+            <label for="first-name">First Name</label>
+            <input id="first-name" maxlength="50" type="text">
+          </div>
+
+          <div class="form-item">
+            <label for="middle-name">Middle Name</label>
+            <input id="middle-name" maxlength="50" type="text">
+          </div>
+
+          <div class="form-item">
+            <label for="last-name">Last Name</label>
+            <input id="last-name" maxlength="50" type="text">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-item">
+        <label for="last-name">Last Name</label>
+        <input id="last-name" maxlength="50" type="text">
+      </div>
+
+      <h2>Grid two-column example</h2>
+
+      <div class="grid--twocol--50-50 grid--gap__sm bg--gray element--padding__all--minimal element--margin__bottom">
+        <div class="list-container__inner">
+        <div class="form-item">
+          <label for="first-name">First Name</label>
+          <input id="first-name" maxlength="50" type="text">
+        </div>
+
+        <div class="form-item">
+          <label for="last-name">Last Name</label>
+          <input id="last-name" maxlength="50" type="text">
+        </div>
+      </div>
+      </div>
+
+      <h2>Grid three-column example</h2>
+
+      <div class="grid--threecol--33-34-33 grid--gap__sm bg--gray element--padding__all--minimal element--margin__bottom--extra">
+        <div class="list-container__inner">
+          <div class="form-item">
+            <label for="first-name">First Name</label>
+            <input id="first-name" maxlength="50" type="text">
+          </div>
+
+          <div class="form-item">
+            <label for="last-name">Last Name</label>
+            <input id="last-name" maxlength="50" type="text">
+          </div>
+
+          <div class="form-item">
+            <label class="form-required"  for="email">Email Address</label>
+            <input id="email" maxlength="255" type="email">
+          </div>
+        </div>
+      </div>
+
 
       <div class="form-item">
         <label class="form-required"  for="email">Email Address</label>
@@ -38,6 +119,7 @@ const props = defineProps({
       <div class="form-item">
         <label for="cell-phone">Cell Phone</label>
         <input id="cell-phone" maxlength="12" type="tel">
+        <div class="description">Textarea description goes here.</div>
       </div>
 
       <div class="form-item">
@@ -62,6 +144,7 @@ const props = defineProps({
           <input id="text-permission-no-2" type="radio" name="permissionToText2" value="false">
           <label for="text-permission-no-2" class="radio">No</label>
         </div>
+        <div class="description">Textarea description goes here.</div>
       </div>
 
       <div class="form-item">
@@ -321,7 +404,7 @@ const props = defineProps({
         <legend>
           <span class="fieldset-legend">Select any additional subjects that you would like to receive information about.</span>
         </legend>
-        <div class="form-item">
+        <div>
           <div class="form-type-checkbox form-item">
             <input id="financial-aid" type="checkbox" value="FINANCIAL_AID">
             <label for="financial-aid" class="checkbox">Costs & Financial Aid</label>
@@ -380,7 +463,7 @@ const props = defineProps({
         <legend>
           <span class="fieldset-legend">Select any additional subjects that you would like to receive information about.</span>
         </legend>
-        <div class="form-item">
+        <div>
           <div class="form-type-checkbox form-type-checkbox--side form-item">
             <input id="financial-aid-2" type="checkbox" value="FINANCIAL_AID">
             <label for="financial-aid-2" class="checkbox">Costs & Financial Aid</label>
