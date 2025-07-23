@@ -484,33 +484,3 @@
   width: 100%;
   padding: 1.5rem 0;
 }
-
-// Type selector function.
-// Note, remember to interpolate when you use this.
-// (eg. `#{typeSelectors('text', 'date', 'month')} { STYLE RULES }`.
-@function typeSelectors($types...) {
-  $out: ();
-  @if list.length($types) == 0 {
-    $types: [
-      'text',
-      'password',
-      'date',
-      'datetime',
-      'datetime-local',
-      'month',
-      'week',
-      'email',
-      'number',
-      'search',
-      'tel',
-      'time',
-      'url',
-      'color'
-    ]
-  }
-
-  @each $type in $types {
-    $out: list.append($out, '[type="#{$type}"], ');
-  }
-  @return $out;
-}
