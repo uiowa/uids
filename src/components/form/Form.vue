@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import '../../scss/components/form.scss'
 import '../../scss/layout/_grid.scss'
+import '../../scss/layout/_flexbox.scss'
 import '../../scss/components/_background.scss'
 import UidsButton from '../button/Button.vue'
 
@@ -15,6 +16,35 @@ const props = defineProps({
     <div class="form">
       <p>Required fields are marked with an asterisk (<abbr class="req" title="required">*</abbr>).</p>
       <h2>Student Information</h2>
+
+      <div class="flex flex--gap__sm">
+      <div class="form-item flex--3">
+        <label for="first-name">First Name</label>
+        <input id="first-name" maxlength="50" type="text">
+      </div>
+
+      <div class="form-item flex--1">
+        <label for="middle-name">Middle Name</label>
+        <input id="middle-name" placeholder="Middle"  maxlength="50" type="text">
+      </div>
+
+        <div class="form-item flex--3">
+          <label for="last-name">Last Name</label>
+          <input id="last-name" maxlength="50" type="text">
+        </div>
+
+        <div class="form-item flex--1">
+          <label for="suffix">Suffix</label>
+          <input id="suffix"  placeholder="Jr, Sr, III"  maxlength="50" type="text">
+        </div>
+
+      </div>
+
+      <div class="form-item">
+        <label for="last-name">Last Name</label>
+        <input id="last-name" maxlength="50" type="text">
+      </div>
+
 
       <div class="form-item">
         <label for="first-name">First Name</label>
