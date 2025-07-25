@@ -261,7 +261,7 @@ const FlexboxLayoutTemplate = (args) => ({
     <form class="uids-form" method="POST" action="">
       <div class="form">
         <div class="flex flex--wrap flex--gap__sm border element--padding__all--minimal element--margin__bottom--extra">
-          <h2 class="headline headline--serif headline--underline flex--break">Flexbox example</h2>
+          <h2 class="headline headline--serif headline--underline flex--break">Flexbox layout</h2>
           <div class="form-item flex--3">
             <label for="first-name">First Name</label>
             <input id="first-name" maxlength="50" type="text">
@@ -307,7 +307,7 @@ const GridLayoutTemplate = (args) => ({
   template: `
     <form class="uids-form" method="POST" action="">
       <div class="form">
-        <h2 class="headline headline--serif headline--underline">Grid examples</h2>
+        <h2 class="headline headline--serif headline--underline">Grid layout</h2>
 
         <div class="grid--twocol--50-50 grid--gap__sm">
           <div class="list-container__inner">
