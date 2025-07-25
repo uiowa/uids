@@ -52,7 +52,6 @@ const props = defineProps({
       <div class="form-item">
         <label for="cell-phone">Cell Phone</label>
         <input id="cell-phone" maxlength="12" type="tel">
-        <div class="description">Textarea description goes here.</div>
       </div>
 
       <div class="form-item">
@@ -224,7 +223,7 @@ const props = defineProps({
       <h2 class="headline headline--serif headline--underline">Academic Interests</h2>
       <p>Select up to three areas of study to receive additional information about that subject.
                                         You can find additional information in our full <a href="http://admissions.uiowa.edu/academics/undergraduate-areas-of-study" target="_blank">areas of study list</a>.
-          
+
             </p>
 
       <div class="form-item">
