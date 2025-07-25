@@ -372,7 +372,7 @@ const props = defineProps({
       :light_font="false"
       :icon="''"
     >
-      Submit
+      Request information
       <i class="fas fa-arrow-right"></i>
     </uids-button>
 
