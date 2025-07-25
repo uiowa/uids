@@ -223,6 +223,8 @@ const props = defineProps({
 
       <h2 class="headline headline--serif headline--underline">Academic Interests</h2>
       <p>Select up to three areas of study to receive additional information about that subject.
+                                        You can find additional information in our full <a href="http://admissions.uiowa.edu/academics/undergraduate-areas-of-study" target="_blank">areas of study list</a>.
+          
             </p>
 
       <div class="form-item">
