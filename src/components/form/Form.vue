@@ -30,12 +30,12 @@ const props = defineProps({
       <p><small>Required fields are marked with an asterisk (<abbr class="req" title="required">*</abbr>).</small></p>
 
       <div class="form-item">
-        <label for="first-name">First Name</label>
+        <label class="form-required"  for="first-name">First Name</label>
         <input id="first-name" maxlength="50" type="text">
       </div>
 
       <div class="form-item">
-        <label for="last-name">Last Name</label>
+        <label class="form-required"  for="last-name">Last Name</label>
         <input id="last-name" maxlength="50" type="text">
       </div>
 
@@ -68,7 +68,7 @@ const props = defineProps({
       </div>
 
       <div class="form-item">
-        <label for="address">Address</label>
+        <label class="form-required"  for="address">Address</label>
         <input id="address" maxlength="64" type="text">
       </div>
 
@@ -78,12 +78,12 @@ const props = defineProps({
       </div>
 
       <div class="form-item">
-        <label for="city">City</label>
+        <label class="form-required" for="city">City</label>
         <input id="city" maxlength="30" type="text">
       </div>
 
       <div class="form-item">
-        <label for="state">State</label>
+        <label class="form-required" for="state">State</label>
         <select id="state">
           <option value="">- None - </option>
           <option value="AL">Alabama</option>
@@ -142,7 +142,7 @@ const props = defineProps({
       </div>
 
       <div class="form-item">
-        <label for="zip-code">ZIP Code</label>
+        <label class="form-required" for="zip-code">ZIP Code</label>
         <input id="zip-code" maxlength="10" type="text">
       </div>
 
@@ -166,7 +166,7 @@ const props = defineProps({
       </div>
 
       <div class="form-item">
-        <label for="citizenship">Country of Citizenship</label>
+        <label class="form-required" for="citizenship">Country of Citizenship</label>
         <select id="citizenship">
           <option value="">- None - </option>
           <option value="US">United States</option>
@@ -186,17 +186,17 @@ const props = defineProps({
       </div>
 
       <div class="form-item">
-        <label for="birth-date">Birth Date</label>
+        <label class="form-required" for="birth-date">Birth Date</label>
         <input id="birth-date" type="date">
       </div>
 
       <div class="form-item">
-        <label for="graduation-year">High School Graduation Year</label>
+        <label class="form-required" for="graduation-year">High School Graduation Year</label>
         <input id="graduation-year" maxlength="4" placeholder="yyyy" type="text">
       </div>
 
       <div class="form-item">
-        <label for="enrollment-term">Planned Enrollment Term</label>
+        <label class="form-required" for="enrollment-term">Planned Enrollment Term</label>
         <select id="enrollment-term">
           <option value="">- None - </option>
           <option value="1146">Spring 2026</option>
@@ -213,7 +213,7 @@ const props = defineProps({
 
 
       <div class="form-item">
-        <label for="student-type">What type of student will you be?</label>
+        <label class="form-required" for="student-type">What type of student will you be?</label>
         <select id="student-type">
           <option value="">- None - </option>
           <option value="FIRST_YEAR">First-Year</option>
@@ -226,7 +226,7 @@ const props = defineProps({
             </p>
 
       <div class="form-item">
-        <label for="primary-interest">Primary Academic Interest</label>
+        <label class="form-required" for="primary-interest">Primary Academic Interest</label>
         <select id="primary-interest">
           <option value="">- None - </option>
           <option value="330">Accounting</option>
