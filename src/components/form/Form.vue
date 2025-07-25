@@ -28,33 +28,29 @@ const props = defineProps({});
         <h2 class="headline headline--serif headline--underline">Student Information</h2>
         <p><small>Required fields are marked with an asterisk (<abbr class="req" title="required">*</abbr>).</small></p>
 
-        <div class="flex flex--wrap flex--gap__sm">
-          <div class="form-item flex--1">
-            <label class="form-required" for="first-name">First Name</label>
-            <input id="first-name" maxlength="50" type="text">
-          </div>
-
-          <div class="form-item flex--1">
-            <label class="form-required" for="last-name">Last Name</label>
-            <input id="last-name" maxlength="50" type="text">
-          </div>
+        <div class="form-item">
+          <label class="form-required" for="first-name">First Name</label>
+          <input id="first-name" maxlength="50" type="text">
         </div>
 
-        <div class="flex flex--wrap flex--gap__sm">
-          <div class="form-item flex--1">
-            <label class="form-required" for="email">Email Address</label>
-            <input id="email" maxlength="255" type="email">
-          </div>
+        <div class="form-item">
+          <label class="form-required" for="last-name">Last Name</label>
+          <input id="last-name" maxlength="50" type="text">
+        </div>
 
-          <div class="form-item flex--1">
-            <label for="home-phone">Home Phone</label>
-            <input id="home-phone" maxlength="12" type="tel">
-          </div>
+        <div class="form-item">
+          <label class="form-required" for="email">Email Address</label>
+          <input id="email" maxlength="255" type="email">
+        </div>
 
-          <div class="form-item flex--1">
-            <label for="cell-phone">Cell Phone</label>
-            <input id="cell-phone" maxlength="12" type="tel">
-          </div>
+        <div class="form-item">
+          <label for="home-phone">Home Phone</label>
+          <input id="home-phone" maxlength="12" type="tel">
+        </div>
+
+        <div class="form-item">
+          <label for="cell-phone">Cell Phone</label>
+          <input id="cell-phone" maxlength="12" type="tel">
         </div>
 
         <div class="form-item">
@@ -151,57 +147,54 @@ const props = defineProps({});
           </div>
         </div>
 
-        <div class="flex flex--wrap flex--gap__sm">
-          <div class="form-item flex--1">
-            <label for="country">Country</label>
-            <select id="country">
-              <option value="US">United States</option>
-              <option value="CA">Canada</option>
-              <option value="MX">Mexico</option>
-              <option value="GB">United Kingdom</option>
-              <option value="FR">France</option>
-              <option value="DE">Germany</option>
-              <option value="IT">Italy</option>
-              <option value="ES">Spain</option>
-              <option value="AU">Australia</option>
-              <option value="JP">Japan</option>
-              <option value="CH">China</option>
-              <option value="IN">India</option>
-              <option value="BR">Brazil</option>
-            </select>
-          </div>
 
-          <div class="form-item flex--1">
-            <label class="form-required" for="citizenship">Country of Citizenship</label>
-            <select id="citizenship">
-              <option value="">- None -</option>
-              <option value="US">United States</option>
-              <option value="CA">Canada</option>
-              <option value="MX">Mexico</option>
-              <option value="GB">United Kingdom</option>
-              <option value="FR">France</option>
-              <option value="DE">Germany</option>
-              <option value="IT">Italy</option>
-              <option value="ES">Spain</option>
-              <option value="AU">Australia</option>
-              <option value="JP">Japan</option>
-              <option value="CH">China</option>
-              <option value="IN">India</option>
-              <option value="BR">Brazil</option>
-            </select>
-          </div>
+        <div class="form-item">
+          <label for="country">Country</label>
+          <select id="country">
+            <option value="US">United States</option>
+            <option value="CA">Canada</option>
+            <option value="MX">Mexico</option>
+            <option value="GB">United Kingdom</option>
+            <option value="FR">France</option>
+            <option value="DE">Germany</option>
+            <option value="IT">Italy</option>
+            <option value="ES">Spain</option>
+            <option value="AU">Australia</option>
+            <option value="JP">Japan</option>
+            <option value="CH">China</option>
+            <option value="IN">India</option>
+            <option value="BR">Brazil</option>
+          </select>
         </div>
 
-        <div class="flex flex--wrap flex--gap__sm">
-          <div class="form-item flex--1">
-            <label class="form-required" for="birth-date">Birth Date</label>
-            <input id="birth-date" type="date">
-          </div>
+        <div class="form-item">
+          <label class="form-required" for="citizenship">Country of Citizenship</label>
+          <select id="citizenship">
+            <option value="">- None -</option>
+            <option value="US">United States</option>
+            <option value="CA">Canada</option>
+            <option value="MX">Mexico</option>
+            <option value="GB">United Kingdom</option>
+            <option value="FR">France</option>
+            <option value="DE">Germany</option>
+            <option value="IT">Italy</option>
+            <option value="ES">Spain</option>
+            <option value="AU">Australia</option>
+            <option value="JP">Japan</option>
+            <option value="CH">China</option>
+            <option value="IN">India</option>
+            <option value="BR">Brazil</option>
+          </select>
+        </div>
 
-          <div class="form-item flex--1">
-            <label class="form-required" for="graduation-year">High School Graduation Year</label>
-            <input id="graduation-year" maxlength="4" placeholder="yyyy" type="text">
-          </div>
+        <div class="form-item">
+          <label class="form-required" for="birth-date">Birth Date</label>
+          <input id="birth-date" type="date">
+        </div>
+
+        <div class="form-item">
+          <label class="form-required" for="graduation-year">High School Graduation Year</label>
+          <input id="graduation-year" maxlength="4" placeholder="yyyy" type="text">
         </div>
 
         <div class="form-item">
