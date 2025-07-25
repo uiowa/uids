@@ -27,7 +27,7 @@ const BasicFormTemplate = (args) => ({
 export const Form = BasicFormTemplate.bind({});
 Form.args = {};
 
-const MiscTemplate = (args) => ({
+const FormTemplate = (args) => ({
   components: { UidsForm },
   setup() {
     return { args };
@@ -35,7 +35,102 @@ const MiscTemplate = (args) => ({
   template: `
     <form class="uids-form" method="POST" action="">
       <div class="form">
-        <h2 class="headline headline--serif headline--underline">Miscellaneous elements</h2>
+        <h2 class="headline headline--serif headline--underline">Form elements</h2>
+
+        <div class="form-item">
+          <label class="form-required" for="last-name">Text</label>
+          <input id="last-name" maxlength="50" type="text">
+          <div class="description">Description</div>
+        </div>
+
+        <div class="form-item">
+          <label class="form-required" for="email">Email</label>
+          <input id="email" maxlength="255" type="email">
+        </div>
+
+        <div class="form-item">
+          <label for="home-phone">Phone</label>
+          <input id="home-phone" maxlength="12" type="tel">
+        </div>
+
+        <div class="form-item">
+          <label>Radio</label>
+          <div class="form-type-radio form-item">
+            <input id="text-permission-yes" type="radio" name="permissionToText" value="true">
+            <label for="text-permission-yes" class="radio">Yes</label>
+          </div>
+          <div class="form-type-radio form-item">
+            <input id="text-permission-no" type="radio" name="permissionToText" value="false">
+            <label for="text-permission-no" class="radio">No</label>
+          </div>
+        </div>
+
+        <div class="form-item">
+          <label class="form-required" for="state">Select</label>
+          <select id="state">
+            <option value="">- None -</option>
+            <option value="AL">Alabama</option>
+            <option value="AK">Alaska</option>
+            <option value="AS">American Samoa</option>
+            <option value="AZ">Arizona</option>
+            <option value="AR">Arkansas</option>
+            <option value="CA">California</option>
+            <option value="CO">Colorado</option>
+            <option value="CT">Connecticut</option>
+            <option value="DE">Delaware</option>
+            <option value="DC">District Of Columbia</option>
+            <option value="FL">Florida</option>
+            <option value="GA">Georgia</option>
+            <option value="HI">Hawaii</option>
+            <option value="ID">Idaho</option>
+            <option value="IL">Illinois</option>
+            <option value="IN">Indiana</option>
+            <option value="IA">Iowa</option>
+            <option value="KS">Kansas</option>
+            <option value="KY">Kentucky</option>
+            <option value="LA">Louisiana</option>
+            <option value="ME">Maine</option>
+            <option value="MD">Maryland</option>
+            <option value="MA">Massachusetts</option>
+            <option value="MI">Michigan</option>
+            <option value="MN">Minnesota</option>
+            <option value="MS">Mississippi</option>
+            <option value="MO">Missouri</option>
+            <option value="MT">Montana</option>
+            <option value="NE">Nebraska</option>
+            <option value="NV">Nevada</option>
+            <option value="NH">New Hampshire</option>
+            <option value="NJ">New Jersey</option>
+            <option value="NM">New Mexico</option>
+            <option value="NY">New York</option>
+            <option value="NC">North Carolina</option>
+            <option value="ND">North Dakota</option>
+            <option value="OH">Ohio</option>
+            <option value="OK">Oklahoma</option>
+            <option value="OR">Oregon</option>
+            <option value="PA">Pennsylvania</option>
+            <option value="RI">Rhode Island</option>
+            <option value="SC">South Carolina</option>
+            <option value="SD">South Dakota</option>
+            <option value="TN">Tennessee</option>
+            <option value="TX">Texas</option>
+            <option value="UT">Utah</option>
+            <option value="VT">Vermont</option>
+            <option value="VA">Virginia</option>
+            <option value="WA">Washington</option>
+            <option value="WV">West Virginia</option>
+            <option value="WI">Wisconsin</option>
+            <option value="WY">Wyoming</option>
+          </select>
+        </div>
+
+        <div class="form-item">
+          <label class="form-required" for="birth-date">Date</label>
+          <input id="birth-date" type="date">
+        </div>
+
+
+        <label for="home-phone">Multi select checkbox</label>
         <details class="form-item details-multi-select">
           <summary>Genre<span class="summary"></span></summary>
           <div class="details-wrapper">
@@ -135,12 +230,11 @@ const MiscTemplate = (args) => ({
             <option value="Graduate or Professional Degree">Graduate or Professional Degree</option>
             <option value="Some College">Some College</option>
           </select>
-          <div class="description">Select multiple school options</div>
         </div>
 
         <fieldset>
           <legend>
-            <span class="fieldset-legend">Academic Interests</span>
+            <span class="fieldset-legend">Switch checkbox</span>
           </legend>
           <div class="fieldset-wrapper">
             <div class="form-type-checkbox--switch">
@@ -227,7 +321,48 @@ const MiscTemplate = (args) => ({
 
         <fieldset>
           <legend>
-            <span class="fieldset-legend">Select any additional subjects that you would like to receive information about.</span>
+            <span class="fieldset-legend">Checkbox</span>
+          </legend>
+          <div>
+            <div class="form-type-checkbox form-item">
+              <input id="financial-aid" type="checkbox" value="FINANCIAL_AID">
+              <label for="financial-aid" class="checkbox">Costs & Financial Aid</label>
+            </div>
+            <div class="form-type-checkbox form-item">
+              <input id="marching-band" type="checkbox" value="MARCHING_BAND">
+              <label for="marching-band" class="checkbox">Hawkeye Marching Band</label>
+            </div>
+            <div class="form-type-checkbox form-item">
+              <input id="rotc-air-force" type="checkbox" value="ROTC_AIR_FORCE">
+              <label for="rotc-air-force" class="checkbox">ROTC - Air Force (Aerospace Studies)</label>
+            </div>
+            <div class="form-type-checkbox form-item">
+              <input id="rotc-army" type="checkbox" value="ROTC_ARMY">
+              <label for="rotc-army" class="checkbox">ROTC - Army (Military Science)</label>
+            </div>
+            <div class="form-type-checkbox form-item">
+              <input id="study-abroad" type="checkbox" value="STUDY_ABROAD">
+              <label for="study-abroad" class="checkbox">Study Abroad</label>
+            </div>
+            <div class="form-type-checkbox form-item">
+              <input id="band" type="checkbox" value="BAND">
+              <label for="band" class="checkbox">University Concert Bands and Jazz Bands</label>
+            </div>
+            <div class="form-type-checkbox form-item">
+              <input id="honors" type="checkbox" value="HONORS">
+              <label for="honors" class="checkbox">University Honors Program</label>
+            </div>
+            <div class="form-type-checkbox form-item">
+              <input id="veteran-services" type="checkbox" value="VETERAN_SERVICES">
+              <label for="veteran-services" class="checkbox">Veteran & Military Connected Student Services</label>
+            </div>
+          </div>
+        </fieldset>
+
+
+        <fieldset>
+          <legend>
+            <span class="fieldset-legend">Checkbox inline</span>
           </legend>
           <div>
             <div class="form-type-checkbox form-type-checkbox--side form-item">
@@ -268,8 +403,8 @@ const MiscTemplate = (args) => ({
     </form>
   `
 });
-export const MiscElements = MiscTemplate.bind({});
-MiscElements.args = {};
+export const FormElements = FormTemplate.bind({});
+FormElements.args = {};
 
 const FlexboxLayoutTemplate = (args) => ({
   components: { UidsForm },
