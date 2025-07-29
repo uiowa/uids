@@ -1,5 +1,4 @@
 import UidsHeadline from './Headline.vue';
-import { computed } from 'vue';
 
 export default {
   title: 'Components/Headline',

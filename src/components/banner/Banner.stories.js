@@ -1,12 +1,14 @@
+import Background from '../shared/background';
+
 import UidsBanner from './Banner.vue'
-import Background from "../shared/background";
 import UidsGrid from '../grid/Grid.vue'
 import UidsGridItem from '../grid/GridItem.vue'
 import ExampleImage from '../media/ExampleImage.vue';
+import ExampleVideoFile from '../media/ExampleVideoFile.vue';
+
+import BackgroundStories from '../background/Background.stories.js';
 import * as ButtonStories from '../button/Button.stories';
-import ExampleVideoFile from "../media/ExampleVideoFile.vue";
-import BackgroundStories from "../background/Background.stories.js";
-import * as HeadlineStories from "../headline/Headline.stories";
+import * as HeadlineStories from '../headline/Headline.stories';
 
 export default {
   title: 'Components/Banner',
