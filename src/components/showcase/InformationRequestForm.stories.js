@@ -1,10 +1,8 @@
-import '../../scss/components/form.scss';
-import '../../scss/layout/_grid.scss';
-import '../../scss/layout/_flexbox.scss';
-import '../../scss/components/_background.scss';
-import '../../scss/components/_border.scss';
-import '../../scss/components/_headline.scss';
 import UidsButton from '../button/Button.vue';
+
+import '../../scss/components/form.scss';
+import '../../scss/components/_headline.scss';
+import '../../scss/layout/_flexbox.scss';
 
 export default {
   title: 'Showcase/Forms',
