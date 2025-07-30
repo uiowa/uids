@@ -5,6 +5,7 @@
 @use 'placeholders';
 @use 'grid-mixins';
 @use 'variables';
+@use 'sass:list';
 
 //=======================================================
 // Mixins
@@ -457,29 +458,17 @@
 // utility classes
 
 %uids-component--center {
-  @include grid-mixins.center(both);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   display: block;
   text-align: center;
 }
 
-%uids-component--flex-center {
-  @include grid-mixins.center(both);
-  flex-flow: column nowrap;
-  text-align: center;
-
-  @include breakpoints.breakpoint(sm) {
-    padding: 1.5rem 0;
-  }
-}
-
 %uids-component--left {
   text-align: left;
-  @include grid-mixins.center(both);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-%uids-component--flex-left {
-  flex-flow: column nowrap;
-  text-align: left;
-  width: 100%;
-  padding: 1.5rem 0;
-}
