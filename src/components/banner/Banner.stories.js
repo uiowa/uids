@@ -1,11 +1,14 @@
+import Background from '../shared/background';
+
 import UidsBanner from './Banner.vue'
-import Background from "../shared/background";
 import UidsGrid from '../grid/Grid.vue'
 import UidsGridItem from '../grid/GridItem.vue'
 import ExampleImage from '../media/ExampleImage.vue';
+import ExampleVideoFile from '../media/ExampleVideoFile.vue';
+
+import BackgroundStories from '../background/Background.stories.js';
 import * as ButtonStories from '../button/Button.stories';
-import ExampleVideoFile from "../media/ExampleVideoFile.vue";
-import BackgroundStories from "../background/Background.stories.js";
+import * as HeadlineStories from '../headline/Headline.stories';
 
 export default {
   title: 'Components/Banner',
@@ -26,9 +29,6 @@ export default {
     // Slots
     pre_title: {
       name: 'Pre-title',
-    },
-    title: {
-      name: 'Title',
     },
     content: {
       name: 'Content',
@@ -61,28 +61,6 @@ export default {
       name: 'Button light font',
       control: { type: 'boolean' },
       table: { category: 'Buttons' },
-    },
-    headline_size: {
-      name: 'Headline size',
-      options: ['large', 'medium', 'small'],
-      control: { type: 'select' },
-      table: { category: 'Headline' },
-    },
-    headline_style: {
-      name: 'Headline style',
-      options: ['uppercase', 'serif'],
-      control: {
-        type: 'select',
-        labels: {
-          'uppercase': 'Antonio',
-          'serif': 'Zilla Slab',
-        },
-      },
-      table: { category: 'Headline' },
-    },
-    headline_highlight: {
-      name: 'Headline highlight',
-      table: { category: 'Headline' },
     },
     horizontal_alignment: {
       name: 'Horizontal alignment',
@@ -192,10 +170,9 @@ const Template = {
     template: `
       <div class="column-container" :class="args.section_background" style="padding-top: 2rem; padding-bottom: 2rem;">
         <uids-banner
+          :headline="args.headline"
+          :pre_title="args.pre_title"
           :background="args.background"
-          :headline_style="args.headline_style"
-          :headline_size="args.headline_size"
-          :headline_highlight="args.headline_highlight"
           :media_overlay_type="args.media_overlay_type"
           :media_overlay_light="args.media_overlay_light"
           :height="args.height"
@@ -211,7 +188,6 @@ const Template = {
             ${args.background_media}
           </template>
           <template #pre_title v-if="args.title"><span class="headline__heading" v-html="args.pre_title" ></span></template>
-          <template #title v-if="args.title"><span class="headline__heading" v-html="args.title" ></span></template>
           ${args.content}
         </uids-banner>
       </div>`,
@@ -224,11 +200,8 @@ export const BackgroundImage = {
     background: '',
     background_media: `<example-image />`,
     pre_title: 'University of Iowa',
-    title: 'Your path to success starts here',
     content: '<p>A member of the <a href="/">Association</a> of American Universities since 1909 and the Big Ten Conference since 1899, the University of Iowa is home to one of the most acclaimed academic medical centers in the country, as well as globally recognized leadership in the study and craft of writing.</p>',
-    headline_style: 'serif',
-    headline_highlight: false,
-    headline_size: 'large',
+    headline: HeadlineStories.Default.args,
     horizontal_alignment: 'left',
     vertical_alignment: 'center',
     media_overlay_type: '',
@@ -247,15 +220,16 @@ export const BackgroundImage = {
 BackgroundImage.storyName = 'Background image';
 
 export const BackgroundVideo = {
+  name: 'Background video',
   ...Template,
   args: {
     ...BackgroundImage.args,
     background_media: `<example-video-file />`,
   },
 }
-BackgroundVideo.storyName = 'Background video';
 
 export const BackgroundPattern = {
+  name: 'Background pattern',
   ...Template,
   args: {
     ...BackgroundImage.args,
@@ -263,9 +237,9 @@ export const BackgroundPattern = {
     background_media: '',
   },
 }
-BackgroundPattern.storyName = 'Background pattern';
 
 export const MultipleButtons = {
+  name: 'Multiple buttons',
   ...Template,
   args: {
     ...BackgroundImage.args,
@@ -276,12 +250,15 @@ export const MultipleButtons = {
     ],
   }
 }
-MultipleButtons.storyName = 'Multiple buttons';
 
 export const KitchenSink = {
   ...Template,
   args: {
     ...BackgroundImage.args,
+    headline: {
+      ...BackgroundImage.args.headline,
+      highlight: true,
+    },
     content: '<p>A member of the <a href="/">Association</a> of American Universities since 1909 and the Big Ten Conference since 1899, the University of Iowa is home to one of the most acclaimed academic medical centers in the country, as well as globally recognized leadership in the study and craft of writing.</p><blockquote>\n' +
       '<p>Nam at tortor in tellus interdum sagittis. Morbi vestibulum volutpat enim.</p>\n' +
       '</blockquote><blockquote>\n' +
@@ -298,20 +275,20 @@ export const KitchenSink = {
   }
 }
 
-const GridTemplate = (args) => ({
-  components: { UidsGrid, UidsGridItem, UidsBanner, ExampleImage, ExampleVideoFile },
-  setup() {
-    return { args };
-  },
-  template: `
+const GridTemplate = {
+  render: (args) => ({
+    components: { UidsGrid, UidsGridItem, UidsBanner, ExampleImage, ExampleVideoFile },
+    setup() {
+      return { args };
+    },
+    template: `
     <div :class="args.section_background" style="padding-top: 2rem; padding-bottom: 2rem;">
       <uids-grid :type="args.grid_type">
         <uids-grid-item v-for="item in args.record_count" :key="item">
           <uids-banner
+            :pre_title="args.pre_title"
+            :headline="args.headline"
             :background="args.background"
-            :headline_style="args.headline_style"
-            :headline_size="args.headline_size"
-            :headline_highlight="args.headline_highlight"
             :media_overlay_type="args.media_overlay_type"
             :media_overlay_light="args.media_overlay_light"
             :height="args.height"
@@ -326,40 +303,42 @@ const GridTemplate = (args) => ({
             <template #media v-if="args.background === ''">
               ${args.background_media}
             </template>
-            <template #pre_title v-if="args.title"><span class="headline__heading" v-html="args.pre_title" ></span></template>
-            <template #title v-if="args.title"><span class="headline__heading" v-html="args.title" ></span></template>
             ${args.content}
           </uids-banner>
         </uids-grid-item>
       </uids-grid>
     </div>
   `,
-});
-
-export const GridImage = GridTemplate.bind({});
-GridImage.args = {
-  ...BackgroundImage.args,
-  grid_type: 'threecol--33-34-33',
-  record_count: 3,
-  height: 'medium',
-  headline_size: 'medium',
+  }),
 };
-GridImage.storyName = 'Background image grid';
 
-export const GridVideo = GridTemplate.bind({});
-GridVideo.args = {
-  ...BackgroundImage.args,
-  background_media: `<example-video-file />`,
-  grid_type: 'threecol--33-34-33',
-  record_count: 3,
-  height: 'medium',
-  headline_size: 'medium',
-  horizontal_alignment: 'left',
-  vertical_alignment: 'bottom',
-  buttons: [
-    { ...ButtonStories.Primary.args, label: 'Apply ' + ButtonStories.Primary.args.icon },
-    { ...ButtonStories.Primary.args, label: 'Learn More ' + ButtonStories.Primary.args.icon, url: 'https://uiowa.edu/about' },
-    { ...ButtonStories.Primary.args, label: 'Explore ' + ButtonStories.Primary.args.icon, url: 'https://uiowa.edu/explore' },
-  ],
-};
-GridVideo.storyName = 'Background video grid';
+export const GridImage = {
+  name: 'Background image grid',
+  ...GridTemplate,
+  args: {
+    ...BackgroundImage.args,
+    headline: {
+      ...BackgroundImage.args.headline,
+      size: 'medium',
+    },
+    grid_type: 'threecol--33-34-33',
+    record_count: 3,
+    height: 'medium',
+  }
+}
+
+export const GridVideo = {
+  name: 'Background video grid',
+  ...GridTemplate,
+  args: {
+    ...BackgroundImage.args,
+    background_media: `<example-video-file />`,
+    grid_type: 'threecol--33-34-33',
+    record_count: 3,
+    height: 'medium',
+    headline_size: 'medium',
+    horizontal_alignment: 'left',
+    vertical_alignment: 'bottom',
+    buttons: MultipleButtons.args.buttons,
+  }
+}
