@@ -30,68 +30,59 @@ export default {
   },
 };
 
-const Template = (args) => ({
-  components: { UidsIowaBar },
-  setup() {
-    return { args }
-  },
-  template: `
-    <uids-iowa-bar :healthcare="args.healthcare" :narrow="args.narrow">
-      {{ args.default }}
-    </uids-iowa-bar>
-  `,
-})
+const Template = {
+  render: (args) => ({
+    components: { UidsIowaBar },
+    setup() {
+      return { args }
+    },
+    template: `
+      <uids-iowa-bar :healthcare="args.healthcare" :narrow="args.second_row_content || args.narrow">
+        <div v-if="args.second_row_content" class="parent-site-name">{{ args.default }}</div>
+        <template v-if="args.second_row_content" #second_row_content>
+          <h1 class="site-name">{{ args.second_row_content }}</h1>
+        </template>
+        <h1 v-else-if="args.default" class="site-name">{{ args.default }}</h1>
+      </uids-iowa-bar>
+    `,
+  }),
+};
 
-export const Default = Template.bind({})
-Default.args = {
-  narrow: false,
-  default: '',
-  second_row_content: '',
-  healthcare: false,
+export const Default = {
+  name: 'Default',
+  ...Template,
+  args: {
+    narrow: false,
+    default: '',
+    second_row_content: '',
+    healthcare: false,
+  },
 }
 
-const SiteTitleTemplate = (args) => ({
-  components: { UidsIowaBar },
-  setup() {
-    return { args }
+export const WithSiteTitle = {
+  name: 'With site title',
+  ...Template,
+  args: {
+    ...Default.args,
+    default: `Brand`,
   },
-  template: `
-    <uids-iowa-bar :healthcare="args.healthcare" :narrow="args.narrow">
-      <h1 class="site-name">{{ args.default }}</h1>
-    </uids-iowa-bar>
-`
-})
-
-export const WithSiteTitle = SiteTitleTemplate.bind({})
-WithSiteTitle.args = {
-  ...Default.args,
-  default: 'Brand',
 }
 
-export const Narrow = SiteTitleTemplate.bind({})
-Narrow.args = {
-  ...WithSiteTitle.args,
-  narrow: true,
+export const Narrow = {
+  name: 'Narrow',
+  ...Template,
+  args: {
+    ...Default.args,
+    narrow: true,
+  },
 }
 
-const ParentSiteTitleTemplate = (args) => ({
-  components: { UidsIowaBar },
-  setup() {
-    return { args }
+export const WithParentSiteTitle = {
+  name: 'With parent site title',
+  ...Template,
+  args: {
+    ...Default.args,
+    default: 'Brand',
+    second_row_content: 'Icon Browser',
   },
-  template: `
-    <uids-iowa-bar :healthcare="args.healthcare" :narrow="args.narrow">
-      <div class="parent-site-name">{{ args.default }}</div>
-      <template #second_row_content>
-        <h1 class="site-name">{{ args.second_row_content }}</h1>
-      </template>
-    </uids-iowa-bar>
-`
-})
-
-export const WithParentSiteTitle = ParentSiteTitleTemplate.bind({})
-WithParentSiteTitle.args = {
-  ...Default.args,
-  default: 'Brand',
-  second_row_content: 'Icon Browser',
 }
