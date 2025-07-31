@@ -49,7 +49,6 @@ const Template = {
 };
 
 export const Default = {
-  name: 'Default',
   ...Template,
   args: {
     narrow: false,
