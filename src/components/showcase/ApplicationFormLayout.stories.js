@@ -28,7 +28,12 @@ const Template = {
     setup() {
       return { args };
     },
-    template: ``,
+    template: `
+      <brand-bar
+        :narrow='false'
+        :healthcare='false'
+      />
+    `,
   }),
 }
 
