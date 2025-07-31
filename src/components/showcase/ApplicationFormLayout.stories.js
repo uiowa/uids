@@ -30,9 +30,58 @@ const Template = {
     },
     template: `
       <brand-bar
-        :narrow='false'
+        :narrow='true'
         :healthcare='false'
-      />
+      >
+        Profiles
+      </brand-bar>
+      <div class='user-menu'>
+        <uids-button
+          :url=""
+          :color='tertiary'
+          :size='small'
+          :borderless='true'
+          :full='false'
+          :transparent='true'
+          :light_font='true'
+        ><i style='color: var(--brand-secondary)' class='fas fa-house'></i>  Home</uids-button>
+        <uids-button
+          :url=""
+          :color='tertiary'
+          :size='small'
+          :borderless='true'
+          :full='false'
+          :transparent='true'
+          :light_font='true'
+        ><i style='color: var(--brand-secondary)' class='fas fa-people-line'></i>  Directories</uids-button>
+        <uids-button
+          :url=""
+          :color='tertiary'
+          :size='small'
+          :borderless='true'
+          :full='false'
+          :transparent='true'
+          :light_font='true'
+        ><i style='color: var(--brand-secondary)' class='fas fa-file'></i>  Reports</uids-button>
+        <uids-button
+          :url=""
+          :color='tertiary'
+          :size='small'
+          :borderless='true'
+          :full='false'
+          :transparent='true'
+          :light_font='true'
+        ><i style='color: var(--brand-secondary)' class='fas fa-user-gear'></i>  Roles</uids-button>
+        <uids-button
+          :url=""
+          :color='tertiary'
+          :size='small'
+          :borderless='true'
+          :full='false'
+          :transparent='true'
+          :light_font='true'
+        ><i style='color: var(--brand-secondary)' class='fas fa-mobile-screen'></i>  Contact</uids-button>
+      </div>
     `,
   }),
 }
