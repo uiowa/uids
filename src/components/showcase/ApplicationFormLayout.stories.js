@@ -33,7 +33,16 @@ const Template = {
         :narrow='true'
         :healthcare='false'
       >
-        <div class="menu-user">
+        <div class="user-menu-toggle">
+          <uids-button
+            :url=""
+            :color='link'
+            :size='small'
+            :borderless='true'
+            :full='false'
+            :transparent='true'
+            :light_font='true'
+          ><i style="color: var(--brand-secondary)" class="fas fa-user"></i>  flast <i style="color: var(--brand-secondary)" class="fas fa-caret-down"></i></uids-button>
           <ul class="menu">
             <li><a href="/">Sign out</a></li>
           </ul>
@@ -100,8 +109,43 @@ const Template = {
         </ul>
       </div>
       <div class="content flex flex--wrap flex--gap__sm">
-        <div class="menu menu-sidebar flex--1">
-          Sidebar menu here.
+        <div class="sidebar flex--1">
+          <div class="uiowa-form">
+            <div class="form-item">
+              <select class="form-select">
+                <option id="medicine">Medicine</option>
+                <option id="uiowa">University of Iowa</option>
+              </select>
+            </div>
+            <div class="form-item">
+              <div class="form-type-radio form-item">
+                <input id="text-permission-yes" type="radio" name="permissionToText" value="true">
+                <label for="text-permission-yes" class="radio">Profile</label>
+              </div>
+              <div class="form-type-radio form-item">
+                <input id="text-permission-no" type="radio" name="permissionToText" value="false">
+                <label for="text-permission-no" class="radio">CV</label>
+              </div>
+            </div>
+          </div>
+          <div class="menu">
+            <ul>
+              <li><a href="#">Preview</a></li>
+              <li><a href="#">Status</a></li>
+              <li><a href="#">Memberships</a></li>
+              <li><a href="#">Introduction</a></li>
+              <li><a href="#">Profile Photo</a></li>
+              <li><a href="#">Contacts</a></li>
+              <li><a href="#">Websites</a></li>
+              <li><a href="#">Positions</a></li>
+              <li><a href="#">Education</a></li>
+              <li><a href="#">Graduate Program Affiliations</a></li>
+              <li><a href="#">Center, Program, and Institute Affiliations</a></li>
+              <li><a href="#">Research Interests</a></li>
+              <li><a href="#">Licenses & Certifications</a></li>
+              <li><a href="#">Publications</a></li>
+            </ul>
+          </div>
         </div>
         <div class="main-panel flex--5">
           <div class="breadcrumb">
@@ -132,19 +176,24 @@ const Template = {
               <div class="form-item flex--1">
                 <label for="middle">Credentials</label>
                 <input type="text" id="middle" placeholder="BS, MS, PhD">
-                <div class="form-help">No periods in degrees – PhD, not Ph.D.</div>
+                <div class="description">No periods in degrees – PhD, not Ph.D.</div>
               </div>
               <div class="form-item flex--1">
                 <label for="email">Email</label>
                 <input type="text" id="email" placeholder="first-last@uiowa.edu">
-                <div class="form-help">UI email address</div>
+                <div class="description">UI email address</div>
               </div>
             </div>
             <div class="form-item">
-              <label for="edit-textarea">Textarea</label>
-              <textarea id="edit-textarea" name="textarea" rows="5" cols="60"
-                        aria-describedby="edit-textarea--description"></textarea>
-              <div id="edit-textarea--description" class="description">Textarea description goes here.</div>
+              <label for="title">Directory Title</label>
+              <input type="text" id="title" placeholder="Professor of Microbiology">
+              <div class="description">Most prominent UI role (e.g. Dean, DEO, Director, Endowed Position)</div>
+            </div>
+            <div class="form-item">
+              <label for="introduction">Introduction</label>
+              <textarea id="introduction" name="textarea" rows="5" cols="60"
+                        aria-describedby="introduction--description"></textarea>
+              <div id="introduction--description" class="description">Textarea description goes here.</div>
             </div>
           </form>
         </div>
