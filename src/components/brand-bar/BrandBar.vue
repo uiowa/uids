@@ -1,7 +1,9 @@
 <script lang="ts">
-import { computed } from "vue"
-import '../../scss/components/brand-bar.scss'
+import { computed } from 'vue'
+
 import UidsLogo from '../logo/Logo.vue'
+
+import '../../scss/components/brand-bar.scss'
 
 /**
  * The UIDS IOWA Bar is the visual starting point for all
