@@ -1,5 +1,8 @@
+@use '../abstracts/variables';
+
 .menu {
   --menu-item-display: block;
+  --menu-link-color: variables.$secondary;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -9,15 +12,34 @@
     padding: 0;
   }
 
-  li a {
-    display: var(--menu-item-display);
-    padding: 1.05rem;
+  li {
+    border-bottom: 1px solid hsla(0,0%,79%,.5);
+
+    a,
+    span {
+      color: var(--menu-link-color);
+      display: var(--menu-item-display);
+      padding: 1.05rem;
+      text-decoration: none;
+      transition: background 0.8s ease-out;
+    }
+    a:focus,
+    a:hover,
+    span:focus,
+    span:hover {
+      text-decoration: underline;
+    }
   }
 }
 
 .menu--horizontal {
   --menu-item-display: inline-block;
+  display: flex;
+  flex-wrap: wrap;
+
   li {
+    border-bottom: none;
+
     a {
       padding: 1.35rem .75rem;
     }
