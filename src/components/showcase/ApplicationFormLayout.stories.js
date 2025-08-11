@@ -13,6 +13,7 @@ export default {
   title: 'Showcase/Forms',
   tags: ['!autodocs'],
   parameters: {
+    layout: 'fullscreen',
     docs: {
       source: {
         code: null
