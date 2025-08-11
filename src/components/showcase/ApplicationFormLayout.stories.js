@@ -49,7 +49,9 @@ const Template = {
         :narrow='true'
         :healthcare='false'
       >
-        <div class="user-menu-toggle">
+
+        <div class="parent-site-name flex--12">Profiles</div>
+        <div class="user-menu-toggle flex--2">
           <uids-button
             :url=""
             :color='link'
@@ -63,16 +65,15 @@ const Template = {
             <li><a href="/">Sign out</a></li>
           </ul>
         </div>
-        Profiles
       </brand-bar>
+      <nav class="menu--container">
       <div class="layout-container">
-        <div class="main-menu">
           <ul class="menu menu--horizontal">
             <li>
               <a href="#"><i style='color: var(--brand-secondary)' class="fas fa-house"></i> Home</a>
             </li>
             <li>
-              <a href="#"><i style='color: var(--brand-secondary)' class="fas fa-people-line"></i> Directories</a>
+              <a href="#"><i style='color: var(--brand-secondary)' class="fas fa-people-line"></i> Directories <i style='color: var(--brand-secondary)' class="icon-after fas fa-angle-down"></i></a>
             </li>
             <li>
               <a href="#"><i style='color: var(--brand-secondary)' class="fas fa-file"></i> Reports</a>
@@ -85,9 +86,11 @@ const Template = {
             </li>
           </ul>
         </div>
-        <div class="content flex flex--wrap flex--gap__sm">
-          <div class="sidebar flex--1 bg--gray">
-            <div class="uiowa-form">
+      </nav>
+      <div class="layout-container element--margin__top--extra">
+        <div class="content flex flex--wrap flex--gap__md">
+          <div class="sidebar flex--1 bg--gray element--padding__all--sm">
+            <div class="uids-form">
               <div class="form-item">
                 <select class="form-select">
                   <option id="medicine">Medicine</option>
@@ -97,7 +100,9 @@ const Template = {
             </div>
             <div>
               <ul class="menu">
-                <li v-for="menuItem in sidebarMenu"><a href="#">{{ menuItem }}</a></li>
+                <li v-for="menuItem in sidebarMenu">
+                  <a href="#" :class="{ 'is-active': menuItem === 'Introduction' }">{{ menuItem }}</a>
+                </li>
               </ul>
             </div>
           </div>
@@ -105,8 +110,8 @@ const Template = {
             <div class="breadcrumb">
               Directory
             </div>
-            <h1 class="title headline headline--serif">Francois Abboud</h1>
-            <h2 class="section element--light-intro">Introduction</h2>
+            <h1 class="headline headline--serif">Francois Abboud</h1>
+            <p class="element--light-intro">Introduction</p>
             <form class="uids-form element--margin__top--extra">
               <div class="flex flex--wrap flex--gap__sm">
                 <div class="form-item flex--3">
@@ -152,6 +157,7 @@ const Template = {
             </form>
           </div>
         </div>
+      </div>
       </div>
     `,
   }),

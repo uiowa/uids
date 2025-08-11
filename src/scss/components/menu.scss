@@ -1,4 +1,14 @@
 @use '../abstracts/variables';
+@use '../abstracts/utilities';
+
+.user-menu-toggle {
+  .menu {
+    display: none;
+  }
+}
+.menu--container {
+  border-bottom: 1px solid #e6e5e5;
+}
 
 .menu {
   --menu-item-display: block;
@@ -14,6 +24,34 @@
 
   li {
     border-bottom: 1px solid hsla(0,0%,79%,.5);
+    font-size: 1.1rem;
+    line-height: 1.3;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+
+
+    a {
+      &.is-active {
+        font-weight: bold;
+      }
+
+      &:focus,
+      &:hover {
+        text-decoration: underline;
+      }
+      [class*="bg--white"] &,
+      [class*="bg--"] [class*="bg--white"] &,
+      [class*="bg--gray"] &,
+      [class*="bg--"] [class*="bg--gray"] & {
+        color: #333;
+      }
+    }
 
     a,
     span {
@@ -37,11 +75,64 @@
   display: flex;
   flex-wrap: wrap;
 
+  .icon-after {
+    color: #999;
+    font-size: .7rem;
+    line-height: 1.4;
+  }
+
+   >li:hover>a:after {
+    background: var(--brand-primary);
+    bottom: 0;
+    height: 5px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+  }
+
   li {
     border-bottom: none;
+    font-size: 1rem;
+    position: relative;
 
     a {
-      padding: 1.35rem .75rem;
+      padding: 1.35rem 1.25rem;
+     // color: var(--brand-secondary);
+      font-weight: 600;
+      text-decoration: none;
+      line-height: 1.2;
+
+      .fas {
+        font-size: .9rem;
+        line-height: 1.4;
+        padding-inline-end: .4rem;
+        &:before,
+        &:after {
+          color: #666;
+        }
+      }
+
+      .icon-after {
+        padding-inline-end: 0;
+        padding-inline-start: .4rem;
+      }
+
+
+      &:focus,
+      &:hover {
+        text-decoration: none;
+      }
+      &:after {
+        background: variables.$primary;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 5px;
+        content: "";
+        -webkit-transition: 300ms;
+        transition: 300ms;
+      }
     }
   }
 }
