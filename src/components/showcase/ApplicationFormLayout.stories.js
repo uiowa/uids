@@ -51,8 +51,8 @@ const Template = {
         :healthcare='false'
       >
 
-        <div class="parent-site-name flex--12">Profiles</div>
-        <div class="user-menu-toggle flex--2">
+        <h1 class="site-name flex--10">Profiles</h1>
+        <div class="user-menu-toggle bg--gold">
           <uids-button
             :url=""
             :color='link'
@@ -74,10 +74,10 @@ const Template = {
               <a href="#"><i style='color: var(--brand-secondary)' class="fas fa-house"></i> Home</a>
             </li>
             <li>
-              <a href="#"><i style='color: var(--brand-secondary)' class="fas fa-people-line"></i> Directories <i style='color: var(--brand-secondary)' class="icon-after fas fa-angle-down"></i></a>
+              <a href="#"><i style='color: var(--brand-secondary)' class="fas fa-users"></i> Directories <i style='color: var(--brand-secondary)' class="icon-after fas fa-angle-down"></i></a>
             </li>
             <li>
-              <a href="#"><i style='color: var(--brand-secondary)' class="fas fa-file"></i> Reports</a>
+              <a href="#"><i style='color: var(--brand-secondary)' class="fas fa-file-lines"></i> Reports</a>
             </li>
             <li>
               <a href="#"><i style='color: var(--brand-secondary)' class="fas fa-user-gear"></i> Roles</a>

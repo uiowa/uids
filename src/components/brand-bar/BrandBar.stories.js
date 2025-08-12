@@ -38,11 +38,11 @@ const Template = {
     },
     template: `
       <uids-iowa-bar :healthcare="args.healthcare" :narrow="args.second_row_content || args.narrow">
-        <div v-if="args.second_row_content" class="parent-site-name">{{ args.default }}</div>
+        <h1 v-if="args.default && !args.second_row_content" class="site-name">{{ args.default }}</h1>
+        <div v-else-if="args.default && args.second_row_content" class="parent-site-name">{{ args.default }}</div>
         <template v-if="args.second_row_content" #second_row_content>
           <h1 class="site-name">{{ args.second_row_content }}</h1>
         </template>
-        <h1 v-else-if="args.default" class="site-name">{{ args.default }}</h1>
       </uids-iowa-bar>
     `,
   }),
@@ -73,6 +73,7 @@ export const Narrow = {
   args: {
     ...Default.args,
     narrow: true,
+    default: 'Brand',
   },
 }
 
