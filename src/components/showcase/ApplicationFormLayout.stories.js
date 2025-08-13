@@ -90,7 +90,7 @@ const Template = {
       </nav>
       <div class="layout-container element--margin__top--extra">
         <div class="content flex flex--wrap flex--gap__md">
-          <div class="sidebar flex--2 bg--gray element--padding__all--sm">
+          <div class="sidebar flex--2 bg--gray element--padding__all--sm element--margin__bottom--extra">
             <div class="uids-form">
               <div class="form-item">
                 <select class="form-select">
