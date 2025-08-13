@@ -48,7 +48,6 @@
         <h1 class="headline headline--serif">University Directory</h1>
 
           <div :class="args.showSidebar ? 'content element--margin__top--extra flex flex--wrap flex--gap__md' : 'content element--margin__top--extra'">
-
           <aside :class="args.showSidebar ? 'flex--3' : 'flex--12'">
             <div :class="args.showSidebar ? 'bef-form bef-form--sidebar' : 'bef-form'">
               <form class="views-exposed-form element--margin__bottom--extra  bef-exposed-form uids-form bg--gray" action="/events" method="get" id="views-exposed-form-events-page-upcoming" accept-charset="UTF-8" data-drupal-form-fields="">
@@ -139,7 +138,7 @@
 
                   <div class="form-actions form-wrapper" id="edit-actions">
                     <input type="submit" id="edit-submit" value="Search" class="button form-submit">
-<!--                <!--<input type="submit" id="edit-reset" name="reset" value="Reset" class="button form-submit">-->
+<!--                input type="submit" id="edit-reset" name="reset" value="Reset" class="button form-submit">-->
                   </div>
 
                 </div>
