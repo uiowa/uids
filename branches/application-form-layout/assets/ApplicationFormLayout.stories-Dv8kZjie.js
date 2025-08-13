@@ -112,7 +112,6 @@
           </div>
         </div>
       </div>
-      </div>
     `})},e={...d};var i,a,s;e.parameters={...e.parameters,docs:{...(i=e.parameters)==null?void 0:i.docs,source:{originalSource:`{
   ...Template
 }`,...(s=(a=e.parameters)==null?void 0:a.docs)==null?void 0:s.source}}};const _=["ApplicationFormLayout"];export{e as ApplicationFormLayout,_ as __namedExportsOrder,g as default};
