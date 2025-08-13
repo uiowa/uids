@@ -1,4 +1,4 @@
-/* empty css                    *//* empty css             *//* empty css                  *//* empty css                 *//* empty css              */import{_ as l}from"./Button.vue_vue_type_script_setup_true_lang-BWl288u-.js";import{B as t}from"./BrandBar-Cm3xyW7s.js";import"./vue.esm-bundler-5gA9mrtU.js";import"./utlity-CAV5GFHh.js";import"./Logo.vue_vue_type_script_setup_true_lang-C5A6dmQv.js";import"./_plugin-vue_export-helper-DlAUqK2U.js";const g={title:"Showcase/Forms",tags:["!autodocs"],parameters:{layout:"fullscreen",docs:{source:{code:null}}}},o=["Preview","Status","Memberships","Introduction","Profile Photo","Contacts","Websites","Positions","Education","Graduate Program Affiliations","Center, Program, and Institute Affiliations","Research Interests","Licenses & Certifications","Publications"],d={render:r=>({components:{UidsButton:l,BrandBar:t},setup(){return{args:r,sidebarMenu:o}},template:`
+/* empty css                    *//* empty css             *//* empty css                  *//* empty css                 *//* empty css              */import{_ as t}from"./Button.vue_vue_type_script_setup_true_lang-BWl288u-.js";import{B as l}from"./BrandBar-Cm3xyW7s.js";import"./vue.esm-bundler-5gA9mrtU.js";import"./utlity-CAV5GFHh.js";import"./Logo.vue_vue_type_script_setup_true_lang-C5A6dmQv.js";import"./_plugin-vue_export-helper-DlAUqK2U.js";const g={title:"Showcase/Forms",tags:["!autodocs"],parameters:{layout:"fullscreen",docs:{source:{code:null}}}},o=["Preview","Status","Memberships","Introduction","Profile Photo","Contacts","Websites","Positions","Education","Graduate Program Affiliations","Center, Program, and Institute Affiliations","Research Interests","Licenses & Certifications","Publications"],d={render:r=>({components:{UidsButton:t,BrandBar:l},setup(){return{args:r,sidebarMenu:o}},template:`
       <brand-bar
         :narrow='true'
         :healthcare='false'
@@ -43,7 +43,7 @@
       </nav>
       <div class="layout-container element--margin__top--extra">
         <div class="content flex flex--wrap flex--gap__md">
-          <div class="sidebar flex--2 bg--gray element--padding__all--sm">
+          <div class="sidebar flex--2 bg--gray element--padding__all--sm element--margin__bottom--extra">
             <div class="uids-form">
               <div class="form-item">
                 <select class="form-select">
