@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import '../../scss/components/stat.scss'
-import '../../scss/layout/_flexbox.scss'
 import '../../scss/components/_background.scss'
 import { computed } from "vue";
 import Background from "../shared/background";
