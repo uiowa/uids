@@ -19,6 +19,7 @@
   [type='color'],
   textarea,
   select,
+  // Make details summary appear as a select list.
   details.form__details--multi-select summary {
     display: block;
     box-sizing: border-box;
@@ -55,6 +56,11 @@
         box-shadow: 0 0 5px 2px variables.$danger-light;
       }
     }
+  }
+
+  details.form__details--multi-select summary {
+    display: flex;
+    margin-bottom: 0;
   }
 
   // === Spacing === //
@@ -326,7 +332,7 @@
 }
 
 // === Switch checkbox === //
-.form .form__checkbox--switch {
+.form__checkbox--switch {
   [type='checkbox'] {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -384,15 +390,13 @@
 // === End: Switch checkbox === //
 
 // === Details === //
-.form details.form__details--multi-select {
+details.form__details--multi-select {
   position: relative;
 
   summary {
     cursor: pointer;
     color: variables.$grey;
-    display: flex;
     align-items: center;
-    margin-bottom: 0;
     background-image: none;
     transition: border-color 0.25s ease-in-out;
 
