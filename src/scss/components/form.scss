@@ -2,7 +2,7 @@
 @use '../abstracts/utilities';
 
 // Generalized styles.
-.uids-form {
+.form {
   [type='text'],
   [type='password'],
   [type='date'],
@@ -19,7 +19,8 @@
   [type='color'],
   textarea,
   select,
-  details.details-multi-select summary {
+    // Make details summary appear as select list.
+  details.form__details--multi-select summary {
     display: block;
     box-sizing: border-box;
     width: 100%;
@@ -55,6 +56,11 @@
         box-shadow: 0 0 5px 2px variables.$danger-light;
       }
     }
+  }
+
+  details.form__details--multi-select summary {
+    display: flex;
+    margin-bottom: 0;
   }
 
   // === Spacing === //
@@ -248,59 +254,6 @@
     }
   }
 
-  .form-type-checkbox--switch {
-    [type='checkbox'] {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      width: 62px;
-      height: 32px;
-      display: inline-block;
-      position: relative;
-      border-radius: 50px;
-      overflow: hidden;
-      outline: none;
-      border: none;
-      cursor: pointer;
-      background-color: variables.$grey-light;
-      transition: background-color ease 0.3s;
-      margin-top: 0;
-      &:focus-visible  {
-        background: variables.$light;
-        outline: 1px solid variables.$secondary;
-      }
-    }
-
-    [type='checkbox']:before {
-      content: 'on off';
-      display: block;
-      position: absolute;
-      z-index: 2;
-      width: 28px;
-      height: 28px;
-      background: #fff;
-      left: 2px;
-      top: 2px;
-      border-radius: 50%;
-      font: 10px/28px Arial, sans-serif;
-      text-transform: uppercase;
-      font-weight: bold;
-      text-indent: -22px;
-      word-spacing: 37px;
-      color: variables.$secondary;
-      white-space: nowrap;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-      transition: all cubic-bezier(0.3, 1.5, 0.7, 1) 0.3s;
-    }
-
-    [type='checkbox']:checked {
-      background-color: variables.$primary;
-    }
-
-    [type='checkbox']:checked:before {
-      left: 32px;
-    }
-  }
   // === End: Checkbox/Radios === //
 
   // === Select and details === //
@@ -376,100 +329,130 @@
     }
   }
   // === End: Fieldset === //
+}
 
-  // === Details === //
-  details {
-    &.details-multi-select {
-      position: relative;
+// === Switch checkbox === //
+.form__checkbox--switch {
+  [type='checkbox'] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 62px;
+    height: 32px;
+    display: inline-block;
+    position: relative;
+    border-radius: 50px;
+    overflow: hidden;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    background-color: variables.$grey-light;
+    transition: background-color ease 0.3s;
+    margin-top: 0;
 
-      summary {
-        cursor: pointer;
-        color: variables.$grey;
-        display: flex;
-        align-items: center;
-        margin-bottom: 0;
-        background-image: none;
-        transition: border-color 0.25s ease-in-out;
+    &:focus-visible {
+      background: variables.$light;
+      outline: 1px solid variables.$secondary;
+    }
+  }
 
-        &:before {
-          position: absolute;
-          right: 0;
-          content: '';
-          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="32" height="24" viewBox="0 0 32 24"><polygon points="0,0 32,0 16,24" style="fill: rgb%28138, 138, 138%29"></polygon></svg>');
-          background-repeat: no-repeat;
-          background-position: center;
-          background-origin: content-box;
-          background-size: 9px 6px;
-          padding: 0 0.55rem;
-          height: 100%;
-          width: 2.425rem;
-          transform: rotate(0deg);
-        }
+  [type='checkbox']:before {
+    content: 'on off';
+    display: block;
+    position: absolute;
+    z-index: 2;
+    width: 28px;
+    height: 28px;
+    background: #fff;
+    left: 2px;
+    top: 2px;
+    border-radius: 50%;
+    font: 10px/28px Arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-indent: -22px;
+    word-spacing: 37px;
+    color: variables.$secondary;
+    white-space: nowrap;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    transition: all cubic-bezier(0.3, 1.5, 0.7, 1) 0.3s;
+  }
 
-        &:focus {
-          & + .details-wrapper {
-            border-top: 1px solid #8a8a8a;
-          }
-        }
-      }
+  [type='checkbox']:checked {
+    background-color: variables.$primary;
+  }
 
-      &[open] {
-        summary {
-          &:before {
-            transform: rotate(180deg);
-          }
-        }
-      }
+  [type='checkbox']:checked:before {
+    left: 32px;
+  }
+}
 
-      fieldset {
-        margin-top: 0;
-      }
+// === End: Switch checkbox === //
 
-      .details-wrapper {
-        border: 1px solid variables.$grey-light;
-        display: flex;
-        flex-direction: column;
-        padding: 0;
-        position: absolute;
-        top: calc(3.5rem - 1px);
-        width: calc(100% - 2px);
-        z-index: 500;
-        background: variables.$white;
-        box-shadow: 0 0 7px rgba(0, 0, 0, .15);
-        max-height: 346px;
-        overflow: auto;
-      }
+// === Details === //
+details.form__details--multi-select {
+  position: relative;
 
-      .details-multi-select-checkboxes {
-        padding: .5rem 0;
+  summary {
+    cursor: pointer;
+    color: variables.$grey;
+    align-items: center;
+    background-image: none;
+    transition: border-color 0.25s ease-in-out;
 
-        .form-item:first-child,
-        legend.visually-hidden + .form-item {
-          margin-top: 0.5rem;
-        }
+    &:before {
+      position: absolute;
+      right: 0;
+      content: '';
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="32" height="24" viewBox="0 0 32 24"><polygon points="0,0 32,0 16,24" style="fill: rgb%28138, 138, 138%29"></polygon></svg>');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-origin: content-box;
+      background-size: 9px 6px;
+      padding: 0 0.55rem;
+      height: 100%;
+      width: 2.425rem;
+      transform: rotate(0deg);
+    }
 
-        .form-type-checkbox {
-          align-items: center;
-          display: flex;
-          margin-bottom: 1rem;
-          margin-right: 0;
-          margin-top: 1rem;
-          padding: 0 .5rem;
-
-          &.form-item {
-            padding: 0 0.5rem;
-            margin-right: 0;
-            display: flex;
-            align-items: center;
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-          }
-        }
-
-        label {
-          font-size: variables.$small-font-size;
-        }
+    &:focus {
+      & + .details-wrapper {
+        border-top: 1px solid #8a8a8a;
       }
     }
   }
+
+  &[open] {
+    summary {
+      &:before {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  fieldset {
+    margin-top: 0;
+  }
+
+  .details-wrapper {
+    border: 1px solid variables.$grey-light;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    position: absolute;
+    top: calc(3.5rem - 1px);
+    width: calc(100% - 2px);
+    z-index: 500;
+    background: variables.$white;
+    box-shadow: 0 0 7px rgba(0, 0, 0, .15);
+    max-height: 346px;
+    overflow: auto;
+
+    .form-item {
+      padding: 0 .5rem;
+    }
+  }
+
 }
+
+// === End: Details === //
