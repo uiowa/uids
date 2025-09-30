@@ -40,36 +40,7 @@ const Template = (args) => ({
 });
 
 // Sample menu data with icons
-const horizontalMenuItems = [
-  { 
-    label: 'Home', 
-    url: '#home',
-    icon: 'fas fa-home',
-    active: true
-  },
-  { 
-    label: 'About', 
-    url: '#about',
-    icon: 'fas fa-info-circle'
-  },
-  { 
-    label: 'Services', 
-    url: '#services',
-    icon: 'fas fa-briefcase',
-    children: [
-      { label: 'Web Design', url: '#web-design' },
-      { label: 'Development', url: '#development' },
-      { label: 'Consulting', url: '#consulting' },
-    ]
-  },
-  { 
-    label: 'Contact', 
-    url: '#contact',
-    icon: 'fas fa-envelope'
-  },
-];
-
-const verticalMenuItems = [
+const menuItems = [
   { 
     label: 'Dashboard', 
     url: '#dashboard',
@@ -120,28 +91,28 @@ const verticalMenuItems = [
 export const HorizontalMenu = Template.bind({});
 HorizontalMenu.args = {
   variant: 'horizontal',
-  items: horizontalMenuItems,
+  items: menuItems,
   theme: '',
 };
 
 export const HorizontalMenuWithIcons = Template.bind({});
 HorizontalMenuWithIcons.args = {
   variant: 'horizontal',
-  items: horizontalMenuItems,
+  items: menuItems,
   theme: '',
 };
 
 export const VerticalMenu = Template.bind({});
 VerticalMenu.args = {
   variant: 'vertical',
-  items: verticalMenuItems,
+  items: menuItems,
   theme: '',
 };
 
 export const VerticalMenuThreeLevels = Template.bind({});
 VerticalMenuThreeLevels.args = {
   variant: 'vertical',
-  items: verticalMenuItems,
+  items: menuItems,
   theme: '',
 };
 
@@ -161,13 +132,13 @@ const DarkBackgroundTemplate = (args) => ({
 export const HorizontalMenuOnDark = DarkBackgroundTemplate.bind({});
 HorizontalMenuOnDark.args = {
   variant: 'horizontal',
-  items: horizontalMenuItems,
+  items: menuItems,
   theme: 'on-dark',
 };
 
 export const VerticalMenuOnDark = DarkBackgroundTemplate.bind({});
 VerticalMenuOnDark.args = {
   variant: 'vertical',
-  items: verticalMenuItems,
+  items: menuItems,
   theme: 'on-dark',
 };
