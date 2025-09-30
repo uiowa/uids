@@ -46,23 +46,15 @@ const classes = computed(() => {
         'is-expanded': item.expanded
       }"
     >
-      <a v-if="item.url" :href="item.url">
-        <span v-if="item.icon" class="menu__icon">
-          <i :class="item.icon"></i>
-        </span>
-        <span>{{ item.label }}</span>
-        <span v-if="item.children && item.children.length" class="menu__arrow">
-          <i class="fas fa-chevron-down"></i>
-        </span>
+      <a v-if="item.url" :href="item.url" :class="{ 'is-active': item.active }">
+        <i v-if="item.icon" :class="item.icon"></i>
+        {{ item.label }}
+        <i v-if="item.children && item.children.length" class="fas fa-chevron-down icon-after"></i>
       </a>
       <span v-else>
-        <span v-if="item.icon" class="menu__icon">
-          <i :class="item.icon"></i>
-        </span>
-        <span>{{ item.label }}</span>
-        <span v-if="item.children && item.children.length" class="menu__arrow">
-          <i class="fas fa-chevron-down"></i>
-        </span>
+        <i v-if="item.icon" :class="item.icon"></i>
+        {{ item.label }}
+        <i v-if="item.children && item.children.length" class="fas fa-chevron-down icon-after"></i>
       </span>
       
       <!-- Recursive submenu -->
@@ -75,23 +67,15 @@ const classes = computed(() => {
             'is-expanded': child.expanded
           }"
         >
-          <a v-if="child.url" :href="child.url">
-            <span v-if="child.icon" class="menu__icon">
-              <i :class="child.icon"></i>
-            </span>
-            <span>{{ child.label }}</span>
-            <span v-if="child.children && child.children.length" class="menu__arrow">
-              <i class="fas fa-chevron-down"></i>
-            </span>
+          <a v-if="child.url" :href="child.url" :class="{ 'is-active': child.active }">
+            <i v-if="child.icon" :class="child.icon"></i>
+            {{ child.label }}
+            <i v-if="child.children && child.children.length" class="fas fa-chevron-down icon-after"></i>
           </a>
           <span v-else>
-            <span v-if="child.icon" class="menu__icon">
-              <i :class="child.icon"></i>
-            </span>
-            <span>{{ child.label }}</span>
-            <span v-if="child.children && child.children.length" class="menu__arrow">
-              <i class="fas fa-chevron-down"></i>
-            </span>
+            <i v-if="child.icon" :class="child.icon"></i>
+            {{ child.label }}
+            <i v-if="child.children && child.children.length" class="fas fa-chevron-down icon-after"></i>
           </span>
 
           <!-- Third level -->
@@ -103,11 +87,11 @@ const classes = computed(() => {
                 'is-active': subchild.active
               }"
             >
-              <a v-if="subchild.url" :href="subchild.url">
-                <span>{{ subchild.label }}</span>
+              <a v-if="subchild.url" :href="subchild.url" :class="{ 'is-active': subchild.active }">
+                {{ subchild.label }}
               </a>
               <span v-else>
-                <span>{{ subchild.label }}</span>
+                {{ subchild.label }}
               </span>
             </li>
           </ul>
