@@ -18,10 +18,6 @@ export default {
       control: { type: 'select' },
       options: ['horizontal', 'vertical'],
     },
-    theme: {
-      control: { type: 'select' },
-      options: ['', 'light', 'on-dark'],
-    },
   },
 };
 
@@ -92,28 +88,24 @@ export const HorizontalMenu = Template.bind({});
 HorizontalMenu.args = {
   variant: 'horizontal',
   items: menuItems,
-  theme: '',
 };
 
 export const HorizontalMenuWithIcons = Template.bind({});
 HorizontalMenuWithIcons.args = {
   variant: 'horizontal',
   items: menuItems,
-  theme: '',
 };
 
 export const VerticalMenu = Template.bind({});
 VerticalMenu.args = {
   variant: 'vertical',
   items: menuItems,
-  theme: '',
 };
 
 export const VerticalMenuThreeLevels = Template.bind({});
 VerticalMenuThreeLevels.args = {
   variant: 'vertical',
   items: menuItems,
-  theme: '',
 };
 
 // Dark background examples
@@ -123,7 +115,7 @@ const DarkBackgroundTemplate = (args) => ({
     return { args };
   },
   template: `
-    <div style="background: #000; padding: 2rem;">
+    <div style="background: #000; padding: 2rem;" class="menu--on-dark">
       <uids-menu v-bind="args" />
     </div>
   `,
@@ -133,12 +125,10 @@ export const HorizontalMenuOnDark = DarkBackgroundTemplate.bind({});
 HorizontalMenuOnDark.args = {
   variant: 'horizontal',
   items: menuItems,
-  theme: 'on-dark',
 };
 
 export const VerticalMenuOnDark = DarkBackgroundTemplate.bind({});
 VerticalMenuOnDark.args = {
   variant: 'vertical',
   items: menuItems,
-  theme: 'on-dark',
 };

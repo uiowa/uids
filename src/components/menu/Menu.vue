@@ -23,16 +23,6 @@ const props = defineProps({
     type: Array,
     required: true,
   },
-  /**
-   * Theme variant - for dark backgrounds
-   */
-  theme: {
-    type: String,
-    default: '',
-    validator: function (value) {
-      return ['', 'light', 'on-dark'].indexOf(value) !== -1;
-    },
-  },
 });
 
 const classes = computed(() => {
@@ -40,10 +30,6 @@ const classes = computed(() => {
 
   if (props.variant) {
     classes.push(`menu--${className(props.variant)}`);
-  }
-
-  if (props.theme) {
-    classes.push(`menu--${className(props.theme)}`);
   }
 
   return classes;
