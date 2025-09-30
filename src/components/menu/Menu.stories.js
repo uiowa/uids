@@ -1,6 +1,5 @@
 import UidsMenu from './Menu.vue';
 
-// More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
   title: 'Components/Menu',
   parameters: {
@@ -12,7 +11,6 @@ export default {
   },
   component: UidsMenu,
   tags: ['autodocs'],
-  // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
     variant: {
       control: { type: 'select' },
@@ -21,19 +19,17 @@ export default {
   },
 };
 
-// More on component templates: https://storybook.js.org/docs/vue/writing-stories/introduction#using-args
-const Template = (args) => ({
-  // Components used in your story `template` are defined in the `components` object
-  components: { UidsMenu },
-  // The story's `args` need to be mapped into the template through the `setup()` method
-  setup() {
-    return { args };
-  },
-  // And then the `args` are bound to your component with `v-bind="args"`
-  template: `
-    <uids-menu v-bind="args" />
-  `,
-});
+const Template = {
+  render: (args) => ({
+    components: { UidsMenu },
+    setup() {
+      return { args };
+    },
+    template: `
+      <uids-menu v-bind="args" />
+    `,
+  }),
+};
 
 // Sample menu data with icons
 const menuItems = [
@@ -84,51 +80,71 @@ const menuItems = [
   },
 ];
 
-export const HorizontalMenu = Template.bind({});
-HorizontalMenu.args = {
-  variant: 'horizontal',
-  items: menuItems,
+export const HorizontalMenu = {
+  name: 'Horizontal Menu',
+  ...Template,
+  args: {
+    variant: 'horizontal',
+    items: menuItems,
+  },
 };
 
-export const HorizontalMenuWithIcons = Template.bind({});
-HorizontalMenuWithIcons.args = {
-  variant: 'horizontal',
-  items: menuItems,
+export const HorizontalMenuWithIcons = {
+  name: 'Horizontal Menu With Icons',
+  ...Template,
+  args: {
+    variant: 'horizontal',
+    items: menuItems,
+  },
 };
 
-export const VerticalMenu = Template.bind({});
-VerticalMenu.args = {
-  variant: 'vertical',
-  items: menuItems,
+export const VerticalMenu = {
+  name: 'Vertical Menu',
+  ...Template,
+  args: {
+    variant: 'vertical',
+    items: menuItems,
+  },
 };
 
-export const VerticalMenuThreeLevels = Template.bind({});
-VerticalMenuThreeLevels.args = {
-  variant: 'vertical',
-  items: menuItems,
+export const VerticalMenuThreeLevels = {
+  name: 'Vertical Menu Three Levels',
+  ...Template,
+  args: {
+    variant: 'vertical',
+    items: menuItems,
+  },
 };
 
 // Dark background examples
-const DarkBackgroundTemplate = (args) => ({
-  components: { UidsMenu },
-  setup() {
-    return { args };
-  },
-  template: `
-    <div style="background: #000; padding: 2rem;" class="menu--on-dark">
-      <uids-menu v-bind="args" />
-    </div>
-  `,
-});
-
-export const HorizontalMenuOnDark = DarkBackgroundTemplate.bind({});
-HorizontalMenuOnDark.args = {
-  variant: 'horizontal',
-  items: menuItems,
+const DarkBackgroundTemplate = {
+  render: (args) => ({
+    components: { UidsMenu },
+    setup() {
+      return { args };
+    },
+    template: `
+      <div style="background: #000; padding: 2rem;" class="menu--on-dark">
+        <uids-menu v-bind="args" />
+      </div>
+    `,
+  }),
 };
 
-export const VerticalMenuOnDark = DarkBackgroundTemplate.bind({});
-VerticalMenuOnDark.args = {
-  variant: 'vertical',
-  items: menuItems,
+export const HorizontalMenuOnDark = {
+  name: 'Horizontal Menu On Dark',
+  ...DarkBackgroundTemplate,
+  args: {
+    variant: 'horizontal',
+    items: menuItems,
+  },
+};
+
+export const VerticalMenuOnDark = {
+  name: 'Vertical Menu On Dark',
+  ...DarkBackgroundTemplate,
+  args: {
+    variant: 'vertical',
+    items: menuItems,
+  },
 };
