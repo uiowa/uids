@@ -1,0 +1,264 @@
+@use '../abstracts/variables';
+@use '../abstracts/utilities';
+
+// Base menu styles
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    margin: 0;
+  }
+
+  a,
+  span {
+    text-decoration: none;
+    color: variables.$secondary;
+    display: block;
+    transition: background 0.3s ease-out;
+  }
+
+  a:hover,
+  a:focus {
+    text-decoration: underline;
+  }
+}
+
+// Horizontal menu variant
+.menu--horizontal {
+  display: flex;
+  flex-direction: column;
+  
+  @include utilities.breakpoint(sm) {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  > li {
+    border-bottom: 1px solid rgba(variables.$grey-light, 0.5);
+    position: relative;
+
+    @include utilities.breakpoint(sm) {
+      border-bottom: none;
+      margin-right: variables.$md;
+    }
+
+    &:last-child {
+      border-bottom: none;
+      @include utilities.breakpoint(sm) {
+        margin-right: 0;
+      }
+    }
+  }
+
+  > li > a,
+  > li > span {
+    padding: variables.$md;
+    font-size: 1.1rem;
+    font-weight: variables.$font-weight-normal;
+    display: flex;
+    align-items: center;
+    gap: variables.$sm;
+
+    @include utilities.breakpoint(sm) {
+      padding: variables.$sm variables.$md;
+    }
+  }
+
+  // Icon support
+  .menu__icon {
+    display: inline-flex;
+    align-items: center;
+    margin-right: variables.$xsm;
+    
+    i, svg {
+      font-size: 1.2rem;
+      width: 1.2rem;
+    }
+  }
+
+  // Arrow for expandable items
+  .menu__arrow {
+    margin-left: auto;
+    
+    i, svg {
+      font-size: 0.8rem;
+      transition: transform 0.3s ease;
+    }
+  }
+
+  // Active state
+  > li.is-active > a,
+  > li.is-active > span {
+    font-weight: variables.$font-weight-bold;
+    
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 4px;
+      background: variables.$primary;
+      
+      @include utilities.breakpoint(sm) {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+      }
+    }
+  }
+
+  // Submenu styles
+  ul {
+    padding-left: variables.$lg;
+    
+    @include utilities.breakpoint(sm) {
+      display: none; // Hidden by default on larger screens for horizontal menu
+    }
+  }
+}
+
+// Vertical menu variant
+.menu--vertical {
+  display: flex;
+  flex-direction: column;
+
+  > li {
+    border-bottom: 1px solid rgba(variables.$grey-light, 0.5);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  > li > a,
+  > li > span {
+    padding: variables.$md;
+    font-size: 1.1rem;
+    font-weight: variables.$font-weight-normal;
+    display: flex;
+    align-items: center;
+    gap: variables.$sm;
+  }
+
+  // Icon support
+  .menu__icon {
+    display: inline-flex;
+    align-items: center;
+    margin-right: variables.$xsm;
+    
+    i, svg {
+      font-size: 1.2rem;
+      width: 1.2rem;
+    }
+  }
+
+  // Arrow for expandable items
+  .menu__arrow {
+    margin-left: auto;
+    
+    i, svg {
+      font-size: 0.8rem;
+      transition: transform 0.3s ease;
+    }
+  }
+
+  // When expanded
+  li.is-expanded > a .menu__arrow i,
+  li.is-expanded > span .menu__arrow i {
+    transform: rotate(180deg);
+  }
+
+  // Active state
+  li.is-active > a,
+  li.is-active > span {
+    font-weight: variables.$font-weight-bold;
+  }
+
+  // Second level
+  ul {
+    margin-left: variables.$lg;
+    padding-bottom: variables.$sm;
+
+    li {
+      border-bottom: none;
+      font-size: variables.$base-font-size;
+      list-style: disc;
+      margin-left: variables.$md;
+
+      > a,
+      > span {
+        padding: variables.$sm;
+        position: relative;
+        padding-left: 1.2rem;
+
+        &::before {
+          content: "\f105";
+          position: absolute;
+          left: 0;
+          font-size: 0.9rem;
+          @include utilities.fas();
+        }
+      }
+    }
+
+    // Remove list-style when before icon is present
+    li {
+      list-style: none;
+    }
+
+    // Third level
+    ul {
+      margin-left: 1.5rem;
+
+      li {
+        list-style: circle;
+
+        a,
+        span {
+          padding-left: 0.5rem;
+          opacity: 0.8;
+
+          &::before {
+            content: "";
+          }
+        }
+      }
+    }
+  }
+}
+
+// Color variants for both menu types
+.menu--light {
+  a,
+  span {
+    color: variables.$white;
+  }
+
+  .menu--horizontal > li {
+    border-bottom-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .menu--vertical > li {
+    border-bottom-color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+.menu--on-dark {
+  a,
+  span {
+    color: variables.$white;
+  }
+
+  > li {
+    border-bottom-color: rgba(255, 255, 255, 0.5);
+  }
+}
