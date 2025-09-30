@@ -115,36 +115,3 @@ export const VerticalMenuThreeLevels = {
     items: menuItems,
   },
 };
-
-// Dark background examples
-const DarkBackgroundTemplate = {
-  render: (args) => ({
-    components: { UidsMenu },
-    setup() {
-      return { args };
-    },
-    template: `
-      <div style="background: #000; padding: 2rem;" class="menu--on-dark">
-        <uids-menu v-bind="args" />
-      </div>
-    `,
-  }),
-};
-
-export const HorizontalMenuOnDark = {
-  name: 'Horizontal Menu On Dark',
-  ...DarkBackgroundTemplate,
-  args: {
-    variant: 'horizontal',
-    items: menuItems,
-  },
-};
-
-export const VerticalMenuOnDark = {
-  name: 'Vertical Menu On Dark',
-  ...DarkBackgroundTemplate,
-  args: {
-    variant: 'vertical',
-    items: menuItems,
-  },
-};
