@@ -16,16 +16,19 @@ const props = defineProps({
     :key="index"
     :class="{
       'is-active': item.active,
-      'is-expanded': item.expanded
+      'is-expanded': item.expanded,
+      'has-icon': item.icon
     }"
   >
     <a v-if="item.url" :href="item.url" :class="{ 'is-active': item.active }">
       <i v-if="item.icon" :class="item.icon"></i>
+      <span v-else-if="!item.icon" class="icon-spacer"></span>
       {{ item.label }}
       <i v-if="item.children && item.children.length" class="fas fa-chevron-down icon-after"></i>
     </a>
     <span v-else>
       <i v-if="item.icon" :class="item.icon"></i>
+      <span v-else-if="!item.icon" class="icon-spacer"></span>
       {{ item.label }}
       <i v-if="item.children && item.children.length" class="fas fa-chevron-down icon-after"></i>
     </span>
