@@ -62,8 +62,8 @@ const Template = {
       </brand-bar>
       <nav class="menu--container">
         <div class="layout-container">
-          <uids-menu 
-            variant="horizontal" 
+          <uids-menu
+            variant="horizontal"
             :items="horizontalMenuItems"
           />
         </div>
@@ -78,7 +78,7 @@ const Template = {
           <div :class="args.showSidebar ? 'content element--margin__top--extra flex flex--wrap flex--gap__md' : 'content element--margin__top--extra'">
           <aside :class="args.showSidebar ? 'flex--3' : 'flex--12'">
             <div :class="args.showSidebar ? 'bef-form bef-form--sidebar' : 'bef-form'">
-              <form class="views-exposed-form element--margin__bottom--extra  bef-exposed-form uids-form bg--gray" action="/events" method="get" id="views-exposed-form-events-page-upcoming" accept-charset="UTF-8" data-drupal-form-fields="">
+              <form class="element--margin__bottom--extra form bg--gray" action="/events" method="get" accept-charset="UTF-8">
                 <div class="form--inline clearfix">
                   <div class="form-item form-type-textfield form-item-combine">
                     <label class="element-invisible" for="edit-combine">Search</label>

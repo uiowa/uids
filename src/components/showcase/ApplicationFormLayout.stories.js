@@ -76,8 +76,8 @@ const Template = {
       </brand-bar>
       <nav class="menu--container">
         <div class="layout-container">
-          <uids-menu 
-            variant="horizontal" 
+          <uids-menu
+            variant="horizontal"
             :items="horizontalMenuItems"
           />
         </div>
@@ -85,7 +85,7 @@ const Template = {
       <div class="layout-container element--margin__top--extra">
         <div class="content flex flex--wrap flex--gap__md">
           <div class="sidebar flex--2 bg--gray element--padding__all--sm element--margin__bottom--extra">
-            <div class="uids-form">
+            <div class="form">
               <div class="form-item">
                 <select class="form-select">
                   <option id="medicine">Medicine</option>
@@ -94,8 +94,8 @@ const Template = {
               </div>
             </div>
             <div>
-              <uids-menu 
-                variant="vertical" 
+              <uids-menu
+                variant="vertical"
                 :items="sidebarMenuItems"
               />
             </div>
@@ -106,7 +106,7 @@ const Template = {
             </div>
             <h1 class="headline headline--serif">Francois Abboud</h1>
             <p class="element--light-intro">Introduction</p>
-            <form class="uids-form element--margin__top--extra">
+            <form class="form element--margin__top--extra">
               <div class="flex flex--wrap flex--gap__sm">
                 <div class="form-item flex--3">
                   <label for="first">First</label>
