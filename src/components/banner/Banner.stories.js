@@ -89,20 +89,17 @@ export default {
     },
     media_overlay_gradient_midpoint: {
       name: 'Overlay gradient midpoint',
-      options: ['', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%'],
+      options: [ '', '20%', '30%', '40%', '50%', '60%', '70%'],
       control: {
         type: 'select',
         labels: {
-          '': 'Default (40%)',
-          '10%': '10%',
+          '': 'Default: 40% (Bottom to top/Top to bottom) or 70% (Left to right)',
           '20%': '20%',
           '30%': '30%',
           '40%': '40%',
           '50%': '50%',
           '60%': '60%',
           '70%': '70%',
-          '80%': '80%',
-          '90%': '90%',
         }
       },
       table: {
@@ -110,7 +107,7 @@ export default {
       },
     },
     media_overlay_type: {
-      name: 'Overlay type',
+       name: 'Overlay type',
       options: ['', 'btt', 'ttb', 'ltr'],
       control: {
         type: 'select',
