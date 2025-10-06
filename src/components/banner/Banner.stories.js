@@ -107,7 +107,7 @@ export default {
       },
     },
     media_overlay_type: {
-       name: 'Overlay type',
+      name: 'Overlay type',
       options: ['', 'btt', 'ttb', 'ltr'],
       control: {
         type: 'select',
