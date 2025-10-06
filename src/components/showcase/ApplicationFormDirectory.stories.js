@@ -77,21 +77,21 @@ const Template = {
 
           <div :class="args.showSidebar ? 'content element--margin__top--extra flex flex--wrap flex--gap__md' : 'content element--margin__top--extra'">
           <aside :class="args.showSidebar ? 'flex--3' : 'flex--12'">
-            <div :class="args.showSidebar ? 'bef-form bef-form--sidebar' : 'bef-form'">
-              <form class="element--margin__bottom--extra form bg--gray" action="/events" method="get" accept-charset="UTF-8">
+            <div :class="args.showSidebar ? 'filter-form filter-form--sidebar' : 'filter-form'">
+              <form class="element--margin__bottom--extra form bg--gray" action="/directory" method="get">
                 <div class="form--inline clearfix">
-                  <div class="form-item form-type-textfield form-item-combine">
-                    <label class="element-invisible" for="edit-combine">Search</label>
-                    <input type="text" id="edit-combine" name="combine" value="" size="30" maxlength="128" placeholder="Search directory" class="form-text">
+                  <div class="form-item">
+                    <label class="element-invisible" for="search-input">Search</label>
+                    <input type="text" id="search-input" name="search" value="" size="30" maxlength="128" placeholder="Search directory" class="form-text">
                   </div>
 
-                  <details class="bef--secondary form-wrapper" id="edit-secondary" open="open">
-                    <summary role="button" aria-controls="edit-secondary" aria-expanded="true">Filters<span class="summary"></span></summary>
+                  <details class="filters-secondary" open="open">
+                    <summary>Filters<span class="summary"></span></summary>
                     <div class="details-wrapper">
 
-                      <div class="form-item form-type-date form-item-field-event-when-end-value">
-                        <label for="edit-field-event-when-end-value">Departments</label>
-                        <select autocomplete="off" class="disabled:cursor-not-allowed md text-ui-gray-900 text-opacity-40">
+                      <div class="form-item">
+                        <label for="department-select">Departments</label>
+                        <select id="department-select" name="department">
                           <option selected="" value="">All Departments</option>
                           <option value="3100">Anatomy and Cell Biology</option>
                           <option value="3200">Anesthesia</option>
@@ -122,25 +122,25 @@ const Template = {
                         </select>
                       </div>
 
-                      <div class="form-item form-type-date form-item-field-event-when-value">
-                        <label for="edit-field-event-when-value">College</label>
-                        <select autocomplete="off" class="disabled:cursor-not-allowed md">
+                      <div class="form-item">
+                        <label for="college-select">College</label>
+                        <select id="college-select" name="college">
                           <option selected="" value="17">Carver College of Medicine</option>
                         </select>
                       </div>
 
-                      <div class="form-item form-type-entity-autocomplete form-item-field-event-performer-target-id-1">
-                        <label for="edit-field-event-performer-target-id-1">Membership</label>
-                        <select id="membership-type-454080" autocomplete="off" class="disabled:cursor-not-allowed sm rounded text-ui-gray-900 text-opacity-40" size="0">
+                      <div class="form-item">
+                        <label for="membership-select">Membership</label>
+                        <select id="membership-select" name="membership">
                           <option selected="" value="">All</option>
                           <option value="PRIMARY">Primary</option>
                           <option value="SECONDARY">Secondary</option>
                         </select>
                       </div>
 
-                      <div class="form-item form-type-entity-autocomplete form-item-field-event-performer-target-id-1">
-                        <label for="edit-field-event-performer-target-id-1">Person type</label>
-                        <select id="edit-type" name="type" class="form-select">
+                      <div class="form-item">
+                        <label for="person-type-select">Person type</label>
+                        <select id="person-type-select" name="person-type" class="form-select">
                           <option value="All" selected="selected">- Any -</option>
                           <option value="emeritus">Emeritus</option>
                           <option value="faculty">Faculty</option>
@@ -151,9 +151,9 @@ const Template = {
                         </select>
                       </div>
 
-                      <div class="form-item form-type-entity-autocomplete form-item-field-event-performer-target-id-1">
-                        <label for="edit-field-event-performer-target-id-1">Status</label>
-                        <select id="edit-type" name="type" class="form-select">
+                      <div class="form-item">
+                        <label for="status-select">Status</label>
+                        <select id="status-select" name="status" class="form-select">
                           <option value="All" selected="selected">- Any -</option>
                           <option value="pending">Pending</option>
                           <option value="active">Active</option>
@@ -164,9 +164,8 @@ const Template = {
                     </div>
                   </details>
 
-                  <div class="form-actions form-wrapper" id="edit-actions">
-                    <input type="submit" id="edit-submit" value="Search" class="button form-submit">
-<!--                input type="submit" id="edit-reset" name="reset" value="Reset" class="button form-submit">-->
+                  <div class="form-actions">
+                    <input type="submit" id="search-submit" value="Search" class="button form-submit">
                   </div>
 
                 </div>
