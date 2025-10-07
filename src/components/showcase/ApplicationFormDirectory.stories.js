@@ -78,14 +78,14 @@ const Template = {
           <div :class="args.showSidebar ? 'content element--margin__top--extra flex flex--wrap flex--gap__md' : 'content element--margin__top--extra'">
           <aside :class="args.showSidebar ? 'flex--3' : 'flex--12'">
             <div :class="args.showSidebar ? 'filter-form filter-form--sidebar' : 'filter-form'">
-              <form class="element--margin__bottom--extra form bg--gray" action="/directory" method="get">
+              <form class="form form--filters element--margin__bottom--extra bg--gray" method="get">
                 <div class="form--inline clearfix">
                   <div class="form-item">
                     <label class="element-invisible" for="search-input">Search</label>
                     <input type="text" id="search-input" name="search" value="" size="30" maxlength="128" placeholder="Search directory" class="form-text">
                   </div>
 
-                  <details class="filters-secondary" open="open">
+                  <details class="form--filters__advanced" open="open">
                     <summary>Filters<span class="summary"></span></summary>
                     <div class="details-wrapper">
 
@@ -172,7 +172,6 @@ const Template = {
               </form>
             </div>
           </aside>
-
 
           <div class="main-panel" :class="args.showSidebar ? 'flex--10' : 'flex--12'">
 
@@ -316,8 +315,6 @@ const Template = {
             </nav>
 
           </div>
-
-
         </div>
       </div>
     `,

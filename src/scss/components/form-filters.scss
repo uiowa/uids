@@ -5,119 +5,28 @@ table .bttn--light-font {
   padding: 0;
 }
 
-// filter-form--sidebar is for the styling the advanced details toggle within a sidebar column.
-.filter-form.filter-form--sidebar {
-  .exposed-form {
-    .filters-secondary {
-      width: auto;
+.form--filters {
+  padding: 1.5rem;
+}
 
-      details summary {
-        margin: 0;
-      }
+.form--filters__advanced {
+  .details-wrapper {
+    display: grid;
+    gap: 1rem;
 
-      fieldset {
-        border: 1px solid #c0c0c0;
-        padding: 0 1rem;
-        .form-item {
-          margin-top: 0;
-        }
-      }
+    @include utilities.breakpoint(md) {
 
-    }
-
-    .form--inline {
-      display: block !important;
-    }
-
-    &.has-reset .filters-secondary {
-      width: auto;
-    }
-
-    &.uids-form {
-      [type="text"],
-      select {
-        margin-bottom: 0;
-      }
-
-      .form-actions {
-
-
-        grid-area: unset;
-        flex-wrap: wrap;
-
-        @include utilities.breakpoint(sm) {
-          gap: 0;
-        }
-
-        .button {
-          margin: 0 0 1rem;
-          @include utilities.breakpoint(sm) {
-            flex-basis: 100%;
-          }
-        }
-      }
-
-      .details-wrapper {
-          display: block;
-
-        > .form-item:first-child {
-          margin-top: 0;
-        }
-      }
-
-      .form-item {
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-      }
-
-      .form-item:not(:last-child) {
-        margin-right: 0;
-      }
-
-      // Sort select.
-      &.has-reset {
-        .form-item:not(:last-child).sort-select {
-          @include utilities.breakpoint(sm) {
-            width: 100%;
-          }
-        }
-      }
-
-      .form-item:not(:last-child).sort-select {
-        select {
-          width: 100%;
-        }
-        padding: 0 0 1rem;
-        grid-column: 1/-1;
-        margin: 1rem 0;
-        @include utilities.breakpoint(sm) {
-          padding: 0;
-          grid-area: unset;
-          width: auto;
-        }
-      }
-    }
-
-    &.uids-form:not(.uids-search) {
-      details .form-item {
-        margin-right: 0;
-      }
-
-      fieldset.form-wrapper {
-        display: flex;
-        flex-direction: column;
-      }
+      display: flex;
+      flex-direction: row;
+      gap: 0;
     }
   }
 
-  .filters-secondary {
-    .details-wrapper {
-      @include utilities.breakpoint(sm) {
-        display: block;
-      }
-    }
+  .form-item {
+    flex: 1;
   }
 }
+
 // Use "filter-form" class for a full-width wide search box within a one column layout.
 // Use "filter-form filter-form--sidebar" if you want the same design within a sidebar column.
 
@@ -435,6 +344,119 @@ table .bttn--light-font {
 }
 // === End Filter Secondary === //
 
+// filter-form--sidebar is for the styling the advanced details toggle within a sidebar column.
+.filter-form.filter-form--sidebar {
+  .exposed-form {
+    .filters-secondary {
+      width: auto;
+
+      details summary {
+        margin: 0;
+      }
+
+      fieldset {
+        border: 1px solid #c0c0c0;
+        padding: 0 1rem;
+        .form-item {
+          margin-top: 0;
+        }
+      }
+
+    }
+
+    .form--inline {
+      display: block !important;
+    }
+
+    &.has-reset .filters-secondary {
+      width: auto;
+    }
+
+    &.uids-form {
+      [type="text"],
+      select {
+        margin-bottom: 0;
+      }
+
+      .form-actions {
+
+
+        grid-area: unset;
+        flex-wrap: wrap;
+
+        @include utilities.breakpoint(sm) {
+          gap: 0;
+        }
+
+        .button {
+          margin: 0 0 1rem;
+          @include utilities.breakpoint(sm) {
+            flex-basis: 100%;
+          }
+        }
+      }
+
+      .details-wrapper {
+        display: block;
+
+        > .form-item:first-child {
+          margin-top: 0;
+        }
+      }
+
+      .form-item {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .form-item:not(:last-child) {
+        margin-right: 0;
+      }
+
+      // Sort select.
+      &.has-reset {
+        .form-item:not(:last-child).sort-select {
+          @include utilities.breakpoint(sm) {
+            width: 100%;
+          }
+        }
+      }
+
+      .form-item:not(:last-child).sort-select {
+        select {
+          width: 100%;
+        }
+        padding: 0 0 1rem;
+        grid-column: 1/-1;
+        margin: 1rem 0;
+        @include utilities.breakpoint(sm) {
+          padding: 0;
+          grid-area: unset;
+          width: auto;
+        }
+      }
+    }
+
+    &.uids-form:not(.uids-search) {
+      details .form-item {
+        margin-right: 0;
+      }
+
+      fieldset.form-wrapper {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+
+  .filters-secondary {
+    .details-wrapper {
+      @include utilities.breakpoint(sm) {
+        display: block;
+      }
+    }
+  }
+}
 // Override module float.
 .exposed-form .form--inline .form-item {
   float: none;

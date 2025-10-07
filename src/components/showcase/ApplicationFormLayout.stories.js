@@ -85,20 +85,10 @@ const Template = {
       <div class="layout-container element--margin__top--extra">
         <div class="content flex flex--wrap flex--gap__md">
           <div class="sidebar flex--2 bg--gray element--padding__all--sm element--margin__bottom--extra">
-            <div class="form">
-              <div class="form-item">
-                <select class="form-select">
-                  <option id="medicine">Medicine</option>
-                  <option id="uiowa">University of Iowa</option>
-                </select>
-              </div>
-            </div>
-            <div>
-              <uids-menu
-                variant="vertical"
-                :items="sidebarMenuItems"
-              />
-            </div>
+            <uids-menu
+              variant="vertical"
+              :items="sidebarMenuItems"
+            />
           </div>
           <div class="main-panel flex--8">
             <div class="breadcrumb">

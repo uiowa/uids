@@ -35,12 +35,16 @@
     font-size: 1.1rem;
     line-height: 1.3;
 
-    &:last-child {
+    &:last-child,
+    &:last-of-type {
       border-bottom: none;
     }
 
-    &:last-of-type {
-      border-bottom: none;
+
+    &.is-active {
+      a {
+        font-weight: bold;
+      }
     }
 
     a,
@@ -50,25 +54,16 @@
       padding: 1.05rem;
       text-decoration: none;
       transition: background 0.8s ease-out;
-    }
 
-    a:focus,
-    a:hover,
-    span:focus,
-    span:hover {
-      text-decoration: underline;
-    }
-
-    a {
-      &.is-active {
-        font-weight: bold;
-      }
-
+      &:focus,
+      &:hover,
       &:focus,
       &:hover {
         text-decoration: underline;
       }
+    }
 
+    a {
       [class*="bg--white"] &,
       [class*="bg--"] [class*="bg--white"] &,
       [class*="bg--gray"] &,
@@ -76,11 +71,6 @@
         color: #333;
       }
     }
-  }
-
-  .icon-spacer {
-    display: inline-block;
-    width: 1.3rem;
   }
 }
 
@@ -95,6 +85,7 @@
     line-height: 1.4;
   }
 
+  // @todo: Figure out how this works.
   > li ul {
     display: none;
   }
@@ -153,4 +144,8 @@
       }
     }
   }
+}
+
+.menu--icons {
+
 }
