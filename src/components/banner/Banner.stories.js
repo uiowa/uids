@@ -93,13 +93,13 @@ export default {
       control: {
         type: 'select',
         labels: {
-          '': 'Default: 40% (Bottom to top/Top to bottom) or 70% (Left to right)',
+          '': 'Default',
           '20%': '20%',
           '30%': '30%',
-          '40%': '40%',
+          '40%': '40% default for bottom to top and top to bottom',
           '50%': '50%',
           '60%': '60%',
-          '70%': '70%',
+          '70%': '70% default for left to right',
         }
       },
       table: {
