@@ -86,7 +86,7 @@ const props = defineProps({
 const slots = useSlots();
 
 /**
- * Set banner gradient midpoint percentage.
+ * Set banner gradient midpoint.
  */
 const bannerStyle = computed(() => {
   const styles = {};
