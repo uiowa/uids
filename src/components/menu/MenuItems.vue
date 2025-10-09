@@ -23,14 +23,14 @@ const props = defineProps({
     }"
   >
     <a v-if="item.url" :href="item.url">
-      <i v-if="item.icon" :class="item.icon"></i>
+      <span class="fa-li"><span role="presentation" v-if="item.icon" :class="item.icon"></span></span>
       {{ item.label }}
-      <i v-if="item.children && item.children.length" class="fas fa-chevron-down icon-after"></i>
+      <span role="presentation" v-if="item.children && item.children.length" class="fas fa-chevron-down icon-after"></span>
     </a>
     <span v-else :class="{ 'is-active': item.active }">
-      <i v-if="item.icon" :class="item.icon"></i>
+      <span class="fa-li"><span role="presentation" v-if="item.icon" :class="item.icon"></span></span>
       {{ item.label }}
-      <i v-if="item.children && item.children.length" class="fas fa-chevron-down icon-after"></i>
+      <span role="presentation" v-if="item.children && item.children.length" class="fas fa-chevron-down icon-after"></span>
     </span>
 
     <!-- Recursively render children at any depth -->

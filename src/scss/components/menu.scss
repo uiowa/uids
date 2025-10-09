@@ -20,6 +20,7 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
+  position: relative;
 
   ul {
     list-style-type: none;
@@ -40,6 +41,16 @@
       border-bottom: none;
     }
 
+    &.has-icon {
+      > a,
+      > span:not([class*="fa"]) {
+        padding-left: 2.5rem;
+      }
+    }
+
+    .fa-li {
+      left:  0;
+    }
 
     &.is-active {
       a {
@@ -48,10 +59,11 @@
     }
 
     a,
-    span {
+    span:not([class*="fa"]) {
       color: var(--menu-link-color);
       display: block;
       padding: 1.05rem;
+      padding-inline-start: .5rem;
       text-decoration: none;
       transition: background 0.8s ease-out;
 
