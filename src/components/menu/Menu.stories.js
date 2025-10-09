@@ -48,8 +48,13 @@ const menuItems = [
       {
         label: 'Undergraduate',
         url: '#undergraduate',
+        icon: 'fas fa-graduation-cap',
         children: [
-          { label: 'Computer Science', url: '#cs' },
+          {
+            label: 'Computer Science',
+            url: '#cs',
+            icon: 'fas fa-graduation-cap',
+          },
           { label: 'Engineering', url: '#engineering' },
           { label: 'Business', url: '#business' },
         ]
