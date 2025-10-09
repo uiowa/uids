@@ -33,20 +33,20 @@ const Template = {
 
 // Sample menu data with icons
 const menuItems = [
-  { 
-    label: 'Dashboard', 
+  {
+    label: 'Dashboard',
     url: '#dashboard',
     icon: 'fas fa-tachometer-alt',
     active: true
   },
-  { 
-    label: 'Academic Programs', 
+  {
+    label: 'Academic Programs',
     url: '#programs',
     icon: 'fas fa-graduation-cap',
     expanded: true,
     children: [
-      { 
-        label: 'Undergraduate', 
+      {
+        label: 'Undergraduate',
         url: '#undergraduate',
         children: [
           { label: 'Computer Science', url: '#cs' },
@@ -58,8 +58,8 @@ const menuItems = [
       { label: 'Continuing Education', url: '#continuing' },
     ]
   },
-  { 
-    label: 'Admissions', 
+  {
+    label: 'Admissions',
     url: '#admissions',
     icon: 'fas fa-door-open',
     children: [
@@ -68,13 +68,13 @@ const menuItems = [
       { label: 'Scholarships', url: '#scholarships' },
     ]
   },
-  { 
-    label: 'Student Services', 
+  {
+    label: 'Student Services',
     url: '#services',
     icon: 'fas fa-users'
   },
-  { 
-    label: 'Campus Life', 
+  {
+    label: 'Campus Life',
     url: '#campus',
     icon: 'fas fa-university'
   },
@@ -89,26 +89,8 @@ export const HorizontalMenu = {
   },
 };
 
-export const HorizontalMenuWithIcons = {
-  name: 'Horizontal Menu With Icons',
-  ...Template,
-  args: {
-    variant: 'horizontal',
-    items: menuItems,
-  },
-};
-
 export const VerticalMenu = {
   name: 'Vertical Menu',
-  ...Template,
-  args: {
-    variant: 'vertical',
-    items: menuItems,
-  },
-};
-
-export const VerticalMenuThreeLevels = {
-  name: 'Vertical Menu Three Levels',
   ...Template,
   args: {
     variant: 'vertical',

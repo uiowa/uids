@@ -146,6 +146,6 @@ const Template = {
   }),
 }
 
-export const ApplicationFormLayout = {
+export const ApplicationForm = {
   ...Template,
 }
