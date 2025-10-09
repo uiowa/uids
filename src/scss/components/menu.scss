@@ -93,66 +93,68 @@
 
 .menu--horizontal {
   --menu-flex-direction: row;
-  display: flex;
-  flex-wrap: wrap;
+  @include utilities.container-query() {
+    display: flex;
+    flex-wrap: wrap;
 
-  // @todo: Figure out how this works.
-  > li ul {
-    display: none;
-  }
+    // @todo: Figure out how this works.
+    > li ul {
+      display: none;
+    }
 
-  // Adds an underline on hover.
-  > li:hover > a:after {
-    background: var(--brand-primary);
-    bottom: 0;
-    height: 5px;
-    left: 0;
-    position: absolute;
-    width: 100%;
-  }
+    // Adds an underline on hover.
+    > li:hover > a:after {
+      background: var(--brand-primary);
+      bottom: 0;
+      height: 5px;
+      left: 0;
+      position: absolute;
+      width: 100%;
+    }
 
-  li {
-    border-bottom: none;
-    //font-size: 1rem;
-    position: relative;
+    li {
+      border-bottom: none;
+      //font-size: 1rem;
+      position: relative;
 
-    a {
-      padding: 1.35rem 1.25rem;
-      font-weight: 600;
-      text-decoration: none;
-      line-height: 1.2;
-
-      .fas {
-        font-size: .9rem;
-        line-height: 1.4;
-        padding-inline-end: .4rem;
-
-        &:before,
-        &:after {
-          color: #666;
-        }
-      }
-
-      //.icon-after {
-      //  padding-inline-end: 0;
-      //  padding-inline-start: .4rem;
-      //}
-
-      &:focus,
-      &:hover {
+      a {
+        padding: 1.35rem 1.25rem;
+        font-weight: 600;
         text-decoration: none;
-      }
+        line-height: 1.2;
 
-      &:after {
-        background: variables.$primary;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 0;
-        height: 5px;
-        content: "";
-        -webkit-transition: 300ms;
-        transition: 300ms;
+        .fas {
+          font-size: .9rem;
+          line-height: 1.4;
+          padding-inline-end: .4rem;
+
+          &:before,
+          &:after {
+            color: #666;
+          }
+        }
+
+        //.icon-after {
+        //  padding-inline-end: 0;
+        //  padding-inline-start: .4rem;
+        //}
+
+        &:focus,
+        &:hover {
+          text-decoration: none;
+        }
+
+        &:after {
+          background: variables.$primary;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 0;
+          height: 5px;
+          content: "";
+          -webkit-transition: 300ms;
+          transition: 300ms;
+        }
       }
     }
   }

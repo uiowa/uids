@@ -26,7 +26,7 @@ const Template = {
       return { args };
     },
     template: `
-      <uids-menu v-bind="args" />
+      <div class="column-container"><uids-menu v-bind="args" /></div>
     `,
   }),
 };
