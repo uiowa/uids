@@ -41,7 +41,7 @@ const props = defineProps({
       'has-icon': icon
     }"
   >
-    <a v-if="url" :href="url"><span role="presentation" v-if="icon" :class="icon"></span>
+    <a v-if="url" :href="url"><span role="presentation" v-if="icon" class="fas" :class="icon"></span>
       {{ label }}
       <span role="presentation" v-if="children && children.length" class="fas fa-chevron-down icon-after"></span>
     </a>

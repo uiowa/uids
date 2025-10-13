@@ -36,24 +36,24 @@ const menuItems = [
   {
     label: 'Dashboard',
     url: '#dashboard',
-    icon: 'fas fa-tachometer-alt',
+    icon: 'fa-tachometer-alt',
     active: true
   },
   {
     label: 'Academic Programs',
     url: '#programs',
-    icon: 'fas fa-graduation-cap',
+    icon: 'fa-graduation-cap',
     expanded: true,
     children: [
       {
         label: 'Undergraduate',
         url: '#undergraduate',
-        icon: 'fas fa-graduation-cap',
+        icon: 'fa-graduation-cap',
         children: [
           {
             label: 'Computer Science',
             url: '#cs',
-            icon: 'fas fa-graduation-cap',
+            icon: 'fa-graduation-cap',
           },
           { label: 'Engineering', url: '#engineering' },
           { label: 'Business', url: '#business' },
@@ -66,9 +66,9 @@ const menuItems = [
   {
     label: 'Admissions',
     url: '#admissions',
-    icon: 'fas fa-door-open',
+    icon: 'fa-door-open',
     children: [
-      { label: 'Apply Now', url: '#apply' },
+      { label: 'Apply Now', url: '#apply', icon: 'fa-paper-plane' },
       { label: 'Requirements', url: '#requirements' },
       { label: 'Scholarships', url: '#scholarships' },
     ]
@@ -76,12 +76,12 @@ const menuItems = [
   {
     label: 'Student Services',
     url: '#services',
-    icon: 'fas fa-users'
+    icon: 'fa-users'
   },
   {
     label: 'Campus Life',
     url: '#campus',
-    icon: 'fas fa-university'
+    icon: 'fa-university'
   },
 ];
 
