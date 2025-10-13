@@ -48,7 +48,6 @@ const menuItems = [
       {
         label: 'Undergraduate',
         url: '#undergraduate',
-        icon: 'fa-graduation-cap',
         children: [
           {
             label: 'Computer Science',
