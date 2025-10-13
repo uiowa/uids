@@ -41,14 +41,14 @@ const props = defineProps({
       'has-icon': icon
     }"
   >
-    <a v-if="url" :href="url"><span role="presentation" v-if="icon" class="fas" :class="icon"></span>
+    <a v-if="url" :href="url"><span class="fa-li"><span role="presentation" v-if="icon" class="fas fa-xs" :class="icon"></span></span>
       {{ label }}
-      <span role="presentation" v-if="children && children.length" class="fas fa-chevron-down icon-after"></span>
+      <span role="presentation" v-if="children && children.length" class="fas fa-chevron-down fa-xs icon-after"></span>
     </a>
     <span v-else>
       <span role="presentation" v-if="icon" :class="icon"></span>
       {{ label }}
-      <span role="presentation" v-if="children && children.length" class="fas fa-chevron-down icon-after"></span>
+      <span role="presentation" v-if="children && children.length" class="fas fa-chevron-down fa-xs icon-after"></span>
     </span>
 
     <!-- Recursively render children at any depth -->

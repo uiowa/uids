@@ -11,6 +11,19 @@
   border-bottom: 1px solid #e6e5e5;
 }
 
+.menu:not(ul ul) > li > a {
+  font-weight: bold;
+}
+
+.menu  li li a,
+.menu  li li span:not([class*="fa"]) {
+  padding-block-start: .5rem;
+  padding-block-end: .5rem;
+  &:hover:after {
+    background: variables.$light-gray;
+  }
+}
+
 .menu {
   --menu-flex-direction: column;
   --menu-item-state-indicator-width: 5px;
@@ -26,7 +39,7 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
-    //border-bottom: 1px solid hsla(0,0%,79%,.5);
+    border-bottom: 1px solid hsla(0,0%,79%,.5);
     position: relative;
 
     &:last-child,
@@ -37,17 +50,20 @@
     &.has-icon {
       > a,
       > span:not([class*="fa"]) {
-        //padding-left: 2.5rem;
+         padding-left: 2.7rem;
       }
     }
 
     .fa-li {
-      left:  0;
+      left:  .3rem;
+    }
+
+    .fas {
+      color: variables.$brand-cool-gray;
     }
 
     &.is-active {
       a {
-        font-weight: bold;
 
         //&:after {
         //  background: var(--uids-grey-light);
@@ -148,7 +164,6 @@
         line-height: 1.2;
 
         .fas {
-          font-size: .9rem;
           line-height: 1.4;
           padding-inline-end: .4rem;
         }
