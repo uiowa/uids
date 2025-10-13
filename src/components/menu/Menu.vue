@@ -2,7 +2,7 @@
 import '../../scss/components/menu.scss';
 import { computed } from 'vue';
 import { className } from "../utlity";
-import MenuItems from './MenuItems.vue';
+import MenuItem from './MenuItem.vue';
 
 const name = 'uids-menu';
 
@@ -24,6 +24,10 @@ const props = defineProps({
     type: Array,
     required: true,
   },
+  top: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const classes = computed(() => {
@@ -38,7 +42,21 @@ const classes = computed(() => {
 </script>
 
 <template>
-  <ul :class="classes">
-    <MenuItems :items="items" />
+  <nav role="navigation" aria-label="" v-if="top">
+    <ul :class="classes">
+        <MenuItem
+          v-for="(item, index) in items"
+          :key="index"
+          v-bind="item"
+        />
+    </ul>
+  </nav>
+
+  <ul :class="classes" v-else>
+    <MenuItem
+      v-for="(item, index) in items"
+      :key="index"
+      v-bind="item"
+    />
   </ul>
 </template>
