@@ -26,7 +26,9 @@ const Template = {
       return { args };
     },
     template: `
-      <div class="column-container"><uids-menu v-bind="args" :top="true" /></div>
+      <div class="column-container">
+        <uids-menu v-bind="args" :top="true" />
+      </div>
     `,
   }),
 };
@@ -90,6 +92,7 @@ export const HorizontalMenu = {
   args: {
     variant: 'horizontal',
     items: menuItems,
+    label: "Site menu navigation",
   },
 };
 
@@ -99,5 +102,6 @@ export const VerticalMenu = {
   args: {
     variant: 'vertical',
     items: menuItems,
+    label: "Section navigation",
   },
 };

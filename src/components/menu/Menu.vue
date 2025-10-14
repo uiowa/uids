@@ -28,6 +28,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  label: {
+    type: String,
+    default: '',
+  }
 });
 
 const classes = computed(() => {
@@ -42,7 +46,7 @@ const classes = computed(() => {
 </script>
 
 <template>
-  <nav role="navigation" aria-label="" v-if="top">
+  <nav :aria-label="label" v-if="top">
     <ul :class="classes">
         <MenuItem
           v-for="(item, index) in items"
