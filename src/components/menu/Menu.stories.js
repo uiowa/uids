@@ -92,7 +92,7 @@ export const HorizontalMenu = {
   args: {
     variant: 'horizontal',
     items: menuItems,
-    label: "Site menu navigation",
+    label: "Main",
   },
 };
 
@@ -102,6 +102,6 @@ export const VerticalMenu = {
   args: {
     variant: 'vertical',
     items: menuItems,
-    label: "Section navigation",
+    label: "Section",
   },
 };
