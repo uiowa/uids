@@ -1,4 +1,4 @@
-/* empty css                    *//* empty css                 *//* empty css                  *//* empty css             *//* empty css              */import{_ as i}from"./Button.vue_vue_type_script_setup_true_lang-DTPkAwzt.js";import{B as l}from"./BrandBar-BwuOojRt.js";import{_ as d}from"./Table.vue_vue_type_script_setup_true_lang-jyW7dBAW.js";import{_ as n}from"./Menu.vue_vue_type_script_setup_true_lang-Cd1eNvl-.js";import"./vue.esm-bundler-BvXj7D1s.js";import"./utlity-CAV5GFHh.js";import"./Logo.vue_vue_type_script_setup_true_lang-Bt9ptoEF.js";import"./_plugin-vue_export-helper-DlAUqK2U.js";const P={title:"Showcase/Application",tags:["!autodocs"],parameters:{layout:"fullscreen",docs:{source:{code:null}}}},o=[{label:"Home",url:"#",icon:"fas fa-house"},{label:"Directories",url:"#",icon:"fas fa-users",children:[]},{label:"Reports",url:"#",icon:"fas fa-file-lines"},{label:"Roles",url:"#",icon:"fas fa-user-gear"},{label:"Contact",url:"#",icon:"fas fa-mobile-screen"}],u={render:a=>({components:{UidsButton:i,BrandBar:l,UidsTable:d,UidsMenu:n},setup(){return{args:a,horizontalMenuItems:o}},template:`
+/* empty css                    *//* empty css                 *//* empty css                  *//* empty css             *//* empty css              */import{_ as l}from"./Button.vue_vue_type_script_setup_true_lang-DTPkAwzt.js";import{B as i}from"./BrandBar-BwuOojRt.js";import{_ as d}from"./Table.vue_vue_type_script_setup_true_lang-jyW7dBAW.js";import{_ as n}from"./Menu.vue_vue_type_script_setup_true_lang-Cd1eNvl-.js";import"./vue.esm-bundler-BvXj7D1s.js";import"./utlity-CAV5GFHh.js";import"./Logo.vue_vue_type_script_setup_true_lang-Bt9ptoEF.js";import"./_plugin-vue_export-helper-DlAUqK2U.js";const P={title:"Showcase/Application",tags:["!autodocs"],parameters:{layout:"fullscreen",docs:{source:{code:null}}}},o=[{label:"Home",url:"#",icon:"fas fa-house"},{label:"Directories",url:"#",icon:"fas fa-users",children:[]},{label:"Reports",url:"#",icon:"fas fa-file-lines"},{label:"Roles",url:"#",icon:"fas fa-user-gear"},{label:"Contact",url:"#",icon:"fas fa-mobile-screen"}],u={render:a=>({components:{UidsButton:l,BrandBar:i,UidsTable:d,UidsMenu:n},setup(){return{args:a,horizontalMenuItems:o}},template:`
       <brand-bar
         :narrow='true'
         :healthcare='false'
@@ -10,6 +10,8 @@
           <uids-menu
             variant="horizontal"
             :items="horizontalMenuItems"
+            label="Main"
+            top
           />
         </div>
       </nav>
