@@ -55,7 +55,6 @@ const classes = computed(() => {
         />
     </ul>
   </nav>
-
   <ul :class="classes" v-else>
     <MenuItem
       v-for="(item, index) in items"

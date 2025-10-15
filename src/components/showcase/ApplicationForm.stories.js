@@ -79,18 +79,22 @@ const Template = {
           <uids-menu
             variant="horizontal"
             :items="horizontalMenuItems"
+            label="Main menu"
+            top
           />
         </div>
       </nav>
       <div class="layout-container element--margin__top--extra">
         <div class="content flex flex--wrap flex--gap__md">
-          <div class="sidebar flex--2 bg--gray element--padding__all--sm element--margin__bottom--extra">
+          <div class="sidebar flex--2 bg--gray">
             <uids-menu
               variant="vertical"
               :items="sidebarMenuItems"
+              label="Sidebar menu"
+              top
             />
           </div>
-          <div class="main-panel flex--8">
+          <div class="main-panel flex--8" role="region" aria-label="Main content">
             <div class="breadcrumb">
               Directory
             </div>
