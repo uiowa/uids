@@ -13,7 +13,7 @@ import UidsTable from '../table/Table.vue';
 import UidsMenu from '../menu/Menu.vue';
 
 export default {
-  title: 'Showcase/Forms',
+  title: 'Showcase/Application',
   tags: ['!autodocs'],
   parameters: {
     layout: 'fullscreen',
@@ -208,7 +208,7 @@ const Template = {
 }
 
 // Original story
-export const ApplicationDirectory = {
+export const Directory = {
   ...Template,
   args: {
     showSidebar: false,

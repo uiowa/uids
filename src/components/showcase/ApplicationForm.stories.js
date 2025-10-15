@@ -10,7 +10,7 @@ import BrandBar from '../brand-bar/BrandBar.vue';
 import UidsMenu from '../menu/Menu.vue';
 
 export default {
-  title: 'Showcase/Forms',
+  title: 'Showcase/Application',
   tags: ['!autodocs'],
   parameters: {
     layout: 'fullscreen',
@@ -150,6 +150,6 @@ const Template = {
   }),
 }
 
-export const ApplicationForm = {
+export const Form = {
   ...Template,
 }
