@@ -79,7 +79,7 @@ const Template = {
           <uids-menu
             variant="horizontal"
             :items="horizontalMenuItems"
-            label="Main menu"
+            label="Main"
             top
           />
         </div>
