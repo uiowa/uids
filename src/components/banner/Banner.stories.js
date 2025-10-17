@@ -87,7 +87,7 @@ export default {
       },
       table: { category: 'Display options' },
     },
-    media_overlay_gradient_midpoint: {
+    media_overlay_midpoint: {
       name: 'Overlay gradient midpoint',
       options: [ '', '20%', '30%', '40%', '50%', '60%', '70%'],
       control: {
@@ -194,7 +194,7 @@ const Template = {
           :background="args.background"
           :media_overlay_type="args.media_overlay_type"
           :media_overlay_light="args.media_overlay_light"
-          :media_overlay_gradient_midpoint="args.media_overlay_gradient_midpoint"
+          :media_overlay_midpoint="args.media_overlay_midpoint"
           :height="args.height"
           :narrow="args.narrow"
           :horizontal_alignment="args.horizontal_alignment"
@@ -231,7 +231,7 @@ export const BackgroundImage = {
     mobile_content_below_image: true,
     button_light_font: false,
     button_color: 'primary',
-    media_overlay_gradient_midpoint: '',
+    media_overlay_midpoint: '',
     buttons: [
       { ...ButtonStories.Primary.args, label: 'Read More ' + ButtonStories.Primary.args.icon, color: 'primary' },
     ],

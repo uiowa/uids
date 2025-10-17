@@ -61,7 +61,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  media_overlay_gradient_midpoint: {
+  media_overlay_midpoint: {
     type: String,
     default: '',
   },
@@ -90,8 +90,8 @@ const slots = useSlots();
  */
 const bannerStyle = computed(() => {
   const styles = {};
-  if (props.media_overlay_gradient_midpoint) {
-    styles['--banner-overlay-gradient-midpoint'] = props.media_overlay_gradient_midpoint;
+  if (props.media_overlay_midpoint) {
+    styles['--banner-overlay-gradient-midpoint'] = props.media_overlay_midpoint;
   }
   return styles;
 });
