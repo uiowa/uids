@@ -195,7 +195,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div :class="classes":style="bannerStyle">
+  <div :class="classes" :style="bannerStyle">
     <slot name="media"></slot>
     <div class="banner__content">
       <header class="banner__title" v-if="pre_title || headline.text">
