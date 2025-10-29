@@ -66,7 +66,7 @@ const classes = computed(() => {
       </h2>
     </div>
 
-    <p v-if="stat_summary" class="stat__description" v-html="stat_summary"></p>
+    <span v-if="stat_summary" class="stat__description" v-html="stat_summary"></span>
 
     <p v-if="stat_content" class="stat__content" v-html="stat_content"></p>
   </div>
