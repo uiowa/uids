@@ -8,4 +8,5 @@ export { default as UidsButton } from './button'
 export { default as UidsCard } from './card'
 export { default as UidsCta } from './cta'
 export { default as UidsHeadline } from './headline'
-export { default as UidsLogo } from './logo';
+export { default as UidsLogo } from './logo'
+export { default as UidsMenu } from './menu';
