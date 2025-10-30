@@ -61,6 +61,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  media_overlay_midpoint: {
+    type: String,
+    default: '',
+  },
   height: {
     type: String,
     default: '',
@@ -80,6 +84,17 @@ const props = defineProps({
 });
 
 const slots = useSlots();
+
+/**
+ * Set banner gradient midpoint.
+ */
+const bannerStyle = computed(() => {
+  const styles = {};
+  if (props.media_overlay_midpoint) {
+    styles['--banner-overlay-gradient-midpoint'] = props.media_overlay_midpoint;
+  }
+  return styles;
+});
 
 /**
  * Main banner classes.
@@ -180,7 +195,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div :class="classes">
+  <div :class="classes" :style="bannerStyle">
     <slot name="media"></slot>
     <div class="banner__content">
       <header class="banner__title" v-if="pre_title || headline.text">
