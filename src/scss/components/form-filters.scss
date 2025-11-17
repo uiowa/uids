@@ -1,121 +1,140 @@
 @use '../abstracts/variables';
 @use '../abstracts/utilities';
 
-table .bttn--light-font {
-  padding: 0;
-}
-
 // === Filter Form Block === //
 .filter-form {
-width: 100%;
-  background: #ccc;
+  width: 100%;
 
   form {
     width: 100%;
-    display: flex;
-    flex-direction: row-reverse;
-    flex-wrap: wrap;
   }
 
-
-
-  // Details & Summary
-  details {
-    --elemHeight: 3.5rem;
-    flex: 1;
-    background: unset;
-    border: unset;
-    position: relative;
-
-    &.form-wrapper {
-      border: none;
-      background: none;
-      flex-basis: 100%; /* Makes this item take up the entire width */
-
-
-      &.form-item {
-        align-self: end;
-
-        @include utilities.breakpoint(md) {
-          margin-top: 0;
-        }
-      }
-    }
-
-    &:not(.form__details--multi-select) {
-      &[open] > summary::before {
-        //content: "\f139";
-        content: "\f0b0";
-      }
-    }
-
-    .details-wrapper {
-      display: flex;
-      gap: 1rem;
-
-      .form-item {
-        margin-top: 0;
-      }
-      .form-item {
-        flex: 1;
-      }
-      .form-type-checkbox.form-item {
-        padding: 0 0.5rem;
-        margin-right: 0;
-        display: flex;
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-      }
-    }
+  .form-item {
+    margin-top: 0;
   }
-
-  summary {
-    cursor: pointer;
-    padding: 0;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    margin-top: 1.5rem;
-    display: flex;
-    background: #ccc;
-    padding:.5rem;
-    display: inline;
-
-
-
-    &::-webkit-details-marker,
-    &::marker {
-      display: none;
-    }
-
-    &::before {
-      padding: 0 0.6rem variables.$xsm variables.$xsm;
-      content: "\f0b0";
-      font-weight: 400;
-      color: variables.$brand-cool-gray;
-      @include utilities.fas();
-    }
-  }
-
-
 }
 
-// === Form Actions === //
-// === Form Item Combine and Filter Form Actions Inline === //
-.filter-form {
-  //display: flex;
-  //align-items: flex-end;
-  //gap: 1rem;
-  //flex-wrap: wrap;
+// === Label === //
+.filter-form .label {
   display: flex;
+  align-content: space-evenly;
+  align-self: flex-start;
+  justify-content: space-between;
+  height: 35px;
+  padding: 10px 15px 0 0;
+  margin-right: 5px;
+  border-right: 1px solid #ccc;
+  color: #666;
+  font-size: 0.9rem;
+}
 
-  .form-item-combine {
-    flex: 1;
+// === Filter Box === //
+.filter-form .filter-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  max-height: 60px;
 
+  .form-item--details {
+    flex-basis: 15%;
   }
 
-  .filter-form__actions {
-    width: 20%;
-    display: inline;
-    display: none;
+  details.form__details--multi-select {
+    flex-basis: 33%;
+    height: 2.5rem;
+  }
+
+  [type='text'],
+  [type='password'],
+  [type='date'],
+  [type='datetime'],
+  [type='datetime-local'],
+  [type='month'],
+  [type='week'],
+  [type='email'],
+  [type='number'],
+  [type='search'],
+  [type='tel'],
+  [type='time'],
+  [type='url'],
+  [type='color'],
+  textarea,
+  select,
+  details.form__details--multi-select {
+    height: 2.5rem;
+    border-radius: 4px;
+  }
+}
+
+// === Multi Select Details === //
+.filter-form details.form__details--multi-select summary {
+  height: 2.5rem;
+  background-color: #f6f6f6;
+  border: none;
+  border-radius: 4px;
+}
+
+// === Select Dropdown === //
+.filter-form .select-dropdown,
+.filter-form .select-dropdown * {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.filter-form .select-dropdown {
+  position: relative;
+  background-color: #f6f6f6;
+  border-radius: 4px;
+
+  select {
+    max-width: 100%;
+    padding: 8px 24px 8px 10px;
+    border: none;
+    background-color: transparent;
+    font-size: 1rem;
+    font-weight: normal;
+    appearance: none;
+
+    &:active,
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    width: 0;
+    height: 0;
+    margin-top: -2px;
+    border-top: 5px solid #aaa;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+  }
+}
+
+// === Search Actions === //
+.filter-form .search-actions {
+  display: flex;
+  align-items: start;
+}
+
+// === Form Text Input === //
+.filter-form .form [type='text'] {
+  border-radius: 4px;
+}
+
+// === Actions === //
+.filter-form .filter-form__actions {
+  display: flex;
+  gap: 1rem;
+
+  [type='submit'] {
+    padding: 0.9rem 1rem;
   }
 }
