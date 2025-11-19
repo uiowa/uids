@@ -71,15 +71,15 @@ const Template = {
               <div class="filter-form__filters--wrapper element--margin__bottom">
                 <div class="filter-form__filters--label"><span>Filters</span></div>
                 <div class="filter-form__filters">
-                  
-                  <div class="filter-form__filters--select form-item">
+
+                  <div class=" form-item">
                     <label for="edit-college">College</label>
                     <select id="edit-college" name="college" class="form-select" autocomplete="off">
                       <option selected="" value="17">Carver College of Medicine</option>
                     </select>
                   </div>
 
-                  <div class="filter-form__filters--select form-item">
+                  <div class=" form-item">
                     <label for="edit-department">Department</label>
                     <select id="edit-department" name="department" class="form-select" autocomplete="off">
                       <option selected="" value="">All Departments</option>
@@ -112,7 +112,7 @@ const Template = {
                     </select>
                   </div>
 
-                  <div class="filter-form__filters--select form-item">
+                  <div class=" form-item">
                     <label for="edit-membership">Membership</label>
                     <select id="edit-membership" name="membership" autocomplete="off" class="form-select">
                       <option selected="" value="">All</option>
@@ -121,7 +121,7 @@ const Template = {
                     </select>
                   </div>
 
-                  <div class="filter-form__filters--select form-item">
+                  <div class=" form-item">
                     <label for="edit-person-type">Person type</label>
                     <select id="edit-person-type" name="type" class="form-select">
                       <option value="All" selected="selected">- Any -</option>
@@ -134,7 +134,7 @@ const Template = {
                     </select>
                   </div>
 
-                  <div class="filter-form__filters--select form-item">
+                  <div class=" form-item">
                     <label for="edit-status">Status</label>
                     <select id="edit-status" name="status" class="form-select">
                       <option value="All" selected="selected">- Any -</option>
@@ -153,10 +153,10 @@ const Template = {
               </div>
 
               <div class="filter-form__actions form-wrapper" id="edit-actions">
-                <button type="submit" id="edit-reset" name="reset" value="Reset" class="bttn bttn--tertiary">
+                <button type="submit" id="edit-reset" name="reset" value="Reset" class="bttn bttn--secondary">
                   <span>Reset</span>
                 </button>
-                <button type="submit" id="edit-search" name="search" value="Search" class="bttn bttn--secondary">
+                <button type="submit" id="edit-search" name="search" value="Search" class="bttn bttn--primary">
                   <span>Search</span>
                 </button>
               </div>

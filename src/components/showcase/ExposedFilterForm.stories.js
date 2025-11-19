@@ -126,7 +126,7 @@ const Template = {
                 </details>
               </div>
 
-              <div class="filter-form__filters--select form-item">
+              <div class=" form-item">
                 <label for="edit-field-event-performer-target-id-1">Membership</label>
                 <select id="membership-type-454080" autocomplete="off" class="disabled:cursor-not-allowed sm rounded text-ui-gray-900 text-opacity-40" size="0">
                   <option selected="" value="">All</option>
@@ -135,7 +135,7 @@ const Template = {
                 </select>
               </div>
 
-              <div class="filter-form__filters--select form-item">
+              <div class=" form-item">
                 <label for="edit-field-event-performer-target-id-1">Person type</label>
                 <select id="edit-type" name="type" class="form-select">
                   <option value="All" selected="selected">- Any -</option>
@@ -148,7 +148,7 @@ const Template = {
                 </select>
               </div>
 
-              <div class="filter-form__filters--select form-item">
+              <div class=" form-item">
                 <label for="edit-field-event-performer-target-id-1">Status</label>
                 <select id="edit-type" name="type" class="form-select">
                   <option value="All" selected="selected">- Any -</option>
@@ -169,10 +169,10 @@ const Template = {
 
 
           <div class="filter-form__actions form-wrapper" id="edit-actions">
-            <button type="submit" id="edit-reset" name="reset" value="Reset" class="bttn bttn--tertiary">
+            <button type="submit" id="edit-reset" name="reset" value="Reset" class="bttn bttn--secondary">
               <span>Reset</span>
             </button>
-            <button type="submit" id="edit-reset" name="search" value="Search" class="bttn bttn--secondary">
+            <button type="submit" id="edit-reset" name="search" value="Search" class="bttn bttn--primary">
               <span>Search</span>
             </button>
           </div>
