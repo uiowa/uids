@@ -3,6 +3,10 @@
 
 // Generalized styles.
 .form {
+  --filter-input-bg: #f6f6f6;
+  --filter-input-disabled-bg: #f3f3f3;
+  --filter-input-radius: 4px;
+
   [type='text'],
   [type='password'],
   [type='date'],
@@ -21,17 +25,18 @@
   select,
     // Make details summary appear as select list.
   details.form__details--multi-select summary {
-    display: block;
+    background-color: var(--filter-input-bg);
+    border: 1px solid variables.$grey-light;
+    border-radius: var(--filter-input-radius);
+    box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
     box-sizing: border-box;
+    color: var(--brand-secondary);
+    display: block;
     width: 100%;
     height: 3.5rem;
     margin: 0 0 1rem;
     padding: 0.5rem;
     transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
-    color: var(--brand-secondary);
-    border: 1px solid variables.$grey-light;
-    background-color: #fefefe;
-    box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
     font-family: inherit;
     font-size: 1rem;
     font-weight: normal;
@@ -158,7 +163,7 @@
       cursor: not-allowed;
       color: #63666A;
       border-color: #bababf;
-      background-color: #f3f3f3 !important;
+      background-color: var(--filter-input-disabled-bg) !important;
       box-shadow: none;
       -webkit-text-fill-color: #63666A;
     }
@@ -257,25 +262,30 @@
   // === End: Checkbox/Radios === //
 
   // === Select and details === //
+
   select,
   details.details-multi-select summary {
-    padding: variables.$xsm;
-    background-color: variables.$white;
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="32" height="24" viewBox="0 0 32 24"><polygon points="0,0 32,0 16,24" style="fill: rgb%28138, 138, 138%29"></polygon></svg>');
     background-repeat: no-repeat;
     background-position: right -1rem center;
     background-origin: content-box;
     background-size: 9px 6px;
-    @include utilities.margin(variables.$top: 0, variables.$right: 0, variables.$bottom: 1rem);
-    @include utilities.padding(variables.$right: variables.$lg, variables.$left: variables.$md);
 
     @media screen and (min-width: 0\0) {
       background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAYCAYAAACbU/80AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAIpJREFUeNrEkckNgDAMBBfRkEt0ObRBBdsGXUDgmQfK4XhH2m8czQAAy27R3tsw4Qfe2x8uOO6oYLb6GlOor3GF+swURAOmUJ+RwtEJs9WvTGEYxBXqI1MQAZhCfUQKRzDMVj+TwrAIV6jvSUEkYAr1LSkcyTBb/V+KYfX7xAeusq3sLDtGH3kEGACPWIflNZfhRQAAAABJRU5ErkJggg==');
     }
+  }
+
+  details.details-multi-select summary {
+    padding: variables.$xsm;
+    background-color: variables.$white;
+    @include utilities.margin(variables.$top: 0, variables.$right: 0, variables.$bottom: 1rem);
+    @include utilities.padding(variables.$right: variables.$lg, variables.$left: variables.$md);
+
 
     &:disabled {
       cursor: not-allowed;
-      background-color: #e6e6e6;
+      background-color: var(--filter-input-disabled-bg);
     }
 
     &::-ms-expand {
