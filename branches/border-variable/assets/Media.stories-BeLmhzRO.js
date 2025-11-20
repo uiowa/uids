@@ -1,4 +1,4 @@
-import"./vue.esm-bundler-BLBR8k5r.js";/* empty css               */import{_ as w,a as f}from"./ExampleVideoFile-BK65PMns.js";const V={components:{ExampleImage:w,ExampleVideoFile:f},title:"Components/Media",tags:["!autodocs","!dev"],parameters:{docs:{source:{code:null}},options:{showPanel:!1}}},e={render:b=>({components:{ExampleImage:w},setup(){return{args:b}},template:`
+import"./vue.esm-bundler-BLBR8k5r.js";/* empty css               */import{_ as w,a as f}from"./ExampleVideoFile-CGZ9zB7B.js";const V={components:{ExampleImage:w,ExampleVideoFile:f},title:"Components/Media",tags:["!autodocs","!dev"],parameters:{docs:{source:{code:null}},options:{showPanel:!1}}},e={render:b=>({components:{ExampleImage:w},setup(){return{args:b}},template:`
       <example-image
         :src="args.src"
         :height="args.height"
