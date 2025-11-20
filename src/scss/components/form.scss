@@ -3,9 +3,9 @@
 
 // Generalized styles.
 .form {
-  --filter-input-bg: #f6f6f6;
-  --filter-input-disabled-bg: #f3f3f3;
-  --filter-input-radius: 4px;
+  --form-input-bg: #f6f6f6;
+  --form-input-bg-disabled: #f3f3f3;
+  --form-input-radius: 4px;
 
   [type='text'],
   [type='password'],
@@ -25,29 +25,29 @@
   select,
     // Make details summary appear as select list.
   details.form__details--multi-select summary {
-    background-color: var(--filter-input-bg);
+    appearance: none;
+    background-color: var(--form-input-bg);
     border: 1px solid variables.$grey-light;
-    border-radius: var(--filter-input-radius);
+    border-radius: var(--form-input-radius);
     box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
     box-sizing: border-box;
     color: var(--brand-secondary);
     display: block;
-    width: 100%;
-    height: 3.5rem;
-    margin: 0 0 1rem;
-    padding: 0.5rem;
-    transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
     font-family: inherit;
     font-size: 1rem;
     font-weight: normal;
+    width: 100%;
+    height: 3.5rem;
     line-height: 1.5;
-    appearance: none;
+    margin: 0 0 1rem;
+    padding: 0.5rem;
+    transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
 
     &:focus {
+      --form-input-bg: #fefefe;
       transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
       border: 2px solid #8a8a8a;
       outline: none;
-      background-color: #fefefe;
       box-shadow: 0 0 5px 2px variables.$grey-light;
     }
 
@@ -163,7 +163,7 @@
       cursor: not-allowed;
       color: #63666A;
       border-color: #bababf;
-      background-color: var(--filter-input-disabled-bg) !important;
+      background-color: var(--form-input-bg-disabled) !important;
       box-shadow: none;
       -webkit-text-fill-color: #63666A;
     }
@@ -285,7 +285,7 @@
 
     &:disabled {
       cursor: not-allowed;
-      background-color: var(--filter-input-disabled-bg);
+      background-color: var(--form-input-bg-disabled);
     }
 
     &::-ms-expand {
