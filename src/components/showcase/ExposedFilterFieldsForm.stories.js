@@ -31,7 +31,7 @@ const Template = {
           <details class="filter-form__filters" id="edit-secondary">
 
             <summary role="button" aria-controls="edit-secondary" aria-expanded="true">
-              <i class="fa-solid fa-filter"></i> Filters
+             Filters
             </summary>
 
             <div class="details-wrapper">
