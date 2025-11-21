@@ -65,12 +65,13 @@ const Template = {
 
         <div class="main-panel">
 
-          <div class="filter-form element--margin__bottom--extra element--margin__top--extra">
-            <form class="uids-form form" action="/events" method="get" id="views-exposed-form-events-page-upcoming" accept-charset="UTF-8" data-drupal-form-fields="">
+          <div class="form--filter element--margin__bottom--extra element--margin__top--extra">
+            <form class="uids-form form" action="/events" method="get" id="views-exposed-form-events-page-upcoming"
+                  accept-charset="UTF-8" data-drupal-form-fields="">
 
-              <div class="filter-form__filters--wrapper element--margin__bottom">
-                <div class="filter-form__filters--label"><span>Filters</span></div>
-                <div class="filter-form__filters">
+              <div class="form--filter__filters--wrapper element--margin__bottom">
+                <div class="form--filter__filters--label"><span>Filters</span></div>
+                <div class="form--filter__filters">
 
                   <div class=" form-item">
                     <label for="edit-college">College</label>
@@ -149,10 +150,11 @@ const Template = {
 
               <div class="form-item form-type-textfield form-item-combine">
                 <label class="element-invisible" for="edit-combine">Search</label>
-                <input type="text" id="edit-combine" name="combine" value="" size="30" maxlength="128" placeholder="Search directory" class="form-text">
+                <input type="text" id="edit-combine" name="combine" value="" size="30" maxlength="128"
+                       placeholder="Search directory" class="form-text">
               </div>
 
-              <div class="filter-form__actions form-wrapper" id="edit-actions">
+              <div class="form--filter__actions form-wrapper" id="edit-actions">
                 <button type="submit" id="edit-reset" name="reset" value="Reset" class="bttn bttn--secondary">
                   <span>Reset</span>
                 </button>
@@ -183,7 +185,11 @@ const Template = {
             </template>
             <template #tbody>
               <tr>
-                <td><uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false" :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)" class="fas fa-pencil"></i></uids-button></td>
+                <td>
+                  <uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false"
+                               :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)"
+                                                                              class="fas fa-pencil"></i></uids-button>
+                </td>
                 <td>John Smith</td>
                 <td>Computer Science</td>
                 <td>Professor</td>
@@ -191,7 +197,11 @@ const Template = {
                 <td>(319) 555-0123</td>
               </tr>
               <tr>
-                <td><uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false" :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)" class="fas fa-pencil"></i></uids-button></td>
+                <td>
+                  <uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false"
+                               :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)"
+                                                                              class="fas fa-pencil"></i></uids-button>
+                </td>
                 <td>Jane Doe</td>
                 <td>Mathematics</td>
                 <td>Associate Professor</td>
@@ -199,7 +209,11 @@ const Template = {
                 <td>(319) 555-0124</td>
               </tr>
               <tr>
-                <td><uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false" :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)" class="fas fa-pencil"></i></uids-button></td>
+                <td>
+                  <uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false"
+                               :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)"
+                                                                              class="fas fa-pencil"></i></uids-button>
+                </td>
                 <td>Bob Johnson</td>
                 <td>Physics</td>
                 <td>Department Chair</td>
@@ -207,7 +221,11 @@ const Template = {
                 <td>(319) 555-0125</td>
               </tr>
               <tr>
-                <td><uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false" :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)" class="fas fa-pencil"></i></uids-button></td>
+                <td>
+                  <uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false"
+                               :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)"
+                                                                              class="fas fa-pencil"></i></uids-button>
+                </td>
                 <td>Alice Williams</td>
                 <td>Biology</td>
                 <td>Research Scientist</td>
@@ -215,7 +233,11 @@ const Template = {
                 <td>(319) 555-0126</td>
               </tr>
               <tr>
-                <td><uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false" :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)" class="fas fa-pencil"></i></uids-button></td>
+                <td>
+                  <uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false"
+                               :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)"
+                                                                              class="fas fa-pencil"></i></uids-button>
+                </td>
                 <td>Michael Chen</td>
                 <td>Chemistry</td>
                 <td>Assistant Professor</td>
@@ -223,7 +245,11 @@ const Template = {
                 <td>(319) 555-0127</td>
               </tr>
               <tr>
-                <td><uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false" :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)" class="fas fa-pencil"></i></uids-button></td>
+                <td>
+                  <uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false"
+                               :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)"
+                                                                              class="fas fa-pencil"></i></uids-button>
+                </td>
                 <td>Sarah Martinez</td>
                 <td>English Literature</td>
                 <td>Professor</td>
@@ -231,7 +257,11 @@ const Template = {
                 <td>(319) 555-0128</td>
               </tr>
               <tr>
-                <td><uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false" :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)" class="fas fa-pencil"></i></uids-button></td>
+                <td>
+                  <uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false"
+                               :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)"
+                                                                              class="fas fa-pencil"></i></uids-button>
+                </td>
                 <td>David Thompson</td>
                 <td>History</td>
                 <td>Associate Professor</td>
@@ -239,7 +269,11 @@ const Template = {
                 <td>(319) 555-0129</td>
               </tr>
               <tr>
-                <td><uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false" :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)" class="fas fa-pencil"></i></uids-button></td>
+                <td>
+                  <uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false"
+                               :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)"
+                                                                              class="fas fa-pencil"></i></uids-button>
+                </td>
                 <td>Lisa Garcia</td>
                 <td>Psychology</td>
                 <td>Clinical Professor</td>
@@ -247,7 +281,11 @@ const Template = {
                 <td>(319) 555-0130</td>
               </tr>
               <tr>
-                <td><uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false" :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)" class="fas fa-pencil"></i></uids-button></td>
+                <td>
+                  <uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false"
+                               :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)"
+                                                                              class="fas fa-pencil"></i></uids-button>
+                </td>
                 <td>Robert Anderson</td>
                 <td>Engineering</td>
                 <td>Dean</td>
@@ -255,7 +293,11 @@ const Template = {
                 <td>(319) 555-0131</td>
               </tr>
               <tr>
-                <td><uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false" :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)" class="fas fa-pencil"></i></uids-button></td>
+                <td>
+                  <uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false"
+                               :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)"
+                                                                              class="fas fa-pencil"></i></uids-button>
+                </td>
                 <td>Emily Rodriguez</td>
                 <td>Art & Design</td>
                 <td>Lecturer</td>
