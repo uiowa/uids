@@ -27,7 +27,7 @@ const Template = {
       <div class="layout-container">
 
         <div class="form--filter element--margin__bottom--extra element--margin__top--extra">
-          <form class="form" action="/events" method="get"
+          <form class="form" action="/" method="get"
                 accept-charset="UTF-8">
 
             <details class="form--filter__filters" id="edit-secondary">
@@ -145,7 +145,6 @@ const Template = {
                   </details>
                 </div>
 
-
                 <div class=" form-item">
                   <label for="edit-field-event-performer-target-id-1">Membership</label>
                   <select id="membership-type-454080" autocomplete="off" size="0">
@@ -154,7 +153,6 @@ const Template = {
                     <option value="SECONDARY">Secondary</option>
                   </select>
                 </div>
-
 
                 <div class=" form-item">
                   <label for="edit-field-event-performer-target-id-1">Person type</label>
