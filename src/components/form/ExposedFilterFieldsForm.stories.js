@@ -30,7 +30,7 @@ const Template = {
           <form class="form" action="/" method="get"
                 accept-charset="UTF-8">
 
-            <details class="form--filter__filters" id="edit-secondary">
+            <details class="form--filter__filters form--small" id="edit-secondary">
 
               <summary role="button" aria-controls="edit-secondary" aria-expanded="true">
                 Filters

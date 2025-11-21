@@ -69,11 +69,11 @@ const Template = {
             <form class="uids-form form" action="/events" method="get" id="views-exposed-form-events-page-upcoming"
                   accept-charset="UTF-8" data-drupal-form-fields="">
 
-              <div class="form--filter__filters--wrapper element--margin__bottom">
+              <div class="form--filter__filters--wrapper element--margin__bottom form--small">
                 <div class="form--filter__filters--label"><span>Filters</span></div>
                 <div class="form--filter__filters">
 
-                  <div class=" form-item">
+                  <div class="form-item">
                     <label for="edit-college">College</label>
                     <select id="edit-college" name="college" class="form-select" autocomplete="off">
                       <option selected="" value="17">Carver College of Medicine</option>
