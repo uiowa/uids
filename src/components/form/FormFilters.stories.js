@@ -6,7 +6,7 @@ import '../../scss/components/_headline.scss';
 import '../../scss/layout/_flexbox_showcase.scss';
 
 export default {
-  title: 'Showcase/Filters',
+  title: 'Components/Form/Filters',
   tags: ['!autodocs'],
   parameters: {
     docs: {
@@ -28,24 +28,16 @@ const Template = {
 
         <div class="form--filter element--margin__bottom--extra element--margin__top--extra">
           <form class="uids-form form" action="/events" method="get" id="views-exposed-form-events-page-upcoming"
-                accept-charset="UTF-8">
+                accept-charset="UTF-8" data-drupal-form-fields="">
 
-            <details class="form--filter__filters" id="edit-secondary">
-
-              <summary role="button" aria-controls="edit-secondary" aria-expanded="true">
-                Filters
-              </summary>
-
-              <div class="details-wrapper">
-
+            <div class="form--filter__filters--wrapper element--margin__bottom">
+              <div class="form--filter__filters--label"><span>Filters</span></div>
+              <div class="form--filter__filters">
 
                 <div class="form--filter__filters--details form-item">
-                  <label for="home-phone">Checkbox</label>
-
+                  <label for="home-phone">Multi select checkbox</label>
                   <details class="form-item form__details--multi-select">
-
                     <summary>Genre<span class="summary"></span></summary>
-
                     <div class="details-wrapper">
                       <div class="form-checkboxes">
                         <fieldset class="details-multi-select-checkboxes">
@@ -147,21 +139,20 @@ const Template = {
                   </details>
                 </div>
 
-
                 <div class=" form-item">
                   <label for="edit-field-event-performer-target-id-1">Membership</label>
-                  <select id="membership-type-454080" autocomplete="off" size="0">
-                    <option selected="" value="">Membership</option>
+                  <select id="membership-type-454080" autocomplete="off"
+                          class="disabled:cursor-not-allowed sm rounded text-ui-gray-900 text-opacity-40" size="0">
+                    <option selected="" value="">All</option>
                     <option value="PRIMARY">Primary</option>
                     <option value="SECONDARY">Secondary</option>
                   </select>
                 </div>
 
-
                 <div class=" form-item">
                   <label for="edit-field-event-performer-target-id-1">Person type</label>
                   <select id="edit-type" name="type" class="form-select">
-                    <option value="All" selected="selected">Person type</option>
+                    <option value="All" selected="selected">- Any -</option>
                     <option value="emeritus">Emeritus</option>
                     <option value="faculty">Faculty</option>
                     <option value="grad_assistant">Graduate Assistant</option>
@@ -171,36 +162,24 @@ const Template = {
                   </select>
                 </div>
 
-
                 <div class=" form-item">
                   <label for="edit-field-event-performer-target-id-1">Status</label>
                   <select id="edit-type" name="type" class="form-select">
-                    <option value="All" selected="selected">Status</option>
+                    <option value="All" selected="selected">- Any -</option>
                     <option value="pending">Pending</option>
                     <option value="active">Active</option>
                     <option value="retired">Retired</option>
                   </select>
                 </div>
 
-
               </div>
-            </details>
+            </div>
 
 
             <div class="form-item form-type-textfield form-item-combine">
               <label class="element-invisible" for="edit-combine">Search</label>
               <input type="text" id="edit-combine" name="combine" value="" size="30" maxlength="128"
                      placeholder="Search directory" class="form-text">
-            </div>
-
-            <div class=" form-item">
-              <label class="element-invisible" for="edit-field-event-performer-target-id-1">Status</label>
-              <select id="edit-type" name="type" class="form-select">
-                <option value="All" selected="selected">Status</option>
-                <option value="pending">Pending</option>
-                <option value="active">Active</option>
-                <option value="retired">Retired</option>
-              </select>
             </div>
 
 
@@ -213,13 +192,14 @@ const Template = {
               </button>
             </div>
 
-          </form>
 
+          </form>
         </div>
+      </div>
     `,
   }),
 }
 
-export const ExposedFilterFieldsForm = {
+export const ExposedFilterForm = {
   ...Template,
 }

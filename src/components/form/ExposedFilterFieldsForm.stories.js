@@ -6,7 +6,7 @@ import '../../scss/components/_headline.scss';
 import '../../scss/layout/_flexbox_showcase.scss';
 
 export default {
-  title: 'Showcase/Filters',
+  title: 'Components/Form/Filters',
   tags: ['!autodocs'],
   parameters: {
     docs: {
@@ -193,6 +193,17 @@ const Template = {
                      placeholder="Search directory" class="form-text">
             </div>
 
+            <div class=" form-item">
+              <label class="element-invisible" for="edit-field-event-performer-target-id-1">Status</label>
+              <select id="edit-type" name="type" class="form-select">
+                <option value="All" selected="selected">Status</option>
+                <option value="pending">Pending</option>
+                <option value="active">Active</option>
+                <option value="retired">Retired</option>
+              </select>
+            </div>
+
+
             <div class="form--filter__actions form-wrapper" id="edit-actions">
               <button type="submit" id="edit-reset" name="reset" value="Reset" class="bttn bttn--secondary">
                 <span>Reset</span>
@@ -209,6 +220,6 @@ const Template = {
   }),
 }
 
-export const ExposedFilterDetailsForm = {
+export const ExposedFilterFieldsForm = {
   ...Template,
 }
