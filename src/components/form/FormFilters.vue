@@ -20,7 +20,6 @@ const filtersEl = computed(() => {
 
 </script>
 <template>
-
   <div class="form--filter__filters--wrapper element--margin__bottom">
     <div class="form--filter__filters--label" v-if="!collapsible"><span>Filters</span></div>
     <component :is="filtersEl" class="form--filter__filters">
@@ -31,6 +30,5 @@ const filtersEl = computed(() => {
 
       <slot></slot>
     </component>
-
   </div>
 </template>

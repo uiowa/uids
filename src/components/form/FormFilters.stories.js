@@ -24,7 +24,7 @@ export default {
 };
 
 const ExampleFields = `
-            <div class="form--filter__filters--details form-item">
+            <div class="form-item form--filter__filters--details">
               <label for="home-phone">Multi select checkbox</label>
               <details class="form-item form__details--multi-select">
                 <summary>Genre<span class="summary"></span></summary>
@@ -129,18 +129,18 @@ const ExampleFields = `
               </details>
             </div>
 
-            <div class=" form-item">
-              <label for="edit-field-event-performer-target-id-1">Membership</label>
-              <select id="membership-type-454080" autocomplete="off" size="0">
+            <div class="form-item">
+              <label for="membership">Membership</label>
+              <select name="membership">
                 <option selected="" value="">Membership</option>
                 <option value="PRIMARY">Primary</option>
                 <option value="SECONDARY">Secondary</option>
               </select>
             </div>
 
-            <div class=" form-item">
-              <label for="edit-field-event-performer-target-id-1">Person type</label>
-              <select id="edit-type" name="type" class="form-select">
+            <div class="form-item">
+              <label for="person-type">Person type</label>
+              <select name="person-type" class="form-select">
                 <option value="All" selected="selected">- Any -</option>
                 <option value="emeritus">Emeritus</option>
                 <option value="faculty">Faculty</option>
@@ -151,9 +151,9 @@ const ExampleFields = `
               </select>
             </div>
 
-            <div class=" form-item">
-              <label for="edit-field-event-performer-target-id-1">Status</label>
-              <select id="edit-type" name="type" class="form-select">
+            <div class="form-item">
+              <label for="status">Status</label>
+              <select name="status" class="form-select">
                 <option value="All" selected="selected">- Any -</option>
                 <option value="pending">Pending</option>
                 <option value="active">Active</option>
@@ -174,24 +174,24 @@ const Template = {
         <form class="form form--filter" action="/" method="get"
               accept-charset="UTF-8">
 
-          <uids-form-filters
+          <uids-form-filters class="form--small"
             :collapsible="args.collapsible"
           >
             ${ExampleFields}
           </uids-form-filters>
 
-          <div class="form-item form-type-textfield form-item-combine">
-            <label class="element-invisible" for="edit-combine">Search</label>
-            <input type="text" id="edit-combine" name="combine" value="" size="30" maxlength="128"
-                   placeholder="Search directory" class="form-text">
+          <div class="form-item">
+            <label class="element-invisible" for="search">Search</label>
+            <input type="text" name="search"
+                   placeholder="Search directory">
           </div>
 
 
-          <div class="form--filter__actions form-wrapper" id="edit-actions">
-            <button type="submit" id="edit-reset" name="reset" value="Reset" class="bttn bttn--secondary">
+          <div class="form--filter__actions form-wrapper">
+            <button type="submit" name="reset" value="Reset" class="bttn bttn--secondary">
               <span>Reset</span>
             </button>
-            <button type="submit" id="edit-reset" name="search" value="Search" class="bttn bttn--primary">
+            <button type="submit" name="search" value="Search" class="bttn bttn--primary">
               <span>Search</span>
             </button>
           </div>
