@@ -27,7 +27,7 @@ const Template = {
       <div class="layout-container">
 
         <div class="form--filter element--margin__bottom--extra element--margin__top--extra">
-          <form class="uids-form form" action="/events" method="get" id="views-exposed-form-events-page-upcoming"
+          <form class="form" action="/events" method="get"
                 accept-charset="UTF-8">
 
             <details class="form--filter__filters" id="edit-secondary">
@@ -37,8 +37,6 @@ const Template = {
               </summary>
 
               <div class="details-wrapper">
-
-
                 <div class="form--filter__filters--details form-item">
                   <label for="home-phone">Checkbox</label>
 
@@ -214,8 +212,8 @@ const Template = {
             </div>
 
           </form>
-
         </div>
+      </div>
     `,
   }),
 }

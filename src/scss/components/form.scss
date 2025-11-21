@@ -6,6 +6,7 @@
   --form-input-bg: #f6f6f6;
   --form-input-bg-disabled: #f3f3f3;
   --form-input-radius: 4px;
+  --form-label-color: #{variables.$brand-cool-gray};
 
   [type='text'],
   [type='password'],
@@ -77,10 +78,11 @@
 
   // === Labels/Description === //
   label {
+    color: var(--form-label-color);
     display: block;
-    margin: 0 0 .3rem;
+    margin: 0;
     font-size: variables.$label-font-size;
-    font-weight: variables.$font-weight-bold;
+    font-weight: variables.$font-weight-normal;
     line-height: 1.8;
   }
 
@@ -279,8 +281,8 @@
   details.details-multi-select summary {
     padding: variables.$xsm;
     background-color: variables.$white;
-    @include utilities.margin(variables.$top: 0, variables.$right: 0, variables.$bottom: 1rem);
-    @include utilities.padding(variables.$right: variables.$lg, variables.$left: variables.$md);
+    @include utilities.margin($top: 0, $right: 0, $bottom: 1rem);
+    @include utilities.padding($right: variables.$lg, $left: variables.$md);
 
 
     &:disabled {

@@ -27,8 +27,8 @@ const Template = {
       <div class="layout-container">
 
         <div class="form--filter element--margin__bottom--extra element--margin__top--extra">
-          <form class="uids-form form" action="/events" method="get" id="views-exposed-form-events-page-upcoming"
-                accept-charset="UTF-8" data-drupal-form-fields="">
+          <form class="form" action="/events" method="get"
+                accept-charset="UTF-8">
 
             <div class="form--filter__filters--wrapper element--margin__bottom">
               <div class="form--filter__filters--label"><span>Filters</span></div>
@@ -191,7 +191,6 @@ const Template = {
                 <span>Search</span>
               </button>
             </div>
-
 
           </form>
         </div>
