@@ -200,7 +200,7 @@ const Template = {
             </div>
 
 
-            <div class="form--filter__actions form-wrapper" id="edit-actions">
+            <div class="form--filter__actions" id="edit-actions">
               <button type="submit" id="edit-reset" name="reset" value="Reset" class="bttn bttn--secondary">
                 <span>Reset</span>
               </button>

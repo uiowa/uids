@@ -1,5 +1,5 @@
 import UidsButton from '../button/Button.vue';
-import UidsFormFilters from './FormFilters.vue';
+import UidsFormInline from './FormInline.vue';
 
 import '../../scss/components/form.scss';
 import '../../scss/components/form-filters.scss';
@@ -20,7 +20,7 @@ export default {
     collapsible: {
       name: 'Collapsible',
     }
-  }
+  },
 };
 
 const ExampleFields = `
@@ -164,30 +164,30 @@ const ExampleFields = `
 
 const Template = {
   render: (args) => ({
-    components: { UidsButton, UidsFormFilters },
+    components: { UidsButton, UidsFormInline },
     setup() {
       return { args };
     },
     template: `
       <div class="layout-container">
 
-        <form class="form form--filter" action="/" method="get"
+        <form class="form" action="/" method="get"
               accept-charset="UTF-8">
 
-          <uids-form-filters class="form--small"
+          <uids-form-inline class="form--small"
             :collapsible="args.collapsible"
+                            label="Filters"
           >
             ${ExampleFields}
-          </uids-form-filters>
+          </uids-form-inline>
 
-          <div class="form-item">
-            <label class="element-invisible" for="search">Search</label>
-            <input type="text" name="search"
-                   placeholder="Search directory">
-          </div>
+          <div class="form--flex">
+            <div class="form-item">
+              <label class="element-invisible" for="search">Search</label>
+              <input type="text" id="search" name="search"
+                     placeholder="Search directory">
+            </div>
 
-
-          <div class="form--filter__actions form-wrapper">
             <button type="submit" name="reset" value="Reset" class="bttn bttn--secondary">
               <span>Reset</span>
             </button>
@@ -195,7 +195,6 @@ const Template = {
               <span>Search</span>
             </button>
           </div>
-
         </form>
       </div>
     `,

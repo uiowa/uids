@@ -11,6 +11,7 @@ import UidsButton from '../button/Button.vue';
 import BrandBar from '../brand-bar/BrandBar.vue';
 import UidsTable from '../table/Table.vue';
 import UidsMenu from '../menu/Menu.vue';
+import UidsFormInline from '../form/FormInline.vue'
 
 export default {
   title: 'Showcase/Application',
@@ -22,6 +23,11 @@ export default {
         code: null
       },
     },
+  },
+  argTypes: {
+    collapsible: {
+      name: 'Collapsible',
+    }
   },
 };
 
@@ -35,7 +41,7 @@ const horizontalMenuItems = [
 
 const Template = {
   render: (args) => ({
-    components: { UidsButton, BrandBar, UidsTable, UidsMenu },
+    components: { UidsButton, BrandBar, UidsTable, UidsMenu, UidsFormInline },
     setup() {
       return { args, horizontalMenuItems };
     },
@@ -61,104 +67,102 @@ const Template = {
         <div class="breadcrumb">
           Directory
         </div>
+
         <h1 class="headline headline--serif">University Directory</h1>
 
         <div class="main-panel">
 
-          <div class="form--filter element--margin__bottom--extra element--margin__top--extra">
-            <form class="uids-form form" action="/events" method="get" id="views-exposed-form-events-page-upcoming"
-                  accept-charset="UTF-8" data-drupal-form-fields="">
+          <div class="element--margin__bottom--extra element--margin__top--extra">
+            <form class="form" action="/" method="get"
+                  accept-charset="UTF-8">
 
-              <div class="form--filter__filters--wrapper element--margin__bottom form--small">
-                <div class="form--filter__filters--label"><span>Filters</span></div>
-                <div class="form--filter__filters">
+              <uids-form-inline class="form--small form--compact"
+                                label="Filters"
+                :collapsible="args.collapsible">
 
-                  <div class="form-item">
-                    <label for="edit-college">College</label>
-                    <select id="edit-college" name="college" class="form-select" autocomplete="off">
-                      <option selected="" value="17">Carver College of Medicine</option>
-                    </select>
-                  </div>
-
-                  <div class=" form-item">
-                    <label for="edit-department">Department</label>
-                    <select id="edit-department" name="department" class="form-select" autocomplete="off">
-                      <option selected="" value="">All Departments</option>
-                      <option value="3100">Anatomy and Cell Biology</option>
-                      <option value="3200">Anesthesia</option>
-                      <option value="3110">Biochemistry and Molecular Biology</option>
-                      <option value="3273">Cardiothoracic Surgery</option>
-                      <option value="3205">Dermatology</option>
-                      <option value="3272">Emergency Medicine</option>
-                      <option value="3210">Family Medicine</option>
-                      <option value="3215">Internal Medicine</option>
-                      <option value="3120">Microbiology and Immunology</option>
-                      <option value="3140">Molecular Physiology and Biophysics</option>
-                      <option value="3220">Neurology</option>
-                      <option value="3130">Neuroscience and Pharmacology</option>
-                      <option value="3271">Neurosurgery</option>
-                      <option value="3225">Obstetrics and Gynecology</option>
-                      <option value="3230">Ophthalmology and Visual Sciences</option>
-                      <option value="3240">Orthopedics and Rehabilitation</option>
-                      <option value="3245">Otolaryngology</option>
-                      <option value="3250">Pathology</option>
-                      <option value="3255">Pediatrics</option>
-                      <option value="3325">Physical Therapy and Rehabilitation Science</option>
-                      <option value="3330">Physician Assistant</option>
-                      <option value="3260">Psychiatry</option>
-                      <option value="3266">Radiation Oncology</option>
-                      <option value="3265">Radiology</option>
-                      <option value="3270">Surgery</option>
-                      <option value="3275">Urology</option>
-                    </select>
-                  </div>
-
-                  <div class=" form-item">
-                    <label for="edit-membership">Membership</label>
-                    <select id="edit-membership" name="membership" autocomplete="off" class="form-select">
-                      <option selected="" value="">All</option>
-                      <option value="PRIMARY">Primary</option>
-                      <option value="SECONDARY">Secondary</option>
-                    </select>
-                  </div>
-
-                  <div class=" form-item">
-                    <label for="edit-person-type">Person type</label>
-                    <select id="edit-person-type" name="type" class="form-select">
-                      <option value="All" selected="selected">- Any -</option>
-                      <option value="emeritus">Emeritus</option>
-                      <option value="faculty">Faculty</option>
-                      <option value="grad_assistant">Graduate Assistant</option>
-                      <option value="phd_candidate">PhD Candidate</option>
-                      <option value="staff">Staff</option>
-                      <option value="student">Student</option>
-                    </select>
-                  </div>
-
-                  <div class=" form-item">
-                    <label for="edit-status">Status</label>
-                    <select id="edit-status" name="status" class="form-select">
-                      <option value="All" selected="selected">- Any -</option>
-                      <option value="pending">Pending</option>
-                      <option value="active">Active</option>
-                      <option value="retired">Retired</option>
-                    </select>
-                  </div>
-
+                <div class="form-item">
+                  <label for="edit-college">College</label>
+                  <select id="edit-college" name="college" class="form-select" autocomplete="off">
+                    <option selected="" value="17">Carver College of Medicine</option>
+                  </select>
                 </div>
-              </div>
 
-              <div class="form-item form-type-textfield form-item-combine">
-                <label class="element-invisible" for="edit-combine">Search</label>
-                <input type="text" id="edit-combine" name="combine" value="" size="30" maxlength="128"
-                       placeholder="Search directory" class="form-text">
-              </div>
+                <div class=" form-item">
+                  <label for="edit-department">Department</label>
+                  <select id="edit-department" name="department" class="form-select" autocomplete="off">
+                    <option selected="" value="">All Departments</option>
+                    <option value="3100">Anatomy and Cell Biology</option>
+                    <option value="3200">Anesthesia</option>
+                    <option value="3110">Biochemistry and Molecular Biology</option>
+                    <option value="3273">Cardiothoracic Surgery</option>
+                    <option value="3205">Dermatology</option>
+                    <option value="3272">Emergency Medicine</option>
+                    <option value="3210">Family Medicine</option>
+                    <option value="3215">Internal Medicine</option>
+                    <option value="3120">Microbiology and Immunology</option>
+                    <option value="3140">Molecular Physiology and Biophysics</option>
+                    <option value="3220">Neurology</option>
+                    <option value="3130">Neuroscience and Pharmacology</option>
+                    <option value="3271">Neurosurgery</option>
+                    <option value="3225">Obstetrics and Gynecology</option>
+                    <option value="3230">Ophthalmology and Visual Sciences</option>
+                    <option value="3240">Orthopedics and Rehabilitation</option>
+                    <option value="3245">Otolaryngology</option>
+                    <option value="3250">Pathology</option>
+                    <option value="3255">Pediatrics</option>
+                    <option value="3325">Physical Therapy and Rehabilitation Science</option>
+                    <option value="3330">Physician Assistant</option>
+                    <option value="3260">Psychiatry</option>
+                    <option value="3266">Radiation Oncology</option>
+                    <option value="3265">Radiology</option>
+                    <option value="3270">Surgery</option>
+                    <option value="3275">Urology</option>
+                  </select>
+                </div>
 
-              <div class="form--filter__actions form-wrapper" id="edit-actions">
-                <button type="submit" id="edit-reset" name="reset" value="Reset" class="bttn bttn--secondary">
+                <div class=" form-item">
+                  <label for="edit-membership">Membership</label>
+                  <select id="edit-membership" name="membership" autocomplete="off" class="form-select">
+                    <option selected="" value="">All</option>
+                    <option value="PRIMARY">Primary</option>
+                    <option value="SECONDARY">Secondary</option>
+                  </select>
+                </div>
+
+                <div class=" form-item">
+                  <label for="edit-person-type">Person type</label>
+                  <select id="edit-person-type" name="type" class="form-select">
+                    <option value="All" selected="selected">- Any -</option>
+                    <option value="emeritus">Emeritus</option>
+                    <option value="faculty">Faculty</option>
+                    <option value="grad_assistant">Graduate Assistant</option>
+                    <option value="phd_candidate">PhD Candidate</option>
+                    <option value="staff">Staff</option>
+                    <option value="student">Student</option>
+                  </select>
+                </div>
+
+                <div class=" form-item">
+                  <label for="edit-status">Status</label>
+                  <select id="edit-status" name="status" class="form-select">
+                    <option value="All" selected="selected">- Any -</option>
+                    <option value="pending">Pending</option>
+                    <option value="active">Active</option>
+                    <option value="retired">Retired</option>
+                  </select>
+                </div>
+              </uids-form-inline>
+
+              <div class="form--flex">
+                <div class="form-item">
+                  <label class="element-invisible" for="edit-search">Search</label>
+                  <input type="text" id="edit-search" name="search" value="" size="30" maxlength="128"
+                         placeholder="Search directory">
+                </div>
+                <button type="submit" name="reset" value="Reset" class="bttn bttn--secondary">
                   <span>Reset</span>
                 </button>
-                <button type="submit" id="edit-search" name="search" value="Search" class="bttn bttn--primary">
+                <button type="submit" name="search" value="Search" class="bttn bttn--primary">
                   <span>Search</span>
                 </button>
               </div>
@@ -355,5 +359,6 @@ export const Directory = {
   ...Template,
   args: {
     showSidebar: false,
+    collapsible: false,
   },
 }

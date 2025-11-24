@@ -1,4 +1,5 @@
 import UidsForm from './Form.vue';
+import ExampleSearch from './ExampleSearch.vue';
 
 export default {
   title: 'Components/Form',
@@ -13,6 +14,23 @@ export default {
   tags: ['autodocs'],
   argTypes: {}
 };
+
+const SearchBarTemplate = {
+  render: (args) => ({
+    components: { ExampleSearch },
+    setup() {
+      return { args };
+    },
+    template: `
+      <example-search></example-search>
+    `
+  }),
+}
+
+export const SearchBar = {
+  ...SearchBarTemplate,
+}
+
 const Template = {
   render: (args) => ({
     components: {},
