@@ -22,7 +22,9 @@ const SearchBarTemplate = {
       return { args };
     },
     template: `
-      <example-search></example-search>
+      <div class="layout-container">
+        <example-search></example-search>
+      </div>
     `
   }),
 }
