@@ -200,11 +200,11 @@ const Template = {
               </div>
 
               <div class="form-actions">
-                <button type="submit" name="reset" value="Reset" class="bttn bttn--secondary">
-                  <span>Reset</span>
-                </button>
                 <button type="submit" name="search" value="Search" class="bttn bttn--primary">
                   <span>Search</span>
+                </button>
+                <button type="submit" name="reset" value="Reset" class="bttn bttn--secondary">
+                  <span>Reset</span>
                 </button>
               </div>
             </div>
