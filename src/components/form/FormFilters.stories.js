@@ -182,7 +182,7 @@ const Template = {
         <form class="form" action="/" method="get"
               accept-charset="UTF-8">
 
-          <component :is="filterComponent" class="flex form--small form--compact"
+          <component :is="filterComponent" class="form--inline form--inline--nowrap form--small form--compact"
                               label="Filters"
           >
 
