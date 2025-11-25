@@ -11,7 +11,7 @@ import UidsButton from '../button/Button.vue';
 import BrandBar from '../brand-bar/BrandBar.vue';
 import UidsTable from '../table/Table.vue';
 import UidsMenu from '../menu/Menu.vue';
-import UidsFormInline from '../form/FormInline.vue'
+import UidsFormFieldset from '../form/FormFieldset.vue'
 
 export default {
   title: 'Showcase/Application',
@@ -41,7 +41,7 @@ const horizontalMenuItems = [
 
 const Template = {
   render: (args) => ({
-    components: { UidsButton, BrandBar, UidsTable, UidsMenu, UidsFormInline },
+    components: { UidsButton, BrandBar, UidsTable, UidsMenu, UidsFormFieldset },
     setup() {
       return { args, horizontalMenuItems };
     },
@@ -76,9 +76,10 @@ const Template = {
             <form class="form" action="/" method="get"
                   accept-charset="UTF-8">
 
-              <uids-form-inline class="form--small form--compact"
-                                label="Filters"
-                :collapsible="args.collapsible">
+              <uids-form-fieldset class="form--inline form--small form--compact"
+                                  label="Filters"
+                                  inline_label
+              >
 
                 <div class="form-item">
                   <label for="edit-college">College</label>
@@ -151,20 +152,22 @@ const Template = {
                     <option value="retired">Retired</option>
                   </select>
                 </div>
-              </uids-form-inline>
+              </uids-form-fieldset>
 
-              <div class="form--flex">
+              <div class="form--flex form--compact">
                 <div class="form-item">
                   <label class="element-invisible" for="edit-search">Search</label>
                   <input type="text" id="edit-search" name="search" value="" size="30" maxlength="128"
                          placeholder="Search directory">
                 </div>
-                <button type="submit" name="reset" value="Reset" class="bttn bttn--secondary">
-                  <span>Reset</span>
-                </button>
-                <button type="submit" name="search" value="Search" class="bttn bttn--primary">
-                  <span>Search</span>
-                </button>
+                <div class="form-actions">
+                  <button type="submit" name="reset" value="Reset" class="bttn bttn--secondary">
+                    <span>Reset</span>
+                  </button>
+                  <button type="submit" name="search" value="Search" class="bttn bttn--primary">
+                    <span>Search</span>
+                  </button>
+                </div>
               </div>
 
             </form>

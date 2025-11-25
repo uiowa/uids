@@ -483,47 +483,60 @@ details.form__details--multi-select {
 }
 
 .form--compact {
-  .form-item {
+  .form-item,
+  .form-actions {
     margin-block-end: 0;
     margin-block-start: 0;
   }
 }
 
+.form--flex,
 .form--inline {
+  @include utilities.container-query() {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: var(--form-item-gap);
+    reading-flow: flex-visual;
+    row-gap: var(--form-item-gap);
+    width: 100%;
 
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: var(--form-item-gap);
-  reading-flow: flex-visual;
-  row-gap: var(--form-item-gap);
-  width: 100%;
+    .form-item {
+      input,
+      select {
+        margin: 0;
+      }
+    }
 
-  .form-item {
-    flex: unset;
+    .details-wrapper,
+    .form-actions {
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: var(--form-item-gap);
+      reading-flow: flex-visual;
+      row-gap: var(--form-item-gap);
+    }
+  }
+}
 
-    input,
-    select {
-      margin: 0;
+.form--inline {
+  @include utilities.container-query() {
+    .form-item,
+    .form-actions {
+      flex: unset;
+    }
+    .details-wrapper .form-item {
+      flex: unset;
     }
   }
 }
 
 .form--flex {
-  --form-item-gap: 1rem;
-
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: var(--form-item-gap);
-  reading-flow: flex-visual;
-  row-gap: var(--form-item-gap);
-  width: 100%;
-
-  .form-item {
-    flex: 1;
-
-    input,
-    select {
-      margin: 0;
+  @include utilities.container-query() {
+    .form-item {
+      flex: 1;
+    }
+    .details-wrapper .form-item {
+      flex: 1;
     }
   }
 }

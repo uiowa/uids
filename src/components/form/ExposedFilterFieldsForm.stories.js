@@ -26,7 +26,7 @@ const Template = {
     template: `
       <div class="layout-container">
 
-        <div class="form--filter element--margin__bottom--extra element--margin__top--extra">
+        <div class="element--margin__bottom--extra element--margin__top--extra">
           <form class="form" action="/" method="get"
                 accept-charset="UTF-8">
 
@@ -182,31 +182,31 @@ const Template = {
               </div>
             </details>
 
+            <div class="form--flex">
+              <div class="form-item form-type-textfield form-item-combine">
+                <label class="element-invisible" for="edit-combine">Search</label>
+                <input type="text" id="edit-combine" name="combine" value="" size="30" maxlength="128"
+                       placeholder="Search directory" class="form-text">
+              </div>
 
-            <div class="form-item form-type-textfield form-item-combine">
-              <label class="element-invisible" for="edit-combine">Search</label>
-              <input type="text" id="edit-combine" name="combine" value="" size="30" maxlength="128"
-                     placeholder="Search directory" class="form-text">
-            </div>
+              <div class=" form-item">
+                <label class="element-invisible" for="edit-field-event-performer-target-id-1">Status</label>
+                <select id="edit-type" name="type" class="form-select">
+                  <option value="All" selected="selected">Status</option>
+                  <option value="pending">Pending</option>
+                  <option value="active">Active</option>
+                  <option value="retired">Retired</option>
+                </select>
+              </div>
 
-            <div class=" form-item">
-              <label class="element-invisible" for="edit-field-event-performer-target-id-1">Status</label>
-              <select id="edit-type" name="type" class="form-select">
-                <option value="All" selected="selected">Status</option>
-                <option value="pending">Pending</option>
-                <option value="active">Active</option>
-                <option value="retired">Retired</option>
-              </select>
-            </div>
-
-
-            <div class="form--filter__actions" id="edit-actions">
-              <button type="submit" id="edit-reset" name="reset" value="Reset" class="bttn bttn--secondary">
-                <span>Reset</span>
-              </button>
-              <button type="submit" id="edit-reset" name="search" value="Search" class="bttn bttn--primary">
-                <span>Search</span>
-              </button>
+              <div class="form-actions">
+                <button type="submit" name="reset" value="Reset" class="bttn bttn--secondary">
+                  <span>Reset</span>
+                </button>
+                <button type="submit" name="search" value="Search" class="bttn bttn--primary">
+                  <span>Search</span>
+                </button>
+              </div>
             </div>
 
           </form>
