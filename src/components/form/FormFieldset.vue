@@ -13,6 +13,8 @@ const props = defineProps({
 <template>
   <fieldset>
     <legend v-if="label" v-html="label"></legend>
+    <div class="form--inline">
     <slot></slot>
+    </div>
   </fieldset>
 </template>
