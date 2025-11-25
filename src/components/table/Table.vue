@@ -41,7 +41,7 @@ const tableClasses = computed(() => {
 </script>
 
 <template>
-  <div class="table-responsive" :class="{ 'table--sticky': props.sticky }">
+  <div class="table-responsive" :class="{ 'table-sticky': props.sticky }">
     <table :class="tableClasses" class="table" :summary="summary">
       <caption>{{ caption }}</caption>
       <thead>
