@@ -46,6 +46,7 @@ const Template = {
       return { args, horizontalMenuItems };
     },
     template: `
+      <main>
       <brand-bar
         :narrow='true'
         :healthcare='false'
@@ -353,6 +354,7 @@ const Template = {
           </nav>
         </div>
       </div>
+      </main>
     `,
   }),
 }
