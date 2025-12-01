@@ -145,18 +145,18 @@ const Template = {
                   </details>
                 </div>
 
-                <div class=" form-item">
-                  <label for="edit-field-event-performer-target-id-1">Membership</label>
-                  <select id="membership-type-454080" autocomplete="off" size="0">
+                <div class="form-item">
+                  <label for="membership-type">Membership</label>
+                  <select id="membership-type" autocomplete="off" size="0">
                     <option selected="" value="">Membership</option>
                     <option value="PRIMARY">Primary</option>
                     <option value="SECONDARY">Secondary</option>
                   </select>
                 </div>
 
-                <div class=" form-item">
-                  <label for="edit-field-event-performer-target-id-1">Person type</label>
-                  <select id="edit-type" name="type" class="form-select">
+                <div class="form-item">
+                  <label for="person-type">Person type</label>
+                  <select id="person-type" name="type" class="form-select">
                     <option value="All" selected="selected">Person type</option>
                     <option value="emeritus">Emeritus</option>
                     <option value="faculty">Faculty</option>
@@ -169,8 +169,8 @@ const Template = {
 
 
                 <div class=" form-item">
-                  <label for="edit-field-event-performer-target-id-1">Status</label>
-                  <select id="edit-type" name="type" class="form-select">
+                  <label for="status-type">Status</label>
+                  <select id="status-type" name="type" class="form-select">
                     <option value="All" selected="selected">Status</option>
                     <option value="pending">Pending</option>
                     <option value="active">Active</option>
@@ -190,7 +190,7 @@ const Template = {
               </div>
 
               <div class=" form-item">
-                <label class="element-invisible" for="edit-field-event-performer-target-id-1">Status</label>
+                <label class="element-invisible" for="edit-type">Status</label>
                 <select id="edit-type" name="type" class="form-select">
                   <option value="All" selected="selected">Status</option>
                   <option value="pending">Pending</option>
