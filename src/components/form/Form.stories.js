@@ -71,6 +71,31 @@ const Template = {
       </div>
     </div>
 
+    <fieldset>
+      <legend>Fieldset</legend>
+      <div class="form-item">
+        <label class="form-required" for="email">Email</label>
+        <input id="email" maxlength="255" type="email">
+      </div>
+
+      <div class="form-item">
+        <label for="home-phone">Phone</label>
+        <input id="home-phone" maxlength="12" type="tel">
+      </div>
+
+      <div class="form-item">
+        <label>Radio</label>
+        <div class="form-type-radio form-item">
+          <input id="text-permission-yes" type="radio" name="permissionToText" value="true">
+          <label for="text-permission-yes" class="radio">Yes</label>
+        </div>
+        <div class="form-type-radio form-item">
+          <input id="text-permission-no" type="radio" name="permissionToText" value="false">
+          <label for="text-permission-no" class="radio">No</label>
+        </div>
+      </div>
+    </fieldset>
+
     <div class="form-item">
       <label class="form-required" for="state">Select</label>
       <select id="state">
