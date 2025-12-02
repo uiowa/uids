@@ -16,8 +16,8 @@ export default {
     section1_compact: {
       name: 'Compact',
     },
-    section1_small: {
-      name: 'Small',
+    section1_large: {
+      name: 'Large',
     },
     section1_inline: {
       name: 'Inline',
@@ -55,8 +55,8 @@ const Template = {
     computed: {
       formSection1Classes() {
         let classes = [];
-        if (args.section1_small) {
-          classes.push('form--small');
+        if (args.section1_large) {
+          classes.push('form--large');
         }
         if (args.section1_compact) {
           classes.push('form--compact');
@@ -103,31 +103,6 @@ const Template = {
         <label for="text-permission-no" class="radio">No</label>
       </div>
     </div>
-
-    <fieldset>
-      <legend>Fieldset</legend>
-      <div class="form-item">
-        <label class="form-required" for="email">Email</label>
-        <input id="email" maxlength="255" type="email">
-      </div>
-
-      <div class="form-item">
-        <label for="home-phone">Phone</label>
-        <input id="home-phone" maxlength="12" type="tel">
-      </div>
-
-      <div class="form-item">
-        <label>Radio</label>
-        <div class="form-type-radio form-item">
-          <input id="text-permission-yes" type="radio" name="permissionToText" value="true">
-          <label for="text-permission-yes" class="radio">Yes</label>
-        </div>
-        <div class="form-type-radio form-item">
-          <input id="text-permission-no" type="radio" name="permissionToText" value="false">
-          <label for="text-permission-no" class="radio">No</label>
-        </div>
-      </div>
-    </fieldset>
 
     <div class="form-item">
       <label class="form-required" for="state">Select</label>
@@ -472,7 +447,7 @@ const Template = {
 export const KitchenSink = {
   ...Template,
   args: {
-    section1_small: false,
+    section1_large: false,
     section1_compact: false,
     section1_inline: false,
     section1_flex: false,
