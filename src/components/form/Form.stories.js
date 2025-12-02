@@ -72,9 +72,9 @@ const Template = {
     },
     template: `
 <div class="layout-container">
-  <form class="form" method="POST" action="">
+  <form class="form" method="POST" action="" :class="formSection1Classes">
 
-    <div :class="formSection1Classes">
+
       <div class="form-item">
         <label class="form-required" for="last-name">Text</label>
         <input id="last-name" maxlength="50" type="text">
@@ -90,7 +90,6 @@ const Template = {
         <label for="home-phone">Phone</label>
         <input id="home-phone" maxlength="12" type="tel">
       </div>
-    </div>
 
     <div class="form-item">
       <label>Radio</label>
