@@ -1,4 +1,3 @@
-import UidsForm from './Form.vue';
 import ExampleSearch from './ExampleSearch.vue';
 
 export default {
@@ -10,7 +9,6 @@ export default {
       },
     }
   },
-  component: UidsForm,
   tags: ['autodocs'],
   argTypes: {
     section1_compact: {

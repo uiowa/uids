@@ -1,10 +1,4 @@
-import UidsButton from '../button/Button.vue';
 import ExampleFiltersForm from "./ExampleFiltersForm.vue";
-
-import '../../scss/components/form.scss';
-import '../../scss/components/form-filters.scss';
-import '../../scss/components/_headline.scss';
-import '../../scss/layout/_flexbox_showcase.scss';
 
 export default {
   components: { ExampleFiltersForm },
