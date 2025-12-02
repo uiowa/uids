@@ -3,7 +3,6 @@ import '../../scss/components/_border.scss';
 import '../../scss/components/_headline.scss';
 import '../../scss/components/form.scss';
 import '../../scss/components/pager.scss';
-import '../../scss/components/form-filters.scss';
 import '../../scss/layout/_flexbox.scss';
 import '../../scss/layout/_grid.scss';
 
