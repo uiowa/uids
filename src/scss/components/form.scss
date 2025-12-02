@@ -7,10 +7,12 @@
   --form-input-bg-disabled: #e1e1e1;
   --form-input-fg-disabled: #484741;
   --form-input-radius: 3px;
+  --form-label-font-size: #{variables.$label-font-size};
   --form-label-color: #{variables.$secondary};
   --form-text-color: #{variables.$secondary};
   --form-input-padding: 0.5rem;
   --form-input-height: 2.9rem;
+  --form-input-font-size: 1rem;
   --form-item-gap: 1rem;
   --form-section-border-color: #{variables.$grey-light};
 
@@ -37,7 +39,7 @@
     color: var(--brand-secondary);
     display: block;
     font-family: inherit;
-    font-size: 1rem;
+    font-size: var(--form-input-font-size);
     font-weight: normal;
     width: 100%;
     line-height: 1.5;
@@ -86,13 +88,13 @@
     color: var(--form-label-color);
     display: block;
     margin: 0;
-    font-size: variables.$label-font-size;
+    font-size: var(--form-label-font-size);
     font-weight:  variables.$font-weight-bold;
     line-height: 1.8;
   }
 
   .form-item:has(input[type="checkbox"]) label {
-    font-size: inherit;
+    font-size: var(--form-input-font-size);
   }
 
   label.form-required {
@@ -116,7 +118,7 @@
   }
 
   .description {
-    font-size: 0.9rem;
+    font-size: var(--form-label-font-size);
     line-height: 1.4;
     clear: both;
     margin: variables.$xsm 0 variables.$md;
@@ -229,6 +231,10 @@
     flex-wrap: wrap;
     align-items: flex-start;
 
+    label {
+      line-height: 1.4;
+    }
+
     &[class*='side'] {
       display: inline-flex;
 
@@ -312,7 +318,6 @@
   select[multiple] {
     border: 1px solid variables.$grey;
     padding: 0.5rem;
-    font-size: 1.25rem;
     cursor: pointer;
     line-height: 1.1;
     background-color: #fff;
@@ -321,7 +326,6 @@
 
     option {
       white-space: normal;
-      font-size: 1.1rem;
       padding: .5rem .5rem .5rem .75rem;
     }
 
@@ -344,7 +348,7 @@
 
     legend {
       display: block;
-      font-size: variables.$label-font-size;
+      font-size: var(--form-label-font-size);
       font-weight: variables.$font-weight-bold;
       line-height: 1.6;
     }
@@ -417,6 +421,10 @@ label {
 // === End: Switch checkbox === //
 
 // === Details === //
+ details.form-item.form__details--multi-select {
+  margin-top: 0;
+}
+
 details.form__details--multi-select {
   position: relative;
 
@@ -467,7 +475,7 @@ details.form__details--multi-select {
     flex-direction: column;
     padding: 0;
     position: absolute;
-    top: calc(3.5rem - 1px);
+    top: calc(var(--form-input-height) - 1px);
     width: calc(100% - 2px);
     z-index: 500;
     background: variables.$white;
@@ -491,6 +499,7 @@ details.form__details--multi-select {
 
 .form--large {
   --form-input-height: 3.5rem;
+  --form-input-font-size: 1.2rem;
   //font-size: 1rem;
 
   label,
@@ -498,10 +507,14 @@ details.form__details--multi-select {
     font-size: inherit;
   }
 
+  details.form__details--multi-select summary {
+    padding-inline-start: .75rem;
+  }
+
   .form-item {
+    &:has(input[type=checkbox]) label,
     input,
     select {
-      font-size: 1.2rem;
       padding-inline-start: .75rem;
     }
   }
