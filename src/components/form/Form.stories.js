@@ -148,21 +148,21 @@ const Template = {
         </select>
       </div>
 
-    <div class="form-item">
-      <label>Radio</label>
+    <fieldset>
+      <legend>Radio</legend>
       <div class="form-type-radio form-item">
-        <input id="text-permission-yes" type="radio" name="permissionToText" value="true">
+        <input id="text-permission-yes" type="radio" name="permissionYes" value="true">
         <label for="text-permission-yes" class="radio">Yes</label>
       </div>
       <div class="form-type-radio form-item">
-        <input id="text-permission-no" type="radio" name="permissionToText" value="false">
+        <input id="text-permission-no" type="radio" name="permissionNo" value="false">
         <label for="text-permission-no" class="radio">No</label>
       </div>
-    </div>
+    </fieldset>
 
     <div class="form-item">
-      <label class="form-required" for="state">Select</label>
-      <select id="state">
+      <label class="form-required" for="states">Select</label>
+      <select id="states">
         <option value="">- None -</option>
         <option value="AL">Alabama</option>
         <option value="AK">Alaska</option>
