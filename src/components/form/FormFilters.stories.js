@@ -259,7 +259,7 @@ const Template = {
             </div>
           </component>
 
-          <div class="form--flex form--compact">
+          <div class="form--flex form--large form--compact">
             <div class="form-item">
               <label class="element-invisible" for="edit-search">Search</label>
               <input type="text" id="edit-search" name="search" value="" size="30" maxlength="128"
