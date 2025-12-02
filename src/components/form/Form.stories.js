@@ -12,7 +12,20 @@ export default {
   },
   component: UidsForm,
   tags: ['autodocs'],
-  argTypes: {}
+  argTypes: {
+    section1_compact: {
+      name: 'Compact',
+    },
+    section1_small: {
+      name: 'Small',
+    },
+    section1_inline: {
+      name: 'Inline',
+    },
+    section1_flex: {
+      name: 'Flex',
+    },
+  }
 };
 
 const SearchBarTemplate = {
@@ -39,24 +52,44 @@ const Template = {
     setup() {
       return { args };
     },
+    computed: {
+      formSection1Classes() {
+        let classes = [];
+        if (args.section1_small) {
+          classes.push('form--small');
+        }
+        if (args.section1_compact) {
+          classes.push('form--compact');
+        }
+        if (args.section1_inline) {
+          classes.push('form--inline');
+        }
+        if (args.section1_flex) {
+          classes.push('form--flex');
+        }
+        return classes;
+      },
+    },
     template: `
 <div class="layout-container">
   <form class="form" method="POST" action="">
 
-    <div class="form-item">
-      <label class="form-required" for="last-name">Text</label>
-      <input id="last-name" maxlength="50" type="text">
-      <div class="description">Description</div>
-    </div>
+    <div :class="formSection1Classes">
+      <div class="form-item">
+        <label class="form-required" for="last-name">Text</label>
+        <input id="last-name" maxlength="50" type="text">
+        <div class="description">Description</div>
+      </div>
 
-    <div class="form-item">
-      <label class="form-required" for="email">Email</label>
-      <input id="email" maxlength="255" type="email">
-    </div>
+      <div class="form-item">
+        <label class="form-required" for="email">Email</label>
+        <input id="email" maxlength="255" type="email">
+      </div>
 
-    <div class="form-item">
-      <label for="home-phone">Phone</label>
-      <input id="home-phone" maxlength="12" type="tel">
+      <div class="form-item">
+        <label for="home-phone">Phone</label>
+        <input id="home-phone" maxlength="12" type="tel">
+      </div>
     </div>
 
     <div class="form-item">
@@ -438,4 +471,10 @@ const Template = {
 
 export const KitchenSink = {
   ...Template,
+  args: {
+    section1_small: false,
+    section1_compact: false,
+    section1_inline: false,
+    section1_flex: false,
+  }
 }

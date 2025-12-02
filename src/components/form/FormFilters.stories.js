@@ -20,7 +20,7 @@ export default {
   argTypes: {
     collapsible: {
       name: 'Collapsible',
-    }
+    },
   },
 };
 
