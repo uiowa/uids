@@ -50,8 +50,7 @@ export const SearchBar = {
 
 const Template = {
   render: (args) => ({
-    components: { UidsFormFieldset, UidsFormRadio, UidsFormCheckbox },
-    components: { UidsFormItem },
+    components: { UidsFormFieldset, UidsFormRadio, UidsFormCheckbox, UidsFormItem  },
     setup() {
       return { args };
     },
@@ -157,32 +156,35 @@ const Template = {
             </select>
           </div>
 
-          <fieldset>
-            <legend>Radio</legend>
-            <div class="form-type-radio form-item">
-              <input id="text-permission-yes" type="radio" name="permissionYes" value="true">
-              <label for="text-permission-yes" class="radio">Yes</label>
-            </div>
-            <div class="form-type-radio form-item">
-              <input id="text-permission-no" type="radio" name="permissionNo" value="false">
-              <label for="text-permission-no" class="radio">No</label>
-            </div>
-          </fieldset>
-    <UidsFormFieldset label="Radio">
-      <UidsFormRadio
-        id="text-permission-yes"
-        name="permission"
-        value="true"
-        label="Yes"
-      />
-      <UidsFormRadio
-        id="text-permission-no"
-        name="permission"
-        value="false"
-        label="No"
-      />
-    </UidsFormFieldset>
+          <UidsFormFieldset label="Radio">
+            <UidsFormRadio
+              id="text-permission-yes"
+              name="permission"
+              value="true"
+              label="Yes"
+            />
+            <UidsFormRadio
+              id="text-permission-no"
+              name="permission"
+              value="false"
+              label="No"
+            />
+          </UidsFormFieldset>
 
+          <UidsFormFieldset label="Radio inline" inline>
+            <UidsFormRadio
+              id="text-permission-yes"
+              name="permission"
+              value="true"
+              label="Yes"
+            />
+            <UidsFormRadio
+              id="text-permission-no"
+              name="permission"
+              value="false"
+              label="No"
+            />
+          </UidsFormFieldset>
 
           <div class="form-item">
             <label class="form-required" for="states">Select</label>
@@ -247,7 +249,6 @@ const Template = {
             <label class="form-required" for="birth-date">Date</label>
             <input id="birth-date" type="date">
           </div>
-
 
           <label for="home-phone">Multi select checkbox</label>
           <details class="form-item form__details--multi-select">
@@ -370,110 +371,39 @@ const Template = {
             <div id="edit-textarea--description" class="description">Textarea description goes here.</div>
           </div>
 
-          <fieldset>
-            <legend>
-              <span class="fieldset-legend">Checkbox</span>
-            </legend>
-            <div>
-              <div class="form-type-checkbox form-item">
-                <input id="financial-aid" type="checkbox" value="FINANCIAL_AID">
-                <label for="financial-aid" class="checkbox">Costs & Financial Aid</label>
-              </div>
-              <div class="form-type-checkbox form-item">
-                <input id="marching-band" type="checkbox" value="MARCHING_BAND">
-                <label for="marching-band" class="checkbox">Hawkeye Marching Band</label>
-              </div>
-              <div class="form-type-checkbox form-item">
-                <input id="rotc-air-force" type="checkbox" value="ROTC_AIR_FORCE">
-                <label for="rotc-air-force" class="checkbox">ROTC - Air Force (Aerospace Studies)</label>
-              </div>
-              <div class="form-type-checkbox form-item">
-                <input id="rotc-army" type="checkbox" value="ROTC_ARMY">
-                <label for="rotc-army" class="checkbox">ROTC - Army (Military Science)</label>
-              </div>
-              <div class="form-type-checkbox form-item">
-                <input id="study-abroad" type="checkbox" value="STUDY_ABROAD">
-                <label for="study-abroad" class="checkbox">Study Abroad</label>
-              </div>
-              <div class="form-type-checkbox form-item">
-                <input id="band" type="checkbox" value="BAND">
-                <label for="band" class="checkbox">University Concert Bands and Jazz Bands</label>
-              </div>
-              <div class="form-type-checkbox form-item">
-                <input id="honors" type="checkbox" value="HONORS">
-                <label for="honors" class="checkbox">University Honors Program</label>
-              </div>
-              <div class="form-type-checkbox form-item">
-                <input id="veteran-services" type="checkbox" value="VETERAN_SERVICES">
-                <label for="veteran-services" class="checkbox">Veteran & Military Connected Student Services</label>
-              </div>
-            </div>
-          </fieldset>
+          <UidsFormFieldset label="Checkbox">
+            <UidsFormCheckbox id="financial-aid" value="FINANCIAL_AID" label="Costs & Financial Aid" />
+            <UidsFormCheckbox id="marching-band" value="MARCHING_BAND" label="Hawkeye Marching Band" />
+            <UidsFormCheckbox id="rotc-air-force" value="ROTC_AIR_FORCE" label="ROTC - Air Force (Aerospace Studies)" />
+            <UidsFormCheckbox id="rotc-army" value="ROTC_ARMY" label="ROTC - Army (Military Science)" />
+            <UidsFormCheckbox id="study-abroad" value="STUDY_ABROAD" label="Study Abroad" />
+            <UidsFormCheckbox id="band" value="BAND" label="University Concert Bands and Jazz Bands" />
+            <UidsFormCheckbox id="honors" value="HONORS" label="University Honors Program" />
+            <UidsFormCheckbox id="veteran-services" value="VETERAN_SERVICES" label="Veteran & Military Connected Student Services" />
+          </UidsFormFieldset>
 
-          <fieldset>
-            <legend>
-              <span class="fieldset-legend">Checkbox inline</span>
-            </legend>
-            <div>
-              <div class="form-type-checkbox form-type-checkbox--side form-item">
-                <input id="financial-aid-2" type="checkbox" value="FINANCIAL_AID">
-                <label for="financial-aid-2" class="checkbox">Costs & Financial Aid</label>
-              </div>
-              <div class="form-type-checkbox form-type-checkbox--side form-item">
-                <input id="marching-band-2" type="checkbox" value="MARCHING_BAND">
-                <label for="marching-band-2" class="checkbox">Hawkeye Marching Band</label>
-              </div>
-              <div class="form-type-checkbox form-type-checkbox--side form-item">
-                <input id="rotc-air-force-2" type="checkbox" value="ROTC_AIR_FORCE">
-                <label for="rotc-air-force-2" class="checkbox">ROTC - Air Force (Aerospace Studies)</label>
-              </div>
-              <div class="form-type-checkbox form-type-checkbox--side form-item">
-                <input id="rotc-army-2" type="checkbox" value="ROTC_ARMY">
-                <label for="rotc-army-2" class="checkbox">ROTC - Army (Military Science)</label>
-              </div>
-              <div class="form-type-checkbox form-type-checkbox--side form-item">
-                <input id="study-abroad-2" type="checkbox" value="STUDY_ABROAD">
-                <label for="study-abroad-2" class="checkbox">Study Abroad</label>
-              </div>
-              <div class="form-type-checkbox form-type-checkbox--side form-item">
-                <input id="band-2" type="checkbox" value="BAND">
-                <label for="band-2" class="checkbox">University Concert Bands and Jazz Bands</label>
-              </div>
-              <div class="form-type-checkbox form-type-checkbox--side form-item">
-                <input id="honors-2" type="checkbox" value="HONORS">
-                <label for="honors-2" class="checkbox">University Honors Program</label>
-              </div>
-              <div class="form-type-checkbox form-type-checkbox--side form-item">
-                <input id="veteran-services-2" type="checkbox" value="VETERAN_SERVICES">
-                <label for="veteran-services-2" class="checkbox">Veteran & Military Connected Student Services</label>
-              </div>
-            </div>
-          </fieldset>
+          <UidsFormFieldset label="Checkbox inline">
+            <UidsFormCheckbox id="financial-aid-2" value="FINANCIAL_AID" label="Costs & Financial Aid" inline />
+            <UidsFormCheckbox id="marching-band-2" value="MARCHING_BAND" label="Hawkeye Marching Band" inline />
+            <UidsFormCheckbox id="rotc-air-force-2" value="ROTC_AIR_FORCE" label="ROTC - Air Force (Aerospace Studies)" inline />
+            <UidsFormCheckbox id="rotc-army-2" value="ROTC_ARMY" label="ROTC - Army (Military Science)" inline />
+            <UidsFormCheckbox id="study-abroad-2" value="STUDY_ABROAD" label="Study Abroad" inline />
+            <UidsFormCheckbox id="band-2" value="BAND" label="University Concert Bands and Jazz Bands" inline />
+            <UidsFormCheckbox id="honors-2" value="HONORS" label="University Honors Program" inline />
+            <UidsFormCheckbox id="veteran-services-2" value="VETERAN_SERVICES" label="Veteran & Military Connected Student Services" inline />
+          </UidsFormFieldset>
+
+          <hr />
+
+          <UidsFormCheckbox
+            id="agree-terms"
+            name="terms"
+            value="true"
+            label="I agree to the terms and conditions"
+          />
+
         </form>
       </div>
-    <UidsFormFieldset label="Checkbox">
-      <UidsFormCheckbox id="financial-aid" value="FINANCIAL_AID" label="Costs & Financial Aid" />
-      <UidsFormCheckbox id="marching-band" value="MARCHING_BAND" label="Hawkeye Marching Band" />
-      <UidsFormCheckbox id="rotc-air-force" value="ROTC_AIR_FORCE" label="ROTC - Air Force (Aerospace Studies)" />
-      <UidsFormCheckbox id="rotc-army" value="ROTC_ARMY" label="ROTC - Army (Military Science)" />
-      <UidsFormCheckbox id="study-abroad" value="STUDY_ABROAD" label="Study Abroad" />
-      <UidsFormCheckbox id="band" value="BAND" label="University Concert Bands and Jazz Bands" />
-      <UidsFormCheckbox id="honors" value="HONORS" label="University Honors Program" />
-      <UidsFormCheckbox id="veteran-services" value="VETERAN_SERVICES" label="Veteran & Military Connected Student Services" />
-    </UidsFormFieldset>
-
-    <UidsFormFieldset label="Checkbox inline" inline>
-      <UidsFormCheckbox id="financial-aid-2" value="FINANCIAL_AID" label="Costs & Financial Aid" inline />
-      <UidsFormCheckbox id="marching-band-2" value="MARCHING_BAND" label="Hawkeye Marching Band" inline />
-      <UidsFormCheckbox id="rotc-air-force-2" value="ROTC_AIR_FORCE" label="ROTC - Air Force (Aerospace Studies)" inline />
-      <UidsFormCheckbox id="rotc-army-2" value="ROTC_ARMY" label="ROTC - Army (Military Science)" inline />
-      <UidsFormCheckbox id="study-abroad-2" value="STUDY_ABROAD" label="Study Abroad" inline />
-      <UidsFormCheckbox id="band-2" value="BAND" label="University Concert Bands and Jazz Bands" inline />
-      <UidsFormCheckbox id="honors-2" value="HONORS" label="University Honors Program" inline />
-      <UidsFormCheckbox id="veteran-services-2" value="VETERAN_SERVICES" label="Veteran & Military Connected Student Services" inline />
-    </UidsFormFieldset>
-  </form>
-</div>
     `,
   }),
 }
