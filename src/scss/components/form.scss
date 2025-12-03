@@ -15,6 +15,7 @@
   --form-input-font-size: 1rem;
   --form-item-gap: 1rem;
   --form-section-border-color: #{variables.$grey-light};
+  --form-input-outline-color: #{variables.$grey-light};
 
   input,
   select,
@@ -32,7 +33,7 @@
   details.form__details--multi-select summary {
     appearance: none;
     background-color: var(--form-input-bg);
-    border: 1px solid variables.$grey-light;
+    border: none;
     border-radius: var(--form-input-radius);
     box-shadow: inset 0 1px 3px rgba(10, 10, 10, 0.15);
     box-sizing: border-box;
@@ -44,24 +45,24 @@
     width: 100%;
     line-height: 1.5;
     margin: 0 0 1rem;
+    outline: 1px solid var(--form-input-outline-color);
     padding: var(--form-input-padding);
     transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
 
     &:focus {
       --form-input-bg: #fefefe;
-      transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
-      border: 2px solid #8a8a8a;
-      outline: none;
+      --form-input-outline-color: #8a8a8a;
       box-shadow: 0 0 5px 2px variables.$grey-light;
+      outline-width: 2px;
+      transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
     }
 
     // Error styles.
     &.error {
-      border: 1px solid variables.$danger;
-      background-color: variables.$danger-light;
+      --form-input-outline-color: #{variables.$danger};
+      --form-input-bg: #{variables.$danger-light};
 
       &:focus {
-        border: 2px solid variables.$danger;
         box-shadow: 0 0 5px 2px variables.$danger-light;
       }
     }
