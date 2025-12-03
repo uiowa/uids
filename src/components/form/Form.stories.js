@@ -1,7 +1,5 @@
 import ExampleSearch from './ExampleSearch.vue';
 import UidsFormFieldset from './FormFieldset.vue';
-import UidsFormRadio from './FormRadio.vue';
-import UidsFormCheckbox from './FormCheckbox.vue';
 import UidsFormItem from './FormItem.vue'
 import UidsFormRadioOrCheckboxGroup from './FormRadioOrCheckboxGroup.vue';
 
@@ -46,6 +44,57 @@ const checkboxRadioOptions = [
   }
 ];
 
+const checkboxOptions = [
+  {
+    id: 'financial-aid',
+    name: 'interests',
+    value: 'FINANCIAL_AID',
+    label: 'Costs & Financial Aid',
+  },
+  {
+    id: 'marching-band',
+    name: 'interests',
+    value: 'MARCHING_BAND',
+    label: 'Hawkeye Marching Band',
+  },
+  {
+    id: 'rotc-air-force',
+    name: 'interests',
+    value: 'ROTC_AIR_FORCE',
+    label: 'ROTC - Air Force (Aerospace Studies)',
+  },
+  {
+    id: 'rotc-army',
+    name: 'interests',
+    value: 'ROTC_ARMY',
+    label: 'ROTC - Army (Military Science)',
+  },
+  {
+    id: 'study-abroad',
+    name: 'interests',
+    value: 'STUDY_ABROAD',
+    label: 'Study Abroad',
+  },
+  {
+    id: 'band',
+    name: 'interests',
+    value: 'BAND',
+    label: 'University Concert Bands and Jazz Bands',
+  },
+  {
+    id: 'honors',
+    name: 'interests',
+    value: 'HONORS',
+    label: 'University Honors Program',
+  },
+  {
+    id: 'veteran-services',
+    name: 'interests',
+    value: 'VETERAN_SERVICES',
+    label: 'Veteran & Military Connected Student Services',
+  },
+];
+
 const SearchBarTemplate = {
   render: (args) => ({
     components: { ExampleSearch },
@@ -66,9 +115,9 @@ export const SearchBar = {
 
 const Template = {
   render: (args) => ({
-    components: { UidsFormFieldset, UidsFormRadio, UidsFormCheckbox, UidsFormItem, UidsFormRadioOrCheckboxGroup },
+    components: { UidsFormFieldset, UidsFormItem, UidsFormRadioOrCheckboxGroup },
     setup() {
-      return { args, checkboxRadioOptions };
+      return { args, checkboxRadioOptions, checkboxOptions };
     },
     computed: {
       formSection1Classes() {
@@ -113,7 +162,7 @@ const Template = {
             <input type="search" id="search" name="search">
           </uids-form-item>
 
-          <uids-form-item>
+          <div class="form-item">
             <label class="form-required" for="state">Select</label>
             <select id="state">
               <option value="">- None -</option>
@@ -170,43 +219,20 @@ const Template = {
               <option value="WI">Wisconsin</option>
               <option value="WY">Wyoming</option>
             </select>
-          </uids-form-item>
-
-          <UidsFormFieldset label="Radio">
-            <UidsFormRadio
-              id="text-permission-yes"
-              name="permission"
-              value="true"
-              label="Yes"
-            />
-            <UidsFormRadio
-              id="text-permission-no"
-              name="permission"
-              value="false"
-              label="No"
-            />
-          </UidsFormFieldset>
+          </div>
 
           <uids-form-radio-or-checkbox-group
             label="Radios"
+            type="radio"
             :items="checkboxRadioOptions"
-          >
-          </uids-form-radio-or-checkbox-group>
+          />
 
-          <UidsFormFieldset label="Radio inline" inline>
-            <UidsFormRadio
-              id="text-permission-yes"
-              name="permission"
-              value="true"
-              label="Yes"
-            />
-            <UidsFormRadio
-              id="text-permission-no"
-              name="permission"
-              value="false"
-              label="No"
-            />
-          </UidsFormFieldset>
+          <uids-form-radio-or-checkbox-group
+            label="Radios inline"
+            type="radio"
+            :items="checkboxRadioOptions"
+            inline
+          />
 
           <div class="form-item">
             <label class="form-required" for="states">Select</label>
@@ -393,39 +419,35 @@ const Template = {
             <div id="edit-textarea--description" class="description">Textarea description goes here.</div>
           </div>
 
-          <UidsFormFieldset label="Checkbox">
-            <UidsFormCheckbox id="financial-aid" value="FINANCIAL_AID" label="Costs & Financial Aid" />
-            <UidsFormCheckbox id="marching-band" value="MARCHING_BAND" label="Hawkeye Marching Band" />
-            <UidsFormCheckbox id="rotc-air-force" value="ROTC_AIR_FORCE" label="ROTC - Air Force (Aerospace Studies)" />
-            <UidsFormCheckbox id="rotc-army" value="ROTC_ARMY" label="ROTC - Army (Military Science)" />
-            <UidsFormCheckbox id="study-abroad" value="STUDY_ABROAD" label="Study Abroad" />
-            <UidsFormCheckbox id="band" value="BAND" label="University Concert Bands and Jazz Bands" />
-            <UidsFormCheckbox id="honors" value="HONORS" label="University Honors Program" />
-            <UidsFormCheckbox id="veteran-services" value="VETERAN_SERVICES" label="Veteran & Military Connected Student Services" />
-          </UidsFormFieldset>
+          <uids-form-radio-or-checkbox-group
+            label="Checkboxes"
+            type="checkbox"
+            :items="checkboxOptions"
+          />
 
-          <UidsFormFieldset label="Checkbox inline">
-            <UidsFormCheckbox id="financial-aid-2" value="FINANCIAL_AID" label="Costs & Financial Aid" inline />
-            <UidsFormCheckbox id="marching-band-2" value="MARCHING_BAND" label="Hawkeye Marching Band" inline />
-            <UidsFormCheckbox id="rotc-air-force-2" value="ROTC_AIR_FORCE" label="ROTC - Air Force (Aerospace Studies)" inline />
-            <UidsFormCheckbox id="rotc-army-2" value="ROTC_ARMY" label="ROTC - Army (Military Science)" inline />
-            <UidsFormCheckbox id="study-abroad-2" value="STUDY_ABROAD" label="Study Abroad" inline />
-            <UidsFormCheckbox id="band-2" value="BAND" label="University Concert Bands and Jazz Bands" inline />
-            <UidsFormCheckbox id="honors-2" value="HONORS" label="University Honors Program" inline />
-            <UidsFormCheckbox id="veteran-services-2" value="VETERAN_SERVICES" label="Veteran & Military Connected Student Services" inline />
-          </UidsFormFieldset>
+          <uids-form-radio-or-checkbox-group
+            label="Checkboxes inline"
+            type="checkbox"
+            :items="checkboxOptions"
+            inline
+          />
 
           <hr />
 
-          <UidsFormCheckbox
-            id="agree-terms"
-            name="terms"
-            value="true"
-            label="I agree to the terms and conditions"
-          />
+          <div class="form-item form-type-checkbox">
+            <input
+              id="agree-terms"
+              type="checkbox"
+              name="terms"
+              value="true"
+            >
+            <label for="agree-terms">
+              I agree to the terms and conditions
+            </label>
+          </div>
 
         </form>
-      </div>
+      </uids-form-item>
     `,
   }),
 }
