@@ -1,4 +1,7 @@
 import ExampleSearch from './ExampleSearch.vue';
+import UidsFormFieldset from './FormFieldset.vue';
+import UidsFormRadio from './FormRadio.vue';
+import UidsFormCheckbox from './FormCheckbox.vue';
 import UidsFormItem from './FormItem.vue'
 
 export default {
@@ -47,6 +50,7 @@ export const SearchBar = {
 
 const Template = {
   render: (args) => ({
+    components: { UidsFormFieldset, UidsFormRadio, UidsFormCheckbox },
     components: { UidsFormItem },
     setup() {
       return { args };
@@ -164,6 +168,21 @@ const Template = {
               <label for="text-permission-no" class="radio">No</label>
             </div>
           </fieldset>
+    <UidsFormFieldset label="Radio">
+      <UidsFormRadio
+        id="text-permission-yes"
+        name="permission"
+        value="true"
+        label="Yes"
+      />
+      <UidsFormRadio
+        id="text-permission-no"
+        name="permission"
+        value="false"
+        label="No"
+      />
+    </UidsFormFieldset>
+
 
           <div class="form-item">
             <label class="form-required" for="states">Select</label>
@@ -432,6 +451,29 @@ const Template = {
           </fieldset>
         </form>
       </div>
+    <UidsFormFieldset label="Checkbox">
+      <UidsFormCheckbox id="financial-aid" value="FINANCIAL_AID" label="Costs & Financial Aid" />
+      <UidsFormCheckbox id="marching-band" value="MARCHING_BAND" label="Hawkeye Marching Band" />
+      <UidsFormCheckbox id="rotc-air-force" value="ROTC_AIR_FORCE" label="ROTC - Air Force (Aerospace Studies)" />
+      <UidsFormCheckbox id="rotc-army" value="ROTC_ARMY" label="ROTC - Army (Military Science)" />
+      <UidsFormCheckbox id="study-abroad" value="STUDY_ABROAD" label="Study Abroad" />
+      <UidsFormCheckbox id="band" value="BAND" label="University Concert Bands and Jazz Bands" />
+      <UidsFormCheckbox id="honors" value="HONORS" label="University Honors Program" />
+      <UidsFormCheckbox id="veteran-services" value="VETERAN_SERVICES" label="Veteran & Military Connected Student Services" />
+    </UidsFormFieldset>
+
+    <UidsFormFieldset label="Checkbox inline" inline>
+      <UidsFormCheckbox id="financial-aid-2" value="FINANCIAL_AID" label="Costs & Financial Aid" inline />
+      <UidsFormCheckbox id="marching-band-2" value="MARCHING_BAND" label="Hawkeye Marching Band" inline />
+      <UidsFormCheckbox id="rotc-air-force-2" value="ROTC_AIR_FORCE" label="ROTC - Air Force (Aerospace Studies)" inline />
+      <UidsFormCheckbox id="rotc-army-2" value="ROTC_ARMY" label="ROTC - Army (Military Science)" inline />
+      <UidsFormCheckbox id="study-abroad-2" value="STUDY_ABROAD" label="Study Abroad" inline />
+      <UidsFormCheckbox id="band-2" value="BAND" label="University Concert Bands and Jazz Bands" inline />
+      <UidsFormCheckbox id="honors-2" value="HONORS" label="University Honors Program" inline />
+      <UidsFormCheckbox id="veteran-services-2" value="VETERAN_SERVICES" label="Veteran & Military Connected Student Services" inline />
+    </UidsFormFieldset>
+  </form>
+</div>
     `,
   }),
 }

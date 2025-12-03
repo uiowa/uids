@@ -7,13 +7,23 @@ const props = defineProps({
   label: {
     type: String,
   },
+  inline: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const wrapperClasses = computed(() => {
+  return {
+    'form--inline': props.inline,
+  };
 });
 
 </script>
 <template>
   <fieldset>
     <legend v-if="label" v-html="label"></legend>
-    <div class="form--inline">
+    <div :class="wrapperClasses">
     <slot></slot>
     </div>
   </fieldset>

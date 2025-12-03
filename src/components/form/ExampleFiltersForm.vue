@@ -25,8 +25,11 @@ const filterComponent = computed(() => {
   <form class="form" action="/" method="get"
         accept-charset="UTF-8">
 
-    <component :is="filterComponent" class="form--inline form--light form--inline--nowrap form--small form--compact"
-               label="Filters"
+    <component
+      :is="filterComponent"
+      class="form--inline form--light form--inline--nowrap form--small form--compact"
+      label="Filters"
+      inline
     >
 
       <div class="form-item">
