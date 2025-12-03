@@ -3,6 +3,7 @@ import UidsFormFieldset from './FormFieldset.vue';
 import UidsFormRadio from './FormRadio.vue';
 import UidsFormCheckbox from './FormCheckbox.vue';
 import UidsFormItem from './FormItem.vue'
+import UidsFormRadioOrCheckboxGroup from './FormRadioOrCheckboxGroup.vue';
 
 export default {
   title: 'Components/Form',
@@ -30,6 +31,21 @@ export default {
   }
 };
 
+const checkboxRadioOptions = [
+  {
+    id: 'text-permission-yes',
+    name: 'permission',
+    value: true,
+    label: 'Yes',
+  },
+  {
+    id: 'text-permission-no',
+    name: 'permission',
+    value: false,
+    label: 'No',
+  }
+];
+
 const SearchBarTemplate = {
   render: (args) => ({
     components: { ExampleSearch },
@@ -50,9 +66,9 @@ export const SearchBar = {
 
 const Template = {
   render: (args) => ({
-    components: { UidsFormFieldset, UidsFormRadio, UidsFormCheckbox, UidsFormItem  },
+    components: { UidsFormFieldset, UidsFormRadio, UidsFormCheckbox, UidsFormItem, UidsFormRadioOrCheckboxGroup },
     setup() {
-      return { args };
+      return { args, checkboxRadioOptions };
     },
     computed: {
       formSection1Classes() {
@@ -170,6 +186,12 @@ const Template = {
               label="No"
             />
           </UidsFormFieldset>
+
+          <uids-form-radio-or-checkbox-group
+            label="Radios"
+            :items="checkboxRadioOptions"
+          >
+          </uids-form-radio-or-checkbox-group>
 
           <UidsFormFieldset label="Radio inline" inline>
             <UidsFormRadio
