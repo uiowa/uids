@@ -138,14 +138,14 @@ const Template = {
       },
     },
     template: `
-      <uids-form-item class="layout-container">
+      <div class="layout-container">
         <form class="form" method="POST" action="" :class="formSection1Classes">
 
           <uids-form-item>
             <label class="form-required" for="last-name">Text</label>
             <input id="last-name" maxlength="50" type="text">
             <template #description>Description</template>
-          </uids-form-item >
+          </uids-form-item>
 
           <div class="form-item">
             <label class="form-required" for="email">Email</label>
@@ -162,7 +162,7 @@ const Template = {
             <input type="search" id="search" name="search">
           </uids-form-item>
 
-          <div class="form-item">
+          <uids-form-item>
             <label class="form-required" for="state">Select</label>
             <select id="state">
               <option value="">- None -</option>
@@ -219,7 +219,7 @@ const Template = {
               <option value="WI">Wisconsin</option>
               <option value="WY">Wyoming</option>
             </select>
-          </div>
+          </uids-form-item>
 
           <uids-form-radio-or-checkbox-group
             label="Radios"
@@ -445,9 +445,8 @@ const Template = {
               I agree to the terms and conditions
             </label>
           </div>
-
         </form>
-      </uids-form-item>
+      </div>
     `,
   }),
 }
