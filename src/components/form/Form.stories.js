@@ -75,18 +75,18 @@ const Template = {
 
       <div class="form-item">
         <label class="form-required" for="last-name">Text</label>
-        <input id="last-name" maxlength="50" type="text" placeholder="Text">
+        <input id="last-name" maxlength="50" type="text">
         <div class="description">Description</div>
       </div>
 
       <div class="form-item">
         <label class="form-required" for="email">Email</label>
-        <input id="email" maxlength="255" type="email" placeholder="Email">
+        <input id="email" maxlength="255" type="email">
       </div>
 
       <div class="form-item">
         <label for="home-phone">Phone</label>
-        <input id="home-phone" maxlength="12" type="tel" placeholder="Phone">
+        <input id="home-phone" maxlength="12" type="tel">
       </div>
 
       <div class="form-item">
