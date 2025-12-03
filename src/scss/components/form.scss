@@ -118,7 +118,7 @@
     font-weight: 400;
   }
 
-  .description {
+  .form-item__description {
     font-size: var(--form-label-font-size);
     line-height: 1.4;
     clear: both;
@@ -134,17 +134,12 @@
       background-position: 98% center;
     }
 
-    &[type='search'] {
-      -webkit-box-sizing: border-box;
-      box-sizing: border-box;
-    }
+    //&[type='search'] {
+    //  -webkit-box-sizing: border-box;
+    //  box-sizing: border-box;
+    //}
 
-    &[id^='edit-submit'][type='submit'],
-    &[id^='edit-actions-submit'] {
-      @include utilities.bttn--primary;
-    }
-
-    + .description,
+    + .form-item__description,
     + .field-prefix,
     + .field-suffix {
       position: relative;
@@ -191,8 +186,9 @@
   }
 
   [type='search'] {
-    outline-offset: -2px;
-    -webkit-appearance: textfield;
+    // For some reason the default on this is -2, so we adjust
+    // this back to 0 to be consistent with other input styles.
+    outline-offset: 0;
 
     &::-webkit-search-decoration {
       -webkit-appearance: none;
@@ -205,7 +201,7 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    @include utilities.bttn;
+    //@include utilities.bttn;
     font-family: variables.$font-family-caps-bold;
 
     &.button--small {
