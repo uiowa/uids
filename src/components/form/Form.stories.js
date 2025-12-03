@@ -97,7 +97,7 @@ const Template = {
             <input type="search" id="search" name="search">
           </uids-form-item>
 
-          <div class="form-item">
+          <uids-form-item>
             <label class="form-required" for="state">Select</label>
             <select id="state">
               <option value="">- None -</option>
@@ -154,7 +154,7 @@ const Template = {
               <option value="WI">Wisconsin</option>
               <option value="WY">Wyoming</option>
             </select>
-          </div>
+          </uids-form-item>
 
           <UidsFormFieldset label="Radio">
             <UidsFormRadio
