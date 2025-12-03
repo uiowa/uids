@@ -549,8 +549,6 @@ details.form__details--multi-select {
   }
 }
 
-
-
 .form--inline legend,
 .form--flex legend {
   padding-block: 0 .5rem;
@@ -602,4 +600,82 @@ details.form__details--multi-select {
     }
   }
 }
+
+// === Details Toggle === //
+.form details:not(.form__details--multi-select) {
+  cursor: pointer;
+  margin-block-end: 1rem;
+
+  &[open] {
+    @include utilities.container-query() {
+      //margin-block-end: 0;
+    }
+  }
+}
+
+.form details:not(.form__details--multi-select) > summary {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-block-start: 1.5rem;
+  padding-block: 0;
+  padding-inline: 1.5625rem;
+  height: 2.5rem;
+  background: var(--form-input-bg);
+  border-radius: 8px;
+  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  position: relative;
+
+  i {
+    color: #{variables.$grey};
+  }
+}
+
+.form details:not(.form__details--multi-select) > summary:hover {
+  background: #e9ecef;
+}
+
+.form details:not(.form__details--multi-select) > summary::-webkit-details-marker {
+  display: none;
+}
+
+.form details:not(.form__details--multi-select) > summary::after {
+  @include utilities.fas();
+  content: "\+";
+  display: inline-block;
+  transition: opacity 0.2s ease;
+  font-size: .7rem;
+  margin-inline-start: auto;
+  background: #666;
+  color: #fff;
+  border-radius: 50%;
+  padding: .2rem;
+}
+
+.form details:not(.form__details--multi-select)[open] > summary::after {
+  content: "\f068";
+
+}
+
+.form details:not(.form__details--multi-select) > .details-wrapper {
+  opacity: 0;
+  transition: max-width 0.5s ease, opacity 0.5s ease;
+  //padding-block-start: 1rem;
+
+  @include utilities.container-query() {
+    //flex: 1;
+    //display: flex;
+    //column-gap: var(--filter-gap);
+    //flex-wrap: wrap;
+    //align-items: baseline;
+  }
+}
+
+.form details:not(.form__details--multi-select)[open] > .details-wrapper {
+  max-width: 100%;
+  opacity: 1;
+}
+// === End: Details Toggle === //
 
