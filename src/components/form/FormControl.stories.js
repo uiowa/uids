@@ -69,23 +69,13 @@ const InputTemplate = {
         }
         return classes;
       },
-      formItemClasses() {
-        let classes = [];
-        if (args.required) {
-          classes.push('form-required');
-        }
-        if (args.error) {
-          classes.push('form-error');
-        }
-        return classes;
-      },
     },
     template: `
       <div class="layout-container">
         <form class="form" :class="formClasses">
           <div class="form-item" :class="formItemClasses">
-            <label for="full_name">Full name</label>
-            <input type="text" name="full_name" id="full_name">
+            <label for="full_name" :class="args.required ? 'form-required' : false">Full name</label>
+            <input type="text" name="full_name" id="full_name" :class="args.error ? 'error' : false">
           </div>
         </form>
       </div>

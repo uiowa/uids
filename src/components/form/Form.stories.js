@@ -1,7 +1,7 @@
 import ExampleSearch from './ExampleSearch.vue';
 import UidsFormFieldset from './FormFieldset.vue';
 import UidsFormItem from './FormItem.vue'
-import UidsFormRadioOrCheckboxGroup from './FormRadioOrCheckboxGroup.vue';
+import UidsFormCheckboxOrRadioGroup from './FormCheckboxOrRadioGroup.vue';
 
 export default {
   title: 'Components/Form',
@@ -115,7 +115,7 @@ export const SearchBar = {
 
 const Template = {
   render: (args) => ({
-    components: { UidsFormFieldset, UidsFormItem, UidsFormRadioOrCheckboxGroup },
+    components: { UidsFormFieldset, UidsFormItem, UidsFormCheckboxOrRadioGroup },
     setup() {
       return { args, checkboxRadioOptions, checkboxOptions };
     },
@@ -221,13 +221,13 @@ const Template = {
             </select>
           </uids-form-item>
 
-          <uids-form-radio-or-checkbox-group
+          <uids-form-checkbox-or-radio-group
             label="Radios"
             type="radio"
             :items="checkboxRadioOptions"
           />
 
-          <uids-form-radio-or-checkbox-group
+          <uids-form-checkbox-or-radio-group
             label="Radios inline"
             type="radio"
             :items="checkboxRadioOptions"
@@ -419,13 +419,13 @@ const Template = {
             <div id="edit-textarea--description" class="description">Textarea description goes here.</div>
           </div>
 
-          <uids-form-radio-or-checkbox-group
+          <uids-form-checkbox-or-radio-group
             label="Checkboxes"
             type="checkbox"
             :items="checkboxOptions"
           />
 
-          <uids-form-radio-or-checkbox-group
+          <uids-form-checkbox-or-radio-group
             label="Checkboxes inline"
             type="checkbox"
             :items="checkboxOptions"
