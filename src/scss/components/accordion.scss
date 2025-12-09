@@ -18,7 +18,7 @@
 
   &.accordion--gold {
     --accordion-color: #{variables.$uiowa-gold};
-    --border-color : #{variables.$dark};
+    --border-color :  rgb(0, 9, 18, 20%);
 
     summary {
       &:hover, &:focus {
@@ -88,7 +88,18 @@
 
   .accordion__content {
     padding: variables.$md;
-    border-top: 1px solid var(--border-color);
+    margin-top: 1px;
+    position: relative;
+
+    &:before {
+      content:'';
+      position: absolute;
+      height: 1px;
+      width: 100%;
+      left: 0;
+      top: -1px;
+      background-color: var(--border-color);
+    }
 
     p:last-child {
       margin-bottom: 0px;
