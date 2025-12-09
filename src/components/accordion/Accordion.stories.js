@@ -4,6 +4,20 @@ export default {
   title: 'Components/Accordion',
   component: Accordion,
   argTypes: {
+    background: {
+      name: 'Background',
+      options: [
+        '',
+        'gold'
+      ],
+      control: {
+        type: 'select',
+        labels: {
+          '': 'Grey',
+          'gold': 'Gold',
+        },
+      }
+    },
     multiselectable: {
       control: 'boolean',
       name: 'Multi select'
@@ -31,6 +45,7 @@ let items = [
 export const Default = Template.bind({});
 Default.args = {
   multiselectable: false,
+  background: '',
   items: items,
 };
 

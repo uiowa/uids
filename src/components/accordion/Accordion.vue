@@ -9,6 +9,11 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  background: {
+    type: String,
+    default: '',
+    required: false,
+  },
   items: {
     type: Array,
     required: true,
@@ -30,6 +35,7 @@ const accordionClasses = computed(() => {
   return {
     'accordion': true,
     'accordion--multi': props.multiselectable,
+    'accordion--gold' : props.background,
   };
 });
 

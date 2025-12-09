@@ -10,8 +10,20 @@
 
 .accordion {
   --trans-time: 0.2s;
-  $accordion-grey: #edeceb;
-  --accordion-grey: #{$accordion-grey};
+  $accordion-color: #edeceb;
+  --accordion-color: #{$accordion-color};
+  --border-color: var(--accordion-color);
+
+  &.accordion--gold {
+    --accordion-color: #{variables.$uiowa-gold};
+    --border-color : #{variables.$uiowa-black};
+
+    summary {
+      &:hover, &:focus {
+        background-color: color.scale(#FFCD00, $lightness: -6%);
+      }
+    }
+  }
 
   details {
     &[open] {
@@ -27,12 +39,12 @@
   summary {
     list-style: none;
     width: 100%;
-    background-color: var(--accordion-grey);
+    background-color: var(--accordion-color);
     display: flex;
     cursor: pointer;
 
     &:hover, &:focus {
-      background-color: color.scale($accordion-grey, variables.$lightness: -4%);
+      background-color: color.scale($accordion-color, variables.$lightness: -4%);
     }
 
     &::-webkit-details-marker {
@@ -74,7 +86,7 @@
 
   .accordion__content {
     padding: variables.$md;
-    border: 1px solid var(--accordion-grey);
+    border: 1px solid var(--border-color);
 
     p:last-child {
       margin-bottom: 0px;
