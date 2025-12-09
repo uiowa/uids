@@ -68,7 +68,7 @@ onMounted(() => {
         </h2>
       </summary>
       <div
-        class="accordion__content"
+        class="accordion__content bg--white"
         v-html="item.content"
       ></div>
     </details>
