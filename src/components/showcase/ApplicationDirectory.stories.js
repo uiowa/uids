@@ -73,14 +73,13 @@ const Template = {
 
           <div class="content flex flex--wrap flex--gap__md">
 
-            <div class="sidebar flex--2" v-if="args.showSidebar">
+            <div class="sidebar flex--2 layout-container" v-if="args.showSidebar">
               <example-filters-form
                 :collapsible="args.collapsible"
               ></example-filters-form>
             </div>
 
             <div class="main-panel">
-
               <div class="element--margin__bottom--extra element--margin__top--extra">
                 <example-filters-form v-if="!args.showSidebar"
                   :collapsible="args.collapsible"
