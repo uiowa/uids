@@ -79,7 +79,7 @@ const Template = {
               ></example-filters-form>
             </div>
 
-            <div class="main-panel">
+            <div class="main-panel" :class="args.showSidebar ? 'flex--10' : 'flex--12'">
               <div class="element--margin__bottom--extra element--margin__top--extra">
                 <example-filters-form v-if="!args.showSidebar"
                   :collapsible="args.collapsible"
