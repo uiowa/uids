@@ -3,24 +3,48 @@
 @use '../abstracts/utilities';
 
 .accordion__item {
+  border: 1px solid var(--border-color);
+
   &:not(:first-child) {
     margin-top: 1rem;
   }
-
-  border: 1px solid var(--border-color);
 }
 
 .accordion {
   --trans-time: 0.2s;
   $accordion-color: #edeceb;
-  --accordion-color: #{$accordion-color};
-  --border-color: var(--accordion-color);
+  --accordion-color: var(--uids-white);
+  --border-color: var(--uids-grey-light);
 
   &.accordion--gold {
     --accordion-color: #{variables.$uiowa-gold};
-    --border-color :  rgb(0, 9, 18, 20%);
+    --border-color : #f3f3f3;
+    //--border-color :  rgb(0, 9, 18, 20%);
+
+    .accordion__item {
+      position: relative;
+      border: none;
+
+      &:after {
+        pointer-events: none;
+        position: absolute;
+        content: "";
+        left: 0;
+        top: -1px;
+        width: 100%;
+        height: calc(100% + 2px);
+        border: 1px solid #dddddd;
+        mix-blend-mode: multiply;
+      }
+    }
+
+    .accordion__content {
+      margin: 0 1px 1px;
+    }
 
     summary {
+      margin: 1px 1px 0;
+
       &:hover, &:focus {
         background-color: color.scale(#FFCD00, $lightness: -6%);
       }
@@ -32,7 +56,6 @@
       summary {
         i, svg {
           transform: rotate(0deg) translate(0px, 0.1em);
-          background-color: #fafafa;
         }
       }
     }
@@ -40,7 +63,6 @@
 
   summary {
     list-style: none;
-    width: 100%;
     background-color: var(--accordion-color);
     display: flex;
     cursor: pointer;
@@ -54,10 +76,9 @@
     }
 
     i, svg {
-      transform: rotate(-180deg) translate(0px, -0.1em);
+      transform: rotate(-180deg);
       transition: all var(--trans-time) ease-in-out;
-      transition-property: transform, background-color;
-      background-color: transparent;
+      transition-property: transform;
       width: variables.$h5-font-size;
       height: variables.$h5-font-size;
       padding: 4px;
@@ -65,12 +86,12 @@
       justify-content: center;
       align-items: center;
       margin: -0.3rem 0;
-      border-radius: 50%;
     }
   }
 
   .accordion__heading :is(h2, h3, h4, h5, h6) {
     all: inherit;
+    border: none;
     display: flex;
     font-size: variables.$content-font-size;
     font-weight: variables.$font-weight-bold;
@@ -88,18 +109,7 @@
 
   .accordion__content {
     padding: variables.$md;
-    margin-top: 1px;
     position: relative;
-
-    &:before {
-      content:'';
-      position: absolute;
-      height: 1px;
-      width: 100%;
-      left: 0;
-      top: -1px;
-      background-color: var(--border-color);
-    }
 
     p:last-child {
       margin-bottom: 0px;

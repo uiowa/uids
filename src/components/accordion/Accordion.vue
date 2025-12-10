@@ -2,6 +2,7 @@
 import '../../scss/components/accordion.scss'
 import { applyAccordion } from "../../assets/js/accordion.js";
 import '../../assets/js/accordion.js';
+import '../../scss/components/_background.scss'
 import {ref, computed, defineProps, onMounted} from 'vue';
 
 const props = defineProps({
@@ -68,7 +69,7 @@ onMounted(() => {
         </h2>
       </summary>
       <div
-        class="accordion__content bg--white"
+        class="bg--white accordion__content"
         v-html="item.content"
       ></div>
     </details>
