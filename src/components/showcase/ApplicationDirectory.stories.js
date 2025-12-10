@@ -27,7 +27,10 @@ export default {
   argTypes: {
     collapsible: {
       name: 'Collapsible',
-    }
+    },
+    showSidebar: {
+      name: 'Show sidebar',
+    },
   },
 };
 
@@ -73,7 +76,7 @@ const Template = {
 
           <div class="content flex flex--wrap flex--gap__md">
 
-            <div class="sidebar flex--2 layout-container" v-if="args.showSidebar">
+            <div class="sidebar flex--2 column-container" v-if="args.showSidebar">
               <example-filters-form
                 :collapsible="args.collapsible"
               ></example-filters-form>

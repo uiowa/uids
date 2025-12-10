@@ -27,7 +27,7 @@ const filterComponent = computed(() => {
 
     <component
       :is="filterComponent"
-      class="form--inline form--light form--inline--nowrap form--small form--compact"
+      class="form--inline form--light form--small form--compact"
       label="Filters"
       inline
     >
