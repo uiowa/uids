@@ -29,6 +29,9 @@ export default {
     error: {
       name: 'Error',
     },
+    disabled: {
+      name: 'Disabled',
+    },
   }
 };
 
@@ -75,7 +78,7 @@ const InputTemplate = {
         <form class="form" :class="formClasses">
           <div class="form-item" :class="formItemClasses">
             <label for="full_name" :class="args.required ? 'form-required' : false">Full name</label>
-            <input type="text" name="full_name" id="full_name" :class="args.error ? 'error' : false">
+            <input type="text" name="full_name" id="full_name" :class="args.error ? 'error' : false" :disabled="args.disabled">
           </div>
         </form>
       </div>
@@ -92,5 +95,6 @@ export const Input = {
     flex: false,
     required: false,
     error: false,
+    disabled: false,
   }
 }
