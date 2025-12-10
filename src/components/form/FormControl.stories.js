@@ -1,7 +1,7 @@
 import '../../scss/components/form.scss';
 
 export default {
-  title: 'Components/Form/Controls',
+  title: 'Components/Form',
   parameters: {
     docs: {
       source: {
@@ -76,7 +76,7 @@ const InputTemplate = {
     template: `
       <div class="layout-container">
         <form class="form" :class="formClasses">
-          <div class="form-item" :class="formItemClasses">
+          <div class="form-item">
             <label for="full_name" :class="args.required ? 'form-required' : false">Full name</label>
             <input type="text" name="full_name" id="full_name" :class="args.error ? 'error' : false" :disabled="args.disabled">
           </div>
