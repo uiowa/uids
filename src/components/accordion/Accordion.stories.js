@@ -8,13 +8,13 @@ export default {
       name: 'Background',
       options: [
         '',
-        'gold'
+        'white'
       ],
       control: {
         type: 'select',
         labels: {
           '': 'Grey',
-          'gold': 'Gold',
+          'white': 'White',
         },
       }
     },

@@ -36,7 +36,7 @@ const accordionClasses = computed(() => {
   return {
     'accordion': true,
     'accordion--multi': props.multiselectable,
-    'accordion--gold' : props.background,
+    'accordion--white' : props.background,
   };
 });
 
