@@ -1,5 +1,0 @@
-# Typography
-
-## Todo
-
-## Roadmap
