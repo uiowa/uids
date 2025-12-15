@@ -7,38 +7,41 @@
 
 .accordion {
   --trans-time: 0.2s;
-  --accordion-color: #edeceb;
-  --border-color: var(--accordion-color);
+  --accordion-color: var(--uids-white);
+  --border-color: var(--uids-grey-light);
 }
-.accordion.accordion--gold {
-  --accordion-color: var(--uiowa-gold);
-  --border-color: rgb(0, 9, 18, 20%);
+.accordion.accordion--white {
+  --accordion-color: #fff;
 }
-.accordion.accordion--gold summary:hover, .accordion.accordion--gold summary:focus {
-  background-color: rgb(239.7, 192.7, 0);
+.accordion.accordion--white .accordion__item:hover, .accordion.accordion--white .accordion__item:focus {
+  --border-color: var(--uids-grey-cool);
+}
+.accordion.accordion--white summary:hover {
+  background-color: rgb(233.28, 233.28, 233.28);
+}
+.accordion.accordion--white summary:focus {
+  --border-color: var(--uids-grey-cool);
+  background-color: var(--accordion-color);
 }
 .accordion details[open] summary i, .accordion details[open] summary svg {
   transform: rotate(0deg) translate(0px, 0.1em);
-  background-color: #fafafa;
 }
 .accordion summary {
   list-style: none;
-  width: 100%;
   background-color: var(--accordion-color);
   display: flex;
   cursor: pointer;
 }
 .accordion summary:hover, .accordion summary:focus {
-  background-color: rgb(228.0568421053, 226.56, 225.0631578947);
+  background-color: var(--uids-grey-light);
 }
 .accordion summary::-webkit-details-marker {
   visibility: hidden;
 }
 .accordion summary i, .accordion summary svg {
-  transform: rotate(-180deg) translate(0px, -0.1em);
+  transform: rotate(-180deg);
   transition: all var(--trans-time) ease-in-out;
-  transition-property: transform, background-color;
-  background-color: transparent;
+  transition-property: transform;
   width: 1.4rem;
   height: 1.4rem;
   padding: 4px;
@@ -46,10 +49,10 @@
   justify-content: center;
   align-items: center;
   margin: -0.3rem 0;
-  border-radius: 50%;
 }
 .accordion .accordion__heading :is(h2, h3, h4, h5, h6) {
   all: inherit;
+  border: none;
   display: flex;
   font-size: 1.2rem;
   font-weight: 700;
@@ -65,17 +68,7 @@
 }
 .accordion .accordion__content {
   padding: 1.05rem;
-  margin-top: 1px;
-  position: relative;
-}
-.accordion .accordion__content:before {
-  content: "";
-  position: absolute;
-  height: 1px;
-  width: 100%;
-  left: 0;
-  top: -1px;
-  background-color: var(--border-color);
+  border-top: 1px solid var(--border-color);
 }
 .accordion .accordion__content p:last-child {
   margin-bottom: 0px;
