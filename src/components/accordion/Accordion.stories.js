@@ -13,7 +13,7 @@ export default {
       control: {
         type: 'select',
         labels: {
-          '': 'Grey',
+          '': 'Gray',
           'white': 'White',
         },
       }
