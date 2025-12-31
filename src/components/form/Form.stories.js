@@ -29,7 +29,7 @@ export default {
   }
 };
 
-const checkboxRadioOptions = [
+const radioOptions = [
   {
     id: 'text-permission-yes',
     name: 'permission',
@@ -117,7 +117,7 @@ const Template = {
   render: (args) => ({
     components: { UidsFormFieldset, UidsFormItem, UidsFormCheckboxOrRadioGroup },
     setup() {
-      return { args, checkboxRadioOptions, checkboxOptions };
+      return { args, radioOptions, checkboxOptions };
     },
     computed: {
       formSection1Classes() {
@@ -224,13 +224,13 @@ const Template = {
           <uids-form-checkbox-or-radio-group
             label="Radios"
             type="radio"
-            :items="checkboxRadioOptions"
+            :items="radioOptions"
           />
 
           <uids-form-checkbox-or-radio-group
             label="Radios inline"
             type="radio"
-            :items="checkboxRadioOptions"
+            :items="radioOptions"
             inline
           />
 

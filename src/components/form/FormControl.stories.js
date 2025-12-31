@@ -1,7 +1,7 @@
 import '../../scss/components/form.scss';
 
 export default {
-  title: 'Components/Form',
+  title: 'HTML Elements/Forms/Controls',
   parameters: {
     docs: {
       source: {
@@ -9,7 +9,7 @@ export default {
       },
     }
   },
-  tags: ['autodocs'],
+  tags: ['!autodocs'],
   argTypes: {
     compact: {
       name: 'Compact',
@@ -17,12 +17,12 @@ export default {
     large: {
       name: 'Large',
     },
-    inline: {
-      name: 'Inline',
-    },
-    flex: {
-      name: 'Flex',
-    },
+    // inline: {
+    //   name: 'Inline',
+    // },
+    // flex: {
+    //   name: 'Flex',
+    // },
     required: {
       name: 'Required',
     },
@@ -32,23 +32,15 @@ export default {
     disabled: {
       name: 'Disabled',
     },
+    type: {
+      name: 'Input Type',
+      control: { type: 'select' },
+      options: ['text', 'email', 'password', 'number', 'date'],
+    },
+    value: {
+    }
   }
 };
-
-const checkboxRadioOptions = [
-  {
-    id: 'text-permission-yes',
-    name: 'permission',
-    value: true,
-    label: 'Yes',
-  },
-  {
-    id: 'text-permission-no',
-    name: 'permission',
-    value: false,
-    label: 'No',
-  }
-];
 
 const InputTemplate = {
   render: (args) => ({
@@ -78,7 +70,7 @@ const InputTemplate = {
         <form class="form" :class="formClasses">
           <div class="form-item">
             <label for="full_name" :class="args.required ? 'form-required' : false">Full name</label>
-            <input type="text" name="full_name" id="full_name" :class="args.error ? 'error' : false" :disabled="args.disabled">
+            <input :type="args.type" name="full_name" id="full_name" :class="args.error ? 'error' : false" :disabled="args.disabled" :value="args.value">
           </div>
         </form>
       </div>
@@ -91,10 +83,64 @@ export const Input = {
   args: {
     large: false,
     compact: false,
-    inline: false,
-    flex: false,
     required: false,
     error: false,
     disabled: false,
+    type: 'text',
+    value: 'Person Student'
+  }
+}
+
+const SelectTemplate = {
+  render: (args) => ({
+    setup() {
+      return { args };
+    },
+    computed: {
+      formClasses() {
+        let classes = [];
+        if (args.large) {
+          classes.push('form--large');
+        }
+        if (args.compact) {
+          classes.push('form--compact');
+        }
+        if (args.inline) {
+          classes.push('form--inline');
+        }
+        if (args.flex) {
+          classes.push('form--flex');
+        }
+        return classes;
+      },
+    },
+    template: `
+      <div class="layout-container">
+        <form class="form" :class="formClasses">
+          <div class="form-item">
+            <label for="country" :class="args.required ? 'form-required' : false">Country</label>
+            <select name="country" id="country" :class="args.error ? 'error' : false" :disabled="args.disabled">
+              <option value="">Select a country</option>
+              <option value="us">United States</option>
+              <option value="ca">Canada</option>
+              <option value="uk">United Kingdom</option>
+            </select>
+          </div>
+        </form>
+      </div>
+    `
+  }),
+}
+
+export const Select = {
+  ...SelectTemplate,
+  args: {
+    large: false,
+    compact: false,
+    required: false,
+    error: false,
+    disabled: false,
+    // type: 'text',
+    value: 'Person Student'
   }
 }

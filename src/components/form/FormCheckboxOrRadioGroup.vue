@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import UidsFormFieldset from './FormFieldset.vue';
+import {isTSEnumDeclaration} from "@rushstack/eslint-patch/lib/eslint-bulk-suppressions/ast-guards";
 
 const props = defineProps({
   label: {
@@ -24,6 +25,12 @@ const props = defineProps({
         :type="type"
         :name="item.name"
         :value="item.value"
+        :class="{
+          error: item.error,
+          'form-required': item.required,
+        }"
+        :disabled="item.disabled"
+        :checked="item.checked"
       >
       <label :for="item.id">
         {{ item.label }}
