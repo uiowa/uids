@@ -1,8 +1,9 @@
 import '../../scss/components/form.scss';
 import UidsFormCheckboxOrRadioGroup from './FormCheckboxOrRadioGroup.vue';
+import UidsFormContainer from './FormContainer.vue'
 
 export default {
-  title: 'HTML Elements/Forms/Controls',
+  title: 'Elements/Form',
   parameters: {
     docs: {
       source: {
@@ -67,51 +68,41 @@ const Template = {
     setup() {
       return { args, radioOptions };
     },
-    components: { UidsFormCheckboxOrRadioGroup },
-    computed: {
-      formClasses() {
-        let classes = [];
-        if (args.large) {
-          classes.push('form--large');
-        }
-        if (args.compact) {
-          classes.push('form--compact');
-        }
-        if (args.flex) {
-          classes.push('form--flex');
-        }
-        return classes;
-      },
-    },
+    components: { UidsFormCheckboxOrRadioGroup, UidsFormContainer },
     template: `
       <div class="layout-container">
-        <form class="form" :class="formClasses">
-          <uids-form-checkbox-or-radio-group
-            label="Radio group"
-            type="radio"
-            :inline="args.inline"
+        <form class="form">
+          <uids-form-container
+            :compact="args.compact"
+            :large="args.large"
           >
-            <div class="form-item form-item--checkbox form-type-checkbox" v-for="item in radioOptions" :key="item.id">
-              <input
-                type="radio"
-                :id="item.id"
-                :name="item.name"
-                :value="item.value"
-                :disabled="args.disabled"
-                :checked="args.checked"
-                :class="args.error ? 'error' : false"
-                :required="args.required"
-              >
-              <label :for="item.id">{{ item.label }}</label>
-            </div>
-          </uids-form-checkbox-or-radio-group>
+            <uids-form-checkbox-or-radio-group
+              label="Radio group"
+              type="radio"
+              :inline="args.inline"
+              :required="args.required"
+            >
+              <div class="form-item form-item--checkbox form-type-checkbox" v-for="item in radioOptions" :key="item.id">
+                <input
+                  type="radio"
+                  :id="item.id"
+                  :name="item.name"
+                  :value="item.value"
+                  :disabled="args.disabled"
+                  :checked="args.checked"
+                  :class="args.error ? 'error' : false"
+                >
+                <label :for="item.id">{{ item.label }}</label>
+              </div>
+            </uids-form-checkbox-or-radio-group>
+          </uids-form-container>
         </form>
       </div>
     `
   }),
 }
 
-export const Radio = {
+export const Radios = {
   ...Template,
   args: {
     checked: false,

@@ -11,16 +11,20 @@ const props = defineProps({
     type: String,
     default: 'radio'
   },
+  required: {
+    type: Boolean,
+    default: false,
+  },
   items: {
     type: Array,
-  }
+  },
 });
 
 const slots = useSlots();
 </script>
 
 <template>
-  <uids-form-fieldset :label="label">
+  <uids-form-fieldset :label="label" :required="required">
     <div class="form-item" :class="'form-type-'+type" v-for="item in items" v-if="!$slots.default">
       <input
         :id="item.id"
@@ -29,7 +33,6 @@ const slots = useSlots();
         :value="item.value"
         :class="{
           error: item.error,
-          'form-required': item.required,
         }"
         :disabled="item.disabled"
         :checked="item.checked"

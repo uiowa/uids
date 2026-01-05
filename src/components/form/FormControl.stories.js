@@ -1,7 +1,8 @@
 import '../../scss/components/form.scss';
+import UidsFormContainer from './FormContainer.vue'
 
 export default {
-  title: 'HTML Elements/Forms/Controls',
+  title: 'Elements/Form',
   parameters: {
     docs: {
       source: {
@@ -13,24 +14,24 @@ export default {
   argTypes: {
     compact: {
       name: 'Compact',
+      table: { category: 'Modifiers' },
     },
     large: {
       name: 'Large',
+      table: { category: 'Modifiers' },
     },
-    // inline: {
-    //   name: 'Inline',
-    // },
-    // flex: {
-    //   name: 'Flex',
-    // },
-    required: {
-      name: 'Required',
+    disabled: {
+      name: 'Disabled',
+      control: { type: 'boolean' },
+      table: { category: 'States' },
     },
     error: {
       name: 'Error',
     },
-    disabled: {
-      name: 'Disabled',
+    required: {
+      name: 'Required',
+      control: { type: 'boolean' },
+      table: { category: 'States' },
     },
     type: {
       name: 'Input Type',
@@ -47,31 +48,19 @@ const InputTemplate = {
     setup() {
       return { args };
     },
-    computed: {
-      formClasses() {
-        let classes = [];
-        if (args.large) {
-          classes.push('form--large');
-        }
-        if (args.compact) {
-          classes.push('form--compact');
-        }
-        if (args.inline) {
-          classes.push('form--inline');
-        }
-        if (args.flex) {
-          classes.push('form--flex');
-        }
-        return classes;
-      },
-    },
+    components: { UidsFormContainer },
     template: `
       <div class="layout-container">
-        <form class="form" :class="formClasses">
-          <div class="form-item">
-            <label for="full_name" :class="args.required ? 'form-required' : false">Full name</label>
-            <input :type="args.type" name="full_name" id="full_name" :class="args.error ? 'error' : false" :disabled="args.disabled" :value="args.value">
-          </div>
+        <form class="form">
+          <uids-form-container
+            :compact="args.compact"
+            :large="args.large"
+          >
+            <div class="form-item">
+              <label for="full_name" :class="args.required ? 'form-required' : false">Full name</label>
+              <input :type="args.type" name="full_name" id="full_name" :class="args.error ? 'error' : false" :disabled="args.disabled" :value="args.value">
+            </div>
+          </uids-form-container>
         </form>
       </div>
     `
@@ -81,11 +70,11 @@ const InputTemplate = {
 export const Input = {
   ...InputTemplate,
   args: {
-    large: false,
-    compact: false,
-    required: false,
-    error: false,
     disabled: false,
+    error: false,
+    required: false,
+    compact: false,
+    large: false,
     type: 'text',
     value: 'Person Student'
   }
@@ -96,36 +85,24 @@ const SelectTemplate = {
     setup() {
       return { args };
     },
-    computed: {
-      formClasses() {
-        let classes = [];
-        if (args.large) {
-          classes.push('form--large');
-        }
-        if (args.compact) {
-          classes.push('form--compact');
-        }
-        if (args.inline) {
-          classes.push('form--inline');
-        }
-        if (args.flex) {
-          classes.push('form--flex');
-        }
-        return classes;
-      },
-    },
+    components: { UidsFormContainer },
     template: `
       <div class="layout-container">
-        <form class="form" :class="formClasses">
-          <div class="form-item">
-            <label for="country" :class="args.required ? 'form-required' : false">Country</label>
-            <select name="country" id="country" :class="args.error ? 'error' : false" :disabled="args.disabled">
-              <option value="">Select a country</option>
-              <option value="us">United States</option>
-              <option value="ca">Canada</option>
-              <option value="uk">United Kingdom</option>
-            </select>
-          </div>
+        <form class="form">
+          <uids-form-container
+            :compact="args.compact"
+            :large="args.large"
+          >
+            <div class="form-item">
+              <label for="country" :class="args.required ? 'form-required' : false">Country</label>
+              <select name="country" id="country" :class="args.error ? 'error' : false" :disabled="args.disabled">
+                <option value="">Select a country</option>
+                <option value="us">United States</option>
+                <option value="ca">Canada</option>
+                <option value="uk">United Kingdom</option>
+              </select>
+            </div>
+          </uids-form-container>
         </form>
       </div>
     `
