@@ -14,22 +14,29 @@ export default {
   argTypes: {
     compact: {
       name: 'Compact',
+      table: { category: 'Modifiers' },
+    },
+    inline: {
+      name: 'Inline',
+      table: { category: 'Modifiers' },
     },
     large: {
       name: 'Large',
+      table: { category: 'Modifiers' },
     },
-    required: {
-      name: 'Required',
-    },
-    error: {
-      name: 'Error',
+    checked: {
+      name: 'Checked',
+      control: { type: 'boolean' },
+      table: { category: 'States' },
     },
     disabled: {
       name: 'Disabled',
+      table: { category: 'States' },
     },
-    value: {
-      control: { type: 'boolean' },
-    }
+    error: {
+      name: 'Error',
+      table: { category: 'States' },
+    },
   }
 };
 
@@ -107,37 +114,37 @@ const Template = {
         }
         return classes;
       },
-      checkboxItems() {
-        let checkboxItems = checkboxOptions;
-        checkboxItems.forEach(item => {
-          item.disabled = args.disabled;
-          item.checked = args.value;
-          item.error = args.error;
-          item.required = args.required;
-        })
-        return checkboxItems;
-      }
     },
     template: `
       <div class="layout-container">
         <form class="form" :class="formClasses">
-          <div class="form-item form-item--checkbox form-type-checkbox">
-            <input type="checkbox" :class="args.error ? 'error' : false" :disabled="args.disabled" :checked="args.value">
-            <label for="full_name" :class="args.required ? 'form-required' : false">Subscribe</label>
-          </div>
+          <fieldset>
+            <legend>Single checkbox</legend>
+            <div class="form-item form-item--checkbox form-type-checkbox">
+              <input type="checkbox" :class="args.error ? 'error' : false" :disabled="args.disabled" :checked="args.checked" value="subscribe" id="subscribe">
+              <label for="subscribe" :class="args.required ? 'form-required' : false">Subscribe</label>
+            </div>
+          </fieldset>
 
           <uids-form-checkbox-or-radio-group
-            label="Checkboxes"
+            label="Checkbox group"
             type="checkbox"
-            :items="checkboxItems"
-          />
-
-          <uids-form-checkbox-or-radio-group
-            label="Checkboxes inline"
-            type="checkbox"
-            :items="checkboxItems"
-            inline
-          />
+            :inline="args.inline"
+          >
+            <div class="form-item form-item--checkbox form-type-checkbox" v-for="item in checkboxOptions" :key="item.id">
+              <input
+                type="checkbox"
+                :id="item.id"
+                :name="item.name"
+                :value="item.value"
+                :disabled="args.disabled"
+                :checked="args.checked"
+                :class="args.error ? 'error' : false"
+                :required="args.required"
+              >
+              <label :for="item.id">{{ item.label }}</label>
+            </div>
+          </uids-form-checkbox-or-radio-group>
         </form>
       </div>
     `
@@ -147,11 +154,11 @@ const Template = {
 export const Checkbox = {
   ...Template,
   args: {
-    large: false,
-    compact: false,
-    required: false,
-    error: false,
+    checked: false,
     disabled: false,
-    value: false
+    error: false,
+    compact: false,
+    inline: false,
+    large: false,
   }
 }

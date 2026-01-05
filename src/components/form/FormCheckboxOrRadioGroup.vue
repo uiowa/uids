@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import UidsFormFieldset from './FormFieldset.vue';
-import {isTSEnumDeclaration} from "@rushstack/eslint-patch/lib/eslint-bulk-suppressions/ast-guards";
+import {useSlots} from "vue";
 
 const props = defineProps({
   label: {
@@ -15,11 +15,13 @@ const props = defineProps({
     type: Array,
   }
 });
+
+const slots = useSlots();
 </script>
 
 <template>
   <uids-form-fieldset :label="label">
-    <div class="form-item" :class="'form-type-'+type" v-for="item in items">
+    <div class="form-item" :class="'form-type-'+type" v-for="item in items" v-if="!$slots.default">
       <input
         :id="item.id"
         :type="type"
@@ -36,5 +38,6 @@ const props = defineProps({
         {{ item.label }}
       </label>
     </div>
+    <slot v-else></slot>
   </uids-form-fieldset>
 </template>
