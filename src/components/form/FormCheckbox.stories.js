@@ -15,14 +15,17 @@ export default {
   argTypes: {
     compact: {
       name: 'Compact',
+      control: { type: 'boolean' },
       table: { category: 'Modifiers' },
     },
     inline: {
       name: 'Inline',
+      control: { type: 'boolean' },
       table: { category: 'Modifiers' },
     },
     large: {
       name: 'Large',
+      control: { type: 'boolean' },
       table: { category: 'Modifiers' },
     },
     checked: {
@@ -37,6 +40,8 @@ export default {
     },
     error: {
       name: 'Error',
+      control: { type: 'boolean' },
+      table: { category: 'States' },
     },
     required: {
       name: 'Required',
@@ -114,7 +119,7 @@ const Template = {
               <legend>Single checkbox</legend>
               <div class="form-item form-item--checkbox form-type-checkbox" :class="{ 'form-inline': args.inline }">
                 <input type="checkbox" :class="args.error ? 'error' : false" :disabled="args.disabled" :checked="args.checked" value="subscribe" id="subscribe">
-                <label for="subscribe" :class="args.required ? 'form-required' : false">Subscribe</label>
+                <label for="subscribe" :class="args.required ? 'form-required' : false">I would like to subscribe the newsletter</label>
               </div>
             </fieldset>
           </uids-form-container>

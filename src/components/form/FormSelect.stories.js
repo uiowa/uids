@@ -27,60 +27,18 @@ export default {
     },
     error: {
       name: 'Error',
+      control: { type: 'boolean' },
+      table: { category: 'States' },
     },
     required: {
       name: 'Required',
       control: { type: 'boolean' },
       table: { category: 'States' },
     },
-    type: {
-      name: 'Input Type',
-      control: { type: 'select' },
-      options: ['text', 'email', 'password', 'number', 'date'],
-    },
-    value: {
-    }
   }
 };
 
-const InputTemplate = {
-  render: (args) => ({
-    setup() {
-      return { args };
-    },
-    components: { UidsFormContainer },
-    template: `
-      <div class="layout-container">
-        <form class="form">
-          <uids-form-container
-            :compact="args.compact"
-            :large="args.large"
-          >
-            <div class="form-item">
-              <label for="full_name" :class="args.required ? 'form-required' : false">Full name</label>
-              <input :type="args.type" name="full_name" id="full_name" :class="args.error ? 'error' : false" :disabled="args.disabled" :value="args.value">
-            </div>
-          </uids-form-container>
-        </form>
-      </div>
-    `
-  }),
-}
-
-export const Input = {
-  ...InputTemplate,
-  args: {
-    disabled: false,
-    error: false,
-    required: false,
-    compact: false,
-    large: false,
-    type: 'text',
-    value: 'Person Student'
-  }
-}
-
-const SelectTemplate = {
+const Template = {
   render: (args) => ({
     setup() {
       return { args };
@@ -110,14 +68,12 @@ const SelectTemplate = {
 }
 
 export const Select = {
-  ...SelectTemplate,
+  ...Template,
   args: {
-    large: false,
-    compact: false,
-    required: false,
-    error: false,
     disabled: false,
-    // type: 'text',
-    value: 'Person Student'
+    error: false,
+    required: false,
+    compact: false,
+    large: false,
   }
 }
