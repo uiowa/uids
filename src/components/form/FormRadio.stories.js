@@ -31,70 +31,41 @@ export default {
     },
     disabled: {
       name: 'Disabled',
+      control: { type: 'boolean' },
       table: { category: 'States' },
     },
     error: {
       name: 'Error',
+      control: { type: 'boolean' },
+      table: { category: 'States' },
+    },
+    required: {
+      name: 'Required',
+      control: { type: 'boolean' },
       table: { category: 'States' },
     },
   }
 };
 
-const checkboxOptions = [
+const radioOptions = [
   {
-    id: 'financial-aid',
-    name: 'interests',
-    value: 'FINANCIAL_AID',
-    label: 'Costs & Financial Aid',
+    id: 'text-permission-yes',
+    name: 'permission',
+    value: true,
+    label: 'Yes',
   },
   {
-    id: 'marching-band',
-    name: 'interests',
-    value: 'MARCHING_BAND',
-    label: 'Hawkeye Marching Band',
-  },
-  {
-    id: 'rotc-air-force',
-    name: 'interests',
-    value: 'ROTC_AIR_FORCE',
-    label: 'ROTC - Air Force (Aerospace Studies)',
-  },
-  {
-    id: 'rotc-army',
-    name: 'interests',
-    value: 'ROTC_ARMY',
-    label: 'ROTC - Army (Military Science)',
-  },
-  {
-    id: 'study-abroad',
-    name: 'interests',
-    value: 'STUDY_ABROAD',
-    label: 'Study Abroad',
-  },
-  {
-    id: 'band',
-    name: 'interests',
-    value: 'BAND',
-    label: 'University Concert Bands and Jazz Bands',
-  },
-  {
-    id: 'honors',
-    name: 'interests',
-    value: 'HONORS',
-    label: 'University Honors Program',
-  },
-  {
-    id: 'veteran-services',
-    name: 'interests',
-    value: 'VETERAN_SERVICES',
-    label: 'Veteran & Military Connected Student Services',
-  },
+    id: 'text-permission-no',
+    name: 'permission',
+    value: false,
+    label: 'No',
+  }
 ];
 
 const Template = {
   render: (args) => ({
     setup() {
-      return { args, checkboxOptions };
+      return { args, radioOptions };
     },
     components: { UidsFormCheckboxOrRadioGroup },
     computed: {
@@ -115,22 +86,14 @@ const Template = {
     template: `
       <div class="layout-container">
         <form class="form" :class="formClasses">
-          <fieldset>
-            <legend>Single checkbox</legend>
-            <div class="form-item form-item--checkbox form-type-checkbox" :class="{ 'form-inline': args.inline }">
-              <input type="checkbox" :class="args.error ? 'error' : false" :disabled="args.disabled" :checked="args.checked" value="subscribe" id="subscribe">
-              <label for="subscribe" :class="args.required ? 'form-required' : false">Subscribe</label>
-            </div>
-          </fieldset>
-
           <uids-form-checkbox-or-radio-group
-            label="Checkbox group"
-            type="checkbox"
+            label="Radio group"
+            type="radio"
             :inline="args.inline"
           >
-            <div class="form-item form-item--checkbox form-type-checkbox" v-for="item in checkboxOptions" :key="item.id">
+            <div class="form-item form-item--checkbox form-type-checkbox" v-for="item in radioOptions" :key="item.id">
               <input
-                type="checkbox"
+                type="radio"
                 :id="item.id"
                 :name="item.name"
                 :value="item.value"
@@ -148,12 +111,13 @@ const Template = {
   }),
 }
 
-export const Checkbox = {
+export const Radio = {
   ...Template,
   args: {
     checked: false,
     disabled: false,
     error: false,
+    required: false,
     compact: false,
     inline: false,
     large: false,
