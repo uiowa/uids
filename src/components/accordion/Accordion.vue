@@ -64,8 +64,8 @@ onMounted(() => {
         role="tab"
       >
         <h2>
-          {{ item.title }}
           <i aria-hidden="true" class="fas fa-chevron-up" role="presentation"></i>
+          {{ item.title }}
         </h2>
       </summary>
       <div
