@@ -48,6 +48,16 @@ export default {
       control: { type: 'boolean' },
       table: { category: 'States' },
     },
+    label: {
+      table: {
+        disable: true,
+      },
+    },
+    type: {
+      table: {
+        disable: true,
+      },
+    },
   },
   render: (args) => ({
     setup() {
@@ -67,14 +77,14 @@ export default {
             :large="args.large"
           >
             <uids-form-checkbox-or-radio-group
-              label="Select all that apply"
+              :label="args.label"
               :type="args.type"
               :inline="args.inline"
               :required="args.required"
             >
               <div class="form-item form-item--checkbox form-type-checkbox" v-for="item in optionItems" :key="item.id">
                 <input
-                  type="checkbox"
+                  :type="args.type"
                   :id="item.id"
                   :name="item.name"
                   :value="item.value"
@@ -162,9 +172,9 @@ const radioOptions = [
 export const Checkbox = {
   render: (args) => ({
     setup() {
-      return { args, checkboxOptions };
+      return { args };
     },
-    components: { UidsFormCheckboxOrRadioGroup, UidsFormContainer },
+    components: { UidsFormContainer },
     template: `
       <div class="layout-container">
         <form class="form">
@@ -194,26 +204,16 @@ export const Checkbox = {
 
 export const Checkboxes = {
   args: {
-    checked: false,
-    disabled: false,
-    error: false,
-    required: false,
-    compact: false,
-    inline: false,
-    large: false,
+    ...Checkbox.args,
+    label: 'Select your interests',
     type: 'checkbox',
   },
 }
 
 export const Radios = {
   args: {
-    checked: false,
-    disabled: false,
-    error: false,
-    required: false,
-    compact: false,
-    inline: false,
-    large: false,
+    ...Checkbox.args,
+    label: 'Do you give permission to receive text messages?',
     type: 'radio',
   },
 }
