@@ -48,7 +48,49 @@ export default {
       control: { type: 'boolean' },
       table: { category: 'States' },
     },
-  }
+  },
+  render: (args) => ({
+    setup() {
+      return { args, checkboxOptions, radioOptions };
+    },
+    components: { UidsFormCheckboxOrRadioGroup, UidsFormContainer },
+    computed: {
+      optionItems() {
+        return args.type === 'radio' ? radioOptions : checkboxOptions;
+      },
+    },
+    template: `
+      <div class="layout-container">
+        <form class="form">
+          <uids-form-container
+            :compact="args.compact"
+            :large="args.large"
+          >
+            <uids-form-checkbox-or-radio-group
+              label="Select all that apply"
+              :type="args.type"
+              :inline="args.inline"
+              :required="args.required"
+            >
+              <div class="form-item form-item--checkbox form-type-checkbox" v-for="item in optionItems" :key="item.id">
+                <input
+                  type="checkbox"
+                  :id="item.id"
+                  :name="item.name"
+                  :value="item.value"
+                  :disabled="args.disabled"
+                  :checked="args.checked"
+                  :class="args.error ? 'error' : false"
+                  :required="args.required"
+                >
+                <label :for="item.id">{{ item.label }}</label>
+              </div>
+            </uids-form-checkbox-or-radio-group>
+          </uids-form-container>
+        </form>
+      </div>
+    `
+  }),
 };
 
 const checkboxOptions = [
@@ -102,7 +144,22 @@ const checkboxOptions = [
   },
 ];
 
-const Template = {
+const radioOptions = [
+  {
+    id: 'text-permission-yes',
+    name: 'permission',
+    value: true,
+    label: 'Yes',
+  },
+  {
+    id: 'text-permission-no',
+    name: 'permission',
+    value: false,
+    label: 'No',
+  },
+];
+
+export const Checkbox = {
   render: (args) => ({
     setup() {
       return { args, checkboxOptions };
@@ -124,10 +181,6 @@ const Template = {
       </div>
     `
   }),
-}
-
-export const Checkbox = {
-  ...Template,
   args: {
     checked: false,
     disabled: false,
@@ -139,48 +192,7 @@ export const Checkbox = {
   }
 }
 
-const CheckboxesTemplate = {
-  render: (args) => ({
-    setup() {
-      return { args, checkboxOptions };
-    },
-    components: { UidsFormCheckboxOrRadioGroup, UidsFormContainer },
-    template: `
-      <div class="layout-container">
-        <form class="form">
-          <uids-form-container
-            :compact="args.compact"
-            :large="args.large"
-          >
-            <uids-form-checkbox-or-radio-group
-              label="Checkbox group"
-              type="checkbox"
-              :inline="args.inline"
-              :required="args.required"
-            >
-              <div class="form-item form-item--checkbox form-type-checkbox" v-for="item in checkboxOptions" :key="item.id">
-                <input
-                  type="checkbox"
-                  :id="item.id"
-                  :name="item.name"
-                  :value="item.value"
-                  :disabled="args.disabled"
-                  :checked="args.checked"
-                  :class="args.error ? 'error' : false"
-                  :required="args.required"
-                >
-                <label :for="item.id">{{ item.label }}</label>
-              </div>
-            </uids-form-checkbox-or-radio-group>
-          </uids-form-container>
-        </form>
-      </div>
-    `
-  }),
-}
-
 export const Checkboxes = {
-  ...CheckboxesTemplate,
   args: {
     checked: false,
     disabled: false,
@@ -189,5 +201,19 @@ export const Checkboxes = {
     compact: false,
     inline: false,
     large: false,
+    type: 'checkbox',
+  },
+}
+
+export const Radios = {
+  args: {
+    checked: false,
+    disabled: false,
+    error: false,
+    required: false,
+    compact: false,
+    inline: false,
+    large: false,
+    type: 'radio',
   },
 }
