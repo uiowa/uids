@@ -1,4 +1,5 @@
 import '../../scss/components/form.scss';
+import '../../scss/components/button.scss';
 import UidsFormContainer from './FormContainer.vue'
 
 export default {
@@ -70,7 +71,19 @@ export default {
             :large="args.large"
           >
             <div class="form-item">
-              <input :type="args.type" :name="args.id" :id="args.id" :class="{ error: args.error }" :disabled="args.disabled" :value="args.label">
+              <input
+                :type="args.type"
+                :name="args.id"
+                :id="args.id"
+                :value="args.label"
+                :disabled="args.disabled"
+                class="bttn"
+                :class="{
+                  error: args.error,
+                  'bttn--large': args.large,
+                  'bttn--primary': args.type === 'submit',
+                }"
+              >
             </div>
           </uids-form-container>
         </form>

@@ -115,7 +115,7 @@ const Template = {
             :compact="args.compact"
             :large="args.large"
           >
-            <div class="form-item form-item--checkbox form-type-checkbox" :class="{ 'form-inline': args.inline }">
+            <div class="form-item form-item--checkbox form-type-checkbox">
               <input type="checkbox" :class="args.error ? 'error' : false" :disabled="args.disabled" :checked="args.checked" value="subscribe" id="subscribe">
               <label for="subscribe" :class="args.required ? 'form-required' : false">I would like to subscribe the newsletter</label>
             </div>
