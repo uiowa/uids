@@ -2,9 +2,10 @@ import ExampleSearch from './ExampleSearch.vue';
 import UidsFormFieldset from './FormFieldset.vue';
 import UidsFormItem from './FormItem.vue'
 import UidsFormCheckboxOrRadioGroup from './FormCheckboxOrRadioGroup.vue';
+import UidsFormContainer from './FormContainer.vue'
 
 export default {
-  title: 'Components/Form',
+  title: 'Elements/Form',
   parameters: {
     docs: {
       source: {
@@ -12,19 +13,23 @@ export default {
       },
     }
   },
-  tags: ['autodocs'],
+  tags: ['!autodocs'],
   argTypes: {
-    section1_compact: {
+    compact: {
       name: 'Compact',
+      table: { category: 'Modifiers' },
     },
-    section1_large: {
+    large: {
       name: 'Large',
+      table: { category: 'Modifiers' },
     },
-    section1_inline: {
+    inline: {
       name: 'Inline',
+      table: { category: 'Modifiers' },
     },
-    section1_flex: {
+    flex: {
       name: 'Flex',
+      table: { category: 'Modifiers' },
     },
   }
 };
@@ -95,131 +100,102 @@ const checkboxOptions = [
   },
 ];
 
-const SearchBarTemplate = {
+export const KitchenSink = {
   render: (args) => ({
-    components: { ExampleSearch },
-    setup() {
-      return { args };
-    },
-    template: `
-      <div class="layout-container">
-        <example-search></example-search>
-      </div>
-    `
-  }),
-}
-
-export const SearchBar = {
-  ...SearchBarTemplate,
-}
-
-const Template = {
-  render: (args) => ({
-    components: { UidsFormFieldset, UidsFormItem, UidsFormCheckboxOrRadioGroup },
+    components: { UidsFormFieldset, UidsFormItem, UidsFormCheckboxOrRadioGroup, UidsFormContainer },
     setup() {
       return { args, radioOptions, checkboxOptions };
     },
-    computed: {
-      formSection1Classes() {
-        let classes = [];
-        if (args.section1_large) {
-          classes.push('form--large');
-        }
-        if (args.section1_compact) {
-          classes.push('form--compact');
-        }
-        if (args.section1_inline) {
-          classes.push('form--inline');
-        }
-        if (args.section1_flex) {
-          classes.push('form--flex');
-        }
-        return classes;
-      },
-    },
     template: `
       <div class="layout-container">
-        <form class="form" method="POST" action="" :class="formSection1Classes">
+        <form class="form" method="POST" action="">
+          <uids-form-container
+            :compact="args.compact"
+            :large="args.large"
+            :inline="args.inline"
+            :flex="args.flex"
+          >
+            <uids-form-item>
+              <label class="form-required" for="last-name">Text</label>
+              <input id="last-name" maxlength="50" type="text">
+              <template #description>Description</template>
+            </uids-form-item>
 
-          <uids-form-item>
-            <label class="form-required" for="last-name">Text</label>
-            <input id="last-name" maxlength="50" type="text">
-            <template #description>Description</template>
-          </uids-form-item>
+            <div class="form-item">
+              <label class="form-required" for="email">Email</label>
+              <input id="email" maxlength="255" type="email">
+            </div>
 
-          <div class="form-item">
-            <label class="form-required" for="email">Email</label>
-            <input id="email" maxlength="255" type="email">
-          </div>
+            <div class="form-item">
+              <label for="home-phone">Phone</label>
+              <input id="home-phone" maxlength="12" type="tel">
+            </div>
 
-          <div class="form-item">
-            <label for="home-phone">Phone</label>
-            <input id="home-phone" maxlength="12" type="tel">
-          </div>
+            <uids-form-item>
+              <label for="search">Search</label>
+              <input type="search" id="search" name="search">
+            </uids-form-item>
 
-          <uids-form-item>
-            <label for="search">Search</label>
-            <input type="search" id="search" name="search">
-          </uids-form-item>
+            <uids-form-item>
+              <label class="form-required" for="state">Select</label>
+              <select id="state">
+                <option value="">- None -</option>
+                <option value="AL">Alabama</option>
+                <option value="AK">Alaska</option>
+                <option value="AS">American Samoa</option>
+                <option value="AZ">Arizona</option>
+                <option value="AR">Arkansas</option>
+                <option value="CA">California</option>
+                <option value="CO">Colorado</option>
+                <option value="CT">Connecticut</option>
+                <option value="DE">Delaware</option>
+                <option value="DC">District Of Columbia</option>
+                <option value="FL">Florida</option>
+                <option value="GA">Georgia</option>
+                <option value="HI">Hawaii</option>
+                <option value="ID">Idaho</option>
+                <option value="IL">Illinois</option>
+                <option value="IN">Indiana</option>
+                <option value="IA">Iowa</option>
+                <option value="KS">Kansas</option>
+                <option value="KY">Kentucky</option>
+                <option value="LA">Louisiana</option>
+                <option value="ME">Maine</option>
+                <option value="MD">Maryland</option>
+                <option value="MA">Massachusetts</option>
+                <option value="MI">Michigan</option>
+                <option value="MN">Minnesota</option>
+                <option value="MS">Mississippi</option>
+                <option value="MO">Missouri</option>
+                <option value="MT">Montana</option>
+                <option value="NE">Nebraska</option>
+                <option value="NV">Nevada</option>
+                <option value="NH">New Hampshire</option>
+                <option value="NJ">New Jersey</option>
+                <option value="NM">New Mexico</option>
+                <option value="NY">New York</option>
+                <option value="NC">North Carolina</option>
+                <option value="ND">North Dakota</option>
+                <option value="OH">Ohio</option>
+                <option value="OK">Oklahoma</option>
+                <option value="OR">Oregon</option>
+                <option value="PA">Pennsylvania</option>
+                <option value="RI">Rhode Island</option>
+                <option value="SC">South Carolina</option>
+                <option value="SD">South Dakota</option>
+                <option value="TN">Tennessee</option>
+                <option value="TX">Texas</option>
+                <option value="UT">Utah</option>
+                <option value="VT">Vermont</option>
+                <option value="VA">Virginia</option>
+                <option value="WA">Washington</option>
+                <option value="WV">West Virginia</option>
+                <option value="WI">Wisconsin</option>
+                <option value="WY">Wyoming</option>
+              </select>
+            </uids-form-item>
 
-          <uids-form-item>
-            <label class="form-required" for="state">Select</label>
-            <select id="state">
-              <option value="">- None -</option>
-              <option value="AL">Alabama</option>
-              <option value="AK">Alaska</option>
-              <option value="AS">American Samoa</option>
-              <option value="AZ">Arizona</option>
-              <option value="AR">Arkansas</option>
-              <option value="CA">California</option>
-              <option value="CO">Colorado</option>
-              <option value="CT">Connecticut</option>
-              <option value="DE">Delaware</option>
-              <option value="DC">District Of Columbia</option>
-              <option value="FL">Florida</option>
-              <option value="GA">Georgia</option>
-              <option value="HI">Hawaii</option>
-              <option value="ID">Idaho</option>
-              <option value="IL">Illinois</option>
-              <option value="IN">Indiana</option>
-              <option value="IA">Iowa</option>
-              <option value="KS">Kansas</option>
-              <option value="KY">Kentucky</option>
-              <option value="LA">Louisiana</option>
-              <option value="ME">Maine</option>
-              <option value="MD">Maryland</option>
-              <option value="MA">Massachusetts</option>
-              <option value="MI">Michigan</option>
-              <option value="MN">Minnesota</option>
-              <option value="MS">Mississippi</option>
-              <option value="MO">Missouri</option>
-              <option value="MT">Montana</option>
-              <option value="NE">Nebraska</option>
-              <option value="NV">Nevada</option>
-              <option value="NH">New Hampshire</option>
-              <option value="NJ">New Jersey</option>
-              <option value="NM">New Mexico</option>
-              <option value="NY">New York</option>
-              <option value="NC">North Carolina</option>
-              <option value="ND">North Dakota</option>
-              <option value="OH">Ohio</option>
-              <option value="OK">Oklahoma</option>
-              <option value="OR">Oregon</option>
-              <option value="PA">Pennsylvania</option>
-              <option value="RI">Rhode Island</option>
-              <option value="SC">South Carolina</option>
-              <option value="SD">South Dakota</option>
-              <option value="TN">Tennessee</option>
-              <option value="TX">Texas</option>
-              <option value="UT">Utah</option>
-              <option value="VT">Vermont</option>
-              <option value="VA">Virginia</option>
-              <option value="WA">Washington</option>
-              <option value="WV">West Virginia</option>
-              <option value="WI">Wisconsin</option>
-              <option value="WY">Wyoming</option>
-            </select>
-          </uids-form-item>
+          </uids-form-container>
 
           <uids-form-checkbox-or-radio-group
             label="Radios"
@@ -449,14 +425,10 @@ const Template = {
       </div>
     `,
   }),
-}
-
-export const KitchenSink = {
-  ...Template,
   args: {
-    section1_large: false,
-    section1_compact: false,
-    section1_inline: false,
-    section1_flex: false,
+    large: false,
+    compact: false,
+    inline: false,
+    flex: false,
   }
 }
