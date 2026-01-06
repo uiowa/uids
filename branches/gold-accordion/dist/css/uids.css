@@ -1431,16 +1431,18 @@ html {
   visibility: hidden;
 }
 .accordion summary i, .accordion summary svg {
-  transform: rotate(-180deg);
   transition: all var(--trans-time) ease-in-out;
-  transition-property: transform;
   width: 1.4rem;
   height: 1.4rem;
   padding: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: -0.3rem 0;
+  margin: -0.3rem 1rem 0 0;
+  border-radius: 50%;
+  transition-property: transform, background-color;
+  background-color: transparent;
+  transform: rotate(-180deg) translate(0px, -0.1em);
 }
 .accordion .accordion__heading :is(h2, h3, h4, h5, h6) {
   all: inherit;
@@ -1449,11 +1451,9 @@ html {
   font-size: 1.2rem;
   font-weight: 700;
   padding: 1.05rem;
-  justify-content: space-between;
-  -webkit-justify-content: space-between;
+  width: 100%;
   align-items: center;
   cursor: pointer;
-  width: 100%;
 }
 .accordion .accordion__heading :is(h2, h3, h4, h5, h6):focus {
   outline: 2px auto -webkit-focus-ring-color;
@@ -5020,6 +5020,7 @@ fieldset.form--inline {
 .bold-headline--underline,
 .headline--underline {
   padding-bottom: 0.625rem;
+  overflow: auto;
 }
 .bold-headline--underline:after,
 .headline--underline:after {
@@ -5043,6 +5044,7 @@ fieldset.form--inline {
 
 h5.bold-headline--underline, h5.headline--underline, .h5.bold-headline--underline, .h5.headline--underline {
   padding-bottom: 0.625rem;
+  overflow: auto;
 }
 h5.bold-headline--underline:after, h5.headline--underline:after, .h5.bold-headline--underline:after, .h5.headline--underline:after {
   content: "";
@@ -5065,6 +5067,7 @@ h5.bold-headline--underline:after, h5.headline--underline:after, .h5.bold-headli
 
 h6.bold-headline--underline, h6.headline--underline, .h6.bold-headline--underline, .h6.headline--underline {
   padding-bottom: 0.625rem;
+  overflow: auto;
 }
 h6.bold-headline--underline:after, h6.headline--underline:after, .h6.bold-headline--underline:after, .h6.headline--underline:after {
   content: "";
