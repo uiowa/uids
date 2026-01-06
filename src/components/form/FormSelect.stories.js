@@ -14,10 +14,12 @@ export default {
   argTypes: {
     compact: {
       name: 'Compact',
+      control: { type: 'boolean' },
       table: { category: 'Modifiers' },
     },
     large: {
       name: 'Large',
+      control: { type: 'boolean' },
       table: { category: 'Modifiers' },
     },
     disabled: {
@@ -35,10 +37,10 @@ export default {
       control: { type: 'boolean' },
       table: { category: 'States' },
     },
-  }
+  },
 };
 
-const Template = {
+export const Select = {
   render: (args) => ({
     setup() {
       return { args };
@@ -65,10 +67,6 @@ const Template = {
       </div>
     `
   }),
-}
-
-export const Select = {
-  ...Template,
   args: {
     disabled: false,
     error: false,
@@ -76,4 +74,36 @@ export const Select = {
     compact: false,
     large: false,
   }
+}
+
+export const SelectMultiple = {
+  render: (args) => ({
+    setup() {
+      return { args };
+    },
+    components: { UidsFormContainer },
+    template: `
+      <div class="layout-container">
+        <form class="form">
+          <uids-form-container
+            :compact="args.compact"
+            :large="args.large"
+          >
+            <div class="form-item form-item-multiselect">
+              <label for="multiselect">Multi select</label>
+              <select id="multiselect" multiple="multiple" name="multiselect[]" class="form-select">
+                <option value="High School">High School</option>
+                <option value="Associate Degree">Associate Degree</option>
+                <option value="Graduate or Professional Degree">Graduate or Professional Degree</option>
+                <option value="Some College">Some College</option>
+              </select>
+              <div class="form-item__description">Hold down the Ctrl (windows) or Command (Mac) button to select multiple options.</div>
+            </div>
+          </uids-form-container>
+        </form>
+      </div>
+    `
+  }),
+  ...Select.args,
+  name: 'Select multiple',
 }
