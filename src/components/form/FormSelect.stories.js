@@ -104,6 +104,8 @@ export const SelectMultiple = {
       </div>
     `
   }),
-  ...Select.args,
+  args: {
+    ...Select.args,
+  },
   name: 'Select multiple',
 }

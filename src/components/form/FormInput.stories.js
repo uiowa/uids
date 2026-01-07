@@ -14,10 +14,17 @@ export default {
   argTypes: {
     compact: {
       name: 'Compact',
+      control: { type: 'boolean' },
       table: { category: 'Modifiers' },
     },
     large: {
       name: 'Large',
+      control: { type: 'boolean' },
+      table: { category: 'Modifiers' },
+    },
+    inline: {
+      name: 'Inline',
+      control: { type: 'boolean' },
       table: { category: 'Modifiers' },
     },
     disabled: {
@@ -73,6 +80,7 @@ export default {
           <uids-form-container
             :compact="args.compact"
             :large="args.large"
+            :inline="args.inline"
           >
             <div class="form-item">
               <label :for="args.id" :class="args.required ? 'form-required' : false" v-html="args.label"></label>
@@ -93,23 +101,11 @@ export const Text = {
     required: false,
     compact: false,
     large: false,
+    inline: false,
     type: 'text',
     id: 'fullname',
     label: 'Full name',
     description: 'As it appears on your official documents.',
-  },
-}
-
-export const Date = {
-  args: {
-    disabled: false,
-    error: false,
-    required: false,
-    compact: false,
-    large: false,
-    type: 'date',
-    id: 'dob',
-    label: 'Date of birth',
   },
 }
 
@@ -120,10 +116,39 @@ export const Email = {
     required: false,
     compact: false,
     large: false,
+    inline: false,
     type: 'email',
     id: 'email',
     label: 'Email',
     description: 'Your uiowa.edu email address.',
+  },
+}
+
+export const Date = {
+  args: {
+    disabled: false,
+    error: false,
+    required: false,
+    compact: false,
+    large: false,
+    inline: false,
+    type: 'date',
+    id: 'dob',
+    label: 'Date of birth',
+  },
+}
+
+export const Time = {
+  args: {
+    disabled: false,
+    error: false,
+    required: false,
+    compact: false,
+    large: false,
+    inline: false,
+    type: 'time',
+    id: 'time',
+    label: 'Time of departure',
   },
 }
 
@@ -134,6 +159,7 @@ export const Phone = {
     required: false,
     compact: false,
     large: false,
+    inline: false,
     type: 'tel',
     id: 'phone',
     label: 'Phone number',
