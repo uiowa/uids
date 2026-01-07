@@ -23,14 +23,6 @@ export default {
       name: 'Large',
       table: { category: 'Modifiers' },
     },
-    inline: {
-      name: 'Inline',
-      table: { category: 'Modifiers' },
-    },
-    flex: {
-      name: 'Flex',
-      table: { category: 'Modifiers' },
-    },
   }
 };
 
@@ -42,8 +34,15 @@ export const SearchBar = {
     },
     template: `
       <div class="layout-container">
-        <example-search></example-search>
+        <example-search :class="{
+          'form--compact': args.compact,
+          'form--large': args.large,
+        }"></example-search>
       </div>
     `
   }),
+  args: {
+    compact: false,
+    large: false,
+  },
 }
