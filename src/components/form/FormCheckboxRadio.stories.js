@@ -58,6 +58,11 @@ export default {
         disable: true,
       },
     },
+    toggle: {
+      table: {
+        disable: true,
+      },
+    },
   },
   render: (args) => ({
     setup() {
@@ -182,9 +187,9 @@ export const Checkbox = {
             :compact="args.compact"
             :large="args.large"
           >
-            <div class="form-item form-item--checkbox form-type-checkbox">
-              <input type="checkbox" :class="args.error ? 'error' : false" :disabled="args.disabled" :checked="args.checked" value="subscribe" id="subscribe">
-              <label for="subscribe" :class="args.required ? 'form-required' : false">I would like to subscribe the newsletter</label>
+            <div class="form-item form-item--checkbox form-type-checkbox" :class="{ 'form__checkbox--switch': args.toggle }">
+              <input type="checkbox" :disabled="args.disabled" :checked="args.checked" value="subscribe" id="subscribe" :class="{ 'error': args.error }">
+              <label for="subscribe" :class="args.required ? 'form-required' : false" v-html="args.label"></label>
             </div>
           </uids-form-container>
         </form>
@@ -199,7 +204,17 @@ export const Checkbox = {
     compact: false,
     inline: false,
     large: false,
+    label: 'Subscribe to email updates',
   }
+}
+
+export const Toggle = {
+  ...Checkbox,
+  args: {
+    ...Checkbox.args,
+    label: 'Enable notifications',
+    toggle: true,
+  },
 }
 
 export const Checkboxes = {
