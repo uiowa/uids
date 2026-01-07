@@ -26,16 +26,6 @@ export default {
       control: { type: 'boolean' },
       table: { category: 'States' },
     },
-    error: {
-      name: 'Error',
-      control: { type: 'boolean' },
-      table: { category: 'States' },
-    },
-    required: {
-      name: 'Required',
-      control: { type: 'boolean' },
-      table: { category: 'States' },
-    },
     // These arguments control the template and are hidden from the Storybook UI.
     type: {
       table: {
@@ -95,8 +85,6 @@ export default {
 export const Button = {
   args: {
     disabled: false,
-    error: false,
-    required: false,
     compact: false,
     large: false,
     type: 'button',
@@ -107,11 +95,7 @@ export const Button = {
 
 export const Reset = {
   args: {
-    disabled: false,
-    error: false,
-    required: false,
-    compact: false,
-    large: false,
+    ...Button.args,
     type: 'reset',
     id: 'reset',
     label: 'Reset',
@@ -120,11 +104,7 @@ export const Reset = {
 
 export const Submit = {
   args: {
-    disabled: false,
-    error: false,
-    required: false,
-    compact: false,
-    large: false,
+    ...Button.args,
     type: 'submit',
     id: 'submit',
     label: 'Submit',

@@ -22,6 +22,11 @@ export default {
       control: { type: 'boolean' },
       table: { category: 'Modifiers' },
     },
+    inline: {
+      name: 'Inline',
+      control: { type: 'boolean' },
+      table: { category: 'Modifiers' },
+    },
     disabled: {
       name: 'Disabled',
       control: { type: 'boolean' },
@@ -73,6 +78,7 @@ export const Select = {
     required: false,
     compact: false,
     large: false,
+    inline: false,
   }
 }
 
@@ -88,10 +94,11 @@ export const SelectMultiple = {
           <uids-form-container
             :compact="args.compact"
             :large="args.large"
+            :inline="args.inline"
           >
             <div class="form-item form-item-multiselect">
-              <label for="multiselect">Multi select</label>
-              <select id="multiselect" multiple="multiple" name="multiselect[]" class="form-select">
+              <label for="multiselect" :class="args.required ? 'form-required' : false">Multi select</label>
+              <select id="multiselect" multiple="multiple" name="multiselect[]" class="form-select" :disabled="args.disabled">
                 <option value="High School">High School</option>
                 <option value="Associate Degree">Associate Degree</option>
                 <option value="Graduate or Professional Degree">Graduate or Professional Degree</option>
