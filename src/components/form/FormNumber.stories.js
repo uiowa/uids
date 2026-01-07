@@ -14,10 +14,17 @@ export default {
   argTypes: {
     compact: {
       name: 'Compact',
+      control: { type: 'boolean' },
       table: { category: 'Modifiers' },
     },
     large: {
       name: 'Large',
+      control: { type: 'boolean' },
+      table: { category: 'Modifiers' },
+    },
+    inline: {
+      name: 'Inline',
+      control: { type: 'boolean' },
       table: { category: 'Modifiers' },
     },
     disabled: {
@@ -73,6 +80,7 @@ export default {
           <uids-form-container
             :compact="args.compact"
             :large="args.large"
+            :inline="args.inline"
           >
             <div class="form-item">
               <label :for="args.id" :class="args.required ? 'form-required' : false" v-html="args.label"></label>
@@ -93,6 +101,7 @@ export const Number = {
     required: false,
     compact: false,
     large: false,
+    inline: false,
     id: 'hours',
     label: 'Credit hours completed',
     description: 'Enter the number of credit hours you have completed.',
