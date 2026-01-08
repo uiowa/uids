@@ -124,6 +124,20 @@ export const Email = {
   },
 }
 
+export const Password = {
+  args: {
+    disabled: false,
+    error: false,
+    required: false,
+    compact: false,
+    large: false,
+    inline: false,
+    type: 'password',
+    id: 'password',
+    label: 'Password',
+  },
+}
+
 export const Date = {
   args: {
     disabled: false,

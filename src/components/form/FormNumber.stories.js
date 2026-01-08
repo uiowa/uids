@@ -68,6 +68,16 @@ export default {
         disable: true,
       },
     },
+    min: {
+      table: {
+        disable: true,
+      },
+    },
+    max: {
+      table: {
+        disable: true,
+      },
+    },
   },
   render: (args) => ({
     setup() {
@@ -84,7 +94,7 @@ export default {
           >
             <div class="form-item">
               <label :for="args.id" :class="args.required ? 'form-required' : false" v-html="args.label"></label>
-              <input type="number" :name="args.id" :id="args.id" :class="{ error: args.error }" :disabled="args.disabled" min="0" step="1">
+              <input :type="args.type" :name="args.id" :id="args.id" :class="{ error: args.error }" :disabled="args.disabled" :min="args.min" step="1" :max="args.max">
               <div class="form-item__description" v-if="args.description" v-html="args.description"></div>
             </div>
           </uids-form-container>
@@ -102,8 +112,27 @@ export const Number = {
     compact: false,
     large: false,
     inline: false,
+    type: 'number',
     id: 'hours',
     label: 'Credit hours completed',
     description: 'Enter the number of credit hours you have completed.',
+    min: 0,
+    max: 10000,
+  },
+}
+
+export const Range = {
+  args: {
+    disabled: false,
+    error: false,
+    required: false,
+    compact: false,
+    large: false,
+    inline: false,
+    type: 'range',
+    id: 'volume',
+    label: 'Volume',
+    min: 0,
+    max: 100,
   },
 }
