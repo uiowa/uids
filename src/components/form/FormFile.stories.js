@@ -20,6 +20,11 @@ export default {
       name: 'Large',
       table: { category: 'Modifiers' },
     },
+    inline: {
+      name: 'Inline',
+      control: { type: 'boolean' },
+      table: { category: 'Modifiers' },
+    },
     disabled: {
       name: 'Disabled',
       control: { type: 'boolean' },
@@ -73,6 +78,7 @@ export default {
           <uids-form-container
             :compact="args.compact"
             :large="args.large"
+            :inline="args.inline"
           >
             <div class="form-item">
               <label :for="args.id" :class="args.required ? 'form-required' : false" v-html="args.label"></label>
@@ -93,6 +99,7 @@ export const File = {
     required: false,
     compact: false,
     large: false,
+    inline: false,
     id: 'file',
     label: 'Upload your official document',
     description: 'Accepted formats: PDF, DOCX, JPG',
