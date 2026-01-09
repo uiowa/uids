@@ -4,6 +4,7 @@
           <uids-form-container
             :compact="args.compact"
             :large="args.large"
+            :inline="args.inline"
           >
             <div class="form-item">
               <label for="country" :class="args.required ? 'form-required' : false">Country</label>
@@ -56,6 +57,7 @@
           <uids-form-container
             :compact="args.compact"
             :large="args.large"
+            :inline="args.inline"
           >
             <div class="form-item">
               <label for="country" :class="args.required ? 'form-required' : false">Country</label>
