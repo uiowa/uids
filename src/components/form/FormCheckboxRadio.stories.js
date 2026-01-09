@@ -186,6 +186,7 @@ export const Checkbox = {
           <uids-form-container
             :compact="args.compact"
             :large="args.large"
+            :inline="args.inline"
           >
             <div class="form-item form-item--checkbox form-type-checkbox" :class="{ 'form__checkbox--switch': args.toggle }">
               <input type="checkbox" :disabled="args.disabled" :checked="args.checked" value="subscribe" id="subscribe" :class="{ 'error': args.error }">
