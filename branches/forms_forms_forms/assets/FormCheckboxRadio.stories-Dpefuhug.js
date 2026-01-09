@@ -1,4 +1,4 @@
-/* empty css             */import{_ as k}from"./FormCheckboxOrRadioGroup.vue_vue_type_script_setup_true_lang-B88Hx7zu.js";import{_ as v}from"./FormContainer.vue_vue_type_script_setup_true_lang-gr6ChY2W.js";import"./vue.esm-bundler-CLcX4pNH.js";import"./FormFieldset.vue_vue_type_script_setup_true_lang-0Uj7YY9V.js";const A={title:"Elements/Form",parameters:{docs:{source:{code:null}}},tags:["!autodocs"],argTypes:{compact:{name:"Compact",control:{type:"boolean"},table:{category:"Modifiers"}},inline:{name:"Inline",control:{type:"boolean"},table:{category:"Modifiers"}},large:{name:"Large",control:{type:"boolean"},table:{category:"Modifiers"}},checked:{name:"Checked",control:{type:"boolean"},table:{category:"States"}},disabled:{name:"Disabled",control:{type:"boolean"},table:{category:"States"}},error:{name:"Error",control:{type:"boolean"},table:{category:"States"}},required:{name:"Required",control:{type:"boolean"},table:{category:"States"}},label:{table:{disable:!0}},type:{table:{disable:!0}},toggle:{table:{disable:!0}}},render:r=>({setup(){return{args:r,checkboxOptions:t,radioOptions:i}},components:{UidsFormCheckboxOrRadioGroup:k,UidsFormContainer:v},computed:{optionItems(){return r.type==="radio"?i:t}},template:`
+/* empty css             */import{_ as k}from"./FormCheckboxOrRadioGroup.vue_vue_type_script_setup_true_lang-B88Hx7zu.js";import{_ as v}from"./FormContainer.vue_vue_type_script_setup_true_lang-gr6ChY2W.js";import"./vue.esm-bundler-CLcX4pNH.js";import"./FormFieldset.vue_vue_type_script_setup_true_lang-0Uj7YY9V.js";const A={title:"Elements/Form",parameters:{docs:{source:{code:null}}},tags:["!autodocs"],argTypes:{compact:{name:"Compact",control:{type:"boolean"},table:{category:"Modifiers"}},inline:{name:"Inline",control:{type:"boolean"},table:{category:"Modifiers"}},large:{name:"Large",control:{type:"boolean"},table:{category:"Modifiers"}},checked:{name:"Checked",control:{type:"boolean"},table:{category:"States"}},disabled:{name:"Disabled",control:{type:"boolean"},table:{category:"States"}},error:{name:"Error",control:{type:"boolean"},table:{category:"States"}},required:{name:"Required",control:{type:"boolean"},table:{category:"States"}},label:{table:{disable:!0}},type:{table:{disable:!0}},toggle:{table:{disable:!0}}},render:r=>({setup(){return{args:r,checkboxOptions:t,radioOptions:n}},components:{UidsFormCheckboxOrRadioGroup:k,UidsFormContainer:v},computed:{optionItems(){return r.type==="radio"?n:t}},template:`
       <div class="layout-container">
         <form class="form">
           <uids-form-container
@@ -28,12 +28,13 @@
           </uids-form-container>
         </form>
       </div>
-    `})},t=[{id:"financial-aid",name:"interests",value:"FINANCIAL_AID",label:"Costs & Financial Aid"},{id:"marching-band",name:"interests",value:"MARCHING_BAND",label:"Hawkeye Marching Band"},{id:"rotc-air-force",name:"interests",value:"ROTC_AIR_FORCE",label:"ROTC - Air Force (Aerospace Studies)"},{id:"rotc-army",name:"interests",value:"ROTC_ARMY",label:"ROTC - Army (Military Science)"},{id:"study-abroad",name:"interests",value:"STUDY_ABROAD",label:"Study Abroad"},{id:"band",name:"interests",value:"BAND",label:"University Concert Bands and Jazz Bands"},{id:"honors",name:"interests",value:"HONORS",label:"University Honors Program"},{id:"veteran-services",name:"interests",value:"VETERAN_SERVICES",label:"Veteran & Military Connected Student Services"}],i=[{id:"text-permission-yes",name:"permission",value:!0,label:"Yes"},{id:"text-permission-no",name:"permission",value:!1,label:"No"}],e={render:r=>({setup(){return{args:r}},components:{UidsFormContainer:v},template:`
+    `})},t=[{id:"financial-aid",name:"interests",value:"FINANCIAL_AID",label:"Costs & Financial Aid"},{id:"marching-band",name:"interests",value:"MARCHING_BAND",label:"Hawkeye Marching Band"},{id:"rotc-air-force",name:"interests",value:"ROTC_AIR_FORCE",label:"ROTC - Air Force (Aerospace Studies)"},{id:"rotc-army",name:"interests",value:"ROTC_ARMY",label:"ROTC - Army (Military Science)"},{id:"study-abroad",name:"interests",value:"STUDY_ABROAD",label:"Study Abroad"},{id:"band",name:"interests",value:"BAND",label:"University Concert Bands and Jazz Bands"},{id:"honors",name:"interests",value:"HONORS",label:"University Honors Program"},{id:"veteran-services",name:"interests",value:"VETERAN_SERVICES",label:"Veteran & Military Connected Student Services"}],n=[{id:"text-permission-yes",name:"permission",value:!0,label:"Yes"},{id:"text-permission-no",name:"permission",value:!1,label:"No"}],e={render:r=>({setup(){return{args:r}},components:{UidsFormContainer:v},template:`
       <div class="layout-container">
         <form class="form">
           <uids-form-container
             :compact="args.compact"
             :large="args.large"
+            :inline="args.inline"
           >
             <div class="form-item form-item--checkbox form-type-checkbox" :class="{ 'form__checkbox--switch': args.toggle }">
               <input type="checkbox" :disabled="args.disabled" :checked="args.checked" value="subscribe" id="subscribe" :class="{ 'error': args.error }">
@@ -42,7 +43,7 @@
           </uids-form-container>
         </form>
       </div>
-    `}),args:{checked:!1,disabled:!1,error:!1,required:!1,compact:!1,inline:!1,large:!1,label:"Subscribe to email updates"}},a={...e,args:{...e.args,label:"Enable notifications",toggle:!0}},s={args:{...e.args,label:"Select your interests",type:"checkbox"}},o={args:{...e.args,label:"Do you give permission to receive text messages?",type:"radio"}};var n,l,c;e.parameters={...e.parameters,docs:{...(n=e.parameters)==null?void 0:n.docs,source:{originalSource:`{
+    `}),args:{checked:!1,disabled:!1,error:!1,required:!1,compact:!1,inline:!1,large:!1,label:"Subscribe to email updates"}},a={...e,args:{...e.args,label:"Enable notifications",toggle:!0}},s={args:{...e.args,label:"Select your interests",type:"checkbox"}},o={args:{...e.args,label:"Do you give permission to receive text messages?",type:"radio"}};var i,l,c;e.parameters={...e.parameters,docs:{...(i=e.parameters)==null?void 0:i.docs,source:{originalSource:`{
   render: args => ({
     setup() {
       return {
@@ -58,6 +59,7 @@
           <uids-form-container
             :compact="args.compact"
             :large="args.large"
+            :inline="args.inline"
           >
             <div class="form-item form-item--checkbox form-type-checkbox" :class="{ 'form__checkbox--switch': args.toggle }">
               <input type="checkbox" :disabled="args.disabled" :checked="args.checked" value="subscribe" id="subscribe" :class="{ 'error': args.error }">
