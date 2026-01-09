@@ -98,7 +98,9 @@ export const SelectMultiple = {
           >
             <div class="form-item form-item-multiselect">
               <label for="multiselect" :class="args.required ? 'form-required' : false">Multi select</label>
-              <select id="multiselect" multiple="multiple" name="multiselect[]" class="form-select" :disabled="args.disabled">
+              <select id="multiselect" multiple="multiple" name="multiselect[]" :disabled="args.disabled" class="form-select" :class="{
+                error: args.error,
+              }">
                 <option value="High School">High School</option>
                 <option value="Associate Degree">Associate Degree</option>
                 <option value="Graduate or Professional Degree">Graduate or Professional Degree</option>
