@@ -6,7 +6,7 @@ const props = defineProps({});
 
 </script>
 <template>
-  <form class="form form--flex form--compact" method="POST" action="">
+  <form class="form form--flex" method="POST" action="">
     <div class="form-item">
       <label class="element-invisible" for="search">Search</label>
       <input type="text" id="search" name="search" value="" size="30" maxlength="128"
