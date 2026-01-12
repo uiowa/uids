@@ -1364,9 +1364,9 @@ mark::after {
   --uiowa-black: #000000;
   --brand-primary: var(--uiowa-gold);
   --brand-secondary: var(--uiowa-black);
-  --uids-grey: #737373;
-  --uids-grey-light: #CACACA;
-  --uids-grey-cool: #63666A;
+  --uids-gray: #737373;
+  --uids-gray-light: #CACACA;
+  --uids-gray-cool: #63666A;
   --uids-light: #F3F3F3;
   --link-color: #00558C;
   --transparent-border: rgb(0, 0, 0, .125);
@@ -1405,13 +1405,13 @@ html {
 .accordion {
   --trans-time: 0.2s;
   --accordion-color: var(--uids-light);
-  --border-color: var(--uids-grey-light);
+  --border-color: var(--uids-gray-light);
 }
 .accordion.accordion--white {
   --accordion-color: #fff;
 }
 .accordion.accordion--white summary:hover, .accordion.accordion--white summary:focus {
-  --border-color: var(--uids-grey-cool);
+  --border-color: var(--uids-gray-cool);
   background-color: var(--uids-light);
 }
 .accordion details[open] summary i, .accordion details[open] summary svg {
@@ -1424,8 +1424,8 @@ html {
   cursor: pointer;
 }
 .accordion summary:hover, .accordion summary:focus {
-  background-color: #edeceb;
-  outline: 1px solid var(--uids-grey-cool);
+  background-color: rgb(229.5, 229.5, 229.5);
+  outline: 1px solid var(--uids-gray-cool);
 }
 .accordion summary::-webkit-details-marker {
   visibility: hidden;
@@ -1438,7 +1438,7 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: -0.3rem 1rem 0 0;
+  margin: -0.3rem 0.7rem 0 0;
   border-radius: 50%;
   transition-property: transform, background-color;
   background-color: transparent;
@@ -1835,7 +1835,7 @@ html {
 }
 
 .badge--cool-gray {
-  background: var(--uids-grey-cool);
+  background: var(--uids-gray-cool);
 }
 
 .badge--blue {
@@ -4280,10 +4280,10 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
   --form-input-height: 2.9rem;
   --form-input-font-size: 1rem;
   --form-item-gap: 1rem;
-  --form-section-border-color: var(--uids-grey-light);
-  --form-input-outline-color: var(--uids-grey-light);
+  --form-section-border-color: var(--uids-gray-light);
+  --form-input-outline-color: var(--uids-gray-light);
 }
-.form input:not([type=checkbox], [type=radio]),
+.form input:not([type=checkbox], [type=radio], [type=submit], [type=button], [type=reset]),
 .form textarea,
 .form select,
 .form details.form__details--multi-select summary {
@@ -4306,24 +4306,24 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
   transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
   width: 100%;
 }
-.form input:not([type=checkbox], [type=radio]):focus,
+.form input:not([type=checkbox], [type=radio], [type=submit], [type=button], [type=reset]):focus,
 .form textarea:focus,
 .form select:focus,
 .form details.form__details--multi-select summary:focus {
   --form-input-bg: #fefefe;
   --form-input-outline-color: #8a8a8a;
-  box-shadow: 0 0 5px 2px var(--uids-grey-light);
+  box-shadow: 0 0 5px 2px var(--uids-gray-light);
   outline-width: 2px;
   transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
 }
-.form input:not([type=checkbox], [type=radio]).error,
+.form input:not([type=checkbox], [type=radio], [type=submit], [type=button], [type=reset]).error,
 .form textarea.error,
 .form select.error,
 .form details.form__details--multi-select summary.error {
   --form-input-outline-color: #BD472A;
   --form-input-bg: rgb(247.3909090909, 226.012987013, 220.7590909091);
 }
-.form input:not([type=checkbox], [type=radio]).error:focus,
+.form input:not([type=checkbox], [type=radio], [type=submit], [type=button], [type=reset]).error:focus,
 .form textarea.error:focus,
 .form select.error:focus,
 .form details.form__details--multi-select summary.error:focus {
@@ -4516,7 +4516,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
   background-image: none;
 }
 .form select[multiple] {
-  border: 1px solid var(--uids-grey);
+  border: 1px solid var(--uids-gray);
   padding: 0.5rem;
   cursor: pointer;
   line-height: 1.1;
@@ -4560,7 +4560,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
   outline: none;
   border: none;
   cursor: pointer;
-  background-color: var(--uids-grey-light);
+  background-color: var(--uids-gray-light);
   transition: background-color ease 0.3s;
   margin-top: 0;
 }
@@ -4605,7 +4605,7 @@ details.form__details--multi-select {
 }
 details.form__details--multi-select summary {
   cursor: pointer;
-  color: var(--uids-grey);
+  color: var(--uids-gray);
   align-items: center;
   background-image: none;
   transition: border-color 0.25s ease-in-out;
@@ -4634,7 +4634,7 @@ details.form__details--multi-select fieldset {
   margin-top: 0;
 }
 details.form__details--multi-select .details-wrapper {
-  border: 1px solid var(--uids-grey-light);
+  border: 1px solid var(--uids-gray-light);
   display: flex;
   flex-direction: column;
   padding: 0;
@@ -4653,7 +4653,7 @@ details.form__details--multi-select .details-wrapper .form-item {
 
 .form--light label {
   font-weight: 500;
-  color: var(--uids-grey-cool);
+  color: var(--uids-gray-cool);
 }
 
 .form--large {
@@ -4857,7 +4857,7 @@ fieldset.form--inline {
   position: relative;
 }
 .form details:not(.form__details--multi-select) > summary i {
-  color: var(--uids-grey);
+  color: var(--uids-gray);
 }
 
 .form details:not(.form__details--multi-select) > summary:hover {
@@ -5372,7 +5372,7 @@ figure[class*=inline--size-] img {
   left: 0.9rem;
 }
 .menu li .fas {
-  color: var(--uids-grey-cool);
+  color: var(--uids-gray-cool);
 }
 .menu li.is-active a:after {
   height: var(--menu-link-indicator-height);
@@ -5394,7 +5394,7 @@ figure[class*=inline--size-] img {
 }
 .menu li a:after,
 .menu li span:not([class*=fa]):after {
-  background: var(--uids-grey-light);
+  background: var(--uids-gray-light);
   position: absolute;
   bottom: 0;
   left: 0;
