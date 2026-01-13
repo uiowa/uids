@@ -10,7 +10,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  background: {
+  label_color: {
     type: String,
     default: '',
     required: false,
@@ -36,7 +36,7 @@ const accordionClasses = computed(() => {
   return {
     'accordion': true,
     'accordion--multi': props.multiselectable,
-    'accordion--white' : props.background,
+    'accordion--white' : props.label_color,
   };
 });
 
@@ -69,7 +69,7 @@ onMounted(() => {
         </h2>
       </summary>
       <div
-        class="bg--white accordion__content"
+        class="accordion__content"
         v-html="item.content"
       ></div>
     </details>

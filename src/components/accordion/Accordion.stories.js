@@ -4,8 +4,8 @@ export default {
   title: 'Components/Accordion',
   component: Accordion,
   argTypes: {
-    background: {
-      name: 'Background',
+    label_color: {
+      name: 'Label color',
       options: [
         '',
         'white'
@@ -45,7 +45,7 @@ let items = [
 export const Default = Template.bind({});
 Default.args = {
   multiselectable: false,
-  background: '',
+  label_color: '',
   items: items,
 };
 

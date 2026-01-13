@@ -2,30 +2,11 @@
 @use '../abstracts/variables';
 @use '../abstracts/utilities';
 
-.accordion__item {
-  border: 1px solid var(--border-color);
-
-  &:not(:first-child) {
-    margin-top: 1rem;
-  }
-}
-
+// === Accordion === //
 .accordion {
   --trans-time: 0.2s;
-  --accordion-color: var(--uids-light);
+  --accordion-label-color: var(--uids-light);
   --border-color: var(--uids-gray-light);
-  
-  &.accordion--white {
-    --accordion-color: #{variables.$white};
-
-    summary {
-      &:hover,
-      &:focus {
-        --border-color: var(--uids-gray-cool);
-        background-color: var(--uids-light);
-      }
-    }
-  }
 
   details {
     &[open] {
@@ -39,7 +20,7 @@
 
   summary {
     list-style: none;
-    background-color: var(--accordion-color);
+    background-color: var(--accordion-label-color);
     display: flex;
     cursor: pointer;
 
@@ -86,6 +67,7 @@
   }
 
   .accordion__content {
+    background-color: variables.$white;
     padding: variables.$md;
     border-top: 1px solid var(--border-color);
 
@@ -106,4 +88,27 @@
   }
 }
 
+.accordion__item {
+  border: 1px solid var(--border-color);
+
+  &:not(:first-child) {
+    margin-top: 1rem;
+  }
+}
+
+// === End: Accordion === //
+
+// === Accordion modifiers === //
+.accordion--white {
+  --accordion-label-color: #{variables.$white};
+
+  summary {
+    &:hover,
+    &:focus {
+      --border-color: var(--uids-gray-cool);
+      background-color: var(--uids-light);
+    }
+  }
+}
+// === End: Accordion modifiers === //
 
