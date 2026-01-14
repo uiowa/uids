@@ -1,8 +1,8 @@
-import Accordion from './Accordion.vue';
+import UidsAccordion from './Accordion.vue';
 
 export default {
   title: 'Components/Accordion',
-  component: Accordion,
+  component: UidsAccordion,
   argTypes: {
     label_color: {
       name: 'Label color',
@@ -23,17 +23,16 @@ export default {
       name: 'Multi select'
     },
   },
-};
-
-const Template = (args) => ({
-  components: { Accordion },
-  setup() {
-    return { args };
-  },
-  template: `
-    <Accordion v-bind="args" />
+  render: (args) => ({
+    setup() {
+      return { args };
+    },
+    components: { UidsAccordion },
+    template: `
+    <uids-accordion v-bind="args" />
   `,
-});
+  }),
+};
 
 let items = [
   { title: 'Brand Bar', id: 'brand-bar', content: '<p>The brand bar must appear at the top of all core websites to create immediate association with the university.</p>' },
@@ -42,26 +41,29 @@ let items = [
   { title: 'Favicon', id: 'favicon', content: '<p>Although small, favicons play an important role in visually unifying web pages. Favicons are the symbols used for browser tabs, bookmarks, or shortcuts pinned to the home screen or desktop of a phone, tablet, or computer.</p>' },
 ];
 
-export const Default = Template.bind({});
-Default.args = {
-  multiselectable: false,
-  label_color: '',
-  items: items,
+export const Default = {
+  args: {
+    multiselectable: false,
+    label_color: '',
+    items: items,
+  },
 };
 
-export const MultiSelect = Template.bind({});
-MultiSelect.args = {
-  ...Default.args,
-  multiselectable: true,
+export const MultiSelect = {
+  args: {
+    ...Default.args,
+    multiselectable: true,
+  },
 };
 
-export const OpenByDefault = Template.bind({});
-OpenByDefault.args = {
-  ...Default.args,
-  items: [
-    { open: true, ...items[0] },
-    { ...items[1] },
-    { ...items[2] },
-    { ...items[3] },
-  ],
+export const OpenByDefault = {
+  args: {
+    ...Default.args,
+    items: [
+      { open: true, ...items[0] },
+      { ...items[1] },
+      { ...items[2] },
+      { ...items[3] },
+    ],
+  },
 };
