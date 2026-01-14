@@ -2,12 +2,18 @@
 import '../../scss/components/accordion.scss'
 import { applyAccordion } from "../../assets/js/accordion.js";
 import '../../assets/js/accordion.js';
+import '../../scss/components/_background.scss'
 import {ref, computed, defineProps, onMounted} from 'vue';
 
 const props = defineProps({
   multiselectable: {
     type: Boolean,
     default: false,
+  },
+  label_color: {
+    type: String,
+    default: '',
+    required: false,
   },
   items: {
     type: Array,
@@ -30,6 +36,7 @@ const accordionClasses = computed(() => {
   return {
     'accordion': true,
     'accordion--multi': props.multiselectable,
+    'accordion--white' : props.label_color,
   };
 });
 
@@ -57,8 +64,8 @@ onMounted(() => {
         role="tab"
       >
         <h2>
-          {{ item.title }}
           <i aria-hidden="true" class="fas fa-chevron-up" role="presentation"></i>
+          {{ item.title }}
         </h2>
       </summary>
       <div
