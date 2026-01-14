@@ -6,6 +6,8 @@
 .accordion {
   --trans-time: 0.2s;
   --accordion-label-color: var(--uids-light);
+  --accordion-label-color-hover: #{variables.$lighter-gray};
+  --accordion-outline-color: var(--uids-gray-cool);
   --border-color: var(--uids-gray-light);
 
   details {
@@ -25,8 +27,8 @@
     cursor: pointer;
 
     &:hover, &:focus {
-      background-color: variables.$lighter-gray;
-      outline: 1px solid var(--uids-gray-cool);
+      background-color: var(--accordion-label-color-hover);
+      outline: 1px solid var(--accordion-outline-color);
     }
 
     &::-webkit-details-marker {
@@ -101,14 +103,8 @@
 // === Accordion modifiers === //
 .accordion--white {
   --accordion-label-color: #{variables.$white};
-
-  summary {
-    &:hover,
-    &:focus {
-      --border-color: var(--uids-gray-cool);
-      --accordion-label-color: var(--uids-light);
-    }
-  }
+  --accordion-label-color-hover: var(--uids-light);
+  --accordion-outline-color: var(--uids-gray-cool);
 }
 // === End: Accordion modifiers === //
 
