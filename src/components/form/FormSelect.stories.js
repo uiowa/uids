@@ -60,7 +60,7 @@ export const Select = {
             :inline="args.inline"
           >
             <div class="form-item">
-              <label for="country" :class="args.required ? 'form-required' : false">Country</label>
+              <label for="country" :class="args.required ? 'form--required' : false">Country</label>
               <select name="country" id="country" :class="args.error ? 'error' : false" :disabled="args.disabled">
                 <option value="">Select a country</option>
                 <option value="us">United States</option>
@@ -97,9 +97,9 @@ export const SelectMultiple = {
             :large="args.large"
             :inline="args.inline"
           >
-            <div class="form-item form-item-multiselect">
-              <label for="multiselect" :class="args.required ? 'form-required' : false">Multi select</label>
-              <select id="multiselect" multiple="multiple" name="multiselect[]" :disabled="args.disabled" class="form-select" :class="{
+            <div class="form-item form-item--multiselect">
+              <label for="multiselect" :class="args.required ? 'form--required' : false">Multi select</label>
+              <select id="multiselect" multiple="multiple" name="multiselect[]" :disabled="args.disabled" :class="{
                 error: args.error,
               }">
                 <option value="High School">High School</option>

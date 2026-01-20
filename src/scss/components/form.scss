@@ -19,17 +19,13 @@
 
   input,
   select,
-  button,
-    // Make details summary appear as select list.
-  details.form__details--multi-select summary {
+  button {
     //line-height: 1rem;
   }
 
   input:not([type="checkbox"], [type="radio"], [type="submit"], [type="button"], [type="reset"]),
   textarea,
-  select,
-    // Make details summary appear as select list.
-  details.form__details--multi-select summary {
+  select {
     appearance: none;
     background-color: var(--form-input-bg);
     border: none;
@@ -72,11 +68,6 @@
     padding-inline: 0.625rem 1.5rem;
   }
 
-  details.form__details--multi-select summary {
-    display: flex;
-    margin-bottom: 0;
-  }
-
   // === Spacing === //
   .form-item,
   .form-actions {
@@ -98,7 +89,7 @@
     font-size: var(--form-input-font-size);
   }
 
-  label.form-required {
+  label.form--required {
     &:after {
       margin-left: variables.$xsm;
       content: '*';
@@ -275,10 +266,9 @@
 
   // === End: Checkbox/Radios === //
 
-  // === Select and details === //
+  // === Select === //
 
-  select,
-  details.details-multi-select summary {
+  select {
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="32" height="24" viewBox="0 0 32 24"><polygon points="0,0 32,0 16,24" style="fill: rgb%28138, 138, 138%29"></polygon></svg>');
     background-repeat: no-repeat;
     background-position: right -1rem center;
@@ -287,28 +277,6 @@
 
     @media screen and (min-width: 0\0) {
       background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAYCAYAAACbU/80AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAIpJREFUeNrEkckNgDAMBBfRkEt0ObRBBdsGXUDgmQfK4XhH2m8czQAAy27R3tsw4Qfe2x8uOO6oYLb6GlOor3GF+swURAOmUJ+RwtEJs9WvTGEYxBXqI1MQAZhCfUQKRzDMVj+TwrAIV6jvSUEkYAr1LSkcyTBb/V+KYfX7xAeusq3sLDtGH3kEGACPWIflNZfhRQAAAABJRU5ErkJggg==');
-    }
-  }
-
-  details.details-multi-select summary {
-    padding: variables.$xsm;
-    background-color: variables.$white;
-    @include utilities.margin($top: 0, $right: 0, $bottom: 1rem);
-    @include utilities.padding($right: variables.$lg, $left: variables.$md);
-
-
-    &:disabled {
-      cursor: not-allowed;
-      background-color: var(--form-input-bg-disabled);
-    }
-
-    &::-ms-expand {
-      display: none;
-    }
-
-    &[multiple] {
-      height: auto;
-      background-image: none;
     }
   }
 
@@ -335,7 +303,7 @@
       }
     }
   }
-  // === End: Select and details === //
+  // === End: Select === //
 
   // === Fieldset === //
   fieldset {
@@ -411,76 +379,6 @@
 
 // === End: Switch checkbox === //
 
-// === Details === //
- details.form-item.form__details--multi-select {
-  margin-top: 0;
-}
-
-details.form__details--multi-select {
-  position: relative;
-
-  summary {
-    cursor: pointer;
-    color: variables.$gray;
-    align-items: center;
-    background-image: none;
-    transition: border-color 0.25s ease-in-out;
-
-    &:before {
-      position: absolute;
-      right: 0;
-      content: '';
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="32" height="24" viewBox="0 0 32 24"><polygon points="0,0 32,0 16,24" style="fill: rgb%28138, 138, 138%29"></polygon></svg>');
-      background-repeat: no-repeat;
-      background-position: center;
-      background-origin: content-box;
-      background-size: 9px 6px;
-      padding: 0 0.55rem;
-      height: 100%;
-      width: 2.425rem;
-      transform: rotate(0deg);
-    }
-
-    &:focus {
-      & + .details-wrapper {
-        border-top: 1px solid #8a8a8a;
-      }
-    }
-  }
-
-  &[open] {
-    summary {
-      &:before {
-        transform: rotate(180deg);
-      }
-    }
-  }
-
-  fieldset {
-    margin-top: 0;
-  }
-
-  .details-wrapper {
-    border: 1px solid variables.$gray-light;
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    position: absolute;
-    top: calc(var(--form-input-height) - 1px);
-    width: calc(100% - 2px);
-    z-index: 500;
-    background: variables.$white;
-    box-shadow: 0 0 7px rgba(0, 0, 0, .15);
-    max-height: 346px;
-    overflow: auto;
-
-    .form-item {
-      padding: 0 .5rem;
-    }
-  }
-}
-// === End: Details === //
-
 .form--light {
   label {
     font-weight: variables.$font-weight-medium;
@@ -495,10 +393,6 @@ details.form__details--multi-select {
   label,
   fieldset legend {
     font-size: inherit;
-  }
-
-  details.form__details--multi-select summary {
-    padding-inline-start: .75rem;
   }
 
   .form-item {
@@ -599,7 +493,7 @@ fieldset.form--inline {
 }
 
 // === Details Toggle === //
-.form details:not(.form__details--multi-select) {
+.form details {
   cursor: pointer;
   margin-block-end: 1rem;
 
@@ -610,7 +504,7 @@ fieldset.form--inline {
   }
 }
 
-.form details:not(.form__details--multi-select) > summary {
+.form details > summary {
   font-size: 1rem;
   font-weight: 600;
   margin-block-start: 1.5rem;
@@ -630,15 +524,15 @@ fieldset.form--inline {
   }
 }
 
-.form details:not(.form__details--multi-select) > summary:hover {
+.form details > summary:hover {
   background: #e9ecef;
 }
 
-.form details:not(.form__details--multi-select) > summary::-webkit-details-marker {
+.form details > summary::-webkit-details-marker {
   display: none;
 }
 
-.form details:not(.form__details--multi-select) > summary::after {
+.form details > summary::after {
   @include utilities.fas();
   content: "\+";
   display: inline-block;
@@ -651,12 +545,12 @@ fieldset.form--inline {
   padding: .2rem;
 }
 
-.form details:not(.form__details--multi-select)[open] > summary::after {
+.form details[open] > summary::after {
   content: "\f068";
 
 }
 
-.form details:not(.form__details--multi-select) > .details-wrapper {
+.form details > .details-wrapper {
   opacity: 0;
   transition: max-width 0.5s ease, opacity 0.5s ease;
   //padding-block-start: 1rem;
@@ -670,7 +564,7 @@ fieldset.form--inline {
   }
 }
 
-.form details:not(.form__details--multi-select)[open] > .details-wrapper {
+.form details[open] > .details-wrapper {
   max-width: 100%;
   opacity: 1;
 }

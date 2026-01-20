@@ -26,7 +26,7 @@ const wrapperClasses = computed(() => {
 </script>
 <template>
   <fieldset>
-    <legend v-if="label" v-html="label" :class="{ 'form-required': required }"></legend>
+    <legend v-if="label" v-html="label" :class="{ 'form--required': required }"></legend>
     <div :class="wrapperClasses">
     <slot></slot>
     </div>

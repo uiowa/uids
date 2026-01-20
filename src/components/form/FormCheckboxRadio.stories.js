@@ -190,7 +190,7 @@ export const Checkbox = {
           >
             <div class="form-item form-item--checkbox form-type-checkbox" :class="{ 'form__checkbox--switch': args.toggle }">
               <input type="checkbox" :disabled="args.disabled" :checked="args.checked" value="subscribe" id="subscribe" :class="{ 'error': args.error }">
-              <label for="subscribe" :class="args.required ? 'form-required' : false" v-html="args.label"></label>
+              <label for="subscribe" :class="args.required ? 'form--required' : false" v-html="args.label"></label>
             </div>
           </uids-form-container>
         </form>

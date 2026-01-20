@@ -116,13 +116,13 @@ export const KitchenSink = {
             :flex="args.flex"
           >
             <uids-form-item>
-              <label class="form-required" for="last-name">Text</label>
+              <label class="form--required" for="last-name">Text</label>
               <input id="last-name" maxlength="50" type="text">
               <template #description>Description</template>
             </uids-form-item>
 
             <div class="form-item">
-              <label class="form-required" for="email">Email</label>
+              <label class="form--required" for="email">Email</label>
               <input id="email" maxlength="255" type="email">
             </div>
 
@@ -137,7 +137,7 @@ export const KitchenSink = {
             </uids-form-item>
 
             <uids-form-item>
-              <label class="form-required" for="state">Select</label>
+              <label class="form--required" for="state">Select</label>
               <select id="state">
                 <option value="">- None -</option>
                 <option value="AL">Alabama</option>
@@ -216,7 +216,7 @@ export const KitchenSink = {
             :flex="args.flex"
           >
             <div class="form-item">
-              <label class="form-required" for="states">Select</label>
+              <label class="form--required" for="states">Select</label>
               <select id="states">
                 <option value="">- None -</option>
                 <option value="AL">Alabama</option>
@@ -275,13 +275,13 @@ export const KitchenSink = {
             </div>
 
             <div class="form-item">
-              <label class="form-required" for="birth-date">Date</label>
+              <label class="form--required" for="birth-date">Date</label>
               <input id="birth-date" type="date">
             </div>
 
-            <div class="form-item form-item-multiselect">
+            <div class="form-item form-item--multiselect">
               <label for="multiselect">Multi select</label>
-              <select id="multiselect" multiple="multiple" name="multiselect[]" class="form-select">
+              <select id="multiselect" multiple="multiple" name="multiselect[]">
                 <option value="High School">High School</option>
                 <option value="Associate Degree">Associate Degree</option>
                 <option value="Graduate or Professional Degree">Graduate or Professional Degree</option>
