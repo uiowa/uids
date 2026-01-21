@@ -27,7 +27,7 @@ const filterComponent = computed(() => {
 
     <component
       :is="filterComponent"
-      class="form--inline form--light form--small form--compact"
+      class="form--inline form--light form--compact"
       label="Filters"
       inline
     >
@@ -111,7 +111,7 @@ const filterComponent = computed(() => {
         <input type="text" id="edit-search" name="search" value="" size="30" maxlength="128"
                placeholder="Search directory">
       </div>
-      <div class="form-actions">
+      <div class="form__actions">
         <button type="submit" name="search" value="Search" class="bttn bttn--primary">
           <span>Search</span>
         </button>

@@ -54,7 +54,7 @@
     }
 
     // Error styles.
-    &.error {
+    &.form--error {
       --form-input-outline-color: #{variables.$danger};
       --form-input-bg: #{variables.$danger-light};
 
@@ -70,7 +70,7 @@
 
   // === Spacing === //
   .form-item,
-  .form-actions {
+  .form__actions {
     margin-top: 1em;
     margin-bottom: 1em;
   }
@@ -121,10 +121,6 @@
 
   // === Input types === //
   input {
-    &.form-autocomplete {
-      background-position: 98% center;
-    }
-
     //&[type='search'] {
     //  -webkit-box-sizing: border-box;
     //  box-sizing: border-box;
@@ -208,13 +204,18 @@
   [type='file'] {
     width: 100%;
     margin-bottom: .625rem;
+
+    &:focus {
+      outline: 2px solid var(--form-input-outline-color);
+      outline-offset: 2px;
+    }
   }
   // === End: Input types === //
 
 
   // === Checkbox/Radios === //
-  .form-type-checkbox,
-  .form-type-radio {
+  .form-item--checkbox,
+  .form-item--radio {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
@@ -262,6 +263,26 @@
     label > & {
 
     }
+  }
+
+  // Focus state for checkboxes/radios
+  [type='checkbox']:focus,
+  [type='radio']:focus {
+    outline: 2px solid var(--form-input-outline-color);
+    outline-offset: 2px;
+  }
+
+  [type='checkbox']:focus-visible,
+  [type='radio']:focus-visible {
+    outline: 2px solid variables.$secondary;
+    outline-offset: 2px;
+  }
+
+  // Error state for checkboxes/radios (class applied to input)
+  [type='checkbox'].form--error,
+  [type='radio'].form--error {
+    outline: 2px solid variables.$danger;
+    outline-offset: 2px;
   }
 
   // === End: Checkbox/Radios === //
@@ -322,7 +343,7 @@
 }
 
 // === Switch checkbox === //
-.form__checkbox--switch {
+.form-item--toggle {
   [type='checkbox'] {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -343,6 +364,11 @@
     &:focus-visible {
       background: variables.$light;
       outline: 1px solid variables.$secondary;
+    }
+
+    &.form--error {
+      background-color: variables.$danger-light;
+      outline: 2px solid variables.$danger;
     }
   }
 
@@ -406,7 +432,7 @@
 
 .form--compact {
   .form-item,
-  .form-actions {
+  .form__actions {
     margin-block-end: 0;
     margin-block-start: 0;
   }
@@ -430,7 +456,7 @@
     }
 
     .details-wrapper,
-    .form-actions {
+    .form__actions {
       display: flex;
       flex-wrap: wrap;
       column-gap: var(--form-item-gap);
@@ -468,7 +494,7 @@
 .form--inline {
   @include utilities.container-query() {
     .form-item,
-    .form-actions {
+    .form__actions {
       flex: unset;
     }
     .details-wrapper .form-item {

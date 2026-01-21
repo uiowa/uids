@@ -87,7 +87,7 @@ export default {
               :inline="args.inline"
               :required="args.required"
             >
-              <div class="form-item form-item--checkbox form-type-checkbox" v-for="item in optionItems" :key="item.id">
+              <div class="form-item form-item--checkbox" v-for="item in optionItems" :key="item.id">
                 <input
                   :type="args.type"
                   :id="item.id"
@@ -95,7 +95,7 @@ export default {
                   :value="item.value"
                   :disabled="args.disabled"
                   :checked="args.checked"
-                  :class="args.error ? 'error' : false"
+                  :class="args.error ? 'form--error' : false"
                   :required="args.required"
                 >
                 <label :for="item.id">{{ item.label }}</label>
@@ -188,8 +188,8 @@ export const Checkbox = {
             :large="args.large"
             :inline="args.inline"
           >
-            <div class="form-item form-item--checkbox form-type-checkbox" :class="{ 'form__checkbox--switch': args.toggle }">
-              <input type="checkbox" :disabled="args.disabled" :checked="args.checked" value="subscribe" id="subscribe" :class="{ 'error': args.error }">
+            <div class="form-item form-item--checkbox" :class="{ 'form-item--toggle': args.toggle }">
+              <input type="checkbox" :disabled="args.disabled" :checked="args.checked" value="subscribe" id="subscribe" :class="{ 'form--error': args.error }">
               <label for="subscribe" :class="args.required ? 'form--required' : false" v-html="args.label"></label>
             </div>
           </uids-form-container>
