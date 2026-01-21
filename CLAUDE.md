@@ -1,4 +1,4 @@
-# CLAUDE.md
+This # CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -9,10 +9,15 @@ UIDS (University of Iowa Design System) - Vue 3 component library with SCSS and 
 
 ## Essential Commands
 
-- `yarn storybook` - Start dev server (port 6006)
-- `yarn build` - Compile SCSS to `dist/` (run before PRs!)
+- `yarn storybook` - Start Storybook dev server (port 6006)
+- `yarn dev` - Watch mode for SCSS compilation
+- `yarn build` - Compile SCSS to `dist/`
 - `yarn lint` - ESLint with auto-fix
-- `yarn test:unit` - Vitest tests
+- `yarn test:unit` - Vitest tests (use `yarn test:unit ComponentName` to run specific tests)
+
+**Before PRs**: Run `yarn build` to ensure dist files are updated.
+
+**Requirements**: Node 18 (use `nvm use` to set correct version)
 
 ## Component Structure
 
@@ -42,11 +47,13 @@ component-name/
 
 ## Shared Logic
 
-`src/components/shared/` - Reusable utilities like `borderless.ts`:
-- Exports `{ props, argTypes, addBorderlessClass }`
-- Use via spread: `...Borderless.props`
+`src/components/shared/` - Reusable prop/argType utilities:
+- `borderless.ts` - Borderless styling option
+- `background.ts` - Background color variants
+- `media.ts` - Media-related props
+- Each exports `{ props, argTypes }` - use via spread: `...Borderless.props`
 
-`src/assets/js/` - ES6 classes for interactivity (accordion, tabs, slider, video)
+`src/assets/js/` - ES6 classes for interactivity (accordion, tabs, slider, video, click-a11y)
 
 ## Creating New Components
 
@@ -57,6 +64,8 @@ component-name/
 5. Create `src/scss/components/_component-name.scss`
 6. Import in `src/scss/uids.scss`: `@use 'components/component-name';`
 7. Run `yarn storybook` to test, then `yarn build` before PR
+
+**Prototype components**: New experimental components should have `status: prototype` and be placed in `src/components/prototypes/`
 
 ## Git Workflow
 
