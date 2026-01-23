@@ -294,7 +294,7 @@ export const KitchenSink = {
             <label for="edit-textarea">Textarea</label>
             <textarea id="edit-textarea" name="textarea" rows="5" cols="60"
                       aria-describedby="edit-textarea--description"></textarea>
-            <div id="edit-textarea--description" class="description">Textarea description goes here.</div>
+            <div id="edit-textarea--description" class="form-item__description">Textarea description goes here.</div>
           </div>
 
           <uids-form-container
@@ -312,7 +312,7 @@ export const KitchenSink = {
 
           <hr />
 
-          <div class="form-item form-type-checkbox">
+          <div class="form-item form-item--checkbox">
             <input
               id="agree-terms"
               type="checkbox"

@@ -1,6 +1,10 @@
 @use '../abstracts/variables';
 @use '../abstracts/utilities';
 
+// NOTE: The `.field-prefix` and `.field-suffix` Drupal Form API classes
+// were removed in this refactor. SiteNow implementations using these
+// classes will need to be updated. This is a potential breaking change.
+
 // Generalized styles.
 .form {
   --form-input-bg: #fafafb;
@@ -126,9 +130,7 @@
     //  box-sizing: border-box;
     //}
 
-    + .form-item__description,
-    + .field-prefix,
-    + .field-suffix {
+    + .form-item__description {
       position: relative;
       top: -0.75rem;
       inset-block-start: -0.75rem;
@@ -153,7 +155,8 @@
   }
 
   input,
-  textarea {
+  textarea,
+  select {
     &:disabled,
     &[readonly] {
       cursor: not-allowed;
@@ -183,16 +186,22 @@
   }
 
   [type='submit'],
-  [type='button'] {
+  [type='button'],
+  [type='reset'] {
     border: none;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     //@include utilities.bttn;
     font-family: variables.$font-family-caps-bold;
+    height: var(--form-input-height);
+    box-sizing: border-box;
+    padding-block: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
     &.button--small {
-      padding: 0.6rem 1rem 0.8rem;
       font-size: 1.05rem;
     }
 
@@ -423,7 +432,7 @@
 
   .form-item {
     &:has(input[type=checkbox]) label,
-    input,
+    input:not([type=submit], [type=button], [type=reset]),
     select {
       padding-inline-start: .75rem;
     }
@@ -455,7 +464,7 @@
       }
     }
 
-    .details-wrapper,
+    .form-collapsible__wrapper,
     .form__actions {
       display: flex;
       flex-wrap: wrap;
@@ -497,7 +506,7 @@
     .form__actions {
       flex: unset;
     }
-    .details-wrapper .form-item {
+    .form-collapsible__wrapper .form-item {
       flex: unset;
     }
   }
@@ -512,7 +521,7 @@ fieldset.form--inline {
     .form-item {
       flex: 1;
     }
-    .details-wrapper .form-item {
+    .form-collapsible__wrapper .form-item {
       flex: 1;
     }
   }
@@ -576,7 +585,7 @@ fieldset.form--inline {
 
 }
 
-.form details > .details-wrapper {
+.form details > .form-collapsible__wrapper {
   opacity: 0;
   transition: max-width 0.5s ease, opacity 0.5s ease;
   //padding-block-start: 1rem;
@@ -590,7 +599,7 @@ fieldset.form--inline {
   }
 }
 
-.form details[open] > .details-wrapper {
+.form details[open] > .form-collapsible__wrapper {
   max-width: 100%;
   opacity: 1;
 }

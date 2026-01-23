@@ -13,7 +13,7 @@ const props = defineProps({
 <template>
   <details>
     <summary role="button" aria-controls="edit-secondary" aria-expanded="true" v-html="label"></summary>
-    <div class="details-wrapper">
+    <div class="form-collapsible__wrapper">
       <slot></slot>
     </div>
   </details>
