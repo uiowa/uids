@@ -1,4 +1,4 @@
-import{ae as n,af as o,ag as a,ah as c,ai as d,ak as h}from"./index-fJ1RkMxW.js";import{u as r}from"./index-CaC2Vl_3.js";import{v as e}from"./package-CvWI4E4G.js";import"./iframe-_uxfKasP.js";import"../sb-preview/runtime.js";import"./index-i39XpuQg.js";import"./index-D-8MO0q_.js";import"./index-DrFu-skq.js";function i(t){const s={a:"a",h2:"h2",hr:"hr",li:"li",p:"p",strong:"strong",ul:"ul",...r(),...t.components};return n.jsxs(n.Fragment,{children:[n.jsx(o,{isTemplate:!0}),`
+import{ae as n,af as o,ag as a,ah as c,ai as d,aj as h,ak as l}from"./index-DcQbcnhO.js";import{u as r}from"./index-BRoZPP9k.js";import{v as e}from"./package-CvWI4E4G.js";import"./iframe-D_QXvh4B.js";import"../sb-preview/runtime.js";import"./index-i39XpuQg.js";import"./index-D-8MO0q_.js";import"./index-DrFu-skq.js";function i(t){const s={a:"a",h2:"h2",hr:"hr",li:"li",p:"p",strong:"strong",ul:"ul",...r(),...t.components};return n.jsxs(n.Fragment,{children:[n.jsx(o,{isTemplate:!0}),`
 `,n.jsx(a,{}),`
 `,n.jsx(s.h2,{id:"usage",children:"Usage"}),`
 `,n.jsxs(s.p,{children:["Make sure you are familiar with the ",n.jsx(s.a,{href:"../?path=/docs/introduction#getting-started",children:n.jsx(s.strong,{children:"Getting Started"})})," guide first."]}),`
@@ -16,7 +16,8 @@ import{ae as n,af as o,ag as a,ah as c,ai as d,ak as h}from"./index-fJ1RkMxW.js"
 `,n.jsx(s.h2,{id:"inputs",children:"Inputs"}),`
 `,n.jsx(s.p,{children:"The component accepts the following inputs (props):"}),`
 `,n.jsx(d,{}),`
+`,n.jsx(h,{}),`
 `,n.jsx(s.hr,{}),`
 `,n.jsx(s.h2,{id:"additional-variations",children:"Additional variations"}),`
 `,n.jsx(s.p,{children:"Listed below are additional variations of the component."}),`
-`,n.jsx(h,{})]})}function b(t={}){const{wrapper:s}={...r(),...t.components};return s?n.jsx(s,{...t,children:n.jsx(i,{...t})}):i(t)}export{b as default};
+`,n.jsx(l,{})]})}function w(t={}){const{wrapper:s}={...r(),...t.components};return s?n.jsx(s,{...t,children:n.jsx(i,{...t})}):i(t)}export{w as default};

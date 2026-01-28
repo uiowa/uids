@@ -1,4 +1,4 @@
-/* empty css                    *//* empty css              */import{_ as l}from"./Banner.vue_vue_type_script_setup_true_lang-BrnGEbaL.js";import{_ as c}from"./Cta.vue_vue_type_script_setup_true_lang-BBJJPpCV.js";import{_ as g}from"./Card.vue_vue_type_script_setup_true_lang-Bt021fqp.js";import{_ as m}from"./Blockquote.vue_vue_type_script_setup_true_lang-DDRi7iw5.js";import{_ as p}from"./Stat.vue_vue_type_script_setup_true_lang-DvHsIABF.js";import{_ as u,a as v}from"./GridItem.vue_vue_type_script_setup_true_lang-BdBto6-c.js";import{B as h}from"./BrandBar-adAuNrqu.js";import{_ as f}from"./Menu.vue_vue_type_script_setup_true_lang-DJD3HX24.js";import{U as _}from"./BrandFooter-B9u7AJLE.js";import{_ as y}from"./Button.vue_vue_type_script_setup_true_lang-DDyg8Vgf.js";import{_ as w}from"./ExampleImage-6Slcl2f_.js";import"./vue.esm-bundler-Dl4EI7SU.js";import"./Headline.vue_vue_type_script_setup_true_lang-r7SSO69S.js";/* empty css                  */import"./click-a11y-CvTj6evG.js";/* empty css               */import"./utlity-BIMoNfdw.js";import"./background-Dp_AVxiY.js";import"./media-C3R4C1WQ.js";/* empty css               */import"./Logo.vue_vue_type_script_setup_true_lang-HxhJmcm0.js";import"./_plugin-vue_export-helper-DlAUqK2U.js";const V={title:"Showcase/Landing Page",tags:["autodocs"],parameters:{layout:"fullscreen",docs:{source:{code:null}}}},b=[{label:"About",url:"#"},{label:"Academics",url:"#"},{label:"Admissions",url:"#"},{label:"Research",url:"#"},{label:"Campus Life",url:"#"}],e={render:i=>({components:{UidsBanner:l,UidsCta:c,UidsCard:g,UidsBlockquote:m,UidsStat:p,UidsGrid:u,UidsGridItem:v,BrandBar:h,UidsMenu:f,UidsIowaFooter:_,UidsButton:y,ExampleImage:w},setup(){return{args:i,horizontalMenuItems:b}},template:`
+/* empty css                    *//* empty css              */import{_ as l}from"./Banner.vue_vue_type_script_setup_true_lang-BrnGEbaL.js";import{_ as c}from"./Cta.vue_vue_type_script_setup_true_lang-BBJJPpCV.js";import{_ as m}from"./Card.vue_vue_type_script_setup_true_lang-Bt021fqp.js";import{_ as g}from"./Blockquote.vue_vue_type_script_setup_true_lang-DDRi7iw5.js";import{_ as u}from"./Stat.vue_vue_type_script_setup_true_lang-DvHsIABF.js";import{_ as p,a as v}from"./GridItem.vue_vue_type_script_setup_true_lang-BdBto6-c.js";import{B as h}from"./BrandBar-adAuNrqu.js";import{_ as f}from"./Menu.vue_vue_type_script_setup_true_lang-DJD3HX24.js";import{U as _}from"./BrandFooter-B9u7AJLE.js";import{_ as w}from"./Button.vue_vue_type_script_setup_true_lang-DDyg8Vgf.js";import{_ as y}from"./ExampleImage-6Slcl2f_.js";import"./vue.esm-bundler-Dl4EI7SU.js";import"./Headline.vue_vue_type_script_setup_true_lang-r7SSO69S.js";/* empty css                  */import"./click-a11y-CvTj6evG.js";/* empty css               */import"./utlity-BIMoNfdw.js";import"./background-Dp_AVxiY.js";import"./media-C3R4C1WQ.js";/* empty css               */import"./Logo.vue_vue_type_script_setup_true_lang-HxhJmcm0.js";import"./_plugin-vue_export-helper-DlAUqK2U.js";const V={title:"Showcase/Landing Page",tags:["autodocs"],parameters:{layout:"fullscreen",docs:{source:{code:null}}}},b=[{label:"About",url:"#"},{label:"Academics",url:"#"},{label:"Admissions",url:"#"},{label:"Research",url:"#"},{label:"Campus Life",url:"#"}],e={render:a=>({components:{UidsBanner:l,UidsCta:c,UidsCard:m,UidsBlockquote:g,UidsStat:u,UidsGrid:p,UidsGridItem:v,BrandBar:h,UidsMenu:f,UidsIowaFooter:_,UidsButton:w,ExampleImage:y},setup(){return{args:a,horizontalMenuItems:b}},template:`
       <div class="landing-page-concept1-mixed-media-wrapper">
       <brand-bar>
         <h1 class="site-name">University of Iowa</h1>
@@ -100,7 +100,7 @@
                 <template #media>
                   <div class="landing-page-filter-wrapper landing-page-filter--photo-stack landing-page-filter--sticky-note">
                     <div class="landing-page-filter--y2k-gradient landing-page-filter--y2k-halftone">
-                      <img src="/src/assets/images/demo/students-walking.jpg" alt="Students in classroom" class="media--16-9" />
+                      <img src="https://admissions.uiowa.edu/sites/admissions.uiowa.edu/files/2023-02/students-walking.jpg" alt="Students in classroom" class="media--16-9" />
                     </div>
                   </div>
                 </template>
@@ -140,7 +140,7 @@
                 <template #media>
                   <div class="landing-page-filter-wrapper landing-page-filter--photo-stack landing-page-filter--stamp">
                     <div class="landing-page-filter--y2k-gradient landing-page-filter--y2k-halftone">
-                      <img src="/src/assets/images/demo/2019_03_08-ENGR-2120 ENGR FUND II- ELECTRICAL CIRCUITS jatorner -0228.jpg" alt="Research laboratory" class="media--16-9" />
+                      <img src="https://admissions.uiowa.edu/sites/admissions.uiowa.edu/files/2021-02/2019_03_08-ENGR-2120%20ENGR%20FUND%20II-%20ELECTRICAL%20CIRCUITS%20jatorner%20-0228.jpg" alt="Research laboratory" class="media--16-9" />
                     </div>
                   </div>
                 </template>
@@ -163,7 +163,7 @@
               cite_text="College of Liberal Arts & Sciences"
             >
               <template #media>
-                <img src="/src/assets/images/demo/herky-square.jpg" alt="Sarah Johnson" class="media--circle" />
+                <img src="https://admissions.uiowa.edu/sites/admissions.uiowa.edu/files/styles/square__1920_x_1920/public/2025-08/jordan200_0.jpg" alt="" class="media--circle" />
               </template>
             </uids-blockquote>
           </div>
@@ -176,7 +176,7 @@
             <uids-grid-item>
               <div class="landing-page-filter-wrapper landing-page-filter--stickers landing-page-filter--washi-tape">
                 <div class="landing-page-filter--scrapbook-authentic" style="width: 100%; height: 100%;">
-                  <example-image src="/src/assets/images/demo/students-walking.jpg" :width="600" :height="400" />
+                  <example-image src="https://admissions.uiowa.edu/sites/admissions.uiowa.edu/files/2023-02/students-walking.jpg" :width="600" :height="400" />
                 </div>
               </div>
             </uids-grid-item>
@@ -194,7 +194,7 @@
             <uids-grid-item>
               <div class="landing-page-filter-wrapper landing-page-filter--stickers landing-page-filter--washi-tape">
                 <div class="landing-page-filter--scrapbook-authentic" style="width: 100%; height: 100%;">
-                  <example-image src="/src/assets/images/demo/2019_01_28-English Class-tschoon-040.JPG" :width="600" :height="400" />
+                  <example-image src="https://admissions.uiowa.edu/sites/admissions.uiowa.edu/files/2021-02/2019_01_28-English%20Class-tschoon-040.JPG" :width="600" :height="400" />
                 </div>
               </div>
             </uids-grid-item>
@@ -212,7 +212,7 @@
             <uids-grid-item>
               <div class="landing-page-filter-wrapper landing-page-filter--stickers landing-page-filter--washi-tape">
                 <div class="landing-page-filter--scrapbook-authentic" style="width: 100%; height: 100%;">
-                  <example-image src="/src/assets/images/demo/2019_03_08-ENGR-2120 ENGR FUND II- ELECTRICAL CIRCUITS jatorner -0228.jpg" :width="600" :height="400" />
+                  <example-image src="https://admissions.uiowa.edu/sites/admissions.uiowa.edu/files/2021-02/2019_03_08-ENGR-2120%20ENGR%20FUND%20II-%20ELECTRICAL%20CIRCUITS%20jatorner%20-0228.jpg" :width="600" :height="400" />
                 </div>
               </div>
             </uids-grid-item>
@@ -245,7 +245,7 @@
         </div>
       </uids-iowa-footer>
       </div>
-    `})},a={render:i=>({components:{UidsBanner:l,UidsCta:c,UidsCard:g,UidsBlockquote:m,UidsStat:p,UidsGrid:u,UidsGridItem:v,BrandBar:h,UidsMenu:f,UidsIowaFooter:_,UidsButton:y,ExampleImage:w},setup(){return{args:i,horizontalMenuItems:b}},template:`
+    `})},i={render:a=>({components:{UidsBanner:l,UidsCta:c,UidsCard:m,UidsBlockquote:g,UidsStat:u,UidsGrid:p,UidsGridItem:v,BrandBar:h,UidsMenu:f,UidsIowaFooter:_,UidsButton:w,ExampleImage:y},setup(){return{args:a,horizontalMenuItems:b}},template:`
       <div class="landing-page-concept3-organic-flow-copy-wrapper">
       <brand-bar>
         <h1 class="site-name">University of Iowa</h1>
@@ -328,7 +328,7 @@
               >
                 <template #media>
                   <div class="landing-page-filter--organic-flow">
-                    <img src="/src/assets/images/demo/2019_03_08-ENGR-2120 ENGR FUND II- ELECTRICAL CIRCUITS jatorner -0228.jpg" alt="Students in classroom" class="media--16-9" />
+                    <img src="https://admissions.uiowa.edu/sites/admissions.uiowa.edu/files/2021-02/2019_03_08-ENGR-2120%20ENGR%20FUND%20II-%20ELECTRICAL%20CIRCUITS%20jatorner%20-0228.jpg" alt="Students in classroom" class="media--16-9" />
                   </div>
                 </template>
                 <template #title>Academic Excellence</template>
@@ -364,7 +364,7 @@
               >
                 <template #media>
                   <div class="landing-page-filter--organic-flow">
-                    <img src="/src/assets/images/demo/students-walking.jpg" alt="Research laboratory" class="media--16-9" />
+                    <img src="https://admissions.uiowa.edu/sites/admissions.uiowa.edu/files/2023-02/students-walking.jpg" alt="Research laboratory" class="media--16-9" />
                   </div>
                 </template>
                 <template #title>Groundbreaking Research</template>
@@ -387,7 +387,7 @@
               cite_text="College of Liberal Arts & Sciences"
             >
               <template #media>
-                <img src="/src/assets/images/demo/herky-square.jpg" alt="Sarah Johnson" class="media--circle" />
+                <img src="https://admissions.uiowa.edu/sites/admissions.uiowa.edu/files/styles/square__1920_x_1920/public/2025-08/jordan200_0.jpg" alt="Sarah Johnson" class="media--circle" />
               </template>
             </uids-blockquote>
           </div>
@@ -401,7 +401,7 @@
             <!-- Images (will be reordered via CSS) -->
             <uids-grid-item>
               <div class="landing-page-filter--organic-circle">
-                <img src="/src/assets/images/demo/2019_03_08-ENGR-2120 ENGR FUND II- ELECTRICAL CIRCUITS jatorner -0228.jpg" alt="Students walking on campus" class="media--circle" />
+                <img src="https://admissions.uiowa.edu/sites/admissions.uiowa.edu/files/2021-02/2019_03_08-ENGR-2120%20ENGR%20FUND%20II-%20ELECTRICAL%20CIRCUITS%20jatorner%20-0228.jpg" alt="Students walking on campus" class="media--circle" />
               </div>
             </uids-grid-item>
 
@@ -419,7 +419,7 @@
 
             <uids-grid-item>
               <div class="landing-page-filter--organic-circle">
-                <img src="/src/assets/images/demo/2019_01_28-English Class-tschoon-040.JPG" alt="Students in class" class="media--circle" />
+                <img src="https://admissions.uiowa.edu/sites/admissions.uiowa.edu/files/2021-02/2019_01_28-English%20Class-tschoon-040.JPG" alt="Students in class" class="media--circle" />
               </div>
             </uids-grid-item>
 
@@ -437,7 +437,7 @@
 
             <uids-grid-item>
               <div class="landing-page-filter--organic-circle">
-                <img src="/src/assets/images/demo/students-walking.jpg" alt="Engineering students" class="media--circle" />
+                <img src="https://admissions.uiowa.edu/sites/admissions.uiowa.edu/files/2023-02/students-walking.jpg" alt="Engineering students" class="media--circle" />
               </div>
             </uids-grid-item>
 
@@ -455,7 +455,7 @@
 
             <uids-grid-item>
               <div class="landing-page-filter--organic-circle">
-                <img src="/src/assets/images/demo/herky-square.jpg" alt="Campus life" class="media--circle" />
+                <img src="https://admissions.uiowa.edu/sites/admissions.uiowa.edu/files/styles/square__1920_x_1920/public/2025-08/jordan200_0.jpg" alt="Campus life" class="media--circle" />
               </div>
             </uids-grid-item>
           </uids-grid>
@@ -604,7 +604,7 @@
                 <template #media>
                   <div class="landing-page-filter-wrapper landing-page-filter--photo-stack landing-page-filter--sticky-note">
                     <div class="landing-page-filter--y2k-gradient landing-page-filter--y2k-halftone">
-                      <img src="/src/assets/images/demo/students-walking.jpg" alt="Students in classroom" class="media--16-9" />
+                      <img src="https://admissions.uiowa.edu/sites/admissions.uiowa.edu/files/2023-02/students-walking.jpg" alt="Students in classroom" class="media--16-9" />
                     </div>
                   </div>
                 </template>
@@ -644,7 +644,7 @@
                 <template #media>
                   <div class="landing-page-filter-wrapper landing-page-filter--photo-stack landing-page-filter--stamp">
                     <div class="landing-page-filter--y2k-gradient landing-page-filter--y2k-halftone">
-                      <img src="/src/assets/images/demo/2019_03_08-ENGR-2120 ENGR FUND II- ELECTRICAL CIRCUITS jatorner -0228.jpg" alt="Research laboratory" class="media--16-9" />
+                      <img src="https://admissions.uiowa.edu/sites/admissions.uiowa.edu/files/2021-02/2019_03_08-ENGR-2120%20ENGR%20FUND%20II-%20ELECTRICAL%20CIRCUITS%20jatorner%20-0228.jpg" alt="Research laboratory" class="media--16-9" />
                     </div>
                   </div>
                 </template>
@@ -667,7 +667,7 @@
               cite_text="College of Liberal Arts & Sciences"
             >
               <template #media>
-                <img src="/src/assets/images/demo/herky-square.jpg" alt="Sarah Johnson" class="media--circle" />
+                <img src="https://admissions.uiowa.edu/sites/admissions.uiowa.edu/files/styles/square__1920_x_1920/public/2025-08/jordan200_0.jpg" alt="" class="media--circle" />
               </template>
             </uids-blockquote>
           </div>
@@ -680,7 +680,7 @@
             <uids-grid-item>
               <div class="landing-page-filter-wrapper landing-page-filter--stickers landing-page-filter--washi-tape">
                 <div class="landing-page-filter--scrapbook-authentic" style="width: 100%; height: 100%;">
-                  <example-image src="/src/assets/images/demo/students-walking.jpg" :width="600" :height="400" />
+                  <example-image src="https://admissions.uiowa.edu/sites/admissions.uiowa.edu/files/2023-02/students-walking.jpg" :width="600" :height="400" />
                 </div>
               </div>
             </uids-grid-item>
@@ -698,7 +698,7 @@
             <uids-grid-item>
               <div class="landing-page-filter-wrapper landing-page-filter--stickers landing-page-filter--washi-tape">
                 <div class="landing-page-filter--scrapbook-authentic" style="width: 100%; height: 100%;">
-                  <example-image src="/src/assets/images/demo/2019_01_28-English Class-tschoon-040.JPG" :width="600" :height="400" />
+                  <example-image src="https://admissions.uiowa.edu/sites/admissions.uiowa.edu/files/2021-02/2019_01_28-English%20Class-tschoon-040.JPG" :width="600" :height="400" />
                 </div>
               </div>
             </uids-grid-item>
@@ -716,7 +716,7 @@
             <uids-grid-item>
               <div class="landing-page-filter-wrapper landing-page-filter--stickers landing-page-filter--washi-tape">
                 <div class="landing-page-filter--scrapbook-authentic" style="width: 100%; height: 100%;">
-                  <example-image src="/src/assets/images/demo/2019_03_08-ENGR-2120 ENGR FUND II- ELECTRICAL CIRCUITS jatorner -0228.jpg" :width="600" :height="400" />
+                  <example-image src="https://admissions.uiowa.edu/sites/admissions.uiowa.edu/files/2021-02/2019_03_08-ENGR-2120%20ENGR%20FUND%20II-%20ELECTRICAL%20CIRCUITS%20jatorner%20-0228.jpg" :width="600" :height="400" />
                 </div>
               </div>
             </uids-grid-item>
@@ -751,7 +751,7 @@
       </div>
     \`
   })
-}`,...(s=(n=e.parameters)==null?void 0:n.docs)==null?void 0:s.source}}};var r,d,o;a.parameters={...a.parameters,docs:{...(r=a.parameters)==null?void 0:r.docs,source:{originalSource:`{
+}`,...(s=(n=e.parameters)==null?void 0:n.docs)==null?void 0:s.source}}};var d,o,r;i.parameters={...i.parameters,docs:{...(d=i.parameters)==null?void 0:d.docs,source:{originalSource:`{
   render: args => ({
     components: {
       UidsBanner,
@@ -856,7 +856,7 @@
               >
                 <template #media>
                   <div class="landing-page-filter--organic-flow">
-                    <img src="/src/assets/images/demo/2019_03_08-ENGR-2120 ENGR FUND II- ELECTRICAL CIRCUITS jatorner -0228.jpg" alt="Students in classroom" class="media--16-9" />
+                    <img src="https://admissions.uiowa.edu/sites/admissions.uiowa.edu/files/2021-02/2019_03_08-ENGR-2120%20ENGR%20FUND%20II-%20ELECTRICAL%20CIRCUITS%20jatorner%20-0228.jpg" alt="Students in classroom" class="media--16-9" />
                   </div>
                 </template>
                 <template #title>Academic Excellence</template>
@@ -892,7 +892,7 @@
               >
                 <template #media>
                   <div class="landing-page-filter--organic-flow">
-                    <img src="/src/assets/images/demo/students-walking.jpg" alt="Research laboratory" class="media--16-9" />
+                    <img src="https://admissions.uiowa.edu/sites/admissions.uiowa.edu/files/2023-02/students-walking.jpg" alt="Research laboratory" class="media--16-9" />
                   </div>
                 </template>
                 <template #title>Groundbreaking Research</template>
@@ -915,7 +915,7 @@
               cite_text="College of Liberal Arts & Sciences"
             >
               <template #media>
-                <img src="/src/assets/images/demo/herky-square.jpg" alt="Sarah Johnson" class="media--circle" />
+                <img src="https://admissions.uiowa.edu/sites/admissions.uiowa.edu/files/styles/square__1920_x_1920/public/2025-08/jordan200_0.jpg" alt="Sarah Johnson" class="media--circle" />
               </template>
             </uids-blockquote>
           </div>
@@ -929,7 +929,7 @@
             <!-- Images (will be reordered via CSS) -->
             <uids-grid-item>
               <div class="landing-page-filter--organic-circle">
-                <img src="/src/assets/images/demo/2019_03_08-ENGR-2120 ENGR FUND II- ELECTRICAL CIRCUITS jatorner -0228.jpg" alt="Students walking on campus" class="media--circle" />
+                <img src="https://admissions.uiowa.edu/sites/admissions.uiowa.edu/files/2021-02/2019_03_08-ENGR-2120%20ENGR%20FUND%20II-%20ELECTRICAL%20CIRCUITS%20jatorner%20-0228.jpg" alt="Students walking on campus" class="media--circle" />
               </div>
             </uids-grid-item>
 
@@ -947,7 +947,7 @@
 
             <uids-grid-item>
               <div class="landing-page-filter--organic-circle">
-                <img src="/src/assets/images/demo/2019_01_28-English Class-tschoon-040.JPG" alt="Students in class" class="media--circle" />
+                <img src="https://admissions.uiowa.edu/sites/admissions.uiowa.edu/files/2021-02/2019_01_28-English%20Class-tschoon-040.JPG" alt="Students in class" class="media--circle" />
               </div>
             </uids-grid-item>
 
@@ -965,7 +965,7 @@
 
             <uids-grid-item>
               <div class="landing-page-filter--organic-circle">
-                <img src="/src/assets/images/demo/students-walking.jpg" alt="Engineering students" class="media--circle" />
+                <img src="https://admissions.uiowa.edu/sites/admissions.uiowa.edu/files/2023-02/students-walking.jpg" alt="Engineering students" class="media--circle" />
               </div>
             </uids-grid-item>
 
@@ -983,7 +983,7 @@
 
             <uids-grid-item>
               <div class="landing-page-filter--organic-circle">
-                <img src="/src/assets/images/demo/herky-square.jpg" alt="Campus life" class="media--circle" />
+                <img src="https://admissions.uiowa.edu/sites/admissions.uiowa.edu/files/styles/square__1920_x_1920/public/2025-08/jordan200_0.jpg" alt="Campus life" class="media--circle" />
               </div>
             </uids-grid-item>
           </uids-grid>
@@ -1010,4 +1010,4 @@
       </div>
     \`
   })
-}`,...(o=(d=a.parameters)==null?void 0:d.docs)==null?void 0:o.source}}};const O=["LandingPageConcept1","LandingPageConcept2"];export{e as LandingPageConcept1,a as LandingPageConcept2,O as __namedExportsOrder,V as default};
+}`,...(r=(o=i.parameters)==null?void 0:o.docs)==null?void 0:r.source}}};const O=["LandingPageConcept1","LandingPageConcept2"];export{e as LandingPageConcept1,i as LandingPageConcept2,O as __namedExportsOrder,V as default};
