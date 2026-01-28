@@ -466,28 +466,31 @@
   }
 }
 
-.form--inline legend,
-.form--flex legend {
-  padding-block: 0 .5rem;
-  margin-block: var(--space-sm-width-gutter);
-  color: var(--form-text-color);
-  font-size: 1rem;
-  font-weight: 600;
-  border-block-end: 1px solid var(--form-section-border-color);
+// Sidebar legend pattern - opt-in via explicit class
+// Use with fieldsets when you want the legend to float to the side at wider viewports
+.form-fieldset--sidebar-legend {
+  legend {
+    padding-block: 0 .5rem;
+    margin-block: var(--space-sm-width-gutter);
+    color: var(--form-text-color);
+    font-size: 1rem;
+    font-weight: 600;
+    border-block-end: 1px solid var(--form-section-border-color);
 
-  @include utilities.container-query() {
-    display: flex;
-    float: left;
-    align-content: space-evenly;
-    align-self: stretch;
-    align-items: center;
-    justify-content: center;
-    border-inline-end: 1px solid var(--form-section-border-color);
-    margin-inline-end: var(--space-sm-width-gutter);
-    margin-block: 0;
-    border-block-end: none;
-    padding-block: 0;
-    padding-inline: 0 var(--space-sm-width-gutter);
+    @include utilities.container-query() {
+      display: flex;
+      float: left;
+      align-content: space-evenly;
+      align-self: stretch;
+      align-items: center;
+      justify-content: center;
+      border-inline-end: 1px solid var(--form-section-border-color);
+      margin-inline-end: var(--space-sm-width-gutter);
+      margin-block: 0;
+      border-block-end: none;
+      padding-block: 0;
+      padding-inline: 0 var(--space-sm-width-gutter);
+    }
   }
 }
 
