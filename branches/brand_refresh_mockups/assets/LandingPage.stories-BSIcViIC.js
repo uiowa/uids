@@ -299,14 +299,7 @@
         </div>
 
         <div class="bg--black column-container mask-layer">
-          <div class="arrow-connector">
-            <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-              <!-- Curved line -->
-              <path d="M 150 0 Q 150 70, 230 105" stroke="white" stroke-width="5" fill="none" stroke-linecap="round"/>
-              <!-- Hand-drawn arrow head -->
-              <path d="M 218 88 Q 220 89, 240 105 Q 239 106, 231 116" stroke="white" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
+          <div class="arrow-connector"></div>
           <div class="layout-container">
           <div class="grid--onecol">
             <uids-cta
@@ -835,14 +828,7 @@
         </div>
 
         <div class="bg--black column-container mask-layer">
-          <div class="arrow-connector">
-            <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-              <!-- Curved line -->
-              <path d="M 150 0 Q 150 70, 230 105" stroke="white" stroke-width="5" fill="none" stroke-linecap="round"/>
-              <!-- Hand-drawn arrow head -->
-              <path d="M 218 88 Q 220 89, 240 105 Q 239 106, 231 116" stroke="white" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
+          <div class="arrow-connector"></div>
           <div class="layout-container">
           <div class="grid--onecol">
             <uids-cta
@@ -1026,4 +1012,4 @@
       </div>
     \`
   })
-}`,...(r=(o=i.parameters)==null?void 0:o.docs)==null?void 0:r.source}}};const Q=["LandingPageConcept1","LandingPageConcept2"];export{e as LandingPageConcept1,i as LandingPageConcept2,Q as __namedExportsOrder,V as default};
+}`,...(r=(o=i.parameters)==null?void 0:o.docs)==null?void 0:r.source}}};const O=["LandingPageConcept1","LandingPageConcept2"];export{e as LandingPageConcept1,i as LandingPageConcept2,O as __namedExportsOrder,V as default};
