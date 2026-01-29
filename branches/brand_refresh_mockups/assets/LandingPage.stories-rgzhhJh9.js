@@ -298,7 +298,7 @@
         </uids-banner>
         </div>
 
-        <div class="bg--black column-container mask-layer">
+        <div class="bg--black--pattern--brain column-container mask-layer">
           <div class="layout-container">
           <div class="grid--onecol">
             <uids-cta
@@ -826,7 +826,7 @@
         </uids-banner>
         </div>
 
-        <div class="bg--black column-container mask-layer">
+        <div class="bg--black--pattern--brain column-container mask-layer">
           <div class="layout-container">
           <div class="grid--onecol">
             <uids-cta
