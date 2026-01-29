@@ -302,7 +302,7 @@
           <div class="layout-container">
           <div class="grid--onecol">
             <uids-cta
-              orientation="inline"
+              orientation=""
               headline_style="uppercase"
               button_label="Request Information"
               button_icon='<i class="fas fa-arrow-right"></i>'
@@ -830,7 +830,7 @@
           <div class="layout-container">
           <div class="grid--onecol">
             <uids-cta
-              orientation="inline"
+              orientation=""
               headline_style="uppercase"
               button_label="Request Information"
               button_icon='<i class="fas fa-arrow-right"></i>'
