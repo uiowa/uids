@@ -289,7 +289,7 @@
           :media_overlay_light="true"
         >
           <template #media>
-            <div class="media media--image landing-page-filter--clean-frame">
+            <div class="media media--image landing -page-filter--clean-frame">
               <img src="https://sandbox.prod.drupal.uiowa.edu/sites/sandbox.uiowa.edu/files/2021-03/pano.jpg" alt="University of Iowa campus aerial view" />
             </div>
           </template>
@@ -817,7 +817,7 @@
           :media_overlay_light="true"
         >
           <template #media>
-            <div class="media media--image landing-page-filter--clean-frame">
+            <div class="media media--image landing -page-filter--clean-frame">
               <img src="https://sandbox.prod.drupal.uiowa.edu/sites/sandbox.uiowa.edu/files/2021-03/pano.jpg" alt="University of Iowa campus aerial view" />
             </div>
           </template>
