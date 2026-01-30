@@ -404,6 +404,7 @@
 
 // === End: Switch checkbox === //
 
+// === Start: Form modifiers === //
 .form--light {
   label {
     font-weight: variables.$font-weight-medium;
@@ -462,9 +463,38 @@
   }
 }
 
+.form--flex {
+  @include utilities.container-query() {
+    .form-item {
+      flex: 1;
+    }
+    .form-collapsible__wrapper .form-item {
+      flex: 1;
+    }
+  }
+}
+
+.form--inline {
+  @include utilities.container-query() {
+    .form-item,
+    .form__actions {
+      flex: unset;
+    }
+    .form-collapsible__wrapper .form-item {
+      flex: unset;
+    }
+  }
+}
+
 // Side legend pattern - opt-in via explicit class
 // Use with fieldsets when you want the legend to float to the side at wider viewports
 .form-fieldset--side-legend {
+
+  @include utilities.container-query() {
+    display: flex;
+    flex-wrap: unset;
+  }
+
   legend {
     padding-block: 0 .5rem;
     margin-block: var(--space-sm-width-gutter);
@@ -488,31 +518,23 @@
       padding-inline: 0 var(--space-sm-width-gutter);
     }
   }
-}
 
-.form--inline {
-  @include utilities.container-query() {
-    .form-item,
-    .form__actions {
-      flex: unset;
-    }
-    .form-collapsible__wrapper .form-item {
-      flex: unset;
-    }
-  }
-}
+  .form-fieldset__content {
+    @include utilities.container-query() {
+      display: flex;
+      gap: var(--form-item-gap);      
+      flex-wrap: wrap;
+      width: 100%;
 
-fieldset.form--inline {
-  flex-wrap: unset;
-}
+      .form-item {
+        flex: unset;
+        margin-block-end: 0;
 
-.form--flex {
-  @include utilities.container-query() {
-    .form-item {
-      flex: 1;
-    }
-    .form-collapsible__wrapper .form-item {
-      flex: 1;
+        input,
+        select {
+          margin: 0;
+        }
+      }
     }
   }
 }

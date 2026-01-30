@@ -21,12 +21,6 @@ const props = defineProps({
   },
 });
 
-const wrapperClasses = computed(() => {
-  return {
-    'form--inline': props.inline,
-  };
-});
-
 const fieldsetClasses = computed(() => {
   return {
     'form-fieldset--side-legend': props.sideLegend,
@@ -37,7 +31,7 @@ const fieldsetClasses = computed(() => {
 <template>
   <fieldset :class="fieldsetClasses">
     <legend v-if="label" v-html="label" :class="{ 'form--required': required }"></legend>
-    <div :class="wrapperClasses">
+    <div class="form-fieldset__content">
     <slot></slot>
     </div>
   </fieldset>

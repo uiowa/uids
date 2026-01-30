@@ -27,7 +27,7 @@ const filterComponent = computed(() => {
 
     <component
       :is="filterComponent"
-      class="form--inline form--light form--compact"
+      class="form--light"
       label="Filters"
       inline
       v-bind="!collapsible ? { sideLegend: true } : {}"
