@@ -15,6 +15,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  sideLegend: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const wrapperClasses = computed(() => {
@@ -23,9 +27,15 @@ const wrapperClasses = computed(() => {
   };
 });
 
+const fieldsetClasses = computed(() => {
+  return {
+    'form-fieldset--side-legend': props.sideLegend,
+  };
+});
+
 </script>
 <template>
-  <fieldset>
+  <fieldset :class="fieldsetClasses">
     <legend v-if="label" v-html="label" :class="{ 'form--required': required }"></legend>
     <div :class="wrapperClasses">
     <slot></slot>

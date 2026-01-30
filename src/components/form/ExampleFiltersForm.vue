@@ -30,6 +30,7 @@ const filterComponent = computed(() => {
       class="form--inline form--light form--compact"
       label="Filters"
       inline
+      v-bind="!collapsible ? { sideLegend: true } : {}"
     >
 
       <div class="form-item">
@@ -39,7 +40,7 @@ const filterComponent = computed(() => {
         </select>
       </div>
 
-      <div class=" form-item">
+      <div class="form-item">
         <label for="edit-department">Department</label>
         <select id="edit-department" name="department" autocomplete="off">
           <option selected="" value="">All Departments</option>
@@ -72,7 +73,7 @@ const filterComponent = computed(() => {
         </select>
       </div>
 
-      <div class=" form-item">
+      <div class="form-item">
         <label for="edit-membership">Membership</label>
         <select id="edit-membership" name="membership" autocomplete="off">
           <option selected="" value="">All</option>
