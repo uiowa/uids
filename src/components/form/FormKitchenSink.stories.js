@@ -31,6 +31,11 @@ export default {
       name: 'Flex',
       table: { category: 'Modifiers' },
     },
+    required: {
+      name: 'Required',
+      control: { type: 'boolean' },
+      table: { category: 'States' },
+    },
   }
 };
 
@@ -116,14 +121,14 @@ export const KitchenSink = {
             :flex="args.flex"
           >
             <uids-form-item>
-              <label class="form--required" for="last-name">Text</label>
-              <input id="last-name" maxlength="50" type="text">
+              <label :class="args.required ? 'form--required' : false" for="last-name">Text</label>
+              <input id="last-name" maxlength="50" type="text" :required="args.required">
               <template #description>Description</template>
             </uids-form-item>
 
             <div class="form-item">
-              <label class="form--required" for="email">Email</label>
-              <input id="email" maxlength="255" type="email">
+              <label :class="args.required ? 'form--required' : false" for="email">Email</label>
+              <input id="email" maxlength="255" type="email" :required="args.required">
             </div>
 
             <div class="form-item">
@@ -137,8 +142,8 @@ export const KitchenSink = {
             </uids-form-item>
 
             <uids-form-item>
-              <label class="form--required" for="state">Select</label>
-              <select id="state">
+              <label :class="args.required ? 'form--required' : false" for="state">Select</label>
+              <select id="state" :required="args.required">
                 <option value="">- None -</option>
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
@@ -216,8 +221,8 @@ export const KitchenSink = {
             :flex="args.flex"
           >
             <div class="form-item">
-              <label class="form--required" for="states">Select</label>
-              <select id="states">
+              <label :class="args.required ? 'form--required' : false" for="states">Select</label>
+              <select id="states" :required="args.required">
                 <option value="">- None -</option>
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
@@ -275,8 +280,8 @@ export const KitchenSink = {
             </div>
 
             <div class="form-item">
-              <label class="form--required" for="birth-date">Date</label>
-              <input id="birth-date" type="date">
+              <label :class="args.required ? 'form--required' : false" for="birth-date">Date</label>
+              <input id="birth-date" type="date" :required="args.required">
             </div>
 
             <div class="form-item form-item--multiselect">
@@ -332,5 +337,6 @@ export const KitchenSink = {
     compact: false,
     inline: false,
     flex: false,
+    required: true,
   }
 }

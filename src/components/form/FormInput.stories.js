@@ -84,7 +84,7 @@ export default {
           >
             <div class="form-item">
               <label :for="args.id" :class="args.required ? 'form--required' : false" v-html="args.label"></label>
-              <input :type="args.type" :name="args.id" :id="args.id" :class="{ 'form--error': args.error }" :disabled="args.disabled">
+              <input :type="args.type" :name="args.id" :id="args.id" :class="{ 'form--error': args.error }" :disabled="args.disabled" :required="args.required">
               <div class="form-item__description" v-if="args.description" v-html="args.description"></div>
             </div>
           </uids-form-container>
