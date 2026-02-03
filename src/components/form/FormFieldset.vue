@@ -31,8 +31,9 @@ const fieldsetClasses = computed(() => {
 <template>
   <fieldset :class="fieldsetClasses">
     <legend v-if="label" v-html="label" :class="{ 'form--required': required }"></legend>
-    <div class="form-fieldset__content">
-    <slot></slot>
+    <div v-if="sideLegend" class="form-fieldset__content">
+      <slot></slot>
     </div>
+    <slot v-else></slot>
   </fieldset>
 </template>

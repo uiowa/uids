@@ -84,7 +84,7 @@ export default {
             <uids-form-checkbox-or-radio-group
               :label="args.label"
               :type="args.type"
-              :inline="args.inline"
+              :class="{ 'form--inline': args.inline }"
               :required="args.required"
             >
               <div class="form-item form-item--checkbox" v-for="item in optionItems" :key="item.id">
