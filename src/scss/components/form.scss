@@ -18,7 +18,7 @@
   --form-input-height: 2.9rem;
   --form-input-font-size: 1rem;
   --form-button-font-size: 1.05rem;
-  --form-item-gap: 1rem;
+  --form-item-margin: 1rem;
   --form-section-border-color: #{variables.$gray-light};
   --form-input-outline-color: #{variables.$gray-light};
 
@@ -44,7 +44,7 @@
     font-weight: normal;
     height: var(--form-input-height);
     line-height: 1.5;
-    margin: 0 0 1rem;
+    margin: 0;
     outline: 1px solid var(--form-input-outline-color);
     padding: var(--form-input-padding);
     transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
@@ -76,7 +76,7 @@
   // === Spacing === //
   .form-item,
   .form__actions {
-    margin-bottom: 1em;
+    margin-bottom: var(--form-item-margin);
   }
 
   // === Labels/Description === //
@@ -117,25 +117,11 @@
     font-size: var(--form-label-font-size);
     line-height: 1.4;
     clear: both;
-    margin: variables.$xsm 0 variables.$md;
+    margin: variables.$xsm 0 0;
     flex-basis: 100%;
   }
 
   // === End: Labels/Description === //
-
-  // === Input types === //
-  input {
-    //&[type='search'] {
-    //  -webkit-box-sizing: border-box;
-    //  box-sizing: border-box;
-    //}
-
-    + .form-item__description {
-      position: relative;
-      top: -0.75rem;
-      inset-block-start: -0.75rem;
-    }
-  }
 
   textarea {
     height: auto;
@@ -434,10 +420,7 @@
 }
 
 .form--compact {
-  .form-item,
-  .form__actions {
-    margin-block-end: 0;
-  }
+  --form-item-margin: 0.5rem;
 }
 
 .form--flex,
@@ -445,7 +428,7 @@
   @include utilities.container-query() {
     display: flex;
     flex-wrap: wrap;
-    column-gap: var(--form-item-gap);
+    column-gap: var(--form-item-margin);
     reading-flow: flex-visual;
     width: 100%;
 
@@ -460,7 +443,7 @@
     .form__actions {
       display: flex;
       flex-wrap: wrap;
-      column-gap: var(--form-item-gap);
+      column-gap: var(--form-item-margin);
       reading-flow: flex-visual;
     }
   }
@@ -525,7 +508,7 @@
   .form-fieldset__content {
     @include utilities.container-query() {
       display: flex;
-      gap: var(--form-item-gap);      
+      gap: var(--form-item-margin);
       flex-wrap: wrap;
       width: 100%;
 
@@ -545,7 +528,7 @@
 // === Details Toggle === //
 .form details {
   cursor: pointer;
-  margin-block-end: 1rem;
+  margin-block-end: var(--form-item-margin);
 
   &[open] {
     @include utilities.container-query() {
