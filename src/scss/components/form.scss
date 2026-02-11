@@ -28,7 +28,7 @@
     //line-height: 1rem;
   }
 
-  input:not([type="checkbox"], [type="radio"], [type="submit"], [type="button"], [type="reset"]),
+  input:not([type='checkbox'], [type='radio'], [type='submit'], [type='button'], [type='reset']),
   textarea,
   select {
     appearance: none;
@@ -83,15 +83,8 @@
   label {
     color: var(--form-label-color);
     display: block;
-    margin: 0;
-    margin-bottom: 0.25rem;
     font-size: var(--form-label-font-size);
     font-weight:  variables.$font-weight-bold;
-    // line-height: 1.8;
-  }
-
-  .form-item:has(input[type="checkbox"]) label {
-    font-size: var(--form-input-font-size);
   }
 
   label.form--required {
@@ -107,7 +100,6 @@
     font-size: 150%;
     color: variables.$danger;
   }
-
 
   [type='checkbox'] + label,
   [type='radio'] + label {
@@ -179,7 +171,6 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    //@include utilities.bttn;
     font-family: variables.$font-family-caps-bold;
     font-size: var(--form-button-font-size);
     height: var(--form-input-height);
@@ -209,68 +200,53 @@
   }
   // === End: Input types === //
 
-
   // === Checkbox/Radios === //
   .form-item--checkbox,
   .form-item--radio {
+    margin-bottom: #{variables.$mobile-width-gutter};
 
-    label {
-      // line-height: 1.4;
-    }
-  }
+    [type='checkbox'],
+    [type='radio'] {
+      height: 1.2rem;
+      min-width: 1.2rem;
+      transform: scale(1.3, 1.3);
+      box-sizing: border-box;
+      padding: 0;
+      vertical-align: middle;
 
-  [type='checkbox'],
-  [type='radio'] {
-    height: 1.2rem;
-    min-width: 1.2rem;
-    margin: .25rem .35rem 0 .25rem;
-    -webkit-transform: scale(1.3, 1.3);
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    padding: 0;
+      & + label,
+      & + label {
+        font-weight: variables.$font-weight-normal;
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: var(--form-item-margin);
 
-    & + label,
-    & + label {
-      font-weight: variables.$font-weight-normal;
-      display: inline-block;  
-      vertical-align: text-bottom;
-      // margin-bottom: 0;
-      margin-left: .625rem;
-      // margin-right: 1rem; 
-      // line-height: 1.4rem;
-
-      &[for] {
-        cursor: pointer;
-        // flex: 1;
+        &[for] {
+          cursor: pointer;
+        }
       }
     }
 
-    label > &,
-    label > & {
+    // Focus state for checkboxes/radios
+    [type='checkbox']:focus,
+    [type='radio']:focus {
+      outline: 2px solid var(--form-input-outline-color);
+      outline-offset: 2px;
+    }
 
+    [type='checkbox']:focus-visible,
+    [type='radio']:focus-visible {
+      outline: 2px solid variables.$secondary;
+      outline-offset: 2px;
+    }
+
+    // Error state for checkboxes/radios (class applied to input)
+    [type='checkbox'].form--error,
+    [type='radio'].form--error {
+      outline: 2px solid variables.$danger;
+      outline-offset: 2px;
     }
   }
-
-  // Focus state for checkboxes/radios
-  [type='checkbox']:focus,
-  [type='radio']:focus {
-    outline: 2px solid var(--form-input-outline-color);
-    outline-offset: 2px;
-  }
-
-  [type='checkbox']:focus-visible,
-  [type='radio']:focus-visible {
-    outline: 2px solid variables.$secondary;
-    outline-offset: 2px;
-  }
-
-  // Error state for checkboxes/radios (class applied to input)
-  [type='checkbox'].form--error,
-  [type='radio'].form--error {
-    outline: 2px solid variables.$danger;
-    outline-offset: 2px;
-  }
-
   // === End: Checkbox/Radios === //
 
   // === Select === //
@@ -289,11 +265,10 @@
 
   select[multiple] {
     border: 1px solid variables.$gray;
-    padding: 0.5rem;
     cursor: pointer;
     line-height: 1.1;
     background-color: #fff;
-    padding-right: 0;
+    padding: 0.5rem 0 0.5rem 0.5rem;
     height: 10rem;
 
     option {
@@ -403,20 +378,8 @@
 .form--large {
   --form-input-height: 3.5rem;
   --form-input-font-size: 1.2rem;
+  --form-label-font-size: 1.1rem;
   --form-button-font-size: 1.25rem;
-
-  label,
-  fieldset legend {
-    font-size: inherit;
-  }
-
-  .form-item {
-    &:has(input[type=checkbox]) label,
-    input:not([type=submit], [type=button], [type=reset]),
-    select {
-      padding-inline-start: .75rem;
-    }
-  }
 }
 
 .form--compact {
@@ -530,12 +493,6 @@
 .form details {
   cursor: pointer;
   margin-block-end: var(--form-item-margin);
-
-  &[open] {
-    @include utilities.container-query() {
-      //margin-block-end: 0;
-    }
-  }
 }
 
 .form details > summary {
@@ -568,7 +525,7 @@
 
 .form details > summary::after {
   @include utilities.fas();
-  content: "\+";
+  content: '\+';
   display: inline-block;
   transition: opacity 0.2s ease;
   font-size: .7rem;
@@ -580,22 +537,12 @@
 }
 
 .form details[open] > summary::after {
-  content: "\f068";
-
+  content: '\f068';
 }
 
 .form details > .form-collapsible__wrapper {
   opacity: 0;
   transition: max-width 0.5s ease, opacity 0.5s ease;
-  //padding-block-start: 1rem;
-
-  @include utilities.container-query() {
-    //flex: 1;
-    //display: flex;
-    //column-gap: var(--filter-gap);
-    //flex-wrap: wrap;
-    //align-items: baseline;
-  }
 }
 
 .form details[open] > .form-collapsible__wrapper {
