@@ -58,11 +58,6 @@ export default {
         disable: true,
       },
     },
-    toggle: {
-      table: {
-        disable: true,
-      },
-    },
   },
   render: (args) => ({
     setup() {
@@ -87,7 +82,7 @@ export default {
               :class="{ 'form--inline': args.inline }"
               :required="args.required"
             >
-              <div class="form-item form-item--checkbox" v-for="item in optionItems" :key="item.id">
+              <div :class="'form-item form-item--' + args.type" v-for="item in optionItems" :key="item.id" :asdf="console.log(optionItems)">
                 <input
                   :type="args.type"
                   :id="item.id"
@@ -188,7 +183,7 @@ export const Checkbox = {
             :large="args.large"
             :inline="args.inline"
           >
-            <div class="form-item form-item--checkbox" :class="{ 'form-item--toggle': args.toggle }">
+            <div :class="'form-item form-item--' + args.type">
               <input type="checkbox" :disabled="args.disabled" :checked="args.checked" :required="args.required" value="subscribe" id="subscribe" :class="{ 'form--error': args.error }">
               <label for="subscribe" :class="args.required ? 'form--required' : false" v-html="args.label"></label>
             </div>
@@ -206,6 +201,7 @@ export const Checkbox = {
     inline: false,
     large: false,
     label: 'Subscribe to email updates',
+    type: 'checkbox',
   }
 }
 
@@ -214,7 +210,7 @@ export const Toggle = {
   args: {
     ...Checkbox.args,
     label: 'Enable notifications',
-    toggle: true,
+    type: 'toggle',
   },
 }
 
