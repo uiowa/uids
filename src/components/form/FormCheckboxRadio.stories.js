@@ -82,7 +82,7 @@ export default {
               :class="{ 'form--inline': args.inline }"
               :required="args.required"
             >
-              <div :class="'form-item form-item--' + args.type" v-for="item in optionItems" :key="item.id" :asdf="console.log(optionItems)">
+              <div :class="'form-item form-item--' + args.type" v-for="item in optionItems" :key="item.id">
                 <input
                   :type="args.type"
                   :id="item.id"
