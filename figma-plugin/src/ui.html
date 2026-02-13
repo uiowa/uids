@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>UIDS Component Generator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      background: #ffffff;
+    }
+
+    h1 {
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0 0 16px 0;
+      color: #000000;
+    }
+
+    label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #333333;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 150px;
+      padding: 8px;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      font-family: 'Monaco', monospace;
+      font-size: 11px;
+      resize: vertical;
+      margin-bottom: 16px;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #18a0fb;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    button {
+      flex: 1;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button.primary {
+      background: #18a0fb;
+      color: #ffffff;
+    }
+
+    button.primary:hover {
+      background: #0d8fe0;
+    }
+
+    button.primary:disabled {
+      background: #cccccc;
+      cursor: not-allowed;
+    }
+
+    button.secondary {
+      background: #f0f0f0;
+      color: #333333;
+    }
+
+    button.secondary:hover {
+      background: #e0e0e0;
+    }
+
+    #output {
+      padding: 12px;
+      border-radius: 4px;
+      font-family: 'Monaco', monospace;
+      font-size: 11px;
+      line-height: 1.5;
+      max-height: 200px;
+      overflow-y: auto;
+      display: none;
+    }
+
+    #output.log {
+      display: block;
+      background: #f5f5f5;
+      border: 1px solid #e0e0e0;
+      color: #333333;
+    }
+
+    #output.error {
+      display: block;
+      background: #fff3f3;
+      border: 1px solid #ffcccc;
+      color: #cc0000;
+    }
+
+    #output.success {
+      display: block;
+      background: #f0fff4;
+      border: 1px solid #c6f6d5;
+      color: #22543d;
+    }
+
+    .hint {
+      font-size: 11px;
+      color: #999999;
+      margin-top: 4px;
+      margin-bottom: 12px;
+    }
+
+    .url-input-group {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .url-input-group input {
+      flex: 1;
+      padding: 6px 8px;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      font-size: 11px;
+      font-family: 'Monaco', monospace;
+    }
+
+    .url-input-group input:focus {
+      outline: none;
+      border-color: #18a0fb;
+    }
+
+    .url-input-group button {
+      flex: 0 0 auto;
+      padding: 6px 12px;
+      font-size: 11px;
+    }
+
+    .section {
+      margin-bottom: 20px;
+    }
+
+    select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      font-size: 12px;
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      margin-bottom: 16px;
+      cursor: pointer;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: #18a0fb;
+    }
+
+    .options {
+      margin-bottom: 16px;
+      padding: 12px;
+      background: #f9f9f9;
+      border-radius: 4px;
+      border: 1px solid #e0e0e0;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: auto;
+      margin: 0;
+      cursor: pointer;
+    }
+
+    .checkbox-group label {
+      margin: 0;
+      font-weight: 400;
+      cursor: pointer;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>UIDS Component Generator</h1>
+
+  <div class="section">
+    <label for="tokens">Design Tokens JSON</label>
+    <div class="hint">Paste JSON or load from URL (e.g., GitHub raw URL)</div>
+    <div class="url-input-group">
+      <input type="text" id="tokensUrl" placeholder="https://raw.githubusercontent.com/..." />
+      <button class="secondary" id="loadTokens">Load</button>
+    </div>
+    <textarea id="tokens" placeholder='{"color": {"brand": {"gold": {"value": "#FFCD00", "$type": "color"}}}}'></textarea>
+  </div>
+
+  <div class="section">
+    <label for="spec">Component Spec JSON</label>
+    <div class="hint">Paste JSON or load from URL</div>
+    <div class="url-input-group">
+      <input type="text" id="specUrl" placeholder="https://raw.githubusercontent.com/..." />
+      <button class="secondary" id="loadSpec">Load</button>
+    </div>
+    <textarea id="spec" placeholder='{"$schema": "uids-figma-component-spec-v1", "components": {...}}'></textarea>
+  </div>
+
+  <div class="section">
+    <label for="componentSelect">Component to Generate</label>
+    <select id="componentSelect">
+      <option value="button">Button</option>
+      <option value="stat">Stat</option>
+      <option value="all">All Components</option>
+    </select>
+  </div>
+
+  <div class="options">
+    <div class="checkbox-group">
+      <input type="checkbox" id="updateExisting" checked />
+      <label for="updateExisting">Update existing components (if found)</label>
+    </div>
+    <div class="hint">When checked, replaces existing components with the same name instead of creating duplicates</div>
+  </div>
+
+  <div class="button-group">
+    <button class="primary" id="generate">Generate</button>
+    <button class="secondary" id="cancel">Cancel</button>
+  </div>
+
+  <div id="output"></div>
+  <div id="logPanel" style="display:none; margin-top:8px; padding:8px; background:#f5f5f5; border:1px solid #e0e0e0; border-radius:4px; font-family:'Monaco',monospace; font-size:10px; line-height:1.4; max-height:150px; overflow-y:auto; white-space:pre-wrap; color:#333;"></div>
+
+  <script>
+    const tokensInput = document.getElementById('tokens');
+    const specInput = document.getElementById('spec');
+    const tokensUrlInput = document.getElementById('tokensUrl');
+    const specUrlInput = document.getElementById('specUrl');
+    const loadTokensBtn = document.getElementById('loadTokens');
+    const loadSpecBtn = document.getElementById('loadSpec');
+    const updateExistingCheckbox = document.getElementById('updateExisting');
+    const componentSelect = document.getElementById('componentSelect');
+    const generateBtn = document.getElementById('generate');
+    const cancelBtn = document.getElementById('cancel');
+    const output = document.getElementById('output');
+
+    // Handle load tokens from URL
+    loadTokensBtn.onclick = async () => {
+      const url = tokensUrlInput.value.trim();
+      if (!url) {
+        showOutput('error', 'Please enter a URL for tokens JSON');
+        return;
+      }
+
+      loadTokensBtn.disabled = true;
+      loadTokensBtn.textContent = 'Loading...';
+      showOutput('log', 'Fetching tokens from URL...');
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        const text = await response.text();
+
+        // Validate JSON
+        try {
+          JSON.parse(text);
+        } catch (e) {
+          throw new Error('Response is not valid JSON: ' + e.message);
+        }
+
+        tokensInput.value = text;
+        showOutput('success', `Loaded tokens JSON (${(text.length / 1024).toFixed(1)} KB)`);
+      } catch (err) {
+        showOutput('error', `Failed to load tokens: ${err.message}`);
+        if (err.message.includes('CORS') || err.message.includes('Failed to fetch')) {
+          appendOutput('error', 'Tip: GitHub raw URLs work well. Ensure the URL is publicly accessible.');
+        }
+      } finally {
+        loadTokensBtn.disabled = false;
+        loadTokensBtn.textContent = 'Load';
+      }
+    };
+
+    // Handle load spec from URL
+    loadSpecBtn.onclick = async () => {
+      const url = specUrlInput.value.trim();
+      if (!url) {
+        showOutput('error', 'Please enter a URL for component spec JSON');
+        return;
+      }
+
+      loadSpecBtn.disabled = true;
+      loadSpecBtn.textContent = 'Loading...';
+      showOutput('log', 'Fetching component spec from URL...');
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        const text = await response.text();
+
+        // Validate JSON
+        try {
+          JSON.parse(text);
+        } catch (e) {
+          throw new Error('Response is not valid JSON: ' + e.message);
+        }
+
+        specInput.value = text;
+        showOutput('success', `Loaded component spec JSON (${(text.length / 1024).toFixed(1)} KB)`);
+      } catch (err) {
+        showOutput('error', `Failed to load spec: ${err.message}`);
+        if (err.message.includes('CORS') || err.message.includes('Failed to fetch')) {
+          appendOutput('error', 'Tip: GitHub raw URLs work well. Ensure the URL is publicly accessible.');
+        }
+      } finally {
+        loadSpecBtn.disabled = false;
+        loadSpecBtn.textContent = 'Load';
+      }
+    };
+
+    // Handle generate button
+    generateBtn.onclick = () => {
+      const tokensJson = tokensInput.value.trim();
+      const specJson = specInput.value.trim();
+
+      if (!tokensJson || !specJson) {
+        showOutput('error', 'Please provide both tokens JSON and component spec JSON');
+        return;
+      }
+
+      // Disable button during generation
+      generateBtn.disabled = true;
+      generateBtn.textContent = 'Generating...';
+
+      // Clear output
+      output.className = '';
+      output.textContent = '';
+      output.style.display = 'none';
+      logPanel.textContent = '';
+      logPanel.style.display = 'none';
+
+      // Send to plugin
+      parent.postMessage({
+        pluginMessage: {
+          type: 'generate',
+          tokensJson,
+          specJson,
+          updateExisting: updateExistingCheckbox.checked,
+          component: componentSelect.value
+        }
+      }, '*');
+    };
+
+    // Handle cancel button
+    cancelBtn.onclick = () => {
+      parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*');
+    };
+
+    // Handle messages from plugin
+    const logPanel = document.getElementById('logPanel');
+
+    window.onmessage = (event) => {
+      const msg = event.data.pluginMessage;
+
+      if (msg.type === 'error') {
+        showOutput('error', 'Error: ' + msg.message);
+        generateBtn.disabled = false;
+        generateBtn.textContent = 'Generate';
+      } else if (msg.type === 'success') {
+        showOutput('success', msg.message);
+        generateBtn.disabled = false;
+        generateBtn.textContent = 'Generate';
+      } else if (msg.type === 'progress') {
+        showOutput('log', msg.message);
+      } else if (msg.type === 'log') {
+        // Append to separate log panel so progress messages don't wipe them
+        logPanel.style.display = 'block';
+        logPanel.textContent += msg.message + '\n';
+        logPanel.scrollTop = logPanel.scrollHeight;
+      }
+    };
+
+    function showOutput(type, message) {
+      output.className = type;
+      output.textContent = message;
+      output.style.display = 'block';
+    }
+
+    function appendOutput(type, message) {
+      if (output.className !== type) {
+        output.className = type;
+        output.textContent = '';
+        output.style.display = 'block';
+      }
+      output.textContent += message + '\n';
+      output.scrollTop = output.scrollHeight;
+    }
+  </script>
+</body>
+</html>
