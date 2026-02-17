@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import '../../scss/components/form.scss';
-import UidsButton from '../button/Button.vue';
+import '../../scss/components/accordion.scss';
 
 const props = defineProps({
   label: {
@@ -11,10 +11,24 @@ const props = defineProps({
 
 </script>
 <template>
-  <details>
-    <summary role="button" aria-controls="edit-secondary" aria-expanded="true" v-html="label"></summary>
-    <div class="form-collapsible__wrapper">
-      <slot></slot>
-    </div>
-  </details>
+  <div class="accordion">
+    <details
+      class="accordion__item"
+      role="none"
+    >
+      <summary class="accordion__heading"
+               role="tab"
+      >
+        <h2>
+          <i aria-hidden="true" class="fas fa-chevron-up" role="presentation"></i>
+          {{ label }}
+        </h2>
+      </summary>
+      <div
+        class="accordion__content"
+      >
+        <slot></slot>
+      </div>
+    </details>
+  </div>
 </template>
