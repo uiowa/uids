@@ -12,7 +12,11 @@ const props = defineProps({
   collapsible: {
     type: Boolean,
     default: false,
-  }
+  },
+  inline: {
+    type: Boolean,
+    default: false,
+  },
 });
 const filterComponent = computed(() => {
   if (props.collapsible) {
@@ -29,7 +33,7 @@ const filterComponent = computed(() => {
       :is="filterComponent"
       class="form--light"
       label="Filters"
-      inline
+      :inline="inline"
       v-bind="!collapsible ? { sideLegend: true } : {}"
     >
 

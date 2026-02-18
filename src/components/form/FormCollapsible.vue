@@ -27,7 +27,9 @@ const props = defineProps({
       <div
         class="accordion__content"
       >
-        <slot></slot>
+        <div class="form--inline">
+          <slot></slot>
+        </div>
       </div>
     </details>
   </div>
