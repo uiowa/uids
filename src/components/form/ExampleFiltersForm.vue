@@ -9,32 +9,17 @@ import '../../scss/components/form.scss';
 import '../../scss/components/button.scss';
 
 const props = defineProps({
-  collapsible: {
-    type: Boolean,
-    default: false,
-  },
-  inline: {
-    type: Boolean,
-    default: false,
-  },
 });
-const filterComponent = computed(() => {
-  if (props.collapsible) {
-    return UidsFormCollapsible;
-  }
-  return UidsFormFieldset;
-})
+
 </script>
 <template>
   <form class="form" action="/" method="get"
         accept-charset="UTF-8">
 
-    <component
-      :is="filterComponent"
+    <uids-form-fieldset
       class="form--light"
       label="Filters"
-      :inline="inline"
-      v-bind="!collapsible ? { sideLegend: true } : {}"
+      :sideLegend="true"
     >
 
       <div class="form-item">
@@ -108,7 +93,7 @@ const filterComponent = computed(() => {
           <option value="retired">Retired</option>
         </select>
       </div>
-    </component>
+    </uids-form-fieldset>
 
     <div class="form--flex form--large form--compact">
       <div class="form-item">
