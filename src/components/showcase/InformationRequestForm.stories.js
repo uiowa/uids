@@ -65,11 +65,11 @@ const Template = {
           <div class="form-item">
             <label>Do you authorize The University of Iowa to send you text messages about important information and
               deadlines?</label>
-            <div class="form-type-radio form-item">
+            <div class="form-item--radio form-item">
               <input id="text-permission-yes" type="radio" name="permissionToText" value="true">
               <label for="text-permission-yes" class="radio">Yes</label>
             </div>
-            <div class="form-type-radio form-item">
+            <div class="form-item--radio form-item">
               <input id="text-permission-no" type="radio" name="permissionToText" value="false">
               <label for="text-permission-no" class="radio">No</label>
             </div>
@@ -341,35 +341,35 @@ const Template = {
               <span class="fieldset-legend">Additional subjects</span>
             </legend>
             <div>
-              <div class="form-type-checkbox form-item">
+              <div class="form-item--checkbox form-item">
                 <input id="financial-aid" type="checkbox" value="FINANCIAL_AID">
                 <label for="financial-aid" class="checkbox">Costs & Financial Aid</label>
               </div>
-              <div class="form-type-checkbox form-item">
+              <div class="form-item--checkbox form-item">
                 <input id="marching-band" type="checkbox" value="MARCHING_BAND">
                 <label for="marching-band" class="checkbox">Hawkeye Marching Band</label>
               </div>
-              <div class="form-type-checkbox form-item">
+              <div class="form-item--checkbox form-item">
                 <input id="rotc-air-force" type="checkbox" value="ROTC_AIR_FORCE">
                 <label for="rotc-air-force" class="checkbox">ROTC - Air Force (Aerospace Studies)</label>
               </div>
-              <div class="form-type-checkbox form-item">
+              <div class="form-item--checkbox form-item">
                 <input id="rotc-army" type="checkbox" value="ROTC_ARMY">
                 <label for="rotc-army" class="checkbox">ROTC - Army (Military Science)</label>
               </div>
-              <div class="form-type-checkbox form-item">
+              <div class="form-item--checkbox form-item">
                 <input id="study-abroad" type="checkbox" value="STUDY_ABROAD">
                 <label for="study-abroad" class="checkbox">Study Abroad</label>
               </div>
-              <div class="form-type-checkbox form-item">
+              <div class="form-item--checkbox form-item">
                 <input id="band" type="checkbox" value="BAND">
                 <label for="band" class="checkbox">University Concert Bands and Jazz Bands</label>
               </div>
-              <div class="form-type-checkbox form-item">
+              <div class="form-item--checkbox form-item">
                 <input id="honors" type="checkbox" value="HONORS">
                 <label for="honors" class="checkbox">University Honors Program</label>
               </div>
-              <div class="form-type-checkbox form-item">
+              <div class="form-item--checkbox form-item">
                 <input id="veteran-services" type="checkbox" value="VETERAN_SERVICES">
                 <label for="veteran-services" class="checkbox">Veteran & Military Connected Student Services</label>
               </div>

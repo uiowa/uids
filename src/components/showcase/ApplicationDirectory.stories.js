@@ -25,9 +25,6 @@ export default {
     },
   },
   argTypes: {
-    collapsible: {
-      name: 'Collapsible',
-    },
     showSidebar: {
       name: 'Show sidebar',
     },
@@ -77,16 +74,12 @@ const Template = {
           <div class="content flex flex--wrap flex--gap__md">
 
             <div class="sidebar flex--2 column-container" v-if="args.showSidebar">
-              <example-filters-form
-                :collapsible="args.collapsible"
-              ></example-filters-form>
+              <example-filters-form/>
             </div>
 
             <div class="main-panel" :class="args.showSidebar ? 'flex--10' : 'flex--12'">
               <div class="element--margin__bottom--extra element--margin__top--extra">
-                <example-filters-form v-if="!args.showSidebar"
-                  :collapsible="args.collapsible"
-                ></example-filters-form>
+                <example-filters-form v-if="!args.showSidebar"/>
               </div>
 
               <uids-table
@@ -280,6 +273,5 @@ export const Directory = {
   ...Template,
   args: {
     showSidebar: false,
-    collapsible: false,
   },
 }
