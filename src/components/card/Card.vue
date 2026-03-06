@@ -143,9 +143,9 @@ const linkedElement = computed(() => {
   if (!props.url) {
     return null;
   }
-
   // Do we have a title.
   if (!slots.title) {
+
     if (!props.link_text && slots.media) {
       return 'image';
     }
@@ -164,6 +164,17 @@ const linkedElement = computed(() => {
 const headlineLink = computed(() => {
   if (linkedElement.value === 'title') {
     return props.url;
+  }
+  return false;
+});
+
+/**
+ * Print card__details if subtitle or meta are available.
+ */
+const detailsElement = computed(() => {
+  // Do we have subtitle or meta?
+  if (slots.subtitle || slots.meta) {
+    return true;
   }
   return false;
 });
@@ -215,7 +226,7 @@ onMounted(() => {
         </uids-headline>
       </header>
       <div
-        v-if="$slots.subtitle || $slots.meta"
+        v-if="detailsElement === true"
         class="card__details"
       >
         <div v-if="$slots.subtitle" class="card__subtitle">
