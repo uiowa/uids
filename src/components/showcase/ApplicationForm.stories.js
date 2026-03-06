@@ -124,24 +124,24 @@ const Template = {
                 <div class="form-item flex--1">
                   <label for="credentials">Credentials</label>
                   <input type="text" id="credentials" placeholder="BS, MS, PhD">
-                  <div class="description">No periods in degrees – PhD, not Ph.D.</div>
+                  <div class="form-item__description">No periods in degrees – PhD, not Ph.D.</div>
                 </div>
                 <div class="form-item flex--1">
                   <label for="email">Email</label>
                   <input type="text" id="email" placeholder="first-last@uiowa.edu">
-                  <div class="description">UI email address</div>
+                  <div class="form-item__description">UI email address</div>
                 </div>
               </div>
               <div class="form-item">
                 <label for="title">Directory Title</label>
                 <input type="text" id="title" placeholder="Professor of Microbiology">
-                <div class="description">Most prominent UI role (e.g. Dean, DEO, Director, Endowed Position)</div>
+                <div class="form-item__description">Most prominent UI role (e.g. Dean, DEO, Director, Endowed Position)</div>
               </div>
               <div class="form-item">
                 <label for="introduction">Introduction</label>
                 <textarea id="introduction" name="textarea" rows="5" cols="60"
                           aria-describedby="introduction--description"></textarea>
-                <div id="introduction--description" class="description">Textarea description goes here.</div>
+                <div id="introduction--description" class="form-item__description">Textarea description goes here.</div>
               </div>
             </form>
           </div>

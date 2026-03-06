@@ -122,6 +122,7 @@ export const Number = {
 }
 
 export const Range = {
+  tags: ['!dev'],
   args: {
     disabled: false,
     error: false,
