@@ -183,32 +183,30 @@ const Template = (args) => ({
   },
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
-    <div :class="args.section_background" style="padding-top: 2rem; padding-bottom: 2rem;">
+    <div :class="['column-container', args.section_background]" style="padding-top: 2rem; padding-bottom: 2rem;">
       <div class="grid--threecol--33-34-33">
-        <div class="list-container">
-          <uids-card
-            :url="args.url"
-            :link_text="args.link_text"
-            :link_indicator="args.link_indicator"
-            :button_align_bottom="args.button_align_bottom"
-            :headline_style="args.headline_style"
-            :borderless="args.borderless"
-            :background="args.background"
-            :orientation="args.orientation"
-            :media_size="args.media_size"
-            :media_shape="args.media_shape"
-            :media_border="args.media_border"
-            :media_padded="args.media_padded"
-            :centered="args.centered"
-          >
-            <template #media v-if="args.media"><span v-html="args.media" ></span></template>
-            <template #pre_title v-if="args.pre_title"><span v-html="args.pre_title"></span></template>
-            <template #title v-if="args.title"><div v-html="args.title" ></div></template>
-            <template #subtitle v-if="args.subtitle"><div v-html="args.subtitle" ></div></template>
-            <template #meta v-if="args.meta"><div v-html="args.meta" ></div></template>
-            <template #default><div v-html="args.default"></div></template>
-          </uids-card>
-        </div>
+        <uids-card
+          :url="args.url"
+          :link_text="args.link_text"
+          :link_indicator="args.link_indicator"
+          :button_align_bottom="args.button_align_bottom"
+          :headline_style="args.headline_style"
+          :borderless="args.borderless"
+          :background="args.background"
+          :orientation="args.orientation"
+          :media_size="args.media_size"
+          :media_shape="args.media_shape"
+          :media_border="args.media_border"
+          :media_padded="args.media_padded"
+          :centered="args.centered"
+        >
+          <template #media v-if="args.media"><span v-html="args.media" ></span></template>
+          <template #pre_title v-if="args.pre_title"><span v-html="args.pre_title"></span></template>
+          <template #title v-if="args.title"><div v-html="args.title" ></div></template>
+          <template #subtitle v-if="args.subtitle"><div v-html="args.subtitle" ></div></template>
+          <template #meta v-if="args.meta"><div v-html="args.meta" ></div></template>
+          <template #default><div v-html="args.default"></div></template>
+        </uids-card>
       </div>
     </div>
   `,
@@ -346,7 +344,7 @@ const GridTemplate = (args) => ({
   },
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
-    <div :class="args.section_background" style="padding-top: 2rem; padding-bottom: 2rem;">
+    <div :class="['column-container', args.section_background]" style="padding-top: 2rem; padding-bottom: 2rem;">
       <uids-grid :type="args.grid_type">
         <uids-grid-item v-for="item in args.record_count" :key="item">
           <uids-card
