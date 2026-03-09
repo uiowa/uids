@@ -4,7 +4,7 @@
   --form-input-fg-disabled: #484741;
   --form-details-bg: #f3f3f3;
   --form-input-radius: 3px;
-  --form-label-font-size: 0.9rem;
+  --form-label-font-size: 1rem;
   --form-label-color: var(--brand-secondary);
   --form-text-color: var(--brand-secondary);
   --form-input-padding: 0.5rem;
@@ -15,7 +15,7 @@
   --form-section-border-color: var(--uids-gray-light);
   --form-input-outline-color: var(--uids-gray-light);
 }
-.form input:not([type=checkbox], [type=radio], [type=submit], [type=button], [type=reset]),
+.form input:not([type=checkbox], [type=radio], [type=submit], [type=button], [type=reset], [type=range]),
 .form textarea,
 .form select {
   appearance: none;
@@ -37,7 +37,7 @@
   transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
   width: 100%;
 }
-.form input:not([type=checkbox], [type=radio], [type=submit], [type=button], [type=reset]):focus,
+.form input:not([type=checkbox], [type=radio], [type=submit], [type=button], [type=reset], [type=range]):focus,
 .form textarea:focus,
 .form select:focus {
   --form-input-bg: #fefefe;
@@ -46,13 +46,13 @@
   outline-width: 2px;
   transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
 }
-.form input:not([type=checkbox], [type=radio], [type=submit], [type=button], [type=reset]).form--error,
+.form input:not([type=checkbox], [type=radio], [type=submit], [type=button], [type=reset], [type=range]).form--error,
 .form textarea.form--error,
 .form select.form--error {
   --form-input-outline-color: #BD472A;
   --form-input-bg: rgb(247.3909090909, 226.012987013, 220.7590909091);
 }
-.form input:not([type=checkbox], [type=radio], [type=submit], [type=button], [type=reset]).form--error:focus,
+.form input:not([type=checkbox], [type=radio], [type=submit], [type=button], [type=reset], [type=range]).form--error:focus,
 .form textarea.form--error:focus,
 .form select.form--error:focus {
   box-shadow: 0 0 5px 2px rgb(247.3909090909, 226.012987013, 220.7590909091);
@@ -207,6 +207,7 @@
 .form-item--radio,
 .form-item--toggle {
   margin-bottom: 1.25rem;
+  white-space: nowrap;
 }
 .form-item--checkbox input,
 .form-item--radio input,
@@ -221,6 +222,7 @@
   vertical-align: middle;
   margin-left: var(--form-item-margin);
   margin-bottom: 0;
+  text-wrap: wrap;
 }
 .form-item--checkbox input + label[for],
 .form-item--radio input + label[for],
@@ -250,8 +252,15 @@
 .form-item--radio input {
   height: 1.2rem;
   min-width: 1.2rem;
-  transform: scale(1.3, 1.3);
   transform-origin: left;
+}
+
+.form-item--checkbox input {
+  transform: scale(1.3, 1.3);
+}
+
+.form-item--radio input {
+  transform: scale(1.2, 1.2);
 }
 
 .form-item--toggle input {
