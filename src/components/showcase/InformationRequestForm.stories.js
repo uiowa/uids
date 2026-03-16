@@ -39,17 +39,17 @@ const Template = {
 
           <div class="form-item">
             <label class="form--required" for="first-name">First Name</label>
-            <input id="first-name" maxlength="50" type="text">
+            <input required id="first-name" maxlength="50" type="text">
           </div>
 
           <div class="form-item">
             <label class="form--required" for="last-name">Last Name</label>
-            <input id="last-name" maxlength="50" type="text">
+            <input required id="last-name" maxlength="50" type="text">
           </div>
 
           <div class="form-item">
             <label class="form--required" for="email">Email Address</label>
-            <input id="email" maxlength="255" type="email">
+            <input required id="email" maxlength="255" type="email">
           </div>
 
           <div class="form-item">
@@ -77,7 +77,7 @@ const Template = {
 
           <div class="form-item">
             <label class="form--required" for="address">Address</label>
-            <input id="address" maxlength="64" type="text">
+            <input required id="address" maxlength="64" type="text">
           </div>
 
           <div class="form-item">
@@ -88,12 +88,12 @@ const Template = {
           <div class="flex flex--wrap flex--gap__sm">
             <div class="form-item flex--1">
               <label class="form--required" for="city">City</label>
-              <input id="city" maxlength="30" type="text">
+              <input required id="city" maxlength="30" type="text">
             </div>
 
             <div class="form-item flex--1">
               <label class="form--required" for="state">State</label>
-              <select id="state">
+              <select required id="state">
                 <option value="">- None -</option>
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
@@ -152,7 +152,7 @@ const Template = {
 
             <div class="form-item flex--1">
               <label class="form--required" for="zip-code">ZIP Code</label>
-              <input id="zip-code" maxlength="10" type="text">
+              <input required id="zip-code" maxlength="10" type="text">
             </div>
           </div>
 
@@ -178,7 +178,7 @@ const Template = {
 
           <div class="form-item">
             <label class="form--required" for="citizenship">Country of Citizenship</label>
-            <select id="citizenship">
+            <select required id="citizenship">
               <option value="">- None -</option>
               <option value="US">United States</option>
               <option value="CA">Canada</option>
@@ -198,17 +198,17 @@ const Template = {
 
           <div class="form-item">
             <label class="form--required" for="birth-date">Birth Date</label>
-            <input id="birth-date" type="date">
+            <input required id="birth-date" type="date">
           </div>
 
           <div class="form-item">
             <label class="form--required" for="graduation-year">High School Graduation Year</label>
-            <input id="graduation-year" maxlength="4" placeholder="yyyy" type="text">
+            <input required id="graduation-year" maxlength="4" placeholder="yyyy" type="text">
           </div>
 
           <div class="form-item">
             <label class="form--required" for="enrollment-term">Planned Enrollment Term</label>
-            <select id="enrollment-term">
+            <select required id="enrollment-term">
               <option value="">- None -</option>
               <option value="1146">Spring 2026</option>
               <option value="1147">Summer 2026</option>
@@ -225,7 +225,7 @@ const Template = {
 
           <div class="form-item">
             <label class="form--required" for="student-type">What type of student will you be?</label>
-            <select id="student-type">
+            <select required id="student-type">
               <option value="">- None -</option>
               <option value="FIRST_YEAR">First-Year</option>
               <option value="TRANSFER">Transfer</option>
@@ -242,7 +242,7 @@ const Template = {
 
           <div class="form-item">
             <label class="form--required" for="primary-interest">Primary Academic Interest</label>
-            <select id="primary-interest">
+            <select required id="primary-interest">
               <option value="">- None -</option>
               <option value="330">Accounting</option>
               <option value="6">Actuarial Science</option>

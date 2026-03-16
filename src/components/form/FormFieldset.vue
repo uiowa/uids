@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import '../../scss/components/form.scss';
-import UidsButton from '../button/Button.vue';
 
 const props = defineProps({
   label: {

@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import { computed } from "vue";
 
-import UidsButton from '../button/Button.vue';
 import UidsFormFieldset from '../form/FormFieldset.vue';
-import UidsFormCollapsible from '../form/FormCollapsible.vue';
 
 import '../../scss/components/form.scss';
 import '../../scss/components/button.scss';
