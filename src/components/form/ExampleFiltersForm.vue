@@ -81,7 +81,7 @@ const props = defineProps({
         </select>
       </div>
 
-      <div class=" form-item">
+      <div class="form-item">
         <label for="edit-status">Status</label>
         <select id="edit-status" name="status">
           <option value="All" selected="selected">- Any -</option>
