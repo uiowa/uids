@@ -25,14 +25,14 @@ const slots = useSlots();
 
 <template>
   <uids-form-fieldset :label="label" :required="required">
-    <div class="form-item" :class="'form-type-'+type" v-for="item in items" v-if="!$slots.default">
+    <div class="form-item" :class="'form-item--'+type" v-for="item in items" v-if="!$slots.default">
       <input
         :id="item.id"
         :type="type"
         :name="item.name"
         :value="item.value"
         :class="{
-          error: item.error,
+          'form--error': item.error,
         }"
         :disabled="item.disabled"
         :checked="item.checked"

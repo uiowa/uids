@@ -58,11 +58,6 @@ export default {
         disable: true,
       },
     },
-    toggle: {
-      table: {
-        disable: true,
-      },
-    },
   },
   render: (args) => ({
     setup() {
@@ -84,10 +79,10 @@ export default {
             <uids-form-checkbox-or-radio-group
               :label="args.label"
               :type="args.type"
-              :inline="args.inline"
+              :class="{ 'form--inline': args.inline }"
               :required="args.required"
             >
-              <div class="form-item form-item--checkbox form-type-checkbox" v-for="item in optionItems" :key="item.id">
+              <div :class="'form-item form-item--' + args.type" v-for="item in optionItems" :key="item.id">
                 <input
                   :type="args.type"
                   :id="item.id"
@@ -95,7 +90,7 @@ export default {
                   :value="item.value"
                   :disabled="args.disabled"
                   :checked="args.checked"
-                  :class="args.error ? 'error' : false"
+                  :class="args.error ? 'form--error' : false"
                   :required="args.required"
                 >
                 <label :for="item.id">{{ item.label }}</label>
@@ -188,9 +183,9 @@ export const Checkbox = {
             :large="args.large"
             :inline="args.inline"
           >
-            <div class="form-item form-item--checkbox form-type-checkbox" :class="{ 'form__checkbox--switch': args.toggle }">
-              <input type="checkbox" :disabled="args.disabled" :checked="args.checked" value="subscribe" id="subscribe" :class="{ 'error': args.error }">
-              <label for="subscribe" :class="args.required ? 'form-required' : false" v-html="args.label"></label>
+            <div :class="'form-item form-item--' + args.type">
+              <input type="checkbox" :disabled="args.disabled" :checked="args.checked" :required="args.required" value="subscribe" id="subscribe" :class="{ 'form--error': args.error }">
+              <label for="subscribe" :class="args.required ? 'form--required' : false" v-html="args.label"></label>
             </div>
           </uids-form-container>
         </form>
@@ -206,6 +201,7 @@ export const Checkbox = {
     inline: false,
     large: false,
     label: 'Subscribe to email updates',
+    type: 'checkbox',
   }
 }
 
@@ -214,7 +210,7 @@ export const Toggle = {
   args: {
     ...Checkbox.args,
     label: 'Enable notifications',
-    toggle: true,
+    type: 'toggle',
   },
 }
 

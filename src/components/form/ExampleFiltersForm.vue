@@ -1,35 +1,22 @@
 <script setup lang="ts">
-import { computed } from "vue";
 
-import UidsButton from '../button/Button.vue';
 import UidsFormFieldset from '../form/FormFieldset.vue';
-import UidsFormCollapsible from '../form/FormCollapsible.vue';
 
 import '../../scss/components/form.scss';
 import '../../scss/components/button.scss';
 
 const props = defineProps({
-  collapsible: {
-    type: Boolean,
-    default: false,
-  }
 });
-const filterComponent = computed(() => {
-  if (props.collapsible) {
-    return UidsFormCollapsible;
-  }
-  return UidsFormFieldset;
-})
+
 </script>
 <template>
   <form class="form" action="/" method="get"
         accept-charset="UTF-8">
 
-    <component
-      :is="filterComponent"
-      class="form--inline form--light form--small form--compact"
+    <uids-form-fieldset
+      class="form--light"
       label="Filters"
-      inline
+      :sideLegend="true"
     >
 
       <div class="form-item">
@@ -39,7 +26,7 @@ const filterComponent = computed(() => {
         </select>
       </div>
 
-      <div class=" form-item">
+      <div class="form-item">
         <label for="edit-department">Department</label>
         <select id="edit-department" name="department" autocomplete="off">
           <option selected="" value="">All Departments</option>
@@ -72,7 +59,7 @@ const filterComponent = computed(() => {
         </select>
       </div>
 
-      <div class=" form-item">
+      <div class="form-item">
         <label for="edit-membership">Membership</label>
         <select id="edit-membership" name="membership" autocomplete="off">
           <option selected="" value="">All</option>
@@ -94,7 +81,7 @@ const filterComponent = computed(() => {
         </select>
       </div>
 
-      <div class=" form-item">
+      <div class="form-item">
         <label for="edit-status">Status</label>
         <select id="edit-status" name="status">
           <option value="All" selected="selected">- Any -</option>
@@ -103,7 +90,7 @@ const filterComponent = computed(() => {
           <option value="retired">Retired</option>
         </select>
       </div>
-    </component>
+    </uids-form-fieldset>
 
     <div class="form--flex form--large form--compact">
       <div class="form-item">
@@ -111,7 +98,7 @@ const filterComponent = computed(() => {
         <input type="text" id="edit-search" name="search" value="" size="30" maxlength="128"
                placeholder="Search directory">
       </div>
-      <div class="form-actions">
+      <div class="form__actions">
         <button type="submit" name="search" value="Search" class="bttn bttn--primary">
           <span>Search</span>
         </button>

@@ -11,11 +11,7 @@ export default {
       },
     },
   },
-  argTypes: {
-    collapsible: {
-      name: 'Collapsible',
-    },
-  },
+  argTypes: { },
 };
 
 const Template = {
@@ -27,7 +23,6 @@ const Template = {
     template: `
       <div class="layout-container">
         <example-filters-form
-          :collapsible="args.collapsible"
         ></example-filters-form>
       </div>
     `,
@@ -36,7 +31,5 @@ const Template = {
 
 export const Filters = {
   ...Template,
-  args: {
-    collapsible: false,
-  }
+  args: { }
 }

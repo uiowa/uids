@@ -31,6 +31,11 @@ export default {
       name: 'Flex',
       table: { category: 'Modifiers' },
     },
+    required: {
+      name: 'Required',
+      control: { type: 'boolean' },
+      table: { category: 'States' },
+    },
   }
 };
 
@@ -116,14 +121,14 @@ export const KitchenSink = {
             :flex="args.flex"
           >
             <uids-form-item>
-              <label class="form-required" for="last-name">Text</label>
-              <input id="last-name" maxlength="50" type="text">
+              <label :class="args.required ? 'form--required' : false" for="last-name">Text</label>
+              <input id="last-name" maxlength="50" type="text" :required="args.required">
               <template #description>Description</template>
             </uids-form-item>
 
             <div class="form-item">
-              <label class="form-required" for="email">Email</label>
-              <input id="email" maxlength="255" type="email">
+              <label :class="args.required ? 'form--required' : false" for="email">Email</label>
+              <input id="email" maxlength="255" type="email" :required="args.required">
             </div>
 
             <div class="form-item">
@@ -137,8 +142,8 @@ export const KitchenSink = {
             </uids-form-item>
 
             <uids-form-item>
-              <label class="form-required" for="state">Select</label>
-              <select id="state">
+              <label :class="args.required ? 'form--required' : false" for="state">Select</label>
+              <select id="state" :required="args.required">
                 <option value="">- None -</option>
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
@@ -216,8 +221,8 @@ export const KitchenSink = {
             :flex="args.flex"
           >
             <div class="form-item">
-              <label class="form-required" for="states">Select</label>
-              <select id="states">
+              <label :class="args.required ? 'form--required' : false" for="states">Select</label>
+              <select id="states" :required="args.required">
                 <option value="">- None -</option>
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
@@ -275,13 +280,13 @@ export const KitchenSink = {
             </div>
 
             <div class="form-item">
-              <label class="form-required" for="birth-date">Date</label>
-              <input id="birth-date" type="date">
+              <label :class="args.required ? 'form--required' : false" for="birth-date">Date</label>
+              <input id="birth-date" type="date" :required="args.required">
             </div>
 
-            <div class="form-item form-item-multiselect">
+            <div class="form-item form-item--multiselect">
               <label for="multiselect">Multi select</label>
-              <select id="multiselect" multiple="multiple" name="multiselect[]" class="form-select">
+              <select id="multiselect" multiple="multiple" name="multiselect[]">
                 <option value="High School">High School</option>
                 <option value="Associate Degree">Associate Degree</option>
                 <option value="Graduate or Professional Degree">Graduate or Professional Degree</option>
@@ -294,7 +299,7 @@ export const KitchenSink = {
             <label for="edit-textarea">Textarea</label>
             <textarea id="edit-textarea" name="textarea" rows="5" cols="60"
                       aria-describedby="edit-textarea--description"></textarea>
-            <div id="edit-textarea--description" class="description">Textarea description goes here.</div>
+            <div id="edit-textarea--description" class="form-item__description">Textarea description goes here.</div>
           </div>
 
           <uids-form-container
@@ -312,7 +317,7 @@ export const KitchenSink = {
 
           <hr />
 
-          <div class="form-item form-type-checkbox">
+          <div class="form-item form-item--checkbox">
             <input
               id="agree-terms"
               type="checkbox"
@@ -332,5 +337,6 @@ export const KitchenSink = {
     compact: false,
     inline: false,
     flex: false,
+    required: true,
   }
 }

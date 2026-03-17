@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import '../../scss/components/form.scss';
-import UidsButton from '../button/Button.vue';
 
 const props = defineProps({
   label: {
@@ -15,20 +14,25 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  sideLegend: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-const wrapperClasses = computed(() => {
+const fieldsetClasses = computed(() => {
   return {
-    'form--inline': props.inline,
+    'form-fieldset--side-legend': props.sideLegend,
   };
 });
 
 </script>
 <template>
-  <fieldset>
-    <legend v-if="label" v-html="label" :class="{ 'form-required': required }"></legend>
-    <div :class="wrapperClasses">
-    <slot></slot>
+  <fieldset :class="fieldsetClasses">
+    <legend v-if="label" v-html="label" :class="{ 'form--required': required }"></legend>
+    <div v-if="sideLegend" class="form-fieldset__content">
+      <slot></slot>
     </div>
+    <slot v-else></slot>
   </fieldset>
 </template>

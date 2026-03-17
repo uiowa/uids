@@ -70,7 +70,6 @@ export default {
                 class="bttn"
                 :class="{
                   error: args.error,
-                  'bttn--large': args.large,
                   'bttn--primary': args.type === 'submit',
                 }"
               >

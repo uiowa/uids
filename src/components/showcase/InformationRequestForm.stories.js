@@ -38,18 +38,18 @@ const Template = {
           <p><small>Required fields are marked with an asterisk (<abbr class="req" title="required">*</abbr>).</small></p>
 
           <div class="form-item">
-            <label class="form-required" for="first-name">First Name</label>
-            <input id="first-name" maxlength="50" type="text">
+            <label class="form--required" for="first-name">First Name</label>
+            <input required id="first-name" maxlength="50" type="text">
           </div>
 
           <div class="form-item">
-            <label class="form-required" for="last-name">Last Name</label>
-            <input id="last-name" maxlength="50" type="text">
+            <label class="form--required" for="last-name">Last Name</label>
+            <input required id="last-name" maxlength="50" type="text">
           </div>
 
           <div class="form-item">
-            <label class="form-required" for="email">Email Address</label>
-            <input id="email" maxlength="255" type="email">
+            <label class="form--required" for="email">Email Address</label>
+            <input required id="email" maxlength="255" type="email">
           </div>
 
           <div class="form-item">
@@ -65,19 +65,19 @@ const Template = {
           <div class="form-item">
             <label>Do you authorize The University of Iowa to send you text messages about important information and
               deadlines?</label>
-            <div class="form-type-radio form-item">
+            <div class="form-item--radio form-item">
               <input id="text-permission-yes" type="radio" name="permissionToText" value="true">
               <label for="text-permission-yes" class="radio">Yes</label>
             </div>
-            <div class="form-type-radio form-item">
+            <div class="form-item--radio form-item">
               <input id="text-permission-no" type="radio" name="permissionToText" value="false">
               <label for="text-permission-no" class="radio">No</label>
             </div>
           </div>
 
           <div class="form-item">
-            <label class="form-required" for="address">Address</label>
-            <input id="address" maxlength="64" type="text">
+            <label class="form--required" for="address">Address</label>
+            <input required id="address" maxlength="64" type="text">
           </div>
 
           <div class="form-item">
@@ -87,13 +87,13 @@ const Template = {
 
           <div class="flex flex--wrap flex--gap__sm">
             <div class="form-item flex--1">
-              <label class="form-required" for="city">City</label>
-              <input id="city" maxlength="30" type="text">
+              <label class="form--required" for="city">City</label>
+              <input required id="city" maxlength="30" type="text">
             </div>
 
             <div class="form-item flex--1">
-              <label class="form-required" for="state">State</label>
-              <select id="state">
+              <label class="form--required" for="state">State</label>
+              <select required id="state">
                 <option value="">- None -</option>
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
@@ -151,8 +151,8 @@ const Template = {
             </div>
 
             <div class="form-item flex--1">
-              <label class="form-required" for="zip-code">ZIP Code</label>
-              <input id="zip-code" maxlength="10" type="text">
+              <label class="form--required" for="zip-code">ZIP Code</label>
+              <input required id="zip-code" maxlength="10" type="text">
             </div>
           </div>
 
@@ -177,8 +177,8 @@ const Template = {
           </div>
 
           <div class="form-item">
-            <label class="form-required" for="citizenship">Country of Citizenship</label>
-            <select id="citizenship">
+            <label class="form--required" for="citizenship">Country of Citizenship</label>
+            <select required id="citizenship">
               <option value="">- None -</option>
               <option value="US">United States</option>
               <option value="CA">Canada</option>
@@ -197,18 +197,18 @@ const Template = {
           </div>
 
           <div class="form-item">
-            <label class="form-required" for="birth-date">Birth Date</label>
-            <input id="birth-date" type="date">
+            <label class="form--required" for="birth-date">Birth Date</label>
+            <input required id="birth-date" type="date">
           </div>
 
           <div class="form-item">
-            <label class="form-required" for="graduation-year">High School Graduation Year</label>
-            <input id="graduation-year" maxlength="4" placeholder="yyyy" type="text">
+            <label class="form--required" for="graduation-year">High School Graduation Year</label>
+            <input required id="graduation-year" maxlength="4" placeholder="yyyy" type="text">
           </div>
 
           <div class="form-item">
-            <label class="form-required" for="enrollment-term">Planned Enrollment Term</label>
-            <select id="enrollment-term">
+            <label class="form--required" for="enrollment-term">Planned Enrollment Term</label>
+            <select required id="enrollment-term">
               <option value="">- None -</option>
               <option value="1146">Spring 2026</option>
               <option value="1147">Summer 2026</option>
@@ -224,8 +224,8 @@ const Template = {
 
 
           <div class="form-item">
-            <label class="form-required" for="student-type">What type of student will you be?</label>
-            <select id="student-type">
+            <label class="form--required" for="student-type">What type of student will you be?</label>
+            <select required id="student-type">
               <option value="">- None -</option>
               <option value="FIRST_YEAR">First-Year</option>
               <option value="TRANSFER">Transfer</option>
@@ -241,8 +241,8 @@ const Template = {
           </p>
 
           <div class="form-item">
-            <label class="form-required" for="primary-interest">Primary Academic Interest</label>
-            <select id="primary-interest">
+            <label class="form--required" for="primary-interest">Primary Academic Interest</label>
+            <select required id="primary-interest">
               <option value="">- None -</option>
               <option value="330">Accounting</option>
               <option value="6">Actuarial Science</option>
@@ -341,35 +341,35 @@ const Template = {
               <span class="fieldset-legend">Additional subjects</span>
             </legend>
             <div>
-              <div class="form-type-checkbox form-item">
+              <div class="form-item--checkbox form-item">
                 <input id="financial-aid" type="checkbox" value="FINANCIAL_AID">
                 <label for="financial-aid" class="checkbox">Costs & Financial Aid</label>
               </div>
-              <div class="form-type-checkbox form-item">
+              <div class="form-item--checkbox form-item">
                 <input id="marching-band" type="checkbox" value="MARCHING_BAND">
                 <label for="marching-band" class="checkbox">Hawkeye Marching Band</label>
               </div>
-              <div class="form-type-checkbox form-item">
+              <div class="form-item--checkbox form-item">
                 <input id="rotc-air-force" type="checkbox" value="ROTC_AIR_FORCE">
                 <label for="rotc-air-force" class="checkbox">ROTC - Air Force (Aerospace Studies)</label>
               </div>
-              <div class="form-type-checkbox form-item">
+              <div class="form-item--checkbox form-item">
                 <input id="rotc-army" type="checkbox" value="ROTC_ARMY">
                 <label for="rotc-army" class="checkbox">ROTC - Army (Military Science)</label>
               </div>
-              <div class="form-type-checkbox form-item">
+              <div class="form-item--checkbox form-item">
                 <input id="study-abroad" type="checkbox" value="STUDY_ABROAD">
                 <label for="study-abroad" class="checkbox">Study Abroad</label>
               </div>
-              <div class="form-type-checkbox form-item">
+              <div class="form-item--checkbox form-item">
                 <input id="band" type="checkbox" value="BAND">
                 <label for="band" class="checkbox">University Concert Bands and Jazz Bands</label>
               </div>
-              <div class="form-type-checkbox form-item">
+              <div class="form-item--checkbox form-item">
                 <input id="honors" type="checkbox" value="HONORS">
                 <label for="honors" class="checkbox">University Honors Program</label>
               </div>
-              <div class="form-type-checkbox form-item">
+              <div class="form-item--checkbox form-item">
                 <input id="veteran-services" type="checkbox" value="VETERAN_SERVICES">
                 <label for="veteran-services" class="checkbox">Veteran & Military Connected Student Services</label>
               </div>
