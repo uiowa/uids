@@ -6,7 +6,7 @@
   function Video(element, index) {
     if (element) {
       this.element = element;
-      this.video = this.element.querySelector('video');
+      this.video = this.element.querySelector('.banner video');
       if (this.video) {
         // Give each video an id so that we can index them individually later.
         // As well, no two elements should have the same ID, so assigning them like this ensures that is the case.
