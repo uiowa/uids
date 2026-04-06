@@ -10,6 +10,7 @@ const config = {
   ],
   features: {
     actions: false,
+    interactions: false,
   },
   framework: {
     name: '@storybook/vue3-vite',
@@ -27,9 +28,6 @@ const config = {
         },
       },
     });
-  },
-  docs: {
-    autodocs: true,
   },
 };
 
