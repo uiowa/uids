@@ -4,23 +4,13 @@ import vue from '@vitejs/plugin-vue';
 const config = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
+    '@storybook/addon-docs',
     '@storybook/addon-links',
-    {
-      name: '@storybook/addon-essentials',
-      options: {
-        actions: false,
-      },
-    },
-    {
-      name: 'storybook-addon-sass-postcss',
-      options: {
-        sassLoaderOptions: {
-          implementation: require('sass'),
-        }
-      },
-    },
     '@whitespace/storybook-addon-html',
   ],
+  features: {
+    actions: false,
+  },
   framework: {
     name: '@storybook/vue3-vite',
     options: {},

@@ -1,6 +1,6 @@
 // .storybook/YourTheme.js
 
-import { create } from '@storybook/theming';
+import { create } from 'storybook/theming/create';
 import brand_image from '../src/assets/images/uiowa-secondary.svg'
 
 export default create({
@@ -24,7 +24,8 @@ export default create({
   textInverseColor: 'white',
 
   // Toolbar default and active colors
-  barTextColor: '#63666A',
+  barTextColor: '#151515',
+  barHoverColor: '#343a40',
   barSelectedColor: '#151515',
   barBg: '#FFCD00',
 

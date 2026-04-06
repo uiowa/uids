@@ -1,8 +1,8 @@
 import '../src/scss/uids-core.scss';
-import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
+import { MINIMAL_VIEWPORTS } from 'storybook/viewport';
 import DocumentationTemplate from '../src/components/DocumentationTemplate.mdx';
 import uidsTheme from "./uidsTheme.js";
-import { styled } from '@storybook/theming';
+import { styled } from 'storybook/theming';
 
 const pStyles = styled.p(({ theme }) => ({
   fontSize: "1.2rem",
@@ -172,4 +172,4 @@ export default {
     },
   },
 };
-export const tags = ['autodocs', 'autodocs', 'autodocs'];
+export const tags = ['autodocs'];
