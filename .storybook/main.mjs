@@ -18,7 +18,20 @@ const config = {
   },
   async viteFinal(config, { configType }) {
     return mergeConfig(config, {
-      plugins: [vue()],
+      plugins: [
+        vue(),
+        // Workaround for storybookjs/storybook#33537.
+        {
+          name: 'fix-mdx-react-shim',
+          enforce: 'pre',
+          resolveId(source) {
+            if (source.startsWith('file://') && source.includes('mdx-react-shim.js')) {
+              return new URL(source).pathname;
+            }
+            return null;
+          },
+        },
+      ],
       base: process.env.BASE_URL || config.base,
       css: {
         preprocessorOptions: {
