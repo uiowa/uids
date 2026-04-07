@@ -29,6 +29,9 @@ export default create({
   barSelectedColor: '#151515',
   barBg: '#FFCD00',
 
+  // Color contrast fixes
+  booleanBg: '#F5F5F5',
+
   // Branding
   brandTitle: 'U of Iowa Design System (UIDS)',
   brandUrl: 'https://uids.brand.uiowa.edu',
