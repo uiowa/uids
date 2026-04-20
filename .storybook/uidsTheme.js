@@ -1,6 +1,6 @@
 // .storybook/YourTheme.js
 
-import { create } from '@storybook/theming';
+import { create } from 'storybook/theming/create';
 import brand_image from '../src/assets/images/uiowa-secondary.svg'
 
 export default create({
@@ -24,9 +24,13 @@ export default create({
   textInverseColor: 'white',
 
   // Toolbar default and active colors
-  barTextColor: '#63666A',
+  barTextColor: '#151515',
+  barHoverColor: '#343a40',
   barSelectedColor: '#151515',
   barBg: '#FFCD00',
+
+  // Color contrast fixes
+  booleanBg: '#F5F5F5',
 
   // Branding
   brandTitle: 'U of Iowa Design System (UIDS)',
