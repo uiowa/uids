@@ -79,7 +79,7 @@ yarn dist
 ### Creating a Release
 The following is an example of the workflow and not meant to be copied and pasted verbatim. Please review the summary at https://semver.org/ to understand which type of release you should be creating. The version numbers you will use when you are actually going through this process will depend on the current version number and what type of release you are creating.
 
-Note that the first step is often to create a PR that increments the `package.json` version and updates any relevant documentation.
+**Note**: The first step is often to create a PR that increments the `package.json` version and matches the next version you plan to create. Since `src/Introduction.mdx` dynamically pulls the version from package.json, updating the version in package.json will automatically update the link paths in the documentation once this PR is merged and the release is created.
 
 To see the full options for the command, run `npm version --help`.
 1. `git checkout 4.x` - Make sure you are on the `4.x` branch.
@@ -88,8 +88,8 @@ To see the full options for the command, run `npm version --help`.
 4. `git push`
 5. `git push --tags`
 6. Go to https://github.com/uiowa/uids/releases/new.
-7. Enter the "Tag version" using the version _with_ the `v` at the front (e.g. "v3.1.1").
-8. Enter the "Release title" using the version _without_ the `v` at the front (e.g. "3.1.1").
+7. Enter the "Tag version" using the version _with_ the `v` at the front (e.g. "v4.0.0-alpha14").
+8. Enter the "Release title" using the version _without_ the `v` at the front (e.g. "4.0.0-alpha14").
 9. Paste in the compare link into the description area: `https://github.com/uiowa/uids/compare/v4.0.0-alpha13...v4.0.0-alpha14`
 10. Click the "Publish release" button.
 11. Profit!
