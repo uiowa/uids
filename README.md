@@ -79,6 +79,8 @@ yarn dist
 ### Creating a Release
 The following is an example of the workflow and not meant to be copied and pasted verbatim. Please review the summary at https://semver.org/ to understand which type of release you should be creating. The version numbers you will use when you are actually going through this process will depend on the current version number and what type of release you are creating.
 
+Note that the first step is often to create a PR that increments the `package.json` version and updates any relevant documentation.
+
 To see the full options for the command, run `npm version --help`.
 1. `git checkout 4.x` - Make sure you are on the `4.x` branch.
 2. `git pull` - Make sure you have the most recent updates.
