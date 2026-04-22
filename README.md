@@ -82,13 +82,13 @@ The following is an example of the workflow and not meant to be copied and paste
 To see the full options for the command, run `npm version --help`.
 1. `git checkout 4.x` - Make sure you are on the `4.x` branch.
 2. `git pull` - Make sure you have the most recent updates.
-3. `npm version patch -m "https://github.com/uiowa/uids/compare/v3.1.0...v3.1.1"`
+3. `npm version patch -m "https://github.com/uiowa/uids/compare/v4.0.0-alpha13...v4.0.0-alpha14"`
 4. `git push`
 5. `git push --tags`
 6. Go to https://github.com/uiowa/uids/releases/new.
 7. Enter the "Tag version" using the version _with_ the `v` at the front (e.g. "v3.1.1").
 8. Enter the "Release title" using the version _without_ the `v` at the front (e.g. "3.1.1").
-9. Paste in the compare link into the description area: `https://github.com/uiowa/uids/compare/v3.1.0...v3.1.1`
+9. Paste in the compare link into the description area: `https://github.com/uiowa/uids/compare/v4.0.0-alpha13...v4.0.0-alpha14`
 10. Click the "Publish release" button.
 11. Profit!
 
