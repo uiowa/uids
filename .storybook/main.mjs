@@ -34,6 +34,9 @@ const config = {
       ],
       base: process.env.BASE_URL || config.base,
       css: {
+        lightningcss: {
+          errorRecovery: true,
+        },
         preprocessorOptions: {
           scss: {
             api: "modern",
