@@ -1,1 +1,0 @@
-import{i as e}from"./preload-helper-b7oRpdHO.js";var t,n=e((()=>{t=`4.0.0`}));export{t as n,n as t};
