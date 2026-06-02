@@ -1,0 +1,1 @@
+import{i as e}from"./preload-helper-CY32wZhQ.js";function t(e){return e.replace(/_/g,`-`)}var n=e((()=>{}));export{n,t};
