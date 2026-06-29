@@ -1,0 +1,1 @@
+import{i as e}from"./preload-helper-CZQN2Plb.js";function t(e){return e.replace(/_/g,`-`)}var n=e((()=>{}));export{n,t};

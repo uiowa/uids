@@ -1,0 +1,1 @@
+import{i as e}from"./preload-helper-CZQN2Plb.js";var t,n=e((()=>{t=`4.0.0`}));export{t as n,n as t};
