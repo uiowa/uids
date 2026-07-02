@@ -10,6 +10,6 @@ Built for everyone. Build and maintain the Iowa Design System — the shared des
 
 ## Foundations
 
-- [Color outline](color.html)
-- [Typography outline](typography.html)
+- [Color](color.html)
+- [Typography](typography.html)
 - [Tokens](tokens.html)
