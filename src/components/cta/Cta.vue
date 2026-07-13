@@ -74,7 +74,7 @@ const buttonClasses = computed(() => {
       <div class="cta__title" v-if="$slots.title">
         <uids-headline :text_style="headline_style">
           <!-- @slot The title of the card. HTML is allowed. -->
-          <slot name="title">Title</slot>
+          <span class="headline__heading"><slot name="title">Title</slot></span>
         </uids-headline>
       </div>
       <div class="cta__content" v-if="details" >
