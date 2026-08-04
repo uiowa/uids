@@ -1,0 +1,1 @@
+import{i as e}from"./preload-helper-D0LBhzMe.js";function t(e){return e.replace(/_/g,`-`)}var n=e((()=>{}));export{n,t};
