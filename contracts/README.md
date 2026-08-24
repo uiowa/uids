@@ -110,7 +110,7 @@ Three kinds of text get confused with each other. Only the first two belong here
 |---|---|---|
 | **Contract fact** — what the component IS | "Fill=Background exists only at Direction=None because a `bg--*` class makes both inert in CSS" | the contract |
 | **Ruling** — a decision, who made it, when | "the design system owner's ruling (2026-08-17): Medium and Large only." | the contract, in one or two sentences |
-| **Build narrative** — what an earlier pass got wrong | "The first pass hand-drew a 3-point stroked polyline — wrong weight, wrong proportions" | `.claude/sessions/`, never here |
+| **Build narrative** — what an earlier pass got wrong | "The first pass hand-drew a 3-point stroked polyline — wrong weight, wrong proportions" | a commit message or session notes, never here |
 
 **The test:** would someone who wasn't there need this to use or change the component
 correctly? Mechanism and constraint pass. "What the previous attempt got wrong" fails.

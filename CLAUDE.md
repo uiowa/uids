@@ -122,8 +122,11 @@ cascade with the page, so no template may declare bare element selectors.
 - **…except where a deliberate design change is ruled.** Record those in `changes[]`, with the
   reasoning, so a later reader cannot mistake an intended departure for a defect. `changes[]`
   also covers public-shape decisions that move no pixels, including declining a proposal.
-- **The migrated component set is CLOSED.** Do not add new components to `contracts/`,
-  `tokens/components/` or `claude-design/` without a decision from the design system owner.
+- **The migrated component set is CLOSED.** The closure is about MIGRATING: do not give a new
+  component a contract, tier-3 tokens or a `.dc.html` template without a decision from the
+  design system owner. Adding an option to a component that is already in the set is ordinary
+  contract-first work and is not blocked by this — see `contracts/headline.json` `changes[]`
+  for the case that settled the distinction.
 
 ## Git Workflow
 

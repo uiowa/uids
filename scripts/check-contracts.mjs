@@ -54,7 +54,7 @@ function validateShape(data, node, file, path = '') {
   if (typeof data === 'string' && node.maxLength && data.length > node.maxLength) {
     warnings.push(
       `${file}: ${where} is ${data.length} chars, over the ${node.maxLength} cap — split it into the ` +
-        `neighbouring structured fields, and move any build narrative to .claude/sessions/`
+        `neighbouring structured fields, and move any build narrative to the commit message`
     );
   }
   if (data === null || typeof data !== 'object') return;
