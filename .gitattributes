@@ -1,0 +1,28 @@
+# Generated artifacts. These are COMMITTED on purpose -- each one has a consumer that
+# cannot run a build step -- but they are machine-written, and reviewing them line by line
+# is wasted effort. linguist-generated collapses them in GitHub diffs by default and keeps
+# them out of the language statistics; `git diff` on the command line is unaffected, and
+# nothing about generation or the --check gates changes.
+#
+# Why each stays committed rather than being generated in CI:
+#
+#   catalog/*.json            An agent, or a no-build checkout, reads these over raw
+#                             githubusercontent. Regeneration is bare `node`, and the
+#                             --check gate is what makes the diff trustworthy -- so the
+#                             diff is also useful review signal: it shows the
+#                             consumer-visible effect of a source change.
+#   figma/snapshot.json       CANNOT be generated in CI. Capturing it needs an interactive
+#                             Figma MCP session, and CI has no Figma access by design.
+#                             The committed copy is precisely what lets CI check Figma
+#                             drift at all.
+#   _tokens-generated.scss    uids_base's gulp task vendors src/** wholesale. If the
+#                             partial is not in src/, downstream never receives it.
+#   claude-design/*           tokens.css and _ds_manifest.json ARE the artifact pushed to
+#                             the registered design system; check-claude-design.mjs diffs
+#                             the committed copies against tokens/.
+
+catalog/*.json                          linguist-generated=true
+figma/snapshot.json                     linguist-generated=true
+src/scss/abstracts/_tokens-generated.scss linguist-generated=true
+claude-design/tokens.css                linguist-generated=true
+claude-design/_ds_manifest.json         linguist-generated=true
