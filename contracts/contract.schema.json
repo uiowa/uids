@@ -294,9 +294,11 @@
       }
     },
     "geometryNotTokenized": {
+      "description": "Measurements that stayed raw values, keyed by what they describe. One entry states the value, where it lives, and why it was not tokenized — not the investigation that established it.",
       "type": "object",
       "additionalProperties": {
-        "type": "string"
+        "type": "string",
+        "maxLength": 600
       }
     },
     "a11y": {
@@ -320,7 +322,8 @@
     "behavior": {
       "type": "array",
       "items": {
-        "type": "string"
+        "type": "string",
+        "maxLength": 900
       }
     },
     "breakpoints": {
@@ -341,13 +344,16 @@
       "description": "Deliberate decisions about the component, each naming the ruling and the date. Two kinds qualify: a change to the component's SHIPPED RENDERING (an intended departure from 4.x-as-shipped), and a decision about the component's PUBLIC SHAPE that moves no pixels — including DECLINING a proposal, where what is recorded is that the absence is a settled answer rather than an oversight. Distinct from knownIssues, which records defects: an entry here is intended, and is written so a later agent does not \"restore\" it as a fidelity correction or re-litigate a question already closed.",
       "type": "array",
       "items": {
-        "type": "string"
+        "type": "string",
+        "maxLength": 900
       }
     },
     "knownIssues": {
+      "description": "Defects in the component as shipped, kept as defects rather than corrected (see the tokenize-as-shipped ruling). One entry keeps the finding, its file:line evidence, and who owns the fix.",
       "type": "array",
       "items": {
-        "type": "string"
+        "type": "string",
+        "maxLength": 900
       }
     }
   }

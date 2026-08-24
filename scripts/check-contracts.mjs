@@ -65,13 +65,19 @@ function validateShape(data, node, file, path = '') {
   for (const key of node.required ?? []) {
     if (!(key in data)) errors.push(`${file}: ${where} missing required field "${key}"`);
   }
-  if (node.properties) {
+  // `additionalProperties` as a SCHEMA (not `false`) describes free-form maps —
+  // geometryNotTokenized, identity.figma.measured, code.classes. Walking into it is what
+  // makes a cap on those values enforceable; without it a maxLength there is silently inert,
+  // which is how geometryNotTokenized entries reached 4,110 characters.
+  const extra = typeof node.additionalProperties === 'object' ? node.additionalProperties : null;
+  if (node.properties || extra) {
     for (const key of Object.keys(data)) {
-      if (node.additionalProperties === false && !(key in node.properties)) {
+      const child = node.properties?.[key] ?? extra;
+      if (!child && node.additionalProperties === false) {
         errors.push(`${file}: unknown field "${path ? path + '.' : ''}${key}" (not in contract.schema.json)`);
         continue;
       }
-      validateShape(data[key], node.properties[key], file, path ? `${path}.${key}` : key);
+      validateShape(data[key], child, file, path ? `${path}.${key}` : key);
     }
   }
 }
