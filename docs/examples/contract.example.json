@@ -20,7 +20,7 @@
     "name": {
       "purpose": "Stable component id (kebab-case). The join key across every artifact.",
       "audience": "everyone",
-      "consumedBy": ["check-contracts.mjs (composedOf targets must name a real contract)", "build-catalog.mjs (catalog id)", "judge.mjs (component lookup)", "check-claude-design.mjs (template-to-contract match)"],
+      "consumedBy": ["check-contracts.mjs (composedOf targets must name a real contract)", "build-catalog.mjs (catalog id)", "check-claude-design.mjs (template-to-contract match)"],
       "notConsumedBy": "check-figma.mjs — it keys its contract map by FILE PATH (check-figma.mjs:316) and joins to Figma via identity.figma.componentSetName. It never reads this field."
     },
     "version": {
@@ -54,9 +54,9 @@
       "perOptionFields": {
         "name": "Machine-read by all five scripts. Part of check-figma's staleness hash.",
         "type": "enum | string | boolean | ... Checked against the real Vue prop type by check-contracts.mjs. check-claude-design.mjs does NOT check type — it compares the template's enum VALUES (as a subset) and its DEFAULTS, both as warnings, and reads opt.type only to decide whether a default comparison is meaningful.",
-        "values": "The complete legal enum values. judge.mjs rejects generated pages using anything else (rule components-from-catalog).",
+        "values": "The complete legal enum values — the authority behind rule components-from-catalog. check-claude-design.mjs warns when a .dc.html template's own enum is not a subset of this list; nothing here checks a generated PAGE against it.",
         "default": "Checked against the Vue prop default (check-contracts) and the template default (check-claude-design).",
-        "status": "active | planned | deprecated (schema enum, contract.schema.json:166-172; contracts/logo.json:109 uses active). judge.mjs enforces rule no-planned-options — consumer agents may not use planned ones.",
+        "status": "active | planned | deprecated (schema enum, contract.schema.json:166-172; contracts/logo.json:109 uses active). Rule no-planned-options tells consumer agents not to use planned ones; no checker in this repo enforces it, so this field is guidance the agent must honour.",
         "description": "Prose for agents/humans. No script reads it.",
         "code.prop": "The Vue prop name check-contracts.mjs diffs against. code.notes / code.class are prose.",
         "figma.axis + figma.map": "The Figma variant axis and the option-value -> variant-label mapping. Verified against the snapshot by check-figma.mjs; BOTH are in the staleness hash — editing either demands a Figma sync. figma.property / figma.notes are prose."
@@ -65,7 +65,7 @@
     "slots": {
       "purpose": "Content areas, INCLUDING behavioral side effects of slot presence (e.g. Brand Bar's second_row_content silently forcing narrow styling — visible in neither tool).",
       "audience": "consumer + builder agents",
-      "consumedBy": ["judge.mjs (slot names validate template props)"]
+      "consumedBy": "No checker in this repo. check-claude-design.mjs deliberately skips slots when it compares a template's props to the contract — .dc.html has no slot mechanism, so slot content is templated as ordinary editor props. Slots are read by agents and humans only."
     },
     "tokensUsed": {
       "purpose": "The tier-3 tokens this component consumes. Names match Figma variables 1:1. INVARIANT: every component-tier token is claimed by exactly ONE contract.",

@@ -6,10 +6,10 @@
     "audiences": {
       "consumer agent": "primary. catalog.json tells it what components/options/tokens legitimately exist; tokens.lean.json gives resolved values. This pair plus contracts/rules.json is everything a page-building agent needs.",
       "builder agent": "secondary — uses it as the compiled view the checkers diff against; edits SOURCES (tokens/, contracts/), never this.",
-      "checkers": "check-figma.mjs reads the token inventory (resolved/px/ref/breakpoints) as its expectation of what Figma variables must hold; judge.mjs reads it to name the exact token behind every hardcoded value.",
+      "checkers": "check-figma.mjs reads the token inventory (resolved/px/ref/breakpoints) as its expectation of what Figma variables must hold. It is the only checker that consumes the catalog's CONTENT — build-catalog.mjs --check only re-emits and compares.",
       "human": "tokens.json (the WITH-provenance twin) is for humans tracing why a token holds its value."
     },
-    "leanVsFull": "tokens.lean.json and tokens.json carry the SAME 709 tokens and values. lean drops the per-token note/source provenance: ~66k -> ~30k model tokens per load. HAND AN AGENT THE LEAN ONE; the full one is for provenance questions only. Both are emitted every build so they cannot drift apart.",
+    "leanVsFull": "tokens.lean.json and tokens.json carry the SAME 715 tokens and values. lean drops the per-token note/source provenance: ~66k -> ~30k model tokens per load. HAND AN AGENT THE LEAN ONE; the full one is for provenance questions only. Both are emitted every build so they cannot drift apart.",
     "moreInfo": [
       "contracts/README.md — 'The agent catalog (catalog/)' section: what the catalog holds and why it links instead of restating",
       "scripts/build-catalog.mjs — header documents determinism and the --check gate",

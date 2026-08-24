@@ -13,9 +13,9 @@ based on its README — not a source-level read.
 
 ## Shape of the system
 
-- **Authored source:** `tokens/` (108 primitive, 229 semantic, 372 component) and `contracts/` (27).
+- **Authored source:** `tokens/` (108 primitive, 229 semantic, 378 component) and `contracts/` (28).
 - **Five generated views:** SCSS custom properties · `catalog/` · Figma variables + sets · `claude-design/` · Storybook.
-- **Nine checkers**, one per direction, all dependency-free Node, all in CI.
+- **Seven checkers**, one per direction, all dependency-free Node, all in CI.
 - Plus a browser regression harness that needs Storybook running.
 
 ## Tokenizing UIDS 4
@@ -37,20 +37,20 @@ based on its README — not a source-level read.
 - One JSON per component: `options` (mapped to both a Vue prop and a Figma axis), `slots`, `tokensUsed`, `behavior`, `a11y`, `knownIssues`, `changes`, `geometryNotTokenized`.
 - Three kinds: `component`, `foundation` (shared behaviour), `pattern` (a composition — no code file).
 - Rule: **contract-first.** Public shape changes here before Figma or code.
-- *vs. theirs:* yes, 56 to our 27. Theirs are complete enough to emit React; ours carry provenance and defect records.
+- *vs. theirs:* yes, 56 to our 28. Theirs are complete enough to emit React; ours carry provenance and defect records.
 
 ## `catalog/`
 
 - Fully derived, never hand-edited, content-hashed, with a `--check` mode.
 - `catalog.json` (component index + pointers) and the token inventory, emitted twice.
-- **Hand an agent `tokens.lean.json`** — all 709 tokens and values with the per-token provenance dropped. ~66k → ~30k tokens, a 55% cut in the largest thing a governed session loads.
+- **Hand an agent `tokens.lean.json`** — all 715 tokens and values with the per-token provenance dropped. ~66k → ~30k tokens, a 55% cut in the largest thing a governed session loads.
 - `tokens.json` keeps the provenance for humans. Both are generated; both are `--check`ed, so they can't drift apart.
 - The point: one artifact that answers "what exists and what may I use?"
 - *vs. theirs:* yes — same idea, reached independently.
 
 ## `contracts/rules.json`
 
-- 11 rules, each tagged `judge` (6, mechanically checkable) or `agent` (5, guidance).
+- 22 rules, each tagged `judge` (6, mechanically checkable) or `agent` (16, guidance); 21 are published into the Claude Design view.
 - Examples: only use what's in the catalog; no raw hex where a token holds the value; a list of items is stacked borderless cards.
 - Every rule exists because a real page got it wrong.
 - **Generated** into the consuming docs from this one file — we used to keep three hand-maintained copies and they drifted into two live contradictions.
@@ -59,8 +59,8 @@ based on its README — not a source-level read.
 ## `scripts/`
 
 - **Builders** generate a view from source (`build-tokens`, `build-catalog`, `build-dc-rules`, `build-dc-manifest`), each with `--check`.
-- **Checkers** guard a view (`check-contracts`, `check-figma`, `check-claude-design`, `check-memory-size`, `check-citations`, `check-judge-rules`, `check-styles`).
-- `yarn check:drift` runs nine of them — all but `check-styles`, which needs Storybook running, and `build-dc-manifest --check`.
+- **Checkers** guard a view (`check-contracts`, `check-figma`, `check-claude-design`, `check-citations`, `check-styles`).
+- `yarn check:drift` runs seven of them — all but `check-styles`, which needs Storybook running, and `build-dc-manifest --check`.
 - Deliberately dependency-free — they run on bare `node` with no install.
 - *vs. theirs:* in spirit. Their `core/` is a real engine; ours is single-purpose scripts, smaller because we generate far less.
 
@@ -79,23 +79,23 @@ based on its README — not a source-level read.
 - `dc-import` shares **one document and one cascade** with the page — a bare `h2 {}` in your page reaches inside every imported component.
 - *vs. theirs:* no equivalent.
 
-## `scripts/judge.mjs`
+## Output grading — deliberately not in this repo
 
-- Every other checker verifies the *system's* consistency. None looks at what an agent actually **built**. This does.
-- Catches: invented components, invented props, illegal enum values, raw hex where a token exists (it names the token), ad-hoc type sizes, a `var()` that doesn't exist, bare element selectors.
-- **Deterministic — no model in the loop.** Reproducible, and any finding is checkable by hand.
-- Use as the scoring half of an A/B: one prompt run twice, with and without the catalog. **The gap is the evidence, not either score.**
-- *vs. theirs:* this is the piece we took from their work. Theirs grades a component; ours grades a page.
+- Every checker here verifies the *system's* consistency. **None looks at what an agent actually built** with it. That gap is real and it is knowingly left open upstream.
+- A deterministic page grader (`judge.mjs`) and its governed-vs-ungoverned A/B fixtures exist, and stay in the research fork. They score inputs you supply, not the repo — so they guard nothing here, and shipping them would put a second, unenforced copy of the rule vocabulary next to `rules.json`.
+- What survives upstream is the thing consumers actually need: `rules.json` is still the single place a rule is authored, and still publishes itself into the views agents read.
+- Worth being blunt about the `judge` / `agent` tier while we're here: it says a rule *could* be checked mechanically, not that anything checks it. Of the six judge-tier rules, one (`components-from-catalog`) is named in a checker, at warn level; `respect-breakpoint-modes` is half-covered by `check-figma` (mode names and values, but not variant mode pins — the snapshot doesn't carry them); the other four are enforced by nobody. That was true before the grader left and is true after.
+- *vs. theirs:* they grade a component at generation time; we grade a page after the fact, and only in the fork.
 
 ## Side by side
 
 | Capability | UIDS | ds-contracts-poc |
 |---|---|---|
-| Component contracts | 27 | 56 |
+| Component contracts | 28 | 56 |
 | Compiled catalog for agents | yes | yes |
-| Design tokens | 709, 3 tiers | 282, DTCG |
-| Governance rules for agents | 11, judge/agent split | conformance expectations |
-| Deterministic output scoring | yes, page-level | yes, component-level |
+| Design tokens | 715, 3 tiers | 282, DTCG |
+| Governance rules for agents | 22, judge/agent split | conformance expectations |
+| Deterministic output scoring | not here — page-level, in the fork | yes, component-level |
 | Generates a component library | **no** | yes (React) |
 | Generates a Figma library | **no** | yes |
 | Three-way parity differ | one-way checkers | yes |
@@ -120,10 +120,10 @@ based on its README — not a source-level read.
 
 ## Honest status
 
-- ✅ Tokens, contracts, catalog, 9 checkers in CI. `check-contracts` at zero warnings for the first time.
+- ✅ Tokens, contracts, catalog, 7 checkers in CI. `check-contracts` at zero warnings for the first time.
 - ✅ Computed-style regression against Storybook — what made the SCSS tokenization safe.
 - ✅ 21 Claude Design templates, byte-synced to a registered design system.
-- ⚠️ Judge discriminates (34/100 ungoverned vs 100/100 governed) — but those fixtures are **hand-written stand-ins, not captured model output**. That gap shows the judge works, not yet that the catalog changes model behaviour.
+- ⚠️ Nothing here measures what an agent *produces*. The fork's judge discriminates (34/100 ungoverned vs 100/100 governed), but those fixtures are **hand-written stand-ins, not captured model output** — that gap shows the judge works, not yet that the catalog changes model behaviour. Until it's run against real model output, treat it as a hypothesis.
 - ⚠️ Figma is audited, not generated — and the audit only sees *bound* variables. A raw value where a token belongs is invisible to it.
 - ⬜ "Reported the gap instead of inventing around it" — the most interesting behaviour — isn't machine-scorable. Scored by hand.
 - ⬜ The pattern tier (list = stacked borderless cards) has its schema but not its contract. It's the case a real page got wrong.

@@ -20,7 +20,7 @@ This repo is an experiment: UIDS 4.x made machine-readable (design tokens, per-c
 
 - No version bump — upstream was already on Storybook 10.4.1; so are we.
 - `.storybook/main.mjs`: one bugfix (`fileURLToPath` so builds work from checkout paths containing spaces).
-- `package.json`: build scripts run `build:tokens` first; new scripts (`check:drift`, `test:styles`, `judge`, `lint:ci`, `test:unit:ci`); devDependencies added for CI only (eslint + plugins, vitest, `@vue/test-utils`, puppeteer, typescript).
+- `package.json`: build scripts run `build:tokens` first; new scripts (`check:drift`, `test:styles`, `lint:ci`, `test:unit:ci`); devDependencies added for CI only (eslint + plugins, vitest, `@vue/test-utils`, puppeteer, typescript).
 
 ## 3. Component stories and code
 
@@ -42,4 +42,29 @@ This repo is an experiment: UIDS 4.x made machine-readable (design tokens, per-c
 6. `catalog/` — generated agent entry point (checked in CI)
 7. `figma/snapshot.json` — committed Figma readback; lets CI check Figma drift without API access
 8. `claude-design/` — Claude design templates
-9. `eval/` — deterministic judge + governed-vs-ungoverned A/B ([`eval/README.md`](eval/README.md))
+
+## 5. Downstream: what this breaks in `uids_base`
+
+The Sass variables in `_variables.scss` mostly survive, but they now hold `var(--uiowa-*)` references instead of literal values, and two were removed outright. Consuming SCSS that only *emits* a variable compiles unchanged. Consuming SCSS that *computes* with one does not. Call sites verified in `uiowa/docroot/themes/custom/uids_base` on 2026-08-24:
+
+**Compile errors — the build stops.**
+
+| Cause | Call site |
+|---|---|
+| `$label-font-size` removed | `scss/components/form/forms.scss:80`, `:331` |
+| `$xsm-sm` removed | `scss/components/uiowa-bar.scss:31`, `scss/views/bef/view-bef.scss:88`, `:131` |
+
+`view-bef.scss:88` and `:131` also do Sass arithmetic — `#{2 * variables.$xsm-sm}` — which is the second, more general hazard: Dart Sass rejects arithmetic on a `var()` outright (`Error: Undefined operation "2 * var(--…)"`, probed 2026-08-24). Any downstream math on a now-tokenized variable fails the same way, whether or not that variable still exists.
+
+**Silent, and therefore worse — compiles clean, the browser drops the rule.**
+
+`scss/components/form/forms.scss:751` does `rgba(variables.$secondary, 0.2)`. Sass does not error: it can't decompose a `var()`, so it passes the call through verbatim and emits `rgba(var(--brand-secondary), 0.2)`. `--brand-secondary` resolves to `#000`, so that is not valid CSS, and the browser discards the declaration. Nothing in the build reports it. Search downstream for Sass color functions (`rgba`, `mix`, `darken`, `lighten`, `transparentize`) wrapping a `variables.$*` value — CSS-native `color-mix()` and `calc()` are fine, since they take a `var()` happily.
+
+## 6. What is deliberately NOT here
+
+Two things exist in the research fork this work came from and were left out of this PR on purpose:
+
+- **A deterministic page grader** (`judge.mjs`) plus its governed-vs-ungoverned A/B fixtures. It scores an HTML page you hand it against the catalog and names the token behind every hardcoded value. It grades *inputs you supply*, not the repo, so it guards nothing here — and shipping it would put a second, unenforced copy of the rule vocabulary beside `contracts/rules.json`. Its finding so far (34/100 ungoverned vs 100/100 governed) is measured on hand-written fixtures, not captured model output, so it is a working grader rather than evidence about model behaviour.
+- **A memory-size gate** for the agent-session notes, which aren't tracked here.
+
+Consequence to be clear about: nothing in this repo measures what an agent *builds* with the system. The checkers prove the system agrees with itself.

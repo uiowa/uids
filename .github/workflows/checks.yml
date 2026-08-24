@@ -30,7 +30,8 @@ jobs:
 
       # Drift checkers for all five views: SCSS, catalog, contracts <-> code/tokens,
       # Claude Design (sibling imports, injected readme, manifest), and Figma (via the
-      # committed figma/snapshot.json — no API access needed here).
+      # committed figma/snapshot.json — no API access needed here). Same seven as
+      # `yarn check:drift`; keep the two lists in step.
       - name: Token & contract drift
         run: |
           node scripts/build-tokens.mjs --check
@@ -39,7 +40,7 @@ jobs:
           node scripts/check-claude-design.mjs
           node scripts/build-dc-rules.mjs --check
           node scripts/check-figma.mjs
-          node scripts/check-memory-size.mjs
+          node scripts/check-citations.mjs
 
       # Errors fail the build; warnings are acknowledged legacy debt (see .eslintrc.cjs rules).
       - name: Lint (errors only)
