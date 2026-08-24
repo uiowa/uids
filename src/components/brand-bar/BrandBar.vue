@@ -30,7 +30,7 @@ export default {
      * Get computed classes based on properties of the component.
      */
     const getClasses = computed(() => {
-      let classes = ['iowa-bar']
+      const classes = ['iowa-bar']
       if (props.narrow || context.slots.second_row_content) {
         classes.push('iowa-bar--narrow')
       }
@@ -41,13 +41,8 @@ export default {
       return classes;
     })
 
-    const showBottomBar = computed(() => {
-      return context.slots.parent_title && context.slots.parent_title().length || context.slots.bottom_content && context.slots.bottom_content().length
-    })
-
     return {
       getClasses,
-      showBottomBar,
     }
   }
 }

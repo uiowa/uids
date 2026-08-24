@@ -1,0 +1,78 @@
+{
+  "_about": {
+    "artifact": "tokens/{primitives,semantic,components}/*.json — the AUTHORED design-token source",
+    "authoredOrGenerated": "AUTHORED. The source of truth for every color/typography/dimension value. Three tiers: tier 1 primitives (raw scale values), tier 2 semantic (meaning: color/text, color/link), tier 3 component (badge/font-size — each claimed by exactly ONE contract).",
+    "compiledBy": "scripts/build-tokens.mjs — one pass emits BOTH src/scss/abstracts/_tokens-generated.scss (with the @media breakpoint switching) AND claude-design/tokens.css. Never hand-edit either output; `--check` gates both. scripts/build-catalog.mjs then compiles the alias-resolved inventory agents actually read (see docs/examples/catalog.example.json).",
+    "format": "Style Dictionary-style { value, comment } leaves with {dot.path} alias references — NOT the DTCG $value dialect. Plus three local extensions documented below: brandChannel, reserved breakpoint leaves, and the 0 sentinel.",
+    "audiences": {
+      "builder agent / human": "the only audiences that EDIT these files. Consumer agents never read tokens/ — they read catalog/tokens.lean.json, where the alias chains are already resolved.",
+      "checkers": "build-tokens.mjs validates at compile time (unresolvable refs, brandChannel mismatches are hard errors); check-figma.mjs compares compiled values per mode against the committed Figma snapshot."
+    },
+    "editWarning": "Changing a token VALUE or alias is a Figma-coupled change: it enters check-figma's staleness hash, so the Figma variable must be updated and figma/snapshot.json re-captured + --stamped before check:drift passes. Changing only a comment is free.",
+    "moreInfo": [
+      "tokens/README.md — naming grammar, tier rules, provenance conventions",
+      "contracts/README.md — pipeline step 2 (authoring tier-3 tokens during a migration)",
+      "https://styledictionary.com/ — the format this dialect descends from",
+      "https://help.figma.com/hc/en-us/articles/15339657135383 — Figma variables, the other view of these values"
+    ]
+  },
+  "_fields": {
+    "value": {
+      "purpose": "The token's value: a literal ('0', '.75em', '#BD472A') or an alias reference in {dot.path} form ('{typography.font-size.25}', '{color.status.danger}').",
+      "notes": "Prefer aliases to primitives over re-stating literals — the alias chain IS the provenance. Bare em resolves against the OWNING COMPONENT's font-size, not the root; rem is always root."
+    },
+    "comment": {
+      "purpose": "Provenance: the SCSS file:line it was read from, what Sass variable it compiled from, rulings that changed it, and traps (e.g. two primitives sharing a hex value — pick by SOURCE FAMILY, not by number).",
+      "audience": "builder agents and humans. Flows into catalog/tokens.json ('note') but is DROPPED from tokens.lean.json, so it costs consumers nothing.",
+      "consumedBy": "no checker reads its content — editing a comment stales catalog/ (regenerate it) but never Figma."
+    },
+    "brandChannel": {
+      "purpose": "LOCAL EXTENSION. Marks a token as riding a theme channel: it compiles to var(--brand-primary)/var(--brand-secondary) instead of its alias chain, so grayscale/alternate themes retune it. build-tokens.mjs hard-errors if the token's alias does not resolve to the channel's default value.",
+      "rule": "Provenance survives a value swap: channel stays channel, literal stays flat. Badge's primary/color is a flat #000 while Button's is brandChannel secondary — identical render today, different provenance; do not 'unify' them."
+    },
+    "breakpointLeaves": {
+      "purpose": "LOCAL EXTENSION. A token whose leaf keys are mobile / md / page switches per breakpoint: build-tokens.mjs emits :root plus @media (min-width: 980px / 1350px) overrides.",
+      "warning": "mobile/md/page are RESERVED leaf names. A component that switches OUTSIDE that grid (e.g. banner at 768, card at 400) must carry the breakpoint in the token NAME instead (name/base, name/sm) — otherwise the generator crashes or silently moves the switch to 980."
+    },
+    "zeroSentinel": {
+      "purpose": "LOCAL EXTENSION. A dimension value of 0 means auto/content-driven, not zero pixels. Figma variants must not bind these (rule respect-breakpoint-modes)."
+    },
+    "naming": {
+      "purpose": "Path IS the name: tokens/components/badge.json's badge.padding.inline becomes token 'badge/padding/inline', Figma variable 'badge/padding/inline', and CSS custom property '--uiowa-badge-padding-inline' (WEB codeSyntax). One grammar, four views.",
+      "notes": "Primitive scale steps ($xsm…$xxxlg, font/size/25…) are shared vocabulary — PRIMITIVES, never tier-3, even when only one component uses them today."
+    }
+  },
+  "example": {
+    "badge": {
+      "font-size": {
+        "value": "{typography.font-size.25}",
+        "comment": "badge.scss:8. CHANGED 2026-08-20 from a raw 75% to an absolute rem primitive per the design system owner's ruling — a DELIBERATE DESIGN CHANGE, not a fidelity bug; do not restore the percentage."
+      },
+      "padding": {
+        "inline": {
+          "value": ".75em",
+          "comment": "badge.scss:6 — em kept deliberately: tracks the badge's OWN font-size, which is now absolute, so this is a fixed 9px expressed proportionally."
+        }
+      },
+      "primary": {
+        "background": {
+          "value": "{color.gold}",
+          "brandChannel": "primary",
+          "comment": "badge.scss:16 — background: variables.$primary, which compiles to var(--brand-primary)."
+        }
+      }
+    },
+    "_breakpointExample": {
+      "_note": "REAL, copied verbatim from tokens/components/brand-bar.json on 2026-08-22. An earlier draft of this file invented an `iowa-bar` group with mobile: 50px — wrong twice: there is no iowa-bar token group (iowa-bar is the CSS class; the token root is `brand-bar`), and the mobile value is the 0 sentinel, not 50px. 50px belongs to brand-bar/min-height/narrow, and even there it is the md/page value. Copy from the repo, never from memory — this is the one example an agent authoring a breakpoint token would clone.",
+      "brand-bar": {
+        "height": {
+          "default": {
+            "mobile": { "value": "0", "comment": "0 = auto/content-driven (mobile bar hugs content)" },
+            "md": { "value": "80px", "comment": ".iowa-bar:not(--narrow) md height" },
+            "page": { "value": "80px" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -363,3 +363,65 @@ export const GridVideo = {
     buttons: MultipleButtons.args.buttons,
   }
 }
+
+// === Regression fixtures === //
+// The seven stories above all emit the SAME banner modifier set, so none of them
+// exercises the overlay axes. These pin one state each. The harness reads the
+// FIRST match of a selector, so a state that shares a story with another cannot
+// be captured — hence one story per state. Renaming any export changes the
+// kebab-cased story id that regression/config.json references.
+//
+// The overlay model lives entirely in custom properties on .banner
+// (--banner-overlay-*), which getComputedStyle reads even though the gradient
+// itself paints on a .media:after pseudo-element the harness cannot see.
+
+export const OverlayBtt = {
+  name: 'Overlay: bottom to top',
+  ...Template,
+  args: {
+    ...BackgroundImage.args,
+    media_overlay_type: 'btt',
+  }
+}
+
+export const OverlayTtb = {
+  name: 'Overlay: top to bottom',
+  ...Template,
+  args: {
+    ...BackgroundImage.args,
+    media_overlay_type: 'ttb',
+  }
+}
+
+// Left-to-right also moves the gradient midpoint to 70% (banner.scss:456).
+export const OverlayLtr = {
+  name: 'Overlay: left to right',
+  ...Template,
+  args: {
+    ...BackgroundImage.args,
+    media_overlay_type: 'ltr',
+  }
+}
+
+// The light tone is gated :not([class*="bg--"]) — it only applies to a
+// media-filled banner, which is the Fill axis expressed in CSS.
+export const OverlayLight = {
+  name: 'Overlay: light',
+  ...Template,
+  args: {
+    ...BackgroundImage.args,
+    media_overlay_light: true,
+  }
+}
+
+// Pins the 32.25% aspect-ratio branch at full width. The grid stories also pass
+// height: medium, but inside a one-third column their content is taller than the
+// ratio, so the ratio never drives the height there.
+export const HeightMedium = {
+  name: 'Height: medium',
+  ...Template,
+  args: {
+    ...BackgroundImage.args,
+    height: 'medium',
+  }
+}

@@ -45,11 +45,11 @@
     position: relative;
     margin: 0;
     text-transform: uppercase;
-    line-height: 1;
-    font-family: variables.$font-family-caps-bold;
-    font-weight: bold;
-    font-size: 4rem;
-    border-bottom: 8px solid variables.$primary;
+    line-height: var(--uiowa-stat-title-line-height);
+    font-family: var(--uiowa-stat-title-font-family);
+    font-weight: var(--uiowa-stat-title-font-weight);
+    font-size: var(--uiowa-stat-title-font-size);
+    border-bottom: var(--uiowa-stat-divider-width) solid var(--uiowa-stat-title-border-color);
     padding: variables.$lg 0 variables.$sm 0;
 
     @include utilities.breakpoint(sm) {
@@ -65,7 +65,7 @@
     [class*="bg--white"] &,
     [class*="bg--gray"] &,
     [class*="bg--black"] & {
-      border-bottom: 8px solid variables.$primary;
+      border-bottom: var(--uiowa-stat-divider-width) solid var(--uiowa-stat-title-border-color);
     }
 
     // @todo This should probably be resolved with https://sass-lang.com/documentation/values/maps#using-maps
@@ -73,16 +73,16 @@
     .stat--horizontal[class*="bg--black"] &,
     .bg-pattern--brain-black &,
     [class*="bg--black"] & {
-      color: variables.$primary;
+      color: var(--uiowa-stat-title-color-on-dark);
     }
 
     .bg-pattern--brain-reversed &,
     [class*="bg--gold"] & {
-      border-bottom: 8px solid white;
+      border-bottom: var(--uiowa-stat-divider-width) solid var(--uiowa-stat-title-border-color-on-gold);
     }
 
     @include utilities.breakpoint(sm) {
-      font-size: 5rem;
+      font-size: var(--uiowa-stat-title-font-size-at-sm);
       padding: 0 variables.$lg variables.$sm 0;
 
       .element--flex-center & {
@@ -92,10 +92,10 @@
   }
 
   &__content {
-    color: #666;
+    color: var(--uiowa-stat-content-color);
     margin: 0;
     padding: 0;
-    line-height: 1.4;
+    line-height: var(--uiowa-stat-content-line-height);
 
     @include utilities.breakpoint(md) {
       max-height: 0;
@@ -113,12 +113,12 @@
 
     [class*="bg--black"] &,
     .bg-pattern--brain-black & {
-      color: #ccc;
+      color: var(--uiowa-stat-content-color-on-dark);
     }
 
     .bg-pattern--brain-reversed &,
     [class*="bg--gold"] & {
-      color: variables.$secondary;
+      color: var(--uiowa-stat-content-color-on-gold);
     }
 
     .element--flex-center & {
@@ -131,21 +131,21 @@
   &__description {
     position: relative;
     display: inline-block;
-    font-family: variables.$font-family-caps-bold;
-    font-weight: bold;
+    font-family: var(--uiowa-stat-description-font-family);
+    font-weight: var(--uiowa-stat-description-font-weight);
     text-transform: uppercase;
-    font-size: 1.3rem;
+    font-size: var(--uiowa-stat-description-font-size);
     line-height: 1.2;
     width: 85%;
     margin: variables.$sm 0;
 
     .bg-pattern--brain-black &,
     [class*="bg--black"] & {
-      color: white;
+      color: var(--uiowa-stat-description-color-on-dark);
     }
 
     @include utilities.breakpoint(md) {
-      font-size: 1.5rem;
+      font-size: var(--uiowa-stat-description-font-size);
     }
 
     .grid--3-2 & {
@@ -165,7 +165,7 @@
 
 .headline__prefix,
 .headline__suffix{
-  font-size: 3.5rem;
+  font-size: var(--uiowa-stat-prefix-suffix-font-size);
   vertical-align: middle;
 }
 
@@ -185,14 +185,14 @@
   [class*="bg--gold"] & {
     .stat__content {
       @include utilities.breakpoint(page-container) {
-        border-top: 8px solid variables.$secondary;
+        border-top: var(--uiowa-stat-divider-width) solid var(--uiowa-stat-horizontal-content-border-color-on-gold);
       }
     }
   }
 
 
   .stat__title {
-    font-size: 3.1rem;
+    font-size: var(--uiowa-stat-horizontal-title-font-size);
 
     @include utilities.breakpoint(md) {
       padding: 0 variables.$lg variables.$xsm 0;
@@ -210,12 +210,12 @@
   }
 
   .stat__content {
-    font-size: 1.1rem;
+    font-size: var(--uiowa-stat-horizontal-content-font-size);
 
     @include utilities.breakpoint(md) {
       padding-top: .5rem;
       margin-top: .75rem;
-      border-top: 8px solid variables.$primary;
+      border-top: var(--uiowa-stat-divider-width) solid var(--uiowa-stat-horizontal-content-border-color);
       flex-basis: 100%;
     }
 
@@ -223,7 +223,7 @@
 
   .headline__prefix,
   .headline__suffix{
-    font-size: 2.1rem;
+    font-size: var(--uiowa-stat-horizontal-prefix-suffix-font-size);
     vertical-align: middle;
   }
 

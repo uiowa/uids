@@ -39,7 +39,7 @@ const props = defineProps({
 });
 
 const classes = computed(() => {
-  let classes = [];
+  const classes = [];
   Background.addBackgroundClass(classes, props);
 
   if (props.display === 'horizontal') {

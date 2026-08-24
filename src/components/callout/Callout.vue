@@ -15,7 +15,7 @@ const props = defineProps({
 });
 
 const classes = computed(() => {
-  let classes = ['callout'];
+  const classes = ['callout'];
   Background.addBackgroundClass(classes, props);
   Inline.addClass(classes, props);
 

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet data-dc-atomics>
+        <link rel="stylesheet" href="./tokens.css" />
+        <style>
+          /* ---- page reset (src/scss/base/_reset.scss:32-53), verbatim ----
+             Not this component's own SCSS, but production applies it globally to <html>,
+             so every rule below was authored against border-box. Without it, any element
+             combining a percentage width with padding renders wider than production —
+             measured at +96px on Callout before this was added. Reproduced across the
+             Phase 3 batch for that reason; see Table.dc.html for the original finding. */
+          html{box-sizing:border-box}
+          *,*::before,*::after{box-sizing:inherit}
+          body{margin:0}
+          /* Mirrors src/scss/base/_paragraph.scss (the parts that reach accordion
+             content) then src/scss/components/accordion.scss (post-token-swap) in
+             SOURCE ORDER so the cascade behaves the same.
+             backgrounds.css is deliberately NOT linked: Accordion.vue imports
+             _background.scss so story content can use bg--* classes, but accordion.scss
+             itself has no ancestor-context rules, so there is nothing here for a
+             coloured band to demonstrate. */
+
+          /* ---- base paragraph (_paragraph.scss) ---- */
+          /* Only the p rule is mirrored — it is the one base rule that materially
+             changes an open item's content box. .accordion overrides font-size below;
+             line-height and the $md bottom margin (1.05rem, a pre-sweep Sass primitive,
+             literal here as in the SCSS — tokens/README) survive.
+             SCOPED 2026-08-18 with :where(.accordion) — a bare `p` leaks page-wide, since
+             dc-import shares one cascade. :where() adds ZERO specificity, so this stays
+             (0,0,1) and `.accordion p`'s font-size override below keeps winning on
+             SPECIFICITY as it does today; a plain `.accordion ` prefix would demote that
+             to an injection-order tie. */
+          :where(.accordion) p{line-height:var(--uiowa-line-height-170);font-size:var(--uiowa-font-size-body);margin-top:0;margin-bottom:1.05rem}
+
+          /* ---- .accordion (accordion.scss, source order) ---- */
+          /* Two-layer custom properties: .accordion declares --accordion-* (the theming
+             surface .accordion--white redefines) and every default reads a generated
+             --uiowa-accordion-* token. */
+          .accordion{
+            --trans-time:0.2s;
+            --accordion-label-color:var(--uiowa-accordion-label-color);
+            --accordion-label-color-hover:var(--uiowa-accordion-label-color-hover);
+            --accordion-outline-color:var(--uiowa-accordion-outline-color);
+            --accordion-border-color:var(--uiowa-accordion-border-color);
+            /* NOT in accordion.scss — stands in for the body font the production page
+               provides, which the heading picks up through `all:inherit` below. */
+            font-family:var(--uiowa-font-family-body);
+          }
+          /* Open state rotates the SAME .fa-chevron-up back to 0deg rather than swapping
+             to a chevron-down glyph. Declared before the base icon rule (source order)
+             and wins on specificity, exactly as in the SCSS. */
+          .accordion details[open] summary i,
+          .accordion details[open] summary svg{transform:rotate(0deg) translate(0px,0.1em)}
+
+          .accordion summary{
+            list-style:none;
+            background-color:var(--accordion-label-color);
+            display:flex;
+            cursor:pointer;
+          }
+          .accordion summary:hover,.accordion summary:focus{
+            background-color:var(--accordion-label-color-hover);
+            outline:1px solid var(--accordion-outline-color);
+          }
+          .accordion summary::-webkit-details-marker{visibility:hidden}
+          /* The icon BOX. border-radius:50% over a transparent background is inert as
+             shipped, and the -0.3rem top offset is a one-off optical hack for this
+             glyph's line box — both kept verbatim (contracts/accordion.json
+             geometryNotTokenized icon-border-radius / icon-vertical-offset).
+             Closed = rotate(-180deg); the 0.7rem is a RIGHT margin because the icon
+             renders BEFORE the title. */
+          .accordion summary i,.accordion summary svg{
+            transition:all var(--trans-time) ease-in-out;
+            width:var(--uiowa-accordion-icon-size);
+            height:var(--uiowa-accordion-icon-size);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            margin:-0.3rem var(--uiowa-accordion-icon-gap) 0 0;
+            border-radius:50%;
+            transition-property:transform,background-color;
+            background-color:transparent;
+            transform:rotate(-180deg) translate(0px,-0.1em);
+          }
+
+          /* `all:inherit` is load-bearing: it wipes every base heading style (size,
+             weight, margins, colour) back to the <summary>'s computed values, then the
+             declarations after it re-apply the accordion's own. Keep the order.
+             The heading's TEXT COLOUR is therefore whatever the page inherits — black
+             here. Production's black comes from a cross-repo override
+             (uids_base accordion.scss `.accordion .accordion__heading{color:$secondary}`);
+             accordion.scss declares no colour at all. See contracts/accordion.json
+             behavior. Only h2 is reachable from Accordion.vue (it hardcodes <h2>);
+             h3-h6 are live downstream via SiteNow's accordion_h_size. */
+          .accordion .accordion__heading :is(h2,h3,h4,h5,h6){
+            all:inherit;
+            border:none;
+            display:flex;
+            font-size:var(--uiowa-accordion-heading-font-size);
+            font-weight:var(--uiowa-accordion-heading-font-weight);
+            padding:var(--uiowa-accordion-padding);
+            width:100%;
+            align-items:center;
+            cursor:pointer;
+          }
+          .accordion .accordion__heading :is(h2,h3,h4,h5,h6):focus{outline:2px auto -webkit-focus-ring-color}
+
+          .accordion .accordion__content{
+            background-color:var(--uiowa-accordion-content-background);
+            padding:var(--uiowa-accordion-padding);
+            border-top:1px solid var(--accordion-border-color);
+          }
+          .accordion .accordion__content p:last-child{margin-bottom:0px}
+
+          .accordion ul li,
+          .accordion ol li,
+          .accordion p{font-size:var(--uiowa-accordion-content-text-font-size)}
+          .accordion table ul li,
+          .accordion table ol li,
+          .accordion table p{font-size:inherit}
+
+          /* Only the border COLOUR is tokenized; 1px solid stays raw geometry. */
+          .accordion__item{border:1px solid var(--accordion-border-color)}
+          .accordion__item:not(:first-child){margin-top:var(--uiowa-accordion-item-gap)}
+
+          /* ---- .accordion--white (accordion.scss modifiers block) ---- */
+          /* --accordion-border-color is re-declared to the SAME value as the base —
+             redundant as shipped, reproduced rather than fixed (contracts/accordion.json
+             knownIssues, project as-shipped policy). */
+          .accordion--white{
+            --accordion-label-color:var(--uiowa-accordion-white-label-color);
+            --accordion-label-color-hover:var(--uiowa-accordion-white-label-color-hover);
+            --accordion-outline-color:var(--uiowa-accordion-white-outline-color);
+            --accordion-border-color:var(--uiowa-accordion-border-color);
+          }
+
+          /* ================= dc-only: CHEVRON STAND-IN — NOT production CSS ==========
+             Production draws the glyph with Font Awesome 6 Free (Solid, font-weight 900)
+             through `.fa-chevron-up::before{content:"\f077"}`, rendered at the 19.2px
+             the heading passes down by inheritance and coloured by currentColor. The
+             webfont is not loaded by this template and is not available to the platform
+             renderer, so emitting that `content` rule would paint an empty private-use
+             box. There is also no <path> to copy: the production DOM has no SVG here.
+             So the two border edges below stand in for the glyph's SHAPE only. They are
+             an approximation — production has no border declarations on the icon
+             whatsoever, and the real glyph is a solid filled chevron, slightly flatter
+             (about 38deg) than the 45deg a rotated square gives.
+             Everything AROUND the shape is the real CSS above and is untouched: the
+             22.4px box, the -0.3rem/0.7rem margin, border-radius:50%, and both the
+             closed (180deg) and open (0deg) rotations, which apply to this stand-in
+             exactly as they apply to the glyph. */
+          .accordion summary i.fa-chevron-up::before{
+            content:'';
+            flex:0 0 auto;
+            width:.5em;height:.5em;
+            border-top:.16em solid currentColor;
+            border-left:.16em solid currentColor;
+            /* nudged down so the "^" sits centred in the box: rotating a square about
+               its centre leaves the two drawn edges in the TOP half of the diamond. */
+            transform:translateY(.23em) rotate(45deg);
+          }
+          /* ================= end dc-only ============================================ */
+        </style>
+      </helmet>
+      <!-- Wrapper is role="tablist" with role="none" items and role="tab" summaries —
+           a deliberate repurposing of the tablist ARIA roles onto native
+           <details>/<summary>, reproduced verbatim from Accordion.vue.
+           aria-owns is every item id joined with a space (ariaOwnsIds(), Accordion.vue:26).
+           NOT templated: src/assets/js/accordion.js (hash deep-linking — a click on a
+           summary rewrites location.hash to '#'+id, and popstate/initial-load re-open the
+           matching item). It is behaviour only, touches no tokenizable CSS, and the
+           platform loads no component JS. Open/close itself needs no JS: it is native
+           <details>. Also NOT represented: SiteNow's uiowa_paragraphs_accordion.scss,
+           which re-themes links inside .accordion__content with Button's own mixins —
+           downstream-owned, outside this repo (contracts/accordion.json behavior). -->
+      <div class="{{ rootClass }}" role="tablist" aria-multiselectable="{{ ariaMulti }}" aria-owns="brand-bar brand-footer logo favicon">
+        <!-- Item 1 is emitted twice so the `open` prop can toggle a real boolean
+             attribute. Items 2-4 are always closed markup, which is also the honest
+             default: with multiselectable off the native exclusive group allows only
+             one open item anyway. They still open on click in a live preview.
+
+             THE VALUE ON `open="open"` IS LOAD-BEARING (fixed 2026-08-24). An earlier
+             comment here justified the two-block form by saying `open="{{ … }}"` cannot
+             work "since <details open=""> is still open". That is true of HTML and FALSE
+             of this runtime, and it hid a real bug: the dc runtime hands every attribute
+             to React as a prop carrying its literal value (support.js collectProps), and
+             React REMOVES a BOOLEAN-typed attribute on any falsy value — so a bare `open`
+             parses to "" and is dropped. Measured before the fix: all four <details>
+             reported open === false with the prop set to true, i.e. the `open` prop was
+             silently inert. Two blocks is still the right shape; the attribute just has
+             to carry a truthy value. Same trap: Tabs' `hidden`, Form's `multiple`. -->
+        <sc-if value="{{ firstOpen }}" hint-placeholder-val="{{ true }}">
+          <details class="accordion__item" name="{{ groupName }}" open="open" role="none">
+            <summary id="brand-bar" class="accordion__heading" role="tab">
+              <h2><i aria-hidden="true" class="fas fa-chevron-up" role="presentation"></i>{{ title_1 }}</h2>
+            </summary>
+            <div class="accordion__content"><p>{{ content_1 }}</p></div>
+          </details>
+        </sc-if>
+        <sc-if value="{{ firstClosed }}" hint-placeholder-val="{{ false }}">
+          <details class="accordion__item" name="{{ groupName }}" role="none">
+            <summary id="brand-bar" class="accordion__heading" role="tab">
+              <h2><i aria-hidden="true" class="fas fa-chevron-up" role="presentation"></i>{{ title_1 }}</h2>
+            </summary>
+            <div class="accordion__content"><p>{{ content_1 }}</p></div>
+          </details>
+        </sc-if>
+        <!-- The dc runtime has no loop construct, so the repeat is written out. Four
+             items matches Accordion.stories.js, whose copy is reused as the defaults. -->
+        <details class="accordion__item" name="{{ groupName }}" role="none">
+          <summary id="brand-footer" class="accordion__heading" role="tab">
+            <h2><i aria-hidden="true" class="fas fa-chevron-up" role="presentation"></i>{{ title_2 }}</h2>
+          </summary>
+          <div class="accordion__content"><p>{{ content_2 }}</p></div>
+        </details>
+        <details class="accordion__item" name="{{ groupName }}" role="none">
+          <summary id="logo" class="accordion__heading" role="tab">
+            <h2><i aria-hidden="true" class="fas fa-chevron-up" role="presentation"></i>{{ title_3 }}</h2>
+          </summary>
+          <div class="accordion__content"><p>{{ content_3 }}</p></div>
+        </details>
+        <details class="accordion__item" name="{{ groupName }}" role="none">
+          <summary id="favicon" class="accordion__heading" role="tab">
+            <h2><i aria-hidden="true" class="fas fa-chevron-up" role="presentation"></i>{{ title_4 }}</h2>
+          </summary>
+          <div class="accordion__content"><p>{{ content_4 }}</p></div>
+        </details>
+      </div>
+    </x-dc>
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{
+  "$preview": { "width": 700, "height": 460 },
+  "label_color": { "editor": "enum", "options": ["gray", "white"], "default": "gray", "tsType": "string" },
+  "open": { "editor": "boolean", "default": true, "tsType": "boolean" },
+  "multiselectable": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "title_1": { "editor": "text", "default": "Brand Bar", "tsType": "string" },
+  "content_1": { "editor": "text", "default": "The brand bar must appear at the top of all core websites to create immediate association with the university.", "tsType": "string" },
+  "title_2": { "editor": "text", "default": "Brand Footer", "tsType": "string" },
+  "content_2": { "editor": "text", "default": "A consistent footer across all web experiences reinforces the connection with Iowa and helps users find important details such as contact information and essential hyperlinks.", "tsType": "string" },
+  "title_3": { "editor": "text", "default": "Logo", "tsType": "string" },
+  "content_3": { "editor": "text", "default": "Block IOWA logo tab in black, hyperlinked to uiowa.edu. Use the ALT text \"University of Iowa homepage.\"", "tsType": "string" },
+  "title_4": { "editor": "text", "default": "Favicon", "tsType": "string" },
+  "content_4": { "editor": "text", "default": "Although small, favicons play an important role in visually unifying web pages. Favicons are the symbols used for browser tabs, bookmarks, or shortcuts.", "tsType": "string" }
+}'
+    >
+      class Component extends DCLogic {
+        renderVals() {
+          // Mirrors accordionClasses in src/components/accordion/Accordion.vue:35-41.
+          // The Vue prop's real label_color default is the EMPTY STRING; this editor
+          // labels that value "gray" exactly as Storybook's own control does
+          // (Accordion.stories.js:16). Both mean "no --white modifier".
+          const labelColor = (this.props.label_color ?? 'gray') === 'white' ? 'white' : '';
+          const multi = this.props.multiselectable === true;
+          const classes = ['accordion'];
+          // .accordion--multi has ZERO corresponding CSS in either repo. Emitted anyway
+          // because production emits it — contracts/accordion.json knownIssues.
+          if (multi) classes.push('accordion--multi');
+          // Gated on plain truthiness of the raw string, NOT a === 'white' check
+          // (Accordion.vue:39). Reproduced as-shipped.
+          if (labelColor) classes.push('accordion--white');
+          const isOpen = this.props.open !== false;
+          return {
+            rootClass: classes.join(' '),
+            ariaMulti: multi ? 'true' : 'false',
+            // multiselectable=false puts name="accordion-collection" on every <details>
+            // (Accordion.vue:59) — the native exclusive-accordion-group attribute, the
+            // prop's only visible effect. Vue sets :name="null" when true, dropping the
+            // attribute; an attribute value is all this runtime can vary, so true emits
+            // name="" instead. Behaviourally identical: an empty name is not a group.
+            groupName: multi ? '' : 'accordion-collection',
+            firstOpen: isOpen,
+            firstClosed: !isOpen,
+            title_1: this.props.title_1 ?? '',
+            content_1: this.props.content_1 ?? '',
+            title_2: this.props.title_2 ?? '',
+            content_2: this.props.content_2 ?? '',
+            title_3: this.props.title_3 ?? '',
+            content_3: this.props.content_3 ?? '',
+            title_4: this.props.title_4 ?? '',
+            content_4: this.props.content_4 ?? ''
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

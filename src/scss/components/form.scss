@@ -7,21 +7,20 @@
 
 // Generalized styles.
 .form {
-  --form-input-bg: #fafafb;
-  --form-input-bg-disabled: #e1e1e1;
-  --form-input-fg-disabled: #484741;
-  --form-details-bg: #f3f3f3;
-  --form-input-radius: 3px;
-  --form-label-font-size: 1rem;
-  --form-label-color: #{variables.$secondary};
-  --form-text-color: #{variables.$secondary};
-  --form-input-padding: 0.5rem;
-  --form-input-height: 2.9rem;
-  --form-input-font-size: 1rem;
-  --form-button-font-size: 1.05rem;
-  --form-item-margin: 1rem;
-  --form-section-border-color: #{variables.$gray-light};
-  --form-input-outline-color: #{variables.$gray-light};
+  --form-input-bg: var(--uiowa-form-input-bg);
+  --form-input-bg-disabled: var(--uiowa-form-input-bg-disabled);
+  --form-input-fg-disabled: var(--uiowa-form-input-fg-disabled);
+  --form-input-radius: var(--uiowa-form-input-radius);
+  --form-label-font-size: var(--uiowa-form-label-font-size);
+  --form-label-color: var(--uiowa-form-label-color);
+  --form-text-color: var(--uiowa-form-text-color);
+  --form-input-padding: var(--uiowa-form-input-padding);
+  --form-input-height: var(--uiowa-form-input-height);
+  --form-input-font-size: var(--uiowa-form-input-font-size);
+  --form-button-font-size: var(--uiowa-form-button-font-size);
+  --form-item-margin: var(--uiowa-form-item-margin);
+  --form-section-border-color: var(--uiowa-form-section-border-color);
+  --form-input-outline-color: var(--uiowa-form-input-outline-color);
 
   input:not([type='checkbox'], [type='radio'], [type='submit'], [type='button'], [type='reset'], [type='range']),
   textarea,
@@ -46,8 +45,8 @@
     width: 100%;
 
     &:focus {
-      --form-input-bg: #fefefe;
-      --form-input-outline-color: #8a8a8a;
+      --form-input-bg: var(--uiowa-form-focus-background);
+      --form-input-outline-color: var(--uiowa-form-focus-outline-color);
       box-shadow: 0 0 5px 2px variables.$gray-light;
       outline-width: 2px;
       transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
@@ -55,8 +54,8 @@
 
     // Error styles.
     &.form--error {
-      --form-input-outline-color: #{variables.$danger};
-      --form-input-bg: #{variables.$danger-light};
+      --form-input-outline-color: var(--uiowa-form-error-outline-color);
+      --form-input-bg: var(--uiowa-form-error-background);
 
       &:focus {
         box-shadow: 0 0 5px 2px variables.$danger-light;
@@ -87,7 +86,7 @@
   legend {
     &.form--required:after {
       position: absolute;
-      margin-left: variables.$xsm;
+      margin-left: var(--uiowa-space-32);
       content: '*';
       color: variables.$danger;
       vertical-align: middle;
@@ -103,7 +102,7 @@
     font-size: var(--form-label-font-size);
     line-height: 1.4;
     clear: both;
-    margin: variables.$xsm 0 0;
+    margin: var(--uiowa-space-32) 0 0;
     flex-basis: 100%;
   }
 
@@ -202,16 +201,13 @@
     background-origin: content-box;
     background-size: 9px 6px;
 
-    @media screen and (min-width: 0\0) {
-      background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAYCAYAAACbU/80AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAIpJREFUeNrEkckNgDAMBBfRkEt0ObRBBdsGXUDgmQfK4XhH2m8czQAAy27R3tsw4Qfe2x8uOO6oYLb6GlOor3GF+swURAOmUJ+RwtEJs9WvTGEYxBXqI1MQAZhCfUQKRzDMVj+TwrAIV6jvSUEkYAr1LSkcyTBb/V+KYfX7xAeusq3sLDtGH3kEGACPWIflNZfhRQAAAABJRU5ErkJggg==');
-    }
   }
 
   select[multiple] {
-    border: 1px solid variables.$gray;
+    border: 1px solid var(--uiowa-form-select-multiple-border-color);
     cursor: pointer;
-    line-height: 1.1;
-    background-color: #fff;
+    line-height: var(--uiowa-form-select-multiple-line-height);
+    background-color: var(--uiowa-form-select-multiple-background);
     padding: 0.5rem 0 0.5rem 0.5rem;
     height: 10rem;
 
@@ -225,7 +221,7 @@
 
       &:checked {
         padding-left: 0.5em;
-        color: black;
+        color: var(--form-text-color);
       }
     }
   }
@@ -285,7 +281,7 @@
 
   // Error state for checkboxes/radios/toggles (class applied to input)
   input.form--error {
-    outline: 2px solid variables.$danger;
+    outline: 2px solid var(--uiowa-form-error-outline-color);
     outline-offset: 2px;
   }
 }
@@ -333,7 +329,7 @@
     outline: none;
     border: none;
     cursor: pointer;
-    background-color: variables.$gray-light;
+    background-color: var(--uiowa-form-toggle-track-off);
     transition: background-color ease 0.3s;
     margin-top: 0;
 
@@ -343,8 +339,8 @@
     }
 
     &.form--error {
-      background-color: variables.$danger-light;
-      outline: 2px solid variables.$danger;
+      background-color: var(--uiowa-form-error-background);
+      outline: 2px solid var(--uiowa-form-error-outline-color);
     }
   }
 
@@ -355,7 +351,7 @@
     z-index: 2;
     width: 28px;
     height: 28px;
-    background: #fff;
+    background: var(--uiowa-form-toggle-knob);
     left: 2px;
     top: 2px;
     border-radius: 50%;
@@ -371,7 +367,7 @@
   }
 
   input:checked {
-    background-color: variables.$primary;
+    background-color: var(--uiowa-form-toggle-track-on);
   }
 
   input:checked:before {
@@ -389,14 +385,14 @@
 }
 
 .form--large {
-  --form-input-height: 3.5rem;
-  --form-input-font-size: 1.2rem;
-  --form-label-font-size: 1.1rem;
-  --form-button-font-size: 1.25rem;
+  --form-input-height: var(--uiowa-form-large-input-height);
+  --form-input-font-size: var(--uiowa-form-large-input-font-size);
+  --form-label-font-size: var(--uiowa-form-large-label-font-size);
+  --form-button-font-size: var(--uiowa-form-large-button-font-size);
 }
 
 .form--compact {
-  --form-item-margin: 0.75rem;
+  --form-item-margin: var(--uiowa-form-compact-item-margin);
 }
 
 .form--flex,
@@ -454,8 +450,8 @@
     padding-block: 0 .5rem;
     margin-block: var(--space-sm-width-gutter);
     color: var(--form-text-color);
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: var(--uiowa-form-fieldset-legend-font-size);
+    font-weight: var(--uiowa-form-fieldset-legend-font-weight);
     border-block-end: 1px solid var(--form-section-border-color);
 
     @include utilities.container-query() {

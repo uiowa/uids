@@ -1,0 +1,155 @@
+{
+  "_about": {
+    "artifact": "contracts/<component>.json — one file per component",
+    "authoredOrGenerated": "AUTHORED. The only editable source for a component's public shape. Vue/SCSS and the Figma library are generated VIEWS of it; neither may update the other directly (contract-first).",
+    "whyNotInContractsDir": "This example lives in docs/examples/ because scripts/build-catalog.mjs and scripts/check-contracts.mjs enumerate every contracts/*.json — a file placed there is treated as a real contract.",
+    "audiences": {
+      "consumer agent": "an agent USING the system to build pages/designs. Enters via catalog/catalog.json (or, on claude.ai, via the injected claude-design/readme.md and never sees contracts at all). Reads a contract's STRUCTURAL fields — options, values, defaults, slots — to learn what legitimately exists.",
+      "builder agent": "an agent CHANGING the system (tokens, contracts, Figma, the generated views). Reads contracts in full at the moment of modification; the HISTORY fields (changes[], knownIssues[]) exist for this audience, to stop decided questions from being re-litigated.",
+      "checkers": "deterministic scripts (no model). Read only the structural fields listed per-field below.",
+      "human": "maintainers and designers reviewing PRs or tracing a decision."
+    },
+    "validatedBy": "scripts/check-contracts.mjs against contracts/contract.schema.json (shape, options vs real Vue props, tokensUsed resolution, one-contract-claims-each-token)",
+    "moreInfo": [
+      "contracts/README.md — the full story: why contracts exist, the contract-first workflow, what belongs in a contract (the contract-fact / ruling / build-narrative table), the migration pipeline",
+      "contracts/contract.schema.json — the machine-enforced shape",
+      "https://json-schema.org/understanding-json-schema/ — the schema dialect the checker's walker implements a deliberate subset of"
+    ]
+  },
+  "_fields": {
+    "name": {
+      "purpose": "Stable component id (kebab-case). The join key across every artifact.",
+      "audience": "everyone",
+      "consumedBy": ["check-contracts.mjs (composedOf targets must name a real contract)", "build-catalog.mjs (catalog id)", "judge.mjs (component lookup)", "check-claude-design.mjs (template-to-contract match)"],
+      "notConsumedBy": "check-figma.mjs — it keys its contract map by FILE PATH (check-figma.mjs:316) and joins to Figma via identity.figma.componentSetName. It never reads this field."
+    },
+    "version": {
+      "purpose": "Semver for the PUBLIC SHAPE. Moves when rendered output or the option surface changes; deliberately does NOT move for a declined proposal (see changes[]).",
+      "audience": "humans, builder agents",
+      "consumedBy": ["check-contracts.mjs (present + well-formed)", "build-catalog.mjs (copied into catalog.json — so a version edit requires regenerating catalog/)"]
+    },
+    "description": {
+      "purpose": "One-line summary of what the component is.",
+      "audience": "consumer agents (it is copied into catalog.json, their entry point)",
+      "consumedBy": ["build-catalog.mjs (embedded — editing it stalens catalog/)"]
+    },
+    "identity": {
+      "purpose": "Where each view of this component lives. Traceability, not behavior.",
+      "kind": "component (default; codePath is a .vue file, options diffed against real props) | foundation (shared behavior, codePath is an SCSS partial) | pattern (a prescribed COMPOSITION — no codePath, names its parts in composedOf). The enum IS in contract.schema.json:35-42 and the walker enforces it (check-contracts.mjs:46-49). What lives in the CHECKER rather than the schema is the conditional that a component/foundation must have a codePath while a pattern must not (check-contracts.mjs:83-85) — JSON Schema cannot express that dependency cleanly.",
+      "codePath_scssPath_relatedPaths_downstreamPaths": "Repo paths (and downstream SiteNow mirrors). codePath is machine-read (check-contracts diffs options against the Vue file; build-catalog copies it); the rest are human/builder traceability prose.",
+      "registeredName_storybookId": "The component's name in the barrel export / Storybook. storybookId is copied into catalog.json.",
+      "figma": {
+        "fileKey_componentSetName_componentSetId_componentKey_page": "Anchors into the Figma library. componentSetName and the set's variant axes are verified against the committed figma/snapshot.json by check-figma.mjs. componentSetName is part of check-figma's staleness hash — renaming it demands a Figma sync + snapshot re-stamp.",
+        "note": "What the set IS (axes, values, variant count). maxLength 600 in contract.schema.json:98 — the ONLY maxLength anywhere in the schema. Note it is enforced as a WARNING (check-contracts.mjs:54-59 pushes to warnings, and the script exits on errors only), so an over-cap note does not fail check:drift. It once grew to 3,292 chars doing five jobs; the four fields below are those jobs' proper homes.",
+        "axisRationale": "WHY the axes are shaped this way — the part a later builder agent must not re-litigate (the stock example is Button collapsing a naive boolean explosion down to a small axis set; do not quote a specific pair of numbers here, since the live set's variantCount moves — read figma/snapshot.json). Prose; no script reads it.",
+        "measured": "Values measured off the BUILT set, so a verification pass compares against what was actually drawn. Prose; no script reads it.",
+        "deliberateOmissions": "What the set does NOT draw and why — so nobody 'completes' it and reintroduces the problem the omission avoided. Prose; no script reads it.",
+        "precedent": "The earlier component whose pattern this follows. Prose; no script reads it."
+      },
+      "claudeDesign": "Anchor into the Claude Design view (project id / template name). Prose pointer; no script reads it."
+    },
+    "options": {
+      "purpose": "THE PUBLIC API. Each option maps one concept to BOTH a code prop and a Figma axis/property — the triple mapping is the whole point of the contract.",
+      "audience": "consumer agents (what may I use?), builder agents (what must both views implement?), checkers (does reality match?)",
+      "perOptionFields": {
+        "name": "Machine-read by all five scripts. Part of check-figma's staleness hash.",
+        "type": "enum | string | boolean | ... Checked against the real Vue prop type by check-contracts.mjs. check-claude-design.mjs does NOT check type — it compares the template's enum VALUES (as a subset) and its DEFAULTS, both as warnings, and reads opt.type only to decide whether a default comparison is meaningful.",
+        "values": "The complete legal enum values. judge.mjs rejects generated pages using anything else (rule components-from-catalog).",
+        "default": "Checked against the Vue prop default (check-contracts) and the template default (check-claude-design).",
+        "status": "active | planned | deprecated (schema enum, contract.schema.json:166-172; contracts/logo.json:109 uses active). judge.mjs enforces rule no-planned-options — consumer agents may not use planned ones.",
+        "description": "Prose for agents/humans. No script reads it.",
+        "code.prop": "The Vue prop name check-contracts.mjs diffs against. code.notes / code.class are prose.",
+        "figma.axis + figma.map": "The Figma variant axis and the option-value -> variant-label mapping. Verified against the snapshot by check-figma.mjs; BOTH are in the staleness hash — editing either demands a Figma sync. figma.property / figma.notes are prose."
+      }
+    },
+    "slots": {
+      "purpose": "Content areas, INCLUDING behavioral side effects of slot presence (e.g. Brand Bar's second_row_content silently forcing narrow styling — visible in neither tool).",
+      "audience": "consumer + builder agents",
+      "consumedBy": ["judge.mjs (slot names validate template props)"]
+    },
+    "tokensUsed": {
+      "purpose": "The tier-3 tokens this component consumes. Names match Figma variables 1:1. INVARIANT: every component-tier token is claimed by exactly ONE contract.",
+      "audience": "checkers primarily; consumer agents follow the names into catalog/tokens.lean.json for resolved values",
+      "consumedBy": ["check-contracts.mjs (each entry resolves; exclusivity)", "check-figma.mjs (bound variables on the Figma set must be a subset of this list)", "build-catalog.mjs (copied into catalog.json)"],
+      "warning": "Part of check-figma's staleness hash — adding/removing an entry demands a Figma sync + snapshot re-stamp."
+    },
+    "behavior": {
+      "purpose": "Verifiable claims about how the component behaves, with file:line citations — rules that live cleanly in neither code comments nor Figma.",
+      "audience": "builder agents (mechanism), consumer agents (composition constraints)",
+      "consumedBy": ["nothing — prose, and NOT length-capped. CORRECTED 2026-08-22: an earlier draft of this file said behavior/changes/knownIssues/geometryNotTokenized are 'capped per item by the schema'. They are not. contract.schema.json contains exactly ONE maxLength — line 98, identity.figma.note, 600 — and these items are bare {\"type\":\"string\"}. Keeping them short is a discipline, not a guardrail; do not assume a checker will stop you."]
+    },
+    "changes": {
+      "purpose": "DELIBERATE public-shape decisions: rulings (who, when, what), including DECLINED proposals. Exists so a later builder agent cannot mistake a decision for an oversight and 'fix' it back — e.g. badge's one-fixed-size ruling. A ruling is 1-2 sentences; the blow-by-blow narrative belongs in .claude/sessions/, never here.",
+      "audience": "builder agents and humans ONLY. A consumer agent never needs this field.",
+      "consumedBy": ["nothing — prose, and NOT length-capped by the schema (see behavior.consumedBy)."]
+    },
+    "knownIssues": {
+      "purpose": "As-shipped bugs, dead code, downstream divergence — recorded instead of silently fixed (the tokenize-as-shipped rule). Honesty that stops agents 'correcting' intentional absences.",
+      "audience": "builder agents and humans ONLY.",
+      "consumedBy": ["nothing — prose, and NOT length-capped by the schema (see behavior.consumedBy)."]
+    },
+    "geometryNotTokenized": {
+      "purpose": "Raw values DELIBERATELY left un-tokenized, each with its argument — so the absence of a token reads as a decision, not a gap.",
+      "audience": "builder agents",
+      "consumedBy": ["nothing — prose, and NOT length-capped: additionalProperties is a bare {\"type\":\"string\"} (see behavior.consumedBy)."]
+    },
+    "a11y_breakpoints_assets": {
+      "purpose": "Semantics (landmark/attrs), responsive switching notes, asset inventory — facts that live cleanly in neither view.",
+      "audience": "consumer + builder agents",
+      "consumedBy": ["nothing — prose today. (An audit noted a11y is free-text where a structured, checkable form — element/role/contrast — would be stronger; unadopted.)"]
+    },
+    "children": {
+      "purpose": "Nested component contracts: which contract governs a child, fixed props, inherited props.",
+      "consumedBy": ["check-figma.mjs (children[].contract — in the staleness hash; it widens the allowed bound-token set at check-figma.mjs:362-363)"],
+      "notConsumedBy": "check-contracts.mjs does NOT verify the child contract exists — it validates composedOf ids only (lines 86-88). check-figma.mjs:363 does contracts.get(child.contract)?.tokensUsed ?? [], so a bad path silently widens nothing instead of erroring."
+    },
+    "composedOf": {
+      "purpose": "For kind: pattern — the real contract ids this pattern arranges. A pattern PINS the options it depends on rather than re-declaring them.",
+      "consumedBy": ["check-contracts.mjs (every id must be a real contract)"]
+    }
+  },
+  "_snapshotHashWarning": "check-figma.mjs's staleness hash covers ONLY: options[].name, options[].figma.axis, options[].figma.map, tokensUsed, children[].contract, identity.figma.componentSetName (plus token values/aliases). Editing any of these forces a Figma sync + snapshot re-stamp before check:drift can pass. Editing anything ELSE in a contract (all prose/history fields, descriptions, version) never touches Figma — check-figma passing WITHOUT --stamp is the proof.",
+  "example": {
+    "$schema": "./contract.schema.json",
+    "name": "badge",
+    "version": "1.1.0",
+    "description": "UIDS badge component contract (trimmed illustration — see contracts/badge.json for the real file).",
+    "identity": {
+      "codePath": "src/components/badge/Badge.vue",
+      "scssPath": "src/scss/components/badge.scss",
+      "registeredName": "uids-badge",
+      "storybookId": "components-badge",
+      "figma": {
+        "fileKey": "hNShklBztaeaQneScM0KoM",
+        "componentSetName": "Badge",
+        "componentSetId": "211:18",
+        "componentKey": "fbc5d0672de40f0532a0307972ebbe5c4d0ea0b8",
+        "page": "Components / Badge",
+        "note": "6 variants on one axis: Type (Primary, Secondary, Cool Gray, Blue, Green, Orange).",
+        "axisRationale": ["No Size axis: a size modifier was DECLINED 2026-08-21 (changes[]) — Type is the complete axis list, not a first instalment."]
+      }
+    },
+    "options": [
+      {
+        "name": "type",
+        "type": "enum",
+        "values": ["primary", "secondary", "cool-gray", "blue", "green", "orange"],
+        "default": "primary",
+        "description": "Colorway. Drives one BEM modifier class.",
+        "code": { "prop": "type" },
+        "figma": {
+          "axis": "Type",
+          "map": { "primary": "Primary", "secondary": "Secondary", "cool-gray": "Cool Gray", "blue": "Blue", "green": "Green", "orange": "Orange" }
+        }
+      }
+    ],
+    "slots": [],
+    "tokensUsed": ["badge/font-size", "badge/padding/inline", "badge/border-radius", "badge/primary/background", "badge/primary/color"],
+    "behavior": ["Only badge--primary overrides text color, to black (badge.scss:17); the other five modifiers declare only background and inherit the base white."],
+    "changes": ["2026-08-21 — SIZE MODIFIER DECLINED (the design system owner): one fixed size is the finished answer. Recorded so the absence reads as deliberate; reopening needs a fresh ruling and is contract-first."],
+    "knownIssues": ["type='orange' maps to the {color.status.danger} primitive, not a literal orange hue — stated so it doesn't read as a naming error."],
+    "geometryNotTokenized": {
+      "border": "1px solid transparent (badge.scss:11) — reserves 1px of box size, never paints; per the Border foundation's convention."
+    }
+  }
+}

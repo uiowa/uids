@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <!--
+      UIDS page scaffold — the canonical structure of a University of Iowa page.
+      Copy this file (plus its siblings, see "Using these components" in the guide) into
+      your project and replace the content. Keep the structure: Brand Bar, then
+      .layout__container sections each wrapping a .page__container, then Brand Footer.
+    -->
+    <x-dc>
+      <helmet data-dc-atomics>
+        <link rel="stylesheet" href="./tokens.css" />
+        <link rel="stylesheet" href="./layout.css" />
+        <!-- REQUIRED, not optional: this scaffold uses bg--* bands below, and the whole
+             bg--* grammar (fill + the on-light/on-dark text cascade) lives in
+             backgrounds.css. Without this link the "Highlighted band" section rendered
+             WHITE and the merge behaviour it exists to demonstrate was invisible —
+             silently, since a missing background class is not an error. Added 2026-08-17. -->
+        <link rel="stylesheet" href="./backgrounds.css" />
+        <style>
+          body{margin:0;font-family:var(--uiowa-font-family-body);color:var(--uiowa-color-text);background:var(--uiowa-color-background)}
+          a{color:var(--uiowa-color-link)}
+          a:hover{text-decoration:underline}
+          h2{font-size:var(--uiowa-font-size-heading-h2);font-weight:var(--uiowa-font-weight-heading);font-family:var(--uiowa-font-family-heading);line-height:var(--uiowa-line-height-125);margin:0 0 var(--uiowa-space-125)}
+          h3{font-size:var(--uiowa-font-size-heading-h3);font-weight:var(--uiowa-font-weight-heading);font-family:var(--uiowa-font-family-heading);line-height:var(--uiowa-line-height-125);margin:0 0 var(--uiowa-space-100)}
+          p{font-size:var(--uiowa-font-size-body);line-height:var(--uiowa-line-height-170);margin:0 0 var(--uiowa-space-125)}
+          p:last-child{margin-bottom:0}
+          .intro{font-size:var(--uiowa-font-size-intro-light);font-weight:var(--uiowa-font-weight-light);line-height:var(--uiowa-line-height-140)}
+          /* Placeholder for components this design system has NOT migrated yet.
+             Use it instead of improvising an Iowa-looking card/alert. Buttons ARE
+             migrated — import Button rather than placeholdering or hand-rolling one. */
+          .uids-placeholder{border:1px dashed var(--uiowa-color-gray-300);padding:var(--uiowa-space-200);font-family:monospace;font-size:var(--uiowa-font-size-base);color:var(--uiowa-color-gray-500)}
+        </style>
+      </helmet>
+
+      <!-- Required header. Props: narrow, healthcare, showSiteName/siteName,
+           showParentTitle/parentTitle, showSecondRow/secondRowTitle. -->
+      <dc-import name="Brand Bar" siteName="Site Name" hint-size="100%,80px"></dc-import>
+
+      <!-- Standard container: caps at 1310px and centers from 1350px up. -->
+      <section class="layout__container" data-screen-label="Intro">
+        <div class="page__container">
+          <!-- THE PAGE TITLE. Plain markup, not a Headline import: `.page-title` (in
+               layout.css) is the STANDARD h1 ramp at weight 600 —
+               --uiowa-page-title-font-size resolves through --uiowa-font-size-heading-h1
+               to clamp(2.3rem, calc(2.3662vw + 1.4127rem), 3.35rem). The SIZE matches
+               Headline's h1 exactly; the WEIGHT does not — `headline--serif` alone gives
+               700 — and that is the only property distinguishing the two.
+               CORRECTED 2026-08-22: this comment attributed a clamp(2.2rem … 3.7rem)
+               ramp to .page-title and argued from size. That clamp is real but scoped to
+               BANNER layouts — uids_base scss/components/banner.scss:22, under
+               `.layout--title.banner .headline.page-title` — which an ordinary page title
+               never matches. layout.css recorded the correction 2026-08-17 and readme.md
+               2026-08-22; this copy was missed. No rendered value changes.
+               `.page-title` is a UIDS component as of 2026-08-17; it began as a uids_base
+               treatment. Note this is the page's SECOND h1: the Brand Bar's site name is
+               also an h1, as-shipped. -->
+          <h1 class="page-title headline headline--serif">Page title</h1>
+          <h2>Section heading</h2>
+          <p class="intro">Intro copy sets up the page in one or two sentences.</p>
+          <!-- Needs Button.dc.html copied in as a sibling. Colors primary|secondary|
+               tertiary; sizes small|medium|large. -->
+          <dc-import name="Button" label="Read more" color="primary" size="medium"></dc-import>
+        </div>
+      </section>
+
+      <!-- Background band. Adjacent sections sharing a .bg--* class merge into one band
+           (the second drops its top padding) — that is intended, not a bug. -->
+      <section class="layout__container bg--gray" data-screen-label="Highlight">
+        <div class="page__container">
+          <h2>Highlighted band</h2>
+          <p>Use .bg--gold, .bg--black, or .bg--gray for a full-width band.</p>
+        </div>
+      </section>
+
+      <!-- Narrow container (caps at 1020px from 980px up) + a content grid for
+           repeated items. Grid options: grid--twocol--50-50, grid--threecol--33-34-33,
+           grid--fourcol--25, grid--twocol--25-75. -->
+      <section class="layout__container" data-screen-label="Grid">
+        <div class="page__container page__container--narrow">
+          <h2>Repeated content</h2>
+          <div class="list-container list-container--grid grid--threecol--33-34-33">
+            <div class="list-container__inner">
+              <div class="uids-placeholder">card component not migrated</div>
+              <div class="uids-placeholder">card component not migrated</div>
+              <div class="uids-placeholder">card component not migrated</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Required footer. Props: healthcare, showSiteName/siteName,
+           showParentTitle/parentTitle, showContact/contact/phone/email. -->
+      <dc-import name="Brand Footer" siteName="Site Name" hint-size="100%,300px"></dc-import>
+    </x-dc>
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{}'
+    >
+      class Component extends DCLogic {
+        renderVals() { return {}; }
+      }
+    </script>
+  </body>
+</html>

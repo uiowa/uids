@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet data-dc-atomics>
+        <link rel="stylesheet" href="./tokens.css" />
+        <link rel="stylesheet" href="./backgrounds.css" />
+        <style>
+          /* ---- page reset (src/scss/base/_reset.scss:32-53), verbatim ----
+             Not this component's own SCSS, but production applies it globally to <html>,
+             so every rule below was authored against border-box. Without it, any element
+             combining a percentage width with padding renders wider than production —
+             measured at +96px on Callout before this was added. Reproduced across the
+             Phase 3 batch for that reason; see Table.dc.html for the original finding. */
+          html{box-sizing:border-box}
+          *,*::before,*::after{box-sizing:inherit}
+          body{margin:0}
+          /* Mirrors src/scss/components/breadcrumbs.scss (post-token-swap) in SOURCE
+             ORDER so the cascade behaves the same, preceded by the two shared rules the
+             component leans on from src/scss/abstracts — compiled, those land ABOVE the
+             component block in dist/uids.css, which is the order used here.
+
+             OMITTED, both SiteNow page contexts that cannot occur in this view (see the
+             file header comment in breadcrumbs.scss: they are kept upstream only so
+             uids_base can consume the file as-is):
+               .hero__content .breadcrumb{margin-top:1rem} — nothing in the Claude Design
+                 view produces .hero__content (there is no hero template), so the rule
+                 could never match. contracts/breadcrumbs.json behavior[3] owns it as
+                 downstream layout.
+               .block-system-breadcrumb-block{z-index:1} — the Drupal block wrapper. The
+                 standalone component never renders it (contract
+                 geometryNotTokenized.block-z-index). */
+
+          /* ---- .visually-hidden (abstracts/_utility-classes.scss → element-invisible)
+             Global utility rather than breadcrumb-owned, but the markup's h2 label is a
+             visible heading without it. */
+          .element-invisible,
+          .visually-hidden{position:absolute !important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px)}
+
+          /* ---- %no-ul-list as extended by `.breadcrumb ol` (abstracts/_utilities.scss) ---- */
+          .breadcrumb ol{list-style-type:none;padding:0;margin:0}
+          .breadcrumb ol > li{display:inline-block;list-style-type:none;margin:0}
+
+          /* ---- components/breadcrumbs.scss, source order ---- */
+          .breadcrumb{
+            list-style:none;
+            /* DEVIATION: breadcrumbs.scss sets no font-family — crumbs inherit the page
+               body font. Declared here so a standalone preview is not Times. It is the
+               same value Page Scaffold.dc.html puts on body, so an imported instance
+               renders identically with or without this line. */
+            font-family:var(--uiowa-font-family-body);
+            /* The utilities.margin($top:$sm, $right:0, $bottom:$sm, $left:0) call. The
+               two $sm values are SPECIFICITY-DEAD: the second .breadcrumb block below
+               re-sets margin-top/margin-bottom at equal specificity and wins on order,
+               so only the zero inline margins survive. Reproduced as shipped —
+               contracts/breadcrumbs.json knownIssues[0]. */
+            margin-top:var(--uiowa-space-62);margin-right:0;margin-bottom:var(--uiowa-space-62);margin-left:0;
+          }
+          /* Float clearfix: every li floats, so without this the nav collapses to zero
+             height (the ol collapses regardless — it has no clearfix of its own, and
+             that is as shipped). flex/order are inert here because .breadcrumb is never
+             a flex container; kept because they are in the shipped CSS — contract
+             geometryNotTokenized.clearfix. */
+          .breadcrumb::before,
+          .breadcrumb::after{display:table;content:' ';flex:1 0 0;order:1}
+          .breadcrumb::after{clear:both}
+
+          .breadcrumb li{float:left;cursor:default;color:var(--uiowa-breadcrumb-item-color);font-size:var(--uiowa-breadcrumb-item-font-size)}
+
+          /* The gold "/" is generated CSS, never markup — it is not in the items data and
+             not in the accessible name (contract behavior[1]). Do not add it by hand. */
+          .breadcrumb li:not(:last-child)::after{position:relative;content:"/";opacity:1;color:var(--uiowa-breadcrumb-separator-color);margin-top:0;margin-right:var(--uiowa-breadcrumb-separator-gap);margin-bottom:0;margin-left:var(--uiowa-breadcrumb-separator-gap)}
+
+          .breadcrumb a{text-decoration:none;color:var(--uiowa-breadcrumb-link-color)}
+          /* Real :hover/:focus rules — they engage in a rendered preview, so no dc-only
+             stand-in class is needed here. */
+          .breadcrumb a:hover,
+          .breadcrumb a:focus{text-decoration:underline}
+
+          /* .disabled has NO producer: not Breadcrumbs.vue, not Drupal Classy's
+             breadcrumb template, not the searched production preprocess paths. Kept for
+             source-order fidelity — it is in the shipped CSS and a downstream consumer
+             could still add the class — but deliberately unreachable from this
+             template's markup, matching its exclusion from Figma. See
+             contracts/breadcrumbs.json knownIssues[1]. */
+          .breadcrumb .disabled{cursor:not-allowed;color:var(--uiowa-breadcrumb-disabled-color)}
+
+          /* dc-only. FIXED 2026-08-17: this template writes four <li> elements because
+             renderVals() has no loop, and blanking a crumb's text used to leave an EMPTY
+             <li> behind. Empty or not, it still matched
+             `.breadcrumb li:not(:last-child)::after` and painted its separator — so a
+             three-crumb trail rendered "Home / Academics /  / Biochemistry" with a
+             doubled slash. Reported from a real consuming page, which is the first place
+             anyone passed fewer than four crumbs. The earlier template only DOCUMENTED
+             the hazard ("delete an <li> rather than blanking its label"); documentation
+             is not a fix when the default path produces broken output.
+             display:none suppresses the element's pseudo-elements too, so the stray
+             separator goes with it, while :last-child still resolves to the current-page
+             <li> and correctly gets no separator. Production has no equivalent rule
+             because Breadcrumbs.vue v-for's over a real array and simply emits fewer
+             <li> elements. */
+          .breadcrumb li.dc-crumb-empty{display:none}
+
+          /* Second .breadcrumb block: this is the one that actually sets placement.
+             1.75rem stays a raw literal, as in the SCSS — placement margins are not
+             identity tokens (contract geometryNotTokenized.placement-margins). */
+          .breadcrumb{margin-bottom:0;margin-top:1.75rem}
+          /* On a black band both linked and unlinked crumbs flip to white; at (0,2,2)
+             this outranks backgrounds.css's `.bg--black a` (0,1,1). The separator keeps
+             its own (0,2,2) rule above and stays primary-channel gold — contract
+             behavior[2]. NOTE the shipped SCSS uses the ITEM token for the anchor too:
+             --uiowa-breadcrumb-link-color-on-dark exists in tokens.css but no rule
+             consumes it. Both resolve to white, so this is computed-identical. */
+          [class*="bg--black"] .breadcrumb li,
+          [class*="bg--black"] .breadcrumb li a{color:var(--uiowa-breadcrumb-item-color-on-dark)}
+        </style>
+      </helmet>
+      <div class="{{ contextClass }}" style="{{ contextStyle }}">
+        <!-- Markup is Drupal core's breadcrumb template as Breadcrumbs.vue renders it:
+             nav.breadcrumb > visually-hidden h2 + ol > li. Each li's content is kept on
+             ONE line with no surrounding whitespace: the separator is an inline ::after
+             on the li, so a stray text node before </li> would render as an extra space
+             in front of the slash.
+
+             FOUR crumbs are written out because renderVals() has no loop construct;
+             production takes an arbitrary-length `items` array. To show a shorter trail,
+             blanking a crumb's text now removes it cleanly (see .dc-crumb-empty); a blank label
+             leaves an empty crumb that still emits its separator.
+
+             Blanking a crumb's URL prop renders that crumb as bare text, which is what
+             production does for a parent with no menu link (the Storybook Default
+             story's middle crumb). The last crumb is the current page and is always bare
+             text — the current item is represented ONLY by the absence of a URL. Neither
+             the Vue component nor the Classy template adds aria-current="page"
+             (contract knownIssues[3]), so this template does not add it either. -->
+        <nav class="breadcrumb" role="navigation" aria-labelledby="{{ headingId }}" data-screen-label="Breadcrumbs">
+          <h2 id="{{ headingId }}" class="visually-hidden">Breadcrumb</h2>
+          <ol>
+            <li class="{{ crumb1Class }}"><sc-if value="{{ crumb1Linked }}" hint-placeholder-val="{{ true }}"><a href="{{ crumb1Url }}">{{ crumb1 }}</a></sc-if><sc-if value="{{ crumb1Bare }}" hint-placeholder-val="{{ false }}">{{ crumb1 }}</sc-if></li>
+            <li class="{{ crumb2Class }}"><sc-if value="{{ crumb2Linked }}" hint-placeholder-val="{{ true }}"><a href="{{ crumb2Url }}">{{ crumb2 }}</a></sc-if><sc-if value="{{ crumb2Bare }}" hint-placeholder-val="{{ false }}">{{ crumb2 }}</sc-if></li>
+            <li class="{{ crumb3Class }}"><sc-if value="{{ crumb3Linked }}" hint-placeholder-val="{{ true }}"><a href="{{ crumb3Url }}">{{ crumb3 }}</a></sc-if><sc-if value="{{ crumb3Bare }}" hint-placeholder-val="{{ false }}">{{ crumb3 }}</sc-if></li>
+            <li>{{ currentPage }}</li>
+          </ol>
+        </nav>
+      </div>
+    </x-dc>
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{
+  "$preview": { "width": 700, "height": 160 },
+  "crumb_1_text": { "editor": "text", "default": "Home", "tsType": "string" },
+  "crumb_1_url": { "editor": "text", "default": "https://uiowa.edu", "tsType": "string" },
+  "crumb_2_text": { "editor": "text", "default": "Academics", "tsType": "string" },
+  "crumb_2_url": { "editor": "text", "default": "https://uiowa.edu/academics", "tsType": "string" },
+  "crumb_3_text": { "editor": "text", "default": "Undergraduate Programs", "tsType": "string" },
+  "crumb_3_url": { "editor": "text", "default": "https://uiowa.edu/academics/undergraduate", "tsType": "string" },
+  "current_page": { "editor": "text", "default": "Biology, BS", "tsType": "string" },
+  "heading_id": { "editor": "text", "default": "system-breadcrumb", "tsType": "string" },
+  "preview_on_black": { "editor": "boolean", "default": false, "tsType": "boolean" }
+}'
+    >
+      class Component extends DCLogic {
+        renderVals() {
+          // Mirrors the v-for + v-if in src/components/breadcrumbs/Breadcrumbs.vue: an
+          // item WITH a url renders an <a>, an item without one renders bare text.
+          const url1 = String(this.props.crumb_1_url ?? '').trim();
+          const url2 = String(this.props.crumb_2_url ?? '').trim();
+          const url3 = String(this.props.crumb_3_url ?? '').trim();
+          // heading_id is a real component prop, not a preview knob. It is exposed
+          // because its shared default means two Breadcrumbs on one page produce
+          // duplicate IDs — override it on the second instance (contract knownIssues[2]).
+          const onBlack = this.props.preview_on_black === true;
+          return {
+            headingId: this.props.heading_id ?? 'system-breadcrumb',
+            crumb1: this.props.crumb_1_text ?? '',
+            crumb1Url: url1,
+            crumb1Linked: url1.length > 0,
+            crumb1Bare: url1.length === 0,
+            crumb1Class: String(this.props.crumb_1_text ?? '').trim().length ? '' : 'dc-crumb-empty',
+            crumb2: this.props.crumb_2_text ?? '',
+            crumb2Url: url2,
+            crumb2Linked: url2.length > 0,
+            crumb2Bare: url2.length === 0,
+            crumb2Class: String(this.props.crumb_2_text ?? '').trim().length ? '' : 'dc-crumb-empty',
+            crumb3: this.props.crumb_3_text ?? '',
+            crumb3Url: url3,
+            crumb3Linked: url3.length > 0,
+            crumb3Bare: url3.length === 0,
+            crumb3Class: String(this.props.crumb_3_text ?? '').trim().length ? '' : 'dc-crumb-empty',
+            currentPage: this.props.current_page ?? '',
+            // preview_on_black is a PREVIEW CONTEXT, not a component prop: it stands in
+            // for placing the import inside a bg--black section, which is how the
+            // on-dark flip engages in a real page (backgrounds.css supplies the band).
+            // The 1rem padding matches the Storybook OnBlack story's fixture.
+            contextClass: onBlack ? 'bg--black' : '',
+            contextStyle: onBlack ? 'padding:1rem' : ''
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

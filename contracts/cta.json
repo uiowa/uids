@@ -1,0 +1,272 @@
+{
+  "$schema": "./contract.schema.json",
+  "name": "cta",
+  "version": "1.0.0",
+  "description": "UIDS cta component contract, preserving the verified 4.x rendering and documenting the proposed Figma representation.",
+  "identity": {
+    "codePath": "src/components/cta/Cta.vue",
+    "scssPath": "src/scss/components/cta.scss",
+    "relatedPaths": [
+      "src/scss/components/cta_uids3.scss",
+      "src/components/cta/Cta.stories.js"
+    ],
+    "downstreamPaths": [
+      "uiowa/docroot/themes/custom/uids_base/scss/components/cta.scss",
+      "uiowa/docroot/themes/custom/uids_base/uids/scss/components/cta_uids3.scss"
+    ],
+    "registeredName": "uids-cta",
+    "storybookId": "components-cta",
+    "figma": {
+      "fileKey": "hNShklBztaeaQneScM0KoM",
+      "componentSetName": "CTA",
+      "componentSetId": "244:128",
+      "componentKey": "c13adef569a109dc05d91e2c091195b309b8ff4d",
+      "page": "Components / CTA",
+      "note": "BUILT (Phase 3), corrected 2026-08-17 against an independent reference build (UIDS – Generated Library, fileKey xGTjxedGs7F2Riq0PkglSa). Orientation (3) x Background (5) x ButtonAlignRight (2) = 3x5x2 = 30 variants, NOT the 25 an earlier draft proposed by collapsing orientation+button_align_right into a 5-value Layout axis. The set nests real Headline and Button instances rather than flattening to raw layers.",
+      "axisRationale": [
+        "Three separate axes rather than a curated 5-value Layout axis: Orientation comes from Cta.vue's real '', 'left', 'inline' values, and Background from all five of its real background values (Background.props supports white even though the reference sample showed only four).",
+        "The nested Button's Color is BACKGROUND-DEPENDENT, not fixed: Secondary (black bg / white text) on the 6 Background=Gold variants, Primary (gold) on the other 24. Traced end to end through the production path — see knownIssues. Do not generalise this from a single sample: the flip is conditioned on the Background axis, so any sample that does not vary Background will read as uniformly one colour and be wrong.",
+        "The nested Headline is Level=H2 / Style=UPPERCASE (Antonio Bold, textCase UPPER), not Style=Default (Roboto Medium) — verified against the actual font on both variants.",
+        "headline_style is NOT a CTA-owned axis: a designer wanting a different title treatment swaps the nested Headline instance's own Style property."
+      ],
+      "deliberateOmissions": [
+        "button_label absence (a button-less CTA) gets no variant of its own — a labelled documentation frame showing the Button instance deleted, rather than an axis that multiplies the set."
+      ],
+      "precedent": "Brand Bar -> Logo / Form Fieldset -> Form Item (nested instances)."
+    },
+    "barrelExport": "UidsCta"
+  },
+  "options": [
+    {
+      "name": "headline_style",
+      "type": "enum",
+      "values": [
+        "",
+        "serif",
+        "uppercase"
+      ],
+      "default": "",
+      "description": "Title style, passed straight through to the nested Headline instance's `text_style` prop (Cta.vue:75). Cta.vue declares `type: String, default: ''` with NO validator enforcing these three values — the Storybook control (Cta.stories.js:20-34) restricts to ['uppercase','serif',''] with labels 'Antonio (default)'/'Zilla Slab'/'Roboto'. Same no-validator looseness class as Headline's own text_style (contracts/headline.json) and Inline's size/alignment props.",
+      "code": {
+        "prop": "headline_style",
+        "notes": "Maps 1:1 onto the child's real option (see contractSketch.children) — the NAME differs (headline_style vs Headline's own text_style) even though the values/default are identical. CTA does not restyle title text itself; all treatment tokens live in contracts/headline.json, not here."
+      },
+      "figma": {
+        "notes": "Deliberately NOT a CTA-owned axis (confirms the survey's judgment call, for an updated reason — see contractSketch.behavior's CORRECTION entry: Headline now HAS its own Style/Level axes, having shipped in Phase 2, so this is a `children`-modeled pass-through rather than a deferred unknown). If CTA's Figma set nests a real Headline instance (recommended, see figmaProposal.collapseNotes), a designer swaps THAT instance's own Style property directly; CTA's set does not duplicate it."
+      }
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "default": "",
+      "description": "href, passed straight through to the nested Button instance's `url` prop (Cta.vue:85). Cta.vue declares `url: { type: String }` with NO default key at all (true Vue-level default is `undefined`, not '') — passing an explicit `undefined` through causes Vue to fall back to Button's OWN prop default (''), so the practically-rendered result still matches ''. Inherits Button's own url a11y caveat unchanged (an empty href stays focusable and navigates to the current page, contracts/button.json a11y).",
+      "code": {
+        "prop": "url",
+        "notes": "No explicit default in Cta.vue's own source (contrast button_icon/orientation/button_align_right/background, which do declare one) — see description."
+      },
+      "figma": {
+        "notes": "Not a variant axis (content/link property), consistent with Button's own url option."
+      }
+    },
+    {
+      "name": "details",
+      "type": "string",
+      "description": "Body copy. ALSO doubles as the gate for whether `.cta__content` renders at all (`v-if=\"details\"`, Cta.vue:80) and as the `details` slot's own fallback content (`<slot name=\"details\">{{ details }}</slot>`, Cta.vue:81). Cta.vue declares `details: { type: String }` with no default key (true default `undefined`, falsy either way for the v-if). See contractSketch.knownIssues for the resulting slot/prop gating inconsistency versus `title` and `button_label`.",
+      "code": {
+        "prop": "details",
+        "notes": "Unlike `title` (gated on real slot presence, `$slots.title`) and `button_label` (gated on the prop consistently for BOTH the wrapper and its own slot fallback), `details` gates the wrapper on the PROP only, while ALSO being the slot's fallback — see knownIssues."
+      },
+      "figma": {
+        "notes": "Content property, not an axis."
+      }
+    },
+    {
+      "name": "orientation",
+      "type": "enum",
+      "values": [
+        "",
+        "left",
+        "inline"
+      ],
+      "default": "",
+      "description": "Layout mode. '' = centered (no modifier class — the base .cta rules ARE the centered layout); left = adds cta--left; inline = adds cta--inline. No Vue validator restricts the value (`orientation: { type: String, default: '' }`) — `className(props.orientation)` (Cta.vue:57) emits `cta--{anything}` for an arbitrary string, but only these three have matching SCSS. Combines orthogonally with button_align_right at the code level — see contractSketch.behavior for the resulting cascade interaction when both are set.",
+      "code": {
+        "prop": "orientation",
+        "classes": {
+          "left": "cta--left",
+          "inline": "cta--inline"
+        },
+        "notes": "'' emits no modifier class at all."
+      },
+      "figma": {
+        "axis": "Orientation",
+        "map": {
+          "": "Centered",
+          "left": "Left",
+          "inline": "Inline"
+        },
+        "notes": "CORRECTED from a shared collapsed 'Layout' axis to its own real axis, matching the reference build's naive full cross (see identity.figma.note)."
+      }
+    },
+    {
+      "name": "button_align_right",
+      "type": "boolean",
+      "default": false,
+      "description": "Right-aligns the button and switches justify-content/text-align to left on the root, plus md-breakpoint flex-basis rules on .cta__content/.cta__link and a `:not([class*=\"cta--left\"])`-guarded text-align:center override on .cta__container. See contractSketch.behavior for exactly how this interacts with orientation='left' at the CSS cascade level (the :not() guard does not fully separate the two states).",
+      "code": {
+        "prop": "button_align_right",
+        "class": "cta--button-align-right",
+        "notes": "Applied via a `['button_align_right'].forEach(...)` single-item loop (Cta.vue:50-54) — functionally identical to a plain `if`, see claims (redundant construct, not a behavior bug)."
+      },
+      "figma": {
+        "axis": "ButtonAlignRight",
+        "map": {
+          "false": "False",
+          "true": "True"
+        },
+        "notes": "CORRECTED from a shared collapsed 'Layout' axis to its own real axis, matching the reference build's naive full cross (see identity.figma.note)."
+      }
+    },
+    {
+      "name": "button_label",
+      "type": "string",
+      "description": "Button text. ABSENCE IS SIGNIFICANT (Button default-slot precedent, contracts/button.json) but STRONGER: when falsy, the ENTIRE `<footer class=\"cta__link\">` wrapper — and therefore the whole nested Button instance — does not render at all (`v-if=\"button_label\"`, Cta.vue:84). This differs from Button's own no-text state (`.bttn--no-text`), which still renders an (inaccessible) button element; a button-less CTA renders no button whatsoever. Cta.vue declares no default key.",
+      "code": {
+        "prop": "button_label",
+        "notes": "Also the fallback content for the `button_label` slot — the wrapper v-if and the slot fallback consistently share this one prop (contrast `details`, see knownIssues)."
+      },
+      "figma": {
+        "notes": "Not modeled as an axis (confirms the survey's judgment call) — a button-less CTA is a page-author content variation, not a CTA-owned visual axis. See openQuestions."
+      }
+    },
+    {
+      "name": "button_icon",
+      "type": "string",
+      "default": "",
+      "description": "Icon markup passed into the nested Button instance's `icon` slot. Only ever reachable when button_label is ALSO truthy, since both sit inside the same `v-if=\"button_label\"` footer (Cta.vue:84-89) — button_icon has no independent gating of its own.",
+      "code": {
+        "prop": "button_icon"
+      },
+      "figma": {
+        "notes": "Instance-swap/content property on the nested Button instance, not a CTA-owned axis."
+      }
+    },
+    {
+      "name": "background",
+      "type": "enum",
+      "values": [
+        "",
+        "black",
+        "gold",
+        "gray",
+        "white"
+      ],
+      "default": "",
+      "description": "Background color of the root element, via the shared `background` foundation (contracts/background.json, shipped Phase 2 — see the CORRECTION in contractSketch.behavior). Spread `...Background.props` into Cta.vue's defineProps (Cta.vue:41), applied by `Background.addBackgroundClass` (Cta.vue:48). CTA is a COLOR-ONLY consumer of the foundation (shared/background.ts's plain `props`/`colors` shape, NOT the pattern-capable `allBackgroundProps`) — no pattern option is exposed, matching Callout's own identical restriction (phase3-specs/callout.json).",
+      "code": {
+        "prop": "background",
+        "classes": {
+          "black": "bg--black",
+          "gold": "bg--gold",
+          "gray": "bg--gray",
+          "white": "bg--white"
+        },
+        "notes": "Class is added by Background.addBackgroundClass, not by CTA's own class-computation logic — the same shared-module pattern as Button's borderless (contracts/button.json) and Callout's identical background option (phase3-specs/callout.json)."
+      },
+      "figma": {
+        "axis": "Background",
+        "map": {
+          "": "None",
+          "black": "Black",
+          "gold": "Gold",
+          "gray": "Gray",
+          "white": "White"
+        },
+        "notes": "CORRECTED axis name from 'Color' to 'Background', matching the built set and the reference build's own prop naming. Binds the EXISTING background foundation's color/bg/* variables (contracts/background.json), which CTA's own tokensUsed does NOT claim (one-contract-per-token, Phase 2 scoping rule) — those are Semantic-tier bindings, which check-figma's bound-var rule always allows regardless of contract ownership. THIS AXIS ALSO DRIVES THE NESTED BUTTON'S COLOUR: the Gold value flips the Button instance to Color=Secondary (black bg / white text), every other value leaves it Primary (gold) — see knownIssues for the verified production chain. A designer changing this axis on an instance gets that flip automatically because each variant carries its own Button instance."
+      }
+    }
+  ],
+  "slots": [
+    {
+      "name": "title",
+      "description": "The CTA's headline content, wrapped in a nested Headline instance (see contractSketch.children).",
+      "behavior": "ABSENCE IS SIGNIFICANT (Button default-slot precedent): the whole `.cta__title` wrapper — and the nested Headline instance inside it — only renders when the REAL slot is present (`v-if=\"$slots.title\"`, Cta.vue:74). This checks slot presence, not any prop; there is no `title` prop on Cta.vue at all (see claims/knownIssues re: Cta.stories.js's stray `:title` binding).",
+      "figma": {
+        "property": "Title",
+        "notes": "Modelled as a nested Headline instance, not a bare text layer, so its own Style/Level stay Headline's concern — see figmaProposal.collapseNotes."
+      }
+    },
+    {
+      "name": "details",
+      "description": "Body copy; falls back to the `details` prop when no slot content is given.",
+      "behavior": "Gated on the `details` PROP (`v-if=\"details\"`, Cta.vue:80), NOT on slot presence — see contractSketch.knownIssues for the resulting inconsistency (slot content alone, with no `details` prop set, silently renders nothing).",
+      "figma": {
+        "property": "Details",
+        "notes": "Text layer, content property."
+      }
+    },
+    {
+      "name": "button_label",
+      "description": "The nested Button instance's label content; falls back to the `button_label` prop.",
+      "behavior": "Gated on the `button_label` PROP, consistently, for both the wrapper (`v-if`, Cta.vue:84) and the slot's own fallback content (Cta.vue:86) — self-consistent, contrast `details`.",
+      "figma": {
+        "property": "Button Label",
+        "notes": "Bound to the nested Button instance's Label property."
+      }
+    },
+    {
+      "name": "button_icon",
+      "description": "The nested Button instance's icon slot content; no fallback of its own.",
+      "behavior": "Only reachable when button_label is also truthy (same v-if scope, Cta.vue:84-89) — see the button_icon option.",
+      "figma": {
+        "property": "Icon",
+        "notes": "Bound to the nested Button instance's Icon boolean/slot."
+      }
+    }
+  ],
+  "tokensUsed": [
+    "cta/gap"
+  ],
+  "children": [
+    {
+      "component": "headline",
+      "contract": "contracts/headline.json",
+      "fixed": {
+        "level": "h2",
+        "text_style": "uppercase"
+      }
+    },
+    {
+      "component": "button",
+      "contract": "contracts/button.json",
+      "fixed": {
+        "size": "medium",
+        "style": "default",
+        "color": "primary — EXCEPT background=gold, where it is secondary. Not a CTA prop: Cta.vue passes no colour at all (buttonClasses returns ['']), so `primary` is Button's own default; the gold-background flip comes from the downstream uids_base override, not from UIDS. See knownIssues for the verified chain and the 2026-08-17 ruling."
+      }
+    }
+  ],
+  "behavior": [
+    "CORRECTION to phase3-inputs/cta.json's central premise: the survey's crossComponentDeps states 'Headline is NOT yet migrated (no contract/tokens/Figma set)' — this is now FALSE. contracts/headline.json, tokens/components/headline.json, and a 30-variant Figma set (componentSetId 168:75) all shipped in the Phase 2 shared-foundations phase (commit 0d4d19f213, 2026-08-15), before this spec was drafted. The survey's recommendation to keep headline_style out of CTA's own Figma axes is STILL correct, but for a different reason than 'Headline isn't ready' — Headline already has its own Style/Level axes, so CTA's headline_style is modeled here as a `children` relationship to the now-real contracts/headline.json (see contractSketch.children), not a deferred unknown. Likewise, the survey's judgment call framing ('background contract question... architect needs to decide whether background becomes its own foundation contract now') is ALSO stale: contracts/background.json shipped in the SAME Phase 2 batch. CTA's background option delegates to it as an existing foundation (see the background option and openQuestions #2), not an open question.",
+    "CTA nests two already-migrated components rather than owning visual identity itself: Headline (title, contracts/headline.json) and Button (link, contracts/button.json) — see contractSketch.children for exactly which of each child's options CTA exposes (pass-through) versus fixes (explicitly or by omission).",
+    "CTA also consumes the `background` foundation (contracts/background.json) without claiming its tokens, and its own container padding partially overlaps the `layout` foundation's already-tokenized gutter value ($mobile-width-gutter IS layout/gutter/width/mobile, tokens/semantic/layout.json) — see geometryNotTokenized. One contract claims each token (Phase 2 scoping rule); CTA's own tokensUsed stays limited to cta/gap.",
+    "orientation and button_align_right combine orthogonally in code (independent classes, no mutual exclusion in Cta.vue), but the CSS cascade resolves ties by SOURCE ORDER, not by any explicit precedence. When BOTH cta--left and cta--button-align-right are present (orientation='left' + button_align_right=true): `.cta--left`'s `justify-content: unset` (cta.scss:64, declared AFTER .cta--button-align-right's block) wins over `.cta--button-align-right`'s `justify-content: left` (cta.scss:30) — both are single-class selectors of equal specificity, so the later declaration governs. `text-align: left` is identical in both rules, so it never conflicts. All of `.cta--button-align-right`'s OTHER rules (md flex-wrap:nowrap, `.cta__title` flex-basis:100%, `.cta__content`/`.cta__link` flex 0 1 48% at md, `.cta__link` justify-content:end/align-self:baseline) still apply in this combined state — only the root's `justify-content` is overridden. This is a real, reachable, Figma-represented state ('Left + Button Right', see figmaProposal) — the proposed LeftButtonRight story (storyAudit) pins the net visual result.",
+    "The `orientation='inline'` + `button_align_right=true` combination is ALSO reachable in code (both are independent classes) but is deliberately excluded from the Figma Layout axis (5 curated values, not the naive 3x2=6 cross) and from the proposed new stories, matching Button's own transparent+light_font 'code-only combination' precedent (contracts/button.json). Its actual cascade outcome (a three-way conflict across .cta--button-align-right, .cta--inline, and their un-guarded overlapping selectors on .cta__link/.cta__content) was not fully traced here — flagged in openQuestions rather than exhaustively specified, to avoid over-scoping a combination nothing currently exercises or plans to represent."
+  ],
+  "knownIssues": [
+    "cta_uids3.scss (src/scss/components/cta_uids3.scss, 122 lines) targets an entirely different, older markup shape (.cta__wrapper, .element--left, .bold-headline/.headline) that Cta.vue never renders, and is unreferenced by THIS repo's src/scss/uids.scss (only 'components/cta' i.e. cta.scss is @use'd, uids.scss:14). It is, however, NOT dead in production — see claims for the full verified chain (a byte-identical vendored copy, a separate downstream uids_base wrapper that @uses it, and a matching compiled Drupal library). Do not propose deletion; out of scope for this contract. The eventual contracts/cta.json should list src/scss/components/cta_uids3.scss under identity.relatedPaths and the uids_base wrapper + vendored path + library key under identity.downstreamPaths, mirroring how contracts/headline.json already lists the SAME downstream file for its own unrelated .bold-headline coupling.",
+    "Cta.vue imports Borderless (src/components/shared/borderless.ts) but never spreads its props or calls addBorderlessClass — a dead import (see claims). Drop it during the SCSS-consumes-tokens step; CTA has no borderless option today.",
+    "Cta.vue's buttonClasses computed (lines 63-67) always returns [''] regardless of props and contributes no class to the rendered `<uids-button>` — dead code (see claims). Drop or repurpose during migration; today it is pure noise on the button element.",
+    "Cta.stories.js's Template renders `<div :class=\"getClasses\" ...>` inside the `#title` slot, but `getClasses` is never defined anywhere in the file (see claims) — likely a copy-paste leftover from a different story file. The SAME template also binds `:title=\"args.title\"` on `<uids-cta>` even though Cta.vue declares no `title` prop; since Cta.vue never sets `inheritAttrs: false`, this becomes a plain HTML `title`-attribute fallthrough onto the root `<div>` (Cta.vue:72) — a native browser tooltip, not component behavior. The story only works because the REAL title mechanism (the `#title` named slot, gated by `v-if=\"$slots.title\"`) is ALSO wired correctly right next to it (Cta.stories.js:96). The `title` argType (Cta.stories.js:53-55, `control: {type:'text'}`) matches no real Cta.vue prop — a stale arg in the Headline size/url/class precedent's class (see storyAudit.staleArgs). Clean up both when the story is next touched for the new baseline stories.",
+    "The `details` slot's wrapper is gated on the `details` PROP (`v-if=\"details\"`, Cta.vue:80), not on slot presence — a consumer supplying ONLY `<template #details>` markup with no `details` prop gets nothing rendered; the slot content is silently dropped. Inconsistent with `title` (gated on real `$slots.title` presence) and with `button_label` (gated on the prop for BOTH the wrapper and its own slot fallback, so at least internally self-consistent). Recommend a public-shape ruling (switch to `$slots.details`, or document as-shipped) rather than silently 'fixing' it during migration — see openQuestions.",
+    "orientation has no Vue prop validator (`type: String, default: ''`) — any string reaches `className()` and becomes `cta--{value}` (Cta.vue:57), but only '', 'left', 'inline' have matching SCSS. Same looseness class as Inline's size/alignment props (contracts/inline.json) and Button's color accepting the dead 'link' value (contracts/button.json). As-shipped; not tightened here — see openQuestions.",
+    "url, details, and button_label are declared with `type: String` and NO default key in Cta.vue (contrast button_icon/orientation/button_align_right/background, which do declare explicit defaults) — their real Vue-level default is `undefined`, not ''. This only has a practical effect for `url` (undefined passes through to Button's own url prop, which then supplies its own '' default) — details/button_label already branch on truthiness for their v-if gates regardless of whether the value is '' or undefined.",
+    "UIDS IN ISOLATION renders the CTA button gold on a gold background, and that IS a real contrast bug in this repo: buttonClasses (Cta.vue:63) returns [''], so uids-button falls through to its `primary` default and computes rgb(255,205,0) in every context — verified live in Storybook against bg--black, bg--gold, bg--gray and default; it never flips. NO REAL PAGE RENDERS THAT STATE, however, because the downstream platform patches it. Verified production chain (2026-08-17): (1) uids_base/templates/uids/cta.html.twig:30 always emits `bttn bttn--primary`, so the gold default is genuinely what the markup asks for; (2) uids_base/scss/components/cta.scss:63 then overrides it for gold backgrounds only — `[class*=\"bg--gold\"] .cta__link .bttn--primary { background: $secondary; color: #fff }`, plus `i, svg { color: $primary }`; (3) that rule ships — it is present in the compiled asset uids_base/assets/css/components/cta.css, which uids_base.libraries.yml:205 attaches as the `cta` library. The override's three channels are BYTE-IDENTICAL to UIDS's own Secondary button tokens (background var(--brand-secondary) = --uiowa-button-secondary-background; color #fff = --uiowa-button-secondary-color; icon var(--brand-primary) = --uiowa-button-secondary-icon-color), so the production gold-background CTA button IS a Secondary button, exactly. Note the override sits under a `// @todo remove once https://github.com/uiowa/uiowa/issues/5149 is completed` comment — SiteNow itself treats it as a temporary downstream patch for this UIDS gap, not as intended platform-specific styling. RULED 2026-08-17 (the design system owner, reversing the 2026-08-16 as-shipped ruling after reviewing the rendered set): the Figma set represents the PRODUCTION rendering — the 6 Background=Gold variants use Button Color=Secondary, the other 24 stay Primary. This changes no code; UIDS's own SCSS is untouched and still renders gold-on-gold in Storybook. The underlying fix is uiowa#5149 — pulling the override upstream into UIDS's own cta.scss — which is deliberately NOT done here (a real code change during a migration, needing its own design decision and regression baselines)."
+  ],
+  "geometryNotTokenized": {
+    "container-padding": "`.cta { padding: $xlg $mobile-width-gutter; }` (cta.scss:6), constant at every breakpoint (no responsive override in the live file — contrast the dead-for-this-repo cta_uids3.scss, which DID switch to `$lg $desktop-width-gutter` at md). $xlg (2.5rem) has no existing primitive (tokens/primitives/spacing.json has no 2.5rem/250 step) and is shared Sass vocabulary across three components (brand-footer.scss, blockquote.scss, cta.scss) — tracked in sharedPrimitiveUsage for the deferred $xsm...$xxxlg sweep, not a CTA-owned value. TWO independent precedents support leaving it exactly this way rather than tokenizing pending a new primitive: (1) contracts/brand-footer.json (already migrated) uses the SAME $xlg for its own footer-padding and documents it as raw geometry, no primitive minted (contracts/brand-footer.json:141); (2) the sibling phase3-specs/blockquote.json (drafted this same session, independently) reaches the identical conclusion for blockquote's own $xlg use (center-orientation padding-top) — 'not yet an individually-mapped space.* primitive... tracked... for the deferred sweep'. This spec follows both. The $mobile-width-gutter half of this same padding declaration is NOT in the same boat: it already equals the layout foundation's `layout/gutter/width/mobile` token (tokens/semantic/layout.json, emits as `var(--uiowa-layout-gutter-width-mobile)`, confirmed in src/scss/abstracts/_tokens-generated.scss:106) — so if this padding is ever split/tokenized, only the $xlg half is actually blocked on a new primitive.",
+    "align-right-layout-ratios": "`flex: 0 1 48%` on .cta__content/.cta__link at md (cta.scss:40-45) and `flex-basis: 100%` on .cta__title (cta.scss:36-38), both only under .cta--button-align-right — breakpoint-gated layout ratios, not owned scale values, same class as Brand Bar's tab-overhang and Inline's own size-ratio geometry ('ratios are patterns, not tokens', contracts/inline.json).",
+    "inline-layout-ratios": "`flex-basis: 30%` on .cta__link and the nested .cta__title at md, `flex: 1` on the nested .cta__content at md (cta.scss:75-94), all only under .cta--inline — same 'pattern, not token' treatment as align-right-layout-ratios.",
+    "link-alignment-mechanics": "`.cta__link { justify-content: end; align-self: baseline; display: flex; }` (cta.scss:47-51, under .cta--button-align-right, NOT breakpoint-gated) — layout keywords with no numeric magnitude to tokenize."
+  }
+}

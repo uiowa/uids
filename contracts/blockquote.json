@@ -1,0 +1,205 @@
+{
+  "$schema": "./contract.schema.json",
+  "name": "blockquote",
+  "version": "1.0.0",
+  "description": "UIDS blockquote component contract, preserving the verified 4.x rendering and documenting the proposed Figma representation.",
+  "identity": {
+    "codePath": "src/components/blockquote/Blockquote.vue",
+    "scssPath": "src/scss/components/blockquote.scss",
+    "relatedPaths": [
+      "src/components/blockquote/Blockquote.stories.js"
+    ],
+    "downstreamPaths": [
+      "uiowa/docroot/themes/custom/uids_base/scss/components/blockquote.scss",
+      "uiowa/docroot/themes/custom/uids_base/scss/theme/print.scss"
+    ],
+    "registeredName": "uids-blockquote",
+    "storybookId": "components-blockquote",
+    "figma": {
+      "fileKey": "hNShklBztaeaQneScM0KoM",
+      "componentSetName": "Blockquote",
+      "componentSetId": "229:71",
+      "componentKey": "7452b60a5fa14a4e27845e5025832f1e391cc491",
+      "page": "Components / Blockquote",
+      "note": "BUILT (Phase 3). Orientation (3) x Media (3) = 9 variants. Background is represented as context/example frames beside the set, not a crossed axis — which would naively be 3x3x5 = 45, or 3x3x2 = 18 collapsed to the two visually-distinct outcomes.",
+      "axisRationale": [
+        "Background is NOT a crossed axis because it would MISREPRESENT the code. Verified by cascade analysis (see claims #3 and behavior): Blockquote's own `background` prop does not recolor the accent bar for any of its 5 values — self-applying bg--gold/black/gray/white resolves to the Background foundation's generic ambient border-color, because the accent-color overrides are ancestor-context (descendant-combinator) selectors while the prop self-applies the class to the blockquote itself. A crossed axis with 5 differently-coloured accent bars would show a rendering the component cannot produce through its own API.",
+        "Even setting that bug aside, only 2 of the 5 Background values change anything about blockquote's own accent styling (gold, and the gold-context white flip) — black/gray/white are visually identical for blockquote's own rules, so a naive 5-value cross would pay for 3 duplicate columns.",
+        "If Background must be a formal axis, the defensible fallback is 2 values (Default / On-Gold-Ancestor) built from NESTED-wrapper example frames rather than the component's own prop — and it still needs documenting that the prop cannot produce the On-Gold rendering alone.",
+        "What the context frames should show: the CURRENT as-shipped rendering — fill and text colour change, accent bar UNCHANGED — without over-claiming a crossed axis."
+      ],
+      "precedent": "Headline — on-gold flips are context frames, not axes."
+    }
+  },
+  "options": [
+    {
+      "name": "orientation",
+      "type": "enum",
+      "values": [
+        "",
+        "center",
+        "right"
+      ],
+      "default": "",
+      "description": "Layout orientation. '' (default) = left-bordered, left-aligned; center = no border, centered horizontal accent bar; right = right-bordered, right-aligned text.",
+      "code": {
+        "prop": "orientation",
+        "classes": {
+          "center": "blockquote--center",
+          "right": "blockquote--right"
+        },
+        "notes": "Computed as `blockquote--${className(props.orientation)}` (Blockquote.vue:39); className() only replaces underscores with hyphens, so it is a no-op for these two values. NO Vue validator constrains this prop (contrast with `background`, which has one) — any string renders `blockquote--<value>` regardless of whether SCSS defines a matching modifier. Storybook's argType select cosmetically limits the demo UI to these three values; the component itself does not enforce it. See knownIssues."
+      },
+      "figma": {
+        "axis": "Orientation",
+        "map": {
+          "": "Left",
+          "center": "Center",
+          "right": "Right"
+        }
+      }
+    },
+    {
+      "name": "media_position_bottom",
+      "type": "boolean",
+      "default": true,
+      "description": "When the media slot is filled, controls whether it renders above or below the quote text. Has no visible effect at all if the media slot is empty — see the media slot's behavior. NOTE: the Vue prop default is TRUE (img-below), but all three existing Storybook stories (Left/Centered/Right) override it to false (img-above) — none of the shipped stories exercise the actual default. See storyAudit.",
+      "code": {
+        "prop": "media_position_bottom"
+      },
+      "figma": {
+        "axis": "Media",
+        "notes": "Combines with the `media` slot's presence to form the Media axis (None when the slot is empty regardless of this boolean; Above when false; Below when true/default) — see the media slot's figma notes."
+      }
+    },
+    {
+      "name": "content",
+      "type": "string",
+      "default": null,
+      "description": "Quote body text; rendered only as the `content` slot's fallback.",
+      "code": {
+        "prop": "content",
+        "notes": "BUG (see knownIssues): the wrapping .blockquote__paragraph div is gated on `v-if=\"content\"` (Blockquote.vue:57) — the STRING PROP's truthiness, not `$slots.content`. Supplying only slot markup with no `content` prop value renders no paragraph at all."
+      }
+    },
+    {
+      "name": "footer",
+      "type": "string",
+      "default": null,
+      "description": "Attribution text; rendered as the `footer` slot's fallback. Unlike `content`, this one is NOT gated by any v-if — the slot always has a chance to render.",
+      "code": {
+        "prop": "footer"
+      }
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "default": null,
+      "description": "When truthy, wraps `cite_text` in an anchor instead of rendering it as plain text.",
+      "code": {
+        "prop": "url",
+        "notes": "BUG (see knownIssues): Blockquote.vue:70 writes `<a href=\"{{ url }}\">` — Vue does not interpolate mustaches inside a non-bound attribute value, so the rendered href is the literal 8-character string `{{ url }}`, never the prop's actual value."
+      }
+    },
+    {
+      "name": "cite_text",
+      "type": "string",
+      "default": null,
+      "description": "Citation label, plain or (intended to be) linked via `url`.",
+      "code": {
+        "prop": "cite_text"
+      }
+    },
+    {
+      "name": "background",
+      "type": "enum",
+      "values": [
+        "",
+        "black",
+        "gold",
+        "gray",
+        "white"
+      ],
+      "default": "",
+      "description": "Shared Background prop (src/components/shared/background.ts). Reliably changes fill + foreground text/link color. Does NOT reliably change blockquote's own accent-bar/border color — see knownIssues #3.",
+      "code": {
+        "prop": "background",
+        "notes": "Applied via Background.addBackgroundClass — pushes `bg--<value>` onto the SAME classes array as the blockquote element itself (self-application), not onto a wrapping ancestor."
+      },
+      "figma": {
+        "notes": "Deliberately NOT a variant axis (see figmaProposal for the full rationale). Represented as context/example frames on the component page instead, matching Headline's 'on-gold flips are context frames, not axes' precedent — and matching what the code actually does: only fill/text/link color change; the accent bar does not recolor when this prop is used (verified, see claims #3)."
+      }
+    }
+  ],
+  "slots": [
+    {
+      "name": "media",
+      "description": "Circular avatar/portrait image or markup, rendered via `.blockquote__media.media--circle` (composes the shared `_media.scss` partial directly, not the shared `media.ts` prop spread).",
+      "behavior": "The slot's PRESENCE (not just media_position_bottom) gates whether `.blockquote--img-above`/`.blockquote--img-below` is added at all (Blockquote.vue:49, `$slots.media` check) — an empty slot means neither class is added regardless of the boolean's value.",
+      "figma": {
+        "property": "Media",
+        "notes": "Combines with media_position_bottom to form the Media axis (None/Above/Below)."
+      }
+    },
+    {
+      "name": "content",
+      "description": "Quote body content; falls back to the `content` prop's plain text.",
+      "behavior": "GATED ON THE PROP, NOT THE SLOT (Blockquote.vue:57, `v-if=\"content\"`) — unlike the media slot's correct `$slots.media` check, this wrapper's v-if reads the `content` prop's truthiness. A consumer who supplies only slot markup (no `content` prop value) gets no `.blockquote__paragraph` rendered at all, and the slot content is silently dropped. See knownIssues and storyAudit (never exercised by an existing story)."
+    },
+    {
+      "name": "footer",
+      "description": "Attribution/footer content; falls back to the `footer` prop's plain text.",
+      "behavior": "Unconditionally rendered (no v-if wrapper) — always gets a chance to render regardless of the `footer` prop's value."
+    }
+  ],
+  "tokensUsed": [
+    "blockquote/font-family",
+    "blockquote/font-weight",
+    "blockquote/font-size",
+    "blockquote/line-height",
+    "blockquote/accent/width",
+    "blockquote/accent/color",
+    "blockquote/accent/color-on-gold",
+    "blockquote/media/max-width",
+    "blockquote/media/img-below/max-width",
+    "blockquote/footer/font-family",
+    "blockquote/footer/font-size",
+    "blockquote/footer/line-height"
+  ],
+  "behavior": [
+    "BACKGROUND SELF-APPLICATION GAP (see knownIssues #3 for full empirical evidence): the `background` prop applies `bg--<color>` directly to the SAME <blockquote> element (Background.addBackgroundClass, Blockquote.vue:36). blockquote.scss's own black/gray/white/gold accent-color overrides are written as ANCESTOR-context selectors (`[class*=\"bg--*\"] &`) and only match when bg--* is on a genuine ancestor of blockquote — a nesting pattern the component's own prop cannot produce (CSS descendant combinators never match an element against both sides of the combinator). Through the prop, blockquote instead inherits the Background foundation's generic ambient border-color: `_background.scss:43-49`'s flat (non-nested) `[class*=\"bg--gray|white|gold\"] { border-color: var(--uiowa-color-border-default) }` and `:51-55`'s `[class*=\"bg--black\"] { border-color: var(--uiowa-color-border-on-dark) }` match the self-applying element directly, at specificity (0,1,0) — higher than blockquote.scss's own bare `blockquote { border-color: ... }` rule at (0,0,1) — so the foundation rule wins regardless of source order. `--uiowa-color-border-default` = `var(--uiowa-color-alpha-black-125)` = rgba(0,0,0,.125); `--uiowa-color-border-on-dark` = `var(--uiowa-color-alpha-white-325)` = rgba(255,255,255,.325) (both confirmed in _tokens-generated.scss + primitives/colors.json). The prop's only RELIABLE visible effect on blockquote itself is fill color + foreground text/link color.",
+    "Orientation 'center' removes the left border entirely and substitutes a centered horizontal ::before bar; 'right' flips the border to the right side and reverses text-align; the default keeps the left border. When img-above and center combine, img-above's own `.blockquote__paragraph::after` bar takes over and the plain-center `::before` bar is explicitly zeroed out (height/width 0, background none, display none — blockquote.scss:222-231) so the two accent-bar mechanisms don't double-render (see claims re: the fourfold redundancy of that zeroing, and re: the now-inert `top: $sm-md` in the same zeroed rule).",
+    "Reverse dependency (scoping rule — these values belong to BANNER's contract, not blockquote's): src/scss/components/banner.scss reaches into blockquote three times — banner.scss:243-248 (.banner__text nested `blockquote { margin-left: 0; a { color: var(--banner-text-color) } }`), :268-274 (`blockquote { [class*=\"bg--gold\"] & { border-left-color: $light } }` — an ADDITIONAL border-color override for blockquote nested inside a gold banner, layered on top of blockquote's own gold handling, and using a DIFFERENT value: $light/gray.100, not blockquote's own #fff), :397-399 (`.banner--horizontal-center blockquote { border-left: none }`). This confirms blockquote's ancestor-context accent-color selectors DO work correctly in real nested usage (Banner is a genuine ancestor) — it is specifically the component's own self-applying `background` prop that can't reach them. The $light-vs-#fff value mismatch between banner.scss's gold override and blockquote's own gold override is a real cross-component discrepancy for Banner's eventual contract to resolve, not blockquote's — flagged in openQuestions.",
+    "Cross-file duplication (base layer, harmless): src/scss/base/_paragraph.scss:18-26 resets `font-weight: variables.$font-weight-normal` on a shared selector list (p, dl, ol, ul, blockquote, pre, table) that includes the bare `blockquote` element — the identical value blockquote.scss:7 already declares. Both are type-selector specificity (0,0,1); which one 'wins' in compiled output depends on @use/partial order, but since both set the SAME value there is no visible conflict — see claims.",
+    "Downstream reverse dependency: uiowa/docroot/themes/custom/uids_base/scss/components/blockquote.scss (a SEPARATE, uids_base-only file — NOT the vendored copy) `@use`s this component's SCSS directly (via the vendored copy at uids_base/uids/scss/components/blockquote.scss, confirmed byte-for-byte identical to this repo's blockquote.scss), then layers its OWN modifier (`.blockquote--no-left-margin`, blockquote.scss:9-12, not present in UIDS at all) plus extensive margin/padding zeroing for `.blockquote--img-above`/`--img-below`/`--center`/`--right` inside every multi-column Layout Builder region selector (`.layout--twocol--*`, `.layout--threecol--*`, `.layout--fourcol`, lines 17-87). Migrating blockquote's margin/padding values must account for these downstream overrides, the same way the banner.scss reverse dependency does.",
+    "Downstream reverse dependency, legacy classes: uids_base's scss/components/blockquote.scss:91 (`.bg-yellow blockquote { border-color: #fff; }`) and :95-98 (`.bg-yellow .blockquote-center blockquote { &:before { background-color: #fff; } }`), plus print.scss:288-291 (`.blockquote-center blockquote::before, blockquote.blockquote--center::before, blockquote.blockquote--img-above .blockquote__paragraph::after { background: #000; }`) are LIVE consumers of the LEGACY non-BEM `.blockquote-center` class — see knownIssues #4; it cannot be dropped despite its own file's `@todo remove in v4.0.0` comment. (Line numbers verified directly against the uiowa repo at /Users/bspeare/acquia/uiowa.)",
+    "Twig/Vue markup duality: uids_base's `templates/uids/blockquote.html.twig` independently constructs the same `.blockquote__media`/`.blockquote__content`/`.blockquote__paragraph` structure server-side (production rendering never goes through Blockquote.vue) — so the Vue-only bugs in knownIssues #1 and #2 do not reach production; they only affect Storybook and any hypothetical Vue-consuming app. Notably the Twig template doesn't even render an `<a>` for the citation at all (only `<cite>{{ blockquote_cite }}</cite>`, no href/url concept), and its `.blockquote__paragraph` div is unconditional (no v-if-equivalent gate) — so neither Vue bug has a Twig-side counterpart to worry about."
+  ],
+  "knownIssues": [
+    "BUG: Blockquote.vue:70 renders `<a href=\"{{ url }}\">{{ cite_text }}</a>` — Vue does not interpolate mustaches inside a plain (non-v-bound) attribute value, so the rendered anchor's href is the literal 8-character string `{{ url }}`, never the `url` prop's actual value. Confirmed isolated: every other component (e.g. Button.vue:77 `:href=\"url\"`) uses proper v-bind; a repo-wide grep of src/components/ for the `=\"{{ ` pattern returns only this one line. Production is unaffected (uids_base's Twig template renders the cite link differently — see behavior), but Storybook's cite link never actually navigates anywhere useful.",
+    "BUG: Blockquote.vue:57 gates the entire `.blockquote__paragraph` wrapper (and therefore the `content` slot inside it) on `v-if=\"content\"` — the STRING PROP's truthiness — rather than on `$slots.content`, unlike the `media` slot's correct `$slots.media` check (Blockquote.vue:49,52,62). A consumer supplying only slot markup with no `content` prop value gets no paragraph rendered; every existing story (Left/Centered/Right) happens to pass a non-empty `content` prop alongside the slot, so this gap has never been exercised.",
+    "BUG, verified via CSS cascade analysis (selector specificity + the compiled ancestor-context selectors, cross-checked against the generated custom-property values): the `background` prop's accent-color treatment does not fire through the prop itself — see the 'BACKGROUND SELF-APPLICATION GAP' behavior entry and claims #3 for the full mechanism (descendant-combinator selectors can't match self-application; the flat Background-foundation rule outranks blockquote's own bare-element rule by specificity when self-applied). blockquote/accent/color and /color-on-gold are tokenized as-shipped since the values ARE real and reachable via ancestor-nesting (e.g. through Banner) — but Blockquote's own `background` prop cannot reach them.",
+    "`.blockquote--remove-stylization` and `.blockquote--remove-margin` (blockquote.scss:287,307) are wired to no Blockquote.vue prop AND have zero usages anywhere else in either the uids or uiowa repo (grepped both repos for the literal class strings and for underscore/camelCase Drupal-preprocess-style variants — no hits). Genuinely dead as shipped, not merely Vue-API-unreachable. uids_base independently defines its own, functionally-overlapping-but-distinct `.blockquote--no-left-margin` (docroot/themes/custom/uids_base/scss/components/blockquote.scss:9-12) rather than consuming UIDS's `--remove-margin` modifier, reinforcing that the latter was never adopted downstream either.",
+    "CORRECTING THE SURVEY: the legacy non-BEM `.blockquote-center`/`.blockquote-right` selectors (blockquote.scss:78-80, 112-114), each marked `// @todo remove ... in v4.0.0`, are LIVE downstream — uids_base scss/components/blockquote.scss:91,95 and scss/theme/print.scss:288 target `.blockquote-center` directly (verified against the actual uiowa repo). The survey's suggestion to consider dropping them during migration does not hold; carry them into the contract and defer removal to a coordinated 5.x cleanup, matching the `.bold-headline--*` / cta_uids3.scss precedent.",
+    "The root-level `/blockquote/` folder (repo root, sibling to src/ — blockquote.css + index.html) uses entirely different, non-matching markup (`<figure class=\"blockquote\">`, `.blockquote__border`, `.blockquote__quote`, `.blockquote__name`, `.blockquote__title`, `.blockquote--media-above`) — none of these class names exist anywhere in src/scss/components/blockquote.scss or Blockquote.vue, and nothing in the build (uids.scss, package.json, .storybook config) references it. Confirmed unrelated static mockup, not the real component — do not let it leak into the actual contract as current markup.",
+    "`orientation` (Blockquote.vue:27-30) has NO Vue prop validator, unlike `background`'s validator (Background.props). Any string renders `blockquote--<value>` via className() regardless of whether SCSS defines a matching modifier; only Storybook's own argType select cosmetically limits the demo to `['', 'center', 'right']`.",
+    "Redundant (not a functional bug, but worth recording so it isn't 'corrected' during tokenization in a way that changes the computed CSS): the padding mixin's `$left: variables.$lg` argument (blockquote.scss:16) is a no-op — line 13's shorthand `padding: variables.$lg` already set padding-left to the same value. Likewise `&.blockquote--right`'s `padding: variables.$xsm variables.$lg` (blockquote.scss:118) recomputes to the identical four effective padding values as the base rule — it exists only so the same rule block can also flip the border side and text-align.",
+    "Redundant: `.blockquote--img-above.blockquote--center::before` (blockquote.scss:219-231) sets four independently-sufficient properties (height:0, width:0, background:none, display:none) to hide the plain-center accent bar once img-above's own ::after bar takes over; any one alone would suffice, and display:none additionally makes the same rule's `top: $sm-md` (line 223) inert."
+  ],
+  "geometryNotTokenized": {
+    "padding-base": "Base padding: shorthand `padding: $lg` (blockquote.scss:13) then top/bottom re-set to $xsm via the padding mixin (:16, which also redundantly restates left as $lg — see knownIssues); right is never explicitly touched so it keeps $lg from the shorthand. Effective: top/bottom=$xsm(0.325rem), left/right=$lg(1.875rem). Both vars are already mapped (space.32/space.187) but left as raw geometry here, matching the Headline underline-padding-bottom precedent of NOT promoting $xsm-family-sourced paddings to tier-3.",
+    "padding-right-orientation": "&.blockquote--right (+ legacy .blockquote-right &) restates `padding: $xsm $lg` (blockquote.scss:118) — the SAME four effective values as padding-base; see knownIssues (redundant restatement, exists only to also flip border-side/text-align).",
+    "padding-center-orientation": "&.blockquote--center (+ legacy .blockquote-center &) overrides via the padding mixin (blockquote.scss:90) to top=$xlg(2.5rem), bottom/left/right=$xsm(0.325rem). $xlg is not yet an individually-mapped space.* primitive (tracked in sharedPrimitiveUsage for the deferred sweep).",
+    "padding-img-above-orientation": "&.blockquote--img-above's own rule replaces the base padding entirely: `padding: $md 0` (blockquote.scss:199). $md is already mapped to space.105 but, like padding-base, left raw rather than promoted to tier-3.",
+    "paragraph-padding-bottom-img-above": ".blockquote__paragraph { padding-bottom: $lg } inside --img-above (blockquote.scss:163) — makes room for the ::after accent bar below the text.",
+    "accent-bar-center-geometry": "The centered orientation drops the left border (border:none, blockquote.scss:87) and substitutes a horizontal ::before bar: width 130px (blockquote.scss:100, reused at :172 for the img-above bar), top offset 11px (blockquote.scss:96 — a raw, non-rem one-off unrelated to any other value in the file), transition 0.5s (blockquote.scss:102-103). Height reuses the tokenized blockquote/accent/width (10px).",
+    "accent-bar-img-above-geometry": ".blockquote__paragraph::after (the img-above/img-below accent bar): width 130px (blockquote.scss:172, same value as the center bar), positioned bottom:0/left:0/right:0 (blockquote.scss:169-171), mirrored to right:0/left:inherit for the --right combination (blockquote.scss:210-211), transition 0.5s (blockquote.scss:174-175).",
+    "media-gap-one-off": ".blockquote__media { margin-right: 1.3rem; margin-top: 0.7rem; } shared by img-above/img-below (blockquote.scss:124-125), mirrored to margin-left:1.3rem/margin-top:0.7rem/margin-right:0 for the --right combination (blockquote.scss:141-143). Neither 1.3rem (20.8px) nor 0.7rem (11.2px) matches any existing space.* primitive step — genuinely ambiguous (verified against the full spacing.json scale, matches the survey's judgment call); left raw, see openQuestions.",
+    "external-margin-and-responsive-media-gap": "&.blockquote:not(.blockquote--center) gets margin-bottom: $mobile-width-gutter (blockquote.scss:128 — VERIFIED already space.125, per spacing.json's own comment listing '$gutter, $mobile-width-gutter' against that step; not part of the $xsm-family deferred-sweep set, but treated as external/layout spacing rather than component identity, consistent with padding-base). .blockquote__media separately gets margin-bottom: $sm-md (blockquote.scss:131), collapsing to 0 at the sm breakpoint / 768px (blockquote.scss:133-135).",
+    "img-above-responsive-flex-ratios": "At the sm breakpoint, .blockquote__media takes flex:0 1 auto and .blockquote__content takes flex:0 1 75% (blockquote.scss:150-159, img-above only) — a layout ratio, not a fixed design value, same class the layout foundation already excludes from tokenization.",
+    "media-center-margin": ".blockquote__media { margin: 0 auto $md } for the img-above+center combination (blockquote.scss:236) — reuses the $md var for a different property than padding-img-above-orientation.",
+    "img-below-footer-geometry": "footer margin-top: .5rem inside --img-below (blockquote.scss:254), re-set to `margin: .5rem auto 0` for the --center combination (blockquote.scss:265). CORRECTING THE SURVEY: both values already match the existing space.50 primitive (0.5rem/8px, spacing.json) — see claims. Still left as raw external/footer-layout geometry rather than promoted to tier-3, consistent with the external-margin entry.",
+    "img-below-center-max-width-ratio": "footer max-width:40% at the sm breakpoint for the --img-below+--center combination (blockquote.scss:269) — a responsive layout ratio, same class as img-above-responsive-flex-ratios.",
+    "flex-basis": "&.blockquote { flex-basis: 100% } (blockquote.scss:76) — sizes blockquote correctly as a flex item in an ancestor flex layout; meaningless outside that context, not a design value."
+  }
+}

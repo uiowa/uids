@@ -44,7 +44,7 @@ const props = defineProps({
 
 
 const classes = computed(() => {
-  let classes = ['cta'];
+  const classes = ['cta'];
   Background.addBackgroundClass(classes, props);
 
   ['button_align_right'].forEach((prop) => {
@@ -61,7 +61,7 @@ const classes = computed(() => {
 });
 
 const buttonClasses = computed(() => {
-  let classes = [''];
+  const classes = [''];
 
   return classes
 })
@@ -74,7 +74,7 @@ const buttonClasses = computed(() => {
       <div class="cta__title" v-if="$slots.title">
         <uids-headline :text_style="headline_style">
           <!-- @slot The title of the card. HTML is allowed. -->
-          <span class="headline__heading"><slot name="title">Title</slot></span>
+          <slot name="title">Title</slot>
         </uids-headline>
       </div>
       <div class="cta__content" v-if="details" >

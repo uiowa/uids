@@ -1,0 +1,148 @@
+{
+  "$schema": "./contract.schema.json",
+  "name": "tabs",
+  "version": "1.0.0",
+  "description": "UIDS tabs component contract, preserving the verified 4.x rendering and documenting the proposed Figma representation.",
+  "identity": {
+    "codePath": "src/components/tabs/Tabs.vue",
+    "scssPath": "src/scss/components/tabs.scss",
+    "relatedPaths": [
+      "src/assets/js/tabs.js",
+      "src/components/tabs/Tabs.stories.js"
+    ],
+    "downstreamPaths": [
+      "uiowa/docroot/themes/custom/uids_base/templates/uids/tab-button.html.twig",
+      "uiowa/docroot/themes/custom/uids_base/assets/css/components/tabs.css"
+    ],
+    "registeredName": "uids-tabs",
+    "storybookId": "components-tabs",
+    "figma": {
+      "fileKey": "hNShklBztaeaQneScM0KoM",
+      "componentSetName": "Tab",
+      "componentSetId": "203:14",
+      "componentKey": "b0bedede084ded95ad217a62593ed665556c7eca",
+      "page": "Components / Tabs",
+      "note": "BUILT (Phase 3). State (Selected, Unselected) is the only true axis, diverging from the survey's proposed 2x3 = 6 (State x Background-context). Background context (default / on-black / on-gold) is context frames on the Components/Tabs page, not a multiplying axis.",
+      "axisRationale": [
+        "Tabs' bg-- response is a passive ancestor read, structurally identical to Button's and Headline's — not a component-owned composition choice the way Brand Bar's Style axis is a designer-pickable composition. So it follows Headline's 'on-gold flips are context frames, not axes' and Button's ancestor-bg-in-behavior-only pattern.",
+        "Hover and focus-visible are excluded as a static axis for the same reason as Button (Color x Size x Style, no hover axis) — represent them as Figma interactive/prototype states instead.",
+        "If Context is later made a real axis (a legitimate reading, see openQuestions), note that two of the six State x Context cells (Selected/Default, Selected/On-Gold) have NO tabs-owned text-colour token at all: their text layer would need to bind background.json's color/on-light/text directly — a cross-contract binding precedented by Brand Bar's nested Logo instance."
+      ],
+      "precedent": "Headline / Button (ancestor background is context, not an axis)."
+    },
+    "barrelExport": "UidsTabs"
+  },
+  "options": [
+    {
+      "name": "items",
+      "type": "array",
+      "description": "Keys per item: title, content. One entry per tab; the array's ORDER is the tab order, and the first entry is the initially selected tab. Required, with no default: the component renders nothing without it. Added 2026-08-20 to close the long-standing check-contracts warning that this Vue prop was unclaimed by any contract option — the schema already supported array/object option types.",
+      "code": {
+        "prop": "items",
+        "notes": "Vue marks it required:true with type:Array and no default."
+      },
+      "figma": {
+        "notes": "Content, not a variant axis: the number of entries drives how many rows/tabs/crumbs are drawn, which Figma expresses by duplicating the child instance rather than by a variant property."
+      }
+    },
+    {
+      "name": "orientation",
+      "type": "enum",
+      "values": [
+        "horizontal",
+        "vertical"
+      ],
+      "default": "horizontal",
+      "description": "Not a shipped option. Tabs.vue currently renders horizontal semantics only; tabs.js can interpret aria-orientation=vertical, but no producer sets it.",
+      "code": {
+        "notes": "Tabs.vue now exists but exposes no orientation prop. Adding one would be a future API change."
+      },
+      "figma": {
+        "notes": "No visual difference exists in tabs.scss between orientations — it's a pure keyboard-navigation concern, not a variant-axis candidate under either identity.kind resolution."
+      },
+      "status": "planned"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "Required root ID used to derive tab/panel IDs and scope hash activation.",
+      "code": {
+        "prop": "id"
+      },
+      "figma": {
+        "notes": "Code/behavior identity only."
+      }
+    },
+    {
+      "name": "aria_label",
+      "type": "string",
+      "default": "Tabs",
+      "description": "Accessible label for the tablist.",
+      "code": {
+        "prop": "aria_label"
+      },
+      "figma": {
+        "notes": "Accessibility-only."
+      }
+    }
+  ],
+  "slots": [
+    {
+      "name": "items",
+      "description": "A required Array prop rather than a Vue slot. Each item provides title and HTML content.",
+      "behavior": "Tabs.vue renders each title into a tab button and each content value via v-html into its corresponding tabpanel.",
+      "figma": {
+        "property": "Tabs / Panels",
+        "notes": "Model labels as editable text and panel bodies as placeholder content frames."
+      }
+    }
+  ],
+  "tokensUsed": [
+    "tabs/tab/font-family",
+    "tabs/tab/font-size",
+    "tabs/tab/font-weight",
+    "tabs/tab/padding/block-start",
+    "tabs/tab/padding/block-end",
+    "tabs/tab/padding/inline",
+    "tabs/indicator/height",
+    "tabs/panel/padding-block",
+    "tabs/tab/text/color",
+    "tabs/tab/text/color-on-black",
+    "tabs/tab/selected/text/color-on-black",
+    "tabs/indicator/selected/color",
+    "tabs/indicator/selected/color-on-gold",
+    "tabs/indicator/unselected/color",
+    "tabs/indicator/unselected/color-on-gold",
+    "tabs/indicator/hover/color",
+    "tabs/indicator/hover/color-on-gold"
+  ],
+  "behavior": [
+    "Tabs.vue imports tabs.scss and the production tabs.js behavior, then explicitly instantiates window.UidsTabs after mount because the script's initial document scan runs before the component exists.",
+    "State is driven by aria-selected, hidden, and roving tabindex. First tab/panel is selected/visible initially; click, arrow, Home/End, hash, and popstate behavior comes from tabs.js.",
+    "Ancestor bg--black/bg--gold contexts repaint tab text and indicators. These are documentation frames, not a component prop or Figma axis.",
+    "Persistent ::after state indicators and transient ::before hover/focus indicators share the height token but have independent colors and cascade rules.",
+    "Vertical keyboard handling exists in tabs.js but remains unreachable because Tabs.vue and production Twig set no aria-orientation."
+  ],
+  "knownIssues": [
+    "Dead import: @use '../abstracts/utilities'; (tabs.scss:2) — the utilities namespace is never referenced anywhere in the file. See claims.",
+    "`.is-hidden` (tabs.scss:120, display:none) is dead CSS — no producer in this repo or uids_base ever applies the class; both tabs.js and every Twig template that renders role=tabpanel markup use the native `hidden` attribute exclusively. Likely leftover from an earlier JS implementation. See claims.",
+    "tabs.scss:45-47's unconditional `[class*=\"bg--black\"] & { color: $light; }` is specificity-dead — never the winning declaration for any shipped [role=tab], because every real tab always also matches the more specific aria-selected=true or =false sibling rule. The genuine provenance for the 'unselected + on-black' token value is tabs.scss:83-85, not this line. See claims.",
+    "The gold focus-visible indicator declared at tabs.scss:53-55 never renders when the tab's ancestor is bg--gold, due to a specificity tie with the later-declared bg--gold hover/focus rule (tabs.scss:103-105) — see claims. Codified as-shipped: the rendered behavior under bg--gold is med-gray, not gold.",
+    "tabs.scss:31's `transition: background 0.8s ease-out;` on the bare [role=\"tab\"] is inert — no rule in the file ever changes that element's own background away from its base `none`; every other background change targets the ::before/::after pseudo-elements, which don't inherit this transition and each declare their own. See claims.",
+    "Selected tabs have no explicit ambient (non-bg--black) text-color rule — only unselected tabs do (tabs.scss:72). A selected tab's default-context text falls through to whatever inherits from its container (in practice, the background foundation's on-light/on-dark cascade — see behavior and openQuestions).",
+    "aria-orientation=\"vertical\" is read by tabs.js (tabs.js:248) but set by no shipped producer in either repo — the vertical arrow-key branch is unreachable in current production markup. See claims.",
+    "Asymmetric tab padding (1rem / 1.3rem / 1rem, tabs.scss:24) — codified as-shipped, not rounded to match, mirroring Button's own asymmetric block-end precedent.",
+    "The draft spec predated Tabs.vue and described Tabs as a local build orphan. That is no longer true after aa71cff490; tabs.js vendoring drift downstream remains separately documented."
+  ],
+  "geometryNotTokenized": {
+    "clearfix": ".tabs-collection::before/::after { display: table; content: ' '; } (tabs.scss:9-13) — classic float-clearfix hack, not a design value.",
+    "tablist-overlap-margin": "-0.1rem margin-bottom on [role=tablist] (tabs.scss:16, third value of `margin: 0 0 -0.1rem;`) — a hairline visual-overlap offset. tokens/README's tier-3 convention states plainly that 'one-off paddings and offsets stay as raw geometry, documented in the component's contract' — treated as such here, NOT minted as a token. (A defensible alternative reading tokenizes it instead, citing Button's do-not-fix-asymmetric-padding precedent the other direction; flagged in openQuestions rather than silently decided.)",
+    "tablist-font-size-zero": "font-size: 0 on [role=tablist] (tabs.scss:18) — the standard inline-block whitespace-gap suppression trick between adjacent tab buttons; a rendering mechanic, not a design value (same category as Headline's box-decoration-break).",
+    "tab-resets": "border: none; overflow: visible; background: none; cursor: pointer; on [role=tab] (tabs.scss:21-32) — structural resets; unlike Button, Tabs declares no border at all.",
+    "indicator-motion": "transition: background 0.8s ease-out (tabs.scss:31 — also inert, see claims) and transition: 0.3s (tabs.scss:41,95, shared by ::before/::after) — duration/easing left un-tokenized following Button's focus-bar-motion precedent ('Only its color and height are tokenized'); only the animated properties' color/height get tier-3 leaves here too.",
+    "indicator-positioning": "position: absolute; bottom: 0; left: 0; width: 0 (state-driven) on both ::before/::after, plus ::before's z-index: 1 (tabs.scss:34-43,88-96) — stacking/layout plumbing for the sliding-bar effect; only height and color are tokenized.",
+    "tabpanel-mechanics": "[role=tabpanel] { position: relative; z-index: 2; } plus a flat, non-meaningful 0 inline padding (tabs.scss:115-119) — only padding-block is tokenized (tabs/panel/padding-block); position/z-index is stacking-context plumbing.",
+    "panel-child-spacing": "[role=tabpanel] * + p { margin-top: 1rem; } (tabs.scss:125-127) — one-off adjacent-sibling paragraph spacing inside panel content, not identity-bearing to the tab/indicator shape.",
+    "structural-resets": "border-radius: 0; outline: 0; on selected tabs, and outline: 0 on :active/:focus/:hover (tabs.scss:50-51,108-112) — zero-value resets relying on the custom ::before/::after indicators instead of the native focus ring."
+  }
+}

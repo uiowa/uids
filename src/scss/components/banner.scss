@@ -3,13 +3,16 @@
 
 // === Banner base === //
 .banner {
-  --banner-padding: #{variables.$gutter};
+  --banner-padding: var(--uiowa-banner-padding-base);
+  // A bare channel triplet, not a colour: it feeds BOTH the flat scrim's rgb() and
+  // the gradient stop list below, and CSS cannot derive that from a hex. Not
+  // tokenized — see contracts/banner.json geometryNotTokenized.
   --banner-overlay-color-rgb: 0, 0, 0;
-  --banner-overlay-solid-opacity: .5;
-  --banner-overlay-gradient-midpoint: 40%;
-  --banner-overlay-gradient: rgb(var(--banner-overlay-color-rgb), .8) 0%, rgb(var(--banner-overlay-color-rgb), .6) var(--banner-overlay-gradient-midpoint), transparent;
-  --banner-text-color: #fff;
-  --banner-bg-failsafe: #{variables.$secondary};
+  --banner-overlay-solid-opacity: var(--uiowa-banner-overlay-opacity-solid-dark);
+  --banner-overlay-gradient-midpoint: var(--uiowa-banner-overlay-midpoint-default);
+  --banner-overlay-gradient: rgb(var(--banner-overlay-color-rgb), var(--uiowa-banner-overlay-opacity-gradient-start)) 0%, rgb(var(--banner-overlay-color-rgb), var(--uiowa-banner-overlay-opacity-gradient-mid)) var(--banner-overlay-gradient-midpoint), transparent;
+  --banner-text-color: var(--uiowa-banner-text-color-on-media);
+  --banner-bg-failsafe: var(--uiowa-banner-bg-failsafe-on-media);
   --link-color: var(--banner-text-color);
 
   display: flex;
@@ -18,12 +21,14 @@
   align-items: center;
   // Default horizontal alignment is centered.
   justify-content: center;
-  min-height: 15rem;
+  min-height: var(--uiowa-banner-min-height);
   position: relative;
   overflow: hidden;
 
+  // The switch point is sm (768), which is finer than the component tokens'
+  // mobile/md/page modes — hence two named tokens rather than one responsive one.
   @include utilities.breakpoint(sm) {
-    --banner-padding: #{variables.$mobile-height-gutter};
+    --banner-padding: var(--uiowa-banner-padding-sm);
   }
 }
 // === End: Banner base === //
@@ -31,7 +36,7 @@
 // === Media === //
 .banner .media {
   // Background color for media element loading.
-  background: #{variables.$secondary};
+  background: var(--uiowa-banner-media-background-default);
   height: 100%;
   width: 100%;
   position: absolute;
@@ -72,24 +77,24 @@
   .video-controls {
     position: absolute;
     z-index: 2;
-    right: #{variables.$gutter};
-    bottom: #{variables.$gutter};
+    right: var(--uiowa-banner-video-controls-offset-base);
+    bottom: var(--uiowa-banner-video-controls-offset-base);
 
     @include utilities.container-query {
-      right: #{variables.$mobile-height-gutter};
-      bottom: #{variables.$mobile-height-gutter};
+      right: var(--uiowa-banner-video-controls-offset-sm);
+      bottom: var(--uiowa-banner-video-controls-offset-sm);
     }
   }
 
   .video-btn {
-    width: 40px;
-    height: 40px;
+    width: var(--uiowa-banner-video-btn-size);
+    height: var(--uiowa-banner-video-btn-size);
     cursor: pointer;
-    color: #{variables.$secondary};
-    border: 1px solid white;
+    color: var(--uiowa-banner-video-btn-color);
+    border: var(--uiowa-banner-video-btn-border-width) solid var(--uiowa-banner-video-btn-border-color-default);
     border-radius: 50%;
-    background: white;
-    font-size: 1rem;
+    background: var(--uiowa-banner-video-btn-background);
+    font-size: var(--uiowa-banner-video-btn-font-size);
     padding: 0;
 
     @include utilities.container-query() {
@@ -99,7 +104,8 @@
     &::after {
       content: "\f04b";
       @include utilities.fas();
-      font-size: 1rem;
+      // Re-declared at the same value the button itself carries; 4.x states it twice.
+      font-size: var(--uiowa-banner-video-btn-font-size);
     }
 
     &.video-btn__play::after {
@@ -137,7 +143,7 @@
   .headline {
     color: var(--banner-text-color);
     margin-top: 0;
-    margin-bottom: 1rem;
+    margin-bottom: var(--uiowa-banner-headline-margin-bottom);
     z-index: 1;
 
     a {
@@ -201,11 +207,11 @@
 
 // === Pre-title === //
 .banner__pre-title {
-  line-height: 1.1;
+  line-height: var(--uiowa-banner-pre-title-line-height);
 
   &.headline.headline--serif {
     margin-bottom: 0;
-    font-weight: 500;
+    font-weight: var(--uiowa-banner-pre-title-font-weight);
   }
 
   &.headline.headline--underline {
@@ -216,8 +222,8 @@
   }
 
   &.headline.headline--uppercase {
-    margin-bottom: 0.7rem;
-    font-weight: 500;
+    margin-bottom: var(--uiowa-banner-pre-title-uppercase-margin-bottom);
+    font-weight: var(--uiowa-banner-pre-title-font-weight);
   }
 
   &.headline--large {
@@ -229,7 +235,7 @@
   }
 
   &.headline--small {
-    font-size: #{variables.$h5-font-size};
+    font-size: var(--uiowa-banner-pre-title-font-size-small);
   }
 }
 // === End: Pre-title === //
@@ -238,7 +244,7 @@
 .banner__text {
   z-index: 1;
   color: var(--banner-text-color);
-  margin-bottom: 1.05rem;
+  margin-bottom: var(--uiowa-banner-text-margin-bottom);
 
   blockquote {
     margin-left: 0;
@@ -278,7 +284,7 @@
 // === Buttons === //
 .banner {
   .headline + .banner__action {
-    margin-top: 1.5rem;
+    margin-top: var(--uiowa-banner-action-margin-top);
   }
 }
 
@@ -288,11 +294,11 @@
 }
 
 .banner__action .bttn {
-  margin: 0 1rem 1rem 0;
+  margin: 0 var(--uiowa-banner-action-button-spacing) var(--uiowa-banner-action-button-spacing) 0;
 
   @include utilities.container-query() {
     + .bttn {
-      margin: 0 1rem 1rem 0;
+      margin: 0 var(--uiowa-banner-action-button-spacing) var(--uiowa-banner-action-button-spacing) 0;
     }
   }
 }
@@ -304,7 +310,7 @@
   &[class*="bg--gold"],
   &[class*="bg--white"],
   &[class*="bg--gray"] {
-    --banner-text-color: #{variables.$secondary};
+    --banner-text-color: var(--uiowa-banner-text-color-on-light-fill);
   }
 }
 // Add text shadow to the headline and text when there is
@@ -325,8 +331,8 @@
   // We use a max-width rule here to avoid having to
   // override these rules in other places.
   @include utilities.container-query($type: max) {
-    --link-color: #{variables.$secondary};
-    --banner-bg-failsafe: white;
+    --link-color: var(--uiowa-banner-text-color-on-light-fill);
+    --banner-bg-failsafe: var(--uiowa-banner-bg-failsafe-on-light-overlay);
 
     display: block;
 
@@ -340,21 +346,21 @@
     }
 
     .headline {
-      color: #{variables.$secondary};
+      color: var(--uiowa-banner-text-color-on-light-fill);
       text-shadow: none;
     }
 
     .bttn--transparent {
-      color: #{variables.$secondary};
-      border-color: #{variables.$secondary};
+      color: var(--uiowa-banner-text-color-on-light-fill);
+      border-color: var(--uiowa-banner-text-color-on-light-fill);
     }
 
     .banner__text {
-      color: #{variables.$secondary};
+      color: var(--uiowa-banner-text-color-on-light-fill);
       text-shadow: none;
 
       * {
-        color: #{variables.$secondary};
+        color: var(--uiowa-banner-text-color-on-light-fill);
       }
     }
   }
@@ -453,14 +459,15 @@
 }
 .banner--overlay-ltr {
   --banner-overlay-gradient-direction: 90deg;
-  --banner-overlay-gradient-midpoint: 70%;
+  --banner-overlay-gradient-midpoint: var(--uiowa-banner-overlay-midpoint-ltr);
 }
 // if the banner overlay light is selected and has no background color.
 .banner--overlay-light:not([class*="bg--"]) {
+  // The light tone's channel triplet, untokenized for the same reason as the dark one.
   --banner-overlay-color-rgb: 255, 255, 255;
-  --banner-overlay-solid-opacity: .7;
-  --banner-text-color: #{variables.$secondary};
-  --banner-bg-failsafe: white;
+  --banner-overlay-solid-opacity: var(--uiowa-banner-overlay-opacity-solid-light);
+  --banner-text-color: var(--uiowa-banner-text-color-on-light-fill);
+  --banner-bg-failsafe: var(--uiowa-banner-bg-failsafe-on-light-overlay);
 
   // Remove text shadow for better legibility.
   .headline,
@@ -470,10 +477,10 @@
 
   // Override background color for media element loading.
   .media {
-    background: #fff;
+    background: var(--uiowa-banner-media-background-light);
 
     .video-btn {
-      border: 1px solid #{variables.$secondary};
+      border: var(--uiowa-banner-video-btn-border-width) solid var(--uiowa-banner-video-btn-border-color-on-light-overlay);
     }
   }
 }

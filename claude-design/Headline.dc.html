@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet data-dc-atomics>
+        <link rel="stylesheet" href="./tokens.css" />
+        <link rel="stylesheet" href="./backgrounds.css" />
+        <style>
+          body{margin:0}
+          /* Mirrors src/scss/base/_headings.scss then src/scss/components/_headline.scss
+             (post-token-swap) in SOURCE ORDER so the cascade behaves the same. Production
+             pairs every .headline-- selector with a legacy .bold-headline-- alias; this
+             template never emits those classes, so the aliases are omitted here (see
+             contracts/headline.json knownIssues). Also omitted: .headline--negative and
+             .headline--center — class-only treatments no Vue prop (and no prop here)
+             can apply; exposing them is a deferred public-shape decision. */
+
+          /* ---- base heading elements (_headings.scss) ---- */
+          /* font-family on the shared rule stands in for the body font the production
+             page provides; h2-h6 inherit Roboto there, and h1/serif/uppercase override
+             it below exactly as production does. */
+          /* `:where(.headline)`, NOT `h1.headline` — the root class sits ON the heading
+             (see the markup below), so a descendant form would match nothing, and a plain
+             compound would raise these from (0,0,1) to (0,1,1) and silently beat the
+             later .headline--serif / --uppercase / --highlight rules at (0,1,0). :where()
+             adds ZERO specificity, so every rule below keeps the exact weight it had. */
+          h1:where(.headline),h2:where(.headline),h3:where(.headline),h4:where(.headline),h5:where(.headline),h6:where(.headline){
+            font-family:var(--uiowa-font-family-body);
+            font-weight:var(--uiowa-font-weight-medium);
+            line-height:var(--uiowa-line-height-112);
+            letter-spacing:0;
+          }
+          /* Heading margins are the pre-sweep Sass primitives ($sm/$xsm/$lg), not
+             headline/* tokens — literals here, same as the SCSS (tokens/README). */
+          h1:where(.headline),.h1{
+            line-height:unset;
+            margin-top:.625rem;margin-bottom:.625rem;
+            font-family:var(--uiowa-font-family-serif);
+            font-weight:var(--uiowa-font-weight-medium-bold);
+            font-size:var(--uiowa-font-size-heading-h1);
+          }
+          .h1.headline--serif{font-weight:var(--uiowa-font-weight-bold)}
+          h2:where(.headline),.h2{line-height:1.25;font-weight:var(--uiowa-font-weight-medium);font-size:var(--uiowa-font-size-heading-h2);margin-top:0;margin-bottom:.325rem}
+          h2:where(.headline):not(:first-child),.h2:not(:first-child){margin-top:1.875rem}
+          h2.headline--serif,.h2.headline--serif{font-size:var(--uiowa-font-size-heading-serif-h2)}
+          h3:where(.headline),.h3{line-height:1.25;font-size:var(--uiowa-font-size-heading-h3);margin-top:0;margin-bottom:.325rem}
+          h3:where(.headline):not(:first-child),.h3:not(:first-child){margin-top:1.875rem}
+          h3.headline--serif,.h3.headline--serif{font-size:var(--uiowa-font-size-heading-serif-h3)}
+          h4:where(.headline),.h4{line-height:1.25;font-weight:var(--uiowa-font-weight-medium);font-size:var(--uiowa-font-size-heading-h4);margin-top:0;margin-bottom:.325rem}
+          h4:where(.headline):not(:first-child),.h4:not(:first-child){margin-top:1.875rem}
+          h4.headline--serif,.h4.headline--serif{font-size:var(--uiowa-font-size-heading-serif-h4)}
+          h5:where(.headline),.h5{line-height:1.25;font-weight:var(--uiowa-font-weight-medium);font-size:var(--uiowa-font-size-heading-h5);margin-top:0;margin-bottom:.325rem}
+          h5:where(.headline):not(:first-child),.h5:not(:first-child){margin-top:1.875rem}
+          h5.headline--serif,.h5.headline--serif{font-size:var(--uiowa-font-size-heading-serif-h5)}
+          h6:where(.headline),.h6{font-size:var(--uiowa-font-size-heading-h6);line-height:1.25;font-weight:var(--uiowa-font-weight-medium);margin-top:0;margin-bottom:.325rem}
+          h6:where(.headline):not(:first-child),.h6:not(:first-child){margin-top:1.875rem}
+          h6.headline--serif,.h6.headline--serif{font-size:var(--uiowa-font-size-heading-serif-h6)}
+
+          /* ---- .headline (_headline.scss, source order) ---- */
+          .headline{padding:0;line-height:var(--uiowa-headline-line-height)}
+          .headline a{color:var(--uiowa-headline-link-color);text-decoration:none}
+          .headline a:hover,.headline a:focus{text-decoration:underline}
+          /* single-hyphen bg- matcher: catches bg--* AND legacy bg-pattern--* ancestors */
+          [class*="bg-"] .headline a{color:inherit}
+
+          .headline--uppercase{
+            text-transform:uppercase;
+            font-family:var(--uiowa-font-family-caps);
+            -webkit-font-smoothing:auto;-moz-osx-font-smoothing:auto;
+            font-weight:var(--uiowa-headline-uppercase-font-weight);
+            font-style:normal;
+          }
+          .headline--serif{font-family:var(--uiowa-font-family-serif);font-weight:var(--uiowa-font-weight-bold)}
+
+          .headline--highlight{
+            align-items:center;justify-content:center;
+            margin-bottom:8px;padding:2px 0;
+            line-height:var(--uiowa-headline-highlight-line-height);
+          }
+          /* ---- :not(.sc-interp) on the highlight rules, ADDED 2026-08-17 ----
+             These four rules use a BARE descendant `span` (that is what
+             _headline-mixins.scss:51-63 compiles to via `.headline--highlight { span { … } }`).
+             This template's markup is <span class="headline__heading">{{ text }}</span>, and
+             the runtime nests its own <span class="sc-interp"> inside that — so a bare `span`
+             matched BOTH and the .85rem/1rem padding applied twice, nested.
+
+             MEASURED before/after (identical CSS, three markup/rule combinations):
+               production, one span            .headline__heading box 329.09x65.19
+               dc runtime, unguarded           box 361.09x65.19   <- 32px too wide
+               dc runtime, :not(.sc-interp)    box 329.09x65.19   <- exact match
+             Only the HORIZONTAL padding compounds visibly: display:inline does not stack
+             vertical padding into layout height, so the band was 32px too wide with the
+             right height — which is why it survived review.
+
+             This does NOT contradict the standing "never guard the .headline--highlight
+             rules" instruction; it qualifies it. That rule is about selectors which require
+             being INSIDE .headline__heading — e.g. `.headline--uppercase .headline__heading
+             span` at line ~115 below, where .sc-interp is the ONLY thing that can match and
+             therefore IS the highlight mechanism. Here the selector is bare, so
+             .headline__heading itself matches and carries the highlight; .sc-interp is a
+             redundant second match. Verified the band still paints after the guard
+             (rgb(255,205,0)), i.e. the highlight prop still works. */
+          /* serif+highlight span padding intentionally precedes the base highlight-word
+             rule (source order) — it still wins on specificity. */
+          .headline--highlight.headline--serif span:not(.sc-interp){padding:.2rem 1rem .5rem 1rem}
+          .headline--highlight span:not(.sc-interp){
+            background:var(--uiowa-headline-highlight-background);
+            display:inline;
+            padding:.85rem 1rem;
+            box-decoration-break:clone;-webkit-box-decoration-break:clone;
+            color:var(--uiowa-headline-highlight-color);
+            text-shadow:none;
+          }
+          [class*="bg--gold"] .headline--highlight span:not(.sc-interp){
+            background:var(--uiowa-headline-highlight-background-on-gold);
+            color:var(--uiowa-headline-highlight-color-on-gold);
+          }
+          /* On gold, uppercase weight drops to the declared 400 — which renders the 300
+             face: Antonio ships no 400 (tokens.css requests 300;700 to match production). */
+          [class*="bg--gold"] .headline--uppercase .headline__heading,
+          [class*="bg--gold"] .headline--uppercase .headline__text{
+            font-weight:var(--uiowa-headline-uppercase-font-weight-on-gold);
+          }
+          /* Uppercase word-highlight is UNGATED by the highlight prop: in production, any
+             AUTHOR-NESTED span inside an uppercase headline's heading/text gets the gold
+             band. An earlier version of this block claimed it "stays inert" here because
+             the plain-text `text` prop can't nest a span. That was WRONG, and it shipped:
+             the dc runtime wraps every interpolated value in its own
+             <span class="sc-interp">, which matched these selectors — so EVERY uppercase
+             headline rendered with a full gold band behind it, with `highlight` false.
+             Highly visible via CTA.dc.html, which hardcodes text_style="uppercase".
+             Measured on the live platform render before the fix: rgb(255,205,0),
+             padding 6.4px 19.2px 12.8px, box 212x54 — production shows plain black caps.
+             :not(.sc-interp) excludes the runtime's own wrapper while leaving the
+             production rule intact and correctly inert for this template's plain text.
+             Do NOT add :not(.sc-interp) to the .headline--highlight rules above — those
+             are SUPPOSED to match the wrapper; that is how the `highlight` prop works. */
+          .headline--uppercase .headline__heading span:not(.sc-interp),
+          .headline--uppercase .headline__text span:not(.sc-interp){
+            background:var(--uiowa-headline-highlight-background);
+            display:inline-block;
+            margin-bottom:.8rem;margin-top:.8rem;
+            padding:.4rem 1.2rem .8rem;
+            color:var(--uiowa-headline-highlight-color);
+          }
+          [class*="bg--gold"] .headline--uppercase .headline__heading span:not(.sc-interp),
+          [class*="bg--gold"] .headline--uppercase .headline__text span:not(.sc-interp){
+            background:var(--uiowa-headline-highlight-background-on-gold);
+            color:var(--uiowa-headline-highlight-color-on-gold);
+            font-weight:var(--uiowa-headline-uppercase-font-weight-on-gold);
+          }
+          [class*="bg--gold"] [class*="bg--black"] .headline--uppercase .headline__heading span:not(.sc-interp),
+          [class*="bg--gold"] [class*="bg--black"] .headline--uppercase .headline__text span:not(.sc-interp){
+            background:var(--uiowa-headline-highlight-background);
+            color:var(--uiowa-headline-highlight-color);
+          }
+
+          .headline--underline{padding-bottom:.625rem;overflow:auto}
+          .headline--underline:after{
+            content:"";display:block;
+            width:75px;height:6px;margin-top:15px;
+            background:var(--uiowa-headline-underline-color);
+          }
+          .bg-pattern--brain-reversed .headline--underline:after,
+          [class*="bg--gold"] .headline--underline:after{
+            background:var(--uiowa-headline-underline-color-on-gold);
+          }
+          /* h5/h6 re-include the underline mixin at higher specificity and override the
+             bar height — collapsed here to the height overrides (computed-identical). */
+          h5.headline--underline:after,.h5.headline--underline:after{height:5px}
+          h6.headline--underline:after,.h6.headline--underline:after{height:4px}
+
+          .headline--highlight.headline--serif{font-weight:var(--uiowa-headline-highlight-serif-font-weight)}
+          /* Bare `span` too — same guard, same reason as the highlight block above. */
+          .headline--highlight.headline--uppercase span:not(.sc-interp){padding:.4rem 1.2rem .8rem}
+        </style>
+      </helmet>
+      <div class="{{ contextClass }}" style="{{ contextStyle }}">
+        <sc-if value="{{ isH1 }}" hint-placeholder-val="{{ false }}">
+          <h1 class="{{ rootClass }}"><span class="headline__heading">{{ text }}</span></h1>
+        </sc-if>
+        <sc-if value="{{ isH2 }}" hint-placeholder-val="{{ true }}">
+          <h2 class="{{ rootClass }}"><span class="headline__heading">{{ text }}</span></h2>
+        </sc-if>
+        <sc-if value="{{ isH3 }}" hint-placeholder-val="{{ false }}">
+          <h3 class="{{ rootClass }}"><span class="headline__heading">{{ text }}</span></h3>
+        </sc-if>
+        <sc-if value="{{ isH4 }}" hint-placeholder-val="{{ false }}">
+          <h4 class="{{ rootClass }}"><span class="headline__heading">{{ text }}</span></h4>
+        </sc-if>
+        <sc-if value="{{ isH5 }}" hint-placeholder-val="{{ false }}">
+          <h5 class="{{ rootClass }}"><span class="headline__heading">{{ text }}</span></h5>
+        </sc-if>
+        <sc-if value="{{ isH6 }}" hint-placeholder-val="{{ false }}">
+          <h6 class="{{ rootClass }}"><span class="headline__heading">{{ text }}</span></h6>
+        </sc-if>
+      </div>
+    </x-dc>
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{
+  "$preview": { "width": 700, "height": 300 },
+  "text": { "editor": "text", "default": "This is a headline", "tsType": "string" },
+  "level": { "editor": "enum", "options": ["h1", "h2", "h3", "h4", "h5", "h6"], "default": "h2", "tsType": "string" },
+  "text_style": { "editor": "enum", "options": ["default", "serif", "uppercase"], "default": "default", "tsType": "string" },
+  "underline": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "highlight": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "preview_on_gold": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "extra_class": { "editor": "text", "default": "", "tsType": "string" }
+}'
+    >
+      class Component extends DCLogic {
+        renderVals() {
+          // Mirrors Headline.vue's getClasses order. The Vue prop's real text_style
+          // default is the empty string; this editor labels it "default" the way
+          // Storybook's control does — both mean "no extra class".
+          const level = this.props.level ?? 'h2';
+          const textStyle = this.props.text_style ?? 'default';
+          const classes = ['headline'];
+          if (textStyle === 'uppercase') classes.push('headline--uppercase');
+          if (textStyle === 'serif') classes.push('headline--serif');
+          if (this.props.underline) classes.push('headline--underline');
+          if (this.props.highlight) classes.push('headline--highlight');
+          // preview_on_gold is a PREVIEW context, not a component prop: it stands in
+          // for placing the import inside a bg--gold section, which is how the on-gold
+          // flips engage in a real page (backgrounds.css supplies the band).
+          const onGold = this.props.preview_on_gold === true;
+          // extra_class is the dc equivalent of Vue attribute fallthrough: a PARENT
+          // component putting its own class onto this element, which is how Banner
+          // sizes its headline (`:class="\`headline--${headline.size}\`"`,
+          // Banner.vue:210) and how Brand Bar contextualises Logo. It is not a
+          // Headline option — contracts/headline.json has no size — so nothing here
+          // interprets the value; it is appended verbatim.
+          const extra = String(this.props.extra_class ?? '').trim();
+          if (extra) classes.push(extra);
+          return {
+            rootClass: classes.join(' '),
+            text: this.props.text ?? '',
+            contextClass: onGold ? 'bg--gold' : '',
+            contextStyle: onGold ? 'padding:1.5rem' : '',
+            isH1: level === 'h1',
+            isH2: level === 'h2',
+            isH3: level === 'h3',
+            isH4: level === 'h4',
+            isH5: level === 'h5',
+            isH6: level === 'h6'
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

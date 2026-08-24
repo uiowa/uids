@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet data-dc-atomics>
+        <link rel="stylesheet" href="./tokens.css" />
+        <style>
+          body{margin:0}
+          /* Root-scoped: this bare `a` is what repainted a whole consuming page's links
+             gold — dc-import shares ONE cascade, so it escaped the footer entirely while
+             the footer's own links were pulled back by `.footer a` below. Gold is still
+             correct INSIDE the footer; the rule is confined, not changed. :where() adds
+             ZERO specificity, so the cascade here is bit-for-bit what it was. */
+          :where(.footer) a{color:var(--uiowa-brand-footer-link-color)}
+          /* :focus is paired with :hover on every link group, exactly as brand-footer.scss
+             does (:21-24, :37-40, :61-64, :81-83, :236-239). The template previously had
+             :hover only, so a keyboard user got no underline cue where production gives one —
+             contracts/brand-footer.json documents the hover/focus parity as intentional. */
+          :where(.footer) a:hover,:where(.footer) a:focus{text-decoration:underline}
+          .footer{position:relative;background:var(--uiowa-brand-footer-background);padding:40px 0;font-family:var(--uiowa-font-family-sans)}
+          /* brand-footer.scss:13-15 sets padding($top:$xlg,$right:0,$bottom:0,$left:0) at md —
+             bottom is ZERO. This was 40px 0 24px, i.e. 24px of black space below the copyright
+             bar that production does not have, visible at this template's own 1440px default
+             preview width. */
+          @media (min-width:980px){.footer{padding:40px 0 0}}
+          .footer a{color:var(--uiowa-brand-footer-link-color);text-decoration:none;font-weight:var(--uiowa-font-weight-normal)}
+          .footer a:hover,.footer a:focus{text-decoration:underline}
+          .footer__container{margin:0 20px}
+          @media (min-width:1350px){.footer__container{max-width:1310px;margin:0 auto;padding:0}}
+          /* line-height is 1, NOT 1.2. brand-footer.scss:52-59's .site-name override sets only
+             color / font-size / margin / font-weight — it deliberately does not touch
+             line-height, so the shared base value from brand-bar.scss:18 (line-height:1)
+             is what production actually computes. At the footer site-name size the 1.2 this
+             rule used to declare made the row ~5px taller and pushed everything below it down. */
+          .footer .site-name{color:var(--uiowa-brand-footer-site-name-color);font-size:var(--uiowa-brand-footer-site-name-font-size);margin:17px 0 5px;font-weight:var(--uiowa-brand-footer-site-name-font-weight);line-height:1}
+          .footer .parent-site-name{color:var(--uiowa-brand-footer-parent-site-name-color);font-size:var(--uiowa-brand-footer-parent-site-name-font-size);font-weight:var(--uiowa-brand-footer-parent-site-name-font-weight);margin:0 0 10px;background:var(--uiowa-brand-footer-parent-site-name-background)}
+          .contact-address{color:var(--uiowa-brand-footer-text-color);line-height:var(--uiowa-line-height-150);font-weight:var(--uiowa-brand-footer-text-font-weight);font-size:var(--uiowa-font-size-body);margin:15px 0 0;white-space:pre-line}
+          .contact-line{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:var(--uiowa-font-size-body)}
+          .contact-icon{fill:var(--uiowa-brand-footer-text-icon-color);width:13px;height:13px;flex:none}
+          /* brand-footer.scss:105-106 puts the 30px gap BELOW the links block
+             (`&__links { @include margin($top:0,$right:0,$bottom:$lg) }`, $lg = 1.875rem).
+             This template had no .footer__links rule at all and instead invented
+             `margin:30px 0 0` on .socket__menu — grep confirms brand-footer.scss declares no
+             socket__menu margin whatsoever. The net effect was the 30px moving from after the
+             contact block to before the socket row, reversing the footer's vertical rhythm
+             (and at mobile leaving 40px of bottom gap where production collapses to 70px). */
+          .footer__links{margin:0 0 30px}
+          .socket__menu{list-style:none;display:flex;flex-wrap:wrap;margin:0;padding:0}
+          .socket__menu li{color:var(--uiowa-brand-footer-socket-color);font-size:var(--uiowa-brand-footer-socket-font-size);border-right:1px solid var(--uiowa-brand-footer-socket-separator-color);margin-bottom:5px;padding:0 10px}
+          .socket__menu li:first-child{flex-basis:100%;border-right:none;padding-left:0}
+          .socket__menu li:nth-child(2){padding-left:0}
+          .socket__menu li:last-child{border-right:none;padding-right:0}
+          .socket__menu li a{color:var(--uiowa-brand-footer-socket-link-color)}
+        </style>
+      </helmet>
+      <footer class="footer" data-screen-label="Brand Footer">
+        <div class="footer__container">
+          <div class="footer__links footer__links--contact">
+            <dc-import name="Logo" lockup="{{ lockup }}" context="footer" hint-size="176px,52px"></dc-import>
+            <sc-if value="{{ showSiteName }}" hint-placeholder-val="{{ true }}">
+              <div class="site-name">{{ siteName }}</div>
+            </sc-if>
+            <sc-if value="{{ showParentTitle }}">
+              <div class="parent-site-name">{{ parentTitle }}</div>
+            </sc-if>
+            <sc-if value="{{ showContact }}">
+              <div class="contact">
+                <p class="contact-address">{{ contact }}</p>
+                <div class="contact-line">
+                  <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"></path></svg>
+                  <a href="#">{{ phone }}</a>
+                </div>
+                <div class="contact-line">
+                  <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"></path></svg>
+                  <a href="#">{{ email }}</a>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+        <!-- The socket sits in its OWN .footer__container, a SIBLING of the one above —
+             not nested inside .footer__links--contact. That is what production renders:
+             uids_base/templates/layout/footer.html.twig:72-77 closes the flex container
+             and opens a second `<div class="footer__container">` for
+             footer--socket-menu.twig.
+
+             BrandFooter.vue:12 nests it INSIDE .footer__links--contact instead, and where
+             Vue and Twig disagree this view follows TWIG — the same call already made in
+             Blockquote.dc.html's <footer> gate, for the same reason: Twig is what
+             production renders.
+
+             This is also what supplies the gap above the socket, and it is structural
+             rather than a spacing rule: `.footer__links{margin:0 0 30px}` (brand-footer.scss
+             :105-106, $lg) only separates the contact block from the socket when the socket
+             is OUTSIDE that block. Nested, the 30px landed BELOW the socket instead and the
+             copyright row butted straight against the email line with 0px between them.
+             Measured 2026-08-19: 0px here vs 30px in the published Storybook. The Vue-shaped
+             render only looks right in Storybook because the STORY supplies its own
+             `.footer__links footer__links--icon` wrapper around the contact content
+             (BrandFooter.stories.js:91) which carries that same margin — consumer markup,
+             not the component's. -->
+        <div class="footer__container">
+          <div class="socket">
+            <ul class="socket__menu">
+              <li>© {{ year }} The University of Iowa</li>
+              <li><a href="https://uiowa.edu/privacy">Privacy Notice</a></li>
+              <li><a href="https://policy.uiowa.edu/community-policies/nondiscrimination-statement">UI Nondiscrimination Statement</a></li>
+              <li><a href="https://accessibility.uiowa.edu/">Accessibility</a></li>
+            </ul>
+          </div>
+        </div>
+      </footer>
+    </x-dc>
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{
+  "$preview": { "width": 1440, "height": 420 },
+  "healthcare": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "showSiteName": { "editor": "boolean", "default": true, "tsType": "boolean" },
+  "siteName": { "editor": "text", "default": "Site Name", "tsType": "string" },
+  "showParentTitle": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "parentTitle": { "editor": "text", "default": "Parent Site", "tsType": "string" },
+  "showContact": { "editor": "boolean", "default": true, "tsType": "boolean" },
+  "contact": { "editor": "text", "default": "300 Plaza Centre One\nIowa City, Iowa 52242", "tsType": "string" },
+  "phone": { "editor": "text", "default": "319-384-0019", "tsType": "string" },
+  "email": { "editor": "text", "default": "osc-brand@uiowa.edu", "tsType": "string" }
+}'
+    >
+      class Component extends DCLogic {
+        renderVals() {
+          const healthcare = this.props.healthcare ?? false;
+          return {
+            lockup: healthcare ? 'healthcare' : 'iowa',
+            showSiteName: this.props.showSiteName ?? true,
+            siteName: this.props.siteName ?? 'Site Name',
+            showParentTitle: this.props.showParentTitle ?? false,
+            parentTitle: this.props.parentTitle ?? 'Parent Site',
+            showContact: this.props.showContact ?? true,
+            contact: this.props.contact ?? '300 Plaza Centre One\nIowa City, Iowa 52242',
+            phone: this.props.phone ?? '319-384-0019',
+            email: this.props.email ?? 'osc-brand@uiowa.edu',
+            year: new Date().getFullYear()
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

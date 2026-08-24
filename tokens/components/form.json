@@ -1,0 +1,55 @@
+{
+  "form": {
+    "input": {
+      "bg": { "value": "{color.gray.50}", "comment": "--form-input-bg default (form.scss:10, #fafafb)" },
+      "bg-disabled": { "value": "{color.gray.160}", "comment": "--form-input-bg-disabled (form.scss:11, #e1e1e1). Read by input/textarea/select :disabled and [readonly] (form.scss:129-141, !important)." },
+      "fg-disabled": { "value": "{color.gray.700}", "comment": "--form-input-fg-disabled (form.scss:12, #484741). Also drives -webkit-text-fill-color on disabled text inputs." },
+      "radius": { "value": "3px", "comment": "--form-input-radius (form.scss:14). No radius primitive scale exists yet; raw geometry." },
+      "padding": { "value": "{space.50}", "comment": "--form-input-padding (form.scss:18, 0.5rem)" },
+      "height": { "value": "2.9rem", "comment": "--form-input-height default (form.scss:19). No space.* step matches 2.9rem; component dimension, not forced onto the spacing scale." },
+      "font-size": { "value": "{typography.font-size.100}", "comment": "--form-input-font-size (form.scss:20, 1rem)" },
+      "outline-color": { "value": "{color.gray.200}", "comment": "--form-input-outline-color default (form.scss:24, $gray-light). Also the resting focus outline read by checkbox/radio/toggle input:focus (form.scss:277) and [type=file]:focus (form.scss:190)." }
+    },
+    "label": {
+      "font-size": { "value": "{typography.font-size.100}", "comment": "--form-label-font-size default (form.scss:15, 1rem)" },
+      "color": { "value": "{color.black}", "brandChannel": "secondary", "comment": "--form-label-color (form.scss:16, var(--brand-secondary))" }
+    },
+    "text-color": { "value": "{color.black}", "brandChannel": "secondary", "comment": "--form-text-color (form.scss:17, var(--brand-secondary)). Read by .form-fieldset--side-legend legend (form.scss:456)." },
+    "item-margin": { "value": "{space.100}", "comment": "--form-item-margin default (form.scss:22, 1rem). Also read outside .form nesting by the checkbox/radio/toggle label margin-left (form.scss:265) and the flex/inline/side-legend gap declarations — see the custom-property-scope trap in contracts notes." },
+    "section-border-color": { "value": "{color.gray.200}", "comment": "--form-section-border-color (form.scss:23, $gray-light). Read by .form-fieldset--side-legend legend borders (form.scss:459,:468)." },
+    "button": {
+      "font-size": { "value": "{button.small.font-size}", "comment": "--form-button-font-size default (form.scss:21, 1.05rem). Aliases button/small/font-size rather than duplicating the value — commit 7bafeb8ead's documented intent: a plain [type=submit] in a form renders at Button's small size. If Button's small size changes, Forms follows." }
+    },
+    "focus": {
+      "background": { "value": "#fefefe", "comment": "--form-input-bg on text-input :focus (form.scss:49). NEEDS-ARCHITECT: one hex step from color.white (#FFFFFF) — within the ~2-step consolidation threshold, but rgb(254) vs rgb(255) is not a computed no-op, so left as raw geometry (not a primitive) pending an architect call on whether to consolidate to color.white or mint a gray.10/gray.25 primitive." },
+      "outline-color": { "value": "{color.gray.350}", "comment": "--form-input-outline-color on text-input :focus (form.scss:50, #8a8a8a)" }
+    },
+    "error": {
+      "outline-color": { "value": "{color.status.danger}", "comment": "--form-input-outline-color on input.form--error (form.scss:58, $danger)" },
+      "background": { "value": "{color.status.danger-light}", "comment": "--form-input-bg on input.form--error (form.scss:59, $danger-light)" }
+    },
+    "large": {
+      "input-height": { "value": "3.5rem", "comment": "--form-input-height under .form--large (form.scss:392). Component dimension, no matching space.* step." },
+      "input-font-size": { "value": "{typography.font-size.150}", "comment": "--form-input-font-size under .form--large (form.scss:393, 1.2rem). Note the misleading step name — font-size.150's VALUE is 1.2rem, not 1.5rem." },
+      "label-font-size": { "value": "{typography.font-size.125}", "comment": "--form-label-font-size under .form--large (form.scss:394, 1.1rem). Reuses the existing primitive rather than minting a duplicate font-size.110." },
+      "button-font-size": { "value": "{button.font-size}", "comment": "--form-button-font-size under .form--large (form.scss:395, 1.25rem). Aliases button/font-size (Button's own default/medium size) — same documented pairing as form/button/font-size ↔ button/small/font-size." }
+    },
+    "compact": {
+      "item-margin": { "value": "{space.75}", "comment": "--form-item-margin under .form--compact (form.scss:399, 0.75rem)" }
+    },
+    "toggle": {
+      "track-off": { "value": "{color.gray.200}", "comment": "Toggle resting background (form.scss:336, $gray-light) — the un-checked track color. Only track-off/track-on/knob are tokenized; the knob's size, position and 'on off' glyph geometry are load-bearing and stay un-tokenized (see geometryNotTokenized)." },
+      "track-on": { "value": "{color.gold}", "brandChannel": "primary", "comment": "Toggle input:checked background (form.scss:374, $primary). Note !important on --form-input-bg-disabled (form.scss:137) beats this when the toggle is also disabled — a disabled+checked toggle renders gray, not gold." },
+      "knob": { "value": "{color.white}", "comment": "Toggle knob background (form.scss:358, #fff)" }
+    },
+    "fieldset": {
+      "legend-font-size": { "value": "{typography.font-size.100}", "comment": "Side-legend legend font-size (form.scss:457) is currently a literal 1rem instead of var(--form-label-font-size), despite the same rule block using that var at :242 for the top-legend case — literal-vs-token drift. Tokenized here as the fix target for the SCSS swap; value is unchanged (1rem)." },
+      "legend-font-weight": { "value": "{typography.font-weight.medium-bold}", "comment": "Side-legend legend font-weight (form.scss:458) is a literal 600, matching the existing font-weight.medium-bold primitive by value. This represents the DECLARED CSS value only — the legend inherits Roboto (served at 300/400/500/700/900, no 600 face), so the rendered face is actually 700 or 500 via font-matching. Do not change the declared value to 700/500 without measuring which face Storybook actually loads (Antonio-class caveat)." }
+    },
+    "select-multiple": {
+      "background": { "value": "{color.white}", "comment": "select[multiple] background (form.scss:214, #fff). Distinguishes the bordered listbox archetype from the arrow-decorated single select." },
+      "border-color": { "value": "{color.gray.400}", "comment": "select[multiple] border (form.scss:211, $gray)" },
+      "line-height": { "value": "1.1", "comment": "select[multiple] option rows (form.scss:213). Tier-3 literal by architect call 2026-08-14 — no line-height primitive minted for a single-use value." }
+    }
+  }
+}

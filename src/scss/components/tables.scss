@@ -4,21 +4,21 @@
 //// Table Elements
 table[border] {
   border-style: solid;
-  border-color: #eee;
+  border-color: var(--uiowa-table-border-attr-variant);
   td,
   th {
-    border-color: #eee;
+    border-color: var(--uiowa-table-border-attr-variant);
   }
 }
 
 table {
-  background-color: variables.$white;
+  background-color: var(--uiowa-table-background);
   border-collapse: collapse;
   border-spacing: 0;
-  color: variables.$secondary;
+  color: var(--uiowa-table-color);
   display: inline-block;
-  font-size: variables.$content-font-size;
-  line-height: 1.15;
+  font-size: var(--uiowa-table-font-size);
+  line-height: var(--uiowa-table-line-height);
   max-width: 100%;
   overflow-x: auto;
   // @todo Add white-space: nowrap?
@@ -35,7 +35,7 @@ table {
     .bg--white--pattern--brain &,
     .bg--black--pattern--brain &,
     .bg-pattern--brain-black & {
-      color: variables.$link-color;
+      color: var(--uiowa-table-link-color);
     }
   }
 
@@ -44,8 +44,8 @@ table {
   }
 
   p, ul, ol {
-    font-size: variables.$base-font-size;
-    line-height: 1.6;
+    font-size: var(--uiowa-table-body-font-size);
+    line-height: var(--uiowa-table-body-line-height);
   }
 
   ul, ol {
@@ -56,13 +56,13 @@ table {
 
   td,
   th {
-    padding: variables.$md;
-    font-size: variables.$base-font-size;
-    line-height: 1.6;
+    padding: var(--uiowa-table-cell-padding);
+    font-size: var(--uiowa-table-body-font-size);
+    line-height: var(--uiowa-table-body-line-height);
   }
 
   th {
-    color: variables.$secondary;
+    color: var(--uiowa-table-header-color);
 
     &:not([align]) {
       text-align: left;
@@ -70,47 +70,47 @@ table {
   }
 
   thead th {
-    background-color: variables.$primary;
+    background-color: var(--uiowa-table-header-background);
     border: none;
     a {
-      color: variables.$secondary;
+      color: var(--uiowa-table-header-color);
       [class*="bg--"] & {
-        color: variables.$secondary;
+        color: var(--uiowa-table-header-color);
       }
     }
   }
 
   tbody th {
-    background-color: #fff;
+    background-color: var(--uiowa-table-row-header-background);
     border: none;
     position: static;
     left: 0;
-    padding-left: variables.$md;
+    padding-left: var(--uiowa-table-cell-padding);
   }
 
   tbody tr:not(.is-selected):nth-child(even),
   tbody tr:not(.is-selected):nth-child(even) th {
-    background-color: variables.$light;
+    background-color: var(--uiowa-table-row-alternate-background);
   }
 
   &.table--hover-highlight tbody tr:not(.is-selected),
   &.table--hover-highlight tbody tr:not(.is-selected):nth-child(even) {
     &:hover {
       th {
-        background-color: #fff3c3
+        background-color: var(--uiowa-table-hover-background)
       }
-      background-color: #fff3c3;
+      background-color: var(--uiowa-table-hover-background);
     }
   }
 
   caption {
     width: 100%;
-    padding: 1.05rem;
+    padding: var(--uiowa-table-caption-padding);
     text-align: center;
-    font-size: 1rem;
-    color: #fff;
-    background-color: #333;
-    font-weight: bold;
+    font-size: var(--uiowa-table-caption-font-size);
+    color: var(--uiowa-table-caption-color);
+    background-color: var(--uiowa-table-caption-background);
+    font-weight: var(--uiowa-table-caption-font-weight);
     a,
     :where(p) a:not(.bttn) {
       color: variables.$primary;
@@ -128,7 +128,7 @@ table {
 
   thead td,
   thead th {
-    color: variables.$secondary;
+    color: var(--uiowa-table-header-color);
   }
 
   &.table--width-default {
@@ -169,8 +169,8 @@ table {
           top: 0;
           width: calc(100% + 2px);
           height: calc(100% + 1px);
-          border-left: #7c7c7c 1px solid;
-          border-bottom: #ddd 1px solid;
+          border-left: var(--uiowa-table-border-dark) 1px solid;
+          border-bottom: var(--uiowa-table-border-light) 1px solid;
         }
         &:first-child:before {
           border-left: none;
@@ -190,7 +190,7 @@ table.table--gray-borders {
   & > tfoot > tr {
     & > td,
     & > th {
-      border: #ddd 1px solid;
+      border: var(--uiowa-table-border-light) 1px solid;
     }
   }
 
@@ -198,22 +198,22 @@ table.table--gray-borders {
   & > caption {
     & > td,
     & > th {
-      border: #7c7c7c 1px solid;
+      border: var(--uiowa-table-border-dark) 1px solid;
     }
   }
 
   & > thead > tr {
     & > td,
     & > th {
-      border-bottom: #ddd 1px solid;
-      border-top: #ddd 1px solid;
+      border-bottom: var(--uiowa-table-border-light) 1px solid;
+      border-top: var(--uiowa-table-border-light) 1px solid;
 
       &:first-child {
-        border-left: #ddd 1px solid;
+        border-left: var(--uiowa-table-border-light) 1px solid;
       }
 
       &:last-child {
-        border-right: #ddd 1px solid;
+        border-right: var(--uiowa-table-border-light) 1px solid;
       }
     }
   }

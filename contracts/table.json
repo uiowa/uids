@@ -1,0 +1,177 @@
+{
+  "$schema": "./contract.schema.json",
+  "name": "table",
+  "version": "1.0.0",
+  "description": "UIDS table component contract, preserving the verified 4.x rendering and documenting the proposed Figma representation.",
+  "identity": {
+    "codePath": "src/components/table/Table.vue",
+    "scssPath": "src/scss/components/tables.scss",
+    "relatedPaths": [
+      "src/components/table/Table.stories.js"
+    ],
+    "downstreamPaths": [
+      "uiowa/docroot/themes/custom/uids_base/scss/sitenow_wysiwyg.scss"
+    ],
+    "registeredName": "uids-table",
+    "storybookId": "components-table",
+    "figma": {
+      "fileKey": "hNShklBztaeaQneScM0KoM",
+      "componentSetName": "Table",
+      "componentSetId": "207:74",
+      "componentKey": "086f773dd8980fcb4324588ef223483c102ce9c5",
+      "page": "Components / Table",
+      "note": "BUILT (Phase 3). Sticky (2) x Border (2) = 2x2 = 4 variants, down from the survey's naive 2x2x2 = 8. Highlight is excluded from the grid; its colour stays tokenized (table/hover/background) for reference.",
+      "axisRationale": [
+        "Not collapsed Button-style, because Sticky/Highlight/Border are NOT alternate treatments of one shared concept the way Button's transparent/light_font are, or Headline's underline/highlight/text_style. They are three independent, freely-combinable concerns, and the component's only Storybook story exercises all three at once — a forced single-axis collapse would demote that to a code-only combo.",
+        "Border stays a real axis: confirmed by compilation to have a genuine resting-state difference (gridlines).",
+        "Sticky stays a real axis but a thin one — its only resting-state difference is the thead border-top removal, plus the gray-borders ::before compensation when combined with Border. Its headline behaviour (header pinned while scrolling) cannot be shown in a static frame at all, so keeping it as an axis is a judgment call for review (see openQuestions), not as clear-cut as Border.",
+        "Highlight is EXCLUDED: confirmed by compilation that its only visual manifestation is a :hover-gated background with zero resting-state difference — the precedent set by Button's animated focus-bar (tokenized, not a variant). Recommended as a documentation-only annotation.",
+        "An architect could instead use Figma's native boolean component-properties for all three and skip the variant grid entirely — flagged in openQuestions, since that is a tooling choice this spec does not resolve."
+      ],
+      "precedent": "Button (focus-bar tokenized but not a variant)."
+    }
+  },
+  "options": [
+    {
+      "name": "sticky",
+      "type": "boolean",
+      "default": false,
+      "description": "Caps the wrapper at 80vh and pins the header (position:sticky) so it stays visible while the body scrolls beneath it.",
+      "code": {
+        "prop": "sticky",
+        "class": "table-sticky",
+        "notes": "Adds the class to the WRAPPER `.table-responsive` div (Table.vue:44) via `:class=\"{ 'table-sticky': props.sticky }\"` — the only one of the three display-option booleans that targets the wrapper rather than `<table>` itself. highlight/border both add `table--` modifier classes to `<table>` (Table.vue:31-37)."
+      },
+      "figma": {
+        "axis": "Sticky",
+        "map": {
+          "false": "Default",
+          "true": "Sticky"
+        },
+        "notes": "The pinned-while-scrolling BEHAVIOR can't be shown in a single static frame; the variant captures the always-present resting-state difference confirmed by compilation: thead border-top removed (tables.scss:158), and — combined with Border — the ::before edge-compensation geometry (tables.scss:165-179). Whether this thin a difference earns a full variant axis vs. documentation-only (matching Highlight's treatment) is flagged in openQuestions."
+      }
+    },
+    {
+      "name": "highlight",
+      "type": "boolean",
+      "default": false,
+      "description": "Adds a pale-yellow (#fff3c3) hover background to non-selected body rows and their row-header cells.",
+      "code": {
+        "prop": "highlight",
+        "class": "table--hover-highlight"
+      },
+      "figma": {
+        "notes": "Deliberately NOT a variant axis (Button focus-bar precedent: tokenized but not a variant). Confirmed via compilation that every rule setting #fff3c3 requires `:hover` — there is no resting-state visual difference between highlight=true and false, so a static component variant cannot represent it. table/hover/background is still tokenized for design reference; recommend a documentation-only hover annotation on the component's Figma page instead of a variant (see figmaProposal, openQuestions)."
+      }
+    },
+    {
+      "name": "border",
+      "type": "boolean",
+      "default": false,
+      "description": "Adds gray gridlines around every cell — #ddd on body rows and most edges, #7c7c7c on header rows.",
+      "code": {
+        "prop": "border",
+        "class": "table--gray-borders"
+      },
+      "figma": {
+        "axis": "Border",
+        "map": {
+          "false": "Default",
+          "true": "Bordered"
+        }
+      }
+    },
+    {
+      "name": "caption",
+      "type": "string",
+      "default": "Table",
+      "description": "Interpolated as the <caption> element's text content.",
+      "code": {
+        "prop": "caption",
+        "notes": "Renders via `{{ caption }}` (Table.vue:46) — plain text only, NOT a slot. This is why the caption's own `a`/`:where(p) a:not(.bttn)` styling in tables.scss is unreachable — see knownIssues/claims."
+      },
+      "figma": {
+        "property": "Caption",
+        "notes": "BUILT: a full-width `caption` frame is child 0 of all four variants (521:2 / 521:4 / 521:6 / 521:8), above the header row, holding one center-aligned text layer. All five table/caption/* tokens are bound — padding (all four sides) and background on the frame, color/font-size/font-weight on the text."
+      }
+    },
+    {
+      "name": "summary",
+      "type": "string",
+      "default": "",
+      "description": "Bound directly to the <table summary=\"...\"> HTML attribute.",
+      "code": {
+        "prop": "summary",
+        "notes": "summary is obsolete in the HTML Living Standard (removed from HTML5) and is not reliably exposed to assistive technology by modern browsers/screen readers — see knownIssues. No figma key: metadata-only, never visually rendered (same treatment as Button's url option)."
+      }
+    }
+  ],
+  "slots": [
+    {
+      "name": "thead",
+      "description": "Header row content. Table.vue always renders the surrounding <thead> regardless of whether this slot has content.",
+      "figma": {
+        "property": "Header rows",
+        "notes": "Modelled as instanced row content, not a single text layer."
+      }
+    },
+    {
+      "name": "tbody",
+      "description": "Body row content. Table.vue always renders the surrounding <tbody> regardless of whether this slot has content.",
+      "figma": {
+        "property": "Body rows"
+      }
+    }
+  ],
+  "tokensUsed": [
+    "table/background",
+    "table/color",
+    "table/font-size",
+    "table/line-height",
+    "table/link/color",
+    "table/body/font-size",
+    "table/body/line-height",
+    "table/cell/padding",
+    "table/header/background",
+    "table/header/color",
+    "table/row-header/background",
+    "table/row-alternate/background",
+    "table/hover/background",
+    "table/caption/padding",
+    "table/caption/font-size",
+    "table/caption/color",
+    "table/caption/background",
+    "table/caption/font-weight",
+    "table/border/attr-variant",
+    "table/border/light",
+    "table/border/dark"
+  ],
+  "behavior": [
+    "sticky adds its class to the WRAPPER `.table-responsive` div (Table.vue:44), not to `<table>` — the only one of the three booleans that targets the wrapper rather than the table element.",
+    "Below the `sm` breakpoint (768px, `$break-sm` at _variables.scss:97) the table renders `display:inline-block` and relies on the wrapper's `overflow`/`overflow-x:auto` for horizontal scrolling; at/above 768px it switches to `display:table` (tables.scss:19,42-44), and `.table-responsive table` forces `display:table` unconditionally (tables.scss:182-184) — a responsive layout mechanic independent of sticky/highlight/border. See breakpoints.",
+    "Neither the thead nor the tbody slot's absence changes any class or behavior — unlike Button's empty-default-slot `.bttn--no-text` or Headline's inner-span protocol, Table.vue has no slot-presence-driven logic at all (confirmed: no computed/conditional logic in Table.vue keys off slot content).",
+    "table--hover-highlight's #fff3c3 background only ever renders on :hover (confirmed via compilation — every declaration of this value is nested under a `:hover` pseudo-class) — there is no resting-state visual difference between highlight=true and false; a static screenshot or Storybook computed-style capture cannot distinguish them. See figmaProposal.",
+    "Cross-component context changes how table actually renders, but the values are owned by other components' own contracts, not this one (scoping rule): `.card` sets nested `table` font-size:1rem/line-height:1.7 (card.scss:38-44); `.accordion__item` sets `table ul li`/`table ol li`/`table p` font-size to `inherit`, undoing its own 1.3rem list/paragraph override specifically inside tables (accordion.scss:85-88); the shared base rule sets `table { font-weight: variables.$font-weight-normal }` alongside p/dl/ol/ul (base/_paragraph.scss:24-26).",
+    "On-background link color: `tbody a` (tables.scss:27-40) forces $link-color (blue) uniformly under bg--gray/white/black/gold and 6 pattern-class ancestors. This diverges from the general on-light/on-dark link system (_background-mixins.scss's bg-fg-colors mixin: black on light, gold on dark) and, for bg--white/bg--gray specifically, duplicates a selector _background.scss:58-63 already provides for `tbody` at the identical value (var(--link-color)) — table.scss additionally covers bg--black/bg--gold and the single-hyphen `.bg-pattern--*` classes that _background.scss's `[class*=\"bg--\"]` attribute selectors don't reach (confirmed live and used the same hand-rolled way by stat.scss, blockquote.scss, _headline-mixins.scss, base/_paragraph.scss — this is an established, if duplicative, codebase-wide convention, not a table-local anomaly). Whether to refactor this into the shared background system is a cross-cutting decision beyond table alone, the same class of deferred work as the $xsm...$xxxlg sweep."
+  ],
+  "knownIssues": [
+    "table[border] (raw HTML attribute selector, tables.scss:5-12, border color #eee) is unreachable via Table.vue: the border prop's computed class list (Table.vue:28-39) only ever pushes 'table--gray-borders', never a raw border attribute. Whether hand-authored/CMS-authored table markup elsewhere still relies on this attribute is unresolved (a grep of the consuming SiteNow repo, /Users/bspeare/acquia/uiowa, surfaced only generic CKEditor5 table-plugin library registrations in vendored Drupal core, no direct evidence either way) — see openQuestions. Tokenized as-shipped (table/border/attr-variant) pending that call, since this isn't proven to 'never render' the way the caption-link and gray-borders>caption rules are (see claims).",
+    "Caption's `a`/`:where(p) a:not(.bttn)` link-color styling (tables.scss:114-121, $primary) is unreachable via Table.vue: caption is a plain interpolated-text prop with no slot (Table.vue:46; the component's only slots are thead/tbody), so a caption can never contain a link through this component's public API. Not tokenized (matches the .bttn--link precedent — dead code is not modeled); see claims.",
+    "table.table--gray-borders's `& > tr` (tables.scss:188, compiles to `table.table--gray-borders > tr > td`/`> tr > th`) and `& > caption > td`/`> th` (tables.scss:197-198,201) selectors can never match real content: rows are always inside an explicit thead/tbody (Table.vue:47-52), never a direct table child, and <caption> never contains td/th. Net effect: the caption itself never receives the #7c7c7c border this rule looks like it intended for it under .table--gray-borders — likely a copy-paste artifact of the adjacent `& > thead > tr` pattern. See claims.",
+    "Two visually-similar 'bordered table' concepts ship with different grays: table[border] uses #eee, .table--gray-borders uses #ddd (body/edges) and #7c7c7c (header). Tokenized as-shipped as distinct values (table/border/attr-variant, table/border/light, table/border/dark); whether this is deliberate or should consolidate to one palette is an open design call (see openQuestions).",
+    "'.table-sticky' is a modifier class on the wrapper .table-responsive div, not a table--prefixed modifier on <table> itself — inconsistent with table--hover-highlight/table--gray-borders's naming convention (also noted in the input survey).",
+    "The summary prop is bound directly to the HTML summary attribute on <table> (Table.vue:45). This attribute is obsolete in the HTML Living Standard (removed from HTML5) and is not reliably exposed to assistive technology by modern browsers/screen readers.",
+    "caption defaults to the literal string 'Table' (Table.vue prop default) rather than an empty string — a consumer who doesn't override it ships a table whose caption reads exactly 'Table'.",
+    "Several raw literals duplicate values already available via Sass vars used elsewhere in this same file: caption padding 1.05rem (tables.scss:108) vs. variables.$md (used at :59,:88); caption font-size 1rem (:110) vs. variables.$base-font-size (used at :47,:60); caption color #fff (:111) and tbody th background #fff (:84) vs. variables.$white (used at :15). The tier-3 tokens above alias the matching existing primitives regardless of which spelling produced the value (matching the Button tertiary.background precedent, itself sourced from a 4.x hardcoded #fff); fixing the SCSS spellings themselves is optional cleanup, not required by this migration.",
+    "The commented-out `table:not(:last-child) { @include margin($bottom: $sm) }` rule (base/_paragraph.scss:6-16, inside a full /* ... */ block) is dead — tables currently receive no automatic bottom margin from this shared base file; only the live `font-weight: normal` rule at _paragraph.scss:24-26 applies to table from that file. See claims.",
+    "There is NO table/header/font-weight token, and that is deliberate, not an oversight: `th`'s bold comes from the USER-AGENT stylesheet (the HTML Standard's suggested rendering includes `th { font-weight: bold }`), so no grep of this repo can find its source. tables.scss declares font-weight exactly once, on caption (tables.scss:113); the only other font-weight reaching a table is base/_paragraph.scss:24-26's `table { font-weight: normal }`, which `th` never picks up, because an author declaration inherited from the ancestor loses to a UA declaration on the element itself. The regression baseline does not close the gap either — `.table thead th` captures padding/font-size/line-height/color/background-color/border-top only (regression/config.json:896), so nothing in this repo records the weight, and header bold reads as an untokenized value. Do not add the token: it would pull a browser default into the design system as if it were a design decision."
+  ],
+  "geometryNotTokenized": {
+    "sticky-max-height": "80vh cap on .table-responsive.table-sticky (tables.scss:153) — a viewport-relative scroll-region limit, not a design-scale value.",
+    "sticky-border-compensation": "The .table-sticky .table--gray-borders thead th::before pseudo-element (tables.scss:165-179): left:-1px/top:0/width:calc(100% + 2px)/height:calc(100% + 1px), with a :first-child override removing border-left — a border-compensation illusion for the sticky+gray-borders combination (same class of issue as the Brand Bar tab-overhang precedent). Its border-left/border-bottom reuse table/border/dark and table/border/light; only the positional offsets are un-tokenized.",
+    "responsive-display-switch": "display:inline-block below the sm breakpoint (768px) vs. display:table at/above it (tables.scss:19,42-44), plus `.table-responsive table { display:table }` unconditionally (tables.scss:182-184) — structural/layout mechanics, not design values. See breakpoints and behavior.",
+    "table-resets": "border-collapse:collapse/border-spacing:0 (tables.scss:16-17), thead th/tbody th border:none (tables.scss:74,85), tbody tr:last-child border-bottom-width:0 (tables.scss:124-127), and table--width-default's width:unset on both table and caption (tables.scss:134-139) — mechanical resets, not design values.",
+    "caption-text-align": "text-align:center on caption (tables.scss:109) is unconditional, but `.table-responsive caption` overrides it to left and flips back to center at the sm breakpoint (tables.scss:145-148; breakpoint(sm) resolves to $break-sm = 768px, _breakpoints.scss:17-21 / _variables.scss:94). Table.vue:44 puts `.table-responsive` on EVERY table it renders, sticky or not, so all four variants are left-aligned below 768. Measured in regression/baselines/table.json: `.table caption` reads text-align left at 375 and center at 980/1350. An alignment rule, not a tokenizable value — and not expressible in Figma either, since 768 is outside the Components mode grid (mobile / md 980 / page 1350).",
+    "th-text-align": "th:not([align]) { text-align:left } (tables.scss:67-69) — a default-alignment rule, not a tokenizable value."
+  }
+}

@@ -1,3 +1,4 @@
+@use 'abstracts/tokens-generated';
 @forward 'base/reset';
 @forward 'abstracts/variables';
 @forward 'abstracts/utilities';
@@ -11,25 +12,29 @@
 @forward 'layout/flexbox';
 
 :root {
+  // Token custom properties (--uiowa-*) are defined in abstracts/_tokens-generated.scss,
+  // generated from tokens/**. The names below are legacy aliases kept for backwards
+  // compatibility — new code should consume the --uiowa-* names directly.
+
   // Colors - Brand official
-  --uiowa-gold: #FFCD00;
-  --uiowa-black: #000000;
-  --brand-primary: var(--uiowa-gold);
-  --brand-secondary: var(--uiowa-black);
-  --uids-gray-cool: #63666A;
-  --link-color: #00558C;
+  --uiowa-gold: var(--uiowa-color-gold);
+  --uiowa-black: var(--uiowa-color-black);
+  --brand-primary: var(--uiowa-color-brand);
+  --brand-secondary: var(--uiowa-color-black);
+  --uids-gray-cool: var(--uiowa-color-gray-500);
+  --link-color: var(--uiowa-color-link);
 
   // Colors - Unofficial
-  --uids-light: #F3F3F3;
-  --uids-gray-mid: #9a9a9a;
-  --uids-gray: #737373;
-  --uids-gray-light: #CACACA;
-  --transparent-border: rgb(0, 0, 0, .125);
+  --uids-light: var(--uiowa-color-gray-100);
+  --uids-gray-mid: var(--uiowa-color-gray-300);
+  --uids-gray: var(--uiowa-color-gray-400);
+  --uids-gray-light: var(--uiowa-color-gray-200);
+  --transparent-border: var(--uiowa-color-border-default);
 
   // Margin/Padding
-  --space-lg-width-gutter: 3rem;
-  --space-md-width-gutter: 2rem;
-  --space-sm-width-gutter: 1.25rem;
+  --space-lg-width-gutter: var(--uiowa-space-300);
+  --space-md-width-gutter: var(--uiowa-space-200);
+  --space-sm-width-gutter: var(--uiowa-space-125);
 }
 
 html {

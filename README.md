@@ -3,6 +3,20 @@ A design system for the University of Iowa.
 
 See the documentation at http://uids.brand.uiowa.edu.
 
+## Design system artifacts (machine-readable)
+
+- **[tokens/](tokens/README.md)** — design tokens, the source of truth for colors and
+  typography (tier 1 primitives → tier 2 semantic → tier 3 component). The Figma library
+  variables are generated from these files.
+- **[contracts/](contracts/README.md)** — per-component contracts: the neutral spec of
+  each component's options, slots, tokens, and behavior that both the Vue code and the
+  Figma library must match. Start here to understand a component's public shape.
+- **[catalog/](catalog/catalog.json)** — the agent entry point (derived; do not edit): an
+  index linking to contracts and rules, plus the alias-resolved token inventory. AI agents
+  generating with UIDS start at `catalog/catalog.json` and follow its reading order.
+- **Figma library**: https://www.figma.com/design/hNShklBztaeaQneScM0KoM/UIDS
+- **Drift checks**: `node scripts/check-contracts.mjs` and `node scripts/build-catalog.mjs --check`
+
 ## Documentation
 The documentation uses Vue.js. You can build and run a local version to aid in development.
 
@@ -71,9 +85,13 @@ While we have not done a perfect job of applying any of these standards, we reco
 * Block Element Modifier (BEM) CSS syntax: https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/
 
 ### Creating a PR
-When your feature branch is ready for testing or after you have made any requested changes, you need to run the following command to make sure that the distribution files get updated:
+When your feature branch is ready for testing or after you have made any requested changes, run the build to confirm the tokens and SCSS compile cleanly (note: `dist/` is gitignored — nothing to commit):
 ```bash
-yarn dist
+yarn build
+```
+If you changed `tokens/` or `contracts/`, also regenerate and check the derived artifacts:
+```bash
+node scripts/build-tokens.mjs && node scripts/build-catalog.mjs && node scripts/check-contracts.mjs
 ```
 
 ### Creating a Release

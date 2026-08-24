@@ -1,0 +1,14 @@
+{
+  "callout": {
+    "padding": {
+      "base": {
+        "value": "{space.200}",
+        "comment": "callout.scss:8 — `--callout-spacing-md: var(--space-md-width-gutter);`, consumed unconditionally at callout.scss:11 (`padding: var(--callout-spacing-md);`, applies at every viewport when no bg--* class is present) and redundantly re-declared at callout.scss:13 inside `@include utilities.breakpoint(sm)` before the background override (see claims: redundant, not a rendering bug). Chain: --space-md-width-gutter (uids-core.scss:36) = var(--uiowa-space-200) = space.200 = 2rem/32px. Reused primitive; no new value minted."
+      },
+      "with-background": {
+        "value": "{space.300}",
+        "comment": "callout.scss:7 — `--callout-spacing-lg: var(--space-lg-width-gutter);`, consumed at callout.scss:15 inside `@include utilities.breakpoint(sm) { &[class*=\"bg-\"] { ... } }` (callout.scss:12-16). Chain: --space-lg-width-gutter (uids-core.scss:35) = var(--uiowa-space-300) = space.300 = 3rem/48px. Reused primitive; no new value minted. Only applies at/above the `sm` breakpoint (768px, variables.$break-sm at _variables.scss:97, resolved via the `breakpoint(sm)` mixin at _breakpoints.scss:17-21 — a FOURTH breakpoint outside the tier-3 mobile/md(980)/page(1350) vocabulary, same class of gap as Inline's own xxsm/xsm/lg breakpoints) AND when the callout element itself carries a bg--{color} class."
+      }
+    }
+  }
+}

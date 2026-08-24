@@ -105,3 +105,78 @@ export const VerticalMenu = {
     label: "Section",
   },
 };
+
+const branchItems = [
+  {
+    label: 'Program groups',
+    children: [
+      { label: 'Active nested item', url: '#active-nested', active: true },
+      { label: 'Nested link', url: '#nested-link' },
+    ],
+  },
+  { label: 'Standalone link', url: '#standalone' },
+];
+
+// Exercises three branches absent from the original fixture: top=false (no nav
+// landmark), a children-only group label, and an active nested link.
+export const Branches = {
+  render: (args) => ({
+    components: { UidsMenu },
+    setup() {
+      return { args };
+    },
+    template: `
+      <div class="menu-branches">
+        <uids-menu v-bind="args" />
+      </div>
+    `,
+  }),
+  args: {
+    variant: 'vertical',
+    items: branchItems,
+    label: 'Branch coverage',
+    top: false,
+  },
+};
+
+export const Container = {
+  render: (args) => ({
+    components: { UidsMenu },
+    setup() {
+      return { args };
+    },
+    template: `
+      <div class="column-container menu--container">
+        <uids-menu v-bind="args" :top="true" />
+      </div>
+    `,
+  }),
+  args: {
+    variant: 'horizontal',
+    items: menuItems,
+    label: 'Container menu',
+  },
+};
+
+export const OnLightBackgrounds = {
+  render: (args) => ({
+    components: { UidsMenu },
+    setup() {
+      return { args };
+    },
+    template: `
+      <div>
+        <div class="bg--white menu-context--white" style="padding: 1rem">
+          <uids-menu v-bind="args" label="White background menu" :top="true" />
+        </div>
+        <div class="bg--gray menu-context--gray" style="padding: 1rem">
+          <uids-menu v-bind="args" label="Gray background menu" :top="true" />
+        </div>
+      </div>
+    `,
+  }),
+  args: {
+    variant: 'vertical',
+    items: branchItems,
+  },
+};

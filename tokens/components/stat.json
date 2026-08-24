@@ -1,0 +1,129 @@
+{
+  "stat": {
+    "title": {
+      "font-family": {
+        "value": "{typography.font-family.caps}",
+        "comment": "stat.scss:49 — font-family: variables.$font-family-caps-bold, compiles to var(--uiowa-font-family-caps). Reused primitive, same as Button/Headline's caps stack (Antonio)."
+      },
+      "font-weight": {
+        "value": "{typography.font-weight.bold}",
+        "comment": "stat.scss:50 — font-weight: bold (CSS keyword, not a Sass var, but resolves to the same 700 as every other component's $font-weight-bold). Reused primitive."
+      },
+      "line-height": {
+        "value": "{typography.line-height.100}",
+        "comment": "stat.scss:48 — line-height: 1 (unitless). NEW primitive proposed (typography.line-height.100): no existing line-height primitive (112/125/130/140/150/160/170) equals 1 — all are >= 1.125."
+      },
+      "font-size": {
+        "value": "{typography.font-size.950}",
+        "comment": "stat.scss:51 (mobile, unconditional, dart-sass-confirmed `font-size: 4rem;` on the base .stat__title rule) and :85 (inside the SURVIVING `@include utilities.breakpoint(sm)` block, dart-sass-confirmed `font-size: 5rem;` at `@media (min-width: 768px)`). Both NEW primitives — see newPrimitives. NOTE the breakpoint key here is `sm` (768px, `$break-sm`, _variables.scss:97), which is NOT one of tokens/README's three canonical leaf keys (mobile/md-980/page-1350) — see openQuestions. This is the ONLY live use of the `sm` breakpoint in the whole file; its sibling `sm` use (stat.scss:55-57) is specificity-dead (see claims) and contributes no value. Base/mobile value."
+      },
+      "font-size-at-sm": {
+        "value": "{typography.font-size.1000}",
+        "comment": "stat.scss:51 (mobile, unconditional, dart-sass-confirmed `font-size: 4rem;` on the base .stat__title rule) and :85 (inside the SURVIVING `@include utilities.breakpoint(sm)` block, dart-sass-confirmed `font-size: 5rem;` at `@media (min-width: 768px)`). Both NEW primitives — see newPrimitives. NOTE the breakpoint key here is `sm` (768px, `$break-sm`, _variables.scss:97), which is NOT one of tokens/README's three canonical leaf keys (mobile/md-980/page-1350) — see openQuestions. This is the ONLY live use of the `sm` breakpoint in the whole file; its sibling `sm` use (stat.scss:55-57) is specificity-dead (see claims) and contributes no value. Value used inside the existing 768px sm media query. Kept as a second scalar tier-3 variable because the Components collection has no sm mode; swap each existing declaration in place."
+      },
+      "border-color": {
+        "value": "{color.gold}",
+        "brandChannel": "primary",
+        "comment": "stat.scss:52 — border-bottom: 8px solid variables.$primary, compiles to var(--brand-primary) (dart-sass-confirmed). Restated verbatim at stat.scss:64-69 for four ancestor-scoped selectors (bg-pattern--brain / bg--white / bg--gray / bg--black) — see claims (redundant); those four are pure no-op restatements of this same base rule, not a distinct value. Shares stat/divider/width (8px) as its companion width."
+      },
+      "border-color-on-gold": {
+        "value": "{color.white}",
+        "comment": "stat.scss:79-82 — border-bottom: 8px solid white (literal CSS keyword, NOT variables.$secondary) inside .bg-pattern--brain-reversed/[class*=bg--gold] ancestor context. Flat, no brandChannel. Shares stat/divider/width (8px)."
+      },
+      "color-on-dark": {
+        "value": "{color.gold}",
+        "brandChannel": "primary",
+        "comment": "stat.scss:72-77 — color: variables.$primary (compiles to var(--brand-primary)) inside .stat--horizontal.bg-pattern--brain-black/.stat--horizontal[class*=bg--black]/.bg-pattern--brain-black/[class*=bg--black] ancestor context — the title text itself turns gold under a black/brain-black ancestor (the base rule sets no explicit color, so this is additive, not an override of another stat color value). Value-identical (including brandChannel) to the Background foundation's own color/on-dark/link semantic role (tokens/semantic/colors.json) — see claims (value-reuse)."
+      }
+    },
+    "divider": {
+      "width": {
+        "value": "8px",
+        "comment": "Raw px, no primitive reference (matches Button's focus-bar/height precedent, tokens/components/button.json — a raw structural dimension, not a spacing-scale value). Shared companion width for FOUR border declarations: stat.scss:52 (title default), :81 (title on-gold), :218 (horizontal content default), :188 (horizontal content on-gold) — all four are the literal `8px`, dart-sass-confirmed. Distinguished from padding/margin (geometryNotTokenized) because it is a decorative structural element (the component's signature colored divider bar), analogous to Button's tokenized focus-bar height, not layout rhythm."
+      }
+    },
+    "description": {
+      "font-family": {
+        "value": "{typography.font-family.caps}",
+        "comment": "stat.scss:134 — font-family: variables.$font-family-caps-bold. Same primitive as stat/title/font-family; kept as a separate leaf (one per rendered slot) matching Button's per-slot naming convention (button/font-family vs button/light-font/font-family) even where values coincide."
+      },
+      "font-weight": {
+        "value": "{typography.font-weight.bold}",
+        "comment": "stat.scss:135 — font-weight: bold."
+      },
+      "font-size": {
+        "mobile": {
+          "value": "{typography.font-size.250}",
+          "comment": "stat.scss:137 (mobile/base, dart-sass-confirmed `font-size: 1.3rem;`) — EXISTING primitive typography.font-size.250, exact match, no minting needed. stat.scss:147-149 (`@include utilities.breakpoint(md)`, dart-sass-confirmed `font-size: 1.5rem;` at `@media (min-width: 980px)`) — NEW primitive, see newPrimitives. `md` here is the canonical 980px leaf key, no ambiguity (unlike stat/title/font-size's `sm`)."
+        },
+        "md": {
+          "value": "{typography.font-size.375}",
+          "comment": "stat.scss:137 (mobile/base, dart-sass-confirmed `font-size: 1.3rem;`) — EXISTING primitive typography.font-size.250, exact match, no minting needed. stat.scss:147-149 (`@include utilities.breakpoint(md)`, dart-sass-confirmed `font-size: 1.5rem;` at `@media (min-width: 980px)`) — NEW primitive, see newPrimitives. `md` here is the canonical 980px leaf key, no ambiguity (unlike stat/title/font-size's `sm`)."
+        },
+        "page": {
+          "value": "{typography.font-size.375}",
+          "comment": "stat.scss:137 (mobile/base, dart-sass-confirmed `font-size: 1.3rem;`) — EXISTING primitive typography.font-size.250, exact match, no minting needed. stat.scss:147-149 (`@include utilities.breakpoint(md)`, dart-sass-confirmed `font-size: 1.5rem;` at `@media (min-width: 980px)`) — NEW primitive, see newPrimitives. `md` here is the canonical 980px leaf key, no ambiguity (unlike stat/title/font-size's `sm`)."
+        }
+      },
+      "color-on-dark": {
+        "value": "{color.white}",
+        "comment": "stat.scss:142-145 — color: white (literal CSS keyword) inside .bg-pattern--brain-black/[class*=bg--black] ancestor context. Flat, no brandChannel."
+      }
+    },
+    "content": {
+      "color": {
+        "value": "{color.gray.450}",
+        "comment": "stat.scss:95 — color: #666 (literal, dart-sass-confirmed verbatim `color: #666;`). NO EXACT PRIMITIVE MATCH — nearest existing is color.gray.400 (#737373), a visibly different value (dart-sass will not silently reconcile these; they render differently). This spec recommends tokenizing as-shipped (NEW primitive color.gray.450, ARCHITECT CALL — see openQuestions and knownIssues) rather than silently reusing gray.400 and shifting rendered pixels."
+      },
+      "line-height": {
+        "value": "{typography.line-height.140}",
+        "comment": "stat.scss:98 — line-height: 1.4. EXISTING primitive, exact match (also used by button/line-height)."
+      },
+      "color-on-dark": {
+        "value": "{color.gray.175}",
+        "comment": "stat.scss:114-117 — color: #ccc (literal) inside [class*=bg--black]/.bg-pattern--brain-black ancestor context. EXISTING primitive, exact match (#CCCCCC), confirmed by tokens/primitives/colors.json's own comment ('4.x: hardcoded #ccc'). Flat."
+      },
+      "color-on-gold": {
+        "value": "{color.black}",
+        "brandChannel": "secondary",
+        "comment": "stat.scss:119-122 — color: variables.$secondary (compiles to var(--brand-secondary)) inside .bg-pattern--brain-reversed/[class*=bg--gold] ancestor context."
+      }
+    },
+    "horizontal": {
+      "title": {
+        "font-size": {
+          "value": "{typography.font-size.850}",
+          "comment": "stat.scss:195 — font-size: 3.1rem, unconditional (constant across all breakpoints in horizontal layout — unlike default layout's mobile/sm split; dart-sass confirms no other rule touches this property for this selector at any breakpoint). NEW primitive proposed — see newPrimitives."
+        }
+      },
+      "content": {
+        "font-size": {
+          "value": "{typography.font-size.125}",
+          "comment": "stat.scss:213 — font-size: 1.1rem, unconditional. EXISTING primitive, exact match (1.1rem)."
+        },
+        "border-color": {
+          "value": "{color.gold}",
+          "brandChannel": "primary",
+          "comment": "stat.scss:212-221 — border-top: 8px solid variables.$primary inside `@include utilities.breakpoint(md)` (980px+), the DEFAULT (non-gold-ancestor) horizontal content divider. Shares stat/divider/width (8px)."
+        },
+        "border-color-on-gold": {
+          "value": "{color.black}",
+          "brandChannel": "secondary",
+          "comment": "stat.scss:180-192 — border-top: 8px solid variables.$secondary inside `@include utilities.breakpoint(page-container)` (1350px+) AND a gold/brain-reversed ancestor. Higher-specificity selector than stat/horizontal/content/border-color's, but gated on a WIDER breakpoint (page-container, 1350px vs md, 980px) — between 980-1349px on a gold ancestor, the border is still gold (this on-gold override has not activated yet); see behavior. Shares stat/divider/width (8px)."
+        }
+      },
+      "prefix-suffix": {
+        "font-size": {
+          "value": "{typography.font-size.650}",
+          "comment": "stat.scss:224-227 — the horizontal-layout override of the same joint prefix/suffix rule, font-size: 2.1rem. EXISTING primitive, exact match (typography.font-size.650, 'light-intro clamp large end')."
+        }
+      }
+    },
+    "prefix-suffix": {
+      "font-size": {
+        "value": "{typography.font-size.925}",
+        "comment": "stat.scss:166-169 — the joint `.headline__prefix, .headline__suffix { font-size: 3.5rem; vertical-align: middle; }` rule (default/non-horizontal layout). Modelled as ONE token (not two) because the SCSS itself is a single comma-selector declaration with one value, never authored or overridden independently. Font-family/weight/text-transform are NOT separately declared here — prefix/suffix are inline <span>s nested inside .stat__title and inherit Antonio-bold/uppercase from it; no new token needed for those channels. NEW primitive proposed — see newPrimitives."
+      }
+    }
+  }
+}

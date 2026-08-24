@@ -80,3 +80,41 @@ export const Background = {
     section_background: 'bg--black',
   },
 }
+
+// All 16 background treatments in one DOM so the computed-style regression
+// harness (regression/config.json "background") can capture every swatch's
+// background-color, foreground cascade, link color and border-color in a
+// single story. Each swatch carries prose + a link because the system's
+// public behavior includes the type-mapped foreground cascade and the
+// white/gray link-color restoration.
+const allBackgroundClasses = [
+  'bg--black',
+  'bg--black--pattern--brain',
+  'bg--black--pattern--community',
+  'bg--black--pattern--particle',
+  'bg--gold',
+  'bg--gold--pattern--brain',
+  'bg--gold--pattern--community',
+  'bg--gold--pattern--particle',
+  'bg--gray',
+  'bg--gray--pattern--brain',
+  'bg--gray--pattern--community',
+  'bg--gray--pattern--particle',
+  'bg--white',
+  'bg--white--pattern--brain',
+  'bg--white--pattern--community',
+  'bg--white--pattern--particle',
+];
+
+export const AllBackgrounds = {
+  render: () => ({
+    template: `
+      <div>
+        ${allBackgroundClasses.map((cls) => `
+        <div class="${cls}" style="min-height: 120px; padding: 1rem;">
+          <p>${cls} sample text with a <a href="#">sample link</a>.</p>
+        </div>`).join('')}
+      </div>
+    `,
+  }),
+}

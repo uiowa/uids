@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet data-dc-atomics>
+        <link rel="stylesheet" href="./tokens.css" />
+        <style>
+          /* ---- page reset (src/scss/base/_reset.scss:32-53), verbatim ----
+             Not this component's own SCSS, but production applies it globally to <html>,
+             so every rule below was authored against border-box. Without it, any element
+             combining a percentage width with padding renders wider than production —
+             measured at +96px on Callout before this was added. Reproduced across the
+             Phase 3 batch for that reason; see Table.dc.html for the original finding. */
+          html{box-sizing:border-box}
+          *,*::before,*::after{box-sizing:inherit}
+          /* font-size:100% mirrors src/scss/base/_reset.scss (body{font-size:100%}), the
+             ambient production supplies. Since 2026-08-20 the badge's own size no longer
+             depends on that ambient value — it is an absolute 0.75rem — but the body rule
+             stays because it is what the reset does and other inherited type still rides
+             it. Badge declares NO font-family (badge.scss), it inherits the page body
+             font; supplied here at body level the same way Page Scaffold.dc.html supplies
+             it, so any real ancestor font in a composed page still wins over it. */
+          body{margin:0;font-size:100%;font-family:var(--uiowa-font-family-body)}
+
+          /* Mirrors src/scss/components/badge.scss in SOURCE ORDER. The sheet is flat —
+             six sibling modifiers, no compound selectors, no ancestor-context rules — so
+             nothing here depends on the cascade beyond base-then-modifier.
+
+             CHANGED 2026-08-20 (contracts/badge.json changes[0], the design system owner's ruling): the badge
+             no longer resizes with its ancestor. font-size is an absolute 0.75rem, so an
+             imported badge measures 12px text / 9px inline padding / 12px radius /
+             20.04px line-height NO MATTER what it is nested in — including a heading,
+             which was the case that prompted the change. padding-inline (.75em) and
+             border-radius (1em) are still em and still reproduced verbatim, but they now
+             resolve against that fixed base, so they track the badge's own type rather
+             than its surroundings. FIGMA NOW AGREES, as of 2026-08-21: badge/padding/inline
+             is 9 and badge/border-radius is 12, and all six variants are BOUND to them and
+             to badge/font-size (which had been a leftover raw 75 from the percentage era).
+             Until then Figma held 12 and 16 and painted the padding as a literal unbound
+             9px — the 2026-08-16 "visual truth wins in a design library" ruling, made when
+             the base was a percentage of an unknown parent and the em values were genuinely
+             not computable from tokens. The de-flex change above made them computable; the
+             rebind moved zero pixels and closed the gap between what the file showed and
+             what it could prove. See contracts/badge.json changes[3] — it is no longer a
+             knownIssue. */
+          .badge{
+            display:inline-block;
+            padding:var(--uiowa-badge-padding-block) var(--uiowa-badge-padding-inline);
+            line-height:var(--uiowa-badge-line-height);
+            font-size:var(--uiowa-badge-font-size);
+            font-weight:var(--uiowa-badge-font-weight);
+            color:var(--uiowa-badge-color);
+            /* Verbatim from badge.scss:11. No modifier ever overrides it, so it paints
+               nothing and only reserves 1px of box. Width is hardcoded per the Border
+               foundation's convention and `transparent` is a CSS keyword with no token —
+               contracts/badge.json geometryNotTokenized. */
+            border:1px solid transparent;
+            border-radius:var(--uiowa-badge-border-radius);
+          }
+
+          /* primary is the ONLY modifier that also sets color (to black). */
+          .badge--primary{background:var(--uiowa-badge-primary-background);color:var(--uiowa-badge-primary-color)}
+          /* The five below declare background ONLY — they inherit the base white
+             --uiowa-badge-color. Spelling out a color on any of them would be a
+             fabrication, not a fix (contracts/badge.json behavior). */
+          .badge--secondary{background:var(--uiowa-badge-secondary-background)}
+          .badge--cool-gray{background:var(--uiowa-badge-cool-gray-background)}
+          /* --blue is the $info status color and --orange is $danger, not literal hues;
+             the class names are a de facto public API consumed by PHP controllers
+             downstream, so the mismatch is documented, never renamed (knownIssues). */
+          .badge--blue{background:var(--uiowa-badge-blue-background)}
+          .badge--green{background:var(--uiowa-badge-green-background)}
+          .badge--orange{background:var(--uiowa-badge-orange-background)}
+
+          /* dc-only preview contexts — NOT production classes and not part of the
+             component's public shape. They set the same two parent font-sizes the shipped
+             ContextSizes story pins (Badge.stories.js: 1rem and 2rem, i.e.
+             .badge-context--body / --large). Since the de-flex change these two render the
+             badge IDENTICALLY, which is the point: the knob is now a way to SEE that the
+             badge holds its size, where before it demonstrated the opposite. Default is
+             `inherit`, which emits NO wrapper class at all. */
+          .dc-badge-context--body{font-size:1rem}
+          .dc-badge-context--large{font-size:2rem}
+        </style>
+      </helmet>
+      <div class="{{ contextClass }}">
+        <span class="{{ rootClass }}">{{ text }}</span>
+      </div>
+      <!-- Not templated, deliberately: uids_base (downstream) ships a 7th modifier,
+           .badge--light, and re-declares the base .badge as inline-flex with a Font
+           Awesome icon rule. Neither exists in Badge.vue's validator or badge.scss, and
+           Badge has no slot or prop that could render an icon — templating either would
+           invent public shape UIDS does not have. See contracts/badge.json knownIssues. -->
+    </x-dc>
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{
+  "$preview": { "width": 480, "height": 180 },
+  "text": { "editor": "text", "default": "New", "tsType": "string" },
+  "type": { "editor": "enum", "options": ["primary", "secondary", "cool-gray", "blue", "green", "orange"], "default": "primary", "tsType": "string" },
+  "preview_context": { "editor": "enum", "options": ["inherit", "body", "large"], "default": "inherit", "tsType": "string" }
+}'
+    >
+      class Component extends DCLogic {
+        renderVals() {
+          // Mirrors the `classes` computed in src/components/badge/Badge.vue:24-29,
+          // which always resolves to exactly ['badge', `badge--${type}`] — there is no
+          // code path that emits .badge alone, two modifiers, or an unlisted value.
+          const type = this.props.type ?? 'primary';
+          const classes = ['badge', 'badge--' + type];
+          // preview_context is an EDITOR-ONLY context knob, not a component prop — the
+          // same role Headline's preview_on_gold plays. It stands in for the ancestor
+          // font-size a real page provides; 'inherit' emits no class so nothing is forced.
+          // Post-de-flex the badge renders the same in every setting; the knob is kept so
+          // that invariance is demonstrable rather than merely asserted.
+          const context = this.props.preview_context ?? 'inherit';
+          return {
+            rootClass: classes.join(' '),
+            contextClass: context === 'inherit' ? '' : 'dc-badge-context--' + context,
+            // Badge.vue:18-21 marks text required with no default; an omitted value is a
+            // Vue prop-validation warning, so the badge renders as an empty pill.
+            text: this.props.text ?? ''
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,354 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/uiowa/uids/contracts/contract.schema.json",
+  "title": "UIDS Component Contract",
+  "description": "Neutral per-component specification. Figma and code are both generated views of this contract; neither updates the other directly. Changes flow contract-first through review.",
+  "type": "object",
+  "required": [
+    "name",
+    "version",
+    "identity",
+    "options",
+    "tokensUsed"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "description": {
+      "type": "string"
+    },
+    "identity": {
+      "type": "object",
+      "required": [],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "description": "Defaults to \"component\". Foundation contracts describe shared behavior (layout, spacing) rather than one Vue component; their codePath is a partial, not a .vue file, and their tokensUsed resolve against primitives/semantic instead of tokens/components. PATTERN contracts describe a prescribed COMPOSITION of existing components (see composedOf) rather than any single implementation; they have no codePath at all, because there is no one file to point at \u2014 the pattern lives in how the pieces are arranged.",
+          "enum": [
+            "component",
+            "foundation",
+            "pattern"
+          ]
+        },
+        "codePath": {
+          "description": "Required for every kind EXCEPT pattern. That requirement is enforced in check-contracts.mjs rather than by this schema's required[], because it is conditional on identity.kind and the schema walker is not kind-aware: a pattern is a prescribed composition of components, so there is no single file to point at.",
+          "type": "string"
+        },
+        "scssPath": {
+          "type": "string"
+        },
+        "relatedPaths": {
+          "description": "Additional files the contract spans. Foundation contracts describe behavior that lives across several partials rather than in one component file.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "downstreamPaths": {
+          "description": "Consumer-owned paths (e.g. uiowa/uiowa's uids_base theme) that implement or extend this contract. Recorded so a change here can be traced downstream; UIDS does not own these files.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "registeredName": {
+          "type": "string"
+        },
+        "barrelExport": {
+          "type": "string"
+        },
+        "storybookId": {
+          "type": "string"
+        },
+        "storybookUrl": {
+          "type": "string"
+        },
+        "figma": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "fileKey": {
+              "type": "string"
+            },
+            "componentSetName": {
+              "type": "string"
+            },
+            "componentSetId": {
+              "type": "string"
+            },
+            "componentKey": {
+              "type": "string"
+            },
+            "page": {
+              "type": "string"
+            },
+        "note": {
+          "description": "What the Figma set IS, in a sentence or two: the axes, their values, and the resulting variant count. NOT a build log. Rationale goes in axisRationale, measured dimensions in measured, and what the set deliberately does not draw in deliberateOmissions. Narrative about what an earlier pass got wrong belongs in .claude/sessions/, not here — it goes stale and nothing checks it.",
+          "type": "string",
+          "maxLength": 600
+        },
+        "axisRationale": {
+          "description": "Why the axes are shaped this way — one entry per decision, each naming the ruling or the mechanism that forces it. This is the part a later agent must not re-litigate.",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "measured": {
+          "description": "Values MEASURED off the built set rather than computed, so a later verification pass compares against what was actually drawn. Keys are free-form (e.g. \"headline\", \"height/large\").",
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "deliberateOmissions": {
+          "description": "What the set deliberately does NOT draw, and why — so nobody \"completes\" it and reintroduces a problem the omission was avoiding.",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "precedent": {
+          "description": "The earlier component whose pattern this set follows, if any.",
+          "type": "string"
+        }
+          }
+        },
+        "claudeDesign": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "projectId": {
+              "type": "string"
+            },
+            "template": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "options": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "description": "\"object\" and \"array\" describe props whose value is a structure rather than a scalar (Banner's headline object, the items arrays on accordion/breadcrumbs/menu/tabs). Vue requires a factory default for both, which check-contracts unwraps before comparing.",
+            "enum": [
+              "boolean",
+              "string",
+              "enum",
+              "number",
+              "object",
+              "array"
+            ]
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "default": {},
+          "status": {
+            "enum": [
+              "active",
+              "planned",
+              "deprecated"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "code": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "prop": {
+                "type": "string"
+              },
+              "class": {
+                "description": "The single CSS class this option applies. For boolean options, where presence of one class IS the option.",
+                "type": "string"
+              },
+              "classes": {
+                "description": "Map of option value → CSS class, for enum options where each value selects a different class.",
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "mediaQuery": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "notes": {
+                "type": "string"
+              }
+            }
+          },
+          "figma": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "axis": {
+                "type": "string"
+              },
+              "map": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "property": {
+                "type": "string"
+              },
+              "notes": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "slots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "behavior": {
+            "type": "string"
+          },
+          "figma": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "property": {
+                "type": "string"
+              },
+              "notes": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "tokensUsed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "component",
+          "contract"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "component": {
+            "type": "string"
+          },
+          "contract": {
+            "type": "string"
+          },
+          "fixed": {
+            "type": "object"
+          },
+          "inherits": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "geometryNotTokenized": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "a11y": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "landmark": {
+          "type": "string"
+        },
+        "attrs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "behavior": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "breakpoints": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "assets": {
+      "type": "object"
+    },
+    "composedOf": {
+      "description": "Pattern contracts only: the component ids this pattern arranges, e.g. [\"card\"]. A pattern PINS the options it depends on (a stacked item list pins borderless:true and one-per-row) rather than re-declaring them, so a reader can always trace a pattern back to the contracts it composes.",
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "changes": {
+      "description": "Deliberate decisions about the component, each naming the ruling and the date. Two kinds qualify: a change to the component's SHIPPED RENDERING (an intended departure from 4.x-as-shipped), and a decision about the component's PUBLIC SHAPE that moves no pixels — including DECLINING a proposal, where what is recorded is that the absence is a settled answer rather than an oversight. Distinct from knownIssues, which records defects: an entry here is intended, and is written so a later agent does not \"restore\" it as a fidelity correction or re-litigate a question already closed.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "knownIssues": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

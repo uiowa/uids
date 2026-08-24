@@ -1,0 +1,178 @@
+{
+  "$schema": "./contract.schema.json",
+  "name": "layout",
+  "version": "1.0.0",
+  "description": "Foundations contract for the layout & spacing system: containers, section layouts, section rhythm, and content grids. UIDS owns the vocabulary (spacing scale, gutters, breakpoints, container caps); uids_base (SiteNow) is the downstream consumer whose Layout Builder classes express these patterns. Not a component — no Vue code, no Figma component set.",
+  "identity": {
+    "kind": "foundation",
+    "codePath": "src/scss/abstracts/_grid-mixins.scss",
+    "relatedPaths": [
+      "src/scss/abstracts/_utility-classes.scss",
+      "src/scss/abstracts/_utilities.scss",
+      "src/scss/abstracts/_breakpoints.scss",
+      "src/scss/abstracts/_variables.scss"
+    ],
+    "downstreamPaths": [
+      "uiowa/docroot/themes/custom/uids_base/scss/global.scss",
+      "uiowa/docroot/themes/custom/uids_base/scss/layouts/",
+      "uiowa/docroot/themes/custom/uids_base/scss/components/grid.scss",
+      "uiowa/config/default/layout_builder_styles.style.*"
+    ],
+    "figma": {
+      "fileKey": "hNShklBztaeaQneScM0KoM",
+      "page": "Foundations / Layout",
+      "note": "Documentation page (container frames + layout grids), not a component set. space/* and layout/* variables live in the Primitives and Semantic collections."
+    }
+  },
+  "options": [
+    {
+      "name": "container",
+      "type": "enum",
+      "values": ["standard", "narrow", "wide", "full", "edge"],
+      "default": "standard",
+      "description": "Section container behavior: outer width and page margin. Standard: 1.25rem side margins, caps/centers at 81.875em from the page-container breakpoint. Narrow: caps at 63.75em from md. Wide: caps at 100em with 1.875rem side padding at page-container. Full: viewport-wide with 1.25rem/3rem margins. Edge: no outer margins.",
+      "code": {
+        "classes": {
+          "standard": "page__container--normal",
+          "narrow": "page__container--narrow",
+          "wide": "page__container--extended",
+          "full": "page__container--full",
+          "edge": "page__container--edge"
+        },
+        "notes": "standard's visual behavior is largely the default container mixin; the modifier class adds little"
+      }
+    },
+    {
+      "name": "layout",
+      "type": "enum",
+      "values": [
+        "onecol", "onecol-fixed", "sidebar",
+        "twocol-50-50", "twocol-33-67", "twocol-67-33", "twocol-25-75", "twocol-75-25",
+        "threecol-33-34-33", "threecol-50-25-25", "threecol-25-25-50", "threecol-25-50-25",
+        "fourcol"
+      ],
+      "default": "onecol",
+      "description": "Section column structure. Mobile-first: every multi-column layout stacks below md (980px), then adopts its ratio. Ratios are authored patterns, not a universal 12-column grid.",
+      "code": {
+        "classes": {
+          "onecol": "layout--onecol",
+          "onecol-fixed": "layout--onecol--fixed",
+          "sidebar": "layout--has-sidebar",
+          "twocol-50-50": "layout--twocol (50/50)",
+          "fourcol": "layout--fourcol"
+        },
+        "notes": "class families live in uids_base scss/layouts/; 50/50 and 33/34/33 consume the shared UIDS grid mixins"
+      }
+    },
+    {
+      "name": "contentGrid",
+      "type": "enum",
+      "values": ["none", "twocol-50-50", "threecol-33-34-33", "fourcol-25", "twocol-25-75"],
+      "default": "none",
+      "description": "Modular grid for repeated content (cards, lists, feeds) inside a region. Activation is gated by parent region width (inner-grid mixin: twocol needs parent >= 50%, threecol/fourcol >= 75%).",
+      "code": {
+        "classes": {
+          "twocol-50-50": "grid--twocol--50-50",
+          "threecol-33-34-33": "grid--threecol--33-34-33",
+          "fourcol-25": "grid--fourcol--25",
+          "twocol-25-75": "grid--twocol--25-75"
+        }
+      }
+    },
+    {
+      "name": "sectionPaddingRemovedTop",
+      "type": "boolean",
+      "default": false,
+      "description": "Layout Builder: Remove top spacing (top padding 0)",
+      "code": { "class": "section-padding__removed-top" }
+    },
+    {
+      "name": "sectionPaddingRemovedBottom",
+      "type": "boolean",
+      "default": false,
+      "description": "Layout Builder: Remove bottom spacing (bottom padding 0)",
+      "code": { "class": "section-padding__removed-bottom" }
+    },
+    {
+      "name": "sectionPaddingTopExtra",
+      "type": "boolean",
+      "default": false,
+      "description": "Layout Builder: Add extra top spacing (top padding = layout/section/padding/extra)",
+      "code": { "class": "section-padding__top-extra" }
+    },
+    {
+      "name": "sectionPaddingBottomExtra",
+      "type": "boolean",
+      "default": false,
+      "description": "Layout Builder: Add extra bottom spacing (bottom padding = layout/section/padding/extra)",
+      "code": { "class": "section-padding__bottom-extra" }
+    },
+    {
+      "name": "sectionPaddingTopRestored",
+      "type": "boolean",
+      "default": false,
+      "description": "Layout Builder: Restore default spacing — TOP EDGE ONLY (see knownIssues)",
+      "code": { "class": "section-padding__top-restored" }
+    },
+    {
+      "name": "columnSpacingRemoved",
+      "type": "boolean",
+      "default": false,
+      "description": "Layout Builder: Remove default column spacing (region gaps and stacked-region spacing)",
+      "code": { "class": "column-spacing__removed" }
+    },
+    {
+      "name": "sectionOrderReversed",
+      "type": "boolean",
+      "default": false,
+      "description": "Layout Builder: Reverse column order on mobile",
+      "code": { "class": "section-order__reversed" }
+    }
+  ],
+  "tokensUsed": [
+    "layout/gutter/width/mobile",
+    "layout/gutter/width/desktop",
+    "layout/gutter/height/mobile",
+    "layout/gutter/height/desktop",
+    "layout/section/padding/mobile",
+    "layout/section/padding/default",
+    "layout/section/padding/extra",
+    "layout/block/stack/default",
+    "layout/block/stack/compact",
+    "layout/block/stack/extra",
+    "layout/container/max/standard",
+    "layout/container/max/narrow",
+    "layout/container/max/wide",
+    "layout/container/padding/wide",
+    "layout/breakpoint/sm",
+    "layout/breakpoint/md",
+    "layout/breakpoint/page"
+  ],
+  "geometryNotTokenized": {
+    "sidebar-ratio": "24.25% sidebar / 72.75% content, separated by 3% right margin on the sidebar (md+); content 100% when sidebar hidden",
+    "grid-minmax": "content-grid tracks: twocol minmax(46.7%, 1fr), threecol minmax(29.74%, 1fr), fourcol minmax(21%, 1fr) — auto-fill",
+    "inner-grid-breakpoint": "58.125em (930px) internal breakpoint in _grid-mixins.scss for three/four-col inner grids and twocol's fixed 1fr 1fr switch — NOT one of the tokenized breakpoints",
+    "onecol-fixed-padding": "1.1rem top/bottom (space/110), a condensed band outside the section rhythm",
+    "twocol-25-75-gaps": "1.5rem gap at sm -> 3rem at page-container (only content grid whose gap steps at page-container)",
+    "block-margin-utilities": "1.05rem base (space/105), --extra variants step to 2rem at sm; __right/__left have no mobile value",
+    "strays": "0.2rem and 1.75rem appear once each in uids_base layouts; left raw deliberately"
+  },
+  "behavior": [
+    "Mobile-first: all multi-column layouts stack below md (980px); stacked regions use layout/gutter/height/mobile (2rem) bottom spacing",
+    "Section rhythm steps at sm (768px), NOT md: padding goes 1.25rem -> 3rem top/bottom; the first section removes top padding",
+    "Adjacent sections with the same background treatment (none/gold/black/gray/brain variants) merge: the second removes its top padding",
+    "Block stacking: sibling blocks in Layout Builder regions get 1.6rem top spacing (layout/block/stack/default); .block-margin__top reduces to 1.05rem, __top--extra becomes 2rem from sm, __default--removed zeroes it — the margin utilities are authored overrides on the default rhythm, not purely additive",
+    "Containers cap/center at the page-container breakpoint (1350px): standard 81.875em, wide 100em + 1.875rem side padding; narrow caps earlier (md, 63.75em)",
+    "Content grids: non-grid lists stack at 2rem; grid gaps are 2rem mobile -> 3rem from sm (desktop gutter)"
+  ],
+  "breakpoints": {
+    "sm": 768,
+    "md": 980,
+    "page-container": 1350
+  },
+  "knownIssues": [
+    "section-padding__top-restored restores the TOP edge only; there is no bottom-restore class",
+    "The word 'md' means two different things in 4.x SCSS: $md = 1.05rem (a spacing value) vs $break-md / --space-md-width-gutter (breakpoint / 2rem). The space.* scale supersedes the spacing sense.",
+    "grid--twocol--50-50 column-gap uses var(--space-lg-width-gutter) while threecol/fourcol use $desktop-width-gutter — same 3rem value via two mechanisms (compile-time vs runtime)"
+  ]
+}

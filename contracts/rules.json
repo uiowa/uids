@@ -1,0 +1,98 @@
+{
+  "description": "Governance rules for agents generating designs or code with UIDS. enforcement: 'judge' = mechanically checkable (by a checker script or Figma readback); 'agent' = guidance the agent must follow but only a human review can fully verify. publishTo names the generated views that must carry the rule verbatim — scripts/build-dc-rules.mjs emits every publishTo:'claude-design' rule into claude-design/readme.md and Design System Guide.md, so THIS FILE IS THE ONLY PLACE A RULE IS EDITED. Rules with no publishTo are repo-facing only. A rule that describes a single view's own mechanics does NOT belong here — it belongs in that view (see readme.md's bare-element-styles rule, which is about dc-import's shared cascade and is enforced by check-claude-design.mjs).",
+  "rules": [
+    {
+      "id": "components-from-catalog",
+      "enforcement": "judge",
+      "rule": "Only use components, options, and option values that exist in the catalog. Never invent props, variants, or values not listed in a component's contract. If something needed is missing, report it as a contract proposal instead of improvising.",
+      "publishTo": [
+        "claude-design"
+      ]
+    },
+    {
+      "id": "tokens-only",
+      "enforcement": "judge",
+      "rule": "Every color, font family, font weight, and font size must come from a token in catalog/tokens.json. No raw hex values or ad-hoc type sizes where a token exists.",
+      "publishTo": [
+        "claude-design"
+      ]
+    },
+    {
+      "id": "semantic-tier-first",
+      "enforcement": "judge",
+      "rule": "Consume semantic-tier tokens (color/text, font/size/heading/h2) rather than primitives (color/black, font/size/750), except where a component contract explicitly binds a primitive.",
+      "publishTo": [
+        "claude-design"
+      ]
+    },
+    {
+      "id": "respect-breakpoint-modes",
+      "enforcement": "judge",
+      "rule": "In Figma, component breakpoint variants must pin the Components collection mode (mobile / md (980) / page (1350)) and the Semantic collection mode (small (600) for Mobile/MD, large (1310) for Page). Dimension tokens with value 0 mean auto/content-driven — do not bind them."
+    },
+    {
+      "id": "second-row-forces-narrow",
+      "enforcement": "judge",
+      "rule": "Brand Bar: when Show Second Row is on (code: second_row_content slot present), the top bar must use narrow styling (Figma: Style=Narrow). The code enforces this implicitly; designs must match.",
+      "publishTo": [
+        "claude-design"
+      ]
+    },
+    {
+      "id": "page-heading-structure",
+      "enforcement": "agent",
+      "rule": "A page has TWO h1 elements as-shipped, and that is deliberate to document, not a bug to design around. uids_base templates/uids/site-name.html.twig emits <h1 class=\"site-name\"> in the Brand Bar, and templates/content/page-title.html.twig emits <h1 class=\"page-title headline--serif headline\"> for the page title. CORRECTED 2026-08-17: this rule previously said \"the Brand Bar site name is typically the page's h1\" and \"a page must have exactly one h1\". Both halves were wrong about production, and the rule actively caused harm -- agents demoted the page title to an h2 in the default Roboto treatment, losing the page-title type ramp entirely. Do NOT resolve the duplicate h1 by demoting the page title; it is a real accessibility wrinkle in the platform, and fixing it is a SiteNow decision, not something a design may quietly do. Section headings below the page title are h2.",
+      "publishTo": [
+        "claude-design"
+      ]
+    },
+    {
+      "id": "contract-first-changes",
+      "enforcement": "agent",
+      "rule": "Never change a component's public shape (options, slots, tokens) in Figma or code directly. Propose the change in contracts/ first; Figma and code follow after review.",
+      "publishTo": [
+        "claude-design"
+      ]
+    },
+    {
+      "id": "no-planned-options",
+      "enforcement": "judge",
+      "rule": "Do not use options or option values marked status: planned or deprecated in a contract (e.g. Logo context=footer is planned, not available).",
+      "publishTo": [
+        "claude-design"
+      ]
+    },
+    {
+      "id": "badge-inline-only",
+      "enforcement": "agent",
+      "rule": "A badge is an INLINE pill that sits in the flow of text, immediately after the thing it labels — a list item, a table cell, a card meta line, a heading. It renders at ONE fixed size everywhere (0.75rem type, 9px inline padding, 12px radius): it does NOT scale with its surroundings, so never set a size on it and never compensate for its context. NEVER position a badge absolutely, float it, or mount it as a corner flag or ribbon on a card, callout or panel — src/scss/components/badge.scss contains no positioning of any kind, so a corner-mounted badge is invented, not design-system behaviour. CHANGED 2026-08-20: this rule previously ended \"To flag a whole block, put the badge inside that block's heading or first line\", which was the exact opposite of claude-design/readme.md's \"Never put a Badge inside a heading\" — both shipped, contradicting each other. The badge then flexed to its parent's font-size, so the readme was right about the symptom and this rule was right about the intent. contracts/badge.json changes[0] fixed the cause; a badge in a heading is now fine, and neither the prohibition nor the put-it-in-a-heading instruction survives.",
+      "publishTo": [
+        "claude-design"
+      ]
+    },
+    {
+      "id": "item-list-is-stacked-cards",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "A list of items is stacked BORDERLESS cards, not hand-written markup. News listings, event listings, \"related items\" and search results all use the Card component with borderless set, stacked one per row (reference: https://sandbox.prod.drupal.uiowa.edu/news). Do not invent a <ul> with your own date/heading/summary CSS: it will not match production, and Card already supplies the title, subtitle, meta, body and link in the right proportions. Use a grid of BORDERED cards only for a set of parallel destinations, like a three-across \"related programs\" block. Moved here 2026-08-20 from claude-design/readme.md, where it was one of three hand-maintained copies of the rule set."
+    },
+    {
+      "id": "page-title-under-brand-bar",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "Breadcrumbs and the page title go directly under the Brand Bar — before any banner, hero or content section — and both belong inside a page__container so they inherit the page's gutters. They are ONE unit: the breadcrumb supplies the space above (1.75rem top margin) and the title sits flush beneath it with no gap, by design. Putting them in a mid-page section, or after a banner, is wrong: the page title identifies the page and has to be the first thing under the navigation. Moved here 2026-08-20 from claude-design/readme.md."
+    },
+    {
+      "id": "backgrounds-by-class",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "A background is applied by CLASS on a section wrapper: bg--{color}[--pattern--{type}], where color is black|gold|gray|white and type is brain|community|particle. Omitting the suffix entirely IS the no-pattern case. Two things you must never do. (1) Never reproduce a pattern with your own background-image, gradient or SVG: the eleven shipped assets are code-only files enumerated in contracts/background.json geometryNotTokenized.pattern-image-assets, and a hand-drawn approximation will not match production. (2) Never set opacity on a background or its pattern. There is NO CSS opacity anywhere in the shipped pattern system — strength is baked into the asset file itself, two different ways: the four brain SVGs declare one opacity each (0.15/0.2/0.7/0.15), while the community and particle PNGs fade per pixel, so any single opacity number quoted for those is a PEAK, not a level. Added 2026-08-24: the pattern layer is an image fill and a Figma variable is COLOR/FLOAT/STRING/BOOLEAN, so no checker in any of the five views can ever verify this — it is enforced by instruction here and in the Figma set description, and deliberately NOT by a checker that would appear to cover it."
+    }
+  ]
+}

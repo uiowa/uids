@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet data-dc-atomics>
+        <link rel="stylesheet" href="./tokens.css" />
+        <style>
+          body{margin:0}
+          /* Root-scoped so these page-base link styles cannot escape the bar — dc-import
+             shares ONE cascade. :where() is used instead of a plain `.iowa-bar ` prefix
+             because it adds ZERO specificity: `a` stays (0,0,1) and `a:hover` stays
+             (0,1,1). A plain prefix would lift the hover rule to (0,2,1), beating both
+             `.site-name a{text-decoration:none}` below and Logo's `.logo a` — adding a
+             hover underline production does not have. */
+          :where(.iowa-bar) a{color:var(--uiowa-color-link)}
+          :where(.iowa-bar) a:hover{text-decoration:underline}
+          .iowa-bar{position:relative;z-index:2;display:block;min-height:var(--uiowa-brand-bar-height-default);background:var(--uiowa-brand-bar-background)}
+          .iowa-bar:not(.iowa-bar--narrow){height:var(--uiowa-brand-bar-height-default)}
+          .iowa-bar.iowa-bar--healthcare:not(.iowa-bar--narrow){height:var(--uiowa-brand-bar-height-healthcare)}
+          @media (min-width:980px){.iowa-bar.iowa-bar--healthcare:not(.iowa-bar--narrow) .logo--tab{padding-top:27px}}
+          .iowa-bar__container{max-width:1310px;margin:0 auto;flex-wrap:wrap;justify-content:space-between}
+          @media (min-width:980px){.iowa-bar__container{display:flex;justify-content:flex-start}}
+          .iowa-bar .logo--tab{margin-right:20px}
+          @media (min-width:1350px){.iowa-bar .logo--tab{margin-left:-12px;padding:27px 20px 20px}}
+          .site-name{display:flex;align-items:center;margin:0 auto 0 0;font-size:var(--uiowa-brand-bar-site-name-font-size);font-weight:var(--uiowa-brand-bar-site-name-font-weight);line-height:1;font-family:var(--uiowa-font-family-sans)}
+          .site-name a{color:var(--uiowa-brand-bar-site-name-color);text-decoration:none}
+          @media (min-width:980px){.site-name{flex-basis:content;margin:1px 0 0 0}}
+          .iowa-bar .site-name{width:100%;padding:20px;background:var(--uiowa-color-brand);box-sizing:border-box}
+          @media (min-width:980px){.iowa-bar .site-name{width:auto;background:transparent;padding:0}}
+          @media (min-width:1350px){.iowa-bar .site-name{margin:5px 0 0 0}}
+          .parent-site-name{font-weight:var(--uiowa-font-weight-light);font-family:var(--uiowa-font-family-sans);font-size:var(--uiowa-brand-bar-site-name-font-size-narrow);flex-basis:content;margin:0 0 -10px 0;padding:17px 0 0 20px;width:100%;background:var(--uiowa-color-brand);box-sizing:border-box}
+          @media (min-width:980px){.parent-site-name{background:transparent;display:flex;align-items:center;margin:0;padding:1px 0 0;width:auto}}
+          .iowa-bar--narrow{min-height:var(--uiowa-brand-bar-min-height-narrow)}
+          .iowa-bar--narrow .logo--tab{margin-right:10px;height:var(--uiowa-logo-tab-height-narrow);width:var(--uiowa-logo-tab-width-narrow)}
+          @media (min-width:980px){.iowa-bar--narrow .logo--tab{padding:15px}}
+          /* margin-left is deliberately absent. brand-bar.scss:172-174's narrow
+             page-container block sets ONLY margin-bottom:-6px, so `.iowa-bar .logo--tab`'s
+             own page-container margin-left:-12px (brand-bar.scss:94-96, equal specificity,
+             declared earlier) still applies to narrow bars. This rule used to add
+             margin-left:0, cancelling it, so the narrow tab sat 12px right of production and
+             lost its left-edge overhang. MEASURED on the Narrow story: margin-left is -12px
+             at both 1350px and 1400px, with margin-bottom -6px and padding 15px. */
+          @media (min-width:1350px){.iowa-bar--narrow .logo--tab{margin-bottom:-6px}}
+          .iowa-bar--narrow .logo-icon{height:var(--uiowa-logo-icon-height-narrow)}
+          .iowa-bar--narrow.iowa-bar--healthcare .logo--tab{height:var(--uiowa-logo-tab-height-narrow-healthcare);width:var(--uiowa-logo-tab-width-narrow)}
+          @media (min-width:980px){.iowa-bar--narrow.iowa-bar--healthcare .logo--tab{padding:15px}}
+          .iowa-bar--narrow.iowa-bar--healthcare .logo-icon{height:var(--uiowa-logo-icon-height-narrow-healthcare)}
+          .iowa-bar--narrow .site-name{font-size:var(--uiowa-brand-bar-site-name-font-size-narrow);margin:0}
+          @media (min-width:1350px){.iowa-bar--narrow .site-name{padding:6px 0 0 0}.iowa-bar--narrow .parent-site-name{padding:6px 0 0 0}}
+          .iowa-bar__below{z-index:2;border-bottom:1px solid var(--uiowa-brand-bar-below-border-color);background:var(--uiowa-brand-bar-below-background)}
+          .iowa-bar__below .iowa-bar__container{min-height:var(--uiowa-brand-bar-below-min-height);align-items:center}
+          @media (min-width:980px){.iowa-bar__below .iowa-bar__container{padding-left:20px}}
+          @media (min-width:1350px){.iowa-bar__below .iowa-bar__container{padding-left:0}}
+          /* CORRECTED 2026-08-17. brand-bar.scss:232-236's `&__below .site-name` base block
+             sets ONLY margin / text-align / font-size — deliberately NOT background, padding
+             or width — so at mobile the second-row site name INHERITS the gold band from
+             `.iowa-bar .site-name` (line 27 above). This rule used to add
+             background:transparent, padding:20px 20px 20px 0 and width:auto at base; since
+             `.iowa-bar__below .site-name` and `.iowa-bar .site-name` are both (0,2,0) and this
+             one comes later, those additions won — and the canonical parent-title pattern lost
+             its entire mobile gold strip.
+             MEASURED on the WithParentSiteTitle story at 375px: production is
+             background rgb(255,205,0), width 343px (100%), padding 20px on all four sides.
+             The md block restates background:transparent exactly as the source does
+             (brand-bar.scss:241) even though line 28 already supplies it — that redundancy is
+             in the source, and reproducing it stops a future edit to line 28 from silently
+             changing the below-bar.
+             NOTE width:75% is INERT in production, and equally inert here: .site-name is a
+             flex item that gets flex-basis:content at md (line 26), which decides the
+             main-axis size instead. Measured 204.02px at 980px — content width, not 75% of
+             948. Reproduced as-shipped rather than "corrected". */
+          .iowa-bar__below .site-name{margin:0;text-align:left;font-size:var(--uiowa-brand-bar-site-name-font-size)}
+          @media (min-width:980px){.iowa-bar__below .site-name{width:75%;padding:25px 20px 25px 0;background:transparent}}
+        </style>
+      </helmet>
+      <header class="{{ rootClass }}" data-screen-label="Brand Bar">
+        <div class="iowa-bar__container">
+          <dc-import name="Logo" lockup="{{ lockup }}" context="header" hint-size="154px,80px"></dc-import>
+          <sc-if value="{{ showParentTitle }}">
+            <div class="parent-site-name">{{ parentTitle }}</div>
+          </sc-if>
+          <sc-if value="{{ showSiteName }}" hint-placeholder-val="{{ true }}">
+            <h1 class="site-name"><a href="#">{{ siteName }}</a></h1>
+          </sc-if>
+        </div>
+        <sc-if value="{{ showSecondRow }}">
+          <div class="iowa-bar__below">
+            <div class="iowa-bar__container">
+              <h1 class="site-name"><a href="#">{{ secondRowTitle }}</a></h1>
+            </div>
+          </div>
+        </sc-if>
+      </header>
+    </x-dc>
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{
+  "$preview": { "width": 1440, "height": 200 },
+  "narrow": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "healthcare": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "showSiteName": { "editor": "boolean", "default": true, "tsType": "boolean" },
+  "siteName": { "editor": "text", "default": "Site Name", "tsType": "string" },
+  "showParentTitle": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "parentTitle": { "editor": "text", "default": "Parent Site", "tsType": "string" },
+  "showSecondRow": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "secondRowTitle": { "editor": "text", "default": "Site Name", "tsType": "string" }
+}'
+    >
+      class Component extends DCLogic {
+        renderVals() {
+          const narrow = this.props.narrow ?? false;
+          const healthcare = this.props.healthcare ?? false;
+          const showParentTitle = this.props.showParentTitle ?? false;
+          const showSiteNameProp = this.props.showSiteName ?? true;
+          const siteName = this.props.siteName ?? 'Site Name';
+          // Canonical WithParentSiteTitle pattern (BrandBar.stories.js): the parent title
+          // occupies the top bar and the site h1 moves to the second row below it.
+          const parentPushesSiteDown = showParentTitle && showSiteNameProp;
+          const showSecondRow = (this.props.showSecondRow ?? false) || parentPushesSiteDown;
+          // Mirrors production: a second row FORCES narrow styling (BrandBar.vue getClasses)
+          const isNarrow = narrow || showSecondRow;
+          return {
+            rootClass: 'iowa-bar' + (isNarrow ? ' iowa-bar--narrow' : '') + (healthcare ? ' iowa-bar--healthcare' : ''),
+            lockup: healthcare ? 'healthcare' : 'iowa',
+            showSiteName: showSiteNameProp && !showParentTitle,
+            siteName: siteName,
+            showParentTitle: showParentTitle,
+            parentTitle: this.props.parentTitle ?? 'Parent Site',
+            showSecondRow: showSecondRow,
+            secondRowTitle: parentPushesSiteDown ? siteName : (this.props.secondRowTitle ?? siteName)
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

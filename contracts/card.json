@@ -1,0 +1,424 @@
+{
+  "$schema": "./contract.schema.json",
+  "name": "card",
+  "version": "1.0.0",
+  "description": "UIDS card component contract. A bordered content surface holding optional media, a headline, subtitle/meta details, body copy and a single button. Its layout switches on a CONTAINER query keyed to its own column, not the viewport, and its button is deliberately restricted to one treatment because a card is a reading surface rather than a call to action.",
+  "identity": {
+    "codePath": "src/components/card/Card.vue",
+    "scssPath": "src/scss/components/card.scss",
+    "relatedPaths": [
+      "src/components/card/Card.stories.js",
+      "src/components/card/Card.spec.ts"
+    ],
+    "downstreamPaths": [
+      "uiowa/docroot/themes/custom/uids_base/templates/uids/card.html.twig",
+      "uiowa/docroot/themes/custom/uids_base/scss/components/card.scss",
+      "uiowa/docroot/modules/custom/uiowa_core/uiowa_core.module"
+    ],
+    "registeredName": "uids-card",
+    "storybookId": "components-card",
+    "figma": {
+      "fileKey": "hNShklBztaeaQneScM0KoM",
+      "componentSetName": "Card",
+      "componentSetId": "362:44",
+      "componentKey": "23d5a4658fdec5516964c53212979a51b811303c",
+      "page": "Components / Card",
+      "note": "BUILT 2026-08-17. 12 variants, Orientation x Style x Button — a full cross, not sparse. A documentation frame ('Card — what the variant set cannot show', 365:44) carries the pre-title / subtitle / meta / details stack, the date circle in both its states, and the circle media caps.",
+      "axisRationale": [
+        "THE BUTTON AXIS IS CONTENT-DRIVEN, NOT A STYLE CHOICE: card exposes no button prop at all, and which paint renders depends on whether link_text is set.",
+        "Drawn widths differ by orientation deliberately — Stacked 480 (a twocol column at the 1020 narrow container), Left/Right 720. At 480 the default media--large 52.5% basis leaves a 165.6px body and the button measures 225.6, so the row layouts genuinely overflow at that width in production too (`.bttn` is inline-block and will not shrink). Drawing them cramped would have represented the ratio honestly and the component uselessly.",
+        "Both widths sit ABOVE the 400px container threshold, which matters: below it all three Orientation values render identically stacked and the axis would look broken.",
+        "Nested instances rather than flattened shapes (the CTA precedent): a real Headline at Level=H3 / Style=Serif with font-size bound to card/headline/font-size (card.scss:75 re-declares it as an ancestor rule), and a real Button carrying the two SPARSE variants added for this purpose — Style=Transparent Light Font for Button=Label, Style=Circle for Button=Circle.",
+        "STRUCTURE DIVERGES FROM THE DOM IN ONE PLACE, unavoidably: in CSS the media escapes the card's padding via negative margins on .media__inner, which Figma auto-layout cannot express. Stacked puts the padding on the BODY frame and lets media be full-bleed; Left/Right — where the SCSS itself zeroes those offsets — put it on the CARD and use itemSpacing bound to card/layout/media-gap. Pixels match; the mechanism does not."
+      ],
+      "deliberateOmissions": [
+        "The third reachable button paint — a real anchor with no arrow, rendered when a card has no title — is not drawn. See knownIssues.arrowless-anchor.",
+        "Media is a NEUTRAL GREY placeholder rather than a tokenized fill, following banner: card has no loading-colour token, and binding one here would assert a value the CSS does not set.",
+        "card/pre-title/opacity and card/subtitle/opacity are deliberately UNBOUND on the documentation frame, carrying their 0.7 in the PAINT: Figma reads a variable bound to node `opacity` as a PERCENTAGE, so binding them rendered 0.7% and both elements vanished (measured 0.007 before the fix). Identical to the banner scrim finding. check-figma cannot catch it — it enforces bound subset-of tokensUsed, never the converse.",
+        "pre-title, subtitle, meta and the date circle carry 27 of the 47 tokens (3 + 6 + 5 + 13, recounted 2026-08-21 against tokensUsed — this entry previously said 20), and 28 if card/details/margin-bottom is counted with them, which it is not above because it belongs to the `.card__details` WRAPPER that subtitle and meta share rather than to either of them. Neither count changes the point: NONE of it appears in any variant, because it is content and authored markup, which a variant set cannot switch. The documentation frame this entry once said was owed now exists — 365:44 carries all four, the date circle as section 2 (365:58) in both hairline states. Omitted from the set on purpose, not pending."
+      ],
+      "precedent": "CTA (nested instances); banner (neutral media placeholder)."
+    },
+    "barrelExport": "UidsCard"
+  },
+  "options": [
+    {
+      "name": "orientation",
+      "type": "enum",
+      "values": [
+        "",
+        "left",
+        "right"
+      ],
+      "default": "",
+      "description": "How media and body sit relative to each other. The ONLY prop on Card with a validator (Card.vue:72-74). '' stacks them; 'left' puts media first in a row, 'right' reverses it. Every rule these classes carry lives inside the container query, so below the 400px column threshold all three orientations render identically stacked.",
+      "code": {
+        "prop": "orientation",
+        "classes": {
+          "left": "card--layout-left",
+          "right": "card--layout-right"
+        },
+        "notes": "card.scss:368-478. The shared block sets flex-direction row and resets the media__inner margins; the per-side blocks re-add a single 2rem gutter on the correct side (card/layout/media-gap)."
+      },
+      "figma": {
+        "axis": "Orientation",
+        "map": {
+          "": "Stacked",
+          "left": "Left",
+          "right": "Right"
+        },
+        "notes": "The primary structural axis and the only validated one, so it is the safest thing to spend variants on. Drawn at a column width ABOVE the 400px container threshold, since below it the axis is visually inert — a designer picking 'Left' at a narrow width would see a stacked card and reasonably conclude the library was broken."
+      }
+    },
+    {
+      "name": "borderless",
+      "type": "boolean",
+      "default": false,
+      "description": "Removes the 1px outline supplied by the shared Border foundation (utilities.border, card.scss:26). When there is ALSO no background class it additionally zeroes the card's 2rem padding and every media__inner offset (card.scss:294-327), so the card becomes a bare content block flush with its column.",
+      "code": {
+        "prop": "borderless",
+        "class": "borderless",
+        "notes": "Class comes from the shared Borderless module (Card.vue:106), not from Card's own class computation — the Button precedent. The padding reset is gated `:not([class*=\"bg--\"])`, which is why a borderless card WITH a background keeps its padding; a second block (card.scss:484-511) restores the reset only when the card's background matches its container's."
+      },
+      "figma": {
+        "axis": "Style",
+        "map": {
+          "false": "Bordered",
+          "true": "Borderless"
+        },
+        "notes": "Worth an axis rather than an instance override, unlike Button's own borderless: here it is not a single-property change but a structural one that also removes padding and re-flushes the media, so the two states genuinely look like different components."
+      }
+    },
+    {
+      "name": "link_text",
+      "type": "string",
+      "description": "Label for the card's button. Its PRESENCE, not just its value, selects between card's two drawn button treatments: non-empty renders a labelled button with a gold arrow, empty (with link_indicator on) renders a circular arrow-only indicator (Card.vue:126-129).",
+      "code": {
+        "prop": "link_text",
+        "notes": "SiteNow reaches the identical branch from a different direction — uiowa_core.module:553-559 adds bttn--circle and bttn--no-text under the same three conditions. Two independent implementations, same rule."
+      },
+      "figma": {
+        "axis": "Button",
+        "map": {
+          "Explore the arts": "Label",
+          "": "Circle"
+        },
+        "notes": "The design system owner's ruling (2026-08-17): the library draws the labelled button and the circle indicator, and NOT the third reachable paint (see knownIssues.arrowless-anchor). The axis is keyed on content rather than on a style prop because that is genuinely what selects it — Card exposes no button styling surface at all. The nested Button instance sits at Color=Primary / Size=Medium / Style=Transparent Light Font; see children.button."
+      }
+    },
+    {
+      "name": "link_indicator",
+      "type": "boolean",
+      "default": true,
+      "description": "Whether to render the circular arrow when there is a URL but no link text. False with no link_text renders no footer at all (Card.vue:243).",
+      "code": {
+        "prop": "link_indicator"
+      },
+      "figma": {
+        "notes": "Contract-only. Its only visible effect is the presence or absence of the Circle value already carried by the Button axis; a separate boolean would double the set to encode 'nothing'."
+      }
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "description": "Destination for the card. Also adds `click-container`, which applyClickA11y uses on mount to make the whole card clickable (Card.vue:108-110, 182-186). Which ELEMENT becomes the real link is derived, not chosen — see behavior.",
+      "code": {
+        "prop": "url",
+        "class": "click-container"
+      },
+      "figma": {
+        "notes": "Content, not an axis."
+      }
+    },
+    {
+      "name": "headline_style",
+      "type": "string",
+      "default": "",
+      "description": "Passed straight through to the nested Headline instance as its `text_style` (Card.vue:218). Storybook offers 'serif' and '' (Card.stories.js:33-46) and every authored story sets 'serif', so serif is effectively the house default even though the prop default is ''.",
+      "code": {
+        "prop": "headline_style"
+      },
+      "figma": {
+        "notes": "A pass-through to the nested Headline instance's own Style axis (contracts/headline.json), not a Card axis — the CTA and banner precedent. NOTE the divergence recorded in knownIssues.headline-style-divergence: production does not read this prop at all."
+      }
+    },
+    {
+      "name": "centered",
+      "type": "boolean",
+      "description": "Centres the card's text (`text-align: center`, card.scss:331-333). One declaration.",
+      "code": {
+        "prop": "centered",
+        "class": "card--centered"
+      },
+      "figma": {
+        "notes": "Contract-only. A single text-align flip is exactly the Button borderless/full case — a designer sets alignment directly on an instance, and crossing it would double a 12-variant set for one property. The ImageUsingUiowaIcon story pins it in the regression baseline."
+      }
+    },
+    {
+      "name": "media_padded",
+      "type": "boolean",
+      "default": false,
+      "description": "Keeps the media inside the card's padding instead of letting it run edge to edge, by zeroing the negative media__inner offsets (card.scss:358-364). Card.vue's own prop comment records that it has NO EFFECT when paired with borderless — because the borderless rule has already zeroed the same margins.",
+      "code": {
+        "prop": "media_padded",
+        "class": "card--media-padded"
+      },
+      "figma": {
+        "notes": "Contract-only. It is the absence of a negative margin, which in Figma is simply media drawn inside the frame padding — a designer expresses it by moving the layer, not by picking a variant. Its interaction with borderless makes it a poor axis besides: two of the four cells would be identical."
+      }
+    },
+    {
+      "name": "button_align_bottom",
+      "type": "boolean",
+      "default": false,
+      "description": "Pushes the footer to the bottom of the card so buttons line up across a row of unequal-height cards: the body becomes a flex column and the footer takes `margin-top: auto` (card.scss:335-354). Gated on `breakpoint(sm)` — 768px, a VIEWPORT media query, unlike everything in the orientation block.",
+      "code": {
+        "prop": "button_align_bottom",
+        "class": "card--button-align-bottom",
+        "notes": "The `flex: 1` on the body applies only when the card is NOT in a layout-left/right orientation (card.scss:336-342)."
+      },
+      "figma": {
+        "notes": "Contract-only. It is a behaviour that only means anything across a ROW of cards of differing heights — a single component instance cannot show it, and Figma auto-layout expresses it with an alignment setting rather than a variant. Pinned by the ButtonAlignedToBottom story at all three viewports."
+      }
+    },
+    {
+      "name": "background",
+      "type": "enum",
+      "values": [
+        "",
+        "black",
+        "gray",
+        "gold",
+        "white"
+      ],
+      "default": "",
+      "description": "The shared Background foundation (contracts/background.json), applied via Background.addBackgroundClass (Card.vue:104). The `values` here are representative rather than exhaustive — the authority is shared/background.ts. Card adds two rules of its own on top: a gold card flips the date-circle border to black (card.scss:231-235), and a borderless card whose background MATCHES its container's loses its padding (card.scss:484-511).",
+      "code": {
+        "prop": "background",
+        "notes": "Class comes from the shared module, not from Card's own class computation."
+      },
+      "figma": {
+        "notes": "Contract-only, the foundation owns it. Crossing four background values into a 12-variant set would make 48 for decisions contracts/background.json already holds. IMPORTANT for whoever builds the set: card's button arrow is NOT constant across this option — because Card hardcodes bttn--transparent, the generic rules at button.scss:77-87 repaint the icon #fff on a gold ancestor and the label to --brand-secondary on black-inside-gold. That is an ancestor-dependent tint no variant can express; it is documented here and on the Figma page rather than drawn."
+      }
+    },
+    {
+      "name": "media_size",
+      "type": "enum",
+      "values": [
+        "default",
+        "small",
+        "medium",
+        "large"
+      ],
+      "default": "large",
+      "description": "The shared Media framing foundation (contracts/media-framing.json). Card overrides the foundation heavily: circle max-widths at card.scss:162-170, and a full set of side-by-side caps and flex bases inside the container query at card.scss:395-449.",
+      "code": {
+        "prop": "media_size"
+      },
+      "figma": {
+        "notes": "Contract-only; the media-framing foundation owns the axis. Card's overrides are values bound to the card tokens, not a second axis."
+      }
+    },
+    {
+      "name": "media_shape",
+      "type": "enum",
+      "values": [
+        "widescreen",
+        "square",
+        "circle",
+        "no-crop",
+        "date"
+      ],
+      "default": "widescreen",
+      "description": "The first four are the shared Media framing foundation's crops: card gives circle its own centring and max-widths (card.scss:152-171), widescreen a white plate under transparent SVGs (card.scss:191-198), and square/widescreen their aspect-ratios. `date` is CARD'S OWN fifth value, admitted to this enum by the design system owner's ruling 2026-08-21 (see changes[0]) — the 96px gold-hairline circle carrying a month over a day (card.scss:201-235). It is a media TREATMENT card offers rather than a crop of an image, and it is the only media value the Vue prop cannot produce; see code.notes for that mechanism and slots.media for the markup.",
+      "code": {
+        "prop": "media_shape",
+        "notes": "THE FOUR CROPS ARE PROP-DRIVEN AND `date` IS NOT. shared/media.ts:82-84 pushes `media--${media_shape}` onto the media WRAPPER, but shared/media.ts:10-15 lists only widescreen/square/circle/no-crop in the validator, so `media_shape=\"date\"` both warns and lands the class on the wrapper — where the treatment does not even come out round. That wrapper is `.card > .media`, which card.scss:109 floors at `min-width: var(--uiowa-card-media-min-width)` = 7.7rem = 123.2px (the root font size is pinned at 16px by `:root` in src/scss/base/_reset.scss:28-30, forwarded at uids-core.scss:2, and no media query anywhere alters it — so 123.2px is a fixed figure, not an assumption), and min-width beats the `width: 6rem` at card.scss:206; the `aspect-ratio: 1 / 1` at :211 cannot rescue it because aspect-ratio is inert once both width and height are set. So the box lands at roughly 123.2 x 96 and `border-radius: 50%` (:212) paints an ELLIPSE, not the 96px circle — and it never produces the `__month`/`__day` stack, which only exists if a caller wrote it. The shipped MediaDate story is the proof: it authors `.media--date` into the slot and leaves the prop at 'no-crop' (Card.stories.js:387-397). What makes the value read as a shape anyway is the SCSS — `.media--date` (card.scss:201) sits at exactly the same nesting level as `.media--circle` (:152), `.media--square` (:179) and `.media--widescreen` (:186), all nested plainly inside the single `.card { }` block opened at card.scss:103, so they compile to DESCENDANT selectors (`.card .media--circle`), NOT to child ones — the only child combinator in that block is `> .media` at :106. The descendant form is load-bearing for `date` specifically: it is what lets the treatment style markup at whatever depth a caller writes it into the slot. So the enum records a treatment the design system offers and a view may surface as a picker (claude-design/Card.dc.html does), not a string Card.vue accepts."
+      },
+      "figma": {
+        "notes": "BEN'S RULING 2026-08-21: `date` is an accepted media_shape value — 'card DOES have a date shape, check the figma file' — and there is still NO Figma variant for it, deliberately. The two statements are not in tension: the treatment is authored markup in the media slot (`.media--date` with `__month`/`__day` spans, card.scss:201-235, Card.stories.js:393-397), not a crop applied to an image, so a variant axis has nothing to switch. A variant set can vary properties of layers it owns; it cannot show what a caller writes into a slot. Figma therefore carries it in the DOCUMENTATION frame 'Card — what the variant set cannot show' (365:44), section 2 (365:58), and not in the 362:44 variant set, whose 12 cells are Orientation x Style x Button. Every node id in this note was read back live from the Figma file on 2026-08-21. THAT SECTION'S LAYER NAME OVERSTATES ITS CASE, and is reproduced here verbatim rather than endorsed: 'Date circle — authored markup in the media slot, and the only background-specific rule card ships'. The hairline is the only background-conditional PAINT; it is not the only rule card keys on a background class, and a reader who takes the layer name literally will contradict this contract's own options.background.description. Card keys on background in at least two more places: card.scss:484-511 loops `$bg-colors: \"white\", \"gray\", \"black\", \"gold\"` to zero a borderless card's padding when its background matches its container's, and the borderless block's `:not([class*=\"bg--\"])` gate (card.scss:297) reaches `.media--date` itself at :300-302 to drop its margin-top. What the section actually draws is both hairline states, as 96x96 `media--date` frames (365:62 and 365:67) with month and day text, because the hairline is BACKGROUND-CONDITIONAL: gold on a default card (card.scss:204, card/media/date/border-color/default = {color.gold}) and BLACK on a gold one (card.scss:231-235, card/media/date/border-color/on-gold = {color.black}) — labelled 'on default' (365:61) with the caption 'default → gold hairline' (365:65), and 'on bg--gold' (365:66) with the caption 'bg--gold → black hairline' (365:70). Black and gray cards are NOT handled and keep the gold hairline; see knownIssues. Everything else on this option stays contract-only, as media_size."
+      }
+    },
+    {
+      "name": "media_border",
+      "type": "boolean",
+      "default": false,
+      "description": "The shared Media framing foundation's border option. Card adds no rule of its own for it.",
+      "code": {
+        "prop": "media_border"
+      },
+      "figma": {
+        "notes": "Contract-only; the foundation owns it."
+      }
+    }
+  ],
+  "slots": [
+    {
+      "name": "media",
+      "description": "Image, iframe or authored markup rendered above (or beside) the body, inside `.media > .media__inner`.",
+      "behavior": "PRESENCE IS SIGNIFICANT twice over: the whole `.media` wrapper only renders when the slot exists (Card.vue:193), and with a URL but no title and no link_text the slot content itself becomes the link target (linkedElement === 'image', Card.vue:198-204). The date-circle treatment is authored markup passed INTO this slot (`.media--date` with `__month`/`__day` spans), not a component prop — see the MediaDate story. It is ALSO a listed media_shape value as of the design system owner's 2026-08-21 ruling; options.media_shape holds the enum, the mechanism and the background-conditional hairline, so read this slot and that option together rather than either alone.",
+      "figma": {
+        "property": "Media",
+        "notes": "Image fill. The date circle is a separate documented composition (365:44 section 2), not a variant — the reasoning is in options.media_shape.figma."
+      }
+    },
+    {
+      "name": "pre_title",
+      "description": "Small de-emphasised line above the title, typically an icon plus a word (`.card__pre-title`, card.scss:241-249).",
+      "behavior": "Renders only when the slot is passed (Card.vue:214).",
+      "figma": {
+        "property": "Pre-title",
+        "notes": "Text layer with a boolean visibility property, not an axis."
+      }
+    },
+    {
+      "name": "title",
+      "description": "The card's headline, rendered through a nested Headline instance inside a `<header>` (Card.vue:217-227).",
+      "behavior": "PRESENCE IS SIGNIFICANT: with a URL, a title present makes the TITLE the link and the button a non-interactive PseudoButton; a title absent moves the link to the button or the image. See behavior.",
+      "figma": {
+        "property": "Title",
+        "notes": "Nested Headline instance; contracts/headline.json owns its axes."
+      }
+    },
+    {
+      "name": "subtitle",
+      "description": "Serif line under the title (`.card__subtitle`), pulled up -0.4rem to tighten against it.",
+      "behavior": "Renders inside `.card__details`, which itself only renders when subtitle OR meta is present (Card.vue:174-180).",
+      "figma": {
+        "property": "Subtitle",
+        "notes": "Text layer."
+      }
+    },
+    {
+      "name": "meta",
+      "description": "Sans-serif detail line (`.card__meta`), explicitly reset to Roboto/400 against the serif subtitle above it.",
+      "behavior": "Shares the `.card__details` wrapper with subtitle.",
+      "figma": {
+        "property": "Meta",
+        "notes": "Text layer."
+      }
+    },
+    {
+      "name": "default",
+      "description": "Body copy, rendered directly in `.card__body` with no wrapper.",
+      "behavior": "Always rendered; falls back to the literal string 'Body' when empty (Card.vue:242).",
+      "figma": {
+        "property": "Body",
+        "notes": "Text layer."
+      }
+    }
+  ],
+  "tokensUsed": [
+    "card/padding",
+    "card/header/margin-bottom",
+    "card/header/font-size",
+    "card/header/font-weight",
+    "card/header/line-height",
+    "card/headline/font-size",
+    "card/body/font-size",
+    "card/body/line-height",
+    "card/pre-title/font-size",
+    "card/pre-title/opacity",
+    "card/pre-title/icon-gap",
+    "card/subtitle/font-family",
+    "card/subtitle/font-size",
+    "card/subtitle/font-weight",
+    "card/subtitle/line-height",
+    "card/subtitle/margin-top",
+    "card/subtitle/opacity",
+    "card/details/margin-bottom",
+    "card/meta/font-family",
+    "card/meta/font-size",
+    "card/meta/line-height",
+    "card/meta/font-weight",
+    "card/meta/icon-gap",
+    "card/media/svg-backdrop",
+    "card/media/min-width",
+    "card/media/edge-offset",
+    "card/media/circle/small-max-width",
+    "card/media/circle/medium-max-width/base",
+    "card/media/circle/medium-max-width/sm",
+    "card/media/date/size",
+    "card/media/date/padding-top",
+    "card/media/date/margin-top",
+    "card/media/date/border-width",
+    "card/media/date/border-color/default",
+    "card/media/date/border-color/on-gold",
+    "card/media/date/month/font-size",
+    "card/media/date/month/font-weight",
+    "card/media/date/month/line-height",
+    "card/media/date/day/font-size",
+    "card/media/date/day/font-weight",
+    "card/media/date/day/line-height",
+    "card/media/date/day/margin-top",
+    "card/button/margin-top",
+    "card/button/focus-icon-color",
+    "card/layout/media-gap",
+    "card/layout/media-basis/medium",
+    "card/layout/media-basis/large",
+    "card/layout/media-max-width/small/circle",
+    "card/layout/media-max-width/small/square",
+    "card/layout/media-max-width/small/widescreen",
+    "card/layout/media-max-width/no-crop/small",
+    "card/layout/media-max-width/no-crop/medium",
+    "card/layout/media-max-width/no-crop/large"
+  ],
+  "children": [
+    {
+      "component": "headline",
+      "contract": "contracts/headline.json",
+      "inherits": [
+        "text_style"
+      ],
+      "fixed": {
+        "font-size": "card.scss:75 re-declares `.card header .headline { font-size: 1.5rem }`, an ANCESTOR rule that overrides whatever ramp the nested Headline would otherwise apply. Any view that composes Card and Headline must reproduce this or the title renders at Headline's own size — the mechanism banner hit with its imported Headline."
+      }
+    },
+    {
+      "component": "button",
+      "contract": "contracts/button.json",
+      "inherits": [],
+      "fixed": {
+        "color": "primary — hardcoded, and INERT. Card.vue:124 passes bttn--transparent and bttn--light-font as fallthrough classes while PseudoButton's own default supplies bttn--primary, so the emitted markup names Primary but transparent overrides the background to rgba(0,0,0,0) and light-font overrides the padding and type. Measured black-on-transparent in all three paints. SiteNow hardcodes the identical four classes at uiowa_core.module:539-544, independently.",
+        "size": "medium — PseudoButton's default, and passed explicitly to the real Button at Card.vue:244.",
+        "style": "transparent AND light_font together. contracts/button.json currently declares those two as mutually exclusive values of one Style axis, with a note saying 'use the code props for that combination' — card IS that combination, in every card, in both repos, so that exclusion needs correcting and the Button set needs the combined value added (the design system owner's ruling 2026-08-17: add it sparsely, only the Primary/Medium cells card uses, rather than crossing it over all nine).",
+        "arrow": "Auto-rendered by PseudoButton (`arrow` defaults true, PseudoButton.vue:21-24, 68) and NOT rendered by the real Button, which exposes an icon slot Card leaves empty. See knownIssues.arrowless-anchor."
+      }
+    }
+  ],
+  "behavior": [
+    "WHICH ELEMENT IS THE LINK IS DERIVED, NOT CHOSEN, and it is what selects the button's tag. Card.vue:141-159 resolves in order: no url at all -> nothing is linked; url with a title -> the TITLE is the link and the footer gets a non-interactive PseudoButton `<div>`; url with no title and no link_text but a media slot -> the IMAGE is the link; otherwise -> the BUTTON is the link and is a real `<a>`. The whole card is separately clickable via click-container regardless. The reason the button degrades to a div is that nesting a second anchor inside a click-container card would be an accessibility fault, not a styling choice.",
+    "CARD'S LAYOUT SWITCHES ON A CONTAINER QUERY, NOT A VIEWPORT ONE, and card.scss:5-16 defines its OWN container-query() mixin shadowing the shared one. It is keyed on `$break-xxsm` (400px) against `@container column`, with a `@supports not (contain: inline-size)` fallback to `breakpoint(sm)` (768px). Measured in the PersonProfile baseline: the column is 343px at a 375 viewport (flex-direction column, query off) and 948px at 980 (row-reverse, query on). The consequence for tokens is recorded in tokens/components/card.json under card/layout/media-gap — these values must never take mobile/md/page breakpoint leaves, because that would silently swap a container threshold for a 980px viewport one, and a fourcol grid holds columns under 400px at every viewport test:styles samples.",
+    "CARD HAS TWO INDEPENDENT SWITCH POINTS. Everything in the orientation and borderless-gutter blocks rides the 400px container query; button_align_bottom and the circle-medium max-width ride `breakpoint(sm)` at 768px viewport. Neither is in the mobile/md/page mode grid, which is why both are name-carried or left to the SCSS.",
+    "CARD'S BUTTON IS NOT A DESIGNER SURFACE. Card exposes no button_style, button_modifier or button_color prop — the reference Figma file proposed all three as Card axes and they do not exist. The four classes are hardcoded at Card.vue:124 and, independently, at uiowa_core.module:539-544. The design system owner's rationale, recorded verbatim because it is the kind of intent that gets lost: card buttons are restricted because cards are meant as softer reading surfaces.",
+    "The date circle is AUTHORED MARKUP, not a prop. `.media--date` with `__month` and `__day` spans is written into the media slot by the caller (Card.stories.js:393-397), which is why it carries card-owned tokens but appears nowhere in Card.vue. It is nonetheless a named media_shape value as of 2026-08-21 — see changes[] for why those two facts sit together."
+  ],
+  "changes": [
+    "2026-08-21 — `date` ADMITTED TO THE media_shape ENUM. The design system owner's ruling: \"card DOES have a date shape, check the figma file.\" The contract previously listed only the four foundation crops and asserted in two places that `media--date` was 'not a shape value'; the enum now carries a fifth value, `date`. Nothing about card's RENDERED OUTPUT changed — no SCSS, no Vue, no token, no Figma node — so this is not tokenize-as-shipped drift; what changed is the contract's assertion about card's public shape, which is why it is filed here and not as a knownIssue. Do NOT 'correct' it back by trimming the enum to shared/media.ts's four: the divergence from that validator is the substance of the ruling, and options.media_shape.code.notes records the mechanism so nobody writes media_shape=\"date\" on Card.vue expecting a month/day stack. What the ruling settles is the question check-claude-design had been asking ever since claude-design/Card.dc.html shipped a `date` option the contract did not sanction ('an agent following the catalog would write a value this template rejects', now cleared): the date circle is a first-class media treatment card offers — designed, tokenized with 13 of card's 47 tokens, and drawn in Figma at 365:44 section 2 rather than as a variant — and the catalog should say so."
+  ],
+  "knownIssues": [
+    "arrowless-anchor: the real `<a>` Button branch renders NO arrow, while the PseudoButton branch renders a gold one. PseudoButton.vue:68 emits `<i class=\"fas fa-arrow-right\">` because its `arrow` prop defaults true; Button.vue:77-80 emits only `<slot>` and an empty `<slot name=\"icon\">`, and Card.vue:244-246 fills neither. Verified by execution, not inference: `.card footer .bttn i` matches in the Default story and returns null in LinkedWithNoTitle, and both are pinned in regression/baselines/card.json. So a card with no title renders a bare label where every other card renders label-plus-arrow. The design system owner's ruling (2026-08-17): document, do not fix — the fix changes rendered output for every title-less card and belongs in its own change with its own regression evidence. The Figma set deliberately does not draw this paint.",
+    "bttn--primary is emitted but inert on every card, in both repos. It survives from PseudoButton's own default and from SiteNow's hardcoded list, but bttn--transparent zeroes the background and bttn--light-font replaces the padding and type, so nothing gold renders except the arrow. Kept as-shipped; the Figma variants sit at Color=Primary to stay honest to the emitted markup, which needs saying out loud because the name implies a gold button.",
+    "The background-specific date-circle handling is incomplete and the source says so. card.scss:230 carries the comment 'We should revisit to have appropriate color/styling for each background color option', and only the gold case is handled (card.scss:231-235) — a date circle on a black or gray card keeps its gold hairline. Tokenized as-shipped as card/media/date/border-color/default and /on-gold.",
+    "`.bttn--circle` and `.bttn--no-text` are applied by Card.vue:127-128 but exposed by no Button prop. Already recorded in contracts/button.json knownIssues; noted here because card is the only thing in UIDS that produces the circle treatment, so Button's set cannot show it without card's ruling.",
+    "media_padded has no effect when paired with borderless, which Card.vue:80-82 documents in the prop comment itself. Both zero the same media__inner margins; the borderless rule simply gets there first. Two of the four cells of that boolean pair are identical, which is why neither is a Figma axis.",
+    "headline-style-divergence: `headline_style` is read by UIDS but NOT by production. uids_base templates/uids/card.html.twig includes @uids_base/uids/headline.html.twig, which consumes headline_class / headline_level / headline_location; `headline_style` appears downstream only in Storybook files. A separate `headline_style` does exist in template_preprocess_uiowa_core_headline (uiowa_core.module:405-417) but that is a different theme hook and card never invokes it. UIDS and SiteNow therefore expose different public shapes for the same visual decision. Recorded, not reconciled — reconciling it is a cross-repo change.",
+    "card.scss:116-128 holds a commented-out embed/iframe/object/video block with the note '@todo this collides with uids_base iframe styles'. Dead in UIDS, and the collision it names is real: uids_base ships its own iframe rules. Left exactly as found.",
+    "SiteNow emits `card--stacked` (uids_base.theme:449 and three module call sites) for which NO CSS exists anywhere in the compiled downstream assets. Not UIDS's class and not UIDS's bug, but recorded because anyone tracing card's downstream markup will meet it and reasonably assume UIDS should style it."
+  ],
+  "geometryNotTokenized": {
+    "side-by-side-media-caps": "The max-widths inside the orientation block — no-crop small/medium/large at 13.625rem / 27.25rem / 40.875rem (card.scss:403-413), circle-small 11.375rem (:417), square-small 11.375rem (:421), widescreen-small 15.625rem (:427). DELIBERATELY NOT TOKENIZED: card.scss:402 carries the authors' own `// TODO: Change these to decided upon sizes.` directly above them. Tokenizing values their authors have flagged as provisional would launder a TODO into a settled design decision and publish it to Figma as though it were one. They are pinned by the regression baseline instead, so a change to them is still caught; when someone decides the real sizes, they become tokens then.",
+    "container-query-mechanism": "The `container-query()` mixin itself (card.scss:5-16), `$break-xxsm` (400px) and the `@supports (contain: inline-size)` pair. A breakpoint is not a value the token layer emits — tokens/README.md already records that layout.breakpoint.* is never written to CSS because custom properties cannot drive an at-rule, and this is the same class of thing one level more local. The SCSS keeps deciding WHEN; the tokens supply WHAT.",
+    "structural-resets": "The margin-zeroing that makes the layouts work — media__inner margins reset to 0 in five separate blocks, `margin-top: 0` on headings that are not first-child (card.scss:33-35), `margin-bottom/top: 0` on p, the date circle's margin resets under layout and borderless. Zeroes carry no design magnitude; binding them would create tokens whose only correct value is 0.",
+    "flex-and-display-keywords": "`display: flex`, `flex: 1 1 0%`, `flex-direction: column|row|row-reverse`, `flex-basis: 100%`, `aspect-ratio: 1/1` and `16/9`, `object-fit: cover|contain`, `border-radius: 50%`, `text-align`, `position: relative`, `z-index: 1`, `word-wrap/overflow-wrap: anywhere`, `width: revert-layer`. Layout and stacking keywords with no magnitude to bind. Note the two flex BASES that DO carry magnitude (35% and 52.5%) are tokenized as card/layout/media-basis/*.",
+    "background-match-loop": "card.scss:482-511 generates four near-identical rule groups from `$bg-colors: white, gray, black, gold`, each zeroing padding when a borderless card's background matches its container's. The loop is a SELECTOR construction, not a set of values — the only values inside it are the 2rem gutter already tokenized as card/layout/media-gap and zeroes. The four colour names come from the Background foundation's vocabulary, which contracts/background.json owns.",
+    "focus-and-hover-states": "`text-decoration: underline` on header link hover/focus (card.scss:68-71, 89-91) and the `background-position: 0` / `background-size: 200% 100%` pair that reveals the button's own sweep on `header:focus-within ~ .bttn` (card.scss:79-80). Keywords and an animation geometry belonging to Button's own gradient sweep; the one VALUE in that block, the arrow's colour, is tokenized as card/button/focus-icon-color."
+  },
+  "a11y": {
+    "notes": "The derived-link model exists FOR accessibility: exactly one real anchor is emitted per card, and the button degrades to a non-interactive `<div>` whenever the title already carries the link, so a click-container card never nests two focusable destinations. applyClickA11y is applied on mount only when a url is present (Card.vue:182-186) and honours `[data-uids-no-link]` as an opt-out. Two gaps: the circle indicator is an icon-only control with no accessible name — the same gap contracts/button.json records for icon-only buttons — and the `header:focus-within ~ .bttn` rule means keyboard focus on the title visibly lights the button, which is good, but there is no corresponding treatment when focus lands on the button itself in the title-linked case, because that element is not focusable at all."
+  },
+  "breakpoints": {
+    "xxsm-container": 400,
+    "sm": 768
+  }
+}

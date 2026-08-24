@@ -94,7 +94,7 @@ const Template = (args) => ({
       :orientation="args.orientation"
     >
     <template #details v-if="args.details"><div v-html="args.details" ></div></template>
-    <template #title v-if="args.title">{{ args.title }}</template>
+    <template #title v-if="args.title"><div :class="getClasses" v-html="args.title" ></div></template>
     <template #button_icon v-if="args.button_icon"><span v-html="args.button_icon" ></span></template>
     </uids-cta>
   `,
@@ -125,3 +125,16 @@ Left.args = {
   ...Centered.args,
   orientation: 'left',
 }
+
+export const CenteredButtonRight = Template.bind({});
+CenteredButtonRight.args = {
+  ...Centered.args,
+  button_align_right: true,
+};
+
+export const LeftButtonRight = Template.bind({});
+LeftButtonRight.args = {
+  ...Centered.args,
+  orientation: 'left',
+  button_align_right: true,
+};

@@ -144,6 +144,7 @@ export default {
     grid_type: {
       name: 'Grid',
       options: [
+        'list',
         'onecol',
         'onecol__narrow',
         'twocol--50-50',
@@ -153,6 +154,10 @@ export default {
       control: {
         type: 'select',
         labels: {
+          // `list` is an ARRANGEMENT, not a column ratio — it is the only value that
+          // emits no `grid--*` class, which is what lets the 2rem row-spacing rule in
+          // _grid.scss match. `onecol` is a one-column GRID and deliberately does not.
+          'list': 'List (stacked, one per row)',
           'onecol': 'One column',
           'onecol__narrow': 'One column (narrow)',
           'twocol--50-50': 'Two columns',
@@ -185,7 +190,7 @@ const Template = (args) => ({
   template: `
     <div :class="args.section_background" style="padding-top: 2rem; padding-bottom: 2rem;">
       <div class="grid--threecol--33-34-33">
-        <div class="list-container">
+        <div class="grid__column list-container">
           <uids-card
             :url="args.url"
             :link_text="args.link_text"
@@ -382,6 +387,33 @@ Grid.args = {
   media: '<img width="600" height="600" src="' + card_icon + '" alt="Alt">',
   grid_type: 'threecol--33-34-33',
   record_count: 3,
+}
+
+// The arrangement contracts/rules.json `item-list-is-stacked-cards` actually prescribes:
+// stacked BORDERLESS cards, one per row. Added 2026-08-21, because until Grid.vue learned
+// the `list` type there was no story showing it — the `Grid` story above is the rule's
+// explicit COUNTER-CASE (three-across BORDERED cards, i.e. a set of parallel
+// destinations), and it was the closest thing on offer.
+//
+// Every arg mirrors what the news bundle actually ships, so this is a reproduction rather
+// than a designer's guess — uiowa/uiowa NodeBundleBase.php:95-99 sets headline--serif,
+// card--layout-right, media--widescreen, media--small and borderless, and Article.php
+// declares no getDefaultCardStyles override, so a news card inherits all five.
+// link_text is deliberately EMPTY: Card.vue:126-129 turns an empty link_text plus
+// link_indicator into `bttn--circle bttn--no-text`, which is "the arrow button".
+export const ItemList = GridTemplate.bind({})
+ItemList.args = {
+  ...Default.args,
+  grid_type: 'list',
+  record_count: 3,
+  borderless: true,
+  orientation: 'right',
+  media_size: 'small',
+  media_shape: 'widescreen',
+  headline_style: 'serif',
+  link_indicator: true,
+  link_text: '',
+  media: '<img width="600" height="600" src="' + card_image + '" alt="Alt">',
 }
 
 export const MediaDate = GridTemplate.bind({})

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet data-dc-atomics>
+        <link rel="stylesheet" href="./tokens.css" />
+        <!-- backgrounds.css is REQUIRED here, not decorative: Stat's `background` prop puts
+             bg--{color} on the Stat's OWN root, and every one of stat.scss's reactive rules
+             is a plain descendant/attribute match against that class (contracts/stat.json
+             option "background"). Without this sheet the title/content/description would
+             flip to their on-dark / on-gold colors with no coloured band behind them.
+             Loading it BEFORE the <style> below mirrors uids.scss, where
+             `components/background` (line 4) precedes `components/stat` (line 23). -->
+        <link rel="stylesheet" href="./backgrounds.css" />
+        <style>
+          /* ---- page reset (src/scss/base/_reset.scss:32-53), verbatim ----
+             Not this component's own SCSS, but production applies it globally to <html>,
+             so every rule below was authored against border-box. Without it, any element
+             combining a percentage width with padding renders wider than production —
+             measured at +96px on Callout before this was added. Reproduced across the
+             Phase 3 batch for that reason; see Table.dc.html for the original finding. */
+          html{box-sizing:border-box}
+          *,*::before,*::after{box-sizing:inherit}
+          body{margin:0}
+
+          /* ---- src/scss/layout/_flexbox.scss (foundation, NOT stat.scss) ----
+             Reproduced verbatim because no sibling sheet ships it (layout.css carries
+             containers/section rhythm/grids only) and Stat cannot render correctly
+             without it: display='default' — the prop's real default — ALWAYS pushes
+             element--flex-center onto the Stat root, so this is the default layout's
+             actual geometry, not an optional extra (contracts/stat.json behavior).
+             The 1.5rem belongs to that foundation, not to Stat's token set. Placed
+             first because uids-core (which @forwards layout/flexbox) precedes every
+             component partial in uids.scss.
+             .element--flex-left is deliberately NOT reproduced: it is reachable only
+             through a Drupal Layout Builder alignment style, never through Stat's prop
+             API, so no prop in this template could ever emit it (contracts/stat.json
+             knownIssues; same treatment Headline gives --negative/--center). */
+          .element--flex-center{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            flex-flow:column nowrap;
+            text-align:center;
+          }
+          @media (min-width:768px){
+            .element--flex-center{padding:1.5rem 0}
+          }
+
+          /* ---- src/scss/components/stat.scss (post-token-swap), SOURCE ORDER ---- */
+
+          /* Global CSS property declared inside a component partial — grep-confirmed the
+             only occurrence in the repo, reproduced as-shipped rather than relocated
+             (contracts/stat.json knownIssues). It is what lets the max-height
+             0 -> max-content hover transition animate instead of snapping. */
+          :root{interpolate-size:allow-keywords}
+
+          .stat__grid{
+            margin:0;
+            width:100%;
+            transition:all .55s cubic-bezier(.95,1.25,.375,1.15);
+          }
+          /* The hover expand is PURE CSS (no JS behavior class) and therefore really
+             works in this preview — hovering the Stat expands .stat__content. It is not
+             faked, and it is not the only way to see the expanded state: setting
+             stat_hover=false adds production's own .stat--static, which pins the content
+             open (see the .stat--static rule further down). Both branches below are
+             stat.scss's own progressive enhancement: max-height:100vh for browsers
+             without interpolate-size, max-content for those with it. */
+          @media (min-width:980px){
+            .stat__grid.stat--static:hover .stat__content{max-height:100vh}
+          }
+          @media (min-width:980px){
+            @supports (interpolate-size: allow-keywords){
+              .stat__grid.stat--static:hover .stat__content{max-height:max-content;overflow:hidden}
+            }
+          }
+          @media (min-width:980px){
+            .stat__grid:hover .stat__content{max-height:100vh}
+          }
+          @media (min-width:980px){
+            @supports (interpolate-size: allow-keywords){
+              .stat__grid:hover .stat__content{max-height:max-content;overflow:hidden}
+            }
+          }
+
+          .stat{position:relative}
+
+          .stat__title{
+            position:relative;
+            margin:0;
+            text-transform:uppercase;
+            line-height:var(--uiowa-stat-title-line-height);
+            font-family:var(--uiowa-stat-title-font-family);
+            font-weight:var(--uiowa-stat-title-font-weight);
+            font-size:var(--uiowa-stat-title-font-size);
+            border-bottom:var(--uiowa-stat-divider-width) solid var(--uiowa-stat-title-border-color);
+            /* $lg 0 $sm 0 — the Sass spacing primitives compile to these custom
+               properties; padding/margin geometry is deliberately NOT tokenized for this
+               component (contracts/stat.json geometryNotTokenized). */
+            padding:var(--uiowa-space-187) 0 var(--uiowa-space-62) 0;
+          }
+          /* DEAD RULE, kept for source-order fidelity: an identical-specificity
+             .stat__title padding override lands in the same 768px media query further
+             down the file and wins on order, so this one never renders. As-shipped
+             (contracts/stat.json geometryNotTokenized, "title-padding"). */
+          @media (min-width:768px){
+            .stat__title{padding:var(--uiowa-space-105) var(--uiowa-space-187) var(--uiowa-space-62) 0}
+          }
+          .element--flex-center .stat__title{
+            padding:var(--uiowa-space-105) var(--uiowa-space-187) var(--uiowa-space-62) var(--uiowa-space-187);
+            display:block;
+          }
+          /* Re-asserts the DEFAULT (gold) divider at 2-class specificity. Looks
+             redundant against the base rule, but it is load-bearing: backgrounds.css's
+             `[class*="bg--"] * {border-color:inherit}` would otherwise repaint the
+             divider with the band's own border color. */
+          .bg-pattern--brain .stat__title,
+          [class*="bg--white"] .stat__title,
+          [class*="bg--gray"] .stat__title,
+          [class*="bg--black"] .stat__title{
+            border-bottom:var(--uiowa-stat-divider-width) solid var(--uiowa-stat-title-border-color);
+          }
+          /* Stat's own context matching is NARROWER than the Background foundation's
+             light/dark grouping: only black/brain-black and gold/brain-reversed trigger
+             anything. A Stat on bg--gray or bg--white gets NONE of these flips
+             (contracts/stat.json behavior). */
+          .stat--horizontal.bg-pattern--brain-black .stat__title,
+          .stat--horizontal[class*="bg--black"] .stat__title,
+          .bg-pattern--brain-black .stat__title,
+          [class*="bg--black"] .stat__title{
+            color:var(--uiowa-stat-title-color-on-dark);
+          }
+          .bg-pattern--brain-reversed .stat__title,
+          [class*="bg--gold"] .stat__title{
+            border-bottom:var(--uiowa-stat-divider-width) solid var(--uiowa-stat-title-border-color-on-gold);
+          }
+          @media (min-width:768px){
+            .stat__title{
+              font-size:var(--uiowa-stat-title-font-size-at-sm);
+              padding:0 var(--uiowa-space-187) var(--uiowa-space-62) 0;
+            }
+            /* three-value padding, as shipped */
+            .element--flex-center .stat__title{padding:0 var(--uiowa-space-187) var(--uiowa-space-62)}
+          }
+
+          .stat__content{
+            color:var(--uiowa-stat-content-color);
+            margin:0;
+            padding:0;
+            line-height:var(--uiowa-stat-content-line-height);
+          }
+          /* At 980px+ the content collapses to zero height at rest — this is the
+             component's real at-rest appearance whenever stat_hover is true, matching
+             what the Figma "Hover" variant depicts (contracts/stat.json figma notes).
+             Below 980px it is always visible. */
+          @media (min-width:980px){
+            .stat__content{max-height:0;transition:max-height .4s ease-in-out;overflow:hidden}
+          }
+          @media (min-width:980px){
+            .stat--static .stat__content{max-height:max-content;transition:none;overflow:unset}
+          }
+          [class*="bg--black"] .stat__content,
+          .bg-pattern--brain-black .stat__content{color:var(--uiowa-stat-content-color-on-dark)}
+          .bg-pattern--brain-reversed .stat__content,
+          [class*="bg--gold"] .stat__content{color:var(--uiowa-stat-content-color-on-gold)}
+          @media (min-width:980px){
+            .element--flex-center .stat__content{margin:0 10%}
+          }
+
+          .stat__description{
+            position:relative;
+            display:inline-block;
+            font-family:var(--uiowa-stat-description-font-family);
+            font-weight:var(--uiowa-stat-description-font-weight);
+            text-transform:uppercase;
+            font-size:var(--uiowa-stat-description-font-size);
+            line-height:1.2; /* raw literal in the SCSS, not a token */
+            width:85%;
+            margin:var(--uiowa-space-62) 0; /* $sm 0 */
+          }
+          .bg-pattern--brain-black .stat__description,
+          [class*="bg--black"] .stat__description{color:var(--uiowa-stat-description-color-on-dark)}
+          /* Re-states the SAME token at 980px+. It is not a no-op: tokens.css redefines
+             --uiowa-stat-description-font-size inside its own `@media (min-width:980px)`
+             block, so the token is what steps up (1.3rem -> 1.5rem), not this rule. */
+          @media (min-width:980px){
+            .stat__description{font-size:var(--uiowa-stat-description-font-size)}
+          }
+          /* OMITTED: `.grid--3-2 .stat__description {width:60%}` (stat.scss:151-155,
+             byte-for-byte duplicated at :159-163). The .grid--3-2 ancestor class has ZERO
+             producers in UIDS or uiowa/uiowa — unreachable and redundant, and given no
+             Figma representation either (contracts/stat.json knownIssues). */
+
+          /* NOT scoped to .stat — stat.scss styles the shared headline prefix/suffix
+             spans globally, as shipped. */
+          .headline__prefix,
+          .headline__suffix{
+            font-size:var(--uiowa-stat-prefix-suffix-font-size);
+            vertical-align:middle;
+          }
+          .headline__prefix{margin-right:-7px} /* optical kerning, not a scale value */
+          .headline__suffix{margin-left:-7px}
+
+          /* ---- horizontal layout ----
+             84.375em is the page-container breakpoint = 1350px (media-query em is always
+             16px-based). NOTE the on-gold border-top rule comes FIRST in the source but
+             still wins over the default one below it: 4 classes vs 3. Its media query is
+             also WIDER (1350 vs 980), so between 980 and 1349px on a gold band the
+             border-top is still gold (contracts/stat.json behavior). */
+          @media (min-width:84.375em){
+            .stat--horizontal:not(.element--flex-center).bg-pattern--brain-reversed .stat__content,
+            .stat--horizontal:not(.element--flex-center)[class*="bg--gold"] .stat__content,
+            .bg-pattern--brain-reversed .stat--horizontal:not(.element--flex-center) .stat__content,
+            [class*="bg--gold"] .stat--horizontal:not(.element--flex-center) .stat__content{
+              /* on gold this divider is $secondary (BLACK) — NOT white. The title's
+                 on-gold divider above IS white. Two different tokens, both as-shipped. */
+              border-top:var(--uiowa-stat-divider-width) solid var(--uiowa-stat-horizontal-content-border-color-on-gold);
+            }
+          }
+          .stat--horizontal:not(.element--flex-center) .stat__title{
+            font-size:var(--uiowa-stat-horizontal-title-font-size);
+          }
+          @media (min-width:980px){
+            /* $lg / $xsm; also DROPS the title's border-bottom entirely — the divider
+               visually moves from under the title to above the content at this width. */
+            .stat--horizontal:not(.element--flex-center) .stat__title{
+              padding:0 var(--uiowa-space-187) var(--uiowa-space-32) 0;
+              border-bottom:none;
+            }
+          }
+          @media (min-width:84.375em){
+            .stat--horizontal:not(.element--flex-center) .stat__title{flex-basis:50%}
+          }
+          /* OMITTED here: `.stat--horizontal:not(.element--flex-center).element--flex-left
+             {flex-flow:wrap}` — see the .element--flex-left note at the top. */
+          .stat--horizontal:not(.element--flex-center) .stat__content{
+            font-size:var(--uiowa-stat-horizontal-content-font-size);
+          }
+          @media (min-width:980px){
+            .stat--horizontal:not(.element--flex-center) .stat__content{
+              padding-top:.5rem;
+              margin-top:.75rem;
+              border-top:var(--uiowa-stat-divider-width) solid var(--uiowa-stat-horizontal-content-border-color);
+              flex-basis:100%;
+            }
+          }
+          .stat--horizontal:not(.element--flex-center) .headline__prefix,
+          .stat--horizontal:not(.element--flex-center) .headline__suffix{
+            font-size:var(--uiowa-stat-horizontal-prefix-suffix-font-size);
+            vertical-align:middle;
+          }
+          .stat--horizontal:not(.element--flex-center) .headline__prefix{margin-right:-3px}
+          .stat--horizontal:not(.element--flex-center) .headline__suffix{margin-left:-3px}
+          .stat--horizontal:not(.element--flex-center) .stat__description{
+            width:100%;
+            /* literal 1.3rem and literal 0.625rem in the SCSS — the default layout uses
+               the description font-size token and $sm for the same two values. An
+               un-normalized inconsistency, reproduced as-shipped
+               (contracts/stat.json geometryNotTokenized). */
+            font-size:1.3rem;
+            margin:.625rem 0 0;
+          }
+          @media (min-width:980px){
+            .stat--horizontal:not(.element--flex-center) .stat__description{flex-basis:50%;margin:0}
+          }
+
+          .stat__grid.stat--horizontal{
+            margin-bottom:0rem;
+            display:flex;
+            flex-wrap:wrap;
+            cursor:inherit;
+            /* restated verbatim from .stat__grid above — redundant, as shipped */
+            transition:all .55s cubic-bezier(.95,1.25,.375,1.15);
+          }
+          .stat:not(.stat--static){cursor:pointer}
+        </style>
+      </helmet>
+      <!-- Markup is Stat.vue's template verbatim, including the bare wrapper <div> around
+           the <h2> and the unconditional .stat--transform class (emitted on every render
+           but targeted by ZERO CSS rules anywhere in UIDS or uids_base — kept so the DOM
+           matches production; contracts/stat.json knownIssues).
+           The heading level is hard-coded h2 in Stat.vue with no level prop, so there is
+           none here either. -->
+      <div class="{{ rootClass }}" data-screen-label="Stat">
+        <sc-if value="{{ hasTitle }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <h2 class="stat__title">
+              <sc-if value="{{ hasPrefix }}" hint-placeholder-val="{{ false }}"><span class="headline__prefix">{{ stat_prefix }}</span></sc-if>
+              {{ stat_title }}
+              <sc-if value="{{ hasSuffix }}" hint-placeholder-val="{{ true }}"><span class="headline__suffix">{{ stat_suffix }}</span></sc-if>
+            </h2>
+          </div>
+        </sc-if>
+        <!-- Production renders summary and content with v-html, so real callers may pass
+             markup (the Horizontal story passes a <br />). These editor fields are plain
+             text; that is the one authoring capability this view does not carry over. -->
+        <sc-if value="{{ hasSummary }}" hint-placeholder-val="{{ true }}">
+          <span class="stat__description">{{ stat_summary }}</span>
+        </sc-if>
+        <sc-if value="{{ hasContent }}" hint-placeholder-val="{{ true }}">
+          <p class="stat__content">{{ stat_content }}</p>
+        </sc-if>
+      </div>
+    </x-dc>
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{
+  "$preview": { "width": 1440, "height": 400 },
+  "stat_title": { "editor": "text", "default": "15:1", "tsType": "string" },
+  "stat_summary": { "editor": "text", "default": "student-to-faculty ratio", "tsType": "string" },
+  "stat_content": { "editor": "text", "default": "Among the top 2% of universities worldwide.", "tsType": "string" },
+  "stat_prefix": { "editor": "text", "default": "", "tsType": "string" },
+  "stat_suffix": { "editor": "text", "default": "+", "tsType": "string" },
+  "display": { "editor": "enum", "options": ["default", "horizontal"], "default": "default", "tsType": "string" },
+  "background": { "editor": "enum", "options": ["default", "black", "gold", "gray", "white"], "default": "default", "tsType": "string" },
+  "stat_hover": { "editor": "boolean", "default": true, "tsType": "boolean" }
+}'
+    >
+      class Component extends DCLogic {
+        renderVals() {
+          // Mirrors the `classes` computed in src/components/stat/Stat.vue, in its order.
+          const display = this.props.display ?? 'default';
+          // Stat consumes the PLAIN 5-value Background spread (shared/background.ts), not
+          // the pattern-extended one. The Vue prop's real default is the empty string;
+          // this editor labels it "default" the way Storybook's control does — both mean
+          // "emit no bg-- class at all" (the Headline text_style precedent).
+          const background = this.props.background ?? 'default';
+          const classes = ['stat', 'stat__grid', 'stat--transform'];
+          if (background !== 'default' && background !== '') {
+            classes.push('bg--' + background);
+          }
+          if (display === 'horizontal') {
+            // Stat.vue pushes a SECOND 'stat__grid' here; it is already in the static
+            // array above. Duplicate class tokens are a CSS no-op, so this template
+            // does not repeat it — the rendered class attribute is otherwise identical
+            // (contracts/stat.json knownIssues).
+            classes.push('stat--horizontal');
+          } else {
+            // Not an independent toggle: 'default' ALWAYS carries element--flex-center.
+            classes.push('element--flex-center');
+          }
+          // Inverted polarity: the class appears when the prop is FALSE. stat_hover=false
+          // is also how you preview the expanded content without hovering — it adds
+          // production's own .stat--static rather than a dc-only stand-in.
+          if (this.props.stat_hover === false) classes.push('stat--static');
+          const title = this.props.stat_title ?? '';
+          const summary = this.props.stat_summary ?? '';
+          const content = this.props.stat_content ?? '';
+          const prefix = this.props.stat_prefix ?? '';
+          const suffix = this.props.stat_suffix ?? '';
+          return {
+            rootClass: classes.join(' '),
+            stat_title: title,
+            stat_summary: summary,
+            stat_content: content,
+            stat_prefix: prefix,
+            stat_suffix: suffix,
+            // Every content area is independently v-if gated in Stat.vue; an empty
+            // title removes the whole <h2> block, prefix and suffix included.
+            hasTitle: String(title).length > 0,
+            hasSummary: String(summary).length > 0,
+            hasContent: String(content).length > 0,
+            hasPrefix: String(prefix).length > 0,
+            hasSuffix: String(suffix).length > 0
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

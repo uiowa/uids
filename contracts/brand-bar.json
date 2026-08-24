@@ -1,0 +1,157 @@
+{
+  "$schema": "./contract.schema.json",
+  "name": "brand-bar",
+  "version": "1.0.1",
+  "description": "The IOWA Bar — the visual starting point for all branded University of Iowa websites. Black bar (mobile) / gold bar (md+) containing the Logo tab and site name, with an optional second row for parent-site context.",
+  "identity": {
+    "codePath": "src/components/brand-bar/BrandBar.vue",
+    "scssPath": "src/scss/components/brand-bar.scss",
+    "registeredName": "uids-iowa-bar",
+    "barrelExport": "UidsIowaBar",
+    "storybookId": "components-branding-brand-bar",
+    "storybookUrl": "https://uids.brand.uiowa.edu/?path=/docs/components-branding-brand-bar--docs",
+    "figma": {
+      "fileKey": "hNShklBztaeaQneScM0KoM",
+      "componentSetName": "Brand Bar",
+      "componentSetId": "29:145",
+      "componentKey": "8b2246845355c30793f9bb84ed10ff555d43f2fd",
+      "page": "Components / Brand Bar"
+    },
+    "claudeDesign": {
+      "projectId": "a371c390-7071-4ac7-a122-87440610e63a",
+      "template": "Brand Bar.dc.html"
+    }
+  },
+  "options": [
+    {
+      "name": "narrow",
+      "type": "boolean",
+      "default": false,
+      "description": "Narrow version of the bar (50px min-height at md+, smaller logo and 1rem site name)",
+      "code": {
+        "prop": "narrow"
+      },
+      "figma": {
+        "axis": "Style",
+        "map": {
+          "false": "Default",
+          "true": "Narrow"
+        },
+        "notes": "Style axis has a third value, Parent Title, for the WithParentSiteTitle slot composition (parent title in a narrow bar + site h1 in the second row, both baked visible); it maps to slots, not to this prop"
+      }
+    },
+    {
+      "name": "healthcare",
+      "type": "boolean",
+      "default": false,
+      "description": "Health Care variant: taller bar (100px md+) with the IOWA Health Care lockup; passed through to the nested Logo",
+      "code": {
+        "prop": "healthcare"
+      },
+      "figma": {
+        "axis": "Healthcare",
+        "map": {
+          "false": "False",
+          "true": "True"
+        }
+      }
+    },
+    {
+      "name": "breakpoint",
+      "type": "enum",
+      "values": [
+        "mobile",
+        "md",
+        "page"
+      ],
+      "description": "Responsive states. Mobile: black bar, gold site-name strip, auto height. MD+: gold bar, fixed heights. Page: larger logo/site-name.",
+      "code": {
+        "mediaQuery": {
+          "md": "980px",
+          "page": "1350px"
+        }
+      },
+      "figma": {
+        "axis": "Breakpoint",
+        "map": {
+          "mobile": "Mobile",
+          "md": "MD",
+          "page": "Page"
+        }
+      }
+    }
+  ],
+  "slots": [
+    {
+      "name": "default",
+      "description": "Content beside the logo — typically <h1 class=\"site-name\"> (or a parent-site-name div in the WithParentSiteTitle pattern)",
+      "figma": {
+        "property": "Show Site Name (boolean) + Site Name (text); parent-title pattern: Style=Parent Title variant (or Show Parent Title boolean + Parent Title text with Show Site Name OFF)"
+      }
+    },
+    {
+      "name": "second_row_content",
+      "description": "Second row below the bar (.iowa-bar__below), typically the site h1 when a parent site title occupies the top bar",
+      "behavior": "IMPORTANT: mere presence of this slot forces iowa-bar--narrow styling on the top bar (BrandBar.vue getClasses, line 34) — narrow=false cannot produce a tall bar when a second row exists",
+      "figma": {
+        "property": "Show Second Row (boolean) or the Style=Parent Title variant; below-site-name text binds to the Site Name property"
+      }
+    }
+  ],
+  "tokensUsed": [
+    "brand-bar/background",
+    "brand-bar/height/default",
+    "brand-bar/height/healthcare",
+    "brand-bar/min-height/narrow",
+    "brand-bar/below/min-height",
+    "brand-bar/below/border-color",
+    "brand-bar/below/background",
+    "brand-bar/site-name/font-size",
+    "brand-bar/site-name/font-size-narrow",
+    "brand-bar/site-name/font-weight",
+    "brand-bar/site-name/color"
+  ],
+  "children": [
+    {
+      "component": "logo",
+      "contract": "contracts/logo.json",
+      "fixed": {
+        "context": "header"
+      },
+      "inherits": [
+        "healthcare"
+      ]
+    }
+  ],
+  "geometryNotTokenized": {
+    "logo-margin-right": "20px (default) / 10px (narrow)",
+    "logo-tab-padding-page-override": "27px 20px 20px, margin-left -12px (page-container, set by brand-bar.scss)",
+    "logo-tab-padding-top-healthcare": "27px (md+)",
+    "site-name-mobile-strip": "width 100%, padding 1.25rem, gold background",
+    "site-name-margins": "1px 0 0 0 (md) / 5px 0 0 0 (page)",
+    "parent-site-name": "weight 300, font-size = site-name-font-size-narrow token (unified 2026-08-13), gold bg mobile → transparent md, padding 1.05rem 0 0 1.25rem, margin 0 0 -10px 0",
+    "below-site-name": "padding 25px 20px 25px 0, width 75% (md+), font-size 1.8rem→2rem→2.2rem",
+    "container-max-width": "81.875em (1310px), centered",
+    "z-index": "2 (bar and below row)",
+    "narrow-tab-overhang-page": "margin-bottom -6px on .logo--tab (page-container): narrow bar renders 50px (min-height token) / 64px (healthcare, emergent 70-6) with the tab hanging 6px below; Figma variant bars are height-fixed to match, not content-hugged; the tab must also PAINT ABOVE the below-row (production does) — Figma variants use itemReverseZIndex so the bar/tab stacks over the second row"
+  },
+  "a11y": {
+    "landmark": "banner (native <header> element)",
+    "attrs": [
+      "data-uids-header"
+    ],
+    "notes": "Site name should be the page h1 exactly once per page; logo carries its own accessible name (see contracts/logo.json)"
+  },
+  "behavior": [
+    "Background is black below 980px and gold at 980px+ (brand-bar/background token per mode)",
+    "second_row_content presence forces narrow styling on the top bar regardless of the narrow prop",
+    "Heights at mobile are content-driven (token sentinel 0 = auto)"
+  ],
+  "breakpoints": {
+    "md": 980,
+    "page-container": 1350
+  },
+  "knownIssues": [
+    "No Storybook story exercises healthcare=true for the bar (only Logo stories do); the Figma set includes Healthcare variants by construction"
+  ]
+}

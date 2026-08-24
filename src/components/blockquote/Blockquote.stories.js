@@ -109,3 +109,49 @@ Right.args = {
   ...Left.args,
   orientation: 'right',
 }
+
+export const ImageBelow = Template.bind({});
+ImageBelow.args = {
+  ...Left.args,
+  media_position_bottom: true,
+};
+
+export const NoMedia = Template.bind({});
+NoMedia.args = {
+  ...Left.args,
+  media: '',
+};
+
+// The background class is applied to the blockquote itself. The shipped SCSS
+// expects a bg--gold ancestor, so the accent remains gold instead of flipping
+// to white; this fixture intentionally records that known issue as shipped.
+export const OnGold = Template.bind({});
+OnGold.args = {
+  ...NoMedia.args,
+  background: 'gold',
+};
+
+// Demonstrates the as-shipped v-if="content" behavior: named slot content is
+// dropped when the content prop is absent. The surrounding structure remains
+// available for the regression harness even though the paragraph does not.
+export const ContentSlotOnly = {
+  render: (args) => ({
+    components: { UidsBlockquote },
+    setup() {
+      return { args };
+    },
+    template: `
+      <uids-blockquote v-bind="args">
+        <template #content><p>This slot is gated out as shipped.</p></template>
+        <template #footer><p>Slot-only fixture</p></template>
+      </uids-blockquote>
+    `,
+  }),
+  args: {
+    cite_text: 'Known issue',
+    footer: 'Slot-only fixture',
+    media_position_bottom: true,
+    orientation: '',
+    background: '',
+  },
+};

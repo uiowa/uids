@@ -75,6 +75,39 @@
   }
 }
 
+// List arrangement — the counterpart to the `grid--*` column ratios above.
+//
+// Mirrored VERBATIM from uids_base/scss/components/grid.scss:6-12, which owned this rule
+// alone until 2026-08-21. Downstream is unaffected by the copy: identical selector,
+// declaration and value, so no SiteNow page shifts and that rule simply becomes a
+// redundant mirror. What the copy buys is that UIDS can now RENDER the arrangement it
+// mandates in contracts/rules.json `item-list-is-stacked-cards` — in Storybook, in the
+// regression harness and in Claude Design — instead of documenting a pattern only a real
+// Drupal page could produce.
+//
+// The `:not([class*="grid-"])` guard is what separates a list from a grid: every
+// `grid--*` value contains the substring `grid-`, INCLUDING `grid--onecol`, so any
+// container carrying a column ratio is excluded here and keeps its own gutters instead.
+// Grid.vue's `list` type exists precisely to emit the grid-less container this selector
+// was written for and never had.
+//
+// `> div + div` keys on DIRECT DIV CHILDREN and ignores their class — which is why one
+// rule spaces `.grid__column` here and `.views-row` downstream. Note this is a different
+// job from `.grid__column`'s container query below: spacing is class-agnostic, the
+// container context is not. `margin-top` on subsequent siblings rather than
+// `margin-bottom` on all of them leaves no trailing gap under the last card.
+//
+// 2rem is left RAW rather than tokenized, as-shipped — see contracts/item-list.json
+// geometryNotTokenized.row-gap. It equals {space.200} numerically, but tokenizing it
+// would mint a tier-3 token and a Figma variable this pattern does not otherwise need.
+.list-container.list-container--list:not([class*="grid-"]) {
+  .list-container__inner {
+    > div + div {
+      margin-top: 2rem;
+    }
+  }
+}
+
 // Declare which containers to query.
 @supports (contain: inline-size) {
   .grid__column,

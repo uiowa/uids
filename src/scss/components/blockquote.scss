@@ -4,15 +4,15 @@
 // === Blockquote === //
 
 blockquote {
-  font-weight: variables.$font-weight-normal;
+  font-weight: var(--uiowa-blockquote-font-weight);
   font-style: normal;
-  font-family: variables.$font-family-serif;
+  font-family: var(--uiowa-blockquote-font-family);
   border-left-style: solid;
-  border-width: 10px;
-  border-color: variables.$primary;
+  border-width: var(--uiowa-blockquote-accent-width);
+  border-color: var(--uiowa-blockquote-accent-color);
   padding: variables.$lg;
-  font-size: 1.5rem;
-  line-height: 1.7;
+  font-size: var(--uiowa-blockquote-font-size);
+  line-height: var(--uiowa-blockquote-line-height);
   @include utilities.padding($top: variables.$xsm, $bottom: variables.$xsm, $left: variables.$lg);
 
   cite {
@@ -20,7 +20,7 @@ blockquote {
   }
 
   .blockquote__media {
-    max-width: 160px;
+    max-width: var(--uiowa-blockquote-media-max-width);
   }
 
   p:last-of-type {
@@ -34,37 +34,37 @@ blockquote {
   [class*="bg--"] [class*="bg--gray"] &,
   [class*="bg--white"] &,
   [class*="bg--"] [class*="bg--white"] &, {
-    border-color: variables.$primary;
+    border-color: var(--uiowa-blockquote-accent-color);
 
     &::before {
-      background: variables.$primary;
+      background: var(--uiowa-blockquote-accent-color);
     }
   }
 
 
   [class*="bg--gold"] &,
   [class*="bg--"] [class*="bg--gold"] & {
-    border-color: #fff;
+    border-color: var(--uiowa-blockquote-accent-color-on-gold);
 
     &::before {
-      background: #fff;
+      background: var(--uiowa-blockquote-accent-color-on-gold);
     }
   }
 
   p {
     margin-top: 0;
-    font-weight: variables.$font-weight-normal;
-    font-size: 1.5rem;
+    font-weight: var(--uiowa-blockquote-font-weight);
+    font-size: var(--uiowa-blockquote-font-size);
   }
 
   footer {
-    font-family: variables.$font-family-sans-serif;
+    font-family: var(--uiowa-blockquote-footer-font-family);
     margin-top: variables.$md;
-    font-size: variables.$content-font-size;
-    line-height: 1.5;
+    font-size: var(--uiowa-blockquote-footer-font-size);
+    line-height: var(--uiowa-blockquote-footer-line-height);
     p {
-      font-size: variables.$content-font-size;
-      line-height: 1.5;
+      font-size: var(--uiowa-blockquote-footer-font-size);
+      line-height: var(--uiowa-blockquote-footer-line-height);
     }
   }
 
@@ -92,20 +92,20 @@ blockquote {
     &::before {
       position: absolute;
       content: '';
-      height: 10px;
+      height: var(--uiowa-blockquote-accent-width);
       top: 11px;
       margin: 0 auto;
       left: 0;
       right: 0;
       width: 130px;
-      background: variables.$primary;
+      background: var(--uiowa-blockquote-accent-color);
       -webkit-transition: 0.5s;
       transition: 0.5s;
 
       .bg--gold--pattern--brain &,
       .bg-pattern--brain-reversed &,
       [class*="bg--gold"] & {
-        background: #fff;
+        background: var(--uiowa-blockquote-accent-color-on-gold);
       }
     }
   }
@@ -165,12 +165,12 @@ blockquote {
       &::after {
         position: absolute;
         content: '';
-        height: 10px;
+        height: var(--uiowa-blockquote-accent-width);
         bottom: 0;
         left: 0;
         right: 0;
         width: 130px;
-        background: variables.$primary;
+        background: var(--uiowa-blockquote-accent-color);
         -webkit-transition: 0.5s;
         transition: 0.5s;
 
@@ -181,13 +181,13 @@ blockquote {
         [class*="bg--black"] &,
         [class*="bg--gray"] &,
         [class*="bg--white"] & {
-          background: variables.$primary;
+          background: var(--uiowa-blockquote-accent-color);
         }
 
         .bg--gold--pattern--brain &,
         .bg-pattern--brain-reversed &,
         [class*="bg--gold"] & {
-          background: #fff;
+          background: var(--uiowa-blockquote-accent-color-on-gold);
         }
       }
     }
@@ -246,7 +246,7 @@ blockquote {
   // Blockquote image below.
   &.blockquote--img-below {
     .blockquote__media {
-      max-width: 100px;
+      max-width: var(--uiowa-blockquote-media-img-below-max-width);
     }
 
     footer {

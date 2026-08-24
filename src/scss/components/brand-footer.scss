@@ -1,9 +1,13 @@
 @use '../abstracts/variables';
 @use '../abstracts/utilities';
 
+// Colors and type sizes come from design tokens (tokens/components/brand-footer.json →
+// --uiowa-brand-footer-*; see abstracts/_tokens-generated.scss). Spacing stays raw
+// (contracts/brand-footer.json geometryNotTokenized).
+
 .footer {
   position: relative;
-  background: variables.$secondary;
+  background: var(--uiowa-brand-footer-background);
   @include utilities.padding($top: variables.$xlg, $right: 0, $bottom: variables.$xlg, $left: 0);
 
   @include utilities.breakpoint(md) {
@@ -11,7 +15,7 @@
   }
 
   a {
-    color: variables.$primary;
+    color: var(--uiowa-brand-footer-link-color);
     text-decoration: none;
     font-weight: variables.$font-weight-normal;
     &:hover,
@@ -21,13 +25,13 @@
   }
 
   p {
-    color: #ccc;
-    line-height: 1.5;
-    font-weight: 100;
+    color: var(--uiowa-brand-footer-text-color);
+    line-height: var(--uiowa-line-height-150);
+    font-weight: var(--uiowa-brand-footer-text-font-weight);
     margin-top: variables.$sm-md;
 
     a {
-      color: variables.$primary;
+      color: var(--uiowa-brand-footer-link-color);
       text-decoration: none;
       font-weight: variables.$font-weight-normal;
       &:hover,
@@ -37,8 +41,8 @@
 
       i, svg, span {
         margin-right: variables.$sm;
-        font-size: variables.$small-font-size;
-        color: #999;
+        font-size: var(--uiowa-brand-footer-text-icon-font-size);
+        color: var(--uiowa-brand-footer-text-icon-color);
       }
 
     }
@@ -46,13 +50,13 @@
 
   // Override site-name when it is displayed in the footer.
   .site-name {
-    color: #fff;
-    font-size: 1.7rem;
+    color: var(--uiowa-brand-footer-site-name-color);
+    font-size: var(--uiowa-brand-footer-site-name-font-size);
     margin-top: variables.$md;
-    font-weight: variables.$font-weight-heavy;
+    font-weight: var(--uiowa-brand-footer-site-name-font-weight);
     margin-bottom: variables.$xsm;
     a {
-      color: #fff;
+      color: var(--uiowa-brand-footer-site-name-color);
       text-decoration: none;
       &:hover,
       &:focus {
@@ -63,16 +67,16 @@
 
   // Override parent-site-name when it is displayed in the footer.
   .parent-site-name {
-    color: #ccc;
-    font-size: 1.4rem;
+    color: var(--uiowa-brand-footer-parent-site-name-color);
+    font-size: var(--uiowa-brand-footer-parent-site-name-font-size);
     margin-top: 0;
-    font-weight: 300;
+    font-weight: var(--uiowa-brand-footer-parent-site-name-font-weight);
     margin-bottom: .625rem;
     display: block;
-    background: variables.$secondary;
+    background: var(--uiowa-brand-footer-parent-site-name-background);
     padding: 0;
     a {
-      color: #ccc;
+      color: var(--uiowa-brand-footer-parent-site-name-color);
       text-decoration: none;
       &:hover, &:focus {
         text-decoration: underline;
@@ -117,10 +121,10 @@
       }
 
       a {
-        font-weight: variables.$font-weight-light;
+        font-weight: var(--uiowa-brand-footer-menu-font-weight);
         text-decoration: none;
-        color: white;
-        font-size: 1.1rem;
+        color: var(--uiowa-brand-footer-menu-link-color);
+        font-size: var(--uiowa-brand-footer-menu-font-size);
         &:hover,
         &:focus {
           text-decoration: underline;
@@ -168,12 +172,12 @@
 
     a {
       text-decoration: none;
-      color: #fff;
+      color: var(--uiowa-brand-footer-icon-menu-color);
     }
 
     i {
-      color: #fff;
-      font-size: variables.$h4-font-size;
+      color: var(--uiowa-brand-footer-icon-menu-color);
+      font-size: var(--uiowa-brand-footer-icon-menu-font-size);
       @include utilities.margin($right: variables.$md);
     }
 
@@ -203,9 +207,9 @@
     flex-wrap: wrap;
 
     li {
-      color: white;
-      font-size: variables.$small-font-size;
-      border-right: 1px solid #5d5656;
+      color: var(--uiowa-brand-footer-socket-color);
+      font-size: var(--uiowa-brand-footer-socket-font-size);
+      border-right: 1px solid var(--uiowa-brand-footer-socket-separator-color);
       margin-bottom: variables.$xsm;
       @include utilities.padding($top: 0, $right: variables.$sm, $left: variables.$sm);
 
@@ -228,7 +232,7 @@
 
       a {
         text-decoration: none;
-        color: variables.$primary;
+        color: var(--uiowa-brand-footer-socket-link-color);
         &:hover,
         &:focus {
           text-decoration: underline;
@@ -238,106 +242,9 @@
   }
 }
 
-.footer-cta {
-  &__wrapper {
-    background: variables.$primary;
-    padding: variables.$lg 0;
-    margin: 0;
-
-    .menu {
-      @include utilities.breakpoint(sm) {
-        display: flex;
-      }
-      li {
-        flex: 1;
-        display: block;
-      }
-    }
-
-    .bttn--outline {
-      border: 1px solid variables.$secondary;
-      display: block;
-
-      @include utilities.breakpoint(sm) {
-        flex: 1;
-        display: block;
-      }
-    }
-  }
-
-  &__container {
-    justify-content: space-between;
-    @include utilities.container-width;;
-
-
-    div:first-of-type,
-    nav:first-of-type {
-      flex-basis: 100%;
-    }
-
-    @include utilities.breakpoint(sm) {
-      display: flex;
-    }
-
-    @include utilities.breakpoint(page-container) {
-      padding: 0;
-    }
-  }
-}
-
-.footer-cta__container .menu {
-  @extend %no-ul-list;
-  li {
-    @include utilities.breakpoint(sm) {
-      &:first-child a {
-        margin: 0 variables.$md 0 0;
-      }
-
-      &:last-child a {
-        margin: 0 0 0 variables.$md;
-      }
-    }
-  }
-
-  a {
-    margin: variables.$md 0;
-    padding-top: variables.$xsm;
-
-    @include utilities.breakpoint(sm) {
-      margin: 0 variables.$md;
-    }
-
-    &:before {
-      content: ' ';
-      background-repeat: no-repeat;
-      background-size: 90%;
-      width: 35px;
-      height: 35px;
-      display: inline-block;
-      margin-bottom: -5px;
-      margin-right: 5px;
-    }
-  }
-}
-
-.footer-cta__container>a:first-child {
-  margin-left: 0;
-}
-
-.footer-cta__container>a:last-child {
-  margin-right: 0;
-}
-
-// Logo in footer.
+// Logo in footer. Width comes from the logo/footer/width token, which carries
+// its own breakpoint switching (128/145/176px).
 .logo--footer {
   padding: 0 40px 0 0;
-  width: 128px;
-
-  @include utilities.breakpoint(md) {
-    width: 145px
-  }
-
-  @include utilities.breakpoint(page-container) {
-    width: 176px
-  }
+  width: var(--uiowa-logo-footer-width);
 }

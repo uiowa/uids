@@ -1,0 +1,1079 @@
+{
+  "description": "UIDS agent catalog — entry point for generating designs or code with this system. DERIVED by scripts/build-catalog.mjs; do not edit by hand. This index LINKS to the authored sources rather than restating them.",
+  "readingOrder": [
+    "contracts/rules.json — governance rules (judge = mechanically checked, agent = guidance)",
+    "contracts/<component>.json — the authored contract: options, slots, behavior, a11y, geometry (linked per component below)",
+    "catalog/tokens.lean.json — resolved values (rem/px, per breakpoint) for every token name a contract references. READ THIS ONE when generating: it is the same inventory as tokens.json with per-token provenance dropped, and roughly half the size.",
+    "catalog/tokens.json — the same inventory WITH provenance. Read it when you need to know why a token holds the value it does, not to pick a token."
+  ],
+  "rules": "contracts/rules.json",
+  "tokens": "catalog/tokens.lean.json",
+  "tokensWithProvenance": "catalog/tokens.json",
+  "figmaFile": "https://www.figma.com/design/hNShklBztaeaQneScM0KoM/UIDS",
+  "regenerate": "node scripts/build-catalog.mjs",
+  "components": [
+    {
+      "id": "accordion",
+      "name": "Accordion Item",
+      "version": "1.0.0",
+      "description": "UIDS accordion component contract, preserving the verified 4.x rendering and documenting the proposed Figma representation.",
+      "contract": "contracts/accordion.json",
+      "code": "src/components/accordion/Accordion.vue",
+      "figma": {
+        "componentSetId": "209:23",
+        "componentKey": "2533884287b6f03909d4bace0159297c6ef58f4e",
+        "page": "Components / Accordion"
+      },
+      "storybook": "components-accordion",
+      "options": [
+        "items",
+        "multiselectable",
+        "label_color"
+      ],
+      "tokens": [
+        "accordion/label/color",
+        "accordion/label/color-hover",
+        "accordion/outline/color",
+        "accordion/border/color",
+        "accordion/heading/font-size",
+        "accordion/heading/font-weight",
+        "accordion/padding",
+        "accordion/content/background",
+        "accordion/content/text-font-size",
+        "accordion/icon/size",
+        "accordion/icon/gap",
+        "accordion/item/gap",
+        "accordion/white/label/color",
+        "accordion/white/label/color-hover",
+        "accordion/white/outline/color"
+      ]
+    },
+    {
+      "id": "alert",
+      "name": "Alert",
+      "version": "1.0.0",
+      "description": "UIDS alert component contract, preserving the verified 4.x rendering and documenting the proposed Figma representation.",
+      "contract": "contracts/alert.json",
+      "code": "src/components/alert/Alert.vue",
+      "figma": {
+        "componentSetId": "214:91",
+        "componentKey": "09a95952df6e78ae295ffa6b91a1347264ef930d",
+        "page": "Components / Alert"
+      },
+      "storybook": "components-alert",
+      "options": [
+        "type",
+        "iconVisible",
+        "dismissible",
+        "centered",
+        "verticallyCentered"
+      ],
+      "tokens": [
+        "alert/danger/background",
+        "alert/danger/icon-color",
+        "alert/success/background",
+        "alert/success/icon-color",
+        "alert/warning/background",
+        "alert/warning/icon-color",
+        "alert/info/background",
+        "alert/info/icon-color",
+        "alert/padding",
+        "alert/border-radius",
+        "alert/line-height",
+        "alert/icon/gap",
+        "alert/heading/h2",
+        "alert/heading/h3",
+        "alert/heading/h4",
+        "alert/heading/h5",
+        "alert/heading/h6",
+        "alert/dismiss/size",
+        "alert/dismiss/icon-font-size"
+      ]
+    },
+    {
+      "id": "background",
+      "name": "Backgrounds",
+      "version": "1.0.0",
+      "description": "Foundations contract for the background-treatment system: the bg--{color}[--pattern--{type}] class grammar, its foreground-color cascade, border-color overrides under backgrounds, and the pattern-image layer. UIDS owns the grammar and the color/pattern tokens; uids_base (SiteNow) is the downstream consumer whose Layout Builder background options select these classes. Not a component — no Vue file. It DOES own one Figma component set as of 2026-08-24 (`Backgrounds`, 170:55): a documentation surface for the class grammar, not an instanceable component. See changes[2].",
+      "contract": "contracts/background.json",
+      "code": "src/scss/components/_background.scss",
+      "figma": {
+        "componentSetId": null,
+        "componentKey": null,
+        "page": "Foundations / Backgrounds"
+      },
+      "storybook": null,
+      "options": [
+        "color",
+        "pattern"
+      ],
+      "tokens": [
+        "color/bg/black",
+        "color/bg/gold",
+        "color/bg/gray",
+        "color/bg/white",
+        "color/link",
+        "color/on-light/text",
+        "color/on-light/link",
+        "color/on-dark/text",
+        "color/on-dark/link",
+        "color/border/default",
+        "color/border/on-dark"
+      ]
+    },
+    {
+      "id": "badge",
+      "name": "Badge",
+      "version": "1.1.0",
+      "description": "UIDS badge component contract, preserving the verified 4.x rendering and documenting the proposed Figma representation.",
+      "contract": "contracts/badge.json",
+      "code": "src/components/badge/Badge.vue",
+      "figma": {
+        "componentSetId": "211:18",
+        "componentKey": "fbc5d0672de40f0532a0307972ebbe5c4d0ea0b8",
+        "page": "Components / Badge"
+      },
+      "storybook": "components-badge",
+      "options": [
+        "type",
+        "text"
+      ],
+      "tokens": [
+        "badge/line-height",
+        "badge/font-size",
+        "badge/font-weight",
+        "badge/padding/block",
+        "badge/padding/inline",
+        "badge/border-radius",
+        "badge/color",
+        "badge/primary/background",
+        "badge/primary/color",
+        "badge/secondary/background",
+        "badge/cool-gray/background",
+        "badge/blue/background",
+        "badge/green/background",
+        "badge/orange/background"
+      ]
+    },
+    {
+      "id": "banner",
+      "name": "Banner",
+      "version": "1.0.0",
+      "description": "UIDS banner component contract. A full-bleed hero whose fill is EITHER a media element with a tinted overlay OR a background colour/pattern — the two are mutually exclusive, and CSS enforces it rather than convention.",
+      "contract": "contracts/banner.json",
+      "code": "src/components/banner/Banner.vue",
+      "figma": {
+        "componentSetId": "329:74",
+        "componentKey": "e7d1f92425f1c2d38d80a78e592bffdc4a9da2fd",
+        "page": "Components / Banner"
+      },
+      "storybook": "components-banner",
+      "options": [
+        "headline",
+        "pre_title",
+        "buttons",
+        "button_color",
+        "button_light_font",
+        "media_overlay_type",
+        "media_overlay_light",
+        "media_overlay_midpoint",
+        "height",
+        "narrow",
+        "horizontal_alignment",
+        "vertical_alignment",
+        "mobile_content_below_image",
+        "background"
+      ],
+      "tokens": [
+        "banner/padding/base",
+        "banner/padding/sm",
+        "banner/min-height",
+        "banner/overlay/opacity/solid/dark",
+        "banner/overlay/opacity/solid/light",
+        "banner/overlay/opacity/gradient/start",
+        "banner/overlay/opacity/gradient/mid",
+        "banner/overlay/midpoint/default",
+        "banner/overlay/midpoint/ltr",
+        "banner/text-color/on-media",
+        "banner/text-color/on-light-fill",
+        "banner/bg-failsafe/on-media",
+        "banner/bg-failsafe/on-light-overlay",
+        "banner/media/background/default",
+        "banner/media/background/light",
+        "banner/headline/margin-bottom",
+        "banner/text/margin-bottom",
+        "banner/pre-title/line-height",
+        "banner/pre-title/font-weight",
+        "banner/pre-title/uppercase-margin-bottom",
+        "banner/pre-title/font-size/small",
+        "banner/action/margin-top",
+        "banner/action/button-spacing",
+        "banner/video-btn/size",
+        "banner/video-btn/font-size",
+        "banner/video-btn/background",
+        "banner/video-btn/color",
+        "banner/video-btn/border-width",
+        "banner/video-btn/border-color/default",
+        "banner/video-btn/border-color/on-light-overlay",
+        "banner/video-controls/offset/base",
+        "banner/video-controls/offset/sm"
+      ]
+    },
+    {
+      "id": "blockquote",
+      "name": "Blockquote",
+      "version": "1.0.0",
+      "description": "UIDS blockquote component contract, preserving the verified 4.x rendering and documenting the proposed Figma representation.",
+      "contract": "contracts/blockquote.json",
+      "code": "src/components/blockquote/Blockquote.vue",
+      "figma": {
+        "componentSetId": "229:71",
+        "componentKey": "7452b60a5fa14a4e27845e5025832f1e391cc491",
+        "page": "Components / Blockquote"
+      },
+      "storybook": "components-blockquote",
+      "options": [
+        "orientation",
+        "media_position_bottom",
+        "content",
+        "footer",
+        "url",
+        "cite_text",
+        "background"
+      ],
+      "tokens": [
+        "blockquote/font-family",
+        "blockquote/font-weight",
+        "blockquote/font-size",
+        "blockquote/line-height",
+        "blockquote/accent/width",
+        "blockquote/accent/color",
+        "blockquote/accent/color-on-gold",
+        "blockquote/media/max-width",
+        "blockquote/media/img-below/max-width",
+        "blockquote/footer/font-family",
+        "blockquote/footer/font-size",
+        "blockquote/footer/line-height"
+      ]
+    },
+    {
+      "id": "border",
+      "name": "border",
+      "version": "1.0.0",
+      "description": "Foundations contract for the shared border system: the default 1px border (utilities.border mixin) and its ancestor-background-aware color flip, plus the .borderless override class. Not a component — no Vue code, no dedicated Figma component set. Consumed directly by .border/.borderless and, via the same mixin, by Button, Card, and Alert.",
+      "contract": "contracts/border.json",
+      "code": "src/scss/components/_border.scss",
+      "figma": {
+        "componentSetId": null,
+        "componentKey": null,
+        "page": null
+      },
+      "storybook": null,
+      "options": [
+        "border",
+        "borderless"
+      ],
+      "tokens": [
+        "color/border/default",
+        "color/border/on-dark"
+      ]
+    },
+    {
+      "id": "brand-bar",
+      "name": "Brand Bar",
+      "version": "1.0.1",
+      "description": "The IOWA Bar — the visual starting point for all branded University of Iowa websites. Black bar (mobile) / gold bar (md+) containing the Logo tab and site name, with an optional second row for parent-site context.",
+      "contract": "contracts/brand-bar.json",
+      "code": "src/components/brand-bar/BrandBar.vue",
+      "figma": {
+        "componentSetId": "29:145",
+        "componentKey": "8b2246845355c30793f9bb84ed10ff555d43f2fd",
+        "page": "Components / Brand Bar"
+      },
+      "storybook": "https://uids.brand.uiowa.edu/?path=/docs/components-branding-brand-bar--docs",
+      "options": [
+        "narrow",
+        "healthcare",
+        "breakpoint"
+      ],
+      "tokens": [
+        "brand-bar/background",
+        "brand-bar/height/default",
+        "brand-bar/height/healthcare",
+        "brand-bar/min-height/narrow",
+        "brand-bar/below/min-height",
+        "brand-bar/below/border-color",
+        "brand-bar/below/background",
+        "brand-bar/site-name/font-size",
+        "brand-bar/site-name/font-size-narrow",
+        "brand-bar/site-name/font-weight",
+        "brand-bar/site-name/color"
+      ]
+    },
+    {
+      "id": "brand-footer",
+      "name": "Brand Footer",
+      "version": "1.1.1",
+      "description": "The branded site footer: black band with the gold IOWA lockup, site/contact content slots, and the socket menu (copyright + legal links). Pairs with the Brand Bar.",
+      "contract": "contracts/brand-footer.json",
+      "code": "src/components/brand-footer/BrandFooter.vue",
+      "figma": {
+        "componentSetId": "46:120",
+        "componentKey": "678e120fc8fac1b6b187e39d20c6ba78212c9326",
+        "page": "Components / Brand Footer"
+      },
+      "storybook": "components-branding-brand-footer",
+      "options": [
+        "healthcare",
+        "parent_site_title",
+        "breakpoint"
+      ],
+      "tokens": [
+        "brand-footer/background",
+        "brand-footer/link-color",
+        "brand-footer/text/color",
+        "brand-footer/text/font-weight",
+        "brand-footer/text-icon/color",
+        "brand-footer/text-icon/font-size",
+        "brand-footer/site-name/color",
+        "brand-footer/site-name/font-size",
+        "brand-footer/site-name/font-weight",
+        "brand-footer/parent-site-name/color",
+        "brand-footer/parent-site-name/font-size",
+        "brand-footer/parent-site-name/font-weight",
+        "brand-footer/parent-site-name/background",
+        "brand-footer/menu/font-size",
+        "brand-footer/menu/font-weight",
+        "brand-footer/menu/link-color",
+        "brand-footer/icon-menu/color",
+        "brand-footer/icon-menu/font-size",
+        "brand-footer/socket/color",
+        "brand-footer/socket/font-size",
+        "brand-footer/socket/link-color",
+        "brand-footer/socket/separator-color"
+      ]
+    },
+    {
+      "id": "breadcrumbs",
+      "name": "breadcrumbs",
+      "version": "1.0.0",
+      "description": "UIDS breadcrumbs component contract, preserving the verified 4.x rendering and documenting the proposed Figma representation.",
+      "contract": "contracts/breadcrumbs.json",
+      "code": "src/components/breadcrumbs/Breadcrumbs.vue",
+      "figma": {
+        "componentSetId": null,
+        "componentKey": null,
+        "page": "Components / Breadcrumbs"
+      },
+      "storybook": "components-breadcrumbs",
+      "options": [
+        "items",
+        "heading_id"
+      ],
+      "tokens": [
+        "breadcrumb/item/color",
+        "breadcrumb/item/font-size",
+        "breadcrumb/link/color",
+        "breadcrumb/separator/color",
+        "breadcrumb/separator/gap",
+        "breadcrumb/disabled/color",
+        "breadcrumb/item/color-on-dark",
+        "breadcrumb/link/color-on-dark"
+      ]
+    },
+    {
+      "id": "button",
+      "name": "Button",
+      "version": "1.0.0",
+      "description": "The UIDS button (.bttn). Renders as an anchor; a sibling PseudoButton renders the identical visual shape as a non-interactive <div> for cases where an ancestor is the real link. First contract of the button/forms family — its conventions are inherited by Forms.",
+      "contract": "contracts/button.json",
+      "code": "src/components/button/Button.vue",
+      "figma": {
+        "componentSetId": "137:111",
+        "componentKey": "7e28cc2415e862570c1b0f94c4f64b635b44c87f",
+        "page": "Components / Button"
+      },
+      "storybook": "components-button",
+      "options": [
+        "url",
+        "color",
+        "size",
+        "borderless",
+        "full",
+        "transparent",
+        "light_font",
+        "icon"
+      ],
+      "tokens": [
+        "button/font-family",
+        "button/font-weight",
+        "button/font-size",
+        "button/line-height",
+        "button/icon-gap",
+        "button/padding/block-start",
+        "button/padding/block-end",
+        "button/padding/inline",
+        "button/small/font-size",
+        "button/small/padding/block-start",
+        "button/small/padding/block-end",
+        "button/small/padding/inline",
+        "button/large/font-size",
+        "button/large/padding/block-start",
+        "button/large/padding/block-end",
+        "button/large/padding/inline",
+        "button/light-font/font-family",
+        "button/light-font/font-weight",
+        "button/light-font/font-size",
+        "button/light-font/padding/block-start",
+        "button/light-font/padding/block-end",
+        "button/light-font/padding/inline",
+        "button/primary/background",
+        "button/primary/color",
+        "button/primary/icon-color",
+        "button/secondary/background",
+        "button/secondary/color",
+        "button/secondary/icon-color",
+        "button/tertiary/background",
+        "button/tertiary/color",
+        "button/tertiary/icon-color",
+        "button/transparent/color",
+        "button/transparent/icon-color",
+        "button/focus-bar/color",
+        "button/focus-bar/height"
+      ]
+    },
+    {
+      "id": "callout",
+      "name": "Callout",
+      "version": "1.0.0",
+      "description": "UIDS callout component contract, preserving the verified 4.x rendering and documenting the proposed Figma representation.",
+      "contract": "contracts/callout.json",
+      "code": "src/components/callout/Callout.vue",
+      "figma": {
+        "componentSetId": "205:10",
+        "componentKey": "c72baf1eeeac3f80079093772d9cf63759939913",
+        "page": "Components / Callout"
+      },
+      "storybook": "components-callout",
+      "options": [
+        "background",
+        "inline_size",
+        "inline_alignment",
+        "media_size",
+        "media_shape",
+        "media_border"
+      ],
+      "tokens": [
+        "callout/padding/base",
+        "callout/padding/with-background"
+      ]
+    },
+    {
+      "id": "card",
+      "name": "Card",
+      "version": "1.0.0",
+      "description": "UIDS card component contract. A bordered content surface holding optional media, a headline, subtitle/meta details, body copy and a single button. Its layout switches on a CONTAINER query keyed to its own column, not the viewport, and its button is deliberately restricted to one treatment because a card is a reading surface rather than a call to action.",
+      "contract": "contracts/card.json",
+      "code": "src/components/card/Card.vue",
+      "figma": {
+        "componentSetId": "362:44",
+        "componentKey": "23d5a4658fdec5516964c53212979a51b811303c",
+        "page": "Components / Card"
+      },
+      "storybook": "components-card",
+      "options": [
+        "orientation",
+        "borderless",
+        "link_text",
+        "link_indicator",
+        "url",
+        "headline_style",
+        "centered",
+        "media_padded",
+        "button_align_bottom",
+        "background",
+        "media_size",
+        "media_shape",
+        "media_border"
+      ],
+      "tokens": [
+        "card/padding",
+        "card/header/margin-bottom",
+        "card/header/font-size",
+        "card/header/font-weight",
+        "card/header/line-height",
+        "card/headline/font-size",
+        "card/body/font-size",
+        "card/body/line-height",
+        "card/pre-title/font-size",
+        "card/pre-title/opacity",
+        "card/pre-title/icon-gap",
+        "card/subtitle/font-family",
+        "card/subtitle/font-size",
+        "card/subtitle/font-weight",
+        "card/subtitle/line-height",
+        "card/subtitle/margin-top",
+        "card/subtitle/opacity",
+        "card/details/margin-bottom",
+        "card/meta/font-family",
+        "card/meta/font-size",
+        "card/meta/line-height",
+        "card/meta/font-weight",
+        "card/meta/icon-gap",
+        "card/media/svg-backdrop",
+        "card/media/min-width",
+        "card/media/edge-offset",
+        "card/media/circle/small-max-width",
+        "card/media/circle/medium-max-width/base",
+        "card/media/circle/medium-max-width/sm",
+        "card/media/date/size",
+        "card/media/date/padding-top",
+        "card/media/date/margin-top",
+        "card/media/date/border-width",
+        "card/media/date/border-color/default",
+        "card/media/date/border-color/on-gold",
+        "card/media/date/month/font-size",
+        "card/media/date/month/font-weight",
+        "card/media/date/month/line-height",
+        "card/media/date/day/font-size",
+        "card/media/date/day/font-weight",
+        "card/media/date/day/line-height",
+        "card/media/date/day/margin-top",
+        "card/button/margin-top",
+        "card/button/focus-icon-color",
+        "card/layout/media-gap",
+        "card/layout/media-basis/medium",
+        "card/layout/media-basis/large",
+        "card/layout/media-max-width/small/circle",
+        "card/layout/media-max-width/small/square",
+        "card/layout/media-max-width/small/widescreen",
+        "card/layout/media-max-width/no-crop/small",
+        "card/layout/media-max-width/no-crop/medium",
+        "card/layout/media-max-width/no-crop/large"
+      ]
+    },
+    {
+      "id": "cta",
+      "name": "CTA",
+      "version": "1.0.0",
+      "description": "UIDS cta component contract, preserving the verified 4.x rendering and documenting the proposed Figma representation.",
+      "contract": "contracts/cta.json",
+      "code": "src/components/cta/Cta.vue",
+      "figma": {
+        "componentSetId": "244:128",
+        "componentKey": "c13adef569a109dc05d91e2c091195b309b8ff4d",
+        "page": "Components / CTA"
+      },
+      "storybook": "components-cta",
+      "options": [
+        "headline_style",
+        "url",
+        "details",
+        "orientation",
+        "button_align_right",
+        "button_label",
+        "button_icon",
+        "background"
+      ],
+      "tokens": [
+        "cta/gap"
+      ]
+    },
+    {
+      "id": "form-fieldset",
+      "name": "Form Fieldset",
+      "version": "1.0.0",
+      "description": "The <fieldset>/<legend> wrapper used to group related Form Items (typically checkbox/radio groups). Two Legend layouts: Top (default — legend stacked above its content) and Side (legend floats beside its content once the nearest 'column' container reaches 768px). Child of the form contract — its own Figma set nests Form Item instances as content.",
+      "contract": "contracts/form-fieldset.json",
+      "code": "src/components/form/FormFieldset.vue",
+      "figma": {
+        "componentSetId": "151:36",
+        "componentKey": "c2ebca9797fc027f8defba2cd2593ef0980cb78c",
+        "page": "Components / Form"
+      },
+      "storybook": null,
+      "options": [
+        "label",
+        "required",
+        "sideLegend"
+      ],
+      "tokens": [
+        "form/text-color",
+        "form/section-border-color",
+        "form/fieldset/legend-font-size",
+        "form/fieldset/legend-font-weight"
+      ]
+    },
+    {
+      "id": "form",
+      "name": "Form Item",
+      "version": "1.0.0",
+      "description": "The UIDS form family: native text-like inputs, textarea, select (single/multiple), file, checkbox, radio and toggle, all themed through one shared set of --form-* custom properties declared on .form. FormContainer.vue is a thin wrapper that contributes only the compact/large/flex/inline modifier classes — it does not itself emit the .form block class (consumers add <form class=\"form\">) and does not render any control markup (that's authored directly, or via FormItem.vue, inside the default slot). Second of the button/forms family; form/button/font-size and form/large/button-font-size alias Button's own tokens rather than duplicating values (commit 7bafeb8ead's documented intent).",
+      "contract": "contracts/form.json",
+      "code": "src/components/form/FormContainer.vue",
+      "figma": {
+        "componentSetId": "150:70",
+        "componentKey": "b1f37b5a116cd964bd59cbb161a490e483d82e3f",
+        "page": "Components / Form"
+      },
+      "storybook": null,
+      "options": [
+        "compact",
+        "large",
+        "flex",
+        "inline",
+        "light",
+        "required",
+        "control",
+        "state",
+        "checked"
+      ],
+      "tokens": [
+        "form/input/bg",
+        "form/input/bg-disabled",
+        "form/input/fg-disabled",
+        "form/input/radius",
+        "form/input/padding",
+        "form/input/height",
+        "form/input/font-size",
+        "form/input/outline-color",
+        "form/label/font-size",
+        "form/label/color",
+        "form/item-margin",
+        "form/button/font-size",
+        "form/focus/background",
+        "form/focus/outline-color",
+        "form/error/outline-color",
+        "form/error/background",
+        "form/large/input-height",
+        "form/large/input-font-size",
+        "form/large/label-font-size",
+        "form/large/button-font-size",
+        "form/compact/item-margin",
+        "form/toggle/track-off",
+        "form/toggle/track-on",
+        "form/toggle/knob",
+        "form/select-multiple/background",
+        "form/select-multiple/border-color",
+        "form/select-multiple/line-height"
+      ]
+    },
+    {
+      "id": "headline",
+      "name": "Headline",
+      "version": "1.0.0",
+      "description": "The UIDS headline (`.headline`, plus its legacy `.bold-headline` alias) — heading-level text with optional highlight, underline, uppercase and serif treatments. Renders as `<component :is=\"level\">` around a slot with no internal markup of its own; consumers author the `.headline__heading`/`.headline__text` inner span themselves (see behavior).",
+      "contract": "contracts/headline.json",
+      "code": "src/components/headline/Headline.vue",
+      "figma": {
+        "componentSetId": "168:75",
+        "componentKey": "8a28fdedd22046c2db6ec55410fbdd34d4aca135",
+        "page": "Components / Headline"
+      },
+      "storybook": "components-headline",
+      "options": [
+        "level",
+        "text_style",
+        "underline",
+        "highlight"
+      ],
+      "tokens": [
+        "headline/line-height",
+        "headline/link/color",
+        "headline/negative/color",
+        "headline/uppercase/font-weight",
+        "headline/uppercase/font-weight-on-gold",
+        "headline/highlight/line-height",
+        "headline/highlight/background",
+        "headline/highlight/color",
+        "headline/highlight/background-on-gold",
+        "headline/highlight/color-on-gold",
+        "headline/highlight-serif/font-weight",
+        "headline/underline/color",
+        "headline/underline/color-on-gold"
+      ]
+    },
+    {
+      "id": "inline",
+      "name": "inline",
+      "version": "1.0.0",
+      "description": "Foundations contract for the Inline float/alignment/responsive-width system (.inline--size-*, .inline--align-*). Not a Vue component of its own — inline.ts is a shared prop/class module that Figure.vue, Media.vue and Callout.vue each spread into their own props and call directly to compute these classes.",
+      "contract": "contracts/inline.json",
+      "code": "src/scss/components/_inline.scss",
+      "figma": {
+        "componentSetId": null,
+        "componentKey": null,
+        "page": "Foundations / Inline"
+      },
+      "storybook": null,
+      "options": [
+        "size",
+        "alignment"
+      ],
+      "tokens": [
+        "space/50",
+        "layout/gutter/width/mobile",
+        "layout/gutter/height/mobile",
+        "layout/gutter/width/desktop"
+      ]
+    },
+    {
+      "id": "item-list",
+      "name": "item-list",
+      "version": "1.0.0",
+      "description": "A prescribed COMPOSITION, not a component: a list of items — news, events, search results, \"related items\" — is a stack of BORDERLESS Cards, one per row, never hand-written markup. It owns no code and no tokens; every value it renders belongs to contracts/card.json, which is why tokensUsed is empty. What this contract adds is the set of Card options the arrangement PINS, the evidence behind each pin, and the counter-case the list is reliably confused with — a grid of BORDERED cards. Reference implementation, named by the rule: https://sandbox.prod.drupal.uiowa.edu/news — the SiteNow multisite site `sandbox.uiowa.edu` (identified by docroot/sites/sandbox.uiowa.edu/blt.yml, whose stage_file_proxy.origin IS that hostname), served by views.view.articles display page_articles (path: news). VERIFICATION BASIS, 2026-08-22: every markup claim below was re-derived from the EMITTING SOURCE in uiowa/uiowa @ 9b8cffee, not from the rendered page, which no session has fetched since these claims were first written. Source is the stronger evidence where it reaches, because it says WHY the markup has that shape and therefore whether the shape is guaranteed or incidental; it cannot settle content (which rows carry an image or a byline) and it cannot read the sandbox's live, admin-editable config. Each claim below now says which kind it is. THE ROW COUNT IS CONFIGURED, not coincidental: the default display sets pager type `full`, items_per_page 10 (views.view.articles.yml:56-58) and page_articles overrides only footer and sorts (`defaults: {footer: false, sorts: false}`), inheriting that pager — so page 1 is ten rows given ten published articles.",
+      "contract": "contracts/item-list.json",
+      "figma": {
+        "componentSetId": null,
+        "componentKey": null,
+        "page": "Components / Card"
+      },
+      "storybook": "components-card--item-list",
+      "options": [
+        "arrangement"
+      ],
+      "tokens": []
+    },
+    {
+      "id": "layout",
+      "name": "layout",
+      "version": "1.0.0",
+      "description": "Foundations contract for the layout & spacing system: containers, section layouts, section rhythm, and content grids. UIDS owns the vocabulary (spacing scale, gutters, breakpoints, container caps); uids_base (SiteNow) is the downstream consumer whose Layout Builder classes express these patterns. Not a component — no Vue code, no Figma component set.",
+      "contract": "contracts/layout.json",
+      "code": "src/scss/abstracts/_grid-mixins.scss",
+      "figma": {
+        "componentSetId": null,
+        "componentKey": null,
+        "page": "Foundations / Layout"
+      },
+      "storybook": null,
+      "options": [
+        "container",
+        "layout",
+        "contentGrid",
+        "sectionPaddingRemovedTop",
+        "sectionPaddingRemovedBottom",
+        "sectionPaddingTopExtra",
+        "sectionPaddingBottomExtra",
+        "sectionPaddingTopRestored",
+        "columnSpacingRemoved",
+        "sectionOrderReversed"
+      ],
+      "tokens": [
+        "layout/gutter/width/mobile",
+        "layout/gutter/width/desktop",
+        "layout/gutter/height/mobile",
+        "layout/gutter/height/desktop",
+        "layout/section/padding/mobile",
+        "layout/section/padding/default",
+        "layout/section/padding/extra",
+        "layout/block/stack/default",
+        "layout/block/stack/compact",
+        "layout/block/stack/extra",
+        "layout/container/max/standard",
+        "layout/container/max/narrow",
+        "layout/container/max/wide",
+        "layout/container/padding/wide",
+        "layout/breakpoint/sm",
+        "layout/breakpoint/md",
+        "layout/breakpoint/page"
+      ]
+    },
+    {
+      "id": "logo",
+      "name": "Logo",
+      "version": "1.2.0",
+      "description": "University of Iowa lockup: black tab containing the gold Block IOWA (or IOWA Health Care) inline SVG, linking to the appropriate home page. Rendered inside the Brand Bar (header context) and Brand Footer (footer context).",
+      "contract": "contracts/logo.json",
+      "code": "src/components/logo/Logo.vue",
+      "figma": {
+        "componentSetId": "28:68",
+        "componentKey": "17099384eab84e783a25aebade754491205deaae",
+        "page": "Components / Logo"
+      },
+      "storybook": "components-branding-logo",
+      "options": [
+        "healthcare",
+        "context",
+        "size",
+        "breakpoint",
+        "id"
+      ],
+      "tokens": [
+        "logo/fill",
+        "logo/text-fill",
+        "logo/tab/background",
+        "logo/tab/width/default",
+        "logo/tab/width/narrow",
+        "logo/tab/height/default",
+        "logo/tab/height/narrow",
+        "logo/tab/height/healthcare",
+        "logo/tab/height/narrow-healthcare",
+        "logo/footer/width",
+        "logo/icon/height/default",
+        "logo/icon/height/narrow",
+        "logo/icon/height/healthcare",
+        "logo/icon/height/narrow-healthcare"
+      ]
+    },
+    {
+      "id": "media-framing",
+      "name": "media-framing",
+      "version": "1.0.0",
+      "description": "Foundations contract for the media FRAMING classes _media.scss actually styles: media--border, media--circle, media--cover, and the iframe aspect-ratio classes. Deliberately narrow: shared/media.ts emits a larger class family (media--small/medium/large/widescreen/square/no-crop/date), but those are styled ONLY inside .card scope (card.scss) and belong to Card's future contract — claiming them here would violate one-contract-per-token when Card migrates. Two unrelated systems share the 'media' name: this file's framing classes (consumed via shared/media.ts by Card and Callout) vs components/media/Media.vue, the embed-type switcher (image/video/iframe/vertical_video/remote_video) whose contract is DEFERRED to the Banner family migration because its video behavior is coupled to Banner (assets/js/video.js hardcodes '.banner video' and only Banner.vue instantiates UidsVideo).",
+      "contract": "contracts/media-framing.json",
+      "code": "src/scss/components/_media.scss",
+      "figma": {
+        "componentSetId": null,
+        "componentKey": null,
+        "page": null
+      },
+      "storybook": null,
+      "options": [
+        "border",
+        "circle",
+        "cover",
+        "aspectRatio"
+      ],
+      "tokens": [
+        "color/border/default",
+        "space/50"
+      ]
+    },
+    {
+      "id": "menu",
+      "name": "Menu Item",
+      "version": "1.0.0",
+      "description": "UIDS menu component contract, preserving the verified 4.x rendering and documenting the proposed Figma representation.",
+      "contract": "contracts/menu.json",
+      "code": "src/components/menu/Menu.vue",
+      "figma": {
+        "componentSetId": "212:18",
+        "componentKey": "2c3e06bb1d6e11c30699b115be59bc9826bd35c5",
+        "page": "Components / Menu"
+      },
+      "storybook": "components-menu",
+      "options": [
+        "items",
+        "variant",
+        "top",
+        "label"
+      ],
+      "tokens": [
+        "menu/font-size",
+        "menu/top-level/font-weight",
+        "menu/link-color",
+        "menu/link-color-on-light",
+        "menu/link-indicator/thickness",
+        "menu/link-indicator/hover-color",
+        "menu/container/border-color",
+        "menu/separator-color",
+        "menu/nested/padding-block",
+        "menu/link/padding-block",
+        "menu/link/padding-inline"
+      ]
+    },
+    {
+      "id": "page-title",
+      "name": "page-title",
+      "version": "1.0.0",
+      "description": "UIDS page title contract. The h1 that names the current page, and the component that lets the breadcrumb/title pairing be expressed in one place — UIDS already owned the breadcrumb directly above it, while the title treatment lived only downstream in uids_base.",
+      "contract": "contracts/page-title.json",
+      "code": "src/components/page-title/PageTitle.vue",
+      "figma": {
+        "componentSetId": null,
+        "componentKey": null,
+        "page": "Components / Page Title"
+      },
+      "storybook": "components-page-title",
+      "options": [
+        "title",
+        "no_breadcrumbs"
+      ],
+      "tokens": [
+        "page-title/font-family",
+        "page-title/font-size",
+        "page-title/font-weight",
+        "page-title/no-breadcrumbs/margin-top"
+      ]
+    },
+    {
+      "id": "pager",
+      "name": "Pager Item",
+      "version": "1.0.0",
+      "description": "UIDS pager component contract, preserving the verified 4.x rendering and documenting the proposed Figma representation.",
+      "contract": "contracts/pager.json",
+      "code": "src/components/pager/Pager.vue",
+      "figma": {
+        "componentSetId": "204:16",
+        "componentKey": "758c1d1b2c0c75cf6de72ed99dbfb21918d0f076",
+        "page": "Components / Pager"
+      },
+      "storybook": "components-pager",
+      "options": [
+        "state",
+        "current",
+        "total",
+        "quantity",
+        "heading_id"
+      ],
+      "tokens": [
+        "pager/font-size",
+        "pager/link/color",
+        "pager/link/hover/background",
+        "pager/active/background",
+        "pager/active/color",
+        "pager/active/hover/background",
+        "pager/active/hover/color",
+        "pager/disabled/color",
+        "pager/ellipsis/color",
+        "pager/context/black/background",
+        "pager/context/black/hover-background",
+        "pager/context/gold/background",
+        "pager/context/gold/hover-background",
+        "pager/context/white/background",
+        "pager/context/gray/background",
+        "pager/context/gray/hover-background",
+        "pager/context/black/active/background",
+        "pager/context/black/active/color",
+        "pager/context/black/active/hover-background",
+        "pager/context/gold/active/hover-background"
+      ]
+    },
+    {
+      "id": "stat",
+      "name": "Stat",
+      "version": "1.0.0",
+      "description": "UIDS stat component contract, preserving the verified 4.x rendering and documenting the proposed Figma representation.",
+      "contract": "contracts/stat.json",
+      "code": "src/components/stat/Stat.vue",
+      "figma": {
+        "componentSetId": "216:397",
+        "componentKey": "abb5d3d9af8108e82894791b8c0e7c87db619bc8",
+        "page": "Components / Stat"
+      },
+      "storybook": "components-stat",
+      "options": [
+        "display",
+        "background",
+        "stat_hover",
+        "stat_title",
+        "stat_summary",
+        "stat_content",
+        "stat_prefix",
+        "stat_suffix"
+      ],
+      "tokens": [
+        "stat/title/font-family",
+        "stat/title/font-weight",
+        "stat/title/line-height",
+        "stat/title/font-size",
+        "stat/title/font-size-at-sm",
+        "stat/title/border-color",
+        "stat/title/border-color-on-gold",
+        "stat/title/color-on-dark",
+        "stat/divider/width",
+        "stat/description/font-family",
+        "stat/description/font-weight",
+        "stat/description/font-size",
+        "stat/description/color-on-dark",
+        "stat/content/color",
+        "stat/content/line-height",
+        "stat/content/color-on-dark",
+        "stat/content/color-on-gold",
+        "stat/horizontal/title/font-size",
+        "stat/horizontal/content/font-size",
+        "stat/horizontal/content/border-color",
+        "stat/horizontal/content/border-color-on-gold",
+        "stat/prefix-suffix/font-size",
+        "stat/horizontal/prefix-suffix/font-size"
+      ]
+    },
+    {
+      "id": "table",
+      "name": "Table",
+      "version": "1.0.0",
+      "description": "UIDS table component contract, preserving the verified 4.x rendering and documenting the proposed Figma representation.",
+      "contract": "contracts/table.json",
+      "code": "src/components/table/Table.vue",
+      "figma": {
+        "componentSetId": "207:74",
+        "componentKey": "086f773dd8980fcb4324588ef223483c102ce9c5",
+        "page": "Components / Table"
+      },
+      "storybook": "components-table",
+      "options": [
+        "sticky",
+        "highlight",
+        "border",
+        "caption",
+        "summary"
+      ],
+      "tokens": [
+        "table/background",
+        "table/color",
+        "table/font-size",
+        "table/line-height",
+        "table/link/color",
+        "table/body/font-size",
+        "table/body/line-height",
+        "table/cell/padding",
+        "table/header/background",
+        "table/header/color",
+        "table/row-header/background",
+        "table/row-alternate/background",
+        "table/hover/background",
+        "table/caption/padding",
+        "table/caption/font-size",
+        "table/caption/color",
+        "table/caption/background",
+        "table/caption/font-weight",
+        "table/border/attr-variant",
+        "table/border/light",
+        "table/border/dark"
+      ]
+    },
+    {
+      "id": "tabs",
+      "name": "Tab",
+      "version": "1.0.0",
+      "description": "UIDS tabs component contract, preserving the verified 4.x rendering and documenting the proposed Figma representation.",
+      "contract": "contracts/tabs.json",
+      "code": "src/components/tabs/Tabs.vue",
+      "figma": {
+        "componentSetId": "203:14",
+        "componentKey": "b0bedede084ded95ad217a62593ed665556c7eca",
+        "page": "Components / Tabs"
+      },
+      "storybook": "components-tabs",
+      "options": [
+        "items",
+        "orientation",
+        "id",
+        "aria_label"
+      ],
+      "tokens": [
+        "tabs/tab/font-family",
+        "tabs/tab/font-size",
+        "tabs/tab/font-weight",
+        "tabs/tab/padding/block-start",
+        "tabs/tab/padding/block-end",
+        "tabs/tab/padding/inline",
+        "tabs/indicator/height",
+        "tabs/panel/padding-block",
+        "tabs/tab/text/color",
+        "tabs/tab/text/color-on-black",
+        "tabs/tab/selected/text/color-on-black",
+        "tabs/indicator/selected/color",
+        "tabs/indicator/selected/color-on-gold",
+        "tabs/indicator/unselected/color",
+        "tabs/indicator/unselected/color-on-gold",
+        "tabs/indicator/hover/color",
+        "tabs/indicator/hover/color-on-gold"
+      ]
+    }
+  ],
+  "tokenCount": 715,
+  "ruleCount": 12,
+  "contentHash": "sha256:6330f3f30feea33984a7e734837c070f30f7bfdf2a9a7f0fba7eb7ba9655d6ec"
+}

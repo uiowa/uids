@@ -1,0 +1,84 @@
+{
+  "accordion": {
+    "label": {
+      "color": {
+        "value": "{color.gray.100}",
+        "comment": "accordion.scss:8 — --accordion-label-color: var(--uids-light); uids-core.scss:28 --uids-light: var(--uiowa-color-gray-100) (#F3F3F3). Default (non-white) resting background-color for .accordion summary (line 25)."
+      },
+      "color-hover": {
+        "value": "{color.gray.155}",
+        "comment": "accordion.scss:9 — --accordion-label-color-hover: #{variables.$lighter-gray}; _variables.scss:34 $lighter-gray: color.scale($blk, $lightness: 90%). Compiles to rgb(229.5, 229.5, 229.5) — verified in dist/components/accordion.css. No existing primitive matches; see newPrimitives (color.gray.155, proposed). Consumed at summary:hover/:focus (line 30). IDENTICAL compiled value to pager.scss:106's own $lighter-gray use (verified in dist/components/pager.css:124) — a genuinely shared primitive, not just a shared Sass-variable name; coordinate naming with Pager's own migration."
+      }
+    },
+    "outline": {
+      "color": {
+        "value": "{color.gray.500}",
+        "comment": "accordion.scss:10 — --accordion-outline-color: var(--uids-gray-cool); uids-core.scss:24 --uids-gray-cool: var(--uiowa-color-gray-500) (#63666A). Consumed as `outline: 1px solid var(--accordion-outline-color)` on summary:hover/:focus (line 31) — outline width/style (1px solid) stays raw geometry."
+      }
+    },
+    "border": {
+      "color": {
+        "value": "{color.gray.200}",
+        "comment": "accordion.scss:11 — --accordion-border-color: var(--uids-gray-light); uids-core.scss:31 --uids-gray-light: var(--uiowa-color-gray-200) (#CACACA). Consumed by .accordion__item's border (line 93) and .accordion__content's border-top (line 73); border WIDTH (1px, both places) stays raw geometry (Button precedent — button.json geometryNotTokenized.border). Also re-declared identically inside .accordion--white (line 107) — that declaration is a byte-identical no-op override, not a second colorway value; see claims. ONE shared token covers both the default and white colorways."
+      }
+    },
+    "heading": {
+      "font-size": {
+        "value": "{typography.font-size.150}",
+        "comment": "accordion.scss:57 — font-size: variables.$content-font-size; _variables.scss:70 $content-font-size: var(--uiowa-font-size-body); _tokens-generated.scss:140 --uiowa-font-size-body: var(--uiowa-font-size-150) = 1.2rem. Despite the Sass variable's generic 'content' name, this rule only styles the <h2..h6> INSIDE .accordion__heading (the summary label) — it is never applied to .accordion__content. Do not name this token 'content.font-size'; that name is reserved for the different 1.3rem list/paragraph value below."
+      },
+      "font-weight": {
+        "value": "{typography.font-weight.bold}",
+        "comment": "accordion.scss:58 — font-weight: variables.$font-weight-bold = 700."
+      }
+    },
+    "padding": {
+      "value": "{space.105}",
+      "comment": "accordion.scss:59 (.accordion__heading :is(h2..h6) padding) AND :72 (.accordion__content padding) — both `padding: variables.$md` = 1.05rem (space.105; tokens/README notes '$md' has 34 uses across the codebase). Collapsed into ONE shared token per the Button icon-gap precedent ('one token reused, not duplicated') rather than modeling heading.padding + content.padding as two identical leaves."
+    },
+    "content": {
+      "background": {
+        "value": "{color.white}",
+        "comment": "accordion.scss:71 — background-color: variables.$white = literal #fff (_variables.scss:29), flat, no brandChannel. Matches color.bg.white's own flat treatment (tokens/semantic/colors.json) — see claims re: the bg--white production class's only-partial redundancy with this value."
+      },
+      "text-font-size": {
+        "value": "{typography.font-size.250}",
+        "comment": "accordion.scss:83 — ul li, ol li, p { font-size: 1.3rem; } inside .accordion. font-size.250 (1.3rem) already exists as a primitive (minted for Headline's h5-clamp small end) — no new primitive needed. The byte-identical literal is ALSO independently declared in card.scss:256 and stat.scss:137,241 — NOT borrowed from either file (the value lives directly in accordion.scss, so per the Phase-2 scoping rule it belongs to accordion's own contract); Card and Stat will each mint their own separate leaf against the same primitive when they migrate (one-contract-per-token; primitives are shared, tier-3 leaves are not)."
+      }
+    },
+    "icon": {
+      "size": {
+        "value": "{typography.font-size.300}",
+        "comment": "accordion.scss:40-41 — width: variables.$h5-font-size; height: variables.$h5-font-size; = 1.4rem (font-size.300, 'h5 clamp large end' per tokens/primitives/typography.json). A typography primitive reused as a raw icon box dimension — the coupling the input survey flagged (resizing the H5 heading clamp's large end would silently resize this icon too). Kept as-shipped/coupled rather than forked into an independent icon-only value; see knownIssues."
+      },
+      "gap": {
+        "value": "0.7rem",
+        "comment": "accordion.scss:45 — margin: -0.3rem .7rem 0 0; (the margin-right component only). No existing space.* primitive matches 0.7rem exactly (space.62=0.625rem and space.75=0.75rem are the nearest neighbors) — left as a raw, non-primitive-backed value, the same treatment Button gives several of its own padding values (button.json padding.block-start/-end/inline). Direct analog to button/icon-gap (label-to-icon spacing)."
+      }
+    },
+    "item": {
+      "gap": {
+        "value": "{space.100}",
+        "comment": "accordion.scss:96 — .accordion__item:not(:first-child) { margin-top: 1rem; } = space.100 (1rem) exactly."
+      }
+    },
+    "white": {
+      "label": {
+        "color": {
+          "value": "{color.white}",
+          "comment": "accordion.scss:104 — --accordion-label-color: #{variables.$white} (literal #fff). Overrides the default colorway's accordion/label/color (gray.100) when .accordion--white is active."
+        },
+        "color-hover": {
+          "value": "{color.gray.100}",
+          "comment": "accordion.scss:105 — --accordion-label-color-hover: var(--uids-light) (#F3F3F3 — the SAME primitive as the default colorway's resting label-color, token accordion/label/color above). This IS a real, active override (unlike border-color below): the white colorway's hover state genuinely renders gray/100 where the default colorway's hover renders the new lighter-gray primitive instead. Kept as its own leaf despite the value coincidence, matching the Headline precedent of multiple distinct tokens sharing one primitive value (headline.highlight.color and headline.highlight.background-on-gold both = {color.black})."
+        }
+      },
+      "outline": {
+        "color": {
+          "value": "{color.gray.300}",
+          "comment": "accordion.scss:106 — --accordion-outline-color: var(--uids-gray-mid); uids-core.scss:29 --uids-gray-mid: var(--uiowa-color-gray-300) (#9A9A9A)."
+        }
+      }
+    }
+  }
+}

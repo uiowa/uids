@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet data-dc-atomics>
+        <link rel="stylesheet" href="./tokens.css" />
+        <!-- CTA's own `background` option puts a real bg--* class on the ROOT element,
+             so the coloured band and its on-light/on-dark text cascade have to be real
+             here — that ancestor is also what drives the nested Headline's on-gold flips
+             and (in production) the button colour flip documented below. -->
+        <link rel="stylesheet" href="./backgrounds.css" />
+        <style>
+          /* ---- page reset (src/scss/base/_reset.scss:32-53), verbatim ----
+             Not this component's own SCSS, but production applies it globally to <html>,
+             so every rule below was authored against border-box. Without it, any element
+             combining a percentage width with padding renders wider than production —
+             measured at +96px on Callout before this was added. Reproduced across the
+             Phase 3 batch for that reason; see Table.dc.html for the original finding. */
+          html{box-sizing:border-box}
+          *,*::before,*::after{box-sizing:inherit}
+          /* Page context. Production CTAs sit on a full page; base/_reset.scss puts the
+             sans stack on <html> and base/_paragraph.scss styles <p>. Neither is CTA's
+             own SCSS — reproduced here (dc-only) because this template renders bare and
+             would otherwise fall back to browser defaults. Same stand-in technique as
+             Headline.dc.html's shared h1-h6 rule.
+             SCOPED 2026-08-18 with :where(.cta) — a bare `p` leaks page-wide, since
+             dc-import shares one cascade. :where() adds ZERO specificity, so this stays
+             (0,0,1) and `.cta p{margin-bottom:0}` below keeps winning on SPECIFICITY as
+             it does today; a plain `.cta ` prefix would demote that to an injection-order
+             tie. The nested Headline/Button imports sit INSIDE .cta, so they are still
+             reached exactly as before. */
+          body{margin:0;font-family:var(--uiowa-font-family-sans)}
+          :where(.cta) p{
+            font-weight:var(--uiowa-font-weight-normal);
+            line-height:var(--uiowa-line-height-170);
+            font-size:var(--uiowa-font-size-body);
+            margin-top:0;margin-bottom:var(--uiowa-space-105);
+          }
+
+          /* ---- .cta (src/scss/components/cta.scss, SOURCE ORDER) ----
+             Order matters here for a specific, contract-documented reason: .cta--left is
+             declared AFTER .cta--button-align-right, so when both classes are present the
+             later `justify-content:unset` wins over `justify-content:left` at equal
+             specificity (contracts/cta.json behavior). Reordering these blocks would
+             silently change the Left + Button Right state. */
+
+          .cta{
+            /* $xlg $mobile-width-gutter. Literals on purpose: $xlg (2.5rem) has NO
+               primitive — it is shared Sass vocabulary across brand-footer/blockquote/cta,
+               deferred to the $xsm...$xxxlg sweep. $mobile-width-gutter (1.25rem) DOES
+               equal --uiowa-layout-gutter-width-mobile, but cta.scss:6 still writes the
+               raw Sass var, so mirroring the token here would misrepresent the source.
+               See contracts/cta.json geometryNotTokenized.container-padding. */
+            padding:2.5rem 1.25rem;
+            display:flex;
+            flex-wrap:wrap;
+            text-align:center;
+            justify-content:center;
+          }
+          /* Child combinator, so this catches .cta__container ONLY — .cta__link is a
+             <footer>, not a div, and is deliberately left out (as-shipped). */
+          .cta > div{flex-basis:100%;display:grid;gap:var(--uiowa-cta-gap)}
+          .cta .cta__container{margin-block-end:var(--uiowa-cta-gap)}
+          .cta p{margin-bottom:0}
+
+          /* ---- .cta--button-align-right ---- */
+          .cta--button-align-right{justify-content:left;text-align:left}
+          @media (min-width:980px){.cta--button-align-right{flex-wrap:nowrap}}
+          .cta--button-align-right .cta__title{flex-basis:100%}
+          @media (min-width:980px){
+            .cta--button-align-right .cta__content,
+            .cta--button-align-right .cta__link{flex:0 1 48%}
+          }
+          .cta--button-align-right .cta__link{justify-content:end;align-self:baseline;display:flex}
+          /* The :not() guard only re-centres the container when orientation is NOT left. */
+          @media (min-width:980px){
+            .cta--button-align-right:not([class*="cta--left"]) .cta__container{text-align:center}
+          }
+
+          /* ---- .cta--left ---- */
+          .cta--left{justify-content:unset;text-align:left}
+
+          /* ---- .cta--inline (md and up only; below 980px inline renders as centered) ---- */
+          @media (min-width:980px){
+            /* gap:0 on the root is inert — .cta never sets a gap — but mirrored as-shipped. */
+            .cta--inline{flex-wrap:nowrap;gap:0}
+            .cta--inline .cta__link{flex-basis:30%;align-self:center;display:flex;justify-content:end}
+            .cta--inline .cta__container{display:flex;margin-block-end:unset}
+            .cta--inline .cta__container .cta__title{flex-basis:30%;align-self:center}
+            .cta--inline .cta__container .cta__content{flex:1;align-self:center}
+          }
+        </style>
+      </helmet>
+      <div class="{{ rootClass }}" data-screen-label="CTA">
+        <div class="cta__container">
+          <!-- Title. Gated on real slot presence in Cta.vue (v-if="$slots.title"), which
+               an empty text prop stands in for here. Nested as a real Headline import
+               rather than flattened markup (Brand Bar -> Logo precedent): level and style
+               are FIXED at h2/uppercase per contracts/cta.json children.headline.fixed —
+               h2 is Headline.vue's own default (CTA passes no level at all) and uppercase
+               is the Storybook default and the value the Figma set's nested instance
+               carries. CTA's real `headline_style` prop is a pass-through, deliberately
+               NOT re-exposed here: same ruling as the Figma set, where a designer changes
+               the title treatment on the nested Headline instance itself rather than on a
+               duplicated CTA-owned axis (contracts/cta.json identity.figma.note).
+               preview_on_gold is not passed either — CTA supplies a REAL bg--gold
+               ancestor, which is the context that knob only simulates. -->
+          <sc-if value="{{ hasTitle }}" hint-placeholder-val="{{ true }}">
+            <div class="cta__title">
+              <dc-import name="Headline" text="{{ title }}" level="h2" text_style="uppercase" hint-size="420px,48px"></dc-import>
+            </div>
+          </sc-if>
+          <!-- Details. AS-SHIPPED QUIRK (contracts/cta.json knownIssues): this wrapper is
+               gated on the `details` PROP, not on slot presence — unlike the title above —
+               so in Vue a consumer passing only <template #details> markup gets nothing
+               rendered at all. This template has a single text channel, so the two collapse;
+               the prop gate itself is reproduced faithfully.
+               The <p> matches every real consumer (the Storybook story's v-html slot, the
+               platform's rich-text field); the bare prop-fallback path emits no element,
+               which is why `.cta p{margin-bottom:0}` above exists. -->
+          <sc-if value="{{ hasDetails }}" hint-placeholder-val="{{ true }}">
+            <div class="cta__content"><p>{{ details }}</p></div>
+          </sc-if>
+        </div>
+        <!-- Link. When button_label is falsy the ENTIRE footer disappears, taking the
+             button with it (v-if="button_label", Cta.vue:84) — stronger than Button's own
+             empty-label state, which still renders a .bttn--no-text element.
+
+             BUTTON COLOUR — the gold flip is DOWNSTREAM, not UIDS's.
+             Cta.vue passes no colour (its buttonClasses computed is dead code returning
+             ['']), so the button falls through to Button's own `primary` default and UIDS
+             in isolation renders gold-on-gold — a real contrast bug in this repo, visible
+             in Storybook. No real page renders that, because uids_base patches it:
+               uids_base/scss/components/cta.scss:59-67
+                 [class*="bg--gold"] .cta__link .bttn--primary{background:$secondary;color:#fff}
+               plus i,svg{color:$primary} (:46-51) and :after{background:$primary} (:40-44)
+             — the whole block sitting under a `// @todo remove once uiowa#5149 is
+             completed` comment at :36, i.e.
+             SiteNow treats it as a temporary patch for a UIDS gap. Those channels are
+             byte-identical to UIDS's own Secondary button tokens (--uiowa-button-secondary-
+             background = var(--brand-secondary); -color = white; -icon-color = var(--brand-
+             primary); and the focus bar is already var(--brand-primary) for every colorway),
+             so the production gold-background CTA button IS a Secondary button exactly.
+             This template therefore represents the PRODUCTION rendering by passing
+             color="secondary" on gold and "primary" everywhere else (ruled 2026-08-17).
+             It uses REAL Button classes/tokens — no invented declarations, and no change to
+             UIDS's own CSS; the upstream fix is uiowa#5149. -->
+        <sc-if value="{{ hasButton }}" hint-placeholder-val="{{ true }}">
+          <footer class="cta__link">
+            <dc-import name="Button" label="{{ button_label }}" url="{{ url }}" size="medium" color="{{ buttonColor }}" icon="{{ buttonIcon }}" hint-size="255px,66px"></dc-import>
+          </footer>
+        </sc-if>
+      </div>
+    </x-dc>
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{
+  "$preview": { "width": 1020, "height": 340 },
+  "title": { "editor": "text", "default": "Be a Hawkeye", "tsType": "string" },
+  "details": { "editor": "text", "default": "Iowa is where great stories begin. It’s time to start yours. Find out how.", "tsType": "string" },
+  "button_label": { "editor": "text", "default": "Request Information", "tsType": "string" },
+  "url": { "editor": "text", "default": "https://uiowa.edu/", "tsType": "string" },
+  "button_icon": { "editor": "boolean", "default": true, "tsType": "boolean" },
+  "orientation": { "editor": "enum", "options": ["centered", "left", "inline"], "default": "centered", "tsType": "string" },
+  "button_align_right": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "background": { "editor": "enum", "options": ["default", "black", "gold", "gray", "white"], "default": "default", "tsType": "string" }
+}'
+    >
+      class Component extends DCLogic {
+        renderVals() {
+          // Mirrors the class computation in src/components/cta/Cta.vue, in the same
+          // ORDER it pushes them: 'cta', then the background class, then
+          // --button-align-right, then the orientation modifier.
+          // Both enums label the real empty-string value the way Storybook's controls do
+          // ('' = 'Centered (default)' / 'none') — Headline.dc.html's text_style precedent.
+          const orientation = this.props.orientation ?? 'centered';
+          const background = this.props.background ?? 'default';
+          const title = this.props.title ?? '';
+          const details = this.props.details ?? '';
+          const buttonLabel = this.props.button_label ?? '';
+
+          const classes = ['cta'];
+          // Background.addBackgroundClass: no class at all when background is ''.
+          if (background !== 'default') classes.push('bg--' + background);
+          if (this.props.button_align_right) classes.push('cta--button-align-right');
+          // orientation '' (centered) emits NO modifier — the base .cta rules ARE the
+          // centered layout. Cta.vue has no validator, so any string would become
+          // cta--{value}; only these three have matching SCSS.
+          if (orientation !== 'centered') classes.push('cta--' + orientation);
+
+          // Production rendering, not UIDS's own: see the footer comment in the markup.
+          // The gold band is the only context that flips the nested Button to Secondary.
+          const buttonColor = background === 'gold' ? 'secondary' : 'primary';
+
+          return {
+            rootClass: classes.join(' '),
+            title: title,
+            hasTitle: String(title).trim().length > 0,
+            details: details,
+            hasDetails: String(details).trim().length > 0,
+            button_label: buttonLabel,
+            hasButton: String(buttonLabel).trim().length > 0,
+            url: this.props.url ?? '',
+            buttonColor: buttonColor,
+            buttonIcon: this.props.button_icon !== false
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,116 @@
+{
+  "$schema": "./contract.schema.json",
+  "name": "badge",
+  "version": "1.1.0",
+  "description": "UIDS badge component contract, preserving the verified 4.x rendering and documenting the proposed Figma representation.",
+  "identity": {
+    "codePath": "src/components/badge/Badge.vue",
+    "scssPath": "src/scss/components/badge.scss",
+    "relatedPaths": [
+      "src/components/badge/Badge.stories.js"
+    ],
+    "downstreamPaths": [
+      "uiowa/docroot/themes/custom/uids_base/uids/scss/components/badge.scss"
+    ],
+    "registeredName": "uids-badge",
+    "storybookId": "components-badge",
+    "figma": {
+      "fileKey": "hNShklBztaeaQneScM0KoM",
+      "componentSetName": "Badge",
+      "componentSetId": "211:18",
+      "componentKey": "fbc5d0672de40f0532a0307972ebbe5c4d0ea0b8",
+      "page": "Components / Badge",
+      "note": "BUILT (Phase 3). 6 variants on one axis: Type (Primary, Secondary, Cool Gray, Blue, Green, Orange). Nothing to collapse — Badge has one enum option and one content prop, so the naive count already equals the achievable minimum. The simplest set in the library.",
+      "axisRationale": [
+        "Labels use Title Case, spacing the one two-word value ('Cool Gray'), matching the existing Button Color axis convention (Primary/Secondary/Tertiary).",
+        "No Style or Size axis is needed the way Button (144 -> 27) or Headline (Level x Style = 30) required. A size modifier was DECLINED on 2026-08-21 (see changes[2]), so Type is the complete axis list, not a first instalment — do not add a Size axis to the set in anticipation of one."
+      ]
+    }
+  },
+  "options": [
+    {
+      "name": "type",
+      "type": "enum",
+      "values": [
+        "primary",
+        "secondary",
+        "cool-gray",
+        "blue",
+        "green",
+        "orange"
+      ],
+      "default": "primary",
+      "description": "Colorway. Drives one BEM modifier class; primary is the only value that also overrides text color (to black) — every other value keeps the base white text.",
+      "code": {
+        "prop": "type",
+        "notes": "Badge.vue:6-16 defineProps validator restricts to exactly these 6 strings (matches Badge.stories.js argTypes.type.options exactly, and matches the 6 badge--* selectors defined in badge.scss — no drift in any direction)."
+      },
+      "figma": {
+        "axis": "Type",
+        "map": {
+          "primary": "Primary",
+          "secondary": "Secondary",
+          "cool-gray": "Cool Gray",
+          "blue": "Blue",
+          "green": "Green",
+          "orange": "Orange"
+        }
+      }
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "description": "Required content string, rendered verbatim as the badge's only visible content (Badge.vue:34, {{ text }}). NOT a <slot> — Badge has no slot of its own, unlike every other migrated component (Button/Headline both wrap a default slot). Vue marks it required:true with no default (Badge.vue:18-21); omitting it is a runtime prop-validation warning, not a build error.",
+      "code": {
+        "prop": "text"
+      },
+      "figma": {
+        "property": "Text",
+        "notes": "Modelled as a text layer bound to the badge instance, the same role Button/Headline give their default slot's Label/Text property — the difference is code-side only (prop vs. slot), not a Figma-modelling difference."
+      }
+    }
+  ],
+  "slots": [],
+  "tokensUsed": [
+    "badge/line-height",
+    "badge/font-size",
+    "badge/font-weight",
+    "badge/padding/block",
+    "badge/padding/inline",
+    "badge/border-radius",
+    "badge/color",
+    "badge/primary/background",
+    "badge/primary/color",
+    "badge/secondary/background",
+    "badge/cool-gray/background",
+    "badge/blue/background",
+    "badge/green/background",
+    "badge/orange/background"
+  ],
+  "behavior": [
+    "Exactly one modifier class is ever applied alongside the base .badge: Badge.vue's computed `classes` always resolves to ['badge', `badge--${type}`] (Badge.vue:24-29). There is no code path that renders .badge alone, with more than one modifier, or with a modifier outside the validator's 6 values.",
+    "Only badge--primary overrides text color, to black/$blk (badge.scss:17). badge--secondary/--cool-gray/--blue/--green/--orange (badge.scss:20-38) declare only `background` — none sets `color` — so all five inherit the base .badge white text color (badge.scss:10).",
+    "Badge has no <slot>; content flows through the required `text` string prop, interpolated directly (Badge.vue:34). Figma should still bind the instance's Text layer to this value the way it would a slot-based label — see the `text` option's figma notes.",
+    "The badge renders at ONE size everywhere. font-size is an absolute 0.75rem ({typography.font-size.25}) as of 2026-08-20 — see changes[0] — so a badge in an h1, a table cell and a body paragraph all measure the same 12px type, 9px inline padding, 12px radius and 20.04px line box. padding-inline (.75em) and border-radius (1em) remain em-relative, but they now resolve against a fixed base, so they are proportional to the badge's own type rather than to its surroundings. That geometry is what would make a size modifier cheap — setting font-size alone moves the whole pill — but one was DECLINED on 2026-08-21 (see changes[2]); this sentence records the mechanism, not a plan."
+  ],
+  "changes": [
+    "2026-08-20 — BADGE NO LONGER FLEXES WITH ITS CONTEXT. badge/font-size changed from a raw \"75%\" (a percentage of the INHERITED font-size) to an absolute {typography.font-size.25} = 0.75rem. The design system owner's ruling: \"I don't want badges to flex to a larger size inside headings. So we need to make that change across all contexts. If we want badge sizing we can introduce modifier sizing.\" This is a DELIBERATE DESIGN CHANGE and a deliberate departure from tokenize-as-shipped -- it is NOT a fidelity bug to correct back. Impact is asymmetric by construction: 0.75rem is exactly what 75% resolved to in a 1rem context, so badges in body copy, table cells and card meta lines are unchanged to the pixel, while badges in a larger ambient context (headings) stop growing. padding-inline and border-radius were deliberately LEFT as em so the pill geometry still follows the badge's own type; with the base now absolute they resolve to a fixed 9px and 12px. Consequences tracked elsewhere: the Figma rebind (knownIssues), the downstream smoke test (knownIssues), and the size modifier the last sentence of that ruling leaves open -- since DECLINED on 2026-08-21, see changes[2]. It was never built, and if it is ever reopened it still needs its own contract-first pass, because it expands public shape.",
+    "2026-08-20 — the readme composition rule 'Never put a Badge inside a heading' and the contracts/rules.json badge-inline-only clause 'To flag a whole block, put the badge inside that block's heading or first line' were direct opposites, both shipped. The change above makes a badge in a heading render correctly, so the prohibition is retired and badge-inline-only was rewritten to state what remains true: a badge is an inline pill at a fixed size, never absolutely positioned, floated, or mounted as a corner flag.",
+    "2026-08-21 — SIZE MODIFIER DECLINED; the badge is one fixed size, and that is the finished answer. The design system owner's ruling: \"no badge modifier, just a fixed size badge for now.\" This CLOSES the question changes[0] left open. The badge renders at 0.75rem / 12px type in every context, with the 9px inline padding and 12px radius that fall out of it, and there is no `size` option, no Size axis, and nothing queued to build. Recorded as a change rather than left as silence because the absence now has to read as deliberate: a later agent meeting a one-size badge next to Button's Small/Medium/Large will otherwise take it for an oversight and \"add the missing sizes\", which is exactly the re-litigation this array exists to prevent. Note this entry moves no pixels — it declines a proposal rather than altering shipped rendering — which is why the contract version does not move with it. Reopening needs a fresh ruling from the design system owner and is still contract-first, since a size modifier expands public shape.",
+    "2026-08-21 — THE FIGMA REBIND IS DONE AND THE UNBOUND-9PX ISSUE IS CLOSED. Three Component-collection variables were corrected and the set was actually rebound, which are two different jobs: badge/font-size stopped being a raw 75 (a leftover from when the SCSS said `font-size: 75%`) and now ALIASES a new Primitives variable font/size/25 = 12; badge/padding/inline went 12 -> 9 and badge/border-radius 16 -> 12, the values `.75em` and `1em` actually resolve to against the absolute 0.75rem base. Then all six variants were bound: paddingLeft/paddingRight -> badge/padding/inline, all four corner radii -> badge/border-radius, and each text layer's fontSize -> badge/font-size. NOTHING MOVED: the frames already PAINTED 9, 12 and 12 as raw literals under the 2026-08-16 \"visual truth wins in a design library\" ruling, so before and after are identical on every geometry field — this closed the gap between what the file showed and what it could prove. check-figma went 11 errors to 0. THIS ENTRY REPLACES A KNOWNISSUE, deliberately and not silently; the finding it carried is reproduced verbatim below so nothing is lost. WHAT THAT ENTRY SAID: OPEN, and now fixable: Figma's padding is a raw UNBOUND 9px. `padding: 0 .75em` and `border-radius: 1em` resolve against the badge's own font, so production renders 9px and 12px, but check-figma converts em to px as em*16 and so reads the variables as 12 and 16. That mismatch was unresolvable while the base font-size was a percentage of an unknown parent, and was ruled 2026-08-16 as 'visual truth wins in a design library' -- padding set to the true 9px and left unbound, radius left bound because 12 and 16 both fully round a 21px pill. The 2026-08-20 de-flex change (changes[0]) removes the blocker: the base is now an absolute 0.75rem, so the em values are computable from tokens alone. Rebind padding/inline and border-radius in Figma and close this. AS OF 2026-08-21 THIS IS RED, NOT SILENT: scripts/check-figma.mjs now resolves a bare `em` against the owning component's own font-size (pxOf/emBasis) instead of multiplying every relative unit by 16, so the two Figma variables are compared against the 9 and 12 production actually paints and fail -- `badge/padding/inline` (expect 9, Figma 12) and `badge/border-radius` (expect 12, Figma 16), once per Component mode (mobile, md (980), page (1350)) = six hard errors. Only the Figma edit clears them; there is nothing to change on the token side. The bound-subset caveat survives ONLY for the binding half: check-figma enforces bound-vars-subset-of-tokensUsed and never the converse, and neither variable appears in the component set's boundVariables (figma/snapshot.json), so the checker still cannot see that the frame paints a raw literal rather than referencing the variable. Correcting the two variable values would therefore turn the six errors green while leaving the frame unbound -- a human has to confirm the rebind itself."
+  ],
+  "knownIssues": [
+    "Dead import: `@use '../abstracts/utilities'` (badge.scss:2) — the `utilities` namespace is never referenced anywhere in the file. See claims.",
+    "`border: 1px solid transparent` (badge.scss:11) is never overridden by any of the 6 modifiers — its color channel has no observable visual effect in any shipped variant. See claims. Not tokenized (see geometryNotTokenized).",
+    "type='orange' maps to the $danger Sass variable / {color.status.danger} primitive (#BD472A), NOT a literal orange hue — already precedented in tokens/primitives/colors.json's own comment ('4.x: $danger / $orange'). Must be spelled out explicitly in the eventual contract's option description so it doesn't read as a naming error, same treatment as Button's dead 'link' color value.",
+    "type='blue' maps to the $info Sass variable / {color.status.info} primitive (#00558C) — a status-semantic color, not the separate {color.blue} 'link blue' primitive that happens to share the exact same current hex value. This is a sharper version of the orange mismatch above: picking {color.blue} instead of {color.status.info} would look identical today and only reveal itself as wrong if the two primitives are ever retuned independently. Flag explicitly in the contract; do not rely on the numeric coincidence.",
+    "uids_base (downstream, /Users/bspeare/acquia/uiowa) defines a 7th modifier not present in Badge.vue's validator or badge.scss: `.badge--light { background: $light; color: $secondary; }` (uids_base/scss/components/badge.scss:5-8, gray-100 background / black text by default theme). A repo-wide grep of uiowa (scss/twig/php/js) found no static or programmatic caller for the class — it may be reachable only via manually-authored WYSIWYG markup, which repo grep cannot see. Same treatment as Button's circle/caps/lowercase: a live-in-the-consumer, public-shape-expansion candidate, deferred past this migration and owned by uids_base today, NOT a dead-code claim (the rule itself is fully functional if invoked).",
+    "DOWNSTREAM SMOKE TEST OWED for the 2026-08-20 sizing change (changes[0]): uids_base overrides the base `.badge` selector (display:inline-flex, plus a Font Awesome margin rule) and adds a 7th `.badge--light` modifier. Neither is UIDS's to change here, but both sit on top of the selector whose font-size just became absolute, so whoever owns uiowa/uiowa should confirm no downstream caller relied on badges scaling with their container.",
+    "uids_base also overrides the base `.badge` selector itself (uids_base/scss/components/badge.scss:10-16): `display: inline-flex` (UIDS ships `inline-block`, badge.scss:5) plus a nested `.svg-inline--fa { margin-right: .4rem; align-self: center; }` rule sized for a Font Awesome icon that Badge.vue has no slot or prop to render. No live badge+icon markup was found by repo grep in either repo, so this may be defensive/anticipatory CSS. UIDS's own `inline-block` remains the correct canonical value for this contract (it is what Storybook renders and what the regression baseline captures); the uids_base override is downstream and out of scope here, but a future icon-slot addition to Badge.vue should reconcile with it.",
+    "`uids_base/uids/scss/components/badge.scss` is a byte-identical vendored mirror of this repo's badge.scss (diffed clean) — a downstream artifact, not a second implementation; recorded in identity.downstreamPaths for traceability, not treated as drift.",
+    "The 6 `badge--{type}` class strings are hardcoded literals in production code well beyond Vue/Storybook: e.g. facilities.uiowa.edu's UtilityAlertsController.php, registrar's AcademicCalendarController.php and CourseDeadlinesForm.php, its.uiowa.edu's AlertTypeLegend.php, uiowa_hours' HoursFilterForm.php, and raw JS in admissions/pharmacy counselors-map.js. The 6 enum values are a de facto public API consumed by PHP controllers and inline JS, not just the Vue prop — renaming or removing any of them is a breaking change for those call sites."
+  ],
+  "geometryNotTokenized": {
+    "border": "1px solid transparent (badge.scss:11). Width is hardcoded per the Border foundation's own convention (contracts/border.json: '1px solid is hardcoded... not tokenized'); the color is the literal CSS keyword `transparent`, never overridden by any modifier (see claims), so there is no meaningful color value to reference either — the rule reserves 1px of box size without ever painting a visible border."
+  }
+}

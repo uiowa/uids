@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet data-dc-atomics>
+        <link rel="stylesheet" href="./tokens.css" />
+        <!-- Card's `background` option puts a real bg--* class on the ROOT element, and two
+             of card's own rules key off it: the date circle's hairline flips to black on
+             gold (card.scss:231-235), and a borderless card whose background MATCHES its
+             container's loses its padding (card.scss:484-511). The on-light/on-dark text
+             cascade also has to be real, because it is what the nested Headline and Button
+             inherit. -->
+        <link rel="stylesheet" href="./backgrounds.css" />
+        <style>
+          /* ---- page reset (src/scss/base/_reset.scss:32-53), verbatim ----
+             Production applies box-sizing globally to <html>, so every rule below was
+             authored against border-box. Omitting it rendered Callout 96px too wide when
+             this class of bug was first found; reproduced across the batch for that reason. */
+          html{box-sizing:border-box}
+          *,*::before,*::after{box-sizing:inherit}
+          /* Page context: base/_reset.scss puts the sans stack on <html>. Not card's own
+             SCSS — reproduced dc-only because this template renders bare. */
+          body{margin:0;font-family:var(--uiowa-font-family-sans)}
+
+          /* ---- dc-only: the CONTAINER the card measures itself against ----
+             THIS IS THE SINGLE MOST IMPORTANT THING IN THIS FILE. card.scss:5-16 defines
+             its OWN container-query() mixin, shadowing the shared one, keyed on
+             `@container column (min-width: 400px)` ($break-xxsm) with a
+             `@supports not (contain: inline-size)` fallback to `breakpoint(sm)` (768px).
+             So card's layout switches on the width of ITS COLUMN, not the viewport. In
+             production that column is a .grid__column carrying container-type; nothing in
+             this bare template would establish one, and every container query below would
+             silently never fire — Left and Right would render identically to Stacked with
+             no error anywhere. The wrapper exists to supply that context, exactly as
+             Banner.dc.html's .dc-banner-column does. It is NOT a production class. */
+          .dc-card-column{container-type:inline-size;container-name:column}
+
+          /* ---- .card (src/scss/components/card.scss:19-98) ---- */
+          .card{
+            position:relative;
+            padding:var(--uiowa-card-padding);
+            text-decoration:none;
+            display:flex;
+            flex:1 1 0%;
+            flex-direction:column;
+            /* utilities.border — the shared Border foundation, not card's own value. */
+            border:1px solid var(--uiowa-color-border-default);
+          }
+          .card h2:not(:first-child),.card h3:not(:first-child),.card h4:not(:first-child),
+          .card h5:not(:first-child),.card h6:not(:first-child){margin-top:0}
+          .card ul,.card ol,.card dl,.card table{
+            font-size:var(--uiowa-card-body-font-size);
+            line-height:var(--uiowa-card-body-line-height);
+          }
+          .card p{
+            margin-bottom:0;margin-top:0;
+            font-size:var(--uiowa-card-body-font-size);
+            line-height:var(--uiowa-card-body-line-height);
+          }
+          .card p a{position:relative;z-index:1}
+          .card header{
+            margin:0 0 var(--uiowa-card-header-margin-bottom);
+            padding:0;
+            font-size:var(--uiowa-card-header-font-size);
+            font-weight:var(--uiowa-card-header-font-weight);
+            line-height:var(--uiowa-card-header-line-height);
+          }
+          .card header a{text-decoration:none}
+          .card header a:hover,.card header a:focus{text-decoration:underline}
+          /* ANCESTOR RULE REACHING INTO A CHILD COMPONENT. dc-import shares ONE document
+             and ONE cascade with this template (verified live during the banner migration),
+             so this rule really does reach the imported Headline and re-size it — which is
+             the whole point: card.scss:74-76 overrides whatever ramp Headline's own level
+             would apply. Delete it here and the imported title renders at Headline's H3
+             size instead of card's 1.5rem. */
+          .card header .headline{font-size:var(--uiowa-card-headline-font-size)}
+          .card header:focus-within ~ .bttn{background-position:0;background-size:200% 100%}
+          .card header:focus-within ~ .bttn i,.card header:focus-within ~ .bttn svg{
+            color:var(--uiowa-card-button-focus-icon-color);
+          }
+          .card:focus-within header a:focus{text-decoration:underline}
+          .card footer .bttn{margin-top:var(--uiowa-card-button-margin-top)}
+
+          /* ---- media (card.scss:103-236) ---- */
+          .card > .media{
+            margin-top:0;text-align:center;
+            min-width:var(--uiowa-card-media-min-width);
+          }
+          .card > .media img{width:100%;object-fit:cover}
+          .card > .media iframe{border:none}
+          /* Allows the media to run edge to edge for stacked cards. The negative margins
+             ARE the mechanism — they pull the media out of the card's own padding. */
+          .card .media__inner{
+            margin-left:calc(-1 * var(--uiowa-card-media-edge-offset));
+            margin-right:calc(-1 * var(--uiowa-card-media-edge-offset));
+            margin-top:calc(-1 * var(--uiowa-card-media-edge-offset));
+            margin-bottom:var(--uiowa-card-media-edge-offset);
+          }
+          .card .media--circle{display:block}
+          .card .media--circle .media__inner{margin-left:0;margin-top:0;margin-right:0}
+          .card .media--circle.media--small{max-width:var(--uiowa-card-media-circle-small-max-width)}
+          .card .media--circle.media--medium{max-width:var(--uiowa-card-media-circle-medium-max-width-base)}
+          @media (min-width:768px){
+            .card .media--circle.media--medium{max-width:var(--uiowa-card-media-circle-medium-max-width-sm)}
+          }
+          .card .media--no-crop{flex-basis:auto}
+          .card .media--square img,.card .media--square iframe{aspect-ratio:1 / 1}
+          .card .media--widescreen img,.card .media--widescreen iframe{aspect-ratio:16 / 9}
+          .card .media--widescreen:has([src$=".svg"]) .media__inner{
+            background:var(--uiowa-card-media-svg-backdrop);
+          }
+          .card .media--widescreen:has([src$=".svg"]) img[src$=".svg"]{object-fit:contain}
+
+          /* ---- dc-only: the media stand-in ----
+             SPECIFICITY IS LOAD-BEARING HERE. `.card > .media img` above is (0,2,1); a bare
+             `.dc-media-placeholder` would be (0,1,0) and lose, which is exactly how the
+             banner template shipped a solid-black placeholder that three checkers and an
+             audit all passed. Scoped to match, and deliberately a NEUTRAL GREY rather than
+             any tokenized colour — card has no loading-fill token, so binding one would
+             assert a value the CSS does not set. The aspect-ratio mirrors the shape rules
+             above so the placeholder crops the way a real image would. */
+          .card .media__inner .dc-media-placeholder{
+            display:block;width:100%;background:#8c8c8c;
+          }
+          .card .media--widescreen .media__inner .dc-media-placeholder{aspect-ratio:16 / 9}
+          .card .media--square .media__inner .dc-media-placeholder{aspect-ratio:1 / 1}
+          .card .media--circle .media__inner .dc-media-placeholder{aspect-ratio:1 / 1;border-radius:50%}
+
+          /* ---- date circle (card.scss:201-235) ----
+             AUTHORED MARKUP, not a prop: a caller writes .media--date into the media slot
+             (Card.stories.js:393-397). Reproduced here behind the `media_shape: date`
+             option so its eight tokens are representable at all. */
+          .card .media--date{
+            position:relative;
+            padding-top:var(--uiowa-card-media-date-padding-top);
+            border:var(--uiowa-card-media-date-border-width) solid var(--uiowa-card-media-date-border-color-default);
+            text-align:center;
+            width:var(--uiowa-card-media-date-size);
+            height:var(--uiowa-card-media-date-size);
+            margin-left:auto;margin-right:auto;
+            margin-top:var(--uiowa-card-media-date-margin-top);
+            aspect-ratio:1 / 1;border-radius:50%;
+          }
+          .card .media--date__month{
+            font-size:var(--uiowa-card-media-date-month-font-size);
+            display:block;
+            line-height:var(--uiowa-card-media-date-month-line-height);
+            text-transform:uppercase;
+            font-weight:var(--uiowa-card-media-date-month-font-weight);
+          }
+          .card .media--date__day{
+            font-size:var(--uiowa-card-media-date-day-font-size);
+            display:block;
+            line-height:var(--uiowa-card-media-date-day-line-height);
+            margin-top:var(--uiowa-card-media-date-day-margin-top);
+            font-weight:var(--uiowa-card-media-date-day-font-weight);
+          }
+          /* The ONLY background-specific rule card ships. The source carries its own
+             "We should revisit to have appropriate color/styling for each background color
+             option" comment (card.scss:230) — black and gray are NOT handled, and a date
+             circle on either keeps its gold hairline. As-shipped. */
+          .card[class*="bg--gold"] .media--date{
+            border:var(--uiowa-card-media-date-border-width) solid var(--uiowa-card-media-date-border-color-on-gold);
+          }
+
+          /* ---- elements (card.scss:241-287) ---- */
+          .card__pre-title{
+            font-size:var(--uiowa-card-pre-title-font-size);
+            opacity:var(--uiowa-card-pre-title-opacity);
+          }
+          /* The sc-interp wrapper the dc runtime puts around {{ }} is <span class="sc-interp">,
+             which does NOT match span[class*="fa-"] — so this icon-gap rule cannot leak onto
+             interpolated text. Checked, not assumed. */
+          .card__pre-title i,.card__pre-title span[class*="fa-"],.card__pre-title svg{
+            margin-right:var(--uiowa-card-pre-title-icon-gap);
+          }
+          .card__subtitle{
+            opacity:var(--uiowa-card-subtitle-opacity);
+            font-family:var(--uiowa-card-subtitle-font-family);
+            font-size:var(--uiowa-card-subtitle-font-size);
+            font-weight:var(--uiowa-card-subtitle-font-weight);
+            line-height:var(--uiowa-card-subtitle-line-height);
+            margin-top:var(--uiowa-card-subtitle-margin-top);
+          }
+          .card__details{margin:0 0 var(--uiowa-card-details-margin-bottom)}
+          .card__meta{
+            font-family:var(--uiowa-card-meta-font-family);
+            font-size:var(--uiowa-card-meta-font-size);
+            line-height:var(--uiowa-card-meta-line-height);
+            font-weight:var(--uiowa-card-meta-font-weight);
+          }
+          .card__meta .fas{margin-right:var(--uiowa-card-meta-icon-gap)}
+          .card__body{line-height:var(--uiowa-card-body-line-height);word-wrap:anywhere;overflow-wrap:anywhere}
+
+          /* ---- borderless (card.scss:294-327) ----
+             The padding reset is gated :not([class*="bg--"]), which is why a borderless card
+             WITH a background keeps its padding. */
+          .card.borderless{border:0}
+          .card.borderless:not([class*="bg--"]){padding:0}
+          .card.borderless:not([class*="bg--"]) .media--date{margin-top:0}
+          .card.borderless:not([class*="bg--"]) .media__inner{margin-left:0;margin-right:0;margin-top:0}
+
+          /* ---- modifiers (card.scss:331-364) ---- */
+          .card--centered{text-align:center}
+          .card--media-padded .media__inner{margin-left:0;margin-top:0;margin-right:0}
+          /* button_align_bottom rides breakpoint(sm) — a VIEWPORT media query at 768,
+             unlike everything in the orientation block below. Card has TWO switch points. */
+          @media (min-width:768px){
+            .card--button-align-bottom:not([class*="card--layout"]) .card__body{flex:1}
+            .card--button-align-bottom .card__body{display:flex;flex-direction:column}
+            .card--button-align-bottom footer{margin-top:auto}
+          }
+
+          /* ---- media size caps inside a side-by-side card (card.scss:395-430) ----
+             ADDED 2026-08-24. These were missing, and their absence is why media_size
+             looked like it did nothing: media--small carries NO flex-basis of its own, so
+             it falls through to `.card--layout-left > * { flex-basis:100% }` below and
+             splits the card 50/50 — LARGER than media--medium's 35%. The cap is the whole
+             mechanism. Measured before the fix: 613px of a 1225px card, against 250px for
+             the identical classes in the Storybook ItemList story.
+             These four rules are scoped to the layout classes but are NOT container-gated
+             in the source, so they sit outside the @supports blocks — same as card.scss. */
+          .card--layout-left .media--no-crop.media--small,
+          .card--layout-right .media--no-crop.media--small{
+            display:block;max-width:var(--uiowa-card-layout-media-max-width-no-crop-small);
+          }
+          .card--layout-left .media--no-crop.media--medium,
+          .card--layout-right .media--no-crop.media--medium{
+            display:block;max-width:var(--uiowa-card-layout-media-max-width-no-crop-medium);
+          }
+          .card--layout-left .media--no-crop.media--large,
+          .card--layout-right .media--no-crop.media--large{
+            display:block;max-width:var(--uiowa-card-layout-media-max-width-no-crop-large);
+          }
+          /* The circle cap is 11.375rem HERE and 9.375rem at the outer scope (line 106).
+             Two rules, two scopes; this one wins inside a side-by-side card on source
+             order at equal specificity. Not a duplicate — see tokens/components/card.json. */
+          .card--layout-left .media--small.media--circle,
+          .card--layout-right .media--small.media--circle{
+            max-width:var(--uiowa-card-layout-media-max-width-small-circle);
+          }
+
+          /* ---- orientation (card.scss:368-478) ----
+             Every rule here rides the CONTAINER query. Written twice, exactly as the mixin
+             compiles: the @container form for browsers with containment, and the
+             @supports-not fallback at 768px viewport. Do not collapse them — they are not
+             the same condition, and the 400px one is the one that actually fires. */
+          @supports (contain:inline-size){
+            @container column (min-width:400px){
+              .card--layout-left,.card--layout-right{display:flex;flex-direction:row;width:100%}
+              .card--layout-left .media__inner,.card--layout-right .media__inner{
+                margin-bottom:0;margin-left:0;margin-right:0;margin-top:0;
+              }
+              .card--layout-left > *,.card--layout-right > *{flex-basis:100%}
+              .card--layout-left .media--date,.card--layout-right .media--date{margin-top:0}
+              .card--layout-left .media--medium,.card--layout-right .media--medium{
+                flex:0 0 var(--uiowa-card-layout-media-basis-medium);
+              }
+              .card--layout-left .media--large,.card--layout-right .media--large{
+                flex:0 0 var(--uiowa-card-layout-media-basis-large);
+              }
+              /* media--small's caps ARE container-gated (card.scss:420-430), unlike the
+                 circle/no-crop caps above. This widescreen one is the news-thumbnail cap. */
+              .card--layout-left .media--small.media--square,
+              .card--layout-right .media--small.media--square{
+                max-width:var(--uiowa-card-layout-media-max-width-small-square);
+              }
+              .card--layout-left .media--small.media--widescreen,
+              .card--layout-right .media--small.media--widescreen{
+                max-width:var(--uiowa-card-layout-media-max-width-small-widescreen);
+              }
+              .card--layout-left{flex-direction:row}
+              .card--layout-left .media__inner,.card--layout-left .media--circle .media__inner{
+                margin-right:var(--uiowa-card-layout-media-gap);
+              }
+              .card--layout-right{flex-direction:row-reverse}
+              .card--layout-right .media__inner,.card--layout-right .media--circle .media__inner{
+                margin-left:var(--uiowa-card-layout-media-gap);
+              }
+              .card.borderless:not([class*="bg--"]).card--layout-left .media__inner{
+                margin-right:var(--uiowa-card-layout-media-gap);
+              }
+              .card.borderless:not([class*="bg--"]).card--layout-right .media__inner{
+                margin-left:var(--uiowa-card-layout-media-gap);
+              }
+            }
+          }
+          @supports not (contain:inline-size){
+            @media (min-width:768px){
+              .card--layout-left,.card--layout-right{display:flex;flex-direction:row;width:100%}
+              .card--layout-left .media__inner,.card--layout-right .media__inner{
+                margin-bottom:0;margin-left:0;margin-right:0;margin-top:0;
+              }
+              .card--layout-left > *,.card--layout-right > *{flex-basis:100%}
+              .card--layout-left .media--small.media--square,
+              .card--layout-right .media--small.media--square{
+                max-width:var(--uiowa-card-layout-media-max-width-small-square);
+              }
+              .card--layout-left .media--small.media--widescreen,
+              .card--layout-right .media--small.media--widescreen{
+                max-width:var(--uiowa-card-layout-media-max-width-small-widescreen);
+              }
+              .card--layout-left{flex-direction:row}
+              .card--layout-left .media__inner{margin-right:var(--uiowa-card-layout-media-gap)}
+              .card--layout-right{flex-direction:row-reverse}
+              .card--layout-right .media__inner{margin-left:var(--uiowa-card-layout-media-gap)}
+            }
+          }
+        </style>
+      </helmet>
+      <div class="dc-card-column">
+        <div class="{{ rootClass }}" data-screen-label="Card">
+          <!-- Media. Gated on slot presence in Card.vue:193. -->
+          <sc-if value="{{ hasMedia }}" hint-placeholder-val="{{ true }}">
+            <div class="{{ mediaClass }}">
+              <div class="media__inner">
+                <!-- The date circle is authored markup a caller writes INTO the media slot,
+                     not a media_shape value in code; it is offered as one here purely so
+                     its tokens are representable. -->
+                <sc-if value="{{ isDate }}" hint-placeholder-val="{{ true }}">
+                  <div class="media--date">
+                    <span class="media--date__month">{{ date_month }}</span>
+                    <span class="media--date__day">{{ date_day }}</span>
+                  </div>
+                </sc-if>
+                <!-- A REAL image when one is supplied, the grey stand-in when not. Added
+                     2026-08-18 after a consuming page could not put a picture in a card at
+                     all and had to hand-write markup outside the component — which is how
+                     templates get forked. The <img> carries no classes of its own: the
+                     shape and size rules above already target `.card > .media img`, so a
+                     real image crops exactly as the placeholder did. -->
+                <sc-if value="{{ hasImage }}" hint-placeholder-val="{{ true }}">
+                  <img src="{{ image }}" alt="{{ image_alt }}" />
+                </sc-if>
+                <sc-if value="{{ showPlaceholder }}" hint-placeholder-val="{{ true }}">
+                  <div class="dc-media-placeholder"></div>
+                </sc-if>
+              </div>
+            </div>
+          </sc-if>
+
+          <div class="card__body">
+            <sc-if value="{{ hasPreTitle }}" hint-placeholder-val="{{ true }}">
+              <div class="card__pre-title">{{ pre_title }}</div>
+            </sc-if>
+            <!-- Title. A real Headline import rather than flattened markup (the CTA and
+                 banner precedent). text_style is card's own `headline_style` prop passed
+                 straight through (Card.vue:218); level is Headline's default h2 because
+                 Card passes none. The size override is NOT a prop — it comes from the
+                 ancestor rule `.card header .headline` in the CSS above, which reaches the
+                 imported instance through the shared cascade. -->
+            <sc-if value="{{ hasTitle }}" hint-placeholder-val="{{ true }}">
+              <header>
+                <dc-import name="Headline" text="{{ title }}" level="h2" text_style="{{ headline_style }}" hint-size="380px,32px"></dc-import>
+              </header>
+            </sc-if>
+            <!-- .card__details exists only to hold subtitle and/or meta (Card.vue:174-180),
+                 so it is gated on either being present — otherwise its margin-bottom would
+                 add a phantom 10px gap. -->
+            <sc-if value="{{ hasDetails }}" hint-placeholder-val="{{ true }}">
+              <div class="card__details">
+                <sc-if value="{{ hasSubtitle }}" hint-placeholder-val="{{ true }}">
+                  <div class="card__subtitle">{{ subtitle }}</div>
+                </sc-if>
+                <sc-if value="{{ hasMeta }}" hint-placeholder-val="{{ true }}">
+                  <div class="card__meta">{{ meta }}</div>
+                </sc-if>
+              </div>
+            </sc-if>
+            <sc-if value="{{ hasBody }}" hint-placeholder-val="{{ true }}">
+              <p>{{ body }}</p>
+            </sc-if>
+            <!-- Footer. Renders when there is a url AND (link_indicator OR link_text) —
+                 Card.vue:243. The nested Button is ALWAYS transparent + light_font: card
+                 exposes no button styling at all, and those four classes are hardcoded at
+                 Card.vue:124 and again, independently, at SiteNow's uiowa_core.module:539-544.
+                 the design system owner's ruling (2026-08-17), recorded because the intent is easy to lose:
+                 card buttons are restricted because cards are meant as softer reading
+                 surfaces. An empty link_text switches it to the circle indicator, which is
+                 the same condition production uses at uiowa_core.module:553-559.
+                 NOT REPRESENTED, deliberately: the third paint Card can render — a real
+                 anchor with NO arrow, when a card has no title, because Card fills none of
+                 Button's icon slot. See contracts/card.json knownIssues.arrowless-anchor. -->
+            <sc-if value="{{ hasFooter }}" hint-placeholder-val="{{ true }}">
+              <footer>
+                <dc-import name="Button" label="{{ link_text }}" url="{{ url }}" size="medium" color="primary" transparent="{{ true }}" light_font="{{ true }}" circle="{{ isCircle }}" hint-size="228px,54px"></dc-import>
+              </footer>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+    </x-dc>
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{
+  "$preview": { "width": 480, "height": 560 },
+  "title": { "editor": "text", "default": "Arts and Culture", "tsType": "string" },
+  "headline_style": { "editor": "enum", "options": ["serif", "default"], "default": "serif", "tsType": "string" },
+  "pre_title": { "editor": "text", "default": "", "tsType": "string" },
+  "subtitle": { "editor": "text", "default": "", "tsType": "string" },
+  "meta": { "editor": "text", "default": "", "tsType": "string" },
+  "body": { "editor": "text", "default": "For decades, Iowa City has been a gathering place for artists, creating a cultural hub that’s more accessible than any major city.", "tsType": "string" },
+  "link_text": { "editor": "text", "default": "Explore the arts", "tsType": "string" },
+  "url": { "editor": "text", "default": "https://uiowa.edu", "tsType": "string" },
+  "link_indicator": { "editor": "boolean", "default": true, "tsType": "boolean" },
+  "show_media": { "editor": "boolean", "default": true, "tsType": "boolean" },
+  "image": { "editor": "text", "default": "", "tsType": "string" },
+  "image_alt": { "editor": "text", "default": "", "tsType": "string" },
+  "media_size": { "editor": "enum", "options": ["default", "small", "medium", "large"], "default": "large", "tsType": "string" },
+  "media_shape": { "editor": "enum", "options": ["widescreen", "square", "circle", "no-crop", "date"], "default": "widescreen", "tsType": "string" },
+  "date_month": { "editor": "text", "default": "June", "tsType": "string" },
+  "date_day": { "editor": "text", "default": "9", "tsType": "string" },
+  "orientation": { "editor": "enum", "options": ["stacked", "left", "right"], "default": "stacked", "tsType": "string" },
+  "borderless": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "centered": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "media_padded": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "button_align_bottom": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "background": { "editor": "enum", "options": ["default", "black", "gold", "gray", "white"], "default": "default", "tsType": "string" }
+}'
+    >
+      class Component extends DCLogic {
+        renderVals() {
+          // Mirrors the class computation in src/components/card/Card.vue:91-121, in the
+          // same ORDER it pushes them: 'card', the booleans, the orientation modifier, then
+          // the shared background and borderless modules, then click-container.
+          const orientation = this.props.orientation ?? 'stacked';
+          const background = this.props.background ?? 'default';
+          const mediaShape = this.props.media_shape ?? 'widescreen';
+          const mediaSize = this.props.media_size ?? 'large';
+          const title = this.props.title ?? '';
+          const preTitle = this.props.pre_title ?? '';
+          const subtitle = this.props.subtitle ?? '';
+          const meta = this.props.meta ?? '';
+          const body = this.props.body ?? '';
+          const linkText = this.props.link_text ?? '';
+          const url = this.props.url ?? '';
+          const has = (v) => String(v).trim().length > 0;
+
+          const classes = ['card'];
+          if (this.props.centered) classes.push('card--centered');
+          if (this.props.media_padded) classes.push('card--media-padded');
+          if (this.props.button_align_bottom) classes.push('card--button-align-bottom');
+          // orientation 'stacked' emits NO modifier — the base .card rules ARE stacked.
+          // `orientation` is Card's ONLY validated prop (Card.vue:72-74).
+          if (orientation !== 'stacked') classes.push('card--layout-' + orientation);
+          // Background.addBackgroundClass: no class at all when background is ''.
+          if (background !== 'default') classes.push('bg--' + background);
+          if (this.props.borderless) classes.push('borderless');
+          // click-container is added whenever there is a url; applyClickA11y then wires the
+          // whole-card click target on mount. No JS runs here, so it is markup-only.
+          if (has(url)) classes.push('click-container');
+
+          // The date circle is authored markup inside the media slot, not a shape class.
+          const isDate = mediaShape === 'date';
+          const mediaClasses = ['media', 'media--' + mediaSize];
+          if (!isDate) mediaClasses.push('media--' + mediaShape);
+
+          // Three mutually exclusive media states, in priority order: the date circle wins,
+          // then a real image if a url was supplied, then the grey stand-in. Kept as three
+          // explicit booleans because sc-if has no else branch.
+          const image = this.props.image ?? '';
+          const hasImage = !isDate && has(image);
+          const showPlaceholder = !isDate && !hasImage;
+
+          // Card.vue:243 — the footer needs a url AND either an indicator or a label.
+          const linkIndicator = this.props.link_indicator !== false;
+          const hasFooter = has(url) && (linkIndicator || has(linkText));
+          // Card.vue:126-129 — circle + no-text when there is an indicator but no label.
+          // Button.dc.html adds --no-text itself from the empty label, so only --circle
+          // has to be passed.
+          const isCircle = linkIndicator && has(url) && !has(linkText);
+
+          return {
+            rootClass: classes.join(' '),
+            mediaClass: mediaClasses.join(' '),
+            hasMedia: this.props.show_media !== false,
+            isDate: isDate,
+            image: image,
+            image_alt: this.props.image_alt ?? '',
+            hasImage: hasImage,
+            showPlaceholder: showPlaceholder,
+            date_month: this.props.date_month ?? '',
+            date_day: this.props.date_day ?? '',
+            title: title,
+            hasTitle: has(title),
+            headline_style: (this.props.headline_style ?? 'serif') === 'default' ? '' : (this.props.headline_style ?? 'serif'),
+            pre_title: preTitle,
+            hasPreTitle: has(preTitle),
+            subtitle: subtitle,
+            hasSubtitle: has(subtitle),
+            meta: meta,
+            hasMeta: has(meta),
+            hasDetails: has(subtitle) || has(meta),
+            body: body,
+            hasBody: has(body),
+            link_text: linkText,
+            url: url,
+            hasFooter: hasFooter,
+            isCircle: isCircle
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

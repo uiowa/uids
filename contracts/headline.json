@@ -1,0 +1,186 @@
+{
+  "$schema": "./contract.schema.json",
+  "name": "headline",
+  "version": "1.0.0",
+  "description": "The UIDS headline (`.headline`, plus its legacy `.bold-headline` alias) — heading-level text with optional highlight, underline, uppercase and serif treatments. Renders as `<component :is=\"level\">` around a slot with no internal markup of its own; consumers author the `.headline__heading`/`.headline__text` inner span themselves (see behavior).",
+  "identity": {
+    "codePath": "src/components/headline/Headline.vue",
+    "scssPath": "src/scss/components/_headline.scss",
+    "relatedPaths": [
+      "src/scss/abstracts/_headline-mixins.scss",
+      "src/components/headline/Headline.stories.js"
+    ],
+    "downstreamPaths": [
+      "uiowa/docroot/themes/custom/uids_base/templates/block/block--inline-block--uiowa-hero.html.twig",
+      "uiowa/docroot/themes/custom/uids_base/templates/block/block--inline-block--uiowa-page-title-hero.html.twig",
+      "uiowa/docroot/themes/custom/uids_base/templates/uids/headline.html.twig",
+      "uiowa/docroot/themes/custom/uids_base/uids/scss/components/cta_uids3.scss"
+    ],
+    "registeredName": "uids-headline",
+    "barrelExport": "UidsHeadline",
+    "storybookId": "components-headline",
+    "figma": {
+      "fileKey": "hNShklBztaeaQneScM0KoM",
+      "page": "Components / Headline",
+      "note": "Set 168:75, 30 variants (Level x Style), page Components / Headline. Style collapses text_style + underline + highlight (Button precedent); combos beyond the five axis values are code-only. On-gold flips and negative/center are context frames, not axes.",
+      "componentSetId": "168:75",
+      "componentKey": "8a28fdedd22046c2db6ec55410fbdd34d4aca135",
+      "componentSetName": "Headline",
+      "axisRationale": [
+        "CORRECTED 2026-08-17 (found while building the banner set, fixed with the design system owner's approval): the Serif variants at H2-H6 drew Zilla Slab MEDIUM, where _headline-mixins.scss:38-41 declares `font-weight: $font-weight-bold` and a live H2 measures 700 at a 1020 viewport. H1/Serif was already correct, which is what made the other five look deliberate. All six are now Bold. Fonts are not captured by figma-readback.js, so this correction does not move the snapshot."
+      ],
+      "deliberateOmissions": []
+    },
+    "claudeDesign": {
+      "projectId": "a371c390-7071-4ac7-a122-87440610e63a",
+      "template": "Headline.dc.html"
+    }
+  },
+  "options": [
+    {
+      "name": "level",
+      "type": "enum",
+      "values": [
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6"
+      ],
+      "default": "h2",
+      "description": "Heading level — selects the rendered tag via Vue's dynamic <component :is>.",
+      "code": {
+        "prop": "level"
+      },
+      "figma": {
+        "axis": "Level",
+        "map": {
+          "h1": "H1",
+          "h2": "H2",
+          "h3": "H3",
+          "h4": "H4",
+          "h5": "H5",
+          "h6": "H6"
+        },
+        "notes": "h5/h6 additionally get a shorter underline bar (5px/4px vs 6px) when underline is on — geometry, not a separate axis value; see geometryNotTokenized."
+      }
+    },
+    {
+      "name": "text_style",
+      "type": "enum",
+      "values": [
+        "",
+        "serif",
+        "uppercase"
+      ],
+      "default": "",
+      "description": "Type treatment. '' (the real Vue default) renders the base treatment with no extra class; serif switches to the Zilla Slab stack + bold weight (both already token-driven via the typography primitives — $font-family-serif/$font-weight-bold compile to var(--uiowa-font-*) chains, deliberately NOT duplicated in this contract's tokensUsed); uppercase switches to Antonio + uppercase + bold.",
+      "code": {
+        "prop": "text_style",
+        "classes": {
+          "serif": "headline--serif",
+          "uppercase": "headline--uppercase"
+        },
+        "notes": "The Vue prop's real default is the empty string '' (no validator constrains it to an enum) — Storybook's own control labels it 'default'. Kept as '' here rather than a friendly 'default' string so the contract's default field text-matches the Vue source exactly (check-contracts compares them literally)."
+      },
+      "figma": {
+        "axis": "Style",
+        "map": {
+          "": "Default",
+          "serif": "Serif",
+          "uppercase": "Uppercase"
+        },
+        "notes": "Shares the Style axis with underline and highlight (Brand Bar/Button precedent: collapsing related booleans into one visible axis) — Level × Style = 6 × 5 = 30 variants. Combinations beyond the five axis values (e.g. serif+underline, uppercase+highlight) are code-only: use the code props for that combination, same as Button's transparent+light_font."
+      }
+    },
+    {
+      "name": "underline",
+      "type": "boolean",
+      "default": false,
+      "description": "Adds a gold underline bar below the headline (gray on a gold/brain-reversed background). h5/h6 get a shorter bar — see geometryNotTokenized.",
+      "code": {
+        "prop": "underline",
+        "class": "headline--underline"
+      },
+      "figma": {
+        "axis": "Style",
+        "map": {
+          "false": "Default",
+          "true": "Underline"
+        },
+        "notes": "Shares the Style axis with text_style and highlight — see text_style's notes."
+      }
+    },
+    {
+      "name": "highlight",
+      "type": "boolean",
+      "default": false,
+      "description": "Wraps an inner <span> in a gold background block (black on gold/brain-reversed backgrounds). Renders nothing unless the slot content actually contains a <span> — see behavior.",
+      "code": {
+        "prop": "highlight",
+        "class": "headline--highlight"
+      },
+      "figma": {
+        "axis": "Style",
+        "map": {
+          "false": "Default",
+          "true": "Highlight"
+        },
+        "notes": "Shares the Style axis with text_style and underline — see text_style's notes."
+      }
+    }
+  ],
+  "slots": [
+    {
+      "name": "default",
+      "description": "The headline's rendered content. Headline.vue wraps only <component :is=\"level\"> around this slot — no internal markup of its own.",
+      "behavior": "Consumers author `.headline__heading`/`.headline__text` (and Stat's `.headline__prefix`/`.headline__suffix`) themselves; Headline.vue does not add them. See the required inner-markup protocol in `behavior`: highlight and highlight-word styling target descendant `span` elements, so slot content must include an actual `<span>` for those rules to render anything.",
+      "figma": {
+        "property": "Text",
+        "notes": "Modelled as a text layer bound to the headline instance. The highlight/underline/uppercase treatments are baked into the Style axis's variant artwork rather than represented as separate nested layers."
+      }
+    }
+  ],
+  "tokensUsed": [
+    "headline/line-height",
+    "headline/link/color",
+    "headline/negative/color",
+    "headline/uppercase/font-weight",
+    "headline/uppercase/font-weight-on-gold",
+    "headline/highlight/line-height",
+    "headline/highlight/background",
+    "headline/highlight/color",
+    "headline/highlight/background-on-gold",
+    "headline/highlight/color-on-gold",
+    "headline/highlight-serif/font-weight",
+    "headline/underline/color",
+    "headline/underline/color-on-gold"
+  ],
+  "geometryNotTokenized": {
+    "highlight-word-padding": "0.85rem 1rem base (headline-highlight-word mixin, span, mixins:54); .2rem 1rem 0.5rem 1rem for the serif+highlight combo (`.headline--highlight.headline--serif span`, _headline.scss:42-46); .4rem 1.2rem .8rem for the uppercase highlight-word variant AND the uppercase+highlight combo (headline-highlight-word-uppercase mixins:70; `.headline--highlight.headline--uppercase span` _headline.scss:98-103 — same value in both places), plus margin-top/margin-bottom .8rem on the uppercase variant (mixins:68-69).",
+    "highlight-block-spacing": "margin-bottom: 8px, padding: 2px 0 on the highlight block itself (headline-highlight mixin, mixins:46-47) — one-off geometry alongside the tokenized line-height:1.7.",
+    "underline-bar": "75px wide x 6px tall bar, margin-top: 15px (headline-underline mixin, mixins:90-92); h5 overrides height to 5px (_headline.scss:78), h6 to 4px (_headline.scss:88).",
+    "underline-padding-bottom": "padding-bottom: $sm = 0.625rem (headline-underline mixin, mixins:84). $sm already exists as the space.62 primitive (consumed by button/icon-gap), but repointing this Sass var to var(--uiowa-space-62) is the deferred cross-component $xsm...$xxxlg sweep (tokens/README) — left as raw $sm here, not part of this contract's tokensUsed.",
+    "box-decoration-break": "box-decoration-break: clone / -webkit-box-decoration-break: clone (headline-highlight-word mixin, mixins:55-56) — a line-wrap rendering mechanic, not a design value.",
+    "negative-and-center": ".headline--negative (white text + links, headline-negative mixin) and .headline--center (text-align: center; also centers the underline bar via its :after margin auto) are class-only treatments exposed by no Vue prop — Button's caps-and-lowercase precedent: documented here, NOT modeled as options; exposing either is a public-shape decision deferred past this migration. negative has ZERO source-level appliers in either repo (only the SCSS definitions — reachable via editor-entered classes at most; see knownIssues); center is applied only by story markup (Callout.stories.js:51, Inline.stories.js:168). On the Figma page both appear as context frames, not axes. negative's color IS tokenized (headline/negative/color) since the SCSS rule ships live."
+  },
+  "behavior": [
+    "Required inner-markup protocol: Headline.vue renders only `<component :is=\"level\">` around its default slot — it adds no `.headline__heading`/`.headline__text` markup itself. Consumers supply that structure (Banner.vue renders `<span class=\"headline__heading\" v-html=\"...\">`; Stat.vue renders `.headline__prefix`/`.headline__suffix`; SiteNow's headline.html.twig renders the same `.headline__heading` span downstream). `.headline--highlight`'s highlight-word styling (headline-highlight-word mixin) and the uppercase highlight-word variant both target descendant `span` elements specifically — content with no inner `<span>` gets the `highlight`/`underline`/`uppercase` boolean classes with no visible highlight-word background. The stale @todo in Headline.stories.js:114 (`HighlightedSingleWord`, 'Figure out how to get this example working') is a symptom of this protocol not being obvious at the story layer. Note also that the uppercase highlight-word selectors (`.headline--uppercase .headline__heading span`, `.headline--uppercase .headline__text span`, _headline.scss:62-66) do NOT include `.headline--highlight` at all — any span inside an uppercase headline's `.headline__heading`/`.headline__text` gets the highlight-word treatment REGARDLESS of the `highlight` prop. That unconditional path is how uppercase hero headlines highlight words; the non-uppercase `.headline--highlight span` path (_headline.scss:48-52) is the only one gated on the prop's class.",
+    "`[class*=\"bg-\"]` ancestor context forces `a { color: inherit }` (_headline.scss:11-15) — note the single-hyphen `bg-` attribute-contains matcher catches both `bg--*` (solid backgrounds) and `bg-pattern--*` (pattern backgrounds).",
+    "On-gold flips: inside a `[class*=\"bg--gold\"]` ancestor, highlight colors invert (background flips gold→black via headline.highlight.background-on-gold, text flips black→white via headline.highlight.color-on-gold — mixins:59-62,72-76), the uppercase font-weight drops from 700 to a declared 400 (headline.uppercase.font-weight-on-gold — _headline.scss:57-59, mixins:75; Antonio ships no 400 face, so it renders the static 300), and the underline bar switches from gold to gray/100 (headline.underline.color-on-gold — mixins:103-107). A further nested `[class*=\"bg--gold\"] [class*=\"bg--black\"]` context flips the highlight colors back to the DEFAULT (gold background / black text — mixins:77-80), reusing headline.highlight.background/color rather than a third token pair."
+  ],
+  "knownIssues": [
+    "`.bold-headline--*` is a legacy alias that DOUBLES every selector in this file and is LIVE downstream (both uids_base hero twigs render `bold-headline--serif bold-headline`, and cta_uids3.scss's `.bold-headline`/`.headline` rule pair) — it cannot be removed in 4.x despite the file's own `// @todo Remove .bold-headline variations.` at _headline.scss:5. Dedupe in 5.x.",
+    "Headline.stories.js's Default.args includes stale args (`size: 'large'`, plus argTypes for `url`, `aria_describedby`, `class`) that do not correspond to any real Headline.vue prop — `size` is inert, and `url`/`aria_describedby`/`class` are not declared in defineProps at all. Only `level`, `text_style`, `underline`, `highlight` are real.",
+    "Highlight+uppercase+serif triple combos have distinct, hand-tuned span paddings rather than a composable rule: base highlight 0.85rem 1rem; +serif .2rem 1rem 0.5rem 1rem; +uppercase .4rem 1.2rem .8rem (see geometryNotTokenized).",
+    "The `HighlightedSingleWord` story (Headline.stories.js:114-122) carries an unresolved `// @todo Figure out how to get this example working` — see the inner-markup protocol note in `behavior` for the likely mechanism.",
+    "`.bold-headline--caps .headline__headline span` (_headline.scss:48) references a class `.headline__headline` that appears nowhere else in the codebase (verified by repo-wide grep) — almost certainly a typo for `.headline__heading`. Low-severity: it's one of three comma-separated selectors sharing the same mixin, and the other two (`.bold-headline--highlight span`, `.headline--highlight span`) still match, so the visual isn't broken by it — but it's dead as written. Flag for a 5.x cleanup alongside the .bold-headline dedupe.",
+    "Headline.vue:4 declares `const name = 'uids-headine'` (missing the 'l' in 'headline') and never reads it — dead code, same pattern as the (also unused) `const name = 'uids-button'` already documented in the Button contract. The component's actual registered tag is `uids-headline` (see Card.vue, Cta.vue, Banner.vue usage), not this typo'd local constant.",
+    "`.headline--negative` has zero source-level appliers in both repos (verified: no twig/theme/php/vue/js/stories usage — only the SCSS definitions and compiled bundles) — a candidate for the same 5.x public-shape review as Button's dead .bttn--link value. The SCSS rule and headline/negative/color stay, tokenized as-shipped.",
+    "STILL OPEN: H2/Serif sits at 28px where every other H2 variant is 31.2 — the only level whose serif size differs from its siblings — and heading-serif-h2 vs heading-h2 should share the ramp (h1 is byte-identical between them). Not changed yet because it needs the serif ramp measured against the Semantic size variables' small(600) mode first. Moved here from identity.figma.note on 2026-08-21: an open defect belongs in knownIssues, where a reader looks for defects."
+  ],
+  "a11y": {
+    "notes": "level is presentational-structural: it selects the rendered hN tag, so consumers own document-outline correctness (nothing prevents an h1 rendered inside an h4 context; one-h1-per-page per rules.json). text-transform: uppercase (text_style=uppercase) can alter some screen readers' pronunciation of acronyms — authors should write natural case and let CSS transform. Highlight/underline are purely visual (background + pseudo-element) with no ARIA surface; the required inner-span protocol (see behavior) is presentation-only markup."
+  }
+}
