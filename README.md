@@ -1,127 +1,322 @@
 # UI Design System (UIDS)
-A design system for the University of Iowa.
 
-See the documentation at http://uids.brand.uiowa.edu.
+A design system for the University of Iowa. Vue 3 components, SCSS, and Storybook docs.
 
-## Design system artifacts (machine-readable)
+Published documentation: **http://uids.brand.uiowa.edu**
+Figma library: **https://www.figma.com/design/hNShklBztaeaQneScM0KoM/UIDS**
 
-- **[tokens/](tokens/README.md)** — design tokens, the source of truth for colors and
-  typography (tier 1 primitives → tier 2 semantic → tier 3 component). The Figma library
-  variables are generated from these files.
-- **[contracts/](contracts/README.md)** — per-component contracts: the neutral spec of
-  each component's options, slots, tokens, and behavior that both the Vue code and the
-  Figma library must match. Start here to understand a component's public shape.
-- **[catalog/](catalog/catalog.json)** — the agent entry point (derived; do not edit): an
-  index linking to contracts and rules, plus the alias-resolved token inventory. AI agents
-  generating with UIDS start at `catalog/catalog.json` and follow its reading order.
-- **Figma library**: https://www.figma.com/design/hNShklBztaeaQneScM0KoM/UIDS
-- **Drift checks**: `node scripts/check-contracts.mjs` and `node scripts/build-catalog.mjs --check`
+UIDS is consumed by SiteNow's `uids_base` theme, which vendors `src/**` wholesale. Anything
+you change under `src/` reaches live university sites, so read
+[Standing rulings](#standing-rulings) before changing a component's rendering.
 
-## Documentation
-The documentation uses Vue.js. You can build and run a local version to aid in development.
+---
 
-### Requirements
-[Node Version Manager (NVM)](https://github.com/nvm-sh/nvm) is used to lock the version of Node to the latest LTS.
+## Setup
 
-After installing NVM, run `nvm use`. You may need to install the specified version of Node using `nvm install`.
+[nvm](https://github.com/nvm-sh/nvm) locks the Node version (`.nvmrc` → 20.19).
 
-The node-gyp package requires a C compiler. If you notice node-gyp errors after installing dependencies, see the instructions for installing a C compiler based on your OS: https://github.com/nodejs/node-gyp#on-macos
+```sh
+nvm use
+```
 
-## Project Setup
-
-### Install dependencies
+If that reports the version is missing, `nvm install` first. Then:
 
 ```sh
 yarn install
 ```
 
-```sh
-yarn install
-```
+Yarn 3.7.0 via corepack. Some transitive dependencies build native code with `node-gyp`, which
+needs a C compiler — if `yarn install` fails with node-gyp errors, follow
+https://github.com/nodejs/node-gyp#on-macos.
 
-### Start the local server OR start Storybook
-Compile and hot-reload for development.
+## Commands
 
-```sh
-yarn dev
-```
+Every command below was verified against `package.json`.
 
-**OR**
+| Command | What it does |
+|---|---|
+| `yarn storybook` | Storybook dev server on **http://localhost:6006**. This is the component workbench. |
+| `yarn dev` | Builds tokens, then `sass --watch src/scss:dist`. **No server and no browser** — it only recompiles CSS on change. Use `yarn storybook` if you want something to look at. |
+| `yarn build` | Builds tokens, then compiles `src/scss` to `dist/`. `dist/` is gitignored. |
+| `yarn production` | Builds tokens, Storybook (into `www/`), and CSS. This is what GitHub Pages runs. |
+| `yarn lint` | ESLint over the whole repo, with `--fix`. |
+| `yarn lint:ci` | ESLint over `src`, `scripts`, `.storybook`, errors only. What CI enforces. |
+| `yarn test:unit` | Vitest in watch mode. `yarn test:unit ComponentName` for one file. |
+| `yarn test:unit:ci` | Vitest, single run. |
+| `yarn check:drift` | **The main gate.** Seven checkers — see [Drift checks](#drift-checks-the-seven-checkers). |
+| `yarn test:styles` | Computed-style regression against a running Storybook. See below. |
+| `yarn test:styles:update` | Re-record the baselines. Deliberate act — never to turn a red run green. |
+| `yarn build:tokens` | Regenerate the SCSS token partial and `claude-design/tokens.css`. |
+
+**Three scripts in `package.json` do not currently run**, and are left undocumented above
+rather than quietly listed: `test:e2e` and `test:e2e:ci` need `cypress` and
+`start-server-and-test`, and `typecheck` needs `vue-tsc` — none of the three is a dependency
+of this package. There is no end-to-end suite; `test:styles` is the closest thing.
+
+`yarn test:styles` drives a real browser against Storybook at **375 / 980 / 1350** and compares
+computed styles for 24 components against `regression/baselines/`. Start Storybook first, and
+point the checker at it:
 
 ```sh
 yarn storybook
 ```
 
-The command will output the server URL to visit in your browser, ex. http://localhost:3000.
-
-### Type-Check, Compile and Minify for Production
-
 ```sh
-yarn build
+yarn test:styles --url http://localhost:6006
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+It defaults to `http://localhost:6006`. If you run more than one Storybook, confirm which one
+is answering that port before you trust a green run — a green diff against the wrong checkout
+means nothing.
+
+---
+
+## How the system is put together
+
+Two kinds of file live in this repo, and the distinction is the thing to learn first.
+
+### Authored — edit these
+
+| Path | What it is |
+|---|---|
+| [`tokens/`](tokens/README.md) | Every color, size and typographic value, in three tiers: primitives → semantic → component. **The source of truth for values.** |
+| [`contracts/`](contracts/README.md) | One JSON per component: its options mapped to *both* a Vue prop and a Figma axis, plus slots, behavior, a11y notes, known issues and decision history. **The source of truth for a component's public shape.** |
+| [`contracts/rules.json`](contracts/rules.json) | The governance rules an agent or author generating pages with UIDS must follow. **The only place a rule is edited.** |
+| `src/` | The Vue components, the SCSS, the stories. |
+| `claude-design/` | Hand-authored `.dc.html` templates — the repo is the source of record for the registered Claude Design system, not the other way round. |
+| `regression/config.json` | Which story, selector and CSS properties the style regression samples. |
+
+### Generated — never hand-edit
+
+| Path | Generated by | Why it is committed |
+|---|---|---|
+| `src/scss/abstracts/_tokens-generated.scss` | `build-tokens.mjs` | `uids_base` vendors `src/**`; if it isn't in `src/`, downstream never gets it. |
+| `claude-design/tokens.css` | `build-tokens.mjs` | It *is* the artifact pushed to the registered design system. |
+| `claude-design/_ds_manifest.json` | `build-dc-manifest.mjs` | Platform-owned. Rebuild it locally; never delete it. |
+| `catalog/` | `build-catalog.mjs` | Agents and no-build checkouts read it straight from the repo. |
+| The generated rule blocks in `claude-design/readme.md` and `Design System Guide.md` | `build-dc-rules.mjs` | They are what a Claude Design session actually receives. |
+| `figma/snapshot.json` | `figma-readback.js`, run inside Figma | **Cannot** be generated in CI — capture needs a live Figma session. The committed copy is exactly what lets CI check Figma drift with no API access. |
+
+Each generator has a `--check` mode that fails instead of writing, and every one of those is in
+`yarn check:drift`. That is the whole mechanism: if a generated file disagrees with its source,
+the PR goes red.
+
+Two further reads: [`docs/agentic-design-system.md`](docs/agentic-design-system.md) explains why
+the system is shaped this way and is candid about what it does not check;
+[`docs/examples/`](docs/examples/) holds annotated examples of the contract, catalog, token and
+rules formats — each field with its purpose, its audience and which scripts read it.
+
+---
+
+## Drift checks (the seven checkers)
 
 ```sh
-yarn test:unit
+yarn check:drift
 ```
 
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
+Dependency-free Node. They run on a bare `git clone` with no `yarn install`, and
+`.github/workflows/checks.yml` runs the same seven on every PR.
 
-```sh
-yarn build
-yarn test:e2e # or `npm run test:e2e:ci` for headless testing
-```
+| Checker | What it guards | A failure means |
+|---|---|---|
+| `build-tokens.mjs --check` | The SCSS partial and `claude-design/tokens.css` match `tokens/` | You edited a token and didn't regenerate |
+| `build-catalog.mjs --check` | `catalog/` matches `tokens/` + contracts | Same, for the agent-facing catalog |
+| `check-contracts.mjs` | Contracts match the real Vue props, tokens resolve, no token is claimed by two contracts | The contract and the code disagree — decide which is wrong *before* editing either |
+| `check-claude-design.mjs` | Every `dc-import` target exists, links resolve, `readme.md` documents every template, no bare element selectors | A template is broken, and it would fail **silently** in the platform |
+| `build-dc-rules.mjs --check` | The published rule blocks match `contracts/rules.json` | A rule was edited in a generated view instead of at source |
+| `check-figma.mjs` | Figma variables, alias targets, per-mode values, variant axes and set descriptions match tokens + contracts | Figma and the repo disagree, **or** the snapshot is stale |
+| `check-citations.mjs` | Every `file:line` written into a contract or token file points at what it claims | A citation rotted when the file it names moved |
 
-### Lint with [ESLint](https://eslint.org/)
+### What re-triggers what
 
-```sh
-yarn lint
-```
+| You touched | Run |
+|---|---|
+| `tokens/` | `yarn build:tokens`, then `yarn check:drift` — this also stalens the Figma snapshot if a *value*, alias or breakpoint changed |
+| A contract's `description` or `version` | `node scripts/build-catalog.mjs`, then `yarn check:drift` |
+| A contract's option name, `figma.axis`, `figma.map`, `tokensUsed`, `children[].contract`, or `identity.figma.componentSetName` | `yarn check:drift` — expect `check-figma` to demand a Figma sync |
+| Any other contract prose | `yarn check:drift` (citations are checked; the Figma hash is not affected) |
+| `contracts/rules.json` | `node scripts/build-dc-rules.mjs`, then `yarn check:drift` |
+| `claude-design/` | `yarn check:drift` |
+| A component's SCSS or template | `yarn build`, restart Storybook, `yarn test:styles --url …` |
+| The Figma file | Refresh `figma/snapshot.json` (below), `node scripts/check-figma.mjs --stamp`, `yarn check:drift` |
+| Anything in `src/` or `scripts/` | `yarn lint:ci` and `yarn test:unit:ci` |
+
+`check-figma`'s staleness hash covers a deliberately narrow projection: per token its resolved
+value, px value, alias `ref` and breakpoint set; per contract its `identity.figma.componentSetName`,
+each option's `[name, figma.axis, figma.map]`, `tokensUsed`, and `children[].contract`. Editing a
+token's comment, a contract description, `behavior`, `knownIssues` or `changes` does **not** force
+a Figma re-readback. Changing a value, an alias or an axis does.
+
+One gap to know about: `check-figma` verifies that every variable *bound* in Figma is declared in
+the contract's `tokensUsed`, but never the converse. A raw value sitting in Figma where a token
+exists is invisible to it, and so is a bound surface that was deleted — an empty set satisfies the
+subset check trivially. Rebinding is a human decision, not a checker's.
+
+---
+
+## Working with Figma, without an agent
+
+`scripts/figma-readback.js` is plain Figma Plugin API JavaScript. Its documented path is an agent
+session's Figma MCP, but nothing in the code requires one — a scratch development plugin in Figma
+Desktop, or any plugin that evaluates JavaScript against the open file, can run it.
+
+1. **Run it in named slices.** Its header is the only source of truth for the slice list; read it
+   there, not here — the list has grown every time a slice outgrew the 20 KB MCP tool-result
+   limit. Running it outside the MCP may not need the split, but read the header before assuming
+   that: one of the slices requires you to add a name filter inline, and the header says which.
+2. **Prove the slices cover the file.** A silently truncated slice merges as a component set
+   *deleted* from Figma, which is worse than a visible error. Have each slice report
+   `totalSeen` / `captured` / `excluded` and check the halves are exact complements.
+3. Save the merged result to `figma/snapshot.json` — **one-space indent**; re-serialising at a
+   different width reflows thousands of lines and buries the real diff.
+4. `node scripts/check-figma.mjs --stamp`, then `yarn check:drift`.
+
+Only stamp immediately after a real, complete readback. The stamp is the claim that the snapshot
+is current; stamping without capturing makes the whole guard a lie.
+
+What a human must reproduce by hand in the Figma UI, because the checker requires it:
+
+- **`codeSyntax.WEB` on every variable.** The checker matches SCSS tokens to Figma variables by
+  code syntax, *not* by name. A new variable without it is invisible, and the error reads exactly
+  like never having created it.
+- Per-mode values for every mode in the collection, correct alias targets, and scopes.
+- Mode pins on each breakpoint variant. Note the readback does **not** capture pins or frame
+  dimensions, so this one is on you — the Semantic collection's default mode is `small (600)`,
+  and a frame with no pin silently inherits it and renders every `clamp()` at its small endpoint.
+- **A component set's description must contain the path of its own contract.** The checker looks
+  for that pointer only, never the prose, so a drawing note can sit happily beside it.
+
+Component set *keys* are not shown anywhere in the Figma UI. Get them from
+`GET /v1/files/:key/component_sets` or from the plugin console.
+
+---
+
+## Working with Claude Design, without an agent
+
+The registered "Iowa Design System" is a **generated view of `claude-design/`**. This repo is the
+source of record; the platform copy is downstream.
+
+- Sync by copying the templates plus `Logo.dc.html`, `tokens.css`, `layout.css` and
+  `backgrounds.css` into **one directory** in the claude.ai project UI. `<dc-import name="X">`
+  resolves siblings only — a missing sibling renders nothing, with no error.
+- The registered copy **can be ahead of git**: a human can edit it directly. Diff both ways,
+  per file, before pushing anything.
+- **`_ds_manifest.json` is platform-owned. Never push it and never delete it** — the platform
+  rebuilds it, and nothing here regenerates it from scratch. `node scripts/build-dc-manifest.mjs`
+  refreshes only its `tokens` array from `tokens.css`, leaving every other field untouched; run it
+  after `build:tokens` whenever token changes land, or `check-claude-design` will flag the lag.
+- `claude-design/readme.md` is injected verbatim into every consuming session. It is
+  load-bearing, and `check-claude-design.mjs` enforces that it documents every template.
+
+---
+
+## Standing rulings
+
+Four decisions that a maintainer should not quietly undo. Each exists because reversing it broke
+something.
+
+1. **Tokenize as-shipped; never silently fix.** These contracts were reverse-engineered from code
+   that live Drupal sites depend on. A bug found during migration becomes a `knownIssues` entry,
+   not a correction.
+2. **Deliberate design changes go in `changes[]`**, with the date, the decision, and the one point
+   not to re-litigate — including proposals that were *declined*. This is what stops a later
+   reader from mistaking an intended departure for a defect and "fixing" it back.
+3. **Contract-first.** A change to a component's public shape lands in `contracts/` before it
+   lands in Figma or in code.
+4. **The migrated component set is CLOSED.** Do not give a *new* component a contract, tier-3
+   tokens or a `.dc.html` template without a decision from the design system owner. Adding an
+   option to a component already in the set is ordinary contract-first work and is not blocked.
+
+And one mechanical rule with the same standing: **`contracts/rules.json` is the only place a
+governance rule is edited.** Editing a published copy is undone by the next generator run.
+
+---
+
+## Traps worth knowing before you hit them
+
+- **`mobile`, `md` and `page` are reserved token leaves.** A component that switches at some other
+  width (Banner at 768, Card at 400) must carry the breakpoint in the token *name* — otherwise the
+  generator either crashes or silently moves the switch to 980.
+- **`check-figma` reports per token, per mode.** Two drifting tokens across three modes is six
+  errors, not two.
+- **`test:styles` samples 375 / 980 / 1350 only.** A breakpoint at 400 or 768 is invisible to it.
+- **A baseline's coverage defines what it can catch.** If a selector's baseline omits a property,
+  a change to that property reads as "inherited from the obvious parent" — which is precisely when
+  it isn't. Before believing a *relational* claim ("black text on a black bar"), check the
+  baseline actually contains both terms, on the right selectors, and settle it in a browser.
+- **`getComputedStyle` on a pseudo-element lies** about paint composed through `var()`. Sample
+  pixels instead.
+- **Sass math and Sass color functions no longer work on the variables in `_variables.scss`**,
+  because they now hold `var(--uiowa-*)` references. `calc()` and CSS `color-mix()` are fine.
+  See [`docs/whats-changed.md`](docs/whats-changed.md) for what this breaks downstream.
+
+---
 
 ## Contributing
-While we have not done a perfect job of applying any of these standards, we recommend the following resources as a starting point for best practices that are observed by this project:
-* Writing CSS and HTML: https://codeguide.co/
-* Block Element Modifier (BEM) CSS syntax: https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/
 
-### Creating a PR
-When your feature branch is ready for testing or after you have made any requested changes, run the build to confirm the tokens and SCSS compile cleanly (note: `dist/` is gitignored — nothing to commit):
-```bash
-yarn build
-```
-If you changed `tokens/` or `contracts/`, also regenerate and check the derived artifacts:
-```bash
-node scripts/build-tokens.mjs && node scripts/build-catalog.mjs && node scripts/check-contracts.mjs
-```
+We recommend these as a starting point for conventions this project tries to follow:
 
-### Creating a Release
-The following is an example of the workflow and not meant to be copied and pasted verbatim. Please review the summary at https://semver.org/ to understand which type of release you should be creating. The version numbers you will use when you are actually going through this process will depend on the current version number and what type of release you are creating.
-
-**Note**: The first step is often to create a PR that increments the `package.json` version and matches the next version you plan to create. Since `src/Introduction.mdx` dynamically pulls the version from package.json, updating the version in package.json will automatically update the link paths in the documentation once this PR is merged and the release is created.
-
-To see the full options for the command, run `npm version --help`.
-1. `git checkout 4.x` - Make sure you are on the `4.x` branch.
-2. `git pull` - Make sure you have the most recent updates.
-3. `npm version patch -m "https://github.com/uiowa/uids/compare/v4.0.0-alpha13...v4.0.0-alpha14"`
-4. `git push`
-5. `git push --tags`
-6. Go to https://github.com/uiowa/uids/releases/new.
-7. Enter the "Tag version" using the version _with_ the `v` at the front (e.g. "v4.0.0-alpha14").
-8. Enter the "Release title" using the version _without_ the `v` at the front (e.g. "4.0.0-alpha14").
-9. Paste in the compare link into the description area: `https://github.com/uiowa/uids/compare/v4.0.0-alpha13...v4.0.0-alpha14`
-10. Click the "Publish release" button.
-11. Profit!
+- Writing CSS and HTML: https://codeguide.co/
+- BEM syntax: https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/
 
 ### Components
-Learn about Fractal components here: https://fractal.build/guide/components/#what-defines-a-component. Note that this project uses Twig (`.twig`) instead of Handlebars (`.hbs`).
 
-All work on components should be done in the `src/components` directory. Each component is contained in its own directory. Some component directories are grouped together for presentation purposes.
+All component work happens in `src/components/`, one directory per component, some grouped for
+presentation. A component is a `.vue` file with `<script setup lang="ts">`, a `.stories.js`, and
+an `index.ts`; add it to `src/components/index.ts`, add its SCSS partial under
+`src/scss/components/`, and `@use` that from `src/scss/uids.scss`.
 
-If you are starting work on a new component, please make sure that it has `status: prototype` in its config file, and it is placed in the `src/components/prototypes` directory.
+### Opening a PR
 
-### Continuous Integration
-![Publish docs to GitHub Pages](https://github.com/uiowa/uids/workflows/Publish%20docs%20to%20GitHub%20Pages/badge.svg)
+Branch from `4.x`. Before you ask for review:
 
-GitHub Actions is used to build and deploy the Fractal artifact to the `gh-pages` branch. This branch is set to host UIDS using GitHub Pages. All pushes to a branches or tags will trigger a build.
+```sh
+yarn build
+```
 
-Branches can be accessed at http://uids.brand.uiowa.edu/branches/{your-branch-name}.
+```sh
+yarn check:drift
+```
+
+```sh
+yarn lint:ci && yarn test:unit:ci
+```
+
+If you changed anything a component renders, also run the style regression against a locally
+running Storybook (see [Commands](#commands)).
+
+CI runs all of the above on every non-draft PR.
+
+### Creating a release
+
+Read https://semver.org/ first to choose the right bump; the numbers below are illustrative.
+
+It is usually worth landing a PR that sets the `package.json` version to the one you are about to
+release: `src/Introduction.mdx` reads the version from `package.json`, so merging that PR updates
+the documentation's link paths before the release exists.
+
+`npm version --help` shows the full options.
+
+1. `git checkout 4.x`
+2. `git pull`
+3. `npm version patch -m "https://github.com/uiowa/uids/compare/v4.0.0...v4.0.1"`
+4. `git push`
+5. `git push --tags`
+6. Open https://github.com/uiowa/uids/releases/new
+7. Tag version **with** the leading `v` (e.g. `v4.0.1`)
+8. Release title **without** it (e.g. `4.0.1`)
+9. Paste the compare link into the description
+10. Publish
+
+## Continuous integration
+
+Two workflows run on pull requests:
+
+- **Checks** (`.github/workflows/checks.yml`) — the seven drift checkers, `lint:ci`,
+  `test:unit:ci`, a Storybook build, and the computed-style regression against the built
+  Storybook. Skipped on draft PRs.
+- **Update documentation in GitHub Pages** (`.github/workflows/gh-pages.yml`) — builds Storybook
+  via `yarn production` and publishes it to the `gh-pages` branch. Runs on pushes to `4.x`, on
+  tags, and on pull requests.
+
+A branch's preview is at `http://uids.brand.uiowa.edu/branches/{your-branch-name}`.
