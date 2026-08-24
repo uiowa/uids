@@ -59,8 +59,8 @@ based on its README — not a source-level read.
 ## `scripts/`
 
 - **Builders** generate a view from source (`build-tokens`, `build-catalog`, `build-dc-rules`, `build-dc-manifest`), each with `--check`.
-- **Checkers** guard a view (`check-contracts`, `check-figma`, `check-claude-design`, `check-citations`, `check-styles`).
-- `yarn check:drift` runs seven of them — all but `check-styles`, which needs Storybook running, and `build-dc-manifest --check`.
+- **Checkers** guard a view (`check-contracts`, `check-figma`, `check-claude-design`, `check-citations`, `check-token-consumers`, `check-styles`).
+- `yarn check:drift` runs eight of them — all but `check-styles`, which needs Storybook running, and `build-dc-manifest --check`.
 - Deliberately dependency-free — they run on bare `node` with no install.
 - *vs. theirs:* in spirit. Their `core/` is a real engine; ours is single-purpose scripts, smaller because we generate far less.
 

@@ -18,7 +18,7 @@ UIDS (University of Iowa Design System) — Vue 3 component library with SCSS an
 | `yarn build` | Build tokens, then compile SCSS to `dist/` |
 | `yarn lint` | ESLint with auto-fix |
 | `yarn test:unit` | Vitest (`yarn test:unit ComponentName` for one) |
-| `yarn check:drift` | The seven drift checkers — see below |
+| `yarn check:drift` | The eight drift checkers — see below |
 | `yarn test:styles` | Computed-style regression; needs Storybook running |
 
 **Before a PR:** run `yarn build` (confirms tokens + SCSS compile — `dist/` is gitignored) and
@@ -82,10 +82,10 @@ pipeline in **[contracts/README.md](contracts/README.md)** — read that before 
 `tokens/` or `contracts/`. `docs/agentic-design-system.md` explains why the system is shaped
 this way and is honest about what it does not check.
 
-## `yarn check:drift` — the seven checkers
+## `yarn check:drift` — the eight checkers
 
 **`package.json` is the source of truth for the chain**; this table is a convenience copy and
-has been found stale before. `.github/workflows/checks.yml` runs the same seven.
+has been found stale before. `.github/workflows/checks.yml` runs the same eight.
 
 | Checker | Re-run it after touching |
 |---|---|
@@ -96,8 +96,9 @@ has been found stale before. `.github/workflows/checks.yml` runs the same seven.
 | `build-dc-rules --check` | `contracts/rules.json` |
 | `check-figma` | `tokens/`, `contracts/`, **or the Figma file** |
 | `check-citations` | any `file:line` evidence written into `contracts/` or `tokens/` |
+| `check-token-consumers` | `tokens/`, or any SCSS that reads (or stops reading) a `var(--uiowa-*)` |
 
-Two of these deserve a warning:
+Three of these deserve a warning:
 
 **`check-figma`** works from the committed `figma/snapshot.json`, so CI needs no Figma access.
 After any change to the Figma file, refresh the snapshot by running `scripts/figma-readback.js`
@@ -112,6 +113,16 @@ raw value where a token exists is invisible to it.
 **`check-claude-design`** guards a view with no compiler. A `<dc-import name="X">` whose sibling
 file is missing renders **nothing, silently**, and `dc-import` shares one document and one
 cascade with the page, so no template may declare bare element selectors.
+
+**`check-token-consumers`** closes the converse of every other check here: they all ask whether a
+token is well-formed, and none asked whether any stylesheet *reads* it. It is **warning-only
+until the utility-class rebind lands** — pass `--strict` to gate. Two classes, and the second is
+the dangerous one: `ORPHAN` (nothing reaches it) is usually a token consumed by uids_base
+downstream, which is legitimate and belongs in `tokens/orphans-allowed.json` **with a reason**;
+`DOC-ONLY` (reached from `claude-design/` but never from `src/`) means the token previews
+correctly and does not ship. Reachability follows the alias graph, so a primitive read only by
+a semantic token is correctly layered, not orphaned — and an allowlist entry is inherited by
+everything it aliases to, so list the semantic token, not the primitive.
 
 ## Standing rulings
 

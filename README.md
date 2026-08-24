@@ -43,7 +43,7 @@ Every command below was verified against `package.json`.
 | `yarn lint:ci` | ESLint over `src`, `scripts`, `.storybook`, errors only. What CI enforces. |
 | `yarn test:unit` | Vitest in watch mode. `yarn test:unit ComponentName` for one file. |
 | `yarn test:unit:ci` | Vitest, single run. |
-| `yarn check:drift` | **The main gate.** Seven checkers — see [Drift checks](#drift-checks-the-seven-checkers). |
+| `yarn check:drift` | **The main gate.** Eight checkers — see [Drift checks](#drift-checks-the-eight-checkers). |
 | `yarn test:styles` | Computed-style regression against a running Storybook. See below. |
 | `yarn test:styles:update` | Re-record the baselines. Deliberate act — never to turn a red run green. |
 | `yarn build:tokens` | Regenerate the SCSS token partial and `claude-design/tokens.css`. |
@@ -51,9 +51,9 @@ Every command below was verified against `package.json`.
 **There is no end-to-end suite and no typecheck step.** `test:styles` is the closest thing to the
 former; nothing currently typechecks the repo's `<script setup lang="ts">`, so a type error is
 caught only by review. Every remaining script in `package.json` resolves to an installed binary
-or a `scripts/*.mjs` that exists. Two are left out of the table because CI calls them and you
-rarely would: `build-storybook` (what `checks.yml` builds to prove Storybook still compiles) and
-`check:citations` (the last of the seven checkers, also run by `yarn check:drift`).
+or a `scripts/*.mjs` that exists. Three are left out of the table because CI calls them and you
+rarely would: `build-storybook` (what `checks.yml` builds to prove Storybook still compiles), and
+`check:citations` and `check:token-consumers` (both in the `yarn check:drift` chain).
 
 `yarn test:styles` drives a real browser against Storybook at **375 / 980 / 1350** and compares
 computed styles for 24 components against `regression/baselines/`. Start Storybook first, and
@@ -110,14 +110,14 @@ rules formats — each field with its purpose, its audience and which scripts re
 
 ---
 
-## Drift checks (the seven checkers)
+## Drift checks (the eight checkers)
 
 ```sh
 yarn check:drift
 ```
 
 Dependency-free Node. They run on a bare `git clone` with no `yarn install`, and
-`.github/workflows/checks.yml` runs the same seven on every PR.
+`.github/workflows/checks.yml` runs the same eight on every PR.
 
 | Checker | What it guards | A failure means |
 |---|---|---|
@@ -128,6 +128,7 @@ Dependency-free Node. They run on a bare `git clone` with no `yarn install`, and
 | `build-dc-rules.mjs --check` | The published rule blocks match `contracts/rules.json` | A rule was edited in a generated view instead of at source |
 | `check-figma.mjs` | Figma variables, alias targets, per-mode values, variant axes and set descriptions match tokens + contracts | Figma and the repo disagree, **or** the snapshot is stale |
 | `check-citations.mjs` | Every `file:line` written into a contract or token file points at what it claims | A citation rotted when the file it names moved |
+| `check-token-consumers.mjs` | Every emitted `--uiowa-*` is actually *read* by a stylesheet — and says whether that reader ships or only previews | A token renders in Figma and in Claude Design but has no effect on `dist/` (**warnings only** until the rebind lands; `--strict` gates) |
 
 ### What re-triggers what
 
@@ -314,7 +315,7 @@ the documentation's link paths before the release exists.
 
 Two workflows run on pull requests:
 
-- **Checks** (`.github/workflows/checks.yml`) — the seven drift checkers, `lint:ci`,
+- **Checks** (`.github/workflows/checks.yml`) — the eight drift checkers, `lint:ci`,
   `test:unit:ci`, a Storybook build, and the computed-style regression against the built
   Storybook. Skipped on draft PRs.
 - **Update documentation in GitHub Pages** (`.github/workflows/gh-pages.yml`) — builds Storybook
