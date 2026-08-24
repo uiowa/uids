@@ -81,6 +81,14 @@ const SHIPPED_ROOTS = ['src'];
 const PREVIEW_ROOTS = ['claude-design'];
 const SCANNED_EXT = /\.(scss|css|vue|js|ts|mjs|html)$/;
 
+// Storybook stories and the Foundation doc pages live under src/ but are NEVER compiled
+// into dist/ — they are documentation, the same category as claude-design. Counting them
+// as shipped would mean a token could be made to look alive just by naming it on a docs
+// page, which is precisely the "checker that appears to cover it" failure this file exists
+// to avoid. Found the hard way: adding Foundation/Layout.stories.js silently moved two
+// layout tokens out of DOC-ONLY without changing a single line of shipped CSS.
+const DOC_IN_SRC = /(\.stories\.[jt]s$|^src\/foundation\/|\.mdx$)/;
+
 const errors = [];
 const warnings = [];
 
@@ -147,8 +155,11 @@ function addEdges(edges) {
 // The non-generated alias layer (`--space-sm-width-gutter: var(--uiowa-space-125)` in
 // uids-core.scss and anything like it). These files are ALSO consumers, handled below —
 // this pass only harvests their edges so reachability can flow through them.
-const shippedFiles = SHIPPED_ROOTS.flatMap(walk).filter((f) => f !== GENERATED_SCSS);
-const previewFiles = PREVIEW_ROOTS.flatMap(walk).filter((f) => f !== GENERATED_CSS);
+const srcFiles = SHIPPED_ROOTS.flatMap(walk).filter((f) => f !== GENERATED_SCSS);
+const shippedFiles = srcFiles.filter((f) => !DOC_IN_SRC.test(f));
+const previewFiles = PREVIEW_ROOTS.flatMap(walk)
+  .filter((f) => f !== GENERATED_CSS)
+  .concat(srcFiles.filter((f) => DOC_IN_SRC.test(f)));
 
 const directShipped = new Set();
 const directPreview = new Set();
@@ -227,7 +238,7 @@ for (const t of orphans) {
 
 for (const t of docOnly) {
   const where = [...(readSites.get(t) ?? [])].slice(0, 2).join(', ');
-  report.push(`${t}: DOC-ONLY — read by ${where || 'claude-design/'} but by nothing in src/. It previews correctly and does not ship.`);
+  report.push(`${t}: DOC-ONLY — read only by documentation (${where || 'claude-design/'}), by nothing that compiles into dist/. It previews correctly and does not ship.`);
 }
 
 // Stale entries: always soft. Somebody fixed something; do not punish them for it.
