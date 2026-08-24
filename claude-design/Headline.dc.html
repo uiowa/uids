@@ -16,9 +16,12 @@
              (post-token-swap) in SOURCE ORDER so the cascade behaves the same. Production
              pairs every .headline-- selector with a legacy .bold-headline-- alias; this
              template never emits those classes, so the aliases are omitted here (see
-             contracts/headline.json knownIssues). Also omitted: .headline--negative and
-             .headline--center — class-only treatments no Vue prop (and no prop here)
-             can apply; exposing them is a deferred public-shape decision. */
+             contracts/headline.json knownIssues). Still omitted: .headline--negative —
+             a class-only treatment no Vue prop (and no prop here) can apply; exposing it
+             is a deferred public-shape decision. .headline--center is NO LONGER omitted:
+             it is the `alignment` prop as of 2026-08-24 (contracts/headline.json
+             changes[0]), and it is carried here because the heading-alignment-follows-
+             content rule is published INTO this view and would otherwise be uncompliable. */
 
           /* ---- base heading elements (_headings.scss) ---- */
           /* font-family on the shared rule stands in for the body font the production
@@ -67,6 +70,10 @@
           .headline a:hover,.headline a:focus{text-decoration:underline}
           /* single-hyphen bg- matcher: catches bg--* AND legacy bg-pattern--* ancestors */
           [class*="bg-"] .headline a{color:inherit}
+
+          /* _headline.scss:23 — a STANDALONE selector, not nested under .headline, and
+             with no .bold-headline--center alias in production. Kept in source order. */
+          .headline--center{text-align:center}
 
           .headline--uppercase{
             text-transform:uppercase;
@@ -166,6 +173,12 @@
             width:75px;height:6px;margin-top:15px;
             background:var(--uiowa-headline-underline-color);
           }
+          /* The bar is display:block with zero side margins, so the container's
+             text-align cannot move it — this rule is the ONLY thing that centers it
+             (_headline-mixins.scss:96, and in the compiled CSS margin-inline auto on a
+             headline :after appears nowhere else). Same position in the mixin: after the
+             base :after, before the on-gold flips. */
+          .headline--underline.headline--center:after{margin-right:auto;margin-left:auto}
           .bg-pattern--brain-reversed .headline--underline:after,
           [class*="bg--gold"] .headline--underline:after{
             background:var(--uiowa-headline-underline-color-on-gold);
@@ -211,6 +224,7 @@
   "text_style": { "editor": "enum", "options": ["default", "serif", "uppercase"], "default": "default", "tsType": "string" },
   "underline": { "editor": "boolean", "default": false, "tsType": "boolean" },
   "highlight": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "alignment": { "editor": "enum", "options": ["default", "center"], "default": "default", "tsType": "string" },
   "preview_on_gold": { "editor": "boolean", "default": false, "tsType": "boolean" },
   "extra_class": { "editor": "text", "default": "", "tsType": "string" }
 }'
@@ -227,6 +241,11 @@
           if (textStyle === 'serif') classes.push('headline--serif');
           if (this.props.underline) classes.push('headline--underline');
           if (this.props.highlight) classes.push('headline--highlight');
+          // alignment: the Vue prop's real default is '' (inherit — no class). This
+          // editor labels it "default" the same way text_style does above. There is no
+          // left/right value; see contracts/headline.json changes[0].
+          const alignment = this.props.alignment ?? 'default';
+          if (alignment === 'center') classes.push('headline--center');
           // preview_on_gold is a PREVIEW context, not a component prop: it stands in
           // for placing the import inside a bg--gold section, which is how the on-gold
           // flips engage in a real page (backgrounds.css supplies the band).

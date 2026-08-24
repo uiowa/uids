@@ -37,6 +37,16 @@ export default {
     underline: {
       control: { type: 'boolean' },
     },
+    alignment: {
+      options: ['', 'center'],
+      control: {
+        type: 'select',
+        labels: {
+          '': 'default (inherit)',
+          'center': 'Center',
+        },
+      },
+    },
     url: {
       control: { type: 'text' },
     },
@@ -108,6 +118,33 @@ export const Highlight = {
     text_style: 'serif',
     highlight: true,
     text: `<span>Start your story here</span>`,
+  }
+}
+
+// Centered, WITH the underline bar — the combination the option exists for.
+// A container's text-align centers the text but leaves the bar hard left, because
+// the bar is a display:block ::after with zero side margins; only .headline--center
+// gives it margin-inline auto. The wide wrapper is what makes either visible.
+export const Centered = {
+  render: (args) => ({
+    components: { UidsHeadline },
+    setup() {
+      return { args };
+    },
+    template: `
+    <div style="width: 100%; max-width: 40rem;">
+      <uids-headline v-bind="args">
+        <span class="headline__text">${args.text}</span>
+      </uids-headline>
+    </div>
+  `,
+  }),
+  args: {
+    ...Default.args,
+    text: 'A centered section heading',
+    text_style: 'serif',
+    underline: true,
+    alignment: 'center',
   }
 }
 

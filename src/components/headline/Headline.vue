@@ -22,6 +22,13 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  alignment: {
+    type: String,
+    default: '',
+    validator: function (value) {
+      return ['', 'center'].indexOf(value) !== -1
+    },
+  },
 })
 
 const getClasses = computed(() => ({
@@ -30,6 +37,7 @@ const getClasses = computed(() => ({
   'headline--serif': props.text_style === 'serif',
   'headline--underline': props.underline,
   'headline--highlight': props.highlight,
+  'headline--center': props.alignment === 'center',
 }))
 </script>
 

@@ -93,6 +93,86 @@
         "claude-design"
       ],
       "rule": "A background is applied by CLASS on a section wrapper: bg--{color}[--pattern--{type}], where color is black|gold|gray|white and type is brain|community|particle. Omitting the suffix entirely IS the no-pattern case. Two things you must never do. (1) Never reproduce a pattern with your own background-image, gradient or SVG: the eleven shipped assets are code-only files enumerated in contracts/background.json geometryNotTokenized.pattern-image-assets, and a hand-drawn approximation will not match production. (2) Never set opacity on a background or its pattern. There is NO CSS opacity anywhere in the shipped pattern system — strength is baked into the asset file itself, two different ways: the four brain SVGs declare one opacity each (0.15/0.2/0.7/0.15), while the community and particle PNGs fade per pixel, so any single opacity number quoted for those is a PEAK, not a level. Added 2026-08-24: the pattern layer is an image fill and a Figma variable is COLOR/FLOAT/STRING/BOOLEAN, so no checker in any of the five views can ever verify this — it is enforced by instruction here and in the Figma set description, and deliberately NOT by a checker that would appear to cover it."
+    },
+    {
+      "id": "banner-led-page-is-a-composition",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "A banner-led page is a COMPOSITION you assemble, not a component to ask for. The featured-image banner IS the pattern: breadcrumbs and the page title sit INSIDE the banner's content area, and the section wrapper carries the Layout Builder classes layout--title and layout--title--with-background. Those wrapper classes are a downstream uids_base LAYOUT and are deliberately not Banner's — contracts/banner.json knownIssues records exactly that (\"The Layout Builder classes on a production banner root (layout--title, layout--title--with-background, layout--onecol--background) are likewise not banner's\"), and the component set is CLOSED. So compose the page from Banner + Breadcrumbs + the page-title markup; do NOT invent a hero component, and do not propose one. The title-suppressed variant is layout--title--hidden, and it is worth knowing what it really does: it zeroes the section padding AND makes the breadcrumb element-invisible (still focus-revealable, still announced) rather than deleting either. Added 2026-08-24 from a page review; the owner ruled this a composition rather than a migration."
+    },
+    {
+      "id": "top-nav-on-every-page",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "Every page gets navigation: the Brand Bar plus a Menu with variant horizontal across the top, and a vertical Menu for a sidebar or section nav. Reference stories are components-menu--horizontal-menu and components-menu--vertical-menu. Know the two honest limits before you design around them. (1) The horizontal menu is CONTAINER-gated, not viewport-gated: .menu--horizontal wraps its whole rule set in container-query() (src/scss/components/menu.scss:127), whose shared default is $break-sm (src/scss/abstracts/_breakpoints.scss:52, $break-sm: 768px at src/scss/abstracts/_variables.scss:94), so in a container narrower than 768px it renders stacked, silently. (2) THERE ARE NO DROPDOWNS: .menu--horizontal > li ul sets display: none (menu.scss:145-147), carrying the source's own @todo about doing hover menus without breaking WCAG 2.1 content-on-hover-or-focus. uiowa.edu's real dropdown primary nav is not in UIDS at all — do not hand-build one to fill the gap; note it to the user instead."
+    },
+    {
+      "id": "section-rhythm",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "One component per section. Stacking several components inside one .layout__container is not a designed experience — the design system has no opinion about how they space against each other, so you end up hand-setting margins, which is the thing this rule exists to prevent. Separation between sections comes from the section's own padding: the base is layout/section/padding/default (3rem) and the generous step is layout/section/padding/extra ({space.600} = 6rem, tokens/semantic/layout.json:17), opted into PER SECTION with the section-padding__top-extra / __bottom-extra classes. THE MERGE RULE IS THE PART PEOPLE GET WRONG: claude-design/layout.css zeroes padding-top between adjacent same-background siblings (the :not([class*=\"bg-\"]) pair plus the explicit bg--gold / bg--black / bg--gray pairs), reproducing production parity from uids_base global.scss. So two adjacent default-padded white sections give 48px of total separation, never 96 — the second section contributes nothing. Do not add a margin to make up the difference; opt the section that needs more room into extra."
+    },
+    {
+      "id": "alert-spacing",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "An Alert brings its own internal spacing from tokens and needs none from you: alert/padding sets a uniform edge padding on all four sides (src/scss/components/alert.scss:9) and alert/icon-gap sets the gap between the icon block and the body (alert.scss:43). Never hand-set padding inside an Alert, and never restyle its interior to make a message fit — shorten the message. The space AROUND an Alert is the SECTION's job, not the Alert's: give it its own section.layout__container > .page__container and let section-rhythm supply the separation, exactly as any other one-component section. A bare margin on the Alert to push the next block away is the failure mode; it survives until someone changes the section padding and then it is double-counted."
+    },
+    {
+      "id": "underline-scope",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "The gold underline (headline--underline) marks the FIRST heading of a content or text area, and nothing else. Do not put it over a stat row, a card grid, or any set of parallel tiles: the bar reads as \"prose follows\", so repeating it across every section flattens the hierarchy it exists to create — if every heading is emphasised, none is. There is also a mechanical consequence worth knowing, because it causes damage elsewhere: @mixin headline-underline sets overflow: auto (src/scss/abstracts/_headline-mixins.scss:85) so the bar clears its heading, which makes that heading a block formatting context. See callout-is-a-float for what that costs when a float is loose on the page."
+    },
+    {
+      "id": "no-heading-over-self-evident-content",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "Content that states its own meaning does not need a heading over it. A stat row is the clearest case: every stat already carries its own label and summary, so a \"By the Numbers\" heading above it adds no information and introduces a spacing imbalance — the heading's own margin stacks onto the section's top padding while the bottom of the section keeps only the padding, so the block sits visibly low in its own band. Prefer no heading. If a section genuinely seems to need naming, that is usually evidence the content is not self-evident and the content should be rewritten, not labelled."
+    },
+    {
+      "id": "cta-is-always-narrow",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "A CTA's text must never run the full page width. This is a NEW CONSTRAINT, not a bug fix, and the distinction matters: max-width does not appear anywhere in src/scss/components/cta.scss (zero occurrences, verified 2026-08-24), so nothing in code enforces it and a CTA dropped into a full-width container will happily span it. Recorded as a decision in contracts/cta.json changes[] under the rule that changes[] covers deliberate decisions even when they move no pixels in the component itself. The composition needs no code change: put the band on the section (section.layout__container.bg--gold), cap the measure with div.page__container--narrow inside it, and give the CTA background=\"\" so it does not paint a second band inside the first."
+    },
+    {
+      "id": "callout-is-a-float",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "A Callout is a FLOATED inline element, not a section band. contracts/callout.json's inline_alignment option defaults to \"left\", which emits .inline--align-left { float: left; clear: left } (src/scss/components/_inline.scss:117) — as-shipped, not a bug. Used as a full-width band it escapes its section, and the damage lands on the NEXT section rather than on the Callout: because headline--underline carries overflow: auto (a block formatting context, src/scss/abstracts/_headline-mixins.scss:85), the following section's heading shrink-wraps beside the still-floating Callout instead of clearing it — measured 122.5px wide at x=1123 inside a 1245px container. That was the \"Department News scrunched\" symptom, and it looks like a heading bug rather than a Callout one, which is why it took a measurement to find. To band a section, put a background class on the section wrapper (see backgrounds-by-class). Use a Callout for what it is: a short aside floated beside prose."
+    },
+    {
+      "id": "pre-title-is-not-a-category",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "A Card's pre_title is a CONTEXTUAL LABEL — \"Pinned\", \"Featured\", \"Applications close Friday\" — not a taxonomy term. Do not tag every item in a listing with its section (\"Research\", \"Students\", \"Faculty\"): the pre-title renders deliberately quiet, at card/pre-title/font-size 0.75rem with card/pre-title/opacity 0.7, and a full column of them turns that quiet into noise while implying a filterable taxonomy the component does not provide. Reference: https://sandbox.prod.drupal.uiowa.edu/news. The icon slot beside it follows the same logic — an icon marks an exception, not a type, so do not give every card one."
+    },
+    {
+      "id": "heading-alignment-follows-content",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "A heading takes the alignment of the content it introduces — alignment is a consequence of the layout, not a separate styling choice. Centered content gets a centered heading: a centered CTA, a centered stat row, a single centered pull-quote. A card grid or a row of parallel tiles also reads better with a centered heading, because the heading spans several columns and left-aligning it over a symmetrical grid puts the visual weight in one corner. Left-aligned prose gets a left-aligned heading, always — never center a heading over a paragraph of body copy, and never center a heading merely to break up a page. TWO MECHANICS MATTER. First, set it ON THE HEADING (`alignment=\"center\"`, added 2026-08-24 — see contracts/headline.json), not by centering the wrapper: with `underline` on, the gold bar is a `display: block` pseudo-element with zero side margins (`.headline--center` at src/scss/components/_headline.scss:23 supplies text-align, and the bar gets margin-inline auto only from `&.headline--center` at src/scss/abstracts/_headline-mixins.scss:96), so a wrapper text-align centers the text and leaves the bar hard left under the first word. Second, the option has NO left or right value by design: its default INHERITS, so a heading inside a left-aligned container is already left-aligned, and there is deliberately no way to force a heading against its container grain — if you want that, the container is wrong. Consequence worth stating: do not mix alignments within one section."
     }
   ]
 }

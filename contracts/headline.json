@@ -1,7 +1,7 @@
 {
   "$schema": "./contract.schema.json",
   "name": "headline",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "The UIDS headline (`.headline`, plus its legacy `.bold-headline` alias) — heading-level text with optional highlight, underline, uppercase and serif treatments. Renders as `<component :is=\"level\">` around a slot with no internal markup of its own; consumers author the `.headline__heading`/`.headline__text` inner span themselves (see behavior).",
   "identity": {
     "codePath": "src/components/headline/Headline.vue",
@@ -22,7 +22,7 @@
     "figma": {
       "fileKey": "hNShklBztaeaQneScM0KoM",
       "page": "Components / Headline",
-      "note": "Set 168:75, 30 variants (Level x Style), page Components / Headline. Style collapses text_style + underline + highlight (Button precedent); combos beyond the five axis values are code-only. On-gold flips and negative/center are context frames, not axes.",
+      "note": "Set 168:75, 60 variants (Level x Style x Alignment), page Components / Headline. Style collapses text_style + underline + highlight (Button precedent); combos beyond the five axis values are code-only. Alignment (Default/Center) was added 2026-08-24 with the alignment option. On-gold flips and negative are context frames, not axes; center IS an axis as of that change.",
       "componentSetId": "168:75",
       "componentKey": "8a28fdedd22046c2db6ec55410fbdd34d4aca135",
       "componentSetName": "Headline",
@@ -129,6 +129,31 @@
         },
         "notes": "Shares the Style axis with text_style and underline — see text_style's notes."
       }
+    },
+    {
+      "name": "alignment",
+      "type": "enum",
+      "values": [
+        "",
+        "center"
+      ],
+      "default": "",
+      "description": "Horizontal alignment of the heading text AND of the underline bar. '' (the Vue default) emits no class and is the INHERIT case — the heading takes whatever text-align its container supplies. 'center' emits the already-shipped `.headline--center`, which does two separate things that only look like one: `text-align: center` on the heading (_headline.scss:23) centers the text, and `margin-right/left: auto` on the underline bar (_headline-mixins.scss:96) centers the bar. The second is why this is an option rather than inherited context — see code.notes.",
+      "code": {
+        "prop": "alignment",
+        "classes": {
+          "center": "headline--center"
+        },
+        "notes": "A container's `text-align: center` centers the TEXT but NOT the underline bar: the bar is a `:after` with `display: block; width: 75px` and default zero side margins, so text-align (which positions inline content) cannot move it — verified in the compiled `dist/uids.css`, where `margin-right/left: auto` on a headline `:after` occurs ONLY in selectors gated on `.headline--center`. So the class must land on the heading itself, and only a prop can put it there. There is deliberately no 'left' or 'right' value: neither has a shipped class, and '' already covers the left case in a left-aligned container — adding them would be new CSS invented for the contract rather than exposed by it. Unlike text_style (no validator, documented as-shipped), this prop DOES declare a validator: it is new code, and the as-shipped-don't-fix rule protects 4.x behaviour, not new additions."
+      },
+      "figma": {
+        "axis": "Alignment",
+        "map": {
+          "": "Default",
+          "center": "Center"
+        },
+        "notes": "A full second axis (Level x Style x Alignment = 60 variants), NOT a sixth Style value. Alignment is orthogonal to style, and the evidence is in the repo: both real `.headline--center` usages combine it with serif AND underline (src/components/callout/Callout.stories.js:53, src/components/inline/Inline.stories.js:168), a combination a collapsed Style value could not express — where serif+underline itself legitimately collapses because those are competing treatments of the same text. In Figma the Center variants are 480px fixed-width (the Default variants hug their text, where centering would be invisible) and carry counterAxisAlignItems=CENTER, which is the direct analogue of the bar's margin-inline auto."
+      }
     }
   ],
   "slots": [
@@ -163,12 +188,15 @@
     "underline-bar": "75px wide x 6px tall bar, margin-top: 15px (headline-underline mixin, mixins:90-92); h5 overrides height to 5px (_headline.scss:78), h6 to 4px (_headline.scss:88).",
     "underline-padding-bottom": "padding-bottom: $sm = 0.625rem (headline-underline mixin, mixins:84). $sm already exists as the space.62 primitive (consumed by button/icon-gap), but repointing this Sass var to var(--uiowa-space-62) is the deferred cross-component $xsm...$xxxlg sweep (tokens/README) — left as raw $sm here, not part of this contract's tokensUsed.",
     "box-decoration-break": "box-decoration-break: clone / -webkit-box-decoration-break: clone (headline-highlight-word mixin, mixins:55-56) — a line-wrap rendering mechanic, not a design value.",
-    "negative-and-center": ".headline--negative (white text + links, headline-negative mixin) and .headline--center (text-align: center; also centers the underline bar via its :after margin auto) are class-only treatments exposed by no Vue prop — Button's caps-and-lowercase precedent: documented here, NOT modeled as options; exposing either is a public-shape decision deferred past this migration. negative has ZERO source-level appliers in either repo (only the SCSS definitions — reachable via editor-entered classes at most; see knownIssues); center is applied only by story markup (Callout.stories.js:51, Inline.stories.js:168). On the Figma page both appear as context frames, not axes. negative's color IS tokenized (headline/negative/color) since the SCSS rule ships live."
+    "negative-and-center": "SUPERSEDED IN PART 2026-08-24: `.headline--center` is no longer class-only — it is now the `alignment` option's 'center' value (see options and changes[0]), and Figma models it as the Alignment axis rather than a context frame. What remains true of it is the geometry: `text-align: center` plus `margin-right/left: auto` on the underline `:after`. `.headline--negative` (white text + links, headline-negative mixin) IS still class-only, exposed by no Vue prop — Button's caps-and-lowercase precedent: documented here, NOT modeled as an option; exposing it is a public-shape decision still deferred. negative has ZERO source-level appliers in either repo (only the SCSS definitions — reachable via editor-entered classes at most; see knownIssues) and appears on the Figma page as a context frame, not an axis. Its color IS tokenized (headline/negative/color) since the SCSS rule ships live. The pre-option center appliers were story markup only (src/components/callout/Callout.stories.js:53, src/components/inline/Inline.stories.js:168) — note the Callout citation was `:51` here until 2026-08-24 and is actually `:53`."
   },
   "behavior": [
     "Required inner-markup protocol: Headline.vue renders only `<component :is=\"level\">` around its default slot — it adds no `.headline__heading`/`.headline__text` markup itself. Consumers supply that structure (Banner.vue renders `<span class=\"headline__heading\" v-html=\"...\">`; Stat.vue renders `.headline__prefix`/`.headline__suffix`; SiteNow's headline.html.twig renders the same `.headline__heading` span downstream). `.headline--highlight`'s highlight-word styling (headline-highlight-word mixin) and the uppercase highlight-word variant both target descendant `span` elements specifically — content with no inner `<span>` gets the `highlight`/`underline`/`uppercase` boolean classes with no visible highlight-word background. The stale @todo in Headline.stories.js:114 (`HighlightedSingleWord`, 'Figure out how to get this example working') is a symptom of this protocol not being obvious at the story layer. Note also that the uppercase highlight-word selectors (`.headline--uppercase .headline__heading span`, `.headline--uppercase .headline__text span`, _headline.scss:62-66) do NOT include `.headline--highlight` at all — any span inside an uppercase headline's `.headline__heading`/`.headline__text` gets the highlight-word treatment REGARDLESS of the `highlight` prop. That unconditional path is how uppercase hero headlines highlight words; the non-uppercase `.headline--highlight span` path (_headline.scss:48-52) is the only one gated on the prop's class.",
     "`[class*=\"bg-\"]` ancestor context forces `a { color: inherit }` (_headline.scss:11-15) — note the single-hyphen `bg-` attribute-contains matcher catches both `bg--*` (solid backgrounds) and `bg-pattern--*` (pattern backgrounds).",
     "On-gold flips: inside a `[class*=\"bg--gold\"]` ancestor, highlight colors invert (background flips gold→black via headline.highlight.background-on-gold, text flips black→white via headline.highlight.color-on-gold — mixins:59-62,72-76), the uppercase font-weight drops from 700 to a declared 400 (headline.uppercase.font-weight-on-gold — _headline.scss:57-59, mixins:75; Antonio ships no 400 face, so it renders the static 300), and the underline bar switches from gold to gray/100 (headline.underline.color-on-gold — mixins:103-107). A further nested `[class*=\"bg--gold\"] [class*=\"bg--black\"]` context flips the highlight colors back to the DEFAULT (gold background / black text — mixins:77-80), reusing headline.highlight.background/color rather than a third token pair."
+  ],
+  "changes": [
+    "2026-08-24 — HEADLINE GAINS AN `alignment` OPTION, AND THE COMPONENT SET REOPENS TO DO IT. The design system owner ruled this contract-first out of a generated-page review: a centred section wants a centred heading, and there was no way to ask for one. This is a PUBLIC-SHAPE ADDITION, so unlike cta.json changes[0] the version moves (1.0.0 -> 1.1.0, badge/logo precedent). Three things about it are deliberate and should not be \"tidied\" later. (1) It reopens a set that CLAUDE.local.md records as CLOSED after banner and card — the closure is about not MIGRATING new components, and Headline was already migrated; this adds an option to an existing contract, which the contract-first rule explicitly contemplates. (2) It adds NO SCSS. `.headline--center` has shipped since before the migration (_headline.scss:23 plus the bar's margin-inline auto at _headline-mixins.scss:96); it was documented in geometryNotTokenized as class-only and exposed by no prop, and all this change does is put a prop in front of it. So no pixel moves for any existing page, and the option is 'exposed', not 'invented' — the distinction the no-planned-options rule cares about. No `.bold-headline--center` alias exists and none was added: the legacy alias doubling is as-shipped debt (see knownIssues), not a pattern to extend to new options. (3) The values are '' and 'center' ONLY. 'left'/'right' were considered and declined for the reason badge's size modifier was declined on 2026-08-21 — one honest answer beats a first instalment: neither has a shipped class, '' already covers left-in-a-left-container, and the rule this option exists to serve (heading-alignment-follows-content) actively discourages forcing a heading against its container's grain. Recorded here so the absence reads as settled rather than half-finished."
   ],
   "knownIssues": [
     "`.bold-headline--*` is a legacy alias that DOUBLES every selector in this file and is LIVE downstream (both uids_base hero twigs render `bold-headline--serif bold-headline`, and cta_uids3.scss's `.bold-headline`/`.headline` rule pair) — it cannot be removed in 4.x despite the file's own `// @todo Remove .bold-headline variations.` at _headline.scss:5. Dedupe in 5.x.",
