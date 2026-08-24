@@ -212,9 +212,16 @@
    ADDED 2026-08-24. Verbatim expansion of the element-invisible() mixin
    (src/scss/abstracts/_utilities.scss:25-31), which src/scss/abstracts/
    _utility-classes.scss:6-9 attaches to BOTH class names; uids-core.scss:6 forwards it,
-   so production has it globally. This view had NEITHER name anywhere in claude-design/,
-   which meant a design could not hide anything accessibly — there was no vehicle for the
-   commonest case in the platform, a page title that a leading banner has already stated.
+   so production has it globally. In this view it was INCIDENTAL rather than missing: two
+   templates already declared it inside their own template-local <style> —
+   Breadcrumbs.dc.html:42-43 (BOTH names) and Pager.dc.html:44 (`.visually-hidden` only) —
+   and because dc-import shares ONE document and ONE cascade, either copy already hid every
+   matching element on the whole page. But only on a page that imported one of those two.
+   A design importing neither had no rule at all, so the commonest case in the platform —
+   a page title that a leading banner has already stated — could not be hidden accessibly
+   without pulling in an unrelated component. In the SHARED sheet it is unconditional. The
+   template-local copies stay: verbatim restatements at equal specificity, so which one the
+   cascade picks changes nothing.
    Both names ship because production ships both and downstream markup uses both:
    uids_base applies element-invisible to the breadcrumb block under
    layout--title--hidden, while Drupal's own breadcrumb template emits
