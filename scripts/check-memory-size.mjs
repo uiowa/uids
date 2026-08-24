@@ -52,6 +52,25 @@
  * trade while gotchas are still being ADDED faster than checkers absorb them; revisit it when
  * option (b) has somewhere to put them.
  *
+ * BUDGET RAISED A THIRD TIME 2026-08-24 (16/24 -> 22/30), on the design system owner's ruling, when the file
+ * reached 21,929 bytes with ~2.1 KB of headroom and was warning on every check:drift run.
+ * Offered the choice between pruning and raising, the owner chose to raise. The numbers were
+ * the agent's call: SOFT_KB=22 keeps the property the 08-21 entry above argues for — it sits
+ * just above the current size, so the warning still fires the moment the file GROWS rather
+ * than going quiet for months — and HARD_KB=30 repeats the +8 of headroom the 08-22 raise
+ * gave, since the 08-22 reasoning still holds unchanged: gotchas are still being ADDED faster
+ * than checkers absorb them, and option (b) below still has nowhere to put them.
+ *
+ * What is NOT true of this raise, and matters for the next one: the 08-21 and 08-22 raises
+ * were both argued from a section-by-section measurement showing which section had outgrown
+ * the number. This one was not measured that way. So the case for option (b) — pushing each
+ * gotcha down into the checker that would have caught it — is now UNTESTED rather than
+ * rejected, and it is the first thing to cost out at 30 KB. Two entries in the current file
+ * are already candidates for retirement rather than migration (a Storybook port line that
+ * contradicts itself now that :6006 is this repo, and a Figma-write-degradation warning that
+ * every write in the 08-24 Phase 3 session disproved), which is evidence the file holds stale
+ * weight, not just heavy weight. Measure before raising a fourth time.
+ *
  * NOTE FOR WHOEVER RAISES IT NEXT: the numbers live in FOUR places and only one is executable
  * — SOFT_KB/HARD_KB below, this comment, `CLAUDE.md`'s "Session memory" section, and
  * `CLAUDE.local.md`'s own discipline header. On 2026-08-22 `CLAUDE.md` was found still quoting
@@ -66,8 +85,8 @@ import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const FILE = process.env.MEMORY_FILE ?? 'CLAUDE.local.md';
-const SOFT_KB = 16;
-const HARD_KB = 24;
+const SOFT_KB = 22;
+const HARD_KB = 30;
 const MAX_PRIOR = 1;
 
 const errors = [];

@@ -159,21 +159,23 @@ session and every request**. It carries exactly **one** Active Context plus dura
 decisions, rulings and gotchas. When a session ends the outgoing Active Context is
 **replaced, not appended** — its narrative goes to `.claude/sessions/<date>_<slug>.md`.
 Anything already written in a session log does not belong in the memory file. Target
-≤ 16 KB.
+≤ 22 KB.
 
-`check-memory-size.mjs` enforces this (it is in `yarn check:drift`): it fails above 24 KB
-or on more than one `## Prior Active Context` section, and warns above 16 KB. The prose rule
+`check-memory-size.mjs` enforces this (it is in `yarn check:drift`): it fails above 30 KB
+or on more than one `## Prior Active Context` section, and warns above 22 KB. The prose rule
 alone had already failed once — the file reached 89,744 bytes (~22k tokens per turn), 95%
 of it eleven superseded Prior Active Context sections that were all already written up in
 `.claude/sessions/`.
 
-The budget has been raised twice on the design system owner's ruling — 8/12 → 12/16 (2026-08-21) → **16/24**
-(2026-08-22) — because the content genuinely outgrew the number both times, not because the
-rule was weak. The rationale for each raise, and the option set rejected at the second one, is
-in `scripts/check-memory-size.mjs`'s header. **These numbers appear in four places and only
-`SOFT_KB`/`HARD_KB` is executable**; this paragraph was itself found quoting the original 8/12
-on 2026-08-22, having never been updated for the first raise. If you change the budget, change
-all four.
+The budget has been raised three times on the design system owner's ruling — 8/12 → 12/16 (2026-08-21) →
+16/24 (2026-08-22) → **22/30** (2026-08-24) — because the content genuinely outgrew the number,
+not because the rule was weak. The rationale for each raise, and the option set rejected at the
+second one, is in `scripts/check-memory-size.mjs`'s header. **These numbers appear in four places
+and only `SOFT_KB`/`HARD_KB` is executable**; this paragraph was itself found quoting the original
+8/12 on 2026-08-22, having never been updated for the first raise. If you change the budget, change
+all four. Note the third raise was NOT argued from a section-by-section measurement the way the
+first two were, so "the content outgrew the number" is assumed rather than shown for it — the
+header says what to measure before a fourth.
 
 ## Git Workflow
 
