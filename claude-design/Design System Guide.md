@@ -399,9 +399,9 @@ CSS word-spacing trick copied exactly (don't "clean it up"); and `error` only re
 put the actual reason in `description` or the error is invisible to screen readers.
 
 **Headline** — the `.headline` heading component. Props: text, level (h1…h6, default h2),
-text_style (default | serif | uppercase), and the booleans underline and highlight.
-Requires `backgrounds.css` as a sibling (its helmet links it for the on-gold context
-rules).
+text_style (default | serif | uppercase), alignment (default | center), and the booleans
+underline and highlight. Requires `backgrounds.css` as a sibling (its helmet links it for
+the on-gold context rules).
 
 Pick `level` by document outline, not by size — nothing stops an h1 inside an h4 context,
 so that correctness is on you. A UIDS page already has TWO h1s as-shipped (the Brand Bar's
@@ -413,6 +413,15 @@ transformed by CSS — author natural case ("Our research", not "OUR RESEARCH") 
 readers pronounce it correctly. `underline` draws the 75px gold bar under the heading
 (h5/h6 get a proportionally shorter bar); `highlight` puts the gold band behind the text,
 wrapping cleanly across lines.
+
+`alignment` is `default` or `center`, and `default` INHERITS — it emits no class, so the
+heading takes whatever alignment its container gives it. Reach for `center` only when the
+content the heading introduces is itself centered (see `heading-alignment-follows-content`
+in Rules). Set it on the Headline rather than centering the wrapper: with `underline` on,
+the gold bar is a `display: block` pseudo-element with zero side margins, so a wrapper's
+`text-align` centers the text and leaves the bar hard left under the first word. There is
+deliberately no left or right value — a heading in a left-aligned container is already
+left-aligned, and if you need to fight the container, the container is wrong.
 
 Context does the color work: inside a `bg--gold` band the highlight flips to black-on-
 white text, the underline bar goes gray, and uppercase weight drops — automatically, from
