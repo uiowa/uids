@@ -98,6 +98,40 @@
  *     was exactly the other slice's captured names. That mutual complement POSITIVELY
  *     EXCLUDES an added or renamed set — assuming coverage instead is exactly what
  *     truncation breaks.
+ *   - Still four slices as of 2026-08-24, and this is the predicted growth arriving on
+ *     schedule: Headline's description went 529 -> 904 chars and its variantCount 30 ->
+ *     60 when the Alignment axis landed, which is the "next overflow will be caused by
+ *     someone WRITING" case above, not a new set. Slice A now serialises to 13,572
+ *     chars over 11 sets and slice B to 9,983 over 10, so both still clear ~20KB with
+ *     room; descriptions are 10,852 chars of the pair. Card (1,207) still leads,
+ *     Headline is now fourth (904) behind Backgrounds (1,036) and Brand Bar (956).
+ *     Recomputed from the committed snapshot, not measured off a live payload — the
+ *     capture that produced this entry was a FINGERPRINT refresh (see below), so no
+ *     20KB slice was ever transported.
+ *
+ *   A FINGERPRINT REFRESH IS A VALID FOURTH OPTION when you know which sets you
+ *   touched, and it is what the 2026-08-24 Alignment change used. Rather than
+ *   re-capturing slice A, run this file's own sets serialisation over ALL pages and
+ *   return, per set, a canonical hash (recursively key-sorted stringify) plus its
+ *   length — ~21 short strings, one call, no truncation risk at all — then compute the
+ *   same hash locally over the committed snapshot. 20 of 21 sets hashed identical and
+ *   only Headline differed, which POSITIVELY EXCLUDES drift in the other twenty
+ *   instead of assuming it, and is strictly stronger than a slice re-capture that can
+ *   only prove what it managed to transport. Rebuild the changed entry locally and
+ *   verify ITS hash against the in-sandbox one before writing. That last step is not
+ *   optional: it is what caught the description escaping below.
+ *
+ *   DESCRIPTIONS COME BACK ESCAPED AND THE SNAPSHOT MUST HOLD FIGMA'S TRUTH, NOT THE
+ *   READABLE FORM. Headline's description really does contain the eight characters
+ *   `&amp;lt;` where a reader expects `<`. Until 2026-08-24 the snapshot recorded
+ *   `&lt;` — one decode level short — because a previous capture decoded on the way in;
+ *   nothing went red, since check-figma only asserts the description CONTAINS its
+ *   contract path and never compares it to Figma. Settle which level is real by hashing
+ *   the string INSIDE the sandbox (immune to tool-transport escaping) and matching that
+ *   hash locally against candidates; do not eyeball the tool response, which adds its
+ *   own layer. Note the consequence for designers, still unfixed: the Figma UI shows
+ *   that description with the literal entities in it.
+ *
  *   Never hand-trim a truncated result: a partial payload merged into the snapshot
  *   looks like deleted variables to check-figma. (Real fix, backlogged: emit a
  *   compact format — the verbose per-variable keys are ~60% of the payload — which
