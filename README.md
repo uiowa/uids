@@ -48,10 +48,12 @@ Every command below was verified against `package.json`.
 | `yarn test:styles:update` | Re-record the baselines. Deliberate act — never to turn a red run green. |
 | `yarn build:tokens` | Regenerate the SCSS token partial and `claude-design/tokens.css`. |
 
-**Three scripts in `package.json` do not currently run**, and are left undocumented above
-rather than quietly listed: `test:e2e` and `test:e2e:ci` need `cypress` and
-`start-server-and-test`, and `typecheck` needs `vue-tsc` — none of the three is a dependency
-of this package. There is no end-to-end suite; `test:styles` is the closest thing.
+**There is no end-to-end suite and no typecheck step.** `test:styles` is the closest thing to the
+former; nothing currently typechecks the repo's `<script setup lang="ts">`, so a type error is
+caught only by review. Every remaining script in `package.json` resolves to an installed binary
+or a `scripts/*.mjs` that exists. Two are left out of the table because CI calls them and you
+rarely would: `build-storybook` (what `checks.yml` builds to prove Storybook still compiles) and
+`check:citations` (the last of the seven checkers, also run by `yarn check:drift`).
 
 `yarn test:styles` drives a real browser against Storybook at **375 / 980 / 1350** and compares
 computed styles for 24 components against `regression/baselines/`. Start Storybook first, and

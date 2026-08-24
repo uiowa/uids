@@ -26,9 +26,6 @@ module.exports = {
     "no-unreachable": "warn"
   },
   "overrides": [{
-    "files": ["cypress/integration/**.spec.{js,ts,jsx,tsx}"],
-    "extends": ["plugin:cypress/recommended"]
-  }, {
     "files": ["scripts/**", "*.config.{js,ts,mjs,cjs}", ".storybook/**", "*.cjs"],
     "env": { "node": true }
   }]
