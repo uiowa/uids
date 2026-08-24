@@ -127,6 +127,82 @@
       "default": false,
       "description": "Layout Builder: Reverse column order on mobile",
       "code": { "class": "section-order__reversed" }
+    },
+    {
+      "name": "blockPadding",
+      "type": "enum",
+      "values": [
+        "none",
+        "all", "all-minimal", "all-extra",
+        "top", "right", "bottom", "left",
+        "top-minimal", "right-minimal", "bottom-minimal", "left-minimal",
+        "all-sm"
+      ],
+      "default": "none",
+      "description": "Local padding on a block, from src/scss/abstracts/_utility-classes.scss:34-73. Unlike every other option on this contract these classes ship FROM UIDS, not from uids_base. Base is 3rem (space/300), --minimal is 2rem (space/200), --extra is 6rem (space/600). The .block-padding and .element--padding namespaces are declared as one selector list and are exactly equivalent — neither is preferred.",
+      "code": {
+        "classes": {
+          "all": "block-padding__all | element--padding__all",
+          "all-minimal": "block-padding__all--minimal | element--padding__all--minimal",
+          "all-extra": "block-padding__all--extra | element--padding__all--extra",
+          "top": "block-padding__top | element--padding__top",
+          "top-minimal": "block-padding__top--minimal | element--padding__top--minimal",
+          "all-sm": "element--padding__all--sm"
+        },
+        "notes": "right/bottom/left follow top's pattern in both namespaces. all-sm is the exception: .element--padding__all--sm is declared on its own (line 71), has NO .block-padding twin, and resolves to 1.25rem (space/125) rather than the 3rem the rest of the __all family uses."
+      },
+      "figma": {
+        "notes": "Contract-only, and this whole contract is a documentation page rather than a component set — there is no variant axis to map to. A local padding utility is applied per placement by a Drupal author; the Figma equivalent is setting padding on the frame you are drawing, not picking a variant. Foundations / Layout documents the SCALE these classes draw from (the space/* frame, 120:3), which is the part a designer needs."
+      }
+    },
+    {
+      "name": "blockMargin",
+      "type": "enum",
+      "values": ["none", "top", "right", "bottom", "left", "top-extra", "bottom-extra"],
+      "default": "none",
+      "description": "Local margin on a block, from _utility-classes.scss:104-139. Base is 1.05rem (space/105 = layout/block/stack/compact); --extra holds that value below sm and steps to 2rem (layout/block/stack/extra) from sm. In stacked Layout Builder regions these are OVERRIDES on the 1.6rem default sibling rhythm, not additions to it — see behavior.",
+      "code": {
+        "classes": {
+          "top": "block-margin__top | element--margin__top",
+          "bottom": "block-margin__bottom | element--margin__bottom",
+          "top-extra": "block-margin__top--extra | element--margin__top--extra",
+          "bottom-extra": "block-margin__bottom--extra | element--margin__bottom--extra",
+          "left": "block-margin__left | element--margin__left",
+          "right": "block-margin__right | element--margin__right"
+        },
+        "notes": "left/right are the odd ones: they apply ONLY from sm (no mobile value at all), where top/bottom apply at every width. See knownIssues."
+      },
+      "figma": {
+        "notes": "Contract-only — see blockPadding's note. Additionally, the part of this option a designer would most want drawn (that in a stacked region these are OVERRIDES on the 1.6rem default sibling rhythm, not additions) is a uids_base region behavior with no Figma surface at all: layout/block/stack/default is a variable, but nothing in the file arranges sibling blocks to show it being overridden."
+      }
+    },
+    {
+      "name": "logicalPadding",
+      "type": "enum",
+      "values": [
+        "none",
+        "block-sm", "block-md",
+        "inline-md",
+        "inline-start-sm", "inline-start-md",
+        "inline-end-sm", "inline-end-md"
+      ],
+      "default": "none",
+      "description": "CSS logical-property padding utilities, _utility-classes.scss:75-102. A separate, much smaller scale from the block utilities above: --sm is 0.5rem (space/50) and --md is 1rem (space/100). These ship from UIDS.",
+      "code": {
+        "classes": {
+          "block-sm": "padding--block--sm",
+          "block-md": "padding--block--md",
+          "inline-md": "padding--inline--md",
+          "inline-start-sm": "padding--inline-start--sm",
+          "inline-start-md": "padding--inline-start--md",
+          "inline-end-sm": "padding--inline-end--sm",
+          "inline-end-md": "padding--inline-end--md"
+        },
+        "notes": "There is deliberately no `inline-sm` entry — .padding--inline--sm is not declared. See knownIssues."
+      },
+      "figma": {
+        "notes": "Contract-only — see blockPadding's note. Logical properties have no Figma expression in any case: the file has no writing-mode dimension, so padding-inline-start and padding-left are the same edge on the canvas and the distinction these classes exist to make cannot be drawn."
+      }
     }
   ],
   "tokensUsed": [
@@ -146,7 +222,14 @@
     "layout/container/padding/wide",
     "layout/breakpoint/sm",
     "layout/breakpoint/md",
-    "layout/breakpoint/page"
+    "layout/breakpoint/page",
+    "space/50",
+    "space/100",
+    "space/105",
+    "space/125",
+    "space/200",
+    "space/300",
+    "space/600"
   ],
   "geometryNotTokenized": {
     "sidebar-ratio": "24.25% sidebar / 72.75% content, separated by 3% right margin on the sidebar (md+); content 100% when sidebar hidden",
@@ -163,7 +246,27 @@
     "Adjacent sections with the same background treatment (none/gold/black/gray/brain variants) merge: the second removes its top padding",
     "Block stacking: sibling blocks in Layout Builder regions get 1.6rem top spacing (layout/block/stack/default); .block-margin__top reduces to 1.05rem, __top--extra becomes 2rem from sm, __default--removed zeroes it — the margin utilities are authored overrides on the default rhythm, not purely additive",
     "Containers cap/center at the page-container breakpoint (1350px): standard 81.875em, wide 100em + 1.875rem side padding; narrow caps earlier (md, 63.75em)",
-    "Content grids: non-grid lists stack at 2rem; grid gaps are 2rem mobile -> 3rem from sm (desktop gutter)"
+    "Content grids: non-grid lists stack at 2rem; grid gaps are 2rem mobile -> 3rem from sm (desktop gutter)",
+    "OWNERSHIP SPLIT, and it is the thing to get right about this contract: the container / layout / contentGrid / section-padding / column-spacing / section-order options are uids_base classes — UIDS owns their vocabulary and tokens but ships no CSS for them, so they can only be documented here and reproduced in claude-design/layout.css for previews. The blockPadding / blockMargin / logicalPadding options are the opposite: they ship from THIS repo, via src/scss/abstracts/_utility-classes.scss forwarded through uids-core.scss:6",
+    "The .block-* and .element--* namespaces are the same rule set. _utility-classes.scss declares `.block-padding, .element--padding` (line 34) and `.block-margin, .element--margin` (line 104) as selector lists, so every modifier exists under both names with identical behavior and neither is canonical",
+    "Breakpoint reference. Below sm (768): sections pad 1.25rem, full-width containers keep a 1.25rem outer margin, multi-region layouts stack with 2rem between regions, content grids gap 2rem. From sm: section padding becomes 3rem and the block-margin --extra step goes 1.05rem -> 2rem. From md (980): column ratios engage, full-width containers take 3rem outer margins, desktop grid gaps are 3rem, and the mobile stacked-region spacing is dropped. From page-container (1350): standard containers centre at 81.875em, wide expands to 100em with 1.875rem side padding, and grid--twocol--25-75 steps its gap 1.5rem -> 3rem"
+  ],
+  "changes": [
+    {
+      "date": "2026-08-24",
+      "summary": "The block/element padding and margin utilities, and the logical-padding utilities, were admitted to this contract as the blockPadding / blockMargin / logicalPadding options.",
+      "reasoning": "They were the only UIDS-SHIPPED CSS in the layout system with no contract entry at all — roughly 25 classes forwarded from uids-core.scss that no view described. That gap is what let their values sit as raw literals (3rem, 2rem, 6rem, 0.5rem, 1rem) while the token layer that was supposed to govern them had zero consumers in src/scss. Admitting them is ordinary contract-first work on a contract already in the set, not a migration: the CLOSED ruling governs bringing NEW components in, and this contract's kind is foundation. Rendering is unchanged — no class was added, removed or restyled."
+    },
+    {
+      "date": "2026-08-24",
+      "summary": "Declined to rename the utility --sm / --md suffixes despite the two-scale collision now recorded in knownIssues.",
+      "reasoning": "Faithful names lose an argument about clarity and win the one about findability: someone reading .padding--block--sm in a Drupal template needs the grep to land, and a corrected name would break that for every existing consumer to fix a confusion the contract can simply state. Same call, same reasoning, as leaving the $md spacing-vs-breakpoint collision in place. Recorded so a later reader does not mistake the collision for an oversight."
+    },
+    {
+      "date": "2026-08-24",
+      "summary": "Recorded that .element--padding__all--sm is intended to supersede .padding--block--sm, and that the two are NOT interchangeable.",
+      "reasoning": "The design system owner's intent, 2026-08-24. The trap is that the replacement reads like a rename and is not one: .element--padding__all--sm sets `padding` on all four sides at 1.25rem, while .padding--block--sm sets `padding-block` only, at 0.5rem. Swapping one for the other adds inline padding that was never there and multiplies the block padding by 2.5. Both still ship and live sites depend on the legacy one, so neither is removed here — tokenize as-shipped."
+    }
   ],
   "breakpoints": {
     "sm": 768,
@@ -171,6 +274,12 @@
     "page-container": 1350
   },
   "knownIssues": [
+    "layout/section/padding/{mobile,default} are a PARALLEL VOCABULARY that nothing reads. Production authors .layout__container's padding from the gutter variables instead — uids_base scss/global.scss:153-161 uses $mobile-width-gutter and $desktop-width-gutter, which resolve to layout/gutter/width/{mobile,desktop}. The section-padding tokens hold the same two values ({space.125}, {space.300}) under a different name, and their only consumer anywhere is claude-design/layout.css",
+    "Consequence of the parallel vocabulary above, and the reason it is recorded rather than fixed: editing layout/section/padding/default to change section rhythm moves the Claude Design preview and NOTHING in production. Verified 2026-08-24 by grepping the authored uids_base SCSS — zero reads of var(--uiowa-layout-section-padding-*), and only four reads of any --uiowa-* custom property in the entire theme, because uids_base consumes UIDS through Sass variables rather than custom properties. Consolidating the two vocabularies is a 5.x decision",
+    "layout/gutter/height/desktop has no consumer at all. Its 4.x source variable $desktop-height-gutter is declared at src/scss/abstracts/_variables.scss:82 and used nowhere in this repo, so the variable was deliberately left holding a literal rather than rebound — pointing it at the token would have made the token look consumed while compiling to nothing",
+    "The utility scale uses `sm` for two different values, in two different families: .element--padding__all--sm is 1.25rem (space/125) while .padding--block--sm and the --inline-*--sm pair are 0.5rem (space/50). Same suffix, 2.5x apart. This is the spacing-side twin of the `md` collision recorded below, and it is as-shipped — the names were kept rather than corrected so a grep for the class lands on the token (ruling, 2026-08-24, see changes[])",
+    ".padding--inline--sm does not exist. The logical-padding family is otherwise symmetric — block and inline-start and inline-end each have --sm and --md — but the shorthand .padding--inline-- only ships in --md (_utility-classes.scss:100). Authoring one by analogy silently does nothing",
+    ".block-margin__left and __right apply only from sm (_utility-classes.scss:117-121, 134-138); they have no mobile value, where __top and __bottom apply at every width. A layout relying on left/right margin below sm gets nothing",
     "section-padding__top-restored restores the TOP edge only; there is no bottom-restore class",
     "The word 'md' means two different things in 4.x SCSS: $md = 1.05rem (a spacing value) vs $break-md / --space-md-width-gutter (breakpoint / 2rem). The space.* scale supersedes the spacing sense.",
     "grid--twocol--50-50 column-gap uses var(--space-lg-width-gutter) while threecol/fourcol use $desktop-width-gutter — same 3rem value via two mechanisms (compile-time vs runtime)"
