@@ -100,16 +100,15 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    second_row_content slot present), the top bar must use narrow styling (Figma: Style=Narrow).
    The code enforces this implicitly; designs must match.
 5. **page-heading-structure** (agent) — A page has TWO h1 elements as-shipped, and that is
-   deliberate to document, not a bug to design around. uids_base
+   deliberate to document, not a bug to design around: uids_base
    templates/uids/site-name.html.twig emits <h1 class="site-name"> in the Brand Bar, and
    templates/content/page-title.html.twig emits <h1 class="page-title headline--serif
-   headline"> for the page title. CORRECTED 2026-08-17: this rule previously said "the Brand
-   Bar site name is typically the page's h1" and "a page must have exactly one h1". Both halves
-   were wrong about production, and the rule actively caused harm -- agents demoted the page
-   title to an h2 in the default Roboto treatment, losing the page-title type ramp entirely. Do
-   NOT resolve the duplicate h1 by demoting the page title; it is a real accessibility wrinkle
-   in the platform, and fixing it is a SiteNow decision, not something a design may quietly do.
-   Section headings below the page title are h2.
+   headline"> for the page title. Do NOT resolve the duplicate by demoting the page title. An
+   earlier version of this rule claimed a page must have exactly one h1, and agents acting on
+   it demoted the title to an h2 in the default Roboto treatment, losing the page-title type
+   ramp entirely — that is the specific harm this wording exists to prevent. The duplicate is a
+   real accessibility wrinkle in the platform, and fixing it is a SiteNow decision, not
+   something a design may quietly do. Section headings below the page title are h2.
 6. **contract-first-changes** (agent) — Never change a component's public shape (options,
    slots, tokens) in Figma or code directly. Propose the change in contracts/ first; Figma and
    code follow after review.
@@ -122,29 +121,23 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    compensate for its context. NEVER position a badge absolutely, float it, or mount it as a
    corner flag or ribbon on a card, callout or panel — src/scss/components/badge.scss contains
    no positioning of any kind, so a corner-mounted badge is invented, not design-system
-   behaviour. CHANGED 2026-08-20: this rule previously ended "To flag a whole block, put the
-   badge inside that block's heading or first line", which was the exact opposite of
-   claude-design/readme.md's "Never put a Badge inside a heading" — both shipped, contradicting
-   each other. The badge then flexed to its parent's font-size, so the readme was right about
-   the symptom and this rule was right about the intent. contracts/badge.json changes[0] fixed
-   the cause; a badge in a heading is now fine, and neither the prohibition nor the
-   put-it-in-a-heading instruction survives.
+   behaviour. A badge inside a heading is FINE as of 2026-08-20, when contracts/badge.json
+   changes[0] fixed the font-size flex that made it look wrong: if you find an instruction
+   anywhere saying never put a badge in a heading, it is SUPERSEDED, and so is the older
+   instruction to put it there to flag a block.
 9. **item-list-is-stacked-cards** (agent) — A list of items is stacked BORDERLESS cards, not
    hand-written markup. News listings, event listings, "related items" and search results all
    use the Card component with borderless set, stacked one per row (reference:
    https://sandbox.prod.drupal.uiowa.edu/news). Do not invent a <ul> with your own
    date/heading/summary CSS: it will not match production, and Card already supplies the title,
    subtitle, meta, body and link in the right proportions. Use a grid of BORDERED cards only
-   for a set of parallel destinations, like a three-across "related programs" block. Moved here
-   2026-08-20 from claude-design/readme.md, where it was one of three hand-maintained copies of
-   the rule set.
+   for a set of parallel destinations, like a three-across "related programs" block.
 10. **page-title-under-brand-bar** (agent) — Breadcrumbs and the page title go directly
    under the Brand Bar — before any banner, hero or content section — and both belong inside a
    page__container so they inherit the page's gutters. They are ONE unit: the breadcrumb
    supplies the space above (1.75rem top margin) and the title sits flush beneath it with no
    gap, by design. Putting them in a mid-page section, or after a banner, is wrong: the page
-   title identifies the page and has to be the first thing under the navigation. Moved here
-   2026-08-20 from claude-design/readme.md.
+   title identifies the page and has to be the first thing under the navigation.
 11. **backgrounds-by-class** (agent) — A background is applied by CLASS on a section
    wrapper: bg--{color}[--pattern--{type}], where color is black|gold|gray|white and type is
    brain|community|particle. Omitting the suffix entirely IS the no-pattern case. Two things
@@ -155,31 +148,28 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    anywhere in the shipped pattern system — strength is baked into the asset file itself, two
    different ways: the four brain SVGs declare one opacity each (0.15/0.2/0.7/0.15), while the
    community and particle PNGs fade per pixel, so any single opacity number quoted for those is
-   a PEAK, not a level. Added 2026-08-24: the pattern layer is an image fill and a Figma
-   variable is COLOR/FLOAT/STRING/BOOLEAN, so no checker in any of the five views can ever
-   verify this — it is enforced by instruction here and in the Figma set description, and
-   deliberately NOT by a checker that would appear to cover it.
+   a PEAK, not a level. No checker in any of the five views can ever verify this — the pattern
+   layer is an image fill and a Figma variable is COLOR/FLOAT/STRING/BOOLEAN — so it is
+   enforced by instruction here and in the Figma set description, and deliberately NOT by a
+   checker that would appear to cover it.
 12. **banner-led-page-is-a-composition** (agent) — A banner-led page is a COMPOSITION you
    assemble, not a component to ask for. The featured-image banner IS the pattern: breadcrumbs
-   and the page title sit INSIDE the banner's content area, and the section wrapper carries the
+   and the page title sit INSIDE the banner content area, and the section wrapper carries the
    Layout Builder classes layout--title and layout--title--with-background. Those wrapper
    classes are a downstream uids_base LAYOUT and are deliberately not Banner's —
-   contracts/banner.json knownIssues records exactly that ("The Layout Builder classes on a
-   production banner root (layout--title, layout--title--with-background,
-   layout--onecol--background) are likewise not banner's"), and the component set is CLOSED. So
+   contracts/banner.json knownIssues records exactly that — and the component set is CLOSED. So
    compose the page from Banner + Breadcrumbs + the page-title markup; do NOT invent a hero
    component, and do not propose one. The title-suppressed variant is layout--title--hidden,
    and it is worth knowing what it really does: it zeroes the section padding AND makes the
    breadcrumb element-invisible (still focus-revealable, still announced) rather than deleting
-   either. Added 2026-08-24 from a page review; the owner ruled this a composition rather than
-   a migration.
+   either.
 13. **top-nav-on-every-page** (agent) — Every page gets navigation: the Brand Bar plus a
    Menu with variant horizontal across the top, and a vertical Menu for a sidebar or section
    nav. Reference stories are components-menu--horizontal-menu and
-   components-menu--vertical-menu. Know the two honest limits before you design around them.
-   (1) The horizontal menu is CONTAINER-gated, not viewport-gated: .menu--horizontal wraps its
-   whole rule set in container-query() (src/scss/components/menu.scss:127), whose shared
-   default is $break-sm (src/scss/abstracts/_breakpoints.scss:52, $break-sm: 768px at
+   components-menu--vertical-menu. Two honest limits to design around. (1) The horizontal menu
+   is CONTAINER-gated, not viewport-gated: .menu--horizontal wraps its whole rule set in
+   container-query() (src/scss/components/menu.scss:127), whose shared default is $break-sm
+   (src/scss/abstracts/_breakpoints.scss:52, $break-sm: 768px at
    src/scss/abstracts/_variables.scss:94), so in a container narrower than 768px it renders
    stacked, silently. (2) THERE ARE NO DROPDOWNS: .menu--horizontal > li ul sets display: none
    (menu.scss:145-147), carrying the source's own @todo about doing hover menus without
@@ -211,40 +201,36 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    heading of a content or text area, and nothing else. Do not put it over a stat row, a card
    grid, or any set of parallel tiles: the bar reads as "prose follows", so repeating it across
    every section flattens the hierarchy it exists to create — if every heading is emphasised,
-   none is. There is also a mechanical consequence worth knowing, because it causes damage
-   elsewhere: @mixin headline-underline sets overflow: auto
-   (src/scss/abstracts/_headline-mixins.scss:85) so the bar clears its heading, which makes
-   that heading a block formatting context. See callout-is-a-float for what that costs when a
-   float is loose on the page.
+   none is. One mechanical consequence matters elsewhere: @mixin headline-underline sets
+   overflow: auto (src/scss/abstracts/_headline-mixins.scss:85) so the bar clears its heading,
+   which makes that heading a block formatting context. See callout-is-a-float for what that
+   costs when a float is loose on the page.
 17. **no-heading-over-self-evident-content** (agent) — Content that states its own meaning
    does not need a heading over it. A stat row is the clearest case: every stat already carries
    its own label and summary, so a "By the Numbers" heading above it adds no information and
    introduces a spacing imbalance — the heading's own margin stacks onto the section's top
-   padding while the bottom of the section keeps only the padding, so the block sits visibly
-   low in its own band. Prefer no heading. If a section genuinely seems to need naming, that is
-   usually evidence the content is not self-evident and the content should be rewritten, not
-   labelled.
+   padding while the bottom keeps only the padding, so the block sits visibly low in its own
+   band. Prefer no heading. If a section genuinely seems to need naming, that is usually
+   evidence the content is not self-evident and should be rewritten, not labelled.
 18. **cta-is-always-narrow** (agent) — A CTA's text must never run the full page width. This
    is a NEW CONSTRAINT, not a bug fix, and the distinction matters: max-width does not appear
    anywhere in src/scss/components/cta.scss (zero occurrences, verified 2026-08-24), so nothing
    in code enforces it and a CTA dropped into a full-width container will happily span it.
-   Recorded as a decision in contracts/cta.json changes[] under the rule that changes[] covers
-   deliberate decisions even when they move no pixels in the component itself. The composition
-   needs no code change: put the band on the section (section.layout__container.bg--gold), cap
-   the measure with div.page__container--narrow inside it, and give the CTA background="" so it
-   does not paint a second band inside the first.
+   Recorded as a decision in contracts/cta.json changes[]. The composition needs no code
+   change: put the band on the section (section.layout__container.bg--gold), cap the measure
+   with div.page__container--narrow inside it, and give the CTA background="" so it does not
+   paint a second band inside the first.
 19. **callout-is-a-float** (agent) — A Callout is a FLOATED inline element, not a section
    band. contracts/callout.json's inline_alignment option defaults to "left", which emits
    .inline--align-left { float: left; clear: left } (src/scss/components/_inline.scss:117) —
    as-shipped, not a bug. Used as a full-width band it escapes its section, and the damage
    lands on the NEXT section rather than on the Callout: because headline--underline carries
-   overflow: auto (a block formatting context, src/scss/abstracts/_headline-mixins.scss:85),
+   overflow: auto, a block formatting context (src/scss/abstracts/_headline-mixins.scss:85),
    the following section's heading shrink-wraps beside the still-floating Callout instead of
-   clearing it — measured 122.5px wide at x=1123 inside a 1245px container. That was the
-   "Department News scrunched" symptom, and it looks like a heading bug rather than a Callout
-   one, which is why it took a measurement to find. To band a section, put a background class
-   on the section wrapper (see backgrounds-by-class). Use a Callout for what it is: a short
-   aside floated beside prose.
+   clearing it — measured 122.5px wide at x=1123 inside a 1245px container. It reads as a
+   heading bug rather than a Callout one, which is why it took a measurement to find. To band a
+   section, put a background class on the section wrapper (see backgrounds-by-class). Use a
+   Callout for what it is: a short aside floated beside prose.
 20. **pre-title-is-not-a-category** (agent) — A Card's pre_title is a CONTEXTUAL LABEL —
    "Pinned", "Featured", "Applications close Friday" — not a taxonomy term. Do not tag every
    item in a listing with its section ("Research", "Students", "Faculty"): the pre-title
@@ -254,23 +240,20 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    https://sandbox.prod.drupal.uiowa.edu/news. The icon slot beside it follows the same logic —
    an icon marks an exception, not a type, so do not give every card one.
 21. **heading-alignment-follows-content** (agent) — A heading takes the alignment of the
-   content it introduces — alignment is a consequence of the layout, not a separate styling
-   choice. Centered content gets a centered heading: a centered CTA, a centered stat row, a
-   single centered pull-quote. A card grid or a row of parallel tiles also reads better with a
-   centered heading, because the heading spans several columns and left-aligning it over a
-   symmetrical grid puts the visual weight in one corner. Left-aligned prose gets a
-   left-aligned heading, always — never center a heading over a paragraph of body copy, and
-   never center a heading merely to break up a page. TWO MECHANICS MATTER. First, set it ON THE
-   HEADING (`alignment="center"`, added 2026-08-24 — see contracts/headline.json), not by
-   centering the wrapper: with `underline` on, the gold bar is a `display: block`
-   pseudo-element with zero side margins (`.headline--center` at
-   src/scss/components/_headline.scss:23 supplies text-align, and the bar gets margin-inline
-   auto only from `&.headline--center` at src/scss/abstracts/_headline-mixins.scss:96), so a
-   wrapper text-align centers the text and leaves the bar hard left under the first word.
-   Second, the option has NO left or right value by design: its default INHERITS, so a heading
-   inside a left-aligned container is already left-aligned, and there is deliberately no way to
-   force a heading against its container grain — if you want that, the container is wrong.
-   Consequence worth stating: do not mix alignments within one section.
+   content it introduces; alignment follows the layout rather than being a separate styling
+   choice. Centred content gets a centred heading — a centred CTA, a centred stat row, a single
+   pull-quote — and a card grid or row of parallel tiles reads better with one, because the
+   heading spans several columns and left-aligning it over a symmetrical grid puts the weight
+   in one corner. Left-aligned prose keeps a left-aligned heading: never centre a heading over
+   body copy, and never centre one just to break up a page. Set it ON THE HEADING
+   (alignment="center", contracts/headline.json), not by centring the wrapper — with underline
+   on, the gold bar is a display: block pseudo-element with zero side margins, so a wrapper
+   text-align centres the text and leaves the bar hard left under the first word
+   (src/scss/components/_headline.scss:23 supplies the text-align; the bar gets margin-inline
+   auto only from src/scss/abstracts/_headline-mixins.scss:96). There is no left or right
+   value: the default INHERITS, so a heading in a left-aligned container is already
+   left-aligned, and forcing one against its container grain is deliberately impossible — if
+   you want that, the container is wrong. Do not mix alignments within one section.
 
 <!-- END GENERATED RULES -->
 
