@@ -23,6 +23,7 @@ This repo is an experiment: UIDS 4.x made machine-readable (design tokens, per-c
 - No version bump — upstream was already on Storybook 10.4.1; so are we.
 - `.storybook/main.mjs`: one bugfix (`fileURLToPath` so builds work from checkout paths containing spaces).
 - `package.json`: build scripts run `build:tokens` first; new scripts (`check:drift`, `test:styles`, `lint:ci`, `test:unit:ci`); devDependencies added for CI only (eslint + plugins, vitest, `@vue/test-utils`, puppeteer, typescript).
+- **Four dead scripts removed** — `test:e2e`, `test:e2e:ci`, `typecheck`, and `preview`. None could run: `cypress`, `start-server-and-test` and `vue-tsc` are not dependencies, `typecheck`'s `-p tsconfig.vitest.json` names a file deleted in January 2024 (with all six tsconfigs and the whole `cypress/` suite), and `preview` was reachable only as the server half of the two e2e commands. That January cleanup removed these same three scripts and their three devDependencies; the Storybook 8 migration (#938, 2024-11-01) re-added the script lines in the same commit that deleted the last `vue-tsc` — so they were resurrected by accident and have been broken ever since. The dead `cypress/integration/**` ESLint override and its now-unused `eslint-plugin-cypress` devDependency went with them. **Consequence for consumers:** `yarn typecheck` and `yarn test:e2e*` no longer exist as names. Nothing is lost — they never executed — but a downstream script or CI job invoking them will now fail with "command not found" instead of failing on a missing binary. Restoring typechecking is deliberate future work: it needs a hand-authored tsconfig plus a first triage of 32 `.vue` and 30 `.ts` files that have never been checked.
 
 ## 3. Component stories and code
 
@@ -61,6 +62,12 @@ The Sass variables in `_variables.scss` mostly survive, but they now hold `var(-
 **Silent, and therefore worse — compiles clean, the browser drops the rule.**
 
 `scss/components/form/forms.scss:751` does `rgba(variables.$secondary, 0.2)`. Sass does not error: it can't decompose a `var()`, so it passes the call through verbatim and emits `rgba(var(--brand-secondary), 0.2)`. `--brand-secondary` resolves to `#000`, so that is not valid CSS, and the browser discards the declaration. Nothing in the build reports it. Search downstream for Sass color functions (`rgba`, `mix`, `darken`, `lighten`, `transparentize`) wrapping a `variables.$*` value — CSS-native `color-mix()` and `calc()` are fine, since they take a `var()` happily.
+
+**The spacing variables joined this group on 2026-08-24, and were cleared.**
+
+`$container-width`, `$mobile-width-gutter`, `$desktop-width-gutter` and `$mobile-height-gutter` now hold `var(--uiowa-*)` too, so the layout tokens finally reach compiled CSS instead of stopping at the token file. All 118 downstream call sites in `uids_base` were checked. None does Sass arithmetic; the only computation is `calc(variables.$X / 2)` at five places — `scss/layout-builder.scss:109`, `scss/paragraphs/uiowa-paragraphs_text.scss:5-6`, `scss/paragraphs/uiowa-paragraphs-webform.scss:5-6` — and that is the safe kind. Probed 2026-08-24: Sass emits `calc(var(--uiowa-space-125) / 2)` rather than erroring, and the browser resolves it to the same `0.625rem` the literal produced. The evaluation moves from compile time to runtime; the value does not change.
+
+`$desktop-height-gutter` was deliberately left as a literal — it has zero call sites in UIDS, so tokenizing it would have made `layout/gutter/height/desktop` look consumed while compiling to nothing.
 
 ## 6. What is deliberately NOT here
 

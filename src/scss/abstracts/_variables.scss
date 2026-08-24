@@ -73,14 +73,17 @@ $small-font-size: var(--uiowa-font-size-50);
 $text-muted: $gray;
 
 // Container
-$container-width: 81.875em;
+$container-width: var(--uiowa-layout-container-max-standard); // 81.875em / 1310px
 
 // Margin/Padding
-$mobile-width-gutter: 1.25rem; // 20px
-$desktop-width-gutter: 3rem; // 48px
-$mobile-height-gutter: 2rem; // 32px
+$mobile-width-gutter: var(--uiowa-layout-gutter-width-mobile); // 1.25rem / 20px
+$desktop-width-gutter: var(--uiowa-layout-gutter-width-desktop); // 3rem / 48px
+$mobile-height-gutter: var(--uiowa-layout-gutter-height-mobile); // 2rem / 32px
+// NOT rebound on purpose: $desktop-height-gutter has zero uses in this repo, so pointing
+// it at layout/gutter/height/desktop would make that token look consumed while compiling
+// to nothing. See contracts/layout.json knownIssues.
 $desktop-height-gutter: 8rem; // 128px
-$gutter: 1.25rem; // 20px
+$gutter: var(--uiowa-space-125); // 1.25rem / 20px
 $xsm: var(--uiowa-space-32); // 0.325rem / 5.2px
 $sm: var(--uiowa-space-62); // 0.625rem / 10px
 $sm-md: 0.9rem; // 15px
