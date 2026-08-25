@@ -2058,6 +2058,112 @@
           ]
         }
       ]
+    },
+    {
+      "name": "layout",
+      "comment": "The section rhythm and the spacing utilities, which had NO computed-style coverage until 2026-08-25 — the reason three separate drifts sat undetected in claude-design/layout.css. Foundation/Layout renders these as REAL shipped classes, not a replica: verified in a browser that #lyd-demo-css declares nothing on .layout__container, and that the utility padding rules it does declare target `> span` children only, so every value below is produced by src/scss/abstracts/. Selectors are positional because check-styles.mjs uses querySelector and all six bands share .layout__container.lyd-band. NOT covered, because the story renders them only inside <code> prose with no live markup: .block-margin__* / .element--margin__* (these DO ship from UIDS, and the --extra pair is the only utility family with a 768 step, so it is the most worth adding), .page__container--* modifiers and the content grids (both authored downstream in uids_base).",
+      "checks": [
+        {
+          "story": "foundation-layout--sections",
+          "selector": ".lyd-3col > div:nth-child(1) .layout__container:first-child",
+          "properties": [
+            "padding-top",
+            "padding-bottom"
+          ]
+        },
+        {
+          "story": "foundation-layout--sections",
+          "selector": ".lyd-3col > div:nth-child(1) .layout__container.bg--gold",
+          "properties": [
+            "padding-top",
+            "padding-bottom"
+          ]
+        },
+        {
+          "story": "foundation-layout--sections",
+          "selector": ".lyd-3col > div:nth-child(2) .layout__container:first-child",
+          "properties": [
+            "padding-top",
+            "padding-bottom"
+          ]
+        },
+        {
+          "story": "foundation-layout--sections",
+          "selector": ".lyd-3col > div:nth-child(2) .layout__container + .layout__container",
+          "properties": [
+            "padding-top",
+            "padding-bottom"
+          ]
+        },
+        {
+          "story": "foundation-layout--sections",
+          "selector": ".lyd-3col > div:nth-child(3) .layout__container.section-padding__top-restored",
+          "properties": [
+            "padding-top",
+            "padding-bottom"
+          ]
+        },
+        {
+          "story": "foundation-layout--utilities",
+          "selector": ".lyd-util.block-padding__all",
+          "properties": [
+            "padding-top",
+            "padding-right",
+            "padding-bottom",
+            "padding-left"
+          ]
+        },
+        {
+          "story": "foundation-layout--utilities",
+          "selector": ".lyd-util.block-padding__all--minimal",
+          "properties": [
+            "padding-top",
+            "padding-right",
+            "padding-bottom",
+            "padding-left"
+          ]
+        },
+        {
+          "story": "foundation-layout--utilities",
+          "selector": ".lyd-util.block-padding__all--extra",
+          "properties": [
+            "padding-top",
+            "padding-right",
+            "padding-bottom",
+            "padding-left"
+          ]
+        },
+        {
+          "story": "foundation-layout--utilities",
+          "selector": ".lyd-util.element--padding__all--sm",
+          "properties": [
+            "padding-top",
+            "padding-right",
+            "padding-bottom",
+            "padding-left"
+          ]
+        },
+        {
+          "story": "foundation-layout--utilities",
+          "selector": ".lyd-util.padding--block--sm",
+          "properties": [
+            "padding-top",
+            "padding-right",
+            "padding-bottom",
+            "padding-left"
+          ]
+        },
+        {
+          "story": "foundation-layout--utilities",
+          "selector": ".lyd-util.padding--block--md",
+          "properties": [
+            "padding-top",
+            "padding-right",
+            "padding-bottom",
+            "padding-left"
+          ]
+        }
+      ]
     }
   ]
 }
