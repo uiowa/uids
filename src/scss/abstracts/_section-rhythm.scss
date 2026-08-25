@@ -1,0 +1,141 @@
+@use 'utilities';
+@use 'variables';
+
+// Section rhythm — the vertical spacing between Layout Builder sections.
+//
+// PORTED FROM uids_base 2026-08-24, from
+// docroot/themes/custom/uids_base/scss/global.scss:153-257, so the rhythm is testable in
+// this repo instead of only inside Drupal. uids_base drops its copy in the follow-up PR;
+// until it does, both stylesheets define these classes, so the two must land in order.
+//
+// This partial is a PURE MOVE. Every value, selector and quirk matches what production
+// compiles today, including the ones that are bugs — the compiled bytes should be
+// identical, so if something breaks downstream it is the move, not a redesign.
+//
+// Three things that look wrong here and are deliberate:
+//
+//   * Padding comes from the GUTTER tokens, not from layout/section/padding/*.
+//     Production has always authored it this way; layout/section/padding/* is a parallel
+//     vocabulary that nothing reads (they stay DOC-ONLY in check-token-consumers).
+//     Repointing them is a real decision about provenance and is NOT bundled into a move.
+//
+//   * .section-padding__top-extra is a literal 6rem, not layout/section/padding/extra,
+//     for the same reason. Same value, different provenance.
+//
+//   * .section-padding__top-restored is a flat padding-top with NO media query, so below
+//     sm it does not restore the 1.25rem default — it overshoots it by 2.4x and leaves
+//     that section's two edges mismatched. As-shipped. contracts/layout.json knownIssues
+//     records it; src/foundation/layout draws it. Do not "fix" it here.
+//
+// The .region-pre-footer / .layout--title selectors are Drupal context that can never
+// match in this repo. They are ported anyway: they are load-bearing downstream and
+// uids_base is dropping the file that carries them.
+
+.layout__container {
+  margin-top: 0;
+  // Overridden by the adjacency rules below for 1+n containers.
+  padding-top: variables.$mobile-width-gutter;
+  padding-bottom: variables.$mobile-width-gutter;
+
+  @include utilities.breakpoint(sm) {
+    padding-top: variables.$desktop-width-gutter;
+    padding-bottom: variables.$desktop-width-gutter;
+  }
+
+  &:first-child {
+    padding-top: 0;
+
+    .region-pre-footer & {
+      padding-top: variables.$mobile-width-gutter;
+
+      @include utilities.breakpoint(sm) {
+        padding-top: variables.$desktop-width-gutter;
+      }
+    }
+  }
+
+  &.layout--title {
+    padding-bottom: 1.25rem;
+
+    &.layout--title--hidden {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  &.layout--title + &:not([class*="bg-"]) {
+    padding-top: 0;
+  }
+
+  // Adjacent sections with the SAME background treatment merge: the second drops its top
+  // padding so the pair reads as one band. This is the part authors most often get wrong —
+  // two default-padded sections give ONE section's worth of separation, never two, and the
+  // fix is section-padding__top-extra rather than a margin.
+  $backgrounds:
+    ':not([class*="bg-"])',
+    '.bg--gold',
+    '.bg--black',
+    '.bg--gray',
+    '.bg-pattern--brain',
+    '.bg-pattern--brain-reversed',
+    '.bg-pattern--brain-black';
+
+  @each $background in $backgrounds {
+    &#{$background} + &#{$background} {
+      padding-top: 0;
+
+      // Necessary to restore padding.
+      &.section-padding {
+        &__top-restored {
+          padding-top: variables.$desktop-width-gutter;
+        }
+
+        &__top-extra {
+          padding-top: 6rem;
+        }
+      }
+    }
+  }
+
+  // Add default padding if the page title is hidden.
+  &.layout--title--hidden + &:not([class*="bg-"]) {
+    padding-top: variables.$desktop-width-gutter;
+
+    &.section-padding {
+      &__removed-top {
+        padding-top: 0;
+      }
+    }
+  }
+
+  // Layout Builder section-padding modifiers.
+  &.section-padding {
+    &__removed-top {
+      padding-top: 0;
+
+      .region-pre-footer & {
+        padding-top: 0;
+      }
+    }
+
+    &__removed-bottom {
+      padding-bottom: 0;
+    }
+
+    &__top-restored {
+      padding-top: variables.$desktop-width-gutter;
+    }
+
+    &__top-extra {
+      padding-top: 6rem;
+
+      .region-pre-footer & {
+        padding-top: 6rem;
+      }
+    }
+
+    &__bottom-extra {
+      padding-bottom: 6rem;
+    }
+  }
+}

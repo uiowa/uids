@@ -100,13 +100,21 @@ function resolve(root) {
 }
 
 // ---------------------------------------------------------------------------
-// Demo-only CSS for the section rhythm.
+// Presentation-only CSS.
 //
-// UIDS does NOT ship .layout__container — the rhythm, the Layout Builder
-// modifiers and the adjacent-background merge all live in uids_base's
-// global.scss. Reproducing them here would be a lie about what this repo
-// contains, so every rule below is prefixed .lyd- and every one is labelled
-// on the page.
+// As of 2026-08-24 the section rhythm SHIPS FROM THIS REPO
+// (src/scss/abstracts/_section-rhythm.scss, ported from uids_base). So the
+// rhythm diagrams below are drawn by the REAL .layout__container rules, not by
+// a replica — the padding you measure on this page is the padding a Drupal
+// section gets. Nothing here re-implements the rhythm; the .lyd- rules only
+// make an otherwise invisible box visible.
+//
+// Keep it that way. The moment a rule below sets padding on .layout__container
+// this page goes back to testing itself instead of the design system.
+//
+// Note `.lyd-band` deliberately contains no "bg-" substring: the merge selector
+// keys on [class*="bg-"], so a presentation class that did would silently
+// change which diagram merges.
 //
 // It is INJECTED from mounted(), not written as a <style> in the template:
 // Vue's runtime template compiler silently drops <style> tags, so the markup
@@ -117,15 +125,6 @@ function resolve(root) {
 const DEMO_CSS = `
   .lyd-band { background:#F3F3F3; border:1px solid #E0E0E0; text-align:center; font-size:0.8rem; color:#444; }
   .lyd-band > span { display:block; background:#fff; border:1px dashed #CFCFCF; padding:0.5rem; }
-  .lyd-rhythm .lyd-band { padding-top:var(--uiowa-layout-section-padding-mobile); padding-bottom:var(--uiowa-layout-section-padding-mobile); }
-  @media (min-width:768px) {
-    .lyd-rhythm .lyd-band { padding-top:var(--uiowa-layout-section-padding-default); padding-bottom:var(--uiowa-layout-section-padding-default); }
-  }
-  .lyd-rhythm .lyd-band:first-child { padding-top:0; }
-  .lyd-merge .lyd-band + .lyd-band { padding-top:0; }
-  /* Same specificity as .lyd-merge, so source order decides — restore must come
-     after, exactly as the real modifier has to out-rank the merge downstream. */
-  .lyd-restored .lyd-band + .lyd-band { padding-top:var(--uiowa-layout-section-padding-default); }
   .lyd-util { background:#FFF8D6; border:1px solid #F0DFA0; }
   .lyd-util > span { display:block; background:#fff; border:1px dashed #CFCFCF; padding:0.4rem; font-size:0.75rem; }
   .lyd-3col { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
@@ -142,8 +141,12 @@ function injectDemoCss(doc) {
   el.textContent = DEMO_CSS;
 }
 
-function band(label) {
-  return `<div class="lyd-band"><span>${label}</span></div>`;
+// Real shipped markup. .layout__container carries the rhythm; .lyd-band only draws the
+// box. `extra` takes real classes — a background treatment (bg--gold) or a Layout Builder
+// modifier (section-padding__top-restored) — because the merge selector keys on the
+// background treatment, so two sections merge only when their treatments match.
+function band(label, extra) {
+  return `<div class="layout__container lyd-band${extra ? ` ${extra}` : ''}"><span>${label}</span></div>`;
 }
 
 // ---------------------------------------------------------------------------
@@ -203,23 +206,23 @@ const containers = section(
 
 const rhythm = section(
   'Section rhythm',
-  'uids_base',
-  'Sections carry the page\'s vertical rhythm. The rhythm steps at <strong>sm (768px), not md</strong> — a common mistake, since almost everything else about layout steps at md. The first section drops its top padding. <em>The diagrams below are demo CSS scoped to this story; UIDS ships none of it.</em>',
+  'UIDS',
+  'Sections carry the page\'s vertical rhythm. The rhythm steps at <strong>sm (768px), not md</strong> — a common mistake, since almost everything else about layout steps at md. The first section drops its top padding. <em>The diagrams below are drawn by the real shipped <code>.layout__container</code> rules, ported from uids_base on 2026-08-24, so what you measure here is what a Drupal section gets.</em>',
   `<div class="lyd-3col">
      <div>
-       <strong style="font-size:0.85rem;">Default</strong>
-       <p style="${styles.note}">Each band pads top and bottom. The first drops its top edge.</p>
-       <div class="lyd-rhythm" style="${styles.demo}">${band('Section A')}${band('Section B')}</div>
+       <strong style="font-size:0.85rem;">Different backgrounds &rarr; no merge</strong>
+       <p style="${styles.note}">Each section pads top and bottom. The first drops its top edge because it is <code>:first-child</code>. These two do not merge because their background treatments differ.</p>
+       <div style="${styles.demo}">${band('Section A')}${band('Section B', 'bg--gold')}</div>
      </div>
      <div>
-       <strong style="font-size:0.85rem;">Adjacent, same background &rarr; merged</strong>
-       <p style="${styles.note}">The second section's top padding goes to 0, so the two read as one band.</p>
-       <div class="lyd-rhythm lyd-merge" style="${styles.demo}">${band('Section A')}${band('Section B')}</div>
+       <strong style="font-size:0.85rem;">Same background &rarr; merged</strong>
+       <p style="${styles.note}">The second section's top padding goes to 0, so the two read as one band. <strong>The merge is keyed on the background treatment</strong>, not on adjacency alone — that is the rule people miss.</p>
+       <div style="${styles.demo}">${band('Section A')}${band('Section B')}</div>
      </div>
      <div>
        <strong style="font-size:0.85rem;">Restored</strong>
        <p style="${styles.note}">The same merged pair, with <code>section-padding__top-restored</code> on the second section putting its top edge back. <strong>Narrow this viewport below 768px:</strong> the other two diagrams drop to 1.25rem and this one stays at 3rem, because the class carries no media query. As shipped &mdash; see the note below.</p>
-       <div class="lyd-rhythm lyd-merge lyd-restored" style="${styles.demo}">${band('Section A')}${band('Section B')}</div>
+       <div style="${styles.demo}">${band('Section A')}${band('Section B', 'section-padding__top-restored')}</div>
      </div>
    </div>
    <div style="${styles.warn}"><strong>The merge is the part people get wrong.</strong> Two adjacent
@@ -255,7 +258,7 @@ function utilDemo(cls, label) {
 const utilities = section(
   'Block, element and logical padding utilities',
   'UIDS',
-  'Local spacing overrides from <code>abstracts/_utility-classes.scss</code>. These are the only part of the layout system whose CSS ships from this repo, and the boxes below are drawn by the real classes, not by demo CSS. The <code>.block-*</code> and <code>.element--*</code> namespaces are declared as one selector list — they are exactly equivalent and neither is preferred.',
+  'Local spacing overrides from <code>abstracts/_utility-classes.scss</code>. These ship from this repo, as the section rhythm now does, and the boxes below are drawn by the real classes, not by demo CSS. The <code>.block-*</code> and <code>.element--*</code> namespaces are declared as one selector list — they are exactly equivalent and neither is preferred.',
   `<div class="lyd-3col">
      <div>${utilDemo('block-padding__all', '.block-padding__all')}</div>
      <div>${utilDemo('block-padding__all--minimal', '.block-padding__all--minimal')}</div>
@@ -307,10 +310,12 @@ const intro = `
   <p style="${styles.intro}">
     The spacing scale, the semantic layout tokens, and the classes that consume them.
     <strong>Read the ownership tag on each section.</strong> UIDS owns the vocabulary for the whole
-    system, but ships CSS for only part of it — containers, section rhythm and the Layout Builder
-    modifiers are authored in SiteNow's <code>uids_base</code> theme, and are documented here
-    because the tokens they use are defined here. The full public shape lives in
-    <code>contracts/layout.json</code>.
+    system, but ships CSS for only part of it. The spacing utilities have always shipped from here;
+    the <em>section rhythm</em> joined them on 2026-08-24, ported from <code>uids_base</code> so it
+    is testable in this repo rather than only inside Drupal. Containers, the column-spacing and
+    section-order modifiers, and the per-layout column ratios are still authored in SiteNow's
+    <code>uids_base</code> theme, and are documented here because the tokens they use are defined
+    here. The full public shape lives in <code>contracts/layout.json</code>.
   </p>`;
 
 const hooks = {
