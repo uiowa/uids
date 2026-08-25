@@ -42,6 +42,25 @@
            showParentTitle/parentTitle, showSecondRow/secondRowTitle. -->
       <dc-import name="Brand Bar" siteName="Site Name" hint-size="100%,80px"></dc-import>
 
+      <!-- Required primary navigation. contracts/rules.json top-nav-on-every-page: every
+           page gets the Brand Bar as its header PLUS a horizontal Menu across the top,
+           with a vertical Menu reserved for sidebar or section nav.
+           ADDED 2026-08-25. The rule was minted in 292d02e632; this scaffold had not
+           changed since f77d7d2f43 and so predated it, which meant the canonical page
+           structure contradicted the rule it is supposed to illustrate. That is not
+           hypothetical: a landing page built from this file shipped with no top nav at
+           all and no checker or report caught it, because the page satisfied every
+           component it was asked for.
+           NO outer <nav> wrapper on purpose — Menu renders its own
+           <nav aria-label="{{ label }}"> (Menu.dc.html:220, the Menu.vue:49 top=true
+           branch), so wrapping it nests a second navigation landmark. Pass `label`.
+           Two limits the rule names, both as-shipped: the horizontal variant is
+           CONTAINER-gated at 768px, so a narrower container renders it stacked and says
+           nothing, and there are NO dropdowns. -->
+      <div class="page__container">
+        <dc-import name="Menu" variant="horizontal" label="Primary navigation" item_1="About" item_2="Academics" child_1="Undergraduate" child_2="Graduate" child_3="Research" item_3="Admissions" item_4="News &amp; Events" active_item="top_1" hint-size="100%,60px"></dc-import>
+      </div>
+
       <!-- Standard container: caps at 1310px and centers from 1350px up. -->
       <section class="layout__container" data-screen-label="Intro">
         <div class="page__container">
