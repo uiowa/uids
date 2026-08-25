@@ -289,6 +289,11 @@
       "date": "2026-08-24",
       "summary": "Recorded that .element--padding__all--sm is intended to supersede .padding--block--sm, and that the two are NOT interchangeable.",
       "reasoning": "The design system owner's intent, 2026-08-24. The trap is that the replacement reads like a rename and is not one: .element--padding__all--sm sets `padding` on all four sides at 1.25rem, while .padding--block--sm sets `padding-block` only, at 0.5rem. Swapping one for the other adds inline padding that was never there and multiplies the block padding by 2.5. Both still ship and live sites depend on the legacy one, so neither is removed here — tokenize as-shipped."
+    },
+    {
+      "date": "2026-08-25",
+      "summary": "Re-emitted the two section-padding top restores inside each adjacent-merge pair in claude-design/layout.css, so the modifiers work on the second of two same-background sections in that view as they do in production.",
+      "reasoning": "The design system owner's ruling, 2026-08-25, closing the question changes[0] left open when the rhythm was ported. claude-design has no compiler and does not import dist/uids.css, so it had drifted silently: the restores were declared flat at (0,2,0) and the adjacent-merge selectors are (0,4,0), which is not a tie, so source order never saved them. Measured 0px where production gives 48px and 96px. The shipped SCSS emits eight rules per modifier — seven nested inside the @each loop at src/scss/abstracts/_section-rhythm.scss:83-98, plus one flat — and this view now does the same for all seven treatments. Deliberately NOT a repoint: the nested rules read layout/section/padding/{default,extra} like the flat rules they back, so this view stays the sole reader of those three tokens and they stay DOC-ONLY in check-token-consumers. Repointing them to the gutter tokens is still the separate decision changes[0] describes. The knownIssues[8] overshoot is preserved, not fixed: the nested restores carry no media query either, so the restored edge measures 48px below sm as well as above it."
     }
   ],
   "breakpoints": {

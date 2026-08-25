@@ -1,8 +1,11 @@
 /* UIDS layout & spacing — generated view of contracts/layout.json + tokens/semantic/layout.json.
-   Scoped subset for Claude Design previews: containers, section rhythm, content grids.
-   Class names match production (uids_base Layout Builder); all values flow from tokens.css.
+   Scoped subset for Claude Design previews: containers, section rhythm, spacing
+   utilities, content grids. Class names match production; all values flow from
+   tokens.css. The containers and grids are uids_base Layout Builder treatments, while
+   the section rhythm and the spacing utilities ship from UIDS itself.
    NOT shipped here (see the contract): section layout ratios (layout--twocol etc.),
-   sidebar layout, block/element margin-padding utilities. Load AFTER tokens.css.
+   sidebar layout, the column-spacing__* and section-order__* modifiers.
+   Load AFTER tokens.css.
    The bg--* background treatments live in backgrounds.css (contracts/background.json);
    this file keeps only the adjacent-section MERGE geometry that keys off those classes. */
 
@@ -85,24 +88,179 @@
 /* Background bands: see backgrounds.css — the full bg--{color}[--pattern--{type}]
    grammar with the channeled fills and on-light/on-dark cascade lives there.
 
-   Adjacent same-background merge. EXACT class matches, mirroring the production
-   front-end (uids_base global.scss): combined pattern classes like
-   bg--gold--pattern--particle do NOT merge, and bg--white is not in the list —
-   as shipped (see contracts/background.json knownIssues). */
+   Adjacent same-background merge. EXACT class matches, mirroring the $backgrounds list
+   in src/scss/abstracts/_section-rhythm.scss:74-81 — which is where the shipped list
+   now lives, since UIDS took the rhythm over from uids_base global.scss on 2026-08-24.
+
+   ALL SEVEN entries are here. CORRECTED 2026-08-25: this list carried only four, and
+   the three legacy brain names (bg-pattern--brain, --brain-reversed, --brain-black)
+   were missing. That was an omission rather than a decision — the exclusions below are
+   the deliberate ones, and the brain names were never among them, while
+   contracts/background.json confirms production carries all three. The effect of the
+   omission was silent and one-directional: two adjacent brain-pattern sections
+   previewed with a double gap this view had no way to report.
+
+   Still deliberately EXCLUDED, as shipped (see contracts/background.json knownIssues):
+   combined pattern classes like bg--gold--pattern--particle do NOT merge, and bg--white
+   is not in the list at all. */
 .layout__container:not([class*="bg-"]) + .layout__container:not([class*="bg-"]),
 .layout__container.bg--gold + .layout__container.bg--gold,
 .layout__container.bg--black + .layout__container.bg--black,
-.layout__container.bg--gray + .layout__container.bg--gray {
+.layout__container.bg--gray + .layout__container.bg--gray,
+.layout__container.bg-pattern--brain + .layout__container.bg-pattern--brain,
+.layout__container.bg-pattern--brain-reversed + .layout__container.bg-pattern--brain-reversed,
+.layout__container.bg-pattern--brain-black + .layout__container.bg-pattern--brain-black {
   padding-top: 0;
 }
 
-/* Layout Builder spacing modifiers (after the merge rule so they win on ties) */
+/* The two top restores, re-emitted INSIDE each merge pair so they can outrank it.
+   Source order cannot do this job: a merge selector is (0,4,0) and a flat modifier is
+   (0,2,0), so it is not a tie — without these seven pairs, section-padding__top-restored
+   and __top-extra computed 0px on the SECOND of two same-background sections. These
+   nested selectors are (0,5,0). Production emits exactly the same eight rules per
+   modifier — seven nested, one flat — from the @each loop in
+   src/scss/abstracts/_section-rhythm.scss:83-98. Restored-before-extra order is
+   production's, so a section carrying both still resolves to extra.
+   FIXED 2026-08-25; measured 48px / 96px at 503px and 1100px. */
+.layout__container:not([class*="bg-"]) + .layout__container:not([class*="bg-"]).section-padding__top-restored,
+.layout__container.bg--gold + .layout__container.bg--gold.section-padding__top-restored,
+.layout__container.bg--black + .layout__container.bg--black.section-padding__top-restored,
+.layout__container.bg--gray + .layout__container.bg--gray.section-padding__top-restored,
+.layout__container.bg-pattern--brain + .layout__container.bg-pattern--brain.section-padding__top-restored,
+.layout__container.bg-pattern--brain-reversed + .layout__container.bg-pattern--brain-reversed.section-padding__top-restored,
+.layout__container.bg-pattern--brain-black + .layout__container.bg-pattern--brain-black.section-padding__top-restored {
+  padding-top: var(--uiowa-layout-section-padding-default);
+}
+
+.layout__container:not([class*="bg-"]) + .layout__container:not([class*="bg-"]).section-padding__top-extra,
+.layout__container.bg--gold + .layout__container.bg--gold.section-padding__top-extra,
+.layout__container.bg--black + .layout__container.bg--black.section-padding__top-extra,
+.layout__container.bg--gray + .layout__container.bg--gray.section-padding__top-extra,
+.layout__container.bg-pattern--brain + .layout__container.bg-pattern--brain.section-padding__top-extra,
+.layout__container.bg-pattern--brain-reversed + .layout__container.bg-pattern--brain-reversed.section-padding__top-extra,
+.layout__container.bg-pattern--brain-black + .layout__container.bg-pattern--brain-black.section-padding__top-extra {
+  padding-top: var(--uiowa-layout-section-padding-extra);
+}
+
+/* Layout Builder spacing modifiers. These carry the un-merged case; the second of a
+   merged pair is handled by the higher-specificity rules above. Only the two TOP
+   restores needed that treatment — the merge rule never touches padding-bottom, and
+   __removed-top wants the 0 the merge already gives. */
 .layout__container.section-padding__removed-top { padding-top: 0; }
 .layout__container.section-padding__removed-bottom { padding-bottom: 0; }
 .layout__container.section-padding__top-extra { padding-top: var(--uiowa-layout-section-padding-extra); }
 .layout__container.section-padding__bottom-extra { padding-bottom: var(--uiowa-layout-section-padding-extra); }
 .layout__container.section-padding__top-restored { padding-top: var(--uiowa-layout-section-padding-default); }
 /* Note: top-restored restores the TOP edge only — there is no bottom-restore class (production parity) */
+
+/* ---------- Block / element spacing utilities ----------
+   ADDED 2026-08-25. Ported from src/scss/abstracts/_utility-classes.scss:34-145, which
+   uids-core.scss:7 @forwards, so production carries all three families globally. Unlike
+   most of contracts/layout.json these classes ship FROM UIDS, not from uids_base.
+   Contract: contracts/layout.json options blockPadding / blockMargin / logicalPadding.
+
+   They were absent from this view ENTIRELY — not one of these class names appeared in
+   claude-design/ before today. That is the worst shape a gap in this view can take:
+   readme.md is injected into every consuming session, so an agent could reach for
+   .block-padding__all in a .dc.html, get no padding at all, and have no error to read.
+   This view has no compiler and does not import dist/uids.css, so nothing else was
+   going to catch it.
+
+   PLACEMENT IS LOAD-BEARING, and is production's. Verified by probing dist/uids.css:
+   the utilities land between section-rhythm and layout/grid, so they sit here rather
+   than at the end of the file. .block-margin__top and .list-container__inner > * + *
+   are BOTH (0,1,0), so which one wins on a grid child is decided by source order alone
+   — with the grid rules later, a grid child keeps the grid's own rhythm.
+
+   Values are the gutter tokens and primitives the SCSS actually reads. No semantic
+   layout token appears here because minting them was DECLINED 2026-08-24
+   (contracts/layout.json changes[2]).
+
+   Two suffix quirks are preserved deliberately, NOT normalised — both are recorded in
+   contracts/layout.json knownIssues[4] and [5], and changes[4] declined renaming them:
+     * --sm means two different things, 2.5x apart. .element--padding__all--sm is
+       1.25rem on all four sides; .padding--block--sm is 0.5rem on the block axis.
+       Their source order is production's (padding__all--sm first), so an element
+       carrying both resolves to 1.25rem inline / 0.5rem block — same-longhand
+       collisions between a physical shorthand and a logical property are decided by
+       declaration order, and the logical one is later.
+     * There is deliberately NO .padding--inline--sm. The logical family is otherwise
+       symmetric (block, inline-start and inline-end each have --sm and --md); only the
+       --md shorthand ships for the inline pair.
+
+   The .block-padding and .element--padding namespaces are ONE selector list in the
+   source and are exactly equivalent — neither is preferred. Same for the margin pair. */
+
+.block-padding__top,
+.element--padding__top { padding-top: var(--uiowa-layout-gutter-width-desktop); }
+.block-padding__top--minimal,
+.element--padding__top--minimal { padding-top: var(--uiowa-space-200); }
+.block-padding__right,
+.element--padding__right { padding-right: var(--uiowa-layout-gutter-width-desktop); }
+.block-padding__right--minimal,
+.element--padding__right--minimal { padding-right: var(--uiowa-space-200); }
+.block-padding__bottom,
+.element--padding__bottom { padding-bottom: var(--uiowa-layout-gutter-width-desktop); }
+.block-padding__bottom--minimal,
+.element--padding__bottom--minimal { padding-bottom: var(--uiowa-space-200); }
+.block-padding__left,
+.element--padding__left { padding-left: var(--uiowa-layout-gutter-width-desktop); }
+.block-padding__left--minimal,
+.element--padding__left--minimal { padding-left: var(--uiowa-space-200); }
+.block-padding__all,
+.element--padding__all { padding: var(--uiowa-layout-gutter-width-desktop); }
+.block-padding__all--extra,
+.element--padding__all--extra { padding: var(--uiowa-space-600); }
+.block-padding__all--minimal,
+.element--padding__all--minimal { padding: var(--uiowa-space-200); }
+
+/* The one member of the __all family with no .block-padding twin, and the only one that
+   is not 3rem. Production writes var(--space-sm-width-gutter); that legacy core alias
+   lives at uids-core.scss:38 and is not shipped in this view, so it is resolved one hop
+   to its target — computed-identical. Same treatment Callout.dc.html gives it. */
+.element--padding__all--sm { padding: var(--uiowa-space-125); }
+
+/* Logical-property padding. A separate, much smaller scale from the block utilities
+   above: --sm is 0.5rem, --md is 1rem. See the --sm collision note in the header. */
+.padding--block--sm { padding-block: var(--uiowa-space-50); }
+.padding--block--md { padding-block: var(--uiowa-space-100); }
+.padding--inline-start--sm { padding-inline-start: var(--uiowa-space-50); }
+.padding--inline-start--md { padding-inline-start: var(--uiowa-space-100); }
+.padding--inline-end--sm { padding-inline-end: var(--uiowa-space-50); }
+.padding--inline-end--md { padding-inline-end: var(--uiowa-space-100); }
+.padding--inline--md { padding-inline: var(--uiowa-space-100); }
+
+/* Block / element margin. In stacked Layout Builder regions these are OVERRIDES on the
+   1.6rem default sibling rhythm (a uids_base region behavior), not additions to it.
+   __left and __right apply ONLY from sm — they have no mobile value at all, where
+   __top and __bottom apply at every width (contracts/layout.json knownIssues[6]).
+   The --extra pair holds the compact value below sm and steps up from sm, so the base
+   declaration and its media query must stay in this order. */
+.block-margin__top,
+.element--margin__top { margin-top: var(--uiowa-layout-block-stack-compact); }
+.block-margin__top--extra,
+.element--margin__top--extra { margin-top: var(--uiowa-layout-block-stack-compact); }
+
+@media (min-width: 768px) {
+  .block-margin__top--extra,
+  .element--margin__top--extra { margin-top: var(--uiowa-layout-block-stack-extra); }
+
+  .block-margin__right,
+  .element--margin__right { margin-right: var(--uiowa-layout-block-stack-compact); }
+}
+
+.block-margin__bottom,
+.element--margin__bottom { margin-bottom: var(--uiowa-layout-block-stack-compact); }
+.block-margin__bottom--extra,
+.element--margin__bottom--extra { margin-bottom: var(--uiowa-layout-block-stack-compact); }
+
+@media (min-width: 768px) {
+  .block-margin__bottom--extra,
+  .element--margin__bottom--extra { margin-bottom: var(--uiowa-layout-block-stack-extra); }
+
+  .block-margin__left,
+  .element--margin__left { margin-left: var(--uiowa-layout-block-stack-compact); }
+}
 
 /* ---------- Content grids ----------
    Modular grids for repeated content (cards, lists, feeds).
