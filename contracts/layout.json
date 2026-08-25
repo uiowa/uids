@@ -122,6 +122,13 @@
       "code": { "class": "column-spacing__removed" }
     },
     {
+      "name": "columnSpacingIncreased",
+      "type": "boolean",
+      "default": false,
+      "description": "Layout Builder: Increase default column spacing — region gaps step to 7.8125rem / 125px (space/781). Accepted 2026-08-24; like every other column-spacing / section-padding option the class ships from uids_base, and it is not yet authored there. See changes[].",
+      "code": { "class": "column-spacing__increased" }
+    },
+    {
       "name": "sectionOrderReversed",
       "type": "boolean",
       "default": false,
@@ -229,7 +236,8 @@
     "space/125",
     "space/200",
     "space/300",
-    "space/600"
+    "space/600",
+    "space/781"
   ],
   "geometryNotTokenized": {
     "sidebar-ratio": "24.25% sidebar / 72.75% content, separated by 3% right margin on the sidebar (md+); content 100% when sidebar hidden",
@@ -252,6 +260,16 @@
     "Breakpoint reference. Below sm (768): sections pad 1.25rem, full-width containers keep a 1.25rem outer margin, multi-region layouts stack with 2rem between regions, content grids gap 2rem. From sm: section padding becomes 3rem and the block-margin --extra step goes 1.05rem -> 2rem. From md (980): column ratios engage, full-width containers take 3rem outer margins, desktop grid gaps are 3rem, and the mobile stacked-region spacing is dropped. From page-container (1350): standard containers centre at 81.875em, wide expands to 100em with 1.875rem side padding, and grid--twocol--25-75 steps its gap 1.5rem -> 3rem"
   ],
   "changes": [
+    {
+      "date": "2026-08-24",
+      "summary": "Accepted the Layout Builder option 'Increase default column spacing' (column-spacing__increased, 7.8125rem / 125px) and minted space/781 for it.",
+      "reasoning": "The option had sat marked PROPOSED at 567:78 in the layout exploration doc with nothing behind it — no primitive, no class, no contract entry — which is exactly the ambiguous state that makes a later reader unable to tell a deliberate omission from an oversight. The design system owner ruled it accepted on 2026-08-24, so it is recorded as public shape here first, contract-first, ahead of the CSS. Two consequences worth stating plainly. First, space/781 breaks nothing but does bend the scale's naming rule: 7.8125rem is 781.25, and the step name rounds to 781 the same way space/32, space/62 and space/187 round from 32.5, 62.5 and 187.5 — the name is a label, the value is authoritative. Second, this is the ownership split doing its job in the awkward direction: UIDS owns the vocabulary and the token, uids_base ships the class, and the class does not exist downstream yet. Until it lands in /Users/bspeare/acquia/uiowa, check-token-consumers will report --uiowa-space-781 as ORPHAN. That warning is deliberately NOT silenced via tokens/orphans-allowed.json, because it is a true statement and a live to-do rather than a downstream contract already honoured."
+    },
+    {
+      "date": "2026-08-24",
+      "summary": "Declined to mint the six proposed semantic layout tokens (layout/block/padding/{default,minimal,extra,sm}, layout/logical/padding/{sm,md}).",
+      "reasoning": "The design system owner's ruling, 2026-08-24. The utilities were already bound directly to the primitives (space/200, /300, /600, /125, /50, /100) and every checker is green, so the semantic tier would buy naming and cost six more custom properties on a token surface already carrying 39 orphan and doc-only warnings, plus six more Figma variables that each need codeSyntax.WEB set to stay visible to check-figma. Recorded so a later reader does not re-propose it as an obvious gap: the indirection was considered and judged not to earn its keep."
+    },
     {
       "date": "2026-08-24",
       "summary": "The block/element padding and margin utilities, and the logical-padding utilities, were admitted to this contract as the blockPadding / blockMargin / logicalPadding options.",
