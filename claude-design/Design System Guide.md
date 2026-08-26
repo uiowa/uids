@@ -273,7 +273,23 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    container is a reading measure; a grid is a layout, and squeezing one into the other costs
    you a quarter of every column. See cta-is-always-narrow for the one component that is narrow
    by rule rather than by judgement.
-21. **stats-come-in-threes** (agent) — Stats come in THREES, in a grid. A Stat is a
+21. **centred-heading-goes-narrow** (agent) — A centred heading and its deck go in their OWN
+   narrow container, separate from the content they introduce. Centring only reads as centring
+   when the line is short enough for the eye to take the whole measure at once; at the standard
+   container the line simply runs the full page and the emphasis is lost. Measured at 1440px on
+   a real intro line: 92 characters on ONE 1285px line in the standard container, against 46
+   characters over two lines at 1020px narrow — a comfortable measure is roughly 45-75, so the
+   standard container is about double it. The composition is TWO containers inside ONE section:
+   <div class="page__container page__container--narrow"> holding the Headline
+   (alignment="center") and its intro paragraph, then a second <div class="page__container">
+   holding the grid or cards below. The heading block and the content it introduces
+   deliberately do not share a container — that is what lets each take the width it needs, and
+   it is the one place container-width-by-content's two halves both apply inside a single
+   section. This does not change when to centre in the first place: that is
+   heading-alignment-follows-content, and a card grid or a stat row is exactly the case it says
+   to centre over. A LEFT-aligned heading needs none of this — it starts at the same gutter as
+   the content under it, so it shares the content's container.
+22. **stats-come-in-threes** (agent) — Stats come in THREES, in a grid. A Stat is a
    comparison object — the number only means something next to other numbers — so put three
    across in a list-container--grid grid--threecol--33-34-33, in a STANDARD page__container
    (see container-width-by-content), and give each one a stat_title, a stat_summary and enough
@@ -282,7 +298,7 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    against. Two is acceptable when there are genuinely only two figures; one is not. If you
    have only one number worth showing, it belongs in body copy or in a Callout, not in a Stat
    band of its own.
-22. **alternate-section-backgrounds** (agent) — Alternate section backgrounds down the page.
+23. **alternate-section-backgrounds** (agent) — Alternate section backgrounds down the page.
    A run of four or five default (white) sections reads as one undifferentiated column no
    matter how well each section is composed, because the ONLY thing separating them is 3rem of
    padding — and per section-rhythm, adjacent sections sharing a background merge, so two white
@@ -293,7 +309,7 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    what makes each one read as a band. The rhythm to aim for is a coloured section every second
    or third section, usually landing on the ones that carry a different KIND of content: a stat
    row, a highlight, a CTA.
-23. **cta-is-always-narrow** (agent) — A CTA's text must never run the full page width. This
+24. **cta-is-always-narrow** (agent) — A CTA's text must never run the full page width. This
    is a NEW CONSTRAINT, not a bug fix, and the distinction matters: max-width does not appear
    anywhere in src/scss/components/cta.scss (zero occurrences, verified 2026-08-24), so nothing
    in code enforces it and a CTA dropped into a full-width container will happily span it.
@@ -301,7 +317,7 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    change: put the band on the section (section.layout__container.bg--gold), cap the measure
    with div.page__container--narrow inside it, and give the CTA background="" so it does not
    paint a second band inside the first.
-24. **callout-is-a-float** (agent) — A Callout is a FLOATED inline element, not a section
+25. **callout-is-a-float** (agent) — A Callout is a FLOATED inline element, not a section
    band. contracts/callout.json's inline_alignment option defaults to "left", which emits
    .inline--align-left { float: left; clear: left } (src/scss/components/_inline.scss:117) —
    as-shipped, not a bug. Used as a full-width band it escapes its section, and the damage
@@ -312,7 +328,7 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    heading bug rather than a Callout one, which is why it took a measurement to find. To band a
    section, put a background class on the section wrapper (see backgrounds-by-class). Use a
    Callout for what it is: a short aside floated beside prose.
-25. **pre-title-is-not-a-category** (agent) — A Card's pre_title is a CONTEXTUAL LABEL —
+26. **pre-title-is-not-a-category** (agent) — A Card's pre_title is a CONTEXTUAL LABEL —
    "Pinned", "Featured", "Applications close Friday" — not a taxonomy term. Do not tag every
    item in a listing with its section ("Research", "Students", "Faculty"): the pre-title
    renders deliberately quiet, at card/pre-title/font-size 0.75rem with card/pre-title/opacity
@@ -320,7 +336,7 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    taxonomy the component does not provide. Reference:
    https://sandbox.prod.drupal.uiowa.edu/news. The icon slot beside it follows the same logic —
    an icon marks an exception, not a type, so do not give every card one.
-26. **heading-alignment-follows-content** (agent) — A heading takes the alignment of the
+27. **heading-alignment-follows-content** (agent) — A heading takes the alignment of the
    content it introduces; alignment follows the layout rather than being a separate styling
    choice. Centred content gets a centred heading — a centred CTA, a centred stat row, a single
    pull-quote — and a card grid or row of parallel tiles reads better with one, because the

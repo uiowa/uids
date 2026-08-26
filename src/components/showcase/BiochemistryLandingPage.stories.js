@@ -342,15 +342,25 @@ const Template = {
         </div>
 
         <section class="layout__container">
+          <!-- TWO containers in one section, per centred-heading-goes-narrow. The centred
+               heading and its deck take the NARROW container; the grid keeps the standard
+               one. Measured at 1440px: this deck runs 92 characters on a single 1285px line
+               at standard width, against 46 characters over two lines at 1020px narrow.
+               Centring only reads as centring when the line is short enough to take in at
+               once. DIVERGENCES 16. -->
+          <div class="page__container page__container--narrow">
+            <div class="column-container">
+              <uids-headline level="h2" text_style="serif" alignment="center">
+                Why Study Biochemistry at Iowa
+              </uids-headline>
+              <p class="element--light-intro" style="text-align:center">
+                A degree built around early research, real flexibility, and a clear path to
+                what comes next.
+              </p>
+            </div>
+          </div>
           <div class="page__container">
             <div class="column-container">
-            <uids-headline level="h2" text_style="serif" alignment="center">
-              Why Study Biochemistry at Iowa
-            </uids-headline>
-            <p class="element--light-intro" style="text-align:center">
-              A degree built around early research, real flexibility, and a clear path to
-              what comes next.
-            </p>
             <!-- Grid + GridItem, not the readme's hand-written .list-container__inner. The
                  difference is the .grid__column each GridItem emits, and it is load-bearing:
                  see DIVERGENCES 5. -->
@@ -388,15 +398,20 @@ const Template = {
         </section>
 
         <section class="layout__container">
+          <!-- Same split as above — centred-heading-goes-narrow. -->
+          <div class="page__container page__container--narrow">
+            <div class="column-container">
+              <uids-headline level="h2" text_style="serif" alignment="center">
+                Explore Our Research Areas
+              </uids-headline>
+              <p class="element--light-intro" style="text-align:center">
+                Faculty labs across the department span eight major research areas — here are
+                three.
+              </p>
+            </div>
+          </div>
           <div class="page__container">
             <div class="column-container">
-            <uids-headline level="h2" text_style="serif" alignment="center">
-              Explore Our Research Areas
-            </uids-headline>
-            <p class="element--light-intro" style="text-align:center">
-              Faculty labs across the department span eight major research areas — here are
-              three.
-            </p>
             <uids-grid type="threecol--33-34-33" class="dc-parity__grid">
               <uids-grid-item v-for="card in researchCards" :key="card.title">
                 <uids-card
@@ -639,6 +654,14 @@ export const Default = {
 //    which is fair evidence a flex parent was the original intent.
 //    Not landed: this is a shipped-behaviour change in uids_base's territory and needs the
 //    design system owner's ruling.
+//
+// 16. Centred headings sit in their own narrow container. The generated page put the
+//    centred heading, its centred deck and the grid in one standard container, so the deck
+//    ran 92 characters on a single 1285px line at 1440px — centring you cannot see, because
+//    the eye never takes the measure in at once. Split into two containers inside the one
+//    section (narrow for the heading block, standard for the grid) the same deck sets 46
+//    characters over two lines at 1020px, which is inside the comfortable 45-75 band.
+//    contracts/rules.json centred-heading-goes-narrow.
 //
 // 11. CTA details is unwrapped in UIDS. Cta.vue:110 renders the `details` prop as a bare
 //    text node inside .cta__content, so it inherits 16px / line-height 1.15. CTA.dc.html

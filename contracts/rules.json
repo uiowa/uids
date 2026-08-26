@@ -167,6 +167,14 @@
       "rule": "Pick the section container from what is INSIDE it, not by habit. page__container--narrow caps the measure at 1020px from 980px up, and it is for a SINGLE thing that reads better when it is not spanning the page: a block of body copy, a CTA, a Blockquote, an Accordion, a Tabs set, or one component that simply looks better narrow. Anything with COLUMNS takes the standard page__container — a content grid of cards, a row of Stats, any grid--* ratio. Measured at 1440px, a three-across grid gives 405px columns in the standard container and 308px in the narrow one, and at 308px a card's title starts wrapping to three lines while its button drops onto its own row. The narrow container is a reading measure; a grid is a layout, and squeezing one into the other costs you a quarter of every column. See cta-is-always-narrow for the one component that is narrow by rule rather than by judgement."
     },
     {
+      "id": "centred-heading-goes-narrow",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "A centred heading and its deck go in their OWN narrow container, separate from the content they introduce. Centring only reads as centring when the line is short enough for the eye to take the whole measure at once; at the standard container the line simply runs the full page and the emphasis is lost. Measured at 1440px on a real intro line: 92 characters on ONE 1285px line in the standard container, against 46 characters over two lines at 1020px narrow — a comfortable measure is roughly 45-75, so the standard container is about double it. The composition is TWO containers inside ONE section: <div class=\"page__container page__container--narrow\"> holding the Headline (alignment=\"center\") and its intro paragraph, then a second <div class=\"page__container\"> holding the grid or cards below. The heading block and the content it introduces deliberately do not share a container — that is what lets each take the width it needs, and it is the one place container-width-by-content's two halves both apply inside a single section. This does not change when to centre in the first place: that is heading-alignment-follows-content, and a card grid or a stat row is exactly the case it says to centre over. A LEFT-aligned heading needs none of this — it starts at the same gutter as the content under it, so it shares the content's container."
+    },
+    {
       "id": "stats-come-in-threes",
       "enforcement": "agent",
       "publishTo": [
