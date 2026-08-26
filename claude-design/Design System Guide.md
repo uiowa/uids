@@ -514,11 +514,13 @@ wrapping cleanly across lines.
 `alignment` is `default` or `center`, and `default` INHERITS — it emits no class, so the
 heading takes whatever alignment its container gives it. Reach for `center` only when the
 content the heading introduces is itself centered (see `heading-alignment-follows-content`
-in Rules). Set it on the Headline rather than centering the wrapper: with `underline` on,
-the gold bar is a `display: block` pseudo-element with zero side margins, so a wrapper's
-`text-align` centers the text and leaves the bar hard left under the first word. There is
-deliberately no left or right value — a heading in a left-aligned container is already
-left-aligned, and if you need to fight the container, the container is wrong.
+in Rules), and when you do, put the heading and its deck in their own narrow container —
+`centred-heading-goes-narrow`. Set it on the Headline rather than centering the wrapper:
+with `underline` on, the gold bar is a `display: block` pseudo-element with zero side
+margins, so a wrapper's `text-align` centers the text and leaves the bar hard left under
+the first word. There is deliberately no left or right value — a heading in a left-aligned
+container is already left-aligned, and if you need to fight the container, the container is
+wrong.
 
 Context does the color work: inside a `bg--gold` band the highlight flips to black-on-
 white text, the underline bar goes gray, and uppercase weight drops — automatically, from
@@ -550,6 +552,7 @@ stat_hover. With `stat_hover` on (the default) the supporting content is collaps
 above 980px and expands on hover — production behavior, not breakage. Set it false for the
 always-open `.stat--static` rendering. On a gold background the horizontal layout's content
 border is black while the title divider is white; those are two different tokens.
+Stats belong in a row of three — see `stats-come-in-threes` in Rules.
 
 **Table** — a data table. Props: caption, summary, sticky, border, highlight. `sticky` pins
 the header while the body scrolls; `border` adds gridlines; `highlight` is a `:hover` row
