@@ -1,3 +1,4 @@
+import { computed } from 'vue'
 import UidsCard from './Card.vue'
 import UidsGrid from '../grid/Grid.vue'
 import UidsGridItem from '../grid/GridItem.vue'
@@ -174,7 +175,24 @@ export default {
       table: {
         category: 'Container',
       },
-    }
+    },
+    // The stretch is the DEFAULT (src/scss/layout/_grid.scss) because that is what
+    // production does; this control turns it OFF, which is the choice an author actually
+    // has. It maps to the Layout Builder option "Align content to start", so the class
+    // goes on the SECTION wrapper — the selector is
+    // `.section-alignment__start .list-container__inner > *`, a descendant.
+    // Visible only where the cards hold different amounts of copy: see
+    // components-card--grid-uneven-heights. Identical cards look identical either way.
+    section_alignment_start: {
+      name: 'Align content to start (no stretch)',
+      control: { type: 'boolean' },
+      table: {
+        category: 'Container',
+      },
+    },
+    bodies: {
+      table: { disable: true },
+    },
   },
 };
 
@@ -243,6 +261,7 @@ Default.args = {
   media_shape: 'widescreen',
   media_padded: false,
   section_background: '',
+  section_alignment_start: false,
 }
 
 export const LinkedWithNoButtonText = Template.bind({});
@@ -347,13 +366,25 @@ const GridTemplate = (args) => ({
   components: { UidsGrid, UidsGridItem, UidsCard },
   // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
-    return { args }
+    // `bodies` lets a story give each card its OWN copy instead of `record_count` clones.
+    // Stories that do not pass it behave exactly as before, which is why the existing Grid
+    // / ItemList / MediaDate baselines do not move.
+    const cards = computed(() =>
+      args.bodies?.length ? args.bodies : Array(args.record_count).fill(args.default)
+    );
+    // The class belongs on the section wrapper, not on the grid: production's selector is
+    // `.section-alignment__start .list-container__inner > *`.
+    const wrapperClasses = computed(() => [
+      args.section_background,
+      args.section_alignment_start ? 'section-alignment__start' : '',
+    ]);
+    return { args, cards, wrapperClasses }
   },
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
-    <div :class="args.section_background" style="padding-top: 2rem; padding-bottom: 2rem;">
+    <div :class="wrapperClasses" style="padding-top: 2rem; padding-bottom: 2rem;">
       <uids-grid :type="args.grid_type">
-        <uids-grid-item v-for="item in args.record_count" :key="item">
+        <uids-grid-item v-for="(body, item) in cards" :key="item">
           <uids-card
             :url="args.url"
             :link_text="args.link_text"
@@ -373,7 +404,7 @@ const GridTemplate = (args) => ({
             <template #title v-if="args.title"><div v-html="args.title" ></div></template>
             <template #subtitle v-if="args.subtitle"><div v-html="args.subtitle" ></div></template>
             <template #meta v-if="args.meta"><div v-html="args.meta" ></div></template>
-            <template #default><div v-html="args.default"></div></template>
+            <template #default><div v-html="body"></div></template>
           </uids-card>
         </uids-grid-item>
       </uids-grid>
@@ -387,6 +418,33 @@ Grid.args = {
   media: '<img width="600" height="600" src="' + card_icon + '" alt="Alt">',
   grid_type: 'threecol--33-34-33',
   record_count: 3,
+}
+
+// The same grid with cards that hold DIFFERENT amounts of copy — the only arrangement in
+// which the fill is visible at all. Every other grid story repeats one card, so its row is
+// level either way and tells you nothing.
+//
+// Toggle "Align content to start (no stretch)" in Controls to see both states. Measured
+// here at 1440px: on, the cards sit at their content heights, 309 / 227 / 254, with ragged
+// bottom edges; off — the default, and what production does — all three fill the row at
+// 309 / 309 / 309. src/scss/layout/_grid.scss carries the rule and the reasoning;
+// contracts/layout.json changes[] carries the ruling.
+//
+// No media, because an image would give every card the same 200-odd px head start and
+// flatten the difference this story exists to show.
+export const GridUnevenHeights = GridTemplate.bind({})
+GridUnevenHeights.args = {
+  ...Default.args,
+  media: '',
+  title: 'Research from your first year',
+  grid_type: 'threecol--33-34-33',
+  link_text: 'Read more',
+  section_alignment_start: false,
+  bodies: [
+    'Join a faculty lab through Undergraduate Biochemistry Research or the Honors Research Practicum — both open with no prerequisites — and present your findings at the spring research symposium alongside your peers.',
+    'Your first two years are identical either way, so the choice can wait until you know which path fits.',
+    'Qualified seniors can enter the combined fast track, moving directly into graduate study with funding support.',
+  ],
 }
 
 // The arrangement contracts/rules.json `item-list-is-stacked-cards` actually prescribes:

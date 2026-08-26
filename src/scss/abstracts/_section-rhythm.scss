@@ -27,9 +27,16 @@
 //     that section's two edges mismatched. As-shipped. contracts/layout.json knownIssues
 //     records it; src/foundation/layout draws it. Do not "fix" it here.
 //
-// The .region-pre-footer / .layout--title selectors are Drupal context that can never
-// match in this repo. They are ported anyway: they are load-bearing downstream and
-// uids_base is dropping the file that carries them.
+// The .region-pre-footer selector is Drupal context that can never match in this repo. It
+// is ported anyway: it is load-bearing downstream and uids_base is dropping the file that
+// carries it.
+//
+// .layout--title / .layout--title--hidden WERE in that sentence until 2026-08-25, and are
+// not any more. Downstream the class is still DETECTED rather than authored — uids_base.theme:797
+// adds it to the Layout Builder header section that holds the page-title block — but
+// contracts/rules.json page-title-is-its-own-section now tells authors to write it by hand,
+// and Foundation/Layout renders it, so these selectors match here and are covered by
+// regression/config.json. contracts/layout.json changes[7] carries the ruling.
 
 .layout__container {
   margin-top: 0;

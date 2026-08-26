@@ -1639,7 +1639,7 @@
     },
     {
       "name": "card",
-      "comment": "Captured 2026-08-16 from LOCAL pre-swap Storybook after the required single-card container-context fix (card.scss itself remains untouched and published-equivalent). Default pins base/card/media/headline geometry; PersonProfile pins the 400px container-query transition; supporting stories cover borderless, pre-title, icon/circle, date-media, and bottom-aligned-button roles. Extended 2026-08-17, still pre-swap, with card's THREE button paints, which the original 17 checks left entirely unpinned (only footer margin-top was captured): Default pins the faux label + gold arrow (--brand-primary via --uiowa-button-transparent-icon-color); LinkedWithNoButtonText pins the circle indicator, whose arrow is BLACK because button.scss:116-120 repaints .bttn--no-text icons to --brand-secondary; LinkedWithNoTitle pins the real <a> branch, which shares the box exactly but renders no arrow at all because Card passes nothing to Button's icon slot (recorded as a knownIssue, not fixed). PersonProfile's own numbers show why card's container-query values must never become breakpoint-leaf tokens: the container measures 343px at viewport 375 and 948px at 980, so the 400px switch is a CONTAINER threshold on .grid__column, and a fourcol grid would hold columns under 400px at every viewport this harness samples. Extended 2026-08-21 with ItemList, the first story here whose container carries NO grid--* class at all: Grid.vue:41-46 gained a `list` type and src/scss/layout/_grid.scss:103-109 gained .list-container.list-container--list:not([class*=\"grid-\"]) > .list-container__inner > div + div { margin-top: 2rem }, mirrored verbatim from uids_base/scss/components/grid.scss:6-12. Its seven capture points exist because that :not() guard excludes every grid-- value INCLUDING grid--onecol — the substring \"grid-\" is present in it — so until now UIDS could not render the arrangement its own rule contracts/rules.json item-list-is-stacked-cards mandates; the grid-less class arrived only downstream, from uiowa_core.module:1749 on Drupal views. The Grid story immediately above ItemList in Card.stories.js is that rule's explicit COUNTER-CASE (three-across BORDERED cards), not the pattern, which is why the pattern needed a story of its own. What is pinned is therefore the ARRANGEMENT first and the card second. .list-container__inner proves the container is not a grid in any sense — display block, grid-template-columns none, both gaps normal, and max-width none, that last one being what separates it from grid--onecol's 81.875em. The three nth-child columns then pin two independent jobs that land on the same elements: the 0 / 32px / 32px margin-top ladder, which keys on `> div + div` and ignores class, and container-type/container-name, which key on .grid__column and ignore position. Both must survive or the pattern degrades silently — strip the container context and card's own 400px container query never fires, so every card renders stacked at every width and all three sampled viewports still look plausible. The last three points are the news bundle's shipped combination, which no existing story carries: borderless AND card--layout-right together (PersonProfile pins the bordered right layout, WithNoBorder the borderless stacked one), plus media_size small, whose consequence is card.scss:426-430 capping the thumbnail at 15.625rem inside the container query, netting a 218px image where Default's uncapped widescreen runs to 946/1316. The 375 row is again the stacked branch of card's OWN container query rather than a viewport breakpoint: a list column is full-bleed, so the card measures the same 343 / 948 / 1318 PersonProfile records. Deliberately NOT re-pinned: the bttn--circle arrow this story's empty link_text produces, captured property-for-property by LinkedWithNoButtonText, and the serif headline, since Default already renders Zilla Slab 700/24px so headline_style serif moves nothing here.",
+      "comment": "Captured 2026-08-16 from LOCAL pre-swap Storybook after the required single-card container-context fix (card.scss itself remains untouched and published-equivalent). Default pins base/card/media/headline geometry; PersonProfile pins the 400px container-query transition; supporting stories cover borderless, pre-title, icon/circle, date-media, and bottom-aligned-button roles. Extended 2026-08-17, still pre-swap, with card's THREE button paints, which the original 17 checks left entirely unpinned (only footer margin-top was captured): Default pins the faux label + gold arrow (--brand-primary via --uiowa-button-transparent-icon-color); LinkedWithNoButtonText pins the circle indicator, whose arrow is BLACK because button.scss:116-120 repaints .bttn--no-text icons to --brand-secondary; LinkedWithNoTitle pins the real <a> branch, which shares the box exactly but renders no arrow at all because Card passes nothing to Button's icon slot (recorded as a knownIssue, not fixed). PersonProfile's own numbers show why card's container-query values must never become breakpoint-leaf tokens: the container measures 343px at viewport 375 and 948px at 980, so the 400px switch is a CONTAINER threshold on .grid__column, and a fourcol grid would hold columns under 400px at every viewport this harness samples. Extended 2026-08-21 with ItemList, the first story here whose container carries NO grid--* class at all: Grid.vue:41-46 gained a `list` type and src/scss/layout/_grid.scss:103-109 gained .list-container.list-container--list:not([class*=\"grid-\"]) > .list-container__inner > div + div { margin-top: 2rem }, mirrored verbatim from uids_base/scss/components/grid.scss:6-12. Its seven capture points exist because that :not() guard excludes every grid-- value INCLUDING grid--onecol — the substring \"grid-\" is present in it — so until now UIDS could not render the arrangement its own rule contracts/rules.json item-list-is-stacked-cards mandates; the grid-less class arrived only downstream, from uiowa_core.module:1749 on Drupal views. The Grid story immediately above ItemList in Card.stories.js is that rule's explicit COUNTER-CASE (three-across BORDERED cards), not the pattern, which is why the pattern needed a story of its own. What is pinned is therefore the ARRANGEMENT first and the card second. .list-container__inner proves the container is not a grid in any sense — display block, grid-template-columns none, both gaps normal, and max-width none, that last one being what separates it from grid--onecol's 81.875em. The three nth-child columns then pin two independent jobs that land on the same elements: the 0 / 32px / 32px margin-top ladder, which keys on `> div + div` and ignores class, and container-type/container-name, which key on .grid__column and ignore position. Both must survive or the pattern degrades silently — strip the container context and card's own 400px container query never fires, so every card renders stacked at every width and all three sampled viewports still look plausible. The last three points are the news bundle's shipped combination, which no existing story carries: borderless AND card--layout-right together (PersonProfile pins the bordered right layout, WithNoBorder the borderless stacked one), plus media_size small, whose consequence is card.scss:426-430 capping the thumbnail at 15.625rem inside the container query, netting a 218px image where Default's uncapped widescreen runs to 946/1316. The 375 row is again the stacked branch of card's OWN container query rather than a viewport breakpoint: a list column is full-bleed, so the card measures the same 343 / 948 / 1318 PersonProfile records. Deliberately NOT re-pinned: the bttn--circle arrow this story's empty link_text produces, captured property-for-property by LinkedWithNoButtonText, and the serif headline, since Default already renders Zilla Slab 700/24px so headline_style serif moves nothing here. Row fill added 2026-08-25 (src/scss/layout/_grid.scss): the two components-card--grid-uneven-heights checks capture the MECHANISM \u2014 the wrapper is a flex column, the card is the growing only-child \u2014 and not the outcome. Card heights are text-flowed, so sampling them would key the suite to font metrics and go flaky off this machine, while the equal heights follow deterministically from the properties that ARE sampled. Uncovered for the same reason: the .section-alignment__start opt-out, one display: block, exercised by that story's Controls toggle instead. components-card--default is untouched by the rule and must stay that way \u2014 its template has no .list-container__inner, so .grid__column stays block there, which is why its baseline does not move.",
       "checks": [
         {
           "story": "components-card--default",
@@ -1700,6 +1700,16 @@
           "story": "components-card--image-using-uiowa-icon",
           "selector": ".card.card--centered .media--small.media--circle",
           "properties": ["display", "max-width", "margin-left", "margin-right", "text-align"]
+        },
+        {
+          "story": "components-card--grid-uneven-heights",
+          "selector": ".list-container__inner > .grid__column",
+          "properties": ["display", "flex-direction", "container-type"]
+        },
+        {
+          "story": "components-card--grid-uneven-heights",
+          "selector": ".list-container__inner > .grid__column > .card",
+          "properties": ["flex-grow", "flex-shrink", "flex-basis"]
         },
         {
           "story": "components-card--media-date",
@@ -2061,7 +2071,7 @@
     },
     {
       "name": "layout",
-      "comment": "The section rhythm and the spacing utilities, which had NO computed-style coverage until 2026-08-25 — the reason three separate drifts sat undetected in claude-design/layout.css. Foundation/Layout renders these as REAL shipped classes, not a replica: verified in a browser that #lyd-demo-css declares nothing on .layout__container, and that the utility padding rules it does declare target `> span` children only, so every value below is produced by src/scss/abstracts/. Selectors are positional because check-styles.mjs uses querySelector and all six bands share .layout__container.lyd-band. NOT covered, because the story renders them only inside <code> prose with no live markup: .block-margin__* / .element--margin__* (these DO ship from UIDS, and the --extra pair is the only utility family with a 768 step, so it is the most worth adding), .page__container--* modifiers and the content grids (both authored downstream in uids_base).",
+      "comment": "The section rhythm and the spacing utilities, which had NO computed-style coverage until 2026-08-25 — the reason three separate drifts sat undetected in claude-design/layout.css. Foundation/Layout renders these as REAL shipped classes, not a replica: verified in a browser that #lyd-demo-css declares nothing on .layout__container, and that the utility padding rules it does declare target `> span` children only, so every value below is produced by src/scss/abstracts/. Selectors are positional because check-styles.mjs uses querySelector and all six bands share .layout__container.lyd-band. The title pair (layout--title / layout--title--hidden and the section each one is followed by) was added 2026-08-25 with contracts/rules.json page-title-is-its-own-section \u2014 the rule is about which EDGE the 1.25rem measures, so the padding-bottom of the title box and the padding-top of the box after it have to be sampled together or the regression is invisible. NOT covered, because the story renders them only inside <code> prose with no live markup: .block-margin__* / .element--margin__* (these DO ship from UIDS, and the --extra pair is the only utility family with a 768 step, so it is the most worth adding), .page__container--* modifiers and the content grids (both authored downstream in uids_base).",
       "checks": [
         {
           "story": "foundation-layout--sections",
@@ -2098,6 +2108,38 @@
         {
           "story": "foundation-layout--sections",
           "selector": ".lyd-3col > div:nth-child(3) .layout__container.section-padding__top-restored",
+          "properties": [
+            "padding-top",
+            "padding-bottom"
+          ]
+        },
+        {
+          "story": "foundation-layout--sections",
+          "selector": ".lyd-2col > div:nth-child(1) .layout__container.layout--title",
+          "properties": [
+            "padding-top",
+            "padding-bottom"
+          ]
+        },
+        {
+          "story": "foundation-layout--sections",
+          "selector": ".lyd-2col > div:nth-child(1) .layout--title + .layout__container",
+          "properties": [
+            "padding-top",
+            "padding-bottom"
+          ]
+        },
+        {
+          "story": "foundation-layout--sections",
+          "selector": ".lyd-2col > div:nth-child(2) .layout__container.layout--title--hidden",
+          "properties": [
+            "padding-top",
+            "padding-bottom"
+          ]
+        },
+        {
+          "story": "foundation-layout--sections",
+          "selector": ".lyd-2col > div:nth-child(2) .layout--title--hidden + .layout__container",
           "properties": [
             "padding-top",
             "padding-bottom"

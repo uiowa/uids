@@ -128,6 +128,7 @@ const DEMO_CSS = `
   .lyd-util { background:#FFF8D6; border:1px solid #F0DFA0; }
   .lyd-util > span { display:block; background:#fff; border:1px dashed #CFCFCF; padding:0.4rem; font-size:0.75rem; }
   .lyd-3col { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+  .lyd-2col { display:grid; grid-template-columns:repeat(2,1fr); gap:1rem; }
 `;
 
 // Idempotent by id — switching between the four stories must not stack copies.
@@ -223,6 +224,18 @@ const rhythm = section(
        <strong style="font-size:0.85rem;">Restored</strong>
        <p style="${styles.note}">The same merged pair, with <code>section-padding__top-restored</code> on the second section putting its top edge back. <strong>Narrow this viewport below 768px:</strong> the other two diagrams drop to 1.25rem and this one stays at 3rem, because the class carries no media query. As shipped &mdash; see the note below.</p>
        <div style="${styles.demo}">${band('Section A')}${band('Section B', 'section-padding__top-restored')}</div>
+     </div>
+   </div>
+   <div class="lyd-2col" style="margin-top:1.5rem;">
+     <div>
+       <strong style="font-size:0.85rem;">The title section</strong>
+       <p style="${styles.note}">A section carrying <code>layout--title</code> pads <strong>1.25rem</strong> below instead of 3rem, and that 20px is the gap between the title and the content section under it. It only measures that gap if the title is <em>alone</em> in the section — put an intro or a button in with it and the same 20px ends up under your content instead. Drupal adds the class itself, to whichever section holds the page-title block. See <code>contracts/rules.json</code> <code>page-title-is-its-own-section</code>.</p>
+       <div style="${styles.demo}">${band('Title', 'layout--title')}${band('Content')}</div>
+     </div>
+     <div>
+       <strong style="font-size:0.85rem;">&hellip; with the title suppressed</strong>
+       <p style="${styles.note}">Adding <code>layout--title--hidden</code> zeroes <em>both</em> of the title section's edges and puts the following section's 3rem top padding back — the one arrangement where the title/content pair does not merge. It also element-hides the breadcrumb rather than deleting it: still focus-revealable, still announced.</p>
+       <div style="${styles.demo}">${band('Title (hidden)', 'layout--title layout--title--hidden')}${band('Content')}</div>
      </div>
    </div>
    <div style="${styles.warn}"><strong>The merge is the part people get wrong.</strong> Two adjacent

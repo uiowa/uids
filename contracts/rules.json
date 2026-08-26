@@ -84,7 +84,15 @@
       "publishTo": [
         "claude-design"
       ],
-      "rule": "Breadcrumbs and the page title go directly under the Brand Bar — before any banner, hero or content section — and both belong inside a page__container so they inherit the page's gutters. They are ONE unit: the breadcrumb supplies the space above (1.75rem top margin) and the title sits flush beneath it with no gap, by design. Putting them in a mid-page section, or after a banner, is wrong: the page title identifies the page and has to be the first thing under the navigation."
+      "rule": "Breadcrumbs and the page title go directly under the Brand Bar — before any banner, hero or content section — and both belong inside a page__container so they inherit the page's gutters. They are ONE unit: the breadcrumb supplies the space above (1.75rem top margin) and the title sits flush beneath it with no gap, by design. Putting them in a mid-page section, or after a banner, is wrong: the page title identifies the page and has to be the first thing under the navigation. That unit also gets a section to itself — see page-title-is-its-own-section for the class it carries and why nothing else may share it."
+    },
+    {
+      "id": "page-title-is-its-own-section",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "The page title gets its OWN section and shares it with nothing but the breadcrumb: <section class=\"layout__container layout--title\"> wrapping a page__container that holds the Breadcrumbs import and the <h1 class=\"page-title headline headline--serif\">, and then the first content section starts a NEW layout__container. layout--title drops that section's padding-bottom from 3rem to 1.25rem (src/scss/abstracts/_section-rhythm.scss:57), and that 20px is meant to be the gap between the TITLE and the content below it — measured on https://sandbox.prod.drupal.uiowa.edu/test-directory, where the title section computes padding-bottom 20px and the content section below it computes padding-top 0. Put an intro, a section heading or a button in with the title and the 20px lands under YOUR CONTENT instead: the title-to-content gap collapses to whatever the two elements' own margins give, and the content then ends 20px above the next section rather than 48px. Both arrangements compute the same two boxes (0/20px then 0/48px at 1200px) — the numbers stay right and start measuring the wrong edges, which is why no checker can catch it for you. A second rule, `.layout--title + .layout__container:not([class*=\"bg-\"])`, zeroes the following section's padding-top; for a plain title section the adjacent-same-background merge already did that, and it earns its keep when the title section carries a bg--* class, where the merge does not apply. Downstream the class is DETECTED, not authored — uids_base.theme:797 adds it to the Layout Builder header section holding the page-title field block. The suppressed variant is layout--title--hidden: it zeroes BOTH of its own paddings and restores the next section's 3rem top. One structural precondition, and it is easy to miss: put every layout__container inside ONE wrapper of its own, with the Brand Bar and the nav OUTSIDE it. Production uses <div class=\"node__content\">, which holds sections and nothing else, and Page Scaffold.dc.html uses <main>. This matters because layout.css zeroes the top padding of `.layout__container:first-child`, and that is what starts a page flush under the navigation. Leave the sections as siblings of the Brand Bar and that selector never matches, so the title section adds 48px above the breadcrumb that no real page has — measured 77px against production's 28px, where the 28px is the breadcrumb's own 1.75rem margin-top (src/scss/components/breadcrumbs.scss:63-64) and nothing else."
     },
     {
       "id": "backgrounds-by-class",
@@ -101,6 +109,14 @@
         "claude-design"
       ],
       "rule": "A banner-led page is a COMPOSITION you assemble, not a component to ask for. The featured-image banner IS the pattern: breadcrumbs and the page title sit INSIDE the banner content area, and the section wrapper carries the Layout Builder classes layout--title and layout--title--with-background. Those wrapper classes are a downstream uids_base LAYOUT and are deliberately not Banner's — contracts/banner.json knownIssues records exactly that — and the component set is CLOSED. So compose the page from Banner + Breadcrumbs + the page-title markup; do NOT invent a hero component, and do not propose one. The title-suppressed variant is layout--title--hidden, and it is worth knowing what it really does: it zeroes the section padding AND makes the breadcrumb element-invisible (still focus-revealable, still announced) rather than deleting either."
+    },
+    {
+      "id": "column-container-around-components",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "Every component that has a responsive layout goes inside a <div class=\"column-container\">. UIDS gates a component's own layout switches on a CONTAINER query, not a viewport one — utilities.container-query() compiles to `@container column (min-width: 768px)` — and the only selectors that establish that container are .grid__column, .column-container and .layout-container (src/scss/layout/_grid.scss). A .page__container is NOT one, and neither is a bare <section>. Without a host the query never resolves and the component renders its fallback with NO error and NO warning, which is why this rule exists rather than a checker. Three components are affected, all measured at 1440px host vs no host: a horizontal Menu renders stacked with every submenu open, 363px instead of 57px (menu.scss:127); a Card with orientation left or right renders stacked, 963px instead of 419px (card.scss:367); and a Banner's content loses its width cap, running the full viewport bleed instead of capping at 1310px in line with the page container (banner.scss:129-131). Every view except a hand-composed page hides this: production gets the class from a Layout Builder region, UIDS's own stories wrap their subjects in it, and each .dc.html template in this view bakes its own host in — so the preview looks correct whether or not you write it, and the omission only surfaces once the markup is ported. Put it inside the section's page__container, wrapping the components. A content grid does not need one: the .grid__column around each item already is a host."
     },
     {
       "id": "top-nav-on-every-page",
@@ -141,6 +157,30 @@
         "claude-design"
       ],
       "rule": "Content that states its own meaning does not need a heading over it. A stat row is the clearest case: every stat already carries its own label and summary, so a \"By the Numbers\" heading above it adds no information and introduces a spacing imbalance — the heading's own margin stacks onto the section's top padding while the bottom keeps only the padding, so the block sits visibly low in its own band. Prefer no heading. If a section genuinely seems to need naming, that is usually evidence the content is not self-evident and should be rewritten, not labelled."
+    },
+    {
+      "id": "container-width-by-content",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "Pick the section container from what is INSIDE it, not by habit. page__container--narrow caps the measure at 1020px from 980px up, and it is for a SINGLE thing that reads better when it is not spanning the page: a block of body copy, a CTA, a Blockquote, an Accordion, a Tabs set, or one component that simply looks better narrow. Anything with COLUMNS takes the standard page__container — a content grid of cards, a row of Stats, any grid--* ratio. Measured at 1440px, a three-across grid gives 405px columns in the standard container and 308px in the narrow one, and at 308px a card's title starts wrapping to three lines while its button drops onto its own row. The narrow container is a reading measure; a grid is a layout, and squeezing one into the other costs you a quarter of every column. See cta-is-always-narrow for the one component that is narrow by rule rather than by judgement."
+    },
+    {
+      "id": "stats-come-in-threes",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "Stats come in THREES, in a grid. A Stat is a comparison object — the number only means something next to other numbers — so put three across in a list-container--grid grid--threecol--33-34-33, in a STANDARD page__container (see container-width-by-content), and give each one a stat_title, a stat_summary and enough stat_content to earn its column. A lone Stat centred in a band is the failure mode to avoid: it reads as a pull-quote that lost its attribution, and the eye has nothing to compare it against. Two is acceptable when there are genuinely only two figures; one is not. If you have only one number worth showing, it belongs in body copy or in a Callout, not in a Stat band of its own."
+    },
+    {
+      "id": "alternate-section-backgrounds",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "Alternate section backgrounds down the page. A run of four or five default (white) sections reads as one undifferentiated column no matter how well each section is composed, because the ONLY thing separating them is 3rem of padding — and per section-rhythm, adjacent sections sharing a background merge, so two white sections in a row give one section's worth of separation, not two. Break a long page into bands: white, gray, white, or white, pattern, white. Put the band on the section wrapper with bg--gray or a bg--*--pattern--* class (backgrounds-by-class), not on the components inside it, and do not put two coloured bands next to each other — the white between them is what makes each one read as a band. The rhythm to aim for is a coloured section every second or third section, usually landing on the ones that carry a different KIND of content: a stat row, a highlight, a CTA."
     },
     {
       "id": "cta-is-always-narrow",

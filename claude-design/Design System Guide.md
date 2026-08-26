@@ -137,8 +137,39 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    page__container so they inherit the page's gutters. They are ONE unit: the breadcrumb
    supplies the space above (1.75rem top margin) and the title sits flush beneath it with no
    gap, by design. Putting them in a mid-page section, or after a banner, is wrong: the page
-   title identifies the page and has to be the first thing under the navigation.
-11. **backgrounds-by-class** (agent) — A background is applied by CLASS on a section
+   title identifies the page and has to be the first thing under the navigation. That unit also
+   gets a section to itself — see page-title-is-its-own-section for the class it carries and
+   why nothing else may share it.
+11. **page-title-is-its-own-section** (agent) — The page title gets its OWN section and
+   shares it with nothing but the breadcrumb: <section class="layout__container layout--title">
+   wrapping a page__container that holds the Breadcrumbs import and the <h1 class="page-title
+   headline headline--serif">, and then the first content section starts a NEW
+   layout__container. layout--title drops that section's padding-bottom from 3rem to 1.25rem
+   (src/scss/abstracts/_section-rhythm.scss:57), and that 20px is meant to be the gap between
+   the TITLE and the content below it — measured on
+   https://sandbox.prod.drupal.uiowa.edu/test-directory, where the title section computes
+   padding-bottom 20px and the content section below it computes padding-top 0. Put an intro, a
+   section heading or a button in with the title and the 20px lands under YOUR CONTENT instead:
+   the title-to-content gap collapses to whatever the two elements' own margins give, and the
+   content then ends 20px above the next section rather than 48px. Both arrangements compute
+   the same two boxes (0/20px then 0/48px at 1200px) — the numbers stay right and start
+   measuring the wrong edges, which is why no checker can catch it for you. A second rule,
+   `.layout--title + .layout__container:not([class*="bg-"])`, zeroes the following section's
+   padding-top; for a plain title section the adjacent-same-background merge already did that,
+   and it earns its keep when the title section carries a bg--* class, where the merge does not
+   apply. Downstream the class is DETECTED, not authored — uids_base.theme:797 adds it to the
+   Layout Builder header section holding the page-title field block. The suppressed variant is
+   layout--title--hidden: it zeroes BOTH of its own paddings and restores the next section's
+   3rem top. One structural precondition, and it is easy to miss: put every layout__container
+   inside ONE wrapper of its own, with the Brand Bar and the nav OUTSIDE it. Production uses
+   <div class="node__content">, which holds sections and nothing else, and Page
+   Scaffold.dc.html uses <main>. This matters because layout.css zeroes the top padding of
+   `.layout__container:first-child`, and that is what starts a page flush under the navigation.
+   Leave the sections as siblings of the Brand Bar and that selector never matches, so the
+   title section adds 48px above the breadcrumb that no real page has — measured 77px against
+   production's 28px, where the 28px is the breadcrumb's own 1.75rem margin-top
+   (src/scss/components/breadcrumbs.scss:63-64) and nothing else.
+12. **backgrounds-by-class** (agent) — A background is applied by CLASS on a section
    wrapper: bg--{color}[--pattern--{type}], where color is black|gold|gray|white and type is
    brain|community|particle. Omitting the suffix entirely IS the no-pattern case. Two things
    you must never do. (1) Never reproduce a pattern with your own background-image, gradient or
@@ -152,7 +183,7 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    layer is an image fill and a Figma variable is COLOR/FLOAT/STRING/BOOLEAN — so it is
    enforced by instruction here and in the Figma set description, and deliberately NOT by a
    checker that would appear to cover it.
-12. **banner-led-page-is-a-composition** (agent) — A banner-led page is a COMPOSITION you
+13. **banner-led-page-is-a-composition** (agent) — A banner-led page is a COMPOSITION you
    assemble, not a component to ask for. The featured-image banner IS the pattern: breadcrumbs
    and the page title sit INSIDE the banner content area, and the section wrapper carries the
    Layout Builder classes layout--title and layout--title--with-background. Those wrapper
@@ -163,7 +194,26 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    and it is worth knowing what it really does: it zeroes the section padding AND makes the
    breadcrumb element-invisible (still focus-revealable, still announced) rather than deleting
    either.
-13. **top-nav-on-every-page** (agent) — Every page gets navigation: the Brand Bar plus a
+14. **column-container-around-components** (agent) — Every component that has a responsive
+   layout goes inside a <div class="column-container">. UIDS gates a component's own layout
+   switches on a CONTAINER query, not a viewport one — utilities.container-query() compiles to
+   `@container column (min-width: 768px)` — and the only selectors that establish that
+   container are .grid__column, .column-container and .layout-container
+   (src/scss/layout/_grid.scss). A .page__container is NOT one, and neither is a bare
+   <section>. Without a host the query never resolves and the component renders its fallback
+   with NO error and NO warning, which is why this rule exists rather than a checker. Three
+   components are affected, all measured at 1440px host vs no host: a horizontal Menu renders
+   stacked with every submenu open, 363px instead of 57px (menu.scss:127); a Card with
+   orientation left or right renders stacked, 963px instead of 419px (card.scss:367); and a
+   Banner's content loses its width cap, running the full viewport bleed instead of capping at
+   1310px in line with the page container (banner.scss:129-131). Every view except a
+   hand-composed page hides this: production gets the class from a Layout Builder region,
+   UIDS's own stories wrap their subjects in it, and each .dc.html template in this view bakes
+   its own host in — so the preview looks correct whether or not you write it, and the omission
+   only surfaces once the markup is ported. Put it inside the section's page__container,
+   wrapping the components. A content grid does not need one: the .grid__column around each
+   item already is a host.
+15. **top-nav-on-every-page** (agent) — Every page gets navigation: the Brand Bar plus a
    Menu with variant horizontal across the top, and a vertical Menu for a sidebar or section
    nav. Reference stories are components-menu--horizontal-menu and
    components-menu--vertical-menu. Two honest limits to design around. (1) The horizontal menu
@@ -175,7 +225,7 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    (menu.scss:145-147), carrying the source's own @todo about doing hover menus without
    breaking WCAG 2.1 content-on-hover-or-focus. uiowa.edu's real dropdown primary nav is not in
    UIDS at all — do not hand-build one to fill the gap; note it to the user instead.
-14. **section-rhythm** (agent) — One component per section. Stacking several components
+16. **section-rhythm** (agent) — One component per section. Stacking several components
    inside one .layout__container is not a designed experience — the design system has no
    opinion about how they space against each other, so you end up hand-setting margins, which
    is the thing this rule exists to prevent. Separation between sections comes from the
@@ -188,7 +238,7 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    two adjacent default-padded white sections give 48px of total separation, never 96 — the
    second section contributes nothing. Do not add a margin to make up the difference; opt the
    section that needs more room into extra.
-15. **alert-spacing** (agent) — An Alert brings its own internal spacing from tokens and
+17. **alert-spacing** (agent) — An Alert brings its own internal spacing from tokens and
    needs none from you: alert/padding sets a uniform edge padding on all four sides
    (src/scss/components/alert.scss:9) and alert/icon-gap sets the gap between the icon block
    and the body (alert.scss:43). Never hand-set padding inside an Alert, and never restyle its
@@ -197,7 +247,7 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    and let section-rhythm supply the separation, exactly as any other one-component section. A
    bare margin on the Alert to push the next block away is the failure mode; it survives until
    someone changes the section padding and then it is double-counted.
-16. **underline-scope** (agent) — The gold underline (headline--underline) marks the FIRST
+18. **underline-scope** (agent) — The gold underline (headline--underline) marks the FIRST
    heading of a content or text area, and nothing else. Do not put it over a stat row, a card
    grid, or any set of parallel tiles: the bar reads as "prose follows", so repeating it across
    every section flattens the hierarchy it exists to create — if every heading is emphasised,
@@ -205,14 +255,45 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    overflow: auto (src/scss/abstracts/_headline-mixins.scss:85) so the bar clears its heading,
    which makes that heading a block formatting context. See callout-is-a-float for what that
    costs when a float is loose on the page.
-17. **no-heading-over-self-evident-content** (agent) — Content that states its own meaning
+19. **no-heading-over-self-evident-content** (agent) — Content that states its own meaning
    does not need a heading over it. A stat row is the clearest case: every stat already carries
    its own label and summary, so a "By the Numbers" heading above it adds no information and
    introduces a spacing imbalance — the heading's own margin stacks onto the section's top
    padding while the bottom keeps only the padding, so the block sits visibly low in its own
    band. Prefer no heading. If a section genuinely seems to need naming, that is usually
    evidence the content is not self-evident and should be rewritten, not labelled.
-18. **cta-is-always-narrow** (agent) — A CTA's text must never run the full page width. This
+20. **container-width-by-content** (agent) — Pick the section container from what is INSIDE
+   it, not by habit. page__container--narrow caps the measure at 1020px from 980px up, and it
+   is for a SINGLE thing that reads better when it is not spanning the page: a block of body
+   copy, a CTA, a Blockquote, an Accordion, a Tabs set, or one component that simply looks
+   better narrow. Anything with COLUMNS takes the standard page__container — a content grid of
+   cards, a row of Stats, any grid--* ratio. Measured at 1440px, a three-across grid gives
+   405px columns in the standard container and 308px in the narrow one, and at 308px a card's
+   title starts wrapping to three lines while its button drops onto its own row. The narrow
+   container is a reading measure; a grid is a layout, and squeezing one into the other costs
+   you a quarter of every column. See cta-is-always-narrow for the one component that is narrow
+   by rule rather than by judgement.
+21. **stats-come-in-threes** (agent) — Stats come in THREES, in a grid. A Stat is a
+   comparison object — the number only means something next to other numbers — so put three
+   across in a list-container--grid grid--threecol--33-34-33, in a STANDARD page__container
+   (see container-width-by-content), and give each one a stat_title, a stat_summary and enough
+   stat_content to earn its column. A lone Stat centred in a band is the failure mode to avoid:
+   it reads as a pull-quote that lost its attribution, and the eye has nothing to compare it
+   against. Two is acceptable when there are genuinely only two figures; one is not. If you
+   have only one number worth showing, it belongs in body copy or in a Callout, not in a Stat
+   band of its own.
+22. **alternate-section-backgrounds** (agent) — Alternate section backgrounds down the page.
+   A run of four or five default (white) sections reads as one undifferentiated column no
+   matter how well each section is composed, because the ONLY thing separating them is 3rem of
+   padding — and per section-rhythm, adjacent sections sharing a background merge, so two white
+   sections in a row give one section's worth of separation, not two. Break a long page into
+   bands: white, gray, white, or white, pattern, white. Put the band on the section wrapper
+   with bg--gray or a bg--*--pattern--* class (backgrounds-by-class), not on the components
+   inside it, and do not put two coloured bands next to each other — the white between them is
+   what makes each one read as a band. The rhythm to aim for is a coloured section every second
+   or third section, usually landing on the ones that carry a different KIND of content: a stat
+   row, a highlight, a CTA.
+23. **cta-is-always-narrow** (agent) — A CTA's text must never run the full page width. This
    is a NEW CONSTRAINT, not a bug fix, and the distinction matters: max-width does not appear
    anywhere in src/scss/components/cta.scss (zero occurrences, verified 2026-08-24), so nothing
    in code enforces it and a CTA dropped into a full-width container will happily span it.
@@ -220,7 +301,7 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    change: put the band on the section (section.layout__container.bg--gold), cap the measure
    with div.page__container--narrow inside it, and give the CTA background="" so it does not
    paint a second band inside the first.
-19. **callout-is-a-float** (agent) — A Callout is a FLOATED inline element, not a section
+24. **callout-is-a-float** (agent) — A Callout is a FLOATED inline element, not a section
    band. contracts/callout.json's inline_alignment option defaults to "left", which emits
    .inline--align-left { float: left; clear: left } (src/scss/components/_inline.scss:117) —
    as-shipped, not a bug. Used as a full-width band it escapes its section, and the damage
@@ -231,7 +312,7 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    heading bug rather than a Callout one, which is why it took a measurement to find. To band a
    section, put a background class on the section wrapper (see backgrounds-by-class). Use a
    Callout for what it is: a short aside floated beside prose.
-20. **pre-title-is-not-a-category** (agent) — A Card's pre_title is a CONTEXTUAL LABEL —
+25. **pre-title-is-not-a-category** (agent) — A Card's pre_title is a CONTEXTUAL LABEL —
    "Pinned", "Featured", "Applications close Friday" — not a taxonomy term. Do not tag every
    item in a listing with its section ("Research", "Students", "Faculty"): the pre-title
    renders deliberately quiet, at card/pre-title/font-size 0.75rem with card/pre-title/opacity
@@ -239,7 +320,7 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    taxonomy the component does not provide. Reference:
    https://sandbox.prod.drupal.uiowa.edu/news. The icon slot beside it follows the same logic —
    an icon marks an exception, not a type, so do not give every card one.
-21. **heading-alignment-follows-content** (agent) — A heading takes the alignment of the
+26. **heading-alignment-follows-content** (agent) — A heading takes the alignment of the
    content it introduces; alignment follows the layout rather than being a separate styling
    choice. Centred content gets a centred heading — a centred CTA, a centred stat row, a single
    pull-quote — and a card grid or row of parallel tiles reads better with one, because the

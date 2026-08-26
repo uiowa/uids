@@ -38,7 +38,20 @@
              silently never fire — Left and Right would render identically to Stacked with
              no error anywhere. The wrapper exists to supply that context, exactly as
              Banner.dc.html's .dc-banner-column does. It is NOT a production class. */
-          .dc-card-column{container-type:inline-size;container-name:column}
+          /* The flex column is a SECOND job this wrapper has to do, added 2026-08-25 with
+             the row-fill rule in src/scss/layout/_grid.scss. That rule makes a grid item's
+             only child grow, which is enough in production, where the chain is one wrapper
+             deep: .list-container__inner > .grid__column > .card. Here it is TWO deep —
+             the runtime adds .sc-host around every import, and .dc-card-column sits inside
+             it — so layout.css stretches .sc-host and grows .dc-card-column, and then
+             stops: a grown block is not a flex container, so the .card inside it kept its
+             content height. Measured at 1440px on a replica of both nestings: production
+             71/71/71, this view 71/53/53 until this declaration was added.
+             It belongs here rather than in layout.css because .dc-card-column is this
+             template's invention and does not exist in production — layout.css only ever
+             mirrors what UIDS ships. Banner.dc.html's .dc-banner-column wraps a single
+             component and needs no equivalent. */
+          .dc-card-column{container-type:inline-size;container-name:column;display:flex;flex-direction:column}
 
           /* ---- .card (src/scss/components/card.scss:19-98) ---- */
           .card{
