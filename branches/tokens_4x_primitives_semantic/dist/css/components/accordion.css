@@ -1,0 +1,84 @@
+.accordion {
+  --trans-time: 0.2s;
+  --accordion-label-color: var(--uids-light);
+  --accordion-label-color-hover: rgb(229.5, 229.5, 229.5);
+  --accordion-outline-color: var(--uids-gray-cool);
+  --accordion-border-color: var(--uids-gray-light);
+}
+.accordion details[open] summary i, .accordion details[open] summary svg {
+  transform: rotate(0deg) translate(0px, 0.1em);
+}
+.accordion summary {
+  list-style: none;
+  background-color: var(--accordion-label-color);
+  display: flex;
+  cursor: pointer;
+}
+.accordion summary:hover, .accordion summary:focus {
+  background-color: var(--accordion-label-color-hover);
+  outline: 1px solid var(--accordion-outline-color);
+}
+.accordion summary::-webkit-details-marker {
+  visibility: hidden;
+}
+.accordion summary i, .accordion summary svg {
+  transition: all var(--trans-time) ease-in-out;
+  width: var(--uiowa-font-size-300);
+  height: var(--uiowa-font-size-300);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: -0.3rem 0.7rem 0 0;
+  border-radius: 50%;
+  transition-property: transform, background-color;
+  background-color: transparent;
+  transform: rotate(-180deg) translate(0px, -0.1em);
+}
+.accordion .accordion__heading :is(h2, h3, h4, h5, h6) {
+  all: inherit;
+  border: none;
+  display: flex;
+  font-size: var(--uiowa-font-size-body);
+  font-weight: var(--uiowa-font-weight-bold);
+  padding: var(--uiowa-space-105);
+  width: 100%;
+  align-items: center;
+  cursor: pointer;
+}
+.accordion .accordion__heading :is(h2, h3, h4, h5, h6):focus {
+  outline: 2px auto -webkit-focus-ring-color;
+}
+.accordion .accordion__content {
+  background-color: #fff;
+  padding: var(--uiowa-space-105);
+  border-top: 1px solid var(--accordion-border-color);
+}
+.accordion .accordion__content p:last-child {
+  margin-bottom: 0px;
+}
+.accordion ul li,
+.accordion ol li,
+.accordion p {
+  font-size: 1.3rem;
+}
+.accordion table ul li,
+.accordion table ol li,
+.accordion table p {
+  font-size: inherit;
+}
+
+.accordion__item {
+  border: 1px solid var(--accordion-border-color);
+}
+.accordion__item:not(:first-child) {
+  margin-top: 1rem;
+}
+
+.accordion--white {
+  --accordion-label-color: #fff;
+  --accordion-label-color-hover: var(--uids-light);
+  --accordion-outline-color: var(--uids-gray-mid);
+  --accordion-border-color: var(--uids-gray-light);
+}
+
+/*# sourceMappingURL=accordion.css.map */
