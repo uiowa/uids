@@ -1,0 +1,47 @@
+{
+  "color": {
+    "gold": { "$value": "#FFCD00", "$description": "Brand gold. 4.x: --uiowa-gold / $uiowa-gold. 5.x: --uiowa-color-gold" },
+    "black": { "$value": "#000000", "$description": "Brand black. 4.x: --uiowa-black / $uiowa-black. 5.x: --uiowa-color-black" },
+    "white": { "$value": "#FFFFFF", "$description": "5.x: --uiowa-color-white" },
+    "blue": { "$value": "#00558C", "$description": "Link blue. 4.x: --link-color / $link-color. 5.x: --uiowa-color-blue" },
+    "gray": {
+      "50": { "$value": "#FAFAFB", "$description": "Forms input background (form.scss:10, lowercase #fafafb). Note the trailing B — one bit off #FAFAFA, a transcription/Figma float32-readback trap. Lighter than gray/100." },
+      "100": { "$value": "#F3F3F3", "$description": "4.x: --uids-light / $light. 5.x: --uiowa-color-gray-100 (pinned)" },
+      "115": { "$value": "#EEEEEE", "$description": "table[border] variant border color (tables.scss:7,10). Sits between the existing gray.100 (#F3F3F3) and gray.150 (#E6E5E5) by lightness." },
+      "150": { "$value": "#E6E5E5", "$description": "Brand bar below-row border. 4.x: hardcoded #e6e5e5 in brand-bar.scss" },
+      "155": { "$value": "#E6E6E6", "$description": "Browser-rounded form of 4.x $lighter-gray = color.scale($blk, lightness: 90%), shared by Accordion and Pager." },
+      "160": { "$value": "#E1E1E1", "$description": "Forms disabled input background (form.scss:11, lowercase #e1e1e1). Between gray/150 and gray/175." },
+      "165": { "$value": "#DDDDDD", "$description": "table--gray-borders light border color (tables.scss sticky and cell borders). Between gray.160 and gray.175 by lightness." },
+      "175": { "$value": "#CCCCCC", "$description": "Brand footer muted text. 4.x: hardcoded #ccc. Near-duplicate of gray/200 #CACACA — consolidation candidate for 5.x" },
+      "200": { "$value": "#CACACA", "$description": "4.x: --uids-gray-light / $gray-light" },
+      "300": { "$value": "#9A9A9A", "$description": "4.x: --uids-gray-mid" },
+      "310": { "$value": "#999999", "$description": "Brand footer contact icon links. 4.x: hardcoded #999. Near-duplicate of gray/300 #9A9A9A — consolidation candidate for 5.x" },
+      "350": { "$value": "#8A8A8A", "$description": "Forms text-input focus outline color (form.scss:50, lowercase #8a8a8a). Same value is separately baked into the select-arrow SVG data-URI as rgb(138,138,138) (form.scss:199) — an un-bindable duplicate, not unified by this token." },
+      "365": { "$value": "#7C7C7C", "$description": "table--gray-borders dark border color for thead rows and sticky compensation (tables.scss)." },
+      "400": { "$value": "#737373", "$description": "4.x: --uids-gray / $gray / $text-muted" },
+      "450": { "$value": "#666666", "$description": "4.x $med-gray = color.scale($blk, lightness: 40%), used by Tabs text and indicators." },
+      "500": { "$value": "#63666A", "$description": "Cool gray. 4.x: --uids-gray-cool / $brand-cool-gray. 5.x: --uiowa-color-gray-500 (pinned)" },
+      "600": { "$value": "#5D5656", "$description": "Brand footer socket separator. 4.x: hardcoded #5d5656 in brand-footer.scss" },
+      "700": { "$value": "#484741", "$description": "Forms disabled input foreground (form.scss:12, lowercase #484741). Warm (non-neutral) cast, darker than gray/600." },
+      "750": { "$value": "#333333", "$description": "Table caption background (tables.scss:112), darker than the existing gray.700 step." }
+    },
+    "highlight": { "$value": "#FFF3C3", "$description": "Table hover-row/cell background in the hover-highlight variant (tables.scss:100,102)." },
+    "status": {
+      "success": { "$value": "#00664F", "$description": "4.x: $success" },
+      "success-light": { "$value": "#EBFFFA", "$description": "4.x $success-light = color.scale(#00664F, lightness: 95%); browser-computed rounding." },
+      "info": { "$value": "#00558C", "$description": "4.x: $info" },
+      "info-light": { "$value": "#EDF8FF", "$description": "4.x $info-light = color.scale(#00558C, lightness: 95%); browser-computed rounding." },
+      "warning": { "$value": "#FFCD00", "$description": "4.x: $warning" },
+      "warning-light": { "$value": "#FFF8D9", "$description": "4.x $warning-light = color.scale(#FFCD00, lightness: 85%); browser-computed rounding." },
+      "danger": { "$value": "#BD472A", "$description": "4.x: $danger / $orange" },
+      "danger-light": { "$value": "#F7E2DD", "$description": "4.x: $danger-light = color.scale($danger, $lightness: 85%); Forms error input background/glow (form.scss:59,:62,:346). Sass compiles to fractional rgb(247.39, 226.01, 220.76) — this is the browser-computed rounding (verified via dart-sass); a documented re-baseline is expected if serialization differs." }
+    },
+    "alpha": {
+      "black-125": { "$value": "rgba(0, 0, 0, 0.125)", "$description": "uids-core.scss:32 --transparent-border: rgb(0, 0, 0, .125) — default subtle border on light/ambient backgrounds; the border-foundation commit repoints --transparent-border at color.border.default. Names are alpha-per-mille (0.125 -> 125), matching the space.* rem-x-100 spirit. Literal 4.x value — flat, no brandChannel." },
+      "white-325": { "$value": "rgba(255, 255, 255, 0.325)", "$description": "Same value, two pre-migration spellings: _background.scss:54 rgba(255,255,255,.325) and the border mixin's bg--black override, _utilities.scss:197, hsla(0,0%,100%,.325). Literal — flat, no brandChannel." },
+      "black-425": { "$value": "rgba(0, 0, 0, 0.425)", "$description": "button.scss:10 rgba(0, 0, 0, .425) — button border over an ambient light background ([class*='bg--'] ancestor). button.scss swaps the literal to this primitive's var in the border-foundation commit. Literal — flat, no brandChannel." },
+      "white-425": { "$value": "rgba(255, 255, 255, 0.425)", "$description": "button.scss:15,50,71 rgba(255, 255, 255, .425) in three whitespace/leading-zero spellings — button border over a dark background ([class*='bg--black'] ancestor, and the secondary/transparent colorways). Swapped to this primitive's var alongside black-425. Literal — flat, no brandChannel." },
+      "gray-201-500": { "$value": "rgba(201, 201, 201, 0.5)", "$description": "Canonical computed form of Menu's hsla(0, 0%, 79%, .5) separator color (menu.scss:24)." }
+    }
+  }
+}

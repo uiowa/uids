@@ -1,0 +1,30 @@
+name: Tokens
+
+# The generated token views (src/scss/abstracts/_tokens-generated.scss and tokens.css)
+# are committed, because Storybook, fresh checkouts, and git-URL installs all need them
+# without a build step. That only stays safe if something fails when they drift from
+# src/tokens/**, which is what this check does.
+
+on:
+  push:
+    branches:
+      - 4.x
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+
+      # No yarn install: the generator uses only node: builtins, so it runs on a
+      # bare checkout. Keep it dependency-free so this check stays fast and cannot
+      # be broken by an unrelated dependency problem.
+      - name: Token drift
+        run: node scripts/build-tokens.mjs --check
