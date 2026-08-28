@@ -1,0 +1,203 @@
+{
+  "$schema": "uids-figma-component-spec-v1",
+  "version": "1.0.0",
+  "description": "UIDS component specifications for Figma generation",
+  "components": {
+    "button": {
+      "description": "UIDS button component with color, size, state, and modifier variants",
+      "variants": {
+        "color": [
+          "primary",
+          "secondary",
+          "tertiary"
+        ],
+        "size": [
+          "small",
+          "medium",
+          "large"
+        ],
+        "state": [
+          "default",
+          "hover",
+          "disabled"
+        ],
+        "modifier": [
+          "default",
+          "light-font"
+        ]
+      },
+      "defaults": {
+        "color": "primary",
+        "size": "medium",
+        "state": "default",
+        "modifier": "default",
+        "label": "Button"
+      },
+      "tokenMappings": {
+        "background": "button.{color}.bg.{state}",
+        "text": "button.{color}.text.{state}",
+        "borderColor": "button.{color}.border.{state}",
+        "borderWidth": "button.border.width",
+        "paddingX": "button.padding.x.{size}",
+        "paddingTop": "button.padding.top.{size}",
+        "paddingBottom": "button.padding.bottom.{size}",
+        "borderRadius": "button.radius",
+        "fontSize": "type.size.{size}",
+        "lineHeight": "type.line.{size}",
+        "fontFamily": "type.font.family.caps",
+        "fontWeight": "type.weight.semibold",
+        "iconSpacing": "button.icon.spacing"
+      },
+      "properties": {
+        "label": {
+          "type": "text",
+          "default": "Button",
+          "description": "Button text label"
+        }
+      }
+    },
+    "stat": {
+      "description": "UIDS stat component for displaying metrics with background color variants",
+      "variants": {
+        "display": [
+          "default",
+          "centered",
+          "horizontal"
+        ],
+        "background": [
+          "none"
+        ]
+      },
+      "defaults": {
+        "display": "default",
+        "background": "none",
+        "title": "15:1",
+        "summary": "student-to-faculty ratio",
+        "content": "Among the top 2% of universities worldwide.",
+        "prefix": "",
+        "suffix": "+"
+      },
+      "tokenMappings": {
+        "background": "stat.{background}.bg",
+        "titleColor": "stat.{background}.titleColor",
+        "titleBorderColor": "stat.{background}.titleBorder",
+        "descriptionColor": "stat.{background}.descriptionColor",
+        "contentColor": "stat.{background}.contentColor",
+        "titleFontSize": "stat.title.fontSize",
+        "titleLineHeight": "stat.title.lineHeight",
+        "titleBorderWidth": "stat.title.borderWidth",
+        "descriptionFontSize": "stat.description.fontSize",
+        "descriptionLineHeight": "stat.description.lineHeight",
+        "contentFontSize": "stat.content.fontSize",
+        "contentLineHeight": "stat.content.lineHeight",
+        "prefixFontSize": "stat.prefix.fontSize",
+        "paddingTop": "stat.padding.top",
+        "paddingRight": "stat.padding.right",
+        "paddingBottom": "stat.padding.bottom",
+        "paddingLeft": "stat.padding.left",
+        "descriptionMargin": "stat.descriptionMargin",
+        "fontFamilyCaps": "type.font.family.caps",
+        "fontFamilyBase": "type.font.family.base",
+        "fontWeightBold": "type.weight.semibold",
+        "horizontalTitleFontSize": "stat.horizontal.title.fontSize",
+        "horizontalContentFontSize": "stat.horizontal.content.fontSize",
+        "horizontalDescriptionFontSize": "stat.horizontal.description.fontSize",
+        "horizontalPrefixFontSize": "stat.horizontal.prefix.fontSize"
+      },
+      "properties": {
+        "title": {
+          "type": "text",
+          "default": "15:1",
+          "description": "Main stat number/metric"
+        },
+        "summary": {
+          "type": "text",
+          "default": "student-to-faculty ratio",
+          "description": "Short descriptor below the title"
+        },
+        "content": {
+          "type": "text",
+          "default": "Among the top 2% of universities worldwide.",
+          "description": "Longer supporting content text"
+        },
+        "prefix": {
+          "type": "text",
+          "default": "",
+          "description": "Optional prefix character (e.g., $, #)"
+        },
+        "suffix": {
+          "type": "text",
+          "default": "+",
+          "description": "Optional suffix character (e.g., %, +)"
+        }
+      }
+    },
+    "card": {
+      "description": "UIDS card component for content containers (stub)",
+      "variants": {
+        "orientation": [
+          "vertical",
+          "horizontal"
+        ],
+        "border": [
+          "none",
+          "default"
+        ],
+        "align": [
+          "left",
+          "centered"
+        ],
+        "media": [
+          "none",
+          "present"
+        ]
+      },
+      "defaults": {
+        "orientation": "vertical",
+        "border": "default",
+        "align": "left",
+        "media": "none",
+        "title": "Card Title"
+      },
+      "tokenMappings": {
+        "background": "color.neutral.100",
+        "borderColor": "color.border.subtle",
+        "titleColor": "color.brand.black",
+        "padding": "space.5",
+        "borderRadius": "radius.md"
+      },
+      "properties": {
+        "preTitle": {
+          "type": "text",
+          "default": "",
+          "description": "Optional pre-title/eyebrow text"
+        },
+        "title": {
+          "type": "text",
+          "default": "Card Title",
+          "description": "Main card title"
+        },
+        "subtitle": {
+          "type": "text",
+          "default": "",
+          "description": "Optional subtitle"
+        },
+        "meta": {
+          "type": "text",
+          "default": "",
+          "description": "Optional metadata (date, author, etc.)"
+        },
+        "content": {
+          "type": "text",
+          "default": "Card content goes here.",
+          "description": "Card body content"
+        },
+        "linkText": {
+          "type": "text",
+          "default": "",
+          "description": "Optional link/CTA text"
+        }
+      }
+    }
+  }
+}

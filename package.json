@@ -27,7 +27,11 @@
     "typecheck": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "tokens:export": "node scripts/exportTokensFromScss.mjs && node scripts/validateTokens.mjs",
+    "tokens:validate": "node scripts/validateTokens.mjs",
+    "figma:build": "cd figma-plugin && npm install && npm run build",
+    "figma:pipeline": "node scripts/runFigmaPipeline.mjs"
   },
   "dependencies": {
     "vue": "^3.5.34"
