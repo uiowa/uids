@@ -248,13 +248,22 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    bare margin on the Alert to push the next block away is the failure mode; it survives until
    someone changes the section padding and then it is double-counted.
 18. **underline-scope** (agent) — The gold underline (headline--underline) marks the FIRST
-   heading of a content or text area, and nothing else. Do not put it over a stat row, a card
-   grid, or any set of parallel tiles: the bar reads as "prose follows", so repeating it across
-   every section flattens the hierarchy it exists to create — if every heading is emphasised,
-   none is. One mechanical consequence matters elsewhere: @mixin headline-underline sets
-   overflow: auto (src/scss/abstracts/_headline-mixins.scss:85) so the bar clears its heading,
-   which makes that heading a block formatting context. See callout-is-a-float for what that
-   costs when a float is loose on the page.
+   heading of each SECTION BAND — one per section, not one per page. AMENDED 2026-08-31,
+   reversing this rule's previous position: it used to read "the first heading of a content or
+   text area, and nothing else" and named a card grid and "any set of parallel tiles" as cases
+   to avoid, which meant a correctly-built page carried the underline once and every other
+   section heading read as a lesser thing. The design system owner ruled for per-site
+   consistency instead — a site picks one heading treatment (sans, bold serif, bold serif
+   underlined) and uses it across the components that offer the choice, so the underline is the
+   site's section-heading style rather than a scarce emphasis marker. What survives the
+   amendment is the anti-flattening intent, moved down one level: never underline a SUB-heading
+   inside a section, because that is where repeating the bar genuinely does flatten a
+   hierarchy. A stat row stays excluded, but not because of the underline — per
+   no-heading-over-self-evident-content a stat row should carry no heading at all, so the
+   question never arises. One mechanical consequence matters elsewhere: @mixin
+   headline-underline sets overflow: auto (src/scss/abstracts/_headline-mixins.scss:85) so the
+   bar clears its heading, which makes that heading a block formatting context. See
+   callout-is-a-float for what that costs when a float is loose on the page.
 19. **no-heading-over-self-evident-content** (agent) — Content that states its own meaning
    does not need a heading over it. A stat row is the clearest case: every stat already carries
    its own label and summary, so a "By the Numbers" heading above it adds no information and
@@ -351,6 +360,96 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    value: the default INHERITS, so a heading in a left-aligned container is already
    left-aligned, and forcing one against its container grain is deliberately impossible — if
    you want that, the container is wrong. Do not mix alignments within one section.
+28. **banner-pre-title-is-a-hook** (agent) — A Banner's pre_title is a HOOK or a topic label
+   — "Research stories", "Undergraduate program", "Discover more" — the line that tells a
+   reader what kind of thing the headline is and gives them a reason to keep reading. It is NOT
+   the name of the owning unit. The Brand Bar already states the site and its parent (siteName
+   / parentTitle) and the Brand Footer states them again, so putting the college or department
+   name in pre_title spends the one line above the headline on information the page has shown
+   twice already. Note this is the OPPOSITE advice to pre-title-is-not-a-category, which
+   governs a CARD's pre_title: a card sits in a set of parallel siblings, so a repeated
+   taxonomy term there is noise, while a banner is a singleton at the top of a page and
+   orienting the reader is exactly its pre_title's job. Same option name, two components, two
+   rules — do not generalise one to the other.
+29. **card-background-contrasts-the-band** (agent) — A Card sitting in a coloured section
+   band needs its own background to stay legible: inside bg--gray, set the Card's background to
+   white. Card carries a background option for this (contracts/card.json, values
+   black|gray|gold|white) and it is the difference between a card that reads as an object on a
+   surface and one that dissolves into it — a default-background card on bg--gray is a bordered
+   rectangle of the same colour as the band, so the border does all the work and the card stops
+   looking like a card. This is not the same choice as borderless: borderless removes the frame
+   and is for cards that are already separated by a grid gap on a white section. A borderless
+   card on bg--gray is the worst case of all, because nothing at all distinguishes it from the
+   band. Never put a card's background class on the section wrapper or the section's on the
+   card — see backgrounds-by-class.
+30. **card-in-a-listing-is-a-destination** (agent) — A Card that stands for a place a reader
+   can go gets a url. Not a decorative tile, not a fact restated as a box — if the card names a
+   programme, a story, a facility or an organisation that has a page behind it, link it.
+   Passing url is also what makes the WHOLE card a click target rather than just its label:
+   Card.dc.html:470 pushes `click-container` onto the root as soon as a url is present, and
+   click-a11y then wires the surface up, so the reader gets a card-sized hit area instead of a
+   one-line link. A grid of unlinked cards is the commonest dead end in a generated landing
+   page: it looks finished, it reads as navigation, and it goes nowhere. If a card genuinely
+   has no destination, that is a sign the content belongs in prose or a stat, not in a card.
+31. **banner-stacks-on-mobile** (agent) — Set mobile_content_below_image on every
+   media-filled Banner. Below the sm container query it stops overlaying the text on the
+   photograph and stacks the content UNDER it: the media loses its scrim, the banner becomes
+   display:block, and the foreground colours flip to black with the text-shadow removed
+   (contracts/banner.json records banner.scss:324-361). Overlaid text at phone width is the
+   worst case for both halves of the banner — the headline sits on whatever part of the image
+   happens to be behind it, and the image is cropped to a band too short to read as a picture.
+   Stacking fixes both at once, which is why it should be the standing choice and not a
+   per-page rescue. It costs nothing above the switch, where the overlay is unchanged.
+32. **section-heading-gets-a-deck** (agent) — A section heading that introduces a grid gets
+   a line or two of prose under it before the grid starts. A bare heading over three tiles
+   makes the reader infer the relationship between the heading and the set — what these things
+   have in common, why they are grouped, what to do with them — and they will infer it wrong or
+   not bother. The deck is where that goes. It is also the only place a section can carry an
+   editorial voice: the tiles themselves are parallel and terse by construction. Keep it to one
+   or two sentences; a deck long enough to need its own paragraph break is a prose section that
+   happens to be followed by a grid, and it wants its own container (see
+   container-width-by-content). A centred heading and its deck go in their own narrow container
+   — centred-heading-goes-narrow covers that case.
+33. **no-second-contact-block** (agent) — Do not build a content section that restates the
+   Brand Footer. The Brand Footer already carries the address, phone and email as props
+   (contact / phone / email) on every page, so a "Visit us" or "Contact" section at the bottom
+   of a landing page prints the same three facts twice within one screen of each other and
+   spends the most valuable slot on the page — the last thing a reader sees — on a duplicate.
+   The same test applies to any chrome the page already supplies: the site and parent names
+   (Brand Bar and Brand Footer both), and the primary conversion action if a banner or CTA has
+   already made it. If the closing section would only repeat, delete it and let the footer do
+   its job; if there is genuinely more to say about visiting — parking, building access, hours,
+   a map — that is new content and it belongs on a Visit page the footer or nav links to.
+34. **landing-page-suppresses-a-duplicate-title** (agent) — When a landing page's title says
+   the same thing as the site name, suppress it visually rather than printing it twice. Add
+   layout--title--hidden to the title section: it zeroes that section's own top and bottom
+   padding (claude-design/layout.css:104-107) and restores the following section's padding-top,
+   and downstream uids_base makes the breadcrumb block element-invisible under the same class.
+   Hide the h1 itself with element-invisible or visually-hidden, both of which ship
+   unconditionally in the shared sheet for exactly this case. SUPPRESS, NEVER DELETE: the h1
+   and the breadcrumb stay in the DOM, announced and focus-revealable — a landing page with no
+   h1 at all is a real accessibility regression, and this is the mitigation the platform has
+   for the two-h1 problem that contracts/page-title.json knownIssues[0] records (the Brand Bar
+   site name is an h1 and so is the page title). The test is duplication, not page type: a
+   landing page whose title genuinely differs from the site name should show it.
+35. **nav-strip-border-is-full-bleed** (agent) — The horizontal main nav sits in its own
+   FULL-BLEED strip with a hairline bottom border, and that strip is the thing separating the
+   navigation from the page. Reproduce production's structure exactly: a plain wrapper carrying
+   the border, OUTSIDE any container, holding a <div class="page__container"> that holds the
+   Menu. Downstream this is a sibling AFTER the Brand Bar's </header> — uids_base
+   templates/layout/header.html.twig emits <nav class="nav--horizontal"> wrapping a
+   page__container — and the border is on that full-width element, so the rule reads edge to
+   edge while the links stay on the container grid. Three ways to get it wrong. (1) The border
+   colour is --uiowa-menu-container-border-color, which resolves to #E6E5E5; do NOT reach for
+   --uiowa-color-gray-165, which is #DDDDDD and a visibly different hairline. Production
+   hard-codes #e6e5e5 as a raw literal (uids_base
+   scss/components/menus/superfish/horizontal-menu.scss:5), so the token is the correct
+   expression of an as-shipped value rather than a change to it. (2) Make the strip a DIV,
+   never a <nav>: Menu renders its own <nav aria-label> and a second landmark around it nests
+   two. (3) This is NOT Menu's container_border / .menu--container, which lands the border on
+   .column-container (claude-design/Menu.dc.html:211) and is therefore INSET to the container —
+   a different pattern, for a horizontal nav sitting inside a page, as the Application stories
+   use it. Reaching for it here gives a border that stops short of both edges.
 
 <!-- END GENERATED RULES -->
 

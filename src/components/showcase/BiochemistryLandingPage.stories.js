@@ -202,10 +202,20 @@ const SUPPORT_CSS = `
   .dc-parity .list-container__inner .card { height: 100%; }
 
   /* (b) inline styles the generated page wrote on bare divs.
-     The nav strip's border: UIDS ships .menu--container for exactly this (menu.scss:157),
-     on --uiowa-menu-container-border-color; the generated page reached for the raw colour
-     token instead. Both resolve to #DDD. */
-  .dc-parity .dc-parity__menu-strip { border-bottom: 1px solid var(--uiowa-color-gray-165); }
+     The nav strip's border. Production puts it on a FULL-BLEED <nav class="nav--horizontal">
+     that sits after the Brand Bar's </header> and wraps a page__container (uids_base
+     templates/layout/header.html.twig), hard-coding #e6e5e5 in uids_base
+     scss/components/menus/superfish/horizontal-menu.scss. So the strip needs its own
+     full-width element, as here: .menu--container (menu.scss:157-159) is NOT interchangeable
+     with it, because that class lands on .column-container and is therefore INSET to the
+     container grid.
+     The COLOUR is shared, and it is --uiowa-menu-container-border-color, which resolves
+     #E6E5E5 -- NOT --uiowa-color-gray-165, which is #DDDDDD. An earlier version of this
+     comment asserted the two resolved to the same #DDD; they never did. Settled three ways:
+     production's literal above, a browser paint at 1280px, and regression/baselines/menu.json,
+     which has .menu--container OBSERVED at rgb(230, 229, 229) at all three sampled widths.
+     See contracts/rules.json nav-strip-border-is-full-bleed. */
+  .dc-parity .dc-parity__menu-strip { border-bottom: 1px solid var(--uiowa-menu-container-border-color); }
   .dc-parity .dc-parity__grid { margin-top: var(--uiowa-space-200); }
   .dc-parity .dc-parity__center { margin-top: var(--uiowa-space-200); text-align: center; }
   /* The clearfix that stops the floated Callout escaping its section. UIDS has a clearfix
