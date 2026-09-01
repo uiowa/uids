@@ -248,7 +248,7 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    bare margin on the Alert to push the next block away is the failure mode; it survives until
    someone changes the section padding and then it is double-counted.
 18. **underline-scope** (agent) — The gold underline (headline--underline) marks the FIRST
-   heading of each SECTION BAND — one per section, not one per page. AMENDED 2026-08-31,
+   heading of each SECTION BAND — one per section, not one per page. AMENDED 2026-09-01,
    reversing this rule's previous position: it used to read "the first heading of a content or
    text area, and nothing else" and named a card grid and "any set of parallel tiles" as cases
    to avoid, which meant a correctly-built page carried the underline once and every other
