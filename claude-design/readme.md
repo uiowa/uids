@@ -402,18 +402,23 @@ the repo's own rule said to put it there. Do not edit them here.
    already made it. If the closing section would only repeat, delete it and let the footer do
    its job; if there is genuinely more to say about visiting — parking, building access, hours,
    a map — that is new content and it belongs on a Visit page the footer or nav links to.
-34. **landing-page-suppresses-a-duplicate-title** (agent) — When a landing page's title says
-   the same thing as the site name, suppress it visually rather than printing it twice. Add
-   layout--title--hidden to the title section: it zeroes that section's own top and bottom
-   padding (claude-design/layout.css:104-107) and restores the following section's padding-top,
-   and downstream uids_base makes the breadcrumb block element-invisible under the same class.
-   Hide the h1 itself with element-invisible or visually-hidden, both of which ship
-   unconditionally in the shared sheet for exactly this case. SUPPRESS, NEVER DELETE: the h1
-   and the breadcrumb stay in the DOM, announced and focus-revealable — a landing page with no
-   h1 at all is a real accessibility regression, and this is the mitigation the platform has
-   for the two-h1 problem that contracts/page-title.json knownIssues[0] records (the Brand Bar
-   site name is an h1 and so is the page title). The test is duplication, not page type: a
-   landing page whose title genuinely differs from the site name should show it.
+34. **landing-page-suppresses-a-redundant-title** (agent) — Suppress a page title the page
+   has ALREADY STATED, rather than printing it twice. Two triggers, either one is enough: the
+   title says the same thing as the site name, or a BANNER at the top of the page already
+   states the page's subject. AMENDED 2026-09-01 -- this rule previously tested only site-name
+   duplication, which meant a page whose banner had just announced its subject still printed a
+   redundant h1 underneath it (the id changed with the scope: it was
+   landing-page-suppresses-a-duplicate-title). Add layout--title--hidden to the title section:
+   it zeroes that section's own top and bottom padding (claude-design/layout.css:104-107) and
+   restores the following section's padding-top, and downstream uids_base makes the breadcrumb
+   block element-invisible under the same class. Hide the h1 itself with element-invisible or
+   visually-hidden, both of which ship unconditionally in the shared sheet for exactly this
+   case. For a banner-led page, banner-led-page-is-a-composition covers the fuller arrangement,
+   including layout--title--with-background. SUPPRESS, NEVER DELETE: the h1 and the breadcrumb
+   stay in the DOM, announced and focus-revealable -- a page with no h1 at all is a real
+   accessibility regression, and this is the platform's mitigation for the two-h1 problem
+   contracts/page-title.json knownIssues[0] records. A page whose title is genuinely NOT stated
+   elsewhere should show it.
 35. **nav-strip-border-is-full-bleed** (agent) — The horizontal main nav sits in its own
    FULL-BLEED strip with a hairline bottom border, and that strip is the thing separating the
    navigation from the page. Reproduce production's structure exactly: a plain wrapper carrying
@@ -432,6 +437,41 @@ the repo's own rule said to put it there. Do not edit them here.
    .column-container (claude-design/Menu.dc.html:211) and is therefore INSET to the container —
    a different pattern, for a horizontal nav sitting inside a page, as the Application stories
    use it. Reaching for it here gives a border that stops short of both edges.
+36. **pattern-over-a-flat-dark-band** (agent) — A full-width dark band reads as stark when
+   it is flat colour. If the section has no image and one is not the obvious first move, reach
+   for a PATTERN background rather than bare bg--black or bg--gold: the shared sheet ships
+   twelve combinations -- black, gold, gray and white each crossed with brain, community and
+   particle (claude-design/backgrounds.css). The pattern does the work an image would have
+   done, at no content cost and with no cropping or alt-text to get wrong, and it keeps a band
+   from looking like an unstyled block of colour. Two notes. backgrounds-by-class lists only
+   three of the twelve as examples, so do not read that list as the available set. And
+   contracts/banner.json's background option enumerates only black--pattern--brain,
+   gold--pattern--particle and gray--pattern--community, so a Banner is limited to those three
+   where a section wrapper is not -- pick the class on the section, not the component, per
+   backgrounds-by-class.
+37. **light-font-buttons-belong-in-cards** (agent) — The light_font Button style is the
+   IN-CARD recipe and does not belong on a standalone section button. It swaps the button's
+   default caps face (--uiowa-button-font-family) for --uiowa-font-family-sans, which is
+   'Roboto', sans-serif, at normal weight -- a quiet text-like treatment that reads correctly
+   inside a card's footer and reads as an unstyled link when it is carrying a section's main
+   action. The trap is that Card.dc.html's own footer button is declared with transparent plus
+   light_font, so the recipe is right there to copy, and copying it onto a section-level button
+   is the commonest way this goes wrong -- a real generated page put transparent + light_font
+   on all six of its buttons, none of them in a card. For a section action, use a Button with
+   its default face and a real colour.
+38. **card-grid-uses-the-shipped-classes** (agent) — A row of cards goes in the SHIPPED
+   grid, never a hand-rolled one. The markup is a section wrapper, then <div
+   class="list-container list-container--grid grid--{ratio}">, then <div
+   class="list-container__inner">, then one wrapper per card. The ratios that ship are
+   grid--fourcol--25, grid--threecol--33-34-33, grid--twocol--50-50 and grid--twocol--25-75 --
+   so a four-across row needs nothing invented. THE COST OF ROLLING YOUR OWN IS NOT COSMETIC:
+   layout.css's content-grid rule that levels a row is scoped to `.list-container__inner > *`,
+   so without that wrapper it never fires, the grid stretches each column while every card
+   keeps its own content height, and the row renders ragged. Measured on a real generated page
+   that declared its own .card-grid: five rows ragged by 33, 28, 79, 27 and 52 pixels, where
+   production renders them level. A hand-rolled grid also invents breakpoints -- that page
+   switched at 600px, which no UIDS component does. stats-come-in-threes shows the same markup
+   for a Stat row; it is the same grid.
 
 <!-- END GENERATED RULES -->
 
