@@ -121,6 +121,18 @@
           @media (min-width:768px){
             .card .media--circle.media--medium{max-width:var(--uiowa-card-media-circle-medium-max-width-sm)}
           }
+          /* Small and medium circle media CENTRES itself in the card. Ported from
+             src/scss/components/card.scss:134-137, where it is `&.media--small.media--circle,
+             &.media--medium.media--circle` nested in .media inside .card. It was MISSING here
+             until 2026-09-01, so Storybook centred a circle (margin-inline 389.4px on a 968px
+             card) while this view left-aligned it (margin 0, insets 33/127 on a 310px card) --
+             every circle card in the fifth view sat left of where production puts it. It
+             survived unseen because this view has NO computed-style suite: test:styles
+             exercises Card.vue, never this file. Verified by injecting this exact declaration
+             into a rendered page first: four cards went 0px -> 60.15px, insets 33/127 -> 93/93.
+             Written at (0,3,0) per this file's convention of dropping the redundant .media;
+             nothing else sets margin-left on the media element. */
+          .card .media--small.media--circle,.card .media--medium.media--circle{margin-left:auto;margin-right:auto}
           .card .media--no-crop{flex-basis:auto}
           .card .media--square img,.card .media--square iframe{aspect-ratio:1 / 1}
           .card .media--widescreen img,.card .media--widescreen iframe{aspect-ratio:16 / 9}
