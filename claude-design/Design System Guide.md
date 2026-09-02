@@ -507,7 +507,15 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    that declared its own .card-grid: five rows ragged by 33, 28, 79, 27 and 52 pixels, where
    production renders them level. A hand-rolled grid also invents breakpoints -- that page
    switched at 600px, which no UIDS component does. stats-come-in-threes shows the same markup
-   for a Stat row; it is the same grid.
+   for a Stat row; it is the same grid. AMENDED 2026-09-02, clarifying what 'one wrapper per
+   card' means IN THIS VIEW, learned by falling into it while fixing the reviewed pages: put
+   each dc-import DIRECTLY inside .list-container__inner — the runtime's own import wrapper IS
+   the per-card grid item. Do not add a .grid__column div around it: production needs that div
+   (Layout Builder emits it, and UIDS's own stories reproduce it), but here it adds a fourth
+   layer the row-leveller cannot reach through — layout.css stretches the grid item and grows
+   its only child, and with the extra div that growth stops at the runtime wrapper while the
+   card inside keeps its content height. Measured 2026-09-02 on the Well-Being page: the same
+   four-card row rendered 305/254/333/353 ragged with the divs and level without them.
 
 <!-- END GENERATED RULES -->
 
