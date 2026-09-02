@@ -317,7 +317,6 @@ const Template = {
               </div>
             </div>
           </section>
-        </main>
 
         <!-- column-container again, and for the third component. .banner__content's own cap
              is inside container-query() (banner.scss:129-131), so with no container host
@@ -325,31 +324,43 @@ const Template = {
              running the full 1425px bleed, against the 1310px page__container beside it.
              Banner.stories.js wraps every banner in .column-container and Banner.dc.html
              bakes in .dc-banner-column; Banner.vue emits neither, so the page owes it.
-             DIVERGENCES 8. -->
-        <div class="column-container">
-        <uids-banner
-          pre_title="Undergraduate Program"
-          height="large"
-          horizontal_alignment="left"
-          vertical_alignment="center"
-          :headline="{ text: 'Understand Life at the Molecular Level', level: 'h2', text_style: 'serif', size: 'large' }"
-          :buttons="[{ label: 'Explore the Program', url: '#' }]"
-        >
-          <template #media>
-            <div class="media media--image">
-              <img
-                :src="args.heroImage"
-                alt="Artistic photograph referencing the human brain, reflecting the department's research in molecular neuroscience."
-              />
-            </div>
-          </template>
-          <p>
-            From your first year, you'll work alongside faculty investigating the chemistry
-            of health and disease — training that leads to medical school, graduate
-            research, and careers in biotechnology.
-          </p>
-        </uids-banner>
-        </div>
+             DIVERGENCES 8.
+             The host sits in its OWN section, directly — no page__container, because the
+             banner is full-bleed and the full-width div is what the content cap resolves
+             against. Until 2026-09-02 this was a bare div sitting between </main> and the
+             next section, which broke the sibling run the section-rhythm merge keys on
+             (_section-rhythm.scss:90-105 pairs ADJACENT .layout__container siblings) and
+             violated the one-wrapper precondition page-title-is-its-own-section records
+             ("sections and nothing else"). Same 48px rhythm either way today — the section's
+             top merges to 0 against the intro and its bottom supplies what the next
+             section's merged-away top used to — but only this shape keeps the merge intact
+             once a neighbouring section gains a background. -->
+        <section class="layout__container">
+          <div class="column-container">
+          <uids-banner
+            pre_title="Undergraduate Program"
+            height="large"
+            horizontal_alignment="left"
+            vertical_alignment="center"
+            :headline="{ text: 'Understand Life at the Molecular Level', level: 'h2', text_style: 'serif', size: 'large' }"
+            :buttons="[{ label: 'Explore the Program', url: '#' }]"
+          >
+            <template #media>
+              <div class="media media--image">
+                <img
+                  :src="args.heroImage"
+                  alt="Artistic photograph referencing the human brain, reflecting the department's research in molecular neuroscience."
+                />
+              </div>
+            </template>
+            <p>
+              From your first year, you'll work alongside faculty investigating the chemistry
+              of health and disease — training that leads to medical school, graduate
+              research, and careers in biotechnology.
+            </p>
+          </uids-banner>
+          </div>
+        </section>
 
         <section class="layout__container">
           <!-- TWO containers in one section, per centred-heading-goes-narrow. The centred
@@ -363,7 +374,12 @@ const Template = {
               <uids-headline level="h2" text_style="serif" alignment="center">
                 Why Study Biochemistry at Iowa
               </uids-headline>
-              <p class="element--light-intro" style="text-align:center">
+              <!-- Body copy, not element--light-intro — section-heading-gets-a-deck, as
+                   amended 2026-09-02: the intro treatment belongs to the page introduction
+                   above, once. The 92/46-character measures in the comment before this
+                   section were taken while the deck carried the intro style; body copy sets
+                   more per line, and the container decision is unchanged. -->
+              <p style="text-align:center">
                 A degree built around early research, real flexibility, and a clear path to
                 what comes next.
               </p>
@@ -414,7 +430,8 @@ const Template = {
               <uids-headline level="h2" text_style="serif" alignment="center">
                 Explore Our Research Areas
               </uids-headline>
-              <p class="element--light-intro" style="text-align:center">
+              <!-- Body copy for the same reason as the deck above. -->
+              <p style="text-align:center">
                 Faculty labs across the department span eight major research areas — here are
                 three.
               </p>
@@ -541,6 +558,7 @@ const Template = {
             </div>
           </div>
         </section>
+        </main>
 
         <uids-iowa-footer parent_site_title="Carver College of Medicine">
           <div class="site-name">Biochemistry and Molecular Biology</div>
