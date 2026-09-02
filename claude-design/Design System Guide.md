@@ -237,7 +237,17 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    / bg--black / bg--gray pairs), reproducing production parity from uids_base global.scss. So
    two adjacent default-padded white sections give 48px of total separation, never 96 — the
    second section contributes nothing. Do not add a margin to make up the difference; opt the
-   section that needs more room into extra.
+   section that needs more room into extra. AMENDED 2026-09-02 with the ONE carved-out
+   composition: a section heading, its deck and the content they introduce share one section —
+   which is what section-heading-gets-a-deck and centred-heading-goes-narrow already prescribe
+   — and the design system owner ruled the system owns that composition's internal spacing
+   rather than splitting heading and content into separate sections (same-background sections
+   merge, so a split spends section machinery to produce a 48px gap where the composition wants
+   2rem). The named spacing: the grid — or the second container, where the heading block takes
+   its own narrow one — gets margin-top: var(--uiowa-space-200), the value the Biochemistry
+   parity story established, applied through a page-scoped class. NOTHING else inside the
+   section carries a margin. The Well-Being page is the case this closes: five grids hand-set
+   at 1.5rem plus a 1.75rem row, each its own invented number, because no value was named.
 17. **alert-spacing** (agent) — An Alert brings its own internal spacing from tokens and
    needs none from you: alert/padding sets a uniform edge padding on all four sides
    (src/scss/components/alert.scss:9) and alert/icon-gap sets the gap between the icon block
@@ -725,7 +735,11 @@ inherit the base white text.
 **Banner** — a full-bleed hero. Props: fill (media | black | gold | gray | white),
 overlay_direction (none | btt | ttb | ltr), overlay_light, height (none | medium | large),
 narrow, horizontal_alignment, vertical_alignment, mobile_content_below_image, pre_title,
-headline, body_text, button_label. The fill is the component's central rule: a banner is
+headline, body_text, and up to three buttons as numbered pairs (button_label/button_url,
+button_2_*, button_3_* — counted by non-empty labels; two or more render in the banner's
+.bttn--row, and the contract's trade applies: one button makes the whole Vue banner
+clickable and links the headline, a second gives both up, so add buttons for content, not
+symmetry). The fill is the component's central rule: a banner is
 EITHER an image with a tinted scrim over it OR a coloured band, never both, and four
 `:not([class*="bg--"])` guards in the CSS make that real rather than conventional — a
 background class silently switches off the overlay, the stacked mobile treatment and the

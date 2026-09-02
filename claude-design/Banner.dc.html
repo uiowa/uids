@@ -390,13 +390,36 @@
                 <p>{{ body_text }}</p>
               </div>
             </sc-if>
-            <!-- Buttons. Banner renders a PseudoButton for exactly one button and real
-                 Buttons in a .bttn--row for several; this template has one label
-                 channel, so it shows the single-button case. Needs Button.dc.html
-                 copied in as a sibling. -->
+            <!-- Buttons. Three numbered label/url pairs, exposed 2026-09-02 on the design
+                 system owner's ruling (contracts/banner.json changes[]) after two reviews
+                 hit the single-label limit. The contract's `buttons` length semantics are
+                 reproduced structurally: one non-empty label renders a lone button, two or
+                 more render inside the same unstyled div.bttn--row Banner.vue emits (UIDS
+                 ships no rule for that class — the spacing is .banner__action .bttn's
+                 token margins, already in this style block). The single-button case keeps
+                 this template's standing divergence: a real <a> Button, where Banner.vue
+                 renders a PseudoButton, adds click-container and links the headline
+                 (BiochemistryLandingPage.stories.js DIVERGENCES 3) — so going from one
+                 button to two changes only the footer, exactly as documented. Needs
+                 Button.dc.html copied in as a sibling. -->
             <sc-if value="{{ hasButton }}" hint-placeholder-val="{{ true }}">
               <footer class="banner__action">
-                <dc-import name="Button" label="{{ button_label }}" size="medium" color="primary" hint-size="200px,66px"></dc-import>
+                <sc-if value="{{ isSingleButton }}" hint-placeholder-val="{{ true }}">
+                  <dc-import name="Button" label="{{ singleButtonLabel }}" url="{{ singleButtonUrl }}" size="medium" color="primary" hint-size="200px,66px"></dc-import>
+                </sc-if>
+                <sc-if value="{{ isButtonRow }}" hint-placeholder-val="{{ false }}">
+                  <div class="bttn--row">
+                    <sc-if value="{{ hasButton1 }}" hint-placeholder-val="{{ true }}">
+                      <dc-import name="Button" label="{{ button_label }}" url="{{ button_url }}" size="medium" color="primary" hint-size="200px,66px"></dc-import>
+                    </sc-if>
+                    <sc-if value="{{ hasButton2 }}" hint-placeholder-val="{{ true }}">
+                      <dc-import name="Button" label="{{ button_2_label }}" url="{{ button_2_url }}" size="medium" color="primary" hint-size="200px,66px"></dc-import>
+                    </sc-if>
+                    <sc-if value="{{ hasButton3 }}" hint-placeholder-val="{{ false }}">
+                      <dc-import name="Button" label="{{ button_3_label }}" url="{{ button_3_url }}" size="medium" color="primary" hint-size="200px,66px"></dc-import>
+                    </sc-if>
+                  </div>
+                </sc-if>
               </footer>
             </sc-if>
           </div>
@@ -421,7 +444,12 @@
   "pre_title": { "editor": "text", "default": "University of Iowa", "tsType": "string" },
   "headline": { "editor": "text", "default": "Banner headline", "tsType": "string" },
   "body_text": { "editor": "text", "default": "A member of the Association of American Universities since 1909 and the Big Ten Conference since 1899.", "tsType": "string" },
-  "button_label": { "editor": "text", "default": "Read more", "tsType": "string" }
+  "button_label": { "editor": "text", "default": "Read more", "tsType": "string" },
+  "button_url": { "editor": "text", "default": "https://uiowa.edu", "tsType": "string" },
+  "button_2_label": { "editor": "text", "default": "", "tsType": "string" },
+  "button_2_url": { "editor": "text", "default": "https://uiowa.edu", "tsType": "string" },
+  "button_3_label": { "editor": "text", "default": "", "tsType": "string" },
+  "button_3_url": { "editor": "text", "default": "https://uiowa.edu", "tsType": "string" }
 }'
     >
       class Component extends DCLogic {
@@ -453,9 +481,20 @@
           const preTitle = this.props.pre_title ?? '';
           const headline = this.props.headline ?? '';
           const body = this.props.body_text ?? '';
-          const button = this.props.button_label ?? '';
           const hasPreTitle = String(preTitle).trim().length > 0;
           const hasHeadline = String(headline).trim().length > 0;
+
+          // Buttons: mirror the contract's length semantics on three numbered pairs.
+          // The count is non-empty LABELS, in order, so leaving button_label blank and
+          // setting button_2_label still renders one lone button — the same first-non-empty
+          // entry Banner.vue's buttons[0] would be.
+          const pairs = [
+            [this.props.button_label ?? '', this.props.button_url ?? ''],
+            [this.props.button_2_label ?? '', this.props.button_2_url ?? ''],
+            [this.props.button_3_label ?? '', this.props.button_3_url ?? '']
+          ];
+          const present = pairs.filter(function (p) { return String(p[0]).trim().length > 0; });
+          const single = present.length === 1 ? present[0] : ['', ''];
 
           return {
             rootClass: classes.join(' '),
@@ -478,12 +517,24 @@
             pre_title: preTitle,
             headline: headline,
             body_text: body,
-            button_label: button,
+            button_label: pairs[0][0],
+            button_url: pairs[0][1],
+            button_2_label: pairs[1][0],
+            button_2_url: pairs[1][1],
+            button_3_label: pairs[2][0],
+            button_3_url: pairs[2][1],
             hasPreTitle: hasPreTitle,
             hasHeadline: hasHeadline,
             hasHeader: hasPreTitle || hasHeadline,
             hasBody: String(body).trim().length > 0,
-            hasButton: String(button).trim().length > 0
+            hasButton: present.length > 0,
+            isSingleButton: present.length === 1,
+            isButtonRow: present.length > 1,
+            singleButtonLabel: single[0],
+            singleButtonUrl: single[1],
+            hasButton1: String(pairs[0][0]).trim().length > 0,
+            hasButton2: String(pairs[1][0]).trim().length > 0,
+            hasButton3: String(pairs[2][0]).trim().length > 0
           };
         }
       }

@@ -219,7 +219,17 @@ the repo's own rule said to put it there. Do not edit them here.
    / bg--black / bg--gray pairs), reproducing production parity from uids_base global.scss. So
    two adjacent default-padded white sections give 48px of total separation, never 96 — the
    second section contributes nothing. Do not add a margin to make up the difference; opt the
-   section that needs more room into extra.
+   section that needs more room into extra. AMENDED 2026-09-02 with the ONE carved-out
+   composition: a section heading, its deck and the content they introduce share one section —
+   which is what section-heading-gets-a-deck and centred-heading-goes-narrow already prescribe
+   — and the design system owner ruled the system owns that composition's internal spacing
+   rather than splitting heading and content into separate sections (same-background sections
+   merge, so a split spends section machinery to produce a 48px gap where the composition wants
+   2rem). The named spacing: the grid — or the second container, where the heading block takes
+   its own narrow one — gets margin-top: var(--uiowa-space-200), the value the Biochemistry
+   parity story established, applied through a page-scoped class. NOTHING else inside the
+   section carries a margin. The Well-Being page is the case this closes: five grids hand-set
+   at 1.5rem plus a 1.75rem row, each its own invented number, because no value was named.
 17. **alert-spacing** (agent) — An Alert brings its own internal spacing from tokens and
    needs none from you: alert/padding sets a uniform edge padding on all four sides
    (src/scss/components/alert.scss:9) and alert/icon-gap sets the gap between the icon block
@@ -722,6 +732,12 @@ imports for what exists and report the rest.
   not by convention. With `fill="media"`, `overlay_direction` `none|btt|ttb|ltr` and
   `overlay_light` cross freely — direction is the angle, light is the colour. `height`
   `none|medium|large` sets a MINIMUM via an aspect ratio, so long content still wins.
+  Buttons: up to THREE numbered pairs — `button_label`/`button_url`, `button_2_label`/
+  `button_2_url`, `button_3_label`/`button_3_url` — counted by non-empty labels; two or
+  more render in the banner's own `.bttn--row`, spaced by its token margins. Know the
+  trade the contract records before adding a second: in the Vue component ONE button
+  makes the whole banner clickable and links the headline, and a second button gives both
+  up — add buttons because the content needs them, not for symmetry.
   Pass `image` (a URL) for a real hero image; leave it empty and you get a labelled grey
   placeholder instead, which is fine for wireframing but say so to the user. Needs ≥768px
   of container width for the desktop rendering;
