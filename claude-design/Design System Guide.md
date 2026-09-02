@@ -752,8 +752,9 @@ gray--pattern--community — textures need assets/ copied),
 overlay_direction (none | btt | ttb | ltr), overlay_light, height (none | medium | large),
 narrow, horizontal_alignment, vertical_alignment, mobile_content_below_image, pre_title,
 headline, body_text, and up to three buttons as numbered pairs (button_label/button_url,
-button_2_*, button_3_* — counted by non-empty labels; two or more render in the banner's
-.bttn--row, and the contract's trade applies: one button makes the whole Vue banner
+button_2_*, button_3_* — counted by non-empty labels; two or more render INLINE in the
+banner's .bttn--row (flex in this view — the runtime's import wrappers would otherwise
+stack them), and the contract's trade applies: one button makes the whole Vue banner
 clickable and links the headline, a second gives both up, so add buttons for content, not
 symmetry). The fill is the component's central rule: a banner is
 EITHER an image with a tinted scrim over it OR a coloured band, never both, and four

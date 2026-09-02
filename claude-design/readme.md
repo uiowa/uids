@@ -532,6 +532,7 @@ selectors because it supplies the page's baseline.
 - `layout.css` — containers, section rhythm, content grids; link it after `tokens.css`
 - `backgrounds.css` — the `bg--*` background bands and their text cascade; link it after
   `tokens.css`
+- `assets/` — the pattern texture files backgrounds.css references (copy recursively)
 - `SKILL.md` — skill wrapper
 
 **Page furniture**
@@ -562,7 +563,7 @@ selectors because it supplies the page's baseline.
 
 **Navigation**
 - `Menu.dc.html` — vertical or horizontal nav with nesting
-- `Tabs.dc.html` — tablist + panels
+- `Tabs.dc.html` — tablist + panels (switching WORKS — the radio affordance)
 - `Pager.dc.html` — pagination
 - `Breadcrumbs.dc.html` — breadcrumb trail
 - `Accordion.dc.html` — expandable items
@@ -681,12 +682,17 @@ imports for what exists and report the rest.
   Booleans: `borderless`, `link_indicator`, `show_media`, `centered`, `media_padded`,
   `button_align_bottom`.
   Leave `link_text` **empty** with `url` set and `link_indicator` on and you get the bare
-  circular arrow — that is the list treatment, not a missing label.
+  circular arrow — that is the list treatment, not a missing label. Give `link_text` a
+  real label and the footer renders the labeled in-card button (transparent + light_font
+  with the arrow), which is the events/news treatment.
   **`orientation` needs a container**: Card switches on a CONTAINER query at 400px, so wrap
   each card in `.dc-card-column` (the template ships it) or `left`/`right` render stacked
   with no warning. For a list of items: `borderless`, `orientation="right"`,
   `media_size="small"`, empty `link_text`, one per row, 2rem apart — see
-  `item-list-is-stacked-cards` and `contracts/item-list.json`.
+  `item-list-is-stacked-cards` and `contracts/item-list.json`. For a DATE-circle list item
+  (events, news with date circles): `media_shape="date"`, `media_size="small"`,
+  `orientation="left"`, `date_month`/`date_day` — the wrapper takes the circle cap and the
+  96px gold-hairline circle sits compact beside the copy.
 
 - **Headline**: `<dc-import name="Headline" text="Our research" level="h2"
   text_style="uppercase" underline="{{ true }}">`. Levels `h1…h6` (h2 default) — pick by
@@ -753,7 +759,8 @@ imports for what exists and report the rest.
   `none|medium|large` sets a MINIMUM via an aspect ratio, so long content still wins.
   Buttons: up to THREE numbered pairs — `button_label`/`button_url`, `button_2_label`/
   `button_2_url`, `button_3_label`/`button_3_url` — counted by non-empty labels; two or
-  more render in the banner's own `.bttn--row`, spaced by its token margins. Know the
+  more render INLINE in the banner's own `.bttn--row` (flex in this view — the runtime's
+  import wrappers would otherwise stack them), spaced by its token margins. Know the
   trade the contract records before adding a second: in the Vue component ONE button
   makes the whole banner clickable and links the headline, and a second button gives both
   up — add buttons because the content needs them, not for symmetry.
@@ -777,7 +784,9 @@ imports for what exists and report the rest.
   container width or they render vertically (as-shipped). Item icons are not carried here.
 
 - **Tabs**: `<dc-import name="Tabs" tab_1="Hours" panel_1="…" selected="1">`. Three tabs
-  with panels; `selected` picks which renders as active. Switching does not work — say so.
+  with panels. SWITCHING WORKS — clicking a tab or using arrow keys changes panels (a CSS
+  radio affordance; `selected` is the initial tab; the DOM diverges from production's
+  button[role=tab]+tabs.js, recorded in contracts/tabs.json changes[]).
 
 - **Pager**: `<dc-import name="Pager" active_page="5">`. Note the ellipsis renders
   unpadded — a known upstream quirk reproduced faithfully, not a defect to patch here.
