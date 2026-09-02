@@ -144,5 +144,8 @@
     "tabpanel-mechanics": "[role=tabpanel] { position: relative; z-index: 2; } plus a flat, non-meaningful 0 inline padding (tabs.scss:115-119) — only padding-block is tokenized (tabs/panel/padding-block); position/z-index is stacking-context plumbing.",
     "panel-child-spacing": "[role=tabpanel] * + p { margin-top: 1rem; } (tabs.scss:125-127) — one-off adjacent-sibling paragraph spacing inside panel content, not identity-bearing to the tab/indicator shape.",
     "structural-resets": "border-radius: 0; outline: 0; on selected tabs, and outline: 0 on :active/:focus/:hover (tabs.scss:50-51,108-112) — zero-value resets relying on the custom ::before/::after indicators instead of the native focus ring."
-  }
+  },
+  "changes": [
+    "2026-09-02 — TAB SWITCHING WORKS in Tabs.dc.html, on the design system owner's ask, via the CSS-only radio pattern: three visually-hidden radios drive :checked state, the tabs are labels carrying the exact .tab__button box and tokens, and panels show off the matching radio. The mechanism was forced, not chosen: probed the same day, a template <script> never executes (dc-import inserts markup via innerHTML), and a page-level script would make every consumer re-add behaviour. The DOM therefore DIVERGES from production (input+label, no role/aria-selected/hidden; production is button[role=tab] + tabs.js) — recorded here so nobody 'restores' the static markup as a fidelity fix. Keyboard: Tab reaches the group, arrow keys switch (native radio behaviour, also the W3C tabs arrow model). Visuals are token-identical; `selected` now means the initially-checked tab."
+  ]
 }

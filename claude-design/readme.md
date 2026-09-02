@@ -18,6 +18,8 @@ no error — so copy the files you need into ONE directory of your project befor
      `Banner.dc.html` or `Card.dc.html` — all three import both
    - `tokens.css`, `layout.css` **and** `backgrounds.css` (several templates link
      `./backgrounds.css` directly, so they need that sibling even standalone)
+   - `assets/` (ONE recursive entry) if the page uses any `bg--*--pattern--*` class or a
+     pattern banner fill — the texture files; without them patterns render color-only
 2. `create_support_js` in that same directory (every `.dc.html` loads `./support.js`).
 3. Then `<dc-import name="Brand Bar" siteName="…"></dc-import>` resolves.
 
@@ -44,7 +46,8 @@ design system or refresh it from the project's design-systems panel.
 These templates are static. Anything driven by JavaScript or native browser state is
 represented by a **prop that selects which state renders**, not by real interaction:
 
-- `Tabs.dc.html` will not switch panels — set `selected`.
+- `Tabs.dc.html` SWITCHES — the one interactive template (a CSS radio affordance;
+  `selected` picks the initial tab; mouse and arrow keys both work).
 - `Accordion.dc.html` will not open on click — set `open`.
 - `Alert.dc.html`'s dismiss button does nothing — it renders, it does not dismiss.
 - `Table.dc.html`'s row highlight is `:hover`-only, as in production.
@@ -428,13 +431,17 @@ the repo's own rule said to put it there. Do not edit them here.
    redundant h1 underneath it (the id changed with the scope: it was
    landing-page-suppresses-a-duplicate-title). Add layout--title--hidden to the title section:
    it zeroes that section's own top and bottom padding (claude-design/layout.css:104-107) and
-   restores the following section's padding-top, and downstream uids_base makes the breadcrumb
-   block element-invisible under the same class. Hide the h1 itself with element-invisible or
-   visually-hidden, both of which ship unconditionally in the shared sheet for exactly this
-   case. For a banner-led page, banner-led-page-is-a-composition covers the fuller arrangement,
-   including layout--title--with-background. SUPPRESS, NEVER DELETE: the h1 and the breadcrumb
-   stay in the DOM, announced and focus-revealable -- a page with no h1 at all is a real
-   accessibility regression, and this is the platform's mitigation for the two-h1 problem
+   restores the following section's padding-top, and it hides the BREADCRUMB with the title:
+   uids_base applies element-invisible to the breadcrumb block under this class
+   (scss/layouts/onecol--background.scss:78, with a focus-within reveal), and as of 2026-09-02
+   claude-design/layout.css ports the same pair onto nav.breadcrumb — so a suppressed page
+   never shows an orphaned crumb strip, and focusing a crumb link reveals it on a gray chip.
+   Hide the h1 itself with element-invisible or visually-hidden, both of which ship
+   unconditionally in the shared sheet for exactly this case. For a banner-led page,
+   banner-led-page-is-a-composition covers the fuller arrangement, including
+   layout--title--with-background. SUPPRESS, NEVER DELETE: the h1 and the breadcrumb stay in
+   the DOM, announced and focus-revealable -- a page with no h1 at all is a real accessibility
+   regression, and this is the platform's mitigation for the two-h1 problem
    contracts/page-title.json knownIssues[0] records. A page whose title is genuinely NOT stated
    elsewhere should show it.
 35. **nav-strip-border-is-full-bleed** (agent) — The horizontal main nav sits in its own
@@ -618,9 +625,9 @@ imports for what exists and report the rest.
   and links gold automatically; gold/gray/white set black text. Never restyle text to
   compensate for a band; the class does it. Pattern variants
   (`bg--{color}--pattern--{brain|community|particle}`, e.g.
-  `bg--black--pattern--brain`) are valid classes but render **color-only here** — the
-  texture images are repo assets not shipped in this view. Don't fake a texture; note
-  the gap to the user if a design hinges on it.
+  `bg--black--pattern--brain`) RENDER THEIR REAL TEXTURES as of 2026-09-02 — the files
+  ship in `assets/`, so copy that folder beside `backgrounds.css` (color-only fallback
+  without it). Never fake a texture with gradients or drawings.
 - **Tokens only** — no raw hex, type sizes, or spacing. Color: `--uiowa-color-brand` (gold
   #FFCD00), `--uiowa-color-text`, `--uiowa-color-background`, `--uiowa-color-link`. Type:
   `--uiowa-font-size-heading-h1…h6` (fluid clamps), `--uiowa-font-size-body` (1.2rem, lh
@@ -735,7 +742,9 @@ imports for what exists and report the rest.
   ban is retired. See `badge-inline-only`.)
 
 - **Banner**: `<dc-import name="Banner" headline="…" pre_title="…" button_label="Read more">`.
-  `fill` `media|black|gold|gray|white` picks the FILL MECHANISM, and it is exclusive: a
+  `fill` `media|black|gold|gray|white` — plus the three pattern fills the contract
+  enumerates (`black--pattern--brain`, `gold--pattern--particle`,
+  `gray--pattern--community`; needs `assets/` copied) — picks the FILL MECHANISM, and it is exclusive: a
   background band has no image and therefore no overlay, which is enforced in the CSS and
   not by convention. With `fill="media"`, `overlay_direction` `none|btt|ttb|ltr` and
   `overlay_light` cross freely — direction is the angle, light is the colour. `height`

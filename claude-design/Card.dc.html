@@ -482,9 +482,17 @@
           if (has(url)) classes.push('click-container');
 
           // The date circle is authored markup inside the media slot, not a shape class.
+          // The WRAPPER still needs a real shape class, though: the side-by-side layouts
+          // give every media column flex-basis 100% and cap it only per size+shape combo
+          // (card.scss:395-449), and 'date' matches none of them — so a layout-left news
+          // card rendered its date in a HALF-CARD column (measured 613px of a 1225px card
+          // on 2026-09-02) with the 96px circle adrift in it. The date IS a circle, so the
+          // wrapper takes media--circle: the always-on .media--small.media--circle cap
+          // (11.375rem, card.scss:416-418) and the circle centring rules then apply,
+          // which is the compact column the events/news reference shows.
           const isDate = mediaShape === 'date';
           const mediaClasses = ['media', 'media--' + mediaSize];
-          if (!isDate) mediaClasses.push('media--' + mediaShape);
+          mediaClasses.push('media--' + (isDate ? 'circle' : mediaShape));
 
           // Three mutually exclusive media states, in priority order: the date circle wins,
           // then a real image if a url was supplied, then the grey stand-in. Kept as three

@@ -20,21 +20,35 @@
           html{box-sizing:border-box}
           *,*::before,*::after{box-sizing:inherit}
           body{margin:0}
-          /* Mirrors src/scss/components/tabs.scss (post-token-swap) in SOURCE ORDER.
-             Order matters more than usual here: the two indicator pseudo-elements are
-             declared BEFORE and AFTER the state rules that widen them, and the gold
-             focus indicator loses a specificity TIE to a later rule (both called out
-             inline below). Sass's `&`-nesting is expanded to the selectors it emits. */
+          /* Mirrors src/scss/components/tabs.scss (post-token-swap) in SOURCE ORDER,
+             re-keyed for the WORKING tabs this template renders as of 2026-09-02 (the
+             design system owner asked for real switching). Production drives state with
+             tabs.js moving aria-selected/hidden on button[role=tab]; a template script
+             is inert here (probed 2026-09-02: dc-import inserts markup via innerHTML,
+             so template <script>s never execute; page scripts do, but a fix that every
+             consumer must re-add is not a fix). The state mechanism is therefore three
+             visually-hidden RADIOS — :checked replaces [aria-selected="true"], and each
+             selector below says which production selector it stands in for. Every
+             color/size/spacing declaration and its token is UNCHANGED from tabs.scss. */
+
+          /* ---- dc-only state plumbing (no production counterpart) ----
+             The radios are focusable (keyboard: Tab reaches the group, arrows switch —
+             the native radio-group behaviour, which is also the W3C tabs arrow model).
+             opacity:0 + 1px, NOT display:none, so focus and arrow keys keep working. */
+          .dc-tabs__radio{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+          .tabs-collection .tab__content{display:none}
+          .dc-tabs__radio--0:checked ~ .dc-tabs__panel--0,
+          .dc-tabs__radio--1:checked ~ .dc-tabs__panel--1,
+          .dc-tabs__radio--2:checked ~ .dc-tabs__panel--2{display:block}
 
           /* ---- base layer the production page supplies (not tabs.scss) ---- */
-          /* src/scss/base/_reset.scss:462. Panels are hidden with the native `hidden`
-             attribute — that rule is what makes it stick, so it is mirrored here
-             rather than left to the UA sheet. */
+          /* src/scss/base/_reset.scss:462 — kept although this template no longer emits
+             the attribute, so authored rich text pasted into a panel behaves. */
           [hidden]{display:none}
 
           /* ---- tabs.scss ---- */
           /* font-family stands in for the body font the production page provides
-             (.tabs-collection inherits Roboto there). Tab buttons override it from
+             (.tabs-collection inherits Roboto there). Tab labels override it from
              their own token below, so it only reaches panel prose — computed-identical
              to production. */
           .tabs-collection{margin:0;list-style-type:none;font-family:var(--uiowa-font-family-body)}
@@ -43,12 +57,17 @@
           .tabs-collection::after,.tabs-collection::before{display:table;content:' '}
 
           /* -0.1rem is a hairline overlap offset and font-size:0 suppresses the
-             inline-block whitespace gap between adjacent buttons. Both are raw
+             inline-block whitespace gap between adjacent tabs. Both are raw
              geometry, deliberately NOT tokens — contracts/tabs.json
-             geometryNotTokenized.tablist-overlap-margin / .tablist-font-size-zero. */
-          .tabs-collection [role="tablist"]{margin:0 0 -0.1rem;overflow:visible;font-size:0}
+             geometryNotTokenized.tablist-overlap-margin / .tablist-font-size-zero.
+             Production keys this on [role="tablist"]; the working tablist here is a
+             plain div (labels are not tabs ARIA-wise, so the role would be a lie). */
+          .tabs-collection .dc-tabs__list{margin:0 0 -0.1rem;overflow:visible;font-size:0}
 
-          .tabs-collection [role="tab"]{
+          /* Production: .tabs-collection [role="tab"]. Same box, same tokens. The
+             inline-block is what <button> gave production for free. */
+          .tabs-collection .tab__button{
+            display:inline-block;
             position:relative;margin:0;
             /* Asymmetric block padding (1rem / 1.3rem) is codified as-shipped —
                contracts/tabs.json knownIssues. Not rounded to match. */
@@ -58,144 +77,137 @@
             font-size:var(--uiowa-tabs-tab-font-size);
             font-weight:var(--uiowa-tabs-tab-font-weight);
             background:none;
-            /* Inert as-shipped: nothing ever moves the button's own background off
+            /* Inert as-shipped: nothing ever moves the tab's own background off
                `none`; the indicators are pseudo-elements with their own transitions
                (contracts/tabs.json knownIssues). Kept verbatim. */
             transition:background 0.8s ease-out;
             cursor:pointer;
           }
-          /* TRANSIENT indicator (hover / focus-visible). Starts at width:0 and is
+          /* TRANSIENT indicator (hover / keyboard focus). Starts at width:0 and is
              widened by the rules at the bottom of this sheet. */
-          .tabs-collection [role="tab"]::before{position:absolute;bottom:0;left:0;width:0;height:var(--uiowa-tabs-indicator-height);content:"";transition:0.3s;z-index:1}
+          .tabs-collection .tab__button::before{position:absolute;bottom:0;left:0;width:0;height:var(--uiowa-tabs-indicator-height);content:"";transition:0.3s;z-index:1}
 
-          /* Specificity-dead as-shipped: every real tab also matches one of the
-             aria-selected rules below, which are more specific, so this is never the
-             winning declaration (contracts/tabs.json knownIssues). Kept for
-             source-order fidelity. Production writes Sass `$light`, i.e.
-             var(--uids-light) — a uids-core custom property that is not part of this
-             view's tokens.css. Its value is --uiowa-color-gray-100, used directly. */
-          [class*="bg--black"] .tabs-collection [role="tab"]{color:var(--uiowa-color-gray-100)}
+          /* Specificity-dead as-shipped: every real tab also matches a state rule
+             below at higher specificity, so this is never the winning declaration
+             (contracts/tabs.json knownIssues). Kept for source-order fidelity.
+             Production writes Sass `$light`, i.e. var(--uids-light) — a uids-core
+             custom property that is not part of this view's tokens.css. Its value is
+             --uiowa-color-gray-100, used directly. */
+          [class*="bg--black"] .tabs-collection .tab__button{color:var(--uiowa-color-gray-100)}
 
-          .tabs-collection [role="tab"][aria-selected="true"]{border-radius:0;outline:0}
-          /* Never renders under a bg--gold ancestor: the bg--gold hover/focus rule at
-             the bottom of this sheet TIES on specificity and, being later, wins — so
-             the focus bar on gold is med-gray, not gold. As-shipped; see
-             contracts/tabs.json knownIssues. */
-          .tabs-collection [role="tab"][aria-selected="true"]:focus-visible::before{background:var(--uiowa-tabs-indicator-selected-color)}
+          /* ---- SELECTED state — production's [aria-selected="true"], keyed on the
+                  matching radio's :checked. ---- */
+          .dc-tabs__radio--0:checked ~ .dc-tabs__list .dc-tabs__tab--0,
+          .dc-tabs__radio--1:checked ~ .dc-tabs__list .dc-tabs__tab--1,
+          .dc-tabs__radio--2:checked ~ .dc-tabs__list .dc-tabs__tab--2{border-radius:0;outline:0}
           /* PERSISTENT state indicator. Beats the base ::after width:0 declared LATER
              in this sheet on specificity — that is what makes the bar span the tab. */
-          .tabs-collection [role="tab"][aria-selected="true"]::after{width:100%;background:var(--uiowa-tabs-indicator-selected-color)}
-          [class*="bg--gold"] .tabs-collection [role="tab"][aria-selected="true"]::after{background:var(--uiowa-tabs-indicator-selected-color-on-gold)}
-          [class*="bg--black"] .tabs-collection [role="tab"][aria-selected="true"]{color:var(--uiowa-tabs-tab-selected-text-color-on-black)}
+          .dc-tabs__radio--0:checked ~ .dc-tabs__list .dc-tabs__tab--0::after,
+          .dc-tabs__radio--1:checked ~ .dc-tabs__list .dc-tabs__tab--1::after,
+          .dc-tabs__radio--2:checked ~ .dc-tabs__list .dc-tabs__tab--2::after{width:100%;background:var(--uiowa-tabs-indicator-selected-color)}
+          [class*="bg--gold"] .dc-tabs__radio--0:checked ~ .dc-tabs__list .dc-tabs__tab--0::after,
+          [class*="bg--gold"] .dc-tabs__radio--1:checked ~ .dc-tabs__list .dc-tabs__tab--1::after,
+          [class*="bg--gold"] .dc-tabs__radio--2:checked ~ .dc-tabs__list .dc-tabs__tab--2::after{background:var(--uiowa-tabs-indicator-selected-color-on-gold)}
+          [class*="bg--black"] .dc-tabs__radio--0:checked ~ .dc-tabs__list .dc-tabs__tab--0,
+          [class*="bg--black"] .dc-tabs__radio--1:checked ~ .dc-tabs__list .dc-tabs__tab--1,
+          [class*="bg--black"] .dc-tabs__radio--2:checked ~ .dc-tabs__list .dc-tabs__tab--2{color:var(--uiowa-tabs-tab-selected-text-color-on-black)}
 
-          /* Note the asymmetry: only UNSELECTED tabs get an ambient text color. A
-             selected tab outside bg--black has no color rule at all and falls through
-             to whatever its container cascades (contracts/tabs.json knownIssues) —
-             which is why nothing is declared for that cell here. */
-          .tabs-collection [role="tab"][aria-selected="false"]{color:var(--uiowa-tabs-tab-text-color)}
-          .tabs-collection [role="tab"][aria-selected="false"]::after{width:100%;background:var(--uiowa-tabs-indicator-unselected-color)}
-          [class*="bg--gold"] .tabs-collection [role="tab"][aria-selected="false"]::after{background:var(--uiowa-tabs-indicator-unselected-color-on-gold)}
-          [class*="bg--black"] .tabs-collection [role="tab"][aria-selected="false"]{color:var(--uiowa-tabs-tab-text-color-on-black)}
+          /* ---- UNSELECTED — production's [aria-selected="false"]. Note the asymmetry
+                  production ships: only UNSELECTED tabs get an ambient text color, and
+                  a selected tab outside bg--black falls through to its container
+                  (contracts/tabs.json knownIssues). The base label carries the
+                  unselected declarations; the :checked rules above override them, so
+                  the same two-state cascade falls out. */
+          .tabs-collection .tab__button{color:var(--uiowa-tabs-tab-text-color)}
+          .tabs-collection .tab__button::after{width:100%;background:var(--uiowa-tabs-indicator-unselected-color)}
+          [class*="bg--gold"] .tabs-collection .tab__button::after{background:var(--uiowa-tabs-indicator-unselected-color-on-gold)}
+          [class*="bg--black"] .tabs-collection .tab__button{color:var(--uiowa-tabs-tab-text-color-on-black)}
 
-          /* Base of the persistent indicator. Declared AFTER the two width:100% rules
-             above but less specific, so it only supplies position, height and content.
-             Positioning/z-index/transition are plumbing, not tokens — see
-             contracts/tabs.json geometryNotTokenized.indicator-positioning / -motion. */
-          .tabs-collection [role="tab"]::after{position:absolute;bottom:0;left:0;width:0;height:var(--uiowa-tabs-indicator-height);content:"";transition:0.3s}
+          /* Base of the persistent indicator: position, height, content, motion —
+             plumbing, not tokens (contracts/tabs.json geometryNotTokenized). The two
+             state rules above out-rank it exactly as production's do. */
+          .tabs-collection .tab__button::after{position:absolute;bottom:0;left:0;height:var(--uiowa-tabs-indicator-height);content:"";transition:0.3s}
 
-          /* Hover and focus-visible are REAL states in this preview — they work when
-             the tab is hovered or keyboard-focused. Only tab SWITCHING is JS-driven
-             (see the markup comment). */
-          .tabs-collection [role="tab"]:focus-visible::before,
-          .tabs-collection [role="tab"]:hover::before{background:var(--uiowa-tabs-indicator-hover-color);width:100%}
-          [class*="bg--gold"] .tabs-collection [role="tab"]:focus-visible::before,
-          [class*="bg--gold"] .tabs-collection [role="tab"]:hover::before{background:var(--uiowa-tabs-indicator-hover-color-on-gold)}
-          .tabs-collection [role="tab"]:active,
-          .tabs-collection [role="tab"]:focus,
-          .tabs-collection [role="tab"]:hover{outline:0}
+          /* Hover is a REAL state, as before. Keyboard focus lives on the hidden
+             RADIO, so the med-gray transient bar is keyed to :focus-visible on the
+             matching radio — same visual as production's tab focus. */
+          .tabs-collection .tab__button:hover::before{background:var(--uiowa-tabs-indicator-hover-color);width:100%}
+          .dc-tabs__radio--0:focus-visible ~ .dc-tabs__list .dc-tabs__tab--0::before,
+          .dc-tabs__radio--1:focus-visible ~ .dc-tabs__list .dc-tabs__tab--1::before,
+          .dc-tabs__radio--2:focus-visible ~ .dc-tabs__list .dc-tabs__tab--2::before{background:var(--uiowa-tabs-indicator-hover-color);width:100%}
+          [class*="bg--gold"] .tabs-collection .tab__button:hover::before{background:var(--uiowa-tabs-indicator-hover-color-on-gold)}
+          [class*="bg--gold"] .dc-tabs__radio--0:focus-visible ~ .dc-tabs__list .dc-tabs__tab--0::before,
+          [class*="bg--gold"] .dc-tabs__radio--1:focus-visible ~ .dc-tabs__list .dc-tabs__tab--1::before,
+          [class*="bg--gold"] .dc-tabs__radio--2:focus-visible ~ .dc-tabs__list .dc-tabs__tab--2::before{background:var(--uiowa-tabs-indicator-hover-color-on-gold)}
+          .tabs-collection .tab__button:active,
+          .tabs-collection .tab__button:hover{outline:0}
 
-          .tabs-collection [role="tabpanel"]{position:relative;z-index:2;padding:var(--uiowa-tabs-panel-padding-block) 0}
-          /* .is-hidden is DEAD CSS as-shipped — no producer in either repo applies it;
-             tabs.js and every Twig template use the native `hidden` attribute
+          .tabs-collection .tab__content{position:relative;z-index:2;padding:var(--uiowa-tabs-panel-padding-block) 0}
+          /* .is-hidden is DEAD CSS as-shipped — no producer in either repo applies it
              (contracts/tabs.json knownIssues). Kept verbatim, never used below. */
-          .tabs-collection [role="tabpanel"].is-hidden{display:none}
+          .tabs-collection .tab__content.is-hidden{display:none}
           /* Stand-in for src/scss/base/_paragraph.scss, which the production page
              supplies and tabs.scss does not own; without it panel prose falls back to
              UA defaults and misrepresents the panel padding. Scoped to the panel so it
-             cannot leak into a host page. It ties on specificity with the tabs.scss
-             rule below and is declared FIRST so that rule still wins — same net
-             cascade as production, where the unscoped p rule is simply less specific. */
-          .tabs-collection [role="tabpanel"] p{font-size:var(--uiowa-font-size-body);line-height:var(--uiowa-line-height-170);margin:0 0 var(--uiowa-space-105)}
-          .tabs-collection [role="tabpanel"] * + p{margin-top:1rem}
+             cannot leak into a host page. */
+          .tabs-collection .tab__content p{font-size:var(--uiowa-font-size-body);line-height:var(--uiowa-line-height-170);margin:0 0 var(--uiowa-space-105)}
+          .tabs-collection .tab__content * + p{margin-top:1rem}
         </style>
       </helmet>
       <!--
-        NOT TEMPLATABLE: tab switching. Production loads src/assets/js/tabs.js (the W3C
-        tabs pattern, registered as window.UidsTabs) which moves aria-selected, the
-        `hidden` attribute and the roving tabindex on click, arrow/Home/End keys, URL
-        #hash and popstate. A static template has no event surface, so the `selected`
-        prop stands in for "which tab tabs.js has activated" and the markup below emits
-        the real selected/unselected attributes for exactly that state.
+        TAB SWITCHING WORKS in this template as of 2026-09-02, on the design system
+        owner's ask, and the mechanism is the one honest divergence to know about.
+        Production loads src/assets/js/tabs.js (the W3C tabs pattern) over
+        button[role=tab] markup, moving aria-selected/hidden/tabindex. A script cannot
+        ship in a template — probed 2026-09-02: dc-import inserts markup via innerHTML,
+        so a template <script> never executes — and a page-level script would make every
+        consumer responsible for re-adding behaviour. So this template renders the
+        CSS-only radio pattern instead: three visually-hidden radios drive :checked
+        state, the tabs are <label>s carrying the exact .tab__button box and tokens, and
+        the panels show/hide off the matching radio. Mouse clicks switch; keyboard
+        Tab reaches the group and ARROW KEYS switch (native radio behaviour, which is
+        also the W3C tabs arrow model). `selected` picks the initially-checked tab.
+        The DOM therefore differs from production (input+label, no role/aria-selected);
+        contracts/tabs.json changes[] records the trade. Visuals are token-identical.
 
         The tab COUNT is fixed at three — the shipped example (Tabs.stories.js, and the
         same composition the Figma set and the regression baseline use). To add a tab,
-        copy one button block and its matching panel block and extend renderVals().
+        copy one radio pair + label + panel block and extend renderVals().
       -->
       <div class="{{ contextClass }}" style="{{ contextStyle }}">
         <div id="{{ id }}" class="tabs-collection" data-screen-label="Tabs">
-          <div role="tablist" aria-label="{{ ariaLabel }}">
-            <sc-if value="{{ tab0Selected }}" hint-placeholder-val="{{ true }}">
-              <button id="{{ tab0Id }}" class="tab__button" role="tab" aria-selected="true" aria-controls="{{ panel0Id }}">{{ tab0 }}</button>
-            </sc-if>
-            <sc-if value="{{ tab0Unselected }}" hint-placeholder-val="{{ false }}">
-              <button id="{{ tab0Id }}" class="tab__button" role="tab" aria-selected="false" aria-controls="{{ panel0Id }}" tabindex="-1">{{ tab0 }}</button>
-            </sc-if>
-            <sc-if value="{{ tab1Selected }}" hint-placeholder-val="{{ false }}">
-              <button id="{{ tab1Id }}" class="tab__button" role="tab" aria-selected="true" aria-controls="{{ panel1Id }}">{{ tab1 }}</button>
-            </sc-if>
-            <sc-if value="{{ tab1Unselected }}" hint-placeholder-val="{{ true }}">
-              <button id="{{ tab1Id }}" class="tab__button" role="tab" aria-selected="false" aria-controls="{{ panel1Id }}" tabindex="-1">{{ tab1 }}</button>
-            </sc-if>
-            <sc-if value="{{ tab2Selected }}" hint-placeholder-val="{{ false }}">
-              <button id="{{ tab2Id }}" class="tab__button" role="tab" aria-selected="true" aria-controls="{{ panel2Id }}">{{ tab2 }}</button>
-            </sc-if>
-            <sc-if value="{{ tab2Unselected }}" hint-placeholder-val="{{ true }}">
-              <button id="{{ tab2Id }}" class="tab__button" role="tab" aria-selected="false" aria-controls="{{ panel2Id }}" tabindex="-1">{{ tab2 }}</button>
-            </sc-if>
-          </div>
-          <!-- Every panel is emitted, in tab order; the unselected ones carry the
-               native `hidden` attribute exactly as tabs.js leaves them. The attribute
-               is boolean, so it cannot be interpolated — hence a pair of blocks per
-               panel rather than one.
-
-               WRITE IT `hidden="hidden"`, NEVER BARE (fixed 2026-08-24). The dc runtime
-               reads every attribute as {name, value} and hands it to React as a prop
-               (support.js collectProps). A bare boolean attribute parses to value "", and
-               React removes BOOLEAN-typed attributes on any falsy value — so bare `hidden`
-               is silently DROPPED and all three panels render at once. That does not look
-               like a tabs bug: it reads as "the paragraph spacing in the tabs is huge",
-               which is how it was reported. Measured before the fix: three visible panels,
-               zero elements matching [hidden] in the whole document. The redundant-looking
-               attribute value is load-bearing; do not tidy it away. Same trap bites
-               Accordion's `open` and Form's `multiple`. -->
+          <!-- State radios. checked is a BOOLEAN attribute and the dc runtime drops
+               boolean attrs with falsy values (the hidden="hidden" lesson, 2026-08-24),
+               so each radio has a checked and an unchecked arm and the value is written
+               checked="checked", never bare. -->
           <sc-if value="{{ tab0Selected }}" hint-placeholder-val="{{ true }}">
-            <div id="{{ panel0Id }}" class="tab__content" role="tabpanel" tabindex="0" aria-labelledby="{{ tab0Id }}"><sc-if value="{{ panel0HasText }}" hint-placeholder-val="{{ true }}"><p>{{ panel0 }}</p></sc-if></div>
+            <input type="radio" class="dc-tabs__radio dc-tabs__radio--0" name="{{ id }}__group" id="{{ id }}__radio--0" checked="checked" />
           </sc-if>
           <sc-if value="{{ tab0Unselected }}" hint-placeholder-val="{{ false }}">
-            <div id="{{ panel0Id }}" class="tab__content" role="tabpanel" tabindex="0" aria-labelledby="{{ tab0Id }}" hidden="hidden"><sc-if value="{{ panel0HasText }}" hint-placeholder-val="{{ true }}"><p>{{ panel0 }}</p></sc-if></div>
+            <input type="radio" class="dc-tabs__radio dc-tabs__radio--0" name="{{ id }}__group" id="{{ id }}__radio--0" />
           </sc-if>
           <sc-if value="{{ tab1Selected }}" hint-placeholder-val="{{ false }}">
-            <div id="{{ panel1Id }}" class="tab__content" role="tabpanel" tabindex="0" aria-labelledby="{{ tab1Id }}"><sc-if value="{{ panel1HasText }}" hint-placeholder-val="{{ true }}"><p>{{ panel1 }}</p></sc-if></div>
+            <input type="radio" class="dc-tabs__radio dc-tabs__radio--1" name="{{ id }}__group" id="{{ id }}__radio--1" checked="checked" />
           </sc-if>
           <sc-if value="{{ tab1Unselected }}" hint-placeholder-val="{{ true }}">
-            <div id="{{ panel1Id }}" class="tab__content" role="tabpanel" tabindex="0" aria-labelledby="{{ tab1Id }}" hidden="hidden"><sc-if value="{{ panel1HasText }}" hint-placeholder-val="{{ true }}"><p>{{ panel1 }}</p></sc-if></div>
+            <input type="radio" class="dc-tabs__radio dc-tabs__radio--1" name="{{ id }}__group" id="{{ id }}__radio--1" />
           </sc-if>
           <sc-if value="{{ tab2Selected }}" hint-placeholder-val="{{ false }}">
-            <div id="{{ panel2Id }}" class="tab__content" role="tabpanel" tabindex="0" aria-labelledby="{{ tab2Id }}"><sc-if value="{{ panel2HasText }}" hint-placeholder-val="{{ true }}"><p>{{ panel2 }}</p></sc-if></div>
+            <input type="radio" class="dc-tabs__radio dc-tabs__radio--2" name="{{ id }}__group" id="{{ id }}__radio--2" checked="checked" />
           </sc-if>
           <sc-if value="{{ tab2Unselected }}" hint-placeholder-val="{{ true }}">
-            <div id="{{ panel2Id }}" class="tab__content" role="tabpanel" tabindex="0" aria-labelledby="{{ tab2Id }}" hidden="hidden"><sc-if value="{{ panel2HasText }}" hint-placeholder-val="{{ true }}"><p>{{ panel2 }}</p></sc-if></div>
+            <input type="radio" class="dc-tabs__radio dc-tabs__radio--2" name="{{ id }}__group" id="{{ id }}__radio--2" />
           </sc-if>
+          <div class="dc-tabs__list" aria-label="{{ ariaLabel }}">
+            <label for="{{ id }}__radio--0" id="{{ tab0Id }}" class="tab__button dc-tabs__tab--0">{{ tab0 }}</label>
+            <label for="{{ id }}__radio--1" id="{{ tab1Id }}" class="tab__button dc-tabs__tab--1">{{ tab1 }}</label>
+            <label for="{{ id }}__radio--2" id="{{ tab2Id }}" class="tab__button dc-tabs__tab--2">{{ tab2 }}</label>
+          </div>
+          <!-- Every panel is emitted; visibility is the CSS state above, off the
+               matching radio, so no hidden attribute is written any more. -->
+          <div id="{{ panel0Id }}" class="tab__content dc-tabs__panel--0" aria-labelledby="{{ tab0Id }}"><sc-if value="{{ panel0HasText }}" hint-placeholder-val="{{ true }}"><p>{{ panel0 }}</p></sc-if></div>
+          <div id="{{ panel1Id }}" class="tab__content dc-tabs__panel--1" aria-labelledby="{{ tab1Id }}"><sc-if value="{{ panel1HasText }}" hint-placeholder-val="{{ true }}"><p>{{ panel1 }}</p></sc-if></div>
+          <div id="{{ panel2Id }}" class="tab__content dc-tabs__panel--2" aria-labelledby="{{ tab2Id }}"><sc-if value="{{ panel2HasText }}" hint-placeholder-val="{{ true }}"><p>{{ panel2 }}</p></sc-if></div>
         </div>
       </div>
     </x-dc>
@@ -218,14 +230,11 @@
     >
       class Component extends DCLogic {
         renderVals() {
-          // Mirrors the markup Tabs.vue emits: div.tabs-collection#id wrapping one
-          // div[role=tablist] of button.tab__button[role=tab], then one
-          // div.tab__content[role=tabpanel] per item. Tabs.vue has no class-computing
-          // logic — every class is static — so the only computation here is state.
+          // The markup carries the exact .tabs-collection / .tab__button / .tab__content
+          // boxes Tabs.vue emits; only the state mechanism differs (radios, see the
+          // template comment). The only computation here is state.
           const id = this.props.id ?? 'tabs-example';
-          // Vue renders index 0 selected; tabs.js takes over from there. The prop is
-          // 1-based for the editor, the IDs stay ZERO-based like Vue's `index`,
-          // because tabs.js matches the URL hash against the literal tab id.
+          // The prop is 1-based for the editor; ids stay ZERO-based like Vue's `index`.
           const selected = parseInt(this.props.selected ?? '1', 10);
           // preview_background is a PREVIEW context, not a component prop: it stands
           // in for placing the import inside a bg--gold / bg--black section, which is
@@ -253,11 +262,7 @@
             panel2: this.props.panel_3 ?? '',
             // The <p> around each panel body is a STAND-IN for authored rich text:
             // Tabs.vue:65 uses v-html="item.content", so a blank content string produces
-            // NO child nodes at all. The <p> used to be emitted unconditionally, which left
-            // an empty paragraph — line-height 1.7 x 1.2rem plus
-            // margin-bottom var(--uiowa-space-105) — roughly 49px of stray space on top of
-            // the tabpanel's own 2rem padding, where production collapses to just padding.
-            // Gating on non-empty text reproduces v-html's real blank behavior.
+            // NO child nodes at all. Gating on non-empty text reproduces that.
             panel0HasText: String(this.props.panel_1 ?? '').trim().length > 0,
             panel1HasText: String(this.props.panel_2 ?? '').trim().length > 0,
             panel2HasText: String(this.props.panel_3 ?? '').trim().length > 0,

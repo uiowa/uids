@@ -106,6 +106,38 @@
   padding-bottom: 0;
 }
 
+/* A hidden title hides the BREADCRUMB with it — ADDED 2026-09-02 on the design system
+   owner's ask, and it is a parity PORT, not an invention: uids_base
+   scss/layouts/onecol--background.scss:78-96 applies element-invisible to the breadcrumb
+   block under this same class, with a focus-within reveal, so downstream a suppressed
+   title never leaves an orphaned breadcrumb strip. This view shipped only the padding
+   half, which is why a suppressed page showed crumbs and no title. Selector adapted:
+   production targets Drupal's .block-system-breadcrumb-block wrapper; the structural
+   equivalent here is the nav.breadcrumb the Breadcrumbs template renders. The reveal
+   keeps the pair reachable — focus a crumb link and it reappears on a gray chip, exactly
+   as production does ($gray-light = --uiowa-color-gray-200 via uids-core). */
+.layout--title--hidden .breadcrumb {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.layout--title--hidden .breadcrumb:focus-within {
+  position: static !important;
+  clip: auto;
+  height: auto;
+  width: auto;
+  overflow: auto;
+  padding-left: 0.2rem;
+}
+
+.layout--title--hidden .breadcrumb:focus-within a {
+  background: var(--uiowa-color-gray-200);
+  padding: 0.2rem;
+}
+
 /* Measured 2026-08-25 at 1200px, because the obvious reading of this rule is wrong. For a
    PLAIN title section it is redundant: the adjacent-same-background merge below is
    :not([class*="bg-"]) on both sides, matches the same pair, and already declares

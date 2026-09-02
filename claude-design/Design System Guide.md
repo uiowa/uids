@@ -42,10 +42,11 @@ needs one, use a clearly-labeled neutral placeholder (see `.uids-placeholder` in
 scaffold) and tell the user the component hasn't been migrated into this system yet.
 Honest gaps beat invented components.
 
-**Static-only, by construction.** These templates carry no JavaScript and no native
-interactive state. Tabs do not switch, accordions do not open on click, and the alert's
-dismiss button does not dismiss — each exposes a prop that selects which state renders
-instead. Font Awesome is not loadable in this view: `Alert.dc.html` inlines the glyph
+**Static-only, by construction — with one exception.** These templates carry no
+JavaScript. TABS SWITCH (a CSS radio affordance as of 2026-09-02; `selected` picks the
+initial tab, mouse and arrow keys both work); accordions do not open on click and the
+alert's dismiss button does not dismiss — those expose a prop that selects which state
+renders instead. Font Awesome is not loadable in this view: `Alert.dc.html` inlines the glyph
 SVGs, `Accordion.dc.html` uses a commented stand-in shape, and `Menu.dc.html` omits item
 icons. Say which of these applies rather than presenting a template as interactive.
 
@@ -62,6 +63,8 @@ project:
      Footer `dc-import` it, so they render logo-less without it
    - `tokens.css`, `layout.css` **and** `backgrounds.css` (Headline links
      `./backgrounds.css` directly, so it needs that sibling even standalone)
+   - `assets/` (one recursive entry) if the page uses any pattern background or a
+     pattern banner fill — without it patterns render color-only
 2. **`create_support_js`** in that same directory (the `.dc.html` files load `./support.js`).
 3. `<dc-import name="Brand Bar" siteName="…">` — now it resolves.
 
@@ -446,13 +449,17 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    redundant h1 underneath it (the id changed with the scope: it was
    landing-page-suppresses-a-duplicate-title). Add layout--title--hidden to the title section:
    it zeroes that section's own top and bottom padding (claude-design/layout.css:104-107) and
-   restores the following section's padding-top, and downstream uids_base makes the breadcrumb
-   block element-invisible under the same class. Hide the h1 itself with element-invisible or
-   visually-hidden, both of which ship unconditionally in the shared sheet for exactly this
-   case. For a banner-led page, banner-led-page-is-a-composition covers the fuller arrangement,
-   including layout--title--with-background. SUPPRESS, NEVER DELETE: the h1 and the breadcrumb
-   stay in the DOM, announced and focus-revealable -- a page with no h1 at all is a real
-   accessibility regression, and this is the platform's mitigation for the two-h1 problem
+   restores the following section's padding-top, and it hides the BREADCRUMB with the title:
+   uids_base applies element-invisible to the breadcrumb block under this class
+   (scss/layouts/onecol--background.scss:78, with a focus-within reveal), and as of 2026-09-02
+   claude-design/layout.css ports the same pair onto nav.breadcrumb — so a suppressed page
+   never shows an orphaned crumb strip, and focusing a crumb link reveals it on a gray chip.
+   Hide the h1 itself with element-invisible or visually-hidden, both of which ship
+   unconditionally in the shared sheet for exactly this case. For a banner-led page,
+   banner-led-page-is-a-composition covers the fuller arrangement, including
+   layout--title--with-background. SUPPRESS, NEVER DELETE: the h1 and the breadcrumb stay in
+   the DOM, announced and focus-revealable -- a page with no h1 at all is a real accessibility
+   regression, and this is the platform's mitigation for the two-h1 problem
    contracts/page-title.json knownIssues[0] records. A page whose title is genuinely NOT stated
    elsewhere should show it.
 35. **nav-strip-border-is-full-bleed** (agent) — The horizontal main nav sits in its own
@@ -582,12 +589,10 @@ a band** — if text looks wrong inside one, the markup is wrong, not the colors
 
 Three honesty notes:
 
-1. **Pattern textures are not shipped in this view.** In production each pattern class
-   layers a texture image (the brain circuit, the community photo-collage, the particle
-   field) over the color; here the twelve pattern classes render as their base color
-   band. The classes are still correct to use — the texture appears in production — but
-   don't fake one with gradients or drawings, and tell the user the preview is
-   texture-less.
+1. **Pattern textures ship in `assets/` as of 2026-09-02.** Copy that folder beside
+   `backgrounds.css` and the twelve pattern classes render their real texture (the brain
+   circuit, the community collage, the particle field); without it they degrade to the
+   correct base color band. Never fake a texture with gradients or drawings.
 2. Background fills ride the brand channels (`--brand-primary`/`--brand-secondary`), so
    a site's grayscale/retheme override reaches every band automatically. Don't bind a
    band to a raw hex.
@@ -740,7 +745,9 @@ banned badges from headings and this one does not — see `badge-inline-only` in
 Only `primary` sets a text color (black); the other five declare a background only and
 inherit the base white text.
 
-**Banner** — a full-bleed hero. Props: fill (media | black | gold | gray | white),
+**Banner** — a full-bleed hero. Props: fill (media | black | gold | gray | white, plus
+the three contract pattern fills black--pattern--brain / gold--pattern--particle /
+gray--pattern--community — textures need assets/ copied),
 overlay_direction (none | btt | ttb | ltr), overlay_light, height (none | medium | large),
 narrow, horizontal_alignment, vertical_alignment, mobile_content_below_image, pre_title,
 headline, body_text, and up to three buttons as numbered pairs (button_label/button_url,
@@ -775,9 +782,9 @@ needs at least 768px of container width or it renders vertically, submenus inclu
 as-shipped). Item icons are not carried in this view.
 
 **Tabs** — a tablist with panels. Props: id, aria_label, selected (1 | 2 | 3), tab_1…tab_3,
-panel_1…panel_3. Tab switching is JavaScript in production; here `selected` chooses which
-tab renders active and which panel is visible. Clicking does nothing — say so rather than
-demoing it as interactive.
+panel_1…panel_3. SWITCHING WORKS as of 2026-09-02 — a CSS radio affordance stands in for
+production's tabs.js (contracts/tabs.json changes[] records the DOM divergence), so
+clicking a tab or using arrow keys switches panels; `selected` is the initial tab.
 
 **Pager** — pagination. Props: active_page, heading_id. The ellipsis renders unpadded
 because the markup and the stylesheet disagree upstream; that quirk is reproduced

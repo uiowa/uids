@@ -4,12 +4,13 @@
    border/link context rules. Rule ORDER mirrors the source file so the cascade behaves
    the same. Load AFTER tokens.css (it references --uiowa-* and --link-color).
 
-   PATTERN IMAGES ARE NOT SHIPPED IN THIS VIEW. In production every
-   bg--{color}--pattern--{type} class also sets a background-image url() from the repo's
-   asset map (11 texture files — see the contract's geometryNotTokenized). Here the
-   pattern classes keep their exact color + text cascade and render as the base color
-   band, texture-less. Do not substitute a look-alike texture, gradient, or emoji-art
-   stand-in; if a design hinges on the texture itself, note the gap to the user. */
+   PATTERN IMAGES SHIP WITH THIS SYSTEM as of 2026-09-02, in ./assets/ — the same 11
+   texture files production's asset map names (see the contract's geometryNotTokenized),
+   referenced relatively below. Copy the assets/ folder alongside this file (one
+   recursive copy_files entry) to get the textures; WITHOUT it the classes degrade
+   gracefully to the exact color band + text cascade they always rendered, so nothing
+   breaks. Still true either way: never substitute a look-alike texture, gradient, or
+   drawn stand-in for a real pattern file. */
 
 /* Any link under any background inherits the background's cascade color by default;
    the tokened per-background link colors below override this for the background's own
@@ -35,6 +36,25 @@
 [class*="bg--"][class*="--pattern--community"] {
   background-size: 1000px;
 }
+
+/* ---------- Pattern textures (ADDED 2026-09-02, the owner's ask) ----------
+   Class→file pairs mirror src/scss/abstracts/_background-mixins.scss $backgrounds
+   verbatim, including the one shared file (community-pattern--gray.png serves gray AND
+   white — a knownIssue upstream, reproduced not corrected). Relative urls resolve
+   beside this file, so a page needs ./assets/ copied as a sibling folder; a page
+   without it keeps the correct color-only band. */
+.bg--black--pattern--brain { background-image: url('./assets/brain-pattern-black.svg'); }
+.bg--black--pattern--community { background-image: url('./assets/community-pattern--black.png'); }
+.bg--black--pattern--particle { background-image: url('./assets/particle-pattern--black.png'); }
+.bg--gold--pattern--brain { background-image: url('./assets/brain-pattern-reversed.svg'); }
+.bg--gold--pattern--community { background-image: url('./assets/community-pattern--white.png'); }
+.bg--gold--pattern--particle { background-image: url('./assets/particle-pattern.png'); }
+.bg--gray--pattern--brain { background-image: url('./assets/brain-pattern-white.svg'); }
+.bg--gray--pattern--community { background-image: url('./assets/community-pattern--gray.png'); }
+.bg--gray--pattern--particle { background-image: url('./assets/particle-pattern--white.png'); }
+.bg--white--pattern--brain { background-image: url('./assets/brain-pattern.svg'); }
+.bg--white--pattern--community { background-image: url('./assets/community-pattern--gray.png'); }
+.bg--white--pattern--particle { background-image: url('./assets/particle-pattern--gold.png'); }
 
 /* ---------- The 16 background classes ----------
    add-backgrounds() expansion, grouped per color family (computed-identical).

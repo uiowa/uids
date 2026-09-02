@@ -195,6 +195,14 @@
           @container column (min-width:768px){
             .banner__action .bttn + .bttn{margin:0 var(--uiowa-banner-action-button-spacing) var(--uiowa-banner-action-button-spacing) 0}
           }
+          /* dc-only: keep the row INLINE. In UIDS the row's <a class="bttn"> children are
+             inline-block siblings and flow on one line; here every Button import arrives
+             inside the runtime's own block-level wrapper, which stacked the three buttons
+             vertically (found by the design system owner, 2026-09-02). Flex-with-wrap
+             restores the native inline flow — the .bttn token margins above still supply
+             the gaps, exactly as production. Scoped to the action row so the rule cannot
+             reach another template's .bttn--row. */
+          .banner__action .bttn--row{display:flex;flex-wrap:wrap}
 
           /* ---- Fill exclusivity ----
              These four rules ARE the Fill axis. Each :not([class*="bg--"]) turns a
@@ -431,7 +439,7 @@
       data-dc-script
       data-props='{
   "$preview": { "width": 1020, "height": 480 },
-  "fill": { "editor": "enum", "options": ["media", "black", "gold", "gray", "white"], "default": "media", "tsType": "string" },
+  "fill": { "editor": "enum", "options": ["media", "black", "gold", "gray", "white", "black--pattern--brain", "gold--pattern--particle", "gray--pattern--community"], "default": "media", "tsType": "string" },
   "image": { "editor": "text", "default": "", "tsType": "string" },
   "image_alt": { "editor": "text", "default": "", "tsType": "string" },
   "overlay_direction": { "editor": "enum", "options": ["none", "btt", "ttb", "ltr"], "default": "none", "tsType": "string" },
