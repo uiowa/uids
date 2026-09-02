@@ -227,10 +227,38 @@ verify before moving on.
    - `primaryAxisSizingMode: AUTO` collapses a FILL child, which clips text.
    - The Components-collection `codeSyntax` convention drops the `font-` prefix for
      **line-height** only (`--uiowa-line-height-167`), but keeps it for font-size/weight/family.
+   - `findAll` does **NOT descend into INSTANCEs**. It returned 2 of 4 text nodes per banner
+     variant (missing the headline instance's inner TEXT and the button label) and would hide
+     any image fill nested in an instance. Walk `node.children` recursively instead — a manual
+     walk found all of them. (Cost time twice, 08-22/24.)
+   - `upload_assets` treats rasters and SVGs differently: a PNG POSTed with `nodeId` +
+     `scaleMode: TILE` becomes a tiled fill on that existing node, but an SVG
+     (`image/svg+xml`) imports as an editable VECTOR TREE on the current page and
+     `nodeId`/`scaleMode` are IGNORED — an SVG-backed asset cannot be set as a tiled fill
+     this way. Both paths probed 08-24; `count` returns N single-use URLs expiring in 10
+     minutes.
+   - **Re-derive node ids from the LIVE FILE, never from a doc — including one claiming
+     "verified by hand".** A punch-list named Banner's two `Fill=Background` variants
+     `327:212`/`327:223`; they are `327:211`/`327:222`, and they sat in an EXCLUSION list,
+     where an off-by-one defeats the exclusion. Enumerate `set.children` and match on `name`,
+     never on a remembered id.
+   - `resize()` on an INSTANCE's sub-layer is a **SILENT NO-OP** — no throw, no change, the
+     script reports success (`layoutSizingHorizontal='FIXED'` + `resize()` and
+     `resizeWithoutConstraints()` too). Read geometry back and compare before/after IN THE
+     SAME SCRIPT, or you report a fix that never happened. No axis for it → document the gap
+     (item-list's `media_size`).
+   - The Semantic collection's **DEFAULT mode is `small (600)`** (just first in the list). A
+     frame with NO pin inherits it and renders every clamp at its small endpoint — that, not
+     "pinned to small", produced a false "Headline H2/Serif 28px" defect (28 is the small
+     endpoint; 40.4 is `large`). A size read out of Figma without recording its mode is an
+     anecdote, not a measurement.
+   - Mode pins and frame dimensions are **not captured by the readback** — only
+     `boundVariables`/axes/`variantCount`. A repin or re-pack changes no snapshot bytes.
 6. **SCSS consumes the tokens**: swap literals for `var(--uiowa-<name>-*)`; responsive
    switching for tokenized values collapses out of component media queries (the generated
    partial carries the @media switching).
-7. **Verify**: the drift checkers (`yarn check:drift` — nine of them as of 2026-08-22). **Refresh the Figma snapshot** as
+7. **Verify**: the drift checkers (`yarn check:drift` — eight of them as of 2026-09-02;
+   `package.json` is the source of truth for the chain). **Refresh the Figma snapshot** as
    part of this step: run `scripts/figma-readback.js` via the Figma MCP in named slices — the
    script's own header is the **only** source of truth for the slice list, and it has grown
    every time a slice outgrew the ~20KB tool-result limit, so re-derive it there rather than
