@@ -589,11 +589,13 @@ a band** — if text looks wrong inside one, the markup is wrong, not the colors
 
 Three honesty notes:
 
-1. **Pattern textures ship in `assets/` as of 2026-09-02** — every brain variant plus
-   the two files Banner's pattern fills need. Copy the folder beside `backgrounds.css`
-   and those classes render their real texture; without it — and for the five deferred
-   heavy community/particle PNGs — they degrade to the correct base color band. Never
-   fake a texture with gradients or drawings.
+1. **Pattern textures ship in `assets/` as of 2026-09-02** — the four brain SVG
+   variants. ALL community/particle PNGs (175–410KB) are deferred — too heavy for this
+   view's write path — so every `--pattern--community` / `--pattern--particle` class,
+   including Banner's gold--pattern--particle and gray--pattern--community fills,
+   renders the correct base color band. Copy the folder beside `backgrounds.css` for
+   the brain textures (color-only fallback without it). Never fake a texture with
+   gradients or drawings.
 2. Background fills ride the brand channels (`--brand-primary`/`--brand-secondary`), so
    a site's grayscale/retheme override reaches every band automatically. Don't bind a
    band to a raw hex.
@@ -748,7 +750,8 @@ inherit the base white text.
 
 **Banner** — a full-bleed hero. Props: fill (media | black | gold | gray | white, plus
 the three contract pattern fills black--pattern--brain / gold--pattern--particle /
-gray--pattern--community — textures need assets/ copied),
+gray--pattern--community — brain gets its real texture with assets/ copied; the
+particle/community fills render color-only today),
 overlay_direction (none | btt | ttb | ltr), overlay_light, height (none | medium | large),
 narrow, horizontal_alignment, vertical_alignment, mobile_content_below_image, pre_title,
 headline, body_text, and up to three buttons as numbered pairs (button_label/button_url,

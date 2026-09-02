@@ -4,14 +4,17 @@
    border/link context rules. Rule ORDER mirrors the source file so the cascade behaves
    the same. Load AFTER tokens.css (it references --uiowa-* and --link-color).
 
-   PATTERN IMAGES SHIP WITH THIS SYSTEM as of 2026-09-02, in ./assets/ — six of
-   production's 11 texture files: all four brain SVGs plus the two files Banner's own
-   pattern fills need (particle-pattern.png, community-pattern--gray.png, the latter
-   shared by gray and white). The five heaviest community/particle PNGs (175-410KB
-   each) are deferred — their five classes keep the color-only fallback, as does ANY
-   pattern class when assets/ is not copied beside this file (one recursive copy_files
-   entry brings it). Never substitute a look-alike texture, gradient, or drawn stand-in
-   for a real pattern file. */
+   PATTERN IMAGES SHIP WITH THIS SYSTEM as of 2026-09-02, in ./assets/ — four of
+   production's 11 texture files: the brain SVGs (22-24KB). ALL seven community/
+   particle PNGs (175-410KB) are deferred: they exceed what this view's write pipeline
+   can carry in one call (measured 2026-09-02 — a ~233KB base64 payload truncates
+   mid-emission), so every --pattern--community / --pattern--particle class keeps the
+   color-only fallback — including Banner's gold--pattern--particle and
+   gray--pattern--community fills — as does ANY pattern class when assets/ is not
+   copied beside this file (one recursive copy_files entry brings it). The url rules
+   below stay for all twelve so the classes light up if the PNGs land by another
+   transport. Never substitute a look-alike texture, gradient, or drawn stand-in for a
+   real pattern file. */
 
 /* Any link under any background inherits the background's cascade color by default;
    the tokened per-background link colors below override this for the background's own
@@ -43,7 +46,7 @@
    verbatim, including the one shared file (community-pattern--gray.png serves gray AND
    white — a knownIssue upstream, reproduced not corrected). Relative urls resolve
    beside this file, so a page needs ./assets/ copied as a sibling folder. A url whose
-   file is absent — no assets/ copy, or one of the five deferred PNGs (see header) —
+   file is absent — no assets/ copy, or any of the seven deferred PNGs (see header) —
    degrades to the correct color-only band. */
 .bg--black--pattern--brain { background-image: url('./assets/brain-pattern-black.svg'); }
 .bg--black--pattern--community { background-image: url('./assets/community-pattern--black.png'); }
