@@ -1,5 +1,4 @@
 @use 'utilities';
-@use 'variables';
 
 // Section rhythm — the vertical spacing between Layout Builder sections.
 //
@@ -8,19 +7,21 @@
 // this repo instead of only inside Drupal. uids_base drops its copy in the follow-up PR;
 // until it does, both stylesheets define these classes, so the two must land in order.
 //
-// This partial is a PURE MOVE. Every value, selector and quirk matches what production
-// compiles today, including the ones that are bugs — the compiled bytes should be
-// identical, so if something breaks downstream it is the move, not a redesign.
+// This partial arrived as a PURE MOVE: every value, selector and quirk matched what
+// production compiles, including the ones that are bugs. ONE deliberate departure since:
 //
-// Three things that look wrong here and are deliberate:
+//   * REPOINTED 2026-09-02, on the design system owner's ruling (layout.json changes[]).
+//     Padding originally came from the GUTTER variables and .section-padding__*-extra was
+//     a literal 6rem — production authors it that way, and layout/section/padding/* was a
+//     parallel vocabulary nothing in src/ read (DOC-ONLY in check-token-consumers), while
+//     claude-design/layout.css and the section-rhythm rule already named those tokens as
+//     the base. The owner chose the token route for section spacing — raise
+//     layout/section/padding/default rather than promote the opt-in classes — and a raise
+//     through a token src/ never read would move one view and not the other. Values are
+//     unchanged (space-125/300/600 equal the old gutter values and the literal; the
+//     computed-style baselines prove it), so pixels do not move until the token does.
 //
-//   * Padding comes from the GUTTER tokens, not from layout/section/padding/*.
-//     Production has always authored it this way; layout/section/padding/* is a parallel
-//     vocabulary that nothing reads (they stay DOC-ONLY in check-token-consumers).
-//     Repointing them is a real decision about provenance and is NOT bundled into a move.
-//
-//   * .section-padding__top-extra is a literal 6rem, not layout/section/padding/extra,
-//     for the same reason. Same value, different provenance.
+// One thing that still looks wrong here and is deliberate:
 //
 //   * .section-padding__top-restored is a flat padding-top with NO media query, so below
 //     sm it does not restore the 1.25rem default — it overshoots it by 2.4x and leaves
@@ -41,22 +42,22 @@
 .layout__container {
   margin-top: 0;
   // Overridden by the adjacency rules below for 1+n containers.
-  padding-top: variables.$mobile-width-gutter;
-  padding-bottom: variables.$mobile-width-gutter;
+  padding-top: var(--uiowa-layout-section-padding-mobile);
+  padding-bottom: var(--uiowa-layout-section-padding-mobile);
 
   @include utilities.breakpoint(sm) {
-    padding-top: variables.$desktop-width-gutter;
-    padding-bottom: variables.$desktop-width-gutter;
+    padding-top: var(--uiowa-layout-section-padding-default);
+    padding-bottom: var(--uiowa-layout-section-padding-default);
   }
 
   &:first-child {
     padding-top: 0;
 
     .region-pre-footer & {
-      padding-top: variables.$mobile-width-gutter;
+      padding-top: var(--uiowa-layout-section-padding-mobile);
 
       @include utilities.breakpoint(sm) {
-        padding-top: variables.$desktop-width-gutter;
+        padding-top: var(--uiowa-layout-section-padding-default);
       }
     }
   }
@@ -94,11 +95,11 @@
       // Necessary to restore padding.
       &.section-padding {
         &__top-restored {
-          padding-top: variables.$desktop-width-gutter;
+          padding-top: var(--uiowa-layout-section-padding-default);
         }
 
         &__top-extra {
-          padding-top: 6rem;
+          padding-top: var(--uiowa-layout-section-padding-extra);
         }
       }
     }
@@ -106,7 +107,7 @@
 
   // Add default padding if the page title is hidden.
   &.layout--title--hidden + &:not([class*="bg-"]) {
-    padding-top: variables.$desktop-width-gutter;
+    padding-top: var(--uiowa-layout-section-padding-default);
 
     &.section-padding {
       &__removed-top {
@@ -130,19 +131,19 @@
     }
 
     &__top-restored {
-      padding-top: variables.$desktop-width-gutter;
+      padding-top: var(--uiowa-layout-section-padding-default);
     }
 
     &__top-extra {
-      padding-top: 6rem;
+      padding-top: var(--uiowa-layout-section-padding-extra);
 
       .region-pre-footer & {
-        padding-top: 6rem;
+        padding-top: var(--uiowa-layout-section-padding-extra);
       }
     }
 
     &__bottom-extra {
-      padding-bottom: 6rem;
+      padding-bottom: var(--uiowa-layout-section-padding-extra);
     }
   }
 }
