@@ -290,14 +290,14 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    characters over two lines at 1020px narrow — a comfortable measure is roughly 45-75, so the
    standard container is about double it. The composition is TWO containers inside ONE section:
    <div class="page__container page__container--narrow"> holding the Headline
-   (alignment="center") and its intro paragraph, then a second <div class="page__container">
-   holding the grid or cards below. The heading block and the content it introduces
-   deliberately do not share a container — that is what lets each take the width it needs, and
-   it is the one place container-width-by-content's two halves both apply inside a single
-   section. This does not change when to centre in the first place: that is
-   heading-alignment-follows-content, and a card grid or a stat row is exactly the case it says
-   to centre over. A LEFT-aligned heading needs none of this — it starts at the same gutter as
-   the content under it, so it shares the content's container.
+   (alignment="center") and its deck (body copy — section-heading-gets-a-deck records the
+   treatment), then a second <div class="page__container"> holding the grid or cards below. The
+   heading block and the content it introduces deliberately do not share a container — that is
+   what lets each take the width it needs, and it is the one place container-width-by-content's
+   two halves both apply inside a single section. This does not change when to centre in the
+   first place: that is heading-alignment-follows-content, and a card grid or a stat row is
+   exactly the case it says to centre over. A LEFT-aligned heading needs none of this — it
+   starts at the same gutter as the content under it, so it shares the content's container.
 22. **stats-come-in-threes** (agent) — Stats come in THREES, in a grid. A Stat is a
    comparison object — the number only means something next to other numbers — so put three
    across in a list-container--grid grid--threecol--33-34-33, in a STANDARD page__container
@@ -409,7 +409,15 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    or two sentences; a deck long enough to need its own paragraph break is a prose section that
    happens to be followed by a grid, and it wants its own container (see
    container-width-by-content). A centred heading and its deck go in their own narrow container
-   — centred-heading-goes-narrow covers that case.
+   — centred-heading-goes-narrow covers that case. The deck is BODY COPY — a plain paragraph on
+   the body ramp — never the intro treatment (element--light-intro /
+   uids-component--light-intro, src/scss/base/_paragraph.scss:195-201; generated pages have
+   hand-rolled an .intro equivalent when nothing told them otherwise). The intro voice belongs
+   to the page's own introduction, once: set it under every section heading and the one place
+   it means something stops reading as the page's voice. AMENDED 2026-09-02 to add the
+   treatment — the rule was silent on it, and the Well-Being page showed what silence allows:
+   five section decks plus the page introduction, all in the light intro style. The design
+   system owner's ruling is that light intro text under headings is useful only once per page.
 33. **no-second-contact-block** (agent) — Do not build a content section that restates the
    Brand Footer. The Brand Footer already carries the address, phone and email as props
    (contact / phone / email) on every page, so a "Visit us" or "Contact" section at the bottom
