@@ -589,10 +589,11 @@ a band** — if text looks wrong inside one, the markup is wrong, not the colors
 
 Three honesty notes:
 
-1. **Pattern textures ship in `assets/` as of 2026-09-02.** Copy that folder beside
-   `backgrounds.css` and the twelve pattern classes render their real texture (the brain
-   circuit, the community collage, the particle field); without it they degrade to the
-   correct base color band. Never fake a texture with gradients or drawings.
+1. **Pattern textures ship in `assets/` as of 2026-09-02** — every brain variant plus
+   the two files Banner's pattern fills need. Copy the folder beside `backgrounds.css`
+   and those classes render their real texture; without it — and for the five deferred
+   heavy community/particle PNGs — they degrade to the correct base color band. Never
+   fake a texture with gradients or drawings.
 2. Background fills ride the brand channels (`--brand-primary`/`--brand-secondary`), so
    a site's grayscale/retheme override reaches every band automatically. Don't bind a
    band to a raw hex.

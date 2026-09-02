@@ -19,7 +19,8 @@ no error — so copy the files you need into ONE directory of your project befor
    - `tokens.css`, `layout.css` **and** `backgrounds.css` (several templates link
      `./backgrounds.css` directly, so they need that sibling even standalone)
    - `assets/` (ONE recursive entry) if the page uses any `bg--*--pattern--*` class or a
-     pattern banner fill — the texture files; without them patterns render color-only
+     pattern banner fill — the texture files (all brain patterns + both files Banner's
+     fills need; five heavy community/particle PNGs are deferred and render color-only)
 2. `create_support_js` in that same directory (every `.dc.html` loads `./support.js`).
 3. Then `<dc-import name="Brand Bar" siteName="…"></dc-import>` resolves.
 
@@ -625,9 +626,10 @@ imports for what exists and report the rest.
   and links gold automatically; gold/gray/white set black text. Never restyle text to
   compensate for a band; the class does it. Pattern variants
   (`bg--{color}--pattern--{brain|community|particle}`, e.g.
-  `bg--black--pattern--brain`) RENDER THEIR REAL TEXTURES as of 2026-09-02 — the files
-  ship in `assets/`, so copy that folder beside `backgrounds.css` (color-only fallback
-  without it). Never fake a texture with gradients or drawings.
+  `bg--black--pattern--brain`) RENDER THEIR REAL TEXTURES as of 2026-09-02 for every
+  brain variant and for Banner's three fills — copy `assets/` beside `backgrounds.css`
+  (color-only fallback without it; five heavy community/particle PNGs are deferred and
+  stay color-only). Never fake a texture with gradients or drawings.
 - **Tokens only** — no raw hex, type sizes, or spacing. Color: `--uiowa-color-brand` (gold
   #FFCD00), `--uiowa-color-text`, `--uiowa-color-background`, `--uiowa-color-link`. Type:
   `--uiowa-font-size-heading-h1…h6` (fluid clamps), `--uiowa-font-size-body` (1.2rem, lh
