@@ -5,11 +5,13 @@
 // content, so a component reads --uiowa-color-text and gets the right value wherever it
 // sits. Every context declares its full set rather than inheriting a partial one, which
 // is what makes a background nested inside another background behave like a bare one.
+//
+// Only classes that name a surface belong here. .bg-pattern--brain and
+// .bg-pattern--brain-reversed name artwork and can sit on any background, so listing
+// them would force a context they do not carry.
 :root,
 [class*="bg--white"],
-[class*="bg--gray"],
-.bg-pattern--brain,
-.bg-pattern--brain-reversed {
+[class*="bg--gray"] {
   --uiowa-color-text: var(--uiowa-color-text-default);
   --uiowa-color-link: var(--uiowa-color-link-default);
   --uiowa-color-border: var(--uiowa-color-border-default);
