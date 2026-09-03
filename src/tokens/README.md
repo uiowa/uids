@@ -30,18 +30,21 @@ output cannot silently disagree with its source.
 
 ## Format
 
-Token files are DTCG-shaped: `$value` for the value, `$description` for the provenance
-note, and `{dot.path}` for references.
+Token files are DTCG-shaped: `$value` for the value, `$description` for what the token is for,
+and `{dot.path}` for references.
 
 ```json
-"gray": {
-  "100": { "$value": "#F3F3F3", "$description": "4.x: --uids-light / $light" }
+"neutral": {
+  "100": { "$value": "#F3F3F3" }
+},
+"text": {
+  "default": { "$value": "{color.neutral.900}", "$description": "Text on white, gray, and gold surfaces." }
 }
 ```
 
-Every primitive's `$description` cites where the value came from in 4.x — the SCSS
-variable, or the file and line of the literal it replaced. That citation is the reason
-to trust the token, so keep it when adding one.
+A `$description` says what the token is for, in one sentence. Leave it off where the
+name already says it — a numbered step on a scale needs no gloss. Group-level
+`$description` carries the scale's naming convention.
 
 **Not yet strictly conformant.** DTCG 2025.10 wants object-form dimensions
 (`{"value": 16, "unit": "px"}`) and numeric font weights; every value here is a string.
