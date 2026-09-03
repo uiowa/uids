@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet data-dc-atomics>
+        <link rel="stylesheet" href="./tokens.css" />
+        <!-- backgrounds.css supplies the real bg--white / bg--gray bands the on-light
+             link-color rules key off (see preview_background below). -->
+        <link rel="stylesheet" href="./backgrounds.css" />
+        <style>
+          /* ---- page reset (src/scss/base/_reset.scss:32-53), verbatim ----
+             Not this component's own SCSS, but production applies it globally to <html>,
+             so every rule below was authored against border-box. Without it, any element
+             combining a percentage width with padding renders wider than production —
+             measured at +96px on Callout before this was added. Reproduced across the
+             Phase 3 batch for that reason; see Table.dc.html for the original finding. */
+          html{box-sizing:border-box}
+          *,*::before,*::after{box-sizing:inherit}
+          body{margin:0}
+
+          /* The @container context .menu--horizontal is gated behind. Production gets it
+             from src/scss/layout/_grid.scss:79-86 (.grid__column, .column-container,
+             .layout-container), which this view does not ship — declared verbatim here so
+             the horizontal rules can engage exactly as they do on a real page. */
+          @supports (contain: inline-size){
+            .column-container{container-type:inline-size;container-name:column}
+          }
+
+          /* Mirrors src/scss/components/menu.scss in SOURCE ORDER so the cascade behaves
+             the same: .menu (incl. its nested li / link / indicator / on-light / nested-ul
+             rules), then .menu--horizontal — which re-declares the same axis custom
+             properties at EQUAL specificity and wins only because it comes later. */
+          /* ---- two corrections made 2026-08-17, after the sidebar spacing was reported
+             as "messed up". Both were real: measured against the live Storybook vertical
+             menu at 1280x900, top-level items were 78px tall against production's 57px.
+
+             1. THE SELECTORS BELOW USE `li > a`, NOT `li a`. menu.scss nests
+                `a, span:not([class*="fa"])` under `li`, which compiles to a DESCENDANT
+                combinator. That is safe in production: the only <span> inside an <a> is
+                .fa-li/.fas (excluded by the :not guard), and the bare <span> for an
+                unlinked item is a DIRECT CHILD of li. It is NOT safe here — the dc runtime
+                wraps every {{ }} interpolation in <span class="sc-interp">, which contains
+                no "fa", so it matched and every label got a SECOND copy of display:block,
+                position:relative and the 0.9rem/1.5rem padding. The child combinator keeps
+                production's intent exactly while excluding the runtime wrapper, which is a
+                child of the <a>. Same root cause as the gold-band bug fixed in
+                Headline.dc.html the same day: assuming interpolated text is a bare text
+                node is wrong in this runtime.
+
+             2. line-height is declared below. menu.scss sets none; production inherits 1.6
+                from src/scss/base/_lists.scss:41 (`ul li`). This view ships no page
+                stylesheet, so it computed to `normal` (20px vs 28.16px). Same
+                page-stylesheet stand-in this template already documents for font-family.
+
+             Verified cumulative: 78px -> 49px (child combinator) -> 57px (line-height),
+             an exact Storybook match; nested 52px -> 44px, also exact. */
+          .menu{
+            line-height:var(--uiowa-line-height-160);
+            --menu-flex-direction:column;
+            --menu-link-color:var(--uiowa-menu-link-color);
+            --menu-link-indicator-width:var(--uiowa-menu-link-indicator-thickness);
+            --menu-link-indicator-height:100%;
+            --menu-link-transform-end:scaleY(100%);
+            --menu-link-transform-start:scaleY(0%);
+            display:flex;
+            flex-direction:var(--menu-flex-direction);
+            list-style-type:none;
+            margin:0;
+            padding:0;
+            font-size:var(--uiowa-menu-font-size);
+            /* DEVIATION: menu.scss declares no font-family — links inherit Roboto from the
+               production page body. This view has no page stylesheet, so the body font is
+               declared here (the same stand-in Headline.dc.html documents). */
+            font-family:var(--uiowa-font-family-body);
+          }
+          /* Top-level links are bold ONLY when vertical and not nested. */
+          .menu:not(ul ul):not(.menu--horizontal) > li > a{font-weight:var(--uiowa-menu-top-level-font-weight)}
+
+          .menu li{border-bottom:1px solid var(--uiowa-menu-separator-color);list-style-type:none;margin:0;padding:0;position:relative}
+          .menu li:last-child,.menu li:last-of-type{border-bottom:none}
+          /* Font Awesome icon rules. Kept for source order; inert here — this template
+             renders no icons (see the markup comment: FA is an external runtime dep). */
+          .menu li.has-icon > a,.menu li.has-icon > span:not([class*="fa"]){padding-left:3.1rem}
+          .menu li .fa-li{left:0.9rem}
+          /* var(--uids-gray-cool) in production — a uids-core.scss custom property, not a
+             token, that aliases this primitive (contracts/menu.json
+             geometryNotTokenized.shared-core-custom-properties). tokens.css does not seed
+             the --uids-* aliases, so the primitive is referenced directly. */
+          .menu li .fas{color:var(--uiowa-color-gray-500)}
+
+          /* ACTIVE indicator. .is-active forces the pseudo-element to full size at ANY
+             depth but does NOT set a color, so it keeps the GRAY base background below —
+             gold is hover-only. There is no token for the active indicator colour; it
+             inherits (contracts/menu.json knownIssues). Reproduced as-shipped. */
+          .menu li.is-active a:after{height:var(--menu-link-indicator-height);width:var(--menu-link-indicator-width);transform:var(--menu-link-transform-end)}
+
+          .menu li > a,.menu li > span:not([class*="fa"]){
+            color:var(--menu-link-color);
+            display:block;
+            padding:var(--uiowa-menu-link-padding-block) var(--uiowa-menu-link-padding-inline);
+            position:relative;
+            text-decoration:none;
+          }
+          .menu li > a:focus,.menu li > a:hover,
+          .menu li > span:not([class*="fa"]):focus,.menu li > span:not([class*="fa"]):hover{text-decoration:underline}
+          /* Indicator base: zero-sized and GRAY. var(--uids-gray-light) in production —
+             same core-alias case as --uids-gray-cool above; it resolves to this primitive,
+             which is also what the Figma component binds the indicator to. */
+          .menu li > a:after,.menu li > span:not([class*="fa"]):after{
+            background:var(--uiowa-color-gray-200);
+            position:absolute;
+            bottom:0;
+            left:0;
+            width:0;
+            height:0;
+            content:"";
+            transform-origin:center;
+            transform:var(--menu-link-transform-start);
+            transition:0.3s all ease-in-out;
+            -webkit-transition:0.3s all ease-in-out;
+          }
+          /* On light backgrounds. Both nesting depths of the source's ancestor pairs are
+             kept — the [class*="bg--"] [class*="bg--white"] forms exist to out-specify an
+             outer band, so collapsing them would change nested-context rendering. */
+          [class*="bg--white"] .menu li > a,
+          [class*="bg--"] [class*="bg--white"] .menu li > a,
+          [class*="bg--gray"] .menu li > a,
+          [class*="bg--"] [class*="bg--gray"] .menu li > a,
+          [class*="bg--white"] .menu li > span:not([class*="fa"]),
+          [class*="bg--"] [class*="bg--white"] .menu li > span:not([class*="fa"]),
+          [class*="bg--gray"] .menu li > span:not([class*="fa"]),
+          [class*="bg--"] [class*="bg--gray"] .menu li > span:not([class*="fa"]){
+            color:var(--uiowa-menu-link-color-on-light);
+          }
+
+          /* Nested menus: indented, no separator borders, tighter vertical padding. */
+          .menu li > ul.menu{margin-left:1.7rem}
+          .menu li > ul.menu li{border-bottom:none}
+          .menu li > ul.menu li > a,.menu li > ul.menu li > span:not([class*="fa"]){
+            padding-block-start:var(--uiowa-menu-nested-padding-block);
+            padding-block-end:var(--uiowa-menu-nested-padding-block);
+          }
+
+          /* The GOLD indicator is HOVER-ONLY — .is-active never turns it gold. Real :hover
+             works in this view, so no dc-only stand-in class is needed.
+             NOTE: the selector is direct-child scoped, which reads as "top-level links
+             only" — and contracts/menu.json's behavior note reads it that way — but every
+             nested submenu is ITSELF a <ul class="menu"> (Menu.vue always emits the base
+             class), so its own direct-child links match too and the gold hover reaches
+             every depth. Verified against compiled menu.scss and measured in-browser.
+             It also ties on specificity with the .is-active rule above (0,2,3 both) and
+             wins on SOURCE ORDER, so hovering the current item turns its gray indicator
+             gold — one more reason this block must stay last. */
+          .menu > li > a:hover:after{
+            transform:var(--menu-link-transform-end);
+            background:var(--uiowa-menu-link-indicator-hover-color);
+            height:var(--menu-link-indicator-height);
+            width:var(--menu-link-indicator-width);
+          }
+
+          /* .menu--horizontal is entirely gated behind utilities.container-query() at its
+             default $break-sm = 768px. Below that container width a horizontal menu renders
+             IDENTICALLY to a vertical one, submenus included — as-shipped. Both branches of
+             the mixin are emitted, exactly as the Sass compiles them. */
+          @supports (contain: inline-size){
+            @container column (min-width: 768px){
+              .menu--horizontal{
+                --menu-link-indicator-width:100%;
+                --menu-link-indicator-height:var(--uiowa-menu-link-indicator-thickness);
+                --menu-flex-direction:row;
+                --menu-link-transform-start:scaleX(0%);
+                --menu-link-transform-end:scaleX(100%);
+                display:flex;
+                flex-wrap:wrap;
+              }
+              .menu--horizontal li{border-bottom:none}
+              /* Nested menus are HIDDEN in horizontal mode, not absent from the markup
+                 (menu.scss @todo re WCAG 2.1 hover/focus content). */
+              .menu--horizontal > li ul{display:none}
+            }
+          }
+          @supports not (contain: inline-size){
+            @media (min-width: 768px){
+              .menu--horizontal{
+                --menu-link-indicator-width:100%;
+                --menu-link-indicator-height:var(--uiowa-menu-link-indicator-thickness);
+                --menu-flex-direction:row;
+                --menu-link-transform-start:scaleX(0%);
+                --menu-link-transform-end:scaleX(100%);
+                display:flex;
+                flex-wrap:wrap;
+              }
+              .menu--horizontal li{border-bottom:none}
+              .menu--horizontal > li ul{display:none}
+            }
+          }
+
+          /* As-shipped: nothing in UIDS ever reveals this menu again — no companion rule,
+             no JS (contracts/menu.json knownIssues). Kept for fidelity; inert here. */
+          .user-menu-toggle .menu{display:none}
+
+          .menu--container{border-bottom:1px solid var(--uiowa-menu-container-border-color)}
+        </style>
+      </helmet>
+      <div class="{{ bandClass }}" style="{{ bandStyle }}">
+        <div class="column-container {{ frameClass }}">
+          <!-- Menu.vue:49 — the top=true branch: a <nav> landmark wrapping the <ul>.
+               `top` actually defaults to FALSE (a bare <ul>, no landmark), but the only
+               difference is this wrapper element, and reproducing both branches would mean
+               duplicating the whole item list under an sc-if. The landmark form is shown
+               because it is the correct root-level usage and what Menu.stories.js renders.
+               aria-label is bound straight through: clearing the label prop reproduces the
+               as-shipped aria-label="" (contracts/menu.json knownIssues), not an omitted
+               attribute. -->
+          <nav aria-label="{{ label }}">
+            <!-- Production drives the whole tree from the `items` prop (MenuItem.vue) —
+                 there are no slots. Four top-level entries and one nested group are written
+                 out as a realistic fixed composition; their text and active state come from
+                 props. Each item's href comes from `items[].url` in production; a single
+                 "#" stands in here rather than adding seven URL props.
+
+                 OMITTED, honestly: (1) Font Awesome glyphs. An item with `icon` renders
+                 <span class="fa-li"><span class="fas fa-xs fa-…"> and gets .has-icon
+                 (a 3.1rem indent), and an item with children renders a
+                 <span class="fas fa-chevron-down fa-xs icon-after"> marker. FA is an
+                 external runtime dependency this view does not load, so those spans would
+                 render empty — an icon-less item with a 3.1rem indent would read as a
+                 layout bug. The rules are kept in the stylesheet above.
+                 (2) The url-less item (MenuItem.vue:58-62), which renders a plain
+                 non-interactive <span> group label that only holds children. Every item
+                 here is a link; the span path carries identical padding/indicator styling
+                 (the rules above pair `a` with `span:not([class*="fa"])`).
+                 (3) `is-expanded` — MenuItem sets it from the `expanded` prop, but it
+                 matches no CSS anywhere in the repo and the nested <ul> renders whenever
+                 children exist, never gated on it (contracts/menu.json knownIssues). -->
+            <ul class="{{ rootClass }}">
+              <li class="{{ active_1 }}"><a href="#">{{ item_1 }}</a></li>
+              <li class="{{ active_2 }}">
+                <a href="#">{{ item_2 }}</a>
+                <!-- MenuItem.vue:65-68 renders children as a recursive <Menu> that ALWAYS
+                     hardcodes variant="vertical" and never passes `top` — so a nested list
+                     is always a bare <ul class="menu">, whatever the parent's orientation. -->
+                <ul class="menu">
+                  <li class="{{ active_nested_1 }}"><a href="#">{{ child_1 }}</a></li>
+                  <li class="{{ active_nested_2 }}"><a href="#">{{ child_2 }}</a></li>
+                  <li class="{{ active_nested_3 }}"><a href="#">{{ child_3 }}</a></li>
+                </ul>
+              </li>
+              <li class="{{ active_3 }}"><a href="#">{{ item_3 }}</a></li>
+              <li class="{{ active_4 }}"><a href="#">{{ item_4 }}</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </x-dc>
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{
+  "$preview": { "width": 1020, "height": 420 },
+  "variant": { "editor": "enum", "options": ["horizontal", "vertical"], "default": "vertical", "tsType": "string" },
+  "label": { "editor": "text", "default": "Section navigation", "tsType": "string" },
+  "item_1": { "editor": "text", "default": "About", "tsType": "string" },
+  "item_2": { "editor": "text", "default": "Academic Programs", "tsType": "string" },
+  "child_1": { "editor": "text", "default": "Undergraduate", "tsType": "string" },
+  "child_2": { "editor": "text", "default": "Graduate", "tsType": "string" },
+  "child_3": { "editor": "text", "default": "Continuing Education", "tsType": "string" },
+  "item_3": { "editor": "text", "default": "Admissions", "tsType": "string" },
+  "item_4": { "editor": "text", "default": "Student Life", "tsType": "string" },
+  "active_item": { "editor": "enum", "options": ["top_1", "top_2", "top_3", "top_4", "nested_1", "nested_2", "nested_3", "none"], "default": "top_1", "tsType": "string" },
+  "container_border": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "preview_background": { "editor": "enum", "options": ["none", "white", "gray"], "default": "none", "tsType": "string" }
+}'
+    >
+      class Component extends DCLogic {
+        renderVals() {
+          // Mirrors the classes computed in src/components/menu/Menu.vue (:37-45) and the
+          // liClasses computed in src/components/menu/MenuItem.vue (:36-48).
+          //
+          // The editor default is 'vertical'; Menu.vue's own prop default is 'horizontal'.
+          // Vertical is shown by default because it is the orientation that renders the
+          // nested group and a full-height active indicator — horizontal hides every
+          // submenu, and only above a 768px CONTAINER width (below that it is vertical
+          // anyway). Set variant=horizontal in a wide container to see the real row layout.
+          const variant = this.props.variant ?? 'vertical';
+          const classes = ['menu'];
+          // Only 'horizontal' pushes a modifier. 'vertical' emits no class at all — the
+          // base .menu rule already IS vertical, the same intentionally-undefined-modifier
+          // pattern as Button's size=medium.
+          if (variant === 'horizontal') classes.push('menu--horizontal');
+
+          // One current item, at any depth. MenuItem sets .is-active from items[].active.
+          // The indicator it reveals is GRAY (--uids-gray-light) at every depth, top-level
+          // included — gold belongs to :hover alone (contracts/menu.json knownIssues:
+          // there is no active-indicator colour token; it inherits).
+          const active = this.props.active_item ?? 'top_1';
+          const isActive = (id) => (active === id ? 'is-active' : '');
+
+          // preview_background is a PREVIEW CONTEXT, not a Menu prop: it stands in for
+          // placing the menu inside a bg--white / bg--gray section, which is how the
+          // on-light link colour engages on a real page (backgrounds.css supplies the band).
+          const band = this.props.preview_background ?? 'none';
+
+          return {
+            rootClass: classes.join(' '),
+            // .menu--container is likewise NOT a Menu prop — it is a wrapper class the
+            // consumer puts on the surrounding element (ApplicationForm/ApplicationDirectory
+            // stories both do exactly this), giving the nav a bottom-border frame.
+            frameClass: this.props.container_border ? 'menu--container' : '',
+            bandClass: band === 'none' ? '' : 'bg--' + band,
+            bandStyle: band === 'none' ? '' : 'padding:1rem',
+            label: this.props.label ?? '',
+            item_1: this.props.item_1 ?? '',
+            item_2: this.props.item_2 ?? '',
+            item_3: this.props.item_3 ?? '',
+            item_4: this.props.item_4 ?? '',
+            child_1: this.props.child_1 ?? '',
+            child_2: this.props.child_2 ?? '',
+            child_3: this.props.child_3 ?? '',
+            active_1: isActive('top_1'),
+            active_2: isActive('top_2'),
+            active_3: isActive('top_3'),
+            active_4: isActive('top_4'),
+            active_nested_1: isActive('nested_1'),
+            active_nested_2: isActive('nested_2'),
+            active_nested_3: isActive('nested_3')
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

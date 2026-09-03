@@ -1,0 +1,176 @@
+/* UIDS background treatments — generated view of contracts/background.json
+   (src/scss/components/_background.scss + _background-mixins.scss's add-backgrounds()).
+   The bg--{color}[--pattern--{type}] class grammar, its foreground cascade, and the
+   border/link context rules. Rule ORDER mirrors the source file so the cascade behaves
+   the same. Load AFTER tokens.css (it references --uiowa-* and --link-color).
+
+   PATTERN IMAGES SHIP WITH THIS SYSTEM as of 2026-09-02, in ./assets/ — four of
+   production's 11 texture files: the brain SVGs (22-24KB). ALL seven community/
+   particle PNGs (175-410KB) are deferred: they exceed what this view's write pipeline
+   can carry in one call (measured 2026-09-02 — a ~233KB base64 payload truncates
+   mid-emission), so every --pattern--community / --pattern--particle class keeps the
+   color-only fallback — including Banner's gold--pattern--particle and
+   gray--pattern--community fills — as does ANY pattern class when assets/ is not
+   copied beside this file (one recursive copy_files entry brings it). The url rules
+   below stay for all twelve so the classes light up if the PNGs land by another
+   transport. Never substitute a look-alike texture, gradient, or drawn stand-in for a
+   real pattern file. */
+
+/* Any link under any background inherits the background's cascade color by default;
+   the tokened per-background link colors below override this for the background's own
+   scope, and the restore/revert rules at the bottom handle white/gray prose links. */
+[class*="bg--"] a,
+[class*="bg--"] [class*="bg--"] a {
+  color: inherit;
+}
+
+/* Pattern sizing. Fixed sizes, deliberately not tokens: particle 1400px,
+   community 1000px, brain auto. */
+[class*="bg--"][class*="--pattern--"] {
+  background-size: auto auto;
+  background-position: center center;
+}
+
+[class*="--pattern--particle"],
+[class*="bg--"][class*="--pattern--particle"] {
+  background-size: 1400px;
+}
+
+[class*="--pattern--community"],
+[class*="bg--"][class*="--pattern--community"] {
+  background-size: 1000px;
+}
+
+/* ---------- Pattern textures (ADDED 2026-09-02, the owner's ask) ----------
+   Class→file pairs mirror src/scss/abstracts/_background-mixins.scss $backgrounds
+   verbatim, including the one shared file (community-pattern--gray.png serves gray AND
+   white — a knownIssue upstream, reproduced not corrected). Relative urls resolve
+   beside this file, so a page needs ./assets/ copied as a sibling folder. A url whose
+   file is absent — no assets/ copy, or any of the seven deferred PNGs (see header) —
+   degrades to the correct color-only band. */
+.bg--black--pattern--brain { background-image: url('./assets/brain-pattern-black.svg'); }
+.bg--black--pattern--community { background-image: url('./assets/community-pattern--black.png'); }
+.bg--black--pattern--particle { background-image: url('./assets/particle-pattern--black.png'); }
+.bg--gold--pattern--brain { background-image: url('./assets/brain-pattern-reversed.svg'); }
+.bg--gold--pattern--community { background-image: url('./assets/community-pattern--white.png'); }
+.bg--gold--pattern--particle { background-image: url('./assets/particle-pattern.png'); }
+.bg--gray--pattern--brain { background-image: url('./assets/brain-pattern-white.svg'); }
+.bg--gray--pattern--community { background-image: url('./assets/community-pattern--gray.png'); }
+.bg--gray--pattern--particle { background-image: url('./assets/particle-pattern--white.png'); }
+.bg--white--pattern--brain { background-image: url('./assets/brain-pattern.svg'); }
+.bg--white--pattern--community { background-image: url('./assets/community-pattern--gray.png'); }
+.bg--white--pattern--particle { background-image: url('./assets/particle-pattern--gold.png'); }
+
+/* ---------- The 16 background classes ----------
+   add-backgrounds() expansion, grouped per color family (computed-identical).
+   black and gold ride the BRAND CHANNELS via color/bg/* (grayscale retheming reaches
+   section fills); gray and white are flat. Foreground: black is the one 'dark' type
+   (on-dark text/link); gold, gray and white are 'light' (on-light text/link). */
+
+.bg--black,
+.bg--black--pattern--brain,
+.bg--black--pattern--community,
+.bg--black--pattern--particle {
+  background-color: var(--uiowa-color-bg-black);
+  color: var(--uiowa-color-on-dark-text);
+}
+
+.bg--black a,
+.bg--black--pattern--brain a,
+.bg--black--pattern--community a,
+.bg--black--pattern--particle a {
+  color: var(--uiowa-color-on-dark-link);
+}
+
+.bg--gold,
+.bg--gold--pattern--brain,
+.bg--gold--pattern--community,
+.bg--gold--pattern--particle {
+  background-color: var(--uiowa-color-bg-gold);
+  color: var(--uiowa-color-on-light-text);
+}
+
+.bg--gold a,
+.bg--gold--pattern--brain a,
+.bg--gold--pattern--community a,
+.bg--gold--pattern--particle a {
+  color: var(--uiowa-color-on-light-link);
+}
+
+.bg--gray,
+.bg--gray--pattern--brain,
+.bg--gray--pattern--community,
+.bg--gray--pattern--particle {
+  background-color: var(--uiowa-color-bg-gray);
+  color: var(--uiowa-color-on-light-text);
+}
+
+.bg--gray a,
+.bg--gray--pattern--brain a,
+.bg--gray--pattern--community a,
+.bg--gray--pattern--particle a {
+  color: var(--uiowa-color-on-light-link);
+}
+
+.bg--white,
+.bg--white--pattern--brain,
+.bg--white--pattern--community,
+.bg--white--pattern--particle {
+  background-color: var(--uiowa-color-bg-white);
+  color: var(--uiowa-color-on-light-text);
+}
+
+.bg--white a,
+.bg--white--pattern--brain a,
+.bg--white--pattern--community a,
+.bg--white--pattern--particle a {
+  color: var(--uiowa-color-on-light-link);
+}
+
+/* ---------- Border-color inheritance ----------
+   Descendants of any background never carry their own border color; the value is set
+   on the wrapper by the override rules below. */
+[class*="bg--"] *,
+[class*="bg--"] [class*="bg--"] * {
+  border-color: inherit;
+}
+
+[class*="bg--"] *:before,
+[class*="bg--"] *:after,
+[class*="bg--"] [class*="bg--"] *:before,
+[class*="bg--"] [class*="bg--"] *:after {
+  color: inherit;
+  border-color: inherit;
+}
+
+/* Border color per background (.bg-pattern--* names are legacy editor-entered context
+   classes — kept as context selectors, never produced by current code). */
+[class*="bg--gray"],
+[class*="bg--white"],
+[class*="bg--gold"],
+.bg-pattern--brain-reversed,
+.bg-pattern--brain {
+  border-color: var(--uiowa-color-border-default);
+}
+
+.bg--black--pattern--brain,
+.bg-pattern--brain-black,
+[class*="bg--black"] {
+  border-color: var(--uiowa-color-border-on-dark);
+}
+
+/* Prose links under white/gray backgrounds are restored to the live link channel. */
+[class*="bg--white"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
+[class*="bg-"] [class*="bg--white"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
+[class*="bg--gray"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
+[class*="bg-"] [class*="bg--gray"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn) {
+  color: var(--link-color);
+}
+
+/* …but gold/black bands nested inside white/gray revert to the ancestor cascade. */
+[class*="bg--white"] [class*="bg--gold"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
+[class*="bg--white"] [class*="bg--black"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
+[class*="bg--gray"] [class*="bg--gold"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
+[class*="bg--gray"] [class*="bg--black"] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn) {
+  color: inherit;
+}

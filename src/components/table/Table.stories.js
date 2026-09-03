@@ -86,3 +86,13 @@ Default.args = {
   highlight: true,
   border: true,
 };
+
+// The existing Default story enables every boolean. Keep a fixture for the
+// component's actual default state so OFF-state rendering remains protected.
+export const Plain = Template.bind({});
+Plain.args = {
+  ...Default.args,
+  sticky: false,
+  highlight: false,
+  border: false,
+};

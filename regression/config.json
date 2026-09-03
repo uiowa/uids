@@ -1,0 +1,2211 @@
+{
+  "comment": "Computed-style regression config (scripts/check-styles.mjs). One entry per migrated component; selectors/properties are the identity-bearing styles its contract tokenizes. Add an entry when a component finishes the migration pipeline.",
+  "components": [
+    {
+      "name": "brand-bar",
+      "checks": [
+        {
+          "story": "components-branding-brand-bar--with-site-title",
+          "selector": ".iowa-bar",
+          "properties": [
+            "background-color",
+            "height",
+            "z-index"
+          ]
+        },
+        {
+          "story": "components-branding-brand-bar--with-site-title",
+          "selector": ".iowa-bar .logo--tab",
+          "properties": [
+            "width",
+            "height",
+            "background-color",
+            "margin-bottom",
+            "margin-right"
+          ]
+        },
+        {
+          "story": "components-branding-brand-bar--with-site-title",
+          "selector": ".iowa-bar .site-name",
+          "properties": [
+            "font-size",
+            "font-weight",
+            "font-family",
+            "color"
+          ]
+        },
+        {
+          "story": "components-branding-brand-bar--narrow",
+          "selector": ".iowa-bar--narrow",
+          "properties": [
+            "background-color",
+            "min-height"
+          ]
+        },
+        {
+          "story": "components-branding-brand-bar--narrow",
+          "selector": ".iowa-bar--narrow .logo--tab",
+          "properties": [
+            "width",
+            "height",
+            "margin-bottom"
+          ]
+        },
+        {
+          "story": "components-branding-brand-bar--with-parent-site-title",
+          "selector": ".parent-site-name",
+          "properties": [
+            "font-size",
+            "font-weight",
+            "padding"
+          ]
+        },
+        {
+          "story": "components-branding-brand-bar--with-parent-site-title",
+          "selector": ".iowa-bar__below",
+          "properties": [
+            "min-height",
+            "background-color",
+            "border-top-color"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "logo",
+      "checks": [
+        {
+          "story": "components-branding-logo--iowa",
+          "selector": ".logo--tab",
+          "properties": [
+            "width",
+            "height",
+            "background-color"
+          ]
+        },
+        {
+          "story": "components-branding-logo--iowa",
+          "selector": ".logo-icon",
+          "properties": [
+            "height"
+          ]
+        },
+        {
+          "story": "components-branding-logo--iowa-health-care",
+          "selector": ".logo--tab",
+          "properties": [
+            "width",
+            "height"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "brand-footer",
+      "checks": [
+        {
+          "story": "components-branding-brand-footer--with-site-title",
+          "selector": ".footer",
+          "properties": [
+            "background-color",
+            "color",
+            "font-weight"
+          ]
+        },
+        {
+          "story": "components-branding-brand-footer--with-site-title",
+          "selector": ".footer .site-name",
+          "properties": [
+            "font-size",
+            "font-weight",
+            "color"
+          ]
+        },
+        {
+          "story": "components-branding-brand-footer--with-site-title",
+          "selector": ".footer .logo--footer",
+          "properties": [
+            "width"
+          ]
+        },
+        {
+          "story": "components-branding-brand-footer--with-site-title",
+          "selector": ".socket",
+          "properties": [
+            "font-size",
+            "color"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "comment": "Baseline captured from the published build BEFORE the token swap, with one intentional change re-baselined: .bttn font-weight 400 \u2192 300. 4.x declared no weight (inheriting 400) but Antonio ships as static instances at 100/300/700, so the browser always matched the 300 face. Verified a rendering no-op \u2014 the same button measures 169.43x65.195 at both specified weights, and 300 is the only Antonio face that loads.",
+      "checks": [
+        {
+          "story": "components-button--primary",
+          "selector": ".bttn",
+          "properties": [
+            "font-family",
+            "font-size",
+            "font-weight",
+            "line-height",
+            "text-transform",
+            "padding",
+            "background-color",
+            "color",
+            "border-top-width",
+            "border-top-color",
+            "display"
+          ]
+        },
+        {
+          "story": "components-button--primary",
+          "selector": ".bttn i",
+          "properties": [
+            "margin-left",
+            "color"
+          ]
+        },
+        {
+          "story": "components-button--secondary",
+          "selector": ".bttn",
+          "properties": [
+            "background-color",
+            "color"
+          ]
+        },
+        {
+          "story": "components-button--secondary",
+          "selector": ".bttn i",
+          "properties": [
+            "color"
+          ]
+        },
+        {
+          "story": "components-button--tertiary",
+          "selector": ".bttn",
+          "properties": [
+            "background-color",
+            "color"
+          ]
+        },
+        {
+          "story": "components-button--small",
+          "selector": ".bttn",
+          "properties": [
+            "font-size",
+            "padding"
+          ]
+        },
+        {
+          "story": "components-button--large",
+          "selector": ".bttn",
+          "properties": [
+            "font-size",
+            "padding"
+          ]
+        },
+        {
+          "story": "components-button--light-font",
+          "selector": ".bttn",
+          "properties": [
+            "font-family",
+            "font-size",
+            "font-weight",
+            "letter-spacing",
+            "padding",
+            "display"
+          ]
+        },
+        {
+          "story": "components-button--no-text",
+          "selector": ".bttn i",
+          "properties": [
+            "margin-left",
+            "color"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "form",
+      "comment": "No baseline captured yet \u2014 form.scss is untouched on this branch, so the published build is a valid pre-swap baseline once someone runs check-styles.mjs --url https://uids.brand.uiowa.edu --update before the tokens/contract/SCSS-swap work begins.",
+      "checks": [
+        {
+          "story": "elements-form--text",
+          "selector": ".form-item input",
+          "properties": [
+            "background-color",
+            "height",
+            "border-radius"
+          ]
+        },
+        {
+          "story": "elements-form--text",
+          "selector": ".form-item label",
+          "properties": [
+            "font-size",
+            "font-weight",
+            "color"
+          ]
+        },
+        {
+          "story": "elements-form--select",
+          "selector": "select",
+          "properties": [
+            "height",
+            "background-color",
+            "padding"
+          ]
+        },
+        {
+          "story": "elements-form--select-multiple",
+          "selector": "select[multiple]",
+          "properties": [
+            "border",
+            "height",
+            "background-color"
+          ]
+        },
+        {
+          "story": "elements-form--textarea",
+          "selector": "textarea",
+          "properties": [
+            "min-height",
+            "font-size",
+            "background-color"
+          ]
+        },
+        {
+          "story": "elements-form--file",
+          "selector": "input[type=\"file\"]",
+          "properties": [
+            "width",
+            "margin-bottom"
+          ]
+        },
+        {
+          "story": "elements-form--checkbox",
+          "selector": ".form-item--checkbox",
+          "properties": [
+            "margin-bottom"
+          ]
+        },
+        {
+          "story": "elements-form--radios",
+          "selector": ".form-item--radio input",
+          "properties": [
+            "height",
+            "min-width",
+            "transform"
+          ]
+        },
+        {
+          "story": "elements-form--toggle",
+          "selector": ".form-item--toggle input",
+          "properties": [
+            "width",
+            "height",
+            "border-radius",
+            "background-color"
+          ]
+        },
+        {
+          "story": "elements-form--submit",
+          "selector": ".bttn",
+          "properties": [
+            "font-size",
+            "height",
+            "padding"
+          ]
+        },
+        {
+          "story": "elements-form--checkboxes",
+          "selector": "legend",
+          "properties": [
+            "font-size",
+            "font-weight",
+            "line-height"
+          ]
+        },
+        {
+          "story": "components-form--filters",
+          "selector": ".form-fieldset--side-legend legend",
+          "properties": [
+            "display",
+            "float",
+            "border-bottom-color",
+            "border-right-color"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "background",
+      "comment": "Captured 2026-08-15 from LOCAL pre-swap Storybook, which is published-equivalent for this component: _background.scss and _background-mixins.scss are untouched on this branch before the foundation swap (the Forms form.scss precedent). background-image is deliberately NOT captured (its computed value embeds the serving origin, so baselines would not be portable); background-size covers the pattern layer, and the swap does not touch background-image lines.",
+      "checks": [
+        {
+          "story": "components-background--all-backgrounds",
+          "selector": ".bg--black",
+          "properties": [
+            "background-color",
+            "color",
+            "border-top-color",
+            "background-size"
+          ]
+        },
+        {
+          "story": "components-background--all-backgrounds",
+          "selector": ".bg--black--pattern--brain",
+          "properties": [
+            "background-color",
+            "color",
+            "border-top-color",
+            "background-size"
+          ]
+        },
+        {
+          "story": "components-background--all-backgrounds",
+          "selector": ".bg--black--pattern--community",
+          "properties": [
+            "background-color",
+            "color",
+            "border-top-color",
+            "background-size"
+          ]
+        },
+        {
+          "story": "components-background--all-backgrounds",
+          "selector": ".bg--black--pattern--particle",
+          "properties": [
+            "background-color",
+            "color",
+            "border-top-color",
+            "background-size"
+          ]
+        },
+        {
+          "story": "components-background--all-backgrounds",
+          "selector": ".bg--gold",
+          "properties": [
+            "background-color",
+            "color",
+            "border-top-color",
+            "background-size"
+          ]
+        },
+        {
+          "story": "components-background--all-backgrounds",
+          "selector": ".bg--gold--pattern--brain",
+          "properties": [
+            "background-color",
+            "color",
+            "border-top-color",
+            "background-size"
+          ]
+        },
+        {
+          "story": "components-background--all-backgrounds",
+          "selector": ".bg--gold--pattern--community",
+          "properties": [
+            "background-color",
+            "color",
+            "border-top-color",
+            "background-size"
+          ]
+        },
+        {
+          "story": "components-background--all-backgrounds",
+          "selector": ".bg--gold--pattern--particle",
+          "properties": [
+            "background-color",
+            "color",
+            "border-top-color",
+            "background-size"
+          ]
+        },
+        {
+          "story": "components-background--all-backgrounds",
+          "selector": ".bg--gray",
+          "properties": [
+            "background-color",
+            "color",
+            "border-top-color",
+            "background-size"
+          ]
+        },
+        {
+          "story": "components-background--all-backgrounds",
+          "selector": ".bg--gray--pattern--brain",
+          "properties": [
+            "background-color",
+            "color",
+            "border-top-color",
+            "background-size"
+          ]
+        },
+        {
+          "story": "components-background--all-backgrounds",
+          "selector": ".bg--gray--pattern--community",
+          "properties": [
+            "background-color",
+            "color",
+            "border-top-color",
+            "background-size"
+          ]
+        },
+        {
+          "story": "components-background--all-backgrounds",
+          "selector": ".bg--gray--pattern--particle",
+          "properties": [
+            "background-color",
+            "color",
+            "border-top-color",
+            "background-size"
+          ]
+        },
+        {
+          "story": "components-background--all-backgrounds",
+          "selector": ".bg--white",
+          "properties": [
+            "background-color",
+            "color",
+            "border-top-color",
+            "background-size"
+          ]
+        },
+        {
+          "story": "components-background--all-backgrounds",
+          "selector": ".bg--white--pattern--brain",
+          "properties": [
+            "background-color",
+            "color",
+            "border-top-color",
+            "background-size"
+          ]
+        },
+        {
+          "story": "components-background--all-backgrounds",
+          "selector": ".bg--white--pattern--community",
+          "properties": [
+            "background-color",
+            "color",
+            "border-top-color",
+            "background-size"
+          ]
+        },
+        {
+          "story": "components-background--all-backgrounds",
+          "selector": ".bg--white--pattern--particle",
+          "properties": [
+            "background-color",
+            "color",
+            "border-top-color",
+            "background-size"
+          ]
+        },
+        {
+          "story": "components-background--all-backgrounds",
+          "selector": ".bg--black a",
+          "properties": [
+            "color"
+          ]
+        },
+        {
+          "story": "components-background--all-backgrounds",
+          "selector": ".bg--gold a",
+          "properties": [
+            "color"
+          ]
+        },
+        {
+          "story": "components-background--all-backgrounds",
+          "selector": ".bg--gray a",
+          "properties": [
+            "color"
+          ]
+        },
+        {
+          "story": "components-background--all-backgrounds",
+          "selector": ".bg--white a",
+          "properties": [
+            "color"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "inline",
+      "comment": "Captured 2026-08-15 from LOCAL pre-swap Storybook (published-equivalent: _inline.scss untouched on this branch before the foundation swap). BareContext pins the media-query branch \u2014 including the ruled-as-shipped .inline--size-medium 50%-at-600px behavior \u2014 while Default (grid columns are container-name: column) pins the @container branch. The only swap this protects is --inline-margin-xs 0.5rem -> var(--uiowa-space-50).",
+      "checks": [
+        {
+          "story": "components-inline--bare-context",
+          "selector": ".inline--size-full",
+          "properties": [
+            "width",
+            "margin-top",
+            "margin-bottom",
+            "margin-inline-start",
+            "margin-inline-end",
+            "float"
+          ]
+        },
+        {
+          "story": "components-inline--bare-context",
+          "selector": ".inline--size-small",
+          "properties": [
+            "width",
+            "margin-top",
+            "margin-bottom",
+            "margin-inline-start",
+            "margin-inline-end",
+            "float"
+          ]
+        },
+        {
+          "story": "components-inline--bare-context",
+          "selector": ".inline--size-medium",
+          "properties": [
+            "width",
+            "margin-top",
+            "margin-bottom",
+            "margin-inline-start",
+            "margin-inline-end",
+            "float"
+          ]
+        },
+        {
+          "story": "components-inline--bare-context",
+          "selector": ".inline--size-large",
+          "properties": [
+            "width",
+            "margin-top",
+            "margin-bottom",
+            "margin-inline-start",
+            "margin-inline-end",
+            "float"
+          ]
+        },
+        {
+          "story": "components-inline--bare-context",
+          "selector": ".inline--size-small.inline--align-left",
+          "properties": [
+            "float",
+            "clear",
+            "margin-inline-end"
+          ]
+        },
+        {
+          "story": "components-inline--bare-context",
+          "selector": ".inline--size-small.inline--align-right",
+          "properties": [
+            "float",
+            "clear",
+            "margin-inline-start"
+          ]
+        },
+        {
+          "story": "components-inline--default",
+          "selector": ".inline--size-full",
+          "properties": [
+            "width",
+            "margin-top",
+            "margin-bottom",
+            "float"
+          ]
+        },
+        {
+          "story": "components-inline--default",
+          "selector": ".inline--size-small",
+          "properties": [
+            "width",
+            "margin-top",
+            "margin-bottom",
+            "float"
+          ]
+        },
+        {
+          "story": "components-inline--default",
+          "selector": ".inline--size-medium",
+          "properties": [
+            "width",
+            "margin-top",
+            "margin-bottom",
+            "float"
+          ]
+        },
+        {
+          "story": "components-inline--default",
+          "selector": ".inline--size-large",
+          "properties": [
+            "width",
+            "margin-top",
+            "margin-bottom",
+            "float"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "headline",
+      "comment": "Captured 2026-08-15 from LOCAL pre-swap Storybook (published-equivalent: _headline.scss and _headline-mixins.scss untouched on this branch before the swap). NOTE the Default story ships text_style serif (stale-args knownIssue) \u2014 captured as-is. The underline BAR (::after) is not capturable \u2014 the harness has no pseudo-element support (same gap as Button focus bar); the bar color token swap is covered by value-identity only. ContextFlips pins the on-gold flips incl. the DECLARED 400 uppercase weight (renders the static Antonio 300 face; token deliberately codifies 400, the 4.x-as-shipped declaration).",
+      "checks": [
+        {
+          "story": "components-headline--default",
+          "selector": ".headline",
+          "properties": [
+            "line-height",
+            "padding-top",
+            "padding-bottom",
+            "font-family",
+            "font-weight",
+            "font-size"
+          ]
+        },
+        {
+          "story": "components-headline--default",
+          "selector": ".headline .headline__text",
+          "properties": [
+            "color",
+            "font-weight"
+          ]
+        },
+        {
+          "story": "components-headline--uppercase",
+          "selector": ".headline--uppercase",
+          "properties": [
+            "text-transform",
+            "font-family",
+            "font-weight"
+          ]
+        },
+        {
+          "story": "components-headline--serif",
+          "selector": ".headline--serif",
+          "properties": [
+            "font-family",
+            "font-weight"
+          ]
+        },
+        {
+          "story": "components-headline--underline",
+          "selector": ".headline--underline",
+          "properties": [
+            "padding-bottom",
+            "overflow"
+          ]
+        },
+        {
+          "story": "components-headline--highlight",
+          "selector": ".headline--highlight",
+          "properties": [
+            "margin-bottom",
+            "padding-top",
+            "padding-bottom",
+            "line-height"
+          ]
+        },
+        {
+          "story": "components-headline--highlight",
+          "selector": ".headline--highlight .headline__text",
+          "properties": [
+            "background-color",
+            "color",
+            "padding"
+          ]
+        },
+        {
+          "story": "components-headline--context-flips",
+          "selector": ".bg--gold .headline--uppercase .headline__text",
+          "properties": [
+            "font-weight"
+          ]
+        },
+        {
+          "story": "components-headline--context-flips",
+          "selector": ".bg--gold .headline--uppercase .headline__text span",
+          "properties": [
+            "background-color",
+            "color",
+            "font-weight"
+          ]
+        },
+        {
+          "story": "components-headline--context-flips",
+          "selector": ".bg--gold .headline--highlight .headline__text",
+          "properties": [
+            "background-color",
+            "color"
+          ]
+        },
+        {
+          "story": "components-headline--context-flips",
+          "selector": ".bg--gold .bg--black .headline--uppercase .headline__text span",
+          "properties": [
+            "background-color",
+            "color"
+          ]
+        },
+        {
+          "story": "components-headline--context-flips",
+          "selector": ".bg--black .headline--negative",
+          "properties": [
+            "color"
+          ]
+        },
+        {
+          "story": "components-headline--context-flips",
+          "selector": ".bg--black .headline--negative a",
+          "properties": [
+            "color"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "media-framing",
+      "comment": "Captured 2026-08-15 from LOCAL pre-swap Storybook (published-equivalent: _media.scss untouched on this branch before the swap). The Framing story uses raw markup + a data-URI img so capture is asset-independent; Card stories also exercise these classes but Card is unmigrated, so the foundation pins its own.",
+      "checks": [
+        {
+          "story": "components-media--framing",
+          "selector": ".media--border img",
+          "properties": [
+            "padding",
+            "border-top-width",
+            "border-top-style",
+            "border-top-color"
+          ]
+        },
+        {
+          "story": "components-media--framing",
+          "selector": ".media--circle",
+          "properties": [
+            "border-radius",
+            "margin-top",
+            "height"
+          ]
+        },
+        {
+          "story": "components-media--framing",
+          "selector": ".media--circle img",
+          "properties": [
+            "aspect-ratio",
+            "border-radius"
+          ]
+        },
+        {
+          "story": "components-media--framing",
+          "selector": ".media--cover img",
+          "properties": [
+            "object-fit",
+            "width",
+            "height"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "badge",
+      "comment": "Captured 2026-08-16 from LOCAL pre-swap Storybook (published-equivalent: badge.scss is untouched on this branch before the migration). RE-BASELINED 2026-08-20 for the de-flex design change (contracts/badge.json changes[0], the design system owner's ruling): badge/font-size went from a raw 75%-of-inherited-context to an absolute 0.75rem. ONLY the ContextSizes --large rows moved, and they moved to values this file had ALREADY recorded as observed -- the --body rows -- because the badge is now parent-independent and every context renders the body-context numbers (12px / 20.04px / 9px / 9px / 12px). The --body rows and every colour row are byte-unchanged, which is the check that the change was a no-op outside headings. Same discipline as the Antonio font-weight re-baseline: only the intentionally-changed values moved. InHeading was added by the same change to pin the ruling directly against real h1/h2 ramps; it is flat across viewports by construction, which under the old percentage sizing it could not have been.",
+      "checks": [
+        {
+          "story": "components-badge--default",
+          "selector": ".badge",
+          "properties": [
+            "display",
+            "padding-top",
+            "padding-right",
+            "padding-bottom",
+            "padding-left",
+            "line-height",
+            "font-size",
+            "font-weight",
+            "color",
+            "background-color",
+            "border-top-width",
+            "border-top-style",
+            "border-top-color",
+            "border-radius"
+          ]
+        },
+        {
+          "story": "components-badge--secondary",
+          "selector": ".badge--secondary",
+          "properties": ["background-color", "color"]
+        },
+        {
+          "story": "components-badge--cool-gray",
+          "selector": ".badge--cool-gray",
+          "properties": ["background-color", "color"]
+        },
+        {
+          "story": "components-badge--blue",
+          "selector": ".badge--blue",
+          "properties": ["background-color", "color"]
+        },
+        {
+          "story": "components-badge--green",
+          "selector": ".badge--green",
+          "properties": ["background-color", "color"]
+        },
+        {
+          "story": "components-badge--orange",
+          "selector": ".badge--orange",
+          "properties": ["background-color", "color"]
+        },
+        {
+          "story": "components-badge--context-sizes",
+          "selector": ".badge-context--body .badge",
+          "properties": ["font-size", "line-height", "padding-left", "padding-right", "border-radius"]
+        },
+        {
+          "story": "components-badge--context-sizes",
+          "selector": ".badge-context--large .badge",
+          "properties": ["font-size", "line-height", "padding-left", "padding-right", "border-radius"]
+        },
+        {
+          "story": "components-badge--in-heading",
+          "selector": ".badge-context--h1 .badge",
+          "properties": ["font-size", "line-height", "padding-left", "padding-right", "border-radius"]
+        },
+        {
+          "story": "components-badge--in-heading",
+          "selector": ".badge-context--h2 .badge",
+          "properties": ["font-size", "line-height", "padding-left", "padding-right", "border-radius"]
+        }
+      ]
+    },
+    {
+      "name": "table",
+      "comment": "Captured 2026-08-16 from LOCAL pre-swap Storybook (published-equivalent: tables.scss is untouched on this branch before the migration). Plain pins the component's real all-options-off state; Default pins Sticky + Border. Highlight is hover-only and the harness does not synthesize :hover, so its value receives value-identity rather than computed-style coverage.",
+      "checks": [
+        {
+          "story": "components-table--plain",
+          "selector": ".table",
+          "properties": ["background-color", "color", "font-size", "line-height", "display", "width", "border-collapse"]
+        },
+        {
+          "story": "components-table--plain",
+          "selector": ".table caption",
+          "properties": ["padding", "text-align", "font-size", "line-height", "color", "background-color", "font-weight"]
+        },
+        {
+          "story": "components-table--plain",
+          "selector": ".table thead th",
+          "properties": ["padding", "font-size", "line-height", "color", "background-color", "border-top-width", "border-top-color"]
+        },
+        {
+          "story": "components-table--plain",
+          "selector": ".table tbody td",
+          "properties": ["padding", "font-size", "line-height", "color", "background-color", "border-top-width", "border-top-color"]
+        },
+        {
+          "story": "components-table--plain",
+          "selector": ".table tbody th",
+          "properties": ["padding", "font-size", "line-height", "color", "background-color", "position"]
+        },
+        {
+          "story": "components-table--plain",
+          "selector": ".table tbody tr:nth-child(even) td",
+          "properties": ["background-color"]
+        },
+        {
+          "story": "components-table--default",
+          "selector": ".table-responsive.table-sticky",
+          "properties": ["overflow", "max-height"]
+        },
+        {
+          "story": "components-table--default",
+          "selector": ".table-responsive.table-sticky thead",
+          "properties": ["position", "top", "border-top-width"]
+        },
+        {
+          "story": "components-table--default",
+          "selector": ".table.table--gray-borders thead th",
+          "properties": ["border-top-width", "border-top-color", "border-bottom-width", "border-bottom-color", "border-left-width", "border-left-color"]
+        },
+        {
+          "story": "components-table--default",
+          "selector": ".table.table--gray-borders tbody td",
+          "properties": ["border-top-width", "border-top-color", "border-right-width", "border-right-color", "border-bottom-width", "border-bottom-color", "border-left-width", "border-left-color"]
+        }
+      ]
+    },
+    {
+      "name": "alert",
+      "comment": "Captured 2026-08-16 from LOCAL pre-swap Storybook (published-equivalent: alert.scss is untouched on this branch before the migration). The four color stories pin every shipped state; dedicated fixtures cover dismissible, no-icon, centered/vertically-centered, and the component-private h2-h6 scale.",
+      "checks": [
+        {
+          "story": "components-alert--info",
+          "selector": ".alert--info",
+          "properties": ["background-color", "border-radius", "padding", "line-height", "font-size", "border-top-width", "border-top-style", "border-top-color", "display"]
+        },
+        {
+          "story": "components-alert--info",
+          "selector": ".alert__icon",
+          "properties": ["padding-top", "padding-right", "padding-bottom", "padding-left"]
+        },
+        {
+          "story": "components-alert--info",
+          "selector": ".alert--info .fa-circle",
+          "properties": ["color"]
+        },
+        {
+          "story": "components-alert--success",
+          "selector": ".alert--success",
+          "properties": ["background-color"]
+        },
+        {
+          "story": "components-alert--success",
+          "selector": ".alert--success .fa-circle",
+          "properties": ["color"]
+        },
+        {
+          "story": "components-alert--warning",
+          "selector": ".alert--warning",
+          "properties": ["background-color"]
+        },
+        {
+          "story": "components-alert--warning",
+          "selector": ".alert--warning .fa-circle",
+          "properties": ["color"]
+        },
+        {
+          "story": "components-alert--danger",
+          "selector": ".alert--danger",
+          "properties": ["background-color"]
+        },
+        {
+          "story": "components-alert--danger",
+          "selector": ".alert--danger .fa-circle",
+          "properties": ["color"]
+        },
+        {
+          "story": "components-alert--dismissible",
+          "selector": ".alert--dismissible",
+          "properties": ["position"]
+        },
+        {
+          "story": "components-alert--dismissible",
+          "selector": ".alert--dismissible button",
+          "properties": ["position", "top", "right", "width", "height", "background-color", "border-top-width"]
+        },
+        {
+          "story": "components-alert--dismissible",
+          "selector": ".alert--dismissible button i",
+          "properties": ["font-size"]
+        },
+        {
+          "story": "components-alert--no-icon",
+          "selector": ".alert",
+          "properties": ["display", "padding", "border-radius"]
+        },
+        {
+          "story": "components-alert--centered",
+          "selector": ".alert--centered.alert--vertically-centered",
+          "properties": ["display", "justify-content", "align-items"]
+        },
+        {
+          "story": "components-alert--heading-scale",
+          "selector": ".alert h2",
+          "properties": ["font-size", "line-height"]
+        },
+        {
+          "story": "components-alert--heading-scale",
+          "selector": ".alert h3",
+          "properties": ["font-size", "line-height"]
+        },
+        {
+          "story": "components-alert--heading-scale",
+          "selector": ".alert h4",
+          "properties": ["font-size", "line-height"]
+        },
+        {
+          "story": "components-alert--heading-scale",
+          "selector": ".alert h5",
+          "properties": ["font-size", "line-height"]
+        },
+        {
+          "story": "components-alert--heading-scale",
+          "selector": ".alert h6",
+          "properties": ["font-size", "line-height"]
+        }
+      ]
+    },
+    {
+      "name": "accordion",
+      "comment": "Captured 2026-08-16 from LOCAL pre-swap Storybook (published-equivalent: accordion.scss is untouched on this branch before the migration). Default/OpenByDefault pin closed/open geometry; White pins the previously uncovered white colorway. Hover/focus-only colors cannot be activated by the current harness and retain value-identity coverage.",
+      "checks": [
+        {
+          "story": "components-accordion--default",
+          "selector": ".accordion__item",
+          "properties": ["border-top-width", "border-top-style", "border-top-color"]
+        },
+        {
+          "story": "components-accordion--default",
+          "selector": ".accordion__heading",
+          "properties": ["background-color", "display", "cursor"]
+        },
+        {
+          "story": "components-accordion--default",
+          "selector": ".accordion__heading h2",
+          "properties": ["font-size", "font-weight", "padding", "width", "display", "align-items"]
+        },
+        {
+          "story": "components-accordion--default",
+          "selector": ".accordion__heading i",
+          "properties": ["width", "height", "margin-top", "margin-right", "border-radius", "transform", "transition-duration"]
+        },
+        {
+          "story": "components-accordion--default",
+          "selector": ".accordion__content",
+          "properties": ["background-color", "padding", "border-top-width", "border-top-color"]
+        },
+        {
+          "story": "components-accordion--default",
+          "selector": ".accordion__content p",
+          "properties": ["font-size"]
+        },
+        {
+          "story": "components-accordion--default",
+          "selector": ".accordion__item:nth-child(2)",
+          "properties": ["margin-top"]
+        },
+        {
+          "story": "components-accordion--open-by-default",
+          "selector": ".accordion__item[open] .accordion__heading i",
+          "properties": ["transform"]
+        },
+        {
+          "story": "components-accordion--white",
+          "selector": ".accordion--white .accordion__heading",
+          "properties": ["background-color"]
+        },
+        {
+          "story": "components-accordion--white",
+          "selector": ".accordion--white .accordion__item",
+          "properties": ["border-top-color"]
+        }
+      ]
+    },
+    {
+      "name": "menu",
+      "comment": "Captured 2026-08-16 from LOCAL pre-swap Storybook (published-equivalent: menu.scss is untouched on this branch before the migration). Horizontal crosses the 768px container query at the standard widths. Branches pins top=false, an inert group label, and nested active markup; Container and OnLightBackgrounds pin their otherwise-uncovered colors. The ::after indicator and :hover state are outside the harness and retain value-identity coverage.",
+      "checks": [
+        {
+          "story": "components-menu--horizontal-menu",
+          "selector": ".menu--horizontal",
+          "properties": ["display", "flex-direction", "flex-wrap", "font-size", "margin", "padding"]
+        },
+        {
+          "story": "components-menu--horizontal-menu",
+          "selector": ".menu--horizontal > li",
+          "properties": ["border-bottom-width", "border-bottom-color"]
+        },
+        {
+          "story": "components-menu--horizontal-menu",
+          "selector": ".menu--horizontal > li > a",
+          "properties": ["color", "font-size", "font-weight", "padding-top", "padding-right", "padding-bottom", "padding-left"]
+        },
+        {
+          "story": "components-menu--vertical-menu",
+          "selector": "nav > .menu:not(.menu--horizontal)",
+          "properties": ["display", "flex-direction", "font-size"]
+        },
+        {
+          "story": "components-menu--vertical-menu",
+          "selector": "nav > .menu > li",
+          "properties": ["border-bottom-width", "border-bottom-color"]
+        },
+        {
+          "story": "components-menu--vertical-menu",
+          "selector": "nav > .menu > li > a",
+          "properties": ["color", "font-weight", "padding-top", "padding-right", "padding-bottom", "padding-left"]
+        },
+        {
+          "story": "components-menu--vertical-menu",
+          "selector": "nav > .menu > li > ul.menu",
+          "properties": ["margin-left"]
+        },
+        {
+          "story": "components-menu--vertical-menu",
+          "selector": "nav > .menu > li > ul.menu li a",
+          "properties": ["color", "font-weight", "padding-top", "padding-bottom", "padding-left", "padding-right"]
+        },
+        {
+          "story": "components-menu--vertical-menu",
+          "selector": ".menu li.has-icon > a",
+          "properties": ["padding-left"]
+        },
+        {
+          "story": "components-menu--vertical-menu",
+          "selector": ".menu li .fas",
+          "properties": ["color"]
+        },
+        {
+          "story": "components-menu--branches",
+          "selector": ".menu-branches > .menu",
+          "properties": ["display", "flex-direction", "font-size"]
+        },
+        {
+          "story": "components-menu--branches",
+          "selector": ".menu-branches > .menu > li:first-child > span",
+          "properties": ["display", "color", "padding-top", "padding-right", "padding-bottom", "padding-left"]
+        },
+        {
+          "story": "components-menu--branches",
+          "selector": ".menu-branches li.is-active > a",
+          "properties": ["color", "padding-top", "padding-bottom"]
+        },
+        {
+          "story": "components-menu--container",
+          "selector": ".menu--container",
+          "properties": ["border-bottom-width", "border-bottom-style", "border-bottom-color"]
+        },
+        {
+          "story": "components-menu--on-light-backgrounds",
+          "selector": ".menu-context--white .menu > li > span",
+          "properties": ["color"]
+        },
+        {
+          "story": "components-menu--on-light-backgrounds",
+          "selector": ".menu-context--gray .menu > li > span",
+          "properties": ["color"]
+        }
+      ]
+    },
+    {
+      "name": "stat",
+      "comment": "Captured 2026-08-16 from LOCAL pre-swap Storybook (published-equivalent: stat.scss is untouched on this branch before the migration). Default/Horizontal pin both layouts and all responsive typography/dividers; Static fixtures pin the non-hover expanded branch; OnBackgrounds covers gold/black context flips, including the horizontal gold divider's distinct 1350px override.",
+      "checks": [
+        {
+          "story": "components-stat--default",
+          "selector": ".stat__title",
+          "properties": ["font-family", "font-weight", "font-size", "line-height", "text-transform", "border-bottom-width", "border-bottom-color", "padding"]
+        },
+        {
+          "story": "components-stat--default",
+          "selector": ".stat__description",
+          "properties": ["font-family", "font-weight", "font-size", "line-height", "text-transform", "width", "margin"]
+        },
+        {
+          "story": "components-stat--default",
+          "selector": ".stat__content",
+          "properties": ["color", "line-height", "max-height", "overflow"]
+        },
+        {
+          "story": "components-stat--default",
+          "selector": ".headline__suffix",
+          "properties": ["font-size", "vertical-align"]
+        },
+        {
+          "story": "components-stat--horizontal",
+          "selector": ".stat--horizontal",
+          "properties": ["display", "flex-wrap", "cursor"]
+        },
+        {
+          "story": "components-stat--horizontal",
+          "selector": ".stat--horizontal .stat__title",
+          "properties": ["font-size", "border-bottom-width", "padding", "flex-basis"]
+        },
+        {
+          "story": "components-stat--horizontal",
+          "selector": ".stat--horizontal .stat__description",
+          "properties": ["font-size", "width", "margin", "flex-basis"]
+        },
+        {
+          "story": "components-stat--horizontal",
+          "selector": ".stat--horizontal .stat__content",
+          "properties": ["font-size", "padding-top", "margin-top", "border-top-width", "border-top-color", "flex-basis", "max-height", "overflow"]
+        },
+        {
+          "story": "components-stat--static-expanded",
+          "selector": ".stat--static .stat__content",
+          "properties": ["max-height", "transition-duration", "overflow"]
+        },
+        {
+          "story": "components-stat--static-horizontal",
+          "selector": ".stat--horizontal.stat--static .stat__content",
+          "properties": ["max-height", "transition-duration", "overflow", "border-top-width"]
+        },
+        {
+          "story": "components-stat--on-backgrounds",
+          "selector": ".stat-context--gold-default .stat__title",
+          "properties": ["border-bottom-width", "border-bottom-color"]
+        },
+        {
+          "story": "components-stat--on-backgrounds",
+          "selector": ".stat-context--gold-default .stat__content",
+          "properties": ["color"]
+        },
+        {
+          "story": "components-stat--on-backgrounds",
+          "selector": ".stat-context--black-default .stat__title",
+          "properties": ["color", "border-bottom-color"]
+        },
+        {
+          "story": "components-stat--on-backgrounds",
+          "selector": ".stat-context--black-default .stat__description",
+          "properties": ["color"]
+        },
+        {
+          "story": "components-stat--on-backgrounds",
+          "selector": ".stat-context--black-default .stat__content",
+          "properties": ["color"]
+        },
+        {
+          "story": "components-stat--on-backgrounds",
+          "selector": ".stat-context--gold-horizontal .stat__content",
+          "properties": ["color", "border-top-width", "border-top-color"]
+        },
+        {
+          "story": "components-stat--on-backgrounds",
+          "selector": ".stat-context--black-horizontal .stat__title",
+          "properties": ["color"]
+        },
+        {
+          "story": "components-stat--on-backgrounds",
+          "selector": ".stat-context--gold-default .headline__prefix",
+          "properties": ["font-size", "vertical-align"]
+        },
+        {
+          "story": "components-stat--on-backgrounds",
+          "selector": ".stat-context--gold-horizontal .headline__prefix",
+          "properties": ["font-size", "vertical-align"]
+        }
+      ]
+    },
+    {
+      "name": "blockquote",
+      "comment": "Captured 2026-08-16 from LOCAL pre-swap Storybook (published-equivalent: blockquote.scss is untouched on this branch before the migration). Fixtures pin all three orientations, image-above/image-below/no-media, self-applied gold background, and the slot-only known issue. Accent pseudo-elements are outside the harness; OnGold uses the real border form to prove the self-background class does not trigger the ancestor-only white override.",
+      "checks": [
+        {
+          "story": "components-blockquote--left",
+          "selector": "blockquote.blockquote--img-above",
+          "properties": ["font-family", "font-weight", "font-style", "font-size", "line-height", "display", "align-items", "flex-wrap", "padding", "margin-bottom"]
+        },
+        {
+          "story": "components-blockquote--left",
+          "selector": ".blockquote__media",
+          "properties": ["max-width", "margin-top", "margin-right", "margin-bottom"]
+        },
+        {
+          "story": "components-blockquote--left",
+          "selector": ".blockquote__paragraph",
+          "properties": ["position", "padding-bottom"]
+        },
+        {
+          "story": "components-blockquote--left",
+          "selector": ".blockquote__paragraph p",
+          "properties": ["font-size", "font-weight", "margin-top"]
+        },
+        {
+          "story": "components-blockquote--left",
+          "selector": "blockquote footer",
+          "properties": ["font-family", "font-size", "line-height", "margin-top", "display"]
+        },
+        {
+          "story": "components-blockquote--centered",
+          "selector": "blockquote.blockquote--center",
+          "properties": ["text-align", "border-left-width", "border-right-width", "position", "padding-top", "padding-right", "padding-bottom", "padding-left"]
+        },
+        {
+          "story": "components-blockquote--centered",
+          "selector": ".blockquote--center .blockquote__media",
+          "properties": ["max-width", "position", "margin"]
+        },
+        {
+          "story": "components-blockquote--right",
+          "selector": "blockquote.blockquote--right.blockquote--img-above",
+          "properties": ["text-align", "border-left-width", "border-right-width", "border-right-color", "flex-direction", "padding"]
+        },
+        {
+          "story": "components-blockquote--image-below",
+          "selector": ".blockquote--img-below .blockquote__media",
+          "properties": ["max-width", "margin-top", "margin-right", "margin-bottom"]
+        },
+        {
+          "story": "components-blockquote--image-below",
+          "selector": ".blockquote--img-below footer",
+          "properties": ["display", "margin-top", "align-items"]
+        },
+        {
+          "story": "components-blockquote--no-media",
+          "selector": "blockquote.blockquote",
+          "properties": ["font-family", "font-weight", "font-size", "line-height", "border-left-width", "border-left-style", "border-left-color", "padding"]
+        },
+        {
+          "story": "components-blockquote--on-gold",
+          "selector": "blockquote.blockquote.bg--gold",
+          "properties": ["background-color", "border-left-width", "border-left-color"]
+        },
+        {
+          "story": "components-blockquote--content-slot-only",
+          "selector": "blockquote.blockquote",
+          "properties": ["border-left-width", "padding"]
+        },
+        {
+          "story": "components-blockquote--content-slot-only",
+          "selector": ".blockquote__content footer",
+          "properties": ["font-family", "font-size", "line-height"]
+        }
+      ]
+    },
+    {
+      "name": "callout",
+      "comment": "Captured 2026-08-16 from LOCAL pre-swap Storybook (published-equivalent: callout.scss is untouched on this branch before the migration). The with-background and no-background fixtures distinguish the 768px padding branch; InlineSmallRight also verifies the story now exposes the component's real inline props without altering the already-committed Inline baseline.",
+      "checks": [
+        {
+          "story": "components-callout--callout",
+          "selector": ".callout.bg--gray",
+          "properties": ["padding-top", "padding-right", "padding-bottom", "padding-left", "background-color"]
+        },
+        {
+          "story": "components-callout--no-background",
+          "selector": ".callout:not([class*=\"bg--\"])",
+          "properties": ["padding-top", "padding-right", "padding-bottom", "padding-left"]
+        },
+        {
+          "story": "components-callout--inline-small-right",
+          "selector": ".callout.inline--size-small.inline--align-right",
+          "properties": ["padding", "width", "float", "margin-left", "margin-right"]
+        }
+      ]
+    },
+    {
+      "name": "cta",
+      "comment": "Captured 2026-08-16 from LOCAL pre-swap Storybook (published-equivalent: cta.scss is untouched on this branch before the migration). The five fixtures cover every proposed Layout value, including the two button-right combinations whose equal-specificity ordering differs at the 980px breakpoint.",
+      "checks": [
+        {
+          "story": "components-cta--centered",
+          "selector": ".cta",
+          "properties": ["padding", "display", "flex-wrap", "text-align", "justify-content"]
+        },
+        {
+          "story": "components-cta--centered",
+          "selector": ".cta__container",
+          "properties": ["display", "gap", "margin-block-end", "text-align"]
+        },
+        {
+          "story": "components-cta--centered",
+          "selector": ".cta__title",
+          "properties": ["flex-basis", "align-self"]
+        },
+        {
+          "story": "components-cta--centered",
+          "selector": ".cta__link",
+          "properties": ["display", "justify-content", "align-self", "flex-basis"]
+        },
+        {
+          "story": "components-cta--inline",
+          "selector": ".cta--inline",
+          "properties": ["flex-wrap", "gap", "text-align", "justify-content"]
+        },
+        {
+          "story": "components-cta--inline",
+          "selector": ".cta--inline .cta__container",
+          "properties": ["display", "margin-block-end", "gap"]
+        },
+        {
+          "story": "components-cta--inline",
+          "selector": ".cta--inline .cta__title",
+          "properties": ["flex-basis", "align-self"]
+        },
+        {
+          "story": "components-cta--inline",
+          "selector": ".cta--inline .cta__content",
+          "properties": ["flex-grow", "flex-shrink", "flex-basis", "align-self"]
+        },
+        {
+          "story": "components-cta--inline",
+          "selector": ".cta--inline .cta__link",
+          "properties": ["display", "flex-basis", "align-self", "justify-content"]
+        },
+        {
+          "story": "components-cta--left",
+          "selector": ".cta--left",
+          "properties": ["justify-content", "text-align"]
+        },
+        {
+          "story": "components-cta--centered-button-right",
+          "selector": ".cta--button-align-right:not(.cta--left)",
+          "properties": ["justify-content", "text-align", "flex-wrap"]
+        },
+        {
+          "story": "components-cta--centered-button-right",
+          "selector": ".cta--button-align-right:not(.cta--left) .cta__container",
+          "properties": ["text-align", "gap", "margin-block-end"]
+        },
+        {
+          "story": "components-cta--centered-button-right",
+          "selector": ".cta--button-align-right .cta__content",
+          "properties": ["flex-grow", "flex-shrink", "flex-basis"]
+        },
+        {
+          "story": "components-cta--centered-button-right",
+          "selector": ".cta--button-align-right .cta__link",
+          "properties": ["display", "justify-content", "align-self", "flex-grow", "flex-shrink", "flex-basis"]
+        },
+        {
+          "story": "components-cta--left-button-right",
+          "selector": ".cta--left.cta--button-align-right",
+          "properties": ["justify-content", "text-align", "flex-wrap"]
+        },
+        {
+          "story": "components-cta--left-button-right",
+          "selector": ".cta--left.cta--button-align-right .cta__container",
+          "properties": ["text-align", "gap", "margin-block-end"]
+        },
+        {
+          "story": "components-cta--left-button-right",
+          "selector": ".cta--left.cta--button-align-right .cta__link",
+          "properties": ["display", "justify-content", "align-self", "flex-grow", "flex-shrink", "flex-basis"]
+        }
+      ]
+    },
+    {
+      "name": "pager",
+      "comment": "Captured 2026-08-16 from LOCAL pre-swap Storybook (published-equivalent: pager.scss is newly wired from the byte-matching production Twig/CSS source and remains unswapped). Default/FirstPage/LastPage pin runtime window branches; OnBackgrounds covers resting and active colors in all four contexts. Hover/focus and the mismatched .ellipsis pseudo-element selector are not capturable and remain value-identity/knownIssue coverage.",
+      "checks": [
+        {
+          "story": "components-pager--default",
+          "selector": ".pager",
+          "properties": ["margin-top", "margin-right", "margin-bottom", "margin-left"]
+        },
+        {
+          "story": "components-pager--default",
+          "selector": ".pager li",
+          "properties": ["display", "font-size", "margin-right"]
+        },
+        {
+          "story": "components-pager--default",
+          "selector": ".pager li:not(.is-active) a",
+          "properties": ["display", "text-decoration", "color", "background-color", "padding-top", "padding-right", "padding-bottom", "padding-left"]
+        },
+        {
+          "story": "components-pager--default",
+          "selector": ".pager .is-active a",
+          "properties": ["cursor", "color", "background-color", "padding"]
+        },
+        {
+          "story": "components-pager--default",
+          "selector": ".pager__item--ellipsis",
+          "properties": ["font-size", "margin-right", "color", "padding"]
+        },
+        {
+          "story": "components-pager--first-page",
+          "selector": ".pager__item.is-active:first-of-type a",
+          "properties": ["color", "background-color"]
+        },
+        {
+          "story": "components-pager--last-page",
+          "selector": ".pager__item.is-active a",
+          "properties": ["color", "background-color"]
+        },
+        {
+          "story": "components-pager--on-backgrounds",
+          "selector": ".bg--white .pager li:not(.is-active) a",
+          "properties": ["color", "background-color"]
+        },
+        {
+          "story": "components-pager--on-backgrounds",
+          "selector": ".bg--gray .pager li:not(.is-active) a",
+          "properties": ["color", "background-color"]
+        },
+        {
+          "story": "components-pager--on-backgrounds",
+          "selector": ".bg--gold .pager li:not(.is-active) a",
+          "properties": ["color", "background-color"]
+        },
+        {
+          "story": "components-pager--on-backgrounds",
+          "selector": ".bg--black .pager li:not(.is-active) a",
+          "properties": ["color", "background-color"]
+        },
+        {
+          "story": "components-pager--on-backgrounds",
+          "selector": ".bg--white .pager .is-active a",
+          "properties": ["color", "background-color"]
+        },
+        {
+          "story": "components-pager--on-backgrounds",
+          "selector": ".bg--gray .pager .is-active a",
+          "properties": ["color", "background-color"]
+        },
+        {
+          "story": "components-pager--on-backgrounds",
+          "selector": ".bg--gold .pager .is-active a",
+          "properties": ["color", "background-color"]
+        },
+        {
+          "story": "components-pager--on-backgrounds",
+          "selector": ".bg--black .pager .is-active a",
+          "properties": ["color", "background-color"]
+        }
+      ]
+    },
+    {
+      "name": "tabs",
+      "comment": "Captured 2026-08-16 from LOCAL pre-swap Storybook (published-equivalent: tabs.scss/tabs.js are newly wired from the production sources and remain unswapped). Default simultaneously pins selected/unselected ARIA states and panel geometry; OnBackgrounds pins the black text flips. Persistent and transient indicators are pseudo-elements, which the harness cannot inspect, so their swaps retain value-identity coverage.",
+      "checks": [
+        {
+          "story": "components-tabs--default",
+          "selector": ".tabs-collection",
+          "properties": ["margin", "list-style-type"]
+        },
+        {
+          "story": "components-tabs--default",
+          "selector": ".tabs-collection [role=\"tablist\"]",
+          "properties": ["margin", "overflow", "font-size"]
+        },
+        {
+          "story": "components-tabs--default",
+          "selector": ".tabs-collection [role=\"tab\"][aria-selected=\"true\"]",
+          "properties": ["position", "padding-top", "padding-right", "padding-bottom", "padding-left", "font-family", "font-size", "font-weight", "color", "background-color", "border-radius", "cursor"]
+        },
+        {
+          "story": "components-tabs--default",
+          "selector": ".tabs-collection [role=\"tab\"][aria-selected=\"false\"]",
+          "properties": ["padding", "font-family", "font-size", "font-weight", "color", "background-color"]
+        },
+        {
+          "story": "components-tabs--default",
+          "selector": ".tabs-collection [role=\"tabpanel\"]:not([hidden])",
+          "properties": ["position", "z-index", "padding-top", "padding-right", "padding-bottom", "padding-left", "display"]
+        },
+        {
+          "story": "components-tabs--on-backgrounds",
+          "selector": ".bg--gold [role=\"tab\"][aria-selected=\"true\"]",
+          "properties": ["color", "font-size", "font-weight"]
+        },
+        {
+          "story": "components-tabs--on-backgrounds",
+          "selector": ".bg--gold [role=\"tab\"][aria-selected=\"false\"]",
+          "properties": ["color", "font-size", "font-weight"]
+        },
+        {
+          "story": "components-tabs--on-backgrounds",
+          "selector": ".bg--black [role=\"tab\"][aria-selected=\"true\"]",
+          "properties": ["color", "font-size", "font-weight"]
+        },
+        {
+          "story": "components-tabs--on-backgrounds",
+          "selector": ".bg--black [role=\"tab\"][aria-selected=\"false\"]",
+          "properties": ["color", "font-size", "font-weight"]
+        }
+      ]
+    },
+    {
+      "name": "breadcrumbs",
+      "comment": "Captured 2026-08-16 from LOCAL pre-swap Storybook (published-equivalent: breadcrumbs.scss was ported verbatim from uids_base and remains unswapped). Default and AllLinked cover linked/unlinked crumb structure; OnBlack pins the ancestor-context text/link flip. Separator styling is a pseudo-element and the unreachable .disabled state remains value-identity/knownIssue coverage.",
+      "checks": [
+        {
+          "story": "components-breadcrumbs--default",
+          "selector": ".breadcrumb",
+          "properties": ["margin-top", "margin-right", "margin-bottom", "margin-left", "list-style-type"]
+        },
+        {
+          "story": "components-breadcrumbs--default",
+          "selector": ".breadcrumb li",
+          "properties": ["float", "cursor", "color", "font-size"]
+        },
+        {
+          "story": "components-breadcrumbs--default",
+          "selector": ".breadcrumb li a",
+          "properties": ["text-decoration", "color", "font-size"]
+        },
+        {
+          "story": "components-breadcrumbs--default",
+          "selector": ".breadcrumb li:not(:has(a))",
+          "properties": ["color", "font-size"]
+        },
+        {
+          "story": "components-breadcrumbs--all-linked",
+          "selector": ".breadcrumb li:nth-child(3) a",
+          "properties": ["text-decoration", "color", "font-size"]
+        },
+        {
+          "story": "components-breadcrumbs--on-black",
+          "selector": ".bg--black .breadcrumb li",
+          "properties": ["color", "font-size"]
+        },
+        {
+          "story": "components-breadcrumbs--on-black",
+          "selector": ".bg--black .breadcrumb li a",
+          "properties": ["color", "text-decoration"]
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "comment": "Captured 2026-08-16 from LOCAL pre-swap Storybook after the required single-card container-context fix (card.scss itself remains untouched and published-equivalent). Default pins base/card/media/headline geometry; PersonProfile pins the 400px container-query transition; supporting stories cover borderless, pre-title, icon/circle, date-media, and bottom-aligned-button roles. Extended 2026-08-17, still pre-swap, with card's THREE button paints, which the original 17 checks left entirely unpinned (only footer margin-top was captured): Default pins the faux label + gold arrow (--brand-primary via --uiowa-button-transparent-icon-color); LinkedWithNoButtonText pins the circle indicator, whose arrow is BLACK because button.scss:116-120 repaints .bttn--no-text icons to --brand-secondary; LinkedWithNoTitle pins the real <a> branch, which shares the box exactly but renders no arrow at all because Card passes nothing to Button's icon slot (recorded as a knownIssue, not fixed). PersonProfile's own numbers show why card's container-query values must never become breakpoint-leaf tokens: the container measures 343px at viewport 375 and 948px at 980, so the 400px switch is a CONTAINER threshold on .grid__column, and a fourcol grid would hold columns under 400px at every viewport this harness samples. Extended 2026-08-21 with ItemList, the first story here whose container carries NO grid--* class at all: Grid.vue:41-46 gained a `list` type and src/scss/layout/_grid.scss:103-109 gained .list-container.list-container--list:not([class*=\"grid-\"]) > .list-container__inner > div + div { margin-top: 2rem }, mirrored verbatim from uids_base/scss/components/grid.scss:6-12. Its seven capture points exist because that :not() guard excludes every grid-- value INCLUDING grid--onecol — the substring \"grid-\" is present in it — so until now UIDS could not render the arrangement its own rule contracts/rules.json item-list-is-stacked-cards mandates; the grid-less class arrived only downstream, from uiowa_core.module:1749 on Drupal views. The Grid story immediately above ItemList in Card.stories.js is that rule's explicit COUNTER-CASE (three-across BORDERED cards), not the pattern, which is why the pattern needed a story of its own. What is pinned is therefore the ARRANGEMENT first and the card second. .list-container__inner proves the container is not a grid in any sense — display block, grid-template-columns none, both gaps normal, and max-width none, that last one being what separates it from grid--onecol's 81.875em. The three nth-child columns then pin two independent jobs that land on the same elements: the 0 / 32px / 32px margin-top ladder, which keys on `> div + div` and ignores class, and container-type/container-name, which key on .grid__column and ignore position. Both must survive or the pattern degrades silently — strip the container context and card's own 400px container query never fires, so every card renders stacked at every width and all three sampled viewports still look plausible. The last three points are the news bundle's shipped combination, which no existing story carries: borderless AND card--layout-right together (PersonProfile pins the bordered right layout, WithNoBorder the borderless stacked one), plus media_size small, whose consequence is card.scss:426-430 capping the thumbnail at 15.625rem inside the container query, netting a 218px image where Default's uncapped widescreen runs to 946/1316. The 375 row is again the stacked branch of card's OWN container query rather than a viewport breakpoint: a list column is full-bleed, so the card measures the same 343 / 948 / 1318 PersonProfile records. Deliberately NOT re-pinned: the bttn--circle arrow this story's empty link_text produces, captured property-for-property by LinkedWithNoButtonText, and the serif headline, since Default already renders Zilla Slab 700/24px so headline_style serif moves nothing here. Row fill added 2026-08-25 (src/scss/layout/_grid.scss): the two components-card--grid-uneven-heights checks capture the MECHANISM \u2014 the wrapper is a flex column, the card is the growing only-child \u2014 and not the outcome. Card heights are text-flowed, so sampling them would key the suite to font metrics and go flaky off this machine, while the equal heights follow deterministically from the properties that ARE sampled. Uncovered for the same reason: the .section-alignment__start opt-out, one display: block, exercised by that story's Controls toggle instead. components-card--default is untouched by the rule and must stay that way \u2014 its template has no .list-container__inner, so .grid__column stays block there, which is why its baseline does not move.",
+      "checks": [
+        {
+          "story": "components-card--default",
+          "selector": ".grid__column",
+          "properties": ["container-type", "container-name"]
+        },
+        {
+          "story": "components-card--default",
+          "selector": ".card",
+          "properties": ["position", "padding", "display", "flex", "flex-direction", "text-decoration", "border-top-width", "border-top-style", "border-top-color"]
+        },
+        {
+          "story": "components-card--default",
+          "selector": ".card header",
+          "properties": ["margin", "padding", "font-size", "font-weight", "line-height"]
+        },
+        {
+          "story": "components-card--default",
+          "selector": ".card header .headline",
+          "properties": ["font-family", "font-size", "font-weight", "line-height"]
+        },
+        {
+          "story": "components-card--default",
+          "selector": ".card > .media",
+          "properties": ["margin-top", "text-align", "min-width", "flex-basis"]
+        },
+        {
+          "story": "components-card--default",
+          "selector": ".card .media__inner",
+          "properties": ["margin-top", "margin-right", "margin-bottom", "margin-left"]
+        },
+        {
+          "story": "components-card--default",
+          "selector": ".card .media--widescreen img",
+          "properties": ["width", "object-fit", "aspect-ratio"]
+        },
+        {
+          "story": "components-card--person-profile",
+          "selector": ".card.card--layout-right",
+          "properties": ["display", "flex-direction", "width", "padding"]
+        },
+        {
+          "story": "components-card--person-profile",
+          "selector": ".card.card--layout-right .media__inner",
+          "properties": ["margin-top", "margin-right", "margin-bottom", "margin-left"]
+        },
+        {
+          "story": "components-card--with-no-border",
+          "selector": ".card.borderless",
+          "properties": ["padding", "border-top-width", "border-top-style", "border-top-color"]
+        },
+        {
+          "story": "components-card--pre-title",
+          "selector": ".card__pre-title",
+          "properties": ["font-size", "opacity"]
+        },
+        {
+          "story": "components-card--image-using-uiowa-icon",
+          "selector": ".card.card--centered .media--small.media--circle",
+          "properties": ["display", "max-width", "margin-left", "margin-right", "text-align"]
+        },
+        {
+          "story": "components-card--grid-uneven-heights",
+          "selector": ".list-container__inner > .grid__column",
+          "properties": ["display", "flex-direction", "container-type"]
+        },
+        {
+          "story": "components-card--grid-uneven-heights",
+          "selector": ".list-container__inner > .grid__column > .card",
+          "properties": ["flex-grow", "flex-shrink", "flex-basis"]
+        },
+        {
+          "story": "components-card--media-date",
+          "selector": ".card .media--date",
+          "properties": ["position", "width", "height", "padding-top", "border-top-width", "border-top-style", "border-top-color", "border-radius", "aspect-ratio"]
+        },
+        {
+          "story": "components-card--media-date",
+          "selector": ".card .media--date__month",
+          "properties": ["font-size", "font-weight", "line-height", "text-transform"]
+        },
+        {
+          "story": "components-card--media-date",
+          "selector": ".card .media--date__day",
+          "properties": ["font-size", "font-weight", "line-height", "margin-top"]
+        },
+        {
+          "story": "components-card--button-aligned-to-bottom",
+          "selector": ".card--button-align-bottom .card__body",
+          "properties": ["display", "flex-direction", "flex"]
+        },
+        {
+          "story": "components-card--button-aligned-to-bottom",
+          "selector": ".card--button-align-bottom footer",
+          "properties": ["margin-top"]
+        },
+        {
+          "story": "components-card--default",
+          "selector": ".card footer .bttn",
+          "properties": ["font-family", "font-size", "font-weight", "letter-spacing", "text-transform", "color", "background-color", "display", "padding", "margin-top", "border-radius"]
+        },
+        {
+          "story": "components-card--default",
+          "selector": ".card footer .bttn i",
+          "properties": ["color", "font-size", "margin-left"]
+        },
+        {
+          "story": "components-card--linked-with-no-button-text",
+          "selector": ".card footer .bttn--circle",
+          "properties": ["padding", "border-radius", "line-height", "color", "background-color", "font-family", "font-size"]
+        },
+        {
+          "story": "components-card--linked-with-no-button-text",
+          "selector": ".card footer .bttn--circle i",
+          "properties": ["color", "margin-left", "font-size"]
+        },
+        {
+          "story": "components-card--linked-with-no-title",
+          "selector": ".card footer a.bttn",
+          "properties": ["font-family", "font-size", "font-weight", "letter-spacing", "text-transform", "color", "background-color", "display", "padding", "border-radius"]
+        },
+        {
+          "story": "components-card--item-list",
+          "selector": ".list-container--list .list-container__inner",
+          "properties": ["display", "grid-template-columns", "row-gap", "column-gap", "max-width", "margin-left", "margin-right"]
+        },
+        {
+          "story": "components-card--item-list",
+          "selector": ".list-container--list .list-container__inner > .grid__column:nth-child(1)",
+          "properties": ["margin-top", "container-type", "container-name"]
+        },
+        {
+          "story": "components-card--item-list",
+          "selector": ".list-container--list .list-container__inner > .grid__column:nth-child(2)",
+          "properties": ["margin-top", "container-type", "container-name"]
+        },
+        {
+          "story": "components-card--item-list",
+          "selector": ".list-container--list .list-container__inner > .grid__column:nth-child(3)",
+          "properties": ["margin-top", "container-type", "container-name"]
+        },
+        {
+          "story": "components-card--item-list",
+          "selector": ".card.card--layout-right.borderless",
+          "properties": ["display", "flex-direction", "width", "padding", "border-top-width", "border-top-style", "border-top-color"]
+        },
+        {
+          "story": "components-card--item-list",
+          "selector": ".card--layout-right .media--small.media--widescreen",
+          "properties": ["margin-top", "text-align", "min-width", "max-width", "flex-basis"]
+        },
+        {
+          "story": "components-card--item-list",
+          "selector": ".card--layout-right .media--widescreen img",
+          "properties": ["width", "object-fit", "aspect-ratio"]
+        }
+      ]
+    },
+    {
+      "name": "page-title",
+      "comment": "Captured 2026-08-17 from LOCAL Storybook. Unlike every other entry there is no published pre-swap state to capture from — page-title is new to UIDS, ported from uids_base — so the baseline's authority is the production measurement it reproduces: Zilla Slab / 600 / the --uiowa-font-size-heading-h1 ramp / zero margins, measured on https://sandbox.prod.drupal.uiowa.edu/test-breadcrumbs at a 1385px viewport. The 600 weight is the single property that distinguishes a page title from a plain serif h1 (which is 700), so it is the one most worth pinning. The with-breadcrumbs checks pin BOTH sides of the flush 0px relationship: the breadcrumb's 1.75rem top margin and the title's zero.",
+      "checks": [
+        {
+          "story": "components-page-title--default",
+          "selector": ".page-title",
+          "properties": ["font-family", "font-size", "font-weight", "line-height", "margin-top", "margin-bottom"]
+        },
+        {
+          "story": "components-page-title--no-breadcrumbs",
+          "selector": ".page-title--no-breadcrumbs",
+          "properties": ["margin-top", "margin-bottom", "font-weight"]
+        },
+        {
+          "story": "components-page-title--with-breadcrumbs",
+          "selector": ".breadcrumb",
+          "properties": ["margin-top", "margin-bottom"]
+        },
+        {
+          "story": "components-page-title--with-breadcrumbs",
+          "selector": ".page-title",
+          "properties": ["margin-top", "margin-bottom", "font-weight"]
+        }
+      ]
+    },
+    {
+      "name": "banner",
+      "comment": "Captured 2026-08-17 from LOCAL pre-swap Storybook (banner.scss untouched, so published-equivalent; verified by running this same config against https://uids.brand.uiowa.edu \u2014 all 51 capture points belonging to the seven authored stories matched the published build exactly, and the only failures were the 21 belonging to the five new fixture stories, which do not exist there). Banner's identity lives almost entirely in CUSTOM PROPERTIES on .banner: the overlay is painted by a .media:after pseudo-element the harness cannot read, but getPropertyValue reads --banner-overlay-* fine, so the whole overlay model is pinned on the element itself. Height is likewise a ::before padding-top ratio hack, pinned indirectly via .banner's computed height \u2014 at 1350 the ratio drives it (1318 x .4525 = 596.4 large, x .3225 = 425.05 medium) while at 375/980 content is taller and wins, so both branches are pinned deliberately. The overlay-* and height-medium stories exist only as fixtures: the seven authored stories all emit an identical modifier set, and the harness reads the FIRST match of a selector, so each state needs its own story. Twelve capture points were re-baselined after the token swap, all of them the same thing: a custom property whose AUTHORED TEXT changed spelling while its rendering did not. --banner-text-color went from #fff to #FFFFFF, --banner-bg-failsafe from the keyword white to #FFFFFF, and --link-color follows the first because it aliases it. The tokens canonicalise colours, and Chrome substitutes var() references when it computes a custom property, so the computed string is the token value verbatim. What makes the re-baseline safe rather than convenient is that the RENDERED consequences of those three properties are captured right next to them and did not move: .banner background-color, the headline colour, .banner__text and its p colour, and the media background-color all matched byte for byte. Not reachable from any story and therefore covered by value identity in the SCSS swap only: .banner--horizontal-center, .banner--vertical-top, .banner .bttn--transparent, the gold-background blockquote border, and the .media:after gradient itself, and the light-overlay video-button border (the light fixture carries an image, not a video).",
+      "checks": [
+        {
+          "story": "components-banner--background-image",
+          "selector": ".banner",
+          "properties": [
+            "--banner-padding",
+            "--banner-overlay-color-rgb",
+            "--banner-overlay-solid-opacity",
+            "--banner-overlay-gradient-midpoint",
+            "--banner-text-color",
+            "--banner-bg-failsafe",
+            "--link-color",
+            "display",
+            "align-items",
+            "justify-content",
+            "min-height",
+            "height",
+            "background-color",
+            "text-align",
+            "overflow",
+            "position"
+          ]
+        },
+        {
+          "story": "components-banner--background-image",
+          "selector": ".banner__content",
+          "properties": [
+            "padding",
+            "max-width",
+            "margin-left",
+            "z-index"
+          ]
+        },
+        {
+          "story": "components-banner--background-image",
+          "selector": ".banner .media",
+          "properties": [
+            "background-color",
+            "position",
+            "height",
+            "width"
+          ]
+        },
+        {
+          "story": "components-banner--background-image",
+          "selector": ".banner .media img",
+          "properties": [
+            "display",
+            "height",
+            "width",
+            "object-fit",
+            "top"
+          ]
+        },
+        {
+          "story": "components-banner--background-image",
+          "selector": ".banner__pre-title",
+          "properties": [
+            "font-size",
+            "line-height",
+            "font-weight",
+            "margin-bottom",
+            "color",
+            "text-shadow"
+          ]
+        },
+        {
+          "story": "components-banner--background-image",
+          "selector": ".banner .headline:not(.banner__pre-title)",
+          "properties": [
+            "font-size",
+            "color",
+            "margin-top",
+            "margin-bottom",
+            "text-shadow",
+            "z-index"
+          ]
+        },
+        {
+          "story": "components-banner--background-image",
+          "selector": ".banner__text",
+          "properties": [
+            "color",
+            "margin-bottom",
+            "z-index"
+          ]
+        },
+        {
+          "story": "components-banner--background-image",
+          "selector": ".banner__text p",
+          "properties": [
+            "line-height",
+            "margin-top",
+            "color"
+          ]
+        },
+        {
+          "story": "components-banner--background-image",
+          "selector": ".banner__action .bttn",
+          "properties": [
+            "margin"
+          ]
+        },
+        {
+          "story": "components-banner--background-video",
+          "selector": ".banner .video-controls",
+          "properties": [
+            "position",
+            "right",
+            "bottom",
+            "z-index"
+          ]
+        },
+        {
+          "story": "components-banner--background-video",
+          "selector": ".banner .video-btn",
+          "properties": [
+            "width",
+            "height",
+            "color",
+            "border-top-width",
+            "border-top-style",
+            "border-top-color",
+            "border-radius",
+            "background-color",
+            "font-size",
+            "padding",
+            "display"
+          ]
+        },
+        {
+          "story": "components-banner--background-video",
+          "selector": ".banner .media video",
+          "properties": [
+            "display",
+            "height",
+            "width",
+            "object-fit"
+          ]
+        },
+        {
+          "story": "components-banner--background-pattern",
+          "selector": ".banner",
+          "properties": [
+            "--banner-text-color",
+            "--link-color",
+            "background-color",
+            "display"
+          ]
+        },
+        {
+          "story": "components-banner--overlay-btt",
+          "selector": ".banner",
+          "properties": [
+            "--banner-overlay-gradient-direction",
+            "--banner-overlay-gradient-midpoint"
+          ]
+        },
+        {
+          "story": "components-banner--overlay-ttb",
+          "selector": ".banner",
+          "properties": [
+            "--banner-overlay-gradient-direction",
+            "--banner-overlay-gradient-midpoint"
+          ]
+        },
+        {
+          "story": "components-banner--overlay-ltr",
+          "selector": ".banner",
+          "properties": [
+            "--banner-overlay-gradient-direction",
+            "--banner-overlay-gradient-midpoint"
+          ]
+        },
+        {
+          "story": "components-banner--overlay-light",
+          "selector": ".banner",
+          "properties": [
+            "--banner-overlay-color-rgb",
+            "--banner-overlay-solid-opacity",
+            "--banner-text-color",
+            "--banner-bg-failsafe",
+            "background-color"
+          ]
+        },
+        {
+          "story": "components-banner--overlay-light",
+          "selector": ".banner .media",
+          "properties": [
+            "background-color"
+          ]
+        },
+        {
+          "story": "components-banner--overlay-light",
+          "selector": ".banner .headline:not(.banner__pre-title)",
+          "properties": [
+            "color",
+            "text-shadow"
+          ]
+        },
+        {
+          "story": "components-banner--height-medium",
+          "selector": ".banner",
+          "properties": [
+            "height"
+          ]
+        },
+        {
+          "story": "components-banner--grid-image",
+          "selector": ".banner",
+          "properties": [
+            "display",
+            "--link-color",
+            "--banner-bg-failsafe",
+            "background-color"
+          ]
+        },
+        {
+          "story": "components-banner--grid-image",
+          "selector": ".banner .media",
+          "properties": [
+            "position",
+            "height"
+          ]
+        },
+        {
+          "story": "components-banner--grid-image",
+          "selector": ".banner .headline:not(.banner__pre-title)",
+          "properties": [
+            "color",
+            "text-shadow"
+          ]
+        },
+        {
+          "story": "components-banner--grid-video",
+          "selector": ".banner",
+          "properties": [
+            "align-items"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "layout",
+      "comment": "The section rhythm and the spacing utilities, which had NO computed-style coverage until 2026-08-25 — the reason three separate drifts sat undetected in claude-design/layout.css. Foundation/Layout renders these as REAL shipped classes, not a replica: verified in a browser that #lyd-demo-css declares nothing on .layout__container, and that the utility padding rules it does declare target `> span` children only, so every value below is produced by src/scss/abstracts/. Selectors are positional because check-styles.mjs uses querySelector and all six bands share .layout__container.lyd-band. The title pair (layout--title / layout--title--hidden and the section each one is followed by) was added 2026-08-25 with contracts/rules.json page-title-is-its-own-section \u2014 the rule is about which EDGE the 1.25rem measures, so the padding-bottom of the title box and the padding-top of the box after it have to be sampled together or the regression is invisible. NOT covered, because the story renders them only inside <code> prose with no live markup: .block-margin__* / .element--margin__* (these DO ship from UIDS, and the --extra pair is the only utility family with a 768 step, so it is the most worth adding), .page__container--* modifiers and the content grids (both authored downstream in uids_base).",
+      "checks": [
+        {
+          "story": "foundation-layout--sections",
+          "selector": ".lyd-3col > div:nth-child(1) .layout__container:first-child",
+          "properties": [
+            "padding-top",
+            "padding-bottom"
+          ]
+        },
+        {
+          "story": "foundation-layout--sections",
+          "selector": ".lyd-3col > div:nth-child(1) .layout__container.bg--gold",
+          "properties": [
+            "padding-top",
+            "padding-bottom"
+          ]
+        },
+        {
+          "story": "foundation-layout--sections",
+          "selector": ".lyd-3col > div:nth-child(2) .layout__container:first-child",
+          "properties": [
+            "padding-top",
+            "padding-bottom"
+          ]
+        },
+        {
+          "story": "foundation-layout--sections",
+          "selector": ".lyd-3col > div:nth-child(2) .layout__container + .layout__container",
+          "properties": [
+            "padding-top",
+            "padding-bottom"
+          ]
+        },
+        {
+          "story": "foundation-layout--sections",
+          "selector": ".lyd-3col > div:nth-child(3) .layout__container.section-padding__top-restored",
+          "properties": [
+            "padding-top",
+            "padding-bottom"
+          ]
+        },
+        {
+          "story": "foundation-layout--sections",
+          "selector": ".lyd-2col > div:nth-child(1) .layout__container.layout--title",
+          "properties": [
+            "padding-top",
+            "padding-bottom"
+          ]
+        },
+        {
+          "story": "foundation-layout--sections",
+          "selector": ".lyd-2col > div:nth-child(1) .layout--title + .layout__container",
+          "properties": [
+            "padding-top",
+            "padding-bottom"
+          ]
+        },
+        {
+          "story": "foundation-layout--sections",
+          "selector": ".lyd-2col > div:nth-child(2) .layout__container.layout--title--hidden",
+          "properties": [
+            "padding-top",
+            "padding-bottom"
+          ]
+        },
+        {
+          "story": "foundation-layout--sections",
+          "selector": ".lyd-2col > div:nth-child(2) .layout--title--hidden + .layout__container",
+          "properties": [
+            "padding-top",
+            "padding-bottom"
+          ]
+        },
+        {
+          "story": "foundation-layout--utilities",
+          "selector": ".lyd-util.block-padding__all",
+          "properties": [
+            "padding-top",
+            "padding-right",
+            "padding-bottom",
+            "padding-left"
+          ]
+        },
+        {
+          "story": "foundation-layout--utilities",
+          "selector": ".lyd-util.block-padding__all--minimal",
+          "properties": [
+            "padding-top",
+            "padding-right",
+            "padding-bottom",
+            "padding-left"
+          ]
+        },
+        {
+          "story": "foundation-layout--utilities",
+          "selector": ".lyd-util.block-padding__all--extra",
+          "properties": [
+            "padding-top",
+            "padding-right",
+            "padding-bottom",
+            "padding-left"
+          ]
+        },
+        {
+          "story": "foundation-layout--utilities",
+          "selector": ".lyd-util.element--padding__all--sm",
+          "properties": [
+            "padding-top",
+            "padding-right",
+            "padding-bottom",
+            "padding-left"
+          ]
+        },
+        {
+          "story": "foundation-layout--utilities",
+          "selector": ".lyd-util.padding--block--sm",
+          "properties": [
+            "padding-top",
+            "padding-right",
+            "padding-bottom",
+            "padding-left"
+          ]
+        },
+        {
+          "story": "foundation-layout--utilities",
+          "selector": ".lyd-util.padding--block--md",
+          "properties": [
+            "padding-top",
+            "padding-right",
+            "padding-bottom",
+            "padding-left"
+          ]
+        }
+      ]
+    }
+  ]
+}

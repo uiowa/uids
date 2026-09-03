@@ -3,7 +3,7 @@
 
 .grid--onecol {
   .list-container__inner {
-    max-width: 81.875em;
+    max-width: var(--uiowa-layout-container-max-standard);
     margin: 0 auto;
   }
 }
@@ -73,6 +73,101 @@
       @include utilities.fourcol-grid;
     }
   }
+}
+
+// List arrangement — the counterpart to the `grid--*` column ratios above.
+//
+// Mirrored VERBATIM from uids_base/scss/components/grid.scss:6-12, which owned this rule
+// alone until 2026-08-21. Downstream is unaffected by the copy: identical selector,
+// declaration and value, so no SiteNow page shifts and that rule simply becomes a
+// redundant mirror. What the copy buys is that UIDS can now RENDER the arrangement it
+// mandates in contracts/rules.json `item-list-is-stacked-cards` — in Storybook, in the
+// regression harness and in Claude Design — instead of documenting a pattern only a real
+// Drupal page could produce.
+//
+// The `:not([class*="grid-"])` guard is what separates a list from a grid: every
+// `grid--*` value contains the substring `grid-`, INCLUDING `grid--onecol`, so any
+// container carrying a column ratio is excluded here and keeps its own gutters instead.
+// Grid.vue's `list` type exists precisely to emit the grid-less container this selector
+// was written for and never had.
+//
+// `> div + div` keys on DIRECT DIV CHILDREN and ignores their class — which is why one
+// rule spaces `.grid__column` here and `.views-row` downstream. Note this is a different
+// job from `.grid__column`'s container query below: spacing is class-agnostic, the
+// container context is not. `margin-top` on subsequent siblings rather than
+// `margin-bottom` on all of them leaves no trailing gap under the last card.
+//
+// 2rem is left RAW rather than tokenized, as-shipped — see contracts/item-list.json
+// geometryNotTokenized.row-gap. It equals {space.200} numerically, but tokenizing it
+// would mint a tier-3 token and a Figma variable this pattern does not otherwise need.
+.list-container.list-container--list:not([class*="grid-"]) {
+  .list-container__inner {
+    > div + div {
+      margin-top: 2rem;
+    }
+  }
+}
+
+// Grid items FILL their row.
+//
+// A card in a content grid is never the grid item — GridItem.vue wraps it in a
+// .grid__column, a Drupal view wraps it in a .views-row, and Claude Design's runtime wraps
+// it twice. The wrapper is what the grid stretches; the card inside keeps its content
+// height, so a row of cards with different amounts of copy comes out ragged. Measured at
+// 1440px before this rule: 434 / 329 / 356.
+//
+// uids_base has always fixed this, PER COMPONENT
+// (uiowa/docroot/themes/custom/uids_base/scss/components/grid.scss:14-24):
+//
+//   .list-container__inner { .card, .views-field { height: 100%;
+//     .section-alignment__start & { height: auto; } } }
+//
+// This is the container-side equivalent and a DELIBERATE DEPARTURE from that
+// implementation rather than a port of it — contracts/layout.json changes[] carries the
+// ruling. Three reasons. The first two were measured against a 434px row on the
+// Biochemistry parity story (src/components/showcase/), the third on
+// components-card--grid-uneven-heights, which is where the toggle lives:
+//
+//   * It names no component. A bare <div> as a wrapper's only child went 18px -> the full
+//     434px row, so .views-field and whatever is added next are covered without growing a
+//     selector list that someone has to remember to extend.
+//   * It fixes a real defect in the shipped rule. Where one wrapper holds TWO blocks,
+//     `height: 100%` hands the card the entire 434px row and the second block OVERFLOWS
+//     below it. Growing the only child cannot: a wrapper with two children has no
+//     :only-child, so the card takes 385 and its sibling keeps its natural 33.
+//   * No percentage height. `height: 100%` resolves against a parent whose own height is
+//     `auto`, and works here only because the grid happened to stretch that parent.
+//
+// `flex: 1 1 auto`, not `1 1 0%`: with a basis of auto the child starts at its content
+// height and grow takes only the leftover, which is what makes the two-block case behave.
+// It also outranks .card's own `flex: 1 1 0%` — (0,3,0) against (0,1,0) — so the card
+// resolves to basis auto here, which is the intended reading.
+//
+// Note .card has carried `flex: 1 1 0%` (components/card.scss:24) all along, inert until
+// something makes its parent a flex container — reasonable evidence a flex parent was the
+// original intent.
+//
+// SEQUENCING, same shape as the section-rhythm port: uids_base still ships its own
+// height: 100% rule, so until the follow-up PR drops it both are live. They agree on the
+// single-child case, which is every card in a grid today; the two-block overflow only
+// disappears once uids_base removes its copy. Land in order, not in parallel.
+.list-container__inner {
+  > * {
+    display: flex;
+    flex-direction: column;
+
+    > :only-child {
+      flex: 1 1 auto;
+    }
+  }
+}
+
+// The opt-out, keyed on the Layout Builder class authors already have for it
+// ("Align content to start"). Block flow puts the only child back on its content height.
+// Mirrors uids_base's `.section-alignment__start & { height: auto }` in effect, and like
+// .layout--title it is a Drupal-authored class that UIDS now has to answer to.
+.section-alignment__start .list-container__inner > * {
+  display: block;
 }
 
 // Declare which containers to query.

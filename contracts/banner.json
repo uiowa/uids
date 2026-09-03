@@ -1,0 +1,431 @@
+{
+  "$schema": "./contract.schema.json",
+  "name": "banner",
+  "version": "1.0.0",
+  "description": "UIDS banner component contract. A full-bleed hero whose fill is EITHER a media element with a tinted overlay OR a background colour/pattern — the two are mutually exclusive, and CSS enforces it rather than convention.",
+  "identity": {
+    "codePath": "src/components/banner/Banner.vue",
+    "scssPath": "src/scss/components/banner.scss",
+    "relatedPaths": [
+      "src/components/banner/Banner.stories.js",
+      "src/components/banner/Banner.spec.ts"
+    ],
+    "downstreamPaths": [
+      "uiowa/docroot/themes/custom/uids_base/scss/components/banner.scss",
+      "uiowa/docroot/themes/custom/uids_base/templates/uids/banner.html.twig",
+      "uiowa/docroot/themes/custom/uids_base/uids/scss/components/banner.scss"
+    ],
+    "registeredName": "uids-banner",
+    "storybookId": "components-banner",
+    "figma": {
+      "fileKey": "hNShklBztaeaQneScM0KoM",
+      "componentSetName": "Banner",
+      "componentSetId": "329:74",
+      "componentKey": "e7d1f92425f1c2d38d80a78e592bffdc4a9da2fd",
+      "page": "Components / Banner",
+      "note": "BUILT 2026-08-17. 18 variants, SPARSE (the Form Item precedent): Fill=Media crosses Direction x Tone x Height (16); Fill=Background exists only at Direction=None, Tone=Dark (2). Drawn at 1020 (layout/container/max/narrow). A documentation frame ('Banner — what the variant set cannot show', 331:74) carries the tokens no variant can: both media loading fills, the video controls with all seven variables bound, min-height, and the small pre-title.",
+      "axisRationale": [
+        "Fill=Background is sparse rather than crossed because a `bg--*` class makes Direction and Tone inert in CSS — the exclusivity is enforced by the stylesheet, not by convention.",
+        "The nested Headline instance is Style=SERIF because production defaults to it: uids_base templates/uids/banner.html.twig:36-39 seeds headline_class with `headline--serif`. Its size and weight are overridden to what banner.scss re-declares.",
+        "The nested Button is Primary/Medium/Default — Banner.vue's own defaults."
+      ],
+      "measured": {
+        "viewport": "1020 (layout/container/max/narrow)",
+        "height/large": "461.55 (45.25% of 1020)",
+        "height/medium": "328.95 (32.25% of 1020)",
+        "pre-title": "22.99 / 25.28",
+        "headline": "60.82",
+        "body": "19.2 / 28.8"
+      },
+      "deliberateOmissions": [
+        "The media element is a neutral grey placeholder, not the tokenized loading fill: binding the loading colour there would make Direction and Tone invisible, because a black scrim over a black rect is black. The two loading fills are bound on the documentation frame instead.",
+        "The solid scrim carries its alpha in the PAINT, not a bound variable. Figma reads a variable bound to node opacity as a PERCENTAGE, so banner/overlay/opacity/solid/dark (0.5) rendered as 0.5% — verified live, the scrim was invisible. Same reason the gradient stops are literal.",
+        "Fill=Background shows one representative colour (bg--gold, bound to the Background foundation's color/bg/gold). The axis names the fill MECHANISM, not the colour."
+      ],
+      "precedent": "Form Item (sparse axis crossing)."
+    },
+    "barrelExport": "UidsBanner"
+  },
+  "options": [
+    {
+      "name": "headline",
+      "type": "object",
+      "description": "Keys: text, level, text_style, size, highlight, underline, url. Banner passes level/text_style/highlight/underline straight through to a nested Headline instance (Banner.vue:205-211) and appends `headline--{size}` itself, so `size` is the one key Banner owns rather than delegates. `url` is declared in the prop default but never read — the headline's link comes from buttons[0].url instead (see the buttons option).",
+      "code": {
+        "prop": "headline",
+        "notes": "headline.size also drives the PRE-TITLE's size class (Banner.vue:153-155), so one value styles two elements; banner.scss:223-233 gives the pre-title its own much smaller ramp for each of large/medium/small."
+      },
+      "figma": {
+        "notes": "Content, plus a pass-through to the nested Headline instance's own Level/Style axes (contracts/headline.json). Not a Banner-owned axis — the CTA precedent."
+      }
+    },
+    {
+      "name": "pre_title",
+      "type": "string",
+      "default": "",
+      "description": "Small line above the headline, rendered as a `.headline.banner__pre-title` div (Banner.vue:202-204) rather than a nested Headline instance — it is a raw span with headline classes, so it does NOT participate in Headline's own component set. Only renders when truthy; the whole `<header>` renders when `pre_title || headline.text`.",
+      "code": {
+        "prop": "pre_title"
+      },
+      "figma": {
+        "property": "Pre-title",
+        "notes": "Text layer with a boolean visibility property, not an axis."
+      }
+    },
+    {
+      "name": "buttons",
+      "type": "array",
+      "default": "[]",
+      "description": "An array of `{ url, label }` objects. Length is behaviourally significant three times over: 0 renders no footer, exactly 1 renders a PseudoButton and adds `click-container` (making the whole banner clickable) and links the headline to that url, more than 1 renders real Button components in a `.bttn--row` and leaves the headline unlinked. Verified by execution in Banner.spec.ts.",
+      "code": {
+        "prop": "buttons",
+        "class": "click-container",
+        "notes": "click-container is added only for length === 1 (Banner.vue:106-108); applyClickA11y then wires the whole-banner click target on mount. The default [] is what makes headlineLink throw — see knownIssues."
+      },
+      "figma": {
+        "property": "Buttons",
+        "notes": "Content. The nested Button instance carries its own axes; banner does not duplicate them."
+      }
+    },
+    {
+      "name": "button_color",
+      "type": "enum",
+      "values": [
+        "primary",
+        "secondary",
+        "tertiary",
+        "transparent"
+      ],
+      "default": "primary",
+      "description": "Passed through to the nested Button/PseudoButton instances (Banner.vue:231, 241). The only prop on Banner with a validator. Banner adds one rule of its own for the transparent case: `.banner .bttn--transparent` takes its colour and border from --banner-text-color (banner.scss:285-288), so a transparent button inverts with the overlay tone instead of staying black.",
+      "code": {
+        "prop": "button_color"
+      },
+      "figma": {
+        "notes": "Swap the nested Button instance's own Color property — contracts/button.json owns that axis (CTA precedent)."
+      }
+    },
+    {
+      "name": "button_light_font",
+      "type": "boolean",
+      "default": false,
+      "description": "Passed through to the nested Button/PseudoButton instances (Banner.vue:232, 242). Banner adds no styling of its own for it.",
+      "code": {
+        "prop": "button_light_font"
+      },
+      "figma": {
+        "notes": "The nested Button instance's own Style property; not a Banner axis."
+      }
+    },
+    {
+      "name": "media_overlay_type",
+      "type": "enum",
+      "values": [
+        "",
+        "btt",
+        "ttb",
+        "ltr"
+      ],
+      "default": "",
+      "description": "Direction of the gradient scrim over the media. '' leaves the flat 50% scrim that `.banner .media:after` always paints; the three directions REPLACE it with a linear-gradient at the sm container query (banner.scss:438-447). Only emitted when a media slot is present (Banner.vue:138-142) — verified by execution in Banner.spec.ts — which is why Direction is meaningless on a background-filled banner.",
+      "code": {
+        "prop": "media_overlay_type",
+        "classes": {
+          "btt": "banner--overlay-btt",
+          "ttb": "banner--overlay-ttb",
+          "ltr": "banner--overlay-ltr"
+        },
+        "notes": "Each class sets --banner-overlay-gradient-direction (0deg / 180deg / 90deg); ltr additionally moves the midpoint to 70%. The angles are the axis itself and are not tokenized — the accordion icon-rotation precedent."
+      },
+      "figma": {
+        "axis": "Direction",
+        "map": {
+          "": "None",
+          "btt": "BTT",
+          "ttb": "TTB",
+          "ltr": "LTR"
+        },
+        "notes": "The design system owner's ruling (2026-08-17), REJECTING the reference file's flat overlay axis (black|white|black_gradient|white_gradient): that shape has the right instinct but collapses three distinct directions into one 'gradient' value. Direction crosses with Tone instead. Exists only on Fill=Media variants (see the Fill collapse note on `background`)."
+      }
+    },
+    {
+      "name": "media_overlay_light",
+      "type": "boolean",
+      "default": false,
+      "description": "Inverts the scrim: white at 70% instead of black at 50%, foreground text to $secondary, failsafe background to white, media loading fill to white, and the video button gains a black border. GATED `:not([class*=\"bg--\"])` (banner.scss:459) — a light overlay cannot apply to a background-filled banner, which is the Fill exclusivity expressed in CSS.",
+      "code": {
+        "prop": "media_overlay_light",
+        "class": "banner--overlay-light"
+      },
+      "figma": {
+        "axis": "Tone",
+        "map": {
+          "false": "Dark",
+          "true": "Light"
+        },
+        "notes": "Independent of Direction: tone changes the colour and alpha, direction changes the angle, and either can vary without the other. That independence is exactly why the reference's four flat values under-represent the model."
+      }
+    },
+    {
+      "name": "media_overlay_midpoint",
+      "type": "string",
+      "default": "",
+      "description": "Overrides --banner-overlay-gradient-midpoint as an INLINE STYLE on the root (Banner.vue:91-97), so it wins over both the base 40% and ltr's 70%. The Storybook control offers 20/30/40/50/60/70%; any string reaches the style binding.",
+      "code": {
+        "prop": "media_overlay_midpoint",
+        "notes": "The only prop that writes an inline style rather than a class."
+      },
+      "figma": {
+        "notes": "A per-instance override, not an axis — Figma has no equivalent of an arbitrary inline value; the two shipped defaults are variables (banner/overlay/midpoint/default and /ltr)."
+      }
+    },
+    {
+      "name": "height",
+      "type": "string",
+      "default": "",
+      "description": "Emits `banner--{height}` for ANY string — no validator (Banner.vue:68-71). Only `large` (45.25%) and `medium` (32.25%) have matching SCSS in UIDS, both as a ::before padding-top aspect-ratio hack (banner.scss:365-374). `small` and `full` are reachable and documented in knownIssues. With no height at all the banner is content-sized against a 15rem floor.",
+      "code": {
+        "prop": "height",
+        "classes": {
+          "medium": "banner--medium",
+          "large": "banner--large"
+        },
+        "notes": "The ratio only DRIVES the height when the content is shorter than it — measured at 1350 (1318px wide): large 596.391px = 1318 x .4525, medium 425.047px = 1318 x .3225. At 980 both measure 464.531px because the content is taller than either ratio."
+      },
+      "figma": {
+        "axis": "Height",
+        "map": {
+          "medium": "Medium",
+          "large": "Large"
+        },
+        "notes": "The design system owner's ruling (2026-08-17): Medium and Large only. The reference file has no height axis at all, which is a gap in the reference — the SCSS ships the modifiers and the live production page uses banner--large."
+      }
+    },
+    {
+      "name": "narrow",
+      "type": "boolean",
+      "default": false,
+      "description": "Caps `.banner__content` at 65% of the container (47.75em at page-container) and, combined with horizontal-left, pins it to the left edge (banner.scss:415-434). NOT a height value — an earlier plan grouped it with the height modifiers, which is wrong; they are independent props emitting independent classes, verified by execution in Banner.spec.ts.",
+      "code": {
+        "prop": "narrow",
+        "class": "banner--narrow"
+      },
+      "figma": {
+        "notes": "Contract-only, not an axis — the Button borderless/full precedent. Adding it would double an already 18-variant set for a content max-width that a designer expresses by resizing the content frame. All seven authored stories set it true, so it is effectively the house default."
+      }
+    },
+    {
+      "name": "horizontal_alignment",
+      "type": "string",
+      "default": "",
+      "description": "Emits `banner--horizontal-{value}` for any string; only `left` (text-align:left) and `center` (text-align:center plus auto side margins on the content children and a border-left reset on blockquotes) have SCSS. No validator.",
+      "code": {
+        "prop": "horizontal_alignment",
+        "classes": {
+          "left": "banner--horizontal-left",
+          "center": "banner--horizontal-center"
+        }
+      },
+      "figma": {
+        "notes": "Contract-only. Crossing alignment into the set would take 18 variants to 108 for what is one text-align flip; the two states are documented on the Figma page instead. No story exercises center, so the swap covers it by value identity."
+      }
+    },
+    {
+      "name": "vertical_alignment",
+      "type": "string",
+      "default": "",
+      "description": "Emits `banner--vertical-{value}`. `top` and `bottom` set align-items (banner.scss:386-392); `center` emits a class with NO CSS and is invisible only because base .banner already sets align-items:center — see knownIssues. No validator.",
+      "code": {
+        "prop": "vertical_alignment",
+        "classes": {
+          "top": "banner--vertical-top",
+          "bottom": "banner--vertical-bottom"
+        }
+      },
+      "figma": {
+        "notes": "Contract-only, same reasoning as horizontal_alignment; in Figma this is the auto-layout alignment control, which a designer sets directly on an instance. The GridVideo story pins bottom in the regression baseline."
+      }
+    },
+    {
+      "name": "mobile_content_below_image",
+      "type": "boolean",
+      "default": false,
+      "description": "Below the sm container query, stacks the content UNDER the image instead of over it: the media becomes position:relative with its scrim removed, the banner becomes display:block on a white failsafe, and every foreground colour flips to black with the text-shadow removed (banner.scss:324-361). GATED `:not([class*=\"bg--\"])`, so like the light overlay it belongs to the media fill only.",
+      "code": {
+        "prop": "mobile_content_below_image",
+        "class": "banner--stacked"
+      },
+      "figma": {
+        "notes": "Contract-only: it is a below-768 treatment, and the component set is built at the canonical 1020 desktop width where the rule does not apply. Represented instead by the GridImage regression checks, where a narrow grid column triggers the same container query at a desktop viewport."
+      }
+    },
+    {
+      "name": "background",
+      "type": "enum",
+      "values": [
+        "",
+        "black",
+        "gold",
+        "gray",
+        "white",
+        "black--pattern--brain",
+        "gold--pattern--particle",
+        "gray--pattern--community"
+      ],
+      "default": "",
+      "description": "The shared Background foundation (contracts/background.json), applied via Background.addBackgroundClass (Banner.vue:104). Banner exposes the FULL pattern-capable option set (Banner.stories.js:37-50 lists every key of Background.allBackgroundOptions), not the colour-only subset CTA and Callout use. The `values` listed here are representative rather than exhaustive — the authority is shared/background.ts. Any bg--* class suppresses the overlay-light rule, the stacked rule, and the failsafe background, and gold/white/gray additionally flip --banner-text-color to black.",
+      "code": {
+        "prop": "background",
+        "notes": "Class comes from the shared module, not from Banner's own class computation — the same pattern as Button's borderless and CTA's background."
+      },
+      "figma": {
+        "axis": "Fill",
+        "map": {
+          "": "Media",
+          "gold--pattern--particle": "Background"
+        },
+        "notes": "The design system owner's ruling (2026-08-17): Fill is a REAL axis because the exclusivity is enforced in CSS, not by convention — `:not([class*=\"bg--\"])` guards on banner.scss:312, 324 and 459 each turn a background class into the absence of the whole media treatment. DELIBERATE COLLAPSE: the axis says which FILL MECHANISM is in play, not which colour; the Background variants show one representative fill and a designer picks the actual colour from the Background foundation's own variables. Modelling all eight background values as Banner axis values would multiply an 18-variant set by eight for decisions the foundation already owns. The set is SPARSE (the Form Item precedent): Direction and Tone exist only on Fill=Media variants, because CSS makes them inert on the other side."
+      }
+    }
+  ],
+  "slots": [
+    {
+      "name": "media",
+      "description": "The image or video element (`.media`), rendered before `.banner__content` and absolutely positioned behind it.",
+      "behavior": "PRESENCE IS SIGNIFICANT: the overlay direction class is only emitted when this slot exists (Banner.vue:138-142), so a banner with no media never gets a gradient even with media_overlay_type set. Verified by execution in Banner.spec.ts.",
+      "figma": {
+        "property": "Media",
+        "notes": "An image fill on the Fill=Media variants; the scrim is a separate rectangle above it, since Figma has no equivalent of a ::after pseudo-element."
+      }
+    },
+    {
+      "name": "default",
+      "description": "Body copy, rendered inside `.banner__text` when present.",
+      "behavior": "Gated on real slot presence (`v-if=\"$slots.default\"`, Banner.vue:219). Banner styles descendant p/blockquote/headings from --banner-text-color so authored rich text inherits the overlay tone.",
+      "figma": {
+        "property": "Body",
+        "notes": "Text layer."
+      }
+    },
+    {
+      "name": "buttons",
+      "description": "Overrides the entire generated footer, replacing both the single-PseudoButton and the multi-Button-row branches.",
+      "behavior": "The footer renders when `buttons.length > 0 || $slots.buttons` (Banner.vue:223), so slot content alone is enough — unlike the `buttons` prop, which also drives click-container and the headline link.",
+      "figma": {
+        "property": "Buttons",
+        "notes": "Nested Button instances."
+      }
+    }
+  ],
+  "tokensUsed": [
+    "banner/padding/base",
+    "banner/padding/sm",
+    "banner/min-height",
+    "banner/overlay/opacity/solid/dark",
+    "banner/overlay/opacity/solid/light",
+    "banner/overlay/opacity/gradient/start",
+    "banner/overlay/opacity/gradient/mid",
+    "banner/overlay/midpoint/default",
+    "banner/overlay/midpoint/ltr",
+    "banner/text-color/on-media",
+    "banner/text-color/on-light-fill",
+    "banner/bg-failsafe/on-media",
+    "banner/bg-failsafe/on-light-overlay",
+    "banner/media/background/default",
+    "banner/media/background/light",
+    "banner/headline/margin-bottom",
+    "banner/text/margin-bottom",
+    "banner/pre-title/line-height",
+    "banner/pre-title/font-weight",
+    "banner/pre-title/uppercase-margin-bottom",
+    "banner/pre-title/font-size/small",
+    "banner/action/margin-top",
+    "banner/action/button-spacing",
+    "banner/video-btn/size",
+    "banner/video-btn/font-size",
+    "banner/video-btn/background",
+    "banner/video-btn/color",
+    "banner/video-btn/border-width",
+    "banner/video-btn/border-color/default",
+    "banner/video-btn/border-color/on-light-overlay",
+    "banner/video-controls/offset/base",
+    "banner/video-controls/offset/sm"
+  ],
+  "children": [
+    {
+      "component": "headline",
+      "contract": "contracts/headline.json",
+      "inherits": [
+        "level",
+        "text_style",
+        "highlight",
+        "underline"
+      ],
+      "fixed": {
+        "size": "passed through as a banner-owned `headline--{size}` class, which banner.scss:170-198 then re-sizes with its own much larger clamps"
+      }
+    },
+    {
+      "component": "button",
+      "contract": "contracts/button.json",
+      "inherits": [
+        "color",
+        "light_font"
+      ],
+      "fixed": {
+        "size": "medium — hardcoded for both the single PseudoButton and the multi-button row (Banner.vue:230, 240)"
+      }
+    }
+  ],
+  "behavior": [
+    "FILL EXCLUSIVITY IS THE COMPONENT'S CENTRAL RULE, and it is enforced by CSS rather than by convention. Four separate `:not([class*=\"bg--\"])` guards do the work: the failsafe background and the headline/text text-shadow (banner.scss:312), the whole stacked mobile treatment (:324), and the light overlay (:459); a fifth rule flips the foreground to black for gold/white/gray fills (:304-308). Measured proof at 375px on the shipped stories: BackgroundImage computes display:block (stacked fires) with a white background, while BackgroundPattern computes display:flex (stacked suppressed) on rgb(255,205,0) with --banner-text-color #000000.",
+    "The overlay is TWO independent decisions, which is why the Figma axes cross rather than flatten. Direction (none/btt/ttb/ltr) chooses between the flat scrim and a linear-gradient at a given angle; Tone (dark/light) chooses the colour, alpha and every foreground that follows from it. A light BTT gradient is a real, reachable state.",
+    "Height is a pseudo-element aspect-ratio hack (`::before { float: left; padding-top: 45.25% }`), so it sets a MINIMUM: taller content simply wins. The regression baseline pins both branches deliberately — at 1350 the ratio drives (596.391px large, 425.047px medium) and at 980 content does (464.531px for both).",
+    "Banner renders a `<header class=\"banner__title\">` wrapper around the pre-title and headline that the production Twig does not (uids_base templates/uids/banner.html.twig puts the headline directly in .banner__content). The wrapper carries no styles of its own — `banner__title` appears nowhere in src/scss — but it does change what the sibling combinator on banner.scss:281 can match. See knownIssues.",
+    "The page-title clamp that reaches 3.7rem (uids_base scss/components/banner.scss:22) belongs to the COMPOSITION `.layout--title.banner .headline.page-title`, not to banner and not to page-title. Banner.vue renders uids-headline, never page-title; Layout Builder is what puts a Drupal page title inside a banner. Measured at a 1385px viewport on https://sandbox.prod.drupal.uiowa.edu/program-root/featured-image-banner: a banner page title is 59.2px and white, a plain page title 53.6px and black, both weight 600, both flush to the breadcrumb above them. contracts/page-title.json records the other half of this."
+  ],
+  "knownIssues": [
+    "headlineLink THROWS on the default empty buttons array. Banner.vue:174-181 guards only `buttons.length > 1` and then returns `props.buttons[0].url`, so with the declared default `buttons: []` the computed dereferences undefined as soon as the header renders (which it does whenever pre_title or headline.text is set). Verified by execution, not inference — Banner.spec.ts asserts the TypeError. No shipped story reaches it because every one passes at least one button. Recorded as-shipped per standing policy; the fix is a one-line optional chain and belongs in its own change with its own review.",
+    "height: 'small' is a dead option in UIDS. Banner.stories.js:133 offers ['small','medium','large'] but no `banner--small` rule exists anywhere in src/ — it is styled only downstream (uids_base scss/components/banner.scss:14-19, and only when compounded with .layout--onecol--background). Selecting it in Storybook emits a class with no CSS.",
+    "banner--full only does anything compounded with banner--large: `.banner--full.banner--large { height: 100vh }` at the page-container breakpoint (banner.scss:376-382). Alone it is inert, and the Storybook control does not offer it — height has no validator, so it is reachable but undocumented. A prior session deleted this rule as dead code and the design system owner reverted that commit: document, do not delete.",
+    "vertical_alignment: 'center' emits `banner--vertical-center`, which has no rule in src/ (only --vertical-top and --vertical-bottom exist). It is invisible only because base .banner already sets align-items:center (banner.scss:18), so the class coincidentally names the default. Four of the seven authored stories pass it.",
+    "`.banner .headline + .banner__action { margin-top: 1.5rem }` (banner.scss:281) cannot match in UIDS's own markup. Banner.vue wraps the pre-title and headline in `<header class=\"banner__title\">`, so .banner__action's previous sibling is that header, never a .headline. The rule DOES fire in production, where the Twig emits the headline as a direct child of .banner__content and the footer follows it whenever there is no summary — and it ships in the compiled uids_base asset. Measured 0px margin-top on every UIDS story. Tokenized as-shipped (banner/action/margin-top) rather than deleted or restructured.",
+    "Downstream uids_base adds three things that do not exist in UIDS at all and must not be absorbed here: `banner--list` and `banner--overlay-none` (both carrying @todo comments pointing at uids/issues/721 and /722), and a `banner--small` height. The Layout Builder classes on a production banner root (layout--title, layout--title--with-background, layout--onecol--background) are likewise not banner's.",
+    "A background-filled banner renders a gold button on a gold fill, and unlike CTA nothing downstream fixes it. Verified by tracing the production path rather than generalizing: uids_base's gold-background button overrides target `.bttn--transparent` and `.bttn--no-text` only, and the one rule that flips a primary button to secondary on gold is scoped to `.cta__link` (uids_base/scss/components/cta.scss:63, carrying its own @todo pointing at uiowa#5149). So a banner keeps Button's `primary` default, measured rgb(255,205,0) on the gold BackgroundPattern story. Represented as-shipped in the Figma set; same underlying gap as the CTA case, not a banner-specific decision to make here.",
+    "`.banner__pre-title { line-height: 1.1 }` (banner.scss:204) wins or loses on stylesheet ORDER, and the two builds UIDS ships disagree. It ties headline.scss's `.headline { line-height: var(--uiowa-headline-line-height) }` at (0,1,0), since the pre-title carries both classes. In dist/uids.css the headline rule lands last (uids.scss @uses banner at :6 and headline at :17, verified at dist/uids.css:2608 vs :5250), so a consumer of the bundle gets line-height 1. Storybook imports each component's SCSS from its .vue file and renders 1.1 — 28.16px at 1350, which regression/baselines/banner.json pins. Downstream, uids_base compiles per-component Drupal libraries, so the winner there depends on aggregation order and was not resolved. As-shipped: fixing it means raising specificity in banner.scss, a real CSS change with its own review. The Claude Design template reproduces the tie.",
+    "`.banner__pre-title` is built as a bare div with headline classes (Banner.vue:202-204) rather than as a nested Headline instance, so it does not participate in Headline's component set and only supports the uppercase and serif text styles (Banner.vue:157-166). The main headline right below it IS a real nested instance. Inconsistent, as-shipped.",
+    "RULED 2026-09-02 — scope is EDGE-ONLY, matching uids_base; elsewhere as-shipped (reasoning in changes[]). Banner text does not sit on the page's text grid: .banner__content (banner.scss:127, `padding: var(--banner-padding)`) insets text INSIDE a box that otherwise aligns — at 1440px it and .page__container both compute margin-left 57.5px and max-width 1310px, so the padding IS the offset. It varies — the token steps, the container inset does not: 0px below 768 (banner/padding/base = space-125 = the page's 20px margin), 12px from 768 (banner/padding/sm = space-200 = 32px), 32px from 1350 where page__container becomes the same centred cap. uids_base scss/components/banner.scss:5-9 zeroes padding-left for its ONE edge composition (.layout--onecol[class*=page__container--edge] .banner--horizontal-left, at page-container) and that exception is the whole answer — UIDS does not generalise it."
+  ],
+  "changes": [
+    "2026-09-02 — RULED the content-inset scope: EDGE-ONLY, matching uids_base; the offset everywhere else is as-shipped, recorded in knownIssues rather than corrected. Declining to generalise is the decision: 'wherever capped' would shift text 32px in every live banner on every site, and even porting the edge rule into UIDS would mean a Drupal-only selector that no Storybook context can match, plus minting a directional padding token where the component uses one shorthand. The edge exception already ships downstream, where its selector can actually match — production's own answer stands as the whole answer, and no UIDS pixel moves.",
+    "2026-09-02 — Banner.dc.html EXPOSES THE BUTTONS ARRAY as three numbered label/url pairs (button_label/button_url, button_2_*, button_3_*), counted by non-empty labels. Two consecutive design reviews hit the single-label limit — the Well-Being page hand-built a fake black banner because the real one could not take three buttons. The contract's `buttons` option always took N, so this is the fifth view catching up, not a shape change. The owner accepted the documented N>1 trade (real Buttons in the unstyled .bttn--row; no whole-banner click target; headline unlinked). The template's standing N=1 divergence is unchanged: a real <a> with no click-container where Banner.vue renders a PseudoButton and links the headline (BiochemistryLandingPage.stories.js DIVERGENCES 3), so 1→2 buttons changes only the footer.",
+    "2026-09-02 (second pass) — Banner.dc.html's fill enum gains the contract's three PATTERN values (black--pattern--brain, gold--pattern--particle, gray--pattern--community — exactly the set the background option enumerates and rule pattern-over-a-flat-dark-band names). Asked for by the design system owner: a no-photo banner could previously only be a flat band. The fifth view ships the brain SVGs in claude-design/assets/ (referenced from backgrounds.css), so black--pattern--brain renders its real texture; the community/particle PNGs proved too heavy for that view's write pipeline, so the other two fills degrade to the correct color-only band there for now.",
+    "2026-09-02 (second pass) — dc-only affordance in Banner.dc.html: .banner__action .bttn--row gains display:flex/wrap. In UIDS the row's anchor buttons are inline-block siblings and flow on one line; in the fifth view each Button import arrives inside the runtime's block-level wrapper, which stacked the buttons vertically — found by the owner on the Well-Being crisis banner. The token margins still supply the gaps; no UIDS pixel is asserted.",
+    "2026-09-03 — Banner.dc.html derives the banner-owned headline--{size} class from HEIGHT (large→headline--large, medium→headline--medium, none→headline--small; the pre-title tracks the same size), where production seeds headline--large unconditionally (uids_base banner.html.twig:36-39) and per-instance sizing exists only via the headline prop's size key (Banner.vue:205-211). Owner-ruled at the third design review: a height=none banner rendered the display-size heading ('the font size is too large — if the banner size is small, the heading adjusts to small or medium'). Deliberate divergence in the fifth view; a src/uids_base follow-up would make production's default track height the same way."
+  ],
+  "geometryNotTokenized": {
+    "overlay-color-channels": "`--banner-overlay-color-rgb: 0, 0, 0` (banner.scss:7) and light override `255, 255, 255` (banner.scss:460). A bare triplet is not a colour in any view: it lets one custom property feed BOTH `rgb(var(--x), var(--opacity))` and the gradient string; CSS cannot derive it from a hex. Figma has no type for it and check-figma reads a comma list as a font stack, so a token needs a checker change for one component. The DESIGN decisions it carries are tokenized as banner/overlay/opacity/*. Composing rgba() tokens would change a property downstream themes can override: a refactor, not a migration.",
+    "overlay-gradient-composition": "`--banner-overlay-gradient` (banner.scss:10) is a three-stop stop-list, and `--banner-overlay-gradient-direction` is an angle (0deg/180deg/90deg, banner.scss:449-456). The angles ARE the Direction axis and are represented as Figma variants, not variables — the same treatment accordion's 180-degree icon rotation got. The stop-list is a composition of values that are themselves tokenized (the two opacities and the midpoint), plus the `transparent` keyword.",
+    "text-shadow": "`text-shadow: 0 1px 3px rgb(var(--banner-overlay-color-rgb))` on `.headline` and `.banner__text` (banner.scss:321-323), GATED by `.banner:not([class*=\"bg--\"])` — the same guard that supplies the failsafe background (banner.scss:318-319) — so it is a media-fill treatment and a `bg--*` banner never carries it. Measured: BackgroundImage's pre-title reads `rgb(0, 0, 0) 0px 1px 3px` at 980 and 1350 and `none` at 375, where the stacked branch removes it (banner.scss:350, :360; regression/baselines/banner.json:121, :129, :137). Colour: text-shadow-color. Why no token: text-shadow-not-tokenized.",
+    "headline-and-pre-title-clamps": "Six headline clamps (banner.scss:170-198: large/medium/small, each with a pre- and post-container-query form, topping out at 4.7rem / 3.7rem / 2.7rem) and two pre-title clamps (banner.scss:224-229). No token value anywhere in this repo is a clamp: the token layer holds ENDPOINTS for the tier-2 type ramps and lets CSS do the fluid interpolation, and these are component-local overrides of Headline's own ramp rather than a ramp of their own. The computed results are pinned in the regression baseline instead (75.2px headline / 25.6px pre-title at 1350).",
+    "content-max-widths": "`.banner__content { max-width: $container-width }` (banner.scss:131), plus narrow caps 65% / 47.75em / `calc(50% - 81.875em / 2)` (banner.scss:424-436). Container behaviours and ratios are patterns, not tokens (tokens/README.md). $container-width is 81.875em (_variables.scss:76), already layout/container/max/standard. CORRECTED 2026-08-22: this entry named layout/container/max/WIDE, 100em/1600px, 218px wider; rebinding Figma off it would have bound 1600px where the DS renders 1310px. No checker catches it: check-contracts validates that tokensUsed RESOLVES, not that prose names the right one.",
+    "aspect-ratio-heights": "`padding-top: 45.25%` on `.banner--large::before` (banner.scss:373) and `32.25%` on `.banner--medium::before` (banner.scss:378), each with `float: left` and empty `content` (banner.scss:371-380). This IS the Height axis: a percentage padding resolves against the CONTAINER'S WIDTH, so the two numbers are the component's only expression of its proportions — and only a minimum, since taller content wins (see behavior). Why they stay raw: aspect-ratio-heights-not-tokenized. What Figma does with them: aspect-ratio-heights-in-figma.",
+    "stacking-and-positioning": "z-index 0/1/2 on .banner__content, .headline, .banner__text and .video-controls; position absolute/relative; object-fit: cover; the 0.5s ease-in-out transition on the scrim. Layout keywords and stacking order with no design magnitude to bind.",
+    "gold-blockquote-border": "`.banner__text blockquote { [class*=\"bg--gold\"] & { border-left-color: #{variables.$light} } }` (banner.scss:269-274). $light is `var(--uids-light)`, a THIRD runtime channel alongside --brand-primary/--brand-secondary that build-tokens' brandChannel flag does not model (it accepts primary and secondary only). Tokenizing it flat would break retheming, exactly the way the Buttons swap did before the flag existed. Left as the channel reference it already is; a fourth channel is a token-system change, not a banner decision.",
+    "text-shadow-color": "THE SHADOW COLOUR IS NOT A HARDCODED BLACK: it is the scrim channel triplet, default `0, 0, 0` (banner.scss:10), passed here with NO alpha where the scrim passes one (banner.scss:73), so it paints fully opaque, and redefining it retints shadow and scrim together. The light tone sets the triplet to `255, 255, 255` (banner.scss:467) then `text-shadow: none` on the same two selectors (banner.scss:473-475); the two tie at (0,3,0) and the later wins, so a WHITE shadow is unreachable. Measured: OverlayLight reads `none` at all three widths (regression/baselines/banner.json:363, :367, :371).",
+    "text-shadow-not-tokenized": "NOT TOKENIZED because this system has no shadow token at all — `shadow` appears nowhere under `tokens/` — so `0 1px 3px` would mint the first, for one declaration whose colour half is the deliberately un-tokenized triplet (see overlay-color-channels). Figma cannot hold it either: variables are COLOR/FLOAT/STRING/BOOLEAN, so a shadow can only be an effect style with a RESOLVED colour, freezing exactly the channel the CSS leaves overridable. What the system keeps is the computed result, pinned by the harness on four selector/story pairs (regression/config.json:1875-1894, :2013-2017, :2046-2050).",
+    "content-max-widths-figma-663": "FIGMA DRAWS 663 = 65% of 1020, the set's canvas width (layout/container/max/narrow, 63.75em/1020px, tokens/semantic/layout.json:30), and Figma auto-layout has no percentage sizing (a child is HUG, FIXED or FILL), so the RELATIONSHIP cannot be drawn, only its result. Read live off set 329:74 on 2026-08-22: the variant frame is 1020 wide, 32px L/R padding, `banner__content` 663, layoutSizingHorizontal FIXED. FILL would give 956 (the parent's inner width), not 65% of it: the fixed number is the correct drawing, not a shortcut. Recorded gap, not a defect — same call as contracts/item-list.json:35.",
+    "content-max-widths-figma-padding": "MEASURED 2026-08-22 — THE 32px LIVES IN A DIFFERENT PLACE IN EACH VIEW. CSS puts it on `.banner__content` (banner.scss:127, `--banner-padding` = banner/padding/sm = 2rem/32px past 768; base 20px) under the global border-box (src/scss/base/_reset.scss:33, made global at :46-53), so the 32 is INSIDE the 663 and the rendered column is 599. Figma puts 32/32/32/32 on the variant ROOT (live off 327:3) and `banner__content` 0/0/0/0, so the drawn column is the full 663 — 64px wider than the render. Recorded, not fixed: closing it means 32px padding inside the frame on 18 variants, a Figma pass.",
+    "content-max-widths-1350-branch": "WHAT 47.75em GOVERNS: it replaces the 65% once the query's CONTAINER — not the viewport — reaches `$break-page-container`, 84.375em/1350px (_variables.scss:97; the query defaults to `$break-sm` 768px, _breakpoints.scss:52 + _variables.scss:94), tightening the cap from 65% of the container (877.5px at exactly that threshold) to a fixed 764px. 47.75em is a BARE em against `.banner__content`'s own font-size, never declared (banner.scss:123-138), so it inherits the 16px root (src/scss/base/_reset.scss:28-30), hence 764. Why nothing reaches it: content-max-widths-1350-unreachable.",
+    "content-max-widths-1350-unreachable": "NO SHIPPED WIDTH REACHES THE 47.75em BRANCH: the cap on screen in every story is the narrow 65% (banner.scss:424), NOT either em value — the baselines pin \"65%\" at 980 and 1350. Nothing measured reaches a 1350 CONTAINER: the widest sample is a 1350 VIEWPORT (scripts/check-styles.mjs:43), baseline 65% (regression/baselines/banner.json:72). Inside `grid--onecol` the branch cannot fire at ANY viewport: that container caps inner width at 81.875em/1310px (src/scss/layout/_grid.scss:4-9), 40px short; reaching it needs a container capping wider or not at all (`.layout-container`, _grid.scss:112-119).",
+    "aspect-ratio-heights-not-tokenized": "NOT TOKENIZED because ratios are patterns, not tokens (tokens/README.md:44-46) — the rule that also keeps the container caps out. CORRECTED 2026-08-22: do not add a second justification. An earlier reading held the only unitless tokens are line-heights; that is false, falsifiable from this contract's own tokensUsed — banner/overlay/opacity/* are unitless, as are ~40 font-weights and badge/padding/block. A unitless token is perfectly mintable here, so the pattern rule is the entire reason. Contrast: the floor that IS a length, `min-height` (banner.scss:24), IS tokenized as banner/min-height.",
+    "aspect-ratio-heights-in-figma": "FIGMA HAS NO ASPECT-RATIO VARIABLE, so it cannot be bound; the set bakes the two RESULTS at the 1020 canvas: 461.55 and 328.95 (45.25% and 32.25% of 1020), re-read live 2026-08-22 off roots 327:3 and 327:55. But Figma DOES have a frame-level locked ratio: `targetAspectRatio` reads `null` on both roots, not `undefined` — it exists and is merely unset. The drawing does not maintain itself (widen a root, the height stays put) — but that is unset, not unexpressible. Locking it to 0.4525 / 0.3225 is the fix; the value belongs here either way, a locked ratio being a frame property, not a token."
+  },
+  "a11y": {
+    "notes": "The whole-banner click target (click-container, added for exactly one button) is wired by applyClickA11y on mount, which is also what makes the headline a real anchor rather than a span. The 0.5s scrim transition is decorative; the video controls honour prefers-reduced-motion through video.js, which pauses autoplay rather than animating."
+  },
+  "breakpoints": {
+    "sm": 768,
+    "page": 1350
+  }
+}

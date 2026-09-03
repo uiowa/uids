@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet data-dc-atomics>
+        <link rel="stylesheet" href="./tokens.css" />
+        <style>
+          body{margin:0}
+          /* Mirrors src/scss/components/form.scss (post-token-swap) and keeps its
+             TWO-LAYER custom-property architecture: .form declares --form-* (the
+             theming surface that modifiers like .form--large redefine) and every
+             default comes from the generated --uiowa-form-* tokens. Rule ORDER
+             follows the source file so the cascade behaves the same. */
+          .form{
+            --form-input-bg:var(--uiowa-form-input-bg);
+            --form-input-bg-disabled:var(--uiowa-form-input-bg-disabled);
+            --form-input-fg-disabled:var(--uiowa-form-input-fg-disabled);
+            --form-input-radius:var(--uiowa-form-input-radius);
+            --form-label-font-size:var(--uiowa-form-label-font-size);
+            --form-label-color:var(--uiowa-form-label-color);
+            --form-text-color:var(--uiowa-form-text-color);
+            --form-input-padding:var(--uiowa-form-input-padding);
+            --form-input-height:var(--uiowa-form-input-height);
+            --form-input-font-size:var(--uiowa-form-input-font-size);
+            --form-item-margin:var(--uiowa-form-item-margin);
+            --form-input-outline-color:var(--uiowa-form-input-outline-color);
+            font-family:var(--uiowa-font-family-body);
+          }
+          .form input:not([type='checkbox'],[type='radio'],[type='submit'],[type='button'],[type='reset'],[type='range']),
+          .form textarea,
+          .form select{
+            appearance:none;-webkit-appearance:none;
+            background-color:var(--form-input-bg);
+            border:none;
+            border-radius:var(--form-input-radius);
+            /* Inset well + focus glow are un-tokenized alpha shadows — see
+               contracts/form.json geometryNotTokenized. */
+            box-shadow:inset 0 1px 3px rgba(10,10,10,.15);
+            box-sizing:border-box;
+            color:var(--brand-secondary);
+            display:block;
+            font-family:inherit;
+            font-size:var(--form-input-font-size);
+            font-weight:normal;
+            height:var(--form-input-height);
+            line-height:1.5;
+            margin:0;
+            outline:1px solid var(--form-input-outline-color);
+            padding:var(--form-input-padding);
+            width:100%;
+          }
+          /* form.scss:184-192. The file input DOES get the shared input-box treatment above
+             (the :not() list never excludes it — verified), but it also has its own rule that
+             was missing here: an extra bottom margin and a 2px focus offset.
+             contracts/form.json geometryNotTokenized.file-input-chrome owns these values. */
+          .form input[type='file']{width:100%;margin-bottom:.625rem}
+          .form input[type='file']:focus{outline:2px solid var(--form-input-outline-color);outline-offset:2px}
+          .form input:not([type='checkbox'],[type='radio'],[type='submit'],[type='button'],[type='reset'],[type='range']):focus,
+          .form textarea:focus,
+          .form select:focus{
+            --form-input-bg:var(--uiowa-form-focus-background);
+            --form-input-outline-color:var(--uiowa-form-focus-outline-color);
+            box-shadow:0 0 5px 2px #cacaca;
+            outline-width:2px;
+          }
+          /* form.scss:56-63. NOTE the nested `&:focus` at :60-62 is reproduced just below —
+             it was missing, so a focused errored control fell through to the generic gray
+             glow instead of production's danger-tinted one. */
+          .form input.form--error,
+          .form textarea.form--error,
+          .form select.form--error{
+            --form-input-outline-color:var(--uiowa-form-error-outline-color);
+            --form-input-bg:var(--uiowa-form-error-background);
+          }
+          .form input.form--error:focus,
+          .form textarea.form--error:focus,
+          .form select.form--error:focus{box-shadow:0 0 5px 2px var(--uiowa-form-error-background)}
+          .form select{padding-inline:.625rem 1.5rem}
+          .form .form-item{margin-bottom:var(--form-item-margin)}
+          .form label{
+            color:var(--form-label-color);
+            display:block;
+            font-size:var(--form-label-font-size);
+            font-weight:700;
+            margin-bottom:.5rem;
+          }
+          .form label.form--required:after{
+            position:absolute;
+            margin-left:var(--uiowa-space-32);
+            content:'*';
+            color:var(--uiowa-color-status-danger);
+            vertical-align:middle;
+          }
+          .form .form-item__description{
+            font-size:var(--form-label-font-size);
+            line-height:1.4;clear:both;
+            margin:var(--uiowa-space-32) 0 0;
+          }
+          .form textarea{height:auto;min-height:100px;overflow:auto;max-width:100%}
+          /* The dc runtime can't express the :disabled attribute state from a boolean
+             prop, so .is-disabled stands in for it here — SAME declarations as
+             production's :disabled/[readonly] rule (form.scss). */
+          .form input.is-disabled,.form textarea.is-disabled,.form select.is-disabled{
+            cursor:not-allowed;
+            color:var(--form-input-fg-disabled);
+            border-color:#bababf; /* deliberately un-tokenized — contracts/form.json knownIssues */
+            background-color:var(--form-input-bg-disabled) !important;
+            box-shadow:none;
+            -webkit-text-fill-color:var(--form-input-fg-disabled);
+          }
+          /* Select arrow: color rgb(138,138,138) is BAKED into the data-URI in
+             production (not a token) — see contracts/form.json geometryNotTokenized. */
+          .form select{
+            background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="32" height="24" viewBox="0 0 32 24"><polygon points="0,0 32,0 16,24" style="fill: rgb%28138, 138, 138%29"></polygon></svg>');
+            background-repeat:no-repeat;
+            background-position:right -1rem center;
+            background-origin:content-box;
+            background-size:9px 6px;
+          }
+          .form select[multiple]{
+            border:1px solid var(--uiowa-form-select-multiple-border-color);
+            cursor:pointer;
+            line-height:var(--uiowa-form-select-multiple-line-height);
+            background-color:var(--uiowa-form-select-multiple-background);
+            /* background-image is NOT reset here. form.scss:206-213's select[multiple] block
+               sets border/cursor/line-height/background-color/padding/height and never touches
+               background-image, so production keeps whatever the base select rule painted.
+               `background-image:none` was a template invention; removed 2026-08-17. */
+            padding:.5rem 0 .5rem .5rem;
+            height:10rem;
+          }
+          .form select[multiple] option{white-space:normal;padding:.5rem .5rem .5rem .75rem}
+
+          /* Checkbox / radio / toggle — production keeps these OUTSIDE the .form
+             nesting; they read the .form custom-property scope from the ancestor. */
+          .form-item--checkbox,.form-item--radio,.form-item--toggle{white-space:nowrap}
+          .form-item--checkbox input,.form-item--radio input,.form-item--toggle input{vertical-align:middle}
+          .form-item--checkbox input + label,
+          .form-item--radio input + label,
+          .form-item--toggle input + label{
+            font-weight:400;display:inline-block;vertical-align:middle;
+            margin-left:var(--form-item-margin);margin-bottom:0;text-wrap:wrap;
+          }
+          /* ---- check-control focus states (form.scss:271-280) ----
+             ADDED 2026-08-17; the template had NO :focus or :focus-visible rule for these at
+             all, so clicking or tabbing a checkbox/radio/toggle showed only the browser's
+             default UA ring instead of the UIDS one. contracts/form.json's a11y notes treat
+             the dual mouse-:focus / keyboard-:focus-visible pair as load-bearing, so both are
+             reproduced, in source order (:focus-visible second, to win the tie). */
+          .form-item--checkbox input:focus,
+          .form-item--radio input:focus,
+          .form-item--toggle input:focus{outline:2px solid var(--form-input-outline-color);outline-offset:2px}
+          .form-item--checkbox input:focus-visible,
+          .form-item--radio input:focus-visible,
+          .form-item--toggle input:focus-visible{outline:2px solid var(--brand-secondary);outline-offset:2px}
+          .form-item--checkbox input.form--error,
+          .form-item--radio input.form--error,
+          .form-item--toggle input.form--error{outline:2px solid var(--uiowa-form-error-outline-color);outline-offset:2px}
+          /* Upscaled native widgets — UA-rendered in production, see
+             contracts/form.json geometryNotTokenized. */
+          .form-item--checkbox input,.form-item--radio input{height:1.2rem;min-width:1.2rem;transform-origin:left}
+          .form-item--checkbox input{transform:scale(1.3,1.3)}
+          .form-item--radio input{transform:scale(1.2,1.2)}
+          /* Toggle: the 'on off' word-trick is load-bearing verbatim geometry —
+             which word shows depends on Arial's metrics at exactly 10px. */
+          .form-item--toggle input{
+            -webkit-appearance:none;-moz-appearance:none;appearance:none;
+            width:62px;height:32px;display:inline-block;position:relative;
+            border-radius:50px;overflow:hidden;outline:none;border:none;cursor:pointer;
+            background-color:var(--uiowa-form-toggle-track-off);
+            transition:background-color ease .3s;margin-top:0;
+          }
+          .form-item--toggle input:before{
+            content:'on off';display:block;position:absolute;z-index:2;
+            width:28px;height:28px;background:var(--uiowa-form-toggle-knob);
+            left:2px;top:2px;border-radius:50%;
+            font:10px/28px Arial,sans-serif;text-transform:uppercase;font-weight:bold;
+            text-indent:-22px;word-spacing:37px;color:var(--brand-secondary);
+            white-space:nowrap;box-shadow:0 1px 2px rgba(0,0,0,.2);
+            transition:all cubic-bezier(0.3,1.5,0.7,1) .3s;
+          }
+          .form-item--toggle input:checked{background-color:var(--uiowa-form-toggle-track-on)}
+          .form-item--toggle input:checked:before{left:32px}
+          /* Toggle-specific overrides from form.scss:336-344, both previously missing. The
+             error rule sets BOTH background-color and outline — the sweep report named only
+             the background, found by reading the source block. */
+          .form-item--toggle input:focus-visible{background:var(--uiowa-color-gray-100);outline:1px solid var(--brand-secondary)}
+          .form-item--toggle input.form--error{background-color:var(--uiowa-form-error-background);outline:2px solid var(--uiowa-form-error-outline-color)}
+          .form-item--toggle input.is-disabled{background-color:var(--form-input-bg-disabled) !important}
+
+          /* Form-level modifiers — they RETHEME the custom properties, which is the
+             whole point of the two-layer architecture. */
+          .form--large{
+            --form-input-height:var(--uiowa-form-large-input-height);
+            --form-input-font-size:var(--uiowa-form-large-input-font-size);
+            --form-label-font-size:var(--uiowa-form-large-label-font-size);
+          }
+          .form--compact{--form-item-margin:var(--uiowa-form-compact-item-margin)}
+        </style>
+      </helmet>
+      <form class="{{ formClass }}">
+        <div class="{{ itemClass }}">
+          <sc-if value="{{ isTextLike }}" hint-placeholder-val="{{ true }}">
+            <label class="{{ labelClass }}">{{ label }}</label>
+          </sc-if>
+          <!-- The enum value is "input", not "text", because contracts/form.json:118-128 is
+               authoritative on the control axis and names it that — this arm renders an
+               <input>, and its type="text" attribute below is the HTML type, not the option
+               name. Renamed 2026-08-21 from "text"; check-claude-design had been flagging the
+               drift both ways (an unlisted option AND a default the contract disagrees with),
+               because an agent reading the catalog writes "input" and the template rejected it. -->
+          <sc-if value="{{ isInput }}" hint-placeholder-val="{{ true }}">
+            <input type="text" class="{{ controlClass }}" value="{{ value }}" />
+          </sc-if>
+          <sc-if value="{{ isTextarea }}" hint-placeholder-val="{{ false }}">
+            <textarea class="{{ controlClass }}">{{ value }}</textarea>
+          </sc-if>
+          <sc-if value="{{ isSelect }}" hint-placeholder-val="{{ false }}">
+            <select class="{{ controlClass }}"><option>Option one</option><option>Option two</option><option>Option three</option></select>
+          </sc-if>
+          <sc-if value="{{ isSelectMultiple }}" hint-placeholder-val="{{ false }}">
+            <!-- `multiple="multiple"`, never bare: the dc runtime passes attributes to
+                 React as props and React drops a BOOLEAN attribute whose value is the
+                 empty string, so a bare `multiple` renders a single-select listbox that
+                 looks exactly like the control above it. Fixed 2026-08-24 alongside Tabs'
+                 `hidden` and Accordion's `open`; the value is load-bearing. This one had
+                 no visible symptom in any generated page, which is why it went unnoticed:
+                 the whole point of the control is the multiple attribute, and the styles
+                 it selects on (.form select[multiple], line 125) never engaged. -->
+            <select multiple="multiple" class="{{ controlClass }}"><option>Option one</option><option>Option two</option><option>Option three</option></select>
+          </sc-if>
+          <sc-if value="{{ isFile }}" hint-placeholder-val="{{ false }}">
+            <input type="file" class="{{ controlClass }}" />
+          </sc-if>
+          <sc-if value="{{ isCheckbox }}" hint-placeholder-val="{{ false }}">
+            <input type="checkbox" id="dc-form-control" class="{{ controlClass }}" />
+          </sc-if>
+          <sc-if value="{{ isRadio }}" hint-placeholder-val="{{ false }}">
+            <input type="radio" id="dc-form-control" class="{{ controlClass }}" />
+          </sc-if>
+          <sc-if value="{{ isToggle }}" hint-placeholder-val="{{ false }}">
+            <input type="checkbox" id="dc-form-control" class="{{ controlClass }}" />
+          </sc-if>
+          <sc-if value="{{ isCheckLike }}" hint-placeholder-val="{{ false }}">
+            <label class="{{ labelClass }}" for="dc-form-control">{{ label }}</label>
+          </sc-if>
+          <sc-if value="{{ hasDescription }}" hint-placeholder-val="{{ false }}">
+            <div class="form-item__description">{{ description }}</div>
+          </sc-if>
+        </div>
+      </form>
+    </x-dc>
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{
+  "$preview": { "width": 480, "height": 220 },
+  "control": { "editor": "enum", "options": ["input", "textarea", "select", "select-multiple", "file", "checkbox", "radio", "toggle"], "default": "input", "tsType": "string" },
+  "label": { "editor": "text", "default": "Label", "tsType": "string" },
+  "value": { "editor": "text", "default": "", "tsType": "string" },
+  "description": { "editor": "text", "default": "", "tsType": "string" },
+  "required": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "error": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "disabled": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "large": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "compact": { "editor": "boolean", "default": false, "tsType": "boolean" }
+}'
+    >
+      class Component extends DCLogic {
+        renderVals() {
+          // Mirrors production markup: <form class="form"> from consumer markup
+          // (FormContainer.vue does NOT emit .form itself), .form-item per control,
+          // .form-item--checkbox/--radio/--toggle wrappers for check controls.
+          const control = this.props.control ?? 'input';
+          const isCheckLike = ['checkbox', 'radio', 'toggle'].includes(control);
+          const isTextLike = !isCheckLike;
+          const formClasses = ['form'];
+          if (this.props.large) formClasses.push('form--large');
+          if (this.props.compact) formClasses.push('form--compact');
+          const itemClasses = ['form-item'];
+          if (isCheckLike) itemClasses.push('form-item--' + control);
+          const controlClasses = [];
+          if (this.props.error) controlClasses.push('form--error');
+          if (this.props.disabled) controlClasses.push('is-disabled');
+          const labelClasses = [];
+          if (this.props.required) labelClasses.push('form--required');
+          const description = this.props.description ?? '';
+          return {
+            formClass: formClasses.join(' '),
+            itemClass: itemClasses.join(' '),
+            controlClass: controlClasses.join(' '),
+            labelClass: labelClasses.join(' '),
+            label: this.props.label ?? 'Label',
+            value: this.props.value ?? '',
+            description: description,
+            hasDescription: String(description).trim().length > 0,
+            isTextLike: isTextLike,
+            isCheckLike: isCheckLike,
+            isInput: control === 'input',
+            isTextarea: control === 'textarea',
+            isSelect: control === 'select',
+            isSelectMultiple: control === 'select-multiple',
+            isFile: control === 'file',
+            isCheckbox: control === 'checkbox',
+            isRadio: control === 'radio',
+            isToggle: control === 'toggle'
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

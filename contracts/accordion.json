@@ -1,0 +1,142 @@
+{
+  "$schema": "./contract.schema.json",
+  "name": "accordion",
+  "version": "1.0.0",
+  "description": "UIDS accordion component contract, preserving the verified 4.x rendering and documenting the proposed Figma representation.",
+  "identity": {
+    "codePath": "src/components/accordion/Accordion.vue",
+    "scssPath": "src/scss/components/accordion.scss",
+    "relatedPaths": [
+      "src/assets/js/accordion.js",
+      "src/components/accordion/Accordion.stories.js"
+    ],
+    "downstreamPaths": [
+      "uiowa/docroot/themes/custom/uids_base/templates/uids/accordion-item.html.twig",
+      "uiowa/docroot/themes/custom/uids_base/scss/components/accordion.scss"
+    ],
+    "registeredName": "uids-accordion",
+    "storybookId": "components-accordion",
+    "figma": {
+      "fileKey": "hNShklBztaeaQneScM0KoM",
+      "componentSetName": "Accordion Item",
+      "componentSetId": "209:23",
+      "componentKey": "2533884287b6f03909d4bace0159297c6ef58f4e",
+      "page": "Components / Accordion",
+      "note": "BUILT (Phase 3). ICON CORRECTED 2026-08-17. The SET models a single 'Accordion Item' — Color (Default, White) x State (Closed, Open) = 2x2 = 4 variants — not the multi-item role=tablist wrapper, which has no BEM modifier of its own and whose only real content axis (items, arbitrary length) cannot be a Figma variant. The wrapper is an auto-layout stacking frame holding N instances.",
+      "axisRationale": [
+        "Single-item modelling mirrors the Logo-nests-in-Brand-Bar and Form-Item-nests-in-Form-Fieldset precedent: the wrapper stacks instances rather than being a variant grid itself.",
+        "multiselectable is NOT an axis (Button borderless/full precedent) — it has zero visual expression; it is code-only, via native <details name> behaviour.",
+        "The icon is a real TEXT node: font 'Font Awesome 6 Free' style 'Solid', character U+F077 (fa-chevron-up), fontSize 19.2, black fill, in a 22.4x22.4 box bound to accordion/icon/size. DO NOT convert it back to a vector — the webfont glyph is exact and the production DOM has no <path> to copy from.",
+        "Closed is the SAME glyph at rotation 180, matching the CSS, which rotates one .fa-chevron-up rather than swapping to chevron-down. A 180-degree rotation of a square box is layout-neutral.",
+        "The icon sits BEFORE the heading text, because Accordion.vue renders <i class='fas fa-chevron-up'> before {{ item.title }} inside a flex h2 — and the CSS margin -4.8px 11.2px 0 0 is a RIGHT margin, which only makes sense for an icon on the left.",
+        "The heading frame is primaryAxisAlignItems MIN with itemSpacing bound to accordion/icon/gap (measured 11.2 against the live component's 11.19). It must not be SPACE_BETWEEN — that fakes icon-on-the-right and makes itemSpacing inert."
+      ],
+      "deliberateOmissions": [
+        "The icon's own fontSize (19.2) stays a raw value: no token exists for it — the same untokenized-icon gap already recorded for menu's active-indicator colour."
+      ],
+      "precedent": "Logo in Brand Bar / Form Item in Form Fieldset (single-item modelling)."
+    }
+  },
+  "options": [
+    {
+      "name": "items",
+      "type": "array",
+      "description": "Keys per item: title, content, id, open. `id` is optional — Accordion.vue builds an itemIds list and falls back to a generated id when an item omits one, so ids only need supplying when a caller wants stable anchors. `open` sets the item's initial expanded state; more than one may be open at a time only when multiselectable is set. Required, with no default: the component renders nothing without it. Added 2026-08-20 to close the long-standing check-contracts warning that this Vue prop was unclaimed by any contract option — the schema already supported array/object option types.",
+      "code": {
+        "prop": "items",
+        "notes": "Vue marks it required:true with type:Array and no default."
+      },
+      "figma": {
+        "notes": "Content, not a variant axis: the number of entries drives how many rows/tabs/crumbs are drawn, which Figma expresses by duplicating the child instance rather than by a variant property."
+      }
+    },
+    {
+      "name": "multiselectable",
+      "type": "boolean",
+      "default": false,
+      "description": "Controls whether multiple items can be open at once. Also drives aria-multiselectable on the wrapper and toggles the native <details name> exclusive-group attribute on every item (see behavior) — the ONLY part of this prop with any visible effect; its own CSS modifier is dead (see claims).",
+      "code": {
+        "prop": "multiselectable",
+        "notes": "Also adds the class 'accordion--multi' (Accordion.vue:38), which has zero corresponding CSS in either repo — see claims/knownIssues."
+      },
+      "figma": {
+        "notes": "Deliberately NOT a variant axis — no CSS/visual difference exists between true/false (Button borderless/full precedent). The real effect is a native HTML attribute with no visual analog for a designer to see in Figma."
+      }
+    },
+    {
+      "name": "label_color",
+      "type": "enum",
+      "values": [
+        "",
+        "white"
+      ],
+      "default": "",
+      "description": "Colorway. '' (the real Vue default; Storybook's own control labels it 'Gray' since the rendered default summary background is gray/100) renders the base gray label bar with a new-primitive hover; 'white' renders a white label bar with a gray/100 hover — the two colorways' label/hover values are an inverted pair (see tier3Tokens).",
+      "code": {
+        "prop": "label_color",
+        "class": "accordion--white",
+        "notes": "Gated by plain JS truthiness on the raw prop string (Accordion.vue:39, 'accordion--white': props.label_color) — NOT a strict === 'white' check. The Vue prop itself has no validator restricting it to an enum (String, default '', required: false), so any non-empty string would also trigger the white styling today, though only '' and 'white' are documented/exercised in Storybook. See openQuestions."
+      },
+      "figma": {
+        "axis": "Color",
+        "map": {
+          "": "Default",
+          "white": "White"
+        }
+      }
+    }
+  ],
+  "slots": [
+    {
+      "name": "items",
+      "description": "NOT a Vue <slot> — Accordion.vue has zero <slot> elements; this is a required Array prop (Accordion.vue:18-21), each entry an object { id, title, content, open? }, that the template v-fors over to produce the repeated accordion markup. Documented here because it plays the role a slot/content-prop would in Headline/Button, and the contract schema's options[].type enum (boolean/string/enum/number) has no way to represent an array — see openQuestions.",
+      "behavior": "Each item renders <details class=\"accordion__item\" :open=\"item.open\"><summary :id=\"item.id\" class=\"accordion__heading\" role=\"tab\"><h2><i class=\"fas fa-chevron-up\">{{ item.title }}</h2></summary><div class=\"accordion__content\" v-html=\"item.content\"></div></details>. item.content is rendered via v-html (raw HTML, unescaped — content authors are trusted). The wrapper's aria-owns is every item.id joined with a space; item.open sets the native <details open> attribute directly with no JS involvement for initial state.",
+      "figma": {
+        "property": "N/A on a single instance",
+        "notes": "Model as N repeated 'Accordion Item' component instances inside a stacking frame, not as a property on one instance — see figmaProposal."
+      }
+    }
+  ],
+  "tokensUsed": [
+    "accordion/label/color",
+    "accordion/label/color-hover",
+    "accordion/outline/color",
+    "accordion/border/color",
+    "accordion/heading/font-size",
+    "accordion/heading/font-weight",
+    "accordion/padding",
+    "accordion/content/background",
+    "accordion/content/text-font-size",
+    "accordion/icon/size",
+    "accordion/icon/gap",
+    "accordion/item/gap",
+    "accordion/white/label/color",
+    "accordion/white/label/color-hover",
+    "accordion/white/outline/color"
+  ],
+  "behavior": [
+    "multiselectable=false (default) sets name=\"accordion-collection\" on every <details> (Accordion.vue:59) — the native browser exclusive-accordion-group attribute; only one item can be open at a time, entirely via HTML, with no CSS or JS enforcement. multiselectable=true sets name=null so items open independently. This is a real behavioral difference despite its CSS-facing class ('accordion--multi') being completely unstyled — see claims.",
+    "Accordion.vue hardcodes <h2> for every item's heading (Accordion.vue:66) with no prop to change it — the CSS's own `.accordion__heading :is(h2, h3, h4, h5, h6)` selector (accordion.scss:53) can therefore never render its h3-h6 branches from this Vue component or in Storybook. SiteNow's downstream accordion-item.html.twig, however, parameterizes accordion_h_size (default h2, overridable per item — see paragraph--accordion-item--default.html.twig:43) and DOES render h3-h6 in production — so the selector is fully live there. See claims (scoped 'unreachable from Vue') and openQuestions (should Accordion.vue gain a matching heading-level prop?).",
+    "accordion.js (applyAccordion, wired onMounted) manages hash-based deep-linking: a click on <summary> sets a transient data-accordion-clicked attribute BEFORE the native 'toggle' event fires (click fires first), so the toggle handler can tell a user click from a programmatic one; opening replaces the URL hash with '#' + the summary's id, closing clears it. A popstate listener plus an initial-load check both call focusAccordionItemByHash(), which finds the element by id and calls .click() to open it — pure behavior, touches no tokenizable CSS.",
+    "label_color gates '.accordion--white' via plain JS truthiness on the raw prop string (Accordion.vue:39), not a strict === 'white' comparison — see the label_color option's code.notes.",
+    "The wrapper is role=\"tablist\" with aria-multiselectable and aria-owns (every item id, joined); each <details> is role=\"none\" and each <summary> is role=\"tab\" — a custom repurposing of the tablist/tab ARIA roles onto native <details>/<summary> elements. Unchanged by this migration, noted for context only.",
+    "Production styling depends on cross-repo overrides this repo's SCSS doesn't capture: uids_base's theme accordion.scss sets `.accordion .accordion__heading { color: variables.$secondary }` (brandChannel-eligible; accordion.scss itself declares no heading text color), and uiowa_paragraphs_accordion.scss re-themes in-content links inside .accordion__content using Button's own bttn--primary/bttn--secondary/bttn--focus mixins. See openQuestions."
+  ],
+  "knownIssues": [
+    "Accordion.vue is exported from its own local index.ts but is NOT re-exported from src/components/index.ts, the package barrel every other migrated component uses (alert/banner/brand-bar/brand-footer/button/card/cta/headline/logo/menu). Storybook imports Accordion.vue directly by relative path, so this doesn't block Storybook or this migration, but Accordion currently has no established registeredName/barrelExport identity at all — no `const name = 'uids-accordion'` exists either (unlike Button's and Headline's own dead-but-present constants) — this migration mints that identity fresh rather than inheriting one.",
+    "AccordionDocs.mdx's 'Usage' section (lines 11-13) tells consumers to add logo.css and brand-bar.css to their project — copy-pasted from Brand Bar/Logo's own docs and never updated. Accordion actually depends on _background.scss (imported directly in Accordion.vue:5), which the docs don't mention at all.",
+    ".accordion--multi is a no-op CSS modifier (see claims) — do not model it in Figma/tokens. The multiselectable prop's real effect is the native <details name> attribute (see behavior), not this class.",
+    ".accordion--white's border-color override is redundant CSS, byte-identical to the base value (see claims) — modeled as one shared accordion/border/color token, not a per-colorway pair.",
+    "uids_base's `.accordion .accordion__heading button.border` rule (that repo's accordion.scss:29-31, marked with its own '@todo remove when .../issues/714') targets a <button> element that exists in neither repo's current markup — dead/unreachable, downstream-owned; flagged for the ticket owner rather than modeled here (see claims)."
+  ],
+  "geometryNotTokenized": {
+    "transition-timing": "--trans-time: 0.2s (accordion.scss:7), consumed by the icon's `transition: all var(--trans-time) ease-in-out` (line 39) and `transition-property: transform, background-color` (line 47). Left untokenized, matching Button's own precedent (button.json geometryNotTokenized.focus-bar-motion: '...transition transform 0.3s ease-in-out. Only its color and height are tokenized.') — motion durations are treated as rendering mechanics, not identity-bearing values, across the components migrated so far.",
+    "icon-vertical-offset": "margin: -0.3rem .7rem 0 0 (accordion.scss:45) — only the .7rem (accordion/icon/gap) is tokenized; the -0.3rem top offset is a one-off optical-centering hack tied to this specific chevron glyph's line-box, not a portable design decision.",
+    "chevron-rotation": "Closed state: rotate(-180deg) translate(0px, -0.1em) (accordion.scss:49); open state ([open] summary i, svg): rotate(0deg) translate(0px, 0.1em) (accordion.scss:17). Presentation constants tied to the specific chevron-up glyph and the native <details> toggle — Brand Bar geometryNotTokenized precedent (a real design decision that isn't naturally a bindable token; a Figma Open/Closed variant reproduces it by hand).",
+    "icon-border-radius": "border-radius: 50% (accordion.scss:46) — a shape constant (perfect circle), not identity-bearing.",
+    "heading-focus-outline": "outline: 2px auto -webkit-focus-ring-color (accordion.scss:66) — the native browser default focus ring, never overridden; same class of finding as Button's a11y notes (focus indicated by browser default).",
+    "border-width": "1px solid on both .accordion__item (line 93, full border) and .accordion__content's border-top (line 73) — width and style stay raw geometry; only the color is tokenized (accordion/border/color), matching Button's own border treatment (button.json geometryNotTokenized.border).",
+    "content-last-child-margin": "p:last-child { margin-bottom: 0px; } (accordion.scss:76) inside .accordion__content — a one-off reset, not a design value.",
+    "table-nested-font-size-reset": "table ul li, table ol li, table p { font-size: inherit; } (accordion.scss:85-88) — resets the tokenized 1.3rem list/paragraph size back to inherit specifically for lists/paragraphs nested inside a <table> within accordion content. The value is the CSS keyword inherit, not a design value, so nothing to tokenize; kept as-shipped."
+  }
+}

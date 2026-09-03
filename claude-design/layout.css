@@ -1,0 +1,515 @@
+/* UIDS layout & spacing — generated view of contracts/layout.json + tokens/semantic/layout.json.
+   Scoped subset for Claude Design previews: containers, section rhythm, spacing
+   utilities, content grids. Class names match production; all values flow from
+   tokens.css. The containers and grids are uids_base Layout Builder treatments, while
+   the section rhythm and the spacing utilities ship from UIDS itself.
+   NOT shipped here (see the contract): section layout ratios (layout--twocol etc.),
+   sidebar layout, the column-spacing__* and section-order__* modifiers.
+   Load AFTER tokens.css.
+   The bg--* background treatments live in backgrounds.css (contracts/background.json);
+   this file keeps only the adjacent-section MERGE geometry that keys off those classes. */
+
+/* ---------- Containers ----------
+   Container controls outer width and page margin. Section = .page__container.layout__container */
+
+.page__container {
+  margin-left: var(--uiowa-space-125);
+  margin-right: var(--uiowa-space-125);
+}
+
+@media (min-width: 1350px) {
+  .page__container {
+    max-width: var(--uiowa-layout-container-max-standard);
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (min-width: 980px) {
+  .page__container--narrow {
+    max-width: var(--uiowa-layout-container-max-narrow);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--uiowa-space-125);
+    padding-right: var(--uiowa-space-125);
+  }
+}
+
+@media (min-width: 1350px) {
+  .page__container--narrow {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .page__container--extended {
+    max-width: var(--uiowa-layout-container-max-wide);
+    padding-left: var(--uiowa-layout-container-padding-wide);
+    padding-right: var(--uiowa-layout-container-padding-wide);
+  }
+}
+
+.page__container--full {
+  max-width: none;
+}
+
+@media (min-width: 980px) {
+  .page__container--full {
+    margin-left: var(--uiowa-space-300);
+    margin-right: var(--uiowa-space-300);
+  }
+}
+
+.page__container--edge {
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* ---------- Section rhythm ----------
+   Rhythm steps at sm (768), NOT md. First section drops top padding.
+   Adjacent sections with the same background treatment merge into one band. */
+
+.layout__container {
+  padding-top: var(--uiowa-layout-section-padding-mobile);
+  padding-bottom: var(--uiowa-layout-section-padding-mobile);
+}
+
+@media (min-width: 768px) {
+  .layout__container {
+    padding-top: var(--uiowa-layout-section-padding-default);
+    padding-bottom: var(--uiowa-layout-section-padding-default);
+  }
+}
+
+.layout__container:first-child {
+  padding-top: 0;
+}
+
+/* ---------- The title section ----------
+   ADDED 2026-08-25. This view shipped NEITHER of the two rules below — `layout--title`
+   appeared here only in comments — so a page that correctly gave its title a section of
+   its own still previewed the 3rem default gap instead of 1.25rem, and any rule saying
+   otherwise had nothing to stand on. Mirrors src/scss/abstracts/_section-rhythm.scss:57-68.
+   See contracts/rules.json page-title-is-its-own-section, contracts/layout.json changes[7].
+
+   1.25rem is a BARE LITERAL in the source, with no token behind it. Written as
+   --uiowa-space-125 — same value, tier 1 — rather than --uiowa-layout-section-padding-mobile,
+   which is also 1.25rem but would assert that the title's bottom padding tracks the mobile
+   section padding. It does not: those are unrelated declarations that happen to agree, and
+   picking the semantic name would invent a link a later retune would then act on. */
+.layout__container.layout--title {
+  padding-bottom: var(--uiowa-space-125);
+}
+
+.layout__container.layout--title.layout--title--hidden {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* A hidden title hides the BREADCRUMB with it — ADDED 2026-09-02 on the design system
+   owner's ask, and it is a parity PORT, not an invention: uids_base
+   scss/layouts/onecol--background.scss:78-96 applies element-invisible to the breadcrumb
+   block under this same class, with a focus-within reveal, so downstream a suppressed
+   title never leaves an orphaned breadcrumb strip. This view shipped only the padding
+   half, which is why a suppressed page showed crumbs and no title. Selector adapted:
+   production targets Drupal's .block-system-breadcrumb-block wrapper; the structural
+   equivalent here is the nav.breadcrumb the Breadcrumbs template renders. The reveal
+   keeps the pair reachable — focus a crumb link and it reappears on a gray chip, exactly
+   as production does ($gray-light = --uiowa-color-gray-200 via uids-core). */
+.layout--title--hidden .breadcrumb {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.layout--title--hidden .breadcrumb:focus-within {
+  position: static !important;
+  clip: auto;
+  height: auto;
+  width: auto;
+  overflow: auto;
+  padding-left: 0.2rem;
+}
+
+.layout--title--hidden .breadcrumb:focus-within a {
+  background: var(--uiowa-color-gray-200);
+  padding: 0.2rem;
+}
+
+/* Measured 2026-08-25 at 1200px, because the obvious reading of this rule is wrong. For a
+   PLAIN title section it is redundant: the adjacent-same-background merge below is
+   :not([class*="bg-"]) on both sides, matches the same pair, and already declares
+   padding-top: 0 at the same (0,4,0). Where this rule does real work is a title section
+   carrying a bg--* class — `.layout--title.bg--gold + .layout__container` computes 0px top
+   on the second box, against 48px for a plain `.bg--gold + .layout__container` control.
+   So it is not the rule that makes a separate title section load-bearing. That is
+   layout--title's own padding-bottom above: share the section with content and the 20px
+   simply lands under the content instead of under the title. */
+.layout__container.layout--title + .layout__container:not([class*="bg-"]) {
+  padding-top: 0;
+}
+
+/* Background bands: see backgrounds.css — the full bg--{color}[--pattern--{type}]
+   grammar with the channeled fills and on-light/on-dark cascade lives there.
+
+   Adjacent same-background merge. EXACT class matches, mirroring the $backgrounds list
+   in src/scss/abstracts/_section-rhythm.scss:74-81 — which is where the shipped list
+   now lives, since UIDS took the rhythm over from uids_base global.scss on 2026-08-24.
+
+   ALL SEVEN entries are here. CORRECTED 2026-08-25: this list carried only four, and
+   the three legacy brain names (bg-pattern--brain, --brain-reversed, --brain-black)
+   were missing. That was an omission rather than a decision — the exclusions below are
+   the deliberate ones, and the brain names were never among them, while
+   contracts/background.json confirms production carries all three. The effect of the
+   omission was silent and one-directional: two adjacent brain-pattern sections
+   previewed with a double gap this view had no way to report.
+
+   Still deliberately EXCLUDED, as shipped (see contracts/background.json knownIssues):
+   combined pattern classes like bg--gold--pattern--particle do NOT merge, and bg--white
+   is not in the list at all. */
+.layout__container:not([class*="bg-"]) + .layout__container:not([class*="bg-"]),
+.layout__container.bg--gold + .layout__container.bg--gold,
+.layout__container.bg--black + .layout__container.bg--black,
+.layout__container.bg--gray + .layout__container.bg--gray,
+.layout__container.bg-pattern--brain + .layout__container.bg-pattern--brain,
+.layout__container.bg-pattern--brain-reversed + .layout__container.bg-pattern--brain-reversed,
+.layout__container.bg-pattern--brain-black + .layout__container.bg-pattern--brain-black {
+  padding-top: 0;
+}
+
+/* The two top restores, re-emitted INSIDE each merge pair so they can outrank it.
+   Source order cannot do this job: a merge selector is (0,4,0) and a flat modifier is
+   (0,2,0), so it is not a tie — without these seven pairs, section-padding__top-restored
+   and __top-extra computed 0px on the SECOND of two same-background sections. These
+   nested selectors are (0,5,0). Production emits exactly the same eight rules per
+   modifier — seven nested, one flat — from the @each loop in
+   src/scss/abstracts/_section-rhythm.scss:83-98. Restored-before-extra order is
+   production's, so a section carrying both still resolves to extra.
+   FIXED 2026-08-25; measured 48px / 96px at 503px and 1100px. */
+.layout__container:not([class*="bg-"]) + .layout__container:not([class*="bg-"]).section-padding__top-restored,
+.layout__container.bg--gold + .layout__container.bg--gold.section-padding__top-restored,
+.layout__container.bg--black + .layout__container.bg--black.section-padding__top-restored,
+.layout__container.bg--gray + .layout__container.bg--gray.section-padding__top-restored,
+.layout__container.bg-pattern--brain + .layout__container.bg-pattern--brain.section-padding__top-restored,
+.layout__container.bg-pattern--brain-reversed + .layout__container.bg-pattern--brain-reversed.section-padding__top-restored,
+.layout__container.bg-pattern--brain-black + .layout__container.bg-pattern--brain-black.section-padding__top-restored {
+  padding-top: var(--uiowa-layout-section-padding-default);
+}
+
+.layout__container:not([class*="bg-"]) + .layout__container:not([class*="bg-"]).section-padding__top-extra,
+.layout__container.bg--gold + .layout__container.bg--gold.section-padding__top-extra,
+.layout__container.bg--black + .layout__container.bg--black.section-padding__top-extra,
+.layout__container.bg--gray + .layout__container.bg--gray.section-padding__top-extra,
+.layout__container.bg-pattern--brain + .layout__container.bg-pattern--brain.section-padding__top-extra,
+.layout__container.bg-pattern--brain-reversed + .layout__container.bg-pattern--brain-reversed.section-padding__top-extra,
+.layout__container.bg-pattern--brain-black + .layout__container.bg-pattern--brain-black.section-padding__top-extra {
+  padding-top: var(--uiowa-layout-section-padding-extra);
+}
+
+/* The ONE case where the title/content pair does not merge. A hidden title zeroes its own
+   section on both edges, so the section below it would inherit the merge's padding-top: 0
+   and sit flush under the navigation — this puts the default padding back.
+   SOURCE ORDER IS LOAD-BEARING and this is why it sits here rather than beside the other
+   two title rules: this selector and the merge rule are both (0,4,0), so it wins only by
+   coming later. src/scss/abstracts/_section-rhythm.scss:101-108 emits it in exactly this
+   position, after the @each loop and before the flat modifiers below.
+   Note the source uses $desktop-width-gutter with NO media query, so this restores 3rem at
+   every width — the same as-shipped overshoot knownIssues[8] records for
+   section-padding__top-restored, reproduced rather than corrected. */
+.layout__container.layout--title--hidden + .layout__container:not([class*="bg-"]) {
+  padding-top: var(--uiowa-layout-section-padding-default);
+}
+
+.layout__container.layout--title--hidden + .layout__container:not([class*="bg-"]).section-padding__removed-top {
+  padding-top: 0;
+}
+
+/* Layout Builder spacing modifiers. These carry the un-merged case; the second of a
+   merged pair is handled by the higher-specificity rules above. Only the two TOP
+   restores needed that treatment — the merge rule never touches padding-bottom, and
+   __removed-top wants the 0 the merge already gives. */
+.layout__container.section-padding__removed-top { padding-top: 0; }
+.layout__container.section-padding__removed-bottom { padding-bottom: 0; }
+.layout__container.section-padding__top-extra { padding-top: var(--uiowa-layout-section-padding-extra); }
+.layout__container.section-padding__bottom-extra { padding-bottom: var(--uiowa-layout-section-padding-extra); }
+.layout__container.section-padding__top-restored { padding-top: var(--uiowa-layout-section-padding-default); }
+/* Note: top-restored restores the TOP edge only — there is no bottom-restore class (production parity) */
+
+/* ---------- Content-grid items fill their row ----------
+   ADDED 2026-08-25 with src/scss/layout/_grid.scss, which carries the full reasoning and
+   the sequencing note. Short version: a card is never the grid item — every view wraps it
+   (GridItem's .grid__column, a Drupal .views-row, and in THIS view the runtime's .sc-host
+   plus Card.dc.html's own .dc-card-column, two deep). The grid stretches the wrapper and
+   the card kept its content height, so a row of cards previewed ragged where production
+   renders it level: measured 434/329/356 here against 434/434/434 there.
+
+   Growing the only child rather than setting height: 100% on named components — it covers
+   anything a wrapper holds, needs no percentage height, and does not overflow when a
+   wrapper holds two blocks. contracts/layout.json changes[8] carries the ruling.
+
+   THESE RULES ALONE ARE NOT ENOUGH IN THIS VIEW, and the reason is worth knowing. In
+   production the chain is one wrapper deep, so growing the grid item's only child reaches
+   the card. Here it is two deep: the runtime adds .sc-host around every import and
+   Card.dc.html adds .dc-card-column inside it. `> *` stretches .sc-host and
+   `> :only-child` grows .dc-card-column — and then stops, because a grown block is not a
+   flex container. Measured at 1440px on a replica of both nestings: production 71/71/71,
+   this view 71/53/53. The missing declaration lives in Card.dc.html, on .dc-card-column,
+   because that wrapper is Card.dc.html's own invention and has no production counterpart;
+   this file only ever mirrors what UIDS ships. */
+.list-container__inner > * {
+  display: flex;
+  flex-direction: column;
+}
+
+.list-container__inner > * > :only-child {
+  flex: 1 1 auto;
+}
+
+/* The opt-out — Layout Builder's "Align content to start". */
+.section-alignment__start .list-container__inner > * {
+  display: block;
+}
+
+/* ---------- Block / element spacing utilities ----------
+   ADDED 2026-08-25. Ported from src/scss/abstracts/_utility-classes.scss:34-145, which
+   uids-core.scss:7 @forwards, so production carries all three families globally. Unlike
+   most of contracts/layout.json these classes ship FROM UIDS, not from uids_base.
+   Contract: contracts/layout.json options blockPadding / blockMargin / logicalPadding.
+
+   They were absent from this view ENTIRELY — not one of these class names appeared in
+   claude-design/ before today. That is the worst shape a gap in this view can take:
+   readme.md is injected into every consuming session, so an agent could reach for
+   .block-padding__all in a .dc.html, get no padding at all, and have no error to read.
+   This view has no compiler and does not import dist/uids.css, so nothing else was
+   going to catch it.
+
+   PLACEMENT IS LOAD-BEARING, and is production's. Verified by probing dist/uids.css:
+   the utilities land between section-rhythm and layout/grid, so they sit here rather
+   than at the end of the file. .block-margin__top and .list-container__inner > * + *
+   are BOTH (0,1,0), so which one wins on a grid child is decided by source order alone
+   — with the grid rules later, a grid child keeps the grid's own rhythm.
+
+   Values are the gutter tokens and primitives the SCSS actually reads. No semantic
+   layout token appears here because minting them was DECLINED 2026-08-24
+   (contracts/layout.json changes[2]).
+
+   Two suffix quirks are preserved deliberately, NOT normalised — both are recorded in
+   contracts/layout.json knownIssues[4] and [5], and changes[4] declined renaming them:
+     * --sm means two different things, 2.5x apart. .element--padding__all--sm is
+       1.25rem on all four sides; .padding--block--sm is 0.5rem on the block axis.
+       Their source order is production's (padding__all--sm first), so an element
+       carrying both resolves to 1.25rem inline / 0.5rem block — same-longhand
+       collisions between a physical shorthand and a logical property are decided by
+       declaration order, and the logical one is later.
+     * There is deliberately NO .padding--inline--sm. The logical family is otherwise
+       symmetric (block, inline-start and inline-end each have --sm and --md); only the
+       --md shorthand ships for the inline pair.
+
+   The .block-padding and .element--padding namespaces are ONE selector list in the
+   source and are exactly equivalent — neither is preferred. Same for the margin pair. */
+
+.block-padding__top,
+.element--padding__top { padding-top: var(--uiowa-layout-gutter-width-desktop); }
+.block-padding__top--minimal,
+.element--padding__top--minimal { padding-top: var(--uiowa-space-200); }
+.block-padding__right,
+.element--padding__right { padding-right: var(--uiowa-layout-gutter-width-desktop); }
+.block-padding__right--minimal,
+.element--padding__right--minimal { padding-right: var(--uiowa-space-200); }
+.block-padding__bottom,
+.element--padding__bottom { padding-bottom: var(--uiowa-layout-gutter-width-desktop); }
+.block-padding__bottom--minimal,
+.element--padding__bottom--minimal { padding-bottom: var(--uiowa-space-200); }
+.block-padding__left,
+.element--padding__left { padding-left: var(--uiowa-layout-gutter-width-desktop); }
+.block-padding__left--minimal,
+.element--padding__left--minimal { padding-left: var(--uiowa-space-200); }
+.block-padding__all,
+.element--padding__all { padding: var(--uiowa-layout-gutter-width-desktop); }
+.block-padding__all--extra,
+.element--padding__all--extra { padding: var(--uiowa-space-600); }
+.block-padding__all--minimal,
+.element--padding__all--minimal { padding: var(--uiowa-space-200); }
+
+/* The one member of the __all family with no .block-padding twin, and the only one that
+   is not 3rem. Production writes var(--space-sm-width-gutter); that legacy core alias
+   lives at uids-core.scss:38 and is not shipped in this view, so it is resolved one hop
+   to its target — computed-identical. Same treatment Callout.dc.html gives it. */
+.element--padding__all--sm { padding: var(--uiowa-space-125); }
+
+/* Logical-property padding. A separate, much smaller scale from the block utilities
+   above: --sm is 0.5rem, --md is 1rem. See the --sm collision note in the header. */
+.padding--block--sm { padding-block: var(--uiowa-space-50); }
+.padding--block--md { padding-block: var(--uiowa-space-100); }
+.padding--inline-start--sm { padding-inline-start: var(--uiowa-space-50); }
+.padding--inline-start--md { padding-inline-start: var(--uiowa-space-100); }
+.padding--inline-end--sm { padding-inline-end: var(--uiowa-space-50); }
+.padding--inline-end--md { padding-inline-end: var(--uiowa-space-100); }
+.padding--inline--md { padding-inline: var(--uiowa-space-100); }
+
+/* Block / element margin. In stacked Layout Builder regions these are OVERRIDES on the
+   1.6rem default sibling rhythm (a uids_base region behavior), not additions to it.
+   __left and __right apply ONLY from sm — they have no mobile value at all, where
+   __top and __bottom apply at every width (contracts/layout.json knownIssues[6]).
+   The --extra pair holds the compact value below sm and steps up from sm, so the base
+   declaration and its media query must stay in this order. */
+.block-margin__top,
+.element--margin__top { margin-top: var(--uiowa-layout-block-stack-compact); }
+.block-margin__top--extra,
+.element--margin__top--extra { margin-top: var(--uiowa-layout-block-stack-compact); }
+
+@media (min-width: 768px) {
+  .block-margin__top--extra,
+  .element--margin__top--extra { margin-top: var(--uiowa-layout-block-stack-extra); }
+
+  .block-margin__right,
+  .element--margin__right { margin-right: var(--uiowa-layout-block-stack-compact); }
+}
+
+.block-margin__bottom,
+.element--margin__bottom { margin-bottom: var(--uiowa-layout-block-stack-compact); }
+.block-margin__bottom--extra,
+.element--margin__bottom--extra { margin-bottom: var(--uiowa-layout-block-stack-compact); }
+
+@media (min-width: 768px) {
+  .block-margin__bottom--extra,
+  .element--margin__bottom--extra { margin-bottom: var(--uiowa-layout-block-stack-extra); }
+
+  .block-margin__left,
+  .element--margin__left { margin-left: var(--uiowa-layout-block-stack-compact); }
+}
+
+/* ---------- Content grids ----------
+   Modular grids for repeated content (cards, lists, feeds).
+   Markup: <div class="list-container list-container--grid grid--twocol--50-50">
+             <div class="list-container__inner"> ...items... </div></div> */
+
+.list-container__inner > * + * {
+  margin-top: var(--uiowa-layout-gutter-height-mobile);
+}
+
+.list-container--grid .list-container__inner > * + * {
+  margin-top: 0;
+}
+
+.list-container--grid .list-container__inner {
+  display: grid;
+  gap: var(--uiowa-layout-gutter-height-mobile);
+}
+
+@media (min-width: 768px) {
+  .grid--twocol--50-50 .list-container__inner {
+    grid-template-columns: repeat(auto-fill, minmax(46.7%, 1fr));
+    column-gap: var(--uiowa-layout-gutter-width-desktop);
+    row-gap: var(--uiowa-space-125);
+  }
+
+  .grid--twocol--25-75 .list-container__inner {
+    grid-template-columns: 1fr 3fr;
+    gap: var(--uiowa-space-150);
+  }
+}
+
+@media (min-width: 58.125em) {
+  .grid--twocol--50-50 .list-container__inner {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--uiowa-layout-gutter-width-desktop);
+  }
+
+  .grid--threecol--33-34-33 .list-container__inner {
+    grid-template-columns: repeat(auto-fill, minmax(29.74%, 1fr));
+    gap: var(--uiowa-layout-gutter-width-desktop);
+  }
+
+  .grid--fourcol--25 .list-container__inner {
+    grid-template-columns: repeat(auto-fill, minmax(21%, 1fr));
+    gap: var(--uiowa-layout-gutter-width-desktop);
+  }
+}
+
+@media (min-width: 1350px) {
+  .grid--twocol--25-75 .list-container__inner {
+    gap: var(--uiowa-layout-gutter-width-desktop);
+  }
+}
+
+/* ---------- Page title ----------
+   MIGRATED INTO UIDS 2026-08-17 -- see contracts/page-title.json,
+   tokens/components/page-title.json, src/components/page-title/. It began as a
+   downstream uids_base treatment that UIDS did not own, which is why the design system
+   could describe the breadcrumb but not the title sitting directly under it. It is
+   represented here as a CLASS rather than a .dc.html template on purpose: production
+   writes it as plain markup (page-title.html.twig), it is a single element with two
+   classes, and a dc-import would be heavier than the markup it replaces. The four
+   --uiowa-page-title-* custom properties below are real generated tokens.
+
+   Production composes this from three places, so the single class below reproduces the
+   same computed result standalone:
+     - font-family  <- the base h1 rule (uids/scss/base/_headings.scss) = serif
+     - font-size    <- the STANDARD h1 ramp, --uiowa-font-size-heading-h1
+     - font-weight  <- .page-title.headline--serif = 600, NOT the 700 that
+                       .headline--serif alone gives. This is the ONLY thing that
+                       distinguishes a page title from a serif h1.
+     - margins      <- uids_base headings.scss zeroes the h1 margins
+
+   CORRECTED 2026-08-17: an earlier version of this block used
+   clamp(2.2rem, 3.3803vw + .9324rem, 3.7rem). That clamp is REAL but it is scoped to
+   banner layouts only -- uids_base scss/components/banner.scss:22 applies it under
+   `.layout--title.banner .headline.page-title`. An ordinary page title never gets it.
+   Measured on https://sandbox.prod.drupal.uiowa.edu/test-breadcrumbs at a 1385px
+   viewport: the title computes 53.6px, which is exactly the h1 ramp's 3.35rem cap; the
+   banner clamp would have given 59.2px, and `closest('.layout--title.banner')` is null.
+   The error came from grepping for a `.page-title` font-size and taking the first hit
+   without checking what it was nested under.
+
+   Markup is written directly in production, not through a component:
+     <h1 class="page-title headline headline--serif">Page title</h1>
+
+   PAIRING WITH BREADCRUMBS (measured on the same page): the breadcrumb carries
+   margin-top 1.75rem / margin-bottom 0 and the title carries margin-top 0, so the two
+   sit FLUSH -- a 0px gap. The breadcrumb owns the space above the pair. When there is
+   no breadcrumb the title reclaims it via `.page-title--no-breadcrumbs`. */
+.page-title {
+  font-family: var(--uiowa-page-title-font-family);
+  font-weight: var(--uiowa-page-title-font-weight);
+  font-size: var(--uiowa-page-title-font-size);
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* No breadcrumb above the title? The title takes the space the breadcrumb would
+   otherwise have held. */
+.page-title--no-breadcrumbs {
+  margin-top: var(--uiowa-page-title-no-breadcrumbs-margin-top);
+}
+
+/* ---------- Visually hidden ----------
+   ADDED 2026-08-24. Verbatim expansion of the element-invisible() mixin
+   (src/scss/abstracts/_utilities.scss:25-31), which src/scss/abstracts/
+   _utility-classes.scss:6-9 attaches to BOTH class names; uids-core.scss:6 forwards it,
+   so production has it globally. In this view it was INCIDENTAL rather than missing: two
+   templates already declared it inside their own template-local <style> —
+   Breadcrumbs.dc.html:42-43 (BOTH names) and Pager.dc.html:44 (`.visually-hidden` only) —
+   and because dc-import shares ONE document and ONE cascade, either copy already hid every
+   matching element on the whole page. But only on a page that imported one of those two.
+   A design importing neither had no rule at all, so the commonest case in the platform —
+   a page title that a leading banner has already stated — could not be hidden accessibly
+   without pulling in an unrelated component. In the SHARED sheet it is unconditional. The
+   template-local copies stay: verbatim restatements at equal specificity, so which one the
+   cascade picks changes nothing.
+   Both names ship because production ships both and downstream markup uses both:
+   uids_base applies element-invisible to the breadcrumb block under
+   layout--title--hidden, while Drupal's own breadcrumb template emits
+   <h2 class="visually-hidden">Breadcrumb</h2>.
+   NOT a token: these are fixed 1px scaffolding values, not design decisions.
+   `position: absolute !important` is carried as-is — the !important is in the mixin. */
+.element-invisible,
+.visually-hidden {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}

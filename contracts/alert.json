@@ -1,0 +1,186 @@
+{
+  "$schema": "./contract.schema.json",
+  "name": "alert",
+  "version": "1.0.0",
+  "description": "UIDS alert component contract, preserving the verified 4.x rendering and documenting the proposed Figma representation.",
+  "identity": {
+    "codePath": "src/components/alert/Alert.vue",
+    "scssPath": "src/scss/components/alert.scss",
+    "relatedPaths": [
+      "src/components/alert/Alert.stories.js"
+    ],
+    "downstreamPaths": [
+      "uiowa/docroot/themes/custom/uids_base/templates/uids/alert.html.twig",
+      "uiowa/docroot/themes/custom/uids_base/assets/js/message.theme.js"
+    ],
+    "registeredName": "uids-alert",
+    "storybookId": "components-alert",
+    "figma": {
+      "fileKey": "hNShklBztaeaQneScM0KoM",
+      "componentSetName": "Alert",
+      "componentSetId": "214:91",
+      "componentKey": "09a95952df6e78ae295ffa6b91a1347264ef930d",
+      "page": "Components / Alert",
+      "note": "BUILT (Phase 3). 16 variants: Color (Info, Success, Warning, Danger) x Icon (No Icon, With Icon) x Dismissible (Without, With Close Button).",
+      "axisRationale": [
+        "The Button/Headline Style-axis collapse was evaluated for Icon+Dismissible and REJECTED: merging two independent 2-value booleans into one enumerated axis still produces 2x2=4 values either way, so there is no variant-count reduction — and two separate boolean axes give a clearer per-property toggle in Figma's variant picker than one composite 4-value 'Display' axis.",
+        "The collapse that IS applied is the Button borderless/full pattern: centered and verticallyCentered are excluded from the axis set and stay code-only. Without that exclusion the naive matrix would be 4 x 2 x 2 x 2 x 2 = 64.",
+        "Combinations beyond the three chosen axes (e.g. centered + dismissible together) are code-only via props, per each option's figma.notes."
+      ],
+      "precedent": "Button (borderless/full excluded from the axis set)."
+    },
+    "barrelExport": "UidsAlert"
+  },
+  "options": [
+    {
+      "name": "type",
+      "type": "enum",
+      "values": [
+        "info",
+        "success",
+        "warning",
+        "danger"
+      ],
+      "default": "info",
+      "description": "Colorway and icon glyph. Drives the alert--{type} background/icon-color modifier class AND, via a separate computed property, which Font Awesome glyph renders (success->check, warning->exclamation-triangle, danger->exclamation, default/fallback->info) — two independent code paths keyed off one prop value.",
+      "code": {
+        "prop": "type",
+        "notes": "Alert.vue's validator strictly allows only these 4 strings (indexOf check, Alert.vue:14-16) — unlike Button's color prop, there is no dead/undefined accepted value to flag here; this enum is clean."
+      },
+      "figma": {
+        "axis": "Color",
+        "map": {
+          "info": "Info",
+          "success": "Success",
+          "warning": "Warning",
+          "danger": "Danger"
+        }
+      }
+    },
+    {
+      "name": "iconVisible",
+      "type": "boolean",
+      "default": false,
+      "description": "Renders the leading icon block. Gates a structural v-if (Alert.vue:93-95) — the fa-stack/fa-circle markup only exists in the DOM when true — in addition to adding the alert--icon class (display:flex, turning the alert into a two-column row).",
+      "code": {
+        "prop": "iconVisible",
+        "class": "alert--icon",
+        "notes": "Vue prop name (iconVisible) does not mechanically derive the CSS class name (alert--icon, not alert--icon-visible) — handled by its own dedicated branch in the classes computed, not the generic className() loop."
+      },
+      "figma": {
+        "axis": "Icon",
+        "map": {
+          "false": "No Icon",
+          "true": "With Icon"
+        }
+      }
+    },
+    {
+      "name": "dismissible",
+      "type": "boolean",
+      "default": false,
+      "description": "Renders a close button. Gates a structural v-if (Alert.vue:97-99) — the whole <button data-dismiss=\"alert\"> only exists when true — in addition to adding the alert--dismissible class (position:relative, so the button can be absolutely positioned).",
+      "code": {
+        "prop": "dismissible",
+        "class": "alert--dismissible",
+        "notes": "The actual removal-on-click behavior is not implemented anywhere in this repo — see behavior and identity.downstreamPaths."
+      },
+      "figma": {
+        "axis": "Dismissible",
+        "map": {
+          "false": "Without Close Button",
+          "true": "With Close Button"
+        }
+      }
+    },
+    {
+      "name": "centered",
+      "type": "boolean",
+      "default": false,
+      "description": "Horizontally centers content via display:flex + justify-content:center.",
+      "code": {
+        "prop": "centered",
+        "class": "alert--centered",
+        "notes": "Applied via the generic ['centered','dismissible'].forEach loop (Alert.vue:80-84) through the className() utility, which only replaces underscores with hyphens — a no-op for this single-word prop name."
+      },
+      "figma": {
+        "notes": "Deliberately NOT a variant axis — same treatment as Button's borderless/full. centered and verticallyCentered are independent, freely-combinable flex modifiers whose difference is a repositioning, not a distinct look, and doubling the matrix to 64 variants for two rarely-combined booleans has no navigational value. Reinforced by usage evidence, not just aesthetics: uids_base's status-messages.html.twig (the only known real-world consumer) never sets centered at all — it is exclusively a direct-Vue/Storybook-only option today. Code-only for any combination beyond the three chosen axes."
+      }
+    },
+    {
+      "name": "verticallyCentered",
+      "type": "boolean",
+      "default": false,
+      "description": "Vertically centers content via display:flex + align-items:center.",
+      "code": {
+        "prop": "verticallyCentered",
+        "class": "alert--vertically-centered"
+      },
+      "figma": {
+        "notes": "Deliberately NOT a variant axis — see centered's figma.notes. Unlike centered, this one IS always forced on by the one known downstream consumer (status-messages.html.twig hardcodes alert--vertically-centered unconditionally), so it is live in production, just still not axis-worthy on its own visual merits."
+      }
+    }
+  ],
+  "slots": [
+    {
+      "name": "default",
+      "description": "The alert's body content (falls back to the literal text \"Body\" if none provided, Alert.vue:96). Consumers commonly place heading tags (h2-h6) here, which pick up Alert's own private --h2-font-size-driven scale rather than the site's global heading tokens.",
+      "behavior": "The `class=\"alert__content\"` written directly on the <slot> element (Alert.vue:96) is DEAD. Verified by compiling the actual template with @vue/compiler-sfc: it emits `_renderSlot(_ctx.$slots, \"default\", { class: \"alert__content\" }, ...)` — i.e. Vue treats a non-name attribute on <slot> as a SCOPED-SLOT PROP, not a rendered DOM attribute. No consumer in either repo destructures it (`v-slot=\"{ class }\"`), and no CSS anywhere targets `.alert__content` — fully inert. Do not model it as a real hook in Figma or elsewhere. See claims/knownIssues.",
+      "figma": {
+        "property": "Content",
+        "notes": "Modelled as a text/content region bound to the instance — the same role Button/Headline give their default slot."
+      }
+    }
+  ],
+  "tokensUsed": [
+    "alert/danger/background",
+    "alert/danger/icon-color",
+    "alert/success/background",
+    "alert/success/icon-color",
+    "alert/warning/background",
+    "alert/warning/icon-color",
+    "alert/info/background",
+    "alert/info/icon-color",
+    "alert/padding",
+    "alert/border-radius",
+    "alert/line-height",
+    "alert/icon/gap",
+    "alert/heading/h2",
+    "alert/heading/h3",
+    "alert/heading/h4",
+    "alert/heading/h5",
+    "alert/heading/h6",
+    "alert/dismiss/size",
+    "alert/dismiss/icon-font-size"
+  ],
+  "behavior": [
+    "type drives both the color modifier class and (via Alert.vue's separate `icon` computed, lines 48-63) which Font Awesome glyph renders — the glyph choice is coupled to type, not independently configurable.",
+    "iconVisible and dismissible each gate a structural v-if block (the icon markup / the close button), not merely a CSS class. centered and verticallyCentered only ever add a class — no structural change.",
+    "dismissible's actual removal-on-click behavior is implemented ENTIRELY downstream in uiowa/uiowa's uids_base theme: assets/js/uids.status-messages.js registers Drupal.behaviors.uidsStatusMessages, a delegated body click-listener matching `button[data-dismiss='alert']`, which walks up to `.closest('.alert--dismissible')`, fades its opacity over 0.3s, then removes the node after a 300ms timeout. UIDS itself ships ZERO JS for this — a Storybook dismiss button renders but does nothing on click unless a consumer wires the same handler. Record via identity.downstreamPaths so nobody concludes the feature is non-functional because src/assets/js/ has no matching class.",
+    "Border: `.alert` includes the shared border mixin (@include utilities.border, _utilities.scss:193-199), which the border foundation contract (contracts/border.json, already migrated in Phase 2) fully resolves to color/border/default (default context) and color/border/on-dark (inside `[class*=\"bg--black\"]` ancestors). contracts/border.json's own identity.relatedPaths already names alert.scss as a consumer. No new border tokens are minted by this contract — Alert's Figma set should bind the EXISTING semantic variables, not re-derive them.",
+    "Downstream (uids_base status-messages.html.twig -> alert.html.twig) hardcodes alert_dismissible:true and the classes alert--icon + alert--vertically-centered unconditionally for every Drupal status message — there is no Drupal-side equivalent of iconVisible=false, verticallyCentered=false, or centered=true/false at all (centered is never set downstream). Every production Drupal alert is therefore icon-visible + vertically-centered + dismissible by construction; only the Color axis and (indirectly) content actually vary in practice.",
+    "Downstream's role handling is richer than Alert.vue's: status-messages.html.twig:51 computes `alert_role` dynamically — `(type == 'error' or type == 'warning') ? 'alert' : 'status'` — giving error/warning messages an assertive `role=\"alert\"` live region and status/info messages a polite `role=\"status\"` live region, then alert.html.twig:24 renders `aria-label=\"{{ alert_type }} message\"` on the container. None of this exists in Alert.vue, whose root <div> carries no role or aria-label at all. See knownIssues/a11y.",
+    "Downstream's alert_type vocabulary (Drupal message types: status/warning/error, mapped to alert--success/--warning/--dan​ger; a fourth 'info' branch exists in alert.html.twig but requires a caller to explicitly pass a non-standard 'info' message type since Drupal core's Messenger only emits status/warning/error) differs from Vue's `type` vocabulary (info/success/warning/danger) — a naming-layer translation, not a functional gap; out of this contract's scope to verify further since it lives entirely in the downstream repo's custom-module surface."
+  ],
+  "knownIssues": [
+    "Alert.vue's outer <div> (line 92) carries no `role` and no `aria-label`; its dismiss <button> (line 97) carries no `aria-label` or `type` attribute either. Downstream's uids_base chain independently computes and adds all of these (see behavior) — the canonical Storybook/Vue rendering is measurably, and in more ways than a single missing label, less accessible than what ships to production. See openQuestions (whether this migration also patches Alert.vue).",
+    "$danger and $orange are the identical hex #BD472A (_variables.scss:12,19); the warning state's icon (alert.scss:81, $orange) and the danger state's icon (alert.scss:65, $danger) render in the bit-identical color. Already resolved at the primitive tier — tokens/primitives/colors.json's color.status.danger carries the comment '4.x: $danger / $orange' — reused here, not re-minted. See claims.",
+    "Lightness scaling is inconsistent across the four states: danger-light/warning-light use color.scale($x, $lightness: 85%) (_variables.scss:18,20) while success-light/info-light use 95% (_variables.scss:14,16) — success (#EBFFFA) and info (#EDF8FF) render visibly lighter than danger (#F7E2DD) and warning (#FFF8D9). Tokenized as-shipped (four independent primitives); flagged as a 5.x normalization candidate, not fixed here.",
+    "The H2-H6 internal scale is authored as one base custom property plus calc() ratio multipliers, which Figma text styles cannot bind. Resolved here as 5 independent concrete tier-3 tokens (h2 reuses the existing typography.font-size.400 primitive; h3-h6 are raw literals). See openQuestions for the base+ratio alternative the input survey flagged.",
+    "$content-font-size (alert.scss:11,55) is the pre-existing typography.body.font-size semantic composite's value (already var(--uiowa-font-size-body)-driven, _variables.scss:70) — NOT alert-exclusive vocabulary. Not claimed as a new tier-3 token; no SCSS swap is even needed for it (already fully token-driven pre-migration). See claims.",
+    "`class=\"alert__content\"` on the default <slot> (Alert.vue:96) compiles to an unused scoped-slot prop, never read by any consumer and matching no CSS — dead. See claims.",
+    "`const name = 'uids-alert'` (Alert.vue:6) is declared and never read — the same dead-code pattern already documented for Button ('uids-button') and Headline ('uids-headine', itself typo'd).",
+    "alert.scss:96's section-boundary comment reads `// === End: Alert Icon === //` but actually closes the 'Alert Colors' section opened at alert.scss:60 — the genuine Alert Icon section already has its own correct closing comment at alert.scss:58. Copy-paste mislabel, comment-only, zero rendering effect.",
+    "Font Awesome rendering mode differs between this repo's Storybook and production, independent of alert.scss: .storybook/preview-head.html:4 loads FA via a plain webfont CSS CDN link (no JS replacement), while uiowa/uiowa's exported Drupal config (config/default/fontawesome.settings.yml: method: svg, use_cdn: true, external_svg_location pointing at FA's all.js SVG kit) means production runs FA's SVG auto-replacement script, rewriting `<i>`/`<span class=\"fas ...\">` into `<svg class=\"svg-inline--fa ...\">` at runtime. This is why uids_base's OWN scss/components/alert.scss (distinct from its byte-identical vendored mirror of this repo's) carries extra rules against the same `.svg-inline--fa.fa-stack-2x`/`.fa-stack-1x` selectors under an explicit '// SVG in JS style adjustments for alert icon.' comment — real production-only styling with no effect in this repo's Storybook. See claims.",
+    "Alert.vue's dismiss-button icon uses an `<i>` tag (line 98), while every other icon element in the same file (lines 94, and the downstream Twig template's equivalent markup) uses `<span>`. Given the production FA SVG-replacement script likely operates on class patterns rather than tag names, the practical rendering consequence of this inconsistency could not be confirmed via static analysis — flagged as an open question rather than a firm defect.",
+    "alert.scss:11 still hardcodes `font-size: variables.$content-font-size` -- the alert body font-size was never tokenized (there is no alert/font-size token, unlike every other alert value). The Figma component binds its body text to the font/size/150 primitive instead. Ruled 2026-08-16: record rather than fix, so the verified swap commit stays untouched. Candidate for a follow-up token addition.",
+    "Alert.vue gates `dismissible` two ways: the CLASS through the shared ['centered','dismissible'] forEach, testing `props[prop] === true` (Alert.vue:80-84), and the BUTTON through `v-if=\"props.dismissible\"` (Alert.vue:97), bare truthiness. Because the prop is `type: Boolean` with no default, Vue coerces an absent attribute to false, so the two agree today and this is latent, not live. SAME shape as the icon defect fixed 2026-08-20 in claude-design/Alert.dc.html, which became visible because that prop's effective default was true: `undefined` is falsy but `undefined !== false` is true, so the class dropped while the element still rendered. Recorded, not fixed, per tokenize-as-shipped; the fix belongs in Alert.vue (one predicate, or route dismissible through the same forEach as centered), not in the Claude Design mirror, which is faithful. Surfaced by check-claude-design.mjs check 6."
+  ],
+  "geometryNotTokenized": {
+    "sibling-spacing-reset": ".alert * { margin-bottom: 0; & + *:not(span):not(div):not(svg) { margin-top: .2rem; line-height: 1.6; } } (alert.scss:30-37) — generic content-flow/rhythm reset for arbitrary slotted markup, not a themeable design value. Note: by specificity (.alert * + *:not(span):not(div):not(svg) = (0,1,3) beats .alert = (0,1,0)), only the FIRST child renders at the tokenized alert/line-height (1.3); every subsequent non-span/div/svg sibling renders at 1.6 (which equals typography.line-height.160, not claimed here since this rule stays untokenized).",
+    "warning-icon-nudge": ".fa-exclamation-triangle { margin-top: -2px; } (alert.scss:84-86) — hard pixel nudge tied to that specific Font Awesome glyph's metrics, same treatment class as Button's Antonio font-weight caveat; not a design value.",
+    "icon-stack-mechanics": ".alert__icon .fa-stack { width: 2em } (alert.scss:45-47) deliberately narrows FA's default .fa-stack width (2.5em, all.css:307-313) via a higher-specificity override (0-2-0 beats 0-1-0) — a real, live design choice, but expressed in em rather than an isolable absolute dimension, so left as documented geometry, not a tier-3 token. .svg-inline--fa.fa-stack-2x/-1x { width: 100% } (alert.scss:49-52) is unreachable in this repo's Storybook and, even where reachable downstream, duplicates FA's already-active .fa-stack-1x/-2x{width:100%} base rule (all.css:315-321) — see claims and knownIssues.",
+    "dismiss-button-positioning": ".alert--dismissible button { position: absolute; right: 0; top: 0; background: transparent; border: none; } (alert.scss:118-122) — placement/reset mechanics, not tokenized; only the button's size (alert/dismiss/size) and icon size (alert/dismiss/icon-font-size) are.",
+    "border": "The 1px border and its bg--black color flip come entirely from the shared border foundation (@include utilities.border, contracts/border.json — already migrated, already names alert.scss as a consumer). Alert consumes, does not re-mint, color/border/default and color/border/on-dark."
+  }
+}

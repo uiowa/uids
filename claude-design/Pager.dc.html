@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet data-dc-atomics>
+        <link rel="stylesheet" href="./tokens.css" />
+        <style>
+          /* ---- page reset (src/scss/base/_reset.scss:32-53), verbatim ----
+             Not this component's own SCSS, but production applies it globally to <html>,
+             so every rule below was authored against border-box. Without it, any element
+             combining a percentage width with padding renders wider than production —
+             measured at +96px on Callout before this was added. Reproduced across the
+             Phase 3 batch for that reason; see Table.dc.html for the original finding. */
+          html{box-sizing:border-box}
+          *,*::before,*::after{box-sizing:inherit}
+          /* pager.scss declares NO font-family — the pager inherits the page body font.
+             Supplied at body level the way Badge.dc.html supplies its own, so a real
+             ancestor font in a composed page still wins over it. No ambient font-size is
+             needed: .pager li sets its own rem-based token below. */
+          body{margin:0;font-family:var(--uiowa-font-family-body)}
+
+          /* ---- %no-ul-list (src/scss/abstracts/_utilities.scss:427) ----
+             .pager__items @extends this placeholder, so the pager depends on it to strip
+             the list bullets, padding and margins. Its output lands where the PLACEHOLDER
+             is DEFINED — early, before every component rule — and that position is
+             load-bearing here, not incidental: `.pager__items > li{margin:0}` and
+             `.pager li{margin-right:...}` further down are BOTH (0,1,1), so the later one
+             wins and the 5.2px item gutter survives (measured: regression/baselines/
+             pager.json, `.pager li` margin-right 5.2px). Emitted first for that reason —
+             moving it below the component rules would silently zero the gutter. */
+          .pager__items{list-style-type:none;padding:0;margin:0}
+          .pager__items > li{display:inline-block;list-style-type:none;margin:0}
+
+          /* ---- .visually-hidden (src/scss/abstracts/_utility-classes.scss:7, via the
+             element-invisible mixin, _utilities.scss:25) ----
+             Verbatim. The pager's landmark heading and every link's screen-reader label
+             use it; without it the template would render "Pagination", "First page",
+             "Previous page" etc. as visible text. */
+          .visually-hidden{position:absolute !important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px)}
+
+          /* ================= src/scss/components/pager.scss, SOURCE ORDER =================
+             Order matters more than usual in this file: it restates several declarations at
+             EQUAL specificity between its original block and its later "uids_base styles"
+             block, so the cascade — not specificity — picks the winner. Those restatements
+             are individually flagged below (contracts/pager.json knownIssues). The
+             utilities.padding()/margin() mixin calls compile to the four physical
+             longhands, which is what is written out here. */
+
+          /* margin-bottom here is DEAD CODE: the later .pager{margin-bottom:2rem} at equal
+             specificity permanently overrides it (contracts/pager.json knownIssues —
+             confirmed by dart-sass output and by the 32px baseline). margin-left:0 from the
+             SAME rule is NOT overridden and does render. Both kept, as shipped. */
+          .pager{
+            margin-bottom:var(--uiowa-space-62);
+            margin-left:0;
+          }
+
+          /* Clearfix mechanics, not design values (contract geometryNotTokenized). `order`
+             and `flex` are inert — .pager is never a flex container. */
+          .pager::before,
+          .pager::after{
+            display:table;
+            order:1;
+            content:' ';
+            flex:1 0 0;
+          }
+
+          .pager::after{
+            clear:both;
+          }
+
+          .pager li{
+            font-size:var(--uiowa-pager-font-size);
+            margin-right:var(--uiowa-space-32);
+          }
+
+          .pager li:last-child,
+          .pager li:first-child{
+            display:inline-block;
+          }
+
+          /* UIDS's own file states this UNGATED, and that is correct. The downstream
+             production fork (uids_base/scss/components/pagination.scss:35-40) wraps the
+             very same declaration in `@media print, screen and (min-width:40em)`. That
+             gate is VESTIGIAL — %no-ul-list's `.pager__items > li{display:inline-block}`
+             above already applies at every width, so the items never fall back to block
+             below 40em and the query changes nothing. Not reproduced here (there is no
+             query in the UIDS source to mirror); recorded so nobody adds one back. */
+          .pager li{
+            display:inline-block;
+          }
+
+          /* dc-only, ADDED 2026-08-17. Pager.vue gates each ellipsis with a real v-if
+             (Pager.vue:71,86) driven by the computed window; renderVals has no v-if, so the
+             ellipsis is hidden by class instead. display:none is what Breadcrumbs' empty-crumb
+             fix uses too, and for the same structural reason: an <sc-if> WRAPPER would break
+             both `.pager__items > li` (from %no-ul-list, line 37) and `.pager li:first-child`
+             / `:last-child` (line 82) by inserting an element between the <ul> and its <li>.
+             display:none leaves DOM position untouched, so those selectors keep matching the
+             same items production matches. Must stay after the `.pager li{display:inline-block}`
+             rule above; (0,2,1) beats its (0,1,1) regardless. */
+          .pager li.dc-pager-hidden{display:none}
+
+          .pager a,
+          .pager button{
+            display:block;
+            text-decoration:none;
+            color:var(--uiowa-pager-link-color);
+            padding-top:var(--uiowa-space-62);
+            padding-right:var(--uiowa-space-105);
+            padding-bottom:var(--uiowa-space-62);
+            padding-left:var(--uiowa-space-105);
+          }
+
+          /* Superseded for `a` by the identical .pager a:hover further down; still the only
+             hover rule for `button` (knownIssues, "restated at equal specificity"). */
+          .pager a:hover,
+          .pager button:hover{
+            background:var(--uiowa-pager-link-hover-background);
+          }
+
+          .pager .is-active a{
+            cursor:default;
+            color:var(--uiowa-pager-active-color);
+            background:var(--uiowa-pager-active-background);
+          }
+          .pager .is-active a:hover{
+            color:var(--uiowa-pager-active-hover-color);
+            background:var(--uiowa-pager-active-hover-background);
+          }
+
+          /* UNREACHABLE, reproduced as shipped. Neither Drupal core's nor uids_base's
+             pager.html.twig / views-mini-pager.html.twig ever emits `.disabled` —
+             unavailable pages are omitted from the markup entirely, never rendered
+             disabled. The rule ships in the compiled CSS and its color is tokenized, so it
+             is mirrored here verbatim; no markup below applies it, because inventing a
+             disabled item would be a fabrication (contracts/pager.json knownIssues,
+             claims: unreachable). */
+          .pager .disabled{
+            cursor:not-allowed;
+            color:var(--uiowa-pager-disabled-color);
+            padding-top:var(--uiowa-space-62);
+            padding-right:var(--uiowa-space-105);
+            padding-bottom:var(--uiowa-space-62);
+            padding-left:var(--uiowa-space-105);
+          }
+
+          .pager .disabled:hover{
+            background:transparent;
+          }
+
+          /* THE AS-SHIPPED ELLIPSIS QUIRK — reproduced deliberately, NOT fixed.
+             This rule styles `.ellipsis`, but the markup (both uids_base's pager.html.twig
+             and Pager.vue, which mirrors it) emits the BEM class `pager__item--ellipsis`
+             with the glyph as literal text. The selector therefore never matches: the real
+             ellipsis item gets no padding, and its color comes from inheritance rather than
+             from --uiowa-pager-ellipsis-color. Measured and pinned that way in
+             regression/baselines/pager.json — `.pager__item--ellipsis` reports
+             `padding: 0px`. Ruled to ship as-shipped; see contracts/pager.json knownIssues
+             (claims: unreachable) and the standing tokenize-as-shipped policy. Kept in the
+             sheet because production ships it; NOT wired to the markup, because production
+             does not wire it either. */
+          .pager .ellipsis::after{
+            content:'\2026';
+            color:var(--uiowa-pager-ellipsis-color);
+            padding-top:var(--uiowa-space-62);
+            padding-right:var(--uiowa-space-105);
+            padding-bottom:var(--uiowa-space-62);
+            padding-left:var(--uiowa-space-105);
+          }
+
+          /* ---- "uids_base styles" block (pager.scss:76 onward) ----
+             Raw literals, not tokens, exactly as the SCSS has them: $mobile-height-gutter
+             (2rem) and an unnamed 1.5rem. Left untokenized per the Button/Headline
+             precedent of not tokenizing a component's own outer placement margin
+             (contract geometryNotTokenized, outer-margin). This margin-bottom is the one
+             that actually renders. */
+          .pager{
+            margin-bottom:2rem;
+            margin-top:1.5rem;
+          }
+
+          /* Restates the color set above with no rendering difference (knownIssues). */
+          .pager a{
+            color:var(--uiowa-pager-link-color);
+          }
+          /* Ancestor-context fills. These are the pager's OWN rules and they engage
+             whenever the component is placed inside a bg--* section of a real page — no
+             prop is involved (contract behavior[]). backgrounds.css supplies the band; see
+             the note beneath this <style> block for why it is linked AFTER it. */
+          [class*=bg--black] .pager a{
+            background-color:var(--uiowa-pager-context-black-background);
+          }
+          [class*=bg--white] .pager a{
+            background-color:var(--uiowa-pager-context-white-background);
+          }
+          [class*=bg--gold] .pager a{
+            background-color:var(--uiowa-pager-context-gold-background);
+          }
+          [class*=bg--gray] .pager a{
+            background-color:var(--uiowa-pager-context-gray-background);
+          }
+
+          .pager a:hover,
+          .pager a:focus{
+            background-color:var(--uiowa-pager-link-hover-background);
+            color:var(--uiowa-pager-link-color);
+          }
+          /* Gold reuses the BLACK hover token — that is what pager.scss:101-104 says. Two
+             tokens exist for gold's hover fills (--uiowa-pager-context-gold-hover-background
+             and --uiowa-pager-context-gold-active-hover-background) but the SCSS references
+             neither, so neither is referenced here; writing them in would change rendering,
+             not preserve it. They resolve to the same white in the current theme, so this is
+             currently invisible — but it is a real gap, not a naming quirk. */
+          [class*=bg--black] .pager a:hover,
+          [class*=bg--gold] .pager a:hover,
+          [class*=bg--black] .pager a:focus,
+          [class*=bg--gold] .pager a:focus{
+            background-color:var(--uiowa-pager-context-black-hover-background);
+          }
+          [class*=bg--gray] .pager a:hover,
+          [class*=bg--gray] .pager a:focus{
+            background-color:var(--uiowa-pager-context-gray-hover-background);
+          }
+
+          /* Active State */
+          .pager .is-active a{
+            background-color:var(--uiowa-pager-active-background);
+            color:var(--uiowa-pager-active-color);
+          }
+          /* Outright no-op, kept as shipped: is-active already sets color to
+             --uiowa-pager-active-color (white) two declarations earlier in this same block.
+             #fff is the raw $white Sass literal the SCSS uses here — not a token — so it is
+             written as a literal (knownIssues, claims: redundant). */
+          [class*=bg--gray] .pager .is-active a,
+          [class*=bg--white] .pager .is-active a{
+            color:#fff;
+          }
+          [class*=bg--black] .pager .is-active a{
+            background-color:var(--uiowa-pager-context-black-active-background);
+            color:var(--uiowa-pager-context-black-active-color);
+          }
+
+          /* Active Hover/Focus States */
+          .pager .is-active a:hover,
+          .pager .is-active a:focus{
+            background-color:var(--uiowa-pager-active-hover-background);
+            color:var(--uiowa-pager-active-hover-color);
+          }
+          [class*=bg--black] .pager .is-active a:hover,
+          [class*=bg--gold] .pager .is-active a:hover,
+          [class*=bg--black] .pager .is-active a:focus,
+          [class*=bg--gold] .pager .is-active a:focus{
+            background-color:var(--uiowa-pager-context-black-active-hover-background);
+          }
+        </style>
+        <!-- backgrounds.css is linked AFTER the sheet above, and the order is LOAD-BEARING.
+             Do not move it up beside tokens.css to match the other templates.
+
+             On a bg--black ancestor, pager's own file supplies only a BLACK background for
+             the link and leaves the inherited BLACK text in place — black on black. The
+             Background foundation's `.bg--black a{color:var(--uiowa-color-on-dark-link)}`
+             (gold) is what rescues it, and both selectors are (0,1,1), so whichever sheet
+             loads LAST wins. Production resolves this by Drupal library weight, not by
+             anything pager guarantees: background.css is attached at weight 200 while
+             pagination.css takes the default 0, so background.css lands later and the gold
+             wins (contracts/pager.json knownIssues, 4th entry). Linking backgrounds.css
+             after this template's own rules reproduces that resolution. In UIDS's single
+             compiled uids.css the tie falls the other way, which is why the shipped
+             OnBackgrounds story really does render black-on-black
+             (regression/baselines/pager.json, `.bg--black .pager li:not(.is-active) a`,
+             color rgb(0,0,0)) — that baseline pins the isolated stylesheet, not the page.
+
+             One further consequence of loading the real foundation, and it is production
+             behavior, not an artifact: on bg--white / bg--gray, backgrounds.css's prose-link
+             restore rule — `[class*=bg--white] :where(p,ul,ol,dl,cite,tbody,figcaption)
+             a:not(.bttn){color:var(--link-color)}` — matches the pager's links (the items
+             live in a <ul>) at (0,2,1), outranking `.pager a` regardless of order, so they
+             take the blue link channel. The same rule is present in production's compiled
+             background.css, so a pager in a real white or gray band gets blue links there
+             too. -->
+        <link rel="stylesheet" href="./backgrounds.css" />
+      </helmet>
+      <!-- Markup is Pager.vue's template verbatim, which is itself uids_base's
+           pager.html.twig: nav.pager > visually-hidden heading > ul.pager__items >
+           li.pager__item variants, each link carrying a visually-hidden label plus an
+           aria-hidden glyph+label span.
+
+           The composition is FIXED at the shipped Default story's shape (current 5,
+           total 12, quantity 5 — Pager.stories.js): First, Previous, ellipsis, five page
+           numbers with one active, ellipsis, Next, Last. A .dc template has no loop
+           construct, so the eleven items are written out as real siblings and only the
+           active one is driven by a prop. That means the first-page and last-page
+           compositions (the FirstPage / LastPage stories, where First/Previous or
+           Next/Last drop out and the number window slides) are NOT reachable here —
+           an honest structural limit of a loop-free view, not a design decision.
+
+           `list-container__item--full` and `js-pager__items` are carried for markup
+           parity with production. Neither is styled in UIDS: the first is a downstream
+           uids_base grid class (uids_base/scss/components/grid.scss:37), the second is a
+           JS hook. -->
+      <div class="{{ contextClass }}" style="{{ contextStyle }}">
+        <nav class="pager list-container__item--full" role="navigation" aria-labelledby="{{ headingId }}">
+          <div id="{{ headingId }}" class="visually-hidden">Pagination</div>
+          <ul class="pager__items js-pager__items">
+            <li class="pager__item pager__item--first">
+              <a href="#1" title="Go to first page">
+                <span class="visually-hidden">First page</span>
+                <span aria-hidden="true">&laquo; First</span>
+              </a>
+            </li>
+            <li class="pager__item pager__item--previous">
+              <a href="#{{ prevPage }}" title="Go to previous page" rel="prev">
+                <span class="visually-hidden">Previous page</span>
+                <span aria-hidden="true">&lsaquo; Previous</span>
+              </a>
+            </li>
+            <!-- The ellipsis, as shipped: a bare glyph in an <li> with NO nested <a>, so it
+                 picks up only .pager li's font-size and gutter. It renders UNPADDED — the
+                 `.pager .ellipsis::after` rule in the sheet above cannot reach it, because
+                 this class is pager__item--ellipsis. Reproduced, not fixed; see that rule's
+                 comment and contracts/pager.json knownIssues. -->
+            <li class="pager__item pager__item--ellipsis {{ ellipsisPrevClass }}" role="presentation">&hellip;</li>
+            <!-- The five number slots are POSITIONAL, not fixed pages. They were previously
+                 hardcoded 3..7 with both ellipses always on, which only matched production
+                 when active_page was 5 — see renderVals for the window arithmetic. -->
+            <li class="{{ slot0Class }}">
+              <a href="#{{ slot0Page }}" title="{{ slot0Title }}" aria-current="{{ slot0Current }}">
+                <span class="visually-hidden">{{ slot0Label }}</span>
+                {{ slot0Page }}
+              </a>
+            </li>
+            <li class="{{ slot1Class }}">
+              <a href="#{{ slot1Page }}" title="{{ slot1Title }}" aria-current="{{ slot1Current }}">
+                <span class="visually-hidden">{{ slot1Label }}</span>
+                {{ slot1Page }}
+              </a>
+            </li>
+            <li class="{{ slot2Class }}">
+              <a href="#{{ slot2Page }}" title="{{ slot2Title }}" aria-current="{{ slot2Current }}">
+                <span class="visually-hidden">{{ slot2Label }}</span>
+                {{ slot2Page }}
+              </a>
+            </li>
+            <li class="{{ slot3Class }}">
+              <a href="#{{ slot3Page }}" title="{{ slot3Title }}" aria-current="{{ slot3Current }}">
+                <span class="visually-hidden">{{ slot3Label }}</span>
+                {{ slot3Page }}
+              </a>
+            </li>
+            <li class="{{ slot4Class }}">
+              <a href="#{{ slot4Page }}" title="{{ slot4Title }}" aria-current="{{ slot4Current }}">
+                <span class="visually-hidden">{{ slot4Label }}</span>
+                {{ slot4Page }}
+              </a>
+            </li>
+            <li class="pager__item pager__item--ellipsis {{ ellipsisNextClass }}" role="presentation">&hellip;</li>
+            <li class="pager__item pager__item--next">
+              <a href="#{{ nextPage }}" title="Go to next page" rel="next">
+                <span class="visually-hidden">Next page</span>
+                <span aria-hidden="true">Next &rsaquo;</span>
+              </a>
+            </li>
+            <li class="pager__item pager__item--last">
+              <a href="#12" title="Go to last page">
+                <span class="visually-hidden">Last page</span>
+                <span aria-hidden="true">Last &raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <!-- Not templated, deliberately: (1) the `.disabled` item — no producer emits it, see
+           the sheet above; (2) the mini-pager, whose views-mini-pager.html.twig renders its
+           current page as plain text with no nested <a>, so `.pager .is-active a` never
+           matches there (contract slots[].behavior) — it is a downstream template with no
+           UIDS component, and drawing it here would invent public shape; (3) hover and
+           focus are left to the real :hover/:focus rules, which work in the live preview,
+           rather than to stand-in classes. -->
+    </x-dc>
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{
+  "$preview": { "width": 700, "height": 220 },
+  "active_page": { "editor": "enum", "options": ["3", "4", "5", "6", "7"], "default": "5", "tsType": "string" },
+  "heading_id": { "editor": "text", "default": "pagination-heading", "tsType": "string" },
+  "preview_context": { "editor": "enum", "options": ["none", "white", "gray", "gold", "black"], "default": "none", "tsType": "string" }
+}'
+    >
+      class Component extends DCLogic {
+        renderVals() {
+          // Mirrors Pager.vue's per-item output AND its window arithmetic.
+          //
+          // CORRECTED 2026-08-17. The previous version treated active_page as nothing but a
+          // choice of which of a FIXED 3..7 window got .is-active, and emitted both ellipses
+          // unconditionally. That is only faithful for active_page = 5. In production
+          // `current` also SLIDES the window and toggles each ellipsis
+          // (Pager.vue:31-41,47-48), so four of the five selectable values rendered a state
+          // that cannot exist:
+          //   active_page  production window  left ellipsis     template showed
+          //   3            1,2,3,4,5          NO  (pages[0]==1) a left ellipsis + 3..7
+          //   4            2,3,4,5,6          yes               3..7
+          //   5            3,4,5,6,7          yes               3..7   <- the only match
+          //   6            4,5,6,7,8          yes               3..7
+          //   7            5,6,7,8,9          yes               3..7
+          // TOTAL and QUANTITY are this template's fixed assumptions, matching the Default
+          // story (Pager.stories.js:34-36) and the markup's own href="#12" Last link.
+          const TOTAL = 12;
+          const QUANTITY = 5;
+          const current = Number(this.props.active_page ?? '5');
+          // Verbatim from Pager.vue:31-41 — the double clamp on `start` is load-bearing:
+          // it pulls the window back when `end` hits TOTAL, which is what keeps five items
+          // visible at the tail instead of running off the end.
+          const q = Math.min(QUANTITY, TOTAL);
+          let start = Math.max(1, current - Math.floor((q - 1) / 2));
+          const end = Math.min(TOTAL, start + q - 1);
+          start = Math.max(1, end - q + 1);
+          const pages = [];
+          for (let p = start; p <= end; p++) pages.push(p);
+
+          const vals = {};
+          pages.forEach((p, i) => {
+            const isActive = p === current;
+            vals['slot' + i + 'Page'] = String(p);
+            vals['slot' + i + 'Class'] = isActive ? 'pager__item is-active' : 'pager__item';
+            vals['slot' + i + 'Title'] = isActive ? 'Current page' : 'Go to page ' + p;
+            vals['slot' + i + 'Label'] = isActive ? 'Current page' : 'Page';
+            // Vue binds aria-current to null on inactive items, which REMOVES the
+            // attribute. A template attribute cannot be removed by interpolation, so the
+            // inactive items carry the ARIA-equivalent aria-current="false" instead.
+            vals['slot' + i + 'Current'] = isActive ? 'page' : 'false';
+          });
+          // Pager.vue:47-48. Hidden by class rather than removed — see the CSS comment on
+          // .dc-pager-hidden for why a wrapper element would break the <ul>'s child selectors.
+          vals.ellipsisPrevClass = pages[0] > 1 ? '' : 'dc-pager-hidden';
+          vals.ellipsisNextClass = pages[pages.length - 1] < TOTAL ? '' : 'dc-pager-hidden';
+          // Previous/Next hrefs were hardcoded #2 and #6, correct only at current = 5 and
+          // current = 5 respectively. First (#1) and Last (#12) are genuinely fixed.
+          vals.prevPage = String(Math.max(1, current - 1));
+          vals.nextPage = String(Math.min(TOTAL, current + 1));
+          // NOTE still true: showFirst/showPrevious/showNext/showLast (Pager.vue:43-46) are
+          // not gated here. With TOTAL 12 and active_page limited to 3..7, `current > 1` and
+          // `current < TOTAL` hold for every selectable value, so production would show all
+          // four controls in every reachable state — the gates would be inert. The FirstPage
+          // and LastPage stories remain out of reach, as the comment in the markup says.
+          // preview_context is an EDITOR-ONLY knob, not a component prop — the same role
+          // Headline's preview_on_gold and Badge's preview_context play. Pager reacts to
+          // ancestor bg--* classes with no prop involved (contract behavior[]), so this
+          // stands in for dropping the import into a real coloured section. 'none' emits
+          // no class at all, leaving a pager in a composed page to react to its actual
+          // ancestor.
+          const context = this.props.preview_context ?? 'none';
+          return Object.assign(vals, {
+            headingId: this.props.heading_id ?? 'pagination-heading',
+            contextClass: context === 'none' ? '' : 'bg--' + context,
+            contextStyle: context === 'none' ? '' : 'padding:1rem'
+          });
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,241 @@
+{
+  "$schema": "./contract.schema.json",
+  "name": "button",
+  "version": "1.0.0",
+  "description": "The UIDS button (.bttn). Renders as an anchor; a sibling PseudoButton renders the identical visual shape as a non-interactive <div> for cases where an ancestor is the real link. First contract of the button/forms family — its conventions are inherited by Forms.",
+  "identity": {
+    "codePath": "src/components/button/Button.vue",
+    "scssPath": "src/scss/components/button.scss",
+    "registeredName": "uids-button",
+    "barrelExport": "UidsButton",
+    "storybookId": "components-button",
+    "figma": {
+      "fileKey": "hNShklBztaeaQneScM0KoM",
+      "componentSetName": "Button",
+      "componentSetId": "137:111",
+      "componentKey": "7e28cc2415e862570c1b0f94c4f64b635b44c87f",
+      "page": "Components / Button"
+    },
+    "claudeDesign": {
+      "projectId": "a371c390-7071-4ac7-a122-87440610e63a",
+      "template": "Button.dc.html"
+    }
+  },
+  "options": [
+    {
+      "name": "url",
+      "type": "string",
+      "default": "",
+      "description": "href for the anchor. An empty value still renders href=\"\", which remains focusable and navigates to the current page — see a11y notes.",
+      "code": {
+        "prop": "url"
+      }
+    },
+    {
+      "name": "color",
+      "type": "enum",
+      "values": [
+        "primary",
+        "secondary",
+        "tertiary"
+      ],
+      "default": "primary",
+      "description": "Colorway. primary = gold on black text; secondary = black with white text; tertiary = white background with black text.",
+      "code": {
+        "prop": "color",
+        "notes": "The Vue validator also accepts 'link', which produces an unstyled .bttn--link — dead, see knownIssues. Not part of the public shape."
+      },
+      "figma": {
+        "axis": "Color",
+        "map": {
+          "primary": "Primary",
+          "secondary": "Secondary",
+          "tertiary": "Tertiary"
+        }
+      }
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "values": [
+        "small",
+        "medium",
+        "large"
+      ],
+      "default": "medium",
+      "description": "Sets font-size and padding. medium is the base .bttn with no extra class styling.",
+      "code": {
+        "prop": "size",
+        "notes": "size=medium still emits .bttn--medium, which is intentionally undefined in SCSS — the base .bttn already carries the medium values."
+      },
+      "figma": {
+        "axis": "Size",
+        "map": {
+          "small": "Small",
+          "medium": "Medium",
+          "large": "Large"
+        }
+      }
+    },
+    {
+      "name": "borderless",
+      "type": "boolean",
+      "default": false,
+      "description": "Removes the border. Shared option (src/components/shared/borderless.ts), spread into defineProps and applied as a bare .borderless class rather than a .bttn-- modifier.",
+      "code": {
+        "prop": "borderless",
+        "notes": "Arrives via ...Borderless.props; the class is added by Borderless.addBorderlessClass, not by the local class computation."
+      },
+      "figma": {
+        "notes": "Deliberately NOT a variant axis. Removing the 1px border is a single-property override a designer applies to an instance; making it an axis would double the set for no navigational gain."
+      }
+    },
+    {
+      "name": "full",
+      "type": "boolean",
+      "default": false,
+      "description": "Full-width button — switches display from inline-block to flex so the button fills its container.",
+      "code": {
+        "prop": "full"
+      },
+      "figma": {
+        "notes": "Deliberately NOT a variant axis. Full width is expressed in Figma by resizing the instance (fill container), which is how designers already work; a Boolean axis would duplicate every variant to encode a width."
+      }
+    },
+    {
+      "name": "transparent",
+      "type": "boolean",
+      "default": false,
+      "description": "Transparent background with black text and a gold icon; the border and focus bar remain.",
+      "code": {
+        "prop": "transparent"
+      },
+      "figma": {
+        "axis": "Style",
+        "map": {
+          "false": "Default",
+          "true": "Transparent"
+        },
+        "notes": "Shares the Style axis with light_font, following the Brand Bar precedent of collapsing related booleans into one visible axis. CORRECTED 2026-08-17: this note previously claimed Figma represented the three distinct treatments only and that the combination should be reached through the code props. That was wrong in practice — `.bttn--transparent.bttn--light-font` is not an exotic pairing, it is what Card emits on EVERY card (Card.vue:124) and what SiteNow hardcodes independently at uiowa_core.module:539-544. The Style axis therefore gained a fourth value, `Transparent Light Font`, added SPARSELY at Color=Primary / Size=Medium only — the sole cell any component produces. Crossing it over all nine Color x Size cells would assert support for combinations nothing generates. The design system owner's ruling, 2026-08-17."
+      }
+    },
+    {
+      "name": "light_font",
+      "type": "boolean",
+      "default": false,
+      "description": "Swaps Antonio for Roboto 400 at 0.9rem with symmetric padding and 0.04rem tracking. Still UPPERCASE — this modifier does not override the base text-transform. Used for utility/secondary actions. Overrides the size option: it sets both font-size and padding, and its rules come last in button.scss, so light_font wins over small/large.",
+      "code": {
+        "prop": "light_font"
+      },
+      "figma": {
+        "axis": "Style",
+        "map": {
+          "false": "Default",
+          "true": "Light Font"
+        },
+        "notes": "Shares the Style axis with transparent — see that option's notes, including the 2026-08-17 correction that added the combined `Transparent Light Font` value."
+      }
+    },
+    {
+      "name": "icon",
+      "type": "string",
+      "default": "",
+      "description": "INERT. Declared as a prop but never read by the template or class computation — icon markup reaches the button through the `icon` slot. Retained because Storybook args and downstream callers pass it. See knownIssues.",
+      "code": {
+        "prop": "icon",
+        "notes": "Declared in defineProps, referenced nowhere in Button.vue."
+      }
+    }
+  ],
+  "slots": [
+    {
+      "name": "default",
+      "description": "The button label.",
+      "behavior": "ABSENCE IS SIGNIFICANT: when the default slot is empty the component adds .bttn--no-text, which zeroes the icon's margin-left and recolors the icon per background context. An icon-only button has no accessible name — see a11y.",
+      "figma": {
+        "property": "Label",
+        "notes": "Modelled as a text layer; the no-text state is the Size/Color variants with the label layer hidden."
+      }
+    },
+    {
+      "name": "icon",
+      "description": "Trailing icon markup (Font Awesome <i>, <span class=\"fa-*\">, or <svg>). Separated from the label by button/icon-gap.",
+      "figma": {
+        "property": "Icon",
+        "notes": "Boolean instance-swap; the gap is bound to button/icon-gap."
+      }
+    }
+  ],
+  "tokensUsed": [
+    "button/font-family",
+    "button/font-weight",
+    "button/font-size",
+    "button/line-height",
+    "button/icon-gap",
+    "button/padding/block-start",
+    "button/padding/block-end",
+    "button/padding/inline",
+    "button/small/font-size",
+    "button/small/padding/block-start",
+    "button/small/padding/block-end",
+    "button/small/padding/inline",
+    "button/large/font-size",
+    "button/large/padding/block-start",
+    "button/large/padding/block-end",
+    "button/large/padding/inline",
+    "button/light-font/font-family",
+    "button/light-font/font-weight",
+    "button/light-font/font-size",
+    "button/light-font/padding/block-start",
+    "button/light-font/padding/block-end",
+    "button/light-font/padding/inline",
+    "button/primary/background",
+    "button/primary/color",
+    "button/primary/icon-color",
+    "button/secondary/background",
+    "button/secondary/color",
+    "button/secondary/icon-color",
+    "button/tertiary/background",
+    "button/tertiary/color",
+    "button/tertiary/icon-color",
+    "button/transparent/color",
+    "button/transparent/icon-color",
+    "button/focus-bar/color",
+    "button/focus-bar/height"
+  ],
+  "geometryNotTokenized": {
+    "border": "1px solid var(--transparent-border) via @mixin utilities.border. --transparent-border is a core custom property (uids-core.scss), shared across components, not a button token.",
+    "background-context-borders": "Ancestor-background overrides use raw alpha colors: rgba(0,0,0,.425) on any [class*=bg--], rgba(255,255,255,.425) on bg--black and on secondary/transparent, hsla(0,0%,100%,.325) from the border mixin on bg--black. Primitive equivalents exist since the border foundation (color/alpha/black-425, color/alpha/white-425; the mixin's hsla = color/border/on-dark) — button.scss swaps its .425 literals to the primitive vars in that foundation's commit, at which point Button's contract claims the two .425 primitives in tokensUsed.",
+    "focus-bar-motion": "The :after underline is width:100%, left:50%, transform translate(-50%,0) scaleX(0)→scaleX(1), transition transform 0.3s ease-in-out. Only its color and height are tokenized.",
+    "light-font-letter-spacing": "0.04rem on .bttn--light-font (the only button with tracking; base and lowercase are normal/0).",
+    "circle": ".bttn--circle: padding .55rem .7em, border-radius 50%, line-height 1, and a 3px inherited-color focus ring replacing the underline. No Button prop — applied by Card.vue:127 and by uids_base.",
+    "caps-and-lowercase": ".bttn--caps (uppercase + caps family) and .bttn--lowercase (none/1rem/letter-spacing 0) are defined in UIDS but exposed by no prop; uids_base applies them directly.",
+    "text-transform": "uppercase, set directly in the mixin — text-transform primitives are deliberately not emitted as tokens (tokens/README)."
+  },
+  "a11y": {
+    "landmark": "none (inline <a>)",
+    "attrs": [
+      "href"
+    ],
+    "notes": "Renders a native <a href>; no role or aria-* is added. TWO GAPS: (1) an icon-only button (empty default slot, .bttn--no-text) has no accessible name — callers must supply visually hidden text or an aria-label, which the component does not currently expose; (2) url defaults to '' so a button rendered without a url is still focusable and navigates to the current page. PseudoButton renders a <div> with no tabindex or role — non-interactive by design, for use inside an already-linked ancestor. Focus is indicated by both an underline and the animated :after bar."
+  },
+  "behavior": [
+    "size=medium emits .bttn--medium, which is intentionally undefined — the base .bttn holds the medium values.",
+    "Colors respond to ANCESTOR background classes: [class*=bg--] wrappers (and one nested level) override border-color, text color, and icon color. A button's rendered colorway therefore depends on where it is placed, not only on its color prop.",
+    "borderless + transparent together suppress the animated :after bar entirely and substitute a text underline on hover/focus.",
+    "An empty default slot adds .bttn--no-text (see slots).",
+    "PseudoButton (src/components/button/PseudoButton.vue) shares this stylesheet and renders the same .bttn visual shape as a non-interactive <div>. It adds arrow (Boolean, DEFAULT TRUE — emits a trailing fa-arrow-right), outline, and font; it does not support url, full, transparent, borderless, or the icon slot.",
+    "The base .bttn declares no font-weight in 4.x and inherits 400, but Antonio ships as static instances at 100/300/700, so CSS font-matching renders the 300 face. The contract and tokens codify 300 as the real value."
+  ],
+  "knownIssues": [
+    "color accepts 'link' in the Vue validator, producing .bttn--link — undefined in UIDS SCSS and zero occurrences in uids_base (verified 2026-08-14 across both repos). Dead value; removing it is a public-shape change for 5.x.",
+    "The icon prop is declared but never read in Button.vue — icon content flows through the icon slot. Storybook binds both, which masks the redundancy.",
+    "PseudoButton's font prop generates .bttn--font-<value>, which is undefined in UIDS and has zero occurrences in uids_base. Dead.",
+    "PseudoButton's outline prop generates .bttn--outline, which UIDS does not style — uids_base defines it downstream (uids/scss/components/brand-footer.scss:257). Live, but owned by the consumer.",
+    ".bttn--caps (4 uses), .bttn--lowercase (3) and .bttn--secondary__light (4) are live in uids_base but exposed by no Button prop. Exposing them is a public-shape decision deferred past this migration. UPDATED 2026-08-17: .bttn--circle is no longer in this list in the same sense — it is still exposed by no Button prop, but it IS now drawn, as the Style=Circle variant, because Card.vue:126-129 makes it the only button a card with no link text can render and a designer laying out cards has to be able to see it. It remains prop-less in code; contracts/card.json owns the reasoning.",
+    "The `.bttn--no-text` icon colour is NOT tokenized. button.scss:116-120 sets `color: variables.$secondary` directly on the icon of a no-text button, so it rethemes with --brand-secondary in CSS but has no token and therefore no Figma variable. The Style=Circle variant's arrow is consequently a RAW black fill and will not follow a rethemed channel the way the CSS does — the one place that set knowingly diverges from behaviour. Fixing it means a button/no-text/icon-color token carrying brandChannel secondary plus an SCSS swap, which needs Button's own regression baseline re-verified and so belongs in its own change.",
+    "The Style axis is SPARSE as of 2026-08-17. `Transparent Light Font` and `Circle` exist only at Color=Primary / Size=Medium; the other Color x Size cells for those two values are deliberately absent because nothing in UIDS or SiteNow produces them. check-figma verifies that contract figma.map values are a subset of the live axis values, so extra axis values are legal and the sparseness does not register as drift — which also means nothing mechanical will catch it if someone later fills the cells in. The Button set's own stroke colour is likewise unbound on the Transparent variants and was inherited by both clones.",
+    "const name = 'uids-button' is assigned and unused in both Button.vue and PseudoButton.vue.",
+    "Icon-only buttons have no accessible name (see a11y) — the component exposes no aria-label or visually-hidden-text affordance."
+  ]
+}

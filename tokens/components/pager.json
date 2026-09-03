@@ -1,0 +1,119 @@
+{
+  "pager": {
+    "font-size": {
+      "value": "{typography.font-size.50}",
+      "comment": "0.8rem. Already an existing primitive, zero ambiguity, applies regardless of state/context. Provenance: src/scss/components/pager.scss:24 — font-size: variables.$small-font-size, unconditional on every .pager li."
+    },
+    "link": {
+      "color": {
+        "value": "{color.black}",
+        "brandChannel": "secondary",
+        "comment": "Resting text color for every link/button item, regardless of context. Provenance: pager.scss:41 (.pager a, .pager button base rule); restated verbatim at pager.scss:83 — see claims (redundant)."
+      },
+      "hover": {
+        "background": {
+          "value": "{color.gray.100}",
+          "comment": "Flat, no brandChannel ($light is a core alias, not $primary/$secondary). Provenance: pager.scss:47 (.pager a:hover, .pager button:hover) — sole live source for BUTTON hover; the 'a' branch is superseded, see claims (redundant). Restated as background-color at pager.scss:99."
+        }
+      }
+    },
+    "active": {
+      "background": {
+        "value": "{color.black}",
+        "brandChannel": "secondary",
+        "comment": "pager.scss:53 (shorthand background, first .is-active block); restated as background-color at pager.scss:112 — see claims (redundant)."
+      },
+      "color": {
+        "value": "{color.white}",
+        "comment": "$white is the literal #fff (_variables.scss:29), not $primary/$secondary — flat. Provenance: pager.scss:52; restated at pager.scss:113 — see claims (redundant)."
+      },
+      "hover": {
+        "background": {
+          "value": "{color.gold}",
+          "brandChannel": "primary",
+          "comment": "pager.scss:56 (nested &:hover, first block, :hover only); restated at pager.scss:127 (second block, covers :hover AND :focus) — see claims (redundant)."
+        },
+        "color": {
+          "value": "{color.black}",
+          "brandChannel": "secondary",
+          "comment": "pager.scss:55; restated at pager.scss:128 — see claims (redundant)."
+        }
+      }
+    },
+    "disabled": {
+      "color": {
+        "value": "{color.gray.200}",
+        "comment": "#CACACA, already the existing gray.200 primitive. Do NOT rename toward Colors.stories.js's aspirational 'gray-50/gray-500' scheme — see claims (documentation-bug): those labels collide with different, already-shipped color.gray.50/color.gray.500 values. Provenance: pager.scss:62 (.pager .disabled). No producer in either live-rendering Drupal template emits a `disabled` class — see claims (unreachable). Tokenized as-shipped anyway: this is a markup-reachability gap, not CSS-cascade specificity-dead code, so it is NOT exempt from tokenization under this batch's rule — confirmed by the identical call this same batch's alert.json spec already made for its own reachable-in-code/unreachable-in-production-DOM case, and by tabs.json's contrasting TRUE specificity-dead example (a rule that always loses a cascade competition to a sibling rule matching the SAME elements, provable from the CSS alone) — pager's .disabled is a different failure mode (the selector matches no element at all, in any browser, regardless of cascade)."
+      }
+    },
+    "ellipsis": {
+      "color": {
+        "value": "{color.black}",
+        "brandChannel": "secondary",
+        "comment": "pager.scss:72 (.pager .ellipsis::after). Same value as pager/link/color; kept as its own leaf (distinct selector/role) per this spec's per-role naming choice — see openQuestions (token density). Real markup emits BEM `pager__item--ellipsis` with the glyph as literal text, never the bare `.ellipsis` class this rule targets — see claims (unreachable). Tokenized as-shipped for the same reason as pager/disabled/color."
+      }
+    },
+    "context": {
+      "black": {
+        "background": {
+          "value": "{color.black}",
+          "brandChannel": "secondary",
+          "comment": "Value- and brandChannel-identical to the Background foundation's own color.bg.black (tokens/semantic/colors.json) — see claims (value-reuse). See knownIssues for the cross-stylesheet contrast dependency this creates: pager's own file never overrides the link's TEXT color for this context, only its background. Provenance: pager.scss:84-86 ([class*=bg--black] &, inside the plain .pager a rule)."
+        },
+        "hover-background": {
+          "value": "{color.white}",
+          "comment": "pager.scss:101-104 ([class*=bg--black] &, [class*=bg--gold] &, inside .pager a:hover/:focus) — ONE shared SCSS rule also backs pager/context/gold/hover-background."
+        },
+        "active": {
+          "background": {
+            "value": "{color.gold}",
+            "brandChannel": "primary",
+            "comment": "pager.scss:120-123 ([class*=bg--black] &, inside .pager .is-active a). No gold-ancestor equivalent exists for this plain (non-hover) active state — gold-context is-active simply inherits the default black-bg/white-text look; not a bug, just narrower context coverage, noted in behavior."
+          },
+          "color": {
+            "value": "{color.black}",
+            "brandChannel": "secondary",
+            "comment": "pager.scss:120-123 — same rule as pager/context/black/active/background."
+          },
+          "hover-background": {
+            "value": "{color.white}",
+            "comment": "pager.scss:129-131 ([class*=bg--black] &, [class*=bg--gold] &, inside .is-active a's nested &:hover/&:focus) — ONE shared rule also backs pager/context/gold/active/hover-background."
+          }
+        }
+      },
+      "gold": {
+        "background": {
+          "value": "{color.gold}",
+          "brandChannel": "primary",
+          "comment": "Value/brandChannel-identical to color.bg.gold. Unlike the black case, base text color ($secondary/black) on a gold background is inherently readable, so this context has no analogous contrast dependency. Provenance: pager.scss:90-92 ([class*=bg--gold] &, inside the plain .pager a rule)."
+        },
+        "hover-background": {
+          "value": "{color.white}",
+          "comment": "pager.scss:101-104 — same shared rule as pager/context/black/hover-background; kept as a separate leaf per this spec's per-role naming choice (see openQuestions)."
+        },
+        "active": {
+          "hover-background": {
+            "value": "{color.white}",
+            "comment": "pager.scss:129-131 — same shared rule as pager/context/black/active/hover-background; kept as a separate leaf per this spec's per-role naming choice (see openQuestions)."
+          }
+        }
+      },
+      "white": {
+        "background": {
+          "value": "{color.white}",
+          "comment": "Value-identical to color.bg.white. Provenance: pager.scss:87-89 ([class*=bg--white] &, inside the plain .pager a rule)."
+        }
+      },
+      "gray": {
+        "background": {
+          "value": "{color.gray.100}",
+          "comment": "Same ref as pager/link/hover/background (both $light); value-identical to color.bg.gray. Provenance: pager.scss:93-95 ([class*=bg--gray] &, inside the plain .pager a rule)."
+        },
+        "hover-background": {
+          "value": "{color.gray.155}",
+          "comment": "NEEDS-ARCHITECT / NEW PRIMITIVE — see newPrimitives. Browsers round the fractional rgb to #E6E6E6, matching the Colors.stories.js swatch for this same value. No existing primitive is byte-exact (nearest: gray.150 #E6E5E5, off by 1 in two channels). $lighter-gray is NOT pager-exclusive — accordion.scss:9 also consumes it (--accordion-label-color-hover) — so whichever migration lands first should mint the primitive. Provenance: pager.scss:105-107 ([class*=bg--gray] &, inside .pager a:hover/:focus). $lighter-gray = color.scale($blk, lightness: 90%) (_variables.scss:34); verified via a direct dart-sass compile (JS API, sass.node.mjs — the sass CLI binary hits a chokidar ESM/CJS error under this repo's Node 18) that this is the ONLY color arithmetic in the file and the only use of $lighter-gray within pager.scss itself."
+        }
+      }
+    }
+  }
+}

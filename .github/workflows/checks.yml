@@ -1,0 +1,62 @@
+name: Checks
+
+on:
+  push:
+    branches:
+      - "4.x"
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    if: ${{ ! github.event.pull_request.draft }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: Enable corepack
+        run: |
+          corepack enable
+          corepack prepare yarn@3.7.0 --activate
+          yarn set version 3.7.0
+
+      - run: yarn install --immutable
+
+      # Drift checkers for all five views: SCSS, catalog, contracts <-> code/tokens,
+      # Claude Design (sibling imports, injected readme, manifest), and Figma (via the
+      # committed figma/snapshot.json — no API access needed here). Same seven as
+      # `yarn check:drift`; keep the two lists in step.
+      - name: Token & contract drift
+        run: |
+          node scripts/build-tokens.mjs --check
+          node scripts/build-catalog.mjs --check
+          node scripts/check-contracts.mjs
+          node scripts/check-claude-design.mjs
+          node scripts/build-dc-rules.mjs --check
+          node scripts/check-figma.mjs
+          node scripts/check-citations.mjs
+          node scripts/check-token-consumers.mjs
+
+      # Errors fail the build; warnings are acknowledged legacy debt (see .eslintrc.cjs rules).
+      - name: Lint (errors only)
+        run: yarn lint:ci
+
+      - name: Unit tests
+        run: yarn test:unit:ci
+
+      - name: Build Storybook
+        run: yarn build-storybook
+
+      # Computed-style regression for migrated components (regression/config.json)
+      # against committed baselines, at 375/980/1350.
+      - name: Computed-style regression
+        run: |
+          python3 -m http.server 6006 --directory storybook-static &> /dev/null &
+          for i in {1..30}; do curl -sf http://127.0.0.1:6006/index.json > /dev/null && break; sleep 1; done
+          node scripts/check-styles.mjs --url http://127.0.0.1:6006

@@ -1,0 +1,97 @@
+{
+  "$schema": "./contract.schema.json",
+  "name": "page-title",
+  "version": "1.0.0",
+  "description": "UIDS page title contract. The h1 that names the current page, and the component that lets the breadcrumb/title pairing be expressed in one place — UIDS already owned the breadcrumb directly above it, while the title treatment lived only downstream in uids_base.",
+  "identity": {
+    "kind": "component",
+    "codePath": "src/components/page-title/PageTitle.vue",
+    "scssPath": "src/scss/components/page-title.scss",
+    "relatedPaths": [
+      "src/components/page-title/PageTitle.stories.js",
+      "contracts/breadcrumbs.json"
+    ],
+    "downstreamPaths": [
+      "uiowa/docroot/themes/custom/uids_base/templates/content/page-title.html.twig",
+      "uiowa/docroot/themes/custom/uids_base/scss/components/typography/headings.scss",
+      "uiowa/docroot/themes/custom/uids_base/scss/components/banner.scss"
+    ],
+    "registeredName": "uids-page-title",
+    "storybookId": "components-page-title",
+    "figma": {
+      "fileKey": "hNShklBztaeaQneScM0KoM",
+      "page": "Components / Page Title",
+      "note": "BUILT 2026-08-17. Component id 312:4, key b975e29b253539d39399aa3e85764e9b799f9b99. A single COMPONENT, not a COMPONENT_SET, following the Breadcrumbs precedent (202:8). The pairing is drawn as a documentation frame on the same page: 'Page header — breadcrumbs + title (flush, 0 gap)'.",
+      "axisRationale": [
+        "Neither option earns a variant axis, and `no_breadcrumbs` is purely an OUTER top margin — two variants would be pixel-identical artwork and would mislead a designer.",
+        "Four variables in the Components collection: page-title/font-family, /font-size, /font-weight (aliases) and /no-breadcrumbs/margin-top (literal 28 = 1.75rem). The text node binds fontFamily, fontSize and fontWeight, matching how the Headline set binds its own.",
+        "Font is Zilla Slab SemiBold — the 600 the weight token resolves to. A plain serif Headline is Bold/700, so this is deliberately not the same weight.",
+        "The no-breadcrumbs margin is parent-frame spacing, not an in-component value."
+      ],
+      "measured": {
+        "breadcrumb-to-title gap": "0px, matching the 0px measured on https://sandbox.prod.drupal.uiowa.edu/test-breadcrumbs",
+        "documentation frame": "312:5, read live from the file 2026-08-22: layoutMode NONE — NOT the 'VERTICAL auto-layout, itemSpacing 0' this entry used to claim — FIXED 235x123, clipsContent true. The children are placed by x/y rather than flowed: Breadcrumbs 312:6 at (0,28) 229x31 and Page Title 312:13 at (12,54) 223x64, so their boxes overlap by 5px in y and NO spacing property expresses the 0 gap. paddingTop 28 (the breadcrumb's own 1.75rem margin-top) is still recorded on the node, but a layoutMode NONE frame applies no padding — the only 28 with any effect is the breadcrumb child's own y. The title instance's x 12 equals the breadcrumb's inner paddingLeft 12, which is what aligns the two first glyphs. Both children report layoutPositioning AUTO: they are absolutely placed in the plain sense, but not via the API's ABSOLUTE flag, so that flag is not the tell — the parent's layoutMode is.",
+        "mode": "Every size above was read with Semantic explicitly pinned to large (1310) on BOTH 312:4 and 312:5 (explicitVariableModes VariableCollectionId:5:3 -> 5:2); Primitives resolves to value, Components to mobile. That is why the title text reads fontSize 53.6 — the large endpoint, the same 3.35rem cap knownIssues records for the test page — and not the small (600) endpoint an UNPINNED frame inherits by default because small is merely first in the list. figma-readback.js enumerates COMPONENT_SETs only (scripts/figma-readback.js:162-166) and captures no mode pin, padding or geometry, so neither node appears in figma/snapshot.json and no checker can catch this entry drifting again — re-read the live nodes."
+      },
+      "precedent": "Breadcrumbs (202:8) — a single component, not a set."
+    },
+    "barrelExport": "UidsPageTitle"
+  },
+  "options": [
+    {
+      "name": "title",
+      "type": "string",
+      "description": "The page title text. A required scalar prop rather than a slot, matching production: uids_base's page-title.html.twig receives Drupal's `{{ title }}` variable and prints it directly. Use UidsHeadline instead when the heading needs markup inside it or a configurable level.",
+      "code": {
+        "prop": "title"
+      },
+      "figma": {
+        "property": "Title",
+        "notes": "Text property. The string is content, not a variant."
+      }
+    },
+    {
+      "name": "no_breadcrumbs",
+      "type": "boolean",
+      "default": false,
+      "description": "Applies `page-title--no-breadcrumbs`, restoring the top margin the breadcrumb would otherwise have held. Named for the class rather than inverted to a positive `has_breadcrumbs`, so contract, Vue prop, CSS class and production default all line up with no negation: production's page-title.html.twig emits no modifier, i.e. false means a breadcrumb IS present, which is the common case.",
+      "code": {
+        "prop": "no_breadcrumbs",
+        "class": "page-title--no-breadcrumbs"
+      },
+      "figma": {
+        "notes": "Deliberately NOT a variant axis. The entire difference is the component's own OUTER top margin — nothing inside the frame changes, so both variants would be pixel-identical artwork. Figma expresses outer spacing as the parent frame's auto-layout item spacing, which is how a designer already works (Button full/borderless precedent; Breadcrumbs makes the same call for its own placement margins)."
+      }
+    }
+  ],
+  "tokensUsed": [
+    "page-title/font-family",
+    "page-title/font-size",
+    "page-title/font-weight",
+    "page-title/no-breadcrumbs/margin-top"
+  ],
+  "a11y": {
+    "notes": "Renders an h1 — the document's main heading, naming the current page. The level is fixed rather than exposed as an option (the design system owner's ruling): a page title is h1 by definition, and making it configurable would invite pages with no h1 at all. Note that a real SiteNow page nonetheless ships TWO h1 elements; see knownIssues."
+  },
+  "behavior": [
+    "Markup mirrors uids_base templates/content/page-title.html.twig verbatim: <h1 class=\"page-title headline--serif headline\">{{ title }}</h1>. The class string is fixed; `page-title--no-breadcrumbs` is the only class production varies.",
+    "Production composes the rendered result from three places, only one of which is page-title's own: font-family from the base h1 rule AND from .headline--serif (both $font-family-serif); font-size from the base h1 rule's --uiowa-font-size-heading-h1 ramp; font-weight 600 from uids_base's .page-title.headline--serif, out-specifying the 700 that .headline--serif alone gives. UIDS declares all three on .page-title itself so the class is self-sufficient in Storybook, Figma and Claude Design, where there is no downstream global h1 rule to inherit from.",
+    "The zero top/bottom margins likewise come from uids_base's global `h1 { margin-top: 0; margin-bottom: 0 }` downstream, and are declared on .page-title here — without them UIDS's own @mixin h1 would apply 0.625rem and the title would not sit flush against the breadcrumb the way production does. The computed values are unchanged; only the specificity of the margin reset moves, from (0,0,1) to (0,1,0). Checked against every downstream rule that touches a page title's margins: `.path-taxonomy h1` (0,1,1), `.banner .page-title.headline--serif` (0,3,0), `.page-title.page-title--no-breadcrumbs` (0,2,0) and `#block-uids-base-page-title` (1,0,0) all still win, so no downstream override is displaced.",
+    "Pairing with Breadcrumbs — the reason this component exists. Measured on https://sandbox.prod.drupal.uiowa.edu/test-breadcrumbs at a 1385px viewport: the breadcrumb carries margin-top 1.75rem / margin-bottom 0 and the title carries margin-top 0, so the two sit FLUSH with a 0px gap. The breadcrumb owns the space above the pair; when there is no breadcrumb the title reclaims it via page-title--no-breadcrumbs. uids_base's block--inline-block--uiowa-page-title-hero.html.twig composes the same order in markup, printing {{ breadcrumb }} immediately before the heading.",
+    "The `uiowa_page_title_hero` block is NOT this component. It emits <h1 class=\"bold-headline--serif bold-headline\"> with no page-title class at all, so it picks up the 700 weight from .bold-headline--serif and none of the page-title rules."
+  ],
+  "knownIssues": [
+    "A real SiteNow page ships TWO h1 elements: the Brand Bar site name (uids_base templates/uids/site-name.html.twig emits <h1 class=\"site-name\">) and this page title. That is an accessibility problem, but it is owned by SiteNow's page composition, not by this component — the fix is a decision about which element is the page's main heading, and it must NOT be resolved by demoting the page title, which is the heading that actually names the page. Recorded here so no agent 'fixes' it by changing this contract's fixed h1.",
+    "uids_base scss/components/banner.scss:22-25 sets a DIFFERENT and larger font-size on page titles — `clamp(2.2rem, calc(3.3803vw + .9324rem), 3.7rem)`, capping at 3.7rem where the h1 ramp caps at 3.35rem. The rule is real but scoped to `.layout--title.banner .headline.page-title`, so an ordinary page title never gets it. Verified rather than assumed: the test page computes 53.6px (the 3.35rem cap), not 59.2px, and closest('.layout--title.banner') is null there. The clamp is a downstream literal with no token behind it and is deliberately NOT this component's font-size; it is a banner-layout concern that uids_base owns. Do not mint a token for it here.",
+    "uids_base headings.scss:29-31 `.hero .page-title.bold-headline--serif { font-weight: 700 }` has no producer. Nothing in the platform emits an element carrying both `page-title` and `bold-headline--serif`: page-title.html.twig emits `headline--serif`, and the hero block that does emit `bold-headline--serif` omits the page-title class entirely. Dead downstream rule, recorded rather than modeled (Breadcrumbs `.disabled` precedent).",
+    "`page-title--no-breadcrumbs` has exactly ONE producer in the whole platform, and it is site-specific: grad.admissions.uiowa.edu's grad_admissions_core field--node--field-costs-estimate-title--costs-estimate---default.html.twig. The main page-title.html.twig never emits it, so on almost every page the modifier is unreachable and the breadcrumb always supplies the space above the pair. Modeled anyway because the rule ships and the standalone (no-breadcrumb) rendering is a real, reachable state a designer needs.",
+    "font-family is declared twice on every page title in production — once by the base h1 rule and once by .headline--serif — with the same $font-family-serif value. One token covers both; the redundancy is downstream's, not a second value.",
+    "The semantic composite `heading-serif-h1` is byte-identical to `heading-h1` (4.x's h1 is already Zilla Slab), so it has no Figma variable and this contract refs `heading-h1`. Pre-existing, already documented as a 5.x token cleanup in check-figma.mjs's CSS_PROPS_WITHOUT_FIGMA_VARIABLE; noted here because a serif h1 is exactly the case where someone would reach for the serif alias.",
+    "`body:not(.page-node-type-article, .page-node-type-page) #block-uids-base-page-title { margin-bottom: 1.5rem }` (uids_base headings.scss:18-20) adds space below the title on most node types, but it targets the BLOCK wrapper rather than the h1. It is downstream layout ownership and is not represented here.",
+    "THE 600 WEIGHT IS PROTECTED BY SOURCE ORDER, NOT SPECIFICITY — load-bearing, since weight is the only property separating a page title from a plain serif h1. page-title.scss:12-14 states the requirement as `.page-title.headline--serif` out-specifying the 700 that `.headline--serif` alone gives, but that compound selector is never emitted: page-title.scss:25 declares plain `.page-title`, and both rules are (0,1,0), so the later one wins. dist/uids.css renders 600 only because `.page-title` compiles at 5975 and `.headline--serif` at 5477; reordering uids.scss's @use list flips it to 700 silently. claude-design is already inverted and IS broken — layout.css arrives by <link>, Headline.dc.html:85 is injected later by dc-import. Measured 2026-08-25: computed fontWeight 700. Manifests wherever Headline is also imported. Fixing it changes public specificity, so it is contract-first."
+  ],
+  "geometryNotTokenized": {
+    "placement-margins": "The margin-top:0 / margin-bottom:0 reset is a zero, not an identity value — there is nothing for a designer or a Figma variable to bind. Same call Breadcrumbs makes for its own placement margins, and the Pager/Button precedent that component placement margins are not identity tokens. The one placement value that IS tokenized is the no-breadcrumbs margin-top, because 1.75rem is a real, deliberate measurement.",
+    "class-composition": "The fixed `headline--serif headline` classes in the markup are composition, not values. They bring line-height:1, padding:0 and the headline link colors from _headline.scss, all of which belong to the Headline contract."
+  }
+}

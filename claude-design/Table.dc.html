@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet data-dc-atomics>
+        <link rel="stylesheet" href="./tokens.css" />
+        <!-- backgrounds.css supplies a real coloured band for preview_background. The
+             component's `tbody a` rule (below) only differs from the page default when a
+             bg--* ancestor is present, so the band is the only honest way to show it. -->
+        <link rel="stylesheet" href="./backgrounds.css" />
+        <style>
+          /* ---- page reset (src/scss/base/_reset.scss:32-53, 61-68), verbatim ----
+             Not part of tables.scss, but the table genuinely depends on it, so unlike
+             Button/Form (which declare box-sizing on their own elements) this template
+             reproduces the two page-level rules rather than a stand-in body rule:
+              - box-sizing: under the browser default content-box, `caption { width:100% }`
+                plus the caption's own 1.05rem padding renders the caption 33.6px WIDER
+                than the table it sits in. Measured, not theoretical.
+              - font-family: tables.scss never declares one; the table inherits Roboto.
+              - font-smoothing: antialiased changes glyph advance widths, so without it
+                every auto-laid-out column measures ~0.1px off production.
+             color:#000 is a raw literal in the reset (not a token) — reproduced as-is;
+             it is inert here anyway since the table sets --uiowa-table-color over it. */
+          html{
+            box-sizing:border-box;
+            font-family:var(--uiowa-font-family-sans);
+            line-height:1.15;
+          }
+          *,*::before,*::after{box-sizing:inherit}
+          body{
+            margin:0;
+            font-size:100%;
+            line-height:1.15;
+            color:#000;
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+          }
+
+          /* ---- shared base layer (src/scss/base/_paragraph.scss) ---- */
+          /* Only the two base rules that actually reach a table. The adjacent
+             `table:not(:last-child) { margin-bottom: $sm }` rule is commented OUT in the
+             source, so tables receive NO automatic bottom margin — reproduced here by
+             omission (contracts/table.json knownIssues). */
+          .table-responsive table{font-weight:var(--uiowa-font-weight-normal)}
+          .table-responsive a{color:var(--link-color);text-decoration:underline}
+
+          /* ---- tables.scss, SOURCE ORDER ---- */
+
+          /* The raw `border` HTML attribute — its own gray (#eee), distinct from
+             --gray-borders' #ddd/#7c7c7c (contracts/table.json knownIssues: two
+             bordered-table concepts ship with different palettes). UNREACHABLE through
+             this component: Table.vue's border prop only ever pushes .table--gray-borders,
+             never a border attribute, so this template never emits one and the rule stays
+             inert. Kept because the value is tokenized as-shipped pending the open call on
+             whether CMS-authored markup still relies on it. */
+          table[border]{border-style:solid;border-color:var(--uiowa-table-border-attr-variant)}
+          table[border] td,table[border] th{border-color:var(--uiowa-table-border-attr-variant)}
+
+          .table-responsive table{
+            background-color:var(--uiowa-table-background);
+            border-collapse:collapse;
+            border-spacing:0;
+            color:var(--uiowa-table-color);
+            /* Overridden unconditionally by `.table-responsive table` further down, and
+               Table.vue ALWAYS emits that wrapper — so through this component the table is
+               display:table at every width. Both source rules kept for cascade fidelity. */
+            display:inline-block;
+            font-size:var(--uiowa-table-font-size);
+            line-height:var(--uiowa-table-line-height);
+            max-width:100%;
+            overflow-x:auto;
+            width:100%;
+          }
+
+          /* Body links are forced to the table's own blue under ANY background band.
+             This deliberately diverges from the general on-light/on-dark link system
+             (which would make them black on gold/gray/white and gold on black) — an
+             established, if duplicative, codebase convention, see contracts/table.json
+             behavior. Selector list is verbatim, including the single-hyphen
+             .bg-pattern--* classes the [class*="bg--"] matchers cannot reach. */
+          [class*="bg--gray"] table tbody a,
+          [class*="bg--white"] table tbody a,
+          [class*="bg--black"] table tbody a,
+          [class*="bg--gold"] table tbody a,
+          .bg-pattern--brain-reversed table tbody a,
+          .bg--gold--pattern--brain table tbody a,
+          .bg-pattern--brain table tbody a,
+          .bg--white--pattern--brain table tbody a,
+          .bg--black--pattern--brain table tbody a,
+          .bg-pattern--brain-black table tbody a{color:var(--uiowa-table-link-color)}
+
+          /* sm breakpoint = 768px ($break-sm). Resolves against the live preview panel
+             width, matching production at that same width — but see the display note
+             above: the wrapper rule wins over both of these regardless. */
+          @media (min-width:768px){
+            .table-responsive table{display:table}
+          }
+
+          /* Applies to prose nested inside a cell. This template's cells hold plain text,
+             so these stay inert here — kept for cascade fidelity (production tables built
+             through the CMS do put paragraphs and lists in cells). */
+          .table-responsive table p,.table-responsive table ul,.table-responsive table ol{
+            font-size:var(--uiowa-table-body-font-size);
+            line-height:var(--uiowa-table-body-line-height);
+          }
+          .table-responsive table ul p,.table-responsive table ol p{margin-bottom:0}
+
+          .table-responsive table td,.table-responsive table th{
+            padding:var(--uiowa-table-cell-padding);
+            font-size:var(--uiowa-table-body-font-size);
+            line-height:var(--uiowa-table-body-line-height);
+          }
+
+          .table-responsive table th{color:var(--uiowa-table-header-color)}
+          table th:not([align]){text-align:left}
+
+          .table-responsive table thead th{background-color:var(--uiowa-table-header-background);border:none}
+          .table-responsive table thead th a{color:var(--uiowa-table-header-color)}
+          [class*="bg--"] table thead th a{color:var(--uiowa-table-header-color)}
+
+          .table-responsive table tbody th{
+            background-color:var(--uiowa-table-row-header-background);
+            border:none;
+            position:static;
+            left:0;
+            padding-left:var(--uiowa-table-cell-padding);
+          }
+
+          /* Zebra striping. `.is-selected` is set by consumers (row-selection UI), never by
+             this component — the :not() is verbatim and always true here. */
+          table tbody tr:not(.is-selected):nth-child(even),
+          table tbody tr:not(.is-selected):nth-child(even) th{
+            background-color:var(--uiowa-table-row-alternate-background);
+          }
+
+          /* Hover highlight. Deliberately NOT given a dc-only always-on stand-in class:
+             contracts/table.json confirms every declaration of this value is :hover-gated,
+             so highlight=true and highlight=false are pixel-identical at rest. Painting it
+             permanently would show a state production never shows. :hover is live in the
+             preview iframe, so the real rules work as-is — turn `highlight` on and mouse
+             over a body row. */
+          table.table--hover-highlight tbody tr:not(.is-selected):hover th,
+          table.table--hover-highlight tbody tr:not(.is-selected):nth-child(even):hover th{
+            background-color:var(--uiowa-table-hover-background);
+          }
+          table.table--hover-highlight tbody tr:not(.is-selected):hover,
+          table.table--hover-highlight tbody tr:not(.is-selected):nth-child(even):hover{
+            background-color:var(--uiowa-table-hover-background);
+          }
+
+          /* Scoped with :where(), which adds NO specificity, deliberately: a plain
+             `.table-responsive` prefix would lift this to (0,1,2) and beat
+             `.table-responsive caption` below, flipping the caption from LEFT to centre
+             under 768px. :where() confines the selector without disturbing that pair. */
+          :where(.table-responsive) table caption{
+            width:100%;
+            padding:var(--uiowa-table-caption-padding);
+            text-align:center;
+            font-size:var(--uiowa-table-caption-font-size);
+            color:var(--uiowa-table-caption-color);
+            background-color:var(--uiowa-table-caption-background);
+            font-weight:var(--uiowa-table-caption-font-weight);
+          }
+          /* OMITTED: the nested `caption a` / `caption :where(p) a:not(.bttn)` colour rules
+             (tables.scss:114-121). caption is a plain interpolated text prop with no slot
+             (Table.vue:46), so a caption can never contain a link through this component's
+             API. Dead code is not modelled — contracts/table.json knownIssues, matching the
+             .bttn--link precedent. */
+
+          /* :where() again, same reason as the caption above. At (0,1,4) this TIES with the
+             .table--gray-borders cell rules further down, which are later in source and so
+             win — with border=true the last row keeps its bottom border. A plain prefix
+             would make this (0,2,4), win the tie, and open that edge. */
+          :where(.table-responsive) table tbody tr:last-child td,:where(.table-responsive) table tbody tr:last-child th{border-bottom-width:0}
+          .table-responsive table thead td,.table-responsive table thead th{color:var(--uiowa-table-header-color)}
+
+          /* OMITTED: .table--width-default (tables.scss:134-139, width:unset on the table
+             and its caption). Class-only treatment — no Vue prop emits it and it is not in
+             contracts/table.json, so exposing it here would invent public shape. */
+
+          .table-responsive{overflow:auto}
+          /* Caption alignment flips at 768px. Wins over `table caption`'s centre above on
+             specificity, so below 768px the caption is LEFT aligned. */
+          .table-responsive caption{text-align:left}
+          @media (min-width:768px){
+            .table-responsive caption{text-align:center}
+          }
+
+          /* Sticky. The 80vh cap resolves against the PREVIEW CANVAS height, not a page
+             viewport, so the header only visibly pins when the table is taller than 80vh of
+             whatever height the panel is giving this template. The six body rows below are
+             sized to overflow at the declared $preview height; on a very tall panel sticky
+             will look identical to Default, which is honest — that is exactly what
+             production does at a tall viewport too. */
+          .table-responsive.table-sticky{max-height:80vh}
+          .table-responsive.table-sticky thead{position:sticky;top:0;border-top:0}
+          /* Border compensation for the sticky+bordered combination: a sticky thead scrolls
+             out of the collapsed border grid, so a pseudo-element redraws the edges. Offsets
+             are geometry, not design values (contracts/table.json geometryNotTokenized); the
+             two colours reuse the border tokens. */
+          .table-responsive.table-sticky .table--gray-borders thead th{position:relative}
+          .table-responsive.table-sticky .table--gray-borders thead th::before{
+            content:'';
+            position:absolute;
+            left:-1px;
+            top:0;
+            width:calc(100% + 2px);
+            height:calc(100% + 1px);
+            border-left:var(--uiowa-table-border-dark) 1px solid;
+            border-bottom:var(--uiowa-table-border-light) 1px solid;
+          }
+          .table-responsive.table-sticky .table--gray-borders thead th:first-child:before{border-left:none}
+
+          .table-responsive table{display:table}
+
+          /* Gridlines. The `> tr` and `> caption > td/th` branches below are verbatim and
+             can NEVER match: rows always live inside an explicit thead/tbody (Table.vue),
+             never as a direct table child, and <caption> never contains td/th. Net
+             as-shipped effect reproduced here — the CAPTION never receives the #7c7c7c
+             border this rule looks like it intended for it. contracts/table.json
+             knownIssues; likely a copy-paste artifact of the `> thead > tr` pattern. */
+          table.table--gray-borders > tr > td,
+          table.table--gray-borders > tr > th,
+          table.table--gray-borders > tbody > tr > td,
+          table.table--gray-borders > tbody > tr > th,
+          table.table--gray-borders > tfoot > tr > td,
+          table.table--gray-borders > tfoot > tr > th{
+            border:var(--uiowa-table-border-light) 1px solid;
+          }
+          table.table--gray-borders > thead > tr > td,
+          table.table--gray-borders > thead > tr > th,
+          table.table--gray-borders > caption > td,
+          table.table--gray-borders > caption > th{
+            border:var(--uiowa-table-border-dark) 1px solid;
+          }
+          /* Header row keeps the dark border only on its INTERIOR vertical edges; top,
+             bottom and the two outer edges are overridden back to the light gray. */
+          table.table--gray-borders > thead > tr > td,
+          table.table--gray-borders > thead > tr > th{
+            border-bottom:var(--uiowa-table-border-light) 1px solid;
+            border-top:var(--uiowa-table-border-light) 1px solid;
+          }
+          table.table--gray-borders > thead > tr > td:first-child,
+          table.table--gray-borders > thead > tr > th:first-child{
+            border-left:var(--uiowa-table-border-light) 1px solid;
+          }
+          table.table--gray-borders > thead > tr > td:last-child,
+          table.table--gray-borders > thead > tr > th:last-child{
+            border-right:var(--uiowa-table-border-light) 1px solid;
+          }
+        </style>
+      </helmet>
+      <div class="{{ contextClass }}" style="{{ contextStyle }}" data-screen-label="Table">
+        <!--
+          Markup is exactly what Table.vue renders: a .table-responsive wrapper (which
+          carries .table-sticky — the only one of the three booleans that targets the
+          wrapper rather than <table>), then the table with its modifier classes, an
+          always-present <caption>, <thead> and <tbody>.
+
+          The thead/tbody slots take arbitrary consumer rows; the six data rows below stand
+          in for a realistic cost-of-attendance table, following Table.stories.js. Dollar
+          figures are MASKED placeholders ($0,000) exactly as the story writes them — do not
+          read them as real University of Iowa rates. Link hrefs are placeholders too.
+        -->
+        <div class="{{ wrapperClass }}">
+          <table class="{{ tableClass }}" summary="{{ summary }}">
+            <caption>{{ caption }}</caption>
+            <thead>
+              <tr>
+                <th scope="col">Category</th>
+                <th scope="col">Resident</th>
+                <th scope="col">Nonresident</th>
+                <th scope="col">Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Tuition &amp; Fees</th>
+                <td>$0,000</td>
+                <td>$00,000</td>
+                <td><a href="https://uiowa.edu">Tuition rates</a></td>
+              </tr>
+              <tr>
+                <th scope="row">Housing &amp; Meals</th>
+                <td>$00,000</td>
+                <td>$00,000</td>
+                <td><a href="https://uiowa.edu">Housing rates</a></td>
+              </tr>
+              <tr>
+                <th scope="row">Books &amp; Supplies</th>
+                <td>$0,000</td>
+                <td>$0,000</td>
+                <td><a href="https://uiowa.edu">Book estimates</a></td>
+              </tr>
+              <tr>
+                <th scope="row">Transportation</th>
+                <td>$0,000</td>
+                <td>$0,000</td>
+                <td><a href="https://uiowa.edu">Parking &amp; transit</a></td>
+              </tr>
+              <tr>
+                <th scope="row">Personal Expenses</th>
+                <td>$0,000</td>
+                <td>$0,000</td>
+                <td><a href="https://uiowa.edu">Budget guide</a></td>
+              </tr>
+              <tr>
+                <th scope="row"><strong>Estimated Total</strong></th>
+                <td><strong>$00,000</strong></td>
+                <td><strong>$00,000</strong></td>
+                <td>&mdash;</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </x-dc>
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{
+  "$preview": { "width": 800, "height": 480 },
+  "caption": { "editor": "text", "default": "Living On Campus - Example Table", "tsType": "string" },
+  "summary": { "editor": "text", "default": "Undergraduate Cost of Attendance - Living on Campus Example Table", "tsType": "string" },
+  "sticky": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "highlight": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "border": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "preview_background": { "editor": "enum", "options": ["none", "gray", "gold", "black"], "default": "none", "tsType": "string" }
+}'
+    >
+      class Component extends DCLogic {
+        renderVals() {
+          // Mirrors the class computation in src/components/table/Table.vue.
+          // sticky is the odd one out: it goes on the WRAPPER, not on <table>
+          // (Table.vue:44). The naming is inconsistent with the other two —
+          // .table-sticky vs .table--hover-highlight/.table--gray-borders — reproduced
+          // as-shipped, see contracts/table.json knownIssues.
+          const wrapperClasses = ['table-responsive'];
+          if (this.props.sticky) wrapperClasses.push('table-sticky');
+
+          const tableClasses = [];
+          if (this.props.highlight) tableClasses.push('table--hover-highlight');
+          if (this.props.border) tableClasses.push('table--gray-borders');
+          // Vue merges the computed list ahead of the static class="table". `.table`
+          // itself is unstyled everywhere in UIDS — kept so the markup matches
+          // production exactly (same reasoning as Button's inert .bttn--medium).
+          tableClasses.push('table');
+
+          // The Vue prop default for caption is the literal string 'Table', so a
+          // consumer who never sets it ships a table captioned "Table"
+          // (contracts/table.json knownIssues). This editor offers realistic sample
+          // copy instead, the way Button's label default does.
+          //
+          // summary is bound straight to the obsolete <table summary> attribute. It is
+          // metadata-only — never rendered, and removed from the HTML Living Standard,
+          // so modern screen readers do not reliably expose it (knownIssues). Exposed
+          // here because it is part of the component's public shape (Button's url
+          // precedent), not because it does anything visible.
+
+          // preview_background is a PREVIEW context, not a component prop: it stands in
+          // for placing the table inside a bg--* section, which is the only way the
+          // `tbody a` link-colour rule engages. backgrounds.css supplies the band.
+          const bg = this.props.preview_background ?? 'none';
+          const onBand = bg !== 'none';
+
+          return {
+            wrapperClass: wrapperClasses.join(' '),
+            tableClass: tableClasses.join(' '),
+            caption: this.props.caption ?? '',
+            summary: this.props.summary ?? '',
+            contextClass: onBand ? 'bg--' + bg : '',
+            contextStyle: onBand ? 'padding:1.5rem' : ''
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

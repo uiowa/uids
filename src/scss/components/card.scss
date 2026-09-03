@@ -18,7 +18,7 @@
 // === Card === //
 .card {
   position: relative;
-  padding: 2rem;
+  padding: var(--uiowa-card-padding);
   text-decoration: none;
   display: flex;
   flex: 1 1 0%;
@@ -39,15 +39,15 @@
   ol,
   dl,
   table {
-    font-size: 1rem;
-    line-height: 1.7;
+    font-size: var(--uiowa-card-body-font-size);
+    line-height: var(--uiowa-card-body-line-height);
   }
 
   p {
     margin-bottom: 0;
     margin-top: 0;
-    font-size: 1rem;
-    line-height: 1.7;
+    font-size: var(--uiowa-card-body-font-size);
+    line-height: var(--uiowa-card-body-line-height);
 
     a {
       position: relative;
@@ -56,11 +56,11 @@
   }
 
   header {
-    margin: 0 0 0.525rem;
+    margin: 0 0 var(--uiowa-card-header-margin-bottom);
     padding: 0;
-    font-size: 1.5rem;
-    font-weight: variables.$font-weight-medium;
-    line-height: 1.2;
+    font-size: var(--uiowa-card-header-font-size);
+    font-weight: var(--uiowa-card-header-font-weight);
+    line-height: var(--uiowa-card-header-line-height);
 
     a {
       text-decoration: none;
@@ -72,7 +72,7 @@
     }
 
     .headline {
-      font-size: 1.5rem;
+      font-size: var(--uiowa-card-headline-font-size);
     }
 
     &:focus-within ~ .bttn {
@@ -81,7 +81,7 @@
 
       i,
       svg {
-        color: variables.$secondary;
+        color: var(--uiowa-card-button-focus-icon-color);
       }
     }
   }
@@ -92,7 +92,7 @@
 
   footer {
     .bttn {
-      margin-top: 1.25rem;
+      margin-top: var(--uiowa-card-button-margin-top);
     }
   }
 }
@@ -106,7 +106,7 @@
   > .media {
     margin-top: 0;
     text-align: center;
-    min-width: 7.7rem;
+    min-width: var(--uiowa-card-media-min-width);
 
     img {
       width: 100%;
@@ -143,10 +143,10 @@
 
   // Allows the media to run edge to edge for stacked cards.
   .media__inner {
-    margin-left: -2rem;
-    margin-right: -2rem;
-    margin-top: -2rem;
-    margin-bottom: 2rem;
+    margin-left: calc(-1 * var(--uiowa-card-media-edge-offset));
+    margin-right: calc(-1 * var(--uiowa-card-media-edge-offset));
+    margin-top: calc(-1 * var(--uiowa-card-media-edge-offset));
+    margin-bottom: var(--uiowa-card-media-edge-offset);
   }
 
   .media--circle {
@@ -160,12 +160,12 @@
       margin-right: 0;
     }
     &.media--small {
-      max-width: 9.375rem;
+      max-width: var(--uiowa-card-media-circle-small-max-width);
     }
     &.media--medium {
-      max-width: 15.625rem;
+      max-width: var(--uiowa-card-media-circle-medium-max-width-base);
       @include utilities.breakpoint(sm) {
-        max-width: 60%;
+        max-width: var(--uiowa-card-media-circle-medium-max-width-sm);
       }
     }
   }
@@ -190,7 +190,7 @@
     }
     &:has([src$=".svg"]) {
       .media__inner {
-        background: #fff;
+        background: var(--uiowa-card-media-svg-backdrop);
       }
       img[src$=".svg"] {
         object-fit: contain;
@@ -200,37 +200,37 @@
 
   .media--date {
     position: relative;
-    padding-top: variables.$gutter;
-    border: 1px solid variables.$uiowa-gold;
+    padding-top: var(--uiowa-card-media-date-padding-top);
+    border: var(--uiowa-card-media-date-border-width) solid var(--uiowa-card-media-date-border-color-default);
     text-align: center;
-    width: 6rem;
-    height: 6rem;
+    width: var(--uiowa-card-media-date-size);
+    height: var(--uiowa-card-media-date-size);
     margin-left: auto;
     margin-right: auto;
-    margin-top: 2rem;
+    margin-top: var(--uiowa-card-media-date-margin-top);
     aspect-ratio: 1 / 1;
     border-radius: 50%;
 
     &__month {
-      font-size: variables.$base-font-size;
+      font-size: var(--uiowa-card-media-date-month-font-size);
       display: block;
-      line-height: 100%;
+      line-height: var(--uiowa-card-media-date-month-line-height);
       text-transform: uppercase;
-      font-weight: variables.$font-weight-light;
+      font-weight: var(--uiowa-card-media-date-month-font-weight);
     }
 
     &__day {
-      font-size: variables.$h2-font-size;
+      font-size: var(--uiowa-card-media-date-day-font-size);
       display: block;
-      line-height: 100%;
-      margin-top: 1px;
-      font-weight: variables.$font-weight-medium-bold;
+      line-height: var(--uiowa-card-media-date-day-line-height);
+      margin-top: var(--uiowa-card-media-date-day-margin-top);
+      font-weight: var(--uiowa-card-media-date-day-font-weight);
     }
   }
   // We should revisit to have appropriate color/styling for each background color option.
   &[class*="bg--gold"]{
     .media--date {
-      border: 1px solid variables.$uiowa-black;
+      border: var(--uiowa-card-media-date-border-width) solid var(--uiowa-card-media-date-border-color-on-gold);
     }
   }
 }
@@ -239,48 +239,48 @@
 
 // === Pre-Title === //
 .card__pre-title {
-  font-size: 0.75rem;
-  opacity: .7;
+  font-size: var(--uiowa-card-pre-title-font-size);
+  opacity: var(--uiowa-card-pre-title-opacity);
   i,
   span[class*="fa-"],
   svg {
-    margin-right: .2rem;
+    margin-right: var(--uiowa-card-pre-title-icon-gap);
   }
 }
 // === End: Pre-Title === //
 
 // === Subtitle === //
 .card__subtitle {
-  opacity: .7;
-  font-family: variables.$font-family-serif;
-  font-size: 1.3rem;
-  font-weight: variables.$font-weight-medium;
-  line-height: 1.4;
-  margin-top: -0.4rem;
+  opacity: var(--uiowa-card-subtitle-opacity);
+  font-family: var(--uiowa-card-subtitle-font-family);
+  font-size: var(--uiowa-card-subtitle-font-size);
+  font-weight: var(--uiowa-card-subtitle-font-weight);
+  line-height: var(--uiowa-card-subtitle-line-height);
+  margin-top: var(--uiowa-card-subtitle-margin-top);
 }
 // === End: Subtitle === //
 
 // === Details === //
 .card__details {
-  margin: 0 0 variables.$sm;
+  margin: 0 0 var(--uiowa-card-details-margin-bottom);
 }
 // === End: Details === //
 
 // === Meta === //
 .card__meta {
-  font-family: variables.$font-family-sans-serif;
-  font-size: 1.1rem;
-  line-height: 1.4;
-  font-weight: variables.$font-weight-normal;
+  font-family: var(--uiowa-card-meta-font-family);
+  font-size: var(--uiowa-card-meta-font-size);
+  line-height: var(--uiowa-card-meta-line-height);
+  font-weight: var(--uiowa-card-meta-font-weight);
   .fas {
-    margin-right: .3rem;
+    margin-right: var(--uiowa-card-meta-icon-gap);
   }
 }
 // === End: Meta === //
 
 // === Body === //
 .card__body {
-  line-height: 1.7;
+  line-height: var(--uiowa-card-body-line-height);
   word-wrap: anywhere;
   overflow-wrap: anywhere;
 }
@@ -311,7 +311,7 @@
     &.card--layout-left {
       .media__inner {
         @include container-query() {
-          margin-right: 2rem;
+          margin-right: var(--uiowa-card-layout-media-gap);
         }
       }
     }
@@ -319,7 +319,7 @@
     &.card--layout-right {
       .media__inner {
         @include container-query() {
-          margin-left: 2rem;
+          margin-left: var(--uiowa-card-layout-media-gap);
         }
       }
     }
@@ -401,31 +401,31 @@
 
     // TODO: Change these to decided upon sizes.
     &.media--small {
-      max-width: 13.625rem;
+      max-width: var(--uiowa-card-layout-media-max-width-no-crop-small);
     }
 
     &.media--medium {
-      max-width: 27.25rem;
+      max-width: var(--uiowa-card-layout-media-max-width-no-crop-medium);
     }
 
     &.media--large {
-      max-width: 40.875rem;
+      max-width: var(--uiowa-card-layout-media-max-width-no-crop-large);
     }
   }
 
   .media--small.media--circle {
-    max-width: 11.375rem;
+    max-width: var(--uiowa-card-layout-media-max-width-small-circle);
   }
 
   .media--small.media--square {
     @include container-query() {
-      max-width: 11.375rem;
+      max-width: var(--uiowa-card-layout-media-max-width-small-square);
     }
   }
 
   .media--small.media--widescreen {
     @include container-query() {
-      max-width: 15.625rem;
+      max-width: var(--uiowa-card-layout-media-max-width-small-widescreen);
     }
   }
 
@@ -438,13 +438,13 @@
       }
     }
     @include container-query() {
-      flex: 0 0 35%;
+      flex: 0 0 var(--uiowa-card-layout-media-basis-medium);
     }
   }
 
   .media--large {
     @include container-query() {
-      flex: 0 0 52.5%;
+      flex: 0 0 var(--uiowa-card-layout-media-basis-large);
     }
   }
 }
@@ -458,7 +458,7 @@
     .media__inner,
       // Add margin back in for media--circle since we removed it before.
     .media--circle .media__inner {
-      margin-right: 2rem;
+      margin-right: var(--uiowa-card-layout-media-gap);
     }
   }
 }
@@ -471,7 +471,7 @@
     .media__inner,
       // Add margin back in for media--circle since we removed it before.
     .media--circle .media__inner {
-      margin-left: 2rem;
+      margin-left: var(--uiowa-card-layout-media-gap);
     }
   }
 }
@@ -494,7 +494,7 @@ $bg-colors: "white", "gray", "black", "gold";
         @include container-query() {
           .media__inner,
           .media--circle .media__inner {
-            margin-right: 2rem;
+            margin-right: var(--uiowa-card-layout-media-gap);
           }
         }
       }
@@ -502,7 +502,7 @@ $bg-colors: "white", "gray", "black", "gold";
         @include container-query() {
           .media__inner,
           .media--circle .media__inner {
-            margin-left: 2rem;
+            margin-left: var(--uiowa-card-layout-media-gap);
           }
         }
       }

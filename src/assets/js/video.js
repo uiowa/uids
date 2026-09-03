@@ -93,7 +93,7 @@
   const videos = document.getElementsByClassName('media--video');
 
   for (let i = 0; i < videos.length; i++) {
-    new UidsVideo(videos[i], i);
+    new Video(videos[i], i);
   }
 
 })();

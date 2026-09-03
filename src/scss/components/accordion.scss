@@ -5,10 +5,10 @@
 // === Accordion === //
 .accordion {
   --trans-time: 0.2s;
-  --accordion-label-color: var(--uids-light);
-  --accordion-label-color-hover: #{variables.$lighter-gray};
-  --accordion-outline-color: var(--uids-gray-cool);
-  --accordion-border-color: var(--uids-gray-light);
+  --accordion-label-color: var(--uiowa-accordion-label-color);
+  --accordion-label-color-hover: var(--uiowa-accordion-label-color-hover);
+  --accordion-outline-color: var(--uiowa-accordion-outline-color);
+  --accordion-border-color: var(--uiowa-accordion-border-color);
 
   details {
     &[open] {
@@ -37,12 +37,12 @@
 
     i, svg {
       transition: all var(--trans-time) ease-in-out;
-      width: variables.$h5-font-size;
-      height: variables.$h5-font-size;
+      width: var(--uiowa-accordion-icon-size);
+      height: var(--uiowa-accordion-icon-size);
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: -0.3rem .7rem 0 0;
+      margin: -0.3rem var(--uiowa-accordion-icon-gap) 0 0;
       border-radius: 50%;
       transition-property: transform, background-color;
       background-color: transparent;
@@ -54,9 +54,9 @@
     all: inherit;
     border: none;
     display: flex;
-    font-size: variables.$content-font-size;
-    font-weight: variables.$font-weight-bold;
-    padding: variables.$md;
+    font-size: var(--uiowa-accordion-heading-font-size);
+    font-weight: var(--uiowa-accordion-heading-font-weight);
+    padding: var(--uiowa-accordion-padding);
     width: 100%;
     align-items: center;
     cursor: pointer;
@@ -68,8 +68,8 @@
   }
 
   .accordion__content {
-    background-color: variables.$white;
-    padding: variables.$md;
+    background-color: var(--uiowa-accordion-content-background);
+    padding: var(--uiowa-accordion-padding);
     border-top: 1px solid var(--accordion-border-color);
 
     p:last-child {
@@ -80,7 +80,7 @@
   ul li,
   ol li,
   p {
-    font-size: 1.3rem;
+    font-size: var(--uiowa-accordion-content-text-font-size);
   }
   table ul li,
   table ol li,
@@ -93,7 +93,7 @@
   border: 1px solid var(--accordion-border-color);
 
   &:not(:first-child) {
-    margin-top: 1rem;
+    margin-top: var(--uiowa-accordion-item-gap);
   }
 }
 
@@ -101,10 +101,9 @@
 
 // === Accordion modifiers === //
 .accordion--white {
-  --accordion-label-color: #{variables.$white};
-  --accordion-label-color-hover: var(--uids-light);
-  --accordion-outline-color: var(--uids-gray-mid);
-  --accordion-border-color: var(--uids-gray-light);
+  --accordion-label-color: var(--uiowa-accordion-white-label-color);
+  --accordion-label-color-hover: var(--uiowa-accordion-white-label-color-hover);
+  --accordion-outline-color: var(--uiowa-accordion-white-outline-color);
+  --accordion-border-color: var(--uiowa-accordion-border-color);
 }
 // === End: Accordion modifiers === //
-

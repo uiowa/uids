@@ -1,0 +1,61 @@
+{
+  "blockquote": {
+    "font-family": {
+      "value": "{typography.font-family.serif}",
+      "comment": "variables.$font-family-serif (Zilla Slab stack). Provenance: blockquote.scss:9"
+    },
+    "font-weight": {
+      "value": "{typography.font-weight.normal}",
+      "comment": "variables.$font-weight-normal (400). VERIFIED (not a Button/Antonio-style font-matching surprise): Zilla Slab genuinely loads a 400 weight in both Storybook (.storybook/preview-head.html:8, wght@400;600;700) and production (uiowa uids_base.libraries.yml:8, same weight list) — 400 renders honestly as declared. Cross-file duplication (harmless, see claims): src/scss/base/_paragraph.scss:18-26 also resets `font-weight: variables.$font-weight-normal` on the bare `blockquote` element as part of a shared p/dl/ol/ul/blockquote/pre/table typography reset — same value, so no conflict, just a redundant second declaration of the identical token value. Provenance: blockquote.scss:7 (reused :56, child p)"
+    },
+    "font-size": {
+      "value": "{typography.font-size.375}",
+      "comment": "1.5rem, raw literal in 4.x. NEW primitive proposed (typography.font-size.375) — checked the full tokens/primitives/typography.json scale and every tokens/components/*.json; no existing font-size step holds 1.5rem (confirmed neighbors: font-size.350 = 1.45rem, font-size.400 = 1.6rem — 375 slots exactly between them, matching the 'gaps for future insertions' naming algorithm). Not to be confused with space.150, which is also 1.5rem but a different tier/category (spacing, not font-size). Provenance: blockquote.scss:14 (reused :57, child p)"
+    },
+    "line-height": {
+      "value": "{typography.line-height.170}",
+      "comment": "1.7 — already an existing primitive (the shared paragraph-body line-height). Provenance: blockquote.scss:15"
+    },
+    "accent": {
+      "width": {
+        "value": "10px",
+        "comment": "Raw literal, not on the $xsm-family scale. Component-identity dimension — the 'blockquote accent' renders as either a left border (default/right orientation) or a horizontal bar (center/img-above orientation), always 10px thick. NOT reused for the two places this same rule is explicitly zeroed to 0 (blockquote.scss:222, :297) — those are a deliberate neutralization, not a use of the 10px value. Provenance: blockquote.scss:11 (border-width); reused as the pseudo-element bar height at :168 (.blockquote--img-above .blockquote__paragraph::after)"
+      },
+      "color": {
+        "value": "{color.gold}",
+        "brandChannel": "primary",
+        "comment": "Same value drives both a border-color property and several pseudo-element background declarations — one token, multiple call sites, per the one-token-per-value convention (Headline precedent). Note :37/:184 are value-identical re-assertions of the same default (bg--black/gray/white ancestor context recolors to the SAME gold, not a different value) — redundant but not incorrect; see claims. Provenance: blockquote.scss:12 (base, variables.$primary); reused :37 (bg--black/gray/white ancestor-context re-assertion), :40 (::before background), :101 (center ::before background), :173 (img-above ::after background default), :184 (img-above ::after background, bg--black/gray/white ancestor-context re-assertion)"
+      },
+      "color-on-gold": {
+        "value": "{color.white}",
+        "comment": "Flat — raw #fff literal in 4.x, not $primary/$secondary (Button .bttn--tertiary precedent for tokenizing a raw #fff to color.white). IMPORTANT (see claims #3): this override, and blockquote/accent/color's ancestor-context re-assertions, only actually fire when bg--* is a genuine ANCESTOR of <blockquote> (e.g. via Banner). They do NOT fire through Blockquote's own `background` prop, which self-applies the bg--* class to the same element. Tokenized as-shipped per the as-shipped-bugs rule; the gap is documented in knownIssues rather than silently designed around. Provenance: blockquote.scss:47 (border-color, raw #fff, bg--gold ancestor-context); :50 (::before background); :108-109 (center ::before, nested bg--gold selector); :190 (img-above ::after background, bg--gold ancestor-context)"
+      }
+    },
+    "media": {
+      "max-width": {
+        "value": "160px",
+        "comment": "Sizes the circular avatar in the default/right orientation. Provenance: blockquote.scss:23 (.blockquote__media, base/default)"
+      },
+      "img-below": {
+        "max-width": {
+          "value": "100px",
+          "comment": "Smaller avatar size specific to the img-below orientation. Provenance: blockquote.scss:249 (.blockquote--img-below .blockquote__media)"
+        }
+      }
+    },
+    "footer": {
+      "font-family": {
+        "value": "{typography.font-family.sans}",
+        "comment": "variables.$font-family-sans-serif (Roboto) — footer/citation switches away from the serif quote body. Provenance: blockquote.scss:61"
+      },
+      "font-size": {
+        "value": "{typography.font-size.150}",
+        "comment": "variables.$content-font-size. VERIFIED chain (not a bare literal): _variables.scss:70 defines `$content-font-size: var(--uiowa-font-size-body)`, and _tokens-generated.scss:140 defines `--uiowa-font-size-body: var(--uiowa-font-size-150)` — so the Sass var is itself already an alias to this repo's own generated 'body' semantic role, which resolves to font-size.150 (1.2rem). Referencing the tier-1 primitive directly here matches the Button/Headline precedent of component tokens pointing at primitives rather than a tier-2 composite; no new primitive needed. Provenance: blockquote.scss:63 (reused :66, child p in footer)"
+      },
+      "line-height": {
+        "value": "{typography.line-height.150}",
+        "comment": "1.5 — already an existing primitive. Provenance: blockquote.scss:64 (reused :67, child p in footer)"
+      }
+    }
+  }
+}

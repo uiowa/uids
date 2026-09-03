@@ -1,0 +1,61 @@
+{
+  "$schema": "./contract.schema.json",
+  "name": "border",
+  "version": "1.0.0",
+  "description": "Foundations contract for the shared border system: the default 1px border (utilities.border mixin) and its ancestor-background-aware color flip, plus the .borderless override class. Not a component — no Vue code, no dedicated Figma component set. Consumed directly by .border/.borderless and, via the same mixin, by Button, Card, and Alert.",
+  "identity": {
+    "kind": "foundation",
+    "codePath": "src/scss/components/_border.scss",
+    "relatedPaths": [
+      "src/scss/abstracts/_utilities.scss",
+      "src/scss/uids-core.scss",
+      "src/scss/components/_media.scss",
+      "src/scss/components/button.scss",
+      "src/scss/components/card.scss",
+      "src/scss/components/alert.scss"
+    ],
+    "figma": {
+      "fileKey": "hNShklBztaeaQneScM0KoM",
+      "note": "No dedicated component set. The color/alpha/* primitives and color/border/* semantics are created as Primitives/Semantic collection variables in this commit's Figma step. As of this contract, NO existing component set binds a border-color variable — Button's migration left its border colors geometryNotTokenized; future sets (Card, Alert) may bind these."
+    }
+  },
+  "options": [
+    {
+      "name": "border",
+      "type": "boolean",
+      "default": false,
+      "description": "Applies the shared 1px border via `@include utilities.border` (_utilities.scss:193-199). Border-color defaults to color/border/default and flips to color/border/on-dark inside `[class*=\"bg--black\"]` ancestors — see behavior. `.border` (_border.scss:4-6) is the standalone utility class; the identical mixin is also included directly by Button (button.scss:6), Card (card.scss:26), and Alert (alert.scss:12) rather than via this class.",
+      "code": {
+        "class": "border",
+        "notes": "`.border { @include utilities.border; }` — _border.scss:4-6."
+      }
+    },
+    {
+      "name": "borderless",
+      "type": "boolean",
+      "default": false,
+      "description": "Removes any border: `border: none !important` (_border.scss:8-10). This is a DIFFERENT mechanism from Button's `borderless` option (src/components/shared/borderless.ts, see contracts/button.json) — Button's is a component prop that emits the same bare `.borderless` class. The two contracts describe the same selector from two directions: this one claims the CLASS as a standalone utility any element can wear; Button's claims the PROP.",
+      "code": {
+        "class": "borderless",
+        "notes": "Uses !important to win over the mixin's border-color rules — see knownIssues."
+      }
+    }
+  ],
+  "tokensUsed": [
+    "color/border/default",
+    "color/border/on-dark"
+  ],
+  "geometryNotTokenized": {
+    "border-width-and-style": "1px solid is hardcoded in the mixin (_utilities.scss:194) and not tokenized — only the border-color varies, via color/border/default and color/border/on-dark.",
+    "context-border-overrides": "Button's own ancestor-background overrides (button.scss:10,15,50,71) hardcode a separate .425 alpha pair; the border-foundation commit swaps those literals to var(--uiowa-color-alpha-black-425)/-white-425 DIRECTLY — deliberately not through color/border/*, because they are a second, button-specific color-flip layered on top of this foundation's default/on-dark pair, not a variant of it. The .425 primitives stay unclaimed by any contract's tokensUsed until Button's own contract claims them. See contracts/button.json geometryNotTokenized.background-context-borders.",
+    "list-group-borders": "The list-group mixin (_utilities.scss:276,279) also consumes var(--transparent-border) for its item separators. No UIDS component currently includes that mixin, but the references are live code and survive any future --transparent-border retirement — on the map, not tokenized separately."
+  },
+  "behavior": [
+    "The border mixin (@mixin border, _utilities.scss:193-199) sets border-color to color/border/default, then flips to color/border/on-dark inside `[class*=\"bg--black\"]` ancestors.",
+    ".borderless removes the border entirely regardless of ancestor background, via !important."
+  ],
+  "knownIssues": [
+    ".borderless uses !important (_border.scss:9) — the only override mechanism available; not resolvable without a specificity change to the mixin.",
+    "--transparent-border (uids-core.scss:32) is a raw custom property today; the border-foundation commit repoints it at var(--uiowa-color-border-default), making it a legacy alias like --uids-light. Pre-migration, the two distinct values existed as three spellings: rgb(0, 0, 0, .125) (uids-core.scss:32) for default, and rgba(255,255,255,.325) (_background.scss:54) / hsla(0,0%,100%,.325) (_utilities.scss:197) — same value, two syntaxes — for on-dark. The spelling unification is a computed no-op (browsers normalize all three to canonical rgba), verified by the style-regression harness at the swap."
+  ]
+}

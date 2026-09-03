@@ -1,0 +1,94 @@
+{
+  "alert": {
+    "danger": {
+      "background": {
+        "value": "{color.status.danger-light}",
+        "comment": "alert.scss:62 background: variables.$danger-light. _variables.scss:20 $danger-light: color.scale($danger, $lightness: 85%). EXISTING primitive — already minted (tokens/primitives/colors.json) during the Forms migration for the error-input background; reused verbatim here, not re-minted."
+      },
+      "icon-color": {
+        "value": "{color.status.danger}",
+        "comment": "alert.scss:65 color: variables.$danger (inside .fa-circle). _variables.scss:19 $danger: #BD472A (literal hex). EXISTING primitive."
+      }
+    },
+    "success": {
+      "background": {
+        "value": "{color.status.success-light}",
+        "comment": "alert.scss:70 background: variables.$success-light. _variables.scss:14 $success-light: color.scale($success, $lightness: 95%). NEW primitive — see newPrimitives."
+      },
+      "icon-color": {
+        "value": "{color.status.success}",
+        "comment": "alert.scss:73 color: variables.$success (inside .fa-circle). _variables.scss:13 $success: #00664F (literal hex). EXISTING primitive."
+      }
+    },
+    "warning": {
+      "background": {
+        "value": "{color.status.warning-light}",
+        "comment": "alert.scss:78 background: variables.$warning-light. _variables.scss:18 $warning-light: color.scale($warning, $lightness: 85%) — 85%, not 95% like success/info; see knownIssues (lightness-scale inconsistency). NEW primitive — see newPrimitives."
+      },
+      "icon-color": {
+        "value": "{color.status.danger}",
+        "comment": "alert.scss:81 color: variables.$orange (inside .fa-circle, nested under .alert--warning). _variables.scss:12 $orange: #BD472A — bit-identical to $danger (_variables.scss:19, also #BD472A). Deliberately reuses the EXISTING color.status.danger primitive (its own comment in tokens/primitives/colors.json already reads '4.x: $danger / $orange') rather than minting a redundant color.status.warning-icon or color.status.orange. Visible consequence: the warning state's icon renders in the same red as the danger state's icon, never in any shade of the actual $warning yellow (#FFCD00). See claims."
+      }
+    },
+    "info": {
+      "background": {
+        "value": "{color.status.info-light}",
+        "comment": "alert.scss:90 background: variables.$info-light. _variables.scss:16 $info-light: color.scale($info, $lightness: 95%). NEW primitive — see newPrimitives."
+      },
+      "icon-color": {
+        "value": "{color.status.info}",
+        "comment": "alert.scss:93 color: variables.$info (inside .fa-circle). _variables.scss:15 $info: #00558C (literal hex; coincidentally the same value as color.blue / $link-color, but a separately-named primitive already exists for that reason — same non-issue as gold/warning). EXISTING primitive."
+      }
+    },
+    "padding": {
+      "value": "{space.150}",
+      "comment": "alert.scss:9 padding: 1.5rem; on the base .alert (uniform on all four sides — no asymmetry to model, unlike Button's block-start/block-end/inline split). Coincidentally matches the EXISTING space.150 primitive (tokens/primitives/spacing.json, currently commented for an unrelated uids_base grid-gap use) exactly — reused per the same reuse-over-reinvent rule already established for $orange/color.status.danger."
+    },
+    "border-radius": {
+      "value": "2px",
+      "comment": "alert.scss:8 border-radius: 2px;. Raw literal — no radius primitive scale exists anywhere in tokens/ yet (only colors.json/typography.json/spacing.json under primitives/), and 2px is a genuine deviation from the platform's otherwise-universal-0 border-radius ($border-radius/-lg/-sm all 0, _variables.scss:39-41). See openQuestions re: whether this warrants a shared radius tier."
+    },
+    "line-height": {
+      "value": "{typography.line-height.130}",
+      "comment": "alert.scss:10 line-height: 1.3; on the base .alert. Coincidentally matches the EXISTING typography.line-height.130 primitive exactly — reused. IMPORTANT: this value visually applies only to .alert itself and its FIRST child; every subsequent sibling gets line-height:1.6 instead via the higher-specificity '* + *:not(...)' rule (specificity (0,1,3) beats .alert's (0,1,0) — verified by direct specificity calculation) — see geometryNotTokenized.sibling-spacing-reset."
+    },
+    "icon": {
+      "gap": {
+        "value": "{space.150}",
+        "comment": "alert.scss:43 .alert__icon { padding: 0 1.5rem 0 0; } — the gap between the icon block and the body content. Same space.150 primitive as alert/padding (coincidentally equal values today); modeled as a separate token because it is a semantically distinct property (icon-to-content gap vs. the component's own edge padding), matching how Button keeps icon-gap and padding-inline as independent tokens despite both being spacing values."
+      }
+    },
+    "heading": {
+      "h2": {
+        "value": "{typography.font-size.400}",
+        "comment": "alert.scss:7,15 --h2-font-size: 1.6rem (component-local custom property) / h2 { font-size: var(--h2-font-size); }. Coincidentally matches the EXISTING typography.font-size.400 primitive (1.6rem/25.6px) exactly — reused, though that primitive's own comment documents an UNRELATED origin ('h4 clamp large end; .is-large; intro clamps small end'). This is Alert's own PRIVATE internal heading de-escalation scale, wholly independent of the site's real global h2 ($h2-font-size / --uiowa-font-size-heading-h2, e.g. consumed by card.scss:223) despite sharing the coincidental name 'h2' — verified: --h2-font-size (the custom property) appears only in alert.scss; $h2-font-size (the Sass var) appears only in _variables.scss:65 and card.scss:223."
+      },
+      "h3": {
+        "value": "1.44rem",
+        "comment": "alert.scss:18 font-size: calc(0.9 * var(--h2-font-size)); = 0.9 x 1.6rem = 1.44rem (23.04px). Resolved to a concrete value because Figma text styles cannot bind calc() expressions — see openQuestions for the alternative (base + ratio-set) the input survey raised. Raw literal: no existing font-size primitive equals 1.44rem (nearest neighbors: font-size.325=1.425rem, font-size.350=1.45rem); single alert-internal consumer, not promoted to a new primitive."
+      },
+      "h4": {
+        "value": "1.28rem",
+        "comment": "alert.scss:21 calc(0.8 * var(--h2-font-size)) = 1.28rem (20.48px). Raw literal, same reasoning as h3 (nearest neighbors: font-size.200=1.25rem, font-size.250=1.3rem)."
+      },
+      "h5": {
+        "value": "1.12rem",
+        "comment": "alert.scss:24 calc(0.7 * var(--h2-font-size)) = 1.12rem (17.92px). Raw literal, same reasoning (nearest neighbors: font-size.125=1.1rem, font-size.150=1.2rem)."
+      },
+      "h6": {
+        "value": "0.96rem",
+        "comment": "alert.scss:27 calc(0.6 * var(--h2-font-size)) = 0.96rem (15.36px). Raw literal, same reasoning (nearest neighbors: font-size.75=0.9rem, font-size.100=1rem)."
+      }
+    },
+    "dismiss": {
+      "size": {
+        "value": "42px",
+        "comment": "alert.scss:123-124 height: 42px; width: 42px; on .alert--dismissible button (square hit target). Raw literal — no matching dimension primitive. Flag: 2px short of the WCAG 2.5.5 (AAA) 44x44px recommended minimum target size; well clear of WCAG 2.2's 2.5.8 (AA) 24x24px minimum. Tokenize as-shipped; see openQuestions."
+      },
+      "icon-font-size": {
+        "value": "1.5rem",
+        "comment": "alert.scss:126-128 i { font-size: 1.5rem; } inside .alert--dismissible button. Raw literal — deliberately NOT aliased to space.150 despite the numeric coincidence (also 1.5rem): that primitive lives in the spacing category and this is a font-size property, so cross-category aliasing would be semantically misleading and could bind the wrong Figma variable scope. See claims for a markup-tag caveat on this rule's selector."
+      }
+    }
+  }
+}

@@ -180,3 +180,35 @@ export const Phone = {
     description: 'Include area code.',
   },
 }
+
+export const Error = {
+  args: {
+    ...Text.args,
+    error: true,
+    id: 'error-example',
+  },
+}
+
+export const Disabled = {
+  args: {
+    ...Text.args,
+    disabled: true,
+    id: 'disabled-example',
+  },
+}
+
+export const Large = {
+  args: {
+    ...Text.args,
+    large: true,
+    id: 'large-example',
+  },
+}
+
+export const Compact = {
+  args: {
+    ...Text.args,
+    compact: true,
+    id: 'compact-example',
+  },
+}

@@ -1,0 +1,22 @@
+{
+  "page-title": {
+    "font-family": {
+      "value": "{typography.font-family.serif}",
+      "comment": "Zilla Slab. Production reaches this through TWO independent paths that happen to agree: the base h1 rule (_utilities.scss:133 `font-family: variables.$font-family-serif` inside @mixin h1) and `.headline--serif` (_headline-mixins.scss:39, same Sass variable). Tokenized on page-title's own leaf so the class is self-describing — a Figma text node and the Claude Design `.page-title` class both need a family to bind, and neither can inherit an element rule. Flat, no brandChannel: $font-family-serif is a literal stack, not a runtime theming channel."
+    },
+    "font-size": {
+      "value": "{typography.heading-h1.font-size}",
+      "comment": "The STANDARD h1 ramp — emits var(--uiowa-font-size-heading-h1), the generated clamp(2.3rem, calc(2.3662vw + 1.4127rem), 3.35rem). Production declares no page-title-specific size; the value arrives from the base h1 rule (_utilities.scss:137). Measured 53.6px (the 3.35rem cap) on https://sandbox.prod.drupal.uiowa.edu/test-breadcrumbs at a 1385px viewport. Do NOT confuse this with uids_base scss/components/banner.scss:22, which sets a DIFFERENT clamp topping out at 3.7rem — that rule is scoped to `.layout--title.banner .headline.page-title` and an ordinary page title never matches it (see contract knownIssues). FIRST component token in the repo to reference a semantic composite type style's channel; build-tokens.mjs cssVarName had to learn the composite naming convention its own comment already documented."
+    },
+    "font-weight": {
+      "value": "{typography.font-weight.medium-bold}",
+      "comment": "600. uids_base scss/components/typography/headings.scss:22-23 — `.page-title.headline--serif { font-weight: variables.$font-weight-medium-bold }`. THE defining declaration: `.headline--serif` alone is 700 (_headline-mixins.scss:40 `$font-weight-bold`), so this is the only property that distinguishes a page title from a plain serif h1. It coincidentally equals the base h1 weight (@mixin h1 also declares $font-weight-medium-bold), but the two are independent — the token records the page-title rule, which is what has to out-specify .headline--serif. Flat: $font-weight-medium-bold is a literal 600, not a brand channel."
+    },
+    "no-breadcrumbs": {
+      "margin-top": {
+        "value": "1.75rem",
+        "comment": "uids_base scss/components/typography/headings.scss:14-16 — `.page-title.page-title--no-breadcrumbs { margin-top: 1.75rem }`. Reclaims the space a breadcrumb would otherwise have held above the pair (the breadcrumb's own margin-top is the same 1.75rem, breadcrumbs.scss:64). Raw literal rather than a {ref}: no space.* primitive is 1.75rem (space.160 = 1.6rem and space.187 = 1.875rem are the nearest neighbours), and typography's font-size.500 shares the value only by coincidence. Same treatment as accordion/icon/gap (0.7rem) — a literal tier-3 value with no primitive behind it. Deliberately NOT folded into the shared $xsm..$xxxlg sweep; this is a page-title-owned placement value."
+      }
+    }
+  }
+}

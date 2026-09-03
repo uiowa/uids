@@ -6,10 +6,6 @@ const props = defineProps({
   label: {
     type: String,
   },
-  inline: {
-    type: Boolean,
-    default: false,
-  },
   required: {
     type: Boolean,
     default: false,

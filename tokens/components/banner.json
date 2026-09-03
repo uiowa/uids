@@ -1,0 +1,74 @@
+{
+  "banner": {
+    "padding": {
+      "base": { "value": "{space.125}", "comment": "banner.scss:6 — `--banner-padding: #{variables.$gutter}` (1.25rem/20px), consumed by .banner__content's `padding: var(--banner-padding)` (banner.scss:121). $gutter IS space.125 (the primitive's own note lists it). Measured 20px at 375." },
+      "sm": { "value": "{space.200}", "comment": "banner.scss:26 — the `breakpoint(sm)` override, `--banner-padding: #{variables.$mobile-height-gutter}` (2rem/32px = space.200). THE BREAKPOINT IS IN THE NAME, not in a mobile/md/page leaf, because the switch happens at sm (768px, variables.$break-sm) and the component-tier leaves emit `@media (min-width: 980px)` — a leaf form would silently move the switch 212px and leave the 768-979 band at 20px, which the 375/980/1350 regression harness cannot see. Same reasoning tokens/README.md gives for layout.* carrying its breakpoint in the name; the consuming SCSS keeps deciding WHEN, the tokens supply WHAT." }
+    },
+    "min-height": { "value": "15rem", "comment": "banner.scss:21 — `min-height: 15rem` (240px) on .banner, the floor that keeps a text-only banner from collapsing. No spacing primitive reaches 15rem (space.800 = 8rem is the top of the scale) and this is a component floor rather than shared vocabulary, so it stays a tier-3 literal — same treatment as brand-bar's own px heights." },
+    "overlay": {
+      "opacity": {
+        "solid": {
+          "dark": { "value": ".5", "comment": "banner.scss:8 — `--banner-overlay-solid-opacity: .5`, the alpha of the flat scrim painted over the media by `.banner .media:after` (banner.scss:68). The COLOUR half of that rgb() lives in --banner-overlay-color-rgb, which is a bare channel triplet and is deliberately not tokenized — see contracts/banner.json geometryNotTokenized.overlay-color-channels." },
+          "light": { "value": ".7", "comment": "banner.scss:461 — the `.banner--overlay-light:not([class*=\"bg--\"])` override. A white scrim needs more alpha than a black one to carry the same legibility, which is why this is .7 rather than .5. Measured on the OverlayLight fixture story." }
+        },
+        "gradient": {
+          "start": { "value": ".8", "comment": "banner.scss:10 — the first stop of `--banner-overlay-gradient` (`rgb(var(--banner-overlay-color-rgb), .8) 0%`). Applies to all three directions; the direction only changes the angle." },
+          "mid": { "value": ".6", "comment": "banner.scss:10 — the second stop, painted AT the midpoint (`rgb(..., .6) var(--banner-overlay-gradient-midpoint)`); the third stop is the `transparent` keyword and has no alpha to tokenize." }
+        }
+      },
+      "midpoint": {
+        "default": { "value": "40%", "comment": "banner.scss:9 — `--banner-overlay-gradient-midpoint: 40%`, where the .6 stop sits. Applies to the btt and ttb directions. Percent-valued like badge/font-size, which Figma holds as a plain FLOAT (75) — same treatment here." },
+        "ltr": { "value": "70%", "comment": "banner.scss:456 — `.banner--overlay-ltr` re-declares the midpoint at 70%, so the left-to-right gradient holds its tint further across before falling away. The single value that makes ltr more than an angle change; pinned by the OverlayLtr fixture story." }
+      }
+    },
+    "text-color": {
+      "on-media": { "value": "{color.white}", "comment": "banner.scss:11 — `--banner-text-color: #fff`, the base foreground over a media fill, consumed by .headline (banner.scss:138), .banner__text and its p/blockquote/heading descendants (banner.scss:240-264), and aliased into --link-color (banner.scss:13). FLAT, no brandChannel: the 4.x source is the literal #fff, not $primary/$secondary — the same provenance color/on-dark/text records for the background foundation. Emitting canonical #FFFFFF where the SCSS wrote #fff changes the custom property's text but not its rendering; the rendered .headline colour is captured alongside it in the baseline." },
+      "on-light-fill": { "value": "{color.black}", "brandChannel": "secondary", "comment": "banner.scss:307 — `.banner[class*=\"bg--gold\"], [class*=\"bg--white\"], [class*=\"bg--gray\"] { --banner-text-color: #{variables.$secondary} }`, and again at banner.scss:462 for the light overlay and banner.scss:328/343 for the stacked mobile treatment. $secondary IS var(--brand-secondary), so this MUST carry brandChannel or a grayscale-themed site loses the flip — the provenance rule the Buttons swap was written after. Measured #000000 on the BackgroundPattern (gold) and OverlayLight fixtures." }
+    },
+    "bg-failsafe": {
+      "on-media": { "value": "{color.black}", "brandChannel": "secondary", "comment": "banner.scss:12 — `--banner-bg-failsafe: #{variables.$secondary}`, painted by `.banner:not([class*=\"bg--\"])` (banner.scss:313) so a banner whose image has not loaded still reads as dark rather than transparent. Channel, not literal: 4.x $secondary." },
+      "on-light-overlay": { "value": "{color.white}", "comment": "banner.scss:463 — the light overlay's own failsafe (`--banner-bg-failsafe: white`), and banner.scss:329 for the stacked mobile treatment, where the content sits below the image on a white page rather than on top of it. FLAT: the 4.x source is the CSS keyword `white`, not a brand channel. Canonical #FFFFFF replaces the keyword in the emitted custom property; the rendered background-color (rgb(255,255,255)) is captured next to it." }
+    },
+    "media": {
+      "background": {
+        "default": { "value": "{color.black}", "brandChannel": "secondary", "comment": "banner.scss:34 — `.banner .media { background: #{variables.$secondary} }`, the fill shown while the image or video is still loading. Channel: 4.x $secondary." },
+        "light": { "value": "{color.white}", "comment": "banner.scss:473 — `.banner--overlay-light .media { background: #fff }`, the same loading fill inverted so a light-overlay banner does not flash black. FLAT: 4.x literal #fff." }
+      }
+    },
+    "headline": {
+      "margin-bottom": { "value": "{space.100}", "comment": "banner.scss:140 — `.banner .headline { margin-bottom: 1rem }` (space.100), the gap under both the pre-title block and the main headline. margin-top is 0 and needs no token." }
+    },
+    "text": {
+      "margin-bottom": { "value": "{space.105}", "comment": "banner.scss:241 — `.banner__text { margin-bottom: 1.05rem }`. space.105 is the shipped legacy oddball step (4.x $md); reused rather than rounded, per the as-shipped rule. Measured 16.8px." }
+    },
+    "pre-title": {
+      "line-height": { "value": "1.1", "comment": "banner.scss:204 — `.banner__pre-title { line-height: 1.1 }`. Unitless ratio. No line-height primitive matches 1.1 (the primitives are keyed by percent and start at the body/heading ratios), so it stays a tier-3 literal." },
+      "font-weight": { "value": "{typography.font-weight.medium}", "comment": "banner.scss:208 and :220 — 500, declared identically on the serif and uppercase pre-title variants. Both rules exist because each also carries its own margin; the weight itself is one decision." },
+      "uppercase-margin-bottom": { "value": "0.7rem", "comment": "banner.scss:219 — `.banner__pre-title.headline.headline--uppercase { margin-bottom: 0.7rem }`, overriding the 0 the serif variant sets. No spacing primitive is 0.7rem (space.75 is 0.75rem, a different value — do NOT round to it), so this is a tier-3 literal and a 5.x consolidation candidate." },
+      "font-size": {
+        "small": { "value": "{typography.font-size.300}", "comment": "banner.scss:232 — `.banner__pre-title.headline--small { font-size: #{variables.$h5-font-size} }`, and $h5-font-size is already `var(--uiowa-font-size-300)` (_variables.scss:68), i.e. this token re-states an existing primitive reference rather than minting a value. The large and medium pre-title sizes are fluid clamps and stay untokenized — see the contract's geometryNotTokenized." }
+      }
+    },
+    "action": {
+      "margin-top": { "value": "{space.150}", "comment": "banner.scss:281 — `.banner .headline + .banner__action { margin-top: 1.5rem }`. Tokenized as-shipped even though the adjacent-sibling selector CANNOT match in UIDS's own markup: Banner.vue wraps the headline in `<header class=\"banner__title\">` while the production Twig does not, so the rule is live downstream and dead here. Recorded as a knownIssue rather than changed." },
+      "button-spacing": { "value": "{space.100}", "comment": "banner.scss:291 — `.banner__action .bttn { margin: 0 1rem 1rem 0 }`, repeated verbatim for the `+ .bttn` case inside the container query (banner.scss:293-297). ONE token for both the inline-end and block-end slots because they are one declaration, not two decisions — the same shorthand supplies the gap between buttons in a row and the gap after a wrapped row." }
+    },
+    "video-btn": {
+      "size": { "value": "40px", "comment": "banner.scss:85-86 — `.video-btn { width: 40px; height: 40px }`, the play/pause control on a video banner. A px literal in 4.x, kept px: the spacing scale is rem-based and this is a control dimension, not layout rhythm (brand-bar's tab dimensions set the same precedent)." },
+      "font-size": { "value": "{typography.font-size.100}", "comment": "banner.scss:92 — `font-size: 1rem` on the button, which sizes the Font Awesome glyph in its ::after (banner.scss:99-103, re-declared 1rem there). space/font primitive font-size.100 = 1rem exactly." },
+      "background": { "value": "{color.white}", "comment": "banner.scss:91 — `background: white`. FLAT: CSS keyword, not a channel." },
+      "color": { "value": "{color.black}", "brandChannel": "secondary", "comment": "banner.scss:88 — `color: #{variables.$secondary}`, the glyph colour. Channel." },
+      "border-width": { "value": "1px", "comment": "banner.scss:89 — `border: 1px solid white`; the width half. 1px hairlines are not on any scale." },
+      "border-color": {
+        "default": { "value": "{color.white}", "comment": "banner.scss:89 — the colour half of `border: 1px solid white`. White-on-white against the button's own white fill: invisible by default and only doing work against the light-overlay override below. FLAT: keyword." },
+        "on-light-overlay": { "value": "{color.black}", "brandChannel": "secondary", "comment": "banner.scss:476 — `.banner--overlay-light .media .video-btn { border: 1px solid #{variables.$secondary} }`, which is what gives the control an edge once the scrim behind it is white. Channel. Not reachable from any story (the light fixture carries an image, not a video), so covered by value identity only — recorded in regression/config.json's banner comment." }
+      }
+    },
+    "video-controls": {
+      "offset": {
+        "base": { "value": "{space.125}", "comment": "banner.scss:75-76 — `.video-controls { right: #{variables.$gutter}; bottom: #{variables.$gutter} }` (1.25rem = space.125). Measured 20px at 375." },
+        "sm": { "value": "{space.200}", "comment": "banner.scss:79-80 — the container-query override to $mobile-height-gutter (2rem = space.200). Breakpoint in the name for the same reason as banner/padding/sm, with one extra wrinkle: this one is a CONTAINER query, so it responds to the banner's own width rather than the viewport's — no media-query token form could express it at all. Measured 32px at 980." }
+      }
+    }
+  }
+}

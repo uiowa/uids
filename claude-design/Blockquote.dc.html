@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <!--
+      UIDS blockquote — a pull quote with an accent bar, an attribution footer and an
+      optional circular portrait.
+
+      Structure note: the orientation modifiers (--center / --right) do NOT change the
+      DOM at all — they are pure CSS treatments on the same tree. What DOES change the
+      tree is the MEDIA position: "above" puts .blockquote__media before
+      .blockquote__content as a direct child of <blockquote>, "below" puts it INSIDE
+      <footer> ahead of the attribution. That is why the media markup appears twice
+      below (the template language has no move/loop construct). Verified against BOTH
+      src/components/blockquote/Blockquote.vue:46-81 and the production Twig,
+      uids_base/templates/uids/blockquote.html.twig — the two agree on the structure.
+
+      $preview is 820 wide deliberately: the --img-above flex ratios only engage above
+      the sm breakpoint (768px), so a narrower canvas would preview the mobile stack.
+    -->
+    <x-dc>
+      <helmet data-dc-atomics>
+        <link rel="stylesheet" href="./tokens.css" />
+        <!-- Needed, not decorative: the `background` prop self-applies a bg--* class to
+             the blockquote element, and the on-gold accent flip fires off a bg--*
+             ANCESTOR. Both behaviors are invisible without this sheet. -->
+        <link rel="stylesheet" href="./backgrounds.css" />
+        <style>
+          /* ---- page reset (src/scss/base/_reset.scss:32-53), verbatim ----
+             Not this component's own SCSS, but production applies it globally to <html>,
+             so every rule below was authored against border-box. Without it, any element
+             combining a percentage width with padding renders wider than production —
+             measured at +96px on Callout before this was added. Reproduced across the
+             Phase 3 batch for that reason; see Table.dc.html for the original finding. */
+          html{box-sizing:border-box}
+          *,*::before,*::after{box-sizing:inherit}
+          body{margin:0}
+          /* Mirrors src/scss/components/blockquote.scss (post-token-swap) in SOURCE
+             ORDER so the cascade behaves the same, preceded by the two base-layer rules
+             blockquote's markup leans on and followed by _media.scss's .media--circle.
+             That is production's own order: uids.scss loads background (line 4) →
+             blockquote (line 7) → media (line 20), with base/ before all of them.
+
+             DELIBERATELY OMITTED (see contracts/blockquote.json knownIssues):
+             - the legacy `.blockquote-center &` / `.blockquote-right &` ancestor
+               selectors paired with every --center/--right rule. They need a
+               `.blockquote-center`/`.blockquote-right` ANCESTOR class that nothing in
+               this template (or in Blockquote.vue) emits. They are still live
+               downstream in uids_base and print.scss, so they stay in the design
+               system — they are just unreachable from here, the same way Headline
+               omits its `.bold-headline--*` aliases.
+             - `.blockquote--remove-stylization` and `.blockquote--remove-margin`
+               (blockquote.scss:287,307): wired to no Vue prop AND with zero usages in
+               either repo. Dead as shipped, so there is nothing to preview.
+             - `<blockquote>` keeps the browser's default `margin:1em 40px`. UIDS never
+               resets it, which is exactly why --img-above has to zero the inline
+               margins itself and why uids_base ships its own --no-left-margin. Do not
+               "tidy" it away. */
+
+          /* ---- base layer (src/scss/base/_reset.scss, _paragraph.scss) ----
+             img's max-width is load-bearing here: it is what makes .blockquote__media's
+             max-width actually constrain the portrait.
+
+             Root-scoped, like every bare selector below: dc-import shares ONE cascade, so
+             an unqualified `img`/`p` styles the ENTIRE consuming page. :where(.blockquote)
+             is used rather than a plain `.blockquote ` prefix because it adds ZERO
+             specificity — these stay (0,0,1), so every tie in this sheet (and against
+             backgrounds.css) resolves exactly as it did. */
+          :where(.blockquote) img{border:0;height:auto;max-width:100%;vertical-align:top}
+          :where(.blockquote) p{line-height:var(--uiowa-line-height-170);font-size:var(--uiowa-font-size-body);margin-top:0;margin-bottom:var(--uiowa-space-105)}
+
+          /* ---- blockquote.scss, source order ----
+             The root guard is `blockquote:where(.blockquote)`, not `blockquote.blockquote`:
+             this rule's border-color is DELIBERATELY beaten by backgrounds.css's
+             `[class*="bg--gold"]{border-color:…}` (0,1,0) in the self-applied `background`
+             case — that is knownIssues #3. A plain class would lift it to (0,1,1) and
+             silently "fix" the as-shipped bug this view exists to reproduce. */
+          blockquote:where(.blockquote){
+            font-weight:var(--uiowa-blockquote-font-weight);
+            font-style:normal;
+            font-family:var(--uiowa-blockquote-font-family);
+            /* Only the LEFT border gets a style, but the width lands on all four sides
+               — which is what lets --right flip the bar by switching styles alone. */
+            border-left-style:solid;
+            border-width:var(--uiowa-blockquote-accent-width);
+            border-color:var(--uiowa-blockquote-accent-color);
+            padding:var(--uiowa-space-187);
+            font-size:var(--uiowa-blockquote-font-size);
+            line-height:var(--uiowa-blockquote-line-height);
+            /* The padding mixin then re-sets top/bottom and redundantly restates left
+               at the value the shorthand already gave it; right is never passed, so it
+               keeps $lg. Reproduced as-shipped — see knownIssues. */
+            padding-top:var(--uiowa-space-32);
+            padding-bottom:var(--uiowa-space-32);
+            padding-left:var(--uiowa-space-187);
+          }
+          /* <cite> stays ITALIC: blockquote.scss resets font-style on the blockquote
+             element only, and cite's own UA italic beats inheritance. As-shipped. */
+          blockquote:where(.blockquote) cite{display:block}
+          blockquote .blockquote__media{max-width:var(--uiowa-blockquote-media-max-width)}
+          blockquote:where(.blockquote) p:last-of-type{margin-bottom:0}
+
+          /* Accent re-assertions for a real bg--* ANCESTOR. They exist to beat
+             backgrounds.css's `[class*="bg--"] * {border-color:inherit}`, so they are
+             not redundant. Note the combinator: they fire when a page band, a Banner or
+             the preview_on_gold knob wraps the blockquote — NOT when the component's own
+             `background` prop puts bg--* on the blockquote itself. That gap is the
+             as-shipped bug in knownIssues #3; the self-applied case falls through to
+             backgrounds.css's flat rule and renders an ambient rgba border instead. */
+          [class*="bg--black"] blockquote,
+          [class*="bg--"] [class*="bg--black"] blockquote,
+          [class*="bg--gray"] blockquote,
+          [class*="bg--"] [class*="bg--gray"] blockquote,
+          [class*="bg--white"] blockquote,
+          [class*="bg--"] [class*="bg--white"] blockquote{border-color:var(--uiowa-blockquote-accent-color)}
+          /* These two ::before groups are INERT as shipped and kept only so the cascade
+             matches: the centered bar's own rule below declares background at equal
+             specificity (0,1,2) but LATER, so it wins, and the on-gold flip is delivered
+             by the nested rule inside it instead. Reordering them would change that. */
+          [class*="bg--black"] blockquote::before,
+          [class*="bg--"] [class*="bg--black"] blockquote::before,
+          [class*="bg--gray"] blockquote::before,
+          [class*="bg--"] [class*="bg--gray"] blockquote::before,
+          [class*="bg--white"] blockquote::before,
+          [class*="bg--"] [class*="bg--white"] blockquote::before{background:var(--uiowa-blockquote-accent-color)}
+          [class*="bg--gold"] blockquote,
+          [class*="bg--"] [class*="bg--gold"] blockquote{border-color:var(--uiowa-blockquote-accent-color-on-gold)}
+          [class*="bg--gold"] blockquote::before,
+          [class*="bg--"] [class*="bg--gold"] blockquote::before{background:var(--uiowa-blockquote-accent-color-on-gold)}
+
+          blockquote:where(.blockquote) p{margin-top:0;font-weight:var(--uiowa-blockquote-font-weight);font-size:var(--uiowa-blockquote-font-size)}
+          blockquote:where(.blockquote) footer{
+            font-family:var(--uiowa-blockquote-footer-font-family);
+            margin-top:var(--uiowa-space-105);
+            font-size:var(--uiowa-blockquote-footer-font-size);
+            line-height:var(--uiowa-blockquote-footer-line-height);
+          }
+          blockquote:where(.blockquote) footer p{font-size:var(--uiowa-blockquote-footer-font-size);line-height:var(--uiowa-blockquote-footer-line-height)}
+          /* Inert in this structure — the quote is wrapped in .blockquote__paragraph, so
+             <footer> is never a <p>'s adjacent sibling. Kept for source fidelity. */
+          blockquote:where(.blockquote) p+footer{margin-top:0}
+          /* Only does anything when an ancestor is a flex container (e.g. a card grid). */
+          blockquote.blockquote{flex-basis:100%}
+
+          /* ---- Orientation: center ----
+             $xlg (2.5rem) has no space.* primitive yet — raw here exactly as the SCSS
+             has it, pending the deferred $xsm…$xxxlg sweep (tokens/README). */
+          blockquote.blockquote--center{
+            text-align:center;
+            border:none;
+            position:relative;
+            padding-top:2.5rem;
+            padding-right:var(--uiowa-space-32);
+            padding-bottom:var(--uiowa-space-32);
+            padding-left:var(--uiowa-space-32);
+          }
+          blockquote.blockquote--center img{margin:0 auto;display:block}
+          /* The centered bar replaces the left border. width 130px and top 11px are raw
+             one-offs in the SCSS (contract geometryNotTokenized: accent-bar-center-
+             geometry); only the height is tokenized. */
+          blockquote.blockquote--center::before{
+            position:absolute;
+            content:'';
+            height:var(--uiowa-blockquote-accent-width);
+            top:11px;
+            margin:0 auto;
+            left:0;
+            right:0;
+            width:130px;
+            background:var(--uiowa-blockquote-accent-color);
+            transition:.5s;
+          }
+          .bg--gold--pattern--brain blockquote.blockquote--center::before,
+          .bg-pattern--brain-reversed blockquote.blockquote--center::before,
+          [class*="bg--gold"] blockquote.blockquote--center::before{background:var(--uiowa-blockquote-accent-color-on-gold)}
+
+          /* ---- Orientation: right ----
+             The padding shorthand recomputes to the SAME four values as the base rule;
+             it exists only so this block can also flip the border side (knownIssues). */
+          blockquote.blockquote--right{
+            text-align:end;
+            border-left:none;
+            border-right-style:solid;
+            padding:var(--uiowa-space-32) var(--uiowa-space-187);
+          }
+
+          /* ---- Shared by media above + below ----
+             1.3rem / 0.7rem match no space.* step and are left raw in the SCSS
+             (contract geometryNotTokenized: media-gap-one-off). 1.25rem is
+             $mobile-width-gutter and 0.9rem is $sm-md — both still raw Sass variables
+             in the source, so they stay literals here too. */
+          blockquote.blockquote--img-above .blockquote__media,
+          blockquote.blockquote--img-below .blockquote__media{margin-right:1.3rem;margin-top:.7rem}
+          blockquote.blockquote--img-above.blockquote:not(.blockquote--center),
+          blockquote.blockquote--img-below.blockquote:not(.blockquote--center){margin-bottom:1.25rem}
+          blockquote.blockquote--img-above.blockquote:not(.blockquote--center) .blockquote__media,
+          blockquote.blockquote--img-below.blockquote:not(.blockquote--center) .blockquote__media{margin-bottom:.9rem}
+          @media (min-width:768px){
+            blockquote.blockquote--img-above.blockquote:not(.blockquote--center) .blockquote__media,
+            blockquote.blockquote--img-below.blockquote:not(.blockquote--center) .blockquote__media{margin-bottom:0}
+          }
+          blockquote.blockquote--img-above.blockquote--right .blockquote__media,
+          blockquote.blockquote--img-below.blockquote--right .blockquote__media{margin-left:1.3rem;margin-top:.7rem;margin-right:0}
+
+          /* ---- Media above ---- */
+          @media (min-width:768px){
+            blockquote.blockquote--img-above .blockquote__media{flex:0 1 auto}
+            blockquote.blockquote--img-above .blockquote__content{flex:0 1 75%}
+          }
+          blockquote.blockquote--img-above .blockquote__paragraph{position:relative;padding-bottom:var(--uiowa-space-187)}
+          /* With the border gone, this ::after IS the accent bar. Same raw 130px. */
+          blockquote.blockquote--img-above .blockquote__paragraph::after{
+            position:absolute;
+            content:'';
+            height:var(--uiowa-blockquote-accent-width);
+            bottom:0;
+            left:0;
+            right:0;
+            width:130px;
+            background:var(--uiowa-blockquote-accent-color);
+            transition:.5s;
+          }
+          /* Unlike the border-color group above, this one restates the DEFAULT value at
+             higher specificity and changes nothing: backgrounds.css only forces `color`
+             and `border-color` to inherit on pseudo-elements, never `background`. Kept
+             because it is in the source and removing it would quietly change which rule
+             wins if a band rule is ever added. */
+          .bg--black--pattern--brain blockquote.blockquote--img-above .blockquote__paragraph::after,
+          .bg--white--pattern--brain blockquote.blockquote--img-above .blockquote__paragraph::after,
+          .bg-pattern--brain blockquote.blockquote--img-above .blockquote__paragraph::after,
+          .bg-pattern--brain-black blockquote.blockquote--img-above .blockquote__paragraph::after,
+          [class*="bg--black"] blockquote.blockquote--img-above .blockquote__paragraph::after,
+          [class*="bg--gray"] blockquote.blockquote--img-above .blockquote__paragraph::after,
+          [class*="bg--white"] blockquote.blockquote--img-above .blockquote__paragraph::after{background:var(--uiowa-blockquote-accent-color)}
+          .bg--gold--pattern--brain blockquote.blockquote--img-above .blockquote__paragraph::after,
+          .bg-pattern--brain-reversed blockquote.blockquote--img-above .blockquote__paragraph::after,
+          [class*="bg--gold"] blockquote.blockquote--img-above .blockquote__paragraph::after{background:var(--uiowa-blockquote-accent-color-on-gold)}
+          /* Media-above drops the border and the base padding entirely and becomes a
+             wrapping flex row (the portrait beside the quote above 768px). */
+          blockquote.blockquote--img-above.blockquote:not(.blockquote--center){
+            border:none;
+            margin-right:0;
+            margin-left:0;
+            padding:var(--uiowa-space-105) 0;
+            display:flex;
+            align-items:flex-start;
+            flex-wrap:wrap;
+          }
+          blockquote.blockquote--img-above.blockquote--right{flex-direction:row-reverse}
+          blockquote.blockquote--img-above.blockquote--right .blockquote__paragraph::after{right:0;left:inherit}
+          blockquote.blockquote--img-above.blockquote--center{padding-top:0}
+          /* Zeroes the plain-center bar now that the ::after bar has taken over. Four
+             independently-sufficient properties, and display:none makes the `top` inert
+             — reproduced verbatim rather than "corrected" (knownIssues). */
+          blockquote.blockquote--img-above.blockquote--center::before{
+            position:absolute;
+            content:'';
+            height:0;
+            top:.9rem;
+            margin:0 auto;
+            left:0;
+            right:0;
+            width:0;
+            background:none;
+            transition:.5s;
+            display:none;
+          }
+          blockquote.blockquote--img-above.blockquote--center .blockquote__media{position:relative;margin:0 auto var(--uiowa-space-105)}
+          blockquote.blockquote--img-above.blockquote--center .blockquote__paragraph::after{margin:0 auto}
+
+          /* ---- Media below ----
+             The portrait moves inside <footer>, shrinks to its own max-width token, and
+             the footer becomes a flex row so it sits beside the attribution. */
+          blockquote.blockquote--img-below .blockquote__media{max-width:var(--uiowa-blockquote-media-img-below-max-width)}
+          blockquote.blockquote--img-below footer{display:flex;margin-top:.5rem;align-items:center}
+          blockquote.blockquote--img-below cite{display:block;text-align:start}
+          blockquote.blockquote--img-below.blockquote--center footer{margin:.5rem auto 0;justify-content:center;text-align:left}
+          @media (min-width:768px){
+            blockquote.blockquote--img-below.blockquote--center footer{max-width:40%}
+          }
+          blockquote.blockquote--img-below.blockquote--right footer{text-align:end;flex-direction:row-reverse;align-content:end}
+          blockquote.blockquote--img-below.blockquote--right cite{text-align:end}
+
+          /* ---- _media.scss (loaded after blockquote in uids.scss) ----
+             Only .media--circle is reachable from this component's markup. */
+          .media--circle{border-radius:50%;margin-top:0;height:auto}
+          .media--circle img{aspect-ratio:1/1;margin-top:0;height:auto;border-radius:50%}
+        </style>
+      </helmet>
+      <!-- The wrapper is an editor-only preview context (preview_on_gold), not part of
+           the component — it stands in for dropping the blockquote into a bg--gold page
+           band, which is the ONLY way the white accent flip actually renders. -->
+      <div class="{{ contextClass }}" style="{{ contextStyle }}" data-screen-label="Blockquote">
+        <blockquote class="{{ rootClass }}">
+          <!-- MEDIA ABOVE. The <img> is an honest placeholder: an inline data-URI
+               silhouette, NOT a UIDS asset — this view ships no images, and pointing at
+               a repo file (the story uses herky-square.jpg) would resolve to nothing in
+               a consuming project. Replace the src and alt with the real portrait; keep
+               the <img> element, because .media--circle and --center's `img` rules
+               target it. Its two grays are the system's gray-100/gray-300 hard-coded,
+               since a data URI cannot read a CSS custom property. -->
+          <sc-if value="{{ isMediaAbove }}" hint-placeholder-val="{{ false }}">
+            <div class="blockquote__media media--circle">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Crect width='160' height='160' fill='%23F3F3F3'/%3E%3Ccircle cx='80' cy='64' r='26' fill='%239A9A9A'/%3E%3Cpath d='M80 100c-26 0-46 16-46 34v26h92v-26c0-18-20-34-46-34z' fill='%239A9A9A'/%3E%3C/svg%3E" alt="Portrait placeholder" />
+            </div>
+          </sc-if>
+          <div class="blockquote__content">
+            <!-- Rendered unconditionally, matching the production Twig. Blockquote.vue
+                 gates this wrapper on `v-if="content"` — the PROP's truthiness rather
+                 than the slot's — which is knownIssues #2; the two agree for every
+                 non-empty quote, i.e. every real use. -->
+            <div class="blockquote__paragraph"><p>{{ content }}</p></div>
+            <!-- <footer> is gated on attribution-OR-citation, mirroring the production
+                 Twig (uids_base/templates/uids/blockquote.html.twig:34,51) byte for byte.
+                 Blockquote.vue does NOT gate it, but where Vue and Twig disagree this
+                 template follows TWIG — the same call already made for
+                 .blockquote__paragraph just above, and for the same reason: Twig is what
+                 production renders. An earlier version left this unconditional and merely
+                 DOCUMENTED the difference as "only an empty footer's top margin"; that is
+                 the Breadcrumbs empty-crumb mistake repeated — the margin is
+                 var(--uiowa-space-105) (16.8px) of stray gap under a plain unattributed
+                 quote, and documenting a defect is not fixing it.
+                 NOTE the gate deliberately does NOT consider the media: an image-below
+                 with both attribution and citation blank renders NO image, because Twig
+                 nests the image-below INSIDE this same conditional. That is production's
+                 own behavior, reproduced as-shipped rather than improved on. -->
+            <sc-if value="{{ hasFooter }}" hint-placeholder-val="{{ true }}">
+            <footer>
+              <!-- MEDIA BELOW — same placeholder, different position in the tree. -->
+              <sc-if value="{{ isMediaBelow }}" hint-placeholder-val="{{ false }}">
+                <div class="blockquote__media media--circle">
+                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Crect width='160' height='160' fill='%23F3F3F3'/%3E%3Ccircle cx='80' cy='64' r='26' fill='%239A9A9A'/%3E%3Cpath d='M80 100c-26 0-46 16-46 34v26h92v-26c0-18-20-34-46-34z' fill='%239A9A9A'/%3E%3C/svg%3E" alt="Portrait placeholder" />
+                </div>
+              </sc-if>
+              <div>
+                <sc-if value="{{ hasFooterText }}" hint-placeholder-val="{{ true }}"><p>{{ footer }}</p></sc-if>
+                <sc-if value="{{ hasCite }}" hint-placeholder-val="{{ true }}"><cite>{{ cite_text }}</cite></sc-if>
+              </div>
+            </footer>
+            </sc-if>
+          </div>
+        </blockquote>
+      </div>
+    </x-dc>
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{
+  "$preview": { "width": 820, "height": 420 },
+  "content": { "editor": "text", "default": "Since his birth 60 years ago, Herky has symbolized intercollegiate athletics at the University of Iowa.", "tsType": "string" },
+  "footer": { "editor": "text", "default": "Herky the Hawk, University of Iowa Mascot", "tsType": "string" },
+  "cite_text": { "editor": "text", "default": "Be a Hawkeye", "tsType": "string" },
+  "orientation": { "editor": "enum", "options": ["left", "center", "right"], "default": "left", "tsType": "string" },
+  "media": { "editor": "enum", "options": ["none", "above", "below"], "default": "none", "tsType": "string" },
+  "background": { "editor": "enum", "options": ["none", "black", "gold", "gray", "white"], "default": "none", "tsType": "string" },
+  "preview_on_gold": { "editor": "boolean", "default": false, "tsType": "boolean" }
+}'
+    >
+      class Component extends DCLogic {
+        renderVals() {
+          // Mirrors Blockquote.vue's `classes` computed (:34-42) in its own order —
+          // background first, then orientation — plus the img-above/img-below class the
+          // template appends when the media slot is filled (:49).
+          const orientation = this.props.orientation ?? 'left';
+          const media = this.props.media ?? 'none';
+          const background = this.props.background ?? 'none';
+          const classes = ['blockquote'];
+          // Background.addBackgroundClass pushes bg--<value> onto the SAME array as the
+          // blockquote element itself — self-application, not a wrapping ancestor. That
+          // is why it recolors the fill and text but NOT the accent bar: see
+          // contracts/blockquote.json knownIssues #3 and the CSS comment on the
+          // ancestor-context rules. Use preview_on_gold to see the real flip.
+          if (background !== 'none') classes.push('bg--' + background);
+          // 'left' is this editor's label for the Vue prop's '' default (no modifier
+          // class), the same way Headline labels its empty text_style 'default'.
+          if (orientation === 'center') classes.push('blockquote--center');
+          if (orientation === 'right') classes.push('blockquote--right');
+          // The Media axis is the contract's collapse of TWO code inputs (the slot's
+          // presence and media_position_bottom) into the three renderings that exist:
+          // 'none' = empty slot, which adds NEITHER class whatever the boolean says;
+          // 'above' = boolean false, what all three shipped stories use; 'below' =
+          // boolean true, the Vue prop's actual default. Matches the Figma set's
+          // Media axis (None/Above/Below).
+          if (media === 'above') classes.push('blockquote--img-above');
+          if (media === 'below') classes.push('blockquote--img-below');
+          const footerText = this.props.footer ?? '';
+          const cite = this.props.cite_text ?? '';
+          // preview_on_gold is a PREVIEW CONTEXT, not a component prop — see the markup
+          // comment. Same knob, same name and same purpose as Headline's.
+          const onGold = this.props.preview_on_gold === true;
+          // NOT exposed: the `url` prop. Blockquote.vue:70 writes href="{{ url }}"
+          // unbound, so the rendered link is the literal string (knownIssues #1), and
+          // production's Twig has no cite link at all — it puts the URL in the
+          // <blockquote cite=""> attribute, which renders nothing visible. There is no
+          // honest visual for it, so the citation stays plain text here.
+          return {
+            rootClass: classes.join(' '),
+            content: this.props.content ?? '',
+            footer: footerText,
+            cite_text: cite,
+            hasFooterText: String(footerText).trim().length > 0,
+            hasCite: String(cite).trim().length > 0,
+            // The Twig gate on the whole <footer>: attribution OR citation. Deliberately
+            // ignores the media, because Twig nests the image-below inside this same
+            // conditional — see the markup comment.
+            hasFooter:
+              String(footerText).trim().length > 0 || String(cite).trim().length > 0,
+            isMediaAbove: media === 'above',
+            isMediaBelow: media === 'below',
+            contextClass: onGold ? 'bg--gold' : '',
+            contextStyle: onGold ? 'padding:1.5rem' : ''
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

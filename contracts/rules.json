@@ -1,0 +1,322 @@
+{
+  "description": "Governance rules for agents generating designs or code with UIDS. enforcement: 'judge' = mechanically checkable (by a checker script or Figma readback); 'agent' = guidance the agent must follow but only a human review can fully verify. publishTo names the generated views that must carry the rule verbatim — scripts/build-dc-rules.mjs emits every publishTo:'claude-design' rule into claude-design/readme.md and Design System Guide.md, so THIS FILE IS THE ONLY PLACE A RULE IS EDITED. Rules with no publishTo are repo-facing only. A rule that describes a single view's own mechanics does NOT belong here — it belongs in that view (see readme.md's bare-element-styles rule, which is about dc-import's shared cascade and is enforced by check-claude-design.mjs).",
+  "rules": [
+    {
+      "id": "components-from-catalog",
+      "enforcement": "judge",
+      "rule": "Only use components, options, and option values that exist in the catalog. Never invent props, variants, or values not listed in a component's contract. If something needed is missing, report it as a contract proposal instead of improvising.",
+      "publishTo": [
+        "claude-design"
+      ]
+    },
+    {
+      "id": "tokens-only",
+      "enforcement": "judge",
+      "rule": "Every color, font family, font weight, and font size must come from a token in catalog/tokens.json. No raw hex values or ad-hoc type sizes where a token exists.",
+      "publishTo": [
+        "claude-design"
+      ]
+    },
+    {
+      "id": "semantic-tier-first",
+      "enforcement": "judge",
+      "rule": "Consume semantic-tier tokens (color/text, font/size/heading/h2) rather than primitives (color/black, font/size/750), except where a component contract explicitly binds a primitive.",
+      "publishTo": [
+        "claude-design"
+      ]
+    },
+    {
+      "id": "respect-breakpoint-modes",
+      "enforcement": "judge",
+      "rule": "In Figma, component breakpoint variants must pin the Components collection mode (mobile / md (980) / page (1350)) and the Semantic collection mode (small (600) for Mobile/MD, large (1310) for Page). Dimension tokens with value 0 mean auto/content-driven — do not bind them."
+    },
+    {
+      "id": "second-row-forces-narrow",
+      "enforcement": "judge",
+      "rule": "Brand Bar: when Show Second Row is on (code: second_row_content slot present), the top bar must use narrow styling (Figma: Style=Narrow). The code enforces this implicitly; designs must match.",
+      "publishTo": [
+        "claude-design"
+      ]
+    },
+    {
+      "id": "page-heading-structure",
+      "enforcement": "agent",
+      "rule": "A page has TWO h1 elements as-shipped, and that is deliberate to document, not a bug to design around: uids_base templates/uids/site-name.html.twig emits <h1 class=\"site-name\"> in the Brand Bar, and templates/content/page-title.html.twig emits <h1 class=\"page-title headline--serif headline\"> for the page title. Do NOT resolve the duplicate by demoting the page title. An earlier version of this rule claimed a page must have exactly one h1, and agents acting on it demoted the title to an h2 in the default Roboto treatment, losing the page-title type ramp entirely — that is the specific harm this wording exists to prevent. The duplicate is a real accessibility wrinkle in the platform, and fixing it is a SiteNow decision, not something a design may quietly do. Section headings below the page title are h2.",
+      "publishTo": [
+        "claude-design"
+      ]
+    },
+    {
+      "id": "contract-first-changes",
+      "enforcement": "agent",
+      "rule": "Never change a component's public shape (options, slots, tokens) in Figma or code directly. Propose the change in contracts/ first; Figma and code follow after review.",
+      "publishTo": [
+        "claude-design"
+      ]
+    },
+    {
+      "id": "no-planned-options",
+      "enforcement": "judge",
+      "rule": "Do not use options or option values marked status: planned or deprecated in a contract (e.g. Logo context=footer is planned, not available).",
+      "publishTo": [
+        "claude-design"
+      ]
+    },
+    {
+      "id": "badge-inline-only",
+      "enforcement": "agent",
+      "rule": "A badge is an INLINE pill that sits in the flow of text, immediately after the thing it labels — a list item, a table cell, a card meta line, a heading. It renders at ONE fixed size everywhere (0.75rem type, 9px inline padding, 12px radius): it does NOT scale with its surroundings, so never set a size on it and never compensate for its context. NEVER position a badge absolutely, float it, or mount it as a corner flag or ribbon on a card, callout or panel — src/scss/components/badge.scss contains no positioning of any kind, so a corner-mounted badge is invented, not design-system behaviour. A badge inside a heading is FINE as of 2026-08-20, when contracts/badge.json changes[0] fixed the font-size flex that made it look wrong: if you find an instruction anywhere saying never put a badge in a heading, it is SUPERSEDED, and so is the older instruction to put it there to flag a block.",
+      "publishTo": [
+        "claude-design"
+      ]
+    },
+    {
+      "id": "item-list-is-stacked-cards",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "A list of items is stacked BORDERLESS cards, not hand-written markup. News listings, event listings, \"related items\" and search results all use the Card component with borderless set, stacked one per row (reference: https://sandbox.prod.drupal.uiowa.edu/news). Do not invent a <ul> with your own date/heading/summary CSS: it will not match production, and Card already supplies the title, subtitle, meta, body and link in the right proportions. Use a grid of BORDERED cards only for a set of parallel destinations, like a three-across \"related programs\" block."
+    },
+    {
+      "id": "list-card-action-is-the-circle-indicator",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "In an item LIST — the stacked borderless cards of item-list-is-stacked-cards (news, events, related items, search results) — the card's action is the CIRCLE LINK INDICATOR, always: set link_indicator with link_text EMPTY, so the card ends in the round arrow and no text button. Owner-ruled 2026-09-03, reversing a one-round experiment that gave each news card a labelled button ('Read about the grant'): in a stacked list the labels only restate the titles above them and add a column of near-identical buttons. The whole card is already the click target once url is set (card-in-a-listing-is-a-destination), so the arrow is a signifier, not the sole affordance. This is a LIST rule: a GRID of parallel destination cards keeps its labelled buttons ('Explore Biology'), where each label carries real information."
+    },
+    {
+      "id": "page-title-under-brand-bar",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "Breadcrumbs and the page title go directly under the Brand Bar — before any banner, hero or content section — and both belong inside a page__container so they inherit the page's gutters. They are ONE unit: the breadcrumb supplies the space above (1.75rem top margin) and the title sits flush beneath it with no gap, by design. Putting them in a mid-page section, or after a banner, is wrong: the page title identifies the page and has to be the first thing under the navigation. That unit also gets a section to itself — see page-title-is-its-own-section for the class it carries and why nothing else may share it."
+    },
+    {
+      "id": "page-title-is-its-own-section",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "The page title gets its OWN section and shares it with nothing but the breadcrumb: <section class=\"layout__container layout--title\"> wrapping a page__container that holds the Breadcrumbs import and the <h1 class=\"page-title headline headline--serif\">, and then the first content section starts a NEW layout__container. layout--title drops that section's padding-bottom from 3rem to 1.25rem (src/scss/abstracts/_section-rhythm.scss:57), and that 20px is meant to be the gap between the TITLE and the content below it — measured on https://sandbox.prod.drupal.uiowa.edu/test-directory, where the title section computes padding-bottom 20px and the content section below it computes padding-top 0. Put an intro, a section heading or a button in with the title and the 20px lands under YOUR CONTENT instead: the title-to-content gap collapses to whatever the two elements' own margins give, and the content then ends 20px above the next section rather than 48px. Both arrangements compute the same two boxes (0/20px then 0/48px at 1200px) — the numbers stay right and start measuring the wrong edges, which is why no checker can catch it for you. A second rule, `.layout--title + .layout__container:not([class*=\"bg-\"])`, zeroes the following section's padding-top; for a plain title section the adjacent-same-background merge already did that, and it earns its keep when the title section carries a bg--* class, where the merge does not apply. Downstream the class is DETECTED, not authored — uids_base.theme:797 adds it to the Layout Builder header section holding the page-title field block. The suppressed variant is layout--title--hidden: it zeroes BOTH of its own paddings and restores the next section's 3rem top. One structural precondition, and it is easy to miss: put every layout__container inside ONE wrapper of its own, with the Brand Bar and the nav OUTSIDE it. Production uses <div class=\"node__content\">, which holds sections and nothing else, and Page Scaffold.dc.html uses <main>. This matters because layout.css zeroes the top padding of `.layout__container:first-child`, and that is what starts a page flush under the navigation. Leave the sections as siblings of the Brand Bar and that selector never matches, so the title section adds 48px above the breadcrumb that no real page has — measured 77px against production's 28px, where the 28px is the breadcrumb's own 1.75rem margin-top (src/scss/components/breadcrumbs.scss:63-64) and nothing else."
+    },
+    {
+      "id": "backgrounds-by-class",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "A background is applied by CLASS on a section wrapper: bg--{color}[--pattern--{type}], where color is black|gold|gray|white and type is brain|community|particle. Omitting the suffix entirely IS the no-pattern case. Two things you must never do. (1) Never reproduce a pattern with your own background-image, gradient or SVG: the eleven shipped assets are code-only files enumerated in contracts/background.json geometryNotTokenized.pattern-image-assets, and a hand-drawn approximation will not match production. (2) Never set opacity on a background or its pattern. There is NO CSS opacity anywhere in the shipped pattern system — strength is baked into the asset file itself, two different ways: the four brain SVGs declare one opacity each (0.15/0.2/0.7/0.15), while the community and particle PNGs fade per pixel, so any single opacity number quoted for those is a PEAK, not a level. No checker in any of the five views can ever verify this — the pattern layer is an image fill and a Figma variable is COLOR/FLOAT/STRING/BOOLEAN — so it is enforced by instruction here and in the Figma set description, and deliberately NOT by a checker that would appear to cover it."
+    },
+    {
+      "id": "banner-led-page-is-a-composition",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "A banner-led page is a COMPOSITION you assemble, not a component to ask for. The featured-image banner IS the pattern: breadcrumbs and the page title sit INSIDE the banner content area, and the section wrapper carries the Layout Builder classes layout--title and layout--title--with-background. Those wrapper classes are a downstream uids_base LAYOUT and are deliberately not Banner's — contracts/banner.json knownIssues records exactly that — and the component set is CLOSED. So compose the page from Banner + Breadcrumbs + the page-title markup; do NOT invent a hero component, and do not propose one. The title-suppressed variant is layout--title--hidden, and it is worth knowing what it really does: it zeroes the section padding AND makes the breadcrumb element-invisible (still focus-revealable, still announced) rather than deleting either. AMENDED 2026-09-03 with two owner rulings, and the first was CORRECTED the same day. (1) ONE BANNER, CONSOLIDATED: the page top is a single Banner carrying ALL of the top-of-page content — the page's title as its headline, the supporting line as body_text, and the page's primary actions as its buttons (it takes three). Never stack a second Banner beneath the hero, and not a full-width band-styled section either: the first version of this clause prescribed exactly that section, and the owner corrected it — a photo hero with a black pattern band flush beneath it still reads as two stacked banners. Full-width bands stay right FURTHER DOWN the page (alternate-section-backgrounds); the prohibition is the stack at the top. (2) FLUSH: the top banner sits flush against the nav strip — its section takes section-padding__removed-top (claude-design/layout.css keeps that class winning over the 3rem top the layout--title--hidden restore puts back); it keeps its bottom padding, since ordinary content follows."
+    },
+    {
+      "id": "column-container-around-components",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "Every component that has a responsive layout goes inside a <div class=\"column-container\">. UIDS gates a component's own layout switches on a CONTAINER query, not a viewport one — utilities.container-query() compiles to `@container column (min-width: 768px)` — and the only selectors that establish that container are .grid__column, .column-container and .layout-container (src/scss/layout/_grid.scss). A .page__container is NOT one, and neither is a bare <section>. Without a host the query never resolves and the component renders its fallback with NO error and NO warning, which is why this rule exists rather than a checker. Three components are affected, all measured at 1440px host vs no host: a horizontal Menu renders stacked with every submenu open, 363px instead of 57px (menu.scss:127); a Card with orientation left or right renders stacked, 963px instead of 419px (card.scss:367); and a Banner's content loses its width cap, running the full viewport bleed instead of capping at 1310px in line with the page container (banner.scss:129-131). Every view except a hand-composed page hides this: production gets the class from a Layout Builder region, UIDS's own stories wrap their subjects in it, and each .dc.html template in this view bakes its own host in — so the preview looks correct whether or not you write it, and the omission only surfaces once the markup is ported. Put it inside the section's page__container, wrapping the components. A content grid does not need one: the .grid__column around each item already is a host."
+    },
+    {
+      "id": "top-nav-on-every-page",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "Every page gets navigation: the Brand Bar plus a Menu with variant horizontal across the top, and a vertical Menu for a sidebar or section nav. Reference stories are components-menu--horizontal-menu and components-menu--vertical-menu. Two honest limits to design around. (1) The horizontal menu is CONTAINER-gated, not viewport-gated: .menu--horizontal wraps its whole rule set in container-query() (src/scss/components/menu.scss:127), whose shared default is $break-sm (src/scss/abstracts/_breakpoints.scss:52, $break-sm: 768px at src/scss/abstracts/_variables.scss:94), so in a container narrower than 768px it renders stacked, silently. (2) THERE ARE NO DROPDOWNS: .menu--horizontal > li ul sets display: none (menu.scss:145-147), carrying the source's own @todo about doing hover menus without breaking WCAG 2.1 content-on-hover-or-focus. uiowa.edu's real dropdown primary nav is not in UIDS at all — do not hand-build one to fill the gap; note it to the user instead."
+    },
+    {
+      "id": "section-rhythm",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "One component per section. Stacking several components inside one .layout__container is not a designed experience — the design system has no opinion about how they space against each other, so you end up hand-setting margins, which is the thing this rule exists to prevent. Separation between sections comes from the section's own padding: the base is layout/section/padding/default (3rem) and the generous step is layout/section/padding/extra ({space.600} = 6rem, tokens/semantic/layout.json:17), opted into PER SECTION with the section-padding__top-extra / __bottom-extra classes. THE MERGE RULE IS THE PART PEOPLE GET WRONG: claude-design/layout.css zeroes padding-top between adjacent same-background siblings (the :not([class*=\"bg-\"]) pair plus the explicit bg--gold / bg--black / bg--gray pairs), reproducing production parity from uids_base global.scss. So two adjacent default-padded white sections give 48px of total separation, never 96 — the second section contributes nothing. Do not add a margin to make up the difference; opt the section that needs more room into extra. AMENDED 2026-09-02 with the ONE carved-out composition: a section heading, its deck and the content they introduce share one section — which is what section-heading-gets-a-deck and centred-heading-goes-narrow already prescribe — and the design system owner ruled the system owns that composition's internal spacing rather than splitting heading and content into separate sections (same-background sections merge, so a split spends section machinery to produce a 48px gap where the composition wants 2rem). The named spacing: the grid — or the second container, where the heading block takes its own narrow one — gets margin-top: var(--uiowa-space-200), the value the Biochemistry parity story established, applied through a page-scoped class. NOTHING else inside the section carries a margin. The Well-Being page is the case this closes: five grids hand-set at 1.5rem plus a 1.75rem row, each its own invented number, because no value was named."
+    },
+    {
+      "id": "alert-spacing",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "An Alert brings its own internal spacing from tokens and needs none from you: alert/padding sets a uniform edge padding on all four sides (src/scss/components/alert.scss:9) and alert/icon-gap sets the gap between the icon block and the body (alert.scss:43). Never hand-set padding inside an Alert, and never restyle its interior to make a message fit — shorten the message. The space AROUND an Alert is the SECTION's job, not the Alert's: give it its own section.layout__container > .page__container and let section-rhythm supply the separation, exactly as any other one-component section. A bare margin on the Alert to push the next block away is the failure mode; it survives until someone changes the section padding and then it is double-counted."
+    },
+    {
+      "id": "underline-scope",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "The gold underline (headline--underline) marks the FIRST heading of each SECTION BAND — one per section, not one per page. AMENDED 2026-09-01, reversing this rule's previous position: it used to read \"the first heading of a content or text area, and nothing else\" and named a card grid and \"any set of parallel tiles\" as cases to avoid, which meant a correctly-built page carried the underline once and every other section heading read as a lesser thing. The design system owner ruled for per-site consistency instead — a site picks one heading treatment (sans, bold serif, bold serif underlined) and uses it across the components that offer the choice, so the underline is the site's section-heading style rather than a scarce emphasis marker. What survives the amendment is the anti-flattening intent, moved down one level: never underline a SUB-heading inside a section, because that is where repeating the bar genuinely does flatten a hierarchy. A stat row stays excluded, but not because of the underline — per no-heading-over-self-evident-content a stat row should carry no heading at all, so the question never arises. One mechanical consequence matters elsewhere: @mixin headline-underline sets overflow: auto (src/scss/abstracts/_headline-mixins.scss:85) so the bar clears its heading, which makes that heading a block formatting context. See callout-is-a-float for what that costs when a float is loose on the page."
+    },
+    {
+      "id": "no-heading-over-self-evident-content",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "Content that states its own meaning does not need a heading over it. A stat row is the clearest case: every stat already carries its own label and summary, so a \"By the Numbers\" heading above it adds no information and introduces a spacing imbalance — the heading's own margin stacks onto the section's top padding while the bottom keeps only the padding, so the block sits visibly low in its own band. Prefer no heading. If a section genuinely seems to need naming, that is usually evidence the content is not self-evident and should be rewritten, not labelled."
+    },
+    {
+      "id": "container-width-by-content",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "Pick the section container from what is INSIDE it, not by habit. page__container--narrow caps the measure at 1020px from 980px up, and it is for a SINGLE thing that reads better when it is not spanning the page: a block of body copy, a CTA, a Blockquote, an Accordion, a Tabs set, or one component that simply looks better narrow. Anything with COLUMNS takes the standard page__container — a content grid of cards, a row of Stats, any grid--* ratio. Measured at 1440px, a three-across grid gives 405px columns in the standard container and 308px in the narrow one, and at 308px a card's title starts wrapping to three lines while its button drops onto its own row. The narrow container is a reading measure; a grid is a layout, and squeezing one into the other costs you a quarter of every column. See cta-is-always-narrow for the one component that is narrow by rule rather than by judgement."
+    },
+    {
+      "id": "centred-heading-goes-narrow",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "A centred heading and its deck go in their OWN narrow container, separate from the content they introduce. Centring only reads as centring when the line is short enough for the eye to take the whole measure at once; at the standard container the line simply runs the full page and the emphasis is lost. Measured at 1440px on a real intro line: 92 characters on ONE 1285px line in the standard container, against 46 characters over two lines at 1020px narrow — a comfortable measure is roughly 45-75, so the standard container is about double it. The composition is TWO containers inside ONE section: <div class=\"page__container page__container--narrow\"> holding the Headline (alignment=\"center\") and its deck (body copy — section-heading-gets-a-deck records the treatment), then a second <div class=\"page__container\"> holding the grid or cards below. The heading block and the content it introduces deliberately do not share a container — that is what lets each take the width it needs, and it is the one place container-width-by-content's two halves both apply inside a single section. This does not change when to centre in the first place: that is heading-alignment-follows-content, and a card grid or a stat row is exactly the case it says to centre over. A LEFT-aligned heading needs none of this — it starts at the same gutter as the content under it, so it shares the content's container."
+    },
+    {
+      "id": "stats-come-in-threes",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "Stats come in THREES, in a grid. A Stat is a comparison object — the number only means something next to other numbers — so put three across in a list-container--grid grid--threecol--33-34-33, in a STANDARD page__container (see container-width-by-content), and give each one a stat_title, a stat_summary and enough stat_content to earn its column. A lone Stat centred in a band is the failure mode to avoid: it reads as a pull-quote that lost its attribution, and the eye has nothing to compare it against. Two is acceptable when there are genuinely only two figures; one is not. If you have only one number worth showing, it belongs in body copy or in a Callout, not in a Stat band of its own."
+    },
+    {
+      "id": "alternate-section-backgrounds",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "Alternate section backgrounds down the page. A run of four or five default (white) sections reads as one undifferentiated column no matter how well each section is composed, because the ONLY thing separating them is 3rem of padding — and per section-rhythm, adjacent sections sharing a background merge, so two white sections in a row give one section's worth of separation, not two. Break a long page into bands: white, gray, white, or white, pattern, white. Put the band on the section wrapper with bg--gray or a bg--*--pattern--* class (backgrounds-by-class), not on the components inside it, and do not put two coloured bands next to each other — the white between them is what makes each one read as a band. The rhythm to aim for is a coloured section every second or third section, usually landing on the ones that carry a different KIND of content: a stat row, a highlight, a CTA."
+    },
+    {
+      "id": "cta-is-always-narrow",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "A CTA's text must never run the full page width. This is a NEW CONSTRAINT, not a bug fix, and the distinction matters: max-width does not appear anywhere in src/scss/components/cta.scss (zero occurrences, verified 2026-08-24), so nothing in code enforces it and a CTA dropped into a full-width container will happily span it. Recorded as a decision in contracts/cta.json changes[]. The composition needs no code change: put the band on the section (section.layout__container.bg--gold), cap the measure with div.page__container--narrow inside it, and give the CTA background=\"\" so it does not paint a second band inside the first."
+    },
+    {
+      "id": "callout-is-a-float",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "A Callout is a FLOATED inline element, not a section band. contracts/callout.json's inline_alignment option defaults to \"left\", which emits .inline--align-left { float: left; clear: left } (src/scss/components/_inline.scss:117) — as-shipped, not a bug. Used as a full-width band it escapes its section, and the damage lands on the NEXT section rather than on the Callout: because headline--underline carries overflow: auto, a block formatting context (src/scss/abstracts/_headline-mixins.scss:85), the following section's heading shrink-wraps beside the still-floating Callout instead of clearing it — measured 122.5px wide at x=1123 inside a 1245px container. It reads as a heading bug rather than a Callout one, which is why it took a measurement to find. To band a section, put a background class on the section wrapper (see backgrounds-by-class). Use a Callout for what it is: a short aside floated beside prose."
+    },
+    {
+      "id": "pre-title-is-not-a-category",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "A Card's pre_title is a CONTEXTUAL LABEL — \"Pinned\", \"Featured\", \"Applications close Friday\" — not a taxonomy term. Do not tag every item in a listing with its section (\"Research\", \"Students\", \"Faculty\"): the pre-title renders deliberately quiet, at card/pre-title/font-size 0.75rem with card/pre-title/opacity 0.7, and a full column of them turns that quiet into noise while implying a filterable taxonomy the component does not provide. Reference: https://sandbox.prod.drupal.uiowa.edu/news. The icon slot beside it follows the same logic — an icon marks an exception, not a type, so do not give every card one."
+    },
+    {
+      "id": "heading-alignment-follows-content",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "A heading takes the alignment of the content it introduces; alignment follows the layout rather than being a separate styling choice. Centred content gets a centred heading — a centred CTA, a centred stat row, a single pull-quote — and a card grid or row of parallel tiles reads better with one, because the heading spans several columns and left-aligning it over a symmetrical grid puts the weight in one corner. Left-aligned prose keeps a left-aligned heading: never centre a heading over body copy, and never centre one just to break up a page. Set it ON THE HEADING (alignment=\"center\", contracts/headline.json), not by centring the wrapper — with underline on, the gold bar is a display: block pseudo-element with zero side margins, so a wrapper text-align centres the text and leaves the bar hard left under the first word (src/scss/components/_headline.scss:23 supplies the text-align; the bar gets margin-inline auto only from src/scss/abstracts/_headline-mixins.scss:96). There is no left or right value: the default INHERITS, so a heading in a left-aligned container is already left-aligned, and forcing one against its container grain is deliberately impossible — if you want that, the container is wrong. Do not mix alignments within one section."
+    },
+    {
+      "id": "banner-pre-title-is-a-hook",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "A Banner's pre_title is a HOOK or a topic label — \"Research stories\", \"Undergraduate program\", \"Discover more\" — the line that tells a reader what kind of thing the headline is and gives them a reason to keep reading. It is NOT the name of the owning unit. The Brand Bar already states the site and its parent (siteName / parentTitle) and the Brand Footer states them again, so putting the college or department name in pre_title spends the one line above the headline on information the page has shown twice already. Note this is the OPPOSITE advice to pre-title-is-not-a-category, which governs a CARD's pre_title: a card sits in a set of parallel siblings, so a repeated taxonomy term there is noise, while a banner is a singleton at the top of a page and orienting the reader is exactly its pre_title's job. Same option name, two components, two rules — do not generalise one to the other."
+    },
+    {
+      "id": "card-background-contrasts-the-band",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "A Card sitting in a coloured section band needs its own background to stay legible: inside bg--gray, set the Card's background to white. Card carries a background option for this (contracts/card.json, values black|gray|gold|white) and it is the difference between a card that reads as an object on a surface and one that dissolves into it — a default-background card on bg--gray is a bordered rectangle of the same colour as the band, so the border does all the work and the card stops looking like a card. This is not the same choice as borderless: borderless removes the frame and is for cards that are already separated by a grid gap on a white section. A borderless card on bg--gray is the worst case of all, because nothing at all distinguishes it from the band. Never put a card's background class on the section wrapper or the section's on the card — see backgrounds-by-class."
+    },
+    {
+      "id": "card-in-a-listing-is-a-destination",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "A Card that stands for a place a reader can go gets a url. Not a decorative tile, not a fact restated as a box — if the card names a programme, a story, a facility or an organisation that has a page behind it, link it. Passing url is also what makes the WHOLE card a click target rather than just its label: Card.dc.html:470 pushes `click-container` onto the root as soon as a url is present, and click-a11y then wires the surface up, so the reader gets a card-sized hit area instead of a one-line link. A grid of unlinked cards is the commonest dead end in a generated landing page: it looks finished, it reads as navigation, and it goes nowhere. If a card genuinely has no destination, that is a sign the content belongs in prose or a stat, not in a card."
+    },
+    {
+      "id": "banner-stacks-on-mobile",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "Set mobile_content_below_image on every media-filled Banner. Below the sm container query it stops overlaying the text on the photograph and stacks the content UNDER it: the media loses its scrim, the banner becomes display:block, and the foreground colours flip to black with the text-shadow removed (contracts/banner.json records banner.scss:324-361). Overlaid text at phone width is the worst case for both halves of the banner — the headline sits on whatever part of the image happens to be behind it, and the image is cropped to a band too short to read as a picture. Stacking fixes both at once, which is why it should be the standing choice and not a per-page rescue. It costs nothing above the switch, where the overlay is unchanged."
+    },
+    {
+      "id": "section-heading-gets-a-deck",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "A section heading that introduces a grid gets a line or two of prose under it before the grid starts. A bare heading over three tiles makes the reader infer the relationship between the heading and the set — what these things have in common, why they are grouped, what to do with them — and they will infer it wrong or not bother. The deck is where that goes. It is also the only place a section can carry an editorial voice: the tiles themselves are parallel and terse by construction. Keep it to one or two sentences; a deck long enough to need its own paragraph break is a prose section that happens to be followed by a grid, and it wants its own container (see container-width-by-content). A centred heading and its deck go in their own narrow container — centred-heading-goes-narrow covers that case. The deck is BODY COPY — a plain paragraph on the body ramp — never the intro treatment (element--light-intro / uids-component--light-intro, src/scss/base/_paragraph.scss:195-201; generated pages have hand-rolled an .intro equivalent when nothing told them otherwise). The intro voice belongs to the page's own introduction, once: set it under every section heading and the one place it means something stops reading as the page's voice. AMENDED 2026-09-02 to add the treatment — the rule was silent on it, and the Well-Being page showed what silence allows: five section decks plus the page introduction, all in the light intro style. The design system owner's ruling is that light intro text under headings is useful only once per page."
+    },
+    {
+      "id": "no-second-contact-block",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "Do not build a content section that restates the Brand Footer. The Brand Footer already carries the address, phone and email as props (contact / phone / email) on every page, so a \"Visit us\" or \"Contact\" section at the bottom of a landing page prints the same three facts twice within one screen of each other and spends the most valuable slot on the page — the last thing a reader sees — on a duplicate. The same test applies to any chrome the page already supplies: the site and parent names (Brand Bar and Brand Footer both), and the primary conversion action if a banner or CTA has already made it. If the closing section would only repeat, delete it and let the footer do its job; if there is genuinely more to say about visiting — parking, building access, hours, a map — that is new content and it belongs on a Visit page the footer or nav links to."
+    },
+    {
+      "id": "landing-page-suppresses-a-redundant-title",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "Suppress a page title the page has ALREADY STATED, rather than printing it twice. Two triggers, either one is enough: the title says the same thing as the site name, or a BANNER at the top of the page already states the page's subject. AMENDED 2026-09-01 -- this rule previously tested only site-name duplication, which meant a page whose banner had just announced its subject still printed a redundant h1 underneath it (the id changed with the scope: it was landing-page-suppresses-a-duplicate-title). Add layout--title--hidden to the title section: it zeroes that section's own top and bottom padding (claude-design/layout.css:104-107) and restores the following section's padding-top, and it hides the BREADCRUMB with the title: uids_base applies element-invisible to the breadcrumb block under this class (scss/layouts/onecol--background.scss:78, with a focus-within reveal), and as of 2026-09-02 claude-design/layout.css ports the same pair onto nav.breadcrumb — so a suppressed page never shows an orphaned crumb strip, and focusing a crumb link reveals it on a gray chip. Hide the h1 itself with element-invisible or visually-hidden, both of which ship unconditionally in the shared sheet for exactly this case. For a banner-led page, banner-led-page-is-a-composition covers the fuller arrangement, including layout--title--with-background. SUPPRESS, NEVER DELETE: the h1 and the breadcrumb stay in the DOM, announced and focus-revealable -- a page with no h1 at all is a real accessibility regression, and this is the platform's mitigation for the two-h1 problem contracts/page-title.json knownIssues[0] records. A page whose title is genuinely NOT stated elsewhere should show it."
+    },
+    {
+      "id": "nav-strip-border-is-full-bleed",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "The horizontal main nav sits in its own FULL-BLEED strip with a hairline bottom border, and that strip is the thing separating the navigation from the page. Reproduce production's structure exactly: a plain wrapper carrying the border, OUTSIDE any container, holding a <div class=\"page__container\"> that holds the Menu. Downstream this is a sibling AFTER the Brand Bar's </header> — uids_base templates/layout/header.html.twig emits <nav class=\"nav--horizontal\"> wrapping a page__container — and the border is on that full-width element, so the rule reads edge to edge while the links stay on the container grid. Three ways to get it wrong. (1) The border colour is --uiowa-menu-container-border-color, which resolves to #E6E5E5; do NOT reach for --uiowa-color-gray-165, which is #DDDDDD and a visibly different hairline. Production hard-codes #e6e5e5 as a raw literal (uids_base scss/components/menus/superfish/horizontal-menu.scss:5), so the token is the correct expression of an as-shipped value rather than a change to it. (2) Make the strip a DIV, never a <nav>: Menu renders its own <nav aria-label> and a second landmark around it nests two. (3) This is NOT Menu's container_border / .menu--container, which lands the border on .column-container (claude-design/Menu.dc.html:211) and is therefore INSET to the container — a different pattern, for a horizontal nav sitting inside a page, as the Application stories use it. Reaching for it here gives a border that stops short of both edges."
+    },
+    {
+      "id": "pattern-over-a-flat-dark-band",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "A full-width dark band reads as stark when it is flat colour. If the section has no image and one is not the obvious first move, reach for a PATTERN background rather than bare bg--black or bg--gold: the shared sheet ships twelve combinations -- black, gold, gray and white each crossed with brain, community and particle (claude-design/backgrounds.css). The pattern does the work an image would have done, at no content cost and with no cropping or alt-text to get wrong, and it keeps a band from looking like an unstyled block of colour. Two notes. backgrounds-by-class lists only three of the twelve as examples, so do not read that list as the available set. And contracts/banner.json's background option enumerates only black--pattern--brain, gold--pattern--particle and gray--pattern--community, so a Banner is limited to those three where a section wrapper is not -- pick the class on the section, not the component, per backgrounds-by-class."
+    },
+    {
+      "id": "light-font-buttons-belong-in-cards",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "The light_font Button style is the IN-CARD recipe and does not belong on a standalone section button. It swaps the button's default caps face (--uiowa-button-font-family) for --uiowa-font-family-sans, which is 'Roboto', sans-serif, at normal weight -- a quiet text-like treatment that reads correctly inside a card's footer and reads as an unstyled link when it is carrying a section's main action. The trap is that Card.dc.html's own footer button is declared with transparent plus light_font, so the recipe is right there to copy, and copying it onto a section-level button is the commonest way this goes wrong -- a real generated page put transparent + light_font on all six of its buttons, none of them in a card. For a section action, use a Button with its default face and a real colour."
+    },
+    {
+      "id": "card-grid-uses-the-shipped-classes",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "A row of cards goes in the SHIPPED grid, never a hand-rolled one. The markup is a section wrapper, then <div class=\"list-container list-container--grid grid--{ratio}\">, then <div class=\"list-container__inner\">, then one wrapper per card. The ratios that ship are grid--fourcol--25, grid--threecol--33-34-33, grid--twocol--50-50 and grid--twocol--25-75 -- so a four-across row needs nothing invented. THE COST OF ROLLING YOUR OWN IS NOT COSMETIC: layout.css's content-grid rule that levels a row is scoped to `.list-container__inner > *`, so without that wrapper it never fires, the grid stretches each column while every card keeps its own content height, and the row renders ragged. Measured on a real generated page that declared its own .card-grid: five rows ragged by 33, 28, 79, 27 and 52 pixels, where production renders them level. A hand-rolled grid also invents breakpoints -- that page switched at 600px, which no UIDS component does. stats-come-in-threes shows the same markup for a Stat row; it is the same grid. AMENDED 2026-09-02, clarifying what 'one wrapper per card' means IN THIS VIEW, learned by falling into it while fixing the reviewed pages: put each dc-import DIRECTLY inside .list-container__inner — the runtime's own import wrapper IS the per-card grid item. Do not add a .grid__column div around it: production needs that div (Layout Builder emits it, and UIDS's own stories reproduce it), but here it adds a fourth layer the row-leveller cannot reach through — layout.css stretches the grid item and grows its only child, and with the extra div that growth stops at the runtime wrapper while the card inside keeps its content height. Measured 2026-09-02 on the Well-Being page: the same four-card row rendered 305/254/333/353 ragged with the divs and level without them."
+    }
+  ]
+}

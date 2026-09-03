@@ -3,8 +3,8 @@
 
 .menu {
   --menu-flex-direction: column;
-  --menu-link-color: var(--brand-secondary);
-  --menu-link-indicator-width: 5px;
+  --menu-link-color: var(--uiowa-menu-link-color);
+  --menu-link-indicator-width: var(--uiowa-menu-link-indicator-thickness);
   --menu-link-indicator-height: 100%;
   --menu-link-transform-end: scaleY(100%);
   --menu-link-transform-start: scaleY(0%);
@@ -13,15 +13,15 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
-  font-size: 1.1rem;
+  font-size: var(--uiowa-menu-font-size);
 
   // Make top-level menu items bold.
   &:not(ul ul):not(.menu--horizontal) > li > a {
-    font-weight: variables.$font-weight-medium;
+    font-weight: var(--uiowa-menu-top-level-font-weight);
   }
 
   li {
-    border-bottom: 1px solid hsla(0, 0%, 79%, .5);
+    border-bottom: 1px solid var(--uiowa-menu-separator-color);
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -62,7 +62,7 @@
     span:not([class*="fa"]) {
       color: var(--menu-link-color);
       display: block;
-      padding: .9rem 1.5rem;
+      padding: var(--uiowa-menu-link-padding-block) var(--uiowa-menu-link-padding-inline);
       position: relative;
       text-decoration: none;
 
@@ -92,7 +92,7 @@
       [class*="bg--"] [class*="bg--white"] &,
       [class*="bg--gray"] &,
       [class*="bg--"] [class*="bg--gray"] & {
-        color: variables.$dark-gray;
+        color: var(--uiowa-menu-link-color-on-light);
       }
     }
 
@@ -108,8 +108,8 @@
         // Reduce vertical padding for nested menu items.
         a,
         span:not([class*="fa"]) {
-          padding-block-start: .5rem;
-          padding-block-end: .5rem;
+          padding-block-start: var(--uiowa-menu-nested-padding-block);
+          padding-block-end: var(--uiowa-menu-nested-padding-block);
         }
       }
     }
@@ -118,7 +118,7 @@
   // Adds an underline on hover.
   > li > a:hover:after {
     transform: var(--menu-link-transform-end);
-    background: var(--brand-primary);
+    background: var(--uiowa-menu-link-indicator-hover-color);
     height: var(--menu-link-indicator-height);
     width: var(--menu-link-indicator-width);
   }
@@ -127,7 +127,7 @@
 .menu--horizontal {
   @include utilities.container-query() {
     --menu-link-indicator-width: 100%;
-    --menu-link-indicator-height: 5px;
+    --menu-link-indicator-height: var(--uiowa-menu-link-indicator-thickness);
     --menu-flex-direction: row;
     --menu-link-transform-start: scaleX(0%);
     --menu-link-transform-end: scaleX(100%);
@@ -155,5 +155,5 @@
 }
 
 .menu--container {
-  border-bottom: 1px solid #e6e5e5;
+  border-bottom: 1px solid var(--uiowa-menu-container-border-color);
 }

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet data-dc-atomics>
+        <link rel="stylesheet" href="./tokens.css" />
+        <!-- Banner's fill is EITHER a media element or a bg--* class, and four
+             :not([class*="bg--"]) guards in banner.scss make that exclusivity real
+             rather than conventional. Without backgrounds.css the whole Background
+             half of the component is an unstyled class. -->
+        <link rel="stylesheet" href="./backgrounds.css" />
+        <style>
+          /* ---- page reset (src/scss/base/_reset.scss:32-53), verbatim ----
+             Production applies this globally to <html>, so every rule below was
+             authored against border-box. Reproduced across the batch after Callout
+             measured 96px too wide without it. */
+          html{box-sizing:border-box}
+          *,*::before,*::after{box-sizing:inherit}
+          body{margin:0}
+
+          /* ---- dc-only: the container context production always supplies ----
+             banner.scss reaches for utilities.container-query() eleven times, and that
+             mixin compiles to `@supports (contain: inline-size){@container column (...)}`
+             first. A @container query resolves against the nearest ancestor NAMED
+             column, which in production is the Layout Builder grid column
+             (src/scss/layout/_grid.scss:83) and in Storybook is .column-container.
+             Standing alone with no such ancestor, EVERY container-query rule below
+             would silently never match and the banner would render permanently in its
+             mobile form — no gradient, no 65% content cap, no 32px padding. This
+             wrapper reproduces the ancestor, and nothing else. */
+          .dc-banner-column{container-type:inline-size;container-name:column}
+
+          /* ---- .banner base (src/scss/components/banner.scss, source order) ---- */
+          .banner{
+            --banner-padding:var(--uiowa-banner-padding-base);
+            /* A bare channel triplet, not a colour: one custom property feeds BOTH the
+               flat scrim's rgb() and the three-stop gradient below, and CSS cannot
+               derive that from a hex. Deliberately not tokenized — see
+               contracts/banner.json geometryNotTokenized.overlay-color-channels. */
+            --banner-overlay-color-rgb:0, 0, 0;
+            --banner-overlay-solid-opacity:var(--uiowa-banner-overlay-opacity-solid-dark);
+            --banner-overlay-gradient-midpoint:var(--uiowa-banner-overlay-midpoint-default);
+            --banner-overlay-gradient:rgb(var(--banner-overlay-color-rgb), var(--uiowa-banner-overlay-opacity-gradient-start)) 0%, rgb(var(--banner-overlay-color-rgb), var(--uiowa-banner-overlay-opacity-gradient-mid)) var(--banner-overlay-gradient-midpoint), transparent;
+            --banner-text-color:var(--uiowa-banner-text-color-on-media);
+            --banner-bg-failsafe:var(--uiowa-banner-bg-failsafe-on-media);
+            --link-color:var(--banner-text-color);
+            display:flex;
+            flex-basis:100%;
+            align-items:center;
+            justify-content:center;
+            min-height:var(--uiowa-banner-min-height);
+            position:relative;
+            overflow:hidden;
+          }
+          /* The padding switch is a MEDIA query at sm (768), not a container query —
+             banner.scss:25 uses breakpoint(sm), not container-query(). That is why the
+             token is a base/sm pair rather than a responsive one: component tokens
+             switch at 980. */
+          @media (min-width:768px){
+            .banner{--banner-padding:var(--uiowa-banner-padding-sm)}
+          }
+
+          /* ---- Media ---- */
+          .banner .media{
+            background:var(--uiowa-banner-media-background-default);
+            height:100%;
+            width:100%;
+            position:absolute;
+            overflow:visible;
+          }
+          @container column (min-width:768px){
+            .banner .media{position:absolute}
+          }
+          .banner .media img,.banner .media video{display:block;height:100%;width:100%;object-fit:cover;top:0;overflow:visible}
+          /* The scrim. Always painted; the direction modifiers REPLACE this flat fill
+             with a gradient, they do not layer on top of it. */
+          .banner .media:after{
+            display:block;
+            position:absolute;
+            height:100%;
+            width:100%;
+            top:0;
+            left:0;
+            content:"";
+            transition:all 0.5s ease-in-out;
+            will-change:opacity;
+            background:rgb(var(--banner-overlay-color-rgb), var(--banner-overlay-solid-opacity));
+          }
+          /* Video controls. The BOX is reproduced — it carries seven banner tokens — but
+             not its glyph: banner.scss draws the play/pause triangle with a Font Awesome
+             \f04b / \f04c ::after, and this view cannot load that webfont (the Alert
+             template hit the same wall and drew its icons as inline SVG instead). A
+             consumer swapping the placeholder for a real <video> gets the right control
+             geometry and colours, and has to supply the glyph. */
+          .banner .media .video-controls{position:absolute;z-index:2;right:var(--uiowa-banner-video-controls-offset-base);bottom:var(--uiowa-banner-video-controls-offset-base)}
+          @container column (min-width:768px){
+            .banner .media .video-controls{right:var(--uiowa-banner-video-controls-offset-sm);bottom:var(--uiowa-banner-video-controls-offset-sm)}
+          }
+          .banner .media .video-btn{
+            width:var(--uiowa-banner-video-btn-size);
+            height:var(--uiowa-banner-video-btn-size);
+            cursor:pointer;
+            color:var(--uiowa-banner-video-btn-color);
+            border:var(--uiowa-banner-video-btn-border-width) solid var(--uiowa-banner-video-btn-border-color-default);
+            border-radius:50%;
+            background:var(--uiowa-banner-video-btn-background);
+            font-size:var(--uiowa-banner-video-btn-font-size);
+            padding:0;
+          }
+          @container column (min-width:768px){
+            .banner .media .video-btn{display:block}
+          }
+
+          /* ---- Content ---- */
+          .banner__content{margin:0 auto;width:100%;z-index:0;padding:var(--banner-padding)}
+          @container column (min-width:768px){
+            .banner__content{z-index:1;max-width:81.875em;top:0}
+          }
+          .banner__content > *{flex-basis:100%}
+
+          /* ---- Headline ----
+             The heading itself is a real Headline import (see the body). These are
+             banner's OWN overrides of it, and they are ancestor rules — `.banner
+             :where(h2,...)` — so they reach the imported instance the same way CTA's
+             bg--gold reaches its nested Headline. Without them a banner headline would
+             render at Headline's own ramp (about 35px) instead of banner's (60.8px at a
+             1020 container), which is the single most visible thing about a banner. */
+          .banner .headline{color:var(--banner-text-color);margin-top:0;margin-bottom:var(--uiowa-banner-headline-margin-bottom);z-index:1}
+          .banner .headline a{color:var(--link-color)}
+          .banner .headline a:hover{text-decoration:none}
+          .banner .headline a:focus{text-decoration:underline}
+          .banner.banner--horizontal-center .headline.headline--underline:after{margin-right:auto;margin-left:auto}
+          .banner:focus-within .headline a:focus{text-decoration:underline}
+          .banner :where(h2,h3,h4,h5,h6).headline--large,
+          .banner :where(h2,h3,h4,h5,h6).headline--large.headline--serif{font-size:clamp(1.8rem, calc(2.5vw + 1.3rem), 3.7rem)}
+          .banner :where(h2,h3,h4,h5,h6).headline--medium,
+          .banner :where(h2,h3,h4,h5,h6).headline--medium.headline--serif{font-size:clamp(1.5rem, calc(2vw + 1rem), 2.2rem)}
+          .banner :where(h2,h3,h4,h5,h6).headline--small,
+          .banner :where(h2,h3,h4,h5,h6).headline--small.headline--serif{font-size:clamp(1.2rem, calc(1.5vw + 0.8rem), 1.8rem)}
+          @container column (min-width:768px){
+            .banner :where(h2,h3,h4,h5,h6).headline--large,
+            .banner :where(h2,h3,h4,h5,h6).headline--large.headline--serif{font-size:clamp(2.5rem, calc(4.9577vw + 0.6408rem), 4.7rem)}
+            .banner :where(h2,h3,h4,h5,h6).headline--medium,
+            .banner :where(h2,h3,h4,h5,h6).headline--medium.headline--serif{font-size:clamp(2.2rem, calc(3.3803vw + 0.9324rem), 3.7rem)}
+            .banner :where(h2,h3,h4,h5,h6).headline--small,
+            .banner :where(h2,h3,h4,h5,h6).headline--small.headline--serif{font-size:clamp(2rem, calc(1.5775vw + 1.4085rem), 2.7rem)}
+          }
+
+          /* ---- Pre-title ----
+             Not a Headline import, faithfully: Banner.vue builds this one as a bare div
+             carrying headline classes (Banner.vue:202-204), so it never participates in
+             Headline's own component set. */
+          /* AS-SHIPPED AMBIGUITY, reproduced rather than resolved: this and
+             headline.scss's own `.headline{line-height:1}` are both (0,1,0) on the same
+             element, so which one wins is decided by stylesheet order. They resolve
+             DIFFERENTLY in the two builds UIDS itself ships — dist/uids.css puts
+             .headline last (uids.scss loads banner at :6 and headline at :17), so the
+             bundle renders 1; Storybook imports SCSS per component and renders 1.1, which
+             is what regression/baselines/banner.json pins. Raising specificity here would
+             make this view deterministic in a way production is not. Recorded in
+             contracts/banner.json knownIssues. */
+          .banner__pre-title{line-height:var(--uiowa-banner-pre-title-line-height)}
+          .banner__pre-title.headline.headline--serif{margin-bottom:0;font-weight:var(--uiowa-banner-pre-title-font-weight)}
+          .banner__pre-title.headline.headline--underline{padding-bottom:0}
+          .banner__pre-title.headline.headline--underline:after{display:none}
+          .banner__pre-title.headline.headline--uppercase{margin-bottom:var(--uiowa-banner-pre-title-uppercase-margin-bottom);font-weight:var(--uiowa-banner-pre-title-font-weight)}
+          .banner__pre-title.headline--large{font-size:clamp(1.2rem, calc(0.9014vw + 0.862rem), 1.6rem)}
+          .banner__pre-title.headline--medium{font-size:clamp(1.2rem, calc(0.4507vw + 1.031rem), 1.4rem)}
+          .banner__pre-title.headline--small{font-size:var(--uiowa-banner-pre-title-font-size-small)}
+
+          /* ---- Body copy ---- */
+          .banner__text{z-index:1;color:var(--banner-text-color);margin-bottom:var(--uiowa-banner-text-margin-bottom)}
+          .banner__text p{line-height:1.5;margin-top:0;color:var(--banner-text-color)}
+          .banner__text p a{position:relative;z-index:1;color:var(--banner-text-color)}
+          .banner__text h2 a,.banner__text h3 a,.banner__text h4 a,.banner__text h5 a,.banner__text h6 a{color:var(--banner-text-color)}
+          .banner__text blockquote{margin-left:0}
+          .banner__text blockquote a{color:var(--banner-text-color)}
+          /* DOCUMENTED OMISSION: `[class*="bg--gold"] .banner__text blockquote
+             {border-left-color: $light}` (banner.scss:269-274). $light is
+             var(--uids-light), a THIRD runtime theming channel alongside
+             --brand-primary/--brand-secondary, and this view ships neither the channel
+             nor a blockquote. Reproducing it would mean inventing a value for a channel
+             tokens.css does not define. Recorded in contracts/banner.json
+             geometryNotTokenized.gold-blockquote-border. */
+
+          /* ---- Buttons ---- */
+          .banner .headline + .banner__action{margin-top:var(--uiowa-banner-action-margin-top)}
+          .banner .bttn--transparent{color:var(--banner-text-color);border-color:var(--banner-text-color)}
+          .banner__action .bttn{margin:0 var(--uiowa-banner-action-button-spacing) var(--uiowa-banner-action-button-spacing) 0}
+          @container column (min-width:768px){
+            .banner__action .bttn + .bttn{margin:0 var(--uiowa-banner-action-button-spacing) var(--uiowa-banner-action-button-spacing) 0}
+          }
+          /* dc-only: keep the row INLINE. In UIDS the row's <a class="bttn"> children are
+             inline-block siblings and flow on one line; here every Button import arrives
+             inside the runtime's own block-level wrapper, which stacked the three buttons
+             vertically (found by the design system owner, 2026-09-02). Flex-with-wrap
+             restores the native inline flow — the .bttn token margins above still supply
+             the gaps, exactly as production. Scoped to the action row so the rule cannot
+             reach another template's .bttn--row. */
+          .banner__action .bttn--row{display:flex;flex-wrap:wrap}
+
+          /* ---- Fill exclusivity ----
+             These four rules ARE the Fill axis. Each :not([class*="bg--"]) turns a
+             background class into the absence of the whole media treatment, which is
+             why the Figma set models Fill as a real axis rather than a convention. */
+          .banner[class*="bg--gold"],
+          .banner[class*="bg--white"],
+          .banner[class*="bg--gray"]{--banner-text-color:var(--uiowa-banner-text-color-on-light-fill)}
+          .banner:not([class*="bg--"]){background-color:var(--banner-bg-failsafe)}
+          .banner:not([class*="bg--"]) .headline,
+          .banner:not([class*="bg--"]) .banner__text{text-shadow:0 1px 3px rgb(var(--banner-overlay-color-rgb))}
+
+          /* ---- Stacked (below the sm container query) ----
+             Content below the image instead of over it, on a white page. Kept even
+             though the editor usually renders wide: the panel width IS the render width
+             here, so a narrow panel really does reach this branch. */
+          @container column (max-width:768px){
+            .banner--stacked:not([class*="bg--"]){
+              --link-color:var(--uiowa-banner-text-color-on-light-fill);
+              --banner-bg-failsafe:var(--uiowa-banner-bg-failsafe-on-light-overlay);
+              display:block;
+            }
+            .banner--stacked:not([class*="bg--"]) .media{position:relative;height:auto}
+            .banner--stacked:not([class*="bg--"]) .media:after{background:none !important}
+            .banner--stacked:not([class*="bg--"]) .headline{color:var(--uiowa-banner-text-color-on-light-fill);text-shadow:none}
+            .banner--stacked:not([class*="bg--"]) .bttn--transparent{color:var(--uiowa-banner-text-color-on-light-fill);border-color:var(--uiowa-banner-text-color-on-light-fill)}
+            .banner--stacked:not([class*="bg--"]) .banner__text{color:var(--uiowa-banner-text-color-on-light-fill);text-shadow:none}
+            /* The `*` here does match the runtime's sc-interp wrapper — and that is
+               harmless and faithful: it sets the same colour the wrapper would inherit
+               anyway, and production's own markup nests real spans in authored rich
+               text, so the selector is doing the same job in both views. */
+            .banner--stacked:not([class*="bg--"]) .banner__text *{color:var(--uiowa-banner-text-color-on-light-fill)}
+          }
+
+          /* ---- Height ----
+             A ::before aspect-ratio hack, so it sets a MINIMUM: taller content wins.
+             At a 1020 container that is 461.55 and 328.95. */
+          .banner--large::before{float:left;padding-top:45.25%;content:''}
+          .banner--medium::before{float:left;padding-top:32.25%;content:''}
+          /* banner--full is reproduced as-shipped: it does nothing alone, and only
+             compounded with --large at the page container (contracts/banner.json
+             knownIssues). Kept because a prior deletion of it was reverted. */
+          @media (min-width:1350px){
+            .banner--full.banner--large{height:100vh}
+          }
+
+          /* ---- Alignment ---- */
+          .banner--vertical-top{align-items:flex-start}
+          .banner--vertical-bottom{align-items:flex-end}
+          /* banner--vertical-center is emitted by the component and has NO rule in
+             src/ — invisible only because .banner already centres. As-shipped
+             (contracts/banner.json knownIssues); nothing is added here to "fix" it. */
+          .banner--horizontal-center{text-align:center}
+          .banner--horizontal-center blockquote{border-left:none}
+          .banner--horizontal-center .banner__content > *{margin-right:auto;margin-left:auto}
+          .banner--horizontal-left{text-align:left}
+
+          /* ---- Narrow ---- */
+          @container column (min-width:768px){
+            .banner--narrow .banner__content{max-width:65%}
+            .banner--narrow.banner--horizontal-left .banner__content{margin-left:0}
+          }
+          @container column (min-width:84.375em){
+            .banner--narrow .banner__content{max-width:47.75em}
+            .banner--narrow.banner--horizontal-left .banner__content{margin-left:calc(50% - 81.875em / 2)}
+          }
+
+          /* ---- Overlay: Direction x Tone ----
+             Two independent decisions. Direction chooses flat scrim vs gradient and at
+             what angle; Tone chooses the colour, the alpha, and every foreground that
+             follows. A light BTT gradient is a real state. */
+          @container column (min-width:768px){
+            .banner--overlay-btt .media:after,
+            .banner--overlay-ttb .media:after,
+            .banner--overlay-ltr .media:after{background:linear-gradient(var(--banner-overlay-gradient-direction), var(--banner-overlay-gradient))}
+          }
+          .banner--overlay-btt{--banner-overlay-gradient-direction:0deg}
+          .banner--overlay-ttb{--banner-overlay-gradient-direction:180deg}
+          .banner--overlay-ltr{--banner-overlay-gradient-direction:90deg;--banner-overlay-gradient-midpoint:var(--uiowa-banner-overlay-midpoint-ltr)}
+          .banner--overlay-light:not([class*="bg--"]){
+            /* The light tone's channel triplet, untokenized for the same reason as the
+               dark one above. */
+            --banner-overlay-color-rgb:255, 255, 255;
+            --banner-overlay-solid-opacity:var(--uiowa-banner-overlay-opacity-solid-light);
+            --banner-text-color:var(--uiowa-banner-text-color-on-light-fill);
+            --banner-bg-failsafe:var(--uiowa-banner-bg-failsafe-on-light-overlay);
+          }
+          .banner--overlay-light:not([class*="bg--"]) .headline,
+          .banner--overlay-light:not([class*="bg--"]) .banner__text{text-shadow:none}
+          .banner--overlay-light:not([class*="bg--"]) .media{background:var(--uiowa-banner-media-background-light)}
+          .banner--overlay-light:not([class*="bg--"]) .media .video-btn{border:var(--uiowa-banner-video-btn-border-width) solid var(--uiowa-banner-video-btn-border-color-on-light-overlay)}
+
+          /* ---- Background-fill padding reset ----
+             When the SECTION around the banner carries the same background as the
+             banner, the content's side padding is dropped so the two read as one
+             surface. Ancestor-context rules: they only fire inside a matching wrapper,
+             which Page Scaffold.dc.html supplies and a standalone render does not. */
+          div[class*="bg--white"]:not([class*="pattern--"]) .banner[class*="bg--white"]:not([class*="pattern--"]) .banner__content,
+          div[class*="bg--black"]:not([class*="pattern--"]) .banner[class*="bg--black"]:not([class*="pattern--"]) .banner__content,
+          div[class*="bg--gray"]:not([class*="pattern--"]) .banner[class*="bg--gray"]:not([class*="pattern--"]) .banner__content,
+          div[class*="bg--gold"]:not([class*="pattern--"]) .banner[class*="bg--gold"]:not([class*="pattern--"]) .banner__content,
+          div[class*="pattern--brain"] .banner[class*="pattern--brain"] .banner__content,
+          div[class*="pattern--community"] .banner[class*="pattern--community"] .banner__content,
+          div[class*="pattern--particle"] .banner[class*="pattern--particle"] .banner__content,
+          div:not([class*="bg--"]) .banner.bg--white .banner__content{padding-left:0;padding-right:0}
+
+          /* ---- dc-only preview affordances (NOT production rules) ---- */
+          /* 1. Body typography. In production the PAGE supplies it (uids-core.scss);
+                banner.scss declares none of its own. No color property here, so
+                --banner-text-color still governs. */
+          .banner{font-family:var(--uiowa-font-family-body)}
+          /* Production's own p margin (base/_paragraph.scss, 16.8px bottom) is kept:
+                banner.scss overrides the paragraph's line-height, top margin and colour
+                but deliberately not its bottom margin. It collapses with
+                .banner__text's own 16.8px, so a single paragraph looks the same either
+                way — but a two-paragraph body would lose the gap between them. */
+          .banner__text p{font-size:var(--uiowa-font-size-body);margin:0 0 var(--uiowa-space-105)}
+          /* 2. The image stand-in. banner.scss's own .media rules are real and applied
+                above — this only fills the box so the scrim has something to sit on.
+                A flat neutral, never a fake photograph or texture: the readme forbids
+                inventing assets, and the same choice was made in the Figma set, where
+                binding the real loading colour made Direction and Tone invisible
+                (a black scrim over a black rect is black). */
+          /* Specificity matters here and the first render proved it: `.banner .media`
+                is (0,2,0) and a bare `.dc-media-placeholder` is (0,1,0), so the loading
+                colour won and the whole media area rendered BLACK — with a black scrim
+                over it, every Direction and Tone looked identical. Exactly the failure
+                the Figma set hit for the same reason. Matching the real rule's
+                specificity is what makes the overlay visible. */
+          .banner .media.dc-media-placeholder{background:#8c8c8c;display:flex;align-items:flex-end;justify-content:flex-end;padding:0.75rem 1rem}
+          .banner--overlay-light .media.dc-media-placeholder{background:#c8c8c8}
+          .dc-media-placeholder__label{font-family:var(--uiowa-font-family-body);font-size:var(--uiowa-font-size-small);color:#fff;opacity:.75;letter-spacing:.04em}
+          .banner--overlay-light .dc-media-placeholder__label{color:#000}
+          @container column (max-width:768px){
+            .banner--stacked:not([class*="bg--"]) .dc-media-placeholder{min-height:12rem}
+          }
+        </style>
+      </helmet>
+      <div class="dc-banner-column">
+        <div class="{{ rootClass }}" data-screen-label="Banner">
+          <!-- Media. Gated the way Banner.vue gates it: on the SLOT, not on a prop.
+               The overlay direction class is likewise only emitted when this exists
+               (Banner.vue:138-142, verified by execution in Banner.spec.ts), which is
+               why a background-filled banner has no Direction to speak of. -->
+          <!-- A REAL image when one is supplied, the grey stand-in when not. Added
+               2026-08-18: a consuming page had no way to put a picture in a banner at all,
+               so it shipped with a grey rectangle where the hero image belonged. The real
+               branch drops `dc-media-placeholder` deliberately — that class carries the
+               grey fill and the corner label, and keeping it would tint the photograph.
+               `.banner .media img` (above) already supplies object-fit:cover, so the image
+               fills the same box the placeholder did and the scrim still paints over it. -->
+          <sc-if value="{{ isMediaWithImage }}" hint-placeholder-val="{{ true }}">
+            <div class="media">
+              <img src="{{ image }}" alt="{{ image_alt }}" />
+            </div>
+          </sc-if>
+          <sc-if value="{{ isMediaPlaceholder }}" hint-placeholder-val="{{ true }}">
+            <div class="media dc-media-placeholder">
+              <span class="dc-media-placeholder__label">Image or video</span>
+            </div>
+          </sc-if>
+          <div class="banner__content">
+            <!-- The header renders when EITHER the pre-title or the headline has
+                 content (Banner.vue:201). Gating the wrapper and not just its contents
+                 matters: an empty header would still contribute the headline's 16px
+                 margin-bottom to the stack. -->
+            <sc-if value="{{ hasHeader }}" hint-placeholder-val="{{ true }}">
+              <header class="banner__title">
+                <sc-if value="{{ hasPreTitle }}" hint-placeholder-val="{{ true }}">
+                  <div class="{{ preTitleClass }}">
+                    <span class="headline__heading">{{ pre_title }}</span>
+                  </div>
+                </sc-if>
+                <!-- A real Headline import, not flattened markup (Brand Bar -> Logo
+                     precedent). h2/serif is what production defaults to: uids_base
+                     templates/uids/banner.html.twig:36-39 seeds headline_class with
+                     ['headline','headline--serif','headline--large']. The size class is
+                     BANNER's, not Headline's — Banner.vue puts it on the element via
+                     attribute fallthrough (Banner.vue:210); extra_class is the dc
+                     equivalent, and without it the imported headline falls back to
+                     Headline's own ramp (35px where banner renders 60.8). As of
+                     2026-09-03 the size DERIVES FROM HEIGHT (owner-ruled: a small
+                     banner was rendering the display-size heading): large→headline--large,
+                     medium→headline--medium, none→headline--small. Production seeds
+                     large unconditionally, so this is a recorded divergence —
+                     contracts/banner.json changes[]. Needs Headline.dc.html copied in
+                     as a sibling. -->
+                <sc-if value="{{ hasHeadline }}" hint-placeholder-val="{{ true }}">
+                  <dc-import name="Headline" text="{{ headline }}" level="h2" text_style="serif" extra_class="{{ headlineSizeClass }}" hint-size="100%,72px"></dc-import>
+                </sc-if>
+              </header>
+            </sc-if>
+            <!-- Body. Gated so an empty one does not contribute its own 16.8px
+                 margin-bottom to the stack. -->
+            <sc-if value="{{ hasBody }}" hint-placeholder-val="{{ true }}">
+              <div class="banner__text">
+                <p>{{ body_text }}</p>
+              </div>
+            </sc-if>
+            <!-- Buttons. Three numbered label/url pairs, exposed 2026-09-02 on the design
+                 system owner's ruling (contracts/banner.json changes[]) after two reviews
+                 hit the single-label limit. The contract's `buttons` length semantics are
+                 reproduced structurally: one non-empty label renders a lone button, two or
+                 more render inside the same unstyled div.bttn--row Banner.vue emits (UIDS
+                 ships no rule for that class — the spacing is .banner__action .bttn's
+                 token margins, already in this style block). The single-button case keeps
+                 this template's standing divergence: a real <a> Button, where Banner.vue
+                 renders a PseudoButton, adds click-container and links the headline
+                 (BiochemistryLandingPage.stories.js DIVERGENCES 3) — so going from one
+                 button to two changes only the footer, exactly as documented. Needs
+                 Button.dc.html copied in as a sibling. -->
+            <sc-if value="{{ hasButton }}" hint-placeholder-val="{{ true }}">
+              <footer class="banner__action">
+                <sc-if value="{{ isSingleButton }}" hint-placeholder-val="{{ true }}">
+                  <dc-import name="Button" label="{{ singleButtonLabel }}" url="{{ singleButtonUrl }}" size="medium" color="primary" hint-size="200px,66px"></dc-import>
+                </sc-if>
+                <sc-if value="{{ isButtonRow }}" hint-placeholder-val="{{ false }}">
+                  <div class="bttn--row">
+                    <sc-if value="{{ hasButton1 }}" hint-placeholder-val="{{ true }}">
+                      <dc-import name="Button" label="{{ button_label }}" url="{{ button_url }}" size="medium" color="primary" hint-size="200px,66px"></dc-import>
+                    </sc-if>
+                    <sc-if value="{{ hasButton2 }}" hint-placeholder-val="{{ true }}">
+                      <dc-import name="Button" label="{{ button_2_label }}" url="{{ button_2_url }}" size="medium" color="primary" hint-size="200px,66px"></dc-import>
+                    </sc-if>
+                    <sc-if value="{{ hasButton3 }}" hint-placeholder-val="{{ false }}">
+                      <dc-import name="Button" label="{{ button_3_label }}" url="{{ button_3_url }}" size="medium" color="primary" hint-size="200px,66px"></dc-import>
+                    </sc-if>
+                  </div>
+                </sc-if>
+              </footer>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+    </x-dc>
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{
+  "$preview": { "width": 1020, "height": 480 },
+  "fill": { "editor": "enum", "options": ["media", "black", "gold", "gray", "white", "black--pattern--brain", "gold--pattern--particle", "gray--pattern--community"], "default": "media", "tsType": "string" },
+  "image": { "editor": "text", "default": "", "tsType": "string" },
+  "image_alt": { "editor": "text", "default": "", "tsType": "string" },
+  "overlay_direction": { "editor": "enum", "options": ["none", "btt", "ttb", "ltr"], "default": "none", "tsType": "string" },
+  "overlay_light": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "height": { "editor": "enum", "options": ["none", "medium", "large"], "default": "large", "tsType": "string" },
+  "narrow": { "editor": "boolean", "default": true, "tsType": "boolean" },
+  "horizontal_alignment": { "editor": "enum", "options": ["none", "left", "center"], "default": "left", "tsType": "string" },
+  "vertical_alignment": { "editor": "enum", "options": ["none", "top", "center", "bottom"], "default": "center", "tsType": "string" },
+  "mobile_content_below_image": { "editor": "boolean", "default": true, "tsType": "boolean" },
+  "pre_title": { "editor": "text", "default": "University of Iowa", "tsType": "string" },
+  "headline": { "editor": "text", "default": "Banner headline", "tsType": "string" },
+  "body_text": { "editor": "text", "default": "A member of the Association of American Universities since 1909 and the Big Ten Conference since 1899.", "tsType": "string" },
+  "button_label": { "editor": "text", "default": "Read more", "tsType": "string" },
+  "button_url": { "editor": "text", "default": "https://uiowa.edu", "tsType": "string" },
+  "button_2_label": { "editor": "text", "default": "", "tsType": "string" },
+  "button_2_url": { "editor": "text", "default": "https://uiowa.edu", "tsType": "string" },
+  "button_3_label": { "editor": "text", "default": "", "tsType": "string" },
+  "button_3_url": { "editor": "text", "default": "https://uiowa.edu", "tsType": "string" }
+}'
+    >
+      class Component extends DCLogic {
+        renderVals() {
+          // Mirrors the class computation in src/components/banner/Banner.vue:102-145,
+          // in the same order, so the emitted class list matches production.
+          const fill = this.props.fill ?? 'media';
+          const isMedia = fill === 'media';
+          const direction = this.props.overlay_direction ?? 'none';
+          const height = this.props.height ?? 'large';
+          const horizontal = this.props.horizontal_alignment ?? 'left';
+          const vertical = this.props.vertical_alignment ?? 'center';
+
+          const classes = ['banner'];
+          // 'none' is this editor's label for the empty string, the way the Storybook
+          // controls label it. It must never reach a class name — Banner.vue gates every
+          // one of these on truthiness, so an empty value emits nothing at all.
+          // The three pattern fills are the contract's own background enumeration
+          // (black--pattern--brain, gold--pattern--particle, gray--pattern--community)
+          // and compose to the same bg--* class grammar backgrounds.css styles.
+          if (!isMedia) classes.push('bg--' + fill);
+          if (height !== 'none') classes.push('banner--' + height);
+          if (this.props.mobile_content_below_image) classes.push('banner--stacked');
+          if (this.props.narrow) classes.push('banner--narrow');
+          if (horizontal !== 'none') classes.push('banner--horizontal-' + horizontal);
+          if (vertical !== 'none') classes.push('banner--vertical-' + vertical);
+          if (this.props.overlay_light) classes.push('banner--overlay-light');
+          // The direction class is gated on the media slot in Banner.vue, not on the
+          // prop — a background-filled banner never gets one.
+          if (isMedia && direction !== 'none') classes.push('banner--overlay-' + direction);
+
+          const preTitle = this.props.pre_title ?? '';
+          const headline = this.props.headline ?? '';
+          const body = this.props.body_text ?? '';
+          const hasPreTitle = String(preTitle).trim().length > 0;
+          const hasHeadline = String(headline).trim().length > 0;
+
+          // Buttons: mirror the contract's length semantics on three numbered pairs.
+          // The count is non-empty LABELS, in order, so leaving button_label blank and
+          // setting button_2_label still renders one lone button — the same first-non-empty
+          // entry Banner.vue's buttons[0] would be.
+          const pairs = [
+            [this.props.button_label ?? '', this.props.button_url ?? ''],
+            [this.props.button_2_label ?? '', this.props.button_2_url ?? ''],
+            [this.props.button_3_label ?? '', this.props.button_3_url ?? '']
+          ];
+          const present = pairs.filter(function (p) { return String(p[0]).trim().length > 0; });
+          const single = present.length === 1 ? present[0] : ['', ''];
+
+          // The banner-owned headline--{size} class tracks HEIGHT (owner-ruled
+          // 2026-09-03; production seeds large always — see the Headline import's
+          // comment). The size CSS ramps above key on exactly these three classes.
+          const headlineSize = height === 'large' ? 'headline--large'
+            : height === 'medium' ? 'headline--medium' : 'headline--small';
+
+          return {
+            rootClass: classes.join(' '),
+            isMedia: isMedia,
+            // Two mutually exclusive media branches; sc-if has no else, so both are
+            // computed explicitly. A background-filled banner renders neither.
+            isMediaWithImage: isMedia && String(this.props.image ?? '').trim().length > 0,
+            isMediaPlaceholder: isMedia && String(this.props.image ?? '').trim().length === 0,
+            image: this.props.image ?? '',
+            image_alt: this.props.image_alt ?? '',
+            // Banner.vue drives BOTH of the pre-title's classes from the headline's
+            // own props — size from headline.size and the style from headline.text_style
+            // (Banner.vue:150-169) — so one value styles two elements. The size half
+            // follows headlineSize (height-derived, same ruling as the headline); the
+            // serif half stays fixed — dropping it would leave
+            // .banner__pre-title.headline.headline--serif dead and the pre-title
+            // rendering at weight 400 in the body font, where the regression baseline
+            // pins Zilla Slab 500.
+            preTitleClass: 'headline banner__pre-title ' + headlineSize + ' headline--serif',
+            headlineSizeClass: headlineSize,
+            pre_title: preTitle,
+            headline: headline,
+            body_text: body,
+            button_label: pairs[0][0],
+            button_url: pairs[0][1],
+            button_2_label: pairs[1][0],
+            button_2_url: pairs[1][1],
+            button_3_label: pairs[2][0],
+            button_3_url: pairs[2][1],
+            hasPreTitle: hasPreTitle,
+            hasHeadline: hasHeadline,
+            hasHeader: hasPreTitle || hasHeadline,
+            hasBody: String(body).trim().length > 0,
+            hasButton: present.length > 0,
+            isSingleButton: present.length === 1,
+            isButtonRow: present.length > 1,
+            singleButtonLabel: single[0],
+            singleButtonUrl: single[1],
+            hasButton1: String(pairs[0][0]).trim().length > 0,
+            hasButton2: String(pairs[1][0]).trim().length > 0,
+            hasButton3: String(pairs[2][0]).trim().length > 0
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -34,7 +34,7 @@ const props = defineProps({
   },
 });
 const liClasses = computed(() => {
-  let classes = ['menu'];
+  const classes = ['menu'];
 
   if (props.variant === 'horizontal') {
     classes.push(`menu--${className(props.variant)}`);

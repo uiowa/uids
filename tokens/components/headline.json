@@ -1,0 +1,29 @@
+{
+  "headline": {
+    "line-height": { "value": "1", "comment": "_headline-mixins.scss:7 line-height: 1 (base `headline` mixin, shared by `.headline`/`.bold-headline`). No primitive minted — a component-level line-height RESET to 1 is not a shared scale step, unlike highlight.line-height below (1.7), which reuses an existing primitive." },
+    "link": {
+      "color": { "value": "{color.black}", "brandChannel": "secondary", "comment": "_headline-mixins.scss:10 `a { color: $secondary }` inside the base `headline` mixin." }
+    },
+    "negative": {
+      "color": { "value": "{color.white}", "comment": "_headline-mixins.scss:21,24 `$white` (headline-negative mixin) — text color and `a` link color under `.headline--negative`/`.bold-headline--negative`. $white compiles to the literal #fff (not a var(--brand-*) chain), so flat." }
+    },
+    "uppercase": {
+      "font-weight": { "value": "{typography.font-weight.bold}", "comment": "_headline-mixins.scss:33 `font-weight: bold` (headline-uppercase mixin, `.headline--uppercase`/`.bold-headline--caps`). Antonio ships a static 700 face — bold renders as declared." },
+      "font-weight-on-gold": { "value": "{typography.font-weight.normal}", "comment": "_headline.scss:57-59 AND _headline-mixins.scss:75 both declare `font-weight: 400` for uppercase headline text (`.headline__heading`/`.headline__text`) nested inside a `[class*=\"bg--gold\"]` ancestor. Codifies the DECLARED 400 — unlike Button (whose 4.x declared nothing, so codifying the rendered 300 face was the only truthful option), here 400 IS the 4.x-as-shipped value, and computed font-weight reports the declared number, so a 300 token would break the byte-identical regression claim. Rendering note only: Antonio ships static 100/300/700 faces, so the declared 400 font-matches to the 300 face on screen." }
+    },
+    "highlight": {
+      "line-height": { "value": "{typography.line-height.170}", "comment": "_headline-mixins.scss:48 line-height: 1.7 (headline-highlight mixin, `.headline--highlight`)." },
+      "background": { "value": "{color.gold}", "brandChannel": "primary", "comment": "_headline-mixins.scss:52 `$primary` (headline-highlight-word mixin, `.headline--highlight span`). The identical value is declared again at :66 for the uppercase highlight-word variant (headline-highlight-word-uppercase, `.headline--uppercase .headline__heading span` etc.) — reused here rather than minting a duplicate token (one-token-per-value)." },
+      "color": { "value": "{color.black}", "brandChannel": "secondary", "comment": "_headline-mixins.scss:57 `$secondary`. Reused at :71 (uppercase highlight-word variant, same value) and at :79 (the nested `[class*=\"bg--gold\"] [class*=\"bg--black\"]` flip-back to the default highlight colors — see contract behavior)." },
+      "background-on-gold": { "value": "{color.black}", "brandChannel": "secondary", "comment": "_headline-mixins.scss:60 `$secondary` — inside a `[class*=\"bg--gold\"]` ancestor the highlight background flips from gold to black. Reused at :73 (uppercase highlight-word variant, same value)." },
+      "color-on-gold": { "value": "{color.white}", "comment": "_headline-mixins.scss:61 `#fff` — RAW LITERAL (not `$white`) inside `[class*=\"bg--gold\"]`. Reused at :74 (uppercase variant, same literal). Flat despite matching headline.negative.color's value — provenance here is a hardcoded hex, not the `$white` Sass var." }
+    },
+    "highlight-serif": {
+      "font-weight": { "value": "{typography.font-weight.medium-bold}", "comment": "_headline.scss:93-96 `font-weight: 600` (`.headline--highlight.headline--serif`, `.bold-headline--highlight.bold-headline--serif`)." }
+    },
+    "underline": {
+      "color": { "value": "{color.gold}", "brandChannel": "primary", "comment": "_headline-mixins.scss:93 `$primary` (headline-underline mixin, the `:after` bar)." },
+      "color-on-gold": { "value": "{color.gray.100}", "comment": "_headline-mixins.scss:103-107 `$light` = var(--uids-light), a legacy alias (gray/100) — NOT a brand-theming channel, so flat. Fires under `.bg-pattern--brain-reversed` and `[class*=\"bg--gold\"]` ancestors." }
+    }
+  }
+}

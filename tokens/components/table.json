@@ -1,0 +1,109 @@
+{
+  "table": {
+    "background": {
+      "value": "{color.white}",
+      "comment": "tables.scss:15 — background-color: variables.$white, a literal #fff (_variables.scss:29, NOT a var()). Flat, no brandChannel."
+    },
+    "color": {
+      "value": "{color.black}",
+      "brandChannel": "secondary",
+      "comment": "tables.scss:18 — color: variables.$secondary, compiles to var(--brand-secondary) (confirmed via direct dart-sass compilation of the file). Renders for any plain (non-th, non-anchor) text directly inside a td — no more specific rule sets `color` on bare `td` (only `th` gets its own color rule, tables.scss:65)."
+    },
+    "font-size": {
+      "value": "{typography.font-size.150}",
+      "comment": "tables.scss:20 — font-size: variables.$content-font-size, compiles to var(--uiowa-font-size-body), the semantic alias whose {ref} is typography.font-size.150 (1.2rem, tokens/semantic/typography-usage.json body.font-size). LOW-CONFIDENCE CAVEAT (see openQuestions, not asserted as a claim): every element inside a table that can actually contain text — caption, td, th, p, ul, ol — declares its own more specific font-size (confirmed via direct dart-sass compilation: none of those rules omit font-size), so this value may never paint visible text. Tokenized as-shipped regardless; not proven to 'never render' the way the caption-link/gray-borders>caption claims are."
+    },
+    "line-height": {
+      "value": "{typography.line-height.115}",
+      "comment": "tables.scss:21 — line-height: 1.15 (literal). NEW primitive proposed (see newPrimitives): no existing step matches (nearest neighbor is line-height.112 = 1.125). UNLIKE table/font-size above, this demonstrably renders: `<caption>` (tables.scss:106-122) sets its own font-size/color/background/padding/font-weight but declares NO line-height override (confirmed via compilation), so caption's line-height is this inherited 1.15 value."
+    },
+    "link": {
+      "color": {
+        "value": "{color.blue}",
+        "comment": "tables.scss:27-40 — tbody a on-background override, $link-color, compiles to var(--link-color) -> var(--uiowa-color-link). Flat (uids-core.scss:25 confirms --link-color: var(--uiowa-color-link), not a --brand-* channel). Applies uniformly under bg--gray/white/black/gold and 6 `.bg-pattern--*`/`.bg--*--pattern--*` ancestor classes — see behavior for its divergence from the general on-light/on-dark link system."
+      }
+    },
+    "body": {
+      "font-size": {
+        "value": "{typography.font-size.100}",
+        "comment": "tables.scss:47,60 — variables.$base-font-size, compiles to var(--uiowa-font-size-100). Backs both `p, ul, ol` (:46-49) and `td, th` (:57-62)."
+      },
+      "line-height": {
+        "value": "{typography.line-height.160}",
+        "comment": "tables.scss:48,61 — literal 1.6, matches the EXISTING line-height.160 step exactly (no new primitive needed). Backs both `p, ul, ol` and `td, th`, same sites as table/body/font-size."
+      }
+    },
+    "cell": {
+      "padding": {
+        "value": "{space.105}",
+        "comment": "tables.scss:59 — padding: variables.$md (all four sides) on td/th. Also written at tables.scss:88 as tbody th's explicit padding-left — REDUNDANT re-declaration of the identical value already set here (see claims); not a second token."
+      }
+    },
+    "header": {
+      "background": {
+        "value": "{color.gold}",
+        "brandChannel": "primary",
+        "comment": "tables.scss:73 — background-color: variables.$primary, compiles to var(--brand-primary). thead th background."
+      },
+      "color": {
+        "value": "{color.black}",
+        "brandChannel": "secondary",
+        "comment": "tables.scss:65 (th color), :76 (thead th a color — base declaration; the nested [class*=\"bg--\"] & variant at :77-79 is a redundant no-op re-declaration of the same value, see claims), and :131 (thead td/th color). One leaf, three declaration sites, all variables.$secondary."
+      }
+    },
+    "row-header": {
+      "background": {
+        "value": "{color.white}",
+        "comment": "tables.scss:84 — background-color: #fff (literal, matches variables.$white used elsewhere in this file — see knownIssues). tbody th background."
+      }
+    },
+    "row-alternate": {
+      "background": {
+        "value": "{color.gray.100}",
+        "comment": "tables.scss:93 — background-color: variables.$light, compiles to var(--uids-light) -> var(--uiowa-color-gray-100). Flat legacy alias, not a brand channel (established precedent, tokens/semantic/colors.json's own bg.gray entry). Zebra-stripe even-row background, applied to both the row and its th cells (compiled selector: `table tbody tr:not(.is-selected):nth-child(even), table tbody tr:not(.is-selected):nth-child(even) th`)."
+      }
+    },
+    "hover": {
+      "background": {
+        "value": "{color.highlight}",
+        "comment": "tables.scss:100,102 — hardcoded #fff3c3. NEW primitive proposed (see newPrimitives). Only ever renders on `:hover` (compiled selector requires `:hover`) — see behavior (no resting-state difference) and figmaProposal (deliberately not a variant axis)."
+      }
+    },
+    "caption": {
+      "padding": {
+        "value": "{space.105}",
+        "comment": "tables.scss:108 — literal 1.05rem, matches variables.$md exactly (the Sass var IS used elsewhere in this same file, at :59 and :88) — see knownIssues."
+      },
+      "font-size": {
+        "value": "{typography.font-size.100}",
+        "comment": "tables.scss:110 — literal 1rem, matches variables.$base-font-size exactly (used via the var at :47,:60) — see knownIssues."
+      },
+      "color": {
+        "value": "{color.white}",
+        "comment": "tables.scss:111 — literal #fff, matches variables.$white exactly (used via the var at :15) — see knownIssues."
+      },
+      "background": {
+        "value": "{color.gray.750}",
+        "comment": "tables.scss:112 — literal #333333. NEW primitive proposed (see newPrimitives): darker than the existing darkest gray step (gray.700 = #484741)."
+      },
+      "font-weight": {
+        "value": "{typography.font-weight.bold}",
+        "comment": "tables.scss:113 — literal keyword `bold`, computes to 700 (matches the existing typography.font-weight.bold primitive)."
+      }
+    },
+    "border": {
+      "attr-variant": {
+        "value": "{color.gray.115}",
+        "comment": "tables.scss:7,10 — table[border] raw-attribute-selector border color, literal #eee. NEW primitive proposed (see newPrimitives). Reachability via Table.vue is unresolved (narrowly unreachable via the Vue component specifically — see claims — but NOT proven to 'never render' more broadly); tokenized as-shipped per the as-shipped-bugs rule, unlike the caption-link/gray-borders>caption values which ARE proven dead and therefore excluded below."
+      },
+      "light": {
+        "value": "{color.gray.165}",
+        "comment": "tables.scss:172-173 (sticky ::before compensation), :193 (compiled: table.table--gray-borders > tr/tbody/tfoot > tr > td/th — the `> tr >` branch is dead, see claims, but > tbody > tr > and > tfoot > tr > are live), :208-209,212,216 (thead row top/bottom/edge borders). Literal #ddd. NEW primitive proposed (see newPrimitives)."
+      },
+      "dark": {
+        "value": "{color.gray.365}",
+        "comment": "tables.scss:172 (sticky ::before), :201 (compiled: table.table--gray-borders > thead > tr > td/th AND > caption > td/th — the `> caption >` branch is dead, see claims; this token is justified by the live thead-row usage alone). Literal #7c7c7c. NEW primitive proposed (see newPrimitives)."
+      }
+    }
+  }
+}

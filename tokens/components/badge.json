@@ -1,0 +1,76 @@
+{
+  "badge": {
+    "line-height": {
+      "value": "{typography.line-height.167}",
+      "comment": "badge.scss:7 — line-height: 1.67. NEW primitive proposed (see newPrimitives): no existing line-height primitive (112/125/130/140/150/160/170) equals 1.67; nearest neighbors are 160 (1.6) and 170 (1.7)."
+    },
+    "font-size": {
+      "value": "{typography.font-size.25}",
+      "comment": "badge.scss:8. CHANGED 2026-08-20 from a raw \"75%\" to an absolute rem primitive, per the design system owner's ruling: \"I don't want badges to flex to a larger size inside headings. So we need to make that change across all contexts.\" This is a DELIBERATE DESIGN CHANGE, not a fidelity correction — do not restore the percentage. 0.75rem is exactly what 75% resolved to in a 1rem context, so body/table/card-meta rendering is unchanged to the pixel; only badges in a larger ambient context (headings) stop growing. Making the base absolute is also what makes padding/inline and border-radius meaningful: they stay em, so the pill geometry still tracks the badge's own type, but that type no longer tracks the parent."
+    },
+    "font-weight": {
+      "value": "{typography.font-weight.medium}",
+      "comment": "badge.scss:9 — font-weight: variables.$font-weight-medium, which compiles to var(--uiowa-font-weight-medium) = 500. Reused primitive, zero new minting needed."
+    },
+    "padding": {
+      "block": {
+        "value": "0",
+        "comment": "badge.scss:6 — padding: 0 .75em (first/vertical value of the two-value shorthand). The badge's height comes entirely from line-height x font-size; there is no vertical padding at all."
+      },
+      "inline": {
+        "value": ".75em",
+        "comment": "badge.scss:6 — padding: 0 .75em (second/horizontal value). Relative to the badge's OWN font-size. Deliberately left as em: the em keeps this padding tied to the badge's OWN font-size, and since 2026-08-20 that font-size is an absolute 0.75rem, so it resolves to a fixed 9px in every context while still being expressed proportionally. It was a DOUBLE-relative value before that change — em on a percentage — which is what made badges grow inside headings. The em is not a placeholder for a size modifier: one was DECLINED 2026-08-21 (contracts/badge.json changes[2]) and the badge is one fixed size."
+      }
+    },
+    "border-radius": {
+      "value": "1em",
+      "comment": "badge.scss:12 — border-radius: 1em. Relative to the badge's own font-size, same reasoning as padding/inline: kept em so it follows the type, which is now absolute. Resolves to 12px. This is what produces the pill shape (radius = full font-size, i.e. >= half the text-line height)."
+    },
+    "color": {
+      "value": "{color.white}",
+      "comment": "badge.scss:10 — color: variables.$white, a literal #fff (_variables.scss:29), NOT $secondary. Flat, no brandChannel. This is the text color for the base .badge and therefore for every modifier that does not override color (secondary, cool-gray, blue, green, orange — see behavior)."
+    },
+    "primary": {
+      "background": {
+        "value": "{color.gold}",
+        "brandChannel": "primary",
+        "comment": "badge.scss:16 — background: variables.$primary, which compiles to var(--brand-primary). Same channel/ref pair as button/primary/background."
+      },
+      "color": {
+        "value": "{color.black}",
+        "comment": "badge.scss:17 — color: variables.$blk, a literal #000 (_variables.scss:30), NOT variables.$secondary. Flat, no brandChannel. IMPORTANT: this differs from Button's primary/color, which IS var(--brand-secondary) (brandChannel: secondary) in button.json. The two components' 'primary' text colors have different 4.x provenance despite the identical rendered hex under the default theme — do not copy Button's brandChannel flag onto this token without re-checking the source, which is exactly the trap tokens/README's provenance rule exists to catch."
+      }
+    },
+    "secondary": {
+      "background": {
+        "value": "{color.black}",
+        "brandChannel": "secondary",
+        "comment": "badge.scss:21 — background: variables.$secondary, which compiles to var(--brand-secondary)."
+      }
+    },
+    "cool-gray": {
+      "background": {
+        "value": "{color.gray.500}",
+        "comment": "badge.scss:25 — background: variables.$brand-cool-gray, which compiles to var(--uids-gray-cool) -> var(--uiowa-color-gray-500). Flat: $brand-cool-gray is a legacy core alias (like $light/$gray-light in the Background/Border foundations), not a $primary/$secondary channel, so no brandChannel flag — verified against uids-core.scss:24 (--uids-gray-cool: var(--uiowa-color-gray-500), no --brand-* involved)."
+      }
+    },
+    "blue": {
+      "background": {
+        "value": "{color.status.info}",
+        "comment": "badge.scss:29 — background: variables.$info, a literal #00558C (_variables.scss:15). Flat. CAUTION: #00558C is ALSO the exact value of the separate {color.blue} primitive ('Link blue', tokens/primitives/colors.json) — but the actual Sass source here is $info (a status-family variable, _variables.scss:15-16, with a $info-light sibling used nowhere in badge.scss), not $link-color. The correct reference is color.status.info, not color.blue, even though today they are numerically identical and swapping would look correct until one is retuned independently. See knownIssues — this is a second, more dangerous instance of the type-name-vs-token-family mismatch the survey already flagged for 'orange'."
+      }
+    },
+    "green": {
+      "background": {
+        "value": "{color.status.success}",
+        "comment": "badge.scss:33 — background: variables.$success, a literal #00664F (_variables.scss:13). Flat. No competing primitive of the same value exists (unlike blue/orange), so no naming-collision risk here."
+      }
+    },
+    "orange": {
+      "background": {
+        "value": "{color.status.danger}",
+        "comment": "badge.scss:37 — background: variables.$danger, a literal #BD472A (_variables.scss:19), identical to the unused $orange variable (_variables.scss:12, itself #BD472A). Flat. type='orange' names a hue but the token family is 'danger' — already precedented in tokens/primitives/colors.json's own comment ('4.x: $danger / $orange'); the contract must state this mapping explicitly (same treatment as Button's dead 'link' value note) or it reads as a naming error. See knownIssues."
+      }
+    }
+  }
+}

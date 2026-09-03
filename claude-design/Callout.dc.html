@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet data-dc-atomics>
+        <link rel="stylesheet" href="./tokens.css" />
+        <!-- Callout applies bg--{color} to its OWN root div (Callout.vue:19), so the
+             background classes are not decoration here — they are half the component.
+             Without backgrounds.css the "With Background" state renders as an unstyled
+             class and the padding bump below has nothing to sit on. -->
+        <link rel="stylesheet" href="./backgrounds.css" />
+        <style>
+          /* ---- page reset (src/scss/base/_reset.scss:32-53), verbatim ----
+             Not this component's own SCSS, but production applies it globally to <html>,
+             so every rule below was authored against border-box. Without it, any element
+             combining a percentage width with padding renders wider than production —
+             measured at +96px on Callout before this was added. Reproduced across the
+             Phase 3 batch for that reason; see Table.dc.html for the original finding. */
+          html{box-sizing:border-box}
+          *,*::before,*::after{box-sizing:inherit}
+          body{margin:0}
+          /* Callout is a thin wrapper: Callout.vue renders ONLY
+             <div :class="classes"><slot></slot></div> (Callout.vue:27-28), and
+             callout.scss declares nothing but padding — no border, radius, color or
+             typography (contracts/callout.json geometryNotTokenized). Everything else
+             visible on a rendered Callout is drawn by the composed foundations:
+             Background (backgrounds.css, linked above) and Inline (mirrored below).
+
+             Rule ORDER follows uids.scss's own @use order — background (uids.scss:4,
+             the linked sheet) then callout (:13) then inline (:18) — so the cascade
+             behaves the same. */
+
+          /* ---- .callout (src/scss/components/callout.scss, source order) ---- */
+          .callout{
+            --callout-spacing-lg:var(--uiowa-callout-padding-with-background);
+            --callout-spacing-md:var(--uiowa-callout-padding-base);
+            /* As-shipped DEAD declaration: callout.scss:9 declares --callout-spacing-sm
+               and no selector in that file — or anywhere in src/ — ever reads it. Kept
+               for fidelity. Production writes var(--space-sm-width-gutter); that legacy
+               alias lives in uids-core.scss:37 and is not shipped in this view, so it is
+               resolved one hop to its target (computed-identical). */
+            --callout-spacing-sm:var(--uiowa-space-125);
+            padding:var(--callout-spacing-md);
+          }
+          /* The one behavior Callout owns. The selector is a SELF-compound
+             .callout[class*="bg-"], NOT an ancestor-context rule: Callout.vue pushes
+             both 'callout' and 'bg--{color}' onto the SAME div, so the bump keys off the
+             callout's own class list (contracts/callout.json behavior — this is a
+             different mechanism from Headline's/Background's ancestor [class*="bg-"]
+             rules, which key off a WRAPPING element). It is also breakpoint-gated: below
+             768px the padding is ALWAYS the base value, background or not. The redundant
+             .callout padding re-declaration inside the query is as-shipped
+             (callout.scss:13). */
+          @media (min-width:768px){
+            .callout{padding:var(--callout-spacing-md)}
+            .callout[class*="bg-"]{padding:var(--callout-spacing-lg)}
+          }
+
+          /* ---- Inline placement classes (src/scss/components/_inline.scss, source
+             order). MIRRORED, not imported: Callout.vue spreads Inline.props and
+             Inline.addClass pushes inline--size-* / inline--align-* onto Callout's OWN
+             root div (Callout.vue:8,12,20), and there is no Inline.dc.html sibling to
+             import. Without these rules those classes would render as silent no-ops.
+             The grammar and its tokens stay owned by contracts/inline.json — nothing
+             below is a callout/* token, and callout.json deliberately does not restate
+             them (the brand-bar/logo precedent). */
+          [class*="inline--"]{
+            --inline-margin-xs:var(--uiowa-space-50);
+            /* production writes var(--space-sm|md|lg-width-gutter) — the uids-core.scss:
+               35-37 legacy aliases, not shipped in this view; resolved one hop to their
+               targets (computed-identical). */
+            --inline-margin-sm:var(--uiowa-space-125);
+            --inline-margin-md:var(--uiowa-space-200);
+            /* --inline-margin-lg is read by nothing, in this partial or anywhere in
+               src/ — as-shipped dead assignment (contracts/inline.json knownIssues). */
+            --inline-margin-lg:var(--uiowa-space-300);
+          }
+          [class*="inline--size-"]{
+            width:100%;
+            margin-inline-start:0;
+            margin-inline-end:0;
+            margin-bottom:var(--inline-margin-sm);
+            margin-top:var(--inline-margin-xs);
+          }
+          [class*="inline--size-"].inline--align-left{margin-inline-end:var(--inline-margin-md)}
+          [class*="inline--size-"].inline--align-right{margin-inline-start:var(--inline-margin-md)}
+          /* Omitted from the _inline.scss mirror because Callout cannot reach them:
+             - figure[class*="inline--size-"] img — Callout renders a <div>, never a
+               <figure>.
+             - .inline--size-full — inline.ts's validator allows only ['', small, medium,
+               large], so no Callout prop value can emit it (contracts/inline.json
+               knownIssues records the three-way 'full' vs '' spelling disagreement).
+             - the @container column (...) branch — it needs an ancestor declaring
+               container-type:inline-size (src/scss/layout/_grid.scss:83), which only a
+               real page grid supplies; nothing in this view does, so those rules could
+               never match here. That branch is also the one that really does step medium
+               67% -> 50%; see the next comment. */
+          @media (min-width:400px){.inline--size-small{width:50%}}
+          @media (min-width:600px){.inline--size-small{width:40%}}
+          @media (min-width:980px){.inline--size-small{width:33%}}
+          /* AS-SHIPPED BUG, reproduced deliberately (contracts/inline.json knownIssues;
+             RULED 2026-08-15 — document, do not fix in 4.x). _inline.scss:51-58 gives
+             .inline--size-medium two identical breakpoint(xsm) blocks, so the 67% rule is
+             dead code and medium jumps straight to 50% at 600px. Both are kept, in order,
+             so this view is wrong in exactly the way production is. */
+          @media (min-width:600px){.inline--size-medium{width:67%}}
+          @media (min-width:600px){.inline--size-medium{width:50%}}
+          @media (min-width:980px){.inline--size-large{width:70%}}
+          @media (min-width:1200px){.inline--size-large{width:75%}}
+          .inline--align-left{float:left;clear:left}
+          .inline--align-left:after{content:''}
+          .inline--align-center{margin-inline-start:auto;margin-inline-end:auto}
+          .inline--align-right{float:right;clear:right}
+
+          /* ---- dc-only preview affordances (NOT production rules) ---- */
+          /* 1. Body typography. In production the PAGE supplies it (uids-core.scss;
+                Page Scaffold.dc.html mirrors the same tokens) and callout.scss declares
+                none of its own. Scoped to .callout, and deliberately setting NO color
+                property, so backgrounds.css's on-light/on-dark text cascade still wins
+                on bg--black. */
+          .callout{font-family:var(--uiowa-font-family-body)}
+          .callout p{font-size:var(--uiowa-font-size-body);line-height:var(--uiowa-line-height-170);margin:0 0 var(--uiowa-space-125)}
+          .callout p:last-child{margin-bottom:0}
+          /* 2. Stands in for `@media (min-width:768px){ .callout[class*="bg-"] }` above —
+                SAME declaration, same custom property, never a look-alike value. The
+                editor renders this template 1:1 at the panel width, so a panel narrower
+                than 768px silently withholds the padding bump that is the component's
+                whole point. preview_desktop_padding forces the >=768px rendering. Purely
+                additive: when the real query already matches, both set the same value. */
+          .callout.dc-callout--at-sm[class*="bg-"]{padding:var(--callout-spacing-lg)}
+        </style>
+      </helmet>
+      <div class="{{ rootClass }}" data-screen-label="Callout">
+        <!-- Callout adds NO .callout__* element classes and enforces no structure
+             (contracts/callout.json slots) — the content below is a representative
+             composition, copied from Callout.stories.js's own default args: an
+             h4.headline.headline--serif.headline--underline followed by a paragraph.
+             The heading is a REAL nested Headline instance rather than flattened markup
+             (the Brand Bar -> Logo precedent), so its on-gold underline/weight flips
+             engage from Callout's own bg--gold class for free. Needs Headline.dc.html
+             copied in as a sibling. -->
+        <sc-if value="{{ hasHeading }}" hint-placeholder-val="{{ true }}">
+          <dc-import name="Headline" text="{{ heading }}" level="h4" text_style="serif" underline="{{ true }}" hint-size="100%,60px"></dc-import>
+        </sc-if>
+        <p>{{ body_text }}</p>
+      </div>
+    </x-dc>
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{
+  "$preview": { "width": 1020, "height": 340 },
+  "background": { "editor": "enum", "options": ["none", "black", "gold", "gray", "white"], "default": "gray", "tsType": "string" },
+  "heading": { "editor": "text", "default": "Title", "tsType": "string" },
+  "body_text": { "editor": "text", "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce feugiat ante non efficitur laoreet. Suspendisse laoreet cursus dui, eget vehicula massa.", "tsType": "string" },
+  "inline_size": { "editor": "enum", "options": ["none", "small", "medium", "large"], "default": "none", "tsType": "string" },
+  "inline_alignment": { "editor": "enum", "options": ["none", "left", "center", "right"], "default": "left", "tsType": "string" },
+  "preview_desktop_padding": { "editor": "boolean", "default": false, "tsType": "boolean" }
+}'
+    >
+      class Component extends DCLogic {
+        renderVals() {
+          // Mirrors the class computation in src/components/callout/Callout.vue:
+          // ['callout'], then Background.addBackgroundClass, then Inline.addClass —
+          // in that order, so the emitted markup matches production exactly.
+          const background = this.props.background ?? 'gray';
+          const size = this.props.inline_size ?? 'none';
+          const alignment = this.props.inline_alignment ?? 'left';
+          const classes = ['callout'];
+          // 'none' is this editor's label for the empty string, the way Storybook's own
+          // controls label it. It must NEVER be interpolated into a class name:
+          // contracts/inline.json records that inline.ts gates on JS truthiness, so
+          // passing the literal 'none' through code would emit inline--align-none /
+          // inline--size-none, neither of which exists.
+          if (background !== 'none') classes.push('bg--' + background);
+          if (size !== 'none') classes.push('inline--size-' + size);
+          if (alignment !== 'none') classes.push('inline--align-' + alignment);
+          if (this.props.preview_desktop_padding) classes.push('dc-callout--at-sm');
+          const heading = this.props.heading ?? '';
+          return {
+            rootClass: classes.join(' '),
+            heading: heading,
+            hasHeading: String(heading).trim().length > 0,
+            body_text: this.props.body_text ?? ''
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,60 @@
+{
+  "menu": {
+    "font-size": {
+      "value": "{typography.font-size.125}",
+      "comment": "menu.scss:16 — font-size: 1.1rem on the base .menu rule, all depths/orientations. Exact match to the EXISTING font-size.125 primitive (1.1rem), already reused by brand-footer/menu/font-size and Forms' .form--large --form-label-font-size (tokens/primitives/typography.json's own comment) — menu's own base font-size is a THIRD independent consumer of the same primitive, worth a comment update on typography.json when this lands."
+    },
+    "top-level": {
+      "font-weight": {
+        "value": "{typography.font-weight.medium}",
+        "comment": "menu.scss:20 (selector at menu.scss:19-21) — font-weight: variables.$font-weight-medium, compiles to var(--uiowa-font-weight-medium) = 500. Scoped by `&:not(ul ul):not(.menu--horizontal) > li > a` — applies ONLY to top-level VERTICAL links (excludes both nested `ul.menu` and `.menu--horizontal` mode). Nested and horizontal-mode links get no explicit font-weight anywhere in this file and inherit the ambient default."
+      }
+    },
+    "link-color": {
+      "value": "{color.black}",
+      "brandChannel": "secondary",
+      "comment": "menu.scss:6 (`--menu-link-color: var(--brand-secondary);`), consumed at menu.scss:63 (`color: var(--menu-link-color);` on every `a, span:not([class*=\"fa\"])`). Already channel-aware as-shipped — the SCSS assigns var(--brand-secondary) directly, unlike Button, which needed the brandChannel flag retrofitted after the fact (tokens/README's 2026-08-14 note)."
+    },
+    "link-color-on-light": {
+      "value": "{color.gray.750}",
+      "comment": "menu.scss:95, scoped to the ancestor selectors at menu.scss:91-94 (`[class*=\"bg--white\"] &`, `[class*=\"bg--\"] [class*=\"bg--white\"] &`, `[class*=\"bg--gray\"] &`, `[class*=\"bg--\"] [class*=\"bg--gray\"] &`) — color: variables.$dark-gray, which compiles to color.scale(#000, $lightness: 20%) = hsl(0,0%,20%) = #333333. $dark-gray (_variables.scss:31) has EXACTLY ONE consumer anywhere in src/ (grep-confirmed) — this rule. NEW primitive proposed: color.gray.750 (see newPrimitives) — no existing gray step is this dark (gray.700/#484741 is the current floor). See openQuestions before minting."
+    },
+    "link-indicator": {
+      "thickness": {
+        "value": "5px",
+        "comment": "menu.scss:7 (--menu-link-indicator-width, vertical default) and menu.scss:130 (--menu-link-indicator-height, horizontal mode) — the SAME 5px scalar reused on whichever CSS property (width vs. height) is perpendicular to the current flex-direction. The axis-swap mechanism itself (which property carries it, plus the paired transform machinery) is NOT tokenized — see geometryNotTokenized. Tokenizing the scalar alone is a judgment call — see openQuestions (Button's focus-bar/height precedent tokenizes a single clean bar-thickness value; Headline's underline-bar precedent leaves ALL bar dimensions raw)."
+      },
+      "hover-color": {
+        "value": "{color.gold}",
+        "brandChannel": "primary",
+        "comment": "menu.scss:121 (rule at menu.scss:119-124: `> li > a:hover:after`) — background: var(--brand-primary). TOP-LEVEL ONLY: the selector is a direct-child chain (`.menu > li > a:hover:after`), so nested links get NO hover-driven indicator color change at all (see behavior/claims). NOT independently capturable by the regression harness — check-styles.mjs's getComputedStyle call (scripts/check-styles.mjs:78) takes no pseudo-element argument and the harness never simulates :hover, the same documented gap already recorded for Button's focus-bar and Headline's underline-bar. This token's swap is protected by value-identity only, not the regression baseline."
+      }
+    },
+    "container": {
+      "border-color": {
+        "value": "{color.gray.150}",
+        "comment": "menu.scss:158 (selector `.menu--container`, rule at menu.scss:157-159) — border-bottom: 1px solid #e6e5e5, an EXACT match to the existing gray.150 primitive. `.menu--container` is exercised by ZERO Menu stories — only by two Showcase/Application stories, identically, as a bottom-border framing a horizontal top-nav bar (ApplicationForm.stories.js:78, ApplicationDirectory.stories.js:56) — real, repeated usage, but with no direct regression coverage from Menu's own baseline. See openQuestions on scope."
+      }
+    },
+    "separator-color": {
+      "value": "{color.alpha.gray-201-500}",
+      "comment": "menu.scss:24 (li border-bottom, rule at menu.scss:23-116). AS-SHIPPED, no primitive reference: no existing color or alpha primitive matches. Computes to rgba(201,201,201,0.5) canonically, compositing to approximately rgb(228,228,228) over a white backdrop — about 2 units per channel lighter than menu/container/border-color's OPAQUE #e6e5e5 (rgb 230,229,229). Restating the survey's own hypothesis without confirming it: these two values PLAUSIBLY intend the same 'hairline gray separator' design decision but are not numerically identical, and only one (#e6e5e5) exactly matches an existing primitive (gray.150). See claims/openQuestions — do not silently merge the two."
+    },
+    "nested": {
+      "padding-block": {
+        "value": "{space.50}",
+        "comment": "menu.scss:111 (padding-block-start) and :112 (padding-block-end), both 0.5rem, inside `& > ul.menu li { a, span:not(...) {...} }` (menu.scss:100-115). Exact match to the existing space.50 primitive. Overrides ONLY the block padding for NESTED items — padding-inline at this depth is untouched, inheriting menu/link/padding-inline."
+      }
+    },
+    "link": {
+      "padding-block": {
+        "value": "0.9rem",
+        "comment": "menu.scss:65 — padding: .9rem 1.5rem; (block/vertical component of the shorthand; base value at ALL depths/orientations unless overridden by menu/nested/padding-block). No existing primitive matches exactly; equals the un-promoted Sass var $sm-md (_variables.scss:87) — see sharedPrimitiveUsage. The identical .9rem value is also used at menu.scss:43 (.fa-li left) for a different rendered role (icon positioning, not link padding) — kept as its own raw geometry note there, not merged into this leaf."
+      },
+      "padding-inline": {
+        "value": "{space.150}",
+        "comment": "menu.scss:65 — padding: .9rem 1.5rem; (inline/horizontal component of the same shorthand). Exact match to the existing space.150 primitive."
+      }
+    }
+  }
+}

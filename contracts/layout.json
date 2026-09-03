@@ -1,0 +1,354 @@
+{
+  "$schema": "./contract.schema.json",
+  "name": "layout",
+  "version": "1.0.0",
+  "description": "Foundations contract for the layout & spacing system: containers, section layouts, section rhythm, and content grids. UIDS owns the vocabulary (spacing scale, gutters, breakpoints, container caps); uids_base (SiteNow) is the downstream consumer whose Layout Builder classes express these patterns. Not a component — no Vue code, no Figma component set.",
+  "identity": {
+    "kind": "foundation",
+    "codePath": "src/scss/abstracts/_grid-mixins.scss",
+    "relatedPaths": [
+      "src/scss/abstracts/_utility-classes.scss",
+      "src/scss/abstracts/_utilities.scss",
+      "src/scss/abstracts/_breakpoints.scss",
+      "src/scss/abstracts/_variables.scss"
+    ],
+    "downstreamPaths": [
+      "uiowa/docroot/themes/custom/uids_base/scss/global.scss",
+      "uiowa/docroot/themes/custom/uids_base/scss/layouts/",
+      "uiowa/docroot/themes/custom/uids_base/scss/components/grid.scss",
+      "uiowa/config/default/layout_builder_styles.style.*"
+    ],
+    "figma": {
+      "fileKey": "hNShklBztaeaQneScM0KoM",
+      "page": "Foundations / Layout",
+      "note": "Documentation page (container frames + layout grids), not a component set. space/* and layout/* variables live in the Primitives and Semantic collections."
+    }
+  },
+  "options": [
+    {
+      "name": "container",
+      "type": "enum",
+      "values": ["standard", "narrow", "wide", "full", "edge"],
+      "default": "standard",
+      "description": "Section container behavior: outer width and page margin. Standard: 1.25rem side margins, caps/centers at 81.875em from the page-container breakpoint. Narrow: caps at 63.75em from md. Wide: caps at 100em with 1.875rem side padding at page-container. Full: viewport-wide with 1.25rem/3rem margins. Edge: no outer margins.",
+      "code": {
+        "classes": {
+          "standard": "page__container--normal",
+          "narrow": "page__container--narrow",
+          "wide": "page__container--extended",
+          "full": "page__container--full",
+          "edge": "page__container--edge"
+        },
+        "notes": "standard's visual behavior is largely the default container mixin; the modifier class adds little"
+      }
+    },
+    {
+      "name": "layout",
+      "type": "enum",
+      "values": [
+        "onecol", "onecol-fixed", "sidebar",
+        "twocol-50-50", "twocol-33-67", "twocol-67-33", "twocol-25-75", "twocol-75-25",
+        "threecol-33-34-33", "threecol-50-25-25", "threecol-25-25-50", "threecol-25-50-25",
+        "fourcol"
+      ],
+      "default": "onecol",
+      "description": "Section column structure. Mobile-first: every multi-column layout stacks below md (980px), then adopts its ratio. Ratios are authored patterns, not a universal 12-column grid.",
+      "code": {
+        "classes": {
+          "onecol": "layout--onecol",
+          "onecol-fixed": "layout--onecol--fixed",
+          "sidebar": "layout--has-sidebar",
+          "twocol-50-50": "layout--twocol (50/50)",
+          "fourcol": "layout--fourcol"
+        },
+        "notes": "class families live in uids_base scss/layouts/; 50/50 and 33/34/33 consume the shared UIDS grid mixins"
+      }
+    },
+    {
+      "name": "contentGrid",
+      "type": "enum",
+      "values": ["none", "twocol-50-50", "threecol-33-34-33", "fourcol-25", "twocol-25-75"],
+      "default": "none",
+      "description": "Modular grid for repeated content (cards, lists, feeds) inside a region. Activation is gated by parent region width (inner-grid mixin: twocol needs parent >= 50%, threecol/fourcol >= 75%).",
+      "code": {
+        "classes": {
+          "twocol-50-50": "grid--twocol--50-50",
+          "threecol-33-34-33": "grid--threecol--33-34-33",
+          "fourcol-25": "grid--fourcol--25",
+          "twocol-25-75": "grid--twocol--25-75"
+        }
+      }
+    },
+    {
+      "name": "title",
+      "type": "boolean",
+      "default": false,
+      "description": "The section holds the page title (and the breadcrumb) and nothing else. Not a Layout Builder checkbox: uids_base.theme:797 adds the class to a layout_header section when it contains the page-title field block, so it is DETECTED from where the title sits rather than chosen. It changes the rhythm on BOTH sides \u2014 this section's padding-bottom becomes 1.25rem instead of layout/section/padding/default, and the next section drops its padding-top to 0 \u2014 which is why the title may not share a section with content. See contracts/rules.json page-title-is-its-own-section. Note the pairing with :first-child: a title section is normally BOTH, and its padding-top comes from the first-child rule rather than from this class. That only resolves if the sections share a wrapper of their own \u2014 production's div.node__content, the scaffold's <main> \u2014 with the Brand Bar and nav outside it.",
+      "code": { "class": "layout--title" }
+    },
+    {
+      "name": "titleHidden",
+      "type": "boolean",
+      "default": false,
+      "description": "The title section with the title suppressed. Requires `title`. Zeroes both of this section's paddings, and restores the FOLLOWING section's padding-top to the desktop gutter rather than leaving it at 0 \u2014 the one case where the title/content pair does not merge. Also element-hides the breadcrumb rather than deleting it (still focus-revealable, still announced); see contracts/rules.json banner-led-page-is-a-composition.",
+      "code": { "class": "layout--title--hidden" }
+    },
+    {
+      "name": "sectionAlignmentStart",
+      "type": "boolean",
+      "default": false,
+      "description": "Layout Builder: Align content to start. Turns OFF the row fill \u2014 items in a content grid drop back to their content heights and the row goes ragged. Filling is the default, so this is the opt-out, not the opt-in. UIDS implements it as `.section-alignment__start .list-container__inner > * { display: block }` (src/scss/layout/_grid.scss); uids_base implements the same option as `height: auto` on .card / .views-field, and also uses the class for its equal-height column rules on .layout__region. See changes[].",
+      "code": { "class": "section-alignment__start" }
+    },
+    {
+      "name": "sectionPaddingRemovedTop",
+      "type": "boolean",
+      "default": false,
+      "description": "Layout Builder: Remove top spacing (top padding 0)",
+      "code": { "class": "section-padding__removed-top" }
+    },
+    {
+      "name": "sectionPaddingRemovedBottom",
+      "type": "boolean",
+      "default": false,
+      "description": "Layout Builder: Remove bottom spacing (bottom padding 0)",
+      "code": { "class": "section-padding__removed-bottom" }
+    },
+    {
+      "name": "sectionPaddingTopExtra",
+      "type": "boolean",
+      "default": false,
+      "description": "Layout Builder: Add extra top spacing (top padding = layout/section/padding/extra)",
+      "code": { "class": "section-padding__top-extra" }
+    },
+    {
+      "name": "sectionPaddingBottomExtra",
+      "type": "boolean",
+      "default": false,
+      "description": "Layout Builder: Add extra bottom spacing (bottom padding = layout/section/padding/extra)",
+      "code": { "class": "section-padding__bottom-extra" }
+    },
+    {
+      "name": "sectionPaddingTopRestored",
+      "type": "boolean",
+      "default": false,
+      "description": "Layout Builder: Restore default spacing — TOP EDGE ONLY (see knownIssues)",
+      "code": { "class": "section-padding__top-restored" }
+    },
+    {
+      "name": "columnSpacingRemoved",
+      "type": "boolean",
+      "default": false,
+      "description": "Layout Builder: Remove default column spacing (region gaps and stacked-region spacing)",
+      "code": { "class": "column-spacing__removed" }
+    },
+    {
+      "name": "columnSpacingIncreased",
+      "type": "boolean",
+      "default": false,
+      "description": "Layout Builder: Increase default column spacing — region gaps step to 7.8125rem / 125px (space/781). Accepted 2026-08-24; like every other column-spacing / section-padding option the class ships from uids_base, and it is not yet authored there. See changes[].",
+      "code": { "class": "column-spacing__increased" }
+    },
+    {
+      "name": "sectionOrderReversed",
+      "type": "boolean",
+      "default": false,
+      "description": "Layout Builder: Reverse column order on mobile",
+      "code": { "class": "section-order__reversed" }
+    },
+    {
+      "name": "blockPadding",
+      "type": "enum",
+      "values": [
+        "none",
+        "all", "all-minimal", "all-extra",
+        "top", "right", "bottom", "left",
+        "top-minimal", "right-minimal", "bottom-minimal", "left-minimal",
+        "all-sm"
+      ],
+      "default": "none",
+      "description": "Local padding on a block, from src/scss/abstracts/_utility-classes.scss:34-73. Unlike every other option on this contract these classes ship FROM UIDS, not from uids_base. Base is 3rem (space/300), --minimal is 2rem (space/200), --extra is 6rem (space/600). The .block-padding and .element--padding namespaces are declared as one selector list and are exactly equivalent — neither is preferred.",
+      "code": {
+        "classes": {
+          "all": "block-padding__all | element--padding__all",
+          "all-minimal": "block-padding__all--minimal | element--padding__all--minimal",
+          "all-extra": "block-padding__all--extra | element--padding__all--extra",
+          "top": "block-padding__top | element--padding__top",
+          "top-minimal": "block-padding__top--minimal | element--padding__top--minimal",
+          "all-sm": "element--padding__all--sm"
+        },
+        "notes": "right/bottom/left follow top's pattern in both namespaces. all-sm is the exception: .element--padding__all--sm is declared on its own (line 71), has NO .block-padding twin, and resolves to 1.25rem (space/125) rather than the 3rem the rest of the __all family uses."
+      },
+      "figma": {
+        "notes": "Contract-only, and this whole contract is a documentation page rather than a component set — there is no variant axis to map to. A local padding utility is applied per placement by a Drupal author; the Figma equivalent is setting padding on the frame you are drawing, not picking a variant. Foundations / Layout documents the SCALE these classes draw from (the space/* frame, 120:3), which is the part a designer needs."
+      }
+    },
+    {
+      "name": "blockMargin",
+      "type": "enum",
+      "values": ["none", "top", "right", "bottom", "left", "top-extra", "bottom-extra"],
+      "default": "none",
+      "description": "Local margin on a block, from _utility-classes.scss:104-139. Base is 1.05rem (space/105 = layout/block/stack/compact); --extra holds that value below sm and steps to 2rem (layout/block/stack/extra) from sm. In stacked Layout Builder regions these are OVERRIDES on the 1.6rem default sibling rhythm, not additions to it — see behavior.",
+      "code": {
+        "classes": {
+          "top": "block-margin__top | element--margin__top",
+          "bottom": "block-margin__bottom | element--margin__bottom",
+          "top-extra": "block-margin__top--extra | element--margin__top--extra",
+          "bottom-extra": "block-margin__bottom--extra | element--margin__bottom--extra",
+          "left": "block-margin__left | element--margin__left",
+          "right": "block-margin__right | element--margin__right"
+        },
+        "notes": "left/right are the odd ones: they apply ONLY from sm (no mobile value at all), where top/bottom apply at every width. See knownIssues."
+      },
+      "figma": {
+        "notes": "Contract-only — see blockPadding's note. Additionally, the part of this option a designer would most want drawn (that in a stacked region these are OVERRIDES on the 1.6rem default sibling rhythm, not additions) is a uids_base region behavior with no Figma surface at all: layout/block/stack/default is a variable, but nothing in the file arranges sibling blocks to show it being overridden."
+      }
+    },
+    {
+      "name": "logicalPadding",
+      "type": "enum",
+      "values": [
+        "none",
+        "block-sm", "block-md",
+        "inline-md",
+        "inline-start-sm", "inline-start-md",
+        "inline-end-sm", "inline-end-md"
+      ],
+      "default": "none",
+      "description": "CSS logical-property padding utilities, _utility-classes.scss:75-102. A separate, much smaller scale from the block utilities above: --sm is 0.5rem (space/50) and --md is 1rem (space/100). These ship from UIDS.",
+      "code": {
+        "classes": {
+          "block-sm": "padding--block--sm",
+          "block-md": "padding--block--md",
+          "inline-md": "padding--inline--md",
+          "inline-start-sm": "padding--inline-start--sm",
+          "inline-start-md": "padding--inline-start--md",
+          "inline-end-sm": "padding--inline-end--sm",
+          "inline-end-md": "padding--inline-end--md"
+        },
+        "notes": "There is deliberately no `inline-sm` entry — .padding--inline--sm is not declared. See knownIssues."
+      },
+      "figma": {
+        "notes": "Contract-only — see blockPadding's note. Logical properties have no Figma expression in any case: the file has no writing-mode dimension, so padding-inline-start and padding-left are the same edge on the canvas and the distinction these classes exist to make cannot be drawn."
+      }
+    }
+  ],
+  "tokensUsed": [
+    "layout/gutter/width/mobile",
+    "layout/gutter/width/desktop",
+    "layout/gutter/height/mobile",
+    "layout/gutter/height/desktop",
+    "layout/section/padding/mobile",
+    "layout/section/padding/default",
+    "layout/section/padding/extra",
+    "layout/block/stack/default",
+    "layout/block/stack/compact",
+    "layout/block/stack/extra",
+    "layout/container/max/standard",
+    "layout/container/max/narrow",
+    "layout/container/max/wide",
+    "layout/container/padding/wide",
+    "layout/breakpoint/sm",
+    "layout/breakpoint/md",
+    "layout/breakpoint/page",
+    "space/50",
+    "space/100",
+    "space/105",
+    "space/125",
+    "space/200",
+    "space/300",
+    "space/600",
+    "space/781"
+  ],
+  "geometryNotTokenized": {
+    "sidebar-ratio": "24.25% sidebar / 72.75% content, separated by 3% right margin on the sidebar (md+); content 100% when sidebar hidden",
+    "grid-minmax": "content-grid tracks: twocol minmax(46.7%, 1fr), threecol minmax(29.74%, 1fr), fourcol minmax(21%, 1fr) — auto-fill",
+    "inner-grid-breakpoint": "58.125em (930px) internal breakpoint in _grid-mixins.scss for three/four-col inner grids and twocol's fixed 1fr 1fr switch — NOT one of the tokenized breakpoints",
+    "onecol-fixed-padding": "1.1rem top/bottom (space/110), a condensed band outside the section rhythm",
+    "twocol-25-75-gaps": "1.5rem gap at sm -> 3rem at page-container (only content grid whose gap steps at page-container)",
+    "block-margin-utilities": "1.05rem base (space/105), --extra variants step to 2rem at sm; __right/__left have no mobile value",
+    "strays": "0.2rem and 1.75rem appear once each in uids_base layouts; left raw deliberately"
+  },
+  "behavior": [
+    "Mobile-first: all multi-column layouts stack below md (980px); stacked regions use layout/gutter/height/mobile (2rem) bottom spacing",
+    "Section rhythm steps at sm (768px), NOT md: padding goes 1.25rem -> 3rem top/bottom; the first section removes top padding",
+    "Adjacent sections with the same background treatment (none/gold/black/gray/brain variants) merge: the second removes its top padding",
+    "Block stacking: sibling blocks in Layout Builder regions get 1.6rem top spacing (layout/block/stack/default); .block-margin__top reduces to 1.05rem, __top--extra becomes 2rem from sm, __default--removed zeroes it — the margin utilities are authored overrides on the default rhythm, not purely additive",
+    "Containers cap/center at the page-container breakpoint (1350px): standard 81.875em, wide 100em + 1.875rem side padding; narrow caps earlier (md, 63.75em)",
+    "Content grids: non-grid lists stack at 2rem; grid gaps are 2rem mobile -> 3rem from sm (desktop gutter)",
+    "OWNERSHIP SPLIT, and it is the thing to get right about this contract. Ships from THIS repo: the blockPadding / blockMargin / logicalPadding options via src/scss/abstracts/_utility-classes.scss, and — since 2026-08-24 — the section rhythm via src/scss/abstracts/_section-rhythm.scss, both forwarded through uids-core.scss. That covers .layout__container's base padding, the adjacent-same-background merge and every section-padding__* modifier. Still uids_base classes, documented here but with no CSS in this repo: the container modifiers, layout, contentGrid, column-spacing and section-order options, which can only be reproduced in claude-design/layout.css for previews",
+    "The .block-* and .element--* namespaces are the same rule set. _utility-classes.scss declares `.block-padding, .element--padding` (line 34) and `.block-margin, .element--margin` (line 104) as selector lists, so every modifier exists under both names with identical behavior and neither is canonical",
+    "Breakpoint reference. Below sm (768): sections pad 1.25rem, full-width containers keep a 1.25rem outer margin, multi-region layouts stack with 2rem between regions, content grids gap 2rem. From sm: section padding becomes 3rem and the block-margin --extra step goes 1.05rem -> 2rem. From md (980): column ratios engage, full-width containers take 3rem outer margins, desktop grid gaps are 3rem, and the mobile stacked-region spacing is dropped. From page-container (1350): standard containers centre at 81.875em, wide expands to 100em with 1.875rem side padding, and grid--twocol--25-75 steps its gap 1.5rem -> 3rem"
+  ],
+  "changes": [
+    {
+      "date": "2026-08-24",
+      "summary": "Ported the section rhythm from uids_base into this repo as src/scss/abstracts/_section-rhythm.scss, so it ships and is testable from UIDS.",
+      "reasoning": "The design system owner's ruling: everything needs to be testable in UIDS. Before this, .layout__container and the section-padding__* modifiers existed only in uids_base/scss/global.scss:153-257, which meant the rhythm could not be exercised by any check in this repo — the Storybook page drew a .lyd-prefixed REPLICA of the behaviour, so the page tested itself rather than the design system, and test:styles had nothing to sample. Deliberately a PURE MOVE: same values, same selectors, same quirks, so the compiled output is byte-equivalent and any downstream breakage is attributable to the move rather than to a redesign bundled with it. Three things were consequently NOT changed, each of which would have been a silent fix. Padding still comes from the gutter tokens ($mobile-width-gutter / $desktop-width-gutter), not from layout/section/padding/*, which remain a parallel vocabulary that nothing reads and stay DOC-ONLY in check-token-consumers. section-padding__top-extra stays a literal 6rem rather than layout/section/padding/extra. And section-padding__top-restored stays a flat padding-top with no media query, overshooting the mobile default by 2.4x — now reproducible and measurable here, which is the whole point of moving it. Repointing any of those three is a separate, reviewable decision. The Drupal-only context selectors (.region-pre-footer, .layout--title, .layout--title--hidden) were ported even though they can never match in this repo, because they are load-bearing downstream and uids_base is dropping the file that carries them. NOT ported, and still owed: column-spacing__* and section-order__* (they key on Layout Builder region DOM and are a Layouts concern, not a rhythm one), the per-layout column-spacing__removed variants in twocol/threecol/fourcol, and the .block--wrapper background-padding block, which overlaps classes this repo already ships and needs its own decision. SEQUENCING: until the follow-up PR in uiowa/uiowa deletes global.scss:153-257, both stylesheets define these classes, so the two changes must land in order, not in parallel."
+    },
+    {
+      "date": "2026-08-24",
+      "summary": "Accepted the Layout Builder option 'Increase default column spacing' (column-spacing__increased, 7.8125rem / 125px) and minted space/781 for it.",
+      "reasoning": "The option had sat marked PROPOSED at 567:78 in the layout exploration doc with nothing behind it — no primitive, no class, no contract entry — which is exactly the ambiguous state that makes a later reader unable to tell a deliberate omission from an oversight. The design system owner ruled it accepted on 2026-08-24, so it is recorded as public shape here first, contract-first, ahead of the CSS. Two consequences worth stating plainly. First, space/781 breaks nothing but does bend the scale's naming rule: 7.8125rem is 781.25, and the step name rounds to 781 the same way space/32, space/62 and space/187 round from 32.5, 62.5 and 187.5 — the name is a label, the value is authoritative. Second, this is the ownership split doing its job in the awkward direction: UIDS owns the vocabulary and the token, uids_base ships the class, and the class does not exist downstream yet. Until it lands in /Users/bspeare/acquia/uiowa, check-token-consumers will report --uiowa-space-781 as ORPHAN. That warning is deliberately NOT silenced via tokens/orphans-allowed.json, because it is a true statement and a live to-do rather than a downstream contract already honoured."
+    },
+    {
+      "date": "2026-08-24",
+      "summary": "Declined to mint the six proposed semantic layout tokens (layout/block/padding/{default,minimal,extra,sm}, layout/logical/padding/{sm,md}).",
+      "reasoning": "The design system owner's ruling, 2026-08-24. The utilities were already bound directly to the primitives (space/200, /300, /600, /125, /50, /100) and every checker is green, so the semantic tier would buy naming and cost six more custom properties on a token surface already carrying 39 orphan and doc-only warnings, plus six more Figma variables that each need codeSyntax.WEB set to stay visible to check-figma. Recorded so a later reader does not re-propose it as an obvious gap: the indirection was considered and judged not to earn its keep."
+    },
+    {
+      "date": "2026-08-24",
+      "summary": "The block/element padding and margin utilities, and the logical-padding utilities, were admitted to this contract as the blockPadding / blockMargin / logicalPadding options.",
+      "reasoning": "They were the only UIDS-SHIPPED CSS in the layout system with no contract entry at all — roughly 25 classes forwarded from uids-core.scss that no view described. That gap is what let their values sit as raw literals (3rem, 2rem, 6rem, 0.5rem, 1rem) while the token layer that was supposed to govern them had zero consumers in src/scss. Admitting them is ordinary contract-first work on a contract already in the set, not a migration: the CLOSED ruling governs bringing NEW components in, and this contract's kind is foundation. Rendering is unchanged — no class was added, removed or restyled."
+    },
+    {
+      "date": "2026-08-24",
+      "summary": "Declined to rename the utility --sm / --md suffixes despite the two-scale collision now recorded in knownIssues.",
+      "reasoning": "Faithful names lose an argument about clarity and win the one about findability: someone reading .padding--block--sm in a Drupal template needs the grep to land, and a corrected name would break that for every existing consumer to fix a confusion the contract can simply state. Same call, same reasoning, as leaving the $md spacing-vs-breakpoint collision in place. Recorded so a later reader does not mistake the collision for an oversight."
+    },
+    {
+      "date": "2026-08-24",
+      "summary": "Recorded that .element--padding__all--sm is intended to supersede .padding--block--sm, and that the two are NOT interchangeable.",
+      "reasoning": "The design system owner's intent, 2026-08-24. The trap is that the replacement reads like a rename and is not one: .element--padding__all--sm sets `padding` on all four sides at 1.25rem, while .padding--block--sm sets `padding-block` only, at 0.5rem. Swapping one for the other adds inline padding that was never there and multiplies the block padding by 2.5. Both still ship and live sites depend on the legacy one, so neither is removed here — tokenize as-shipped."
+    },
+    {
+      "date": "2026-08-25",
+      "summary": "Re-emitted the two section-padding top restores inside each adjacent-merge pair in claude-design/layout.css, so the modifiers work on the second of two same-background sections in that view as they do in production.",
+      "reasoning": "The design system owner's ruling, 2026-08-25, closing the question changes[0] left open when the rhythm was ported. claude-design has no compiler and does not import dist/uids.css, so it had drifted silently: the restores were declared flat at (0,2,0) and the adjacent-merge selectors are (0,4,0), which is not a tie, so source order never saved them. Measured 0px where production gives 48px and 96px. The shipped SCSS emits eight rules per modifier — seven nested inside the @each loop at src/scss/abstracts/_section-rhythm.scss:83-98, plus one flat — and this view now does the same for all seven treatments. Deliberately NOT a repoint: the nested rules read layout/section/padding/{default,extra} like the flat rules they back, so this view stays the sole reader of those three tokens and they stay DOC-ONLY in check-token-consumers. Repointing them to the gutter tokens is still the separate decision changes[0] describes. The knownIssues[8] overshoot is preserved, not fixed: the nested restores carry no media query either, so the restored edge measures 48px below sm as well as above it."
+    },
+    {
+      "date": "2026-08-25",
+      "summary": "Admitted layout--title and layout--title--hidden as options, and ruled that the page title may not share its section with content.",
+      "reasoning": "The design system owner's ruling, from the production reference https://sandbox.prod.drupal.uiowa.edu/test-directory. Measured there at 1280px: the title section computes padding-bottom 20px, the section immediately below it computes padding-top 0, and the title section contains exactly two blocks — nav.breadcrumb and h1.page-title — and nothing else. The 20px is layout--title's own padding-bottom (src/scss/abstracts/_section-rhythm.scss:57, a bare 1.25rem literal), and it is meant to be the gap between the TITLE and the content below it. Share the section with content and that 20px lands under the CONTENT instead: the title-to-content gap collapses to the two elements' own margins, and the content ends 20px above the next section rather than 48px. Measured at 1200px, both arrangements compute the same two boxes — 0/20px then 0/48px — so the numbers stay correct and start describing the wrong edges, which is why this is a rule and not a checker. The companion selector `.layout--title + .layout__container:not([class*=\"bg-\"])` was checked separately and does LESS than it looks: for a plain title section the adjacent-same-background merge matches the same pair at the same (0,4,0) and already zeroes that top padding. It earns its keep only when the title section carries a bg--* class, where the merge does not apply — `.layout--title.bg--gold + .layout__container` computes 0px top against 48px for a plain `.bg--gold + .layout__container` control. That is the enforceable consequence, and it is now contracts/rules.json page-title-is-its-own-section. Two things this entry deliberately does NOT do. It changes no declaration — the CSS has shipped from this repo since the changes[0] port and from uids_base before that; what changes is that the class becomes an AUTHORABLE option here instead of an undocumented Drupal artefact. And it does not rewrite changes[0], which recorded .layout--title as a Drupal-only selector that 'can never match in this repo'. That was true of a pure move whose only consumer was Layout Builder, and it stops being true the moment Claude Design and the Page Scaffold are told to write the class by hand — which is what this ruling does. The stale framing is corrected in the partial's own header comment rather than by editing history. Downstream the class stays DETECTED, not authored, so the two views agree on the rendered box and disagree only about who writes the class. One housekeeping note, so nobody reads the git history wrong: check-figma reported SNAPSHOT STALE on this change and it was stamped WITHOUT a Figma readback. That is safe here, and it was verified rather than assumed — the checker hashes a projection of tokens plus, per contract, componentSetName / option [name, figma.axis, figma.map] / tokensUsed / children (scripts/check-figma.mjs:64-87). Re-deriving that projection against HEAD showed exactly one delta: two options added as [\"title\", null, null] and [\"titleHidden\", null, null], on a contract whose componentSetName is null because layout is a Foundations documentation page and not a component set. tokensUsed, children and the entire token projection were byte-identical. So nothing the snapshot records could have moved and only the stamp was stale. A hash delta with no Figma-visible cause still needs that check run before stamping — the projection includes an option NAME whether or not it maps to an axis, so it over-triggers relative to its own stated intent."
+    },
+    {
+      "date": "2026-08-25",
+      "summary": "Content-grid items now FILL their row from UIDS, implemented container-side rather than by porting uids_base's per-component height: 100%.",
+      "reasoning": "The design system owner's ruling. A card in a content grid is never the grid item — GridItem.vue wraps it in a .grid__column, a Drupal view in a .views-row, Claude Design's runtime in two nested divs — so the grid stretches the WRAPPER and the card keeps its content height. Measured at 1440px on the Biochemistry parity story: 434/329/356 ragged where production renders 434/434/434. uids_base has always fixed this and UIDS never did (uids_base/scss/components/grid.scss:14-24, `.list-container__inner { .card, .views-field { height: 100%; } }`), which means every UIDS surface — Storybook, the regression harness and claude-design — has been showing a row shape no real page produces. Correcting the record: this contract's first reading of that gap called the ragged row as-shipped and cited card.scss:126's commented-out height: 100% as where it was decided. Both halves were wrong. Nobody had grepped uids_base for a card height rule, and card.scss:126 sits inside a commented-out iframe/embed block with nothing to do with card height. DEPARTURE, not a port. UIDS ships the container-side form instead: `.list-container__inner > * { display: flex; flex-direction: column }` with `> :only-child { flex: 1 1 auto }`. It is component-agnostic — a bare div as an only child went 18px to the full 434px row, so .views-field and anything added later are covered without a selector list to extend — it uses no percentage height against an auto-height parent, and it fixes a real defect in the shipped rule: where one wrapper holds TWO blocks, height: 100% hands the card the whole row and the second block OVERFLOWS below it, while growing the only child gives the card 385 and its sibling its natural 33. A wrapper with two children has no :only-child, which is what makes that case safe. Basis is auto rather than 0%, and at (0,3,0) it outranks .card's own long-inert `flex: 1 1 0%` (card.scss:24) — that declaration is itself evidence a flex parent was the original intent. The opt-out keeps the author-facing name: .section-alignment__start, the Layout Builder \"Align content to start\" option, restores block flow. Like .layout--title this is a Drupal-authored class UIDS now answers to. Toggle it on components-card--grid-uneven-heights, added with this change because every other grid story repeats one card and its row is level either way. SEQUENCING, the same shape as changes[0]: uids_base still ships its height: 100% rule, so until the follow-up PR removes grid.scss:14-24 both are live. They agree on the single-child case, which is every card in a grid today, so nothing downstream moves on landing; the two-block overflow only disappears once uids_base drops its copy. Land in order, not in parallel."
+    },
+    {
+      "date": "2026-09-02",
+      "summary": "Repointed section padding from the gutter variables to the layout/section/padding tokens (mobile/default/extra), and the extra literal 6rem to the extra token. Values unchanged; the tokens become real in src/.",
+      "reasoning": "The design system owner approved the token route for section spacing: raise layout/section/padding/default rather than promote the opt-in classes (the 09-01 measurements — blanket classes give 192px gaps at every width because the modifiers carry no media query, bottom-only reads visibly lopsided inside a coloured band, and both together detach the title). A raise through tokens src/ never read would have moved claude-design/layout.css and not Storybook: the views already disagreed on provenance, since layout.css and the section-rhythm rule both named the tokens as the base while _section-rhythm.scss read the gutters. This entry lands the pixel-neutral half — space-125/300/600 equal the previous gutter values and the 6rem literal, proven by the computed-style baselines passing unchanged — and supersedes the src side of the 'consolidating the two vocabularies is a 5.x decision' deferral in knownIssues (the uids_base side still stands). The value raise itself is now a one-token edit in tokens/semantic/layout.json, pending the owner's number, and it reaches live production only after the follow-up PR removes uids_base's own copy."
+    }
+  ],
+  "breakpoints": {
+    "sm": 768,
+    "md": 980,
+    "page-container": 1350
+  },
+  "knownIssues": [
+    "NEAR-COLLISION between two class names one character apart, now in two adjacent partials. .layout-container (SINGLE HYPHEN) is declared at src/scss/abstracts/_layout-main.scss:9 and only applies the container-width mixin. .layout__container (DOUBLE UNDERSCORE) is the Layout Builder section wrapper and carries the whole vertical rhythm, in src/scss/abstracts/_section-rhythm.scss. They are unrelated classes with near-identical names sitting in neighbouring files, so the obvious tidy-up — merging the two partials because they look like the same concern — would be wrong. Kept separate deliberately",
+    "layout/section/padding/{mobile,default,extra} began as a PARALLEL VOCABULARY nothing in src/ read — production authors .layout__container's padding from the gutter variables (uids_base scss/global.scss:153-161, $mobile-width-gutter / $desktop-width-gutter resolving to layout/gutter/width/*), and until 2026-09-02 the ported partial did the same, so the tokens' only consumer was claude-design/layout.css. The 09-02 repoint (changes[]) made src/scss/abstracts/_section-rhythm.scss read them, closing the src side of the split. uids_base's own copy still reads its gutters until the sequenced follow-up PR deletes global.scss:153-257",
+    "Consequence, UPDATED for the 09-02 repoint: editing layout/section/padding/default now moves Claude Design and this repo's Storybook/dist TOGETHER — but still NOT live production, which ships uids_base's own global.scss copy reading Sass gutter variables (verified 2026-08-24: zero reads of var(--uiowa-layout-section-padding-*) in authored uids_base SCSS). A value raise reaches production only once uids_base drops its copy (the follow-up PR) and its vendored uids/ mirror is refreshed past the repoint. Full consolidation of uids_base's own authoring remains the 5.x decision; the UIDS-side half was ruled and landed 2026-09-02",
+    "layout/gutter/height/desktop has no consumer at all. Its 4.x source variable $desktop-height-gutter is declared at src/scss/abstracts/_variables.scss:82 and used nowhere in this repo, so the variable was deliberately left holding a literal rather than rebound — pointing it at the token would have made the token look consumed while compiling to nothing",
+    "The utility scale uses `sm` for two different values, in two different families: .element--padding__all--sm is 1.25rem (space/125) while .padding--block--sm and the --inline-*--sm pair are 0.5rem (space/50). Same suffix, 2.5x apart. This is the spacing-side twin of the `md` collision recorded below, and it is as-shipped — the names were kept rather than corrected so a grep for the class lands on the token (ruling, 2026-08-24, see changes[])",
+    ".padding--inline--sm does not exist. The logical-padding family is otherwise symmetric — block and inline-start and inline-end each have --sm and --md — but the shorthand .padding--inline-- only ships in --md (_utility-classes.scss:100). Authoring one by analogy silently does nothing",
+    ".block-margin__left and __right apply only from sm (_utility-classes.scss:117-121, 134-138); they have no mobile value, where __top and __bottom apply at every width. A layout relying on left/right margin below sm gets nothing",
+    "section-padding__top-restored restores the TOP edge only; there is no bottom-restore class",
+    "section-padding__top-restored does not restore the DEFAULT below sm — it sets a flat 3rem at every width. Production emits `.section-padding__top-restored{padding-top:3rem}` with no media query (verified 2026-08-24 in uids_base assets/css/global.css), while the default section padding below sm is 1.25rem. So an author picking 'Restore default spacing' on a phone gets 2.4x the spacing the label promises, and the two edges of that section stop matching (3rem top, 1.25rem bottom). Distinct from the top-edge-only issue above, and as-shipped: found while building the Foundation/Layout Storybook page, whose diagram reproduces it faithfully rather than quietly rendering the responsive value",
+    "The word 'md' means two different things in 4.x SCSS: $md = 1.05rem (a spacing value) vs $break-md / --space-md-width-gutter (breakpoint / 2rem). The space.* scale supersedes the spacing sense.",
+    "grid--twocol--50-50 column-gap uses var(--space-lg-width-gutter) while threecol/fourcol use $desktop-width-gutter — same 3rem value via two mechanisms (compile-time vs runtime)",
+    "NESTED CONTENT GRIDS INHERIT THE OUTER GRID, silently. `.list-container--grid .list-container__inner` and `.grid--{ratio} .list-container__inner` are unbounded DESCENDANT selectors, so a plain `.list-container` nested inside a grid one has its own `__inner` matched by both: it becomes display:grid with the OUTER ratio and its children reflow into columns instead of stacking. Measured 2026-08-25 at 1440px with grid--twocol--25-75: outer grid-template-columns 344px 1032px, nested 246px 738px. Four children meant as a vertical stack rendered as a 2x2 grid. No checker inspects nesting depth and the page renders without error. A `>` child combinator would scope it, but these grid classes are authored downstream in uids_base. Until then do not nest `.list-container` inside a grid container; use a plain wrapper element."
+  ]
+}
