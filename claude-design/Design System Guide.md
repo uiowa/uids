@@ -206,16 +206,18 @@ h1 per page — typically the Brand Bar's site name", which is the exact claim
    component, and do not propose one. The title-suppressed variant is layout--title--hidden,
    and it is worth knowing what it really does: it zeroes the section padding AND makes the
    breadcrumb element-invisible (still focus-revealable, still announced) rather than deleting
-   either. AMENDED 2026-09-03 with two owner rulings from the second design review. (1) ONE
-   BANNER: a page never stacks two Banners at the top — one banner states the page, and every
-   other full-width message (a crisis strip, an announcement, a highlight) is CONTENT, chunked
-   into ordinary sections: a section wrapper with a bg--*[--pattern--*] class per
-   backgrounds-by-class, holding a Headline, body copy and its actions. The failure this closes
-   rendered a photo hero and a black crisis Banner stacked at the top of one page. (2) FLUSH:
-   the top banner sits flush against the nav strip — its section takes
-   section-padding__removed-top (claude-design/layout.css keeps that class winning over the
-   3rem top the layout--title--hidden restore puts back), plus section-padding__removed-bottom
-   when a colored band follows directly, so no white frame surrounds the banner.
+   either. AMENDED 2026-09-03 with two owner rulings, and the first was CORRECTED the same day.
+   (1) ONE BANNER, CONSOLIDATED: the page top is a single Banner carrying ALL of the
+   top-of-page content — the page's title as its headline, the supporting line as body_text,
+   and the page's primary actions as its buttons (it takes three). Never stack a second Banner
+   beneath the hero, and not a full-width band-styled section either: the first version of this
+   clause prescribed exactly that section, and the owner corrected it — a photo hero with a
+   black pattern band flush beneath it still reads as two stacked banners. Full-width bands
+   stay right FURTHER DOWN the page (alternate-section-backgrounds); the prohibition is the
+   stack at the top. (2) FLUSH: the top banner sits flush against the nav strip — its section
+   takes section-padding__removed-top (claude-design/layout.css keeps that class winning over
+   the 3rem top the layout--title--hidden restore puts back); it keeps its bottom padding,
+   since ordinary content follows.
 15. **column-container-around-components** (agent) — Every component that has a responsive
    layout goes inside a <div class="column-container">. UIDS gates a component's own layout
    switches on a CONTAINER query, not a viewport one — utilities.container-query() compiles to
