@@ -610,13 +610,14 @@ a band** — if text looks wrong inside one, the markup is wrong, not the colors
 
 Three honesty notes:
 
-1. **Pattern textures ship in `assets/` as of 2026-09-02** — the four brain SVG
-   variants. ALL community/particle PNGs (175–410KB) are deferred — too heavy for this
-   view's write path — so every `--pattern--community` / `--pattern--particle` class,
-   including Banner's gold--pattern--particle and gray--pattern--community fills,
-   renders the correct base color band. Copy the folder beside `backgrounds.css` for
-   the brain textures (color-only fallback without it). Never fake a texture with
-   gradients or drawings.
+1. **Pattern textures ship in `assets/`** — the four brain SVG variants (2026-09-02)
+   and all seven community/particle PNGs (2026-09-03, pushed via the native
+   DesignSync tool, which reads straight from disk with no emitter ceiling —
+   supersedes the earlier ~233KB base64 truncation that deferred the PNGs through MCP
+   `write_files`). Every `--pattern--{brain|community|particle}` class, including
+   Banner's gold--pattern--particle and gray--pattern--community fills, now renders
+   its real texture. Copy the folder beside `backgrounds.css` (color-only fallback
+   without it). Never fake a texture with gradients or drawings.
 2. Background fills ride the brand channels (`--brand-primary`/`--brand-secondary`), so
    a site's grayscale/retheme override reaches every band automatically. Don't bind a
    band to a raw hex.
@@ -771,8 +772,7 @@ inherit the base white text.
 
 **Banner** — a full-bleed hero. Props: fill (media | black | gold | gray | white, plus
 the three contract pattern fills black--pattern--brain / gold--pattern--particle /
-gray--pattern--community — brain gets its real texture with assets/ copied; the
-particle/community fills render color-only today),
+gray--pattern--community — all three get their real texture with assets/ copied),
 overlay_direction (none | btt | ttb | ltr), overlay_light, height (none | medium | large),
 narrow, horizontal_alignment, vertical_alignment, mobile_content_below_image, pre_title,
 headline, body_text, and up to three buttons as numbered pairs (button_label/button_url,

@@ -19,8 +19,10 @@ no error — so copy the files you need into ONE directory of your project befor
    - `tokens.css`, `layout.css` **and** `backgrounds.css` (several templates link
      `./backgrounds.css` directly, so they need that sibling even standalone)
    - `assets/` (ONE recursive entry) if the page uses any `bg--*--pattern--*` class or a
-     pattern banner fill — the texture files (the four brain SVGs; ALL community/particle
-     PNGs are deferred — too heavy for this view's write path — and render color-only)
+     pattern banner fill — all eleven texture files ship here (four brain SVGs plus all
+     seven community/particle PNGs, shipped via the native DesignSync tool 2026-09-03);
+     every pattern class renders its real texture once this folder is copied, and
+     degrades to the correct color-only band only if it isn't
 2. `create_support_js` in that same directory (every `.dc.html` loads `./support.js`).
 3. Then `<dc-import name="Brand Bar" siteName="…"></dc-import>` resolves.
 
@@ -648,12 +650,13 @@ imports for what exists and report the rest.
   and links gold automatically; gold/gray/white set black text. Never restyle text to
   compensate for a band; the class does it. Pattern variants
   (`bg--{color}--pattern--{brain|community|particle}`, e.g.
-  `bg--black--pattern--brain`) RENDER THEIR REAL TEXTURES as of 2026-09-02 for every
-  brain variant — copy `assets/` beside `backgrounds.css` (color-only fallback without
-  it). ALL community/particle PNGs (175–410KB) are deferred — too heavy for this view's
-  write path — so those classes, and Banner's gold--pattern--particle /
-  gray--pattern--community fills, stay color-only. Never fake a texture with gradients
-  or drawings.
+  `bg--black--pattern--brain`) RENDER THEIR REAL TEXTURES for every variant, brain
+  (2026-09-02) and community/particle alike (2026-09-03, via the native DesignSync
+  tool, which reads straight from disk with no emitter ceiling — supersedes the
+  earlier MCP write_files path that deferred the PNGs) — copy `assets/` beside
+  `backgrounds.css` (color-only fallback without it). That includes Banner's
+  gold--pattern--particle and gray--pattern--community fills. Never fake a texture with
+  gradients or drawings.
 - **Tokens only** — no raw hex, type sizes, or spacing. Color: `--uiowa-color-brand` (gold
   #FFCD00), `--uiowa-color-text`, `--uiowa-color-background`, `--uiowa-color-link`. Type:
   `--uiowa-font-size-heading-h1…h6` (fluid clamps), `--uiowa-font-size-body` (1.2rem, lh
@@ -775,8 +778,8 @@ imports for what exists and report the rest.
 - **Banner**: `<dc-import name="Banner" headline="…" pre_title="…" button_label="Read more">`.
   `fill` `media|black|gold|gray|white` — plus the three pattern fills the contract
   enumerates (`black--pattern--brain`, `gold--pattern--particle`,
-  `gray--pattern--community`; brain renders its real texture with `assets/` copied, the
-  other two are color-only today — see Backgrounds) — picks the FILL MECHANISM, and it is exclusive: a
+  `gray--pattern--community`; all three render their real texture with `assets/`
+  copied as of 2026-09-03 — see Backgrounds) — picks the FILL MECHANISM, and it is exclusive: a
   background band has no image and therefore no overlay, which is enforced in the CSS and
   not by convention. With `fill="media"`, `overlay_direction` `none|btt|ttb|ltr` and
   `overlay_light` cross freely — direction is the angle, light is the colour. `height`
