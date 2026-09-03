@@ -33,10 +33,10 @@
   --uiowa-space-300: 3rem;
   --uiowa-space-600: 6rem;
   --uiowa-space-800: 8rem;
-  --uiowa-font-family-sans: 'Roboto', sans-serif;
-  --uiowa-font-family-serif: 'Zilla Slab', 'Zilla-fallback', serif;
-  --uiowa-font-family-serif-alt: 'Lora', serif;
-  --uiowa-font-family-caps: 'Antonio', 'Antonio-fallback', sans-serif;
+  --uiowa-font-family-roboto: 'Roboto', sans-serif;
+  --uiowa-font-family-zilla-slab: 'Zilla Slab', 'Zilla-fallback', serif;
+  --uiowa-font-family-lora: 'Lora', serif;
+  --uiowa-font-family-antonio: 'Antonio', 'Antonio-fallback', sans-serif;
   --uiowa-font-weight-light: 300;
   --uiowa-font-weight-normal: 400;
   --uiowa-font-weight-medium: 500;
@@ -84,20 +84,19 @@
   --uiowa-line-height-150: 1.5;
   --uiowa-line-height-160: 1.6;
   --uiowa-line-height-170: 1.7;
-  --uiowa-color-text: var(--uiowa-color-black);
+  --uiowa-color-text-default: var(--uiowa-color-black);
+  --uiowa-color-text-inverse: var(--uiowa-color-white);
   --uiowa-color-background: var(--uiowa-color-white);
-  --uiowa-color-link: var(--uiowa-color-blue);
+  --uiowa-color-link-default: var(--uiowa-color-blue);
+  --uiowa-color-link-inverse: var(--uiowa-color-gold);
+  --uiowa-color-link-gold: var(--uiowa-color-black);
   --uiowa-color-brand: var(--uiowa-color-gold);
-  --uiowa-color-bg-black: var(--brand-secondary);
-  --uiowa-color-bg-gold: var(--brand-primary);
+  --uiowa-color-bg-black: var(--uiowa-color-black);
+  --uiowa-color-bg-gold: var(--uiowa-color-gold);
   --uiowa-color-bg-gray: var(--uiowa-color-neutral-96);
   --uiowa-color-bg-white: var(--uiowa-color-white);
   --uiowa-color-border-default: var(--uiowa-color-alpha-black-125);
-  --uiowa-color-border-on-dark: var(--uiowa-color-alpha-white-325);
-  --uiowa-color-on-light-text: var(--brand-secondary);
-  --uiowa-color-on-light-link: var(--brand-secondary);
-  --uiowa-color-on-dark-text: var(--uiowa-color-white);
-  --uiowa-color-on-dark-link: var(--brand-primary);
+  --uiowa-color-border-inverse: var(--uiowa-color-alpha-white-325);
   --uiowa-layout-gutter-width-mobile: var(--uiowa-space-125);
   --uiowa-layout-gutter-width-desktop: var(--uiowa-space-300);
   --uiowa-layout-gutter-height-mobile: var(--uiowa-space-200);
@@ -112,9 +111,9 @@
   --uiowa-layout-container-max-narrow: 63.75em;
   --uiowa-layout-container-max-wide: 100em;
   --uiowa-layout-container-padding-wide: var(--uiowa-space-187);
-  --uiowa-font-family-body: var(--uiowa-font-family-sans);
-  --uiowa-font-family-heading: var(--uiowa-font-family-sans);
-  --uiowa-font-family-display: var(--uiowa-font-family-serif);
+  --uiowa-font-family-body: var(--uiowa-font-family-roboto);
+  --uiowa-font-family-heading: var(--uiowa-font-family-roboto);
+  --uiowa-font-family-display: var(--uiowa-font-family-zilla-slab);
   --uiowa-font-weight-body: var(--uiowa-font-weight-normal);
   --uiowa-font-weight-heading: var(--uiowa-font-weight-medium);
   --uiowa-font-weight-display: var(--uiowa-font-weight-medium-bold);
@@ -168,7 +167,7 @@
 
 html {
   box-sizing: border-box;
-  font-family: var(--uiowa-font-family-sans);
+  font-family: var(--uiowa-font-family-roboto);
   /* 1 */
   line-height: 1.15;
   /* 2 */
@@ -819,7 +818,7 @@ h1, .h1 {
   line-height: unset;
   margin-top: var(--uiowa-space-62);
   margin-bottom: var(--uiowa-space-62);
-  font-family: var(--uiowa-font-family-serif);
+  font-family: var(--uiowa-font-family-zilla-slab);
   font-weight: var(--uiowa-font-weight-medium-bold);
   font-size: clamp(2.3rem, 2.3662vw + 1.4127rem, 3.35rem);
 }
@@ -828,7 +827,7 @@ h1, .h1 {
   line-height: unset;
   margin-top: var(--uiowa-space-62);
   margin-bottom: var(--uiowa-space-62);
-  font-family: var(--uiowa-font-family-serif);
+  font-family: var(--uiowa-font-family-zilla-slab);
   font-weight: var(--uiowa-font-weight-medium-bold);
   font-size: clamp(2.3rem, 2.3662vw + 1.4127rem, 3.35rem);
   font-weight: var(--uiowa-font-weight-bold);
@@ -1018,7 +1017,7 @@ dd {
   background-color: var(--brand-primary);
   box-shadow: inset 0px 0px 0px 10px white;
   text-transform: uppercase;
-  font-family: var(--uiowa-font-family-caps);
+  font-family: var(--uiowa-font-family-antonio);
   -webkit-font-smoothing: auto;
   -moz-osx-font-smoothing: auto;
   font-weight: bold;
@@ -1135,7 +1134,7 @@ mark {
 }
 
 pre {
-  font-family: var(--uiowa-font-family-serif);
+  font-family: var(--uiowa-font-family-zilla-slab);
   line-height: 1.5;
 }
 
@@ -1237,7 +1236,7 @@ hr {
 
 .uids-component--bold-intro,
 .element--bold-intro {
-  font-family: var(--uiowa-font-family-serif);
+  font-family: var(--uiowa-font-family-zilla-slab);
   font-weight: var(--uiowa-font-weight-medium-bold);
   line-height: 1.3;
   font-size: 2.2rem;
@@ -1493,7 +1492,7 @@ mark::after {
   --brand-primary: var(--uiowa-color-brand);
   --brand-secondary: var(--uiowa-color-black);
   --uids-gray-cool: var(--uiowa-color-neutral-43);
-  --link-color: var(--uiowa-color-link);
+  --link-color: var(--uiowa-color-link-default);
   --uids-light: var(--uiowa-color-neutral-96);
   --uids-gray-mid: var(--uiowa-color-neutral-64);
   --uids-gray: var(--uiowa-color-neutral-48);
