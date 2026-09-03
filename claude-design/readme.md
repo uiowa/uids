@@ -118,7 +118,17 @@ the repo's own rule said to put it there. Do not edit them here.
    date/heading/summary CSS: it will not match production, and Card already supplies the title,
    subtitle, meta, body and link in the right proportions. Use a grid of BORDERED cards only
    for a set of parallel destinations, like a three-across "related programs" block.
-10. **page-title-under-brand-bar** (agent) — Breadcrumbs and the page title go directly
+10. **list-card-action-is-the-circle-indicator** (agent) — In an item LIST — the stacked
+   borderless cards of item-list-is-stacked-cards (news, events, related items, search results)
+   — the card's action is the CIRCLE LINK INDICATOR, always: set link_indicator with link_text
+   EMPTY, so the card ends in the round arrow and no text button. Owner-ruled 2026-09-03,
+   reversing a one-round experiment that gave each news card a labelled button ('Read about the
+   grant'): in a stacked list the labels only restate the titles above them and add a column of
+   near-identical buttons. The whole card is already the click target once url is set
+   (card-in-a-listing-is-a-destination), so the arrow is a signifier, not the sole affordance.
+   This is a LIST rule: a GRID of parallel destination cards keeps its labelled buttons
+   ('Explore Biology'), where each label carries real information.
+11. **page-title-under-brand-bar** (agent) — Breadcrumbs and the page title go directly
    under the Brand Bar — before any banner, hero or content section — and both belong inside a
    page__container so they inherit the page's gutters. They are ONE unit: the breadcrumb
    supplies the space above (1.75rem top margin) and the title sits flush beneath it with no
@@ -126,7 +136,7 @@ the repo's own rule said to put it there. Do not edit them here.
    title identifies the page and has to be the first thing under the navigation. That unit also
    gets a section to itself — see page-title-is-its-own-section for the class it carries and
    why nothing else may share it.
-11. **page-title-is-its-own-section** (agent) — The page title gets its OWN section and
+12. **page-title-is-its-own-section** (agent) — The page title gets its OWN section and
    shares it with nothing but the breadcrumb: <section class="layout__container layout--title">
    wrapping a page__container that holds the Breadcrumbs import and the <h1 class="page-title
    headline headline--serif">, and then the first content section starts a NEW
@@ -155,7 +165,7 @@ the repo's own rule said to put it there. Do not edit them here.
    title section adds 48px above the breadcrumb that no real page has — measured 77px against
    production's 28px, where the 28px is the breadcrumb's own 1.75rem margin-top
    (src/scss/components/breadcrumbs.scss:63-64) and nothing else.
-12. **backgrounds-by-class** (agent) — A background is applied by CLASS on a section
+13. **backgrounds-by-class** (agent) — A background is applied by CLASS on a section
    wrapper: bg--{color}[--pattern--{type}], where color is black|gold|gray|white and type is
    brain|community|particle. Omitting the suffix entirely IS the no-pattern case. Two things
    you must never do. (1) Never reproduce a pattern with your own background-image, gradient or
@@ -169,7 +179,7 @@ the repo's own rule said to put it there. Do not edit them here.
    layer is an image fill and a Figma variable is COLOR/FLOAT/STRING/BOOLEAN — so it is
    enforced by instruction here and in the Figma set description, and deliberately NOT by a
    checker that would appear to cover it.
-13. **banner-led-page-is-a-composition** (agent) — A banner-led page is a COMPOSITION you
+14. **banner-led-page-is-a-composition** (agent) — A banner-led page is a COMPOSITION you
    assemble, not a component to ask for. The featured-image banner IS the pattern: breadcrumbs
    and the page title sit INSIDE the banner content area, and the section wrapper carries the
    Layout Builder classes layout--title and layout--title--with-background. Those wrapper
@@ -179,8 +189,17 @@ the repo's own rule said to put it there. Do not edit them here.
    component, and do not propose one. The title-suppressed variant is layout--title--hidden,
    and it is worth knowing what it really does: it zeroes the section padding AND makes the
    breadcrumb element-invisible (still focus-revealable, still announced) rather than deleting
-   either.
-14. **column-container-around-components** (agent) — Every component that has a responsive
+   either. AMENDED 2026-09-03 with two owner rulings from the second design review. (1) ONE
+   BANNER: a page never stacks two Banners at the top — one banner states the page, and every
+   other full-width message (a crisis strip, an announcement, a highlight) is CONTENT, chunked
+   into ordinary sections: a section wrapper with a bg--*[--pattern--*] class per
+   backgrounds-by-class, holding a Headline, body copy and its actions. The failure this closes
+   rendered a photo hero and a black crisis Banner stacked at the top of one page. (2) FLUSH:
+   the top banner sits flush against the nav strip — its section takes
+   section-padding__removed-top (claude-design/layout.css keeps that class winning over the
+   3rem top the layout--title--hidden restore puts back), plus section-padding__removed-bottom
+   when a colored band follows directly, so no white frame surrounds the banner.
+15. **column-container-around-components** (agent) — Every component that has a responsive
    layout goes inside a <div class="column-container">. UIDS gates a component's own layout
    switches on a CONTAINER query, not a viewport one — utilities.container-query() compiles to
    `@container column (min-width: 768px)` — and the only selectors that establish that
@@ -199,7 +218,7 @@ the repo's own rule said to put it there. Do not edit them here.
    only surfaces once the markup is ported. Put it inside the section's page__container,
    wrapping the components. A content grid does not need one: the .grid__column around each
    item already is a host.
-15. **top-nav-on-every-page** (agent) — Every page gets navigation: the Brand Bar plus a
+16. **top-nav-on-every-page** (agent) — Every page gets navigation: the Brand Bar plus a
    Menu with variant horizontal across the top, and a vertical Menu for a sidebar or section
    nav. Reference stories are components-menu--horizontal-menu and
    components-menu--vertical-menu. Two honest limits to design around. (1) The horizontal menu
@@ -211,7 +230,7 @@ the repo's own rule said to put it there. Do not edit them here.
    (menu.scss:145-147), carrying the source's own @todo about doing hover menus without
    breaking WCAG 2.1 content-on-hover-or-focus. uiowa.edu's real dropdown primary nav is not in
    UIDS at all — do not hand-build one to fill the gap; note it to the user instead.
-16. **section-rhythm** (agent) — One component per section. Stacking several components
+17. **section-rhythm** (agent) — One component per section. Stacking several components
    inside one .layout__container is not a designed experience — the design system has no
    opinion about how they space against each other, so you end up hand-setting margins, which
    is the thing this rule exists to prevent. Separation between sections comes from the
@@ -234,7 +253,7 @@ the repo's own rule said to put it there. Do not edit them here.
    parity story established, applied through a page-scoped class. NOTHING else inside the
    section carries a margin. The Well-Being page is the case this closes: five grids hand-set
    at 1.5rem plus a 1.75rem row, each its own invented number, because no value was named.
-17. **alert-spacing** (agent) — An Alert brings its own internal spacing from tokens and
+18. **alert-spacing** (agent) — An Alert brings its own internal spacing from tokens and
    needs none from you: alert/padding sets a uniform edge padding on all four sides
    (src/scss/components/alert.scss:9) and alert/icon-gap sets the gap between the icon block
    and the body (alert.scss:43). Never hand-set padding inside an Alert, and never restyle its
@@ -243,7 +262,7 @@ the repo's own rule said to put it there. Do not edit them here.
    and let section-rhythm supply the separation, exactly as any other one-component section. A
    bare margin on the Alert to push the next block away is the failure mode; it survives until
    someone changes the section padding and then it is double-counted.
-18. **underline-scope** (agent) — The gold underline (headline--underline) marks the FIRST
+19. **underline-scope** (agent) — The gold underline (headline--underline) marks the FIRST
    heading of each SECTION BAND — one per section, not one per page. AMENDED 2026-09-01,
    reversing this rule's previous position: it used to read "the first heading of a content or
    text area, and nothing else" and named a card grid and "any set of parallel tiles" as cases
@@ -260,14 +279,14 @@ the repo's own rule said to put it there. Do not edit them here.
    headline-underline sets overflow: auto (src/scss/abstracts/_headline-mixins.scss:85) so the
    bar clears its heading, which makes that heading a block formatting context. See
    callout-is-a-float for what that costs when a float is loose on the page.
-19. **no-heading-over-self-evident-content** (agent) — Content that states its own meaning
+20. **no-heading-over-self-evident-content** (agent) — Content that states its own meaning
    does not need a heading over it. A stat row is the clearest case: every stat already carries
    its own label and summary, so a "By the Numbers" heading above it adds no information and
    introduces a spacing imbalance — the heading's own margin stacks onto the section's top
    padding while the bottom keeps only the padding, so the block sits visibly low in its own
    band. Prefer no heading. If a section genuinely seems to need naming, that is usually
    evidence the content is not self-evident and should be rewritten, not labelled.
-20. **container-width-by-content** (agent) — Pick the section container from what is INSIDE
+21. **container-width-by-content** (agent) — Pick the section container from what is INSIDE
    it, not by habit. page__container--narrow caps the measure at 1020px from 980px up, and it
    is for a SINGLE thing that reads better when it is not spanning the page: a block of body
    copy, a CTA, a Blockquote, an Accordion, a Tabs set, or one component that simply looks
@@ -278,7 +297,7 @@ the repo's own rule said to put it there. Do not edit them here.
    container is a reading measure; a grid is a layout, and squeezing one into the other costs
    you a quarter of every column. See cta-is-always-narrow for the one component that is narrow
    by rule rather than by judgement.
-21. **centred-heading-goes-narrow** (agent) — A centred heading and its deck go in their OWN
+22. **centred-heading-goes-narrow** (agent) — A centred heading and its deck go in their OWN
    narrow container, separate from the content they introduce. Centring only reads as centring
    when the line is short enough for the eye to take the whole measure at once; at the standard
    container the line simply runs the full page and the emphasis is lost. Measured at 1440px on
@@ -294,7 +313,7 @@ the repo's own rule said to put it there. Do not edit them here.
    first place: that is heading-alignment-follows-content, and a card grid or a stat row is
    exactly the case it says to centre over. A LEFT-aligned heading needs none of this — it
    starts at the same gutter as the content under it, so it shares the content's container.
-22. **stats-come-in-threes** (agent) — Stats come in THREES, in a grid. A Stat is a
+23. **stats-come-in-threes** (agent) — Stats come in THREES, in a grid. A Stat is a
    comparison object — the number only means something next to other numbers — so put three
    across in a list-container--grid grid--threecol--33-34-33, in a STANDARD page__container
    (see container-width-by-content), and give each one a stat_title, a stat_summary and enough
@@ -303,7 +322,7 @@ the repo's own rule said to put it there. Do not edit them here.
    against. Two is acceptable when there are genuinely only two figures; one is not. If you
    have only one number worth showing, it belongs in body copy or in a Callout, not in a Stat
    band of its own.
-23. **alternate-section-backgrounds** (agent) — Alternate section backgrounds down the page.
+24. **alternate-section-backgrounds** (agent) — Alternate section backgrounds down the page.
    A run of four or five default (white) sections reads as one undifferentiated column no
    matter how well each section is composed, because the ONLY thing separating them is 3rem of
    padding — and per section-rhythm, adjacent sections sharing a background merge, so two white
@@ -314,7 +333,7 @@ the repo's own rule said to put it there. Do not edit them here.
    what makes each one read as a band. The rhythm to aim for is a coloured section every second
    or third section, usually landing on the ones that carry a different KIND of content: a stat
    row, a highlight, a CTA.
-24. **cta-is-always-narrow** (agent) — A CTA's text must never run the full page width. This
+25. **cta-is-always-narrow** (agent) — A CTA's text must never run the full page width. This
    is a NEW CONSTRAINT, not a bug fix, and the distinction matters: max-width does not appear
    anywhere in src/scss/components/cta.scss (zero occurrences, verified 2026-08-24), so nothing
    in code enforces it and a CTA dropped into a full-width container will happily span it.
@@ -322,7 +341,7 @@ the repo's own rule said to put it there. Do not edit them here.
    change: put the band on the section (section.layout__container.bg--gold), cap the measure
    with div.page__container--narrow inside it, and give the CTA background="" so it does not
    paint a second band inside the first.
-25. **callout-is-a-float** (agent) — A Callout is a FLOATED inline element, not a section
+26. **callout-is-a-float** (agent) — A Callout is a FLOATED inline element, not a section
    band. contracts/callout.json's inline_alignment option defaults to "left", which emits
    .inline--align-left { float: left; clear: left } (src/scss/components/_inline.scss:117) —
    as-shipped, not a bug. Used as a full-width band it escapes its section, and the damage
@@ -333,7 +352,7 @@ the repo's own rule said to put it there. Do not edit them here.
    heading bug rather than a Callout one, which is why it took a measurement to find. To band a
    section, put a background class on the section wrapper (see backgrounds-by-class). Use a
    Callout for what it is: a short aside floated beside prose.
-26. **pre-title-is-not-a-category** (agent) — A Card's pre_title is a CONTEXTUAL LABEL —
+27. **pre-title-is-not-a-category** (agent) — A Card's pre_title is a CONTEXTUAL LABEL —
    "Pinned", "Featured", "Applications close Friday" — not a taxonomy term. Do not tag every
    item in a listing with its section ("Research", "Students", "Faculty"): the pre-title
    renders deliberately quiet, at card/pre-title/font-size 0.75rem with card/pre-title/opacity
@@ -341,7 +360,7 @@ the repo's own rule said to put it there. Do not edit them here.
    taxonomy the component does not provide. Reference:
    https://sandbox.prod.drupal.uiowa.edu/news. The icon slot beside it follows the same logic —
    an icon marks an exception, not a type, so do not give every card one.
-27. **heading-alignment-follows-content** (agent) — A heading takes the alignment of the
+28. **heading-alignment-follows-content** (agent) — A heading takes the alignment of the
    content it introduces; alignment follows the layout rather than being a separate styling
    choice. Centred content gets a centred heading — a centred CTA, a centred stat row, a single
    pull-quote — and a card grid or row of parallel tiles reads better with one, because the
@@ -356,7 +375,7 @@ the repo's own rule said to put it there. Do not edit them here.
    value: the default INHERITS, so a heading in a left-aligned container is already
    left-aligned, and forcing one against its container grain is deliberately impossible — if
    you want that, the container is wrong. Do not mix alignments within one section.
-28. **banner-pre-title-is-a-hook** (agent) — A Banner's pre_title is a HOOK or a topic label
+29. **banner-pre-title-is-a-hook** (agent) — A Banner's pre_title is a HOOK or a topic label
    — "Research stories", "Undergraduate program", "Discover more" — the line that tells a
    reader what kind of thing the headline is and gives them a reason to keep reading. It is NOT
    the name of the owning unit. The Brand Bar already states the site and its parent (siteName
@@ -367,7 +386,7 @@ the repo's own rule said to put it there. Do not edit them here.
    taxonomy term there is noise, while a banner is a singleton at the top of a page and
    orienting the reader is exactly its pre_title's job. Same option name, two components, two
    rules — do not generalise one to the other.
-29. **card-background-contrasts-the-band** (agent) — A Card sitting in a coloured section
+30. **card-background-contrasts-the-band** (agent) — A Card sitting in a coloured section
    band needs its own background to stay legible: inside bg--gray, set the Card's background to
    white. Card carries a background option for this (contracts/card.json, values
    black|gray|gold|white) and it is the difference between a card that reads as an object on a
@@ -378,7 +397,7 @@ the repo's own rule said to put it there. Do not edit them here.
    card on bg--gray is the worst case of all, because nothing at all distinguishes it from the
    band. Never put a card's background class on the section wrapper or the section's on the
    card — see backgrounds-by-class.
-30. **card-in-a-listing-is-a-destination** (agent) — A Card that stands for a place a reader
+31. **card-in-a-listing-is-a-destination** (agent) — A Card that stands for a place a reader
    can go gets a url. Not a decorative tile, not a fact restated as a box — if the card names a
    programme, a story, a facility or an organisation that has a page behind it, link it.
    Passing url is also what makes the WHOLE card a click target rather than just its label:
@@ -387,7 +406,7 @@ the repo's own rule said to put it there. Do not edit them here.
    one-line link. A grid of unlinked cards is the commonest dead end in a generated landing
    page: it looks finished, it reads as navigation, and it goes nowhere. If a card genuinely
    has no destination, that is a sign the content belongs in prose or a stat, not in a card.
-31. **banner-stacks-on-mobile** (agent) — Set mobile_content_below_image on every
+32. **banner-stacks-on-mobile** (agent) — Set mobile_content_below_image on every
    media-filled Banner. Below the sm container query it stops overlaying the text on the
    photograph and stacks the content UNDER it: the media loses its scrim, the banner becomes
    display:block, and the foreground colours flip to black with the text-shadow removed
@@ -396,7 +415,7 @@ the repo's own rule said to put it there. Do not edit them here.
    happens to be behind it, and the image is cropped to a band too short to read as a picture.
    Stacking fixes both at once, which is why it should be the standing choice and not a
    per-page rescue. It costs nothing above the switch, where the overlay is unchanged.
-32. **section-heading-gets-a-deck** (agent) — A section heading that introduces a grid gets
+33. **section-heading-gets-a-deck** (agent) — A section heading that introduces a grid gets
    a line or two of prose under it before the grid starts. A bare heading over three tiles
    makes the reader infer the relationship between the heading and the set — what these things
    have in common, why they are grouped, what to do with them — and they will infer it wrong or
@@ -414,7 +433,7 @@ the repo's own rule said to put it there. Do not edit them here.
    treatment — the rule was silent on it, and the Well-Being page showed what silence allows:
    five section decks plus the page introduction, all in the light intro style. The design
    system owner's ruling is that light intro text under headings is useful only once per page.
-33. **no-second-contact-block** (agent) — Do not build a content section that restates the
+34. **no-second-contact-block** (agent) — Do not build a content section that restates the
    Brand Footer. The Brand Footer already carries the address, phone and email as props
    (contact / phone / email) on every page, so a "Visit us" or "Contact" section at the bottom
    of a landing page prints the same three facts twice within one screen of each other and
@@ -424,7 +443,7 @@ the repo's own rule said to put it there. Do not edit them here.
    already made it. If the closing section would only repeat, delete it and let the footer do
    its job; if there is genuinely more to say about visiting — parking, building access, hours,
    a map — that is new content and it belongs on a Visit page the footer or nav links to.
-34. **landing-page-suppresses-a-redundant-title** (agent) — Suppress a page title the page
+35. **landing-page-suppresses-a-redundant-title** (agent) — Suppress a page title the page
    has ALREADY STATED, rather than printing it twice. Two triggers, either one is enough: the
    title says the same thing as the site name, or a BANNER at the top of the page already
    states the page's subject. AMENDED 2026-09-01 -- this rule previously tested only site-name
@@ -445,7 +464,7 @@ the repo's own rule said to put it there. Do not edit them here.
    regression, and this is the platform's mitigation for the two-h1 problem
    contracts/page-title.json knownIssues[0] records. A page whose title is genuinely NOT stated
    elsewhere should show it.
-35. **nav-strip-border-is-full-bleed** (agent) — The horizontal main nav sits in its own
+36. **nav-strip-border-is-full-bleed** (agent) — The horizontal main nav sits in its own
    FULL-BLEED strip with a hairline bottom border, and that strip is the thing separating the
    navigation from the page. Reproduce production's structure exactly: a plain wrapper carrying
    the border, OUTSIDE any container, holding a <div class="page__container"> that holds the
@@ -463,7 +482,7 @@ the repo's own rule said to put it there. Do not edit them here.
    .column-container (claude-design/Menu.dc.html:211) and is therefore INSET to the container —
    a different pattern, for a horizontal nav sitting inside a page, as the Application stories
    use it. Reaching for it here gives a border that stops short of both edges.
-36. **pattern-over-a-flat-dark-band** (agent) — A full-width dark band reads as stark when
+37. **pattern-over-a-flat-dark-band** (agent) — A full-width dark band reads as stark when
    it is flat colour. If the section has no image and one is not the obvious first move, reach
    for a PATTERN background rather than bare bg--black or bg--gold: the shared sheet ships
    twelve combinations -- black, gold, gray and white each crossed with brain, community and
@@ -475,7 +494,7 @@ the repo's own rule said to put it there. Do not edit them here.
    gold--pattern--particle and gray--pattern--community, so a Banner is limited to those three
    where a section wrapper is not -- pick the class on the section, not the component, per
    backgrounds-by-class.
-37. **light-font-buttons-belong-in-cards** (agent) — The light_font Button style is the
+38. **light-font-buttons-belong-in-cards** (agent) — The light_font Button style is the
    IN-CARD recipe and does not belong on a standalone section button. It swaps the button's
    default caps face (--uiowa-button-font-family) for --uiowa-font-family-sans, which is
    'Roboto', sans-serif, at normal weight -- a quiet text-like treatment that reads correctly
@@ -485,7 +504,7 @@ the repo's own rule said to put it there. Do not edit them here.
    is the commonest way this goes wrong -- a real generated page put transparent + light_font
    on all six of its buttons, none of them in a card. For a section action, use a Button with
    its default face and a real colour.
-38. **card-grid-uses-the-shipped-classes** (agent) — A row of cards goes in the SHIPPED
+39. **card-grid-uses-the-shipped-classes** (agent) — A row of cards goes in the SHIPPED
    grid, never a hand-rolled one. The markup is a section wrapper, then <div
    class="list-container list-container--grid grid--{ratio}">, then <div
    class="list-container__inner">, then one wrapper per card. The ratios that ship are
@@ -759,8 +778,10 @@ imports for what exists and report the rest.
   background band has no image and therefore no overlay, which is enforced in the CSS and
   not by convention. With `fill="media"`, `overlay_direction` `none|btt|ttb|ltr` and
   `overlay_light` cross freely — direction is the angle, light is the colour. `height`
-  `none|medium|large` sets a MINIMUM via an aspect ratio, so long content still wins.
-  Buttons: up to THREE numbered pairs — `button_label`/`button_url`, `button_2_label`/
+  `none|medium|large` sets a MINIMUM via an aspect ratio, so long content still wins —
+  and as of 2026-09-03 the HEADLINE SIZE TRACKS IT (large→large, medium→medium,
+  none→small ramp; pre-title follows), so a small banner no longer carries the display
+  heading. Buttons: up to THREE numbered pairs — `button_label`/`button_url`, `button_2_label`/
   `button_2_url`, `button_3_label`/`button_3_url` — counted by non-empty labels; two or
   more render INLINE in the banner's own `.bttn--row` (flex in this view — the runtime's
   import wrappers would otherwise stack them), spaced by its token margins. Know the

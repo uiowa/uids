@@ -79,6 +79,14 @@
       "rule": "A list of items is stacked BORDERLESS cards, not hand-written markup. News listings, event listings, \"related items\" and search results all use the Card component with borderless set, stacked one per row (reference: https://sandbox.prod.drupal.uiowa.edu/news). Do not invent a <ul> with your own date/heading/summary CSS: it will not match production, and Card already supplies the title, subtitle, meta, body and link in the right proportions. Use a grid of BORDERED cards only for a set of parallel destinations, like a three-across \"related programs\" block."
     },
     {
+      "id": "list-card-action-is-the-circle-indicator",
+      "enforcement": "agent",
+      "publishTo": [
+        "claude-design"
+      ],
+      "rule": "In an item LIST — the stacked borderless cards of item-list-is-stacked-cards (news, events, related items, search results) — the card's action is the CIRCLE LINK INDICATOR, always: set link_indicator with link_text EMPTY, so the card ends in the round arrow and no text button. Owner-ruled 2026-09-03, reversing a one-round experiment that gave each news card a labelled button ('Read about the grant'): in a stacked list the labels only restate the titles above them and add a column of near-identical buttons. The whole card is already the click target once url is set (card-in-a-listing-is-a-destination), so the arrow is a signifier, not the sole affordance. This is a LIST rule: a GRID of parallel destination cards keeps its labelled buttons ('Explore Biology'), where each label carries real information."
+    },
+    {
       "id": "page-title-under-brand-bar",
       "enforcement": "agent",
       "publishTo": [
@@ -108,7 +116,7 @@
       "publishTo": [
         "claude-design"
       ],
-      "rule": "A banner-led page is a COMPOSITION you assemble, not a component to ask for. The featured-image banner IS the pattern: breadcrumbs and the page title sit INSIDE the banner content area, and the section wrapper carries the Layout Builder classes layout--title and layout--title--with-background. Those wrapper classes are a downstream uids_base LAYOUT and are deliberately not Banner's — contracts/banner.json knownIssues records exactly that — and the component set is CLOSED. So compose the page from Banner + Breadcrumbs + the page-title markup; do NOT invent a hero component, and do not propose one. The title-suppressed variant is layout--title--hidden, and it is worth knowing what it really does: it zeroes the section padding AND makes the breadcrumb element-invisible (still focus-revealable, still announced) rather than deleting either."
+      "rule": "A banner-led page is a COMPOSITION you assemble, not a component to ask for. The featured-image banner IS the pattern: breadcrumbs and the page title sit INSIDE the banner content area, and the section wrapper carries the Layout Builder classes layout--title and layout--title--with-background. Those wrapper classes are a downstream uids_base LAYOUT and are deliberately not Banner's — contracts/banner.json knownIssues records exactly that — and the component set is CLOSED. So compose the page from Banner + Breadcrumbs + the page-title markup; do NOT invent a hero component, and do not propose one. The title-suppressed variant is layout--title--hidden, and it is worth knowing what it really does: it zeroes the section padding AND makes the breadcrumb element-invisible (still focus-revealable, still announced) rather than deleting either. AMENDED 2026-09-03 with two owner rulings from the second design review. (1) ONE BANNER: a page never stacks two Banners at the top — one banner states the page, and every other full-width message (a crisis strip, an announcement, a highlight) is CONTENT, chunked into ordinary sections: a section wrapper with a bg--*[--pattern--*] class per backgrounds-by-class, holding a Headline, body copy and its actions. The failure this closes rendered a photo hero and a black crisis Banner stacked at the top of one page. (2) FLUSH: the top banner sits flush against the nav strip — its section takes section-padding__removed-top (claude-design/layout.css keeps that class winning over the 3rem top the layout--title--hidden restore puts back), plus section-padding__removed-bottom when a colored band follows directly, so no white frame surrounds the banner."
     },
     {
       "id": "column-container-around-components",

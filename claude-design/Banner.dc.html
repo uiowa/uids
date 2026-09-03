@@ -377,17 +377,21 @@
                   </div>
                 </sc-if>
                 <!-- A real Headline import, not flattened markup (Brand Bar -> Logo
-                     precedent). Fixed at h2/serif because that is what production
-                     defaults to: uids_base templates/uids/banner.html.twig:36-39 seeds
-                     headline_class with ['headline','headline--serif','headline--large'].
-                     The size override rules above key on headline--large, and that
-                     class is BANNER's, not Headline's — Banner.vue puts it on the
-                     element via Vue attribute fallthrough (Banner.vue:210). extra_class
-                     is the dc equivalent; without it the imported headline falls back to
-                     Headline's own ramp and renders 35px where banner renders 60.8.
-                     Needs Headline.dc.html copied in as a sibling. -->
+                     precedent). h2/serif is what production defaults to: uids_base
+                     templates/uids/banner.html.twig:36-39 seeds headline_class with
+                     ['headline','headline--serif','headline--large']. The size class is
+                     BANNER's, not Headline's — Banner.vue puts it on the element via
+                     attribute fallthrough (Banner.vue:210); extra_class is the dc
+                     equivalent, and without it the imported headline falls back to
+                     Headline's own ramp (35px where banner renders 60.8). As of
+                     2026-09-03 the size DERIVES FROM HEIGHT (owner-ruled: a small
+                     banner was rendering the display-size heading): large→headline--large,
+                     medium→headline--medium, none→headline--small. Production seeds
+                     large unconditionally, so this is a recorded divergence —
+                     contracts/banner.json changes[]. Needs Headline.dc.html copied in
+                     as a sibling. -->
                 <sc-if value="{{ hasHeadline }}" hint-placeholder-val="{{ true }}">
-                  <dc-import name="Headline" text="{{ headline }}" level="h2" text_style="serif" extra_class="headline--large" hint-size="100%,72px"></dc-import>
+                  <dc-import name="Headline" text="{{ headline }}" level="h2" text_style="serif" extra_class="{{ headlineSizeClass }}" hint-size="100%,72px"></dc-import>
                 </sc-if>
               </header>
             </sc-if>
@@ -507,6 +511,12 @@
           const present = pairs.filter(function (p) { return String(p[0]).trim().length > 0; });
           const single = present.length === 1 ? present[0] : ['', ''];
 
+          // The banner-owned headline--{size} class tracks HEIGHT (owner-ruled
+          // 2026-09-03; production seeds large always — see the Headline import's
+          // comment). The size CSS ramps above key on exactly these three classes.
+          const headlineSize = height === 'large' ? 'headline--large'
+            : height === 'medium' ? 'headline--medium' : 'headline--small';
+
           return {
             rootClass: classes.join(' '),
             isMedia: isMedia,
@@ -518,13 +528,14 @@
             image_alt: this.props.image_alt ?? '',
             // Banner.vue drives BOTH of the pre-title's classes from the headline's
             // own props — size from headline.size and the style from headline.text_style
-            // (Banner.vue:150-169) — so one value styles two elements. This template
-            // fixes the pair at large/serif, which is what every shipped story passes
-            // and what production's Twig seeds headline_class with. Dropping the serif
-            // half would leave .banner__pre-title.headline.headline--serif dead and the
-            // pre-title rendering at weight 400 in the body font, where the regression
-            // baseline pins Zilla Slab 500.
-            preTitleClass: 'headline banner__pre-title headline--large headline--serif',
+            // (Banner.vue:150-169) — so one value styles two elements. The size half
+            // follows headlineSize (height-derived, same ruling as the headline); the
+            // serif half stays fixed — dropping it would leave
+            // .banner__pre-title.headline.headline--serif dead and the pre-title
+            // rendering at weight 400 in the body font, where the regression baseline
+            // pins Zilla Slab 500.
+            preTitleClass: 'headline banner__pre-title ' + headlineSize + ' headline--serif',
+            headlineSizeClass: headlineSize,
             pre_title: preTitle,
             headline: headline,
             body_text: body,
