@@ -16,6 +16,10 @@
  * Emission rules
  *  - Primitives emit plain :root declarations (--uiowa-font-size-150: 1.2rem).
  *  - Semantic role aliases emit var() chains (--uiowa-color-text: var(--uiowa-color-black)).
+ *  - A semantic color group whose variants are all context names (see CONTEXTS) also
+ *    emits the group name itself aimed at default (--uiowa-color-text). Components read
+ *    that one name; _background.scss re-points it inside each surface. Variants keep
+ *    their own names too, so a consumer outside a bg-- container can address one directly.
  *  - Semantic composite type styles emit their font-size channel as
  *    --uiowa-font-size-<role>. When a composite has a -mobile twin with a different
  *    size, a fluid clamp() is generated from the two endpoints across the
@@ -40,6 +44,12 @@ const readJson = (p) => JSON.parse(readFileSync(join(root, p), 'utf8'));
 
 const REM = 16;
 const CLAMP_RANGE = [600, 1310]; // viewport px endpoints of the 4.x fluid type range
+
+// Surface contexts. A semantic color group whose variants are all named here emits an
+// unsuffixed pointer (--uiowa-color-text) alongside its variants, aimed at default.
+// Re-pointing it per surface is scss/components/_background.scss's job: which class means
+// which context is markup knowledge, not token data.
+const CONTEXT_NAMES = new Set(['default', 'gold', 'inverse']);
 const { version } = readJson('package.json');
 
 // ---------- Load token leaves ----------
@@ -132,9 +142,13 @@ for (const l of allLeaves.filter((l) => l.tier === 'primitive')) {
 }
 
 const composites = new Map(); // role -> { channel: leaf }
+const colorGroups = new Map(); // group -> Set(variant), for color.<group>.<variant>
 for (const l of allLeaves.filter((l) => l.tier === 'semantic')) {
   const [first, second, third] = l.path;
   if (first === 'color') {
+    if (l.path.length === 3) {
+      colorGroups.set(second, (colorGroups.get(second) ?? new Set()).add(third));
+    }
     decls.push([cssVarName(l.path.join('.')), leafValue(l)]);
   } else if (first === 'layout') {
     if (second === 'breakpoint') continue;
@@ -168,6 +182,21 @@ for (const [role, channels] of composites) {
   } else {
     decls.push([varName, cssValue(fontSize.value)]);
   }
+}
+
+// ---------- Context group pointers ----------
+// A group qualifies when every one of its variants names a context and one of them is
+// default. That excludes color.bg, whose variants are surfaces (black/gray/white) rather
+// than contexts. Each qualifying group emits its bare name aimed at the default variant,
+// so components read one name; _background.scss re-points it inside a surface.
+for (const [group, variants] of colorGroups) {
+  if (!variants.has('default') || ![...variants].every((v) => CONTEXT_NAMES.has(v))) continue;
+  const name = `--uiowa-color-${group}`;
+  if (decls.some(([n]) => n === name)) {
+    throw new Error(`color.${group} has context variants, so the generator emits ${name}; `
+      + 'remove the token of that name or rename the group');
+  }
+  decls.push([name, `var(--uiowa-color-${group}-default)`]);
 }
 
 // ---------- Emit ----------

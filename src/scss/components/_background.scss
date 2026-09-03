@@ -1,6 +1,33 @@
 @use '../abstracts/background-mixins';
 @use '../abstracts/variables';
 
+// Surface contexts. Each background class re-points the context color roles for its own
+// content, so a component reads --uiowa-color-text and gets the right value wherever it
+// sits. Every context declares its full set rather than inheriting a partial one, which
+// is what makes a background nested inside another background behave like a bare one.
+:root,
+[class*="bg--white"],
+[class*="bg--gray"],
+.bg-pattern--brain,
+.bg-pattern--brain-reversed {
+  --uiowa-color-text: var(--uiowa-color-text-default);
+  --uiowa-color-link: var(--uiowa-color-link-default);
+  --uiowa-color-border: var(--uiowa-color-border-default);
+}
+
+[class*="bg--gold"] {
+  --uiowa-color-text: var(--uiowa-color-text-default);
+  --uiowa-color-link: var(--uiowa-color-link-gold);
+  --uiowa-color-border: var(--uiowa-color-border-default);
+}
+
+[class*="bg--black"],
+.bg-pattern--brain-black {
+  --uiowa-color-text: var(--uiowa-color-text-inverse);
+  --uiowa-color-link: var(--uiowa-color-link-inverse);
+  --uiowa-color-border: var(--uiowa-color-border-inverse);
+}
+
 [class*="bg--"] {
   a,
   [class*="bg--"] a {
