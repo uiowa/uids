@@ -23,12 +23,6 @@
  *  - letter-spacing and text-transform primitives are not emitted; they are set
  *    directly in styles. layout.breakpoint.* is not emitted either, because custom
  *    properties cannot drive @media queries.
- *  - Tokens flagged `brandChannel: "primary"|"secondary"` emit var(--brand-primary)
- *    or var(--brand-secondary) rather than the flat alias chain. Those two channels
- *    are runtime theming hooks, meant to be overridden per site, so flattening them to
- *    a literal color would silently break retheming. The token's own {ref} must still
- *    resolve to the channel default, which is validated below, so Figma shows what
- *    renders.
  *
  * Usage
  *   node scripts/build-tokens.mjs           (re)generate
@@ -54,7 +48,7 @@ function collectLeaves(data, tier, file) {
   const leaves = [];
   (function walk(node, path) {
     if (node && typeof node === 'object' && '$value' in node) {
-      leaves.push({ path, value: node.$value, brandChannel: node.brandChannel, tier, file });
+      leaves.push({ path, value: node.$value, tier, file });
       return;
     }
     if (node && typeof node === 'object') {
@@ -117,27 +111,6 @@ function resolveDeep(value, seen = new Set()) {
   return resolveDeep(target.value, seen);
 }
 
-// ---------- Brand-channel validation ----------
-// The flag exists because a plain alias FLATTENS the channel: a token emitted as
-// var(--uiowa-color-gold) resolves to gold directly, so a site that overrides
-// --brand-primary can no longer reach it.
-const BRAND_DEFAULT = { primary: '{color.gold}', secondary: '{color.black}' };
-for (const l of allLeaves) {
-  if (l.brandChannel === undefined) continue;
-  const where = `${l.file}: ${l.path.join('.')}`;
-  if (!BRAND_DEFAULT[l.brandChannel]) {
-    throw new Error(`${where} brandChannel must be "primary" or "secondary"`);
-  }
-  if (!(l.tier === 'semantic' && l.path[0] === 'color')) {
-    throw new Error(`${where} brandChannel is only supported on semantic color roles`);
-  }
-  if (resolveDeep(l.value) !== resolveDeep(BRAND_DEFAULT[l.brandChannel])) {
-    throw new Error(`${where} has brandChannel "${l.brandChannel}" but its value does not resolve `
-      + `to the channel default ${BRAND_DEFAULT[l.brandChannel]} — the token ref must show the `
-      + 'default rendering or Figma would lie');
-  }
-}
-
 const remToPx = (v) => {
   const m = String(v).match(/^([\d.]+)rem$/);
   return m ? parseFloat(m[1]) * REM : null;
@@ -147,7 +120,7 @@ const cssValue = (value) => {
   return ref ? `var(${cssVarName(ref)})` : String(value);
 };
 const trim = (n) => String(Number(n.toFixed(4)));
-const leafValue = (l) => (l.brandChannel ? `var(--brand-${l.brandChannel})` : cssValue(l.value));
+const leafValue = (l) => cssValue(l.value);
 
 // ---------- Build declarations ----------
 const decls = []; // [name, value, trailingComment?]
@@ -211,22 +184,15 @@ const scss = [
 ].join('\n');
 
 // css/tokens.css is the same declarations as a standalone stylesheet, for consumers with
-// no Sass toolchain (Claude Design systems, prototypes, web components). Two additions
-// it needs that the SCSS view gets from uids-core.scss:
-//   - the brand theming channels, which brandChannel-flagged tokens reference
-//   - --link-color, the same class of per-site overridable runtime channel
-// Fonts are deliberately NOT loaded here: an @import would force a network request on
-// every consumer and take an opinion about font loading that belongs to the page.
+// no Sass toolchain (Claude Design systems, prototypes, web components). Legacy aliases
+// are deliberately NOT included: they live in uids-core.scss, which serves the Sass and
+// full-CSS paths. Fonts are not loaded here either — an @import would force a network
+// request on every consumer and take an opinion about font loading that belongs to the page.
 const css = [
   `/* Iowa Design System tokens — v${version} — GENERATED from src/tokens/**. Do not edit. */`,
   '/* Regenerate: node scripts/build-tokens.mjs */',
   '',
   ':root {',
-  '  /* Runtime theming channels — overridable per site. */',
-  '  --brand-primary: var(--uiowa-color-gold);',
-  '  --brand-secondary: var(--uiowa-color-black);',
-  '  --link-color: var(--uiowa-color-link);',
-  '',
   ...decls.map(([n, v]) => `  ${n}: ${v};`),
   '}',
   '',

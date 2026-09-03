@@ -48,23 +48,6 @@ to trust the token, so keep it when adding one.
 `$type` is therefore omitted rather than declared falsely. Adding it means converting
 every value and updating the generator to match.
 
-### `brandChannel`
-
-A semantic color role may carry `brandChannel: "primary" | "secondary"`:
-
-```json
-"gold": { "$value": "{color.gold}", "brandChannel": "primary" }
-```
-
-That token emits `var(--brand-primary)` rather than the flat alias chain.
-`--brand-primary` / `--brand-secondary` are runtime theming hooks, meant to be
-overridden per site — so flattening one to a literal color silently breaks retheming
-for that role.
-
-The token's own reference must still resolve to the channel's default (gold for
-primary, black for secondary). The generator enforces this, so Figma and the docs show
-what actually renders by default.
-
 ## Legacy aliases
 
 `uids-core.scss` still defines the pre-token custom property names — `--uiowa-gold`,
