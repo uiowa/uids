@@ -1746,30 +1746,86 @@ html {
   display: flex;
 }
 
-:root,
-[class*=bg--white],
+[class*=bg--white] {
+  background-color: var(--uiowa-color-bg-white);
+  --uiowa-color-text: var(--uiowa-color-text-default);
+  --uiowa-color-link: var(--uiowa-color-link-default);
+  --uiowa-color-border: var(--uiowa-color-border-default);
+}
+
 [class*=bg--gray] {
+  background-color: var(--uiowa-color-bg-gray);
   --uiowa-color-text: var(--uiowa-color-text-default);
   --uiowa-color-link: var(--uiowa-color-link-default);
   --uiowa-color-border: var(--uiowa-color-border-default);
 }
 
 [class*=bg--gold] {
+  background-color: var(--uiowa-color-bg-gold);
   --uiowa-color-text: var(--uiowa-color-text-default);
   --uiowa-color-link: var(--uiowa-color-link-gold);
   --uiowa-color-border: var(--uiowa-color-border-default);
 }
 
-[class*=bg--black],
+[class*=bg--black] {
+  background-color: var(--uiowa-color-bg-black);
+  --uiowa-color-text: var(--uiowa-color-text-inverse);
+  --uiowa-color-link: var(--uiowa-color-link-inverse);
+  --uiowa-color-border: var(--uiowa-color-border-inverse);
+}
+
 .bg-pattern--brain-black {
   --uiowa-color-text: var(--uiowa-color-text-inverse);
   --uiowa-color-link: var(--uiowa-color-link-inverse);
   --uiowa-color-border: var(--uiowa-color-border-inverse);
 }
 
-[class*=bg--] a,
-[class*=bg--] [class*=bg--] a {
-  color: inherit;
+.bg--white--pattern--brain {
+  background-image: url("../../assets/images/brain-pattern.svg");
+}
+
+.bg--white--pattern--community {
+  background-image: url("../../assets/images/community-pattern--gray.png");
+}
+
+.bg--white--pattern--particle {
+  background-image: url("../../assets/images/particle-pattern--gold.png");
+}
+
+.bg--gray--pattern--brain {
+  background-image: url("../../assets/images/brain-pattern-white.svg");
+}
+
+.bg--gray--pattern--community {
+  background-image: url("../../assets/images/community-pattern--gray.png");
+}
+
+.bg--gray--pattern--particle {
+  background-image: url("../../assets/images/particle-pattern--white.png");
+}
+
+.bg--gold--pattern--brain {
+  background-image: url("../../assets/images/brain-pattern-reversed.svg");
+}
+
+.bg--gold--pattern--community {
+  background-image: url("../../assets/images/community-pattern--white.png");
+}
+
+.bg--gold--pattern--particle {
+  background-image: url("../../assets/images/particle-pattern.png");
+}
+
+.bg--black--pattern--brain {
+  background-image: url("../../assets/images/brain-pattern-black.svg");
+}
+
+.bg--black--pattern--community {
+  background-image: url("../../assets/images/community-pattern--black.png");
+}
+
+.bg--black--pattern--particle {
+  background-image: url("../../assets/images/particle-pattern--black.png");
 }
 
 [class*=bg--][class*="--pattern--"] {
@@ -1787,176 +1843,18 @@ html {
   background-size: 1000px;
 }
 
-.bg--black--pattern--brain {
-  background-color: var(--brand-secondary);
-  background-image: url("../../assets/images/brain-pattern-black.svg");
+[class*=bg--],
+.bg-pattern--brain,
+.bg-pattern--brain-reversed,
+.bg-pattern--brain-black {
+  color: var(--uiowa-color-text);
+  border-color: var(--uiowa-color-border);
 }
-.bg--black--pattern--brain {
-  color: #fff;
-}
-.bg--black--pattern--brain a {
-  color: var(--brand-primary);
-}
-
-.bg--black--pattern--community {
-  background-color: var(--brand-secondary);
-  background-image: url("../../assets/images/community-pattern--black.png");
-}
-.bg--black--pattern--community {
-  color: #fff;
-}
-.bg--black--pattern--community a {
-  color: var(--brand-primary);
-}
-
-.bg--black--pattern--particle {
-  background-color: var(--brand-secondary);
-  background-image: url("../../assets/images/particle-pattern--black.png");
-}
-.bg--black--pattern--particle {
-  color: #fff;
-}
-.bg--black--pattern--particle a {
-  color: var(--brand-primary);
-}
-
-.bg--black {
-  background-color: var(--brand-secondary);
-}
-.bg--black {
-  color: #fff;
-}
-.bg--black a {
-  color: var(--brand-primary);
-}
-
-.bg--gold--pattern--brain {
-  background-color: var(--brand-primary);
-  background-image: url("../../assets/images/brain-pattern-reversed.svg");
-}
-.bg--gold--pattern--brain {
-  color: var(--brand-secondary);
-}
-.bg--gold--pattern--brain a {
-  color: var(--brand-secondary);
-}
-
-.bg--gold--pattern--community {
-  background-color: var(--brand-primary);
-  background-image: url("../../assets/images/community-pattern--white.png");
-}
-.bg--gold--pattern--community {
-  color: var(--brand-secondary);
-}
-.bg--gold--pattern--community a {
-  color: var(--brand-secondary);
-}
-
-.bg--gold--pattern--particle {
-  background-color: var(--brand-primary);
-  background-image: url("../../assets/images/particle-pattern.png");
-}
-.bg--gold--pattern--particle {
-  color: var(--brand-secondary);
-}
-.bg--gold--pattern--particle a {
-  color: var(--brand-secondary);
-}
-
-.bg--gold {
-  background-color: var(--brand-primary);
-}
-.bg--gold {
-  color: var(--brand-secondary);
-}
-.bg--gold a {
-  color: var(--brand-secondary);
-}
-
-.bg--gray--pattern--brain {
-  background-color: var(--uids-light);
-  background-image: url("../../assets/images/brain-pattern-white.svg");
-}
-.bg--gray--pattern--brain {
-  color: var(--brand-secondary);
-}
-.bg--gray--pattern--brain a {
-  color: var(--brand-secondary);
-}
-
-.bg--gray--pattern--community {
-  background-color: var(--uids-light);
-  background-image: url("../../assets/images/community-pattern--gray.png");
-}
-.bg--gray--pattern--community {
-  color: var(--brand-secondary);
-}
-.bg--gray--pattern--community a {
-  color: var(--brand-secondary);
-}
-
-.bg--gray--pattern--particle {
-  background-color: var(--uids-light);
-  background-image: url("../../assets/images/particle-pattern--white.png");
-}
-.bg--gray--pattern--particle {
-  color: var(--brand-secondary);
-}
-.bg--gray--pattern--particle a {
-  color: var(--brand-secondary);
-}
-
-.bg--gray {
-  background-color: var(--uids-light);
-}
-.bg--gray {
-  color: var(--brand-secondary);
-}
-.bg--gray a {
-  color: var(--brand-secondary);
-}
-
-.bg--white--pattern--brain {
-  background-color: #fff;
-  background-image: url("../../assets/images/brain-pattern.svg");
-}
-.bg--white--pattern--brain {
-  color: var(--brand-secondary);
-}
-.bg--white--pattern--brain a {
-  color: var(--brand-secondary);
-}
-
-.bg--white--pattern--community {
-  background-color: #fff;
-  background-image: url("../../assets/images/community-pattern--gray.png");
-}
-.bg--white--pattern--community {
-  color: var(--brand-secondary);
-}
-.bg--white--pattern--community a {
-  color: var(--brand-secondary);
-}
-
-.bg--white--pattern--particle {
-  background-color: #fff;
-  background-image: url("../../assets/images/particle-pattern--gold.png");
-}
-.bg--white--pattern--particle {
-  color: var(--brand-secondary);
-}
-.bg--white--pattern--particle a {
-  color: var(--brand-secondary);
-}
-
-.bg--white {
-  background-color: #fff;
-}
-.bg--white {
-  color: var(--brand-secondary);
-}
-.bg--white a {
-  color: var(--brand-secondary);
+[class*=bg--] a,
+.bg-pattern--brain a,
+.bg-pattern--brain-reversed a,
+.bg-pattern--brain-black a {
+  color: var(--uiowa-color-link);
 }
 
 [class*=bg--] *, [class*=bg--] [class*=bg--] * {
@@ -1965,34 +1863,6 @@ html {
 [class*=bg--] *:before, [class*=bg--] *:after, [class*=bg--] [class*=bg--] *:before, [class*=bg--] [class*=bg--] *:after {
   color: inherit;
   border-color: inherit;
-}
-
-[class*=bg--gray],
-[class*=bg--white],
-[class*=bg--gold],
-.bg-pattern--brain-reversed,
-.bg-pattern--brain {
-  border-color: var(--transparent-border);
-}
-
-.bg--black--pattern--brain,
-.bg-pattern--brain-black,
-[class*=bg--black] {
-  border-color: rgba(255, 255, 255, 0.325);
-}
-
-[class*=bg--white] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
-[class*=bg-] [class*=bg--white] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
-[class*=bg--gray] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
-[class*=bg-] [class*=bg--gray] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn) {
-  color: var(--link-color);
-}
-
-[class*=bg--white] [class*=bg--gold] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
-[class*=bg--white] [class*=bg--black] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
-[class*=bg--gray] [class*=bg--gold] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn),
-[class*=bg--gray] [class*=bg--black] :where(p, ul, ol, dl, cite, tbody, figcaption) a:not(.bttn) {
-  color: inherit;
 }
 
 .badge {
