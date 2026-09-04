@@ -37,15 +37,8 @@
   --uiowa-color-border: var(--uiowa-color-border-inverse);
 }
 
-// Applied by consumers rather than defined here, so it carries a context but no fill.
-.bg-pattern--brain-black {
-  --uiowa-color-text: var(--uiowa-color-text-inverse);
-  --uiowa-color-link: var(--uiowa-color-link-inverse);
-  --uiowa-color-border: var(--uiowa-color-border-inverse);
-}
-
 // Pattern artwork. The class names the surface it sits on, so each combination is its own
-// image; .bg-pattern--brain and --brain-reversed name artwork only and set no context.
+// image.
 .bg--white--pattern--brain { background-image: url('#{variables.$imgpath}/brain-pattern.svg'); }
 .bg--white--pattern--community { background-image: url('#{variables.$imgpath}/community-pattern--gray.png'); }
 .bg--white--pattern--particle { background-image: url('#{variables.$imgpath}/particle-pattern--gold.png'); }
@@ -74,12 +67,8 @@
   background-size: 1000px;
 }
 
-// Content reads the roles. The two artwork-only classes are included because they carry
-// no context of their own and should take whatever surface they are placed on.
-[class*="bg--"],
-.bg-pattern--brain,
-.bg-pattern--brain-reversed,
-.bg-pattern--brain-black {
+// Content reads the roles.
+[class*="bg--"] {
   color: var(--uiowa-color-text);
   border-color: var(--uiowa-color-border);
 
