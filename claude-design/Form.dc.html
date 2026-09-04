@@ -218,7 +218,11 @@
             <input type="text" class="{{ controlClass }}" value="{{ value }}" />
           </sc-if>
           <sc-if value="{{ isTextarea }}" hint-placeholder-val="{{ false }}">
-            <textarea class="{{ controlClass }}">{{ value }}</textarea>
+            <!-- value MUST be an attribute, not `{{ value }}` as children: a textarea's
+                 content model is raw text, and this runtime's sc-interp wrapper renders as
+                 "[object Object]" if it ends up as textarea children. Same reason the
+                 sibling <input> above binds value the same way. -->
+            <textarea class="{{ controlClass }}" value="{{ value }}"></textarea>
           </sc-if>
           <sc-if value="{{ isSelect }}" hint-placeholder-val="{{ false }}">
             <select class="{{ controlClass }}"><option>Option one</option><option>Option two</option><option>Option three</option></select>

@@ -257,7 +257,7 @@ verify before moving on.
 6. **SCSS consumes the tokens**: swap literals for `var(--uiowa-<name>-*)`; responsive
    switching for tokenized values collapses out of component media queries (the generated
    partial carries the @media switching).
-7. **Verify**: the drift checkers (`yarn check:drift` — eight of them as of 2026-09-02;
+7. **Verify**: the drift checkers (`yarn check:drift` — nine of them as of 2026-09-04;
    `package.json` is the source of truth for the chain). **Refresh the Figma snapshot** as
    part of this step: run `scripts/figma-readback.js` via the Figma MCP in named slices — the
    script's own header is the **only** source of truth for the slice list, and it has grown

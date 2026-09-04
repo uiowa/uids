@@ -591,6 +591,20 @@ selectors because it supplies the page's baseline.
 - `Breadcrumbs.dc.html` — breadcrumb trail
 - `Accordion.dc.html` — expandable items
 
+**Design-system profile cards**
+- `Badge Variants.dc.html`, `Alert Variants.dc.html`, `Button Variants.dc.html`,
+  `Form Variants.dc.html`, `Logo Variants.dc.html` — internal `@dsCard` preview cards for
+  claude.ai Design's profile panel. Each imports the real component multiple times
+  (`dc-import`) to show its variant range in one card — e.g. Badge's six colors, Alert's
+  four severities. Not meant to be copied into a build; copy the component file itself
+  (`Badge.dc.html`, `Alert.dc.html`, etc.) instead.
+- `Type Hierarchy.dc.html` — the one FOUNDATION card at root: it `dc-import`s
+  `Headline.dc.html` three times (uppercase eyebrow, serif + highlight display, plain
+  sub) over a body paragraph. It sits here, not in `preview/`, because `dc-import` only
+  resolves siblings. Same rule: not for copying into a build.
+- `preview/` — generated Type / Colors / Spacing specimen cards (plain HTML, no dc
+  runtime; emitted from `tokens/` by `scripts/build-ds-profile.mjs`). Not for copying.
+
 ## Scope
 
 Migrated so far: the token foundations (color, typography, spacing/layout), the layout

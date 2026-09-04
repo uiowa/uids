@@ -43,7 +43,7 @@ Every command below was verified against `package.json`.
 | `yarn lint:ci` | ESLint over `src`, `scripts`, `.storybook`, errors only. What CI enforces. |
 | `yarn test:unit` | Vitest in watch mode. `yarn test:unit ComponentName` for one file. |
 | `yarn test:unit:ci` | Vitest, single run. |
-| `yarn check:drift` | **The main gate.** Eight checkers — see [Drift checks](#drift-checks-the-eight-checkers). |
+| `yarn check:drift` | **The main gate.** Nine checkers — see [Drift checks](#drift-checks-the-nine-checkers). |
 | `yarn test:styles` | Computed-style regression against a running Storybook. See below. |
 | `yarn test:styles:update` | Re-record the baselines. Deliberate act — never to turn a red run green. |
 | `yarn build:tokens` | Regenerate the SCSS token partial and `claude-design/tokens.css`. |
@@ -110,14 +110,14 @@ rules formats — each field with its purpose, its audience and which scripts re
 
 ---
 
-## Drift checks (the eight checkers)
+## Drift checks (the nine checkers)
 
 ```sh
 yarn check:drift
 ```
 
 Dependency-free Node. They run on a bare `git clone` with no `yarn install`, and
-`.github/workflows/checks.yml` runs the same eight on every PR.
+`.github/workflows/checks.yml` runs the same nine on every PR.
 
 | Checker | What it guards | A failure means |
 |---|---|---|
@@ -126,6 +126,7 @@ Dependency-free Node. They run on a bare `git clone` with no `yarn install`, and
 | `check-contracts.mjs` | Contracts match the real Vue props, tokens resolve, no token is claimed by two contracts | The contract and the code disagree — decide which is wrong *before* editing either |
 | `check-claude-design.mjs` | Every `dc-import` target exists, links resolve, `readme.md` documents every template, no bare element selectors | A template is broken, and it would fail **silently** in the platform |
 | `build-dc-rules.mjs --check` | The published rule blocks match `contracts/rules.json` | A rule was edited in a generated view instead of at source |
+| `build-ds-profile.mjs --check` | The Claude Design profile cards (`claude-design/preview/*.html`, `Type Hierarchy.dc.html`) match `tokens/` | You edited a token and didn't regenerate the profile cards |
 | `check-figma.mjs` | Figma variables, alias targets, per-mode values, variant axes and set descriptions match tokens + contracts | Figma and the repo disagree, **or** the snapshot is stale |
 | `check-citations.mjs` | Every `file:line` written into a contract or token file points at what it claims | A citation rotted when the file it names moved |
 | `check-token-consumers.mjs` | Every emitted `--uiowa-*` is actually *read* by a stylesheet — and says whether that reader ships or only previews | A token renders in Figma and in Claude Design but has no effect on `dist/` (**warnings only** until the rebind lands; `--strict` gates) |
@@ -134,7 +135,7 @@ Dependency-free Node. They run on a bare `git clone` with no `yarn install`, and
 
 | You touched | Run |
 |---|---|
-| `tokens/` | `yarn build:tokens`, then `yarn check:drift` — this also stalens the Figma snapshot if a *value*, alias or breakpoint changed |
+| `tokens/` | `yarn build:tokens` and `node scripts/build-ds-profile.mjs`, then `yarn check:drift` — this also stalens the Figma snapshot if a *value*, alias or breakpoint changed |
 | A contract's `description` or `version` | `node scripts/build-catalog.mjs`, then `yarn check:drift` |
 | A contract's option name, `figma.axis`, `figma.map`, `tokensUsed`, `children[].contract`, or `identity.figma.componentSetName` | `yarn check:drift` — expect `check-figma` to demand a Figma sync |
 | Any other contract prose | `yarn check:drift` (citations are checked; the Figma hash is not affected) |
@@ -315,7 +316,7 @@ the documentation's link paths before the release exists.
 
 Two workflows run on pull requests:
 
-- **Checks** (`.github/workflows/checks.yml`) — the eight drift checkers, `lint:ci`,
+- **Checks** (`.github/workflows/checks.yml`) — the nine drift checkers, `lint:ci`,
   `test:unit:ci`, a Storybook build, and the computed-style regression against the built
   Storybook. Skipped on draft PRs.
 - **Update documentation in GitHub Pages** (`.github/workflows/gh-pages.yml`) — builds Storybook

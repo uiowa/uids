@@ -18,7 +18,7 @@ UIDS (University of Iowa Design System) — Vue 3 component library with SCSS an
 | `yarn build` | Build tokens, then compile SCSS to `dist/` |
 | `yarn lint` | ESLint with auto-fix |
 | `yarn test:unit` | Vitest (`yarn test:unit ComponentName` for one) |
-| `yarn check:drift` | The eight drift checkers — see below |
+| `yarn check:drift` | The nine drift checkers — see below |
 | `yarn test:styles` | Computed-style regression; needs Storybook running |
 
 **Before a PR:** run `yarn build` (confirms tokens + SCSS compile — `dist/` is gitignored) and
@@ -82,10 +82,10 @@ pipeline in **[contracts/README.md](contracts/README.md)** — read that before 
 `tokens/` or `contracts/`. `docs/agentic-design-system.md` explains why the system is shaped
 this way and is honest about what it does not check.
 
-## `yarn check:drift` — the eight checkers
+## `yarn check:drift` — the nine checkers
 
 **`package.json` is the source of truth for the chain**; this table is a convenience copy and
-has been found stale before. `.github/workflows/checks.yml` runs the same eight.
+has been found stale before. `.github/workflows/checks.yml` runs the same nine.
 
 | Checker | Re-run it after touching |
 |---|---|
@@ -94,6 +94,7 @@ has been found stale before. `.github/workflows/checks.yml` runs the same eight.
 | `check-contracts` | `contracts/`, or any Vue prop a contract names |
 | `check-claude-design` | `claude-design/` — sibling imports, the injected `readme.md`, the manifest |
 | `build-dc-rules --check` | `contracts/rules.json` |
+| `build-ds-profile --check` | `tokens/` — fails if the profile cards (`claude-design/preview/`, `Type Hierarchy.dc.html`) are stale |
 | `check-figma` | `tokens/`, `contracts/`, **or the Figma file** |
 | `check-citations` | any `file:line` evidence written into `contracts/` or `tokens/` |
 | `check-token-consumers` | `tokens/`, or any SCSS that reads (or stops reading) a `var(--uiowa-*)` |

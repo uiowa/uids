@@ -27,6 +27,13 @@ background system (`backgrounds.css` — the `bg--*` bands and their text cascad
 - *Navigation* — Menu (`Menu.dc.html`), Tabs (`Tabs.dc.html`), Pager (`Pager.dc.html`),
   Breadcrumbs (`Breadcrumbs.dc.html`), Accordion (`Accordion.dc.html`).
 
+**Profile cards:** `Badge Variants.dc.html`, `Alert Variants.dc.html`,
+`Button Variants.dc.html`, `Form Variants.dc.html`, `Logo Variants.dc.html` — internal
+`@dsCard` preview cards for claude.ai Design's own profile panel, each `dc-import`ing the
+real component several times to show its variant range — plus `Type Hierarchy.dc.html`
+(Headline composed three ways over body copy) and the generated Type / Colors / Spacing
+specimens in `preview/`. None of these is a 21st component; don't copy them into a build.
+
 **Starting point:** `Page Scaffold.dc.html` — the canonical page structure (Brand Bar →
 sections → Brand Footer) wired to the tokens and layout classes. Start here for any page.
 

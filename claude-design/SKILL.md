@@ -34,6 +34,13 @@ Notes specific to this brand:
   - **Actions** — Button (`Button.dc.html`), CTA (`CTA.dc.html`), Form (`Form.dc.html`).
   - **Navigation** — Menu (`Menu.dc.html`), Tabs (`Tabs.dc.html`), Pager (`Pager.dc.html`),
     Breadcrumbs (`Breadcrumbs.dc.html`), Accordion (`Accordion.dc.html`).
+- Five more files (`Badge Variants.dc.html`, `Alert Variants.dc.html`,
+  `Button Variants.dc.html`, `Form Variants.dc.html`, `Logo Variants.dc.html`) exist only
+  as `@dsCard` preview cards for claude.ai Design's own profile panel — each `dc-import`s
+  the real component several times to show its variant range. So do
+  `Type Hierarchy.dc.html` (imports Headline three times over a body paragraph) and the
+  generated `preview/` specimens (Type / Colors / Spacing). Don't copy any of these into a
+  build; copy the real component file instead.
 - **Still NOT migrated: cards, sliders, grid and showcase.** Do not improvise
   Iowa-looking versions of these; use the `.uids-placeholder` convention from the scaffold
   and report the gap.
