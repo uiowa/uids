@@ -42,30 +42,36 @@ $border-radius-sm: 0;
 $border-width: 1px;
 
 // Typography
-$font-family-sans-serif: 'Roboto', sans-serif;
-$font-family-serif: 'Zilla Slab', 'Zilla-fallback', serif;
-$font-family-serif-alt: 'Lora', serif;
-$font-family-caps: 'Antonio', 'Antonio-fallback', sans-serif;
-$font-family-caps-light: 'Antonio', 'Antonio-fallback', sans-serif;
-$font-family-caps-bold: 'Antonio', 'Antonio-fallback', sans-serif;
+// Values come from design tokens (tokens/ -> abstracts/_tokens-generated.scss).
+// NOTE: these are var() references, so Sass math and color functions cannot operate
+// on them. Nothing in src/scss does today, but a new calculation on one of
+// these needs the raw token value, not the variable.
+// The static $hN sizes are the LARGE (1310px) endpoints of the fluid type scale; the
+// responsive heading sizes are the --uiowa-font-size-heading-* generated clamp()s.
+$font-family-sans-serif: var(--uiowa-font-family-roboto);
+$font-family-serif: var(--uiowa-font-family-zilla-slab);
+$font-family-serif-alt: var(--uiowa-font-family-lora);
+$font-family-caps: var(--uiowa-font-family-antonio);
+$font-family-caps-light: var(--uiowa-font-family-antonio);
+$font-family-caps-bold: var(--uiowa-font-family-antonio);
 $font-family-script: 'amnestyscript';
-$font-weight-light: 300;
-$font-weight-normal: 400;
-$font-weight-medium: 500;
-$font-weight-medium-bold: 600;
-$font-weight-bold: 700;
-$font-weight-heavy: 900;
+$font-weight-light: var(--uiowa-font-weight-light);
+$font-weight-normal: var(--uiowa-font-weight-normal);
+$font-weight-medium: var(--uiowa-font-weight-medium);
+$font-weight-medium-bold: var(--uiowa-font-weight-medium-bold);
+$font-weight-bold: var(--uiowa-font-weight-bold);
+$font-weight-heavy: var(--uiowa-font-weight-heavy);
 $headings-font-weight: $font-weight-medium;
-$h1-font-size: 3.35rem;
-$h2-font-size: 2.3rem;
-$h3-font-size: 1.9125rem;
-$h4-font-size: 1.6rem;
-$h5-font-size: 1.4rem;
-$h6-font-size: 1.2rem;
-$content-font-size: 1.2rem;
-$label-font-size: 0.9rem;
-$base-font-size: 1rem;
-$small-font-size: .8rem;
+$h1-font-size: var(--uiowa-font-size-335);
+$h2-font-size: var(--uiowa-font-size-230);
+$h3-font-size: var(--uiowa-font-size-191);
+$h4-font-size: var(--uiowa-font-size-160);
+$h5-font-size: var(--uiowa-font-size-140);
+$h6-font-size: var(--uiowa-font-size-120);
+$content-font-size: var(--uiowa-font-size-body);
+$label-font-size: 0.9rem; // not yet tokenized
+$base-font-size: var(--uiowa-font-size-100);
+$small-font-size: var(--uiowa-font-size-80);
 $text-muted: $gray;
 
 // Container
@@ -73,16 +79,16 @@ $container-width: 81.875em;
 
 // Margin/Padding
 $mobile-width-gutter: 1.25rem; // 20px
-$desktop-width-gutter: 3rem; // 20px
-$mobile-height-gutter: 2rem; // 20px
-$desktop-height-gutter: 8rem; // 20px
+$desktop-width-gutter: 3rem; // 48px
+$mobile-height-gutter: 2rem; // 32px
+$desktop-height-gutter: 8rem; // 128px
 $gutter: 1.25rem; // 20px
-$xsm: 0.325rem; // 5px
-$xsm-sm: .425rem;
-$sm: 0.625rem; // 10px
+$xsm: var(--uiowa-space-25); // 0.25rem / 4px
+$xsm-sm: .425rem; // not yet tokenized
+$sm: var(--uiowa-space-50); // 0.5rem / 8px
 $sm-md: 0.9rem; // 15px
-$md: 1.05rem;
-$lg: 1.875rem; // 30px
+$md: var(--uiowa-space-100); // 1rem / 16px
+$lg: var(--uiowa-space-200); // 2rem / 32px
 $xlg: 2.5rem; // 40px
 $xxlg: 3.15rem; // 50px
 $xxxlg: 3.75rem; // 60px

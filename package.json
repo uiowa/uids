@@ -13,13 +13,17 @@
   "module": "./dist/uids.es.js",
   "style": "",
   "exports": {
-    "import": "./dist/uids.es.js",
-    "require": "./dist/uids.umd.js"
+    ".": {
+      "import": "./dist/uids.es.js",
+      "require": "./dist/uids.umd.js"
+    }
   },
   "scripts": {
-    "dev": "sass --watch src/scss:dist",
-    "build": "sass src/scss:dist",
-    "production": "storybook build -o www && sass src/scss:www/dist/css",
+    "build:tokens": "node scripts/build-tokens.mjs",
+    "check:tokens": "node scripts/build-tokens.mjs --check",
+    "dev": "yarn build:tokens && sass --watch src/scss:dist",
+    "build": "yarn build:tokens && sass src/scss:dist",
+    "production": "yarn build:tokens && storybook build -o www && sass src/scss:www/dist/css",
     "preview": "vite preview --port 5050",
     "test:unit": "vitest --environment jsdom",
     "test:e2e": "start-server-and-test preview http://127.0.0.1:5050/ 'cypress open'",
