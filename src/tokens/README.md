@@ -8,23 +8,22 @@ src/tokens/primitives/   raw values — the only place a literal is authored
 src/tokens/semantic/     intent-based roles that reference primitives
 ```
 
-## Generated outputs — do not edit
+## Generated output — do not edit
 
-| File | Consumer |
-|---|---|
-| `src/scss/abstracts/_tokens-generated.scss` | the SCSS build (`@use`d by `uids-core.scss`) |
-| `css/tokens.css` | consumers with no Sass toolchain, via `@uiowa/uids/tokens.css` |
-
-Regenerate both with:
+`scripts/build-tokens.mjs` compiles these files into
+`src/scss/abstracts/_tokens-generated.scss`, the custom properties the SCSS build uses.
+Regenerate with:
 
 ```
 yarn build:tokens
 ```
 
-Both are committed, so a fresh checkout can run Storybook and a consumer can read either
-view without running a build first. The `Tokens` CI workflow runs
-`node scripts/build-tokens.mjs --check` and fails if either has drifted, so a committed
-output cannot silently disagree with its source.
+It is committed, so a fresh checkout can run Storybook and a git-URL install can read
+the Sass source without a build step. CI fails if it drifts from `src/tokens/**`.
+
+CSS comes from Sass, not from the generator. `src/scss/tokens.scss` is an entrypoint the
+existing `sass src/scss:dist` build compiles to `dist/tokens.css`, alongside
+`uids-core.css` and `uids.css`.
 
 **Never hand-edit a generated file.** Change `src/tokens/` and regenerate.
 

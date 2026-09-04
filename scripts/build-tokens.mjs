@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 /**
- * Compiles src/tokens/** into two generated views:
+ * Compiles src/tokens/** into the SCSS build's custom properties:
  *
- *   src/scss/abstracts/_tokens-generated.scss   the SCSS build's custom properties
- *   css/tokens.css                              the package entry point for consumers
- *                                               with no Sass toolchain
+ *   src/scss/abstracts/_tokens-generated.scss
  *
- * Both are emitted from one pass so they cannot diverge. Both are COMMITTED —
- * Storybook, fresh checkouts, and git-URL installs all need them without a build
- * step — and `--check` fails if either is stale (wired into CI).
+ * CSS comes from Sass, not from here: src/scss/tokens.scss is an entrypoint the
+ * existing `sass src/scss:dist` build compiles to dist/tokens.css, the same way it
+ * handles uids.scss and uids-core.scss. This file's output is COMMITTED, because
+ * Storybook, fresh checkouts and git-URL installs all consume the Sass source
+ * without a build step, and `--check` fails if it is stale (wired into CI).
  *
  * Token names match the WEB code syntax stamped on Figma variables (var(--uiowa-*)),
  * so design and code trace 1:1.
@@ -40,7 +40,6 @@ import { fileURLToPath } from 'node:url';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const CHECK = process.argv.includes('--check');
 const OUT_SCSS = 'src/scss/abstracts/_tokens-generated.scss';
-const OUT_CSS = 'css/tokens.css';
 const readJson = (p) => JSON.parse(readFileSync(join(root, p), 'utf8'));
 
 const REM = 16;
@@ -212,22 +211,7 @@ const scss = [
   '',
 ].join('\n');
 
-// css/tokens.css is the same declarations as a standalone stylesheet, for consumers with
-// no Sass toolchain (Claude Design systems, prototypes, web components). Legacy aliases
-// are deliberately NOT included: they live in uids-core.scss, which serves the Sass and
-// full-CSS paths. Fonts are not loaded here either — an @import would force a network
-// request on every consumer and take an opinion about font loading that belongs to the page.
-const css = [
-  `/* Iowa Design System tokens — v${version} — GENERATED from src/tokens/**. Do not edit. */`,
-  '/* Regenerate: node scripts/build-tokens.mjs */',
-  '',
-  ':root {',
-  ...decls.map(([n, v]) => `  ${n}: ${v};`),
-  '}',
-  '',
-].join('\n');
-
-const targets = [[OUT_SCSS, scss], [OUT_CSS, css]];
+const targets = [[OUT_SCSS, scss]];
 const summary = `${decls.length} declarations`;
 
 if (CHECK) {
@@ -243,5 +227,5 @@ if (CHECK) {
   console.log(`tokens up to date — ${summary}`);
 } else {
   for (const [file, out] of targets) writeFileSync(join(root, file), out);
-  console.log(`${OUT_SCSS} + ${OUT_CSS} written — ${summary}`);
+  console.log(`${OUT_SCSS} written — ${summary}`);
 }
