@@ -24,9 +24,10 @@
  *    --uiowa-font-size-<role>. When a composite has a -mobile twin with a different
  *    size, a fluid clamp() is generated from the two endpoints across the
  *    600 -> 1310px viewport range, reproducing the clamps 4.x hardcoded by hand.
- *  - letter-spacing and text-transform primitives are not emitted; they are set
- *    directly in styles. layout.breakpoint.* is not emitted either, because custom
- *    properties cannot drive @media queries.
+ *  - letter-spacing, text-transform and breakpoint primitives are not emitted.
+ *    The first two are set directly in styles; breakpoints cannot be emitted usefully
+ *    because custom properties resolve per element and a media query has no element to
+ *    resolve against, so Sass reads them through $break-* instead.
  *
  * Usage
  *   node scripts/build-tokens.mjs           (re)generate
@@ -137,7 +138,7 @@ const decls = []; // [name, value, trailingComment?]
 
 for (const l of allLeaves.filter((l) => l.tier === 'primitive')) {
   const head = l.path[0] === 'typography' ? l.path[1] : l.path[0];
-  if (head === 'letter-spacing' || head === 'text-transform') continue;
+  if (head === 'letter-spacing' || head === 'text-transform' || head === 'breakpoint') continue;
   decls.push([cssVarName(l.path.join('.')), String(l.value)]);
 }
 
@@ -151,7 +152,6 @@ for (const l of allLeaves.filter((l) => l.tier === 'semantic')) {
     }
     decls.push([cssVarName(l.path.join('.')), leafValue(l)]);
   } else if (first === 'layout') {
-    if (second === 'breakpoint') continue;
     decls.push([cssVarName(l.path.join('.')), cssValue(l.value)]);
   } else if (second === 'font-family' || second === 'font-weight') {
     decls.push([cssVarName(l.path.join('.')), cssValue(l.value)]);
