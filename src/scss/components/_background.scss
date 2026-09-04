@@ -67,23 +67,6 @@
   background-size: 1000px;
 }
 
-// Descendants inherit the context border color until components read the role directly.
-// This has to precede the rule below: both are (0,1,0) for an element that is itself
-// inside a background, so source order decides whether a nested background keeps its own
-// border color or takes its ancestor's.
-[class*="bg--"] {
-  *,
-  & [class*="bg--"] * {
-    border-color: inherit;
-
-    &:before,
-    &:after {
-      color: inherit;
-      border-color: inherit;
-    }
-  }
-}
-
 // Content reads the roles.
 [class*="bg--"] {
   color: var(--uiowa-color-text);
@@ -91,5 +74,19 @@
 
   a {
     color: var(--uiowa-color-link);
+  }
+
+  // border-color initially resolves to currentColor, so a border with no color of its own
+  // would take the text color. Point it at the role for everything inside the surface too.
+  // The doubled selector is a specificity bump, enough to outrank a bare component class
+  // rule but not one keyed on a background; a component that reads the role needs neither.
+  *,
+  & [class*="bg--"] * {
+    border-color: var(--uiowa-color-border);
+
+    &:before,
+    &:after {
+      border-color: var(--uiowa-color-border);
+    }
   }
 }
