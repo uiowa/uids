@@ -67,17 +67,10 @@
   background-size: 1000px;
 }
 
-// Content reads the roles.
-[class*="bg--"] {
-  color: var(--uiowa-color-text);
-  border-color: var(--uiowa-color-border);
-
-  a {
-    color: var(--uiowa-color-link);
-  }
-}
-
 // Descendants inherit the context border color until components read the role directly.
+// This has to precede the rule below: both are (0,1,0) for an element that is itself
+// inside a background, so source order decides whether a nested background keeps its own
+// border color or takes its ancestor's.
 [class*="bg--"] {
   *,
   & [class*="bg--"] * {
@@ -88,5 +81,15 @@
       color: inherit;
       border-color: inherit;
     }
+  }
+}
+
+// Content reads the roles.
+[class*="bg--"] {
+  color: var(--uiowa-color-text);
+  border-color: var(--uiowa-color-border);
+
+  a {
+    color: var(--uiowa-color-link);
   }
 }
