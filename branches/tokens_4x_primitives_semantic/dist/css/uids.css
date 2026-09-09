@@ -135,10 +135,6 @@
   --uiowa-typography-small-font-weight: var(--uiowa-font-weight-normal);
   --uiowa-typography-small-font-size: var(--uiowa-font-size-80);
   --uiowa-typography-small-line-height: var(--uiowa-line-height-130);
-  --uiowa-typography-large-font-family: var(--uiowa-font-family-roboto);
-  --uiowa-typography-large-font-weight: var(--uiowa-font-weight-normal);
-  --uiowa-typography-large-font-size: var(--uiowa-font-size-160);
-  --uiowa-typography-large-line-height: var(--uiowa-line-height-170);
   --uiowa-typography-caption-font-family: var(--uiowa-font-family-roboto);
   --uiowa-typography-caption-font-weight: var(--uiowa-font-weight-normal);
   --uiowa-typography-caption-font-size: var(--uiowa-font-size-90);
@@ -1100,8 +1096,10 @@ table {
 }
 
 p {
-  line-height: 1.7;
+  font-family: var(--uiowa-typography-body-font-family);
+  font-weight: var(--uiowa-typography-body-font-weight);
   font-size: var(--uiowa-typography-body-font-size);
+  line-height: var(--uiowa-typography-body-line-height);
   margin-top: 0;
   margin-bottom: var(--uiowa-space-100);
 }
@@ -1153,7 +1151,7 @@ pre {
 }
 
 .is-small {
-  font-size: var(--uiowa-font-size-80);
+  font-size: var(--uiowa-typography-small-font-size);
 }
 
 .is-medium {
@@ -1250,20 +1248,19 @@ hr {
 
 .uids-component--bold-intro,
 .element--bold-intro {
-  font-family: var(--uiowa-font-family-zilla-slab);
-  font-weight: var(--uiowa-font-weight-medium-bold);
-  line-height: 1.3;
-  font-size: 2.2rem;
-  font-size: clamp(1.6rem, 1.3521vw + 1.093rem, 2.2rem);
+  font-family: var(--uiowa-typography-intro-bold-font-family);
+  font-weight: var(--uiowa-typography-intro-bold-font-weight);
+  font-size: var(--uiowa-typography-intro-bold-font-size);
+  line-height: var(--uiowa-typography-intro-bold-line-height);
   margin-top: 0;
 }
 
 .uids-component--light-intro,
 .element--light-intro {
-  font-weight: var(--uiowa-font-weight-light);
-  line-height: 1.4;
-  font-size: 2.1rem;
-  font-size: clamp(1.6rem, 1.1268vw + 1.1775rem, 2.1rem);
+  font-family: var(--uiowa-typography-intro-light-font-family);
+  font-weight: var(--uiowa-typography-intro-light-font-weight);
+  font-size: var(--uiowa-typography-intro-light-font-size);
+  line-height: var(--uiowa-typography-intro-light-line-height);
   margin-top: 0;
 }
 
@@ -2964,7 +2961,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
 }
 .footer p a i, .footer p a svg, .footer p a span {
   margin-right: var(--uiowa-space-50);
-  font-size: var(--uiowa-font-size-80);
+  font-size: var(--uiowa-typography-small-font-size);
   color: #999;
 }
 .footer .site-name {
@@ -3116,7 +3113,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
 }
 .socket__menu li {
   color: white;
-  font-size: var(--uiowa-font-size-80);
+  font-size: var(--uiowa-typography-small-font-size);
   border-right: 1px solid #5d5656;
   margin-bottom: var(--uiowa-space-25);
   padding-top: 0;
@@ -3700,7 +3697,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
   border-radius: 50%;
 }
 .card .media--date__month {
-  font-size: var(--uiowa-font-size-100);
+  font-size: var(--uiowa-typography-base-font-size);
   display: block;
   line-height: 100%;
   text-transform: uppercase;
@@ -5607,7 +5604,7 @@ table {
   }
 }
 table p, table ul, table ol {
-  font-size: var(--uiowa-font-size-100);
+  font-size: var(--uiowa-typography-base-font-size);
   line-height: 1.6;
 }
 table ul p, table ol p {
@@ -5616,7 +5613,7 @@ table ul p, table ol p {
 table td,
 table th {
   padding: var(--uiowa-space-100);
-  font-size: var(--uiowa-font-size-100);
+  font-size: var(--uiowa-typography-base-font-size);
   line-height: 1.6;
 }
 table th {
