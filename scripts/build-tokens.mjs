@@ -21,8 +21,9 @@
  *    that one name; _background.scss re-points it inside each surface. Variants keep
  *    their own names too, so a consumer outside a bg-- container can address one directly.
  *  - A $type: "typography" style emits every channel it declares, as
- *    --uiowa-typography-<role>-<property>, repeats included. A fontSize written as
- *    { min, max } becomes a clamp() across the 600 -> 1310px viewport range.
+ *    --uiowa-typography-<role>-<property>, repeats included. Where the style carries
+ *    edu.uiowa.fluid, fontSize becomes a clamp() across the 600 -> 1310px viewport
+ *    range: `true` derives the large end as min^GROWTH, a reference names it.
  *  - breakpoint primitives emit nothing. A custom property resolves per element and a
  *    media query has no element to resolve against, so Sass reads them via $break-*.
  *
@@ -40,7 +41,11 @@ const OUT_SCSS = 'src/scss/abstracts/_tokens-generated.scss';
 const readJson = (p) => JSON.parse(readFileSync(join(root, p), 'utf8'));
 
 const REM = 16;
-const CLAMP_RANGE = [600, 1310]; // viewport px endpoints of the 4.x fluid type range
+const CLAMP_RANGE = [600, 1310]; // viewport px endpoints of the fluid type range
+// A fluid style's large end. `true` derives it as min^GROWTH in rem, which fits the
+// heading ramp to within 4.8px and makes each step's spread widen with its size. A
+// reference instead names the large end outright, for styles the curve does not fit.
+const GROWTH = 1.34;
 
 // Surface contexts. A semantic color group whose variants are all named here emits an
 // unsuffixed pointer (--uiowa-color-text) alongside its variants, aimed at default.
@@ -55,7 +60,7 @@ function collectLeaves(data, tier, file) {
   const leaves = [];
   (function walk(node, path) {
     if (node && typeof node === 'object' && '$value' in node) {
-      leaves.push({ path, value: node.$value, type: node.$type, tier, file });
+      leaves.push({ path, value: node.$value, type: node.$type, extensions: node.$extensions, tier, file });
       return;
     }
     if (node && typeof node === 'object') {
@@ -127,14 +132,15 @@ const CHANNEL_PROP = {
   lineHeight: 'line-height',
 };
 
-// A fluid fontSize is { min, max }: two endpoint references, from which the clamp() is
-// computed across CLAMP_RANGE. Storing the endpoints rather than the clamp string keeps
-// the inputs recoverable. Re-point either reference and the slope follows.
-function fontSizeValue(size) {
-  if (typeof size === 'string') return cssValue(size);
-  const minRem = String(resolveDeep(size.min));
-  const maxRem = String(resolveDeep(size.max));
-  if (minRem === maxRem) return cssValue(size.max);
+// fontSize is always one reference: the small end for a fluid style, the only size
+// otherwise. edu.uiowa.fluid says whether it scales and where it scales to.
+function fontSizeValue(size, fluid) {
+  if (!fluid) return cssValue(size);
+  const minRem = String(resolveDeep(size));
+  const maxRem = fluid === true
+    ? `${Number((remToPx(minRem) / REM) ** GROWTH).toFixed(4).replace(/0+$/, '')}rem`
+    : String(resolveDeep(fluid));
+  if (minRem === maxRem) return cssValue(size);
   const minPx = remToPx(minRem);
   const maxPx = remToPx(maxRem);
   if (minPx === null || maxPx === null) {
@@ -162,7 +168,9 @@ for (const l of allLeaves.filter((l) => l.tier === 'semantic')) {
     for (const [channel, prop] of Object.entries(CHANNEL_PROP)) {
       if (!(channel in l.value)) continue;
       const name = `--uiowa-typography-${l.path.slice(1).join('-')}-${prop}`;
-      const v = channel === 'fontSize' ? fontSizeValue(l.value[channel]) : cssValue(l.value[channel]);
+      const v = channel === 'fontSize'
+        ? fontSizeValue(l.value[channel], l.extensions?.['edu.uiowa.fluid'])
+        : cssValue(l.value[channel]);
       decls.push(Array.isArray(v) ? [name, ...v] : [name, v]);
     }
   } else {

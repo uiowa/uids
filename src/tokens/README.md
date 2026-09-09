@@ -37,13 +37,14 @@ A text style is one `$type: "typography"` composite rather than a token per prop
 the file records that a style's channels belong together. Its sub-values are references,
 and the generator emits every channel as `--uiowa-typography-<role>-<property>`.
 
-Two deliberate deviations from DTCG 2025.10. Nothing but this repo's generator reads
-these files, so the spec's stricter forms cost readability and buy nothing yet.
+`fontSize` is always one reference: the small end for a style that scales, the only size
+otherwise. `$extensions."edu.uiowa.fluid"` says whether it scales and where to. `true`
+derives the large end from the small one, which is how the six headings work. A reference
+names the large end outright, for the two intro styles the curve does not fit.
 
-- Dimensions are strings (`"1.2rem"`) rather than the spec's `{ "value": 1.2, "unit": "rem" }`.
-- A fluid `fontSize` is `{ min, max }`. The spec has no way to express a value that varies
-  with viewport, and storing the endpoints rather than a `clamp()` string keeps the inputs
-  recoverable. Re-point either reference and the generated slope follows.
+One deliberate deviation from DTCG 2025.10: dimensions are strings (`"1.2rem"`) rather
+than the spec's `{ "value": 1.2, "unit": "rem" }`. Nothing but this repo's generator
+reads these files, so the object form costs readability and buys nothing yet.
 
 ```json
 "neutral": {
