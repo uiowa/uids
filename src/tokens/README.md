@@ -29,8 +29,20 @@ existing `sass src/scss:dist` build compiles to `dist/tokens.css`, alongside
 
 ## Format
 
-Token files are DTCG-shaped: `$value` for the value, `$description` for what the token is for,
-and `{dot.path}` for references.
+Token files are DTCG-shaped: `$value` for the value, `$type` where the type is not obvious
+from context, `$description` for what the token is for, and `{dot.path}` for references.
+
+A text style is one `$type: "typography"` composite rather than a token per property, so
+the file records that a style's channels belong together. Its sub-values are references,
+and the generator emits every channel as `--uiowa-typography-<role>-<property>`.
+
+Two deliberate deviations from DTCG 2025.10, both because nothing but this repo's
+generator reads these files:
+
+- Dimensions are strings (`"1.2rem"`) rather than the spec's `{ "value": 1.2, "unit": "rem" }`.
+- A fluid `fontSize` is `{ min, max }`. The spec has no way to express a value that varies
+  with viewport, and storing the endpoints rather than a `clamp()` string keeps the inputs
+  recoverable — re-point either reference and the generated slope follows.
 
 ```json
 "neutral": {

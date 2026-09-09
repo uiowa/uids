@@ -20,14 +20,11 @@
  *    emits the group name itself aimed at default (--uiowa-color-text). Components read
  *    that one name; _background.scss re-points it inside each surface. Variants keep
  *    their own names too, so a consumer outside a bg-- container can address one directly.
- *  - Semantic composite type styles emit their font-size channel as
- *    --uiowa-font-size-<role>. When a composite has a -mobile twin with a different
- *    size, a fluid clamp() is generated from the two endpoints across the
- *    600 -> 1310px viewport range, reproducing the clamps 4.x hardcoded by hand.
- *  - letter-spacing, text-transform and breakpoint primitives are not emitted.
- *    The first two are set directly in styles; breakpoints cannot be emitted usefully
- *    because custom properties resolve per element and a media query has no element to
- *    resolve against, so Sass reads them through $break-* instead.
+ *  - A $type: "typography" style emits every channel it declares, as
+ *    --uiowa-typography-<role>-<property>, repeats included. A fontSize written as
+ *    { min, max } becomes a clamp() across the 600 -> 1310px viewport range.
+ *  - breakpoint primitives are not emitted: custom properties resolve per element and a
+ *    media query has no element to resolve against, so Sass reads them through $break-*.
  *
  * Usage
  *   node scripts/build-tokens.mjs           (re)generate
@@ -58,7 +55,7 @@ function collectLeaves(data, tier, file) {
   const leaves = [];
   (function walk(node, path) {
     if (node && typeof node === 'object' && '$value' in node) {
-      leaves.push({ path, value: node.$value, tier, file });
+      leaves.push({ path, value: node.$value, type: node.$type, tier, file });
       return;
     }
     if (node && typeof node === 'object') {
@@ -79,33 +76,15 @@ const tierFiles = ['primitives', 'semantic'].flatMap((tier) =>
 const allLeaves = tierFiles.flatMap(({ file, tier }) => collectLeaves(readJson(file), tier, file));
 const byDotPath = new Map(allLeaves.map((l) => [l.path.join('.'), l]));
 
-// Composite type styles are `typography.<role>.<channel>`. Every second-level key
-// under semantic typography that is not font-family/font-weight is such a role.
-// The emitter names them --uiowa-font-size-<role> rather than by dot path, so
-// cssVarName has to agree or a {ref} to one would emit a dangling var().
-const COMPOSITE_ROLES = new Set(
-  allLeaves
-    .filter((l) => l.tier === 'semantic' && l.path[0] === 'typography'
-      && !['font-family', 'font-weight'].includes(l.path[1]))
-    .map((l) => l.path[1]),
-);
-
 // ---------- Naming: dot path -> --uiowa-* custom property ----------
-// color.gray.150            -> --uiowa-color-gray-150
-// typography.font-size.150  -> --uiowa-font-size-150
-// typography.heading-h1.*   -> --uiowa-font-size-heading-h1  (font-size channel only)
+// A primitive keeps its property-first path, because a primitive is that thing:
+//   typography.font-size.150 -> --uiowa-font-size-150
+// A type style is role-first, so one style's channels sort together and never collide
+// with the primitives they reference (see emitComposite):
+//   typography.heading-h2 + fontSize -> --uiowa-typography-heading-h2-font-size
 function cssVarName(dotPath) {
-  let parts = dotPath.split('.');
-  if (parts[0] === 'typography') {
-    parts = parts.slice(1);
-    if (COMPOSITE_ROLES.has(parts[0])) {
-      if (parts[1] !== 'font-size') {
-        throw new Error(`{typography.${parts[0]}.${parts[1]}} has no CSS custom property: only the `
-          + 'font-size channel of a composite type style is emitted (the rest are Figma-only role aliases)');
-      }
-      return `--uiowa-font-size-${parts[0]}`;
-    }
-  }
+  const parts = dotPath.split('.');
+  if (parts[0] === 'typography') return `--uiowa-${parts.slice(1).join('-')}`;
   return `--uiowa-${parts.join('-')}`;
 }
 
@@ -137,49 +116,57 @@ const decls = []; // [name, value, trailingComment?]
 
 for (const l of allLeaves.filter((l) => l.tier === 'primitive')) {
   const head = l.path[0] === 'typography' ? l.path[1] : l.path[0];
-  if (head === 'letter-spacing' || head === 'text-transform' || head === 'breakpoint') continue;
+  if (head === 'breakpoint') continue;
   decls.push([cssVarName(l.path.join('.')), String(l.value)]);
 }
 
-const composites = new Map(); // role -> { channel: leaf }
-const colorGroups = new Map(); // group -> Set(variant), for color.<group>.<variant>
-for (const l of allLeaves.filter((l) => l.tier === 'semantic')) {
-  const [first, second, third] = l.path;
-  if (first === 'color') {
-    if (l.path.length === 3) {
-      colorGroups.set(second, (colorGroups.get(second) ?? new Set()).add(third));
-    }
-    decls.push([cssVarName(l.path.join('.')), leafValue(l)]);
-  } else if (first === 'layout') {
-    decls.push([cssVarName(l.path.join('.')), cssValue(l.value)]);
-  } else if (second === 'font-family' || second === 'font-weight') {
-    decls.push([cssVarName(l.path.join('.')), cssValue(l.value)]);
-  } else {
-    composites.set(second, { ...(composites.get(second) ?? {}), [third]: l });
+const CHANNEL_PROP = {
+  fontFamily: 'font-family',
+  fontWeight: 'font-weight',
+  fontSize: 'font-size',
+  lineHeight: 'line-height',
+};
+
+// A fluid fontSize is { min, max }: two endpoint references, from which the clamp() is
+// computed across CLAMP_RANGE. Storing the endpoints rather than the clamp string keeps
+// the inputs recoverable — re-point either reference and the slope follows.
+function fontSizeValue(size) {
+  if (typeof size === 'string') return cssValue(size);
+  const minRem = String(resolveDeep(size.min));
+  const maxRem = String(resolveDeep(size.max));
+  if (minRem === maxRem) return cssValue(size.max);
+  const minPx = remToPx(minRem);
+  const maxPx = remToPx(maxRem);
+  if (minPx === null || maxPx === null) {
+    throw new Error(`fluid fontSize endpoints must be rem: got ${minRem} and ${maxRem}`);
   }
+  const slope = Number((((maxPx - minPx) / (CLAMP_RANGE[1] - CLAMP_RANGE[0])) * 100).toFixed(4));
+  const intercept = Number(((minPx - (slope / 100) * CLAMP_RANGE[0]) / REM).toFixed(4));
+  return [
+    `clamp(${minRem}, calc(${trim(slope)}vw + ${trim(intercept)}rem), ${maxRem})`,
+    `${minPx}px @ ${CLAMP_RANGE[0]}px -> ${maxPx}px @ ${CLAMP_RANGE[1]}px`,
+  ];
 }
 
-for (const [role, channels] of composites) {
-  if (role.endsWith('-mobile')) continue;
-  const fontSize = channels['font-size'];
-  if (!fontSize) continue;
-  const varName = `--uiowa-font-size-${role}`;
-  const mobile = composites.get(`${role}-mobile`)?.['font-size'];
-  const maxRem = String(resolveDeep(fontSize.value));
-  const minRem = mobile ? String(resolveDeep(mobile.value)) : maxRem;
-
-  if (mobile && minRem !== maxRem) {
-    const minPx = remToPx(minRem);
-    const maxPx = remToPx(maxRem);
-    const slope = Number((((maxPx - minPx) / (CLAMP_RANGE[1] - CLAMP_RANGE[0])) * 100).toFixed(4));
-    const intercept = Number(((minPx - (slope / 100) * CLAMP_RANGE[0]) / REM).toFixed(4));
-    decls.push([
-      varName,
-      `clamp(${minRem}, calc(${trim(slope)}vw + ${trim(intercept)}rem), ${maxRem})`,
-      `${minPx}px @ ${CLAMP_RANGE[0]}px -> ${maxPx}px @ ${CLAMP_RANGE[1]}px`,
-    ]);
+const colorGroups = new Map(); // group -> Set(variant), for color.<group>.<variant>
+for (const l of allLeaves.filter((l) => l.tier === 'semantic')) {
+  const [first, second] = l.path;
+  if (first === 'color') {
+    if (l.path.length === 3) {
+      colorGroups.set(second, (colorGroups.get(second) ?? new Set()).add(l.path[2]));
+    }
+    decls.push([cssVarName(l.path.join('.')), leafValue(l)]);
+  } else if (l.type === 'typography') {
+    // Every channel is emitted, including ones that repeat a neighbour's value. A
+    // consumer reading one style should not have to know which were left out.
+    for (const [channel, prop] of Object.entries(CHANNEL_PROP)) {
+      if (!(channel in l.value)) continue;
+      const name = `--uiowa-typography-${l.path.slice(1).join('-')}-${prop}`;
+      const v = channel === 'fontSize' ? fontSizeValue(l.value[channel]) : cssValue(l.value[channel]);
+      decls.push(Array.isArray(v) ? [name, ...v] : [name, v]);
+    }
   } else {
-    decls.push([varName, cssValue(fontSize.value)]);
+    decls.push([cssVarName(l.path.join('.')), cssValue(l.value)]);
   }
 }
 
