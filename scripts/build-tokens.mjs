@@ -4,14 +4,14 @@
  *
  *   src/scss/abstracts/_tokens-generated.scss
  *
- * CSS comes from Sass, not from here: src/scss/tokens.scss is an entrypoint the
+ * CSS comes from Sass, not from here. src/scss/tokens.scss is an entrypoint the
  * existing `sass src/scss:dist` build compiles to dist/tokens.css, the same way it
- * handles uids.scss and uids-core.scss. This file's output is COMMITTED, because
- * Storybook, fresh checkouts and git-URL installs all consume the Sass source
- * without a build step, and `--check` fails if it is stale (wired into CI).
+ * handles uids.scss and uids-core.scss. This file's output is committed, because
+ * Storybook, fresh checkouts and git-URL installs all read the Sass source without a
+ * build step. CI runs `--check`, which exits 1 if the output has gone stale.
  *
  * Token names match the WEB code syntax stamped on Figma variables (var(--uiowa-*)),
- * so design and code trace 1:1.
+ * so one name works in both places.
  *
  * Emission rules
  *  - Primitives emit plain :root declarations (--uiowa-font-size-150: 1.2rem).
@@ -23,8 +23,8 @@
  *  - A $type: "typography" style emits every channel it declares, as
  *    --uiowa-typography-<role>-<property>, repeats included. A fontSize written as
  *    { min, max } becomes a clamp() across the 600 -> 1310px viewport range.
- *  - breakpoint primitives are not emitted: custom properties resolve per element and a
- *    media query has no element to resolve against, so Sass reads them through $break-*.
+ *  - breakpoint primitives emit nothing. A custom property resolves per element and a
+ *    media query has no element to resolve against, so Sass reads them via $break-*.
  *
  * Usage
  *   node scripts/build-tokens.mjs           (re)generate
@@ -129,7 +129,7 @@ const CHANNEL_PROP = {
 
 // A fluid fontSize is { min, max }: two endpoint references, from which the clamp() is
 // computed across CLAMP_RANGE. Storing the endpoints rather than the clamp string keeps
-// the inputs recoverable — re-point either reference and the slope follows.
+// the inputs recoverable. Re-point either reference and the slope follows.
 function fontSizeValue(size) {
   if (typeof size === 'string') return cssValue(size);
   const minRem = String(resolveDeep(size.min));
@@ -157,8 +157,8 @@ for (const l of allLeaves.filter((l) => l.tier === 'semantic')) {
     }
     decls.push([cssVarName(l.path.join('.')), leafValue(l)]);
   } else if (l.type === 'typography') {
-    // Every channel is emitted, including ones that repeat a neighbour's value. A
-    // consumer reading one style should not have to know which were left out.
+    // Emit every channel, including ones that repeat a neighbour's value. A consumer
+    // reading one style should not have to work out which ones we left off.
     for (const [channel, prop] of Object.entries(CHANNEL_PROP)) {
       if (!(channel in l.value)) continue;
       const name = `--uiowa-typography-${l.path.slice(1).join('-')}-${prop}`;
@@ -189,7 +189,7 @@ for (const [group, variants] of colorGroups) {
 // The SCSS view keeps trailing // comments (Sass strips them); the CSS view drops
 // them rather than converting, so the published artifact stays declarations only.
 const scss = [
-  '// GENERATED FILE — do not edit. Source: src/tokens/**. Regenerate: node scripts/build-tokens.mjs',
+  '// GENERATED FILE, do not edit. Source: src/tokens/**. Regenerate: node scripts/build-tokens.mjs',
   '// Names match the Figma variable code syntax (var(--uiowa-*)) 1:1.',
   '',
   ':root {',
@@ -206,13 +206,13 @@ if (CHECK) {
   for (const [file, expected] of targets) {
     const full = join(root, file);
     if (!existsSync(full) || readFileSync(full, 'utf8') !== expected) {
-      console.error(`TOKENS STALE — regenerate with: node scripts/build-tokens.mjs (${file})`);
+      console.error(`TOKENS STALE. Regenerate with: node scripts/build-tokens.mjs (${file})`);
       stale = true;
     }
   }
   if (stale) process.exit(1);
-  console.log(`tokens up to date — ${summary}`);
+  console.log(`tokens up to date, ${summary}`);
 } else {
   for (const [file, out] of targets) writeFileSync(join(root, file), out);
-  console.log(`${OUT_SCSS} written — ${summary}`);
+  console.log(`${OUT_SCSS} written, ${summary}`);
 }
