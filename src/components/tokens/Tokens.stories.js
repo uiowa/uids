@@ -78,6 +78,7 @@ const useTokens = () => {
 const css = `
   .tk { padding: var(--uiowa-space-200); font-family: var(--uiowa-typography-body-font-family); }
   .tk h2 { margin-top: var(--uiowa-space-300); }
+  .tk h3 { margin-top: var(--uiowa-space-200); }
   .tk table { width: 100%; border-collapse: collapse; }
   .tk th, .tk td {
     text-align: left; padding: var(--uiowa-space-50) var(--uiowa-space-100);
@@ -213,7 +214,7 @@ export const Typography = {
           </tbody>
         </table>
 
-        <h2>Size modifiers</h2>
+        <h3>Size modifiers</h3>
         <p class="tk__note">These change a size and nothing else about the style.</p>
         <table>
           <thead><tr><th>Token</th><th>Resolves to</th><th>Specimen</th></tr></thead>
