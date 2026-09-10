@@ -9,6 +9,7 @@ import '../../scss/layout/_flexbox.scss';
 import BrandBar from '../brand-bar/BrandBar.vue';
 import ExampleImage from '../media/ExampleImage.vue';
 import UidsBanner from '../banner/Banner.vue';
+import UidsBlockquote from '../blockquote/Blockquote.vue';
 import UidsIowaFooter from '../brand-footer/BrandFooter.vue';
 import UidsButton from '../button/Button.vue';
 import UidsCard from '../card/Card.vue';
@@ -16,6 +17,7 @@ import UidsGrid from '../grid/Grid.vue';
 import UidsGridItem from '../grid/GridItem.vue';
 import UidsMenu from '../menu/Menu.vue';
 import UidsStat from '../stat/Stat.vue';
+import UidsTable from '../table/Table.vue';
 import BackgroundStories from '../background/Background.stories.js';
 
 const menuItems = [
@@ -65,8 +67,8 @@ export default {
 const Template = {
   render: (args) => ({
     components: {
-      BrandBar, ExampleImage, UidsBanner, UidsButton, UidsCard,
-      UidsGrid, UidsGridItem, UidsIowaFooter, UidsMenu, UidsStat,
+      BrandBar, ExampleImage, UidsBanner, UidsBlockquote, UidsButton, UidsCard,
+      UidsGrid, UidsGridItem, UidsIowaFooter, UidsMenu, UidsStat, UidsTable,
     },
     setup() {
       return { args, menuItems, programs };
@@ -92,8 +94,8 @@ const Template = {
           :media_overlay_type="''"
           :button_color="'primary'"
           :buttons="[
-            { label: 'Primary action', url: '#', color: 'primary' },
-            { label: 'Second action', url: '#', color: 'primary' },
+            { label: 'Primary action', url: '#' },
+            { label: 'Second action', url: '#' },
           ]"
         >
           <template #media><example-image /></template>
@@ -130,7 +132,7 @@ const Template = {
         <div :class="args.programs_background">
           <div class="layout-container element--margin__top--extra element--margin__bottom--extra">
             <h2>Section heading</h2>
-            <uids-grid :type="'threecol--33-34-33'">
+            <uids-grid>
               <uids-grid-item v-for="p in programs" :key="p.title">
                 <uids-card :url="'#'" :link_text="'Read more'">
                   <template #title>{{ p.title }}</template>
@@ -142,21 +144,29 @@ const Template = {
             <div :class="args.panel_background" class="border element--margin__top--extra">
               <div class="layout-container">
                 <h3>Panel heading</h3>
-                <blockquote>
-                  <p>Pull quote inside a nested panel, to show the blockquote treatment.</p>
-                  <footer>Attribution line</footer>
-                </blockquote>
+                <uids-blockquote
+                  :content="'Pull quote inside a nested panel, to show the blockquote treatment.'"
+                  :footer="'Attribution line'"
+                />
 
                 <h4>Table heading</h4>
-                <table>
-                  <thead>
-                    <tr><th>Header</th><th>Header</th><th>Header</th></tr>
-                  </thead>
-                  <tbody>
-                    <tr><td>Row label</td><td>Cell</td><td><a href="#">Cell link</a></td></tr>
-                    <tr><td>Row label</td><td>Cell</td><td><a href="#">Cell link</a></td></tr>
-                  </tbody>
-                </table>
+                <uids-table
+                  summary="Example table showing header, cell and link treatments"
+                  caption="Table caption"
+                  :highlight="true"
+                >
+                  <template #thead>
+                    <tr>
+                      <th scope="col">Header</th>
+                      <th scope="col">Header</th>
+                      <th scope="col">Header</th>
+                    </tr>
+                  </template>
+                  <template #tbody>
+                    <tr><th scope="row">Row label</th><td>Cell</td><td><a href="#">Cell link</a></td></tr>
+                    <tr><th scope="row">Row label</th><td>Cell</td><td><a href="#">Cell link</a></td></tr>
+                  </template>
+                </uids-table>
                 <p class="is-small">Small text, for notes under a table.</p>
               </div>
             </div>
@@ -166,7 +176,7 @@ const Template = {
         <div :class="args.stats_background">
           <div class="layout-container element--margin__top--extra element--margin__bottom--extra">
             <h2>Section heading on a pattern background</h2>
-            <uids-grid :type="'threecol--33-34-33'">
+            <uids-grid>
               <uids-grid-item>
                 <uids-stat :stat_title="'17,000'" :stat_summary="'Stat summary line'" />
               </uids-grid-item>
