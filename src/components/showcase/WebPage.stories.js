@@ -18,6 +18,7 @@ import UidsGridItem from '../grid/GridItem.vue';
 import UidsMenu from '../menu/Menu.vue';
 import UidsStat from '../stat/Stat.vue';
 import UidsTable from '../table/Table.vue';
+import Background from '../shared/background';
 import BackgroundStories from '../background/Background.stories.js';
 
 const menuItems = [
@@ -54,7 +55,7 @@ export default {
       name: 'Program section background',
     },
     card_background: {
-      ...BackgroundStories.argTypes.section_background,
+      ...Background.argTypes.background,
       name: 'Card background',
     },
     stats_background: {
@@ -141,7 +142,7 @@ const Template = {
             </uids-grid>
 
             <uids-blockquote
-              :content="'Pull quote inside a nested panel, to show the blockquote treatment.'"
+              :content="'Pull quote, to show the blockquote treatment.'"
               :footer="'Attribution line'"
             />
 
@@ -206,7 +207,7 @@ export const LandingPage = {
   args: {
     intro_background: '',
     programs_background: 'bg--gold',
-    card_background: 'bg-gray',
+    card_background: 'gray',
     stats_background: 'bg--black--pattern--particle',
   },
 };
