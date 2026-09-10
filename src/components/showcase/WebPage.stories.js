@@ -202,7 +202,7 @@ const Template = {
   }),
 };
 
-export const LandingPage = {
+export const WepPage = {
   ...Template,
   args: {
     intro_background: '',
