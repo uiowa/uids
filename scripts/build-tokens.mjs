@@ -84,6 +84,7 @@ const byDotPath = new Map(allLeaves.map((l) => [l.path.join('.'), l]));
 // ---------- Naming: dot path -> --uiowa-* custom property ----------
 // A primitive keeps its property-first path, because a primitive is that thing:
 //   typography.font-size.150 -> --uiowa-font-size-150
+// Semantic typography does not go through here; the emitter prefixes it explicitly.
 // A type style is role-first, so one style's channels sort together and never collide
 // with the primitives they reference (see emitComposite):
 //   typography.heading-h2 + fontSize -> --uiowa-typography-heading-h2-font-size
@@ -173,6 +174,10 @@ for (const l of allLeaves.filter((l) => l.tier === 'semantic')) {
         : cssValue(l.value[channel]);
       decls.push(Array.isArray(v) ? [name, ...v] : [name, v]);
     }
+  } else if (first === 'typography') {
+    // Semantic typography is role-first and keeps the prefix, unlike the primitives
+    // cssVarName strips it from.
+    decls.push([`--uiowa-typography-${l.path.slice(1).join('-')}`, cssValue(l.value)]);
   } else {
     decls.push([cssVarName(l.path.join('.')), cssValue(l.value)]);
   }
