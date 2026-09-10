@@ -9,6 +9,7 @@ import '../../scss/layout/_flexbox.scss';
 import BrandBar from '../brand-bar/BrandBar.vue';
 import ExampleImage from '../media/ExampleImage.vue';
 import UidsBanner from '../banner/Banner.vue';
+import UidsIowaFooter from '../brand-footer/BrandFooter.vue';
 import UidsButton from '../button/Button.vue';
 import UidsCard from '../card/Card.vue';
 import UidsGrid from '../grid/Grid.vue';
@@ -65,7 +66,7 @@ const Template = {
   render: (args) => ({
     components: {
       BrandBar, ExampleImage, UidsBanner, UidsButton, UidsCard,
-      UidsGrid, UidsGridItem, UidsMenu, UidsStat,
+      UidsGrid, UidsGridItem, UidsIowaFooter, UidsMenu, UidsStat,
     },
     setup() {
       return { args, menuItems, programs };
@@ -186,6 +187,19 @@ const Template = {
             <uids-button :url="'#'">Button</uids-button>
           </div>
         </div>
+
+        <uids-iowa-footer :healthcare="false">
+          <div class="site-name">College of Liberal Arts and Sciences</div>
+          <div class="footer__links footer__links--icon">
+            <p>
+              000 Building Name<br>
+              Iowa City, Iowa 52242<br>
+              <a href="tel:319-000-0000">
+                <span class="fa-phone fas" role="presentation"></span> 319-000-0000
+              </a>
+            </p>
+          </div>
+        </uids-iowa-footer>
       </main>
     `,
   }),
