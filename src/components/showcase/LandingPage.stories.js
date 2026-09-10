@@ -7,6 +7,8 @@ import '../../scss/layout/_grid.scss';
 import '../../scss/layout/_flexbox.scss';
 
 import BrandBar from '../brand-bar/BrandBar.vue';
+import ExampleImage from '../media/ExampleImage.vue';
+import UidsBanner from '../banner/Banner.vue';
 import UidsButton from '../button/Button.vue';
 import UidsCard from '../card/Card.vue';
 import UidsGrid from '../grid/Grid.vue';
@@ -16,24 +18,24 @@ import UidsStat from '../stat/Stat.vue';
 import BackgroundStories from '../background/Background.stories.js';
 
 const menuItems = [
-  { label: 'Academics', url: '#' },
+  { label: 'Areas of Study', url: '#' },
   { label: 'Research', url: '#' },
-  { label: 'Admissions', url: '#' },
-  { label: 'About', url: '#' },
+  { label: 'Student Life', url: '#' },
+  { label: 'About the College', url: '#' },
 ];
 
 const programs = [
   {
-    title: 'Undergraduate',
-    body: 'Four-year degrees across sixty departments, with research placements from the first year.',
+    title: 'Undergraduate majors',
+    body: 'More than seventy majors, with room to combine two or add a certificate.',
   },
   {
-    title: 'Graduate',
-    body: 'Master\'s and doctoral study, taught by faculty who publish in the fields they teach.',
+    title: 'Graduate study',
+    body: 'Doctoral and master\'s programs taught by faculty who publish in the fields they teach.',
   },
   {
-    title: 'Professional',
-    body: 'Part-time and evening programs built for people already working in their field.',
+    title: 'Certificates',
+    body: 'Focused credentials you can finish alongside a degree or on their own.',
   },
 ];
 
@@ -61,24 +63,31 @@ export default {
       ...BackgroundStories.argTypes.section_background,
       name: 'Nested panel',
     },
-    cta_background: {
+    stats_background: {
       ...BackgroundStories.argTypes.section_background,
-      name: 'Closing section',
+      name: 'Stats section',
     },
   },
 };
 
 const Template = {
   render: (args) => ({
-    components: { BrandBar, UidsButton, UidsCard, UidsGrid, UidsGridItem, UidsMenu, UidsStat },
+    components: {
+      BrandBar, ExampleImage, UidsBanner, UidsButton, UidsCard,
+      UidsGrid, UidsGridItem, UidsMenu, UidsStat,
+    },
     setup() {
       return { args, menuItems, programs };
     },
     template: `
       <main>
-        <brand-bar :narrow="true" :healthcare="false">
-          <h1 class="site-name flex--10">College of Liberal Arts</h1>
-        </brand-bar>
+        <brand-bar :narrow="false" :healthcare="false" />
+
+        <div class="bg--gold">
+          <div class="layout-container">
+            <p class="site-name">College of Liberal Arts and Sciences</p>
+          </div>
+        </div>
 
         <nav class="menu--container">
           <div class="layout-container">
@@ -86,27 +95,55 @@ const Template = {
           </div>
         </nav>
 
-        <section :class="args.intro_background" class="section-padding">
-          <div class="layout-container">
-            <h1 class="headline headline--serif">A university built on questions</h1>
-            <p class="element--bold-intro">
-              Iowa has spent a century and a half asking what a public university owes the
-              people who fund it.
-            </p>
-            <p>
-              Undergraduates work alongside faculty from their first semester, and the
-              results show up in <a href="#">published research</a>, in classrooms across
-              the state, and in the careers our graduates build.
-            </p>
-            <uids-button :url="'#'">Explore programs</uids-button>
+        <uids-banner
+          :headline="{ text: 'Find your path here', level: 'h1', text_style: 'serif', size: 'large' }"
+          :height="'large'"
+          :narrow="true"
+          :horizontal_alignment="'center'"
+          :vertical_alignment="'bottom'"
+          :media_overlay_type="'btt'"
+          :button_color="'primary'"
+          :buttons="[
+            { label: 'Explore majors', url: '#', color: 'primary' },
+            { label: 'Visit campus', url: '#', color: 'primary' },
+          ]"
+        >
+          <template #media><example-image /></template>
+          <p>A liberal arts education in the heart of a major research university.</p>
+        </uids-banner>
+
+        <div :class="args.intro_background">
+          <div class="layout-container element--margin__top--extra element--margin__bottom--extra">
+            <uids-grid :type="'twocol--67-33'">
+              <uids-grid-item>
+                <h2>Sixty departments, one college</h2>
+                <p class="element--light-intro">
+                  Liberal Arts and Sciences is the largest college at Iowa, and the one most
+                  undergraduates pass through.
+                </p>
+                <p>
+                  Students work with faculty on funded research from their first year, and the
+                  college's graduates go on to <a href="#">medicine, law, public service, and
+                  the arts</a> in roughly equal measure.
+                </p>
+              </uids-grid-item>
+              <uids-grid-item>
+                <div class="border element--margin__top">
+                  <h3>Quick links</h3>
+                  <ul>
+                    <li><a href="#">Advising</a></li>
+                    <li><a href="#">Scholarships</a></li>
+                    <li><a href="#">Course catalog</a></li>
+                  </ul>
+                </div>
+              </uids-grid-item>
+            </uids-grid>
           </div>
-        </section>
+        </div>
 
-        <section :class="args.programs_background" class="section-padding">
-          <div class="layout-container">
+        <div :class="args.programs_background">
+          <div class="layout-container element--margin__top--extra element--margin__bottom--extra">
             <h2>Ways to study here</h2>
-            <p class="element--light-intro">Three routes through the college.</p>
-
             <uids-grid :type="'threecol--33-34-33'">
               <uids-grid-item v-for="p in programs" :key="p.title">
                 <uids-card :url="'#'" :link_text="'Read more'">
@@ -116,31 +153,18 @@ const Template = {
               </uids-grid-item>
             </uids-grid>
 
-            <div :class="args.panel_background" class="border section-padding element--margin__top--extra">
+            <div :class="args.panel_background" class="border element--margin__top--extra">
               <div class="layout-container">
                 <h3>What students say</h3>
                 <blockquote>
                   <p>
-                    I came in expecting to sit through lectures for two years before anyone
-                    let me near a lab. I was in one by October.
+                    I expected to sit through lectures for two years before anyone let me near
+                    a lab. I was in one by October.
                   </p>
                   <footer>Second-year, Biochemistry</footer>
                 </blockquote>
 
-                <h4>By the numbers</h4>
-                <uids-grid :type="'threecol--33-34-33'">
-                  <uids-grid-item>
-                    <uids-stat :stat_title="'31,000'" :stat_summary="'Students enrolled'" />
-                  </uids-grid-item>
-                  <uids-grid-item>
-                    <uids-stat :stat_title="'200'" :stat_summary="'Areas of study'" />
-                  </uids-grid-item>
-                  <uids-grid-item>
-                    <uids-stat :stat_title="'18'" :stat_suffix="':1'" :stat_summary="'Student to faculty'" />
-                  </uids-grid-item>
-                </uids-grid>
-
-                <h5>Application deadlines</h5>
+                <h4>Application deadlines</h4>
                 <table>
                   <thead>
                     <tr><th>Term</th><th>Priority</th><th>Final</th></tr>
@@ -154,18 +178,28 @@ const Template = {
               </div>
             </div>
           </div>
-        </section>
+        </div>
 
-        <section :class="args.cta_background" class="section-padding">
-          <div class="layout-container">
-            <h2>Start an application</h2>
-            <p class="is-large">
+        <div :class="args.stats_background">
+          <div class="layout-container element--margin__top--extra element--margin__bottom--extra">
+            <h2>The college by the numbers</h2>
+            <uids-grid :type="'threecol--33-34-33'">
+              <uids-grid-item>
+                <uids-stat :stat_title="'17,000'" :stat_summary="'Students enrolled'" />
+              </uids-grid-item>
+              <uids-grid-item>
+                <uids-stat :stat_title="'70'" :stat_suffix="'+'" :stat_summary="'Majors offered'" />
+              </uids-grid-item>
+              <uids-grid-item>
+                <uids-stat :stat_title="'18'" :stat_suffix="':1'" :stat_summary="'Student to faculty'" />
+              </uids-grid-item>
+            </uids-grid>
+            <p class="is-large element--margin__top">
               Applications open in September for the following autumn.
             </p>
             <uids-button :url="'#'">Apply now</uids-button>
-            <uids-button :url="'#'" :transparent="true">Request information</uids-button>
           </div>
-        </section>
+        </div>
       </main>
     `,
   }),
@@ -177,6 +211,6 @@ export const LandingPage = {
     intro_background: '',
     programs_background: 'bg--gray',
     panel_background: 'bg--white',
-    cta_background: 'bg--black',
+    stats_background: 'bg--black--pattern--particle',
   },
 };
