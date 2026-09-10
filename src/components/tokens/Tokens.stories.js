@@ -123,17 +123,18 @@ export const Colors = {
           <table>
             <thead>
               <tr>
-                <th>Token</th><th>Swatch</th>
+                <th>Token</th>
                 <th v-if="g === 'color role'">Primitive</th>
                 <th>{{ g === 'color role' ? 'Resolves to' : 'Value' }}</th>
+                <th>Swatch</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="t in tokens.filter(t => t.group === g)" :key="t.name">
                 <td><code>{{ t.name }}</code></td>
-                <td><span class="tk__swatch" :style="{ background: 'var(' + t.name + ')' }"></span></td>
                 <td v-if="g === 'color role'"><code class="tk__note">{{ primitiveOf(t.declared) }}</code></td>
                 <td><code>{{ t.value }}</code></td>
+                <td><span class="tk__swatch" :style="{ background: 'var(' + t.name + ')' }"></span></td>
               </tr>
             </tbody>
           </table>
@@ -173,10 +174,11 @@ export const Typography = {
 
         <h2>Primitives</h2>
         <table>
-          <thead><tr><th>Token</th><th>Specimen</th><th>Value</th></tr></thead>
+          <thead><tr><th>Token</th><th>Value</th><th>Specimen</th></tr></thead>
           <tbody>
             <tr v-for="t in tokens.filter(t => t.group === 'type primitive')" :key="t.name">
               <td><code>{{ t.name }}</code></td>
+              <td><code>{{ t.value }}</code></td>
               <td>
                 <span
                   v-if="t.kind === 'line-height'"
@@ -185,7 +187,6 @@ export const Typography = {
                 >Aa Hawkeye Aa Hawkeye Aa Hawkeye</span>
                 <span v-else class="tk__specimen" :style="specimenStyle(t)">Aa Hawkeye</span>
               </td>
-              <td><code>{{ t.value }}</code></td>
             </tr>
           </tbody>
         </table>
@@ -193,21 +194,21 @@ export const Typography = {
         <h2>Roles</h2>
         <p class="tk__note">A role sets four channels together. Style from one wherever one exists.</p>
         <table>
-          <thead><tr><th>Role</th><th>Specimen</th><th>Channels</th></tr></thead>
+          <thead><tr><th>Role</th><th>Channels</th><th>Specimen</th></tr></thead>
           <tbody>
             <tr v-for="s in styles" :key="s.base">
               <td><code>{{ s.base.replace('--uiowa-typography-', '') }}</code></td>
+              <td>
+                <div v-for="c in s.channels" :key="c.name">
+                  <code class="tk__note">{{ c.prop }}</code> <code>{{ c.value }}</code>
+                </div>
+              </td>
               <td :style="{
                 fontFamily: 'var(' + s.base + '-font-family)',
                 fontWeight: 'var(' + s.base + '-font-weight)',
                 fontSize: 'var(' + s.base + '-font-size)',
                 lineHeight: 'var(' + s.base + '-line-height)',
               }">Aa Hawkeye</td>
-              <td>
-                <div v-for="c in s.channels" :key="c.name">
-                  <code class="tk__note">{{ c.prop }}</code> <code>{{ c.value }}</code>
-                </div>
-              </td>
             </tr>
           </tbody>
         </table>
@@ -215,12 +216,12 @@ export const Typography = {
         <h2>Size modifiers</h2>
         <p class="tk__note">These change a size and nothing else about the style.</p>
         <table>
-          <thead><tr><th>Token</th><th>Specimen</th><th>Resolves to</th></tr></thead>
+          <thead><tr><th>Token</th><th>Resolves to</th><th>Specimen</th></tr></thead>
           <tbody>
             <tr v-for="t in tokens.filter(t => t.name.startsWith('--uiowa-typography-size-'))" :key="t.name">
               <td><code>{{ t.name }}</code></td>
-              <td :style="{ fontSize: 'var(' + t.name + ')' }">Aa Hawkeye</td>
               <td><code>{{ t.value }}</code></td>
+              <td :style="{ fontSize: 'var(' + t.name + ')' }">Aa Hawkeye</td>
             </tr>
           </tbody>
         </table>
