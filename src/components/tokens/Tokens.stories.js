@@ -109,7 +109,7 @@ export const Colors = {
               <tr>
                 <th>Token</th><th>Swatch</th>
                 <th v-if="g === 'color role'">Primitive</th>
-                <th>Resolves to</th>
+                <th>{{ g === 'color role' ? 'Resolves to' : 'Value' }}</th>
               </tr>
             </thead>
             <tbody>
@@ -138,7 +138,7 @@ export const Typography = {
             .filter((n) => n.startsWith('--uiowa-typography-') && !n.startsWith('--uiowa-typography-size-'))
             .map((n) => n.replace(/-(font-family|font-weight|font-size|line-height)$/, '')),
         );
-        styles.value = [...names].map((base) => ({
+        styles.value = [...names].sort().map((base) => ({
           base,
           channels: ['font-family', 'font-weight', 'font-size', 'line-height'].map((c) => ({
             prop: c,
@@ -157,7 +157,7 @@ export const Typography = {
 
         <h2>Primitives</h2>
         <table>
-          <thead><tr><th>Token</th><th>Resolves to</th></tr></thead>
+          <thead><tr><th>Token</th><th>Value</th></tr></thead>
           <tbody>
             <tr v-for="t in tokens.filter(t => t.group === 'type primitive')" :key="t.name">
               <td><code>{{ t.name }}</code></td>
@@ -166,10 +166,10 @@ export const Typography = {
           </tbody>
         </table>
 
-        <h2>Type styles</h2>
-        <p class="tk__note">A style sets four channels together. Style from one wherever one exists.</p>
+        <h2>Roles</h2>
+        <p class="tk__note">A role sets four channels together. Style from one wherever one exists.</p>
         <table>
-          <thead><tr><th>Style</th><th>Specimen</th><th>Channels</th></tr></thead>
+          <thead><tr><th>Role</th><th>Specimen</th><th>Channels</th></tr></thead>
           <tbody>
             <tr v-for="s in styles" :key="s.base">
               <td><code>{{ s.base.replace('--uiowa-typography-', '') }}</code></td>
@@ -214,13 +214,15 @@ export const SpaceAndLayout = {
     template: `
       <div class="tk">
         <component is="style">{{ css }}</component>
-        <h1>Space and layout</h1>
-        <p>Each bar is as wide as the token beside it.</p>
+        <h1>Space and layout tokens</h1>
 
         <h2>Space scale</h2>
-        <p class="tk__note">Step names are rem x 100. Values sit on a 4px grid at the 16px root size.</p>
+        <p class="tk__note">
+          Each bar is as wide as the token beside it. Step names are rem x 100, so values sit
+          on a 4px grid at the 16px root size.
+        </p>
         <table>
-          <thead><tr><th>Token</th><th>Resolves to</th><th>Width</th></tr></thead>
+          <thead><tr><th>Token</th><th>Value</th><th>Width</th></tr></thead>
           <tbody>
             <tr v-for="t in tokens.filter(t => t.group === 'space')" :key="t.name">
               <td><code>{{ t.name }}</code></td>
@@ -232,7 +234,7 @@ export const SpaceAndLayout = {
 
         <h2>Container widths</h2>
         <table>
-          <thead><tr><th>Token</th><th>Resolves to</th></tr></thead>
+          <thead><tr><th>Token</th><th>Value</th></tr></thead>
           <tbody>
             <tr v-for="t in tokens.filter(t => t.group === 'layout')" :key="t.name">
               <td><code>{{ t.name }}</code></td>
