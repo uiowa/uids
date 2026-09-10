@@ -152,9 +152,22 @@ export const Typography = {
     template: `
       <div class="tk">
         <component is="style">{{ css }}</component>
-        <h1>Type styles</h1>
-        <p>Each specimen is set with its own four channels.</p>
+        <h1>Typography tokens</h1>
+        <p>Each specimen is set by the token beside it.</p>
 
+        <h2>Primitives</h2>
+        <table>
+          <thead><tr><th>Token</th><th>Resolves to</th></tr></thead>
+          <tbody>
+            <tr v-for="t in tokens.filter(t => t.group === 'type primitive')" :key="t.name">
+              <td><code>{{ t.name }}</code></td>
+              <td><code>{{ t.value }}</code></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Type styles</h2>
+        <p class="tk__note">A style sets four channels together. Style from one wherever one exists.</p>
         <table>
           <thead><tr><th>Style</th><th>Specimen</th><th>Channels</th></tr></thead>
           <tbody>
@@ -183,17 +196,6 @@ export const Typography = {
             <tr v-for="t in tokens.filter(t => t.name.startsWith('--uiowa-typography-size-'))" :key="t.name">
               <td><code>{{ t.name }}</code></td>
               <td :style="{ fontSize: 'var(' + t.name + ')' }">Aa Hawkeye</td>
-              <td><code>{{ t.value }}</code></td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h2>Primitives</h2>
-        <table>
-          <thead><tr><th>Token</th><th>Resolves to</th></tr></thead>
-          <tbody>
-            <tr v-for="t in tokens.filter(t => t.group === 'type primitive')" :key="t.name">
-              <td><code>{{ t.name }}</code></td>
               <td><code>{{ t.value }}</code></td>
             </tr>
           </tbody>
