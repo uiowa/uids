@@ -73,13 +73,9 @@ const Template = {
     },
     template: `
       <main>
-        <brand-bar :narrow="false" :healthcare="false" />
-
-        <div class="bg--gold">
-          <div class="layout-container">
-            <p class="site-name">College of Liberal Arts and Sciences</p>
-          </div>
-        </div>
+        <brand-bar :narrow="false" :healthcare="false">
+          <h1 class="site-name">College of Liberal Arts and Sciences</h1>
+        </brand-bar>
 
         <nav class="menu--container">
           <div class="layout-container">
@@ -88,12 +84,12 @@ const Template = {
         </nav>
 
         <uids-banner
-          :headline="{ text: 'Banner headline', level: 'h1', text_style: 'serif', size: 'large' }"
+          :headline="{ text: 'Banner headline', level: 'h2', text_style: 'serif', size: 'large', url: '' }"
           :height="'large'"
           :narrow="true"
           :horizontal_alignment="'center'"
           :vertical_alignment="'bottom'"
-          :media_overlay_type="'btt'"
+          :media_overlay_type="''"
           :button_color="'primary'"
           :buttons="[
             { label: 'Primary action', url: '#', color: 'primary' },
