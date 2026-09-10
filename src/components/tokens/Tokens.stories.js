@@ -27,6 +27,9 @@ function readTokens() {
   return found;
 }
 
+/** A role's declared value is a var() reference; the reader wants the primitive's name. */
+const primitiveOf = (declared) => declared.replace(/^var\(\s*/, '').replace(/\s*\)$/, '');
+
 const computed = (name) =>
   getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
@@ -88,7 +91,7 @@ export default {
 export const Colors = {
   render: () => ({
     setup() {
-      return { tokens: useTokens(), css };
+      return { tokens: useTokens(), primitiveOf, css };
     },
     template: `
       <div class="tk">
@@ -105,7 +108,7 @@ export const Colors = {
             <thead>
               <tr>
                 <th>Token</th><th>Swatch</th>
-                <th v-if="g === 'color role'">Points at</th>
+                <th v-if="g === 'color role'">Primitive</th>
                 <th>Resolves to</th>
               </tr>
             </thead>
@@ -113,7 +116,7 @@ export const Colors = {
               <tr v-for="t in tokens.filter(t => t.group === g)" :key="t.name">
                 <td><code>{{ t.name }}</code></td>
                 <td><span class="tk__swatch" :style="{ background: 'var(' + t.name + ')' }"></span></td>
-                <td v-if="g === 'color role'"><code class="tk__note">{{ t.declared }}</code></td>
+                <td v-if="g === 'color role'"><code class="tk__note">{{ primitiveOf(t.declared) }}</code></td>
                 <td><code>{{ t.value }}</code></td>
               </tr>
             </tbody>
