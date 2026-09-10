@@ -48,6 +48,19 @@ function group(name) {
   return 'other';
 }
 
+const SPECIMEN_PROPERTY = {
+  'font-family': 'fontFamily',
+  'font-weight': 'fontWeight',
+  'font-size': 'fontSize',
+  'line-height': 'lineHeight',
+};
+
+/** The CSS property a type primitive sets, so a specimen can demonstrate it. */
+const kindOf = (name) =>
+  (name.match(/^--uiowa-(font-family|font-weight|font-size|line-height)-/) || [])[1];
+
+const specimenStyle = (token) => ({ [SPECIMEN_PROPERTY[token.kind]]: `var(${token.name})` });
+
 const useTokens = () => {
   const tokens = ref([]);
   onMounted(() => {
@@ -56,6 +69,7 @@ const useTokens = () => {
       declared,
       value: computed(name),
       group: group(name),
+      kind: kindOf(name),
     }));
   });
   return tokens;
@@ -76,6 +90,8 @@ const css = `
     border: 1px solid var(--uiowa-color-border-default);
   }
   .tk__bar { display: block; height: 1rem; background: var(--uiowa-color-brand); }
+  .tk__leading { display: inline-block; width: 14rem; }
+  .tk__specimen { white-space: nowrap; }
   .tk__note { color: var(--uiowa-color-neutral-500); }
 `;
 
@@ -147,7 +163,7 @@ export const Typography = {
           })),
         }));
       });
-      return { tokens, styles, css };
+      return { tokens, styles, specimenStyle, css };
     },
     template: `
       <div class="tk">
@@ -157,10 +173,18 @@ export const Typography = {
 
         <h2>Primitives</h2>
         <table>
-          <thead><tr><th>Token</th><th>Value</th></tr></thead>
+          <thead><tr><th>Token</th><th>Specimen</th><th>Value</th></tr></thead>
           <tbody>
             <tr v-for="t in tokens.filter(t => t.group === 'type primitive')" :key="t.name">
               <td><code>{{ t.name }}</code></td>
+              <td>
+                <span
+                  v-if="t.kind === 'line-height'"
+                  class="tk__leading"
+                  :style="specimenStyle(t)"
+                >Aa Hawkeye Aa Hawkeye Aa Hawkeye</span>
+                <span v-else class="tk__specimen" :style="specimenStyle(t)">Aa Hawkeye</span>
+              </td>
               <td><code>{{ t.value }}</code></td>
             </tr>
           </tbody>
