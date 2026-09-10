@@ -33,15 +33,15 @@ const primitiveOf = (declared) => declared.replace(/^var\(\s*/, '').replace(/\s*
 const computed = (name) =>
   getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
-/** Split a token name into the group a reader would look for it under. */
-function group(name) {
+/**
+ * Split a token into the group a reader would look for it under. A role aliases a
+ * primitive and a primitive holds a literal, so the reference is what tells the two
+ * tiers apart -- naming a new role group here would be a step to forget.
+ */
+function group(name, declared) {
   const n = name.replace('--uiowa-', '');
   if (n.startsWith('typography-')) return 'type style';
-  if (n.startsWith('color-')) {
-    return /^color-(text|link|border|background|brand|bg|info|success|warning|danger)/.test(n)
-      ? 'color role'
-      : 'color primitive';
-  }
+  if (n.startsWith('color-')) return declared.startsWith('var(') ? 'color role' : 'color primitive';
   if (n.startsWith('space-')) return 'space';
   if (n.startsWith('layout-')) return 'layout';
   if (/^(font|line)-/.test(n)) return 'type primitive';
@@ -68,7 +68,7 @@ const useTokens = () => {
       name,
       declared,
       value: computed(name),
-      group: group(name),
+      group: group(name, declared),
       kind: kindOf(name),
     }));
   });
