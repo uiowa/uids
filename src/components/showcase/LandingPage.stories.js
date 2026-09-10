@@ -25,18 +25,9 @@ const menuItems = [
 ];
 
 const programs = [
-  {
-    title: 'Undergraduate majors',
-    body: 'More than seventy majors, with room to combine two or add a certificate.',
-  },
-  {
-    title: 'Graduate study',
-    body: 'Doctoral and master\'s programs taught by faculty who publish in the fields they teach.',
-  },
-  {
-    title: 'Certificates',
-    body: 'Focused credentials you can finish alongside a degree or on their own.',
-  },
+  { title: 'Undergraduate majors', body: 'Card body copy. Two or three lines is typical.' },
+  { title: 'Graduate study', body: 'Card body copy. Two or three lines is typical.' },
+  { title: 'Certificates', body: 'Card body copy. Two or three lines is typical.' },
 ];
 
 export default {
@@ -96,7 +87,7 @@ const Template = {
         </nav>
 
         <uids-banner
-          :headline="{ text: 'Find your path here', level: 'h1', text_style: 'serif', size: 'large' }"
+          :headline="{ text: 'Banner headline', level: 'h1', text_style: 'serif', size: 'large' }"
           :height="'large'"
           :narrow="true"
           :horizontal_alignment="'center'"
@@ -104,36 +95,34 @@ const Template = {
           :media_overlay_type="'btt'"
           :button_color="'primary'"
           :buttons="[
-            { label: 'Explore majors', url: '#', color: 'primary' },
-            { label: 'Visit campus', url: '#', color: 'primary' },
+            { label: 'Primary action', url: '#', color: 'primary' },
+            { label: 'Second action', url: '#', color: 'primary' },
           ]"
         >
           <template #media><example-image /></template>
-          <p>A liberal arts education in the heart of a major research university.</p>
+          <p>Banner body copy sits under the headline.</p>
         </uids-banner>
 
         <div :class="args.intro_background">
           <div class="layout-container element--margin__top--extra element--margin__bottom--extra">
             <uids-grid :type="'twocol--67-33'">
               <uids-grid-item>
-                <h2>Sixty departments, one college</h2>
+                <h2>Section heading</h2>
                 <p class="element--light-intro">
-                  Liberal Arts and Sciences is the largest college at Iowa, and the one most
-                  undergraduates pass through.
+                  Light intro paragraph. Sets up the section in a sentence or two.
                 </p>
                 <p>
-                  Students work with faculty on funded research from their first year, and the
-                  college's graduates go on to <a href="#">medicine, law, public service, and
-                  the arts</a> in roughly equal measure.
+                  Body paragraph with <a href="#">a link</a> in it, long enough to wrap and
+                  show the measure of the wider column against the aside beside it.
                 </p>
               </uids-grid-item>
               <uids-grid-item>
                 <div class="border element--margin__top">
-                  <h3>Quick links</h3>
+                  <h3>Aside heading</h3>
                   <ul>
-                    <li><a href="#">Advising</a></li>
-                    <li><a href="#">Scholarships</a></li>
-                    <li><a href="#">Course catalog</a></li>
+                    <li><a href="#">List link one</a></li>
+                    <li><a href="#">List link two</a></li>
+                    <li><a href="#">List link three</a></li>
                   </ul>
                 </div>
               </uids-grid-item>
@@ -143,7 +132,7 @@ const Template = {
 
         <div :class="args.programs_background">
           <div class="layout-container element--margin__top--extra element--margin__bottom--extra">
-            <h2>Ways to study here</h2>
+            <h2>Section heading</h2>
             <uids-grid :type="'threecol--33-34-33'">
               <uids-grid-item v-for="p in programs" :key="p.title">
                 <uids-card :url="'#'" :link_text="'Read more'">
@@ -155,26 +144,23 @@ const Template = {
 
             <div :class="args.panel_background" class="border element--margin__top--extra">
               <div class="layout-container">
-                <h3>What students say</h3>
+                <h3>Panel heading</h3>
                 <blockquote>
-                  <p>
-                    I expected to sit through lectures for two years before anyone let me near
-                    a lab. I was in one by October.
-                  </p>
-                  <footer>Second-year, Biochemistry</footer>
+                  <p>Pull quote inside a nested panel, to show the blockquote treatment.</p>
+                  <footer>Attribution line</footer>
                 </blockquote>
 
-                <h4>Application deadlines</h4>
+                <h4>Table heading</h4>
                 <table>
                   <thead>
-                    <tr><th>Term</th><th>Priority</th><th>Final</th></tr>
+                    <tr><th>Header</th><th>Header</th><th>Header</th></tr>
                   </thead>
                   <tbody>
-                    <tr><td>Fall</td><td>1 December</td><td><a href="#">1 May</a></td></tr>
-                    <tr><td>Spring</td><td>1 August</td><td><a href="#">1 November</a></td></tr>
+                    <tr><td>Row label</td><td>Cell</td><td><a href="#">Cell link</a></td></tr>
+                    <tr><td>Row label</td><td>Cell</td><td><a href="#">Cell link</a></td></tr>
                   </tbody>
                 </table>
-                <p class="is-small">Deadlines differ by program. Check with the department.</p>
+                <p class="is-small">Small text, for notes under a table.</p>
               </div>
             </div>
           </div>
@@ -182,22 +168,22 @@ const Template = {
 
         <div :class="args.stats_background">
           <div class="layout-container element--margin__top--extra element--margin__bottom--extra">
-            <h2>The college by the numbers</h2>
+            <h2>Section heading on a pattern background</h2>
             <uids-grid :type="'threecol--33-34-33'">
               <uids-grid-item>
-                <uids-stat :stat_title="'17,000'" :stat_summary="'Students enrolled'" />
+                <uids-stat :stat_title="'17,000'" :stat_summary="'Stat summary line'" />
               </uids-grid-item>
               <uids-grid-item>
-                <uids-stat :stat_title="'70'" :stat_suffix="'+'" :stat_summary="'Majors offered'" />
+                <uids-stat :stat_title="'70'" :stat_suffix="'+'" :stat_summary="'Stat summary line'" />
               </uids-grid-item>
               <uids-grid-item>
-                <uids-stat :stat_title="'18'" :stat_suffix="':1'" :stat_summary="'Student to faculty'" />
+                <uids-stat :stat_title="'18'" :stat_suffix="':1'" :stat_summary="'Stat summary line'" />
               </uids-grid-item>
             </uids-grid>
             <p class="is-large element--margin__top">
-              Applications open in September for the following autumn.
+              Large text, one step up from body copy.
             </p>
-            <uids-button :url="'#'">Apply now</uids-button>
+            <uids-button :url="'#'">Button</uids-button>
           </div>
         </div>
       </main>
