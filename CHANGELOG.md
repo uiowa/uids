@@ -8,10 +8,14 @@ Entries that change a rendered value carry both the old value and the new one. A
 system built from UIDS can be brought back in line from this file alone, without diffing
 the compiled stylesheets.
 
-## [Unreleased]
+Each release is one `##` heading carrying its version and release date, newest first. A
+heading dated `Unreleased` has not shipped; it takes a date when it does.
+
+## [5.0.0] - Unreleased
 
 First release of the 5.x line. 5.x starts as a copy of 4.x, so every value below is
-stated against 4.0.1.
+stated against 4.0.1. The major version reflects the rendered values that move: spacing,
+heading sizes, status colors, and three grays.
 
 ### Added
 
