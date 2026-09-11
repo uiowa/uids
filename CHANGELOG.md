@@ -41,8 +41,13 @@ heading sizes, status colors, and three grays.
   | `uids/scss/<path>` | Sass source |
   | `uids/tokens/<tier>/<group>.json` | DTCG token source |
 
-  The three `.css` specifiers need `dist/`, which is not committed yet. The two source
-  specifiers work from a git install today.
+  The `.css` specifiers need `dist/`, which is gitignored, so they do not resolve from a
+  git-URL install. Publishing a release now attaches an installable tarball carrying both
+  `dist/` and `src/`, and depending on that asset resolves everything:
+
+  ```json
+  "@uiowa/uids": "https://github.com/uiowa/uids/releases/download/v5.0.0/uids-5.0.0.tgz"
+  ```
 
 #### Design tokens
 
