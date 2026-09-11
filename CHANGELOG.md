@@ -23,12 +23,26 @@ heading sizes, status colors, and three grays.
   the nearest `bg--*` ancestor.
 - `font-family` is now declared on `h2` through `h6`, `p`, `.uids-component--light-intro`,
   and `.element--light-intro`; `font-weight` on `h3` and `p`. The values match what those
-  elements already inherited, so nothing renders differently.
+  elements already inherited.
 - A Storybook `Tokens` section with Colors, Typography, and Space and layout pages, each
   reading the custom properties out of the loaded stylesheets and rendering every token
   through itself.
 - A Storybook `Showcase/Web page` story that builds a full page out of existing
   components.
+- Package subpath exports, so a JS build system can reach the CSS and the token source
+  by specifier rather than by relative path:
+
+  | Specifier | File |
+  | --- | --- |
+  | `uids/uids.css` | the full stylesheet |
+  | `uids/uids-core.css` | reset, base HTML, and custom properties |
+  | `uids/tokens.css` | custom properties alone |
+  | `uids/components/<name>.css` | one component |
+  | `uids/scss/<path>` | Sass source |
+  | `uids/tokens/<tier>/<group>.json` | DTCG token source |
+
+  `dist/` stays untracked on branches and is built into the release commit by a `version`
+  lifecycle script, so it is present at every tag.
 
 #### Design tokens
 
@@ -147,6 +161,9 @@ pattern variants such as `.bg--black--pattern--brain`. No class was added or rem
   gold. The new warning color is legible on its own surface.
 - `src/scss/abstracts/_background-mixins.scss` and `src/scss/abstracts/_placeholders.scss`.
   The `uids-dynamic-extend` and `bg-fg-colors` mixins are gone with them.
+- `main`, `module`, and the `.` export. All three pointed at `dist/uids.es.js` and
+  `dist/uids.umd.js`, which no script has ever built, so `import 'uids'` failed to
+  resolve. It now fails with `ERR_PACKAGE_PATH_NOT_EXPORTED` instead of a missing file.
 
 ### Not changed
 

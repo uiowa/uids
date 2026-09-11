@@ -9,14 +9,19 @@
     "design"
   ],
   "homepage": "https://uids.brand.uiowa.edu",
-  "main": "./dist/uids.umd.js",
-  "module": "./dist/uids.es.js",
-  "style": "",
+  "style": "./dist/uids.css",
+  "sass": "./src/scss/uids.scss",
+  "files": [
+    "dist",
+    "src"
+  ],
   "exports": {
-    ".": {
-      "import": "./dist/uids.es.js",
-      "require": "./dist/uids.umd.js"
-    }
+    "./uids.css": "./dist/uids.css",
+    "./uids-core.css": "./dist/uids-core.css",
+    "./tokens.css": "./dist/tokens.css",
+    "./components/*.css": "./dist/components/*.css",
+    "./scss/*": "./src/scss/*",
+    "./tokens/*.json": "./src/tokens/*.json"
   },
   "scripts": {
     "build:tokens": "node scripts/build-tokens.mjs",
@@ -31,7 +36,8 @@
     "typecheck": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "version": "yarn build && git add -f dist"
   },
   "dependencies": {
     "vue": "^3.5.34"
