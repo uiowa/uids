@@ -19,6 +19,22 @@ heading sizes, status colors, and three grays.
 
 ### Added
 
+- Three CSS custom properties that resolve against the nearest `bg--*` ancestor:
+  `--uiowa-color-text`, `--uiowa-color-link`, and `--uiowa-color-border`. Components read
+  these rather than a `-default` or `-inverse` token. They are not tokens and
+  `dist/tokens.css` does not carry them, because their value is whichever one the
+  surrounding surface chose.
+- `body` now sets `background-color: #FFFFFF`. Nothing set it before, so the page took
+  the browser default.
+- `font-family` is now declared on `h2` through `h6`, `p`, `.uids-component--light-intro`,
+  and `.element--light-intro`; `font-weight` on `h3` and `p`. The values match what those
+  elements already inherited, so nothing renders differently.
+- A Storybook `Tokens` section with Colors, Typography, and Space and layout pages, each
+  reading the custom properties out of the loaded stylesheets and rendering every token
+  through itself.
+- A Storybook `Showcase/Web page` story that builds a full page out of existing
+  components.
+
 #### Design tokens
 
 `src/tokens/` is the source of truth for color, typography, space, and layout values.
@@ -33,39 +49,20 @@ heading sizes, status colors, and three grays.
 | Layout | None | 3 container widths |
 
 Three breakpoint primitives are authored but not emitted. A type style is one
-`$type: "typography"` composite and emits four custom properties, one per channel, which
+`$type: "typography"` composite and emits four custom properties, one per property, which
 is why 111 tokens produce 135 declarations.
 
-#### Context color channels
-
-`--uiowa-color-text`, `--uiowa-color-link`, and `--uiowa-color-border` resolve against
-the nearest `bg--*` ancestor. Read these rather than a `-default` or `-inverse` variant:
-
-```css
-.my-component {
-  color: var(--uiowa-color-text);
-  border-color: var(--uiowa-color-border);
-}
-```
-
-#### Page background
-
-`body` now sets `background-color: #FFFFFF`. Nothing set it before, so the page took the
-browser default.
-
-#### Explicit type channels
-
-`font-family` is now declared on `h2` through `h6`, `p`, `.uids-component--light-intro`, and
-`.element--light-intro`; `font-weight` on `h3` and `p`. The values match what those
-elements already inherited, so nothing renders differently.
-
-#### Storybook
-
-A `Tokens` section with Colors, Typography, and Space and layout pages, each reading the
-custom properties out of the loaded stylesheets and rendering every token through itself.
-A `Showcase/Web page` story that builds a full page out of existing components.
-
 ### Changed
+
+- Serif headings take the sans size. `.headline--serif` and `.bold-headline--serif` still
+  set Zilla Slab, but no longer carry their own `font-size` at `h2` through `h6`. Those
+  five overrides made Zilla Slab optically match Roboto, which puts a dependency on the
+  typeface into the size value; that compensation belongs at the `@font-face` layer, via
+  `size-adjust`. Serif headings now render slightly larger at narrow viewports and
+  slightly smaller at wide ones.
+- Sass variables such as `$success` and `$container-width` hold `var()` references rather
+  than literals, so Sass color and math functions cannot operate on them. A calculation
+  needs the raw token value.
 
 #### Spacing scale
 
@@ -95,15 +92,6 @@ and `h6` becomes fluid rather than fixed.
 | `h6` | `1.2rem` | `clamp(1.2rem, calc(0.1728vw + 1.1352rem), 1.2767rem)` |
 
 `h1` also gains `line-height: 1.15`, which was `unset`.
-
-#### Serif headings take the sans size
-
-`.headline--serif` and `.bold-headline--serif` still set Zilla Slab. They no longer
-carry their own `font-size` at `h2` through `h6`. Those five overrides existed to make
-Zilla Slab optically match Roboto, which puts a dependency on the typeface into the size
-value. That compensation belongs at the `@font-face` layer, via `size-adjust`. Serif
-headings now render slightly larger at narrow viewports and slightly smaller at wide
-ones.
 
 #### Status colors
 
@@ -143,7 +131,7 @@ replaced.
 #### Background contexts
 
 Every `bg--*` class still exists and still takes the same fill. What changed is how
-content inside one gets its color. Each surface re-points the three context channels, and
+content inside one gets its color. Each surface re-points the three custom properties listed under Added, and
 CSS custom property inheritance carries the choice down.
 
 An element now takes its colors from the nearest background ancestor at any nesting
@@ -153,19 +141,13 @@ combinations, and a third level fell back to the outermost background.
 Selector text changed from `.bg--black` to `[class*="bg--black"]`, which also matches the
 pattern variants such as `.bg--black--pattern--brain`. No class was added or removed.
 
-#### Sass variables hold references
-
-Variables such as `$success` and `$container-width` now hold `var()` references rather
-than literals, so Sass color and math functions cannot operate on them. A calculation
-needs the raw token value.
-
 ### Removed
 
 - The five serif `font-size` overrides in `_headings.scss`, at `h2` through `h6`.
 - The blanket `[class*="bg--"] *` border rule and its `:before` / `:after` counterpart.
   Nothing in UIDS had a visible border that depended on it.
 - `[class*="bg--black"]` overrides on `.alert`, `.border`, and `.card`, replaced by the
-  context channels.
+  three custom properties listed under Added.
 - `$orange` (`#BD472A`). It was a workaround for a warning icon that was illegible in
   gold. The new warning color is legible on its own surface.
 - `src/scss/abstracts/_background-mixins.scss` and `src/scss/abstracts/_placeholders.scss`.
@@ -173,7 +155,6 @@ needs the raw token value.
 
 ### Not changed
 
-No component markup changed. No `.vue` file differs from 4.0.1.
-
-This release introduces no border, shadow, or breakpoint tokens. Two `box-shadow` values
-on `.form input` do change, but only because the colors inside them did.
+- No component markup. No `.vue` file differs from 4.0.1.
+- No border, shadow, or breakpoint tokens are introduced. Two `box-shadow` values on
+  `.form input` do change, but only because the colors inside them did.
