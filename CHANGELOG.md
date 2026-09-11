@@ -41,8 +41,8 @@ heading sizes, status colors, and three grays.
   | `uids/scss/<path>` | Sass source |
   | `uids/tokens/<tier>/<group>.json` | DTCG token source |
 
-  `dist/` stays untracked on branches and is built into the release commit by a `version`
-  lifecycle script, so it is present at every tag.
+  The three `.css` specifiers need `dist/`, which is not committed yet. The two source
+  specifiers work from a git install today.
 
 #### Design tokens
 
