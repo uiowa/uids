@@ -51,7 +51,6 @@ const GROWTH = 1.34;
 // unsuffixed pointer (--uiowa-color-text) alongside its variants, aimed at default.
 // Re-pointing it per surface is scss/components/_background.scss's job: which class means
 // which context is markup knowledge, not token data.
-const CONTEXT_NAMES = new Set(['default', 'gold', 'inverse']);
 const { version } = readJson('package.json');
 
 // ---------- Load token leaves ----------
@@ -155,13 +154,9 @@ function fontSizeValue(size, fluid) {
   ];
 }
 
-const colorGroups = new Map(); // group -> Set(variant), for color.<group>.<variant>
 for (const l of allLeaves.filter((l) => l.tier === 'semantic')) {
-  const [first, second] = l.path;
+  const [first] = l.path;
   if (first === 'color') {
-    if (l.path.length === 3) {
-      colorGroups.set(second, (colorGroups.get(second) ?? new Set()).add(l.path[2]));
-    }
     decls.push([cssVarName(l.path.join('.')), leafValue(l)]);
   } else if (l.type === 'typography') {
     // Emit every channel, including ones that repeat a neighbour's value. A consumer
@@ -181,21 +176,6 @@ for (const l of allLeaves.filter((l) => l.tier === 'semantic')) {
   } else {
     decls.push([cssVarName(l.path.join('.')), cssValue(l.value)]);
   }
-}
-
-// ---------- Context group pointers ----------
-// A group qualifies when every one of its variants names a context and one of them is
-// default. That excludes color.bg, whose variants are surfaces (black/gray/white) rather
-// than contexts. Each qualifying group emits its bare name aimed at the default variant,
-// so components read one name; _background.scss re-points it inside a surface.
-for (const [group, variants] of colorGroups) {
-  if (!variants.has('default') || ![...variants].every((v) => CONTEXT_NAMES.has(v))) continue;
-  const name = `--uiowa-color-${group}`;
-  if (decls.some(([n]) => n === name)) {
-    throw new Error(`color.${group} has context variants, so the generator emits ${name}; `
-      + 'remove the token of that name or rename the group');
-  }
-  decls.push([name, `var(--uiowa-color-${group}-default)`]);
 }
 
 // ---------- Emit ----------

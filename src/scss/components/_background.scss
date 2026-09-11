@@ -8,6 +8,15 @@
 // what lets a background nested inside another behave the same as a bare one. The inner
 // class re-points the roles again and inheritance carries them down at any depth.
 //
+// The context roles start on their default variant, for content that sits outside any
+// background class. These three names are not tokens: a token holds a value, and these
+// hold whichever value the surface below chose, so tokens.css does not carry them.
+:root {
+  --uiowa-color-text: var(--uiowa-color-text-default);
+  --uiowa-color-link: var(--uiowa-color-link-default);
+  --uiowa-color-border: var(--uiowa-color-border-default);
+}
+
 // The substring match covers a surface's plain class and its three pattern variants.
 [class*="bg--white"] {
   background-color: var(--uiowa-color-bg-white);
