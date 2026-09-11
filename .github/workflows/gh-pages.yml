@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - "4.x"
-      - "5.x"
     tags:
       - '*'
   pull_request:
@@ -50,16 +49,6 @@ jobs:
         run: |
           echo "branch=latest" >> $GITHUB_ENV
           echo "target_dir=/" >> $GITHUB_ENV
-
-      # 5.x publishes to the versioned docs shelf as 5.x.x. Not /latest, which 4.x holds,
-      # and not /branches/, which delete-stale-branch.yml prunes against branch names.
-      - name: Set variables for 5.x
-        if: |
-          github.event_name == 'push' &&
-          github.ref == 'refs/heads/5.x'
-        run: |
-          echo "branch=5.x.x" >> $GITHUB_ENV
-          echo "target_dir=/docs/" >> $GITHUB_ENV
 
       - name: Set variables for branches
         if: |
