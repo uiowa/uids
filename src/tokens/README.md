@@ -66,8 +66,10 @@ tokens instead of literals. That covers `--uiowa-gold`, `--uids-light`,
 `--transparent-border`, `--space-sm-width-gutter`, and the rest. They are public API, so
 they stay until someone retires them deliberately.
 
-They are value-exact with what they replaced. Introducing this layer changed no
-resolved value anywhere in the compiled CSS. To retire one:
+Eleven of the fourteen are value-exact with what they replaced. Three shifted when the
+palette moved to the Foundations neutral steps: `--uids-gray-light` `#CACACA` to
+`#BCBEC0`, `--uids-gray-mid` `#9A9A9A` to `#8D9094`, and `--uids-gray` `#737373` to
+`#777A7F`. To retire one:
 
 1. Repoint usage at the `--uiowa-*` names, one at a time.
 2. Delete an alias once nothing references it.
