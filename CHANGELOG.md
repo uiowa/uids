@@ -20,9 +20,7 @@ heading sizes, status colors, and three grays.
 ### Added
 
 - `--uiowa-color-text`, `--uiowa-color-link`, and `--uiowa-color-border` resolve against
-  the nearest `bg--*` ancestor. Components read these.
-- `body` now sets `background-color: #FFFFFF`. Nothing set it before, so the page took
-  the browser default.
+  the nearest `bg--*` ancestor.
 - `font-family` is now declared on `h2` through `h6`, `p`, `.uids-component--light-intro`,
   and `.element--light-intro`; `font-weight` on `h3` and `p`. The values match what those
   elements already inherited, so nothing renders differently.
