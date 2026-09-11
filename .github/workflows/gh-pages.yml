@@ -51,17 +51,15 @@ jobs:
           echo "branch=latest" >> $GITHUB_ENV
           echo "target_dir=/" >> $GITHUB_ENV
 
-      # 5.x is a parallel line rather than the released docs, so it publishes beside the
-      # PR previews instead of replacing latest. The directory has to be named for the
-      # branch: delete-stale-branch.yml removes any directory under branches/ that does
-      # not match a remote branch name.
+      # 5.x publishes to the versioned docs shelf as 5.x.x. Not /latest, which 4.x holds,
+      # and not /branches/, which delete-stale-branch.yml prunes against branch names.
       - name: Set variables for 5.x
         if: |
           github.event_name == 'push' &&
           github.ref == 'refs/heads/5.x'
         run: |
-          echo "branch=5.x" >> $GITHUB_ENV
-          echo "target_dir=/branches/" >> $GITHUB_ENV
+          echo "branch=5.x.x" >> $GITHUB_ENV
+          echo "target_dir=/docs/" >> $GITHUB_ENV
 
       - name: Set variables for branches
         if: |
