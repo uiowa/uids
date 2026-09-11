@@ -19,11 +19,8 @@ heading sizes, status colors, and three grays.
 
 ### Added
 
-- Three CSS custom properties that resolve against the nearest `bg--*` ancestor:
-  `--uiowa-color-text`, `--uiowa-color-link`, and `--uiowa-color-border`. Components read
-  these rather than a `-default` or `-inverse` token. They are not tokens and
-  `dist/tokens.css` does not carry them, because their value is whichever one the
-  surrounding surface chose.
+- `--uiowa-color-text`, `--uiowa-color-link`, and `--uiowa-color-border` resolve against
+  the nearest `bg--*` ancestor. Components read these.
 - `body` now sets `background-color: #FFFFFF`. Nothing set it before, so the page took
   the browser default.
 - `font-family` is now declared on `h2` through `h6`, `p`, `.uids-component--light-intro`,
@@ -131,8 +128,8 @@ replaced.
 #### Background contexts
 
 Every `bg--*` class still exists and still takes the same fill. What changed is how
-content inside one gets its color. Each surface re-points the three custom properties listed under Added, and
-CSS custom property inheritance carries the choice down.
+content inside one gets its color. Each surface re-points `--uiowa-color-text`,
+`--uiowa-color-link` and `--uiowa-color-border`, and inheritance carries the choice down.
 
 An element now takes its colors from the nearest background ancestor at any nesting
 depth. Before, the stylesheet spelled out two levels of nesting as 27 selector
@@ -146,8 +143,8 @@ pattern variants such as `.bg--black--pattern--brain`. No class was added or rem
 - The five serif `font-size` overrides in `_headings.scss`, at `h2` through `h6`.
 - The blanket `[class*="bg--"] *` border rule and its `:before` / `:after` counterpart.
   Nothing in UIDS had a visible border that depended on it.
-- `[class*="bg--black"]` overrides on `.alert`, `.border`, and `.card`, replaced by the
-  three custom properties listed under Added.
+- `[class*="bg--black"]` border-color overrides on `.alert`, `.border`, and `.card`,
+  replaced by `--uiowa-color-border`.
 - `$orange` (`#BD472A`). It was a workaround for a warning icon that was illegible in
   gold. The new warning color is legible on its own surface.
 - `src/scss/abstracts/_background-mixins.scss` and `src/scss/abstracts/_placeholders.scss`.
