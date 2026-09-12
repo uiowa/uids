@@ -165,9 +165,3 @@ pattern variants such as `.bg--black--pattern--brain`. No class was added or rem
 - `main`, `module`, and the `.` export. All three pointed at `dist/uids.es.js` and
   `dist/uids.umd.js`, which no script has ever built, so `import 'uids'` failed to
   resolve. It now fails with `ERR_PACKAGE_PATH_NOT_EXPORTED` instead of a missing file.
-
-### Not changed
-
-- No component markup. No `.vue` file differs from 4.0.1.
-- No border, shadow, or breakpoint tokens are introduced. Two `box-shadow` values on
-  `.form input` do change, but only because the colors inside them did.
