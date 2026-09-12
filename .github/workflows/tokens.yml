@@ -1,9 +1,6 @@
 name: Tokens
 
-# src/scss/abstracts/_tokens-generated.scss is committed, because Storybook, fresh
-# checkouts, and git-URL installs all read the Sass source without a build step. That
-# only stays safe if something fails when it drifts from src/tokens/**, which is what
-# this check does.
+# Fails when src/scss/abstracts/_tokens-generated.scss is out of date with src/tokens/**.
 
 on:
   push:
@@ -24,8 +21,5 @@ jobs:
         with:
           node-version: '20.x'
 
-      # No yarn install: the generator uses only node: builtins, so it runs on a
-      # bare checkout. Keep it dependency-free so this check stays fast and cannot
-      # be broken by an unrelated dependency problem.
       - name: Token drift
         run: node scripts/build-tokens.mjs --check

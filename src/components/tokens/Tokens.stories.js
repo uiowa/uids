@@ -33,11 +33,7 @@ const primitiveOf = (declared) => declared.replace(/^var\(\s*/, '').replace(/\s*
 const computed = (name) =>
   getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
-/**
- * Split a token into the group a reader would look for it under. A role aliases a
- * primitive and a primitive holds a literal, so the reference is what tells the two
- * tiers apart -- naming a new role group here would be a step to forget.
- */
+/** The group a reader looks for a token under. A role aliases; a primitive holds a literal. */
 function group(name, declared) {
   const n = name.replace('--uiowa-', '');
   if (n.startsWith('typography-')) return 'type style';
@@ -55,7 +51,6 @@ const SPECIMEN_PROPERTY = {
   'line-height': 'lineHeight',
 };
 
-/** The CSS property a type primitive sets, so a specimen can demonstrate it. */
 const kindOf = (name) =>
   (name.match(/^--uiowa-(font-family|font-weight|font-size|line-height)-/) || [])[1];
 
@@ -268,6 +263,22 @@ export const SpaceAndLayout = {
             </tr>
           </tbody>
         </table>
+
+        <h2>Unclassified</h2>
+        <p class="tk__note">
+          Legacy aliases from <code>uids-core.scss</code> land here. A new token group
+          landing here needs a page.
+        </p>
+        <table v-if="tokens.some(t => t.group === 'other')">
+          <thead><tr><th>Token</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr v-for="t in tokens.filter(t => t.group === 'other')" :key="t.name">
+              <td><code>{{ t.name }}</code></td>
+              <td><code>{{ t.value }}</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <p v-else class="tk__note">None.</p>
       </div>
     `,
   }),

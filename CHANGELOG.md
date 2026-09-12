@@ -4,12 +4,11 @@ Notable changes to UIDS. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project follows
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-Entries that change a rendered value carry both the old value and the new one. A design
-system built from UIDS can be brought back in line from this file alone, without diffing
-the compiled stylesheets.
+Entries that change a rendered value carry both the old value and the new one, so a
+design system built from UIDS can be realigned from this file alone.
 
-Each release is one `##` heading carrying its version and release date, newest first. A
-heading dated `Unreleased` has not shipped; it takes a date when it does.
+One `##` heading per release, newest first, carrying its version and release date.
+`Unreleased` takes a date when it ships.
 
 ## [5.0.0] - Unreleased
 
@@ -69,20 +68,17 @@ is why 111 tokens produce 135 declarations.
 ### Changed
 
 - Serif headings take the sans size. `.headline--serif` and `.bold-headline--serif` still
-  set Zilla Slab, but no longer carry their own `font-size` at `h2` through `h6`. Those
-  five overrides made Zilla Slab optically match Roboto, which puts a dependency on the
-  typeface into the size value; that compensation belongs at the `@font-face` layer, via
-  `size-adjust`. Serif headings now render slightly larger at narrow viewports and
-  slightly smaller at wide ones.
+  set Zilla Slab, but no longer carry their own `font-size` at `h2` through `h6`. They
+  now render slightly larger at narrow viewports and slightly smaller at wide ones.
 - Sass variables such as `$success` and `$container-width` hold `var()` references rather
   than literals, so Sass color and math functions cannot operate on them. A calculation
   needs the raw token value.
 
 #### Spacing scale
 
-Four Sass spacing variables now point at steps on a 4px grid. This is the largest
-rendered change in the release. It moves 72 declarations across 59 selectors, covering
-padding and margin on cards, alerts, tables, buttons, forms, and menus.
+Four Sass spacing variables now point at steps on a 4px grid, moving 72 declarations
+across 59 selectors: padding and margin on cards, alerts, tables, buttons, forms, and
+menus.
 
 | Variable | Was | Now |
 | --- | --- | --- |

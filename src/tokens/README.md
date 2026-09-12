@@ -18,14 +18,11 @@ Regenerate with:
 yarn build:tokens
 ```
 
-It is committed, so a fresh checkout can run Storybook and a git-URL install can read
-the Sass source without a build step. CI fails if it drifts from `src/tokens/**`.
+The output is committed, and CI fails if it drifts from `src/tokens/**`. Change
+`src/tokens/` and regenerate; do not hand-edit it.
 
-CSS comes from Sass, not from the generator. `src/scss/tokens.scss` is an entrypoint the
-existing `sass src/scss:dist` build compiles to `dist/tokens.css`, alongside
-`uids-core.css` and `uids.css`.
-
-**Never hand-edit a generated file.** Change `src/tokens/` and regenerate.
+`src/scss/tokens.scss` is an entrypoint the `sass src/scss:dist` build compiles to
+`dist/tokens.css`, alongside `uids-core.css` and `uids.css`.
 
 ## Format
 
@@ -33,18 +30,16 @@ Token files are DTCG-shaped. `$value` holds the value, `$type` names the type wh
 context does not, `$description` says what the token is for, and `{dot.path}` references
 another token.
 
-A text style is one `$type: "typography"` composite rather than a token per property, so
-the file records that a style's channels belong together. Its sub-values are references,
-and the generator emits every channel as `--uiowa-typography-<role>-<property>`.
+A text style is one `$type: "typography"` composite. Its sub-values are references, and
+the generator emits every channel as `--uiowa-typography-<role>-<property>`.
 
 `fontSize` is always one reference: the small end for a style that scales, the only size
 otherwise. `$extensions."edu.uiowa.fluid"` says whether it scales and where to. `true`
 derives the large end from the small one, which is how the six headings work. A reference
 names the large end outright, for the two intro styles the curve does not fit.
 
-One deliberate deviation from DTCG 2025.10: dimensions are strings (`"1.2rem"`) rather
-than the spec's `{ "value": 1.2, "unit": "rem" }`. Nothing but this repo's generator
-reads these files, so the object form costs readability and buys nothing yet.
+Dimensions are strings (`"1.2rem"`), a deliberate deviation from DTCG 2025.10, which
+specifies `{ "value": 1.2, "unit": "rem" }`.
 
 ```json
 "neutral": {
@@ -66,10 +61,9 @@ tokens instead of literals. That covers `--uiowa-gold`, `--uids-light`,
 `--transparent-border`, `--space-sm-width-gutter`, and the rest. They are public API, so
 they stay until someone retires them deliberately.
 
-Eleven of the fourteen are value-exact with what they replaced. Three shifted when the
-palette moved to the Foundations neutral steps: `--uids-gray-light` `#CACACA` to
-`#BCBEC0`, `--uids-gray-mid` `#9A9A9A` to `#8D9094`, and `--uids-gray` `#737373` to
-`#777A7F`. To retire one:
+Three shifted when the palette moved to the Foundations neutral steps, and the rest
+resolve to what they always did. The shifts are recorded in the changelog. To retire
+one:
 
 1. Repoint usage at the `--uiowa-*` names, one at a time.
 2. Delete an alias once nothing references it.
@@ -82,6 +76,5 @@ API on the same terms, so removing one is a breaking change rather than a cleanu
 untokenized set includes `$label-font-size`, `$xsm-sm`, `$xxlg`, `$xxxlg`, `$xlg`,
 `$sm-md`, `$gutter`, and `$mobile-width-gutter`.
 
-Sass math and color functions cannot operate on the variables that now hold `var()`
-references. Nothing in `src/scss` tries, and the `color.scale()` call sites stay on
-literals for that reason. A new calculation needs the raw token value, not the variable.
+Sass math and color functions cannot operate on the variables that hold `var()`
+references. A calculation needs the raw token value, not the variable.

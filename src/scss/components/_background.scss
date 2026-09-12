@@ -1,22 +1,13 @@
 @use '../abstracts/variables';
 
-// Surfaces.
-//
-// Each background class sets its own fill and re-points the context color roles for its
-// content, so a component reads --uiowa-color-text and gets the right value for wherever
-// it sits. Each context declares its full set rather than only its overrides, which is
-// what lets a background nested inside another behave the same as a bare one. The inner
-// class re-points the roles again and inheritance carries them down at any depth.
-//
-// The context roles start on their default variant, for content that sits outside any
-// background class.
+// Surfaces. Every context declares the full set, not only its overrides, so a nested
+// background behaves the same as a bare one at any depth.
 :root {
   --uiowa-color-text: var(--uiowa-color-text-default);
   --uiowa-color-link: var(--uiowa-color-link-default);
   --uiowa-color-border: var(--uiowa-color-border-default);
 }
 
-// The substring match covers a surface's plain class and its three pattern variants.
 [class*="bg--white"] {
   background-color: var(--uiowa-color-bg-white);
   --uiowa-color-text: var(--uiowa-color-text-default);
@@ -45,8 +36,7 @@
   --uiowa-color-border: var(--uiowa-color-border-inverse);
 }
 
-// Pattern artwork. The class names the surface it sits on, so each combination is its own
-// image.
+// Pattern artwork.
 .bg--white--pattern--brain { background-image: url('#{variables.$imgpath}/brain-pattern.svg'); }
 .bg--white--pattern--community { background-image: url('#{variables.$imgpath}/community-pattern--gray.png'); }
 .bg--white--pattern--particle { background-image: url('#{variables.$imgpath}/particle-pattern--gold.png'); }
@@ -75,7 +65,6 @@
   background-size: 1000px;
 }
 
-// Content reads the roles.
 [class*="bg--"] {
   color: var(--uiowa-color-text);
   border-color: var(--uiowa-color-border);

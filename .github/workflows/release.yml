@@ -1,20 +1,9 @@
 name: Release
 
-# Attaches an installable package tarball to a published release.
-#
-# dist/ is gitignored, so a consumer installing the repo by git URL gets no compiled CSS.
-# This builds it at release time and uploads `npm pack` output, which carries dist/ and
-# src/ per the `files` field in package.json. Consumers depend on the asset URL:
+# Builds dist/ and attaches `npm pack` output to a published release. Consumers depend on
+# the asset URL:
 #
 #   "@uiowa/uids": "https://github.com/uiowa/uids/releases/download/v5.0.0/uids-5.0.0.tgz"
-#
-# Nothing is committed and no branch is pushed, so branch protection is not involved. The
-# tarball is the same artifact `npm publish` would upload, so publishing to a registry
-# later is an added step here rather than a different process.
-#
-# Releases are created through the GitHub UI after a PR bumps the version by hand, per
-# issue #1047. This runs on publish, so there is no extra step to remember. Re-run it by
-# hand with workflow_dispatch if it fails.
 
 on:
   release:
@@ -39,9 +28,6 @@ jobs:
         with:
           ref: ${{ github.event.release.tag_name || inputs.tag }}
 
-      # The version is bumped by hand in a PR, so it can disagree with the tag. A
-      # mismatch means the bump was missed or the wrong tag was cut, and the tarball
-      # would be named for a version nobody released.
       - name: Check the version matches the tag
         run: |
           version=$(node -p "require('./package.json').version")
