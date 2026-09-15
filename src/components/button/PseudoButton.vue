@@ -37,7 +37,7 @@ const props = defineProps({
 })
 
 const classes = computed(() => {
-  let classes = ['bttn'];
+  const classes = ['bttn'];
 
   ['light_font', 'outline'].forEach((prop) => {
     if (props[prop] === true) {

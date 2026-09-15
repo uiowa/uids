@@ -111,3 +111,35 @@ Danger.args = {
   ...Info.args,
   type: 'danger',
 };
+
+export const Dismissible = Template.bind({});
+Dismissible.args = {
+  ...Info.args,
+  dismissible: true,
+};
+
+export const NoIcon = Template.bind({});
+NoIcon.args = {
+  ...Info.args,
+  iconVisible: false,
+};
+
+export const Centered = Template.bind({});
+Centered.args = {
+  ...Info.args,
+  centered: true,
+  verticallyCentered: true,
+};
+
+export const HeadingScale = Template.bind({});
+HeadingScale.args = {
+  ...Info.args,
+  iconVisible: false,
+  default: `
+    <h2>Heading level 2</h2>
+    <h3>Heading level 3</h3>
+    <h4>Heading level 4</h4>
+    <h5>Heading level 5</h5>
+    <h6>Heading level 6</h6>
+  `,
+};

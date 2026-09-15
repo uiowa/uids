@@ -249,3 +249,26 @@ ThreeColumn.args = {
   grid_type: 'threecol--33-34-33',
   records: 3,
 }
+
+// Bare context — NO grid ancestor, so no container-name: column and the
+// media-query branch of _inline.scss governs alone. Exists so the regression
+// harness pins BOTH responsive branches (the @container branch is pinned via
+// Default, whose grid columns are containers): notably the as-shipped
+// media-query behavior of .inline--size-medium jumping straight to 50% at
+// 600px (the duplicate-breakpoint knownIssue in contracts/inline.json —
+// ruled document-don't-fix for 4.x).
+export const BareContext = {
+  render: () => ({
+    template: `
+      <div>
+        <div class="inline--size-full" style="min-height: 40px; background: #eee;">full</div>
+        <div class="inline--size-small" style="min-height: 40px; background: #eee;">small</div>
+        <div class="inline--size-medium" style="min-height: 40px; background: #eee;">medium</div>
+        <div class="inline--size-large" style="min-height: 40px; background: #eee;">large</div>
+        <div class="inline--size-small inline--align-left" style="min-height: 40px; background: #ddd;">small left</div>
+        <div class="inline--size-small inline--align-right" style="min-height: 40px; background: #ddd;">small right</div>
+        <div style="clear: both;"></div>
+      </div>
+    `,
+  }),
+}

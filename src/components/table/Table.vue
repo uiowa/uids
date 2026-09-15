@@ -26,7 +26,7 @@ const props = defineProps({
 });
 
 const tableClasses = computed(() => {
-  let classes = [];
+  const classes = [];
 
   if (props.highlight) {
     classes.push('table--hover-highlight');

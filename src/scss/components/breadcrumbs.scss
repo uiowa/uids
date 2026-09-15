@@ -1,0 +1,81 @@
+@use '../abstracts/variables';
+@use '../abstracts/utilities';
+
+// Ported verbatim from uids_base (uiowa/uiowa
+// docroot/themes/custom/uids_base/scss/components/breadcrumbs.scss) — the component
+// previously existed only downstream. Markup is Drupal core's breadcrumb template:
+// nav.breadcrumb > visually-hidden h2 + ol > li (a for linked crumbs, bare text
+// otherwise). The .hero__content and .block-system-breadcrumb-block ancestors are
+// SiteNow page contexts (inert here, kept so uids_base can consume this file as-is).
+
+.breadcrumb {
+  list-style: none;
+  @include utilities.margin(variables.$top: variables.$sm, variables.$right: 0, variables.$bottom: variables.$sm, variables.$left:0);
+  ol {
+    @extend %no-ul-list;
+  }
+}
+
+.breadcrumb::before,
+.breadcrumb::after {
+  display: table;
+  content: ' ';
+  flex:1 0 0;
+  order: 1;
+}
+
+.breadcrumb::after {
+  clear: both;
+}
+
+.breadcrumb li {
+  float: left;
+  cursor: default;
+  //text-transform: uppercase;
+  color: var(--uiowa-breadcrumb-item-color);
+  font-size: var(--uiowa-breadcrumb-item-font-size);
+}
+
+.breadcrumb li:not(:last-child)::after {
+  position: relative;
+  content: "/";
+  opacity: 1;
+  color: var(--uiowa-breadcrumb-separator-color);
+  @include utilities.margin(variables.$top: 0, variables.$right: var(--uiowa-breadcrumb-separator-gap), variables.$bottom: 0, variables.$left:var(--uiowa-breadcrumb-separator-gap));
+}
+
+.breadcrumb a {
+  text-decoration: none;
+  color: var(--uiowa-breadcrumb-link-color);
+}
+
+.breadcrumb a:hover,
+.breadcrumb a:focus {
+  text-decoration: underline;
+}
+
+.breadcrumb .disabled {
+  cursor: not-allowed;
+  color: var(--uiowa-breadcrumb-disabled-color);
+}
+
+.breadcrumb {
+  margin-bottom: 0;
+  margin-top: 1.75rem;
+  .hero__content & {
+    margin-bottom: 0;
+    margin-top: 1rem;
+  }
+  [class*="bg--black"] & li,
+  [class*="bg--black"] & li a {
+    color: var(--uiowa-breadcrumb-item-color-on-dark);
+  }
+}
+
+.block-system-breadcrumb-block {
+  //margin-bottom: -35px;
+  z-index: 1;
+    .hero__content & {
+      //@include: -25px;
+    }
+}

@@ -1,0 +1,92 @@
+{
+  "$schema": "./contract.schema.json",
+  "name": "media-framing",
+  "version": "1.0.0",
+  "description": "Foundations contract for the media FRAMING classes _media.scss actually styles: media--border, media--circle, media--cover, and the iframe aspect-ratio classes. Deliberately narrow: shared/media.ts emits a larger class family (media--small/medium/large/widescreen/square/no-crop/date), but those are styled ONLY inside .card scope (card.scss) and belong to Card's future contract — claiming them here would violate one-contract-per-token when Card migrates. Two unrelated systems share the 'media' name: this file's framing classes (consumed via shared/media.ts by Card and Callout) vs components/media/Media.vue, the embed-type switcher (image/video/iframe/vertical_video/remote_video) whose contract is DEFERRED to the Banner family migration because its video behavior is coupled to Banner (assets/js/video.js hardcodes '.banner video' and only Banner.vue instantiates UidsVideo).",
+  "identity": {
+    "kind": "foundation",
+    "codePath": "src/scss/components/_media.scss",
+    "relatedPaths": [
+      "src/components/shared/media.ts",
+      "src/components/media/Media.vue",
+      "src/assets/js/video.js"
+    ],
+    "downstreamPaths": [
+      "uiowa/docroot/themes/custom/uids_base/uids_base.theme (media--widescreen applied in card teaser context)",
+      "uiowa/docroot/themes/custom/uids_base/templates/content/blockquote.html.twig (media--circle applied standalone)"
+    ],
+    "figma": {
+      "fileKey": "hNShklBztaeaQneScM0KoM",
+      "note": "No component set and no doc page of its own: circle/border/cover appear as axes of Card's future set where the sizing system lives. Aspect-ratio classes are variant frame sizes when the Media.vue embed contract lands with the Banner family."
+    }
+  },
+  "options": [
+    {
+      "name": "border",
+      "type": "boolean",
+      "default": false,
+      "description": "Inset the image 0.5rem and draw a 1px border in the shared subtle border color.",
+      "code": {
+        "class": "media--border",
+        "notes": "The code prop is shared/media.ts's media_border (consumed by Card and Callout) — deliberately not bound as code.prop: foundations own the CLASSES; the prop gets claimed by the component contracts that spread shared/media.ts when they migrate."
+      }
+    },
+    {
+      "name": "circle",
+      "type": "boolean",
+      "default": false,
+      "description": "Circular crop: forces 1:1 aspect on the img and 50% border-radius on element and img.",
+      "code": {
+        "class": "media--circle",
+        "notes": "Reached in code as media_shape='circle' via shared/media.ts — the ONLY media_shape value styled in _media.scss; widescreen/square/no-crop are styled in card.scss and belong to Card's contract. Also applied class-only downstream (blockquote.html.twig)."
+      }
+    },
+    {
+      "name": "cover",
+      "type": "boolean",
+      "default": false,
+      "description": "object-fit: cover; img fills its box on both axes.",
+      "code": {
+        "class": "media--cover",
+        "notes": "Class-only; no prop emits it in this repo."
+      }
+    },
+    {
+      "name": "aspectRatio",
+      "type": "enum",
+      "values": [
+        "16-9",
+        "21-9"
+      ],
+      "description": "iframe aspect-ratio framing for embeds (media--16-9, media--21-9), produced by Media.vue's getAspectRatio.",
+      "status": "planned",
+      "code": {
+        "classes": {
+          "16-9": "media--16-9",
+          "21-9": "media--21-9"
+        },
+        "notes": "Styled here, but the producing component (Media.vue, embed switcher) has its own deferred contract — these become its option when the Banner-family migration lands. Marked planned so generators don't treat framing as offering embeds."
+      }
+    }
+  ],
+  "tokensUsed": [
+    "color/border/default",
+    "space/50"
+  ],
+  "geometryNotTokenized": {
+    "circle-radius": "50% border-radius and the forced img aspect-ratio 1 / 1 — shape identity, not scale values",
+    "aspect-ratios": "1/1, 4/3, 16/9, 21/9 iframe ratios — ratios are patterns per tokens/README; in Figma they are variant frame sizes, not variables"
+  },
+  "behavior": [
+    "media--border pads the img space/50 (0.5rem) and draws a 1px solid border in color/border/default (consumed directly as var(--uiowa-color-border-default) since the swap; --transparent-border remains the legacy alias other pre-migration code uses)",
+    "media--circle zeroes margin-top, sets height auto, and applies aspect-ratio 1/1 + border-radius 50% to the img",
+    "media--cover sets object-fit: cover with 100% width and height on the img"
+  ],
+  "knownIssues": [
+    "media--1-1 and media--4-3 are dead in BOTH repos: Media.vue's getAspectRatio maps only default/ar_16_9/ar_21_9, and no producer exists in uids or uiowa/uiowa (twig/theme/php/config). Public-shape trim deferred to 5.x.",
+    "media--default (sizes[0] in shared/media.ts) is styled nowhere — every Card/Callout emits it inertly when media_size='default'.",
+    "shared/media.ts argTypes list media_size's default as 'medium' (sizes[2]) but the prop default is 'large' — stale story metadata.",
+    "Media.vue type=remote_video/vertical_video renders play/pause controls wired to nothing outside Banner: video.js auto-inits on .media--video (which Media.vue never emits) and hardcodes querySelector('.banner video'). Embed contract deferred to the Banner family for this reason.",
+    "Callout.vue spreads ...Media.props into its defineProps but its classes computed never calls Media.addMediaClasses (it calls only Background.addBackgroundClass and Inline.addClass) — media_size/media_shape/media_border are accepted-and-inert on Callout, the Button inert-icon-prop class of issue. Do not read Callout's prop list as functional media options."
+  ]
+}

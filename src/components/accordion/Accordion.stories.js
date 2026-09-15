@@ -34,7 +34,7 @@ export default {
   }),
 };
 
-let items = [
+const items = [
   { title: 'Brand Bar', id: 'brand-bar', content: '<p>The brand bar must appear at the top of all core websites to create immediate association with the university.</p>' },
   { title: 'Brand Footer', id: 'brand-footer', content: '<p>A consistent footer across all web experiences reinforces the connection with Iowa and helps users find important details such as contact information and essential hyperlinks. Footers must appear across all pages of a website.</p>' },
   { title: 'Logo', id: 'logo', content: '<p>Block IOWA logo tab in black, hyperlinked to uiowa.edu. Use the ALT text "University of Iowa homepage."</p>' },
@@ -65,5 +65,12 @@ export const OpenByDefault = {
       { ...items[2] },
       { ...items[3] },
     ],
+  },
+};
+
+export const White = {
+  args: {
+    ...Default.args,
+    label_color: 'white',
   },
 };

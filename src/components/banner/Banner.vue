@@ -100,7 +100,7 @@ const bannerStyle = computed(() => {
  * Main banner classes.
  */
 const classes = computed(() => {
-  let classes = ['banner'];
+  const classes = ['banner'];
   Background.addBackgroundClass(classes, props);
 
   if (props.buttons.length === 1) {
@@ -223,6 +223,8 @@ onMounted(() => {
       <footer class="banner__action" v-if="buttons.length > 0 || $slots.buttons">
         <slot name="buttons">
           <!-- Render pseudo button when only url is present -->
+          <!-- shipped behavior: the label is authored rich text -->
+          <!-- eslint-disable vue/no-v-text-v-html-on-component -->
           <uids-pseudo-button
             v-if="buttons.length === 1"
             size="medium"
@@ -230,9 +232,11 @@ onMounted(() => {
             :light_font="button_light_font"
             v-html="buttons[0].label">
           </uids-pseudo-button>
+          <!-- eslint-enable vue/no-v-text-v-html-on-component -->
           <div v-else-if="buttons.length > 0" class="bttn--row">
             <uids-button
               v-for="(button, i) in buttons"
+              :key="i"
               :url="button.url"
               size="medium"
               :color="button_color"

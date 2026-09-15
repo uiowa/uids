@@ -36,35 +36,35 @@
   &__top {
     padding-top: variables.$desktop-width-gutter;
     &--minimal {
-      padding-top: 2rem;
+      padding-top: var(--uiowa-space-200);
     }
   }
   &__right {
     padding-right: variables.$desktop-width-gutter;
     &--minimal {
-      padding-right: 2rem;
+      padding-right: var(--uiowa-space-200);
     }
   }
   &__bottom {
     padding-bottom: variables.$desktop-width-gutter;
     &--minimal {
-      padding-bottom: 2rem;
+      padding-bottom: var(--uiowa-space-200);
     }
   }
   &__left {
     padding-left: variables.$desktop-width-gutter;
     &--minimal {
-      padding-left: 2rem;
+      padding-left: var(--uiowa-space-200);
     }
   }
   &__all {
     padding: variables.$desktop-width-gutter;
   }
   &__all--extra {
-    padding: 6rem;
+    padding: var(--uiowa-space-600);
   }
   &__all--minimal {
-    padding: 2rem;
+    padding: var(--uiowa-space-200);
   }
 }
 
@@ -72,68 +72,74 @@
   padding: var(--space-sm-width-gutter);
 }
 
-// CSS logical property padding utility classes.
+// CSS logical property padding utility classes. Note this family's --sm/--md is a much
+// smaller scale than the block utilities above (0.5rem/1rem, not 3rem) — same suffixes,
+// different scale, as shipped. contracts/layout.json knownIssues records the collision.
+// There is deliberately no .padding--inline--sm; only the --md shorthand ships.
 .padding--block--sm {
-  padding-block: 0.5rem;
+  padding-block: var(--uiowa-space-50);
 }
 
 .padding--block--md {
-  padding-block: 1rem;
+  padding-block: var(--uiowa-space-100);
 }
 
 .padding--inline-start--sm {
-  padding-inline-start: 0.5rem;
+  padding-inline-start: var(--uiowa-space-50);
 }
 
 .padding--inline-start--md {
-  padding-inline-start: 1rem;
+  padding-inline-start: var(--uiowa-space-100);
 }
 
 .padding--inline-end--sm  {
-  padding-inline-end: 0.5rem;
+  padding-inline-end: var(--uiowa-space-50);
 }
 
 .padding--inline-end--md  {
-  padding-inline-end: 1rem;
+  padding-inline-end: var(--uiowa-space-100);
 }
 
 .padding--inline--md {
-  padding-inline: 1rem;
+  padding-inline: var(--uiowa-space-100);
 }
 
+// In stacked Layout Builder regions these are OVERRIDES on the 1.6rem default sibling
+// rhythm (layout/block/stack/default, a uids_base behavior), not additions to it.
+// __left and __right apply only from sm — they have no mobile value at all.
 .block-margin,
 .element--margin {
   &__top {
-    margin-top: variables.$md;
+    margin-top: var(--uiowa-layout-block-stack-compact);
 
     &--extra {
-      margin-top: variables.$md;
+      margin-top: var(--uiowa-layout-block-stack-compact);
       @include utilities.breakpoint(sm) {
-        margin-top: variables.$mobile-height-gutter;
+        margin-top: var(--uiowa-layout-block-stack-extra);
       }
     }
   }
 
   &__right {
     @include utilities.breakpoint(sm) {
-      margin-right: variables.$md;
+      margin-right: var(--uiowa-layout-block-stack-compact);
     }
   }
 
   &__bottom {
-    margin-bottom: variables.$md;
+    margin-bottom: var(--uiowa-layout-block-stack-compact);
 
     &--extra {
-      margin-bottom: variables.$md;
+      margin-bottom: var(--uiowa-layout-block-stack-compact);
       @include utilities.breakpoint(sm) {
-        margin-bottom: variables.$mobile-height-gutter;
+        margin-bottom: var(--uiowa-layout-block-stack-extra);
       }
     }
   }
 
   &__left {
     @include utilities.breakpoint(sm) {
-      margin-left: variables.$md;
+      margin-left: var(--uiowa-layout-block-stack-compact);
     }
   }
 }

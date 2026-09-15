@@ -1,0 +1,63 @@
+{
+  "button": {
+    "font-family": { "value": "{typography.font-family.caps}", "comment": ".bttn — 4.x $font-family-caps-bold (all three caps aliases resolve to the same Antonio stack)" },
+    "font-weight": { "value": "{typography.font-weight.light}", "comment": "300. 4.x .bttn declares NO weight, so it inherits 400 — but Antonio loads as STATIC instances at 100/300/700 (not a variable font), so CSS font-matching selects the 300 face for a 400 request. Verified in Storybook 2026-08-14: of the six Antonio faces only the 300 face reports status 'loaded' while rendering a button. Codified as what has always rendered; same class of finding as brand-footer text-font-weight." },
+    "font-size": { "value": "{typography.font-size.200}", "comment": "1.25rem base (.bttn)" },
+    "line-height": { "value": "{typography.line-height.140}", "comment": "1.4" },
+    "icon-gap": { "value": "{space.62}", "comment": "0.625rem — margin-left on i / svg / span[class*='fa-'] (4.x $sm)" },
+    "padding": {
+      "block-start": { "value": "1rem" },
+      "block-end": { "value": "1.2rem", "comment": "Asymmetric by design — optical centering for uppercase cap-height. Do not 'fix' to match block-start." },
+      "inline": { "value": "2rem" }
+    },
+    "small": {
+      "font-size": { "value": "{typography.font-size.105}", "comment": "1.05rem (.bttn--small)" },
+      "padding": {
+        "block-start": { "value": "0.6rem" },
+        "block-end": { "value": "0.8rem" },
+        "inline": { "value": "1rem" }
+      }
+    },
+    "large": {
+      "font-size": { "value": "{typography.font-size.350}", "comment": "1.45rem (.bttn--large)" },
+      "padding": {
+        "block-start": { "value": "1.5rem" },
+        "block-end": { "value": "1.7rem" },
+        "inline": { "value": "2.5rem" }
+      }
+    },
+    "light-font": {
+      "font-family": { "value": "{typography.font-family.sans}", "comment": ".bttn--light-font switches to the sans stack (Roboto)" },
+      "font-weight": { "value": "{typography.font-weight.normal}", "comment": "400 — honest here, unlike the base button: Roboto 400 IS loaded" },
+      "font-size": { "value": "{typography.font-size.75}", "comment": "0.9rem; the icon matches at 0.9rem" },
+      "padding": {
+        "block-start": { "value": "1rem" },
+        "block-end": { "value": "1rem", "comment": "Symmetric, unlike the base button — this modifier is not uppercase" },
+        "inline": { "value": "2rem" }
+      }
+    },
+    "primary": {
+      "background": { "value": "{color.gold}", "brandChannel": "primary", "comment": ".bttn--primary ($primary)" },
+      "color": { "value": "{color.black}", "brandChannel": "secondary", "comment": "$secondary" },
+      "icon-color": { "value": "{color.white}" }
+    },
+    "secondary": {
+      "background": { "value": "{color.black}", "brandChannel": "secondary", "comment": ".bttn--secondary ($secondary)" },
+      "color": { "value": "{color.white}" },
+      "icon-color": { "value": "{color.gold}", "brandChannel": "primary", "comment": "$primary" }
+    },
+    "tertiary": {
+      "background": { "value": "{color.white}", "comment": ".bttn--tertiary (4.x hardcoded #fff)" },
+      "color": { "value": "{color.black}", "brandChannel": "secondary", "comment": "4.x $secondary" },
+      "icon-color": { "value": "{color.gold}", "brandChannel": "primary", "comment": "4.x $primary" }
+    },
+    "transparent": {
+      "color": { "value": "{color.black}", "brandChannel": "secondary", "comment": ".bttn--transparent (4.x $secondary); its background is the CSS keyword `transparent`, not a color token" },
+      "icon-color": { "value": "{color.gold}", "brandChannel": "primary", "comment": "4.x $primary" }
+    },
+    "focus-bar": {
+      "color": { "value": "{color.gold}", "brandChannel": "primary", "comment": ".bttn--*:after — the underline that scales in on hover/focus ($primary)" },
+      "height": { "value": "4px" }
+    }
+  }
+}

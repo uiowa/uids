@@ -32,7 +32,7 @@ const props = defineProps({
 });
 
 const classes = computed(() => {
-  let classes = ['blockquote'];
+  const classes = ['blockquote'];
   Background.addBackgroundClass(classes, props);
 
   if (props.orientation) {

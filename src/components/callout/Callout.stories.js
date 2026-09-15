@@ -1,6 +1,6 @@
 import UidsCallout from './Callout.vue'
 import Background from '../shared/background'
-// import Inline from '../shared/inline'
+import Inline from '../inline/inline'
 import preview from '../../../.storybook/preview';
 
 export default {
@@ -8,7 +8,7 @@ export default {
   component: UidsCallout,
   tags: ['autodocs'],
   argTypes: {
-    // ...Inline.argTypes,
+    ...Inline.argTypes,
     ...Background.argTypes,
     default: {
       name: 'Content',
@@ -40,6 +40,8 @@ const Template = (args) => ({
   template: `
     <uids-callout
       :background="args.background"
+      :inline_size="args.inline_size"
+      :inline_alignment="args.inline_alignment"
     >
     <template v-if="args.default"><div v-html="args.default" ></div></template>
     </uids-callout>
@@ -49,7 +51,20 @@ const Template = (args) => ({
 export const Callout = Template.bind({});
 Callout.args = {
   default: '<h4 class="headline block__headline headline headline--serif headline--underline block__headline headline--center"> <span class="headline__heading"> Title </span> </h4> <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce feugiat ante non efficitur laoreet. Suspendisse laoreet cursus dui, eget vehicula massa.</p>',
-  // inline_size: 'small',
+  inline_size: '',
   background: 'gray',
-  // inline_alignment: 'right',
+  inline_alignment: '',
+};
+
+export const NoBackground = Template.bind({});
+NoBackground.args = {
+  ...Callout.args,
+  background: '',
+};
+
+export const InlineSmallRight = Template.bind({});
+InlineSmallRight.args = {
+  ...Callout.args,
+  inline_size: 'small',
+  inline_alignment: 'right',
 };

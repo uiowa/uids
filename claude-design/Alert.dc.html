@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet data-dc-atomics>
+        <link rel="stylesheet" href="./tokens.css" />
+        <style>
+          /* ---- page reset (src/scss/base/_reset.scss:32-53), verbatim ----
+             Not this component's own SCSS, but production applies it globally to <html>,
+             so every rule below was authored against border-box. Without it, any element
+             combining a percentage width with padding renders wider than production —
+             measured at +96px on Callout before this was added. Reproduced across the
+             Phase 3 batch for that reason; see Table.dc.html for the original finding. */
+          html{box-sizing:border-box}
+          *,*::before,*::after{box-sizing:inherit}
+          /* alert.scss declares NO font-family — the alert inherits the page's body
+             font, which Page Scaffold.dc.html sets the same way. Declared on body (not
+             on .alert) so the inheritance path stays identical to production; without it
+             a standalone preview falls back to the UA serif. */
+          body{margin:0;font-family:var(--uiowa-font-family-body)}
+          /* Mirrors src/scss/components/alert.scss (post-token-swap) in SOURCE ORDER so
+             the cascade behaves the same. Two blocks are BORROWED ahead of it, in the
+             order a real page loads them, because this view has no global stylesheet for
+             either: Font Awesome's stack primitives (.storybook/preview-head.html links
+             FA 6.5.1; production loads the same family from Drupal) and the base
+             heading/paragraph rules (_headings.scss, _paragraph.scss). Both are needed
+             for the alert to compute the pixels production gives — alert.scss only ever
+             OVERRIDES them (.alert__icon .fa-stack, .alert h2-h6, .alert *). */
+
+          /* ---- Font Awesome 6 stack primitives (all.css:45-46, 307-330, verbatim) ----
+             Only the rules the alert's icon markup actually depends on. The .fas class
+             itself is deliberately NOT reproduced: all it does is point at the
+             "Font Awesome 6 Free" webfont, which this view cannot load — the glyphs are
+             drawn as inline SVG instead (see the icon markup comment below). */
+          .fa-1x{font-size:1em}
+          .fa-stack{display:inline-block;height:2em;line-height:2em;position:relative;vertical-align:middle;width:2.5em}
+          .fa-stack-1x,.fa-stack-2x{left:0;position:absolute;text-align:center;width:100%;z-index:var(--fa-stack-z-index,auto)}
+          .fa-stack-1x{line-height:inherit}
+          .fa-stack-2x{font-size:2em}
+          .fa-inverse{color:var(--fa-inverse,#fff)}
+
+          /* ---- base heading + paragraph elements (_headings.scss, _paragraph.scss) ----
+             SCOPED 2026-08-18 with :where(.alert), which adds ZERO specificity. A bare
+             element selector leaks page-wide (dc-import shares one cascade), but a plain
+             `.alert ` prefix would rewrite this component's own internal cascade — see
+             the note immediately below, which predates the scoping and reads "BARE
+             selectors on purpose": take it as the reason the scope had to be
+             zero-specificity rather than a plain prefix. Second reason it documents only
+             half of: `.alert h2` at (0,1,1) would also beat `.alert *` at (0,1,0) and
+             switch the zeroed margin-bottom back on. :where() confines the match set and
+             changes nothing else — every specificity below is what it was.
+             BARE selectors on purpose: scoping them under .alert would raise their
+             specificity and invert the cascade (production's h2:not(:first-child) is
+             (0,1,1) and LOSES to .alert * + *:not(span):not(div):not(svg) at (0,1,3);
+             an .alert-scoped copy would be (0,2,1) and would win instead). h1 is omitted
+             — alert.scss's private scale only covers h2-h6, so an h1 inside an alert just
+             keeps the page's h1 treatment. The .h2-.h6 class aliases and .headline--serif
+             variants are omitted too; this template emits neither. */
+          :where(.alert) h2,:where(.alert) h3,:where(.alert) h4,:where(.alert) h5,:where(.alert) h6{
+            font-family:var(--uiowa-font-family-body);
+            font-weight:var(--uiowa-font-weight-medium);
+            line-height:var(--uiowa-line-height-112);
+            letter-spacing:0;
+          }
+          :where(.alert) h2{line-height:1.25;font-weight:var(--uiowa-font-weight-medium);font-size:var(--uiowa-font-size-heading-h2);margin-top:0;margin-bottom:.325rem}
+          :where(.alert) h2:not(:first-child){margin-top:1.875rem}
+          :where(.alert) h3{line-height:1.25;font-size:var(--uiowa-font-size-heading-h3);margin-top:0;margin-bottom:.325rem}
+          :where(.alert) h3:not(:first-child){margin-top:1.875rem}
+          :where(.alert) h4{line-height:1.25;font-weight:var(--uiowa-font-weight-medium);font-size:var(--uiowa-font-size-heading-h4);margin-top:0;margin-bottom:.325rem}
+          :where(.alert) h4:not(:first-child){margin-top:1.875rem}
+          :where(.alert) h5{line-height:1.25;font-weight:var(--uiowa-font-weight-medium);font-size:var(--uiowa-font-size-heading-h5);margin-top:0;margin-bottom:.325rem}
+          :where(.alert) h5:not(:first-child){margin-top:1.875rem}
+          :where(.alert) h6{font-size:var(--uiowa-font-size-heading-h6);line-height:1.25;font-weight:var(--uiowa-font-weight-medium);margin-top:0;margin-bottom:.325rem}
+          :where(.alert) h6:not(:first-child){margin-top:1.875rem}
+          /* $md margin-bottom is the pre-sweep Sass primitive, mapped to space.105
+             (tokens/README) — and inside an alert it is zeroed by .alert * anyway. */
+          :where(.alert) p{line-height:var(--uiowa-line-height-170);font-size:var(--uiowa-font-size-body);margin-top:0;margin-bottom:var(--uiowa-space-105)}
+
+          /* ---- .alert (alert.scss, source order) ---- */
+          .alert{
+            /* alert.scss declares its own private --h2-font-size and then reads it back
+               in the h2 rule below — kept as the same two-step indirection. */
+            --h2-font-size:var(--uiowa-alert-heading-h2);
+            border-radius:var(--uiowa-alert-border-radius);
+            padding:var(--uiowa-alert-padding);
+            line-height:var(--uiowa-alert-line-height);
+            /* alert.scss:11 hardcodes $content-font-size — the alert BODY font-size was
+               never tokenized (there is no alert/font-size token, unlike every other
+               alert value). Reproduced as-shipped; see contracts/alert.json knownIssues,
+               which records it as a follow-up token addition rather than a fix. */
+            font-size:var(--uiowa-font-size-body);
+            /* @include utilities.border (_utilities.scss:193-199). Production writes
+               border-color:var(--transparent-border) — a runtime channel seeded in
+               uids-core.scss:32 as exactly var(--uiowa-color-border-default). This view
+               does not seed that channel, so the token it resolves to is referenced
+               directly; same computed color. The on-dark flip is the mixin's own nested
+               rule, kept here in place. */
+            border:1px solid;
+            border-color:var(--uiowa-color-border-default);
+          }
+          /* Inert in this template's own preview (nothing here supplies a bg--black
+             band), but live wherever an Alert is imported into a page: backgrounds.css
+             is a globalCssPath, so a bg--black section engages this rule. */
+          [class*="bg--black"] .alert{border-color:var(--uiowa-color-border-on-dark)}
+
+          .alert h2{font-size:var(--h2-font-size)}
+          .alert h3{font-size:var(--uiowa-alert-heading-h3)}
+          .alert h4{font-size:var(--uiowa-alert-heading-h4)}
+          .alert h5{font-size:var(--uiowa-alert-heading-h5)}
+          .alert h6{font-size:var(--uiowa-alert-heading-h6)}
+
+          /* Generic content-flow reset for arbitrary slotted markup — deliberately not
+             tokenized (contracts/alert.json geometryNotTokenized). Note the consequence
+             recorded there: at (0,1,3) this beats .alert at (0,1,0), so only the FIRST
+             child renders at the tokenized alert line-height; every later non-span/div/svg
+             sibling renders at 1.6. The dismiss <button> is one of those siblings, so it
+             also picks up the .2rem margin-top (as-shipped). */
+          .alert *{margin-bottom:0}
+          .alert * + *:not(span):not(div):not(svg){margin-top:.2rem;line-height:1.6}
+
+          .alert__icon{padding:0 var(--uiowa-alert-icon-gap) 0 0}
+          /* Narrows Font Awesome's own 2.5em .fa-stack (all.css:307-313) — a real design
+             choice, left as documented geometry because it is expressed in em. */
+          .alert__icon .fa-stack{width:2em}
+          /* Reachable only under production's FA SVG-with-JS replacement, where the spans
+             become <svg class="svg-inline--fa ...">. Kept verbatim for source-order
+             fidelity; inert here and in Storybook (contracts/alert.json knownIssues). */
+          .alert__icon .svg-inline--fa.fa-stack-2x,
+          .alert__icon .svg-inline--fa.fa-stack-1x{width:100%}
+          .alert__icon .fa-1x{font-size:var(--uiowa-font-size-body)}
+
+          /* ---- colorways ---- */
+          .alert--danger{background:var(--uiowa-alert-danger-background)}
+          .alert--danger .fa-circle{color:var(--uiowa-alert-danger-icon-color)}
+          .alert--success{background:var(--uiowa-alert-success-background)}
+          .alert--success .fa-circle{color:var(--uiowa-alert-success-icon-color)}
+          .alert--warning{background:var(--uiowa-alert-warning-background)}
+          /* Not a copy/paste slip: warning's icon token resolves to color/status/danger.
+             $danger and $orange are the identical hex #BD472A in _variables.scss, so the
+             warning and danger icons ship bit-identical — contracts/alert.json
+             knownIssues. */
+          .alert--warning .fa-circle{color:var(--uiowa-alert-warning-icon-color)}
+          .alert--warning .fa-exclamation-triangle{margin-top:-2px}
+          .alert--info{background:var(--uiowa-alert-info-background)}
+          .alert--info .fa-circle{color:var(--uiowa-alert-info-icon-color)}
+
+          /* ---- modifiers ---- */
+          .alert--centered{display:flex;justify-content:center}
+          .alert--vertically-centered{display:flex;align-items:center}
+          .alert--dismissible{position:relative}
+          .alert--dismissible button{
+            position:absolute;right:0;top:0;
+            background:transparent;border:none;
+            height:var(--uiowa-alert-dismiss-size);
+            width:var(--uiowa-alert-dismiss-size);
+          }
+          .alert--dismissible button i{font-size:var(--uiowa-alert-dismiss-icon-font-size)}
+          .alert--icon{display:flex}
+
+          /* dc-only: draws the Font Awesome glyphs. FA is not one of this view's loadable
+             stylesheets (tokens.css / layout.css / backgrounds.css / support.js), so each
+             glyph is inlined as FA 6.7.2 solid path data INSIDE the exact <span>/<i>
+             element Alert.vue renders — classes untouched, so .fa-circle's colorway rule,
+             .fa-exclamation-triangle's nudge, .alert__icon .fa-stack's width and
+             button i's font-size all still match their real selectors. The three
+             declarations are FA's own svg-with-js.css .svg-inline--fa rule verbatim;
+             height:1em plus the viewBox aspect ratio reproduces the box the webfont glyph
+             occupies. Sub-pixel glyph centering inside the circle comes from FA's font
+             metrics and can differ by a pixel or two from the webfont rendering. */
+          .alert svg{height:1em;overflow:visible;vertical-align:-.125em}
+        </style>
+      </helmet>
+      <!-- Markup is Alert.vue's template verbatim, including its as-shipped a11y gaps:
+           the root <div> carries no role and no aria-label, and the dismiss <button> has
+           neither aria-label nor type. Production's Drupal chain adds all of these in
+           uids_base's status-messages.html.twig / alert.html.twig; the canonical Vue
+           component does not, and per standing policy it is reproduced as-shipped rather
+           than quietly improved (contracts/alert.json knownIssues + openQuestions). -->
+      <div class="{{ rootClass }}" data-screen-label="Alert">
+        <sc-if value="{{ icon }}" hint-placeholder-val="{{ true }}">
+          <div class="alert__icon">
+            <span class="fa-stack fa-1x">
+              <span role="presentation" class="fas fa-circle fa-stack-2x"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><path fill="currentColor" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"></path></svg></span>
+              <!-- One glyph per colorway: Alert.vue derives it from `type` through a
+                   separate `icon` computed (success->check, warning->exclamation-triangle,
+                   danger->exclamation, default->info), so the glyph is not independently
+                   configurable. The markup has no loop, so the four cases are written out
+                   and gated on the same enum. -->
+              <sc-if value="{{ isInfo }}" hint-placeholder-val="{{ true }}">
+                <span role="presentation" class="fas fa-stack-1x fa-inverse fa-info"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512" aria-hidden="true" focusable="false"><path fill="currentColor" d="M48 80a48 48 0 1 1 96 0A48 48 0 1 1 48 80zM0 224c0-17.7 14.3-32 32-32l64 0c17.7 0 32 14.3 32 32l0 224 32 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 512c-17.7 0-32-14.3-32-32s14.3-32 32-32l32 0 0-192-32 0c-17.7 0-32-14.3-32-32z"></path></svg></span>
+              </sc-if>
+              <sc-if value="{{ isSuccess }}" hint-placeholder-val="{{ false }}">
+                <span role="presentation" class="fas fa-stack-1x fa-inverse fa-check"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" aria-hidden="true" focusable="false"><path fill="currentColor" d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"></path></svg></span>
+              </sc-if>
+              <sc-if value="{{ isWarning }}" hint-placeholder-val="{{ false }}">
+                <span role="presentation" class="fas fa-stack-1x fa-inverse fa-exclamation-triangle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-hidden="true" focusable="false"><path fill="currentColor" d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480L40 480c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24l0 112c0 13.3 10.7 24 24 24s24-10.7 24-24l0-112c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"></path></svg></span>
+              </sc-if>
+              <sc-if value="{{ isDanger }}" hint-placeholder-val="{{ false }}">
+                <span role="presentation" class="fas fa-stack-1x fa-inverse fa-exclamation"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512" aria-hidden="true" focusable="false"><path fill="currentColor" d="M96 64c0-17.7-14.3-32-32-32S32 46.3 32 64l0 256c0 17.7 14.3 32 32 32s32-14.3 32-32L96 64zM64 480a40 40 0 1 0 0-80 40 40 0 1 0 0 80z"></path></svg></span>
+              </sc-if>
+            </span>
+          </div>
+        </sc-if>
+        <!-- The slot takes arbitrary content. This heading + paragraph wrapped in a <div>
+             is the shape every real consumer uses (the Storybook stories' <div v-html>,
+             and alert.html.twig's <div>{{ alert_content }}</div>), and the wrapper matters
+             to the cascade: it is a div, so the .alert * + *:not(...div...) sibling rule
+             skips it. Storybook's stories put .headline.headline--serif on the h2; a plain
+             heading is used here so what you see is the alert's OWN h2-h6 scale — the
+             tokens this contract claims. Import Headline separately for that treatment.
+             `class="alert__content"` from Alert.vue:96 is NOT reproduced: it compiles to a
+             scoped-slot prop, never reaches the DOM and matches no CSS (knownIssues). -->
+        <div>
+          <sc-if value="{{ isH2 }}" hint-placeholder-val="{{ true }}"><h2>{{ heading }}</h2></sc-if>
+          <sc-if value="{{ isH3 }}" hint-placeholder-val="{{ false }}"><h3>{{ heading }}</h3></sc-if>
+          <sc-if value="{{ isH4 }}" hint-placeholder-val="{{ false }}"><h4>{{ heading }}</h4></sc-if>
+          <sc-if value="{{ isH5 }}" hint-placeholder-val="{{ false }}"><h5>{{ heading }}</h5></sc-if>
+          <sc-if value="{{ isH6 }}" hint-placeholder-val="{{ false }}"><h6>{{ heading }}</h6></sc-if>
+          <p>{{ body }}</p>
+        </div>
+        <!-- The close button's APPEARANCE is all this view can carry. Dismissal itself is
+             not templatable and is not UIDS's: the repo ships zero JS for it, and the
+             behavior lives entirely downstream in uids_base's uids.status-messages.js —
+             a delegated click listener on button[data-dismiss='alert'] that fades the
+             closest .alert--dismissible and removes it after 300ms. The data-dismiss hook
+             is kept so the markup a designer copies is the markup that handler expects. -->
+        <sc-if value="{{ dismissible }}" hint-placeholder-val="{{ false }}">
+          <button data-dismiss="alert">
+            <i class="fas fa-times"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" aria-hidden="true" focusable="false"><path fill="currentColor" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"></path></svg></i>
+          </button>
+        </sc-if>
+      </div>
+    </x-dc>
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{
+  "$preview": { "width": 700, "height": 260 },
+  "type": { "editor": "enum", "options": ["info", "success", "warning", "danger"], "default": "info", "tsType": "string" },
+  "heading": { "editor": "text", "default": "Alert title", "tsType": "string" },
+  "heading_level": { "editor": "enum", "options": ["h2", "h3", "h4", "h5", "h6"], "default": "h2", "tsType": "string" },
+  "body": { "editor": "text", "default": "Lorem ipsum sit dolor amet.", "tsType": "string" },
+  "icon": { "editor": "boolean", "default": true, "tsType": "boolean" },
+  "dismissible": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "centered": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "vertically_centered": { "editor": "boolean", "default": false, "tsType": "boolean" }
+}'
+    >
+      class Component extends DCLogic {
+        renderVals() {
+          // Mirrors the classes computed in src/components/alert/Alert.vue, including
+          // its push order: alert, alert--{type}, --vertically-centered, --icon, then
+          // --centered and --dismissible from the shared forEach.
+          const type = this.props.type ?? 'info';
+          const level = this.props.heading_level ?? 'h2';
+          const heading = this.props.heading ?? '';
+          const hasHeading = String(heading).trim().length > 0;
+          // `icon` here is Alert.vue's iconVisible prop; the class it adds is
+          // alert--icon, which the Vue source spells out in its own branch precisely
+          // because the prop name does not derive it.
+          //
+          // COMPUTED ONCE, deliberately. Alert.vue gates the CLASS (:76) and the ELEMENT
+          // (:93) on the same `props.iconVisible`, so the two can never disagree. An
+          // earlier version of this file broke that invariant by using two different
+          // predicates — `if (this.props.icon)` for the class but `icon !== false` for the
+          // element. They agree when a caller passes the attribute explicitly, and DIVERGE
+          // when it is omitted: `undefined` is falsy so the class was dropped, while
+          // `undefined !== false` is true so the icon still rendered. Omitting the
+          // attribute is the common case, since the documented default here is true.
+          // `alert--icon` is what supplies `display:flex`, so the result was an icon
+          // stacked ABOVE the heading at full width instead of inline to its left.
+          // Measured 2026-08-19 against Storybook components-alert--info: production is
+          // `alert alert--info alert--icon`, display:flex, icon 62px wide at x=41 with the
+          // content column starting at x=103 (24px gap from --uiowa-alert-icon-gap).
+          const iconVisible = this.props.icon !== false;
+          const classes = ['alert'];
+          classes.push('alert--' + type);
+          if (this.props.vertically_centered) classes.push('alert--vertically-centered');
+          if (iconVisible) classes.push('alert--icon');
+          if (this.props.centered) classes.push('alert--centered');
+          if (this.props.dismissible) classes.push('alert--dismissible');
+          // Editor defaults match Storybook's default story (icon on, everything else
+          // off), not the raw Vue prop defaults — iconVisible/dismissible/centered/
+          // verticallyCentered are all `false` in Alert.vue. Worth knowing when placing
+          // one on a page: every production Drupal alert is icon + vertically-centered
+          // + dismissible, hardcoded in status-messages.html.twig.
+          return {
+            rootClass: classes.join(' '),
+            heading: heading,
+            body: this.props.body ?? '',
+            icon: iconVisible,
+            dismissible: this.props.dismissible === true,
+            isInfo: type === 'info',
+            isSuccess: type === 'success',
+            isWarning: type === 'warning',
+            isDanger: type === 'danger',
+            isH2: hasHeading && level === 'h2',
+            isH3: hasHeading && level === 'h3',
+            isH4: hasHeading && level === 'h4',
+            isH5: hasHeading && level === 'h5',
+            isH6: hasHeading && level === 'h6'
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,197 @@
+{
+  "$schema": "./contract.schema.json",
+  "name": "callout",
+  "version": "1.0.0",
+  "description": "UIDS callout component contract, preserving the verified 4.x rendering and documenting the proposed Figma representation.",
+  "identity": {
+    "codePath": "src/components/callout/Callout.vue",
+    "scssPath": "src/scss/components/callout.scss",
+    "relatedPaths": [
+      "src/components/callout/Callout.stories.js"
+    ],
+    "downstreamPaths": [
+      "uiowa/docroot/themes/custom/uids_base/scss/components/callout.scss",
+      "uiowa/docroot/modules/custom/uiowa_core/uiowa_core.module"
+    ],
+    "registeredName": "uids-callout",
+    "storybookId": "components-callout",
+    "figma": {
+      "fileKey": "hNShklBztaeaQneScM0KoM",
+      "componentSetName": "Callout",
+      "componentSetId": "205:10",
+      "componentKey": "c72baf1eeeac3f80079093772d9cf63759939913",
+      "page": "Components / Callout",
+      "note": "BUILT (Phase 3). Background (Default, With Background) is the only axis. The Background variant is drawn with one illustrative solid fill bound to color/bg/gray.",
+      "axisRationale": [
+        "gray is the illustrative fill because it matches BOTH Callout.stories.js's own default arg (background:'gray') and the one confirmed production usage found this session (registrar.uiowa.edu's CourseDeadlinesForm.php renders `callout bg--gray`).",
+        "inline_size and inline_alignment are NOT Callout axes: per contracts/inline.json's own framing, Figure/Media/Callout each bind these classes directly and there is no dedicated Inline component, so sizing and alignment are a PLACEMENT concern — resize or reposition the instance. Button's `full` (resize the instance, not an axis) is the precedent."
+      ],
+      "deliberateOmissions": [
+        "media_size / media_shape / media_border get no Figma representation, consistent with the recommendation to remove them from the contract as pre-work (see openQuestions) rather than model dead options as axes or as documented code-only combinations."
+      ],
+      "precedent": "Button (`full` is a resize, not an axis)."
+    }
+  },
+  "options": [
+    {
+      "name": "background",
+      "type": "enum",
+      "values": [
+        "",
+        "black",
+        "gold",
+        "gray",
+        "white"
+      ],
+      "default": "",
+      "description": "Background color of the wrapping div. Callout.vue spreads shared/background.ts's plain color shape (Background.props, Callout.vue:5,13) — NOT Background.allBackgroundProps — so Callout can only ever render a solid bg--{color}; it has no code path to a patterned bg--{color}--pattern--{type} combination, unlike the full 16-value enum Background's own foundation contract documents. A non-'' value ALSO triggers Callout's own padding bump at/above the `sm` (768px) breakpoint — see behavior and callout/padding/with-background.",
+      "code": {
+        "prop": "background",
+        "classes": {
+          "black": "bg--black",
+          "gold": "bg--gold",
+          "gray": "bg--gray",
+          "white": "bg--white"
+        },
+        "notes": "Arrives via ...Background.props (Callout.vue:5,13); Background.addBackgroundClass (Callout.vue:19) pushes bg--{color} onto Callout's OWN class list. The class grammar itself remains owned by contracts/background.json (foundation) — restated here only to document which code prop drives it on Callout specifically, the Button-borderless/Border-foundation precedent."
+      },
+      "figma": {
+        "axis": "Background",
+        "map": {
+          "": "Default",
+          "black": "With Background",
+          "gold": "With Background",
+          "gray": "With Background",
+          "white": "With Background"
+        },
+        "notes": "Collapses to a 2-value boolean-shaped axis — see figmaProposal. WHICH color renders is illustrative only (Background foundation's own concern, Foundations / Backgrounds page has no component set of its own to bind against); not a Callout-owned variant."
+      }
+    },
+    {
+      "name": "inline_size",
+      "type": "enum",
+      "values": [
+        "",
+        "small",
+        "medium",
+        "large"
+      ],
+      "default": "",
+      "description": "Responsive width when Callout sits as an inline item beside flowing content (e.g. inside a grid column) — grammar/geometry owned by contracts/inline.json (foundation). Values/default here match inline.ts's literal validator exactly (not contracts/inline.json's own descriptive ['full',...] list) because check-contracts.mjs compares a contract option's default against the Vue prop's ACTUAL default text, matching the reasoning contracts/headline.json already used for its own text_style default. The '' vs 'full' naming tension is inline.json's own already-documented open issue — not re-litigated here.",
+      "code": {
+        "prop": "inline_size",
+        "notes": "Arrives via ...Inline.props (Callout.vue:8,12); Inline.addClass runs inside Callout's `classes` computed (Callout.vue:20) — genuinely functional, unlike the Media props (see openQuestions). NOT currently exposed as a Storybook control on Callout's own story — see storyAudit."
+      },
+      "figma": {
+        "notes": "Deliberately NOT a variant axis — see figmaProposal.collapseNotes (Button `full`-width resize precedent: a designer resizes/repositions the instance rather than switching a variant)."
+      }
+    },
+    {
+      "name": "inline_alignment",
+      "type": "enum",
+      "values": [
+        "",
+        "left",
+        "right",
+        "center"
+      ],
+      "default": "left",
+      "description": "Float/alignment when Callout sits as an inline item — grammar/geometry owned by contracts/inline.json (foundation). Functional (Inline.addClass consumes it), matching inline_size.",
+      "code": {
+        "prop": "inline_alignment",
+        "notes": "Arrives via ...Inline.props (Callout.vue:8,12). NOT currently exposed as a Storybook control on Callout's own story — see storyAudit."
+      },
+      "figma": {
+        "notes": "Deliberately NOT a variant axis — see figmaProposal.collapseNotes."
+      }
+    },
+    {
+      "name": "media_size",
+      "type": "enum",
+      "values": [
+        "default",
+        "small",
+        "medium",
+        "large"
+      ],
+      "default": "large",
+      "status": "deprecated",
+      "description": "Accepted through Media.props but inert: Callout never calls Media.addMediaClasses.",
+      "code": {
+        "prop": "media_size",
+        "notes": "Preserved for API compatibility; no rendered class or Figma property."
+      },
+      "figma": {
+        "notes": "No representation because the prop is inert."
+      }
+    },
+    {
+      "name": "media_shape",
+      "type": "enum",
+      "values": [
+        "widescreen",
+        "square",
+        "circle",
+        "no-crop"
+      ],
+      "default": "widescreen",
+      "status": "deprecated",
+      "description": "Accepted through Media.props but inert: Callout never calls Media.addMediaClasses.",
+      "code": {
+        "prop": "media_shape",
+        "notes": "Preserved for API compatibility; no rendered class or Figma property."
+      },
+      "figma": {
+        "notes": "No representation because the prop is inert."
+      }
+    },
+    {
+      "name": "media_border",
+      "type": "boolean",
+      "default": false,
+      "status": "deprecated",
+      "description": "Accepted through Media.props but inert: Callout never calls Media.addMediaClasses.",
+      "code": {
+        "prop": "media_border",
+        "notes": "Preserved for API compatibility; no rendered class or Figma property."
+      },
+      "figma": {
+        "notes": "No representation because the prop is inert."
+      }
+    }
+  ],
+  "slots": [
+    {
+      "name": "default",
+      "description": "Arbitrary block content. Callout.vue renders only `<div :class=\"classes\"><slot></slot></div>` (Callout.vue:27-28) — no internal markup of its own, the same minimal-wrapper pattern documented for Headline.",
+      "behavior": "Callers typically nest a heading plus paragraphs (Callout.stories.js's own default content nests a real `.headline.headline--serif.headline--underline` instance with a `.headline__heading` span) but Callout enforces no structure and adds no `.callout__*` element classes of its own.",
+      "figma": {
+        "property": "Content",
+        "notes": "Modelled as nested content/instances inside the Callout frame, matching Headline's 'no internal markup' precedent rather than a single bound text layer."
+      }
+    }
+  ],
+  "tokensUsed": [
+    "callout/padding/base",
+    "callout/padding/with-background"
+  ],
+  "behavior": [
+    "CORRECTION to phase3-inputs/callout.json's central premise: contracts/background.json, contracts/inline.json, and contracts/media-framing.json ALL already exist (Phase 2 shipped 2026-08-15, before this spec was drafted) — the survey's recommended prework ('migrate Background/Inline as foundation contracts first') is already done. Callout's contract can be written now, composing all three via options whose code.notes point at the shared module (the Button-borderless/Border-foundation precedent) rather than re-declaring their class grammar or claiming their tokens.",
+    "The padding bump is background-PRESENCE-reactive via a SELF-compound selector, not an ancestor-context rule: Callout.vue's `classes` computed pushes both 'callout' and (when background != '') 'bg--{color}' onto the SAME div (Callout.vue:17-23), and callout.scss's `&[class*=\"bg-\"]` (callout.scss:14) compiles to `.callout[class*=\"bg-\"]` — matching Callout's own element, never an ancestor. This is a different mechanism from Headline's/Background's own `[class*=\"bg-\"]` ancestor-context rules (headline.json behavior; background.scss:4-9), which key off a WRAPPING element. Callout's use of the identical substring convention is a parallel, independent, self-referential application of it.",
+    "The bump is ALSO breakpoint-gated: below `sm` (768px) padding is ALWAYS callout/padding/base regardless of background presence, because the `&[class*=\"bg-\"]` override only exists inside the breakpoint(sm) block.",
+    "Callout's `background` option only ever renders a SOLID color (see the option's own description) — Callout.vue spreads the plain `Background.props` shape, not `Background.allBackgroundProps`.",
+    "inline_size/inline_alignment are genuinely functional (Inline.addClass runs, Callout.vue:20) — unlike the Media props (see the Media-props deletion recommendation in openQuestions). They compose contracts/inline.json's already-established grammar/tokens directly; this contract should not restate Inline's tokensUsed or geometryNotTokenized (mirrors how brand-bar.json's own tokensUsed contains zero logo/* entries despite Logo being a real rendered child).",
+    "Neither tier-3 token is a color — brandChannel does not apply (tokens/README restricts the flag to color.* leaves). Provenance was checked explicitly for both: callout/padding/base and callout/padding/with-background trace to space.200/space.300 primitives via the uids-core.scss:35-37 legacy alias chain, never to $primary/$secondary or var(--brand-*).",
+    "CONFIRMED real, non-WYSIWYG production usage exists: uiowa/uiowa's registrar.uiowa.edu site (docroot/sites/registrar.uiowa.edu/modules/registrar_core/src/Form/CourseDeadlinesForm.php:585-597) renders a PHP-authored `<div class=\"uiowa-maui-course-deadlines-wrapper contact-wrapper callout bg--gray element--margin__top--extra element--margin__bottom--extra\">` AND explicitly attaches the `uids_base/callout` Drupal library (same file, line 68). This exercises the WITH-BACKGROUND branch specifically (bg--gray, so callout/padding/with-background applies at ≥768px) and CORRECTS an inaccurate premise carried in an earlier draft of this spec that assumed WYSIWYG-authored markup was the only production path — see claims.",
+    "Callout.stories.js:3 carries a commented-out `// import Inline from '../shared/inline'` — a fossil of an attempt to import inline.ts from the conventional shared/ location before landing on its actual location (src/components/inline/inline.ts). This corroborates, but does not newly discover, contracts/inline.json's own knownIssue about inline.ts breaking the shared-prop-module directory convention."
+  ],
+  "knownIssues": [
+    "RECOMMENDATION (public-shape decision, see openQuestions): the media_size/media_shape/media_border props Callout accepts via `...Media.props` (Callout.vue:7,14) are 100% inert — Callout's `classes` computed calls only Background.addBackgroundClass and Inline.addClass, never Media.addMediaClasses, and Callout.vue never even imports `_media.scss`. Unlike Button's kept-but-documented inert `icon` prop (retained because real downstream callers pass it), NOTHING references these on Callout — not even Callout's own story (Callout.stories.js spreads only Background.argTypes). This contract's options list therefore OMITS them, recommending their removal (import + spread) as pre-work, matching the FormFieldset-`inline`-prop precedent (deleted outright once confirmed non-functional) rather than the Button-`icon` precedent (kept, because it had real external callers).",
+    "No regression-baseline entry (regression/config.json) captures Callout's own `padding` property in ANY story today. Confirmed via grep: no top-level \"callout\" block exists in the file at all. The existing \"inline\" block's `components-inline--default` story DOES render real `<uids-callout>` markup (Default.args.inline_component defaults to 'callout', background:'gray') and already captures width/margin-top/margin-bottom/float on the `.inline--size-*` selectors — but never `padding`, even though that selector sits on the same element as `.callout`. Callout's single defining behavior is therefore completely unverified by the harness — see storyAudit.",
+    "uids_base/uids/scss/components/callout.scss is a byte-identical vendored mirror of this repo's callout.scss (`diff` confirms zero differences, matching line numbers) — a downstream copy, not a second implementation. uids_base/scss/components/callout.scss is a separate 3-line @use-only forwarding stub. The Drupal library `callout` (uids_base.libraries.yml:365-369) bundles callout.css together with inline.css as one asset. Both paths belong in identity.downstreamPaths.",
+    "Cross-repo verification scope note: this spec's cross-repo checks cover uids and the uiowa/uiowa repo actually present on this machine (confirmed via the real 17G tree at ~/acquia/uiowa) — it does not cover other site-specific Drupal codebases that may exist elsewhere. Absence of evidence here is bounded to these two repos."
+  ],
+  "geometryNotTokenized": {
+    "none": "Callout has no un-tokenized raw geometry of its own beyond the two padding values above (both proposed as tier-3) — callout.scss declares no borders, radii, colors, or typography. Anything else visible on a rendered Callout (background color/pattern, nested headline/media/inline framing) is drawn by slot content or by the composed Background/Inline/Media-framing foundations, none of which callout.scss itself re-declares."
+  }
+}

@@ -1,0 +1,227 @@
+{
+  "$schema": "./contract.schema.json",
+  "name": "stat",
+  "version": "1.0.0",
+  "description": "UIDS stat component contract, preserving the verified 4.x rendering and documenting the proposed Figma representation.",
+  "identity": {
+    "codePath": "src/components/stat/Stat.vue",
+    "scssPath": "src/scss/components/stat.scss",
+    "relatedPaths": [
+      "src/components/stat/Stat.stories.js"
+    ],
+    "downstreamPaths": [
+      "uiowa/docroot/themes/custom/uids_base/templates/uids/stat.html.twig",
+      "uiowa/docroot/themes/custom/uids_base/scss/components/stat.scss"
+    ],
+    "registeredName": "uids-stat",
+    "storybookId": "components-stat",
+    "figma": {
+      "fileKey": "hNShklBztaeaQneScM0KoM",
+      "componentSetName": "Stat",
+      "componentSetId": "216:397",
+      "componentKey": "abb5d3d9af8108e82894791b8c0e7c87db619bc8",
+      "page": "Components / Stat",
+      "note": "BUILT (Phase 3). 20 variants: Layout (Default, Horizontal) x Background (Default, Black, Gold, Gray, White) x State (Hover, Static). A full cross — every combination is valid and renderable, so there is no sparse cell to exclude.",
+      "axisRationale": [
+        "State is a full axis rather than code-only (unlike Button's borderless/full) because stat_hover changes whether an entire content region is visible at rest — a visible structural difference, closer in kind to Headline's Style axis than to a single-property override a designer could eyeball-apply to an instance.",
+        "Title / Summary / Content / Prefix / Suffix are bound text properties (figma.property), not axes — matching how Button, Headline and Badge all keep content props off the variant grid."
+      ],
+      "deliberateOmissions": [
+        "`.grid--3-2` (dead/unreachable) and `.stat--transform` (unstyled) get no Figma representation.",
+        "`element--flex-left` (the Layout-Builder escape hatch) is documented in the contract only — not an axis, and not even a frame. It is a rare downstream-only override, and it changes flex-wrap behaviour at narrow-vs-wide viewports rather than a static appearance. Closest precedent is Button's borderless/full, not Headline's negative/center context frames, which earned frames because they render a visibly distinct look."
+      ]
+    }
+  },
+  "options": [
+    {
+      "name": "display",
+      "type": "enum",
+      "values": [
+        "default",
+        "horizontal"
+      ],
+      "default": "default",
+      "description": "Layout switch. 'default' (Vue's real default) ALWAYS adds element--flex-center (a shared _flexbox.scss utility, not stat-specific) to the root div — it is not an independent toggle a consumer can omit; 'horizontal' adds stat--horizontal plus a redundant second 'stat__grid' push (see knownIssues) instead.",
+      "code": {
+        "prop": "display",
+        "notes": "Stat.vue's validator restricts to exactly ['default','horizontal'] (matches Stat.stories.js argTypes.display.options)."
+      },
+      "figma": {
+        "axis": "Layout",
+        "map": {
+          "default": "Default",
+          "horizontal": "Horizontal"
+        }
+      }
+    },
+    {
+      "name": "background",
+      "type": "enum",
+      "values": [
+        "",
+        "black",
+        "gold",
+        "gray",
+        "white"
+      ],
+      "default": "",
+      "description": "Shared prop spread from src/components/shared/background.ts — Stat consumes the PLAIN 5-value Background.props/argTypes/addBackgroundClass (colors array: '', black, gold, gray, white), NOT the pattern-extended allBackgroundProps/allBackgroundOptions used elsewhere. Adds bg--<color> to the Stat root. This class then acts purely as ANCESTOR CONTEXT for Stat's own SCSS: because Stat.vue applies the class to its OWN root element, 'this Stat has background=black' and 'an ancestor wrapper has bg--black' are functionally identical from stat.scss's point of view (all its context selectors are plain descendant/attribute matches, not :scope-qualified).",
+      "code": {
+        "prop": "background",
+        "notes": "The bg--<color> fill itself and the generic on-light/on-dark semantic roles are owned by contracts/background.json (a foundation contract) — this option only documents Stat's local prop wiring and points at that contract for the fill/foundation tokens. Stat's OWN reactive tokens (title/content/description color and border changes) are separate, component-owned leaves — see tier3Tokens and behavior."
+      },
+      "figma": {
+        "axis": "Background",
+        "map": {
+          "": "Default",
+          "black": "Black",
+          "gold": "Gold",
+          "gray": "Gray",
+          "white": "White"
+        }
+      }
+    },
+    {
+      "name": "stat_hover",
+      "type": "boolean",
+      "default": true,
+      "description": "Inverted boolean-to-class: true (the default) leaves the CSS :hover-driven expand/collapse active (.stat__content starts at max-height:0, expands on hover); false adds .stat--static, which forces .stat__content to max-height:max-content unconditionally — content is always visible, no hover interaction, and .stat:not(.stat--static)'s cursor:pointer no longer applies.",
+      "code": {
+        "prop": "stat_hover",
+        "class": "stat--static",
+        "notes": "Class is added when the prop is FALSE, not true — the class name and the prop's polarity are opposite of each other."
+      },
+      "figma": {
+        "axis": "State",
+        "map": {
+          "true": "Hover",
+          "false": "Static"
+        },
+        "notes": "Figma variants are static artwork, so 'Hover' represents the AT-REST (unhovered, collapsed-content) appearance of an interactive Stat, not a live max-height animation — matching how Figma cannot express Button's animated focus-bar transition either. The fully-expanded-on-hover appearance is not separately instanced."
+      }
+    },
+    {
+      "name": "stat_title",
+      "type": "string",
+      "default": "",
+      "description": "The stat figure/number. v-if gated — the entire <h2> block (including prefix/suffix) renders nothing when empty.",
+      "code": {
+        "prop": "stat_title"
+      },
+      "figma": {
+        "property": "Title"
+      }
+    },
+    {
+      "name": "stat_summary",
+      "type": "string",
+      "default": "",
+      "description": "Short label rendered via v-html into .stat__description. v-if gated.",
+      "code": {
+        "prop": "stat_summary",
+        "notes": "v-html — accepts markup, not escaped."
+      },
+      "figma": {
+        "property": "Summary"
+      }
+    },
+    {
+      "name": "stat_content",
+      "type": "string",
+      "default": "",
+      "description": "Expandable body copy rendered via v-html into the collapsible .stat__content <p>. v-if gated — an empty value means there is no expandable region at all, independent of stat_hover (a Stat with stat_hover=true but empty stat_content has nothing to expand into).",
+      "code": {
+        "prop": "stat_content",
+        "notes": "v-html — accepts markup, not escaped."
+      },
+      "figma": {
+        "property": "Content"
+      }
+    },
+    {
+      "name": "stat_prefix",
+      "type": "string",
+      "default": "",
+      "description": "Optional leading glyph/text before the title (e.g. '$', '#'). v-if gated; renders a .headline__prefix span inside the title.",
+      "code": {
+        "prop": "stat_prefix"
+      },
+      "figma": {
+        "property": "Prefix"
+      }
+    },
+    {
+      "name": "stat_suffix",
+      "type": "string",
+      "default": "",
+      "description": "Optional trailing glyph/text after the title (e.g. '+', '%'). v-if gated; renders a .headline__suffix span inside the title. NOTE: Vue's own default is '', matching stat_prefix — the Default story's '+' is a STORY arg, not the component default; kept 'default: \"\"' here to text-match Stat.vue's defineProps exactly, per the Headline text_style precedent (check-contracts compares defaults literally).",
+      "code": {
+        "prop": "stat_suffix"
+      },
+      "figma": {
+        "property": "Suffix"
+      }
+    }
+  ],
+  "slots": [],
+  "tokensUsed": [
+    "stat/title/font-family",
+    "stat/title/font-weight",
+    "stat/title/line-height",
+    "stat/title/font-size",
+    "stat/title/font-size-at-sm",
+    "stat/title/border-color",
+    "stat/title/border-color-on-gold",
+    "stat/title/color-on-dark",
+    "stat/divider/width",
+    "stat/description/font-family",
+    "stat/description/font-weight",
+    "stat/description/font-size",
+    "stat/description/color-on-dark",
+    "stat/content/color",
+    "stat/content/line-height",
+    "stat/content/color-on-dark",
+    "stat/content/color-on-gold",
+    "stat/horizontal/title/font-size",
+    "stat/horizontal/content/font-size",
+    "stat/horizontal/content/border-color",
+    "stat/horizontal/content/border-color-on-gold",
+    "stat/prefix-suffix/font-size",
+    "stat/horizontal/prefix-suffix/font-size"
+  ],
+  "behavior": [
+    "Stat.vue declares ZERO <slot> elements — every content area (title/summary/content/prefix/suffix) is a plain string prop rendered by interpolation or v-html, unlike Button/Headline (both wrap a real default <slot>). contractSketch.slots is empty by design, not an oversight.",
+    "display='default' (the prop's real default) ALWAYS adds element--flex-center (Stat.vue's classes computed, else-branch) — it is not an optional, independently-togglable class. A consumer cannot get 'default layout without element--flex-center' through the public prop API.",
+    "element--flex-center itself (src/scss/layout/_flexbox.scss:12-23, a shared foundation utility, NOT stat-specific) sets display:flex/align-items:center/justify-content:center/flex-flow:column/text-align:center unconditionally, PLUS its own padding:1.5rem 0 at the sm(768px) breakpoint — applied to the Stat ROOT div. This is a SEPARATE padding source from stat.scss's own `.element--flex-center .stat__title` padding (which only affects the title, not the root) — see geometryNotTokenized. Per the scoping rule, the flexbox utility's own 1.5rem value belongs to that foundation, not this contract.",
+    "stat_hover is inverted-boolean-to-class: true (default) leaves the :hover-driven collapse active; false adds .stat--static, forcing .stat__content to max-height:max-content unconditionally (stat.scss:106-112) and disabling .stat:not(.stat--static)'s cursor:pointer.",
+    "The entire hover/collapse mechanic is pure CSS: :hover plus a max-height transition, with a progressive-enhancement @supports(interpolate-size:allow-keywords) branch (max-height 0 -> max-content animates smoothly in supporting browsers, vs. the max-height:100vh approximation elsewhere). No JS behavior class is involved — confirmed Stat.vue imports nothing from src/assets/js/.",
+    "stat_title/stat_summary/stat_content/stat_prefix/stat_suffix are each independently v-if-gated; any subset may be empty/absent.",
+    "Ancestor background context ([class*='bg--...'] and .bg-pattern--brain*, which may come from Stat's OWN background prop OR a wrapping element) switches: title border-color (gold default -> white on gold/brain-reversed), title text color (unset/inherited default -> gold on black/brain-black), content color (#666 default -> #ccc on black/brain-black, -> black/$secondary on gold/brain-reversed), description color (default -> white on black/brain-black). NARROWER than the Background foundation's generic on-light/on-dark grouping (gold+gray+white as 'light' vs. black as 'dark'): Stat's selectors test SPECIFICALLY for black/brain-black or gold/brain-reversed — a Stat under a bg--gray or bg--white ancestor gets NONE of them (title stays gold-bordered with unset text color, content #666, description default). See claims (value-reuse) for the numeric overlap with Background's semantic roles.",
+    "Horizontal layout's content border-top is ALSO ancestor-reactive but at a DIFFERENT, wider breakpoint than its own default rule: the default (non-gold) gold border-top appears at md(980px)+; when a gold/brain-reversed ancestor is ALSO present, that border only flips to black/$secondary from page-container(1350px)+ upward — between 980 and 1349px on a gold ancestor, the border-top is still gold (the on-gold override's own media query has not activated yet).",
+    "Horizontal layout removes the title's border-bottom entirely at md(980px)+ (stat.scss:199-200, `border-bottom: none`) — the divider visually moves from under the title to above the content (the content's own border-top) at that width.",
+    "When a horizontal Stat ALSO carries the Drupal-Layout-Builder-applied element--flex-left class (see knownIssues), stat.scss overrides the shared utility's flex-flow:column back to wrap (stat.scss:208-210) — the utility's own padding:1.5rem 0/text-align:left/width:100% (_flexbox.scss:4-10) still apply unchanged.",
+    ".stat:not(.stat--static) sets cursor:pointer (stat.scss:260-262) — a hint that the block is hoverable/interactive whenever the collapse behavior is active (i.e. whenever stat_hover=true)."
+  ],
+  "knownIssues": [
+    "`.stat--transform` is added unconditionally by every Stat.vue render (template literal) and CONDITIONALLY by two uiowa/uiowa Drupal Twig paths (docroot/themes/custom/uids_base/templates/block/block--inline-block--uiowa-statistic.html.twig:37 and docroot/sites/admissions.uiowa.edu/modules/admissions_core/templates/fragment--stat.html.twig:38, both gated on `has_hover_effect` and the stat content field being non-null) — but ZERO CSS rules target `.stat--transform` anywhere in the UIDS repo OR uids_base's own downstream stat.scss (verified: that 11-line file only adds a `.stat__grid.element--flex-center` padding override). The class reaches real production DOM on all three code paths but is unstyled everywhere; dropping it from Stat.vue's template would be a behavior-invisible cleanup, but a coordinated removal would also need the two Twig paths updated (out of scope for this repo).",
+    "Stat.vue's `classes` computed pushes a redundant second `'stat__grid'` when display==='horizontal' (Stat.vue, if-branch) — `'stat__grid'` is ALREADY present, unconditionally, in the template's own static class array (`['stat', 'stat__grid', 'stat--transform', ...classes]`). The push has zero observable effect (duplicate class tokens are a no-op for CSS matching); see claims.",
+    "`.stat--horizontal.element--flex-left` (stat.scss:208-210, sets flex-flow:wrap) is reachable ONLY via a class Stat.vue's own prop API never emits — but it IS live: `uiowa/config/default/layout_builder_styles.style.block_alignment_flex_row_left.yml:9` defines a Drupal Layout Builder alignment style (`classes: element--flex-left`) a site builder can apply to a Layout Builder region containing a horizontal Stat. Documented here (matching the Button borderless/full precedent of a non-prop escape hatch) rather than modeled as an option, but this one is a confirmed, named, reachable downstream mechanism, not a hypothetical.",
+    "`.grid--3-2` (stat.scss:151-155, and byte-for-byte duplicated at :159-163) has ZERO producers in either UIDS or uiowa/uiowa — see claims (unreachable, redundant). Grid.vue's `type` prop has no validator, so a future consumer passing an arbitrary string is not IMPOSSIBLE, but no current path produces this ancestor class.",
+    "A global `:root { interpolate-size: allow-keywords; }` declaration (stat.scss:5-7) lives inside this component's partial rather than a foundation file (uids-core.scss) — grep-confirmed the ONLY occurrence in the repo. Every consumer of stat.scss re-declares this global CSS property. Out of scope for this contract to relocate (a foundation-level change, not a Stat token); flagged for a follow-up.",
+    "`.stat__content`'s default text color (stat.scss:95, `#666`) has no exact primitive match — nearest is color.gray.400 (#737373), a visibly different value, not a rounding/spelling variant. This spec tokenizes as-shipped (new primitive color.gray.450) rather than silently reusing gray.400 — see openQuestions for the alternative.",
+    "Stat.vue hardcodes `<h2>` for the title (Stat.vue template) with no `level` prop at all, unlike Headline's flexible `level` (h1-h6). Every rendered Stat is always an h2 regardless of surrounding document structure — a grid of 6 Stats (the Grid story) puts 6 h2 elements on one page. Not modeled as an option in this spec (would be a public-shape addition, not a faithful migration of shipped behavior) — flagged for awareness.",
+    "stat_summary and stat_content are both rendered via v-html (unescaped) — same class of authoring-trust assumption as Headline's slot content, not new to this component, but worth carrying forward into the eventual contract's behavior/a11y notes."
+  ],
+  "geometryNotTokenized": {
+    "title-padding": "The bare `.stat__title` half of an overlapping padding chain: base/mobile unconditional `$lg 0 $sm 0` (stat.scss:53); FIRST `@include utilities.breakpoint(sm)` override `$md $lg $sm 0` (stat.scss:55-57) — SPECIFICITY-DEAD, see claims, never renders; SECOND `@include utilities.breakpoint(sm)` override `0 $lg $sm 0` (stat.scss:84-86) — the value that actually wins at 768px+ for any bare `.stat__title`, i.e. horizontal layout below 980px. The default-layout half: title-padding-flex-center. Why none of it is tokenized: title-padding-not-tokenized.",
+    "horizontal-title-padding": "The horizontal-only chain (only reachable below the md/980px horizontal-specific override): mobile `$lg 0 $sm 0` (stat.scss:53, same base rule as default layout, since horizontal does NOT carry element--flex-center), sm(768)+ `0 $lg $sm 0` (stat.scss:86, same winning rule), md(980)+ `0 $lg $xsm 0` PLUS `border-bottom: none` (stat.scss:196-200, horizontal-specific, higher specificity, also removes the border entirely at this width — see behavior).",
+    "description-width-and-content-margin": "Percentage-based layout ratios, not spacing-scale values: .stat__description width 85% (stat.scss:139), 60% in the dead/unreachable .grid--3-2 case (stat.scss:151-163, see claims), 100% horizontal (stat.scss:240); .stat__content margin 0 10% under .element--flex-center at md+ (stat.scss:124-127); .stat__description margin $sm 0 (stat.scss:140, default) / 0.625rem 0 0 then 0 at md+ (stat.scss:242,246, horizontal — the horizontal value is a LITERAL 0.625rem rather than $sm, an inconsistency to normalize, not a new value). Horizontal flex values: description-width-and-content-margin-horizontal.",
+    "prefix-suffix-kerning": "Optical negative margins on the prefix/suffix spans: default -7px/-7px (stat.scss:172-177), horizontal -3px/-3px (stat.scss:230-235). One-off visual kerning adjustments, not scale values.",
+    "hover-collapse-motion": "max-height 0 -> 100vh -> max-content, transition max-height 0.4s ease-in-out (stat.scss:100-112), the @supports(interpolate-size:allow-keywords) progressive enhancement (stat.scss:16-24,29-37), and the shared `transition: all .55s cubic-bezier(.95, 1.25, .375, 1.15)` on .stat__grid (stat.scss:12, restated redundantly at :257 — see claims). Matches Button's focus-bar-motion precedent: only colors are tokenized, motion/easing values stay raw.",
+    "flex-mechanics": "display:flex/flex-wrap:wrap/cursor:inherit on .stat__grid.stat--horizontal (stat.scss:252-258); flex-flow:wrap on .stat--horizontal.element--flex-left (stat.scss:208-210, see knownIssues); cursor:pointer/inherit toggles (stat.scss:260-262) — layout mechanics and interaction hints, not design values.",
+    "misc-resets": "margin:0/padding:0/position:relative/display:inline-block trivial resets scattered across .stat, .stat__title, .stat__content, .stat__description (stat.scss:42,45-46,94,96-97,132-133) — zero-information resets, not tokenized.",
+    "title-padding-flex-center": "Continues title-padding — the `.element--flex-center &` half, which is the one that renders for display='default', since that display always carries element--flex-center: mobile override `$md $lg $sm $lg` (stat.scss:59-62) is the REAL default-layout mobile padding, and the sm-breakpoint override `0 $lg $sm` (three-value, stat.scss:88-90) is the REAL default-layout sm+ padding.",
+    "title-padding-not-tokenized": "Why the whole `.stat__title` padding chain stays raw geometry rather than tokens: this spec tokenizes color/type/structural-dimension values but leaves padding/margin/width geometry un-tokenized, matching Headline's precedent (its own clean, single-value, primitive-backed underline padding-bottom stayed un-tokenized) rather than Button's, whose padding IS its core size identity.",
+    "description-width-and-content-margin-horizontal": "Continues description-width-and-content-margin — the horizontal-layout flex values: `.stat__title` flex-basis:50% at page-container (stat.scss:202-204); `.stat__content` flex-basis 100%/50% (stat.scss:219,244-245); `.stat__content` padding-top .5rem / margin-top .75rem at md+ (stat.scss:216-217, both already exact matches for existing space.50/space.75 primitives, but left raw for consistency with this spec's padding/margin policy)."
+  }
+}

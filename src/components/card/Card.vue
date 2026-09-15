@@ -89,7 +89,7 @@ const props = defineProps({
 const slots = useSlots();
 
 const classes = computed(() => {
-  let classes = ['card'];
+  const classes = ['card'];
 
   ['centered', 'media_padded', 'button_align_bottom'].forEach((prop) => {
     if (props[prop] === true) {
@@ -113,7 +113,7 @@ const classes = computed(() => {
 });
 
 const mediaClasses = computed(() => {
-  let classes = ['media'];
+  const classes = ['media'];
 
   Media.addMediaClasses(classes, props);
 
@@ -121,7 +121,7 @@ const mediaClasses = computed(() => {
 });
 
 const buttonClasses = computed(() => {
-  let classes = ['bttn--transparent', 'bttn--light-font'];
+  const classes = ['bttn--transparent', 'bttn--light-font'];
 
   if (props.link_indicator && props.url && !props.link_text) {
     classes.push('bttn--circle')

@@ -96,6 +96,18 @@ Tertiary.args = {
   color: 'tertiary',
 };
 
+export const Small = Template.bind({});
+Small.args = {
+  ...Primary.args,
+  size: 'small',
+};
+
+export const Large = Template.bind({});
+Large.args = {
+  ...Primary.args,
+  size: 'large',
+};
+
 export const NoText = Template.bind({});
 NoText.args = {
   ...Primary.args,

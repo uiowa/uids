@@ -1,0 +1,91 @@
+{
+  "$schema": "./contract.schema.json",
+  "name": "inline",
+  "version": "1.0.0",
+  "description": "Foundations contract for the Inline float/alignment/responsive-width system (.inline--size-*, .inline--align-*). Not a Vue component of its own — inline.ts is a shared prop/class module that Figure.vue, Media.vue and Callout.vue each spread into their own props and call directly to compute these classes.",
+  "identity": {
+    "kind": "foundation",
+    "codePath": "src/scss/components/_inline.scss",
+    "relatedPaths": [
+      "src/components/inline/inline.ts",
+      "src/components/inline/Figure.vue",
+      "src/components/media/Media.vue",
+      "src/components/callout/Callout.vue",
+      "src/components/inline/Inline.stories.js"
+    ],
+    "figma": {
+      "fileKey": "hNShklBztaeaQneScM0KoM",
+      "page": "Foundations / Inline",
+      "note": "Documentation frames only (float/alignment specimens, the responsive-width ratio table) — no component set, parallel to the Foundations / Layout page. Figure/Media/Callout each bind these classes directly in Figma; there is no dedicated Inline component."
+    }
+  },
+  "options": [
+    {
+      "name": "size",
+      "type": "enum",
+      "values": ["full", "small", "medium", "large"],
+      "default": "full",
+      "description": "Responsive width of an inline element (Figure/Media/Callout) relative to its container. full = 100% width with only the shared xs/sm vertical margins; small/medium/large step through breakpoint-gated percentages as the viewport (or, inside a grid column, the container) widens — see geometryNotTokenized. Consumed via inline.ts's inline_size prop.",
+      "code": {
+        "classes": {
+          "full": "inline--size-full",
+          "small": "inline--size-small",
+          "medium": "inline--size-medium",
+          "large": "inline--size-large"
+        },
+        "notes": "The code prop is inline.ts's inline_size — deliberately NOT bound as code.prop here: foundations own the CLASSES, and the prop gets claimed by the component contracts (Figure/Media/Card) that spread inline.ts when they migrate (the border/button .borderless split precedent). inline.ts's own validator disagrees with this values list: it allows ['', 'small', 'medium', 'large'] (not 'full', which it doesn't recognize at all), and its coded default is '' (which renders NO size class — not .inline--size-full). Inline.stories.js's item_sizes control passes the literal string 'full' anyway; addClass interpolates it verbatim into 'inline--size-full', and that SCSS class DOES exist and render, purely because Vue prop validators only warn, never block. The Storybook argType table's defaultValue also shows '' (sizes[0]) rather than reflecting any curated default. The canonical-spelling ruling is pending — see the spelling knownIssue; this contract deliberately does not resolve it."
+      }
+    },
+    {
+      "name": "alignment",
+      "type": "enum",
+      "values": ["none", "left", "center", "right"],
+      "default": "left",
+      "description": "Float/alignment of an inline element relative to surrounding text flow. none ('' in code) = no float, full-width flow; left floats left and clears left — this is the code default, so every Figure/Media emits .inline--align-left unless '' is explicitly passed; center applies auto inline margins with no float; right floats right and clears right. Consumed via inline.ts's inline_alignment prop.",
+      "code": {
+        "classes": {
+          "left": "inline--align-left",
+          "center": "inline--align-center",
+          "right": "inline--align-right"
+        },
+        "notes": "The code prop is inline.ts's inline_alignment — not bound as code.prop for the same foundation-vs-component reason as size. 'none' has no real class of its own: inline.ts gates on JS truthiness (`if (props.inline_alignment)`), so only the literal empty string '' suppresses the class. Passing the human-readable string 'none' through code would NOT reproduce that — it's truthy, so addClass would try to emit the non-existent class inline--align-none. 'none' here is contract/documentation shorthand for the empty-string case, not a value safe to pass through code. Storybook's argType table also shows a defaultValue of '' (alignment[0]) even though the coded default is 'left' — the table's summary was never updated to match."
+      }
+    }
+  ],
+  "tokensUsed": [
+    "space/50",
+    "layout/gutter/width/mobile",
+    "layout/gutter/height/mobile",
+    "layout/gutter/width/desktop"
+  ],
+  "geometryNotTokenized": {
+    "size-small-ratios": "50% at xxsm (400px) / 40% at xsm (600px) / 33% at md (980px) — _inline.scss:39-49. xxsm and xsm are OUTSIDE the tokenized breakpoint vocabulary (layout/breakpoint/* only has sm/md/page). Container-query mirror at _inline.scss:79-97 shares the same percentages at the same named breakpoints.",
+    "size-medium-ratios": "67% then 50%, BOTH gated at xsm (600px) via two @include utilities.breakpoint(xsm) blocks — _inline.scss:51-58 (see knownIssues: the second is very likely meant to be breakpoint(md)). The @container equivalent correctly steps xsm(600)->67%, md(980)->50% — _inline.scss:89-101.",
+    "size-large-ratios": "70% at md (980px), 75% at lg (1200px) — _inline.scss:60-67. lg (1200px) is OUTSIDE the tokenized breakpoint vocabulary. Container equivalent steps md->70% (_inline.scss:103-105), lg(1200, raw)->75% (_inline.scss:108-112).",
+    "container-query-floor": "@container column (max-width: $break-xxsm /400px/) forces width:100% below the smallest column size — _inline.scss:73-77. Container-query SIZE thresholds are raw Sass-interpolated px (#{variables.$break-*}), never var() — size-query conditions cannot consume custom properties (style() queries can, but that is a different mechanism not used here).",
+    "float-clear-mechanics": ".inline--align-left: float:left, clear:left, plus an empty ::after{content:''} — _inline.scss:117-124. .inline--align-right: float:right, clear:right, no ::after — _inline.scss:131-134. Asymmetric: only the left variant carries the empty pseudo-element.",
+    "align-center-margins": ".inline--align-center: margin-inline-start/end:auto, no float — _inline.scss:126-129. Only visibly centers once width is already constrained by a size-* class or an explicit width from the caller."
+  },
+  "behavior": [
+    "The [class*=\"inline--\"] scope block (_inline.scss:4-9) defines --inline-margin-xs/-sm/-md/-lg as a CSS custom-property indirection layer. Only xs, sm and md are ever read by a selector in this partial — --inline-margin-lg is assigned but never consumed (see knownIssues).",
+    "Dual responsive system: a media-query branch (@include utilities.breakpoint(...), _inline.scss:39-67) always applies. A container-query branch (@supports (contain: inline-size) { @container column (...) }, _inline.scss:70-113) additionally applies ONLY when the Figure/Media sits inside an ancestor with container-type: inline-size; container-name: column — declared on .grid__column, .column-container and .layout-container (src/scss/layout/_grid.scss:83-84), i.e. grid items. A bare Storybook story (not wrapped in a grid column) only ever gets the media-query branch.",
+    "className() (src/components/utlity.ts, imported via the misspelled relative path '../utlity' in inline.ts) only replaces underscores with hyphens — it does not validate against the sizes/alignment enums, so any string prop value reaches the DOM as a class verbatim.",
+    "inline_size and inline_alignment both gate on JS truthiness (`if (props.inline_size)` / `if (props.inline_alignment)`) rather than an explicit not-empty check: the empty string '' suppresses the class entirely instead of emitting a 'no size' / 'no alignment' class.",
+    "Figure.vue, Media.vue and Callout.vue each spread ...Inline.props into their own defineProps and call Inline.addClass(classes, props) inside their own `classes` computed (Callout.vue:8,13,20 — a direct, co-equal consumer) — inline.ts holds no Vue reactivity itself, it is a plain prop/class-string module (see knownIssues re: its directory location)."
+  ],
+  "breakpoints": {
+    "xxsm": 400,
+    "xsm": 600,
+    "md": 980,
+    "lg": 1200
+  },
+  "knownIssues": [
+    "inline.ts lives in src/components/inline/, NOT src/components/shared/ alongside borderless.ts/background.ts/media.ts — breaking the shared-prop-module directory convention CLAUDE.md documents. Media.vue (src/components/media/) has to import it cross-directory (`from '../inline/inline'`); Figure.vue imports it from its own directory. A future cleanup should relocate it to shared/ and update both call sites.",
+    "Three-way size spelling disagreement: _inline.scss defines .inline--size-full (real, styled) plus -small/-medium/-large. inline.ts's `sizes` validator instead allows ['', 'small', 'medium', 'large'] with '' labeled \"full width\" in the Storybook control, and 'full' isn't a recognized value at all. Inline.stories.js's item_sizes checkbox passes the literal string 'full' anyway — addClass interpolates it verbatim into inline--size-full, and that class does exist and render, only because Vue prop validators warn rather than block. This contract lists [full, small, medium, large] per the design system's actual working behavior; WHICH spelling becomes canonical (teach inline.ts 'full', or make '' the documented value) is a pending human ruling recorded at drafting time.",
+    "CONFIRMED BUG at _inline.scss:51-58: .inline--size-medium has two identical @include utilities.breakpoint(xsm) blocks (67% then 50%). Both match the same media condition at equal specificity, so the later 50% rule always wins — 67% is dead code in the media-query branch. The @container equivalent (_inline.scss:89-101) steps xsm(600px)->67%, md(980px)->50%, suggesting the second block should read `md`. RULED 2026-08-15 (the design system owner): DOCUMENT, do not fix in 4.x — the as-shipped-bug policy keeps the migration branch behavior-preserving and no token is affected. The true media-query-branch behavior is 'jumps straight to 50% at 600px'; the 67% mid-step exists only in the @container branch (container-named grid columns). The regression baselines pin BOTH branches as shipped. Candidate 5.x fix: change the second breakpoint(xsm) to breakpoint(md) at _inline.scss:55.",
+    "[class*=\"inline--\"] (_inline.scss:4) substring-matches any class containing that sequence, including FontAwesome's .svg-inline--fa (referenced in alert.scss:49-50) and .padding--inline--md — UIDS's OWN utility class (_utility-classes.scss:100), also emitted in production by uiowa/uiowa's BannerBlockFormHandler. Harmless today — the selector only assigns custom properties that neither of those classes reads — but it is a live substring hazard if either class family, or a future inline-*.scss rule, starts reading --inline-margin-*.",
+    "--inline-margin-lg (_inline.scss:8, resolving through --space-lg-width-gutter / --uiowa-space-300 / space.300 / layout/gutter/width/desktop) is declared but never consumed by any selector in this partial or anywhere else in src/ (verified by grep) — a dead assignment alongside the live xs/sm/md chain.",
+    "Cross-axis token reuse in BOTH directions: --inline-margin-md does not resolve to a layout/gutter/width/* token at all (--space-md-width-gutter -> --uiowa-space-200 -> space.200, whose semantic wrappers are layout/gutter/height/mobile AND layout/block/stack/extra — both vertical roles; layout/gutter/height/mobile is listed in tokensUsed as the nearer role, a documented-arbitrary pick between two coincidental wrappers), yet Inline uses it for HORIZONTAL margins. Conversely --inline-margin-sm resolves cleanly to layout/gutter/width/mobile — a WIDTH role — yet Inline consumes it for the VERTICAL margin-bottom (_inline.scss:16). Neither mismatch is worth new tokens in this commit; flagged for the same TODO sweep as the $xsm…$xxxlg primitives.",
+    "Passing the contract's human-readable 'none' alignment value through to inline_alignment would NOT reproduce the no-alignment behavior — see the alignment option's code.notes. Only the literal empty string does."
+  ]
+}

@@ -21,7 +21,7 @@
 }
 
 .pager li {
-  font-size: variables.$small-font-size;
+  font-size: var(--uiowa-pager-font-size);
   @include utilities.margin(variables.$right: variables.$xsm);
 }
 
@@ -38,28 +38,28 @@
 .pager button {
   display: block;
   text-decoration: none;
-  color: variables.$secondary;
+  color: var(--uiowa-pager-link-color);
   @include utilities.padding(variables.$top: variables.$sm, variables.$right: variables.$md, variables.$bottom: variables.$sm, variables.$left: variables.$md);
 }
 
 .pager a:hover,
 .pager button:hover {
-  background: variables.$light;
+  background: var(--uiowa-pager-link-hover-background);
 }
 
 .pager .is-active a {
   cursor: default;
-  color: variables.$white;
-  background: variables.$secondary;
+  color: var(--uiowa-pager-active-color);
+  background: var(--uiowa-pager-active-background);
   &:hover {
-    color: variables.$secondary;
-    background: variables.$primary;
+    color: var(--uiowa-pager-active-hover-color);
+    background: var(--uiowa-pager-active-hover-background);
   }
 }
 
 .pager .disabled {
   cursor: not-allowed;
-  color: variables.$gray-light;
+  color: var(--uiowa-pager-disabled-color);
   @include utilities.padding(variables.$top: variables.$sm, variables.$right: variables.$md, variables.$bottom: variables.$sm, variables.$left: variables.$md);
 }
 
@@ -69,7 +69,7 @@
 
 .pager .ellipsis::after {
   content: '\2026';
-  color: variables.$secondary;
+  color: var(--uiowa-pager-ellipsis-color);
   @include utilities.padding(variables.$top: variables.$sm, variables.$right: variables.$md, variables.$bottom: variables.$sm, variables.$left: variables.$md);
 }
 
@@ -80,37 +80,37 @@
 }
 
 .pager a {
-  color: variables.$secondary;
+  color: var(--uiowa-pager-link-color);
   [class*=bg--black] & {
-    background-color: variables.$secondary;
+    background-color: var(--uiowa-pager-context-black-background);
   }
   [class*=bg--white] & {
-    background-color: variables.$white;
+    background-color: var(--uiowa-pager-context-white-background);
   }
   [class*=bg--gold] & {
-    background-color: variables.$primary;
+    background-color: var(--uiowa-pager-context-gold-background);
   }
   [class*=bg--gray] & {
-    background-color: variables.$light;
+    background-color: var(--uiowa-pager-context-gray-background);
   }
 }
 .pager a:hover,
 .pager a:focus {
-  background-color: variables.$light;
-  color: variables.$secondary;
+  background-color: var(--uiowa-pager-link-hover-background);
+  color: var(--uiowa-pager-link-color);
   [class*=bg--black] &,
   [class*=bg--gold] & {
-    background-color: variables.$white;
+    background-color: var(--uiowa-pager-context-black-hover-background);
   }
   [class*=bg--gray] & {
-    background-color: variables.$lighter-gray;
+    background-color: var(--uiowa-pager-context-gray-hover-background);
   }
 }
 
 /* Active State */
 .pager .is-active a {
-  background-color: variables.$secondary;
-  color: variables.$white;
+  background-color: var(--uiowa-pager-active-background);
+  color: var(--uiowa-pager-active-color);
 
   [class*=bg--gray] &,
   [class*=bg--white] & {
@@ -118,17 +118,17 @@
   }
 
   [class*=bg--black] & {
-    background-color: variables.$primary;
-    color: variables.$secondary;
+    background-color: var(--uiowa-pager-context-black-active-background);
+    color: var(--uiowa-pager-context-black-active-color);
   }
 
   /* Active Hover/Focus States */
   &:hover, &:focus {
-    background-color: variables.$primary;
-    color: variables.$secondary;
+    background-color: var(--uiowa-pager-active-hover-background);
+    color: var(--uiowa-pager-active-hover-color);
     [class*=bg--black] &,
     [class*=bg--gold] & {
-      background-color: variables.$white;
+      background-color: var(--uiowa-pager-context-black-active-hover-background);
     }
   }
 }

@@ -45,7 +45,7 @@ const props = defineProps({
 const slots = useSlots();
 
 const classes = computed(() => {
-  let classes = ['bttn'];
+  const classes = ['bttn'];
 
   // If these props are set to true, add the corresponding class.
   ['full', 'transparent', 'light_font'].forEach((prop) => {

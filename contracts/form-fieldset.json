@@ -1,0 +1,111 @@
+{
+  "$schema": "./contract.schema.json",
+  "name": "form-fieldset",
+  "version": "1.0.0",
+  "description": "The <fieldset>/<legend> wrapper used to group related Form Items (typically checkbox/radio groups). Two Legend layouts: Top (default — legend stacked above its content) and Side (legend floats beside its content once the nearest 'column' container reaches 768px). Child of the form contract — its own Figma set nests Form Item instances as content.",
+  "identity": {
+    "codePath": "src/components/form/FormFieldset.vue",
+    "scssPath": "src/scss/components/form.scss",
+    "relatedPaths": [
+      "src/components/form/FormCheckboxOrRadioGroup.vue"
+    ],
+    "downstreamPaths": [
+      "uiowa/docroot/themes/custom/uids_base/scss/components/form/forms.scss"
+    ],
+    "figma": {
+      "fileKey": "hNShklBztaeaQneScM0KoM",
+      "componentSetName": "Form Fieldset",
+      "componentSetId": "151:36",
+      "componentKey": "c2ebca9797fc027f8defba2cd2593ef0980cb78c",
+      "page": "Components / Form"
+    }
+  },
+  "options": [
+    {
+      "name": "label",
+      "type": "string",
+      "default": "",
+      "description": "Legend text (rendered via v-html). The <legend> element is omitted entirely when label is falsy — along with any required asterisk.",
+      "code": {
+        "prop": "label"
+      },
+      "figma": {
+        "property": "Legend"
+      }
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "default": false,
+      "description": "Adds a CSS-generated asterisk after the legend (.form--required:after, applied to the legend element). The form contract's own `required` option is the equivalent marker for a plain <label>; this is FormFieldset.vue's real, checker-verified prop for the same visual mechanism on a legend.",
+      "code": {
+        "prop": "required"
+      },
+      "figma": {
+        "property": "Required",
+        "notes": "Boolean text-layer property — an asterisk visibility toggle, not a variant axis (Button Label/Icon precedent)."
+      }
+    },
+    {
+      "name": "sideLegend",
+      "type": "boolean",
+      "default": false,
+      "description": "Switches the legend from stacked-above (Top) to floated-beside (Side) once the nearest 'column' container reaches 768px. Not just a class swap — true wraps the slot content in an extra <div class=\"form-fieldset__content\"> (FormFieldset.vue:29-31); false renders the slot directly as the fieldset's children (`<slot v-else>`, :32). The two Legend values are genuinely different DOM shapes.",
+      "code": {
+        "prop": "sideLegend",
+        "class": "form-fieldset--side-legend"
+      },
+      "figma": {
+        "axis": "Legend",
+        "map": {
+          "false": "Top",
+          "true": "Side"
+        }
+      }
+    }
+  ],
+  "slots": [
+    {
+      "name": "default",
+      "description": "Fieldset content — typically nested Form Item instances (checkbox/radio rows) or the raw markup FormCheckboxOrRadioGroup.vue composes from its `items` array.",
+      "figma": {
+        "property": "Content",
+        "notes": "Nested Form Item instances (instance-swap / list), not a single text layer."
+      }
+    }
+  ],
+  "tokensUsed": [
+    "form/text-color",
+    "form/section-border-color",
+    "form/fieldset/legend-font-size",
+    "form/fieldset/legend-font-weight"
+  ],
+  "children": [
+    {
+      "component": "form",
+      "contract": "contracts/form.json"
+    }
+  ],
+  "geometryNotTokenized": {
+    "top-legend-baseline": "The Top (default) legend uses form/label/font-size (claimed by the form contract — the same token plain <label> elements use) plus a literal font-weight:700 ($font-weight-bold) that is not exposed as any token, same as plain labels. Only the Side legend needed its own new tokens (legend-font-size/-weight below) — that's why this contract's tokensUsed is just 4 entries.",
+    "fieldset-margin": "fieldset { margin-bottom: 1.5rem } (form.scss:236) — component dimension, no matching space.* step, left as raw geometry.",
+    "top-legend-geometry": "display:block, line-height:1.6, margin-bottom:0.5rem (form.scss:241-245) — literal, no matching primitives.",
+    "side-legend-geometry": "padding-block 0 .5rem; margin-block var(--space-sm-width-gutter) (a legacy core alias to the layout foundation's space.125/1.25rem — not a form-fieldset token); at the container-query breakpoint: float left, border-inline-end 1px, margin-inline-end var(--space-sm-width-gutter), padding-inline 0 var(--space-sm-width-gutter) — only the border COLOR (form/section-border-color) is tokenized, all padding/margin/border-width geometry is raw.",
+    "container-query-context": ".form-fieldset--side-legend switches layout at the SAME @container column (min-width:768px) switch as the form contract's compact/flex/inline (see contracts/form.json geometryNotTokenized.container-query-context) — it inherits the same 'no .layout-container/.grid__column/.column-container ancestor = never fires' trap."
+  },
+  "a11y": {
+    "landmark": "group (native <fieldset>/<legend>)",
+    "notes": "Legend renders only when label is truthy (v-if); a falsy label omits the legend — and its required asterisk — entirely, which is a real accessibility trap if a fieldset is used without a label. FormCheckboxOrRadioGroup.vue never forwards sideLegend to the fieldset it wraps (only :label and :required) — a checkbox/radio group built through that wrapper cannot opt into the Side legend layout today."
+  },
+  "behavior": [
+    "sideLegend switches internal markup, not just a class: true wraps the slot content in an extra <div class=\"form-fieldset__content\">; false renders the slot directly as the fieldset's children.",
+    "The .form-fieldset__content flex gap (Side legend only) reads var(--form-item-margin) — a token owned by the form contract, not by this one. This is expected cross-component reading (like form/button/font-size aliasing Button); if a Figma 'Form Fieldset' set ever binds it directly instead of inheriting it from nested Form Item instances, this contract would need 'form' declared as its own child to satisfy check-figma's binding check.",
+    "The base (non-side) fieldset/legend rule lives in form.scss nested under .form itself (not under a form-fieldset-specific selector) — this contract's tokensUsed reflects only the tokens exclusively read by the Side legend variant (form/fieldset/legend-font-size, form/fieldset/legend-font-weight, form/text-color, form/section-border-color); the Top variant relies entirely on tokens already claimed by contracts/form.json."
+  ],
+  "knownIssues": [
+    "FormFieldset previously declared an inert `inline` prop (never read in template or class computation); it was DELETED during this migration (architect call 2026-08-14) rather than modeled as an option.",
+    "FormKitchenSink.stories.js passes :inline=\"args.inline\" to <uids-form-checkbox-or-radio-group>, which doesn't declare an inline prop — it falls through as a non-prop attribute with no styling effect.",
+    "Side-legend legend declares font-weight 600 (form/fieldset/legend-font-weight) but the legend inherits Roboto (served at 300/400/500/700/900 — no 600 face); the DECLARED value is 600, the RENDERED face is actually 700 or 500 via CSS font-matching. Do not 'fix' the declared value without re-measuring which face Storybook actually loads (Antonio-class caveat).",
+    "Side-legend legend font-size (form/fieldset/legend-font-size, 1rem) is a literal in form.scss instead of reading var(--form-label-font-size), unlike the Top-legend case in the same file which does use that var — literal-vs-token drift. Tokenized here as the fix target for the SCSS-swap commit; the value itself is unchanged (1rem)."
+  ]
+}

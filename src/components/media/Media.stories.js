@@ -68,3 +68,23 @@ export const HorizontalVideo = {
     `,
   }),
 }
+
+// Framing classes — raw markup for the media-framing FOUNDATION
+// (contracts/media-framing.json): border, circle, cover are styled in
+// _media.scss and consumed by Card/Callout via shared/media.ts (or applied
+// class-only downstream, e.g. blockquote.html.twig's media--circle). Exists
+// so the regression harness pins the framing styles independently of the
+// unmigrated Card component's stories. The img is an inline SVG data-URI so
+// the capture has no network/asset dependency.
+const framingImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='180'%3E%3Crect width='320' height='180' fill='%23FFCD00'/%3E%3C/svg%3E";
+export const Framing = {
+  render: () => ({
+    template: `
+      <div style="display: flex; gap: 2rem; align-items: flex-start; padding: 1rem;">
+        <figure class="media--border" style="width: 200px;"><img src="${framingImg}" style="width: 100%;" alt=""></figure>
+        <figure class="media--circle" style="width: 200px;"><img src="${framingImg}" style="width: 100%;" alt=""></figure>
+        <figure class="media--cover" style="width: 200px; height: 120px;"><img src="${framingImg}" alt=""></figure>
+      </div>
+    `,
+  }),
+}

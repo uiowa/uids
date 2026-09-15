@@ -1,0 +1,170 @@
+{
+  "$schema": "./contract.schema.json",
+  "name": "brand-footer",
+  "version": "1.1.1",
+  "description": "The branded site footer: black band with the gold IOWA lockup, site/contact content slots, and the socket menu (copyright + legal links). Pairs with the Brand Bar.",
+  "identity": {
+    "codePath": "src/components/brand-footer/BrandFooter.vue",
+    "scssPath": "src/scss/components/brand-footer.scss",
+    "registeredName": "uids-iowa-footer",
+    "barrelExport": "UidsIowaFooter",
+    "storybookId": "components-branding-brand-footer",
+    "figma": {
+      "fileKey": "hNShklBztaeaQneScM0KoM",
+      "componentSetName": "Brand Footer",
+      "componentSetId": "46:120",
+      "componentKey": "678e120fc8fac1b6b187e39d20c6ba78212c9326",
+      "page": "Components / Brand Footer"
+    },
+    "claudeDesign": {
+      "projectId": "a371c390-7071-4ac7-a122-87440610e63a",
+      "template": "Brand Footer.dc.html"
+    }
+  },
+  "options": [
+    {
+      "name": "healthcare",
+      "type": "boolean",
+      "default": false,
+      "description": "Switches the nested Logo to the IOWA Health Care lockup",
+      "code": {
+        "prop": "healthcare"
+      },
+      "figma": {
+        "axis": "Healthcare",
+        "map": {
+          "false": "False",
+          "true": "True"
+        }
+      }
+    },
+    {
+      "name": "parent_site_title",
+      "type": "string",
+      "default": "",
+      "description": "GUARD ONLY: a truthy value enables the parent_site_title slot wrapper; the prop's value itself is never rendered — content comes from the slot",
+      "code": {
+        "prop": "parent_site_title",
+        "notes": "v-if guard at BrandFooter.vue:50; value not interpolated"
+      },
+      "figma": {
+        "property": "Show Parent Title (boolean) + Parent Title (text)"
+      }
+    },
+    {
+      "name": "breakpoint",
+      "type": "enum",
+      "values": [
+        "mobile",
+        "md",
+        "page"
+      ],
+      "description": "Responsive states: stacked (mobile) → flex columns (md+); logo 128/145/176px",
+      "code": {
+        "mediaQuery": {
+          "md": "980px",
+          "page": "1350px"
+        }
+      },
+      "figma": {
+        "axis": "Breakpoint",
+        "map": {
+          "mobile": "Mobile",
+          "md": "MD",
+          "page": "Page"
+        }
+      }
+    }
+  ],
+  "slots": [
+    {
+      "name": "default",
+      "description": "Content beside the logo — typically div.site-name and/or an icon menu (.footer__links--icon)",
+      "figma": {
+        "property": "Show Site Name (boolean) + Site Name (text)"
+      }
+    },
+    {
+      "name": "parent_site_title",
+      "description": "Parent site name (div.parent-site-name)",
+      "behavior": "Only renders when the parent_site_title PROP is truthy (BrandFooter.vue:50) — slot content alone is not enough",
+      "figma": {
+        "property": "Show Parent Title (boolean) + Parent Title (text)"
+      }
+    },
+    {
+      "name": "contact_info",
+      "description": "Contact block (address/phone paragraphs); rendered unconditionally",
+      "figma": {
+        "property": "Show Contact (boolean) + Contact (address text) + Phone (text) + Email (text)",
+        "notes": "Figma models the typical slot content: address (brand-footer/text tokens) plus phone/email rows with icons (text-icon tokens) and gold links (link-color)"
+      }
+    }
+  ],
+  "tokensUsed": [
+    "brand-footer/background",
+    "brand-footer/link-color",
+    "brand-footer/text/color",
+    "brand-footer/text/font-weight",
+    "brand-footer/text-icon/color",
+    "brand-footer/text-icon/font-size",
+    "brand-footer/site-name/color",
+    "brand-footer/site-name/font-size",
+    "brand-footer/site-name/font-weight",
+    "brand-footer/parent-site-name/color",
+    "brand-footer/parent-site-name/font-size",
+    "brand-footer/parent-site-name/font-weight",
+    "brand-footer/parent-site-name/background",
+    "brand-footer/menu/font-size",
+    "brand-footer/menu/font-weight",
+    "brand-footer/menu/link-color",
+    "brand-footer/icon-menu/color",
+    "brand-footer/icon-menu/font-size",
+    "brand-footer/socket/color",
+    "brand-footer/socket/font-size",
+    "brand-footer/socket/link-color",
+    "brand-footer/socket/separator-color"
+  ],
+  "children": [
+    {
+      "component": "logo",
+      "contract": "contracts/logo.json",
+      "fixed": {
+        "context": "footer"
+      },
+      "inherits": [
+        "healthcare"
+      ]
+    }
+  ],
+  "geometryNotTokenized": {
+    "footer-padding": "2.5rem 0 (mobile) / 2.5rem top, 0 bottom (md+)",
+    "container": "container-width mixin: margin 0 1.25rem → max-width 1310px centered @page",
+    "links-columns": "footer__container--flex @md: flex, wrap, column-gap 1.05rem; links flex 1 1 0; --contact flex-grow 2",
+    "logo-footer-padding": "0 40px 0 0",
+    "site-name-margins": "margin-top 1.05rem, margin-bottom 0.325rem",
+    "parent-site-name-margins": "margin 0 0 0.625rem, padding 0",
+    "text-margins": "p margin-top 0.9rem; p a icons margin-right 0.625rem",
+    "socket-geometry": "li padding 0 0.625rem, margin-bottom 0.325rem, 1px right border; first-child flex-basis 100%",
+    "icon-menu-line-height": "2 (mobile) → 1 (md)",
+    "hover-focus": "all link groups: text-decoration underline on hover/focus"
+  },
+  "a11y": {
+    "landmark": "contentinfo (native <footer>)",
+    "notes": "Legal links carry clear names (Privacy Notice / UI Nondiscrimination Statement / Accessibility). socket__menu is a bare ul, not wrapped in nav. Icon menu link text hidden via element-invisible (.link-text). Logo carries its own accessible name (contracts/logo.json)."
+  },
+  "behavior": [
+    "Copyright year is dynamic (new Date().getFullYear())",
+    "Hardcoded legal links: https://uiowa.edu/privacy, https://policy.uiowa.edu/community-policies/nondiscrimination-statement, https://accessibility.uiowa.edu/",
+    ".site-name and .parent-site-name are shared classes whose base styles live in brand-bar.scss; the footer overrides color/size/weight/background under .footer scope"
+  ],
+  "breakpoints": {
+    "md": 980,
+    "page-container": 1350
+  },
+  "knownIssues": [
+    ".footer__links--nav is not used by the Vue component or its stories, but IS a live SiteNow integration class (uids_base.theme adds it to footer menu regions) — the CSS must not be removed",
+    "Healthcare leakage: healthcare=true applies the header-tuned logo icon height (logo/icon/height/healthcare) in footer context with no footer-specific override",
+    "No Storybook story exercises healthcare=true; no story uses the named parent_site_title/contact_info slots (content goes through the default slot)"
+  ]
+}

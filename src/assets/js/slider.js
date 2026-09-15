@@ -13,7 +13,7 @@ function Slider(element) {
 
 Slider.prototype.setAriaFalse = function() {
   for (let i = 0; i < this.slides.length; i++) {
-    let el = this.slides.item(i)
+    const el = this.slides.item(i)
     if (el) {
       el.setAttribute('aria-expanded', 'false');
     }
@@ -38,14 +38,14 @@ Slider.prototype.getActiveSlideIndex = function() {
 Slider.prototype.handleKeyEvent = function(event) {
   if (event.keyCode === 37) {
     // left - previous
-    let index = this.getActiveSlideIndex();
+    const index = this.getActiveSlideIndex();
     if (index !== false && index > 0) {
       // @todo Allow looping?
       this.setActiveSlide(this.slides[index-1]);
     }
   } else if (event.keyCode === 39) {
     // right - next
-    let index = this.getActiveSlideIndex();
+    const index = this.getActiveSlideIndex();
     if (index !== false && index < this.slides.length-1) {
       this.setActiveSlide(this.slides[index+1]);
     }
@@ -56,5 +56,5 @@ Slider.prototype.handleKeyEvent = function(event) {
 const sliders = document.getElementsByClassName('slider');
 
 for (let i = 0; i < sliders.length; i++) {
-  let slider = new Slider(sliders[i]);
+  const slider = new Slider(sliders[i]);
 }

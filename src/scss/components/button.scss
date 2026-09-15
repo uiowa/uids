@@ -7,12 +7,12 @@
 
   [class*="bg--"] &,
   [class*="bg--"] [class*="bg--"] & {
-    border-color: rgba(0, 0, 0, .425);
+    border-color: var(--uiowa-color-alpha-black-425);
     color: variables.$secondary;
   }
 
   [class*="bg--black"] & {
-    border-color: rgba(255, 255, 255, .425);
+    border-color: var(--uiowa-color-alpha-white-425);
   }
 }
 // Options.
@@ -47,7 +47,7 @@
 
   [class*="bg--"] &,
   [class*="bg--"] [class*="bg--"] & {
-    border-color: rgba(255,255,255,.425);
+    border-color: var(--uiowa-color-alpha-white-425);
     color: #fff;
   }
 }
@@ -56,7 +56,7 @@
   @include utilities.bttn--tertiary;
   @include utilities.bttn--focus;
   & {
-    background: #fff;
+    background: var(--uiowa-button-tertiary-background);
   }
 }
 
@@ -68,7 +68,7 @@
   [class*="bg--black"] &,
   [class*="bg--"] [class*="bg--black"] & {
     color: #fff;
-    border-color: rgba(255, 255, 255, 0.425);
+    border-color: var(--uiowa-color-alpha-white-425);
   }
 
   i,
@@ -140,14 +140,14 @@
 }
 
 .bttn--large {
-  padding: 1.5rem 2.5rem 1.7rem;
-  // @todo Change this to use css variables, calc the size.
-  font-size: 1.45rem;
+  padding: var(--uiowa-button-large-padding-block-start) var(--uiowa-button-large-padding-inline)
+    var(--uiowa-button-large-padding-block-end);
+  font-size: var(--uiowa-button-large-font-size);
 }
 .bttn--small {
-  padding: 0.6rem 1rem 0.8rem;
-  // @todo Change this to use css variables, calc the size.
-  font-size: 1.05rem;
+  padding: var(--uiowa-button-small-padding-block-start) var(--uiowa-button-small-padding-inline)
+    var(--uiowa-button-small-padding-block-end);
+  font-size: var(--uiowa-button-small-font-size);
 }
 
 .bttn--full {
@@ -166,12 +166,14 @@
 }
 
 .bttn--light-font {
-  font-family: variables.$font-family-sans-serif;
-  font-weight: variables.$font-weight-normal;
-  font-size: 0.9rem;
+  font-family: var(--uiowa-button-light-font-font-family);
+  font-weight: var(--uiowa-button-light-font-font-weight);
+  font-size: var(--uiowa-button-light-font-font-size);
+  // Tracking is unique to this modifier; left as raw geometry per the contract.
   letter-spacing: 0.04rem;
   display: inline-block;
-  padding: 1rem 2rem 1rem;
+  padding: var(--uiowa-button-light-font-padding-block-start)
+    var(--uiowa-button-light-font-padding-inline) var(--uiowa-button-light-font-padding-block-end);
 
   &:focus {
     text-decoration: underline;
@@ -179,7 +181,7 @@
 
   i,
   span[class*="fa-"] {
-    font-size: 0.9rem;
+    font-size: var(--uiowa-button-light-font-font-size);
   }
 
   &.bttn--full {

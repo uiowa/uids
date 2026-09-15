@@ -1,0 +1,95 @@
+{
+  "tabs": {
+    "tab": {
+      "font-family": {
+        "value": "{typography.font-family.sans}",
+        "comment": "src/scss/components/tabs.scss:27 — font-family: variables.$font-family-sans-serif, compiles to var(--uiowa-font-family-sans)."
+      },
+      "font-size": {
+        "value": "{typography.font-size.150}",
+        "comment": "src/scss/components/tabs.scss:28 — font-size: variables.$content-font-size, compiles to var(--uiowa-font-size-body). Same primitive tokens/semantic/typography-usage.json's body.font-size resolves to; tabs references the primitive directly, not the semantic composite, matching Button's font-size precedent (tokens/components/button.json references {typography.font-size.200} directly, not a semantic role)."
+      },
+      "font-weight": {
+        "value": "{typography.font-weight.medium}",
+        "comment": "src/scss/components/tabs.scss:29 — font-weight: variables.$font-weight-medium, compiles to var(--uiowa-font-weight-medium)."
+      },
+      "padding": {
+        "block-start": {
+          "value": "1rem",
+          "comment": "src/scss/components/tabs.scss:24 — first value of the 3-value shorthand `padding: 1rem 1rem 1.3rem;`. Raw literal in source (not a $variable reference), so stays a raw tier-3 value rather than being mapped to {space.100} despite the numeric match — same treatment Button gives its own hardcoded 1rem block-start (tokens/components/button.json never references space.* for button padding)."
+        },
+        "block-end": {
+          "value": "1.3rem",
+          "comment": "src/scss/components/tabs.scss:24 — third value of the same shorthand. Asymmetric by design, same spirit as button/padding/block-end ('Asymmetric by design — optical centering... Do not \"fix\" to match block-start') — codified as-shipped."
+        },
+        "inline": {
+          "value": "1rem",
+          "comment": "src/scss/components/tabs.scss:24 — second value of the same shorthand, applies to both inline sides."
+        }
+      },
+      "text": {
+        "color": {
+          "value": "{color.gray.450}",
+          "comment": "src/scss/components/tabs.scss:72 — 4.x $med-gray = color.scale($blk, $lightness: 40%) (_variables.scss:30,32), inside `&[aria-selected=\"false\"]`, ungated by ancestor background. NEW primitive proposed — see newPrimitives."
+        },
+        "color-on-black": {
+          "value": "{color.gray.100}",
+          "comment": "src/scss/components/tabs.scss:83-85 — 4.x $light (var(--uids-light)), inside `&[aria-selected=\"false\"] { [class*=\"bg--black\"] & {...} }`. This is the RULE THAT ACTUALLY WINS for an unselected tab under a black-background ancestor in shipped production — NOT the unconditional-looking rule at tabs.scss:45-47, which is specificity-dead (see claims) because every shipped [role=tab] always carries an explicit aria-selected value. Flat: $light is a legacy core alias (var(--uids-light)), not a $primary/$secondary brand channel."
+        }
+      },
+      "selected": {
+        "text": {
+          "color-on-black": {
+            "value": "{color.gold}",
+            "brandChannel": "primary",
+            "comment": "src/scss/components/tabs.scss:66-68 — 4.x $primary (var(--brand-primary)), inside `&[aria-selected=\"true\"] { [class*=\"bg--black\"] & {...} }`. Overrides the background foundation's ambient color/on-dark/text (white) specifically for selected tabs, so a selected tab stays legible/branded on a black section."
+          }
+        }
+      }
+    },
+    "indicator": {
+      "height": {
+        "value": "5px",
+        "comment": "src/scss/components/tabs.scss:39 (::before) and :93 (::after) — both the transient hover/focus-visible indicator and the persistent selected/unselected indicator share this height. One leaf, two consuming rules, reused rather than duplicated (Headline's line-height/highlight-background reuse precedent)."
+      },
+      "selected": {
+        "color": {
+          "value": "{color.gold}",
+          "brandChannel": "primary",
+          "comment": "src/scss/components/tabs.scss:58-59 — 4.x $primary, the persistent ::after indicator for any selected tab in the default (non-gold) context. Reused (not duplicated) by the focus-visible glow at tabs.scss:53-55 EXCEPT under a bg--gold ancestor — see claims for the specificity tie that breaks that reuse in one specific context."
+        },
+        "color-on-gold": {
+          "value": "{color.black}",
+          "brandChannel": "secondary",
+          "comment": "src/scss/components/tabs.scss:61-63 — 4.x $secondary, nested `[class*=\"bg--gold\"] &` inside the selected ::after block. Flips the indicator from gold to black so it stays visible against a gold section background (gold-on-gold would be invisible)."
+        }
+      },
+      "unselected": {
+        "color": {
+          "value": "{color.gray.200}",
+          "comment": "src/scss/components/tabs.scss:75-76 — 4.x $gray-light (var(--uids-gray-light)). Flat: legacy core alias, not a brand channel."
+        },
+        "color-on-gold": {
+          "value": "{color.gray.100}",
+          "comment": "src/scss/components/tabs.scss:78-80 — 4.x $light, nested `[class*=\"bg--gold\"] &` inside the unselected ::after block."
+        }
+      },
+      "hover": {
+        "color": {
+          "value": "{color.gray.500}",
+          "comment": "src/scss/components/tabs.scss:98-101 — 4.x $brand-cool-gray (var(--uids-gray-cool)). Flat despite the Sass variable's name containing 'brand': it compiles to a legacy core alias, NOT var(--brand-primary/-secondary) — see behavior. Ambient hover/focus-visible indicator color for any tab not covered by the more specific selected+focus-visible override."
+        },
+        "color-on-gold": {
+          "value": "{color.gray.450}",
+          "comment": "src/scss/components/tabs.scss:103-105 — 4.x $med-gray, same computed value (#666666) as tabs/tab/text/color but a different slot (indicator background vs. tab text) and different context (on-gold hover vs. ambient default) — kept as a separate leaf per the one-slot-one-token convention (Headline mints distinct leaves per slot even when values coincide)."
+        }
+      }
+    },
+    "panel": {
+      "padding-block": {
+        "value": "{space.200}",
+        "comment": "src/scss/components/tabs.scss:118 — padding: variables.$mobile-height-gutter 0; (block value only — inline is a flat, non-meaningful 0; see geometryNotTokenized). $mobile-height-gutter is a NAMED, reused Sass var (_variables.scss:81) that already equals the space.200 primitive exactly, unlike the hardcoded tab-padding literals above — thin alias, not a new raw value, matching how --space-sm/md/lg-width-gutter were aliased to space.125/200/300 in the layout-foundations phase. $mobile-height-gutter is NOT a member of the $xsm...$xxxlg family — see sharedPrimitiveUsage."
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+// Ported from uids_base (uiowa/uiowa docroot/themes/custom/uids_base/scss/components/
+// typography/headings.scss) — the page-title treatment previously existed only
+// downstream, even though UIDS already owned the breadcrumb that sits directly above
+// it. Markup is uids_base's templates/content/page-title.html.twig:
+// <h1 class="page-title headline--serif headline">.
+//
+// Production composes the rendered result from THREE places, only one of which is
+// page-title's own:
+//   font-family  <- the base h1 rule (abstracts/_utilities.scss @mixin h1) AND
+//                   .headline--serif (_headline-mixins.scss:39) — both $font-family-serif
+//   font-size    <- the base h1 rule's --uiowa-font-size-heading-h1 ramp
+//   font-weight  <- .page-title.headline--serif = 600, out-specifying the 700 that
+//                   .headline--serif alone gives. The ONLY property that distinguishes
+//                   a page title from a plain serif h1.
+//   margins      <- uids_base's global `h1 { margin-top: 0; margin-bottom: 0 }`
+//
+// This file declares all four on `.page-title` itself so the class is self-sufficient.
+// UIDS ships it as a component that has to render correctly in Storybook and Figma,
+// where there is no downstream global h1 rule to inherit from (UIDS's own @mixin h1
+// carries 0.625rem margins, so an undeclared page title would not sit flush against
+// the breadcrumb the way production does). The computed result is identical; only the
+// specificity of the margin reset moves, from (0,0,1) to (0,1,0) — see the contract's
+// `behavior` for the downstream cascade check.
+
+.page-title {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: var(--uiowa-page-title-font-family);
+  font-weight: var(--uiowa-page-title-font-weight);
+  font-size: var(--uiowa-page-title-font-size);
+}
+
+// No breadcrumb above the title? The title reclaims the space the breadcrumb would
+// have held (the breadcrumb's own margin-top is the same 1.75rem). Selector copied
+// verbatim from uids_base headings.scss:14 — the doubled class is what beats the
+// margin reset above, so this rule does not depend on source order.
+.page-title.page-title--no-breadcrumbs {
+  margin-top: var(--uiowa-page-title-no-breadcrumbs-margin-top);
+}

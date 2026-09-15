@@ -32,7 +32,7 @@ function getAspectRatio(aspectRatioKey: string) {
 };
 
 const classes = computed(() => {
-  let classes: string[] = ['media'];
+  const classes: string[] = ['media'];
   let aspect_ratio = getAspectRatio(props.aspect_ratio);
 
   // Default videos to 16/9 if no aspect ratio is set

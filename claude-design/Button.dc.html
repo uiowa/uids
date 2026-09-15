@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet data-dc-atomics>
+        <link rel="stylesheet" href="./tokens.css" />
+        <style>
+          body{margin:0}
+          /* Rule ORDER mirrors src/scss/components/button.scss so the cascade behaves
+             the same: colorways, then sizes, then --transparent and --light-font,
+             which is why those two override the ones above them. */
+          .bttn{
+            /* 1px solid var(--transparent-border) in production. That is a core custom
+               property, not a token — see contracts/button.json geometryNotTokenized. */
+            border:1px solid rgba(0,0,0,.125);
+            display:inline-block;position:relative;box-sizing:border-box;
+            cursor:pointer;text-align:center;text-decoration:none;text-transform:uppercase;
+            line-height:var(--uiowa-button-line-height);
+            font-family:var(--uiowa-button-font-family);
+            font-weight:var(--uiowa-button-font-weight);
+            font-size:var(--uiowa-button-font-size);
+            padding:var(--uiowa-button-padding-block-start) var(--uiowa-button-padding-inline) var(--uiowa-button-padding-block-end);
+          }
+          .bttn svg{margin-left:var(--uiowa-button-icon-gap);width:.875em;height:1em;vertical-align:-.125em;fill:currentColor}
+          /* The underline that scales in on hover/focus. */
+          .bttn:after{content:'';position:absolute;left:50%;bottom:0;width:100%;height:var(--uiowa-button-focus-bar-height);background-color:var(--uiowa-button-focus-bar-color);transform:translate(-50%,0) scaleX(0);transform-origin:center;transition:transform .3s ease-in-out}
+          .bttn:hover:after,.bttn:focus:after{transform:translate(-50%,0) scaleX(1)}
+
+          /* ---- ancestor-background context (button.scss:8-16, 28-33, 48-52) ----
+             ADDED 2026-08-17. These were missing, and their absence was a real visible
+             defect rather than a cosmetic gap. backgrounds.css declares
+             `.bg--gold a{color:var(--uiowa-color-on-light-link)}` at specificity (0,1,1),
+             which outranks a colorway's own `.bttn--secondary{color:…}` at (0,1,0). So
+             inside ANY coloured band the label fell back to the band's link colour — on a
+             gold CTA that meant a BLACK label on a BLACK secondary button, i.e. invisible.
+             These selectors are (0,2,0) and win, which is exactly why button.scss carries
+             them. Reproduced in source order so the .bttn / --primary / --secondary ties
+             still resolve the way production resolves them. */
+          [class*="bg--"] .bttn,
+          [class*="bg--"] [class*="bg--"] .bttn{
+            border-color:var(--uiowa-color-alpha-black-425);
+            color:var(--brand-secondary);
+          }
+          [class*="bg--black"] .bttn{border-color:var(--uiowa-color-alpha-white-425)}
+
+          .bttn--primary{color:var(--uiowa-button-primary-color);background:var(--uiowa-button-primary-background);border-color:var(--uiowa-button-primary-background)}
+          .bttn--primary svg{color:var(--uiowa-button-primary-icon-color)}
+          /* button.scss:35-37. Primary overrides the shared focus bar to BLACK. Equal
+             specificity (0,1,1) with the .bttn:after rule above, so source order decides —
+             this must stay after it. Was missing: primary's hover bar rendered gold. */
+          .bttn--primary:after{background-color:var(--brand-secondary)}
+          [class*="bg--"] [class*="bg--gray"] .bttn--primary,
+          [class*="bg--gray"] .bttn--primary,
+          [class*="bg--"] [class*="bg--white"] .bttn--primary,
+          [class*="bg--white"] .bttn--primary{border-color:var(--brand-primary)}
+          .bttn--secondary{color:var(--uiowa-button-secondary-color);background:var(--uiowa-button-secondary-background)}
+          .bttn--secondary svg{color:var(--uiowa-button-secondary-icon-color)}
+          /* The rule that fixes the invisible-label case. Must stay AFTER the .bttn
+             context block above — both are (0,2,0), so source order decides. */
+          [class*="bg--"] .bttn--secondary,
+          [class*="bg--"] [class*="bg--"] .bttn--secondary{
+            border-color:var(--uiowa-color-alpha-white-425);
+            color:var(--uiowa-color-white);
+          }
+          .bttn--tertiary{color:var(--uiowa-button-tertiary-color);background:var(--uiowa-button-tertiary-background)}
+          .bttn--tertiary svg{color:var(--uiowa-button-tertiary-icon-color)}
+
+          .bttn--small{
+            padding:var(--uiowa-button-small-padding-block-start) var(--uiowa-button-small-padding-inline) var(--uiowa-button-small-padding-block-end);
+            font-size:var(--uiowa-button-small-font-size);
+          }
+          .bttn--large{
+            padding:var(--uiowa-button-large-padding-block-start) var(--uiowa-button-large-padding-inline) var(--uiowa-button-large-padding-block-end);
+            font-size:var(--uiowa-button-large-font-size);
+          }
+          /* button.scss:153-155 is BARE `display:flex` — nothing else. This rule previously
+             added align-items:center, justify-content:center and width:100%, none of which
+             exist in the source. justify-content:center was the visible one: production
+             leaves it at the flex default (flex-start), so a full-width button's label sits
+             LEFT, not centred. An addition is as much a divergence as an omission. */
+          .bttn--full{display:flex}
+
+          /* Overrides the colorways above — background/text set later in the sheet. */
+          .bttn--transparent{background:transparent;color:var(--uiowa-button-transparent-color)}
+          .bttn--transparent svg{color:var(--uiowa-button-transparent-icon-color)}
+
+          /* ---- --transparent's ancestor-background context (button.scss:68-93) ----
+             ADDED 2026-08-17. The 2026-08-17 ancestor-rule fix covered .bttn / --primary /
+             --secondary and STOPPED THERE, leaving the whole --transparent block missing.
+             That is the same "verified the defect, not the component" trap the Alert and
+             Accordion fixes hit: the reported symptom was fixed while the identical bug
+             survived one colorway over.
+             All four groups below are (0,2,0) or (0,3,0) and must stay AFTER the generic
+             `[class*="bg--"] .bttn` block, which they tie with on specificity — source order
+             is what makes production resolve them this way too.
+             svg-only, matching this template's icon markup: it emits an inline <svg> and
+             never an <i> or span[class*="fa-"], so those two selectors from the source have
+             nothing to match here (same convention as .bttn svg above). */
+          /* On black: white label + light border. Without this the label fell through to
+             `[class*="bg--"] .bttn`'s var(--brand-secondary) — black text on black. */
+          [class*="bg--black"] .bttn--transparent,
+          [class*="bg--"] [class*="bg--black"] .bttn--transparent{
+            color:var(--uiowa-color-white);
+            border-color:var(--uiowa-color-alpha-white-425);
+          }
+          /* Icon on gold: white. Without this the icon stayed gold on a gold band. */
+          [class*="bg--gold"] .bttn--transparent svg,
+          [class*="bg--white"] [class*="bg--gold"] .bttn--transparent svg{
+            color:var(--uiowa-color-white);
+          }
+          /* Icon on white/gray: gold. (button.scss:82-86 — not enumerated in the sweep
+             report, found by reading the source block in full.) */
+          [class*="bg--white"] .bttn--transparent svg,
+          [class*="bg--gold"] [class*="bg--white"] .bttn--transparent svg,
+          [class*="bg--gold"] [class*="bg--gray"] .bttn--transparent svg{
+            color:var(--brand-primary);
+          }
+          /* A light band nested inside a black one puts the label back to black
+             (button.scss:89-93 — likewise found by reading the full block). */
+          [class*="bg--black"] [class*="bg--white"] .bttn--transparent,
+          [class*="bg--black"] [class*="bg--gray"] .bttn--transparent,
+          [class*="bg--black"] [class*="bg--gold"] .bttn--transparent{
+            color:var(--brand-secondary);
+          }
+
+          /* Overrides the size rules above: sets BOTH font-size and padding.
+             Note it does NOT reset text-transform, so it stays uppercase. */
+          .bttn--light-font{
+            font-family:var(--uiowa-button-light-font-font-family);
+            font-weight:var(--uiowa-button-light-font-font-weight);
+            font-size:var(--uiowa-button-light-font-font-size);
+            letter-spacing:.04rem;
+            display:inline-block;
+            padding:var(--uiowa-button-light-font-padding-block-start) var(--uiowa-button-light-font-padding-inline) var(--uiowa-button-light-font-padding-block-end);
+          }
+          .bttn--light-font.bttn--full{display:flex;height:100%}
+          .bttn--light-font:focus{text-decoration:underline}
+
+          .bttn--no-text svg{margin-left:0}
+          /* ---- --no-text's icon colour logic (button.scss:116-139) ----
+             ADDED 2026-08-17; the template had kept only the margin reset above. This is a
+             REACHABLE state, not dead code: renderVals computes hasLabel, and a blank label
+             really does add .bttn--no-text. Without these an icon-only primary button drew a
+             white icon where production draws black, and icon-only tertiary/transparent drew
+             gold. The :not([class*="bttn--secondary"]) guard is reproduced verbatim — it is
+             what keeps secondary (white-on-black) out of the black-icon rule. */
+          .bttn--no-text:not([class*="bttn--secondary"]) svg{color:var(--brand-secondary)}
+          [class*="bg--"] [class*="bg--black"] .bttn--no-text:not([class*="bttn--secondary"]) svg,
+          [class*="bg--black"] .bttn--no-text:not([class*="bttn--secondary"]) svg{
+            color:var(--uiowa-color-white);
+          }
+          [class*="bg--"] [class*="bg--white"] .bttn--no-text:not([class*="bttn--secondary"]) svg,
+          [class*="bg--white"] .bttn--no-text:not([class*="bttn--secondary"]) svg,
+          [class*="bg--"] [class*="bg--gray"] .bttn--no-text:not([class*="bttn--secondary"]) svg,
+          [class*="bg--"] [class*="bg--gold"] .bttn--no-text:not([class*="bttn--secondary"]) svg{
+            color:var(--brand-secondary);
+          }
+          /* The one case where transparent+secondary DOES get a black icon. */
+          .bttn--no-text.bttn--transparent.bttn--secondary svg{color:var(--brand-secondary)}
+          /* ---- --circle (button.scss:193-219) ----
+             Added 2026-08-17 for Card, the only thing in UIDS that produces this treatment:
+             Card.vue:126-129 emits .bttn--circle together with .bttn--no-text whenever a card
+             has a url, link_indicator on and no link text, and SiteNow reimplements the
+             identical condition at uiowa_core.module:553-559. It is exposed by no Button prop
+             in Vue (contracts/button.json knownIssues) but IS a real Button treatment styled
+             in button.scss, which is why it lives here rather than being redrawn inside
+             Card.dc.html — the same reasoning that put Style=Circle in the Figma Button set
+             rather than in Card's. The arrow reads BLACK, and that already falls out of the
+             --no-text rules above; nothing new is needed for it.
+             `.7em` is em-relative on purpose (button.scss:194): it resolves against the
+             button's own font-size, so it tracks --light-font's 0.9rem rather than the base
+             size. Measured 8.8px / 10.08px against a 14.4px label, in a 35x35 box. */
+          .bttn--circle{padding:.55rem .7em;border-radius:50%;transform:none;line-height:1}
+          .bttn--circle:after{
+            left:0;top:0;height:100%;width:100%;border-radius:50%;
+            background-color:transparent;transition:border-color .3s ease-in-out;
+            transform:none;position:absolute;
+          }
+          .bttn--circle:hover:after,.bttn--circle:focus:after{
+            transform:none;transition:none;border:3px solid;border-color:inherit;
+            background-color:transparent;
+          }
+          .bttn.borderless{border:0}
+          .bttn.borderless.bttn--transparent:after{display:none}
+          .bttn.borderless.bttn--transparent:hover,.bttn.borderless.bttn--transparent:focus{text-decoration:underline}
+        </style>
+      </helmet>
+      <a class="{{ rootClass }}" href="{{ url }}">
+        <sc-if value="{{ hasLabel }}" hint-placeholder-val="{{ true }}">{{ label }}</sc-if>
+        <sc-if value="{{ icon }}" hint-placeholder-val="{{ true }}">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" aria-hidden="true" focusable="false">
+            <path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path>
+          </svg>
+        </sc-if>
+      </a>
+    </x-dc>
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{
+  "$preview": { "width": 480, "height": 200 },
+  "label": { "editor": "text", "default": "Read more", "tsType": "string" },
+  "url": { "editor": "text", "default": "https://uiowa.edu", "tsType": "string" },
+  "color": { "editor": "enum", "options": ["primary", "secondary", "tertiary"], "default": "primary", "tsType": "string" },
+  "size": { "editor": "enum", "options": ["small", "medium", "large"], "default": "medium", "tsType": "string" },
+  "icon": { "editor": "boolean", "default": true, "tsType": "boolean" },
+  "transparent": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "light_font": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "borderless": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "full": { "editor": "boolean", "default": false, "tsType": "boolean" },
+  "circle": { "editor": "boolean", "default": false, "tsType": "boolean" }
+}'
+    >
+      class Component extends DCLogic {
+        renderVals() {
+          // Mirrors the class computation in src/components/button/Button.vue.
+          const color = this.props.color ?? 'primary';
+          const size = this.props.size ?? 'medium';
+          const label = this.props.label ?? '';
+          const hasLabel = String(label).trim().length > 0;
+          const classes = ['bttn'];
+          if (this.props.full) classes.push('bttn--full');
+          if (this.props.transparent) classes.push('bttn--transparent');
+          if (this.props.light_font) classes.push('bttn--light-font');
+          classes.push('bttn--' + color);
+          // size=medium emits an intentionally unstyled class; the base .bttn holds
+          // the medium values. Kept so the markup matches production exactly.
+          classes.push('bttn--' + size);
+          // An empty label is significant: it adds --no-text, which zeroes the icon gap.
+          if (!hasLabel) classes.push('bttn--no-text');
+          // Card's link indicator. Pushed AFTER --no-text because that is the order
+          // Card.vue:127-128 pushes them, and the two always travel together in practice —
+          // a circle with a label is reachable here but nothing in UIDS produces it.
+          if (this.props.circle) classes.push('bttn--circle');
+          if (this.props.borderless) classes.push('borderless');
+          return {
+            rootClass: classes.join(' '),
+            url: this.props.url ?? '',
+            label: label,
+            hasLabel: hasLabel,
+            icon: this.props.icon !== false
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

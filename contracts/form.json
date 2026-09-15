@@ -1,0 +1,281 @@
+{
+  "$schema": "./contract.schema.json",
+  "name": "form",
+  "version": "1.0.0",
+  "description": "The UIDS form family: native text-like inputs, textarea, select (single/multiple), file, checkbox, radio and toggle, all themed through one shared set of --form-* custom properties declared on .form. FormContainer.vue is a thin wrapper that contributes only the compact/large/flex/inline modifier classes — it does not itself emit the .form block class (consumers add <form class=\"form\">) and does not render any control markup (that's authored directly, or via FormItem.vue, inside the default slot). Second of the button/forms family; form/button/font-size and form/large/button-font-size alias Button's own tokens rather than duplicating values (commit 7bafeb8ead's documented intent).",
+  "identity": {
+    "codePath": "src/components/form/FormContainer.vue",
+    "scssPath": "src/scss/components/form.scss",
+    "relatedPaths": [
+      "src/components/form/FormItem.vue"
+    ],
+    "downstreamPaths": [
+      "uiowa/docroot/themes/custom/uids_base/scss/components/form/forms.scss",
+      "uiowa/docroot/themes/custom/uids_base/scss/webforms/webforms.scss",
+      "uiowa/docroot/themes/custom/uids_base/scss/components/form/search.scss",
+      "uiowa/docroot/themes/custom/uids_base/scss/components/form/chosen.scss",
+      "uiowa/docroot/modules/custom/sitenow_signage/sitenow_signage.module",
+      "uiowa/docroot/sites/registrar.uiowa.edu/modules/registrar_core/registrar_core.module",
+      "uiowa/docroot/themes/custom/uids_base/templates/form/form-element--uiowa-search--search-terms.html.twig"
+    ],
+    "figma": {
+      "fileKey": "hNShklBztaeaQneScM0KoM",
+      "componentSetName": "Form Item",
+      "componentSetId": "150:70",
+      "componentKey": "b1f37b5a116cd964bd59cbb161a490e483d82e3f",
+      "page": "Components / Form"
+    },
+    "claudeDesign": {
+      "projectId": "a371c390-7071-4ac7-a122-87440610e63a",
+      "template": "Form.dc.html"
+    }
+  },
+  "options": [
+    {
+      "name": "compact",
+      "type": "boolean",
+      "default": false,
+      "description": "Tightens vertical rhythm — retheme's --form-item-margin from 1rem to 0.75rem. No other property changes.",
+      "code": {
+        "prop": "compact",
+        "class": "form--compact"
+      },
+      "figma": {
+        "notes": "Deliberately NOT a variant axis. .form--compact only retheme's one custom property (item spacing); a designer expresses it via the Form Item stack's own auto-layout item-spacing, not a boolean variant."
+      }
+    },
+    {
+      "name": "large",
+      "type": "boolean",
+      "default": false,
+      "description": "Retheme's four custom properties at once (--form-input-height, --form-input-font-size, --form-label-font-size, --form-button-font-size) — one Size axis, not four per-property axes.",
+      "code": {
+        "prop": "large"
+      },
+      "figma": {
+        "axis": "Size",
+        "map": {
+          "false": "Default",
+          "true": "Large"
+        }
+      }
+    },
+    {
+      "name": "flex",
+      "type": "boolean",
+      "default": false,
+      "description": "Lays Form Items out in a wrapping flex row (each item flex:1) once the nearest 'column' container reaches 768px — see geometryNotTokenized.container-query.",
+      "code": {
+        "prop": "flex",
+        "class": "form--flex"
+      },
+      "figma": {
+        "notes": "Deliberately NOT a variant axis. Expressed via the frame's own auto-layout wrap/resize settings, not a per-instance boolean."
+      }
+    },
+    {
+      "name": "inline",
+      "type": "boolean",
+      "default": false,
+      "description": "Same wrapping flex row as flex, but items keep their intrinsic width (flex:unset) instead of growing equally.",
+      "code": {
+        "prop": "inline",
+        "class": "form--inline"
+      },
+      "figma": {
+        "notes": "Deliberately NOT a variant axis — same reasoning as flex; auto-layout-driven, not a boolean variant."
+      }
+    },
+    {
+      "name": "light",
+      "type": "boolean",
+      "default": false,
+      "description": "Retints the label only (font-weight to medium, color to brand-cool-gray). No Vue prop backs this — it is a bare class a consumer applies directly, like Button's uids_base-only circle/caps modifiers.",
+      "code": {
+        "class": "form--light"
+      },
+      "figma": {
+        "notes": "Deliberately NOT a variant axis — a two-property text-style override a designer applies to label instances directly."
+      }
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "default": false,
+      "description": "Adds a CSS-generated asterisk after a <label> (.form--required:after). No Vue prop backs this on FormItem/FormContainer — it is a bare class the consumer applies directly to their own <label> markup. (FormFieldset.vue has a real `required` prop for the equivalent legend marker — see contracts/form-fieldset.json.)",
+      "code": {
+        "class": "form--required",
+        "notes": "A second, independently-live required-indicator mechanism (abbr.req, a literal <abbr> pattern still used by uids_base) coexists — see knownIssues. Both are intentionally supported."
+      },
+      "figma": {
+        "property": "Required",
+        "notes": "Boolean text-layer property on the label — an asterisk visibility toggle, not a variant axis (Button Label/Icon precedent)."
+      }
+    },
+    {
+      "name": "control",
+      "type": "enum",
+      "values": [
+        "input",
+        "textarea",
+        "select",
+        "select-multiple",
+        "file",
+        "checkbox",
+        "radio",
+        "toggle"
+      ],
+      "default": "input",
+      "description": "Which native control archetype a Form Item renders. Not a Vue prop — FormItem.vue is a content-agnostic wrapper (<slot></slot>); the control markup is authored by the consumer (or, for checkbox/radio/toggle, composed via the related FormCheckboxOrRadioGroup.vue, whose own `type` prop is unverified against this contract's codePath).",
+      "code": {
+        "notes": "input/textarea/select/file are bare native elements (no class); select-multiple = <select multiple>; checkbox/radio/toggle = .form-item--checkbox/--radio/--toggle wrapping the input."
+      },
+      "figma": {
+        "axis": "Control",
+        "map": {
+          "input": "Input",
+          "textarea": "Textarea",
+          "select": "Select",
+          "select-multiple": "Select Multiple",
+          "file": "File",
+          "checkbox": "Checkbox",
+          "radio": "Radio",
+          "toggle": "Toggle"
+        }
+      }
+    },
+    {
+      "name": "state",
+      "type": "enum",
+      "values": [
+        "default",
+        "focus",
+        "error",
+        "disabled"
+      ],
+      "default": "default",
+      "description": "Visual state of the control. error is the .form--error class (applied to the input); disabled is the native disabled/readonly attribute; focus is the native :focus/:focus-visible pseudo-state and has no code representation beyond the pseudo-class itself.",
+      "code": {
+        "notes": "This contract models the higher-contrast :focus-visible (keyboard) treatment for the Focus state — see a11y for the mouse-vs-keyboard distinction. Disabled beats Checked on the toggle (!important) — see knownIssues."
+      },
+      "figma": {
+        "axis": "State",
+        "map": {
+          "default": "Default",
+          "focus": "Focus",
+          "error": "Error",
+          "disabled": "Disabled"
+        }
+      }
+    },
+    {
+      "name": "checked",
+      "type": "boolean",
+      "default": false,
+      "description": "Native :checked state, applicable when control is checkbox/radio/toggle. Combines freely with every State value (checked+disabled is real, and renders visibly differently — see knownIssues), so it is its own axis rather than folded into State.",
+      "code": {
+        "notes": "Native :checked attribute on the underlying <input>. FormCheckboxOrRadioGroup.vue's item-array template binds :checked=\"item.checked\" (relatedPaths, unverified against this contract's codePath)."
+      },
+      "figma": {
+        "axis": "Checked",
+        "map": {
+          "false": "False",
+          "true": "True"
+        }
+      }
+    }
+  ],
+  "slots": [
+    {
+      "name": "default",
+      "description": "The label + native control markup composed by the consumer. FormItem.vue declares no props of its own — the label element, its .form--required marker, and the control itself are all authored inside this slot.",
+      "figma": {
+        "property": "Label + Control",
+        "notes": "Modelled as a text layer (label) plus the control archetype selected by the Control axis."
+      }
+    },
+    {
+      "name": "description",
+      "description": "Optional helper/description text, rendered in .form-item__description only when supplied (FormItem.vue: v-if=\"slots.description\").",
+      "figma": {
+        "property": "Description",
+        "notes": "Boolean text-layer property — visibility + content, paired with Required (Button Label/Icon precedent)."
+      }
+    }
+  ],
+  "tokensUsed": [
+    "form/input/bg",
+    "form/input/bg-disabled",
+    "form/input/fg-disabled",
+    "form/input/radius",
+    "form/input/padding",
+    "form/input/height",
+    "form/input/font-size",
+    "form/input/outline-color",
+    "form/label/font-size",
+    "form/label/color",
+    "form/item-margin",
+    "form/button/font-size",
+    "form/focus/background",
+    "form/focus/outline-color",
+    "form/error/outline-color",
+    "form/error/background",
+    "form/large/input-height",
+    "form/large/input-font-size",
+    "form/large/label-font-size",
+    "form/large/button-font-size",
+    "form/compact/item-margin",
+    "form/toggle/track-off",
+    "form/toggle/track-on",
+    "form/toggle/knob",
+    "form/select-multiple/background",
+    "form/select-multiple/border-color",
+    "form/select-multiple/line-height"
+  ],
+  "children": [
+    {
+      "component": "form-fieldset",
+      "contract": "contracts/form-fieldset.json"
+    },
+    {
+      "component": "button",
+      "contract": "contracts/button.json"
+    }
+  ],
+  "geometryNotTokenized": {
+    "container-query-context": "@container column (min-width:768px) — established only by .grid__column/.column-container/.layout-container ancestors (layout/_grid.scss:79-86). .form--flex/.form--inline (and form-fieldset's side-legend) read this via utilities.container-query(), default $break-sm=768px. No token drives the switch — every Storybook story wraps in .layout-container; a downstream consumer without such an ancestor silently never fires flex/inline/side-legend styling (the @media fallback only applies where contain:inline-size is unsupported).",
+    "select-arrow": "Inline SVG data-URI with rgb(138,138,138) baked in, background-position 'right -1rem center' anchored from the content-box edge inside 1.5rem end-padding — color, offset and padding are a coupled triplet. The color happens to equal the separately-tokenized form/focus/outline-color (#8a8a8a); changing that token forks it from the arrow. Same SVG is duplicated in uids_base forms.scss.",
+    "toggle-knob": "62x32px track, 28px knob, left 2px->32px travel, border-radius 50px, content 'on off' clipped by text-indent:-22px + word-spacing:37px under font:10px/28px Arial, transition cubic-bezier(0.3,1.5,0.7,1). Arial's metrics at exactly 10px are load-bearing for which word is visible — do not bind any font/size token here; only track-off/track-on/knob colors are tokenized.",
+    "checkbox-radio-scale": "input transform: scale(1.3,1.3) (checkbox) / scale(1.2,1.2) (radio), transform-origin:left, over an identical native 1.2rem/1.2rem box — unchanged since origin commit ac67b5cb25; the asymmetry is unexplained and flagged for a 5.x design call, not unified here.",
+    "alpha-shadows": "inset 0 1px 3px rgba(10,10,10,.15) input well; 0 0 5px 2px gray-light focus glow; 0 0 5px 2px danger-light error glow; toggle knob 0 1px 2px rgba(0,0,0,.2) — same alpha-color-without-primitive class as Button's background-context borders.",
+    "focus-outline-geometry": "Text-input outline-width jumps 1px->2px on :focus (only the color is tokenized); file-input and checkbox/radio/toggle :focus/:focus-visible carry outline-offset 2px. :focus-visible uses a literal $secondary (black), not a token — see a11y.",
+    "abbr-req": "abbr.req font-size:150% — relative to inherited size, not on the rem scale.",
+    "file-input-chrome": "[type=file]'s inner 'Choose file' button is UA chrome; only the outer box (width, margin-bottom .625rem, focus outline) is owned.",
+    "required-asterisk-position": ".form--required:after is position:absolute with no positioned ancestor — anchors at static position by spec. Do not add position:relative to label/legend; it would shift the asterisk.",
+    "select-multiple-option-padding": "select[multiple] option:checked padding-left shifts .75rem -> 0.5em (note the em unit) — not tokenized.",
+    "vendor-plumbing": "-webkit-text-fill-color disabled duplication and ::-webkit-search-decoration/spin-button resets — vendor plumbing, not tokens.",
+    "checkbox-radio-margin": ".form-item--checkbox/--radio/--toggle's own margin-bottom ($mobile-width-gutter, 1.25rem) is beaten in every canonical (nested-in-.form) use by .form .form-item's margin-bottom (form/item-margin, 1rem) — (0,2,0) vs (0,1,0) specificity. 1rem is the real rendered value; the higher-specificity 1.25rem rule is dead and must not become a token."
+  },
+  "a11y": {
+    "landmark": "none — FormContainer.vue renders a bare <div>; the <form> element (and any role/aria) is entirely consumer-authored markup (all stories add <form class=\"form\">).",
+    "notes": "TWO required-indicator mechanisms coexist and are both live: .form--required:after (CSS-generated asterisk) and abbr.req (a literal <abbr> pattern still used by uids_base) — see knownIssues. TWO focus treatments exist on checkbox/radio/toggle: mouse :focus shows a gray (form/focus/outline-color) 2px outline while keyboard :focus-visible shows a black (literal $secondary, not a token) 2px outline; this contract's Focus state models the keyboard treatment. Disabled beats Checked on the toggle (!important on form/input/bg-disabled) — a disabled+checked toggle renders gray, not gold; model the Figma Disabled variant as gray even when Checked=true."
+  },
+  "behavior": [
+    "FormContainer.vue renders a plain <div> and does NOT emit the .form block class itself — every consumer (all Storybook stories, ExampleFiltersForm.vue, ExampleSearch.vue) supplies <form class=\"form\"> around it; the component only contributes the compact/large/flex/inline modifier classes.",
+    "All --form-* custom properties are declared once on .form, but the checkbox/radio/toggle rules (and .form--flex/.form--inline) live OUTSIDE the .form selector nesting and still read those same custom properties — a standalone control with no .form ancestor gets invalid values (e.g. label margin-left collapses to 0, focus outline color to initial). Any Figma component or dc template for an individual control must replicate the .form context.",
+    "Nested submit/button/reset elements inside .form render at Button's own small size by design: form/button/font-size aliases {button.small.font-size} and form/large/button-font-size aliases {button.font-size} (documented intent, commit 7bafeb8ead). In Figma this requires binding button/* tokens onto a nested Button instance, legitimized by the button child contract.",
+    "Button's own regression baselines were captured OUTSIDE a form context — the in-form override layer ([type=submit] etc. at higher specificity than .bttn) is a distinct, separately-verified surface."
+  ],
+  "knownIssues": [
+    "--form-details-bg (#f3f3f3) is declared but read by nothing in this repo or in uids_base's own details pattern — dead code, a deletion candidate for the SCSS-swap commit, not tokenized.",
+    "The @media screen and (min-width: 0\\0) block (form.scss:205-207) is a legacy IE8/9 PNG fallback for the select arrow — dead weight in modern browsers, deletion candidate alongside --form-details-bg.",
+    "select[multiple] option:checked { color: black } (form.scss:228) is a literal that happens to equal $secondary/var(--brand-secondary) today but is immune to brand-secondary theming — genuine drift, fix to the token during the SCSS swap (no visible diff expected).",
+    ".button--small / .button--full-width applied to [type=submit]/[type=button]/[type=reset] are Drupal Form API compat classes (live via registrar_core.module's front-end GPA form and sitenow_signage.module's admin-theme-only sign forms), not UIDS options — not modeled as contract options.",
+    "abbr.req (form.scss:97-100) coexists with .form--required:after as a second, still-live required-indicator mechanism (used by uids_base forms.scss) — both are intentionally supported, not one legacy.",
+    "The .field-prefix/.field-suffix Drupal Form API classes were intentionally removed in this refactor (form.scss:4-6 comment) — a documented potential breaking change for SiteNow, since uids_base's own search template and Drupal core's default form-element.html.twig still emit both classes for any element with #field_prefix/#field_suffix.",
+    "FormItem.vue is relatedPaths, not identity.codePath — check-contracts only parses props from identity.codePath (FormContainer.vue). FormItem declares no props at all, so nothing is lost by this.",
+    "select[multiple]:disabled border-color #BABABF (form.scss:136) is deliberately NOT tokenized (architect call 2026-08-14): near-dead code path, blue-cast value that breaks the neutral-gray primitive naming pattern — stays a literal in form.scss, flagged for 5.x consolidation.",
+    "Storybook title collision risk: ~12 story files share the title 'Elements/Form' — story IDs are title+export, so an export rename or a colliding export across files breaks capture-point IDs used by the regression harness (check-styles.mjs has no &args support); error/disabled/large states need dedicated story exports.",
+    "Not barrel-exported (no entry in src/components/index.ts) — has no effect on any checker (identity.codePath is read directly), but a consumer importing 'uids' components by name cannot reach FormContainer today."
+  ]
+}

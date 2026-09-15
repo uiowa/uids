@@ -1,0 +1,169 @@
+{
+  "$schema": "./contract.schema.json",
+  "name": "logo",
+  "version": "1.2.0",
+  "description": "University of Iowa lockup: black tab containing the gold Block IOWA (or IOWA Health Care) inline SVG, linking to the appropriate home page. Rendered inside the Brand Bar (header context) and Brand Footer (footer context).",
+  "identity": {
+    "codePath": "src/components/logo/Logo.vue",
+    "scssPath": "src/scss/components/logo.scss",
+    "barrelExport": "UidsLogo",
+    "storybookId": "components-branding-logo",
+    "figma": {
+      "fileKey": "hNShklBztaeaQneScM0KoM",
+      "componentSetName": "Logo",
+      "componentSetId": "28:68",
+      "componentKey": "17099384eab84e783a25aebade754491205deaae",
+      "page": "Components / Logo"
+    },
+    "claudeDesign": {
+      "projectId": "a371c390-7071-4ac7-a122-87440610e63a",
+      "template": "Logo.dc.html"
+    }
+  },
+  "options": [
+    {
+      "name": "healthcare",
+      "type": "boolean",
+      "default": false,
+      "description": "Switches lockup to IOWA Health Care, link to uihealthcare.org, and larger icon sizing",
+      "code": {
+        "prop": "healthcare"
+      },
+      "figma": {
+        "axis": "Lockup",
+        "map": {
+          "false": "Iowa",
+          "true": "HealthCare"
+        }
+      }
+    },
+    {
+      "name": "context",
+      "type": "enum",
+      "values": [
+        "header",
+        "footer"
+      ],
+      "default": "header",
+      "description": "header renders .logo--tab (black tab); footer renders .logo--footer (no tab, transparent, sized by width — logo/footer/width tokens)",
+      "code": {
+        "prop": "context",
+        "notes": "validator restricts to header|footer"
+      },
+      "figma": {
+        "axis": "Context",
+        "map": {
+          "header": "Header",
+          "footer": "Footer"
+        }
+      }
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "values": [
+        "default",
+        "narrow"
+      ],
+      "default": "default",
+      "description": "Figma-only axis. In code the narrow sizing is applied by the parent .iowa-bar--narrow selector, not a Logo prop",
+      "code": {
+        "notes": "No prop — driven by parent brand-bar narrow styling (brand-bar.scss .iowa-bar--narrow .logo--tab)"
+      },
+      "figma": {
+        "axis": "Size",
+        "map": {
+          "default": "Default",
+          "narrow": "Narrow"
+        }
+      }
+    },
+    {
+      "name": "breakpoint",
+      "type": "enum",
+      "values": [
+        "mobile",
+        "md",
+        "page"
+      ],
+      "description": "Responsive sizing steps",
+      "code": {
+        "mediaQuery": {
+          "md": "980px",
+          "page": "1350px"
+        }
+      },
+      "figma": {
+        "axis": "Breakpoint",
+        "map": {
+          "mobile": "Mobile",
+          "md": "MD",
+          "page": "Page"
+        }
+      }
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "default": "logo",
+      "status": "active",
+      "description": "DOM id used for aria-labelledby on the SVG title",
+      "code": {
+        "prop": "id"
+      },
+      "figma": {
+        "notes": "Not represented in Figma"
+      }
+    }
+  ],
+  "tokensUsed": [
+    "logo/fill",
+    "logo/text-fill",
+    "logo/tab/background",
+    "logo/tab/width/default",
+    "logo/tab/width/narrow",
+    "logo/tab/height/default",
+    "logo/tab/height/narrow",
+    "logo/tab/height/healthcare",
+    "logo/tab/height/narrow-healthcare",
+    "logo/footer/width",
+    "logo/icon/height/default",
+    "logo/icon/height/narrow",
+    "logo/icon/height/healthcare",
+    "logo/icon/height/narrow-healthcare"
+  ],
+  "geometryNotTokenized": {
+    "tab-padding-default": "25px 1.25rem (mobile) / 25px (md) / 23px 20px (page)",
+    "tab-padding-healthcare": "20px 1.25rem (mobile) / 23px 22px (md+)",
+    "tab-padding-narrow": "15px (md+, set by brand-bar.scss)",
+    "footer-padding": "0 40px 0 0 (.logo--footer, set by brand-footer.scss)",
+    "focus-opacity": "a:focus svg opacity .5",
+    "hover-opacity": ".logo-icon hover/focus opacity .7"
+  },
+  "a11y": {
+    "notes": "Accessible name via .element-invisible text inside the link ('University of Iowa' / 'The University of Iowa Health Care'); svg has role=img and aria-labelledby pointing at the <title> id"
+  },
+  "behavior": [
+    "Links to https://uiowa.edu (default) or https://uihealthcare.org (healthcare)",
+    "Figma note: logo/icon/height/* tokens size the lockup vectors at BUILD time (per variant) rather than being live-bound — binding height alone would distort the vector; tab dims and fills ARE live-bound"
+  ],
+  "breakpoints": {
+    "md": 980,
+    "page-container": 1350
+  },
+  "assets": {
+    "iowa-lockup": {
+      "type": "inline-svg",
+      "viewBox": "0 0 311.6 90.2",
+      "source": "Logo.vue template (4 paths, class st0)"
+    },
+    "healthcare-lockup": {
+      "type": "inline-svg",
+      "viewBox": "24.89 24.71 148.01 67.83",
+      "source": "Logo.vue template (.logo-text paths = HEALTH CARE wordmark, fill white)"
+    }
+  },
+  "knownIssues": [
+    "Healthcare in footer context applies the header-tuned icon height (logo/icon/height/healthcare) — no footer-specific healthcare sizing exists in 4.x"
+  ]
+}

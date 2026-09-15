@@ -1,32 +1,36 @@
 @use '../abstracts/variables';
 @use '../abstracts/utilities';
 
+// Colors, heights, and type sizes come from design tokens
+// (tokens/components/brand-bar.json → --uiowa-brand-bar-*). The custom properties
+// carry their own breakpoint switching (see abstracts/_tokens-generated.scss), so
+// they are declared once, unconditioned. Margins/paddings are intentionally not
+// tokenized (see contracts/brand-bar.json geometryNotTokenized).
+
 // === Site Name === //
 .site-name {
   display: flex;
   align-items: center;
   margin: 0 auto 0 0;
   text-align: left;
-  font-size: 1.8rem;
-  font-weight: 300;
+  font-size: var(--uiowa-brand-bar-site-name-font-size);
+  font-weight: var(--uiowa-brand-bar-site-name-font-weight);
   line-height: 1;
-  font-family: variables.$font-family-sans-serif;
+  font-family: var(--uiowa-font-family-sans);
 
   a {
-    color: variables.$secondary;
+    color: var(--uiowa-brand-bar-site-name-color);
     text-decoration: none;
   }
 
   @include utilities.breakpoint(md) {
     flex-basis: content;
     margin: 1px 0 0 0;
-    font-size: 2rem;
   }
 
   @include utilities.breakpoint(page-container) {
     margin: 5px 0 0 0;
     text-align: left;
-    font-size: 2.2rem;
   }
 }
 // === End: Site Name === //
@@ -34,6 +38,9 @@
 // === Parent Site Name === //
 .parent-site-name {
   font-weight: variables.$font-weight-light;
+  // Unified with the narrow site name (was inherited body size; explicit so
+  // isolated contexts like Storybook match real pages).
+  font-size: var(--uiowa-brand-bar-site-name-font-size-narrow);
   flex-basis: content;
   margin: 0 0 -10px 0;
   padding: variables.$md 0 0 variables.$gutter;
@@ -41,7 +48,7 @@
   background: variables.$primary;
 
   a {
-    color: variables.$secondary;
+    color: var(--uiowa-brand-bar-site-name-color);
     text-decoration: none;
   }
 
@@ -62,25 +69,17 @@
   position: relative;
   z-index: 2;
   display: block;
-  min-height: auto;
-  background: variables.$secondary;
-
-  @include utilities.breakpoint(md) {
-    min-height: 80px;
-    background: variables.$primary;
-  }
+  min-height: var(--uiowa-brand-bar-height-default);
+  background: var(--uiowa-brand-bar-background);
 
   &:not(.iowa-bar--narrow) {
-    @include utilities.breakpoint(md) {
-      height: 80px;
-    }
+    height: var(--uiowa-brand-bar-height-default);
   }
 
   &.iowa-bar--healthcare {
     &:not(.iowa-bar--narrow) {
-      @include utilities.breakpoint(md) {
-        height: 100px;
-      }
+      height: var(--uiowa-brand-bar-height-healthcare);
+
       .logo--tab {
         @include utilities.breakpoint(md) {
           padding-top: 27px;
@@ -134,32 +133,28 @@
 
   // Styles for the narrow version of the IOWA bar.
   &--narrow {
+    min-height: var(--uiowa-brand-bar-min-height-narrow);
 
     &.iowa-bar--healthcare {
       @include utilities.breakpoint(md) {
-        min-height: 50px;
         position: relative;
       }
+
       .logo--tab {
+        height: var(--uiowa-logo-tab-height-narrow-healthcare);
+        width: var(--uiowa-logo-tab-width-narrow);
+
         @include utilities.breakpoint(md) {
-          height: 70px;
-          width: 119px;
           padding: 15px;
         }
-
       }
-      .logo-icon {
-        height: 33px;
 
-        @include utilities.breakpoint(md) {
-          height: 41px;
-        }
+      .logo-icon {
+        height: var(--uiowa-logo-icon-height-narrow-healthcare);
       }
     }
 
-
     @include utilities.breakpoint(md) {
-      min-height: 50px;
       position: relative;
     }
 
@@ -167,10 +162,10 @@
     // the narrow version of the IOWA bar.
     .logo--tab {
       margin-right: 10px;
+      height: var(--uiowa-logo-tab-height-narrow);
+      width: var(--uiowa-logo-tab-width-narrow);
 
       @include utilities.breakpoint(md) {
-        height: 56px;
-        width: 119px;
         padding: 15px;
       }
 
@@ -180,11 +175,7 @@
     }
 
     .logo-icon {
-      height: 20px;
-
-      @include utilities.breakpoint(md) {
-        height: 26px;
-      }
+      height: var(--uiowa-logo-icon-height-narrow);
     }
 
     .parent-site-name {
@@ -194,14 +185,13 @@
     }
 
     .site-name {
-      font-size: 1rem;
+      font-size: var(--uiowa-brand-bar-site-name-font-size-narrow);
       margin: 0;
       padding: variables.$gutter;
       background: variables.$primary;
 
       @include utilities.breakpoint(md) {
         background: transparent;
-        font-size: 1rem;
         padding: 0;
       }
 
@@ -214,19 +204,19 @@
   // Styles for container underneath
   &__below {
     z-index: 2;
-    border-bottom: 1px solid #e6e5e5;
-    background: #fff;
+    border-bottom: 1px solid var(--uiowa-brand-bar-below-border-color);
+    background: var(--uiowa-brand-bar-below-background);
 
     & .iowa-bar__container {
       flex-wrap: wrap;
       justify-content: space-between;
       margin-right: 0;
       margin-left: 0;
+      min-height: var(--uiowa-brand-bar-below-min-height);
 
       @include utilities.breakpoint(md) {
         display: flex;
         position: unset;
-        min-height: 90px;
         justify-content: unset;
         margin-right: auto;
         padding-left: 1.25rem;
@@ -243,17 +233,12 @@
     .site-name {
       margin: 0;
       text-align: left;
-      font-size: 1.8rem;
+      font-size: var(--uiowa-brand-bar-site-name-font-size);
 
       @include utilities.breakpoint(md) {
         width: 75%;
         padding: 25px 20px 25px 0;
         background: transparent;
-        font-size: 2rem;
-      }
-
-      @include utilities.breakpoint(page-container) {
-        font-size: 2.2rem;
       }
     }
   }

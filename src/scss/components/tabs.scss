@@ -21,12 +21,12 @@
   [role="tab"] {
     position: relative;
     margin: 0;
-    padding: 1rem 1rem 1.3rem;
+    padding: var(--uiowa-tabs-tab-padding-block-start) var(--uiowa-tabs-tab-padding-inline) var(--uiowa-tabs-tab-padding-block-end);
     border: none;
     overflow: visible;
-    font-family: variables.$font-family-sans-serif;
-    font-size: variables.$content-font-size;
-    font-weight: variables.$font-weight-medium;
+    font-family: var(--uiowa-tabs-tab-font-family);
+    font-size: var(--uiowa-tabs-tab-font-size);
+    font-weight: var(--uiowa-tabs-tab-font-weight);
     background: none;
     transition: background 0.8s ease-out;
     cursor: pointer;
@@ -36,7 +36,7 @@
       bottom: 0;
       left: 0;
       width: 0;
-      height: 5px;
+      height: var(--uiowa-tabs-indicator-height);
       content: "";
       transition: 0.3s;
       z-index: 1;
@@ -51,37 +51,37 @@
       outline: 0;
 
       &:focus-visible::before {
-        background: variables.$primary;
+        background: var(--uiowa-tabs-indicator-selected-color);
       }
 
       &::after {
         width: 100%;
-        background: variables.$primary;
+        background: var(--uiowa-tabs-indicator-selected-color);
 
         [class*="bg--gold"] & {
-          background: variables.$secondary;
+          background: var(--uiowa-tabs-indicator-selected-color-on-gold);
         }
       }
 
       [class*="bg--black"] & {
-        color: variables.$primary;
+        color: var(--uiowa-tabs-tab-selected-text-color-on-black);
       }
     }
 
     &[aria-selected="false"] {
-      color: variables.$med-gray;
+      color: var(--uiowa-tabs-tab-text-color);
 
       &::after {
         width: 100%;
-        background: variables.$gray-light;
+        background: var(--uiowa-tabs-indicator-unselected-color);
 
         [class*="bg--gold"] & {
-          background: variables.$light;
+          background: var(--uiowa-tabs-indicator-unselected-color-on-gold);
         }
       }
 
       [class*="bg--black"] & {
-        color: variables.$light;
+        color: var(--uiowa-tabs-tab-text-color-on-black);
       }
     }
 
@@ -90,18 +90,18 @@
       bottom: 0;
       left: 0;
       width: 0;
-      height: 5px;
+      height: var(--uiowa-tabs-indicator-height);
       content: "";
       transition: 0.3s;
     }
 
     &:focus-visible::before,
     &:hover::before {
-      background: variables.$brand-cool-gray;
+      background: var(--uiowa-tabs-indicator-hover-color);
       width: 100%;
 
       [class*="bg--gold"] & {
-        background: variables.$med-gray;
+        background: var(--uiowa-tabs-indicator-hover-color-on-gold);
       }
     }
 
@@ -115,7 +115,7 @@
   [role="tabpanel"] {
     position: relative;
     z-index: 2;
-    padding: variables.$mobile-height-gutter 0;
+    padding: var(--uiowa-tabs-panel-padding-block) 0;
 
     &.is-hidden {
       display: none;

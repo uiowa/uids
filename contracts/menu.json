@@ -1,0 +1,143 @@
+{
+  "$schema": "./contract.schema.json",
+  "name": "menu",
+  "version": "1.0.0",
+  "description": "UIDS menu component contract, preserving the verified 4.x rendering and documenting the proposed Figma representation.",
+  "identity": {
+    "codePath": "src/components/menu/Menu.vue",
+    "scssPath": "src/scss/components/menu.scss",
+    "relatedPaths": [
+      "src/components/menu/MenuItem.vue",
+      "src/components/menu/Menu.stories.js"
+    ],
+    "downstreamPaths": [
+      "uiowa/docroot/themes/custom/uids_base/uids/scss/components/menu.scss"
+    ],
+    "registeredName": "uids-menu",
+    "storybookId": "components-menu",
+    "figma": {
+      "fileKey": "hNShklBztaeaQneScM0KoM",
+      "componentSetName": "Menu Item",
+      "componentSetId": "212:18",
+      "componentKey": "2c3e06bb1d6e11c30699b115be59bc9826bd35c5",
+      "page": "Components / Menu",
+      "note": "BUILT (Phase 3). 6 variants, SPARSE: Orientation x Nesting x State = 8 naive, minus the 2 Horizontal+Nested cells. So Horizontal x Top-level x {Default, Active} (2) and Vertical x {Top-level, Nested} x {Default, Active} (4).",
+      "axisRationale": [
+        "Hover is NOT an axis value, following Button — whose set is Color x Size x Style with no interaction-state axis at all; hover and focus are documented in prose. Menu's hover is also selector-scoped to top-level links only (`> li > a:hover:after`, menu.scss:119), so a Nested+Hover cell would have to render identically to Default. An annotated example frame shows the top-level gold-indicator treatment instead (the Headline 'context frames, not axes' precedent).",
+        "Horizontal x Nested is EXCLUDED: `.menu--horizontal`'s `> li ul { display: none; }` (menu.scss:145-147) means nested items never render in horizontal mode, so the cell would depict something the live component can never show.",
+        "Icon presence and children/chevron presence stay boolean instance-swap SLOT properties, not variant axes (Button's icon-slot precedent) — both are content-driven per `items`, not a style choice."
+      ],
+      "precedent": "Button (no interaction-state axis); Form Item (sparse set); Headline (context frames, not axes)."
+    },
+    "barrelExport": "UidsMenu"
+  },
+  "options": [
+    {
+      "name": "items",
+      "type": "array",
+      "description": "Keys per item, spread straight onto a nested MenuItem via v-bind (Menu.vue:54,62): label (required), url, children (a nested array of the same shape, which is what produces the submenu tree), active, expanded, icon. NOTE `variant` is a MenuItem prop but is supplied by Menu itself, not by the item. Required, with no default: the component renders nothing without it. Added 2026-08-20 to close the long-standing check-contracts warning that this Vue prop was unclaimed by any contract option — the schema already supported array/object option types.",
+      "code": {
+        "prop": "items",
+        "notes": "Vue marks it required:true with type:Array and no default."
+      },
+      "figma": {
+        "notes": "Content, not a variant axis: the number of entries drives how many rows/tabs/crumbs are drawn, which Figma expresses by duplicating the child instance rather than by a variant property."
+      }
+    },
+    {
+      "name": "variant",
+      "type": "enum",
+      "values": [
+        "horizontal",
+        "vertical"
+      ],
+      "default": "horizontal",
+      "description": "Menu's own orientation switch (Menu.vue only — MenuItem.vue has NO variant prop at all, see claims). Only 'horizontal' pushes an extra class (`menu--${className(variant)}` = menu--horizontal, Menu.vue:37-45); 'vertical' emits no modifier class — the base .menu rule already IS vertical, the same intentionally-undefined-modifier pattern as Button's size=medium.",
+      "code": {
+        "prop": "variant",
+        "notes": "MenuItem.vue's recursive nested <Menu> ALWAYS hardcodes variant=\"vertical\" (MenuItem.vue:67) regardless of the parent menu's own variant. MenuItem.vue's OWN liClasses computed also checks `props.variant === 'horizontal'` (MenuItem.vue:39) but MenuItem declares no such prop — see claims (dead-code)."
+      },
+      "figma": {
+        "axis": "Orientation",
+        "map": {
+          "horizontal": "Horizontal",
+          "vertical": "Vertical"
+        }
+      }
+    },
+    {
+      "name": "top",
+      "type": "boolean",
+      "default": false,
+      "description": "Whether to wrap the rendered <ul> in a `<nav :aria-label=\"label\">` landmark (Menu.vue:49) instead of a bare <ul> (Menu.vue:58). Defaults to FALSE. Every recursive nested <Menu> that MenuItem.vue renders (MenuItem.vue:65-68) omits `top` entirely, so by construction only an explicit root-level call can ever produce a landmark.",
+      "code": {
+        "prop": "top"
+      },
+      "figma": {
+        "notes": "Structural wrapper presence, not a visual style — represent as a landmark annotation on the outer frame, not a variant axis."
+      }
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "default": "",
+      "description": "ROOT-LEVEL aria-label text for the <nav>, read only when top=true (Menu.vue:31-34,49). Defaults to '' — see knownIssues for the resulting aria-label=\"\" gap. DISTINCT from each entry in `items`, which also has its own `label` field (the rendered link text, on MenuItem.vue) — same prop name, two entirely different roles.",
+      "code": {
+        "prop": "label"
+      },
+      "figma": {
+        "notes": "Non-visual landmark label; not represented as a bindable text layer."
+      }
+    }
+  ],
+  "slots": [],
+  "tokensUsed": [
+    "menu/font-size",
+    "menu/top-level/font-weight",
+    "menu/link-color",
+    "menu/link-color-on-light",
+    "menu/link-indicator/thickness",
+    "menu/link-indicator/hover-color",
+    "menu/container/border-color",
+    "menu/separator-color",
+    "menu/nested/padding-block",
+    "menu/link/padding-block",
+    "menu/link/padding-inline"
+  ],
+  "behavior": [
+    "Menu.vue and MenuItem.vue render ZERO real Vue <slot> elements — unlike every other migrated component (Button/Headline both wrap a default slot), all content is data-driven through the `items` prop. This is the first component in the family with no slot at all.",
+    "Top-level-only bold: `:not(ul ul):not(.menu--horizontal) > li > a` (menu.scss:19-21) applies font-weight 500 ONLY to vertical, non-nested links. Nested links and horizontal-mode links have no explicit weight anywhere in this file and inherit the ambient default.",
+    "Indicator mechanics (`&:after` on every link, menu.scss:76-88): 0-size + `--uids-gray-light` background at ALL depths by default. `.is-active` (menu.scss:51-59, ANY depth) forces full-size via the transform-end variable but does NOT touch color, so a NESTED active item shows a GRAY indicator, not gold. GOLD hover fires via `> li > a:hover:after` (menu.scss:119-124). CORRECTED 2026-08-17: that combinator does NOT confine gold to top-level links. `Menu.vue` unconditionally pushes `'menu'` (Menu.vue:38) and `MenuItem.vue` recurses into `<Menu variant=\"vertical\">` (MenuItem.vue:64-67), so EVERY nested submenu is a `<ul class=\"menu\">` — a nested link is a direct child of its OWN `.menu`, hovering gold at any depth. Verified live: a nested link (`Undergraduate`) returns true for `element.matches('.menu > li > a')`. Do not read `>` as anchoring to the outermost menu. Second-order: behavior[9].",
+    "`.menu--horizontal` (menu.scss:127-149) is entirely gated behind `utilities.container-query()` at its default parameter (`variables.$break-sm` = 768px; menu.scss:128, _breakpoints.scss:52) — progressively enhanced from `@container column (min-width:768px)` when an ancestor establishes that container context, down to a plain `@media (min-width:768px)` fallback under `@supports not (contain: inline-size)`. Menu.stories.js's own wrapper, `<div class=\"column-container\">` (Menu.stories.js:29), DOES establish this context (`.column-container { container-type: inline-size; container-name: column; }`, _grid.scss:78-84) — so capturing the standard 375/980/1350 regression viewports against that story is a valid proxy for the container's actual inline-size here. Below 768px (container), `.menu--horizontal` renders IDENTICAL to a vertical menu.",
+    "`.menu--horizontal` unconditionally hides ALL nested submenus (`> li ul { display: none; }`, menu.scss:145-147), with a documented @todo about WCAG 2.1 hover/focus content (menu.scss:143-144). MenuItem's recursive <Menu variant=\"vertical\"> still renders in the DOM at any nesting depth — it is CSS-hidden, not markup-absent — so a horizontal-mode Figma variant with nested children should show them as absent/hidden, not omit the underlying structure.",
+    "MenuItem renders either <a :href=\"url\"> or, when `url` is falsy, a plain non-interactive <span> with otherwise identical content (MenuItem.vue:53-62) — a 'headless group-label' pattern for items that exist only to hold `children`. Zero current fixture data (Menu.stories.js, both Showcase stories) exercises an item with `children` but no `url` — see storyAudit.",
+    "`top` defaults to false and every recursive nested <Menu> call omits it entirely (MenuItem.vue:65-68) — by construction, only the single outermost call can ever produce the <nav> landmark. Menu.stories.js's Template hardcodes :top=\"true\" (Menu.stories.js:30) for both exports, masking this default in the only dedicated stories that exist.",
+    "When top=true and label is left at its default '', the rendered markup is <nav aria-label=\"\"> (Menu.vue:31-34,49) rather than an unlabeled <nav> — see knownIssues.",
+    "`.fa-li`'s `position: absolute` comes from Font Awesome 5's own CSS (an external runtime dependency) — UIDS's menu.scss only overrides its `left` offset (menu.scss:42-44). No `.fa-ul` ancestor class is ever applied by Menu.vue/MenuItem.vue (confirmed: zero occurrences in src/), but Menu's own `li { position: relative; }` (menu.scss:28, applies to EVERY li unconditionally) already supplies the positioning context Font Awesome's `.fa-ul > li` rule would otherwise provide, so the icon still positions correctly without it.",
+    "SECOND-ORDER CONSEQUENCE of behavior[2]: `.menu li.is-active a:after` and `.menu > li > a:hover:after` have equal specificity (0,2,3), so source order decides and the hover rule (declared later) wins — hovering the CURRENT item turns its gray indicator gold."
+  ],
+  "knownIssues": [
+    "MenuItem.vue's `expanded` prop (default false, MenuItem.vue:18-21) sets `.is-expanded` (MenuItem.vue:45) which matches no CSS selector anywhere in the repo — plumbed but visually inert. It also cannot function as an accordion-style collapse toggle even at the markup level: the recursive <Menu v-if=\"children && children.length\"> (MenuItem.vue:65) renders unconditionally whenever children exist, never gated on `expanded`. See claims.",
+    "`.user-menu-toggle { .menu { display: none; } }` (menu.scss:151-154) has no companion rule that ever reveals the menu again, and no JS behavior class (accordion.js/tabs.js/slider.js/video.js/click-a11y.js — none reference \"menu\"/\"nav\"/\"toggle\" relevantly) wires one up. The pattern shown in ApplicationForm.stories.js:63-76 (a 'HawkID' account button beside a hidden <ul class=\"menu\"> sign-out link) can only ever render in its closed state as currently shipped. See claims.",
+    "`top` defaults to false (a caller who omits it gets a bare <ul>, no <nav> landmark at all) and, separately, a caller who passes top=true without label gets aria-label=\"\" rather than no attribute (Menu.vue:27-34,49) — the empty string is arguably a worse outcome for assistive technology than omitting the attribute entirely. Both defaults are masked by Menu.stories.js hardcoding :top=\"true\" in its Template (Menu.stories.js:30).",
+    "`.icon-after` (MenuItem.vue:56 and :61, on the chevron <span>) matches no CSS rule anywhere in src/scss/ — an unstyled hook.",
+    "`const name = 'uids-menu'` (Menu.vue:7) is declared and never read anywhere else in the file — same dead-code shape as the already-documented unused `const name` in Button.vue, PseudoButton.vue, and Headline.vue.",
+    "brand-footer.scss (`.footer__links .menu` at brand-footer.scss:111-132) overrides `.menu a`'s font-weight/color/font-size directly on nested selectors, bypassing Menu's own --menu-* custom properties entirely — and brand-footer's OWN contract (contracts/brand-footer.json) already claims the tier-3 tokens brand-footer/menu/font-size, brand-footer/menu/font-weight, brand-footer/menu/link-color for exactly this override (tokens/components/brand-footer.json's 'menu' block). Menu's new contract must NOT re-claim those names — check-contracts.mjs enforces one-contract-per-token. brand-footer.scss itself should NOT be added to Menu's identity.relatedPaths (it's brand-footer's own claimed territory) — this is a plain cross-reference, matching the pattern already used for Brand Bar/Logo.",
+    "docroot/themes/custom/uids_base/templates/navigation/menu.html.twig and menu--top-links.html.twig (verified in /Users/bspeare/acquia/uiowa) render real Drupal menus with a plain class=\"menu\" — genuine downstream consumption of this contract's base class, independent of the Vue component. Proposed as identity.downstreamPaths when the real contract is authored — see openQuestions (not identified by the input survey; flagging as a recommendation, not a confirmed requirement). Separately, uids_base/uids/ (this repo's own components/scss vendored into uids_base) is a byte-identical mirror of menu.scss/Menu.vue/MenuItem.vue/Menu.stories.js (diff exit 0) — not a second implementation, not drift.",
+    "There is no token for the ACTIVE link-indicator colour. menu/link-indicator/hover-color exists (gold), but `.is-active a:after` inherits the base `background: var(--uids-gray-light)` (#CACACA) -- verified live: active computes rgb(202,202,202), gold is hover-only. The Figma component binds the indicator to the color/gray/200 primitive (legal: check-figma's tokensUsed rule only constrains component-tier bindings). Ruled 2026-08-16: record rather than add a token now.",
+    "The mobile 'MENU' accordion on live sites — the full-width bar that collapses the primary nav below the sm breakpoint and toggles it open — is DOWNSTREAM-ONLY and cannot be rebuilt from UIDS as shipped. uids_base owns both halves: templates/navigation/toggle-nav--bttn.twig renders the toggle (a button.toggle-nav__bttn holding `<span>Menu</span>`) and assets/js/toggle-nav.js, attached via uids_base.libraries.yml, drives the open/close — all three verified in /Users/bspeare/acquia/uiowa. UIDS has no reveal even at the markup level: knownIssues[0] records that `expanded` gates nothing, and knownIssues[1] that the one hide rule has no companion reveal and no behavior JS references the menu. Recorded 2026-09-02 so nobody rebuilds it here — it is uids_base territory, the same boundary as the layout--title classes (detected downstream, not authored)."
+  ],
+  "changes": [
+    "2026-09-02 — RETIRED the knownIssues entry claiming `.menu--container` had no dedicated story and no regression coverage. False on every count when checked: Menu.stories.js exports `Container` (a dedicated .menu--container story), regression/config.json samples `.menu--container` border width/style/colour against it, and regression/baselines/menu.json holds the border OBSERVED at rgb(230,229,229) at 375/980/1350 — the observation that settled the nav-strip border token (rules.json nav-strip-border-is-full-bleed). The entry also still pointed at 'a proposed new story' that had since been written. What remains true — the class is consumed by the two Application showcase stories — is derivable by grep and needs no knownIssue. Deleted rather than amended because every load-bearing clause was false; this entry is the paper trail."
+  ],
+  "geometryNotTokenized": {
+    "orientation-axis-switch": "--menu-flex-direction (column/row, menu.scss:5,131) plus the indicator's scaleX/scaleY transform-start/end custom properties (menu.scss:9-10,132-133) are structural axis-switch mechanics, not design values — same treatment as Brand Bar's tab-overhang geometry. Only the indicator's THICKNESS (menu/link-indicator/thickness) and its two colors are tokenized; which CSS property (width vs. height) carries that thickness, and which transform axis animates it, per orientation, stays raw.",
+    "shared-core-custom-properties": "--uids-gray-cool (.fas icon color, menu.scss:47) and --uids-gray-light (indicator default background, menu.scss:77) are NOT menu tokens. Both are legacy custom-property names in uids-core.scss that already alias the generated primitives — verified: uids-core.scss:24 `--uids-gray-cool: var(--uiowa-color-gray-500);`, uids-core.scss:31 `--uids-gray-light: var(--uiowa-color-gray-200);`. Same treatment as Button's --transparent-border.",
+    "has-icon-indent": "padding-left: 3.1rem (`.has-icon > a`, `> span:not([class*=\"fa\"])`, rule at menu.scss:35-40, property at :38) — one-off icon-indent offset. Sits close to but does NOT equal $xxlg (3.15rem, itself already flagged zero-use/deletion-candidate in tokens/README) — kept raw rather than promoted; see openQuestions.",
+    "icon-position": "`.fa-li { left: .9rem; }` (menu.scss:42-44) positions the icon glyph; position:absolute itself comes from Font Awesome 5's own CSS, an external runtime dependency (see behavior). The .9rem value exactly matches $sm-md — tracked in sharedPrimitiveUsage, not tokenized here as its own leaf.",
+    "nested-indent": "margin-left: 1.7rem on `& > ul.menu` (menu.scss:100-102) — nested-menu indentation. No primitive matches (nearest is $xlg at 2.5rem).",
+    "border-widths": "Both borders in this file are 1px (li separator menu.scss:24, .menu--container menu.scss:158) — only their COLOR is tokenized, matching Button's `border: 1px solid var(--transparent-border)` precedent.",
+    "hover-transition": "transition: 0.3s all ease-in-out (+ -webkit- prefix) on the indicator &:after (menu.scss:86-87) — animation timing, not a design value, same treatment as Button's focus-bar-motion.",
+    "horizontal-mode-layout": "display: flex; flex-wrap: wrap; (menu.scss:134-135) and the removal of li border-bottom (menu.scss:138-140) inside .menu--horizontal are structural layout mechanics, not component-identity values."
+  }
+}

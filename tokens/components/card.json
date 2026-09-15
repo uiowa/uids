@@ -1,0 +1,97 @@
+{
+  "card": {
+    "padding": { "value": "{space.200}", "comment": "card.scss:21 — `padding: 2rem` on .card, the single inset that every other card offset is derived from. space.200 = 2rem exactly. Measured 32px in the Default baseline." },
+    "header": {
+      "margin-bottom": { "value": "0.525rem", "comment": "card.scss:59 — `margin: 0 0 0.525rem` on .card header; the top and inline margins are 0 and need no token. No spacing primitive is 0.525rem (space.50 is 0.5rem, a DIFFERENT value — do not round to it) so this stays a tier-3 literal and is a 5.x consolidation candidate alongside banner's 0.7rem." },
+      "font-size": { "value": "{typography.font-size.375}", "comment": "card.scss:61 — `font-size: 1.5rem` on .card header. font-size.375 = 1.5rem exactly. Note this is re-declared on the nested headline at card.scss:75 (see card/headline/font-size); two rules, one decision, but they are separate declarations in the source and are tokenized separately so a future divergence stays expressible." },
+      "font-weight": { "value": "{typography.font-weight.medium}", "comment": "card.scss:62 — `font-weight: variables.$font-weight-medium`, which is already var(--uiowa-font-weight-medium) (_variables.scss:59), i.e. this restates an existing primitive reference rather than minting a value. FLAT: $font-weight-* are typography primitives, not brand channels." },
+      "line-height": { "value": "1.2", "comment": "card.scss:63 — `line-height: 1.2`. Unitless ratio with no matching primitive (line-height.112 = 1.125 and line-height.125 = 1.25 bracket it without hitting it), so a tier-3 literal, exactly the treatment banner/pre-title/line-height got for 1.1." }
+    },
+    "headline": {
+      "font-size": { "value": "{typography.font-size.375}", "comment": "card.scss:75 — `.card header .headline { font-size: 1.5rem }`, which re-states the header size one level down so the nested Headline component cannot win with its own ramp. This is an ANCESTOR rule reaching into a child component — the same mechanism banner uses on its imported Headline, and the reason the Claude Design template must restate it (see contracts/card.json claudeDesign notes)." }
+    },
+    "body": {
+      "font-size": { "value": "{typography.font-size.100}", "comment": "card.scss:42 and :49 — `font-size: 1rem` declared twice, once for ul/ol/dl/table and once for p. One decision, two selectors. font-size.100 = 1rem." },
+      "line-height": { "value": "{typography.line-height.170}", "comment": "card.scss:43, :50 and :283 — 1.7 on the list/table group, on p, and on .card__body itself. line-height.170 is the shared 'paragraph body' primitive, so this is vocabulary card shares rather than owns." }
+    },
+    "pre-title": {
+      "font-size": { "value": "0.75rem", "comment": "card.scss:242 — `.card__pre-title { font-size: 0.75rem }`. NOT tokenized against a primitive: the smallest typography.font-size step is 50 = 0.8rem, a different value. space.75 IS 0.75rem but is spacing vocabulary and must not be borrowed for type — the tiers are kept apart deliberately. Tier-3 literal; 5.x candidate for a font-size.37 step. Measured 12px." },
+      "opacity": { "value": ".7", "comment": "card.scss:243 — `opacity: .7`, the de-emphasis applied to the pre-title. Shares its value with card/subtitle/opacity but is a separate declaration on a separate element; kept separate so one can move without the other." },
+      "icon-gap": { "value": "0.2rem", "comment": "card.scss:247 — `margin-right: .2rem` on the pre-title's i / span[class*=\"fa-\"] / svg, the gap between a Font Awesome glyph and the label. No spacing primitive is 0.2rem; tier-3 literal." }
+    },
+    "subtitle": {
+      "font-family": { "value": "{typography.font-family.serif}", "comment": "card.scss:255 — `font-family: variables.$font-family-serif`, already var(--uiowa-font-family-serif) (_variables.scss:51). Zilla Slab. This is what distinguishes the subtitle from the meta line directly beneath it, which is sans." },
+      "font-size": { "value": "{typography.font-size.250}", "comment": "card.scss:256 — `font-size: 1.3rem`. font-size.250 = 1.3rem exactly." },
+      "font-weight": { "value": "{typography.font-weight.medium}", "comment": "card.scss:257 — `$font-weight-medium` (500)." },
+      "line-height": { "value": "{typography.line-height.140}", "comment": "card.scss:258 — `line-height: 1.4`. line-height.140 exactly; shared with card/meta/line-height, which is the same decision applied to the sibling element." },
+      "margin-top": { "value": "-0.4rem", "comment": "card.scss:259 — `margin-top: -0.4rem`, a NEGATIVE pull that tightens the subtitle up under the title. Negative values are never spacing primitives (the scale is unsigned), so this is necessarily a tier-3 literal. Kept as-shipped: it is doing real optical work against the serif's own leading." },
+      "opacity": { "value": ".7", "comment": "card.scss:254 — `opacity: .7`. Same value as the pre-title's, separate declaration; see card/pre-title/opacity." }
+    },
+    "details": {
+      "margin-bottom": { "value": "{space.62}", "comment": "card.scss:265 — `.card__details { margin: 0 0 variables.$sm }`. $sm IS var(--uiowa-space-62) (_variables.scss:85), so this restates an existing primitive reference. The block and inline start margins are 0 and need no token." }
+    },
+    "meta": {
+      "font-family": { "value": "{typography.font-family.sans}", "comment": "card.scss:271 — `font-family: variables.$font-family-sans-serif`, already var(--uiowa-font-family-sans) (_variables.scss:50). Roboto. Declared explicitly rather than inherited because the subtitle immediately above it switches to serif." },
+      "font-size": { "value": "{typography.font-size.125}", "comment": "card.scss:272 — `font-size: 1.1rem`. font-size.125 = 1.1rem exactly." },
+      "line-height": { "value": "{typography.line-height.140}", "comment": "card.scss:273 — `line-height: 1.4`; same primitive as the subtitle." },
+      "font-weight": { "value": "{typography.font-weight.normal}", "comment": "card.scss:274 — `$font-weight-normal` (400). Declared explicitly to reset against the medium weight the header sets above it." },
+      "icon-gap": { "value": "0.3rem", "comment": "card.scss:276 — `.card__meta .fas { margin-right: .3rem }`. Note this selector is NARROWER than the pre-title's equivalent (which also matches svg and span[class*=\"fa-\"]) and the value differs (0.3 vs 0.2) — two independent decisions, tokenized independently, as-shipped. No primitive is 0.3rem." }
+    },
+    "media": {
+      "svg-backdrop": { "value": "{color.white}", "comment": "card.scss:191-198 — `.card .media--widescreen:has([src$=\".svg\"]) .media__inner { background: #fff }`, paired with `object-fit: contain` on the image itself. A transparent SVG dropped into a 16:9 frame would otherwise show whatever sits behind the card, so this paints a white plate under it. FLAT, no brandChannel: the 4.x source is the literal #fff. Reachable only through the `:has()` selector on an .svg src, so no authored story exercises it and the swap covers it by value identity — the same treatment banner/video-btn/border-color/on-light-overlay got." },
+      "min-width": { "value": "7.7rem", "comment": "card.scss:109 — `.card > .media { min-width: 7.7rem }`, the floor that stops media collapsing in a narrow side-by-side layout. No primitive is 7.7rem; tier-3 literal." },
+      "edge-offset": { "value": "{space.200}", "comment": "card.scss:146-149 — `.card .media__inner` margins, applied as -2rem on the top and inline sides and +2rem on the block end, which is what pulls media edge-to-edge out of the card's own 2rem padding. ONE token for the magnitude, not four: the negative sides and the positive bottom are the same decision read in two directions, and they must move together or the media stops meeting the card edge. Numerically equal to card/padding by construction — that is the point, not a coincidence — but kept a distinct token because the SCSS applies it with a sign the padding never carries." },
+      "circle": {
+        "small-max-width": { "value": "9.375rem", "comment": "card.scss:163 — `.card .media--circle.media--small { max-width: 9.375rem }` (150px). No primitive; tier-3 literal. Pinned by the ImageUsingUiowaIcon story." },
+        "medium-max-width": {
+          "base": { "value": "15.625rem", "comment": "card.scss:165 — `.card .media--circle.media--medium { max-width: 15.625rem }` (250px), the value below the sm breakpoint." },
+          "sm": { "value": "60%", "comment": "card.scss:167-169 — the `breakpoint(sm)` override to `max-width: 60%`, swapping an absolute cap for a proportional one once there is room. THE BREAKPOINT IS IN THE NAME for the reason tokens/README.md gives and banner/padding/sm records: the component-tier mobile/md/page leaves emit `@media (min-width: 980px)`, and this switch is at 768px ($break-sm), so a leaf form would move it 212px and strand the 768-979 band — a band the 375/980/1350 regression harness cannot see. The consuming SCSS keeps deciding WHEN; the tokens supply WHAT." }
+        }
+      },
+      "date": {
+        "size": { "value": "{space.600}", "comment": "card.scss:206-207 — `width: 6rem; height: 6rem` on .media--date, held square by an explicit `aspect-ratio: 1 / 1` (card.scss:211). space.600 = 6rem exactly. ONE token: a circle's width and height are one decision." },
+        "padding-top": { "value": "{space.125}", "comment": "card.scss:203 — `padding-top: variables.$gutter`. $gutter is 1.25rem (_variables.scss:83) and space.125 IS that value — the same identity banner/padding/base records. Measured 20px." },
+        "margin-top": { "value": "{space.200}", "comment": "card.scss:210 — `margin-top: 2rem`, which the layout-left/right container query resets to 0 (card.scss:390-392) and the borderless-no-background rule also resets (card.scss:301). Only the base value is a design decision; the resets are structural and stay raw." },
+        "border-width": { "value": "1px", "comment": "card.scss:204 — the width half of `border: 1px solid variables.$uiowa-gold`. 1px hairlines are not on any scale (banner/video-btn/border-width sets the same precedent)." },
+        "border-color": {
+          "default": { "value": "{color.gold}", "comment": "card.scss:204 — the colour half of the date circle's border. FLAT, no brandChannel: the 4.x source is `$uiowa-gold`, the fixed brand literal, NOT the themeable $primary channel. This is the logo.fill precedent — a grayscale-themed site keeps this gold, and that is as-shipped. Getting this wrong in either direction is the provenance error the Buttons swap was written to prevent." },
+          "on-gold": { "value": "{color.black}", "comment": "card.scss:231-235 — `.card[class*=\"bg--gold\"] .media--date { border: 1px solid variables.$uiowa-black }`, because a gold hairline on a gold card is invisible. FLAT for the same reason as the default: $uiowa-black is the fixed literal, not $secondary. The source comment above this rule ('We should revisit to have appropriate color/styling for each background color option') is preserved as a knownIssue rather than acted on — only the gold background is handled, gray and black are not." }
+        },
+        "month": {
+          "font-size": { "value": "{typography.font-size.100}", "comment": "card.scss:215 — `font-size: variables.$base-font-size`, already var(--uiowa-font-size-100) (_variables.scss:71). Measured 16px." },
+          "font-weight": { "value": "{typography.font-weight.light}", "comment": "card.scss:219 — `$font-weight-light` (300). Measured 300." },
+          "line-height": { "value": "100%", "comment": "card.scss:217 — `line-height: 100%`. Kept as the shipped PERCENTAGE rather than swapped to line-height.100 (the unitless `1`): the two compute identically here (measured 16px, exactly the font-size) but they differ in what descendants inherit — a percentage resolves to a length at this element, a number re-resolves per child. .media--date__month is a leaf span today, so the swap would be inert, but the token records what ships. 5.x candidate." }
+        },
+        "day": {
+          "font-size": { "value": "{typography.font-size.750}", "comment": "card.scss:223 — `font-size: variables.$h2-font-size`, already var(--uiowa-font-size-750) (_variables.scss:65) = 2.3rem. Measured 36.8px, which is 2.3 x 16 exactly." },
+          "font-weight": { "value": "{typography.font-weight.medium-bold}", "comment": "card.scss:227 — `$font-weight-medium-bold` (600). Measured 600." },
+          "line-height": { "value": "100%", "comment": "card.scss:225 — `line-height: 100%`; see card/media/date/month/line-height for why the percentage is preserved. Measured 36.8px." },
+          "margin-top": { "value": "1px", "comment": "card.scss:226 — `margin-top: 1px`, a one-pixel optical nudge separating the day numeral from the month label. Sub-scale by nature; tier-3 literal." }
+        }
+      }
+    },
+    "button": {
+      "margin-top": { "value": "{space.125}", "comment": "card.scss:95 — `.card footer .bttn { margin-top: 1.25rem }` (space.125), the gap between the card body and its button. Applies to all three of card's button paints — measured 20px on the gold-arrow label, the arrow-less anchor and the circle indicator alike." },
+      "focus-icon-color": { "value": "{color.black}", "brandChannel": "secondary", "comment": "card.scss:78-86 — `.card header:focus-within ~ .bttn i, svg { color: variables.$secondary }`, which repaints the button's arrow when focus lands on the TITLE link, so keyboard focus on the headline visibly lights the button that shares its destination. $secondary IS var(--brand-secondary), so this MUST carry brandChannel or a grayscale-themed site loses the flip — the provenance rule from the Buttons swap. Note the default (unfocused) arrow colour is NOT card's to own: it comes from --uiowa-button-transparent-icon-color on the nested Button, and differs between card's paints (gold on the label, black on the circle, because button.scss:116-120 repaints .bttn--no-text icons). See contracts/card.json." }
+    },
+    "layout": {
+      "media-gap": { "value": "{space.200}", "comment": "card.scss:461, :474 and again in the background-matching block at :497 and :505 — `margin-right: 2rem` for layout-left and `margin-left: 2rem` for layout-right, the gutter between media and body in a side-by-side card. ONE token: it is one gap, mirrored. CRITICALLY, every one of these sits inside `@include container-query()` — a CONTAINER query on .grid__column at 400px ($break-xxsm), NOT a viewport media query. The token is therefore FLAT with no breakpoint leaves at all: the SCSS keeps deciding when, and a mobile/md/page form would silently replace a container threshold with a `min-width: 980px` viewport one. Those diverge in real layouts — a fourcol grid holds columns under 400px at every viewport this harness samples, so the substitution would be invisible to test:styles. Same failure shape as the banner near-miss, one breakpoint further down." },
+      "media-basis": {
+        "medium": { "value": "35%", "comment": "card.scss:440-442 — `.card--layout-left .media--medium, .card--layout-right .media--medium { flex: 0 0 35% }` inside the container query. Percentage-valued, which Figma holds as a plain FLOAT — the treatment banner/overlay/midpoint established." },
+        "large": { "value": "52.5%", "comment": "card.scss:445-449 — the same rule for .media--large, `flex: 0 0 52.5%`." }
+      },
+      "media-max-width": {
+        "small": {
+          "circle": { "value": "11.375rem", "comment": "card.scss:416-418 — `.card--layout-left .media--small.media--circle, .card--layout-right … { max-width: 11.375rem }` (182px). NOT THE SAME TOKEN AS card/media/circle/small-max-width (9.375rem, card.scss:163): that is the OUTER-scope rule and this is the layout-left/right override, which wins inside a side-by-side card on later source order at equal specificity (three classes each). Two rules, two scopes, two values — do not consolidate them, and do not \"fix\" the 2rem difference." },
+          "square": { "value": "11.375rem", "comment": "card.scss:420-424 — `.media--small.media--square { max-width: 11.375rem }`. Unlike its circle sibling this one IS wrapped in card's own container-query(), so it engages only once the .grid__column is ≥ 400px." },
+          "widescreen": { "value": "15.625rem", "comment": "card.scss:426-430 — `.media--small.media--widescreen { max-width: 15.625rem }` (250px), inside card's own container-query(). THIS is the cap that makes a news/item-list thumbnail small: media--small carries no flex-basis of its own, so without the cap the media inherits `flex-basis: 100%` from card.scss:383-387 and splits the card 50/50. Measured 2026-08-24 on the Storybook ItemList story (components-card--item-list): media--small.media--widescreen renders 250px in a 1248px card with flex-basis still reporting 100%. The cap, not the basis, does the work — which is why a view that ships the basis rules and drops the caps renders the thumbnail at half the card and looks like it honoured media_size." }
+        },
+        "no-crop": {
+          "small": { "value": "13.625rem", "comment": "card.scss:403-405 — `.media--no-crop.media--small { max-width: 13.625rem }` (218px). Tokenized as-shipped: card.scss:402 carries the source's own `// TODO: Change these to decided upon sizes.` over all three no-crop caps, so these values are provisional UPSTREAM, not here. Outside the container query — an uncropped image is capped at every column width." },
+          "medium": { "value": "27.25rem", "comment": "card.scss:407-409 — `.media--no-crop.media--medium { max-width: 27.25rem }` (436px), exactly 2× the small cap. See the small sibling for the upstream TODO." },
+          "large": { "value": "40.875rem", "comment": "card.scss:411-413 — `.media--no-crop.media--large { max-width: 40.875rem }` (654px), exactly 3× the small cap. See the small sibling for the upstream TODO." }
+        }
+      }
+    }
+  }
+}

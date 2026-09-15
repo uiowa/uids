@@ -63,7 +63,7 @@ const icon = computed(() => {
 });
 
 const classes = computed(() => {
-  let classes = ['alert'];
+  const classes = ['alert'];
 
   if (props.type) {
     classes.push(`alert--${ className(props.type)}`);

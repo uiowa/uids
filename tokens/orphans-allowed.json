@@ -1,0 +1,23 @@
+{
+  "$comment": [
+    "Tokens that check-token-consumers.mjs would otherwise flag, with the argument for why",
+    "they are fine. The reason string is the point of this file: 'no stylesheet in this repo",
+    "reads it' is a fact, but whether that is a defect or a downstream contract is a judgement",
+    "the checker cannot make from inside this checkout, so it has to be written down by a human.",
+    "",
+    "The overwhelmingly common legitimate reason is uids_base: UIDS owns the vocabulary, and",
+    "SiteNow's theme is the consumer. Those tokens ship as CSS custom properties in dist/ and",
+    "are read by Drupal-side SCSS that is not in this repo. Cite the class or file that reads",
+    "it, so the claim can be checked against /Users/bspeare/acquia/uiowa rather than believed.",
+    "",
+    "An exemption is INHERITED by everything the token aliases to, so list the semantic token",
+    "rather than the primitive underneath it.",
+    "",
+    "This file is deliberately short. The checker's other warnings are a to-do list, not a",
+    "backlog to silence — resist adding an entry to make a run quieter."
+  ],
+  "allowed": {
+    "--uiowa-space-110": "uids_base only: the layout--onecol--fixed condensed-band padding (1.1rem top/bottom), a band deliberately outside the section rhythm — see contracts/layout.json geometryNotTokenized.onecol-fixed-padding. No UIDS component uses this step. Legacy, flagged for 5.x consolidation in its own token comment.",
+    "--uiowa-layout-block-stack-default": "uids_base only: default sibling-block top spacing inside Layout Builder regions (1.6rem). The stacking rhythm it drives is a Drupal region behavior with no UIDS equivalent — nothing in src/scss stacks sibling blocks. Covers the space/160 primitive beneath it, whose only parent this is."
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "_about": {
+    "artifact": "contracts/rules.json — the governance rules, one file for the whole system",
+    "authoredOrGenerated": "AUTHORED — and it is THE ONLY PLACE A RULE IS EDITED. Rules carrying publishTo are emitted verbatim into the consumer-facing views by scripts/build-dc-rules.mjs (between generated-block markers in claude-design/readme.md and Design System Guide.md); --check is in yarn check:drift. This single-source design exists because the rules were previously hand-maintained in three places and drifted into two live contradictions that both shipped.",
+    "purpose": "The rules consumer agents must follow when generating pages/designs with UIDS — the 'constitution' a generated page is held to.",
+    "audiences": {
+      "consumer agent": "primary — these rules ARE its governance. Claude Design sessions receive the publishTo rules via the injected readme.md; in-repo agents read this file first per catalog.json's readingOrder.",
+      "builder agent": "edits rules here, never in a generated view. Renaming an id is a rename across every view that publishes it — build-dc-rules.mjs --check catches the views; nothing catches a consumer that had memorised the old id, so treat ids as public API.",
+      "checkers": "scripts/build-dc-rules.mjs publishes the publishTo rules; scripts/build-catalog.mjs links to this file and counts rules.rules.length. Neither reads an individual rule's TEXT, so the rule text has no mechanical guard at all — it is published verbatim and trusted."
+    },
+    "scopeRule": "A rule that describes a single VIEW's own mechanics does NOT belong here — it belongs in that view. (Example: 'no bare element selectors' is about dc-import's shared cascade; it lives in claude-design/readme.md and check-claude-design.mjs enforces it there.)",
+    "moreInfo": [
+      "contracts/README.md — 'The agent catalog' section documents the rules pipeline and the drift incident that motivated it",
+      "scripts/build-dc-rules.mjs — the publisher; --check in yarn check:drift is what keeps the views in step"
+    ]
+  },
+  "_fields": {
+    "id": {
+      "purpose": "Stable kebab-case rule id, the name a violation is reported under. Treat it as public API: it is quoted in review comments and in the published views, and no checker can see a consumer that still uses the old spelling.",
+      "consumedBy": ["build-dc-rules.mjs (published into the views)"],
+      "notConsumedBy": "build-catalog.mjs reads rules.rules.length and a hardcoded path (lines 138, 186, 193) — it never reads an individual rule id."
+    },
+    "enforcement": {
+      "purpose": "'judge' = mechanically CHECKABLE — a script or the Figma readback could verify it | 'agent' = guidance an agent must follow but only human review fully verifies. Read it as a claim about the rule's nature, NOT as a promise that something checks it. Of the six judge-tier ids, exactly one is named in a checker: components-from-catalog, by check-claude-design.mjs, and only at WARN (dc enum values must be a subset of the contract's). tokens-only, semantic-tier-first, second-row-forces-narrow and no-planned-options are named in no script here. respect-breakpoint-modes is half-covered: check-figma.mjs validates every variable's mode names and per-mode values (an unexpected mode name is an error), but a variant's mode PIN is not captured in figma/snapshot.json at all, so the half the rule is actually about is unchecked.",
+      "consumedBy": ["build-dc-rules.mjs (published verbatim into the views as '**id** (enforcement) — ')"],
+      "notConsumedBy": "Every checker in scripts/. Nothing branches on this field. A deterministic page grader that scores generated HTML against these ids lives in the research fork, not here — see docs/agentic-design-system.md, 'Output grading — deliberately not in this repo'."
+    },
+    "rule": {
+      "purpose": "The rule text, written TO the consuming agent. May carry its own correction history inline when the previous wording actively caused harm (see page-heading-structure — the corrected rule records what the wrong version broke, so it cannot be innocently restored).",
+      "consumedBy": ["build-dc-rules.mjs (published verbatim — no paraphrasing in views)"]
+    },
+    "publishTo": {
+      "purpose": "Which generated views must carry the rule verbatim ('claude-design' = readme.md + Design System Guide.md). Rules WITHOUT publishTo are repo-facing only — e.g. respect-breakpoint-modes, which is about authoring Figma variants and means nothing to a page-building agent.",
+      "consumedBy": ["build-dc-rules.mjs"]
+    }
+  },
+  "example": {
+    "rules": [
+      {
+        "id": "tokens-only",
+        "enforcement": "judge",
+        "rule": "Every color, font family, font weight, and font size must come from a token in catalog/tokens.json. No raw hex values or ad-hoc type sizes where a token exists.",
+        "publishTo": ["claude-design"]
+      },
+      {
+        "id": "respect-breakpoint-modes",
+        "enforcement": "judge",
+        "rule": "In Figma, component breakpoint variants must pin the Components collection mode (mobile / md (980) / page (1350)) and the Semantic collection mode (small (600) for Mobile/MD, large (1310) for Page). Dimension tokens with value 0 mean auto/content-driven — do not bind them."
+      }
+    ]
+  }
+}

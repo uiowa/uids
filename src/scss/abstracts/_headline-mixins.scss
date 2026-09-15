@@ -4,10 +4,10 @@
 
 @mixin headline {
   padding: 0;
-  line-height: 1;
+  line-height: var(--uiowa-headline-line-height);
 
   a {
-    color: variables.$secondary;
+    color: var(--uiowa-headline-link-color);
     text-decoration: none;
 
     &:hover,
@@ -18,10 +18,10 @@
 }
 
 @mixin headline-negative {
-  color: variables.$white;
+  color: var(--uiowa-headline-negative-color);
 
   a {
-    color: variables.$white;
+    color: var(--uiowa-headline-negative-color);
   }
 }
 
@@ -30,7 +30,7 @@
   font-family: variables.$font-family-caps;
   -webkit-font-smoothing: auto;
   -moz-osx-font-smoothing: auto;
-  font-weight: bold;
+  font-weight: var(--uiowa-headline-uppercase-font-weight);
   font-style: normal;
   font-display: swap;
 }
@@ -45,38 +45,38 @@
   justify-content: center;
   margin-bottom: 8px;
   padding: 2px 0;
-  line-height: 1.7;
+  line-height: var(--uiowa-headline-highlight-line-height);
 }
 
 @mixin headline-highlight-word {
-  background: variables.$primary;
+  background: var(--uiowa-headline-highlight-background);
   display: inline;
   padding: 0.85rem 1rem;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
-  color: variables.$secondary;
+  color: var(--uiowa-headline-highlight-color);
   text-shadow: none;
   [class*="bg--gold"] & {
-    background: variables.$secondary;
-    color: #fff;
+    background: var(--uiowa-headline-highlight-background-on-gold);
+    color: var(--uiowa-headline-highlight-color-on-gold);
   }
 }
 
 @mixin headline-highlight-word-uppercase {
-  background: variables.$primary;
+  background: var(--uiowa-headline-highlight-background);
   display: inline-block;
   margin-bottom: .8rem;
   margin-top: .8rem;
   padding: .4rem 1.2rem .8rem;
-  color: variables.$secondary;
+  color: var(--uiowa-headline-highlight-color);
   [class*="bg--gold"] & {
-    background: variables.$secondary;
-    color: #fff;
-    font-weight: 400;
+    background: var(--uiowa-headline-highlight-background-on-gold);
+    color: var(--uiowa-headline-highlight-color-on-gold);
+    font-weight: var(--uiowa-headline-uppercase-font-weight-on-gold);
   }
   [class*="bg--gold"] [class*="bg--black"] & {
-    background: variables.$primary;
-    color: variables.$secondary;
+    background: var(--uiowa-headline-highlight-background);
+    color: var(--uiowa-headline-highlight-color);
   }
 }
 
@@ -90,7 +90,7 @@
     width: 75px;
     height: 6px;
     margin-top: 15px;
-    background: variables.$primary;
+    background: var(--uiowa-headline-underline-color);
   }
 
   &.headline--center {
@@ -103,7 +103,7 @@
   .bg-pattern--brain-reversed &,
   [class*="bg--gold"] & {
     &:after {
-      background: variables.$light;
+      background: var(--uiowa-headline-underline-color-on-gold);
     }
   }
 }

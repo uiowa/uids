@@ -61,7 +61,7 @@
   // This function adds listeners for events to every tab.
   Tabs.prototype.addListeners = function() {
     // Define thisTabs as the Tabs object for later use.
-    let thisTabs = this;
+    const thisTabs = this;
 
     // Set listeners for all three necessary event types.
     for (let i = 0; i < this.tabs.length; ++i) {
@@ -105,16 +105,16 @@
     tab.setAttribute('aria-selected', 'true');
 
     // Get the value of aria-controls (which is an ID).
-    let controls = tab.getAttribute('aria-controls');
+    const controls = tab.getAttribute('aria-controls');
 
     // Remove hidden attribute from tab panel to make it visible.
     document.getElementById(controls).removeAttribute('hidden');
 
     // Get the tab's id.
-    let tabid = tab.id;
+    const tabid = tab.id;
 
     // Define historyString here to be used later.
-    let historyString = '#' + tabid;
+    const historyString = '#' + tabid;
 
     // Change window location to add URL params
     if (window.history && history.pushState && historyString !== '#') {
@@ -132,20 +132,20 @@
   Tabs.prototype.activateTabByHash = function() {
 
     // Get the hash parameter.
-    let hash = window.location.hash.substr(1);
+    const hash = window.location.hash.substr(1);
 
     // If the hash parameter is not empty...
     if ( hash !== '') {
 
       // Get the tab to focus.
-      let tabToFocus = document.getElementById(hash);
+      const tabToFocus = document.getElementById(hash);
 
       // If the defined hash parameter finds an element...
       if ( tabToFocus !== null) {
 
         // Get the tablist id's of the hash parameter and this tablist to compare later.
-        let tabToFocusTablistID = tabToFocus.parentElement.parentElement.id;
-        let tablistID = this.tablist.parentElement.id;
+        const tabToFocusTablistID = tabToFocus.parentElement.parentElement.id;
+        const tablistID = this.tablist.parentElement.id;
 
         // If the tablist defined by the hash and this tablist are the same...
         if (tabToFocusTablistID === tablistID) {
@@ -160,7 +160,7 @@
   // Deactivate all tabs and tab panels.
   Tabs.prototype.deactivateTabs = function() {
       // Get the necessary tabs nodelist.
-      let tabs = this.tabs;
+      const tabs = this.tabs;
 
       // For each tab in tabs...
       for (let t = 0; t < tabs.length; t++) {
@@ -180,7 +180,7 @@
 
   // This function will, on an event, check if the event target needs to be focused.
   Tabs.prototype.focusEventHandler = function(event) {
-    let target = event.target;
+    const target = event.target;
     const that = this;
     setTimeout(function() {
       that.checkTabFocus(target);
@@ -189,7 +189,7 @@
 
   // Only activate tab on focus if it still has focus after the delay.
   Tabs.prototype.checkTabFocus = function(target) {
-    let focused = document.activeElement;
+    const focused = document.activeElement;
 
     if (target === focused) {
       this.activateTab(target, false);
@@ -198,9 +198,9 @@
 
   // Handle keydown on tabs.
   Tabs.prototype.keydownEventListener = function(event) {
-    let key = event.keyCode;
+    const key = event.keyCode;
     // Get the correct tabs nodelist.
-    let tabs = this.tabs;
+    const tabs = this.tabs;
 
     switch (key) {
       case keys.end:
@@ -225,7 +225,7 @@
 
   // Handle keyup on tabs.
   Tabs.prototype.keyupEventListener = function(event) {
-    let key = event.keyCode;
+    const key = event.keyCode;
 
     switch (key) {
       case keys.left:
@@ -239,13 +239,13 @@
   // only up and down arrow should function.
   // In all other cases only left and right arrow function.
   Tabs.prototype.determineOrientation = function(event) {
-    let key = event.keyCode;
+    const key = event.keyCode;
 
     // Get the correct tablist nodelist.
-    let tablist = this.tablist;
+    const tablist = this.tablist;
 
     // Determine the tab orientation.
-    let vertical = tablist.getAttribute('aria-orientation') === 'vertical';
+    const vertical = tablist.getAttribute('aria-orientation') === 'vertical';
     let proceed = false;
 
     if (vertical) {
@@ -268,7 +268,7 @@
   // Either focus the next, previous, first, or last tab
   // depending on key pressed
   Tabs.prototype.switchTabOnArrowPress = function(event) {
-    let pressed = event.keyCode;
+    const pressed = event.keyCode;
     // Get the correct tabs nodelist.
 
     // For each tab in tabs...
@@ -282,7 +282,7 @@
     // If a pressed key is in the direction array.
     if (direction[pressed]) {
       // Focus the necessary tab...
-      let target = event.target;
+      const target = event.target;
       if (target.index !== undefined) {
         // Left or right if just the left or right arrow key.
         if (this.tabs[target.index + direction[pressed]]) {
@@ -323,7 +323,7 @@
   const items = document.getElementsByClassName('tabs-collection');
 
   for (let i = 0; i < items.length; i++) {
-    new UidsTabs(items[i], i);
+    new Tabs(items[i], i);
   }
 
 }());

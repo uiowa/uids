@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url';
 import { mergeConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 
@@ -26,7 +27,9 @@ const config = {
           enforce: 'pre',
           resolveId(source) {
             if (source.startsWith('file://') && source.includes('mdx-react-shim.js')) {
-              return new URL(source).pathname;
+              // fileURLToPath decodes percent-encoding (URL.pathname does not,
+              // which broke builds from checkout paths containing spaces).
+              return fileURLToPath(source);
             }
             return null;
           },

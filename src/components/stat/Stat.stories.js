@@ -107,3 +107,39 @@ Grid.args = {
   stat_suffix: '+',
   stat_hover: true,
 }
+
+export const StaticExpanded = Template.bind({});
+StaticExpanded.args = {
+  ...Default.args,
+  stat_hover: false,
+};
+
+export const StaticHorizontal = Template.bind({});
+StaticHorizontal.args = {
+  ...Horizontal.args,
+  stat_hover: false,
+};
+
+// Pins the ancestor-context color and divider changes for both layouts. The
+// prefix is included here so the shared prefix/suffix size rule is captured.
+export const OnBackgrounds = {
+  render: (args) => ({
+    components: { UidsStat },
+    setup() {
+      return { args };
+    },
+    template: `
+      <div>
+        <uids-stat class="stat-context--gold-default" v-bind="args" background="gold" display="default" />
+        <uids-stat class="stat-context--black-default" v-bind="args" background="black" display="default" />
+        <uids-stat class="stat-context--gold-horizontal" v-bind="args" background="gold" display="horizontal" />
+        <uids-stat class="stat-context--black-horizontal" v-bind="args" background="black" display="horizontal" />
+      </div>
+    `,
+  }),
+  args: {
+    ...Default.args,
+    stat_prefix: '$',
+    stat_hover: false,
+  },
+};
