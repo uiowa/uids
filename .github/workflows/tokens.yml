@@ -21,6 +21,11 @@ jobs:
         with:
           node-version: '20.x'
 
+      # Only node builtins, so this runs on a bare checkout and cannot fail for a
+      # dependency reason.
+      - name: Validate and generate the tokens
+        run: node scripts/build-tokens.mjs
+
       - name: Enable corepack
         run: |
           corepack enable
@@ -29,5 +34,5 @@ jobs:
 
       - run: yarn install --immutable
 
-      - name: Build tokens
+      - name: Compile the Sass
         run: yarn build
