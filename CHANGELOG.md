@@ -33,6 +33,19 @@ heading sizes, status colors, and three grays.
   resolve a custom property against, and `_variables.scss` reads those instead of its own
   literals. The `breakpoint()` mixin keeps its keyword API, so `breakpoint(md)` is
   unchanged.
+
+  Every breakpoint is now `em`, where five of the seven were `px`. At a 16px root every
+  threshold is where it was, and a reader who raises their browser's default font size
+  now gets all seven later rather than two of them. This rewrites about 245 media and
+  container queries:
+
+  | Was | Now |
+  | --- | --- |
+  | `400px` | `25em` |
+  | `600px` | `37.5em` |
+  | `768px` | `48em` |
+  | `980px` | `61.25em` |
+  | `1200px` | `75em` |
 - Package subpath exports, so a JS build system can reach the CSS and the token source
   by specifier rather than by relative path:
 
