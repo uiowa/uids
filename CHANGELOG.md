@@ -51,7 +51,7 @@ heading sizes, status colors, and three grays.
 #### Design tokens
 
 `src/tokens/` is the source of truth for color, typography, space, and layout values.
-111 tokens across two tiers compile to 135 CSS custom properties in
+108 tokens across two tiers compile to 135 CSS custom properties in
 `src/scss/abstracts/_tokens-generated.scss`, published as `dist/tokens.css`.
 
 | Group | Primitives | Roles |
@@ -61,9 +61,8 @@ heading sizes, status colors, and three grays.
 | Space | 11 | None |
 | Layout | None | 3 container widths |
 
-Three breakpoint primitives are authored but not emitted. A type style is one
-`$type: "typography"` composite and emits four custom properties, one per property, which
-is why 111 tokens produce 135 declarations.
+A type style is one `$type: "typography"` composite and emits four custom properties,
+one per property, which is why 108 tokens produce 135 declarations.
 
 ### Changed
 
