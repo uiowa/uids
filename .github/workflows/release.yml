@@ -1,0 +1,63 @@
+name: Release
+
+# Builds dist/ and attaches `npm pack` output to a published release. Consumers depend on
+# the asset URL:
+#
+#   "@uiowa/uids": "https://github.com/uiowa/uids/releases/download/v5.0.0/uids-5.0.0.tgz"
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing release tag to build and attach, e.g. v5.0.0'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event.release.tag_name || inputs.tag }}
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name || inputs.tag }}
+
+      - name: Check the version matches the tag
+        run: |
+          version=$(node -p "require('./package.json').version")
+          expected=${TAG#v}
+          if [ "$version" != "$expected" ]; then
+            echo "package.json is $version but the tag is $TAG (expected $expected)." >&2
+            echo "Bump package.json to $expected, or cut the tag as v$version." >&2
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_ENV"
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: Enable corepack
+        run: |
+          corepack enable
+          corepack prepare yarn@3.7.0 --activate
+          yarn set version 3.7.0
+
+      - run: yarn install --immutable
+
+      - run: yarn build
+
+      - name: Pack
+        run: npm pack
+
+      - name: Attach the tarball to the release
+        run: gh release upload "$TAG" "uids-$version.tgz" --clobber
+        env:
+          GH_TOKEN: ${{ github.token }}
