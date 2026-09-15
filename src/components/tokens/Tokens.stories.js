@@ -1,4 +1,13 @@
-import { ref, onMounted } from 'vue';
+import { computed, ref, onMounted } from 'vue';
+
+const TYPOGRAPHY_CHANNELS = [
+  { name: 'font-family', property: 'fontFamily' },
+  { name: 'font-weight', property: 'fontWeight' },
+  { name: 'font-size', property: 'fontSize' },
+  { name: 'letter-spacing', property: 'letterSpacing' },
+  { name: 'line-height', property: 'lineHeight' },
+];
+const TYPOGRAPHY_CHANNEL_PATTERN = new RegExp(`-(${TYPOGRAPHY_CHANNELS.map(({ name }) => name).join('|')})$`);
 
 /**
  * These stories read the --uiowa-* custom properties out of the loaded stylesheets and
@@ -30,7 +39,7 @@ function readTokens() {
 /** A role's declared value is a var() reference; the reader wants the primitive's name. */
 const primitiveOf = (declared) => declared.replace(/^var\(\s*/, '').replace(/\s*\)$/, '');
 
-const computed = (name) =>
+const computedValue = (name) =>
   getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
 /** The group a reader looks for a token under. A role aliases; a primitive holds a literal. */
@@ -40,21 +49,19 @@ function group(name, declared) {
   if (n.startsWith('color-')) return declared.startsWith('var(') ? 'color role' : 'color primitive';
   if (n.startsWith('space-')) return 'space';
   if (n.startsWith('layout-')) return 'layout';
-  if (/^(font|line)-/.test(n)) return 'type primitive';
+  if (/^(font|letter|line)-/.test(n)) return 'type primitive';
   return 'other';
 }
 
-const SPECIMEN_PROPERTY = {
-  'font-family': 'fontFamily',
-  'font-weight': 'fontWeight',
-  'font-size': 'fontSize',
-  'line-height': 'lineHeight',
-};
+const SPECIMEN_PROPERTY = Object.fromEntries(TYPOGRAPHY_CHANNELS.map(({ name, property }) => [name, property]));
 
 const kindOf = (name) =>
-  (name.match(/^--uiowa-(font-family|font-weight|font-size|line-height)-/) || [])[1];
+  (name.match(new RegExp(`^--uiowa-(${TYPOGRAPHY_CHANNELS.map(({ name }) => name).join('|')})-`)) || [])[1];
 
 const specimenStyle = (token) => ({ [SPECIMEN_PROPERTY[token.kind]]: `var(${token.name})` });
+const typographyStyle = (base) => Object.fromEntries(
+  TYPOGRAPHY_CHANNELS.map(({ name, property }) => [property, `var(${base}-${name})`]),
+);
 
 const useTokens = () => {
   const tokens = ref([]);
@@ -62,7 +69,7 @@ const useTokens = () => {
     tokens.value = [...readTokens()].map(([name, declared]) => ({
       name,
       declared,
-      value: computed(name),
+      value: computedValue(name),
       group: group(name, declared),
       kind: kindOf(name),
     }));
@@ -144,23 +151,24 @@ export const Typography = {
   render: () => ({
     setup() {
       const tokens = useTokens();
-      const styles = ref([]);
-      onMounted(() => {
+      const styles = computed(() => {
         const names = new Set(
-          [...readTokens().keys()]
-            .filter((n) => n.startsWith('--uiowa-typography-') && !n.startsWith('--uiowa-typography-size-'))
-            .map((n) => n.replace(/-(font-family|font-weight|font-size|line-height)$/, '')),
+          tokens.value
+            .map(({ name }) => name)
+            .filter((name) => name.startsWith('--uiowa-typography-') && !name.startsWith('--uiowa-typography-size-'))
+            .filter((name) => TYPOGRAPHY_CHANNEL_PATTERN.test(name))
+            .map((name) => name.replace(TYPOGRAPHY_CHANNEL_PATTERN, '')),
         );
-        styles.value = [...names].sort().map((base) => ({
+        return [...names].sort().map((base) => ({
           base,
-          channels: ['font-family', 'font-weight', 'font-size', 'line-height'].map((c) => ({
-            prop: c,
-            name: `${base}-${c}`,
-            value: computed(`${base}-${c}`),
+          channels: TYPOGRAPHY_CHANNELS.map(({ name }) => ({
+            prop: name,
+            name: `${base}-${name}`,
+            value: computedValue(`${base}-${name}`),
           })),
         }));
       });
-      return { tokens, styles, specimenStyle, css };
+      return { tokens, styles, specimenStyle, typographyStyle, css };
     },
     template: `
       <div class="tk">
@@ -188,7 +196,7 @@ export const Typography = {
         </table>
 
         <h2>Roles</h2>
-        <p class="tk__note">A role sets four channels together. Style from one wherever one exists.</p>
+        <p class="tk__note">A role sets five channels together. Style from one wherever one exists.</p>
         <table>
           <thead><tr><th>Role</th><th>Channels</th><th>Specimen</th></tr></thead>
           <tbody>
@@ -199,12 +207,7 @@ export const Typography = {
                   <code class="tk__note">{{ c.prop }}</code> <code>{{ c.value }}</code>
                 </div>
               </td>
-              <td :style="{
-                fontFamily: 'var(' + s.base + '-font-family)',
-                fontWeight: 'var(' + s.base + '-font-weight)',
-                fontSize: 'var(' + s.base + '-font-size)',
-                lineHeight: 'var(' + s.base + '-line-height)',
-              }">Aa Hawkeye</td>
+              <td :style="typographyStyle(s.base)">Aa Hawkeye</td>
             </tr>
           </tbody>
         </table>
