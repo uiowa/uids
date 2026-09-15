@@ -51,8 +51,8 @@ heading sizes, status colors, and three grays.
 #### Design tokens
 
 `src/tokens/` is the source of truth for color, typography, space, and layout values.
-108 tokens across two tiers compile to 135 CSS custom properties in
-`src/scss/abstracts/_tokens-generated.scss`, published as `dist/tokens.css`.
+The build compiles them to the generated Sass source and publishes the resulting custom
+properties as `dist/tokens.css`.
 
 | Group | Primitives | Roles |
 | --- | --- | --- |
