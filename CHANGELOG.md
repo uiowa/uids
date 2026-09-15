@@ -28,6 +28,11 @@ heading sizes, status colors, and three grays.
   through itself.
 - A Storybook `Showcase/Web page` story that builds a full page out of existing
   components.
+- All seven breakpoints are tokens, where three were and none was emitted. They compile
+  to Sass variables rather than custom properties, since a media query has no element to
+  resolve a custom property against, and `_variables.scss` reads those instead of its own
+  literals. The `breakpoint()` mixin keeps its keyword API, so `breakpoint(md)` is
+  unchanged.
 - Package subpath exports, so a JS build system can reach the CSS and the token source
   by specifier rather than by relative path:
 

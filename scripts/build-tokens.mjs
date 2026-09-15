@@ -81,12 +81,16 @@ const leafValue = (l) => cssValue(l.value);
 
 // ---------- Build declarations ----------
 const decls = []; // [name, value, trailingComment?]
+const sassVars = []; // [name, value], for values a media query needs
 
 for (const l of allLeaves.filter((l) => l.tier === 'primitive')) {
   const head = l.path[0] === 'typography' ? l.path[1] : l.path[0];
   // A custom property resolves against an element and a media query has no element to
-  // resolve against, so breakpoints stay Sass-only and emit nothing.
-  if (head === 'breakpoint') continue;
+  // resolve against, so breakpoints emit as Sass variables instead.
+  if (head === 'breakpoint') {
+    sassVars.push([`$breakpoint-${l.path[1]}`, String(l.value)]);
+    continue;
+  }
   decls.push([cssVarName(l.path.join('.')), String(l.value)]);
 }
 
@@ -142,6 +146,8 @@ for (const l of allLeaves.filter((l) => l.tier === 'semantic')) {
 const scss = [
   '// GENERATED FILE, do not edit. Source: src/tokens/**. Regenerate: node scripts/build-tokens.mjs',
   '',
+  ...sassVars.map(([n, v]) => `${n}: ${v};`),
+  '',
   ':root {',
   ...decls.map(([n, v, c]) => `  ${n}: ${v};${c ? ` // ${c}` : ''}`),
   '}',
@@ -149,7 +155,7 @@ const scss = [
 ].join('\n');
 
 const targets = [[OUT_SCSS, scss]];
-const summary = `${decls.length} declarations`;
+const summary = `${decls.length} declarations, ${sassVars.length} Sass variables`;
 
 if (CHECK) {
   let stale = false;
