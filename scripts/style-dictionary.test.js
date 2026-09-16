@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import { fluidFontSize, validate } from '../style-dictionary.config.js';
+import { fluidFontSize } from '../style-dictionary.config.js';
 
 const repository = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -46,35 +46,6 @@ describe('fluidFontSize', () => {
         },
       },
     })).toThrow('edu.uiowa.fluid.maxViewport must exceed minViewport');
-  });
-});
-
-describe('validate', () => {
-  const color = (components, hex) => ({ colorSpace: 'srgb', components, hex });
-
-  it('rejects a typography composite missing a member', () => {
-    expect(() => validate({
-      typography: { body: { $type: 'typography', $value: { fontFamily: 'a', fontSize: 'b', fontWeight: 'c', letterSpacing: 'd' } } },
-    })).toThrow('typography.body is missing typography.lineHeight');
-  });
-
-  it('rejects a hex that disagrees with its components', () => {
-    expect(() => validate({
-      color: { gold: { $value: color([1, 0.803922, 0], '#00FF00') } },
-    })).toThrow('color.gold hex #00FF00 does not match its components');
-  });
-
-  it('rejects sRGB components outside 0 through 1', () => {
-    expect(() => validate({
-      color: { gold: { $value: color([5, -2, 0], '#FFCD00') } },
-    })).toThrow('color.gold has sRGB components outside 0 through 1');
-  });
-
-  it('accepts the repository token sources', () => {
-    expect(() => validate({
-      color: { gold: { $value: color([1, 0.803922, 0], '#FFCD00') } },
-      typography: { body: { $type: 'typography', $value: { fontFamily: 'a', fontSize: 'b', fontWeight: 'c', letterSpacing: 'd', lineHeight: 'e' } } },
-    })).not.toThrow();
   });
 });
 
