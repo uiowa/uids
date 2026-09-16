@@ -36,3 +36,12 @@ jobs:
 
       - name: Compile the Sass
         run: yarn build
+
+      - name: Test token generation
+        run: yarn test:tokens
+
+      - name: Verify packaged token entry points
+        run: |
+          npm pack --ignore-scripts
+          tar -tzf uids-*.tgz | grep -Fx 'package/dist/tokens.css'
+          tar -tzf uids-*.tgz | grep -Fx 'package/src/scss/abstracts/_tokens-generated.scss'

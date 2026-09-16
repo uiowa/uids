@@ -10,11 +10,11 @@ design system built from UIDS can be realigned from this file alone.
 One `##` heading per release, newest first, carrying its version and release date.
 `Unreleased` takes a date when it ships.
 
-## [5.0.0] - Unreleased
+## [5.0.0-alpha.0] - Unreleased
 
 First release of the 5.x line. 5.x starts as a copy of 4.x, so every value below is
-stated against 4.0.1. The major version reflects the rendered values that move: spacing,
-heading sizes, status colors, and three grays.
+stated against 4.0.1. The major version reflects rendered changes to spacing, heading
+sizes, status colors, and grays.
 
 ### Added
 
@@ -51,18 +51,8 @@ heading sizes, status colors, and three grays.
 #### Design tokens
 
 `src/tokens/` is the source of truth for color, typography, space, and layout values.
-The build compiles them to the generated Sass source and publishes the resulting custom
+The build compiles them to generated Sass source and publishes the resulting custom
 properties as `dist/tokens.css`.
-
-| Group | Primitives | Roles |
-| --- | --- | --- |
-| Color | 28 | 25 |
-| Typography | 30 | 9 type styles, 2 size modifiers |
-| Space | 11 | None |
-| Layout | None | 3 container widths |
-
-A type style is one `$type: "typography"` composite and emits four custom properties,
-one per property, which is why 108 tokens produce 135 declarations.
 
 ### Changed
 
@@ -75,9 +65,8 @@ one per property, which is why 108 tokens produce 135 declarations.
 
 #### Spacing scale
 
-Four Sass spacing variables now point at steps on a 4px grid, moving 72 declarations
-across 59 selectors: padding and margin on cards, alerts, tables, buttons, forms, and
-menus.
+Sass spacing variables now point at steps on a 4px grid, affecting padding and margin on
+cards, alerts, tables, buttons, forms, and menus.
 
 | Variable | Was | Now |
 | --- | --- | --- |
@@ -124,8 +113,8 @@ and the form error states.
 
 #### Grays
 
-Three neutral steps moved to the values in the brand Foundations palette. The legacy
-custom properties keep their names.
+Neutral steps moved to the values in the brand Foundations palette. The legacy custom
+properties keep their names.
 
 | Property | Was | Now |
 | --- | --- | --- |
@@ -134,8 +123,7 @@ custom properties keep their names.
 | `--uids-gray` | `#737373` | `#777A7F` |
 
 Affects `.form-item--toggle input`, `.menu li a:after`, `.form select[multiple]`, and the
-form focus shadow. The other eleven legacy aliases are value-exact with what they
-replaced.
+form focus shadow.
 
 #### Background contexts
 
@@ -143,16 +131,16 @@ Every `bg--*` class still exists and still takes the same fill. What changed is 
 content inside one gets its color. Each surface re-points `--uiowa-color-text`,
 `--uiowa-color-link` and `--uiowa-color-border`, and inheritance carries the choice down.
 
-An element now takes its colors from the nearest background ancestor at any nesting
-depth. Before, the stylesheet spelled out two levels of nesting as 27 selector
-combinations, and a third level fell back to the outermost background.
+An element now takes its colors from the nearest background ancestor at any nesting depth.
+Before, the stylesheet handled only explicit nesting levels, and deeper nesting fell back
+to the outermost background.
 
 Selector text changed from `.bg--black` to `[class*="bg--black"]`, which also matches the
 pattern variants such as `.bg--black--pattern--brain`. No class was added or removed.
 
 ### Removed
 
-- The five serif `font-size` overrides in `_headings.scss`, at `h2` through `h6`.
+- Serif `font-size` overrides in `_headings.scss`, at `h2` through `h6`.
 - The blanket `[class*="bg--"] *` border rule and its `:before` / `:after` counterpart.
   Nothing in UIDS had a visible border that depended on it.
 - `[class*="bg--black"]` border-color overrides on `.alert`, `.border`, and `.card`,
