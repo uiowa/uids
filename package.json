@@ -2,6 +2,9 @@
   "name": "uids",
   "type": "module",
   "version": "5.0.0-alpha.0",
+  "engines": {
+    "node": ">=22 <23"
+  },
   "license": "MIT",
   "description": "The UIowa Design System is specific to the University of Iowa.",
   "keywords": [
@@ -24,10 +27,9 @@
     "./tokens/*.json": "./src/tokens/*.json"
   },
   "scripts": {
-    "build:tokens": "node scripts/build-tokens.mjs",
-    "check:tokens": "node scripts/build-tokens.mjs --check",
-    "test:tokens": "node --test scripts/build-tokens.test.mjs",
-    "prepare": "node scripts/build-tokens.mjs",
+    "build:tokens": "style-dictionary build --config style-dictionary.config.js",
+    "test:tokens": "yarn build:tokens && vitest run scripts/style-dictionary.test.js --environment node",
+    "prepare": "yarn build:tokens",
     "prepack": "yarn build",
     "dev": "yarn build:tokens && sass --watch src/scss:dist",
     "build": "yarn build:tokens && sass src/scss:dist",
@@ -59,7 +61,9 @@
     "react-syntax-highlighter": "^16.1.1",
     "sass": "^1.100.0",
     "storybook": "^10.4.1",
+    "style-dictionary": "5.5.3",
     "vite": "^8.0.14",
+    "vitest": "3.2.4",
     "webpack": "^5.107.2"
   },
   "packageManager": "yarn@3.7.0"

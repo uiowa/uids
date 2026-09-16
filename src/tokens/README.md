@@ -11,9 +11,8 @@ Token files follow [DTCG 2025.10](https://www.designtokens.org/tr/2025.10/format
 
 ## Generate
 
-`scripts/build-tokens.mjs` compiles the token files into
-`src/scss/abstracts/_tokens-generated.scss`. Do not edit that generated file. When
-changing `src/tokens/**`, run:
+Style Dictionary compiles the token files into `src/scss/abstracts/_tokens-generated.scss`.
+Do not edit that generated file. When changing `src/tokens/**`, run:
 
 ```
 yarn build:tokens
