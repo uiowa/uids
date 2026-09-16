@@ -27,6 +27,8 @@ build so release artifacts include the generated Sass and CSS.
 Typography styles use one `fontSize` reference. Styles that scale carry the
 `edu.uiowa.fluid` extension, which defines their viewport range and either an explicit
 maximum or the shared heading-scale strategy. The generator resolves it to CSS `clamp()`.
+`minViewport` and `maxViewport` are px dimensions. The extension then declares either a
+rem-dimension `max`, or `strategy: "exponential"` with a numeric `exponent`.
 
 ## Compatibility
 

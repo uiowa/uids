@@ -10,7 +10,7 @@ design system built from UIDS can be realigned from this file alone.
 One `##` heading per release, newest first, carrying its version and release date.
 `Unreleased` takes a date when it ships.
 
-## [5.0.0-alpha.0] - Unreleased
+## [5.0.0-alpha.0]
 
 First release of the 5.x line. 5.x starts as a copy of 4.x, so every value below is
 stated against 4.0.1. The major version reflects rendered changes to spacing, heading
@@ -57,7 +57,10 @@ properties as `dist/tokens.css`.
 ### Changed
 
 - Token generation now uses Style Dictionary on Node 22. Token source and generated
-  custom-property names use their full token paths; the supported Node range is 22.x.
+  custom-property names use their full token paths; Node 22 is the minimum supported
+  version.
+- Release packages now contain the compiled CSS, Sass and token source, and the assets
+  required by the Sass source.
 - Serif headings take the sans size. `.headline--serif` and `.bold-headline--serif` still
   set Zilla Slab, but no longer carry their own `font-size` at `h2` through `h6`. They
   now render slightly larger at narrow viewports and slightly smaller at wide ones.

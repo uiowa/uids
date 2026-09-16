@@ -45,6 +45,7 @@ const computedValue = (name) =>
 /** The group a reader looks for a token under. A role aliases; a primitive holds a literal. */
 function group(name, declared) {
   const n = name.replace('--uiowa-', '');
+  if (n.startsWith('typography-font-') || n.startsWith('typography-letter-') || n.startsWith('typography-line-')) return 'type primitive';
   if (n.startsWith('typography-')) return 'type style';
   if (n.startsWith('color-')) return declared.startsWith('var(') ? 'color role' : 'color primitive';
   if (n.startsWith('space-')) return 'space';
@@ -56,7 +57,7 @@ function group(name, declared) {
 const SPECIMEN_PROPERTY = Object.fromEntries(TYPOGRAPHY_CHANNELS.map(({ name, property }) => [name, property]));
 
 const kindOf = (name) =>
-  (name.match(new RegExp(`^--uiowa-(${TYPOGRAPHY_CHANNELS.map(({ name }) => name).join('|')})-`)) || [])[1];
+  (name.match(new RegExp(`^--uiowa-typography-(${TYPOGRAPHY_CHANNELS.map(({ name }) => name).join('|')})-`)) || [])[1];
 
 const specimenStyle = (token) => ({ [SPECIMEN_PROPERTY[token.kind]]: `var(${token.name})` });
 const typographyStyle = (base) => Object.fromEntries(
@@ -86,7 +87,7 @@ const css = `
     text-align: left; padding: var(--uiowa-space-50) var(--uiowa-space-100);
     border-bottom: 1px solid var(--uiowa-color-border-default); vertical-align: middle;
   }
-  .tk th { font-weight: var(--uiowa-font-weight-medium); white-space: nowrap; }
+  .tk th { font-weight: var(--uiowa-typography-font-weight-medium); white-space: nowrap; }
   .tk code { font-family: 'SF Mono', Monaco, Consolas, monospace; font-size: 0.85em; }
   .tk__swatch {
     display: inline-block; width: 3rem; height: 1.6rem;

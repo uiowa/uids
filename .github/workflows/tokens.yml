@@ -40,3 +40,7 @@ jobs:
           npm pack --ignore-scripts
           tar -tzf uids-*.tgz | grep -Fx 'package/dist/tokens.css'
           tar -tzf uids-*.tgz | grep -Fx 'package/src/scss/abstracts/_tokens-generated.scss'
+          if tar -tzf uids-*.tgz | grep -q '^package/src/components/'; then
+            echo 'Package must not include Storybook or Vue component source.' >&2
+            exit 1
+          fi

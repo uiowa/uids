@@ -103,6 +103,14 @@ Consumers install the release artifact by URL:
 "@uiowa/uids": "https://github.com/uiowa/uids/releases/download/v5.0.0/uids-5.0.0.tgz"
 ```
 
+`uids/uids.css` is the full stylesheet and already includes tokens. When loading an
+individual component stylesheet, load `uids/tokens.css` once before the component:
+
+```js
+import 'uids/tokens.css';
+import 'uids/components/button.css';
+```
+
 ### Components
 Learn about Fractal components here: https://fractal.build/guide/components/#what-defines-a-component. Note that this project uses Twig (`.twig`) instead of Handlebars (`.hbs`).
 

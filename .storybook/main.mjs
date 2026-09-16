@@ -18,7 +18,7 @@ const watchTokens = {
     server.watcher.on('change', (file) => {
       if (!file.startsWith(tokenSource)) return;
       try {
-        execFileSync('node', [join(root, 'scripts/build-tokens.mjs')], { cwd: root, stdio: 'pipe' });
+        execFileSync('yarn', ['build:tokens'], { cwd: root, stdio: 'pipe' });
       } catch (error) {
         server.config.logger.error(`tokens: ${error.stderr?.toString().trim() || error.message}`);
       }
