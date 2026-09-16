@@ -1,6 +1,6 @@
-name: Tests
+name: Packaging check
 
-# Runs the unit suite.
+# Builds the release artifact and verifies its published entry points.
 
 on:
   push:
@@ -29,5 +29,11 @@ jobs:
 
       - run: yarn install --immutable
 
-      - name: Test unit suite
-        run: yarn test:unit --run
+      - name: Build stylesheets
+        run: yarn build
+
+      - name: Verify package entry points
+        run: |
+          npm pack --ignore-scripts
+          tar -tzf uids-*.tgz | grep -Fx 'package/dist/tokens.css'
+          tar -tzf uids-*.tgz | grep -Fx 'package/src/scss/abstracts/_tokens-generated.scss'
