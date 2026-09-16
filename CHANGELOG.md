@@ -56,6 +56,8 @@ properties as `dist/tokens.css`.
 
 ### Changed
 
+- Token generation now uses Style Dictionary on Node 22. Token source and generated
+  custom-property names use their full token paths; the supported Node range is 22.x.
 - Serif headings take the sans size. `.headline--serif` and `.bold-headline--serif` still
   set Zilla Slab, but no longer carry their own `font-size` at `h2` through `h6`. They
   now render slightly larger at narrow viewports and slightly smaller at wide ones.
