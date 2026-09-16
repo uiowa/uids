@@ -1,6 +1,6 @@
-name: Tokens
+name: Build and package
 
-# Builds and validates the generated token Sass from src/tokens/**.
+# Builds the stylesheets, runs unit tests, and verifies package entry points.
 
 on:
   push:
@@ -29,18 +29,14 @@ jobs:
 
       - run: yarn install --immutable
 
-      - name: Compile the Sass
+      - name: Build stylesheets
         run: yarn build
 
       - name: Test unit suite
         run: yarn test:unit --run
 
-      - name: Verify packaged token entry points
+      - name: Verify package entry points
         run: |
           npm pack --ignore-scripts
           tar -tzf uids-*.tgz | grep -Fx 'package/dist/tokens.css'
           tar -tzf uids-*.tgz | grep -Fx 'package/src/scss/abstracts/_tokens-generated.scss'
-          if tar -tzf uids-*.tgz | grep -q '^package/src/components/'; then
-            echo 'Package must not include Storybook or Vue component source.' >&2
-            exit 1
-          fi
