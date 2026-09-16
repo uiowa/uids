@@ -7,8 +7,8 @@ Notable changes to UIDS. The format follows
 Entries that change a rendered value carry both the old value and the new one, so a
 design system built from UIDS can be realigned from this file alone.
 
-One `##` heading per release, newest first, carrying its version and release date.
-`Unreleased` takes a date when it ships.
+One `##` heading per release, newest first, carrying its version. A released heading
+also carries its date.
 
 ## [5.0.0-alpha.0]
 

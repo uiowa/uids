@@ -86,9 +86,8 @@ tagged source and attaches an installable package to the GitHub release. Do not 
 `npm pack` or upload the tarball manually.
 
 1. Create and merge a release PR that updates `package.json` to the intended version,
-   updates `CHANGELOG.md`, and passes `yarn build`. A SemVer prerelease version (for
-   example, `5.0.0-alpha.0`) is valid when consumers need to test a release before it
-   is declared stable.
+   updates `CHANGELOG.md`, and passes `yarn build`. SemVer prerelease versions such as
+   `5.0.0-alpha.0` are valid.
 2. Create a GitHub release from that merged commit with the matching tag, prefixed with
    `v` (for example, package version `5.0.0-alpha.0` uses tag `v5.0.0-alpha.0`).
 3. Publish the GitHub release. The `Release` workflow verifies the tag/version match,

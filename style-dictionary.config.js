@@ -35,8 +35,7 @@ function maximumSize(minimumRem, fluid) {
 
 /**
  * Turns the explicit `edu.uiowa.fluid` metadata on an expanded typography
- * fontSize token into its CSS value. All other token transforms are Style
- * Dictionary's built-in CSS transforms.
+ * fontSize token into its CSS value.
  */
 export function fluidFontSize(token) {
   const fluid = token.$extensions?.[FLUID_EXTENSION];
@@ -58,11 +57,54 @@ export function fluidFontSize(token) {
   return `clamp(${decimal(minimumRem)}rem, calc(${decimal(slope)}vw + ${decimal(intercept)}rem), ${decimal(maximumRem)}rem)`;
 }
 
+const TYPOGRAPHY_MEMBERS = ['fontFamily', 'fontSize', 'fontWeight', 'letterSpacing', 'lineHeight'];
+
+function hexFromComponents(components) {
+  return `#${components.map((c) => Math.round(c * 255).toString(16).padStart(2, '0')).join('')}`;
+}
+
+/**
+ * Style Dictionary accepts a typography composite that omits a member and a color whose
+ * hex disagrees with its components. Both reach CSS: the first as a custom property the
+ * Sass references but nothing defines, the second as a value nobody chose.
+ */
+export function validate(tokens, path = []) {
+  for (const [key, node] of Object.entries(tokens)) {
+    if (key.startsWith('$') || !node || typeof node !== 'object') continue;
+    const here = [...path, key];
+    const name = here.join('.');
+
+    if (node.$type === 'typography' && node.$value && typeof node.$value === 'object') {
+      for (const member of TYPOGRAPHY_MEMBERS) {
+        if (!(member in node.$value)) throw new Error(`${name} is missing typography.${member}`);
+      }
+    }
+
+    const value = node.$value;
+    if (value && typeof value === 'object' && Array.isArray(value.components) && value.hex) {
+      if (value.components.length !== 3 || value.components.some((c) => typeof c !== 'number' || c < 0 || c > 1)) {
+        throw new Error(`${name} has sRGB components outside 0 through 1`);
+      }
+      const derived = hexFromComponents(value.components);
+      if (derived.toLowerCase() !== value.hex.toLowerCase()) {
+        throw new Error(`${name} hex ${value.hex} does not match its components, which are ${derived}`);
+      }
+    }
+
+    if (!('$value' in node)) validate(node, here);
+  }
+  return tokens;
+}
+
 export default {
   usesDtcg: true,
   source: ['src/tokens/**/*.json'],
   expand: { include: ['typography'] },
+  preprocessors: ['uids/validate'],
   hooks: {
+    preprocessors: {
+      'uids/validate': (tokens) => validate(tokens),
+    },
     transforms: {
       'uids/fluid-font-size': {
         type: 'value',

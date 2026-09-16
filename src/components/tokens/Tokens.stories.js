@@ -197,7 +197,7 @@ export const Typography = {
         </table>
 
         <h2>Roles</h2>
-        <p class="tk__note">A role sets five channels together. Style from one wherever one exists.</p>
+        <p class="tk__note">A role sets its channels together. Style from one wherever one exists.</p>
         <table>
           <thead><tr><th>Role</th><th>Channels</th><th>Specimen</th></tr></thead>
           <tbody>
