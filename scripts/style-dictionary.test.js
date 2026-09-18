@@ -1,6 +1,6 @@
 // @vitest-environment node
 
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
@@ -13,6 +13,28 @@ const fluid = {
   maxViewport: { value: 1310, unit: 'px' },
   max: { value: 2.2, unit: 'rem' },
 };
+
+function literalColors(node, inheritedType, path = []) {
+  const type = node.$type ?? inheritedType;
+
+  if (Object.hasOwn(node, '$value')) {
+    return type === 'color' && typeof node.$value === 'object'
+      ? [{ name: path.join('.'), value: node.$value }]
+      : [];
+  }
+
+  return Object.entries(node).flatMap(([name, child]) => (
+    !name.startsWith('$') && child && typeof child === 'object'
+      ? literalColors(child, type, [...path, name])
+      : []
+  ));
+}
+
+function hexFromSrgb(components) {
+  return `#${components.map((component) => (
+    Math.round(component * 255).toString(16).padStart(2, '0')
+  )).join('')}`.toUpperCase();
+}
 
 // These unit tests describe the custom behavior that Style Dictionary does not
 // provide: converting UIDS fluid typography metadata into a CSS clamp value.
@@ -49,6 +71,28 @@ describe('fluidFontSize', () => {
       },
     })).toThrow('edu.uiowa.fluid.maxViewport must exceed minViewport');
   });
+});
+
+// DTCG requires components for an sRGB value and permits a hex fallback. Style
+// Dictionary uses the components, so this test prevents the readable fallback from
+// drifting away from the value emitted to CSS.
+it('keeps sRGB hex fallbacks consistent with their components', () => {
+  const tokenRoot = join(repository, 'src/tokens');
+  const tokenFiles = readdirSync(tokenRoot, { recursive: true })
+    .filter((file) => file.endsWith('.json'));
+
+  for (const file of tokenFiles) {
+    const source = JSON.parse(readFileSync(join(tokenRoot, file), 'utf8'));
+
+    for (const token of literalColors(source)) {
+      if (token.value.colorSpace !== 'srgb') continue;
+
+      const context = `${file}: ${token.name}`;
+      expect(token.value.hex, `${context} must include a hex fallback`).toMatch(/^#[0-9A-F]{6}$/i);
+      expect(token.value.hex.toUpperCase(), `${context} hex must match components`)
+        .toBe(hexFromSrgb(token.value.components));
+    }
+  }
 });
 
 // This build-output test checks four conventions: full-path primitive names,
