@@ -3,7 +3,6 @@
  */
 :root {
   --uiowa-color-gold: #ffcd00; /** Hawkeye Gold. */
-  --uiowa-color-black: #000000; /** Brand black. */
   --uiowa-color-neutral-0: #ffffff;
   --uiowa-color-neutral-100: #f3f3f3;
   --uiowa-color-neutral-150: #eaebec;
@@ -105,14 +104,12 @@
   --uiowa-color-text-default: var(--uiowa-color-neutral-900); /** Text on white, gray, and gold surfaces. */
   --uiowa-color-text-inverse: var(--uiowa-color-neutral-0); /** Text on black surfaces. */
   --uiowa-color-background-default: var(--uiowa-color-neutral-0);
-  --uiowa-color-background-black: var(--uiowa-color-black);
-  --uiowa-color-background-gold: var(--uiowa-color-gold);
   --uiowa-color-background-gray: var(--uiowa-color-neutral-100);
   --uiowa-color-background-white: var(--uiowa-color-neutral-0);
   --uiowa-color-link-default: var(--uiowa-color-blue-dark); /** Link on white and gray surfaces. */
-  --uiowa-color-link-inverse: var(--uiowa-color-gold); /** Link on black surfaces. */
   --uiowa-color-link-gold: var(--uiowa-color-neutral-900); /** Link on gold surfaces. */
-  --uiowa-color-brand: var(--uiowa-color-gold);
+  --uiowa-color-brand-gold: var(--uiowa-color-gold);
+  --uiowa-color-brand-black: var(--uiowa-color-neutral-900);
   --uiowa-color-accent-teal: var(--uiowa-color-teal);
   --uiowa-color-accent-orange: var(--uiowa-color-orange);
   --uiowa-color-accent-magenta: var(--uiowa-color-magenta);
@@ -147,6 +144,9 @@
   --uiowa-typography-intro-light-line-height: var(--uiowa-typography-line-height-140);
   --uiowa-typography-body-font-weight: var(--uiowa-typography-font-weight-normal);
   --uiowa-typography-body-line-height: var(--uiowa-typography-line-height-170);
+  --uiowa-color-background-black: var(--uiowa-color-brand-black);
+  --uiowa-color-background-gold: var(--uiowa-color-brand-gold);
+  --uiowa-color-link-inverse: var(--uiowa-color-brand-gold); /** Link on black surfaces. */
 }
 
 .footer__links .menu, .footer__links .menu ul li, .footer__links--icon ul,
@@ -743,7 +743,7 @@ aside .region,
 }
 
 .element--padding__all--sm {
-  padding: var(--space-sm-width-gutter);
+  padding: var(--uiowa-space-125);
 }
 
 .padding--block--sm {
@@ -1027,9 +1027,9 @@ dd {
   text-align: center;
   text-transform: uppercase;
   color: black;
-  border: 1px solid var(--brand-primary);
+  border: 1px solid var(--uiowa-color-brand-gold);
   border-radius: 50%;
-  background-color: var(--brand-primary);
+  background-color: var(--uiowa-color-brand-gold);
   box-shadow: inset 0px 0px 0px 10px white;
   text-transform: uppercase;
   font-family: var(--uiowa-typography-font-family-antonio);
@@ -1051,7 +1051,7 @@ dd {
 .uids-component--gray .uids-component--circle-list > li:before, .bg--gray .uids-component--circle-list > li:before,
 .uids-component--gray .element--circle-list > li:before,
 .bg--gray .element--circle-list > li:before {
-  box-shadow: inset 0px 0px 0px 10px var(--uids-light);
+  box-shadow: inset 0px 0px 0px 10px var(--uiowa-color-neutral-100);
 }
 
 .element--circle-list > li,
@@ -1110,7 +1110,7 @@ p {
 }
 
 a {
-  color: var(--link-color);
+  color: var(--uiowa-color-link-default);
   text-decoration: underline;
 }
 
@@ -1147,7 +1147,7 @@ sub {
 }
 
 mark {
-  background-color: var(--brand-primary);
+  background-color: var(--uiowa-color-brand-gold);
 }
 
 pre {
@@ -1239,7 +1239,7 @@ hr {
   width: 33%;
   height: 6px;
   margin: 0;
-  background: var(--brand-primary);
+  background: var(--uiowa-color-brand-gold);
 }
 .element--spacer-gold--centered:after {
   margin: 0 auto;
@@ -1270,7 +1270,7 @@ hr {
 }
 
 mark {
-  background-color: var(--brand-primary);
+  background-color: var(--uiowa-color-brand-gold);
   padding: 0.1em;
 }
 mark.deletion {
@@ -1292,11 +1292,11 @@ mark::after {
 }
 .bg--gold mark {
   background-color: #fff;
-  color: var(--uiowa-black);
+  color: var(--uiowa-color-brand-black);
 }
 .bg--gold mark.deletion {
-  background-color: var(--uiowa-black);
-  color: var(--uiowa-gold);
+  background-color: var(--uiowa-color-brand-black);
+  color: var(--uiowa-color-brand-gold);
 }
 
 .grid--onecol .list-container__inner {
@@ -1311,7 +1311,7 @@ mark::after {
 
 @media (min-width: 768px) {
   [class*=grid].grid--gap__sm .list-container__inner {
-    column-gap: var(--space-sm-width-gutter);
+    column-gap: var(--uiowa-space-125);
   }
 }
 
@@ -1328,7 +1328,7 @@ mark::after {
 }
 @media (min-width: 768px) {
   .grid--twocol--50-50 .list-container__inner {
-    column-gap: var(--space-lg-width-gutter);
+    column-gap: var(--uiowa-space-300);
     row-gap: 1.25rem;
     grid-template-columns: repeat(auto-fill, minmax(46.7%, 1fr));
   }
@@ -1430,13 +1430,13 @@ mark::after {
 
 @media (min-width: 768px) {
   .flex--gap__sm {
-    column-gap: var(--space-sm-width-gutter);
+    column-gap: var(--uiowa-space-125);
   }
 }
 
 @media (min-width: 768px) {
   .flex--gap__md {
-    column-gap: var(--space-md-width-gutter);
+    column-gap: var(--uiowa-space-200);
   }
 }
 
@@ -1502,23 +1502,6 @@ mark::after {
   flex: 12;
 }
 
-:root {
-  --uiowa-gold: var(--uiowa-color-gold);
-  --uiowa-black: var(--uiowa-color-black);
-  --brand-primary: var(--uiowa-color-brand);
-  --brand-secondary: var(--uiowa-color-black);
-  --uids-gray-cool: var(--uiowa-color-neutral-500);
-  --link-color: var(--uiowa-color-link-default);
-  --uids-light: var(--uiowa-color-neutral-100);
-  --uids-gray-mid: var(--uiowa-color-neutral-300);
-  --uids-gray: var(--uiowa-color-neutral-400);
-  --uids-gray-light: var(--uiowa-color-neutral-200);
-  --transparent-border: var(--uiowa-color-border-default);
-  --space-lg-width-gutter: var(--uiowa-space-300);
-  --space-md-width-gutter: var(--uiowa-space-200);
-  --space-sm-width-gutter: var(--uiowa-space-125);
-}
-
 html {
   scroll-behavior: smooth;
 }
@@ -1541,10 +1524,10 @@ html {
 }
 .accordion {
   --trans-time: 0.2s;
-  --accordion-label-color: var(--uids-light);
+  --accordion-label-color: var(--uiowa-color-neutral-100);
   --accordion-label-color-hover: rgb(229.5, 229.5, 229.5);
-  --accordion-outline-color: var(--uids-gray-cool);
-  --accordion-border-color: var(--uids-gray-light);
+  --accordion-outline-color: var(--uiowa-color-neutral-500);
+  --accordion-border-color: var(--uiowa-color-neutral-200);
 }
 .accordion details[open] summary i, .accordion details[open] summary svg {
   transform: rotate(0deg) translate(0px, 0.1em);
@@ -1617,9 +1600,9 @@ html {
 
 .accordion--white {
   --accordion-label-color: #fff;
-  --accordion-label-color-hover: var(--uids-light);
-  --accordion-outline-color: var(--uids-gray-mid);
-  --accordion-border-color: var(--uids-gray-light);
+  --accordion-label-color-hover: var(--uiowa-color-neutral-100);
+  --accordion-outline-color: var(--uiowa-color-neutral-300);
+  --accordion-border-color: var(--uiowa-color-neutral-200);
 }
 
 .alert {
@@ -1846,16 +1829,16 @@ html {
 }
 
 .badge--primary {
-  background: var(--brand-primary);
+  background: var(--uiowa-color-brand-gold);
   color: #000;
 }
 
 .badge--secondary {
-  background: var(--brand-secondary);
+  background: var(--uiowa-color-brand-black);
 }
 
 .badge--cool-gray {
-  background: var(--uids-gray-cool);
+  background: var(--uiowa-color-neutral-500);
 }
 
 .badge--blue {
@@ -1877,7 +1860,7 @@ html {
   --banner-overlay-gradient-midpoint: 40%;
   --banner-overlay-gradient: rgb(var(--banner-overlay-color-rgb), .8) 0%, rgb(var(--banner-overlay-color-rgb), .6) var(--banner-overlay-gradient-midpoint), transparent;
   --banner-text-color: #fff;
-  --banner-bg-failsafe: var(--brand-secondary);
+  --banner-bg-failsafe: var(--uiowa-color-brand-black);
   --link-color: var(--banner-text-color);
   display: flex;
   flex-basis: 100%;
@@ -1894,7 +1877,7 @@ html {
 }
 
 .banner .media {
-  background: var(--brand-secondary);
+  background: var(--uiowa-color-brand-black);
   height: 100%;
   width: 100%;
   position: absolute;
@@ -1963,7 +1946,7 @@ html {
   width: 40px;
   height: 40px;
   cursor: pointer;
-  color: var(--brand-secondary);
+  color: var(--uiowa-color-brand-black);
   border: 1px solid white;
   border-radius: 50%;
   background: white;
@@ -2158,7 +2141,7 @@ html {
   color: var(--banner-text-color);
 }
 [class*=bg--gold] .banner__text blockquote {
-  border-left-color: var(--uids-light);
+  border-left-color: var(--uiowa-color-neutral-100);
 }
 
 .banner .headline + .banner__action {
@@ -2189,7 +2172,7 @@ html {
 }
 
 .banner[class*=bg--gold], .banner[class*=bg--white], .banner[class*=bg--gray] {
-  --banner-text-color: var(--brand-secondary);
+  --banner-text-color: var(--uiowa-color-brand-black);
 }
 
 .banner:not([class*=bg--]) {
@@ -2203,7 +2186,7 @@ html {
 @supports (contain: inline-size) {
   @container column (max-width: 768px) {
     .banner--stacked:not([class*=bg--]) {
-      --link-color: var(--brand-secondary);
+      --link-color: var(--uiowa-color-brand-black);
       --banner-bg-failsafe: white;
       display: block;
     }
@@ -2215,26 +2198,26 @@ html {
       background: none !important;
     }
     .banner--stacked:not([class*=bg--]) .headline {
-      color: var(--brand-secondary);
+      color: var(--uiowa-color-brand-black);
       text-shadow: none;
     }
     .banner--stacked:not([class*=bg--]) .bttn--transparent {
-      color: var(--brand-secondary);
-      border-color: var(--brand-secondary);
+      color: var(--uiowa-color-brand-black);
+      border-color: var(--uiowa-color-brand-black);
     }
     .banner--stacked:not([class*=bg--]) .banner__text {
-      color: var(--brand-secondary);
+      color: var(--uiowa-color-brand-black);
       text-shadow: none;
     }
     .banner--stacked:not([class*=bg--]) .banner__text * {
-      color: var(--brand-secondary);
+      color: var(--uiowa-color-brand-black);
     }
   }
 }
 @supports not (contain: inline-size) {
   @media (max-width: 768px) {
     .banner--stacked:not([class*=bg--]) {
-      --link-color: var(--brand-secondary);
+      --link-color: var(--uiowa-color-brand-black);
       --banner-bg-failsafe: white;
       display: block;
     }
@@ -2246,19 +2229,19 @@ html {
       background: none !important;
     }
     .banner--stacked:not([class*=bg--]) .headline {
-      color: var(--brand-secondary);
+      color: var(--uiowa-color-brand-black);
       text-shadow: none;
     }
     .banner--stacked:not([class*=bg--]) .bttn--transparent {
-      color: var(--brand-secondary);
-      border-color: var(--brand-secondary);
+      color: var(--uiowa-color-brand-black);
+      border-color: var(--uiowa-color-brand-black);
     }
     .banner--stacked:not([class*=bg--]) .banner__text {
-      color: var(--brand-secondary);
+      color: var(--uiowa-color-brand-black);
       text-shadow: none;
     }
     .banner--stacked:not([class*=bg--]) .banner__text * {
-      color: var(--brand-secondary);
+      color: var(--uiowa-color-brand-black);
     }
   }
 }
@@ -2396,7 +2379,7 @@ html {
 .banner--overlay-light:not([class*=bg--]) {
   --banner-overlay-color-rgb: 255, 255, 255;
   --banner-overlay-solid-opacity: .7;
-  --banner-text-color: var(--brand-secondary);
+  --banner-text-color: var(--uiowa-color-brand-black);
   --banner-bg-failsafe: white;
 }
 .banner--overlay-light:not([class*=bg--]) .headline,
@@ -2407,7 +2390,7 @@ html {
   background: #fff;
 }
 .banner--overlay-light:not([class*=bg--]) .media .video-btn {
-  border: 1px solid var(--brand-secondary);
+  border: 1px solid var(--uiowa-color-brand-black);
 }
 
 div[class*=bg--white]:not([class*=pattern--]) .banner[class*=bg--white]:not([class*=pattern--]) .banner__content {
@@ -2456,7 +2439,7 @@ blockquote {
   font-family: var(--uiowa-typography-font-family-zilla-slab);
   border-left-style: solid;
   border-width: 10px;
-  border-color: var(--brand-primary);
+  border-color: var(--uiowa-color-brand-gold);
   padding: var(--uiowa-space-200);
   font-size: 1.5rem;
   line-height: 1.7;
@@ -2474,10 +2457,10 @@ blockquote p:last-of-type {
   margin-bottom: 0;
 }
 [class*=bg--black] blockquote, [class*=bg--] [class*=bg--black] blockquote, [class*=bg--gray] blockquote, [class*=bg--] [class*=bg--gray] blockquote, [class*=bg--white] blockquote, [class*=bg--] [class*=bg--white] blockquote {
-  border-color: var(--brand-primary);
+  border-color: var(--uiowa-color-brand-gold);
 }
 [class*=bg--black] blockquote::before, [class*=bg--] [class*=bg--black] blockquote::before, [class*=bg--gray] blockquote::before, [class*=bg--] [class*=bg--gray] blockquote::before, [class*=bg--white] blockquote::before, [class*=bg--] [class*=bg--white] blockquote::before {
-  background: var(--brand-primary);
+  background: var(--uiowa-color-brand-gold);
 }
 [class*=bg--gold] blockquote, [class*=bg--] [class*=bg--gold] blockquote {
   border-color: #fff;
@@ -2528,7 +2511,7 @@ blockquote.blockquote--center::before, .blockquote-center blockquote::before {
   left: 0;
   right: 0;
   width: 130px;
-  background: var(--brand-primary);
+  background: var(--uiowa-color-brand-gold);
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
@@ -2583,12 +2566,12 @@ blockquote.blockquote--img-above .blockquote__paragraph::after {
   left: 0;
   right: 0;
   width: 130px;
-  background: var(--brand-primary);
+  background: var(--uiowa-color-brand-gold);
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
 .bg--black--pattern--brain blockquote.blockquote--img-above .blockquote__paragraph::after, .bg--white--pattern--brain blockquote.blockquote--img-above .blockquote__paragraph::after, .bg-pattern--brain blockquote.blockquote--img-above .blockquote__paragraph::after, .bg-pattern--brain-black blockquote.blockquote--img-above .blockquote__paragraph::after, [class*=bg--black] blockquote.blockquote--img-above .blockquote__paragraph::after, [class*=bg--gray] blockquote.blockquote--img-above .blockquote__paragraph::after, [class*=bg--white] blockquote.blockquote--img-above .blockquote__paragraph::after {
-  background: var(--brand-primary);
+  background: var(--uiowa-color-brand-gold);
 }
 .bg--gold--pattern--brain blockquote.blockquote--img-above .blockquote__paragraph::after, .bg-pattern--brain-reversed blockquote.blockquote--img-above .blockquote__paragraph::after, [class*=bg--gold] blockquote.blockquote--img-above .blockquote__paragraph::after {
   background: #fff;
@@ -2700,7 +2683,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
   font-family: var(--uiowa-typography-font-family-roboto);
 }
 .site-name a {
-  color: var(--brand-secondary);
+  color: var(--uiowa-color-brand-black);
   text-decoration: none;
 }
 @media (min-width: 980px) {
@@ -2724,10 +2707,10 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
   margin: 0 0 -10px 0;
   padding: var(--uiowa-space-100) 0 0 1.25rem;
   width: 100%;
-  background: var(--brand-primary);
+  background: var(--uiowa-color-brand-gold);
 }
 .parent-site-name a {
-  color: var(--brand-secondary);
+  color: var(--uiowa-color-brand-black);
   text-decoration: none;
 }
 @media (min-width: 980px) {
@@ -2746,12 +2729,12 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
   z-index: 2;
   display: block;
   min-height: auto;
-  background: var(--brand-secondary);
+  background: var(--uiowa-color-brand-black);
 }
 @media (min-width: 980px) {
   .iowa-bar {
     min-height: 80px;
-    background: var(--brand-primary);
+    background: var(--uiowa-color-brand-gold);
   }
 }
 @media (min-width: 980px) {
@@ -2781,7 +2764,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
 .iowa-bar .site-name {
   width: 100%;
   padding: 1.25rem;
-  background: var(--brand-primary);
+  background: var(--uiowa-color-brand-gold);
 }
 @media (min-width: 980px) {
   .iowa-bar .site-name {
@@ -2872,7 +2855,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
   font-size: 1rem;
   margin: 0;
   padding: 1.25rem;
-  background: var(--brand-primary);
+  background: var(--uiowa-color-brand-gold);
 }
 @media (min-width: 980px) {
   .iowa-bar--narrow .site-name {
@@ -2934,7 +2917,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
 
 .footer {
   position: relative;
-  background: var(--brand-secondary);
+  background: var(--uiowa-color-brand-black);
   padding-top: 2.5rem;
   padding-right: 0;
   padding-bottom: 2.5rem;
@@ -2949,7 +2932,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
   }
 }
 .footer a {
-  color: var(--brand-primary);
+  color: var(--uiowa-color-brand-gold);
   text-decoration: none;
   font-weight: var(--uiowa-typography-font-weight-normal);
 }
@@ -2963,7 +2946,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
   margin-top: 0.9rem;
 }
 .footer p a {
-  color: var(--brand-primary);
+  color: var(--uiowa-color-brand-gold);
   text-decoration: none;
   font-weight: var(--uiowa-typography-font-weight-normal);
 }
@@ -2996,7 +2979,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
   font-weight: 300;
   margin-bottom: 0.625rem;
   display: block;
-  background: var(--brand-secondary);
+  background: var(--uiowa-color-brand-black);
   padding: 0;
 }
 .footer .parent-site-name a {
@@ -3147,14 +3130,14 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
 }
 .socket__menu li a {
   text-decoration: none;
-  color: var(--brand-primary);
+  color: var(--uiowa-color-brand-gold);
 }
 .socket__menu li a:hover, .socket__menu li a:focus {
   text-decoration: underline;
 }
 
 .footer-cta__wrapper {
-  background: var(--brand-primary);
+  background: var(--uiowa-color-brand-gold);
   padding: var(--uiowa-space-200) 0;
   margin: 0;
 }
@@ -3168,7 +3151,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
   display: block;
 }
 .footer-cta__wrapper .bttn--outline {
-  border: 1px solid var(--brand-secondary);
+  border: 1px solid var(--uiowa-color-brand-black);
   display: block;
 }
 @media (min-width: 768px) {
@@ -3282,15 +3265,15 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
 }
 [class*=bg--] .bttn, [class*=bg--] [class*=bg--] .bttn {
   border-color: rgba(0, 0, 0, 0.425);
-  color: var(--brand-secondary);
+  color: var(--uiowa-color-brand-black);
 }
 [class*=bg--black] .bttn {
   border-color: rgba(255, 255, 255, 0.425);
 }
 
 .bttn--primary {
-  color: var(--brand-secondary);
-  background: var(--brand-primary);
+  color: var(--uiowa-color-brand-black);
+  background: var(--uiowa-color-brand-gold);
 }
 .bttn--primary i,
 .bttn--primary svg,
@@ -3304,7 +3287,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
   bottom: 0;
   width: 100%;
   height: 4px;
-  background-color: var(--brand-primary);
+  background-color: var(--uiowa-color-brand-gold);
   transform-origin: center;
   transform: translate(-50%, 0) scaleX(0);
   transition: transform 0.3s ease-in-out;
@@ -3316,24 +3299,24 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
   transform: translate(-50%, 0) scaleX(1);
 }
 .bttn--primary {
-  border-color: var(--brand-primary);
-  color: var(--brand-secondary);
+  border-color: var(--uiowa-color-brand-gold);
+  color: var(--uiowa-color-brand-black);
 }
 [class*=bg--] [class*=bg--gray] .bttn--primary, [class*=bg--gray] .bttn--primary, [class*=bg--] [class*=bg--white] .bttn--primary, [class*=bg--white] .bttn--primary {
-  border-color: var(--brand-primary);
+  border-color: var(--uiowa-color-brand-gold);
 }
 .bttn--primary:after {
-  background-color: var(--brand-secondary);
+  background-color: var(--uiowa-color-brand-black);
 }
 
 .bttn--secondary {
   color: #fff;
-  background: var(--brand-secondary);
+  background: var(--uiowa-color-brand-black);
 }
 .bttn--secondary i,
 .bttn--secondary svg,
 .bttn--secondary span[class*=fa-] {
-  color: var(--brand-primary);
+  color: var(--uiowa-color-brand-gold);
 }
 .bttn--secondary:after {
   content: "";
@@ -3342,7 +3325,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
   bottom: 0;
   width: 100%;
   height: 4px;
-  background-color: var(--brand-primary);
+  background-color: var(--uiowa-color-brand-gold);
   transform-origin: center;
   transform: translate(-50%, 0) scaleX(0);
   transition: transform 0.3s ease-in-out;
@@ -3362,12 +3345,12 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
 }
 
 .bttn--tertiary {
-  color: var(--brand-secondary);
+  color: var(--uiowa-color-brand-black);
 }
 .bttn--tertiary i,
 .bttn--tertiary svg,
 .bttn--tertiary span[class*=fa-] {
-  color: var(--brand-primary);
+  color: var(--uiowa-color-brand-gold);
 }
 .bttn--tertiary:after {
   content: "";
@@ -3376,7 +3359,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
   bottom: 0;
   width: 100%;
   height: 4px;
-  background-color: var(--brand-primary);
+  background-color: var(--uiowa-color-brand-gold);
   transform-origin: center;
   transform: translate(-50%, 0) scaleX(0);
   transition: transform 0.3s ease-in-out;
@@ -3393,12 +3376,12 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
 
 .bttn--transparent {
   background: transparent;
-  color: var(--brand-secondary);
+  color: var(--uiowa-color-brand-black);
 }
 .bttn--transparent i,
 .bttn--transparent svg,
 .bttn--transparent span[class*=fa-] {
-  color: var(--brand-primary);
+  color: var(--uiowa-color-brand-gold);
 }
 .bttn--transparent:after {
   content: "";
@@ -3407,7 +3390,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
   bottom: 0;
   width: 100%;
   height: 4px;
-  background-color: var(--brand-primary);
+  background-color: var(--uiowa-color-brand-gold);
   transform-origin: center;
   transform: translate(-50%, 0) scaleX(0);
   transition: transform 0.3s ease-in-out;
@@ -3436,10 +3419,10 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
 [class*=bg--white] .bttn--transparent svg,
 [class*=bg--gold] [class*=bg--white] .bttn--transparent svg,
 [class*=bg--gold] [class*=bg--gray] .bttn--transparent svg {
-  color: var(--brand-primary);
+  color: var(--uiowa-color-brand-gold);
 }
 [class*=bg--black] [class*=bg--white] .bttn--transparent, [class*=bg--black] [class*=bg--gray] .bttn--transparent, [class*=bg--black] [class*=bg--gold] .bttn--transparent {
-  color: var(--brand-secondary);
+  color: var(--uiowa-color-brand-black);
 }
 
 .bttn.borderless.bttn--transparent:focus, .bttn.borderless.bttn--transparent:hover {
@@ -3457,7 +3440,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
 .bttn--no-text:not([class*=bttn--secondary]) i,
 .bttn--no-text:not([class*=bttn--secondary]) span[class*=fa-],
 .bttn--no-text:not([class*=bttn--secondary]) svg {
-  color: var(--brand-secondary);
+  color: var(--uiowa-color-brand-black);
 }
 [class*=bg--] [class*=bg--black] .bttn--no-text:not([class*=bttn--secondary]) i, [class*=bg--black] .bttn--no-text:not([class*=bttn--secondary]) i,
 [class*=bg--] [class*=bg--black] .bttn--no-text:not([class*=bttn--secondary]) span[class*=fa-],
@@ -3475,12 +3458,12 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
 [class*=bg--white] .bttn--no-text:not([class*=bttn--secondary]) svg,
 [class*=bg--] [class*=bg--gray] .bttn--no-text:not([class*=bttn--secondary]) svg,
 [class*=bg--] [class*=bg--gold] .bttn--no-text:not([class*=bttn--secondary]) svg {
-  color: var(--brand-secondary);
+  color: var(--uiowa-color-brand-black);
 }
 .bttn--no-text.bttn--transparent.bttn--secondary i,
 .bttn--no-text.bttn--transparent.bttn--secondary span[class*=fa-],
 .bttn--no-text.bttn--transparent.bttn--secondary svg {
-  color: var(--brand-secondary);
+  color: var(--uiowa-color-brand-black);
 }
 
 .bttn--large {
@@ -3554,9 +3537,9 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
 }
 
 .callout {
-  --callout-spacing-lg: var(--space-lg-width-gutter);
-  --callout-spacing-md: var(--space-md-width-gutter);
-  --callout-spacing-sm: var(--space-sm-width-gutter);
+  --callout-spacing-lg: var(--uiowa-space-300);
+  --callout-spacing-md: var(--uiowa-space-200);
+  --callout-spacing-sm: var(--uiowa-space-125);
   padding: var(--callout-spacing-md);
 }
 @media (min-width: 768px) {
@@ -3624,7 +3607,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
 }
 .card header:focus-within ~ .bttn i,
 .card header:focus-within ~ .bttn svg {
-  color: var(--brand-secondary);
+  color: var(--uiowa-color-brand-black);
 }
 .card:focus-within header a:focus {
   text-decoration: underline;
@@ -3697,7 +3680,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
 .card .media--date {
   position: relative;
   padding-top: 1.25rem;
-  border: 1px solid var(--uiowa-gold);
+  border: 1px solid var(--uiowa-color-brand-gold);
   text-align: center;
   width: 6rem;
   height: 6rem;
@@ -3722,7 +3705,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
   font-weight: var(--uiowa-typography-font-weight-medium-bold);
 }
 .card[class*=bg--gold] .media--date {
-  border: 1px solid var(--uiowa-black);
+  border: 1px solid var(--uiowa-color-brand-black);
 }
 
 .card__pre-title {
@@ -4288,15 +4271,15 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
   --form-details-bg: #f3f3f3;
   --form-input-radius: 3px;
   --form-label-font-size: 1rem;
-  --form-label-color: var(--brand-secondary);
-  --form-text-color: var(--brand-secondary);
+  --form-label-color: var(--uiowa-color-brand-black);
+  --form-text-color: var(--uiowa-color-brand-black);
   --form-input-padding: 0.5rem;
   --form-input-height: 2.9rem;
   --form-input-font-size: 1rem;
   --form-button-font-size: 1.05rem;
   --form-item-margin: 1rem;
-  --form-section-border-color: var(--uids-gray-light);
-  --form-input-outline-color: var(--uids-gray-light);
+  --form-section-border-color: var(--uiowa-color-neutral-200);
+  --form-input-outline-color: var(--uiowa-color-neutral-200);
 }
 .form input:not([type=checkbox], [type=radio], [type=submit], [type=button], [type=reset], [type=range]),
 .form textarea,
@@ -4307,7 +4290,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
   border-radius: var(--form-input-radius);
   box-shadow: inset 0 1px 3px rgba(10, 10, 10, 0.15);
   box-sizing: border-box;
-  color: var(--brand-secondary);
+  color: var(--uiowa-color-brand-black);
   display: block;
   font-family: inherit;
   font-size: var(--form-input-font-size);
@@ -4325,7 +4308,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
 .form select:focus {
   --form-input-bg: #fefefe;
   --form-input-outline-color: #8a8a8a;
-  box-shadow: 0 0 5px 2px var(--uids-gray-light);
+  box-shadow: 0 0 5px 2px var(--uiowa-color-neutral-200);
   outline-width: 2px;
   transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
 }
@@ -4455,7 +4438,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
   }
 }
 .form select[multiple] {
-  border: 1px solid var(--uids-gray);
+  border: 1px solid var(--uiowa-color-neutral-400);
   cursor: pointer;
   line-height: 1.1;
   background-color: #fff;
@@ -4521,7 +4504,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
 .form-item--checkbox input:focus-visible,
 .form-item--radio input:focus-visible,
 .form-item--toggle input:focus-visible {
-  outline: 2px solid var(--brand-secondary);
+  outline: 2px solid var(--uiowa-color-brand-black);
   outline-offset: 2px;
 }
 .form-item--checkbox input.form--error,
@@ -4559,13 +4542,13 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
   outline: none;
   border: none;
   cursor: pointer;
-  background-color: var(--uids-gray-light);
+  background-color: var(--uiowa-color-neutral-200);
   transition: background-color ease 0.3s;
   margin-top: 0;
 }
 .form-item--toggle input:focus-visible {
-  background: var(--uids-light);
-  outline: 1px solid var(--brand-secondary);
+  background: var(--uiowa-color-neutral-100);
+  outline: 1px solid var(--uiowa-color-brand-black);
 }
 .form-item--toggle input.form--error {
   background-color: var(--uiowa-color-danger-surface);
@@ -4587,13 +4570,13 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
   font-weight: bold;
   text-indent: -22px;
   word-spacing: 37px;
-  color: var(--brand-secondary);
+  color: var(--uiowa-color-brand-black);
   white-space: nowrap;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   transition: all cubic-bezier(0.3, 1.5, 0.7, 1) 0.3s;
 }
 .form-item--toggle input:checked {
-  background-color: var(--brand-primary);
+  background-color: var(--uiowa-color-brand-gold);
 }
 .form-item--toggle input:checked:before {
   left: 32px;
@@ -4601,7 +4584,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
 
 .form--light label {
   font-weight: var(--uiowa-typography-font-weight-medium);
-  color: var(--uids-gray-cool);
+  color: var(--uiowa-color-neutral-500);
 }
 
 .form--large {
@@ -4716,7 +4699,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
 }
 .form-fieldset--side-legend legend {
   padding-block: 0 0.5rem;
-  margin-block: var(--space-sm-width-gutter);
+  margin-block: var(--uiowa-space-125);
   color: var(--form-text-color);
   font-size: 1rem;
   font-weight: 600;
@@ -4732,11 +4715,11 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
       align-items: center;
       justify-content: center;
       border-inline-end: 1px solid var(--form-section-border-color);
-      margin-inline-end: var(--space-sm-width-gutter);
+      margin-inline-end: var(--uiowa-space-125);
       margin-block: 0;
       border-block-end: none;
       padding-block: 0;
-      padding-inline: 0 var(--space-sm-width-gutter);
+      padding-inline: 0 var(--uiowa-space-125);
       margin-bottom: 0 !important;
     }
   }
@@ -4751,11 +4734,11 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
       align-items: center;
       justify-content: center;
       border-inline-end: 1px solid var(--form-section-border-color);
-      margin-inline-end: var(--space-sm-width-gutter);
+      margin-inline-end: var(--uiowa-space-125);
       margin-block: 0;
       border-block-end: none;
       padding-block: 0;
-      padding-inline: 0 var(--space-sm-width-gutter);
+      padding-inline: 0 var(--uiowa-space-125);
       margin-bottom: 0 !important;
     }
   }
@@ -4804,7 +4787,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
 }
 .bold-headline a,
 .headline a {
-  color: var(--brand-secondary);
+  color: var(--uiowa-color-brand-black);
   text-decoration: none;
 }
 .bold-headline a:hover, .bold-headline a:focus,
@@ -4864,43 +4847,43 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
 .bold-headline--caps .headline__headline span,
 .bold-headline--highlight span,
 .headline--highlight span {
-  background: var(--brand-primary);
+  background: var(--uiowa-color-brand-gold);
   display: inline;
   padding: 0.85rem 1rem;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
-  color: var(--brand-secondary);
+  color: var(--uiowa-color-brand-black);
   text-shadow: none;
 }
 [class*=bg--gold] .bold-headline--caps .headline__headline span,
 [class*=bg--gold] .bold-headline--highlight span,
 [class*=bg--gold] .headline--highlight span {
-  background: var(--brand-secondary);
+  background: var(--uiowa-color-brand-black);
   color: #fff;
 }
 
 .bold-headline--caps .headline__heading span,
 .headline--uppercase .headline__heading span,
 .headline--uppercase .headline__text span {
-  background: var(--brand-primary);
+  background: var(--uiowa-color-brand-gold);
   display: inline-block;
   margin-bottom: 0.8rem;
   margin-top: 0.8rem;
   padding: 0.4rem 1.2rem 0.8rem;
-  color: var(--brand-secondary);
+  color: var(--uiowa-color-brand-black);
 }
 [class*=bg--gold] .bold-headline--caps .headline__heading span,
 [class*=bg--gold] .headline--uppercase .headline__heading span,
 [class*=bg--gold] .headline--uppercase .headline__text span {
-  background: var(--brand-secondary);
+  background: var(--uiowa-color-brand-black);
   color: #fff;
   font-weight: 400;
 }
 [class*=bg--gold] [class*=bg--black] .bold-headline--caps .headline__heading span,
 [class*=bg--gold] [class*=bg--black] .headline--uppercase .headline__heading span,
 [class*=bg--gold] [class*=bg--black] .headline--uppercase .headline__text span {
-  background: var(--brand-primary);
-  color: var(--brand-secondary);
+  background: var(--uiowa-color-brand-gold);
+  color: var(--uiowa-color-brand-black);
 }
 
 .bold-headline--underline,
@@ -4915,7 +4898,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
   width: 75px;
   height: 6px;
   margin-top: 15px;
-  background: var(--brand-primary);
+  background: var(--uiowa-color-brand-gold);
 }
 .bold-headline--underline.headline--center:after,
 .headline--underline.headline--center:after {
@@ -4925,7 +4908,7 @@ blockquote.blockquote--remove-margin.blockquote:not(.blockquote--center) {
 .bg-pattern--brain-reversed .bold-headline--underline:after, [class*=bg--gold] .bold-headline--underline:after,
 .bg-pattern--brain-reversed .headline--underline:after,
 [class*=bg--gold] .headline--underline:after {
-  background: var(--uids-light);
+  background: var(--uiowa-color-neutral-100);
 }
 
 h5.bold-headline--underline, h5.headline--underline, .h5.bold-headline--underline, .h5.headline--underline {
@@ -4938,14 +4921,14 @@ h5.bold-headline--underline:after, h5.headline--underline:after, .h5.bold-headli
   width: 75px;
   height: 6px;
   margin-top: 15px;
-  background: var(--brand-primary);
+  background: var(--uiowa-color-brand-gold);
 }
 h5.bold-headline--underline.headline--center:after, h5.headline--underline.headline--center:after, .h5.bold-headline--underline.headline--center:after, .h5.headline--underline.headline--center:after {
   margin-right: auto;
   margin-left: auto;
 }
 .bg-pattern--brain-reversed h5.bold-headline--underline:after, [class*=bg--gold] h5.bold-headline--underline:after, .bg-pattern--brain-reversed h5.headline--underline:after, [class*=bg--gold] h5.headline--underline:after, .bg-pattern--brain-reversed .h5.bold-headline--underline:after, [class*=bg--gold] .h5.bold-headline--underline:after, .bg-pattern--brain-reversed .h5.headline--underline:after, [class*=bg--gold] .h5.headline--underline:after {
-  background: var(--uids-light);
+  background: var(--uiowa-color-neutral-100);
 }
 h5.bold-headline--underline:after, h5.headline--underline:after, .h5.bold-headline--underline:after, .h5.headline--underline:after {
   height: 5px;
@@ -4961,14 +4944,14 @@ h6.bold-headline--underline:after, h6.headline--underline:after, .h6.bold-headli
   width: 75px;
   height: 6px;
   margin-top: 15px;
-  background: var(--brand-primary);
+  background: var(--uiowa-color-brand-gold);
 }
 h6.bold-headline--underline.headline--center:after, h6.headline--underline.headline--center:after, .h6.bold-headline--underline.headline--center:after, .h6.headline--underline.headline--center:after {
   margin-right: auto;
   margin-left: auto;
 }
 .bg-pattern--brain-reversed h6.bold-headline--underline:after, [class*=bg--gold] h6.bold-headline--underline:after, .bg-pattern--brain-reversed h6.headline--underline:after, [class*=bg--gold] h6.headline--underline:after, .bg-pattern--brain-reversed .h6.bold-headline--underline:after, [class*=bg--gold] .h6.bold-headline--underline:after, .bg-pattern--brain-reversed .h6.headline--underline:after, [class*=bg--gold] .h6.headline--underline:after {
-  background: var(--uids-light);
+  background: var(--uiowa-color-neutral-100);
 }
 h6.bold-headline--underline:after, h6.headline--underline:after, .h6.bold-headline--underline:after, .h6.headline--underline:after {
   height: 4px;
@@ -4986,9 +4969,9 @@ h6.bold-headline--underline:after, h6.headline--underline:after, .h6.bold-headli
 
 [class*=inline--] {
   --inline-margin-xs: 0.5rem;
-  --inline-margin-sm: var(--space-sm-width-gutter);
-  --inline-margin-md: var(--space-md-width-gutter);
-  --inline-margin-lg: var(--space-lg-width-gutter);
+  --inline-margin-sm: var(--uiowa-space-125);
+  --inline-margin-md: var(--uiowa-space-200);
+  --inline-margin-lg: var(--uiowa-space-300);
 }
 
 [class*=inline--size-] {
@@ -5114,7 +5097,7 @@ figure[class*=inline--size-] img {
   height: 70px;
   width: 109px;
   padding: 25px 1.25rem;
-  background: var(--brand-secondary);
+  background: var(--uiowa-color-brand-black);
 }
 .logo--tab a:focus svg {
   opacity: 0.5;
@@ -5135,7 +5118,7 @@ figure[class*=inline--size-] img {
 }
 
 .logo-icon {
-  fill: var(--uiowa-gold);
+  fill: var(--uiowa-color-brand-gold);
   height: 20px;
 }
 .logo-icon .logo-text {
@@ -5186,7 +5169,7 @@ figure[class*=inline--size-] img {
 
 .media--border img {
   padding: 0.5rem;
-  border: 1px solid var(--transparent-border);
+  border: 1px solid var(--uiowa-color-border-default);
 }
 
 .media--circle {
@@ -5225,7 +5208,7 @@ figure[class*=inline--size-] img {
 
 .menu {
   --menu-flex-direction: column;
-  --menu-link-color: var(--brand-secondary);
+  --menu-link-color: var(--uiowa-color-brand-black);
   --menu-link-indicator-width: 5px;
   --menu-link-indicator-height: 100%;
   --menu-link-transform-end: scaleY(100%);
@@ -5258,7 +5241,7 @@ figure[class*=inline--size-] img {
   left: 0.9rem;
 }
 .menu li .fas {
-  color: var(--uids-gray-cool);
+  color: var(--uiowa-color-neutral-500);
 }
 .menu li.is-active a:after {
   height: var(--menu-link-indicator-height);
@@ -5280,7 +5263,7 @@ figure[class*=inline--size-] img {
 }
 .menu li a:after,
 .menu li span:not([class*=fa]):after {
-  background: var(--uids-gray-light);
+  background: var(--uiowa-color-neutral-200);
   position: absolute;
   bottom: 0;
   left: 0;
@@ -5312,7 +5295,7 @@ figure[class*=inline--size-] img {
 }
 .menu > li > a:hover:after {
   transform: var(--menu-link-transform-end);
-  background: var(--brand-primary);
+  background: var(--uiowa-color-brand-gold);
   height: var(--menu-link-indicator-height);
   width: var(--menu-link-indicator-width);
 }
@@ -5411,7 +5394,7 @@ figure[class*=inline--size-] img {
   font-family: var(--uiowa-typography-font-family-antonio);
   font-weight: bold;
   font-size: 4rem;
-  border-bottom: 8px solid var(--brand-primary);
+  border-bottom: 8px solid var(--uiowa-color-brand-gold);
   padding: var(--uiowa-space-200) 0 var(--uiowa-space-50) 0;
 }
 @media (min-width: 768px) {
@@ -5424,10 +5407,10 @@ figure[class*=inline--size-] img {
   display: block;
 }
 .bg-pattern--brain .stat__title, [class*=bg--white] .stat__title, [class*=bg--gray] .stat__title, [class*=bg--black] .stat__title {
-  border-bottom: 8px solid var(--brand-primary);
+  border-bottom: 8px solid var(--uiowa-color-brand-gold);
 }
 .stat--horizontal.bg-pattern--brain-black .stat__title, .stat--horizontal[class*=bg--black] .stat__title, .bg-pattern--brain-black .stat__title, [class*=bg--black] .stat__title {
-  color: var(--brand-primary);
+  color: var(--uiowa-color-brand-gold);
 }
 .bg-pattern--brain-reversed .stat__title, [class*=bg--gold] .stat__title {
   border-bottom: 8px solid white;
@@ -5465,7 +5448,7 @@ figure[class*=inline--size-] img {
   color: #ccc;
 }
 .bg-pattern--brain-reversed .stat__content, [class*=bg--gold] .stat__content {
-  color: var(--brand-secondary);
+  color: var(--uiowa-color-brand-black);
 }
 @media (min-width: 980px) {
   .element--flex-center .stat__content {
@@ -5519,7 +5502,7 @@ figure[class*=inline--size-] img {
 
 @media (min-width: 84.375em) {
   .stat--horizontal:not(.element--flex-center).bg-pattern--brain-reversed .stat__content, .stat--horizontal:not(.element--flex-center)[class*=bg--gold] .stat__content, .bg-pattern--brain-reversed .stat--horizontal:not(.element--flex-center) .stat__content, [class*=bg--gold] .stat--horizontal:not(.element--flex-center) .stat__content {
-    border-top: 8px solid var(--brand-secondary);
+    border-top: 8px solid var(--uiowa-color-brand-black);
   }
 }
 .stat--horizontal:not(.element--flex-center) .stat__title {
@@ -5546,7 +5529,7 @@ figure[class*=inline--size-] img {
   .stat--horizontal:not(.element--flex-center) .stat__content {
     padding-top: 0.5rem;
     margin-top: 0.75rem;
-    border-top: 8px solid var(--brand-primary);
+    border-top: 8px solid var(--uiowa-color-brand-gold);
     flex-basis: 100%;
   }
 }
@@ -5598,7 +5581,7 @@ table {
   background-color: #fff;
   border-collapse: collapse;
   border-spacing: 0;
-  color: var(--brand-secondary);
+  color: var(--uiowa-color-brand-black);
   display: inline-block;
   font-size: var(--uiowa-typography-body-font-size);
   line-height: 1.15;
@@ -5607,7 +5590,7 @@ table {
   width: 100%;
 }
 [class*=bg--gray] table tbody a, [class*=bg--white] table tbody a, [class*=bg--black] table tbody a, [class*=bg--gold] table tbody a, .bg-pattern--brain-reversed table tbody a, .bg--gold--pattern--brain table tbody a, .bg-pattern--brain table tbody a, .bg--white--pattern--brain table tbody a, .bg--black--pattern--brain table tbody a, .bg-pattern--brain-black table tbody a {
-  color: var(--link-color);
+  color: var(--uiowa-color-link-default);
 }
 @media (min-width: 768px) {
   table {
@@ -5628,20 +5611,20 @@ table th {
   line-height: 1.6;
 }
 table th {
-  color: var(--brand-secondary);
+  color: var(--uiowa-color-brand-black);
 }
 table th:not([align]) {
   text-align: left;
 }
 table thead th {
-  background-color: var(--brand-primary);
+  background-color: var(--uiowa-color-brand-gold);
   border: none;
 }
 table thead th a {
-  color: var(--brand-secondary);
+  color: var(--uiowa-color-brand-black);
 }
 [class*=bg--] table thead th a {
-  color: var(--brand-secondary);
+  color: var(--uiowa-color-brand-black);
 }
 table tbody th {
   background-color: #fff;
@@ -5652,7 +5635,7 @@ table tbody th {
 }
 table tbody tr:not(.is-selected):nth-child(even),
 table tbody tr:not(.is-selected):nth-child(even) th {
-  background-color: var(--uids-light);
+  background-color: var(--uiowa-color-neutral-100);
 }
 table.table--hover-highlight tbody tr:not(.is-selected):hover th, table.table--hover-highlight tbody tr:not(.is-selected):nth-child(even):hover th {
   background-color: #fff3c3;
@@ -5671,12 +5654,12 @@ table caption {
 }
 table caption a,
 table caption :where(p) a:not(.bttn) {
-  color: var(--brand-primary);
+  color: var(--uiowa-color-brand-gold);
 }
 [class*=bg--] table caption a, [class*=bg--] [class*=bg--] table caption a,
 [class*=bg--] table caption :where(p) a:not(.bttn),
 [class*=bg--] [class*=bg--] table caption :where(p) a:not(.bttn) {
-  color: var(--brand-primary);
+  color: var(--uiowa-color-brand-gold);
 }
 table tbody tr:last-child td,
 table tbody tr:last-child th {
@@ -5684,7 +5667,7 @@ table tbody tr:last-child th {
 }
 table thead td,
 table thead th {
-  color: var(--brand-secondary);
+  color: var(--uiowa-color-brand-black);
 }
 table.table--width-default {
   width: unset;
