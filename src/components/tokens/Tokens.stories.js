@@ -93,7 +93,7 @@ const css = `
     display: inline-block; width: 3rem; height: 1.6rem;
     border: 1px solid var(--uiowa-color-border-default);
   }
-  .tk__bar { display: block; height: 1rem; background: var(--uiowa-color-brand); }
+  .tk__bar { display: block; height: 1rem; background: var(--uiowa-color-brand-gold); }
   .tk__leading { display: inline-block; width: 14rem; }
   .tk__specimen { white-space: nowrap; }
   .tk__note { color: var(--uiowa-color-neutral-500); }

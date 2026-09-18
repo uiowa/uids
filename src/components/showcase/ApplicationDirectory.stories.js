@@ -39,11 +39,24 @@ const horizontalMenuItems = [
   { label: 'Contact', url: '#', icon: 'fas fa-mobile-screen' },
 ];
 
+const directoryEntries = [
+  { name: 'John Smith', department: 'Computer Science', title: 'Professor', email: 'john.smith@university.edu', phone: '(319) 555-0123' },
+  { name: 'Jane Doe', department: 'Mathematics', title: 'Associate Professor', email: 'jane.doe@university.edu', phone: '(319) 555-0124' },
+  { name: 'Bob Johnson', department: 'Physics', title: 'Department Chair', email: 'bob.johnson@university.edu', phone: '(319) 555-0125' },
+  { name: 'Alice Williams', department: 'Biology', title: 'Research Scientist', email: 'alice.williams@university.edu', phone: '(319) 555-0126' },
+  { name: 'Michael Chen', department: 'Chemistry', title: 'Assistant Professor', email: 'michael.chen@university.edu', phone: '(319) 555-0127' },
+  { name: 'Sarah Martinez', department: 'English Literature', title: 'Professor', email: 'sarah.martinez@university.edu', phone: '(319) 555-0128' },
+  { name: 'David Thompson', department: 'History', title: 'Associate Professor', email: 'david.thompson@university.edu', phone: '(319) 555-0129' },
+  { name: 'Lisa Garcia', department: 'Psychology', title: 'Clinical Professor', email: 'lisa.garcia@university.edu', phone: '(319) 555-0130' },
+  { name: 'Robert Anderson', department: 'Engineering', title: 'Dean', email: 'robert.anderson@university.edu', phone: '(319) 555-0131' },
+  { name: 'Emily Rodriguez', department: 'Art & Design', title: 'Lecturer', email: 'emily.rodriguez@university.edu', phone: '(319) 555-0132' },
+];
+
 const Template = {
   render: (args) => ({
     components: { UidsButton, BrandBar, UidsTable, UidsMenu, ExampleFiltersForm },
     setup() {
-      return { args, horizontalMenuItems };
+      return { args, directoryEntries, horizontalMenuItems };
     },
     template: `
       <main>
@@ -100,125 +113,17 @@ const Template = {
                   </tr>
                 </template>
                 <template #tbody>
-                  <tr>
+                  <tr v-for="entry in directoryEntries" :key="entry.email">
                     <td>
                       <uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false"
-                                   :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)"
-                                                                                  class="fas fa-pencil"></i></uids-button>
+                                   :transparent="true" :light_font="true">Edit <i style="color: var(--uiowa-color-brand-black)"
+                                                                                  class="fas fa-pencil" aria-hidden="true"></i></uids-button>
                     </td>
-                    <td>John Smith</td>
-                    <td>Computer Science</td>
-                    <td>Professor</td>
-                    <td>john.smith@university.edu</td>
-                    <td>(319) 555-0123</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false"
-                                   :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)"
-                                                                                  class="fas fa-pencil"></i></uids-button>
-                    </td>
-                    <td>Jane Doe</td>
-                    <td>Mathematics</td>
-                    <td>Associate Professor</td>
-                    <td>jane.doe@university.edu</td>
-                    <td>(319) 555-0124</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false"
-                                   :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)"
-                                                                                  class="fas fa-pencil"></i></uids-button>
-                    </td>
-                    <td>Bob Johnson</td>
-                    <td>Physics</td>
-                    <td>Department Chair</td>
-                    <td>bob.johnson@university.edu</td>
-                    <td>(319) 555-0125</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false"
-                                   :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)"
-                                                                                  class="fas fa-pencil"></i></uids-button>
-                    </td>
-                    <td>Alice Williams</td>
-                    <td>Biology</td>
-                    <td>Research Scientist</td>
-                    <td>alice.williams@university.edu</td>
-                    <td>(319) 555-0126</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false"
-                                   :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)"
-                                                                                  class="fas fa-pencil"></i></uids-button>
-                    </td>
-                    <td>Michael Chen</td>
-                    <td>Chemistry</td>
-                    <td>Assistant Professor</td>
-                    <td>michael.chen@university.edu</td>
-                    <td>(319) 555-0127</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false"
-                                   :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)"
-                                                                                  class="fas fa-pencil"></i></uids-button>
-                    </td>
-                    <td>Sarah Martinez</td>
-                    <td>English Literature</td>
-                    <td>Professor</td>
-                    <td>sarah.martinez@university.edu</td>
-                    <td>(319) 555-0128</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false"
-                                   :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)"
-                                                                                  class="fas fa-pencil"></i></uids-button>
-                    </td>
-                    <td>David Thompson</td>
-                    <td>History</td>
-                    <td>Associate Professor</td>
-                    <td>david.thompson@university.edu</td>
-                    <td>(319) 555-0129</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false"
-                                   :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)"
-                                                                                  class="fas fa-pencil"></i></uids-button>
-                    </td>
-                    <td>Lisa Garcia</td>
-                    <td>Psychology</td>
-                    <td>Clinical Professor</td>
-                    <td>lisa.garcia@university.edu</td>
-                    <td>(319) 555-0130</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false"
-                                   :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)"
-                                                                                  class="fas fa-pencil"></i></uids-button>
-                    </td>
-                    <td>Robert Anderson</td>
-                    <td>Engineering</td>
-                    <td>Dean</td>
-                    <td>robert.anderson@university.edu</td>
-                    <td>(319) 555-0131</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <uids-button :url="''" :color="'link'" :size="'small'" :borderless="true" :full="false"
-                                   :transparent="true" :light_font="true">Edit <i style="color: var(--brand-secondary)"
-                                                                                  class="fas fa-pencil"></i></uids-button>
-                    </td>
-                    <td>Emily Rodriguez</td>
-                    <td>Art & Design</td>
-                    <td>Lecturer</td>
-                    <td>emily.rodriguez@university.edu</td>
-                    <td>(319) 555-0132</td>
+                    <td>{{ entry.name }}</td>
+                    <td>{{ entry.department }}</td>
+                    <td>{{ entry.title }}</td>
+                    <td>{{ entry.email }}</td>
+                    <td>{{ entry.phone }}</td>
                   </tr>
                 </template>
               </uids-table>

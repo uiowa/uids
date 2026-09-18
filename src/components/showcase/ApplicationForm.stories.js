@@ -69,7 +69,7 @@ const Template = {
             :full='false'
             :transparent='true'
             :light_font='true'
-          ><i style="color: var(--brand-secondary)" class="fas fa-user"></i> HawkID <i style="color: var(--brand-secondary)" class="fas fa-caret-down"></i></uids-button>
+          ><i style="color: var(--uiowa-color-brand-black)" class="fas fa-user"></i> HawkID <i style="color: var(--uiowa-color-brand-black)" class="fas fa-caret-down"></i></uids-button>
           <ul class="menu">
             <li><a href="/">Sign out</a></li>
           </ul>

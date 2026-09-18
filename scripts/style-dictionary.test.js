@@ -14,6 +14,8 @@ const fluid = {
   max: { value: 2.2, unit: 'rem' },
 };
 
+// These unit tests describe the custom behavior that Style Dictionary does not
+// provide: converting UIDS fluid typography metadata into a CSS clamp value.
 describe('fluidFontSize', () => {
   it('creates a clamp value from explicit fluid metadata', () => {
     expect(fluidFontSize({
@@ -49,7 +51,10 @@ describe('fluidFontSize', () => {
   });
 });
 
-it('emits the public token variables from the repository token sources', () => {
+// This build-output test checks four conventions: full-path primitive names,
+// expanded and transformed typography properties, references emitted as var(), and
+// the absence of the former shortened typography name.
+it('emits canonical names, fluid typography, and token references', () => {
   const output = readFileSync(join(repository, 'src/scss/abstracts/_tokens-generated.scss'), 'utf8');
 
   expect(output).toContain('--uiowa-typography-font-size-120: 1.2rem;');

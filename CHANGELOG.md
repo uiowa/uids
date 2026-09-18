@@ -118,14 +118,14 @@ and the form error states.
 
 #### Grays
 
-Neutral steps moved to the values in the brand Foundations palette. The legacy custom
-properties keep their names.
+Neutral steps moved to the values in the brand Foundations palette. Components now use
+the canonical neutral tokens.
 
-| Property | Was | Now |
-| --- | --- | --- |
-| `--uids-gray-light` | `#CACACA` | `#BCBEC0` |
-| `--uids-gray-mid` | `#9A9A9A` | `#8D9094` |
-| `--uids-gray` | `#737373` | `#777A7F` |
+| Role | Property | Was | Now |
+| --- | --- | --- | --- |
+| Light | `--uiowa-color-neutral-200` | `#CACACA` | `#BCBEC0` |
+| Mid | `--uiowa-color-neutral-300` | `#9A9A9A` | `#8D9094` |
+| Default | `--uiowa-color-neutral-400` | `#737373` | `#777A7F` |
 
 Affects `.form-item--toggle input`, `.menu li a:after`, `.form select[multiple]`, and the
 form focus shadow.
@@ -145,6 +145,24 @@ pattern variants such as `.bg--black--pattern--brain`. No class was added or rem
 
 ### Removed
 
+- Root-level compatibility aliases. Use the canonical token properties instead:
+
+  | Removed | Replacement |
+  | --- | --- |
+  | `--uiowa-gold` | `--uiowa-color-brand-gold` |
+  | `--uiowa-black` | `--uiowa-color-brand-black` |
+  | `--brand-primary` | `--uiowa-color-brand-gold` |
+  | `--brand-secondary` | `--uiowa-color-brand-black` |
+  | `--uids-gray-cool` | `--uiowa-color-neutral-500` |
+  | `--link-color` | `--uiowa-color-link-default` |
+  | `--uids-light` | `--uiowa-color-neutral-100` |
+  | `--uids-gray-mid` | `--uiowa-color-neutral-300` |
+  | `--uids-gray` | `--uiowa-color-neutral-400` |
+  | `--uids-gray-light` | `--uiowa-color-neutral-200` |
+  | `--transparent-border` | `--uiowa-color-border-default` |
+  | `--space-lg-width-gutter` | `--uiowa-space-300` |
+  | `--space-md-width-gutter` | `--uiowa-space-200` |
+  | `--space-sm-width-gutter` | `--uiowa-space-125` |
 - Serif `font-size` overrides in `_headings.scss`, at `h2` through `h6`.
 - The blanket `[class*="bg--"] *` border rule and its `:before` / `:after` counterpart.
   Nothing in UIDS had a visible border that depended on it.

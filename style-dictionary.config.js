@@ -1,6 +1,8 @@
 const REM_IN_PIXELS = 16;
 const FLUID_EXTENSION = 'edu.uiowa.fluid';
 
+// Style Dictionary does not calculate a responsive font size from the UIDS fluid
+// extension, so these helpers validate that metadata and convert it to clamp().
 function decimal(value) {
   return String(Number(value.toFixed(4)));
 }
@@ -63,6 +65,8 @@ export default {
   expand: { include: ['typography'] },
   hooks: {
     transforms: {
+      // Run only on the fontSize member created when Style Dictionary expands a
+      // typography composite carrying the UIDS fluid extension.
       'uids/fluid-font-size': {
         type: 'value',
         transitive: true,

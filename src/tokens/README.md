@@ -22,14 +22,13 @@ yarn build:tokens
 needed for a CSS-only change. Generated token files are not committed; `prepack` runs the
 build so release artifacts include the generated Sass and CSS.
 
-## Fluid typography
+## UIDS extensions
 
-Typography styles use one `fontSize` reference. Styles that scale carry the
-`edu.uiowa.fluid` extension, which the generator resolves to CSS `clamp()`. It declares
+UIDS currently defines one namespaced extension using DTCG's `$extensions` property.
+
+### `edu.uiowa.fluid`
+
+Adds responsive scaling to a typography token. The generator resolves the token's
+`fontSize` reference to a CSS `clamp()` value. The extension declares
 `minViewport` and `maxViewport` as px dimensions, then either a `max` size or
 `strategy: "exponential"` with a numeric `exponent`.
-
-## Compatibility
-
-`uids-core.scss` retains legacy custom-property aliases for compatibility. Treat those
-aliases as public API; remove one only in a deliberate breaking release.
