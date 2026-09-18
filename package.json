@@ -1,7 +1,10 @@
 {
   "name": "uids",
   "type": "module",
-  "version": "4.0.1",
+  "version": "5.0.0-alpha.0",
+  "engines": {
+    "node": ">=22"
+  },
   "license": "MIT",
   "description": "The UIowa Design System is specific to the University of Iowa.",
   "keywords": [
@@ -9,25 +12,37 @@
     "design"
   ],
   "homepage": "https://uids.brand.uiowa.edu",
-  "main": "./dist/uids.umd.js",
-  "module": "./dist/uids.es.js",
-  "style": "",
+  "style": "./dist/uids.css",
+  "sass": "./src/scss/uids.scss",
+  "files": [
+    "dist",
+    "src/assets",
+    "src/scss",
+    "src/tokens"
+  ],
   "exports": {
-    "import": "./dist/uids.es.js",
-    "require": "./dist/uids.umd.js"
+    "./uids.css": "./dist/uids.css",
+    "./uids-core.css": "./dist/uids-core.css",
+    "./tokens.css": "./dist/tokens.css",
+    "./components/*.css": "./dist/components/*.css",
+    "./scss/*": "./src/scss/*",
+    "./tokens/*.json": "./src/tokens/*.json"
   },
   "scripts": {
-    "dev": "sass --watch src/scss:dist",
-    "build": "sass src/scss:dist",
-    "production": "storybook build -o www && sass src/scss:www/dist/css",
+    "build:tokens": "style-dictionary build --config style-dictionary.config.js",
+    "prepare": "yarn build:tokens",
+    "prepack": "yarn build",
+    "dev": "yarn build:tokens && sass --watch src/scss:dist",
+    "build": "yarn build:tokens && sass src/scss:dist",
+    "production": "yarn build:tokens && storybook build -o www && sass src/scss:www/dist/css",
     "preview": "vite preview --port 5050",
-    "test:unit": "vitest --environment jsdom",
+    "test:unit": "yarn build:tokens && vitest --environment jsdom",
     "test:e2e": "start-server-and-test preview http://127.0.0.1:5050/ 'cypress open'",
     "test:e2e:ci": "start-server-and-test preview http://127.0.0.1:5050/ 'cypress run'",
     "typecheck": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "storybook": "yarn build:tokens && storybook dev -p 6006",
+    "build-storybook": "yarn build:tokens && storybook build"
   },
   "dependencies": {
     "vue": "^3.5.34"
@@ -47,7 +62,9 @@
     "react-syntax-highlighter": "^16.1.1",
     "sass": "^1.100.0",
     "storybook": "^10.4.1",
+    "style-dictionary": "5.5.3",
     "vite": "^8.0.14",
+    "vitest": "3.2.4",
     "webpack": "^5.107.2"
   },
   "packageManager": "yarn@3.7.0"

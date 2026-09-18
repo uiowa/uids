@@ -71,28 +71,47 @@ While we have not done a perfect job of applying any of these standards, we reco
 * Block Element Modifier (BEM) CSS syntax: https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/
 
 ### Creating a PR
-When your feature branch is ready for testing or after you have made any requested changes, you need to run the following command to make sure that the distribution files get updated:
+Before opening or updating a PR, run:
+
 ```bash
-yarn dist
+yarn build
 ```
 
+`yarn build` generates and validates token CSS when `src/tokens/**` changes; no generated
+token files are committed.
+
 ### Creating a Release
-The following is an example of the workflow and not meant to be copied and pasted verbatim. Please review the summary at https://semver.org/ to understand which type of release you should be creating. The version numbers you will use when you are actually going through this process will depend on the current version number and what type of release you are creating.
+Releases use [Semantic Versioning](https://semver.org/). The release workflow builds the
+tagged source and attaches an installable package to the GitHub release. Do not run
+`npm pack` or upload the tarball manually.
 
-**Note**: The first step is often to create a PR that increments the `package.json` version and matches the next version you plan to create. Since `src/Introduction.mdx` dynamically pulls the version from package.json, updating the version in package.json will automatically update the link paths in the documentation once this PR is merged and the release is created.
+1. Create and merge a release PR that updates `package.json` to the intended version,
+   updates `CHANGELOG.md`, and passes `yarn build`. SemVer prerelease versions such as
+   `5.0.0-alpha.0` are valid.
+2. Create a GitHub release from that merged commit with the matching tag, prefixed with
+   `v` (for example, package version `5.0.0-alpha.0` uses tag `v5.0.0-alpha.0`).
+3. Publish the GitHub release. The `Release` workflow verifies the tag/version match,
+   runs `yarn build`, creates `uids-<version>.tgz`, and attaches it to the release.
+4. Wait for the workflow to finish and verify that the tarball appears in the release's
+   assets before asking a consumer to update. If it fails, rerun the `Release` workflow
+   with that tag; do not upload a replacement tarball manually.
 
-To see the full options for the command, run `npm version --help`.
-1. `git checkout 4.x` - Make sure you are on the `4.x` branch.
-2. `git pull` - Make sure you have the most recent updates.
-3. `npm version patch -m "https://github.com/uiowa/uids/compare/v4.0.0-alpha13...v4.0.0-alpha14"`
-4. `git push`
-5. `git push --tags`
-6. Go to https://github.com/uiowa/uids/releases/new.
-7. Enter the "Tag version" using the version _with_ the `v` at the front (e.g. "v4.0.0-alpha14").
-8. Enter the "Release title" using the version _without_ the `v` at the front (e.g. "4.0.0-alpha14").
-9. Paste in the compare link into the description area: `https://github.com/uiowa/uids/compare/v4.0.0-alpha13...v4.0.0-alpha14`
-10. Click the "Publish release" button.
-11. Profit!
+Consumers install the release artifact by URL:
+
+```json
+"@uiowa/uids": "https://github.com/uiowa/uids/releases/download/v5.0.0/uids-5.0.0.tgz"
+```
+
+`uids/uids.css` is the full stylesheet. When loading individual component stylesheets,
+load `uids/uids-core.css` once for tokens, fonts, reset, base styles, and layout
+foundations:
+
+```js
+import 'uids/uids-core.css';
+import 'uids/components/button.css';
+```
+
+Use `uids/tokens.css` when only the token custom properties are needed.
 
 ### Components
 Learn about Fractal components here: https://fractal.build/guide/components/#what-defines-a-component. Note that this project uses Twig (`.twig`) instead of Handlebars (`.hbs`).

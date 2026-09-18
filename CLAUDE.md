@@ -43,7 +43,7 @@ component-name/
 - `components/` - Component-specific styles
 - Use `@use` instead of `@import`
 
-**CSS Variables** (in `uids-core.scss`): `--uiowa-gold`, `--uiowa-black`, `--brand-primary`, `--uids-gray-*`, `--link-color`
+**CSS Variables**: generated from `src/tokens/` with canonical `--uiowa-*` names
 
 ## Shared Logic
 

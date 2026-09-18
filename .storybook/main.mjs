@@ -1,5 +1,30 @@
+import { execFileSync } from 'node:child_process';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { mergeConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
+
+const root = join(dirname(fileURLToPath(import.meta.url)), '..');
+const tokenSource = join(root, 'src/tokens');
+
+// src/tokens/** is JSON, so nothing imports it and Vite never sees it change. Watching it
+// here regenerates the Sass partial, which is in the module graph, so a token edit reloads
+// the same way a Sass edit does.
+const watchTokens = {
+  name: 'uids-watch-tokens',
+  apply: 'serve',
+  configureServer(server) {
+    server.watcher.add(tokenSource);
+    server.watcher.on('change', (file) => {
+      if (!file.startsWith(tokenSource)) return;
+      try {
+        execFileSync('yarn', ['build:tokens'], { cwd: root, stdio: 'pipe' });
+      } catch (error) {
+        server.config.logger.error(`tokens: ${error.stderr?.toString().trim() || error.message}`);
+      }
+    });
+  },
+};
 
 const config = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
@@ -20,6 +45,7 @@ const config = {
     return mergeConfig(config, {
       plugins: [
         vue(),
+        watchTokens,
         // Workaround for storybookjs/storybook#33537.
         {
           name: 'fix-mdx-react-shim',
