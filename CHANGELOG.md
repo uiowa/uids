@@ -67,6 +67,8 @@ properties as `dist/tokens.css`.
 - Sass variables such as `$success` and `$container-width` hold `var()` references rather
   than literals, so Sass color and math functions cannot operate on them. A calculation
   needs the raw token value.
+- Component and shared CSS now references the existing color tokens for white, black,
+  gold, and gray where their roles are clear. These replacements preserve the current colors.
 
 #### Spacing scale
 
