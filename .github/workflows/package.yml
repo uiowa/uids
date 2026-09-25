@@ -1,0 +1,36 @@
+name: Packaging check
+
+on:
+  push:
+    branches:
+      - 5.x
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+
+      - name: Enable corepack
+        run: |
+          corepack enable
+          corepack prepare yarn@3.7.0 --activate
+          yarn set version 3.7.0
+
+      - run: yarn install --immutable
+
+      - name: Build stylesheets
+        run: yarn build
+
+      - name: Verify package entry points
+        run: |
+          npm pack --ignore-scripts
+          tar -tzf uids-*.tgz | grep -Fx 'package/dist/tokens.css'
+          tar -tzf uids-*.tgz | grep -Fx 'package/src/scss/abstracts/_tokens-generated.scss'

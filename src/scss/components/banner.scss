@@ -8,7 +8,7 @@
   --banner-overlay-solid-opacity: .5;
   --banner-overlay-gradient-midpoint: 40%;
   --banner-overlay-gradient: rgb(var(--banner-overlay-color-rgb), .8) 0%, rgb(var(--banner-overlay-color-rgb), .6) var(--banner-overlay-gradient-midpoint), transparent;
-  --banner-text-color: #fff;
+  --banner-text-color: var(--uiowa-color-text-inverse);
   --banner-bg-failsafe: #{variables.$secondary};
   --link-color: var(--banner-text-color);
 
@@ -86,9 +86,9 @@
     height: 40px;
     cursor: pointer;
     color: #{variables.$secondary};
-    border: 1px solid white;
+    border: 1px solid var(--uiowa-color-neutral-0);
     border-radius: 50%;
-    background: white;
+    background: var(--uiowa-color-background-white);
     font-size: 1rem;
     padding: 0;
 
@@ -326,7 +326,7 @@
   // override these rules in other places.
   @include utilities.container-query($type: max) {
     --link-color: #{variables.$secondary};
-    --banner-bg-failsafe: white;
+    --banner-bg-failsafe: var(--uiowa-color-background-white);
 
     display: block;
 
@@ -427,7 +427,7 @@
         margin-left: 0;
       }
       @include utilities.container-query($size: variables.$break-page-container) {
-        margin-left: calc(50% - 81.875em / 2);
+        margin-left: calc(50% - var(--uiowa-layout-container-max-standard) / 2);
       }
     }
   }
@@ -460,7 +460,7 @@
   --banner-overlay-color-rgb: 255, 255, 255;
   --banner-overlay-solid-opacity: .7;
   --banner-text-color: #{variables.$secondary};
-  --banner-bg-failsafe: white;
+  --banner-bg-failsafe: var(--uiowa-color-background-white);
 
   // Remove text shadow for better legibility.
   .headline,
@@ -470,7 +470,7 @@
 
   // Override background color for media element loading.
   .media {
-    background: #fff;
+    background: var(--uiowa-color-background-white);
 
     .video-btn {
       border: 1px solid #{variables.$secondary};
