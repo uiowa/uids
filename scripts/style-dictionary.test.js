@@ -4,7 +4,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import { fluidFontSize } from '../style-dictionary.config.js';
+import { breakpointRem, fluidFontSize } from '../style-dictionary.config.js';
 
 const repository = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -107,10 +107,33 @@ it('emits canonical names, fluid typography, and token references', () => {
   expect(output).not.toContain('--uiowa-font-size-120:');
 });
 
-// DTCG durations are objects; this build-output test checks they print as CSS times.
-it('writes durations as CSS times', () => {
-  const tokens = readFileSync(join(repository, 'src/scss/abstracts/_tokens-generated.scss'), 'utf8');
+// Breakpoints are stored in px for Figma and converted to rem for media queries,
+// which cannot read a custom property. These tests pin both halves of that rule.
+describe('breakpointRem', () => {
+  it('converts a px breakpoint to rem at the 16px default', () => {
+    expect(breakpointRem({
+      path: ['breakpoint', '1350'],
+      $value: { value: 1350, unit: 'px' },
+    })).toBe('84.375rem');
+  });
 
+  it('rejects a breakpoint that is not stored in px', () => {
+    expect(() => breakpointRem({
+      path: ['breakpoint', 'wide'],
+      $value: { value: 84.375, unit: 'rem' },
+    })).toThrow('breakpoint.wide must be a px dimension');
+  });
+});
+
+// This build-output test checks that breakpoints reach Sass in rem and stay out of
+// the custom properties, and that DTCG durations print as CSS times.
+it('writes breakpoints to Sass in rem and durations as CSS times', () => {
+  const tokens = readFileSync(join(repository, 'src/scss/abstracts/_tokens-generated.scss'), 'utf8');
+  const breakpoints = readFileSync(join(repository, 'src/scss/abstracts/_breakpoints-generated.scss'), 'utf8');
+
+  expect(breakpoints).toContain('$uiowa-breakpoint-1350: 84.375rem;');
+  expect(breakpoints).toContain('$uiowa-layout-breakpoint-standard: 84.375rem;');
+  expect(tokens).not.toContain('--uiowa-breakpoint-');
   expect(tokens).toContain('--uiowa-duration-150: 150ms;');
   expect(tokens).not.toContain('[object Object]');
 });

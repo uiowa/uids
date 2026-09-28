@@ -59,6 +59,23 @@ export function fluidFontSize(token) {
   return `clamp(${decimal(minimumRem)}rem, calc(${decimal(slope)}vw + ${decimal(intercept)}rem), ${decimal(maximumRem)}rem)`;
 }
 
+// Breakpoints are stored in px but used in media queries, which cannot read a
+// CSS custom property. They are left out of the custom properties and written to
+// a Sass file instead, converted to rem (84.375rem is 1350px at the 16px default).
+// In a media query rem and em both follow the reader's own font-size setting; in a
+// container query em follows the container's font size, so rem keeps the same
+// breakpoint meaning the same width in both.
+export const isBreakpoint = (token) => token.path[0] === 'breakpoint'
+  || (token.path[0] === 'layout' && token.path[1] === 'breakpoint');
+
+export function breakpointRem(token) {
+  const value = token.$value;
+  if (!value || value.unit !== 'px' || typeof value.value !== 'number') {
+    throw new Error(`${token.path.join('.')} must be a px dimension`);
+  }
+  return `${decimal(value.value / REM_IN_PIXELS)}rem`;
+}
+
 export default {
   usesDtcg: true,
   source: ['src/tokens/**/*.json'],
@@ -82,6 +99,13 @@ export default {
         filter: (token) => token.$type === 'duration',
         transform: (token) => `${token.$value.value}${token.$value.unit}`,
       },
+      // Not transitive: an alias such as layout.breakpoint.standard receives its
+      // target's converted value rather than being converted a second time.
+      'uids/breakpoint-rem': {
+        type: 'value',
+        filter: isBreakpoint,
+        transform: breakpointRem,
+      },
     },
   },
   platforms: {
@@ -95,6 +119,19 @@ export default {
           destination: '_tokens-generated.scss',
           format: 'css/variables',
           options: { outputReferences: true },
+          filter: (token) => !isBreakpoint(token),
+        },
+      ],
+    },
+    breakpoints: {
+      transforms: ['name/kebab', 'uids/breakpoint-rem'],
+      prefix: 'uiowa',
+      buildPath: 'src/scss/abstracts/',
+      files: [
+        {
+          destination: '_breakpoints-generated.scss',
+          format: 'scss/variables',
+          filter: isBreakpoint,
         },
       ],
     },

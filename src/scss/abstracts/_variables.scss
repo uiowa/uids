@@ -1,4 +1,5 @@
 @use 'sass:color';
+@use 'breakpoints-generated' as bp;
 
 // Utility color variables
 $uiowa-gold: var(--uiowa-color-brand-gold);
@@ -88,13 +89,14 @@ $xlg: 2.5rem; // 40px
 $xxlg: 3.15rem; // 50px
 $xxxlg: 3.75rem; // 60px
 
-// Breakpoints.
-$break-xxsm: 400px;
-$break-xsm: 600px;
-$break-sm: 768px;
-$break-md: 980px;
-$break-lg: 1200px;
-$break-page-container: 84.375em;
+// Breakpoints. Stored in px in src/tokens/primitives/breakpoints.json and
+// converted to rem by the token build (_breakpoints-generated.scss).
+$break-xxsm: bp.$uiowa-breakpoint-400;
+$break-xsm: bp.$uiowa-breakpoint-600;
+$break-sm: bp.$uiowa-breakpoint-768;
+$break-md: bp.$uiowa-breakpoint-980;
+$break-lg: bp.$uiowa-breakpoint-1200;
+$break-page-container: bp.$uiowa-layout-breakpoint-standard;
 $break-xlg: 106em;
 
 // Drop shadow.
