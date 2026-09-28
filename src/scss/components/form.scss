@@ -40,7 +40,7 @@
     height: var(--form-input-height);
     line-height: 1.5;
     margin: 0;
-    outline: 1px solid var(--form-input-outline-color);
+    outline: var(--uiowa-border-width-default) solid var(--form-input-outline-color);
     padding: var(--form-input-padding);
     transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
     width: 100%;
@@ -49,7 +49,7 @@
       --form-input-bg: #fefefe;
       --form-input-outline-color: #8a8a8a;
       box-shadow: 0 0 5px 2px variables.$gray-light;
-      outline-width: 2px;
+      outline-width: var(--uiowa-border-width-focused);
       transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
     }
 
@@ -187,7 +187,7 @@
     margin-bottom: .625rem;
 
     &:focus {
-      outline: 2px solid var(--form-input-outline-color);
+      outline: var(--uiowa-border-width-focused) solid var(--form-input-outline-color);
       outline-offset: 2px;
     }
   }
@@ -208,7 +208,7 @@
   }
 
   select[multiple] {
-    border: 1px solid variables.$gray;
+    border: var(--uiowa-border-width-default) solid variables.$gray;
     cursor: pointer;
     line-height: 1.1;
     background-color: var(--uiowa-color-background-white);
@@ -274,18 +274,18 @@
 
   // Focus state for checkboxes/radios/toggles
   input:focus {
-    outline: 2px solid var(--form-input-outline-color);
+    outline: var(--uiowa-border-width-focused) solid var(--form-input-outline-color);
     outline-offset: 2px;
   }
 
   input:focus-visible {
-    outline: 2px solid variables.$secondary;
+    outline: var(--uiowa-border-width-focused) solid variables.$secondary;
     outline-offset: 2px;
   }
 
   // Error state for checkboxes/radios/toggles (class applied to input)
   input.form--error {
-    outline: 2px solid variables.$danger;
+    outline: var(--uiowa-border-width-2) solid variables.$danger;
     outline-offset: 2px;
   }
 }
@@ -337,6 +337,8 @@
     transition: background-color ease 0.3s;
     margin-top: 0;
 
+    // Focus is drawn differently here: a 1px outline and a lighter track, not the
+    // 2px ring (border.width.focused) the other controls use. Kept at 1px on 2026-09-28.
     &:focus-visible {
       background: variables.$light;
       outline: 1px solid variables.$secondary;
@@ -344,7 +346,7 @@
 
     &.form--error {
       background-color: variables.$danger-light;
-      outline: 2px solid variables.$danger;
+      outline: var(--uiowa-border-width-2) solid variables.$danger;
     }
   }
 
@@ -456,7 +458,7 @@
     color: var(--form-text-color);
     font-size: 1rem;
     font-weight: 600;
-    border-block-end: 1px solid var(--form-section-border-color);
+    border-block-end: var(--uiowa-border-width-default) solid var(--form-section-border-color);
 
     @include utilities.container-query() {
       display: flex;
@@ -465,7 +467,7 @@
       align-self: stretch;
       align-items: center;
       justify-content: center;
-      border-inline-end: 1px solid var(--form-section-border-color);
+      border-inline-end: var(--uiowa-border-width-default) solid var(--form-section-border-color);
       margin-inline-end: var(--uiowa-space-125);
       margin-block: 0;
       border-block-end: none;

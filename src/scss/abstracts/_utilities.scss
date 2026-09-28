@@ -194,7 +194,7 @@
 // mixins
 
 @mixin border {
-  border: 1px solid;
+  border: var(--uiowa-border-width-default) solid;
   border-color: var(--uiowa-color-border);
 }
 
@@ -273,10 +273,10 @@
   padding: 0 0 variables.$gutter;
   margin-bottom: 0;
   background-color: var(--uiowa-color-background-white);
-  border-bottom: 1px solid var(--uiowa-color-border-default);
+  border-bottom: var(--uiowa-border-width-default) solid var(--uiowa-color-border-default);
 
   &:first-child {
-    border-top: 1px solid var(--uiowa-color-border-default);
+    border-top: var(--uiowa-border-width-default) solid var(--uiowa-color-border-default);
     padding-top: 0;
   }
 }
@@ -344,6 +344,8 @@
   }
 }
 
+// Focus is drawn differently on buttons: an underline and the accent bar that grows
+// along the bottom edge, not the 2px ring (border.width.focused) other controls use.
 @mixin bttn--focus {
   &:after {
     content: '';
