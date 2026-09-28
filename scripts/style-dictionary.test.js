@@ -106,3 +106,11 @@ it('emits canonical names, fluid typography, and token references', () => {
   expect(output).toContain('--uiowa-color-link-default: var(--uiowa-color-blue-dark);');
   expect(output).not.toContain('--uiowa-font-size-120:');
 });
+
+// DTCG durations are objects; this build-output test checks they print as CSS times.
+it('writes durations as CSS times', () => {
+  const tokens = readFileSync(join(repository, 'src/scss/abstracts/_tokens-generated.scss'), 'utf8');
+
+  expect(tokens).toContain('--uiowa-duration-150: 150ms;');
+  expect(tokens).not.toContain('[object Object]');
+});

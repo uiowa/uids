@@ -75,12 +75,19 @@ export default {
           && Boolean(token.$extensions?.[FLUID_EXTENSION]),
         transform: fluidFontSize,
       },
+      // Style Dictionary's css group leaves a DTCG duration object as is, which
+      // prints as "[object Object]"; write it as a CSS time instead.
+      'uids/duration-css': {
+        type: 'value',
+        filter: (token) => token.$type === 'duration',
+        transform: (token) => `${token.$value.value}${token.$value.unit}`,
+      },
     },
   },
   platforms: {
     scss: {
       transformGroup: 'css',
-      transforms: ['uids/fluid-font-size'],
+      transforms: ['uids/fluid-font-size', 'uids/duration-css'],
       prefix: 'uiowa',
       buildPath: 'src/scss/abstracts/',
       files: [
