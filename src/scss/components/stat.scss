@@ -197,8 +197,9 @@ $rule-space: calc(#{variables.$sm} + var(--uiowa-accent-rule-8));
   &[class*="bg--gold"],
   .bg-pattern--brain-reversed &,
   [class*="bg--gold"] & {
+    // The same breakpoint as the rule itself (below), so the rule is never gold on gold.
     .stat__content {
-      @include utilities.breakpoint(page-container) {
+      @include utilities.breakpoint(md) {
         --stat-content-rule-color: #{variables.$secondary};
       }
     }
