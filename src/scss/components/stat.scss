@@ -1,6 +1,10 @@
 @use '../abstracts/variables';
 @use '../abstracts/utilities';
 
+// The accent rule under a stat title is a pseudo-element bar, not a border, so the
+// padding below the title includes the rule's height.
+$rule-space: calc(#{variables.$sm} + var(--uiowa-accent-rule-8));
+
 // https://drafts.csswg.org/css-values-5/#interpolate-size.
 :root {
   interpolate-size: allow-keywords;
@@ -49,15 +53,25 @@
     font-family: variables.$font-family-caps-bold;
     font-weight: bold;
     font-size: 4rem;
-    border-bottom: 8px solid variables.$primary;
-    padding: variables.$lg 0 variables.$sm 0;
+    --stat-rule-color: #{variables.$primary};
+    padding: variables.$lg 0 $rule-space 0;
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: var(--uiowa-accent-rule-8);
+      background: var(--stat-rule-color);
+    }
 
     @include utilities.breakpoint(sm) {
-      padding: variables.$md variables.$lg variables.$sm 0;
+      padding: variables.$md variables.$lg $rule-space 0;
     }
 
     .element--flex-center & {
-      padding: variables.$md variables.$lg variables.$sm variables.$lg;
+      padding: variables.$md variables.$lg $rule-space variables.$lg;
       display: block;
     }
 
@@ -65,7 +79,7 @@
     [class*="bg--white"] &,
     [class*="bg--gray"] &,
     [class*="bg--black"] & {
-      border-bottom: 8px solid variables.$primary;
+      --stat-rule-color: #{variables.$primary};
     }
 
     // @todo This should probably be resolved with https://sass-lang.com/documentation/values/maps#using-maps
@@ -78,15 +92,15 @@
 
     .bg-pattern--brain-reversed &,
     [class*="bg--gold"] & {
-      border-bottom: 8px solid var(--uiowa-color-neutral-0);
+      --stat-rule-color: var(--uiowa-color-neutral-0);
     }
 
     @include utilities.breakpoint(sm) {
       font-size: 5rem;
-      padding: 0 variables.$lg variables.$sm 0;
+      padding: 0 variables.$lg $rule-space 0;
 
       .element--flex-center & {
-        padding: 0 variables.$lg variables.$sm;
+        padding: 0 variables.$lg $rule-space;
       }
     }
   }
@@ -185,7 +199,7 @@
   [class*="bg--gold"] & {
     .stat__content {
       @include utilities.breakpoint(page-container) {
-        border-top: 8px solid variables.$secondary;
+        --stat-content-rule-color: #{variables.$secondary};
       }
     }
   }
@@ -196,7 +210,10 @@
 
     @include utilities.breakpoint(md) {
       padding: 0 variables.$lg variables.$xsm 0;
-      border-bottom: none;
+
+      &::after {
+        content: none;
+      }
     }
 
     @include utilities.breakpoint(page-container) {
@@ -213,10 +230,20 @@
     font-size: 1.1rem;
 
     @include utilities.breakpoint(md) {
-      padding-top: .5rem;
+      position: relative;
+      padding-top: calc(.5rem + var(--uiowa-accent-rule-8));
       margin-top: .75rem;
-      border-top: 8px solid variables.$primary;
       flex-basis: 100%;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: var(--uiowa-accent-rule-8);
+        background: var(--stat-content-rule-color, #{variables.$primary});
+      }
     }
 
   }
