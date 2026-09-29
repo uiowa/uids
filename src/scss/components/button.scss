@@ -1,18 +1,39 @@
 @use '../abstracts/variables';
 @use '../abstracts/utilities';
 
+// A button's border comes from the nearest background. Each background sets both
+// variables, so one nested inside another resets them and the closest background
+// decides, at any depth. Selectors can't do that: a black section inside a white
+// one matched both the "inside two backgrounds" rule and the black rule, and the
+// first won, so buttons there got the dark border. Outside any background, buttons
+// keep the everyday border.
+[class*="bg--white"],
+[class*="bg--gray"] {
+  --bttn-border-color: var(--uiowa-color-border-strong);
+  --bttn-primary-border-color: #{variables.$primary};
+}
+
+[class*="bg--gold"] {
+  --bttn-border-color: var(--uiowa-color-border-strong);
+  --bttn-primary-border-color: var(--uiowa-color-border-strong);
+}
+
+[class*="bg--black"] {
+  --bttn-border-color: var(--uiowa-color-border-strong-inverse);
+  --bttn-primary-border-color: var(--uiowa-color-border-strong-inverse);
+}
+
 .bttn {
   @include utilities.bttn;
   @include utilities.border;
 
-  [class*="bg--"] &,
-  [class*="bg--"] [class*="bg--"] & {
-    border-color: var(--uiowa-color-border-strong);
-    color: variables.$secondary;
+  & {
+    border-color: var(--bttn-border-color, var(--uiowa-color-border));
   }
 
-  [class*="bg--black"] & {
-    border-color: var(--uiowa-color-border-strong-inverse);
+  [class*="bg--"] &,
+  [class*="bg--"] [class*="bg--"] & {
+    color: variables.$secondary;
   }
 }
 // Options.
@@ -21,15 +42,9 @@
   @include utilities.bttn--focus;
 
   & {
-    border-color: variables.$primary;
+    // Gold like the fill, except on gold and black, where it takes the strong border.
+    border-color: var(--bttn-primary-border-color, #{variables.$primary});
     color: variables.$secondary;
-  }
-
-  [class*="bg--"] [class*="bg--gray"] &,
-  [class*="bg--gray"] &,
-  [class*="bg--"] [class*="bg--white"] &,
-  [class*="bg--white"] & {
-    border-color: variables.$primary;
   }
 
   &:after {
@@ -68,7 +83,6 @@
   [class*="bg--black"] &,
   [class*="bg--"] [class*="bg--black"] & {
     color: var(--uiowa-color-text-inverse);
-    border-color: var(--uiowa-color-border-strong-inverse);
   }
 
   i,
