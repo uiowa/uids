@@ -59,12 +59,14 @@ export function fluidFontSize(token) {
   return `clamp(${decimal(minimumRem)}rem, calc(${decimal(slope)}vw + ${decimal(intercept)}rem), ${decimal(maximumRem)}rem)`;
 }
 
-// Breakpoints are stored in px but used in media queries, which cannot read a
-// CSS custom property. They are left out of the custom properties and written to
-// a Sass file instead, converted to rem (84.375rem is 1350px at the 16px default).
-// In a media query rem and em both follow the reader's own font-size setting; in a
-// container query em follows the container's font size, so rem keeps the same
-// breakpoint meaning the same width in both.
+// Breakpoints are stored in px but used in media and container queries, which cannot
+// read a CSS custom property. They are left out of the custom properties and written
+// to a Sass file instead, converted to rem (84.375rem is 1350px at the 16px default).
+// rem, not em: DTCG allows only px and rem, and in a container query em follows the
+// container's own font size. At the default text size a rem breakpoint is the same
+// width in both kinds of query. In a media query rem follows the reader's browser
+// text size, but in a container query it follows :root, which is fixed at 16px, so a
+// reader who changes the text size moves the media queries and not the container ones.
 export const isBreakpoint = (token) => token.path[0] === 'breakpoint'
   || (token.path[0] === 'layout' && token.path[1] === 'breakpoint');
 

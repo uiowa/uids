@@ -1,7 +1,7 @@
 {
   "breakpoint": {
     "$type": "dimension",
-    "$description": "Viewport widths the layout steps at, stored in px and named by value. The build writes them into media and container queries in rem (1350px becomes 84.375rem), so the tokens are valid DTCG and a breakpoint means the same width in both kinds of query. They are not emitted as CSS custom properties, because a media query cannot read one.",
+    "$description": "Widths the layout steps at, stored in px and named by value. Media queries (the window) and container queries (the column) both use them. The build writes them to Sass in rem (1350px becomes 84.375rem), which DTCG allows; it doesn't allow em. They have no CSS custom properties, because a media query can't read one. At the default text size a breakpoint is the same width in both kinds of query. Because :root is fixed at 16px, a reader who changes the browser's text size moves the media queries but not the container queries.",
     "400": { "$value": { "value": 400, "unit": "px" } },
     "600": { "$value": { "value": 600, "unit": "px" } },
     "768": { "$value": { "value": 768, "unit": "px" } },
