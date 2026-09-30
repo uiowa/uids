@@ -114,15 +114,13 @@ import 'uids/components/button.css';
 Use `uids/tokens.css` when only the token custom properties are needed.
 
 ### Components
-Learn about Fractal components here: https://fractal.build/guide/components/#what-defines-a-component. Note that this project uses Twig (`.twig`) instead of Handlebars (`.hbs`).
+Components are Vue 3 components documented with [Storybook](https://storybook.js.org/docs). Each component directory contains its `.vue` file, its `.stories.js` file, and an `index.ts`.
 
 All work on components should be done in the `src/components` directory. Each component is contained in its own directory. Some component directories are grouped together for presentation purposes.
-
-If you are starting work on a new component, please make sure that it has `status: prototype` in its config file, and it is placed in the `src/components/prototypes` directory.
 
 ### Continuous Integration
 ![Publish docs to GitHub Pages](https://github.com/uiowa/uids/workflows/Publish%20docs%20to%20GitHub%20Pages/badge.svg)
 
-GitHub Actions is used to build and deploy the Fractal artifact to the `gh-pages` branch. This branch is set to host UIDS using GitHub Pages. All pushes to a branches or tags will trigger a build.
+GitHub Actions is used to build and deploy the Storybook site to the `gh-pages` branch. This branch is set to host UIDS using GitHub Pages. All pushes to a branches or tags will trigger a build.
 
 Branches can be accessed at http://uids.brand.uiowa.edu/branches/{your-branch-name}.
