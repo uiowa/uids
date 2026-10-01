@@ -7,12 +7,12 @@
 
   [class*="bg--"] &,
   [class*="bg--"] [class*="bg--"] & {
-    border-color: rgba(0, 0, 0, .425);
+    border-color: var(--uiowa-color-border-strong);
     color: variables.$secondary;
   }
 
   [class*="bg--black"] & {
-    border-color: rgba(255, 255, 255, .425);
+    border-color: var(--uiowa-color-border-strong-inverse);
   }
 }
 // Options.
@@ -47,7 +47,7 @@
 
   [class*="bg--"] &,
   [class*="bg--"] [class*="bg--"] & {
-    border-color: rgba(255,255,255,.425);
+    border-color: var(--uiowa-color-border-strong-inverse);
     color: var(--uiowa-color-text-inverse);
   }
 }
@@ -68,7 +68,7 @@
   [class*="bg--black"] &,
   [class*="bg--"] [class*="bg--black"] & {
     color: var(--uiowa-color-text-inverse);
-    border-color: rgba(255, 255, 255, 0.425);
+    border-color: var(--uiowa-color-border-strong-inverse);
   }
 
   i,
@@ -140,12 +140,17 @@
 }
 
 .bttn--large {
+  // @todo Move large buttons onto the spacing ramp. They measure 85.7px, between
+  // the 64px and 96px steps, so they keep their own padding until the design
+  // review picks 96px (space.600), a new 80px step, or today's size.
   padding: 1.5rem 2.5rem 1.7rem;
   // @todo Change this to use css variables, calc the size.
   font-size: 1.45rem;
 }
 .bttn--small {
-  padding: 0.6rem 1rem 0.8rem;
+  // A 48px target; the padding in the bttn mixin is worked out from it.
+  --bttn-height: var(--uiowa-space-300);
+  padding-inline: 1rem;
   // @todo Change this to use css variables, calc the size.
   font-size: 1.05rem;
 }
@@ -165,6 +170,9 @@
   font-size: 1rem;
 }
 
+// @todo Move light-font buttons onto the form heights. They measure 54.2px at every
+// size, because this padding overrides the size modifiers, and they are the button
+// on every SiteNow card, so 48px or 64px is a visible change there.
 .bttn--light-font {
   font-family: variables.$font-family-sans-serif;
   font-weight: variables.$font-weight-normal;
@@ -201,16 +209,18 @@
     width: 100%;
     border-radius: 50%;
     background-color: transparent;
-    transition: border-color .3s ease-in-out;
+    transition: border-color var(--uiowa-motion-duration-fast) var(--uiowa-easing-standard);
     transform: none;
     position: absolute;
   }
 
+  // Focus is drawn differently here: the ring is a border on the round :after, not an
+  // outline, and it shows on hover as well as focus.
   &:hover:after,
   &:focus:after {
     transform: none;
     transition: none;
-    border: 3px solid;
+    border: var(--uiowa-border-width-focused) solid;
     border-color: inherit;
     background-color: transparent;
   }

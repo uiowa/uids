@@ -1,4 +1,6 @@
 import { computed, ref, onMounted } from 'vue';
+import breakpointTokens from '../../tokens/primitives/breakpoints.json';
+import layoutTokens from '../../tokens/semantic/layout.json';
 
 const TYPOGRAPHY_CHANNELS = [
   { name: 'font-family', property: 'fontFamily' },
@@ -14,6 +16,8 @@ const TYPOGRAPHY_CHANNEL_PATTERN = new RegExp(`-(${TYPOGRAPHY_CHANNELS.map(({ na
  * render each one through itself: a color swatch is painted by its own token, a type
  * specimen is set with its own channels. Nothing here transcribes a value, so the page
  * cannot fall out of step with src/tokens/**. Adding a token makes it appear.
+ * Breakpoints are the exception: they have no custom property, so they are read from
+ * the token files (see BREAKPOINTS).
  */
 function readTokens() {
   const found = new Map();
@@ -36,21 +40,63 @@ function readTokens() {
   return found;
 }
 
-/** A role's declared value is a var() reference; the reader wants the primitive's name. */
+/** A semantic token's declared value is a var() reference; the reader wants the primitive's name. */
 const primitiveOf = (declared) => declared.replace(/^var\(\s*/, '').replace(/\s*\)$/, '');
+
+/** The alpha color a shadow is drawn in: the var() inside its declared value. */
+const colorOf = (declared) => (declared.match(/var\(\s*(--uiowa-[\w-]+)\s*\)/) || [])[1] || '';
+
+/**
+ * Breakpoints, read from the token files, because a media query can't read a custom
+ * property and the build writes none. Names and rem values repeat what the build writes
+ * to _breakpoints-generated.scss: the Sass name is the token path, and rem is
+ * breakpointRem() in style-dictionary.config.js, px over the 16px root.
+ */
+const tokensIn = (group) => Object.entries(group).filter(([key]) => !key.startsWith('$'));
+const breakpointRow = (path, px) => ({
+  name: `$uiowa-${path.join('-')}`,
+  px: `${px}px`,
+  rem: `${String(Number((px / 16).toFixed(4)))}rem`,
+});
+const BREAKPOINT_PX = Object.fromEntries(
+  tokensIn(breakpointTokens.breakpoint).map(([key, token]) => [key, token.$value.value]),
+);
+const BREAKPOINTS = [
+  ...Object.entries(BREAKPOINT_PX).map(([key, px]) => ({
+    tier: 'primitive',
+    ...breakpointRow(['breakpoint', key], px),
+  })),
+  ...tokensIn(layoutTokens.layout.breakpoint).map(([key, token]) => {
+    const target = token.$value.match(/^\{breakpoint\.(\w+)\}$/)[1];
+    return {
+      tier: 'semantic',
+      primitive: `$uiowa-breakpoint-${target}`,
+      ...breakpointRow(['layout', 'breakpoint', key], BREAKPOINT_PX[target]),
+    };
+  }),
+];
 
 const computedValue = (name) =>
   getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
-/** The group a reader looks for a token under. A role aliases; a primitive holds a literal. */
+/** The group a reader looks for a token under. A semantic token aliases; a primitive holds a literal. */
 function group(name, declared) {
   const n = name.replace('--uiowa-', '');
   if (n.startsWith('typography-font-') || n.startsWith('typography-letter-') || n.startsWith('typography-line-')) return 'type primitive';
   if (n.startsWith('typography-')) return 'type style';
-  if (n.startsWith('color-')) return declared.startsWith('var(') ? 'color role' : 'color primitive';
+  if (n.startsWith('color-')) return declared.startsWith('var(') ? 'color semantic' : 'color primitive';
   if (n.startsWith('space-')) return 'space';
   if (n.startsWith('layout-')) return 'layout';
   if (/^(font|letter|line)-/.test(n)) return 'type primitive';
+  if (n.startsWith('border-width-')) return declared.startsWith('var(') ? 'border semantic' : 'border primitive';
+  if (n.startsWith('accent-rule-')) return 'accent rule';
+  if (n.startsWith('radius-')) return 'radius';
+  if (n.startsWith('shadow-')) return 'shadow';
+  if (n.startsWith('duration-')) return 'duration primitive';
+  if (n.startsWith('motion-duration-')) return 'duration semantic';
+  if (n.startsWith('easing-')) return 'easing';
+  if (n.startsWith('form-height-')) return 'form height';
+  if (n.startsWith('logo-')) return 'logo';
   return 'other';
 }
 
@@ -97,6 +143,42 @@ const css = `
   .tk__leading { display: inline-block; width: 14rem; }
   .tk__specimen { white-space: nowrap; }
   .tk__note { color: var(--uiowa-color-neutral-500); }
+  /* Space and layout: a form height's box. The row's token sets its height, inline. */
+  .tk__box { display: inline-block; width: 3rem; background: var(--uiowa-color-brand-gold); vertical-align: middle; }
+  /* Borders and shapes: a border width's line. The row's token sets border-top-width, inline. */
+  .tk__line {
+    display: block; width: 8rem;
+    border-top-style: solid; border-top-color: var(--uiowa-color-brand-black);
+  }
+  /* An accent bar, at the headline underline's 75px length. The row's token sets its height. */
+  .tk__accent { display: block; width: 75px; background: var(--uiowa-color-brand-gold); }
+  /* A radius's corner. The row's token sets border-radius; the box is wider than it is
+     tall, so radius-full reads as a pill. */
+  .tk__corner {
+    display: inline-block; width: 6rem; height: 2rem;
+    background: var(--uiowa-color-neutral-100);
+    border: var(--uiowa-border-width-default) solid var(--uiowa-color-border-default);
+  }
+  /* A shadow's card: white, with a margin so the shadow has room to show. The row's
+     token sets box-shadow. */
+  .tk__card {
+    display: inline-block; width: 6rem; height: 3rem; margin: var(--uiowa-space-100);
+    background: var(--uiowa-color-background-white);
+  }
+  /* Motion: the track a dot crosses. */
+  .tk__track {
+    display: block; position: relative; width: 12rem; height: 1rem;
+    background: var(--uiowa-color-neutral-100);
+  }
+  /* The dot. The row's token sets its duration, inline, and on the easing table its curve
+     too; standard easing is the default. Reduce motion stops it, through uids-core.scss. */
+  .tk__dot {
+    position: absolute; top: 0; left: 0; width: 1rem; height: 1rem;
+    border-radius: var(--uiowa-radius-full); background: var(--uiowa-color-brand-black);
+    transition-property: transform; transition-timing-function: var(--uiowa-easing-standard);
+  }
+  /* Pointing at the track plays the dot to the far end: the 12rem track less the 1rem dot. */
+  .tk__track:hover .tk__dot { transform: translateX(11rem); }
 `;
 
 export default {
@@ -119,24 +201,24 @@ export const Colors = {
         <h1>Color tokens</h1>
         <p>Each swatch is painted by the token beside it.</p>
 
-        <template v-for="g in ['color primitive', 'color role']" :key="g">
-          <h2>{{ g === 'color primitive' ? 'Primitives' : 'Roles' }}</h2>
-          <p v-if="g === 'color role'" class="tk__note">
-            A role points at a primitive. Style from a role wherever one exists.
+        <template v-for="g in ['color primitive', 'color semantic']" :key="g">
+          <h2>{{ g === 'color primitive' ? 'Primitives' : 'Semantic' }}</h2>
+          <p v-if="g === 'color semantic'" class="tk__note">
+            A semantic token points at a primitive. Use a semantic token wherever one exists.
           </p>
           <table>
             <thead>
               <tr>
                 <th>Token</th>
-                <th v-if="g === 'color role'">Primitive</th>
-                <th>{{ g === 'color role' ? 'Resolves to' : 'Value' }}</th>
+                <th v-if="g === 'color semantic'">Primitive</th>
+                <th>{{ g === 'color semantic' ? 'Resolves to' : 'Value' }}</th>
                 <th>Swatch</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="t in tokens.filter(t => t.group === g)" :key="t.name">
                 <td><code>{{ t.name }}</code></td>
-                <td v-if="g === 'color role'"><code class="tk__note">{{ primitiveOf(t.declared) }}</code></td>
+                <td v-if="g === 'color semantic'"><code class="tk__note">{{ primitiveOf(t.declared) }}</code></td>
                 <td><code>{{ t.value }}</code></td>
                 <td><span class="tk__swatch" :style="{ background: 'var(' + t.name + ')' }"></span></td>
               </tr>
@@ -196,10 +278,10 @@ export const Typography = {
           </tbody>
         </table>
 
-        <h2>Roles</h2>
-        <p class="tk__note">A role sets its channels together. Style from one wherever one exists.</p>
+        <h2>Semantic</h2>
+        <p class="tk__note">Each style sets its channels together. Use a style wherever one exists.</p>
         <table>
-          <thead><tr><th>Role</th><th>Channels</th><th>Specimen</th></tr></thead>
+          <thead><tr><th>Style</th><th>Channels</th><th>Specimen</th></tr></thead>
           <tbody>
             <tr v-for="s in styles" :key="s.base">
               <td><code>{{ s.base.replace('--uiowa-typography-', '') }}</code></td>
@@ -234,7 +316,7 @@ export const SpaceAndLayout = {
   name: 'Space and layout',
   render: () => ({
     setup() {
-      return { tokens: useTokens(), css };
+      return { tokens: useTokens(), primitiveOf, breakpoints: BREAKPOINTS, css };
     },
     template: `
       <div class="tk">
@@ -268,6 +350,65 @@ export const SpaceAndLayout = {
           </tbody>
         </table>
 
+        <h2>Form heights</h2>
+        <p class="tk__note">
+          Each points at a step of the space scale. Buttons use the same steps directly, so a
+          button lines up with the field beside it. Each box is as tall as the token beside it.
+        </p>
+        <table>
+          <thead><tr><th>Token</th><th>Space step</th><th>Resolves to</th><th>Height</th></tr></thead>
+          <tbody>
+            <tr v-for="t in tokens.filter(t => t.group === 'form height')" :key="t.name">
+              <td><code>{{ t.name }}</code></td>
+              <td><code class="tk__note">{{ primitiveOf(t.declared) }}</code></td>
+              <td><code>{{ t.value }}</code></td>
+              <td><span class="tk__box" :style="{ height: 'var(' + t.name + ')' }"></span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Logo minimum</h2>
+        <p class="tk__note">The narrowest the logo may appear on screen. The bar is that wide.</p>
+        <table>
+          <thead><tr><th>Token</th><th>Value</th><th>Width</th></tr></thead>
+          <tbody>
+            <tr v-for="t in tokens.filter(t => t.group === 'logo')" :key="t.name">
+              <td><code>{{ t.name }}</code></td>
+              <td><code>{{ t.value }}</code></td>
+              <td><span class="tk__bar" :style="{ width: 'var(' + t.name + ')' }"></span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Breakpoints</h2>
+        <p class="tk__note">
+          A media query can't read a custom property, so breakpoints have none, and these
+          tables read the token files. The build writes the values to Sass in rem, in
+          <code>src/scss/abstracts/_breakpoints-generated.scss</code>, and the
+          <code>$break-*</code> variables in <code>_variables.scss</code> read from there.
+        </p>
+        <template v-for="g in ['primitive', 'semantic']" :key="g">
+          <h3>{{ g === 'primitive' ? 'Primitives' : 'Semantic' }}</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Token</th>
+                <th v-if="g === 'semantic'">Primitive</th>
+                <th>{{ g === 'semantic' ? 'Resolves to' : 'Value' }}</th>
+                <th>In Sass</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="b in breakpoints.filter(b => b.tier === g)" :key="b.name">
+                <td><code>{{ b.name }}</code></td>
+                <td v-if="g === 'semantic'"><code class="tk__note">{{ b.primitive }}</code></td>
+                <td><code>{{ b.px }}</code></td>
+                <td><code>{{ b.rem }}</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </template>
+
         <h2>Unclassified</h2>
         <p class="tk__note">
           Legacy aliases from <code>uids-core.scss</code> land here. A new token group
@@ -283,6 +424,181 @@ export const SpaceAndLayout = {
           </tbody>
         </table>
         <p v-else class="tk__note">None.</p>
+      </div>
+    `,
+  }),
+};
+
+export const BordersAndShapes = {
+  name: 'Borders and shapes',
+  render: () => ({
+    setup() {
+      return { tokens: useTokens(), primitiveOf, css };
+    },
+    template: `
+      <div class="tk">
+        <component is="style">{{ css }}</component>
+        <h1>Border and shape tokens</h1>
+        <p>Each specimen is drawn by the token beside it.</p>
+
+        <h2>Border widths</h2>
+        <template v-for="g in ['border primitive', 'border semantic']" :key="g">
+          <h3>{{ g === 'border primitive' ? 'Primitives' : 'Semantic' }}</h3>
+          <p v-if="g === 'border semantic'" class="tk__note">
+            A semantic token points at a primitive. Use a semantic token wherever one exists.
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th>Token</th>
+                <th v-if="g === 'border semantic'">Primitive</th>
+                <th>{{ g === 'border semantic' ? 'Resolves to' : 'Value' }}</th>
+                <th>Line</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="t in tokens.filter(t => t.group === g)" :key="t.name">
+                <td><code>{{ t.name }}</code></td>
+                <td v-if="g === 'border semantic'"><code class="tk__note">{{ primitiveOf(t.declared) }}</code></td>
+                <td><code>{{ t.value }}</code></td>
+                <td><span class="tk__line" :style="{ borderTopWidth: 'var(' + t.name + ')' }"></span></td>
+              </tr>
+            </tbody>
+          </table>
+        </template>
+
+        <h2>Accent bars</h2>
+        <p class="tk__note">
+          Accent bars are drawn with a pseudo-element's height, or its width for a side rule,
+          not with a border.
+        </p>
+        <table>
+          <thead><tr><th>Token</th><th>Value</th><th>Bar</th></tr></thead>
+          <tbody>
+            <tr v-for="t in tokens.filter(t => t.group === 'accent rule')" :key="t.name">
+              <td><code>{{ t.name }}</code></td>
+              <td><code>{{ t.value }}</code></td>
+              <td><span class="tk__accent" :style="{ height: 'var(' + t.name + ')' }"></span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Radius</h2>
+        <table>
+          <thead><tr><th>Token</th><th>Value</th><th>Corner</th></tr></thead>
+          <tbody>
+            <tr v-for="t in tokens.filter(t => t.group === 'radius')" :key="t.name">
+              <td><code>{{ t.name }}</code></td>
+              <td><code>{{ t.value }}</code></td>
+              <td><span class="tk__corner" :style="{ borderRadius: 'var(' + t.name + ')' }"></span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    `,
+  }),
+};
+
+export const Shadows = {
+  render: () => ({
+    setup() {
+      return { tokens: useTokens(), colorOf, css };
+    },
+    template: `
+      <div class="tk">
+        <component is="style">{{ css }}</component>
+        <h1>Shadow tokens</h1>
+        <p>Each card is shadowed by the token beside it.</p>
+        <p class="tk__note">
+          Shadows are semantic tokens, named by use. Each takes its color from an alpha
+          primitive on the Colors page.
+        </p>
+        <table>
+          <thead><tr><th>Token</th><th>Color</th><th>Resolves to</th><th>Shadow</th></tr></thead>
+          <tbody>
+            <tr v-for="t in tokens.filter(t => t.group === 'shadow')" :key="t.name">
+              <td><code>{{ t.name }}</code></td>
+              <td><code class="tk__note">{{ colorOf(t.declared) }}</code></td>
+              <td><code>{{ t.value }}</code></td>
+              <td><span class="tk__card" :style="{ boxShadow: 'var(' + t.name + ')' }"></span></td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="tk__note">
+          Text shadows aren't tokens. The banner's takes its color from the banner's overlay,
+          black or white, which a fixed token can't follow.
+        </p>
+      </div>
+    `,
+  }),
+};
+
+export const Motion = {
+  render: () => ({
+    setup() {
+      return { tokens: useTokens(), primitiveOf, css };
+    },
+    template: `
+      <div class="tk">
+        <component is="style">{{ css }}</component>
+        <h1>Motion tokens</h1>
+        <p>Point at a track to play it. Each dot moves with the token beside it.</p>
+        <p class="tk__note">
+          With Reduce motion turned on, UIDS stops every transition, so the dots jump instead.
+        </p>
+
+        <h2>Durations</h2>
+        <template v-for="g in ['duration primitive', 'duration semantic']" :key="g">
+          <h3>{{ g === 'duration primitive' ? 'Primitives' : 'Semantic' }}</h3>
+          <p v-if="g === 'duration semantic'" class="tk__note">
+            A semantic token points at a primitive. Use a semantic token wherever one exists.
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th>Token</th>
+                <th v-if="g === 'duration semantic'">Primitive</th>
+                <th>{{ g === 'duration semantic' ? 'Resolves to' : 'Value' }}</th>
+                <th>Track</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="t in tokens.filter(t => t.group === g)" :key="t.name">
+                <td><code>{{ t.name }}</code></td>
+                <td v-if="g === 'duration semantic'"><code class="tk__note">{{ primitiveOf(t.declared) }}</code></td>
+                <td><code>{{ t.value }}</code></td>
+                <td>
+                  <span class="tk__track">
+                    <span class="tk__dot" :style="{ transitionDuration: 'var(' + t.name + ')' }"></span>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </template>
+
+        <h2>Easing</h2>
+        <p class="tk__note">Each curve plays at the slow speed, so its shape is easy to see.</p>
+        <table>
+          <thead><tr><th>Token</th><th>Value</th><th>Track</th></tr></thead>
+          <tbody>
+            <tr v-for="t in tokens.filter(t => t.group === 'easing')" :key="t.name">
+              <td><code>{{ t.name }}</code></td>
+              <td><code>{{ t.value }}</code></td>
+              <td>
+                <span class="tk__track">
+                  <span
+                    class="tk__dot"
+                    :style="{
+                      transitionDuration: 'var(--uiowa-motion-duration-slow)',
+                      transitionTimingFunction: 'var(' + t.name + ')',
+                    }"
+                  ></span>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     `,
   }),

@@ -4,16 +4,29 @@
 // === Blockquote === //
 
 blockquote {
+  // The side rule is a pseudo-element bar, not a border. Its color and the space
+  // it takes are custom properties, so variants change one value instead of redrawing it.
+  --blockquote-rule-color: #{variables.$primary};
+  --blockquote-rule-space: var(--uiowa-accent-rule-8);
+  position: relative;
   font-weight: variables.$font-weight-normal;
   font-style: normal;
   font-family: variables.$font-family-serif;
-  border-left-style: solid;
-  border-width: 10px;
-  border-color: variables.$primary;
   padding: variables.$lg;
   font-size: 1.5rem;
   line-height: 1.7;
   @include utilities.padding($top: variables.$xsm, $bottom: variables.$xsm, $left: variables.$lg);
+  padding-left: calc(#{variables.$lg} + var(--blockquote-rule-space));
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: var(--uiowa-accent-rule-8);
+    background: var(--blockquote-rule-color);
+  }
 
   cite {
     display: block;
@@ -34,21 +47,13 @@ blockquote {
   [class*="bg--"] [class*="bg--gray"] &,
   [class*="bg--white"] &,
   [class*="bg--"] [class*="bg--white"] &, {
-    border-color: variables.$primary;
-
-    &::before {
-      background: variables.$primary;
-    }
+    --blockquote-rule-color: #{variables.$primary};
   }
 
 
   [class*="bg--gold"] &,
   [class*="bg--"] [class*="bg--gold"] & {
-    border-color: var(--uiowa-color-neutral-0);
-
-    &::before {
-      background: var(--uiowa-color-background-white);
-    }
+    --blockquote-rule-color: var(--uiowa-color-neutral-0);
   }
 
   p {
@@ -84,23 +89,21 @@ blockquote {
     }
 
     text-align: center;
-    border: none;
-    position: relative;
 
     @include utilities.padding($top: variables.$xlg, $bottom: variables.$xsm, $left: variables.$xsm, $right: variables.$xsm);
 
     &::before {
       position: absolute;
       content: '';
-      height: 10px;
+      height: var(--uiowa-accent-rule-8);
       top: 11px;
+      bottom: auto;
       margin: 0 auto;
       left: 0;
       right: 0;
       width: 130px;
       background: variables.$primary;
-      -webkit-transition: 0.5s;
-      transition: 0.5s;
+      transition: var(--uiowa-motion-duration-slow) var(--uiowa-easing-standard);
 
       .bg--gold--pattern--brain &,
       .bg-pattern--brain-reversed &,
@@ -113,9 +116,12 @@ blockquote {
   &.blockquote--right,
   .blockquote-right & {
     text-align: end;
-    border-left: none;
-    border-right-style: solid;
-    padding: variables.$xsm variables.$lg;
+    padding: variables.$xsm calc(#{variables.$lg} + var(--blockquote-rule-space)) variables.$xsm variables.$lg;
+
+    &::before {
+      right: 0;
+      left: auto;
+    }
   }
   // Shared styles for above and below options.
   &.blockquote--img-above,
@@ -165,14 +171,13 @@ blockquote {
       &::after {
         position: absolute;
         content: '';
-        height: 10px;
+        height: var(--uiowa-accent-rule-8);
         bottom: 0;
         left: 0;
         right: 0;
         width: 130px;
         background: variables.$primary;
-        -webkit-transition: 0.5s;
-        transition: 0.5s;
+        transition: var(--uiowa-motion-duration-slow) var(--uiowa-easing-standard);
 
         .bg--black--pattern--brain &,
         .bg--white--pattern--brain &,
@@ -193,13 +198,17 @@ blockquote {
     }
 
     &.blockquote:not(.blockquote--center) {
-      border: none;
+      --blockquote-rule-space: 0px;
       margin-right: 0;
       margin-left: 0;
       padding: variables.$md 0;
       display: flex;
       align-items: flex-start;
       flex-wrap: wrap;
+
+      &::before {
+        content: none;
+      }
     }
 
     &.blockquote--right {
@@ -226,8 +235,7 @@ blockquote {
         right: 0;
         width: 0;
         background: none;
-        -webkit-transition: 0.5s;
-        transition: 0.5s;
+        transition: var(--uiowa-motion-duration-slow) var(--uiowa-easing-standard);
         display: none;
       }
 
@@ -285,7 +293,7 @@ blockquote {
   }
 
   &.blockquote--remove-stylization {
-    border-width: 0;
+    --blockquote-rule-space: 0px;
 
     &.blockquote--img-above {
       .blockquote__paragraph {
@@ -294,7 +302,7 @@ blockquote {
     }
 
     &::before {
-      height: 0;
+      content: none;
     }
 
     .blockquote__paragraph {

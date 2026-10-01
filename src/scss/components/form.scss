@@ -11,12 +11,12 @@
   --form-input-bg-disabled: #e1e1e1;
   --form-input-fg-disabled: #484741;
   --form-details-bg: var(--uiowa-color-background-gray);
-  --form-input-radius: 3px;
+  --form-input-radius: var(--uiowa-radius-3);
   --form-label-font-size: 1rem;
   --form-label-color: #{variables.$secondary};
   --form-text-color: #{variables.$secondary};
   --form-input-padding: 0.5rem;
-  --form-input-height: 2.9rem;
+  --form-input-height: var(--uiowa-form-height-medium);
   --form-input-font-size: 1rem;
   --form-button-font-size: 1.05rem;
   --form-item-margin: 1rem;
@@ -30,7 +30,7 @@
     background-color: var(--form-input-bg);
     border: none;
     border-radius: var(--form-input-radius);
-    box-shadow: inset 0 1px 3px rgba(10, 10, 10, 0.15);
+    box-shadow: var(--uiowa-shadow-inset);
     box-sizing: border-box;
     color: var(--uiowa-color-brand-black);
     display: block;
@@ -40,17 +40,17 @@
     height: var(--form-input-height);
     line-height: 1.5;
     margin: 0;
-    outline: 1px solid var(--form-input-outline-color);
+    outline: var(--uiowa-border-width-default) solid var(--form-input-outline-color);
     padding: var(--form-input-padding);
-    transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
+    transition: box-shadow var(--uiowa-motion-duration-fast) var(--uiowa-easing-standard), border-color var(--uiowa-motion-duration-fast) var(--uiowa-easing-standard);
     width: 100%;
 
     &:focus {
       --form-input-bg: #fefefe;
       --form-input-outline-color: #8a8a8a;
       box-shadow: 0 0 5px 2px variables.$gray-light;
-      outline-width: 2px;
-      transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
+      outline-width: var(--uiowa-border-width-focused);
+      transition: box-shadow var(--uiowa-motion-duration-fast) var(--uiowa-easing-standard), border-color var(--uiowa-motion-duration-fast) var(--uiowa-easing-standard);
     }
 
     // Error styles.
@@ -187,7 +187,7 @@
     margin-bottom: .625rem;
 
     &:focus {
-      outline: 2px solid var(--form-input-outline-color);
+      outline: var(--uiowa-border-width-focused) solid var(--form-input-outline-color);
       outline-offset: 2px;
     }
   }
@@ -208,7 +208,7 @@
   }
 
   select[multiple] {
-    border: 1px solid variables.$gray;
+    border: var(--uiowa-border-width-default) solid variables.$gray;
     cursor: pointer;
     line-height: 1.1;
     background-color: var(--uiowa-color-background-white);
@@ -221,7 +221,7 @@
     }
 
     &:not(:disabled) option {
-      transition: 120ms all ease-in;
+      transition: all var(--uiowa-motion-duration-fast) var(--uiowa-easing-standard);
 
       &:checked {
         padding-left: 0.5em;
@@ -274,18 +274,18 @@
 
   // Focus state for checkboxes/radios/toggles
   input:focus {
-    outline: 2px solid var(--form-input-outline-color);
+    outline: var(--uiowa-border-width-focused) solid var(--form-input-outline-color);
     outline-offset: 2px;
   }
 
   input:focus-visible {
-    outline: 2px solid variables.$secondary;
+    outline: var(--uiowa-border-width-focused) solid variables.$secondary;
     outline-offset: 2px;
   }
 
   // Error state for checkboxes/radios/toggles (class applied to input)
   input.form--error {
-    outline: 2px solid variables.$danger;
+    outline: var(--uiowa-border-width-2) solid variables.$danger;
     outline-offset: 2px;
   }
 }
@@ -328,15 +328,17 @@
     height: 32px;
     display: inline-block;
     position: relative;
-    border-radius: 50px;
+    border-radius: var(--uiowa-radius-full);
     overflow: hidden;
     outline: none;
     border: none;
     cursor: pointer;
     background-color: variables.$gray-light;
-    transition: background-color ease 0.3s;
+    transition: background-color var(--uiowa-motion-duration-medium) var(--uiowa-easing-standard);
     margin-top: 0;
 
+    // Focus is drawn differently here: a 1px outline and a lighter track, not the
+    // 2px ring (border.width.focused) the other controls use. Kept at 1px on 2026-09-28.
     &:focus-visible {
       background: variables.$light;
       outline: 1px solid variables.$secondary;
@@ -344,7 +346,7 @@
 
     &.form--error {
       background-color: variables.$danger-light;
-      outline: 2px solid variables.$danger;
+      outline: var(--uiowa-border-width-2) solid variables.$danger;
     }
   }
 
@@ -366,8 +368,8 @@
     word-spacing: 37px;
     color: variables.$secondary;
     white-space: nowrap;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    transition: all cubic-bezier(0.3, 1.5, 0.7, 1) 0.3s;
+    box-shadow: var(--uiowa-shadow-raised);
+    transition: all var(--uiowa-motion-duration-medium) var(--uiowa-easing-overshoot);
   }
 
   input:checked {
@@ -389,7 +391,7 @@
 }
 
 .form--large {
-  --form-input-height: 3.5rem;
+  --form-input-height: var(--uiowa-form-height-large);
   --form-input-font-size: 1.2rem;
   --form-label-font-size: 1.1rem;
   --form-button-font-size: 1.25rem;
@@ -456,7 +458,7 @@
     color: var(--form-text-color);
     font-size: 1rem;
     font-weight: 600;
-    border-block-end: 1px solid var(--form-section-border-color);
+    border-block-end: var(--uiowa-border-width-default) solid var(--form-section-border-color);
 
     @include utilities.container-query() {
       display: flex;
@@ -465,7 +467,7 @@
       align-self: stretch;
       align-items: center;
       justify-content: center;
-      border-inline-end: 1px solid var(--form-section-border-color);
+      border-inline-end: var(--uiowa-border-width-default) solid var(--form-section-border-color);
       margin-inline-end: var(--uiowa-space-125);
       margin-block: 0;
       border-block-end: none;
