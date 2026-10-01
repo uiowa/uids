@@ -61,7 +61,7 @@ the table.
   Replacing `.bold-headline` with `.headline` uses the standard CTA headline styles.
 - The unused `.bold-headline--caps .headline__headline span` selector is removed.
 
-## [5.0.0-alpha.0]
+## [5.0.0-alpha.0](https://github.com/uiowa/uids/releases/tag/v5.0.0-alpha.0)
 
 First release of the 5.x line. 5.x starts as a copy of 4.x, so every value below is
 stated against 4.0.1. The major version reflects rendered changes to spacing, heading
@@ -228,5 +228,3 @@ pattern variants such as `.bg--black--pattern--brain`. No class was added or rem
 - `main`, `module`, and the `.` export. All three pointed at `dist/uids.es.js` and
   `dist/uids.umd.js`, which no script has ever built, so `import 'uids'` failed to
   resolve. It now fails with `ERR_PACKAGE_PATH_NOT_EXPORTED` instead of a missing file.
-
-[5.0.0-alpha.0]: https://github.com/uiowa/uids/releases/tag/v5.0.0-alpha.0
