@@ -12,13 +12,20 @@ also carries its date.
 
 ## [5.0.0-alpha.1]
 
+### Changed
+
+- Form buttons use `.bttn--small` and `.bttn--full` in place of `.button--small` and
+  `.button--full-width`. Inside `.form`, they keep `font-size: 1.05rem` and `width: 100%`,
+  respectively. With the button stylesheet loaded, replacing `.bttn.button--small` with
+  `.bttn.bttn--small` also changes horizontal padding from `2rem` to `1rem`.
+- Component documentation now describes Vue 3 and Storybook in place of Fractal and Twig.
+
 ### Removed
 
-#### Legacy class aliases
+#### Legacy class names
 
-The legacy names below are removed. Update markup, stored content, and config to use
-the replacements. Most replacements preserve the styles; the migration notes below
-describe changes to class placement and form-button spacing.
+Replace the removed classes with the names below. Exceptions to a direct rename follow
+the table.
 
 | Removed | Replacement |
 | --- | --- |
@@ -33,7 +40,7 @@ describe changes to class placement and form-button spacing.
 | `.uids-component--circle-list` | `.element--circle-list` |
 | `.uids-component--bold-intro` | `.element--bold-intro` |
 | `.uids-component--light-intro` | `.element--light-intro` |
-| `.uids-component--gray` (as an ancestor selector in `.element--circle-list`) | `.bg--gray` |
+| `.uids-component--gray` ancestor of `.element--circle-list` | `.bg--gray` |
 | `.visually-hidden` | `.element-invisible` |
 | `.flex--center` | `.element--flex-center` |
 | `.flex--left` | `.element--flex-left` |
@@ -45,55 +52,14 @@ describe changes to class placement and form-button spacing.
 | `.bg-pattern--brain-black` | `.bg--black--pattern--brain` |
 | `.bg-pattern--brain-reversed` | `.bg--gold--pattern--brain` |
 
-`.blockquote-center` and `.blockquote-right` were ancestor selectors (`.blockquote-center &`),
-applied to a wrapper around the blockquote. `.blockquote--center` and `.blockquote--right`
-go on the blockquote element itself, so a consumer moves the class rather than renaming it.
-
-Only `.bold-headline--caps` changes its modifier name; every other `.bold-headline*`
-class changes only its prefix. `.bold-headline--caps .headline__headline span` went with
-it. `.headline__headline` was a misspelling of `.headline__heading` and was never
-emitted by a component.
-
-`.button--small` and `.button--full-width` were form-only modifiers, applied to native
-form buttons inside `.form`, not aliases of the `.bttn--*` classes. They are unified
-with the button component's names. Inside `.form`, `.bttn--small` sets
-`font-size: 1.05rem` and `.bttn--full` sets `width: 100%`, the rules the old names
-carried. Form buttons keep their fixed height, zero block padding, and `inline-flex`
-display because the `.form` rules override those properties. When the button stylesheet
-is loaded, `.bttn--small` also sets horizontal padding to `1rem`. For a button with
-`.bttn.button--small`, renaming the modifier changes horizontal padding from `2rem`
-to `1rem`. A button using `.button--small` or `.button--full-width` needs the new name,
-or it loses that rule.
-A site stylesheet that defines its own copy of the old rules, as SiteNow's `uids_base`
-does in `forms.scss`, needs its selectors renamed too.
-
-`cta_uids3.scss` and `dist/components/cta_uids3.css` are retained. They style the
-`.cta__wrapper` markup, which SiteNow's `cta.html.twig` still emits, and SiteNow's
-`uids_base` compiles the file into its own stylesheet. The `.bold-headline` selectors
-inside it are removed: `.headline` keeps its CTA sizing and color, and the two
-`.cta__wrapper.element--left .bold-headline` rules, which had no `.headline` counterpart,
-are gone. A CTA headline still using `.bold-headline` loses that sizing with the rest of
-its styles, so move it to `.headline`.
-
-`.bg-pattern--brain`, `-brain-black`, and `-reversed` were never standalone classes in
-5.x. They appeared only as ancestor selectors inside other rules, and no rule gave them a
-background image, so markup that still uses them renders without the pattern. The
-`bg--white--pattern--brain`, `bg--black--pattern--brain`, and `bg--gold--pattern--brain`
-classes apply the brain pattern images (`brain-pattern.svg`, `brain-pattern-black.svg`,
-and `brain-pattern-reversed.svg`). Every rule that named an old `bg-pattern--brain*` class
-as an ancestor already had a `bg--*` counterpart. Markup that carries only an old class
-and no `bg--*` class, such as the viewbook's `App.vue` and `Banner.vue`, loses those
-descendant colors, so move it to the matching `bg--*--pattern--brain` class.
-
-Downstream systems, as of the audit of the `main` branch of each:
-
-| Consumer | Uses | Action |
-| --- | --- | --- |
-| SiteNow | `.block-padding__*` and `.block-margin__*` in site modules and `uiowa_core`; `.bold-headline` in `uids_base` and the `layout_builder_styles.style.block_heading_bold_headline` config; `.uids-component--light-intro` and `--circle-list` in `uids_base`, `sitenow_p2lb`, and the `filter.format.full_html` config; `.bg-pattern--brain-*` in `uids_base`; `.visually-hidden` in 23 files across custom code and config; `.button--small` and `.button--full-width` on form buttons in `sitenow_signage` and `registrar_core`; `.blockquote-center` and `.blockquote-right` as the options in `sitenow_blockquote.module`, styled in `uids_base` `blockquote.scss` and `print.scss` | Replace in code and config, and migrate stored Layout Builder styles and `full_html` content. Stored content was not audited. |
-| Admissions viewbook | `.bold-headline`, `--serif`, `--underline`, and `--caps` in `App.vue`; `.bg-pattern--brain-black` in `Banner.vue` and `.bg-pattern--brain-reversed` in `App.vue` | Replace when it moves off UIDS 3.1.7. It is unaffected until then. |
-| Law viewbook | `.bg-pattern--brain-black` in `Banner.vue` | Replace with `.bg--black--pattern--brain` when it moves off UIDS 3.1.8. It is unaffected until then. |
-| Icon Browser | `.visually-hidden` in `App.vue` | Replace with `.element-invisible`. |
-| AIS Component Library, Claude Design | not audited | Apply the tables above. |
+- Move `.blockquote-center` and `.blockquote-right` from the wrapper to the blockquote
+  element, using `.blockquote--center` and `.blockquote--right`.
+- Replace `.bg-pattern--brain*` ancestors with the matching `.bg--*--pattern--brain`
+  classes. The replacements apply the background images as well as descendant colors.
+  The removed selectors only applied descendant styles.
+- `.cta__wrapper.element--left .bold-headline` sizing and margin overrides are removed.
+  Replacing `.bold-headline` with `.headline` uses the standard CTA headline styles.
+- The unused `.bold-headline--caps .headline__headline span` selector is removed.
 
 ## [5.0.0-alpha.0]
 
