@@ -10,7 +10,109 @@ design system built from UIDS can be realigned from this file alone.
 One `##` heading per release, newest first, carrying its version. A released heading
 also carries its date.
 
-## [5.0.0-alpha.0]
+## [Unreleased]
+
+Adds 51 tokens and moves links, info, and the accent colors to new values. Every value
+below is stated against 5.0.0-alpha.0.
+
+### Added
+
+#### Design tokens
+
+| Group | Tokens |
+| --- | --- |
+| Border widths | `border.width.1`, `border.width.2`; `border.width.default` (1px) and `border.width.focused` (2px) |
+| Accent rules | `accent-rule.4`, `.5`, `.6`, `.8` |
+| Radius | `radius.3`, `radius.full` |
+| Shadows | `shadow.inset` (form fields), `shadow.raised` (the toggle knob) |
+| Motion | `duration.150`, `.250`, `.400`; `motion.duration.fast`, `medium`, `slow`; `easing.standard`, `enter`, `overshoot` |
+| Breakpoints | `breakpoint.400`, `.600`, `.768`, `.930`, `.980`, `.1200`, `.1350`; `layout.breakpoint.standard` (1350) |
+| Form heights | `form.height.medium` (48px), `form.height.large` (64px) |
+| Colors | `color.border.strong`, `color.border.strong-inverse`; `color.alpha.black-200`, `black-425`, `near-black-150`, `white-425`; `color.accent.blue` |
+| Data visualization | `color.data.1` to `color.data.12` |
+| Logo | `logo.minWidth` (85px) |
+
+Breakpoints have no custom properties, because a media query can't read one. The build
+writes them to Sass, in rem.
+
+- Storybook Tokens pages for Borders and shapes, Shadows, and Motion. Space and layout
+  gains form heights, the logo minimum, and the breakpoints.
+
+### Changed
+
+#### Links
+
+| Surface | Was | Now |
+| --- | --- | --- |
+| White and gray | `#00558C` | `#2C6ECA` |
+| Black | `#FFCD00` (gold) | `#588DD6` |
+
+Links on gold stay black. Footer links and table caption links stay gold: they set gold
+directly rather than through `--uiowa-color-link`.
+
+`--uiowa-color-blue-dark` changes to `#2C6ECA`, and `--uiowa-color-link-inverse` now
+points at `--uiowa-color-blue`.
+
+#### Status colors
+
+| Role | Was | Now |
+| --- | --- | --- |
+| Info | `#3375D1` | `#2C6ECA` |
+
+Info now points at `--uiowa-color-blue-dark`, the same blue as links on light surfaces.
+Affects `.badge--blue` and the `.alert--info` icon.
+
+#### Accent colors
+
+No component uses an accent color yet.
+
+| Token | Was | Now |
+| --- | --- | --- |
+| `--uiowa-color-blue` | `#3375D1` | `#588DD6` |
+| `--uiowa-color-orange` | `#CC6D17` | `#E16822` |
+| `--uiowa-color-magenta` | `#AA4981` | `#CE68AC` |
+| `--uiowa-color-ochre` | `#C08C00` | `#B98100` |
+
+`--uiowa-color-teal` is unchanged. `--uiowa-color-accent-blue` is new.
+
+#### Sizes
+
+| Element | Was | Now |
+| --- | --- | --- |
+| Form field | 46.4px | 48px |
+| Large form field | 56px | 64px |
+| Default button | 65.2px | 64px |
+| Small button | 47.9px | 48px |
+| Lowercase button | 59.6px | 64px |
+
+Large, light-font, and circle buttons are unchanged.
+
+#### Borders and corners
+
+| Element | Was | Now |
+| --- | --- | --- |
+| Circle button focus ring | 3px | 2px |
+| Blockquote rule | 10px | 8px |
+| Alert corners | 2px | 3px |
+
+#### Motion
+
+Transitions use the motion tokens. The largest changes are the tab background, 800ms to
+400ms, and the form field shadow, 500ms to 150ms. The rest move by 150ms or less.
+
+#### Breakpoints
+
+Sass breakpoints are written from the breakpoint tokens, in rem. Nothing moves at the
+default text size. Five breakpoints were in px and now move with the reader's browser
+text size while the text does not, because `:root` is fixed at 16px. The two that were
+in em behave as before.
+
+### Fixed
+
+- Horizontal stats on a gold background, 980 to 1350px wide: the rule above the content
+  was gold on gold. It now shows in black.
+
+## [5.0.0-alpha.0] - 2026-09-25
 
 First release of the 5.x line. 5.x starts as a copy of 4.x, so every value below is
 stated against 4.0.1. The major version reflects rendered changes to spacing, heading
