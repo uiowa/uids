@@ -22,6 +22,10 @@ also carries its date.
 
 ### Removed
 
+- `.grid--3-2 .stat__description`, an unused stat-layout override. Default stat
+  descriptions inside `.grid--3-2` now use `width: 85%` instead of `60%` at the
+  medium breakpoint and above.
+
 #### Legacy class names
 
 Replace the removed classes with the names below. Exceptions to a direct rename follow
