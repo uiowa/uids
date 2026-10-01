@@ -10,7 +10,7 @@ design system built from UIDS can be realigned from this file alone.
 One `##` heading per release, newest first, carrying its version. A released heading
 also carries its date.
 
-## [5.0.0-alpha.1]
+## [5.0.0-alpha.1](https://github.com/uiowa/uids/compare/v5.0.0-alpha.0...v5.0.0-alpha.1)
 
 ### Changed
 
@@ -229,5 +229,4 @@ pattern variants such as `.bg--black--pattern--brain`. No class was added or rem
   `dist/uids.umd.js`, which no script has ever built, so `import 'uids'` failed to
   resolve. It now fails with `ERR_PACKAGE_PATH_NOT_EXPORTED` instead of a missing file.
 
-[5.0.0-alpha.1]: https://github.com/uiowa/uids/compare/v5.0.0-alpha.0...v5.0.0-alpha.1
 [5.0.0-alpha.0]: https://github.com/uiowa/uids/releases/tag/v5.0.0-alpha.0
