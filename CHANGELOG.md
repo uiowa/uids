@@ -22,6 +22,12 @@ also carries its date.
 
 ### Removed
 
+- `.mobile-hidden`, an unused utility that hid elements at viewport widths up to
+  `768px`. No replacement class.
+- `.mobile-display`, an unused utility that hid elements at viewport widths of
+  `768px` and above. No replacement class.
+- `.element--padding__all--sm`, an unused utility that applied
+  `padding: var(--uiowa-space-125)` (`1.25rem`). No replacement class.
 - `.grid--3-2 .stat__description`, an unused stat-layout override. Default stat
   descriptions inside `.grid--3-2` now use `width: 85%` instead of `60%` at the
   medium breakpoint and above.
