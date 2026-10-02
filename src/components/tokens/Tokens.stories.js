@@ -2,6 +2,8 @@ import { computed, ref, onMounted } from 'vue';
 import breakpointTokens from '../../tokens/primitives/breakpoints.json';
 import layoutTokens from '../../tokens/semantic/layout.json';
 
+const TOKEN_FILES = import.meta.glob('../../tokens/**/*.json', { eager: true, import: 'default' });
+
 const TYPOGRAPHY_CHANNELS = [
   { name: 'font-family', property: 'fontFamily' },
   { name: 'font-weight', property: 'fontWeight' },
@@ -75,6 +77,133 @@ const BREAKPOINTS = [
     };
   }),
 ];
+
+/**
+ * The tokens this PR adds, by tier and token file: every path in src/tokens/ that 5.x
+ * (dc0efcf697, 5.0.0-alpha.0's tokens) lacks. A story can't diff branches, so the names
+ * are listed here; values, specimens and descriptions are still read live. To regenerate,
+ * compare each file's token paths at that commit and HEAD. Typography adds none.
+ */
+const ADDED = {
+  primitives: {
+    colors: [
+      'color.data.1', 'color.data.2', 'color.data.3', 'color.data.4', 'color.data.5', 'color.data.6',
+      'color.data.7', 'color.data.8', 'color.data.9', 'color.data.10', 'color.data.11', 'color.data.12',
+      'color.alpha.black-200', 'color.alpha.black-425', 'color.alpha.near-black-150', 'color.alpha.white-425',
+    ],
+    border: ['border.width.1', 'border.width.2'],
+    'accent-rule': ['accent-rule.4', 'accent-rule.5', 'accent-rule.6', 'accent-rule.8'],
+    radius: ['radius.3', 'radius.full'],
+    motion: ['duration.150', 'duration.250', 'duration.400', 'easing.standard', 'easing.enter', 'easing.overshoot'],
+    breakpoints: [
+      'breakpoint.400', 'breakpoint.600', 'breakpoint.768', 'breakpoint.930', 'breakpoint.980',
+      'breakpoint.1200', 'breakpoint.1350',
+    ],
+  },
+  semantic: {
+    colors: ['color.accent.blue', 'color.border.strong', 'color.border.strong-inverse'],
+    border: ['border.width.default', 'border.width.focused'],
+    shadow: ['shadow.inset', 'shadow.raised'],
+    motion: ['motion.duration.fast', 'motion.duration.medium', 'motion.duration.slow'],
+    form: ['form.height.medium', 'form.height.large'],
+    logo: ['logo.minWidth'],
+    layout: ['layout.breakpoint.standard'],
+  },
+};
+const ADDED_SECTIONS = {
+  colors: 'Colors',
+  border: 'Border widths',
+  'accent-rule': 'Accent rules',
+  radius: 'Radius',
+  motion: 'Motion',
+  breakpoints: 'Breakpoints',
+  shadow: 'Shadows',
+  form: 'Form heights',
+  logo: 'Logo',
+  layout: 'Breakpoints',
+};
+const ADDED_SECTION_NOTES = {
+  motion: 'Duration is the speed: how long the move takes. Easing is how the speed changes along the way, its expression.',
+};
+/**
+ * Component examples for the Added in this PR page: a story, and the args that bring out
+ * the token. Each was checked on 2026-10-02 by rendering the story with these args and
+ * measuring the token on the element (a CTA on gold draws its button border in
+ * color.border.strong, an underlined h6 draws a 4px bar, and so on). The background is
+ * the component's own background arg: Storybook's backgrounds only paint the canvas,
+ * and these tokens follow the bg-- class a component sets. Tabs (tabs.scss) has no story.
+ */
+const EXAMPLES = {
+  ctaGold: { label: 'CTA on gold', id: 'components-cta--centered', args: 'background:gold' },
+  ctaBlack: { label: 'CTA on black', id: 'components-cta--centered', args: 'background:black' },
+  cardGold: { label: 'Card on gold', id: 'components-card--default', args: 'background:gold' },
+  cardBlack: { label: 'Card on black', id: 'components-card--default', args: 'background:black' },
+  card: { label: 'Card', id: 'components-card--default' },
+  table: { label: 'Table', id: 'components-table--default' },
+  text: { label: 'Text field', id: 'elements-form--text' },
+  textLarge: { label: 'Large text field', id: 'elements-form--text', args: 'large:!true' },
+  textFocus: { label: 'Text field (click into it)', id: 'elements-form--text' },
+  checkboxFocus: { label: 'Checkbox (tab to it)', id: 'elements-form--checkbox' },
+  checkboxError: { label: 'Checkbox with an error', id: 'elements-form--checkbox', args: 'error:!true' },
+  select: { label: 'Select', id: 'elements-form--select' },
+  toggle: { label: 'Toggle', id: 'elements-form--toggle' },
+  badge: { label: 'Badge', id: 'components-badge--default' },
+  alert: { label: 'Info alert', id: 'components-alert--info' },
+  button: { label: 'Button (point at it)', id: 'components-button--primary' },
+  headlineH2: { label: 'Underlined h2', id: 'components-headline--underline', args: 'level:h2' },
+  headlineH5: { label: 'Underlined h5', id: 'components-headline--underline', args: 'level:h5' },
+  headlineH6: { label: 'Underlined h6', id: 'components-headline--underline', args: 'level:h6' },
+  menu: { label: 'Horizontal menu', id: 'components-menu--horizontal-menu' },
+  stat: { label: 'Stat', id: 'components-stat--default' },
+  blockquote: { label: 'Blockquote', id: 'components-blockquote--left' },
+  accordion: { label: 'Accordion', id: 'components-accordion--default' },
+  accordionFocus: { label: 'Accordion (tab to a heading)', id: 'components-accordion--default' },
+  logo: { label: 'Logo', id: 'components-branding-logo--iowa' },
+};
+const ADDED_EXAMPLES = {
+  'color.alpha.black-200': ['toggle'],
+  'color.alpha.black-425': ['ctaGold', 'cardGold'],
+  'color.alpha.near-black-150': ['text'],
+  'color.alpha.white-425': ['ctaBlack', 'cardBlack'],
+  'border.width.1': ['card', 'table'],
+  'border.width.2': ['checkboxError', 'textFocus'],
+  'accent-rule.4': ['button', 'headlineH6'],
+  'accent-rule.5': ['menu', 'headlineH5'],
+  'accent-rule.6': ['headlineH2'],
+  'accent-rule.8': ['stat', 'blockquote'],
+  'radius.3': ['text', 'alert'],
+  'radius.full': ['badge', 'toggle'],
+  'duration.150': ['text', 'select'],
+  'duration.250': ['toggle', 'accordion', 'menu'],
+  'duration.400': ['stat', 'blockquote'],
+  'easing.standard': ['text', 'accordion'],
+  'easing.overshoot': ['toggle', 'stat'],
+  'color.border.strong': ['ctaGold', 'cardGold'],
+  'color.border.strong-inverse': ['ctaBlack', 'cardBlack'],
+  'border.width.default': ['card', 'table'],
+  'border.width.focused': ['textFocus', 'checkboxFocus', 'accordionFocus'],
+  'shadow.inset': ['text'],
+  'shadow.raised': ['toggle'],
+  'motion.duration.fast': ['text', 'select'],
+  'motion.duration.medium': ['toggle', 'accordion', 'menu'],
+  'motion.duration.slow': ['stat', 'blockquote'],
+  'form.height.medium': ['text'],
+  'form.height.large': ['textLarge'],
+  'logo.minWidth': ['logo'],
+};
+// Relative to the preview's iframe.html, so the link works wherever Storybook is served;
+// target="_top" opens it in the Storybook window rather than inside the canvas.
+const exampleLinks = (path) => (ADDED_EXAMPLES[path] || []).map((key) => {
+  const { label, id, args } = EXAMPLES[key];
+  return { label, href: `./?path=/story/${id}${args ? `&args=${args}` : ''}` };
+});
+const ADDED_COUNT = Object.fromEntries(
+  Object.entries(ADDED).map(([tier, files]) => [tier, Object.values(files).flat().length]),
+);
+
+/** A token path's custom property, as the build names it: logo.minWidth is --uiowa-logo-min-width. */
+const cssName = (path) => `--uiowa-${path.split('.').map((part) => part.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()).join('-')}`;
+const tokenAt = (tier, file, path) => path.split('.').reduce((node, key) => node?.[key], TOKEN_FILES[`../../tokens/${tier}/${file}.json`]);
 
 const computedValue = (name) =>
   getComputedStyle(document.documentElement).getPropertyValue(name).trim();
@@ -179,6 +308,18 @@ const css = `
   }
   /* Pointing at the track plays the dot to the far end: the 12rem track less the 1rem dot. */
   .tk__track:hover .tk__dot { transform: translateX(11rem); }
+  /* Added in this PR: a section's heading row, the token's own description, and its examples. */
+  .tk__section th {
+    padding-top: var(--uiowa-space-150);
+    font-weight: var(--uiowa-typography-font-weight-bold); color: var(--uiowa-color-neutral-800);
+  }
+  .tk tbody + tbody .tk__section th { padding-top: var(--uiowa-space-400); }
+  .tk__section-note {
+    font-weight: var(--uiowa-typography-font-weight-normal); color: var(--uiowa-color-neutral-500);
+    white-space: normal;
+  }
+  .tk__use { max-width: 28rem; }
+  .tk__links { display: flex; flex-wrap: wrap; gap: 0 var(--uiowa-space-150); margin-top: var(--uiowa-space-50); }
 `;
 
 export default {
@@ -599,6 +740,124 @@ export const Motion = {
             </tr>
           </tbody>
         </table>
+      </div>
+    `,
+  }),
+};
+
+export const AddedInThisPR = {
+  name: 'Added in this PR',
+  render: () => ({
+    setup() {
+      const tokens = useTokens();
+      const pointsAt = (live) => {
+        if (live.group === 'shadow') return colorOf(live.declared);
+        return live.declared.startsWith('var(') ? primitiveOf(live.declared) : '';
+      };
+      const rowFor = (tier, file, path) => {
+        const token = tokenAt(tier, file, path);
+        const use = token.$description || '';
+        const links = exampleLinks(path);
+        const live = tokens.value.find((t) => t.name === cssName(path));
+        if (live) return { path, name: live.name, value: live.value, group: live.group, points: pointsAt(live), use, links };
+        // A breakpoint: it has no custom property, so its token file supplies the value.
+        const target = typeof token.$value === 'string' ? token.$value.match(/^\{breakpoint\.(\w+)\}$/)[1] : '';
+        const sass = breakpointRow(path.split('.'), target ? BREAKPOINT_PX[target] : token.$value.value);
+        return {
+          path,
+          name: sass.name,
+          value: `${sass.px}, ${sass.rem} in Sass`,
+          group: 'breakpoint',
+          points: target ? `$uiowa-breakpoint-${target}` : '',
+          use,
+          links,
+        };
+      };
+      const tiers = computed(() => (tokens.value.length ? Object.entries(ADDED).map(([tier, files]) => ({
+        tier,
+        sections: Object.entries(files).map(([file, paths]) => ({
+          key: `${tier}-${file}`,
+          label: ADDED_SECTIONS[file],
+          note: ADDED_SECTION_NOTES[file] || '',
+          rows: paths.map((path) => rowFor(tier, file, path)),
+        })),
+      })) : []));
+      return { tiers, count: ADDED_COUNT, css };
+    },
+    template: `
+      <div class="tk">
+        <component is="style">{{ css }}</component>
+        <h1>Tokens added in this PR</h1>
+        <p>
+          The {{ count.primitives + count.semantic }} tokens this PR adds, against 5.0.0-alpha.0:
+          {{ count.primitives }} primitives and {{ count.semantic }} semantic. Typography adds none.
+          Each specimen is drawn by the token beside it, and the Use column is the token's own
+          description.
+        </p>
+        <p class="tk__note">
+          Values this PR changes, such as links, info and the accent colors, are in
+          <code>CHANGELOG.md</code>, not here. Point at a motion track to play it.
+        </p>
+        <p class="tk__note">
+          The links under Use open a component example with its props and background set to show
+          the token. Motion and focus show when you point at, click or tab to the element.
+        </p>
+
+        <template v-for="t in tiers" :key="t.tier">
+          <h2>{{ t.tier === 'primitives' ? 'Primitives' : 'Semantic' }}</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Token</th>
+                <th v-if="t.tier === 'semantic'">Points at</th>
+                <th>{{ t.tier === 'semantic' ? 'Resolves to' : 'Value' }}</th>
+                <th>Specimen</th>
+                <th>Use</th>
+              </tr>
+            </thead>
+            <tbody v-for="s in t.sections" :key="s.key">
+              <tr class="tk__section">
+                <th :colspan="t.tier === 'semantic' ? 5 : 4">
+                  {{ s.label }}
+                  <div v-if="s.note" class="tk__section-note">{{ s.note }}</div>
+                </th>
+              </tr>
+              <tr v-for="r in s.rows" :key="r.path">
+                <td><code>{{ r.name }}</code></td>
+                <td v-if="t.tier === 'semantic'"><code class="tk__note">{{ r.points }}</code></td>
+                <td><code>{{ r.value }}</code></td>
+                <td>
+                  <span v-if="r.group.startsWith('color')" class="tk__swatch" :style="{ background: 'var(' + r.name + ')' }"></span>
+                  <span v-else-if="r.group.startsWith('border')" class="tk__line" :style="{ borderTopWidth: 'var(' + r.name + ')' }"></span>
+                  <span v-else-if="r.group === 'accent rule'" class="tk__accent" :style="{ height: 'var(' + r.name + ')' }"></span>
+                  <span v-else-if="r.group === 'radius'" class="tk__corner" :style="{ borderRadius: 'var(' + r.name + ')' }"></span>
+                  <span v-else-if="r.group === 'shadow'" class="tk__card" :style="{ boxShadow: 'var(' + r.name + ')' }"></span>
+                  <span v-else-if="r.group.startsWith('duration')" class="tk__track">
+                    <span class="tk__dot" :style="{ transitionDuration: 'var(' + r.name + ')' }"></span>
+                  </span>
+                  <span v-else-if="r.group === 'easing'" class="tk__track">
+                    <span
+                      class="tk__dot"
+                      :style="{
+                        transitionDuration: 'var(--uiowa-motion-duration-slow)',
+                        transitionTimingFunction: 'var(' + r.name + ')',
+                      }"
+                    ></span>
+                  </span>
+                  <span v-else-if="r.group === 'form height'" class="tk__box" :style="{ height: 'var(' + r.name + ')' }"></span>
+                  <span v-else-if="r.group === 'logo'" class="tk__bar" :style="{ width: 'var(' + r.name + ')' }"></span>
+                  <span v-else class="tk__note">No custom property</span>
+                </td>
+                <td class="tk__use">
+                  {{ r.use }}
+                  <div v-if="r.links.length" class="tk__links">
+                    <a v-for="l in r.links" :key="l.href + l.label" :href="l.href" target="_top">{{ l.label }}</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </template>
       </div>
     `,
   }),
