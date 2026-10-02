@@ -22,6 +22,10 @@ also carries its date.
 
 ### Removed
 
+- `.tabs-collection [role="tabpanel"].is-hidden`. Use the native `hidden` attribute
+  to hide a tab panel, as the tabs JavaScript already does.
+- `.footer-cta__wrapper`, `.footer-cta__container`, and `.socket__container` styles for
+  obsolete brand-footer wrappers. No replacement classes.
 - `.grid--3-2 .stat__description`, an unused stat-layout override. Default stat
   descriptions inside `.grid--3-2` now use `width: 85%` instead of `60%` at the
   medium breakpoint and above.
