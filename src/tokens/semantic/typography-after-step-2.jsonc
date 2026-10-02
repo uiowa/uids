@@ -1,0 +1,252 @@
+{
+  "typography": {
+    "typeface": {
+      "$type": "fontFamily",
+      "$description": "Typeface roles, named after Foundations' font families. Every style points at one of these rather than at a font, so changing a face is one edit.",
+      "display": { "$value": "{typography.font-family.special-gothic-condensed}", "$description": "Foundations' display face: the display and label styles." },
+      "slab": { "$value": "{typography.font-family.zilla-slab}", "$description": "Subheads: the title styles." },
+      "sans": { "$value": "{typography.font-family.roboto}", "$description": "Headlines and reading text: the headline and body styles." }
+    },
+    "display": {
+      "$description": "The largest, most expressive text. Foundations' Display level, in Special Gothic Condensed SemiBold. Large and medium are the banner's headline sizes; small takes over heading.h1.",
+      "large": {
+        "$description": "The banner's large headline (.headline--large in a wide banner). Line height 1, from .headline.",
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.display}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.font-size.250}",
+          "$extensions": {
+            "edu.uiowa.fluid": {
+              "minViewport": { "value": 600, "unit": "px" },
+              "maxViewport": { "value": 1310, "unit": "px" },
+              "max": "{typography.font-size.470}"
+            }
+          }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.100}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
+      "medium": {
+        "$description": "The banner's medium headline (.headline--medium in a wide banner). Line height 1, from .headline.",
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.display}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.font-size.220}",
+          "$extensions": {
+            "edu.uiowa.fluid": {
+              "minViewport": { "value": 600, "unit": "px" },
+              "maxViewport": { "value": 1310, "unit": "px" },
+              "max": "{typography.font-size.370}"
+            }
+          }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.100}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
+      "small": {
+        "$description": "Was heading.h1, in Zilla Slab. Same size and leading.",
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.display}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.font-size.230}",
+          "$extensions": {
+            "edu.uiowa.fluid": {
+              "strategy": "exponential",
+              "exponent": 1.34,
+              "minViewport": { "value": 600, "unit": "px" },
+              "maxViewport": { "value": 1310, "unit": "px" }
+            }
+          }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.115}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      }
+    },
+    "headline": {
+      "$description": "High-emphasis short text, such as section headings. Foundations' Headline level, in Roboto Black. Large is the banner's small headline; medium and small were heading.h2 and h3, in Roboto Medium.",
+      "large": {
+        "$description": "The banner's small headline (.headline--small in a wide banner). Line height 1, from .headline.",
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.sans}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.heavy}" },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.font-size.200}",
+          "$extensions": {
+            "edu.uiowa.fluid": {
+              "minViewport": { "value": 600, "unit": "px" },
+              "maxViewport": { "value": 1310, "unit": "px" },
+              "max": "{typography.font-size.270}"
+            }
+          }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.100}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
+      "medium": {
+        "$description": "Was heading.h2.",
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.sans}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.heavy}" },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.font-size.195}",
+          "$extensions": {
+            "edu.uiowa.fluid": {
+              "strategy": "exponential",
+              "exponent": 1.34,
+              "minViewport": { "value": 600, "unit": "px" },
+              "maxViewport": { "value": 1310, "unit": "px" }
+            }
+          }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.125}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
+      "small": {
+        "$description": "Was heading.h3.",
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.sans}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.heavy}" },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.font-size.165}",
+          "$extensions": {
+            "edu.uiowa.fluid": {
+              "strategy": "exponential",
+              "exponent": 1.34,
+              "minViewport": { "value": 600, "unit": "px" },
+              "maxViewport": { "value": 1310, "unit": "px" }
+            }
+          }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.125}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      }
+    },
+    "title": {
+      "$description": "Medium-emphasis short text, such as subheads. Foundations' Subhead level, in Zilla Slab SemiBold. Was heading.h4 to h6, in Roboto Medium. Large also takes the bold intro.",
+      "large": {
+        "$description": "Was heading.h4. Also takes the bold intro (.element--bold-intro), which was intro-bold: 1.6rem to 2.2rem, leading 1.3.",
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.slab}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.font-size.145}",
+          "$extensions": {
+            "edu.uiowa.fluid": {
+              "strategy": "exponential",
+              "exponent": 1.34,
+              "minViewport": { "value": 600, "unit": "px" },
+              "maxViewport": { "value": 1310, "unit": "px" }
+            }
+          }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.125}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
+      "medium": {
+        "$description": "Was heading.h5.",
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.slab}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.font-size.130}",
+          "$extensions": {
+            "edu.uiowa.fluid": {
+              "strategy": "exponential",
+              "exponent": 1.34,
+              "minViewport": { "value": 600, "unit": "px" },
+              "maxViewport": { "value": 1310, "unit": "px" }
+            }
+          }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.125}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
+      "small": {
+        "$description": "Was heading.h6.",
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.slab}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.font-size.120}",
+          "$extensions": {
+            "edu.uiowa.fluid": {
+              "strategy": "exponential",
+              "exponent": 1.34,
+              "minViewport": { "value": 600, "unit": "px" },
+              "maxViewport": { "value": 1310, "unit": "px" }
+            }
+          }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.125}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      }
+    },
+    "body": {
+      "$description": "Reading text. Foundations' Reading text level. Was body, size.large and size.small; large also takes the light intro.",
+      "large": {
+        "$description": "The lead paragraph. Was intro-light (.element--light-intro), with its size and leading, in Regular rather than Light so the body role keeps one weight. Also replaces size.large (.is-large), which was 1.6rem at every width.",
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.sans}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.normal}" },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.font-size.160}",
+          "$extensions": {
+            "edu.uiowa.fluid": {
+              "minViewport": { "value": 600, "unit": "px" },
+              "maxViewport": { "value": 1310, "unit": "px" },
+              "max": "{typography.font-size.210}"
+            }
+          }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.140}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
+      "medium": {
+        "$description": "Was body.",
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.sans}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.normal}" },
+        "fontSize": { "$type": "dimension", "$value": "{typography.font-size.120}" },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.170}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
+      "small": {
+        "$description": "Was size.small.",
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.sans}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.normal}" },
+        "fontSize": { "$type": "dimension", "$value": "{typography.font-size.80}" },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.170}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      }
+    },
+    "label": {
+      "$description": "Text inside components, in Special Gothic Condensed SemiBold at the sizes UIDS uses today. Case is the component's CSS, not a token.",
+      "large": {
+        "$description": "Button text (.bttn), which is Antonio and uppercase today. Foundations says Special Gothic Condensed replaces Antonio in new work. Proposed in sentence case, which is a change to the button's CSS.",
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.display}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
+        "fontSize": { "$type": "dimension", "$value": "{typography.font-size.125}" },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.140}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
+      "medium": {
+        "$description": "Form labels, which are Roboto today.",
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.display}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
+        "fontSize": { "$type": "dimension", "$value": "{typography.font-size.100}" },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.115}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
+      "small": {
+        "$description": "Badges, which are Roboto today. They set their text at 75% of the surrounding size; 0.75rem is that at the default 16px.",
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.display}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
+        "fontSize": { "$type": "dimension", "$value": "{typography.font-size.75}" },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.167}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      }
+    }
+  }
+}
