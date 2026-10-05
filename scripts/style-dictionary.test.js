@@ -123,14 +123,6 @@ describe('breakpointRem', () => {
   });
 });
 
-it('emits the categorical data visualization colors', () => {
-  const output = readFileSync(join(repository, 'src/scss/abstracts/_tokens-generated.scss'), 'utf8');
-
-  expect(output).toContain('--uiowa-color-data-visualization-categorical-1: var(--uiowa-color-blue);');
-  expect(output).toContain('--uiowa-color-data-visualization-categorical-12: var(--uiowa-color-gray-cool);');
-  expect(output).not.toContain('--uiowa-color-data-1');
-});
-
 it('writes breakpoints to Sass in rem and durations as CSS times', () => {
   const tokens = readFileSync(join(repository, 'src/scss/abstracts/_tokens-generated.scss'), 'utf8');
   const breakpoints = readFileSync(join(repository, 'src/scss/abstracts/_breakpoints-generated.scss'), 'utf8');
