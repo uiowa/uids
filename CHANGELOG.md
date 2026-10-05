@@ -12,7 +12,7 @@ also carries its date.
 
 ## [Unreleased]
 
-Adds 51 tokens and moves links, info, and the accent colors to new values. Every value
+Adds 58 tokens and moves links, info, and the accent colors to new values. Every value
 below is stated against 5.0.0-alpha.0.
 
 ### Added
@@ -29,7 +29,7 @@ below is stated against 5.0.0-alpha.0.
 | Breakpoints | `breakpoint.400`, `.600`, `.768`, `.930`, `.980`, `.1200`, `.1350`; `layout.breakpoint.standard` (1350) |
 | Form heights | `form.height.medium` (48px), `form.height.large` (64px) |
 | Colors | `color.border.strong`, `color.border.strong-inverse`; `color.alpha.black-200`, `black-425`, `near-black-150`, `white-425`; `color.accent.blue` |
-| Data visualization | `color.data.1` to `color.data.12` |
+| Data visualization | `color.data.1` to `color.data.12`, each pointing at a palette color; the palette gains `color.green-light`, `purple`, `cyan`, `olive`, `rose`, `gray-warm`, and `gray-cool` for them |
 | Logo | `logo.minWidth` (85px) |
 
 Breakpoints have no custom properties, because a media query can't read one. The build

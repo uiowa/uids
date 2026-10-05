@@ -87,8 +87,7 @@ const BREAKPOINTS = [
 const ADDED = {
   primitives: {
     colors: [
-      'color.data.1', 'color.data.2', 'color.data.3', 'color.data.4', 'color.data.5', 'color.data.6',
-      'color.data.7', 'color.data.8', 'color.data.9', 'color.data.10', 'color.data.11', 'color.data.12',
+      'color.green-light', 'color.purple', 'color.cyan', 'color.olive', 'color.rose', 'color.gray-warm', 'color.gray-cool',
       'color.alpha.black-200', 'color.alpha.black-425', 'color.alpha.near-black-150', 'color.alpha.white-425',
     ],
     border: ['border.width.1', 'border.width.2'],
@@ -101,7 +100,11 @@ const ADDED = {
     ],
   },
   semantic: {
-    colors: ['color.accent.blue', 'color.border.strong', 'color.border.strong-inverse'],
+    colors: [
+      'color.accent.blue', 'color.border.strong', 'color.border.strong-inverse',
+      'color.data.1', 'color.data.2', 'color.data.3', 'color.data.4', 'color.data.5', 'color.data.6',
+      'color.data.7', 'color.data.8', 'color.data.9', 'color.data.10', 'color.data.11', 'color.data.12',
+    ],
     border: ['border.width.default', 'border.width.focused'],
     shadow: ['shadow.inset', 'shadow.raised'],
     motion: ['motion.duration.fast', 'motion.duration.medium', 'motion.duration.slow'],
@@ -265,8 +268,19 @@ const CHANGED_COMPONENTS = [
     ],
   },
 ];
+// compare: the same story on the live site, which is built from 4.x and still has the bug.
+// Checked 2026-10-05 at 900, 1100, 1300 and 1400px: the live rule is missing at 900, gold on
+// gold at 1100 and 1300, and black at 1400; this branch's is missing at 900 and black at the
+// other three.
 const FIXED = [
-  { what: 'Horizontal stats on gold, 980 to 1350px wide', was: 'The rule above the content was gold on gold.', now: 'It shows in black.', examples: ['statGold'] },
+  {
+    what: 'Horizontal stats on gold, 980 to 1350px wide',
+    was: 'The rule above the content was gold on gold.',
+    now: 'It shows in black.',
+    how: "Open both, then narrow the window until the canvas is 980 to 1350px wide. There the live site's rule is gold on gold and disappears; here it stays black. Below 980px neither draws a rule.",
+    examples: ['statGold'],
+    compare: { label: 'The same story on the live site', href: 'https://uids.brand.uiowa.edu/?path=/story/components-stat--horizontal&args=background:gold' },
+  },
 ];
 const CHANGED_COMPONENT_COUNT = CHANGED_COMPONENTS.reduce((sum, s) => sum + s.rows.length, 0);
 // The changelog's old values are uppercase hex; the build prints lowercase. Show both alike.
@@ -1042,8 +1056,10 @@ export const InThisPR = {
               <td>{{ f.was }}</td>
               <td>{{ f.now }}</td>
               <td class="tk__use">
+                {{ f.how }}
                 <div class="tk__links">
                   <a v-for="l in f.links" :key="l.href + l.label" :href="l.href" target="_top">{{ l.label }}</a>
+                  <a v-if="f.compare" :href="f.compare.href" target="_blank" rel="noopener">{{ f.compare.label }}</a>
                 </div>
               </td>
             </tr>
