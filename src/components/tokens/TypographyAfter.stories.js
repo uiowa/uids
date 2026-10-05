@@ -1,4 +1,5 @@
 import { computed, ref, onMounted } from 'vue';
+import '../../scss/components/button.scss';
 import step1Css from '../../tokens-after/typography-after-step-1.css?raw';
 import step2Css from '../../tokens-after/typography-after-step-2.css?raw';
 
@@ -12,7 +13,8 @@ import step2Css from '../../tokens-after/typography-after-step-2.css?raw';
  * so they never reach the live stylesheets or the other token stories. "Before" values are
  * read from the live tokens on :root, not from the wrapper: intro-bold and intro-light keep
  * their names, so inside the wrapper they would read back the step's values. Both steps are
- * drawn by createStep(); only their config differs.
+ * drawn by createStep(); only their config differs. Step 2 also says why the scale is worth it
+ * and sets one block at three densities, today's way and step 2's (DENSITIES).
  */
 const CHANNELS = [
   { name: 'font-family', property: 'fontFamily' },
@@ -187,6 +189,84 @@ const STEP_1_TAGS = {
 };
 const STEP_2_TAGS = { ...STEP_1_TAGS, h1: 'display-small' };
 const markupOf = (item) => `<${item.tag}>`;
+// Today, each tag wears the style named for it.
+const todayOf = (tag) => (tag === 'p' ? 'body' : `heading.${tag}`);
+
+// Step 2 only. One block at three densities, set today's way (tokens where they reach, component
+// CSS where they don't) and with step 2's scale. source: what sets an element's type today; warn:
+// marks a size that isn't a token, a style borrowed from another tag, or a gap in the scale.
+// Today's card values are card.scss's own (the title's 1.5rem, with line height 1 from .headline
+// and Zilla Slab Bold from the card's default serif title; the text's 1rem and 1.7), measured on
+// Components › Card › Default on 2026-10-02, where an h3 added to the card's text kept the page's
+// heading.h3 size. The buttons are .bttn--large, .bttn and .bttn--small (button.scss), rendered by
+// today's CSS; step 2 keeps their padding and sets only their text.
+const DENSITY_TEXT = [
+  { tag: 'h2', text: 'Lorem ipsum dolor sit' },
+  { tag: 'p', text: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.' },
+  { tag: 'h3', text: 'Consectetur adipiscing' },
+  { tag: 'p', text: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.' },
+  { tag: 'a', text: 'Dolor sit amet' },
+];
+const CARD_TITLE = {
+  set: {
+    fontFamily: '--uiowa-typography-font-family-zilla-slab', fontWeight: '700', fontSize: '1.5rem',
+    lineHeight: '1', letterSpacing: '0px',
+  },
+};
+const CARD_TEXT = {
+  set: {
+    fontFamily: '--uiowa-typography-font-family-roboto', fontWeight: '400', fontSize: '1rem',
+    lineHeight: '1.7', letterSpacing: '0px',
+  },
+};
+const DENSITIES = [
+  {
+    name: 'Spacious',
+    use: 'A feature section.',
+    button: 'bttn--large',
+    today: [
+      { replaced: { key: 'heading-h1' }, source: 'heading.h1', warn: true },
+      { replaced: { key: 'intro-light' }, source: 'intro-light' },
+      { replaced: { key: 'heading-h2' }, source: 'heading.h2', warn: true },
+      { replaced: { key: 'intro-light' }, source: 'intro-light' },
+      { source: '.bttn--large', warn: true },
+    ],
+    todayNote: "Only h1's style is bigger than an h2's, so the h2 borrows heading.h1 and turns Zilla Slab, and the h3 borrows heading.h2. The text uses the light intro. The large button's 1.45rem is set in button.scss, not by a token.",
+    after: [{ key: 'headline-large' }, { key: 'body-large' }, { key: 'headline-medium' }, { key: 'body-large' }, { key: 'label-large', warn: true }],
+    afterNote: "Each element steps up a size and keeps its role, so the h2 stays Roboto Black, and the text, body.large, is today's light intro. The label role tops out at label.large, today's default button size, so nothing matches the large button's 1.45rem.",
+  },
+  {
+    name: 'Default',
+    use: 'An article.',
+    button: '',
+    today: [
+      { replaced: { key: 'heading-h2' }, source: 'heading.h2' },
+      { replaced: { key: 'body' }, source: 'body' },
+      { replaced: { key: 'heading-h3' }, source: 'heading.h3' },
+      { replaced: { key: 'body' }, source: 'body' },
+      { source: '.bttn', warn: true },
+    ],
+    todayNote: "Each tag wears the style named for it. The button's 1.25rem is set in .bttn, not by a token.",
+    after: [{ key: 'headline-medium' }, { key: 'body-medium' }, { key: 'headline-small' }, { key: 'body-medium' }, { key: 'label-large' }],
+    afterNote: "Each tag's default step, and label.large for the button text.",
+  },
+  {
+    name: 'Compact',
+    use: 'Inside a card.',
+    button: 'bttn--small',
+    card: true,
+    today: [
+      { replaced: CARD_TITLE, source: 'card.scss', warn: true },
+      { replaced: CARD_TEXT, source: 'card.scss', warn: true },
+      { replaced: { key: 'heading-h3' }, source: 'heading.h3', warn: true },
+      { replaced: CARD_TEXT, source: 'card.scss', warn: true },
+      { source: '.bttn--small', warn: true },
+    ],
+    todayNote: "The card sets its own sizes in card.scss: 1.5rem for the title and 1rem for the text, neither a token. A heading added to the card's text keeps its page size, so this h3 is bigger than the card's title. The small button's 1.05rem is set in button.scss.",
+    after: [{ key: 'title-large' }, { key: 'body-medium', warn: true }, { key: 'title-medium' }, { key: 'body-medium', warn: true }, { key: 'label-medium' }],
+    afterNote: "The title takes title.large, close to today's 24px, and the subheading steps below it to title.medium. The small button's text is label.medium, close to its 1.05rem today. The body role has nothing near the card's 16px text: body.medium is 19.2px and body.small 12.8px, so the text stays at body.medium.",
+  },
+];
 
 const base = (key) => `--uiowa-typography-${key}`;
 const styleOf = (key) => Object.fromEntries(CHANNELS.map(({ name, property }) => [property, `var(${base(key)}-${name})`]));
@@ -273,18 +353,46 @@ const css = `
   .tk__picks th[scope="row"] { white-space: normal; width: 16rem; vertical-align: top; padding-top: var(--uiowa-space-150); }
   .tk__picks td { vertical-align: top; padding-top: var(--uiowa-space-150); padding-bottom: var(--uiowa-space-150); }
   .tk__today + .tk__today { margin-top: var(--uiowa-space-150); }
+  .tk__why { max-width: 48rem; padding-left: 1.5rem; }
+  .tk__why li + li { margin-top: var(--uiowa-space-100); }
+  .tk__lede { max-width: 48rem; }
+  /* Today and the step side by side, stacking when there isn't room for both. */
+  .tk__docs {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
+    gap: var(--uiowa-space-300); align-items: start;
+  }
+  .tk__docs-head {
+    margin: 0 0 var(--uiowa-space-100) 11rem;
+    font-weight: var(--uiowa-typography-font-weight-bold); color: var(--uiowa-color-neutral-800);
+  }
+  .tk__docs-note { margin: var(--uiowa-space-150) 0 0 11rem; }
   /* The sample page: its elements are plain siblings, as on a real page, so UIDS's base margins
      set the spacing (h2 to h6 take their top margin only when they aren't a first child). Each
      label is generated content in the gutter, out of the flow and hidden from screen readers. */
-  .tk__doc { box-sizing: border-box; max-width: calc(15rem + 42rem); padding-left: 15rem; }
+  .tk__doc { box-sizing: border-box; padding-left: 11rem; }
   .tk__doc > * { position: relative; }
   .tk__doc > [data-label]::before {
     content: attr(data-label) / "";
-    position: absolute; top: 0; left: -15rem; width: 14rem;
+    position: absolute; top: 0; left: -11rem; width: 10.5rem;
     font: 400 0.8rem/1.4 'SF Mono', Monaco, Consolas, monospace;
-    letter-spacing: 0; text-transform: none; color: var(--uiowa-color-neutral-500);
+    letter-spacing: 0; text-align: left; text-transform: none; color: var(--uiowa-color-neutral-500);
     white-space: nowrap;
   }
+  .tk__doc > .tk__flag[data-label]::before { color: var(--uiowa-color-warning); }
+  /* The compact row is a card: a frame around the text, not the labels, and card.scss's margins
+     (no margin on p, none above a heading). */
+  .tk__doc--card {
+    --tk-pad: var(--uiowa-space-150);
+    position: relative; padding: var(--tk-pad) var(--tk-pad) var(--tk-pad) calc(11rem + var(--tk-pad));
+  }
+  .tk__doc--card::after {
+    content: ''; position: absolute; inset: 0 0 0 11rem; pointer-events: none;
+    border: 1px solid var(--uiowa-color-border-default);
+  }
+  .tk__doc--card > [data-label]::before { left: calc(-11rem - var(--tk-pad)); }
+  .tk__doc--card > p { margin-top: 0; margin-bottom: 0; }
+  .tk__doc--card > :is(h2, h3) { margin-top: 0; }
+  .tk__doc--card > a { margin-top: var(--uiowa-space-150); }
 `;
 
 const tsCss = `
@@ -314,8 +422,9 @@ const tsCss = `
  * Builds a step's two pages. afterCss: the step's generated custom properties. replaces: each
  * style and what it replaces today, one or a list. tags: the style each sample element takes.
  * eyebrow: the Typescale page's subtitle. levels: Foundations' levels, shown on step 2 only.
+ * explain: adds why the scale is worth it and the density rows, on step 2 only.
  */
-function createStep({ step, afterCss, replaces, tags, eyebrow, levels = null }) {
+function createStep({ step, afterCss, replaces, tags, eyebrow, levels = null, explain = false }) {
   const AFTER = Object.fromEntries(
     [...afterCss.matchAll(/(--uiowa-[\w-]+)\s*:\s*([^;]+);/g)].map(([, name, value]) => [name, value.trim()]),
   );
@@ -411,10 +520,42 @@ function createStep({ step, afterCss, replaces, tags, eyebrow, levels = null }) 
         })).filter((group) => group.rows.length));
         const semanticCount = Object.keys(AFTER).filter((name) => !isPrimitive(name)).length;
         const specStyle = (t) => ({ ...styleOf(t.key), ...(t.override || {}) });
+        // Each density row's two sides, worked out element by element. The buttons keep today's
+        // classes on both sides, so their padding matches; step 2 sets their text, in sentence case.
+        const densities = computed(() => (explain ? DENSITIES : []).map((d) => {
+          const buttonClass = (item) => (item.tag === 'a' ? ['bttn', 'bttn--primary', d.button] : null);
+          return {
+            ...d,
+            sides: [
+              {
+                name: 'Today',
+                note: d.todayNote,
+                items: DENSITY_TEXT.map((item, i) => ({
+                  ...item,
+                  className: buttonClass(item),
+                  style: d.today[i].replaced ? beforeStyleOf(d.today[i].replaced) : null,
+                  label: `${markupOf(item)}  ${d.today[i].source}${d.today[i].warn ? ' *' : ''}`,
+                  warn: d.today[i].warn,
+                })),
+              },
+              {
+                name: `Step ${step}`,
+                note: d.afterNote,
+                items: DENSITY_TEXT.map((item, i) => ({
+                  ...item,
+                  className: buttonClass(item),
+                  style: { ...styleOf(d.after[i].key), ...(item.tag === 'a' ? { textTransform: 'none' } : {}) },
+                  label: `${markupOf(item)}  ${tokenId(d.after[i].key)}${d.after[i].warn ? ' *' : ''}`,
+                  warn: d.after[i].warn,
+                })),
+              },
+            ],
+          };
+        }));
         return {
           root, step, vars: AFTER, css, CHANNELS, ROLES, SIZES, exists, styleOf, beforeStyleOf, replacedOf, wasOf,
           merges, PROPERTY, primitives, added, fonts, groups, semanticCount, levels, specStyle, SAMPLE, markupOf,
-          tokenId,
+          tokenId, todayOf, explain, densities,
         };
       },
       template: `
@@ -439,12 +580,49 @@ function createStep({ step, afterCss, replaces, tags, eyebrow, levels = null }) 
             and h4 to h6 take Zilla Slab SemiBold. The banner's three headline sizes fill
             display.large, display.medium and headline.large, and the labels take Special Gothic
             Condensed SemiBold at today's button, form label and badge sizes. The intros fold into
-            the scale: the light intro becomes body.large, in Regular, and the bold intro takes
+            the scale: the light intro becomes body.large, unchanged, and the bold intro takes
             title.large. Sizes and leading are today's. Built from the
             <code>typography-after-step-2.jsonc</code> files beside each
             real <code>typography.json</code>; compare with <b>Tokens › Typography</b> and with
             step 1. Nothing in the live build changes.
           </p>
+
+          <template v-if="explain">
+            <h2>Why the Material scale</h2>
+            <ol class="tk__why">
+              <li>
+                <b>Styles are named for their job, not a tag.</b> Today each heading style is named
+                for the element that wears it (heading.h2), so restyling an h2 means borrowing
+                another tag's style, as in <code>&lt;h2 class="h4"&gt;</code>. A role names what the
+                text does. The h2 keeps its level for screen readers and the page outline, and how
+                it looks is a separate choice.
+              </li>
+              <li>
+                <b>One scale for all text.</b> Today's tokens cover headings, body text and the
+                intros. The banner, card, button, form label and badge set their own sizes in
+                component CSS, so nothing keeps them in proportion and no Figma variable holds them.
+                Display and label give them places on the scale.
+              </li>
+              <li>
+                <b>Three sizes in every role.</b> Large, medium and small let a layout get roomier or
+                denser and keep its hierarchy: step a size up or down and stay in the role. Today
+                each tag has one size, and no token is bigger than h1's.
+              </li>
+              <li>
+                <b>Built for Figma.</b> Each style is five single-value tokens. Each becomes a Figma
+                variable, and a Figma text style binds the five, so Figma and code share the same
+                values. Today's composite tokens can only become text styles.
+              </li>
+              <li>
+                <b>A known vocabulary.</b> These are Material 3's names. Designers and developers who
+                have worked with Material already know what headline.small or label.large is for.
+              </li>
+            </ol>
+            <p class="tk__note">
+              The last two sections show the first three on a page: h1 to h6 today and in step 2,
+              then one block at three densities.
+            </p>
+          </template>
 
           <h2>Primitives</h2>
           <p class="tk__note">
@@ -593,19 +771,76 @@ function createStep({ step, afterCss, replaces, tags, eyebrow, levels = null }) 
             </div>
           </template>
 
-          <h2>Sample page</h2>
+          <h2>h1 to h6, today and step {{ step }}</h2>
           <p class="tk__note">
-            Headings and body text as real markup with UIDS's own spacing: each element keeps its base
-            margins, so the gaps are the ones a page gets. Each is set in its step {{ step }} style,
-            and the column on the left names its element and token.
+            The same markup twice: h1 to h6 with body text between, as UIDS styles it today and as
+            step {{ step }} does. Each keeps UIDS's own margins, so the gaps are the ones a page gets,
+            and the column beside each element names its tag and token.
           </p>
-          <div class="tk__doc">
-            <component
-              v-for="(item, i) in SAMPLE" :key="i" :is="item.tag"
-              :data-label="markupOf(item) + '  ' + tokenId(item.key)"
-              :style="styleOf(item.key)"
-            >{{ item.text }}</component>
+          <p class="tk__lede">
+            Today each tag has one style, named for it: an h2 is heading.h2 wherever it appears, and
+            making it look different means borrowing another tag's style. In step {{ step }}, each
+            tag starts from a default step on the scale, the h2 from headline.medium, and every
+            other step has a name of its own.<template v-if="explain"> The density rows below show
+            what that buys.</template>
+          </p>
+          <div class="tk__docs">
+            <div>
+              <div class="tk__docs-head">Today</div>
+              <div class="tk__doc">
+                <component
+                  v-for="(item, i) in SAMPLE" :key="i" :is="item.tag"
+                  :data-label="markupOf(item) + '  ' + todayOf(item.tag)"
+                >{{ item.text }}</component>
+              </div>
+            </div>
+            <div>
+              <div class="tk__docs-head">Step {{ step }}</div>
+              <div class="tk__doc">
+                <component
+                  v-for="(item, i) in SAMPLE" :key="i" :is="item.tag"
+                  :data-label="markupOf(item) + '  ' + tokenId(item.key)"
+                  :style="styleOf(item.key)"
+                >{{ item.text }}</component>
+              </div>
+            </div>
           </div>
+
+          <template v-if="explain">
+            <h2>Density</h2>
+            <p class="tk__note">
+              Density is how much fits in a space: a feature section wants room, a card wants it
+              tight. Each row sets the same block (a heading, text, a subheading, more text and a
+              button) at one density, on the left with today's tokens and component CSS and on the
+              right with step {{ step }}'s scale. Both sides of a row share their spacing, a card's
+              own margins in the compact row, so only the type changes. An asterisk marks a size
+              that isn't a token, a style borrowed from another tag, or a gap in the scale.
+            </p>
+            <template v-for="d in densities" :key="d.name">
+              <h3>{{ d.name }}</h3>
+              <p class="tk__note">{{ d.use }}</p>
+              <div class="tk__docs">
+                <div v-for="side in d.sides" :key="side.name">
+                  <div class="tk__docs-head">{{ side.name }}</div>
+                  <div :class="['tk__doc', { 'tk__doc--card': d.card }]">
+                    <component
+                      v-for="(item, i) in side.items" :key="i" :is="item.tag"
+                      :class="[item.className, { tk__flag: item.warn }]"
+                      :href="item.tag === 'a' ? '#' : null" @click.prevent
+                      :data-label="item.label" :style="item.style"
+                    >{{ item.text }}</component>
+                  </div>
+                  <p class="tk__note tk__docs-note">{{ side.note }}</p>
+                </div>
+              </div>
+            </template>
+            <p class="tk__lede">
+              <b>What this shows.</b> The scale gives headings and button text a named step at each
+              density, where today the card and the button set their own sizes and a heading inside a
+              card can outgrow the card's title. It has two gaps: nothing near 16px for compact body
+              text, and nothing above label.large for the large button.
+            </p>
+          </template>
         </div>
       `,
     }),
@@ -699,6 +934,7 @@ const step2 = createStep({
   tags: STEP_2_TAGS,
   eyebrow: 'Material 3 roles · Foundations faces',
   levels: LEVELS,
+  explain: true,
 });
 
 export const Step1Typography = step1.Typography;
