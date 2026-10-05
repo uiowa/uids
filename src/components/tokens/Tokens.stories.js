@@ -87,8 +87,8 @@ const ADDED = {
   semantic: {
     colors: [
       'color.accent.blue', 'color.border.strong', 'color.border.strong-inverse',
-      'color.data.1', 'color.data.2', 'color.data.3', 'color.data.4', 'color.data.5', 'color.data.6',
-      'color.data.7', 'color.data.8', 'color.data.9', 'color.data.10', 'color.data.11', 'color.data.12',
+      'color.data-visualization.categorical.1', 'color.data-visualization.categorical.2', 'color.data-visualization.categorical.3', 'color.data-visualization.categorical.4', 'color.data-visualization.categorical.5', 'color.data-visualization.categorical.6',
+      'color.data-visualization.categorical.7', 'color.data-visualization.categorical.8', 'color.data-visualization.categorical.9', 'color.data-visualization.categorical.10', 'color.data-visualization.categorical.11', 'color.data-visualization.categorical.12',
     ],
     stroke: ['stroke.width.default', 'stroke.width.focused'],
     shadow: ['shadow.inset', 'shadow.raised'],
@@ -187,13 +187,13 @@ const ADDED_EXAMPLES = {
 };
 // Where each added token is used, shown after its description in the Use column.
 const USES = {
-  'color.green-light': 'Data visualization (color.data.4).',
-  'color.purple': 'Data visualization (color.data.5).',
-  'color.cyan': 'Data visualization (color.data.8).',
-  'color.olive': 'Data visualization (color.data.9).',
-  'color.rose': 'Data visualization (color.data.10).',
-  'color.gray-warm': 'Data visualization (color.data.11).',
-  'color.gray-cool': 'Data visualization (color.data.12).',
+  'color.green-light': 'Data visualization (color.data-visualization.categorical.4).',
+  'color.purple': 'Data visualization (color.data-visualization.categorical.5).',
+  'color.cyan': 'Data visualization (color.data-visualization.categorical.8).',
+  'color.olive': 'Data visualization (color.data-visualization.categorical.9).',
+  'color.rose': 'Data visualization (color.data-visualization.categorical.10).',
+  'color.gray-warm': 'Data visualization (color.data-visualization.categorical.11).',
+  'color.gray-cool': 'Data visualization (color.data-visualization.categorical.12).',
   'color.alpha.black-200': 'The toggle knob shadow (shadow.raised).',
   'color.alpha.black-425': 'A strong border on light surfaces: buttons (color.border.strong).',
   'color.alpha.near-black-150': "The inset shadow on form fields (shadow.inset): UIDS's rgba(10, 10, 10, 0.15). #0A0A0A is not a step on the neutral ramp.",
