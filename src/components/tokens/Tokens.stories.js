@@ -124,14 +124,19 @@ const ADDED_SECTIONS = {
 };
 const ADDED_SECTION_NOTES = {
   motion: 'Duration is the speed: how long the move takes. Easing is how the speed changes along the way, its expression.',
+  layout: "Only one, because a semantic token names a job, and 1350 is the only breakpoint with one in the layout: the width at which the content column reaches its maximum, 1310px (layout.container.max.standard) plus the 20px gutter on each side. $break-page-container reads from it. The other six have only size names in Sass ($break-xxsm to $break-lg, and 930 in the grid mixins), which say how wide, not what changes there, so they stay primitives, named by value.",
 };
 /**
- * Component examples for the Added in this PR page: a story, and the args that bring out
- * the token. Each was checked on 2026-10-02 by rendering the story with these args and
- * measuring the token on the element (a CTA on gold draws its button border in
- * color.border.strong, an underlined h6 draws a 4px bar, and so on). The background is
- * the component's own background arg: Storybook's backgrounds only paint the canvas,
- * and these tokens follow the bg-- class a component sets. Tabs (tabs.scss) has no story.
+ * Component examples for the In this PR page: a story, and the args that bring out the
+ * token or the change. Each was checked by rendering the story with these args and
+ * measuring the element: the Added examples on 2026-10-02 (a CTA on gold draws its button
+ * border in color.border.strong, an underlined h6 draws a 4px bar, and so on), the
+ * Changed and Fixed ones on 2026-10-05 (the card's text link is #2C6ECA on white and gray
+ * and #588DD6 on black, the blue badge is #2C6ECA, buttons measure 64px and 48px small,
+ * and a horizontal stat on gold draws its rule black at 1100px). The background is the
+ * component's own background arg: Storybook's backgrounds only paint the canvas, and these
+ * tokens follow the bg-- class a component sets. Tabs (tabs.scss), the lowercase button and
+ * the circle button have no story.
  */
 const EXAMPLES = {
   ctaGold: { label: 'CTA on gold', id: 'components-cta--centered', args: 'background:gold' },
@@ -159,6 +164,14 @@ const EXAMPLES = {
   accordion: { label: 'Accordion', id: 'components-accordion--default' },
   accordionFocus: { label: 'Accordion (tab to a heading)', id: 'components-accordion--default' },
   logo: { label: 'Logo', id: 'components-branding-logo--iowa' },
+  cardLink: { label: 'Card text link', id: 'components-card--default' },
+  cardLinkGray: { label: 'Card text link on gray', id: 'components-card--default', args: 'background:gray' },
+  cardLinkBlack: { label: 'Card text link on black', id: 'components-card--default', args: 'background:black' },
+  badgeBlue: { label: 'Blue badge', id: 'components-badge--blue' },
+  buttonDefault: { label: 'Button', id: 'components-button--primary' },
+  buttonSmall: { label: 'Small button', id: 'components-button--primary', args: 'size:small' },
+  statGold: { label: 'Horizontal stat on gold, 980 to 1350px wide', id: 'components-stat--horizontal', args: 'background:gold' },
+  spaceAndLayout: { label: 'Tokens › Space and layout', id: 'tokens--space-and-layout' },
 };
 const ADDED_EXAMPLES = {
   'color.alpha.black-200': ['toggle'],
@@ -193,10 +206,71 @@ const ADDED_EXAMPLES = {
 };
 // Relative to the preview's iframe.html, so the link works wherever Storybook is served;
 // target="_top" opens it in the Storybook window rather than inside the canvas.
-const exampleLinks = (path) => (ADDED_EXAMPLES[path] || []).map((key) => {
+const linksFor = (keys = []) => keys.map((key) => {
   const { label, id, args } = EXAMPLES[key];
   return { label, href: `./?path=/story/${id}${args ? `&args=${args}` : ''}` };
 });
+const exampleLinks = (path) => linksFor(ADDED_EXAMPLES[path]);
+
+/**
+ * What this PR changes, as its CHANGELOG.md entry lists it; the two must agree. Token
+ * values: the old value is 5.x's (dc0efcf697, 5.0.0-alpha.0), written here because a story
+ * can't read another branch; the new value is read live. was points: the token a semantic
+ * token pointed at then. Nothing was removed or renamed.
+ */
+const CHANGED_VALUES = [
+  { path: 'color.blue-dark', was: '#00558C', shows: 'Links on white and gray (color.link.default points here), and now info.', examples: ['cardLink', 'cardLinkGray'] },
+  { path: 'color.link.inverse', was: '#FFCD00', wasPoints: '--uiowa-color-brand-gold', shows: 'Links on black. Links on gold stay black; footer and table caption links set gold directly, so they stay gold.', examples: ['cardLinkBlack'] },
+  { path: 'color.info', was: '#3375D1', wasPoints: '--uiowa-color-blue', shows: 'Info, now the same blue as links on light surfaces: .badge--blue and the .alert--info icon.', examples: ['badgeBlue', 'alert'] },
+  { path: 'color.blue', was: '#3375D1', shows: 'The blue accent, and now links on black.', examples: ['cardLinkBlack'] },
+  { path: 'color.orange', was: '#CC6D17', shows: 'An accent. No component uses one yet.' },
+  { path: 'color.magenta', was: '#AA4981', shows: 'An accent. No component uses one yet.' },
+  { path: 'color.ochre', was: '#C08C00', shows: 'An accent. No component uses one yet.' },
+];
+// Where a component now takes a value from a token and its rendered value moved to the
+// token's. No token changed. The was values are 5.0.0-alpha.0's, measured for CHANGELOG.md.
+const CHANGED_COMPONENTS = [
+  {
+    section: 'Sizes',
+    note: 'Large, light-font and circle buttons are unchanged.',
+    rows: [
+      { what: 'Form field', was: '46.4px', now: '48px', token: '--uiowa-form-height-medium', examples: ['text'] },
+      { what: 'Large form field', was: '56px', now: '64px', token: '--uiowa-form-height-large', examples: ['textLarge'] },
+      { what: 'Default button', was: '65.2px', now: '64px', token: '--uiowa-space-400', examples: ['buttonDefault'] },
+      { what: 'Small button', was: '47.9px', now: '48px', token: '--uiowa-space-300', examples: ['buttonSmall'] },
+      { what: 'Lowercase button', was: '59.6px', now: '64px', token: '--uiowa-space-400' },
+    ],
+  },
+  {
+    section: 'Borders and corners',
+    rows: [
+      { what: 'Circle button focus ring', was: '3px', now: '2px', token: '--uiowa-border-width-focused' },
+      { what: 'Blockquote rule', was: '10px', now: '8px', token: '--uiowa-accent-rule-8', examples: ['blockquote'] },
+      { what: 'Alert corners', was: '2px', now: '3px', token: '--uiowa-radius-3', examples: ['alert'] },
+    ],
+  },
+  {
+    section: 'Motion',
+    note: 'Transitions use the motion tokens. These two move most; the rest move by 150ms or less.',
+    rows: [
+      { what: 'Tab background', was: '800ms', now: '400ms', token: '--uiowa-motion-duration-slow' },
+      { what: 'Form field shadow', was: '500ms', now: '150ms', token: '--uiowa-motion-duration-fast', examples: ['textFocus'] },
+    ],
+  },
+  {
+    section: 'Breakpoints',
+    note: "Nothing moves at the default text size. The five in px now move with the reader's browser text size while the text does not, because :root is fixed at 16px. The two in em behave as before.",
+    rows: [
+      { what: 'Sass breakpoints', was: 'px or em', now: 'rem', token: '$uiowa-breakpoint-*', examples: ['spaceAndLayout'] },
+    ],
+  },
+];
+const FIXED = [
+  { what: 'Horizontal stats on gold, 980 to 1350px wide', was: 'The rule above the content was gold on gold.', now: 'It shows in black.', examples: ['statGold'] },
+];
+const CHANGED_COMPONENT_COUNT = CHANGED_COMPONENTS.reduce((sum, s) => sum + s.rows.length, 0);
+// The changelog's old values are uppercase hex; the build prints lowercase. Show both alike.
+const hexCase = (value) => (/^#[0-9a-f]{3,8}$/i.test(value) ? value.toUpperCase() : value);
 const ADDED_COUNT = Object.fromEntries(
   Object.entries(ADDED).map(([tier, files]) => [tier, Object.values(files).flat().length]),
 );
@@ -263,6 +337,14 @@ const css = `
     border-bottom: 1px solid var(--uiowa-color-border-default); vertical-align: middle;
   }
   .tk th { font-weight: var(--uiowa-typography-font-weight-medium); white-space: nowrap; }
+  /* Column headings stay in view while a long table scrolls past. A sticky cell needs its
+     own background, and a collapsed table's border scrolls away, so the rule under the
+     headings is a shadow. */
+  .tk thead th {
+    position: sticky; top: 0; z-index: 1;
+    background: var(--uiowa-color-background-white);
+    box-shadow: inset 0 -1px 0 var(--uiowa-color-border-default);
+  }
   .tk code { font-family: 'SF Mono', Monaco, Consolas, monospace; font-size: 0.85em; }
   .tk__swatch {
     display: inline-block; width: 3rem; height: 1.6rem;
@@ -308,7 +390,7 @@ const css = `
   }
   /* Pointing at the track plays the dot to the far end: the 12rem track less the 1rem dot. */
   .tk__track:hover .tk__dot { transform: translateX(11rem); }
-  /* Added in this PR: a section's heading row, the token's own description, and its examples. */
+  /* In this PR: a section's heading row, the token's own description, and its examples. */
   .tk__section th {
     padding-top: var(--uiowa-space-150);
     font-weight: var(--uiowa-typography-font-weight-bold); color: var(--uiowa-color-neutral-800);
@@ -320,6 +402,8 @@ const css = `
   }
   .tk__use { max-width: 28rem; }
   .tk__links { display: flex; flex-wrap: wrap; gap: 0 var(--uiowa-space-150); margin-top: var(--uiowa-space-50); }
+  /* A changed color: the old swatch, then the new one. */
+  .tk__pair { display: inline-flex; align-items: center; gap: var(--uiowa-space-50); white-space: nowrap; }
 `;
 
 export default {
@@ -745,8 +829,8 @@ export const Motion = {
   }),
 };
 
-export const AddedInThisPR = {
-  name: 'Added in this PR',
+export const InThisPR = {
+  name: 'In this PR',
   render: () => ({
     setup() {
       const tokens = useTokens();
@@ -782,29 +866,54 @@ export const AddedInThisPR = {
           rows: paths.map((path) => rowFor(tier, file, path)),
         })),
       })) : []));
-      return { tiers, count: ADDED_COUNT, css };
+      // A changed token: its old value, written down, beside its live one. A semantic token
+      // shows what it points at, then and now.
+      const changedValues = computed(() => (tokens.value.length ? CHANGED_VALUES.map((c) => {
+        const name = cssName(c.path);
+        const live = tokens.value.find((t) => t.name === name);
+        return {
+          ...c,
+          name,
+          was: hexCase(c.was),
+          now: hexCase(live.value),
+          nowPoints: live.declared.startsWith('var(') ? primitiveOf(live.declared) : '',
+          links: linksFor(c.examples),
+        };
+      }) : []));
+      const changedComponents = CHANGED_COMPONENTS.map((s) => ({
+        ...s,
+        rows: s.rows.map((r) => ({ ...r, links: linksFor(r.examples) })),
+      }));
+      const fixed = FIXED.map((f) => ({ ...f, links: linksFor(f.examples) }));
+      return {
+        tiers, count: ADDED_COUNT, changedValues, changedComponents, fixed,
+        componentCount: CHANGED_COMPONENT_COUNT, valueCount: CHANGED_VALUES.length, css,
+      };
     },
     template: `
       <div class="tk">
         <component is="style">{{ css }}</component>
-        <h1>Tokens added in this PR</h1>
+        <h1>In this PR</h1>
         <p>
-          The {{ count.primitives + count.semantic }} tokens this PR adds, against 5.0.0-alpha.0:
-          {{ count.primitives }} primitives and {{ count.semantic }} semantic. Typography adds none.
-          Each specimen is drawn by the token beside it, and the Use column is the token's own
-          description.
-        </p>
-        <p class="tk__note">
-          Values this PR changes, such as links, info and the accent colors, are in
-          <code>CHANGELOG.md</code>, not here. Point at a motion track to play it.
+          Everything this PR adds and changes, against 5.0.0-alpha.0, as its
+          <code>CHANGELOG.md</code> entry lists it: {{ count.primitives + count.semantic }} tokens
+          added, {{ valueCount }} token values changed, {{ componentCount }} values that moved when
+          a component took a token, and {{ fixed.length }} fix. Nothing was removed or renamed.
         </p>
         <p class="tk__note">
           The links under Use open a component example with its props and background set to show
-          the token. Motion and focus show when you point at, click or tab to the element.
+          the token or the change. Motion and focus show when you point at, click or tab to the
+          element.
         </p>
 
+        <h2>Added</h2>
+        <p class="tk__note">
+          {{ count.primitives }} primitives and {{ count.semantic }} semantic tokens. Typography adds
+          none. Each specimen is drawn by the token beside it, and the Use column is the token's own
+          description. Point at a motion track to play it.
+        </p>
         <template v-for="t in tiers" :key="t.tier">
-          <h2>{{ t.tier === 'primitives' ? 'Primitives' : 'Semantic' }}</h2>
+          <h3>{{ t.tier === 'primitives' ? 'Primitives' : 'Semantic' }}</h3>
           <table>
             <thead>
               <tr>
@@ -858,6 +967,88 @@ export const AddedInThisPR = {
             </tbody>
           </table>
         </template>
+
+        <h2>Changed</h2>
+        <h3>Token values</h3>
+        <p class="tk__note">
+          Was is 5.0.0-alpha.0's value; Now is read from the build. A semantic token shows what it
+          points at, then and now. Links and info change everywhere they appear.
+        </p>
+        <table>
+          <thead><tr><th>Token</th><th>Was</th><th>Now</th><th>Specimen</th><th>Where it shows</th></tr></thead>
+          <tbody>
+            <tr v-for="r in changedValues" :key="r.path">
+              <td><code>{{ r.name }}</code></td>
+              <td>
+                <div v-if="r.wasPoints"><code class="tk__note">{{ r.wasPoints }}</code></div>
+                <code>{{ r.was }}</code>
+              </td>
+              <td>
+                <div v-if="r.nowPoints"><code class="tk__note">{{ r.nowPoints }}</code></div>
+                <code>{{ r.now }}</code>
+              </td>
+              <td>
+                <span class="tk__pair">
+                  <span class="tk__swatch" :style="{ background: r.was }" :title="'Was ' + r.was"></span>
+                  →
+                  <span class="tk__swatch" :style="{ background: 'var(' + r.name + ')' }" :title="'Now ' + r.now"></span>
+                </span>
+              </td>
+              <td class="tk__use">
+                {{ r.shows }}
+                <div v-if="r.links.length" class="tk__links">
+                  <a v-for="l in r.links" :key="l.href + l.label" :href="l.href" target="_top">{{ l.label }}</a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Values that moved when a component took a token</h3>
+        <p class="tk__note">
+          No token changed here. Each component now takes the value from a token, and its rendered
+          value moved to the token's.
+        </p>
+        <table>
+          <thead><tr><th>Element</th><th>Was</th><th>Now</th><th>Token</th><th>Use</th></tr></thead>
+          <tbody v-for="s in changedComponents" :key="s.section">
+            <tr class="tk__section">
+              <th colspan="5">
+                {{ s.section }}
+                <div v-if="s.note" class="tk__section-note">{{ s.note }}</div>
+              </th>
+            </tr>
+            <tr v-for="r in s.rows" :key="r.what">
+              <td>{{ r.what }}</td>
+              <td><code>{{ r.was }}</code></td>
+              <td><code>{{ r.now }}</code></td>
+              <td><code class="tk__note">{{ r.token }}</code></td>
+              <td class="tk__use">
+                <div v-if="r.links.length" class="tk__links">
+                  <a v-for="l in r.links" :key="l.href + l.label" :href="l.href" target="_top">{{ l.label }}</a>
+                </div>
+                <span v-else class="tk__note">No story</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Fixed</h2>
+        <table>
+          <thead><tr><th>Where</th><th>Was</th><th>Now</th><th>Use</th></tr></thead>
+          <tbody>
+            <tr v-for="f in fixed" :key="f.what">
+              <td>{{ f.what }}</td>
+              <td>{{ f.was }}</td>
+              <td>{{ f.now }}</td>
+              <td class="tk__use">
+                <div class="tk__links">
+                  <a v-for="l in f.links" :key="l.href + l.label" :href="l.href" target="_top">{{ l.label }}</a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     `,
   }),
