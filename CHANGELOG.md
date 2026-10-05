@@ -12,6 +12,11 @@ also carries its date.
 
 ## [5.0.0-alpha.1](https://github.com/uiowa/uids/compare/v5.0.0-alpha.0...v5.0.0-alpha.1)
 
+### Added
+
+- A Storybook `Review/CSS cleanup` page with migration comparisons and a prominent
+  review of existing component text-color overrides against background defaults.
+
 ### Changed
 
 - Form buttons use `.bttn--small` and `.bttn--full` in place of `.button--small` and
