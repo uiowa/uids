@@ -79,6 +79,17 @@ the table.
   margins of `0.8rem`, and padding of `0.4rem 1.2rem 0.8rem`.
 - Replacing `.bold-headline` with `.headline` can activate existing banner and card
   headline rules that did not apply to the legacy class.
+- Replacing a circle-list ancestor's `.uids-component--gray` with `.bg--gray`
+  preserves the circle's inset shadow. With background styles loaded, `.bg--gray`
+  also applies `background-color: var(--uiowa-color-background-gray)` and the gray
+  surface's text, link, and border colors.
+- Replacing `.flex--center` or `.flex--left` preserves the utility declarations,
+  but can activate existing stat component rules. `.element--flex-center` also
+  excludes horizontal stats from the `.stat--horizontal:not(.element--flex-center)`
+  layout rules.
+- `.element-invisible` preserves UIDS's visually hidden declarations. It does not
+  provide focus-reveal rules for `.visually-hidden.focusable`; preserve any such
+  behavior supplied by other stylesheets when migrating focusable elements.
 - The unused `.bold-headline--caps .headline__headline span` selector is removed.
 
 ## [5.0.0-alpha.0](https://github.com/uiowa/uids/releases/tag/v5.0.0-alpha.0)
