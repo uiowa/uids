@@ -11,6 +11,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  linked: {
+    type: Boolean,
+    default: true,
+  },
   context: {
     type: String,
     default: 'header',
@@ -18,9 +22,15 @@ const props = defineProps({
   }
 });
 
+// Renders its children with no wrapping element.
+const NoWrap = (_: unknown, { slots }: any) => slots.default?.();
+
 const logoLink = computed(() => {
   return props.healthcare ? 'https://uihealthcare.org' : 'https://uiowa.edu';
 });
+
+// Only attach href when we're actually rendering an <a>.
+const linkAttrs = computed(() => (props.linked ? { href: logoLink.value } : {}));
 
 const fallbackPath = computed(() => {
   return props.healthcare ? '../../assets/images/healthcare.png' : '../../assets/images/uiowa-primary.png';
@@ -37,7 +47,7 @@ const logoClasses = computed(() => {
 </script>
 <template>
   <div :class="logoClasses">
-    <a :href="logoLink">
+    <component :is="linked ? 'a' : NoWrap" v-bind="linkAttrs">
       <div class="element-invisible">{{ healthcare ? 'The University of Iowa Health Care' : 'University of Iowa' }}</div>
       <template v-if="healthcare">
         <svg xmlns="http://www.w3.org/2000/svg" class="logo-icon" :aria-labelledby="id" role="img" viewBox="24.89 24.71 148.01 67.83">
@@ -60,6 +70,6 @@ const logoClasses = computed(() => {
           </image>
         </svg>
       </template>
-    </a>
+    </component>
   </div>
 </template>
