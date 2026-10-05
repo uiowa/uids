@@ -4,27 +4,16 @@
 // === Blockquote === //
 
 blockquote {
-  --blockquote-rule-color: #{variables.$primary};
-  --blockquote-rule-space: var(--uiowa-stroke-width-8);
-  position: relative;
   font-weight: variables.$font-weight-normal;
   font-style: normal;
   font-family: variables.$font-family-serif;
+  border-left-style: solid;
+  border-width: var(--uiowa-stroke-width-8);
+  border-color: variables.$primary;
   padding: variables.$lg;
   font-size: 1.5rem;
   line-height: 1.7;
   @include utilities.padding($top: variables.$xsm, $bottom: variables.$xsm, $left: variables.$lg);
-  padding-left: calc(#{variables.$lg} + var(--blockquote-rule-space));
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: var(--uiowa-stroke-width-8);
-    background: var(--blockquote-rule-color);
-  }
 
   cite {
     display: block;
@@ -38,19 +27,28 @@ blockquote {
     margin-bottom: 0;
   }
 
+  // border color overrides for certain background colors
   [class*="bg--black"] &,
   [class*="bg--"] [class*="bg--black"] &,
   [class*="bg--gray"] &,
   [class*="bg--"] [class*="bg--gray"] &,
   [class*="bg--white"] &,
   [class*="bg--"] [class*="bg--white"] &, {
-    --blockquote-rule-color: #{variables.$primary};
+    border-color: variables.$primary;
+
+    &::before {
+      background: variables.$primary;
+    }
   }
 
 
   [class*="bg--gold"] &,
   [class*="bg--"] [class*="bg--gold"] & {
-    --blockquote-rule-color: var(--uiowa-color-neutral-0);
+    border-color: var(--uiowa-color-neutral-0);
+
+    &::before {
+      background: var(--uiowa-color-background-white);
+    }
   }
 
   p {
@@ -86,6 +84,8 @@ blockquote {
     }
 
     text-align: center;
+    border: none;
+    position: relative;
 
     @include utilities.padding($top: variables.$xlg, $bottom: variables.$xsm, $left: variables.$xsm, $right: variables.$xsm);
 
@@ -94,7 +94,6 @@ blockquote {
       content: '';
       height: var(--uiowa-stroke-width-8);
       top: 11px;
-      bottom: auto;
       margin: 0 auto;
       left: 0;
       right: 0;
@@ -113,12 +112,9 @@ blockquote {
   &.blockquote--right,
   .blockquote-right & {
     text-align: end;
-    padding: variables.$xsm calc(#{variables.$lg} + var(--blockquote-rule-space)) variables.$xsm variables.$lg;
-
-    &::before {
-      right: 0;
-      left: auto;
-    }
+    border-left: none;
+    border-right-style: solid;
+    padding: variables.$xsm variables.$lg;
   }
   // Shared styles for above and below options.
   &.blockquote--img-above,
@@ -195,17 +191,13 @@ blockquote {
     }
 
     &.blockquote:not(.blockquote--center) {
-      --blockquote-rule-space: 0px;
+      border: none;
       margin-right: 0;
       margin-left: 0;
       padding: variables.$md 0;
       display: flex;
       align-items: flex-start;
       flex-wrap: wrap;
-
-      &::before {
-        content: none;
-      }
     }
 
     &.blockquote--right {
@@ -290,9 +282,7 @@ blockquote {
   }
 
   &.blockquote--remove-stylization {
-    // Keep the unit: the padding calc()s add this to a length, and a unitless 0 there
-    // makes the whole padding declaration invalid.
-    --blockquote-rule-space: 0px;
+    border-width: 0;
 
     &.blockquote--img-above {
       .blockquote__paragraph {
@@ -301,7 +291,7 @@ blockquote {
     }
 
     &::before {
-      content: none;
+      height: 0;
     }
 
     .blockquote__paragraph {

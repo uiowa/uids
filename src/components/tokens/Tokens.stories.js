@@ -679,7 +679,7 @@ export const BordersAndShapes = {
         <h2>Stroke widths</h2>
         <p class="tk__note">
           A stroke width is the weight of a line, however it is drawn: a border, an outline, or a
-          bar drawn with a pseudo-element's height (its width, for a side rule).
+          bar drawn with a pseudo-element's height.
         </p>
         <template v-for="g in ['stroke primitive', 'stroke semantic']" :key="g">
           <h3>{{ g === 'stroke primitive' ? 'Primitives' : 'Semantic' }}</h3>

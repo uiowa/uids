@@ -1,8 +1,6 @@
 @use '../abstracts/variables';
 @use '../abstracts/utilities';
 
-$rule-space: calc(#{variables.$sm} + var(--uiowa-stroke-width-8));
-
 // https://drafts.csswg.org/css-values-5/#interpolate-size.
 :root {
   interpolate-size: allow-keywords;
@@ -51,25 +49,15 @@ $rule-space: calc(#{variables.$sm} + var(--uiowa-stroke-width-8));
     font-family: variables.$font-family-caps-bold;
     font-weight: bold;
     font-size: 4rem;
-    --stat-rule-color: #{variables.$primary};
-    padding: variables.$lg 0 $rule-space 0;
-
-    &::after {
-      content: '';
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      height: var(--uiowa-stroke-width-8);
-      background: var(--stat-rule-color);
-    }
+    border-bottom: var(--uiowa-stroke-width-8) solid variables.$primary;
+    padding: variables.$lg 0 variables.$sm 0;
 
     @include utilities.breakpoint(sm) {
-      padding: variables.$md variables.$lg $rule-space 0;
+      padding: variables.$md variables.$lg variables.$sm 0;
     }
 
     .element--flex-center & {
-      padding: variables.$md variables.$lg $rule-space variables.$lg;
+      padding: variables.$md variables.$lg variables.$sm variables.$lg;
       display: block;
     }
 
@@ -77,7 +65,7 @@ $rule-space: calc(#{variables.$sm} + var(--uiowa-stroke-width-8));
     [class*="bg--white"] &,
     [class*="bg--gray"] &,
     [class*="bg--black"] & {
-      --stat-rule-color: #{variables.$primary};
+      border-bottom: var(--uiowa-stroke-width-8) solid variables.$primary;
     }
 
     // @todo This should probably be resolved with https://sass-lang.com/documentation/values/maps#using-maps
@@ -90,15 +78,15 @@ $rule-space: calc(#{variables.$sm} + var(--uiowa-stroke-width-8));
 
     .bg-pattern--brain-reversed &,
     [class*="bg--gold"] & {
-      --stat-rule-color: var(--uiowa-color-neutral-0);
+      border-bottom: var(--uiowa-stroke-width-8) solid var(--uiowa-color-neutral-0);
     }
 
     @include utilities.breakpoint(sm) {
       font-size: 5rem;
-      padding: 0 variables.$lg $rule-space 0;
+      padding: 0 variables.$lg variables.$sm 0;
 
       .element--flex-center & {
-        padding: 0 variables.$lg $rule-space;
+        padding: 0 variables.$lg variables.$sm;
       }
     }
   }
@@ -196,7 +184,9 @@ $rule-space: calc(#{variables.$sm} + var(--uiowa-stroke-width-8));
   .bg-pattern--brain-reversed &,
   [class*="bg--gold"] & {
     .stat__content {
-      --stat-content-rule-color: #{variables.$secondary};
+      @include utilities.breakpoint(md) {
+        border-top: var(--uiowa-stroke-width-8) solid variables.$secondary;
+      }
     }
   }
 
@@ -206,10 +196,7 @@ $rule-space: calc(#{variables.$sm} + var(--uiowa-stroke-width-8));
 
     @include utilities.breakpoint(md) {
       padding: 0 variables.$lg variables.$xsm 0;
-
-      &::after {
-        content: none;
-      }
+      border-bottom: none;
     }
 
     @include utilities.breakpoint(page-container) {
@@ -226,20 +213,10 @@ $rule-space: calc(#{variables.$sm} + var(--uiowa-stroke-width-8));
     font-size: 1.1rem;
 
     @include utilities.breakpoint(md) {
-      position: relative;
-      padding-top: calc(.5rem + var(--uiowa-stroke-width-8));
+      padding-top: .5rem;
       margin-top: .75rem;
+      border-top: var(--uiowa-stroke-width-8) solid variables.$primary;
       flex-basis: 100%;
-
-      &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        left: 0;
-        height: var(--uiowa-stroke-width-8);
-        background: var(--stat-content-rule-color, #{variables.$primary});
-      }
     }
 
   }
