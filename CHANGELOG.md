@@ -43,8 +43,10 @@ the table.
 | `.bold-headline--serif` | `.headline--serif` |
 | `.bold-headline--highlight` | `.headline--highlight` |
 | `.bold-headline--underline` | `.headline--underline` |
-| `.block-padding__top`, `__right`, `__bottom`, `__left`, `__all`, `__all--extra`, `__all--minimal` and their `--minimal` modifiers | the same suffix on `.element--padding` |
-| `.block-margin__top`, `__right`, `__bottom`, `__left` and their `--extra` modifiers | the same suffix on `.element--margin` |
+| `.block-padding__top`, `__right`, `__bottom`, `__left` and their `--minimal` modifiers | the same suffix on `.element--padding` |
+| `.block-padding__all`, `__all--extra`, `__all--minimal` | the same suffix on `.element--padding` |
+| `.block-margin__top`, `__right`, `__bottom`, `__left` | the same suffix on `.element--margin` |
+| `.block-margin__top--extra`, `.block-margin__bottom--extra` | `.element--margin__top--extra`, `.element--margin__bottom--extra` |
 | `.uids-component--circle-list` | `.element--circle-list` |
 | `.uids-component--bold-intro` | `.element--bold-intro` |
 | `.uids-component--light-intro` | `.element--light-intro` |
