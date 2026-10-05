@@ -25,7 +25,8 @@ also carries its date.
 - `.tabs-collection [role="tabpanel"].is-hidden`. Use the native `hidden` attribute
   to hide a tab panel, as the tabs JavaScript already does.
 - `.footer-cta__wrapper`, `.footer-cta__container`, and `.socket__container` styles for
-  obsolete brand-footer wrappers. No replacement classes.
+  obsolete brand-footer wrappers, including `.footer-cta__wrapper .bttn--outline`
+  and descendant menu styles. No replacement classes.
 - `.grid--3-2 .stat__description`, an unused stat-layout override. Default stat
   descriptions inside `.grid--3-2` now use `width: 85%` instead of `60%` at the
   medium breakpoint and above.
@@ -64,8 +65,15 @@ the table.
 
 - Move `.blockquote-center` and `.blockquote-right` from the wrapper to the blockquote
   element, using `.blockquote--center` and `.blockquote--right`.
+  Plain alignment rules match. With image modifiers, the canonical classes also activate
+  existing layout rules: centered images above use `display: block` instead of `flex`,
+  centered images below gain `justify-content: center` on the footer, right-aligned images
+  above use `flex-direction: row-reverse` instead of `row`, and right-aligned images below
+  gain that reversal on the footer plus `text-align: end` on the citation instead of `start`.
+  Media spacing and decorative rules also follow the canonical image layout.
 - Replace `.bg-pattern--brain*` ancestors with the matching `.bg--*--pattern--brain`
-  classes. The replacements apply the background images as well as descendant colors.
+  classes. The replacements preserve the removed descendant declarations and also apply
+  the background images and each surface's background, text, link, and border colors.
   The removed selectors only applied descendant styles.
 - `.cta__wrapper.element--left .bold-headline` sizing and margin overrides are removed.
   Replacing `.bold-headline` with `.headline` changes `font-size` from `2.5rem` to
