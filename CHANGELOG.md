@@ -21,8 +21,7 @@ below is stated against 5.0.0-alpha.0.
 
 | Group | Tokens |
 | --- | --- |
-| Border widths | `border.width.1`, `border.width.2`; `border.width.default` (1px) and `border.width.focused` (2px) |
-| Accent rules | `accent-rule.4`, `.5`, `.6`, `.8` |
+| Stroke widths | `stroke.width.1`, `.2`, `.4`, `.5`, `.6`, `.8`; `stroke.width.default` (1px) and `stroke.width.focused` (2px) |
 | Radius | `radius.3`, `radius.full` |
 | Shadows | `shadow.inset` (form fields), `shadow.raised` (the toggle knob) |
 | Motion | `duration.150`, `.250`, `.400`; `motion.duration.fast`, `medium`, `slow`; `easing.standard`, `enter`, `overshoot` |

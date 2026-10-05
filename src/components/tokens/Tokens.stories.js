@@ -76,8 +76,7 @@ const ADDED = {
       'color.green-light', 'color.purple', 'color.cyan', 'color.olive', 'color.rose', 'color.gray-warm', 'color.gray-cool',
       'color.alpha.black-200', 'color.alpha.black-425', 'color.alpha.near-black-150', 'color.alpha.white-425',
     ],
-    border: ['border.width.1', 'border.width.2'],
-    'accent-rule': ['accent-rule.4', 'accent-rule.5', 'accent-rule.6', 'accent-rule.8'],
+    stroke: ['stroke.width.1', 'stroke.width.2', 'stroke.width.4', 'stroke.width.5', 'stroke.width.6', 'stroke.width.8'],
     radius: ['radius.3', 'radius.full'],
     motion: ['duration.150', 'duration.250', 'duration.400', 'easing.standard', 'easing.enter', 'easing.overshoot'],
     breakpoints: [
@@ -91,7 +90,7 @@ const ADDED = {
       'color.data.1', 'color.data.2', 'color.data.3', 'color.data.4', 'color.data.5', 'color.data.6',
       'color.data.7', 'color.data.8', 'color.data.9', 'color.data.10', 'color.data.11', 'color.data.12',
     ],
-    border: ['border.width.default', 'border.width.focused'],
+    stroke: ['stroke.width.default', 'stroke.width.focused'],
     shadow: ['shadow.inset', 'shadow.raised'],
     motion: ['motion.duration.fast', 'motion.duration.medium', 'motion.duration.slow'],
     form: ['form.height.medium', 'form.height.large'],
@@ -101,8 +100,7 @@ const ADDED = {
 };
 const ADDED_SECTIONS = {
   colors: 'Colors',
-  border: 'Border widths',
-  'accent-rule': 'Accent rules',
+  stroke: 'Stroke widths',
   radius: 'Radius',
   motion: 'Motion',
   breakpoints: 'Breakpoints',
@@ -161,12 +159,12 @@ const ADDED_EXAMPLES = {
   'color.alpha.black-425': ['ctaGold', 'cardGold'],
   'color.alpha.near-black-150': ['text'],
   'color.alpha.white-425': ['ctaBlack', 'cardBlack'],
-  'border.width.1': ['card', 'table'],
-  'border.width.2': ['checkboxError', 'textFocus'],
-  'accent-rule.4': ['button', 'headlineH6'],
-  'accent-rule.5': ['menu', 'headlineH5'],
-  'accent-rule.6': ['headlineH2'],
-  'accent-rule.8': ['stat', 'blockquote'],
+  'stroke.width.1': ['card', 'table'],
+  'stroke.width.2': ['checkboxError', 'textFocus'],
+  'stroke.width.4': ['button', 'headlineH6'],
+  'stroke.width.5': ['menu', 'headlineH5'],
+  'stroke.width.6': ['headlineH2'],
+  'stroke.width.8': ['stat', 'blockquote'],
   'radius.3': ['text', 'alert'],
   'radius.full': ['badge', 'toggle'],
   'duration.150': ['text', 'select'],
@@ -176,8 +174,8 @@ const ADDED_EXAMPLES = {
   'easing.overshoot': ['toggle', 'stat'],
   'color.border.strong': ['ctaGold', 'cardGold'],
   'color.border.strong-inverse': ['ctaBlack', 'cardBlack'],
-  'border.width.default': ['card', 'table'],
-  'border.width.focused': ['textFocus', 'checkboxFocus', 'accordionFocus'],
+  'stroke.width.default': ['card', 'table'],
+  'stroke.width.focused': ['textFocus', 'checkboxFocus', 'accordionFocus'],
   'shadow.inset': ['text'],
   'shadow.raised': ['toggle'],
   'motion.duration.fast': ['text', 'select'],
@@ -200,12 +198,12 @@ const USES = {
   'color.alpha.black-425': 'A strong border on light surfaces: buttons (color.border.strong).',
   'color.alpha.near-black-150': "The inset shadow on form fields (shadow.inset): UIDS's rgba(10, 10, 10, 0.15). #0A0A0A is not a step on the neutral ramp.",
   'color.alpha.white-425': 'A strong border on dark surfaces: buttons (color.border.strong-inverse).',
-  'border.width.1': 'The resting outline on form fields (form.scss), through border.width.default.',
-  'border.width.2': 'Focus rings, through border.width.focused: form fields, the file input, checkboxes and radios (form.scss), the accordion (accordion.scss) and the circle button (button.scss).',
-  'accent-rule.4': 'The button focus and hover bar, and the h6 headline underline.',
-  'accent-rule.5': 'The tab and menu indicators, and the h5 headline underline.',
-  'accent-rule.6': 'The headline underline on h1 to h4, and the gold spacer.',
-  'accent-rule.8': 'Stat titles and blockquotes.',
+  'stroke.width.1': 'The resting outline on form fields (form.scss), through stroke.width.default.',
+  'stroke.width.2': 'Focus rings, through stroke.width.focused: form fields, the file input, checkboxes and radios (form.scss), the accordion (accordion.scss) and the circle button (button.scss).',
+  'stroke.width.4': 'The button focus and hover bar, and the h6 headline underline.',
+  'stroke.width.5': 'The tab and menu indicators, and the h5 headline underline.',
+  'stroke.width.6': 'The headline underline on h1 to h4, and the gold spacer.',
+  'stroke.width.8': 'Stat titles and blockquotes.',
   'duration.150': 'Used through motion.duration.fast.',
   'duration.250': 'Used through motion.duration.medium.',
   'duration.400': 'Used through motion.duration.slow.',
@@ -214,7 +212,7 @@ const USES = {
   'easing.overshoot': 'The toggle switch knob (form.scss) and the stat reveal (stat.scss).',
   'breakpoint.930': 'The grid mixins (abstracts/_grid-mixins.scss).',
   'breakpoint.1350': 'The page container ($break-page-container), through layout.breakpoint.standard.',
-  'border.width.focused': 'Form fields, the file input, checkboxes and radios (form.scss), the accordion (accordion.scss) and the circle button (button.scss). Four places draw focus differently: the toggle (form.scss) and the accordion label (accordion.scss) use a 1px outline with a background change; the circle button draws its ring as a border on a pseudo-element (button.scss); and buttons show an underline and a growing accent bar (_utilities.scss).',
+  'stroke.width.focused': 'Form fields, the file input, checkboxes and radios (form.scss), the accordion (accordion.scss) and the circle button (button.scss). Four places draw focus differently: the toggle (form.scss) and the accordion label (accordion.scss) use a 1px outline with a background change; the circle button draws its ring as a border on a pseudo-element (button.scss); and buttons show an underline and a growing accent bar (_utilities.scss).',
   'shadow.inset': 'Form fields (form.scss).',
   'shadow.raised': 'The toggle switch knob (form.scss).',
   'motion.duration.fast': "Form field focus and select options (form.scss), and the circle button's ring (button.scss).",
@@ -256,8 +254,8 @@ const CHANGED_COMPONENTS = [
   {
     section: 'Borders and corners',
     rows: [
-      { what: 'Circle button focus ring', was: '3px', now: '2px', token: '--uiowa-border-width-focused' },
-      { what: 'Blockquote rule', was: '10px', now: '8px', token: '--uiowa-accent-rule-8', examples: ['blockquote'] },
+      { what: 'Circle button focus ring', was: '3px', now: '2px', token: '--uiowa-stroke-width-focused' },
+      { what: 'Blockquote rule', was: '10px', now: '8px', token: '--uiowa-stroke-width-8', examples: ['blockquote'] },
       { what: 'Alert corners', was: '2px', now: '3px', token: '--uiowa-radius-3', examples: ['alert'] },
     ],
   },
@@ -305,13 +303,12 @@ function group(name, declared) {
   const n = name.replace('--uiowa-', '');
   if (n.startsWith('typography-font-') || n.startsWith('typography-letter-') || n.startsWith('typography-line-')) return 'type primitive';
   if (n.startsWith('typography-')) return 'type style';
-  // Color and border-width semantic tokens alias a primitive; a primitive holds a literal.
+  // Color and stroke-width semantic tokens alias a primitive; a primitive holds a literal.
   if (n.startsWith('color-')) return declared.startsWith('var(') ? 'color semantic' : 'color primitive';
   if (n.startsWith('space-')) return 'space';
   if (n.startsWith('layout-')) return 'layout';
   if (/^(font|letter|line)-/.test(n)) return 'type primitive';
-  if (n.startsWith('border-width-')) return declared.startsWith('var(') ? 'border semantic' : 'border primitive';
-  if (n.startsWith('accent-rule-')) return 'accent rule';
+  if (n.startsWith('stroke-width-')) return declared.startsWith('var(') ? 'stroke semantic' : 'stroke primitive';
   if (n.startsWith('radius-')) return 'radius';
   if (n.startsWith('shadow-')) return 'shadow';
   if (n.startsWith('duration-')) return 'duration primitive';
@@ -375,17 +372,15 @@ const css = `
   .tk__note { color: var(--uiowa-color-neutral-500); }
   /* A form height's box. The row's token sets its height, inline. */
   .tk__box { display: inline-block; width: 3rem; background: var(--uiowa-color-brand-gold); vertical-align: middle; }
-  /* A border width's line. The row's token sets border-top-width, inline. */
+  /* A stroke width's line. The row's token sets border-top-width, inline. */
   .tk__line {
     display: block; width: 8rem;
     border-top-style: solid; border-top-color: var(--uiowa-color-brand-black);
   }
-  /* An accent bar. The row's token sets its height, inline. */
-  .tk__accent { display: block; width: 75px; background: var(--uiowa-color-brand-gold); }
   .tk__corner {
     display: inline-block; width: 6rem; height: 2rem;
     background: var(--uiowa-color-neutral-100);
-    border: var(--uiowa-border-width-default) solid var(--uiowa-color-border-default);
+    border: var(--uiowa-stroke-width-default) solid var(--uiowa-color-border-default);
   }
   .tk__card {
     display: inline-block; width: 6rem; height: 3rem; margin: var(--uiowa-space-100);
@@ -681,47 +676,35 @@ export const BordersAndShapes = {
         <h1>Border and shape tokens</h1>
         <p>Each specimen is drawn by the token beside it.</p>
 
-        <h2>Border widths</h2>
-        <template v-for="g in ['border primitive', 'border semantic']" :key="g">
-          <h3>{{ g === 'border primitive' ? 'Primitives' : 'Semantic' }}</h3>
-          <p v-if="g === 'border semantic'" class="tk__note">
+        <h2>Stroke widths</h2>
+        <p class="tk__note">
+          A stroke width is the weight of a line, however it is drawn: a border, an outline, or a
+          bar drawn with a pseudo-element's height (its width, for a side rule).
+        </p>
+        <template v-for="g in ['stroke primitive', 'stroke semantic']" :key="g">
+          <h3>{{ g === 'stroke primitive' ? 'Primitives' : 'Semantic' }}</h3>
+          <p v-if="g === 'stroke semantic'" class="tk__note">
             A semantic token points at a primitive. Use a semantic token wherever one exists.
           </p>
           <table>
             <thead>
               <tr>
                 <th>Token</th>
-                <th v-if="g === 'border semantic'">Primitive</th>
-                <th>{{ g === 'border semantic' ? 'Resolves to' : 'Value' }}</th>
+                <th v-if="g === 'stroke semantic'">Primitive</th>
+                <th>{{ g === 'stroke semantic' ? 'Resolves to' : 'Value' }}</th>
                 <th>Line</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="t in tokens.filter(t => t.group === g)" :key="t.name">
                 <td><code>{{ t.name }}</code></td>
-                <td v-if="g === 'border semantic'"><code class="tk__note">{{ primitiveOf(t.declared) }}</code></td>
+                <td v-if="g === 'stroke semantic'"><code class="tk__note">{{ primitiveOf(t.declared) }}</code></td>
                 <td><code>{{ t.value }}</code></td>
                 <td><span class="tk__line" :style="{ borderTopWidth: 'var(' + t.name + ')' }"></span></td>
               </tr>
             </tbody>
           </table>
         </template>
-
-        <h2>Accent bars</h2>
-        <p class="tk__note">
-          Accent bars are drawn with a pseudo-element's height, or its width for a side rule,
-          not with a border.
-        </p>
-        <table>
-          <thead><tr><th>Token</th><th>Value</th><th>Bar</th></tr></thead>
-          <tbody>
-            <tr v-for="t in tokens.filter(t => t.group === 'accent rule')" :key="t.name">
-              <td><code>{{ t.name }}</code></td>
-              <td><code>{{ t.value }}</code></td>
-              <td><span class="tk__accent" :style="{ height: 'var(' + t.name + ')' }"></span></td>
-            </tr>
-          </tbody>
-        </table>
 
         <h2>Radius</h2>
         <table>
@@ -950,8 +933,7 @@ export const InThisPR = {
                 <td><code>{{ r.value }}</code></td>
                 <td>
                   <span v-if="r.group.startsWith('color')" class="tk__swatch" :style="{ background: 'var(' + r.name + ')' }"></span>
-                  <span v-else-if="r.group.startsWith('border')" class="tk__line" :style="{ borderTopWidth: 'var(' + r.name + ')' }"></span>
-                  <span v-else-if="r.group === 'accent rule'" class="tk__accent" :style="{ height: 'var(' + r.name + ')' }"></span>
+                  <span v-else-if="r.group.startsWith('stroke')" class="tk__line" :style="{ borderTopWidth: 'var(' + r.name + ')' }"></span>
                   <span v-else-if="r.group === 'radius'" class="tk__corner" :style="{ borderRadius: 'var(' + r.name + ')' }"></span>
                   <span v-else-if="r.group === 'shadow'" class="tk__card" :style="{ boxShadow: 'var(' + r.name + ')' }"></span>
                   <span v-else-if="r.group.startsWith('duration')" class="tk__track">
