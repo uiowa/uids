@@ -107,8 +107,6 @@ it('emits canonical names, fluid typography, and token references', () => {
   expect(output).not.toContain('--uiowa-font-size-120:');
 });
 
-// Breakpoints are stored in px for Figma and converted to rem for media queries,
-// which cannot read a custom property. These tests pin both halves of that rule.
 describe('breakpointRem', () => {
   it('converts a px breakpoint to rem at the 16px default', () => {
     expect(breakpointRem({
@@ -125,8 +123,6 @@ describe('breakpointRem', () => {
   });
 });
 
-// This build-output test checks that breakpoints reach Sass in rem and stay out of
-// the custom properties, and that DTCG durations print as CSS times.
 it('writes breakpoints to Sass in rem and durations as CSS times', () => {
   const tokens = readFileSync(join(repository, 'src/scss/abstracts/_tokens-generated.scss'), 'utf8');
   const breakpoints = readFileSync(join(repository, 'src/scss/abstracts/_breakpoints-generated.scss'), 'utf8');

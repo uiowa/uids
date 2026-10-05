@@ -16,10 +16,7 @@ const TYPOGRAPHY_CHANNEL_PATTERN = new RegExp(`-(${TYPOGRAPHY_CHANNELS.map(({ na
 /**
  * These stories read the --uiowa-* custom properties out of the loaded stylesheets and
  * render each one through itself: a color swatch is painted by its own token, a type
- * specimen is set with its own channels. Nothing here transcribes a value, so the page
- * cannot fall out of step with src/tokens/**. Adding a token makes it appear.
- * Breakpoints are the exception: they have no custom property, so they are read from
- * the token files (see BREAKPOINTS).
+ * specimen is set with its own channels.
  */
 function readTokens() {
   const found = new Map();
@@ -48,12 +45,6 @@ const primitiveOf = (declared) => declared.replace(/^var\(\s*/, '').replace(/\s*
 /** The alpha color a shadow is drawn in: the var() inside its declared value. */
 const colorOf = (declared) => (declared.match(/var\(\s*(--uiowa-[\w-]+)\s*\)/) || [])[1] || '';
 
-/**
- * Breakpoints, read from the token files, because a media query can't read a custom
- * property and the build writes none. Names and rem values repeat what the build writes
- * to _breakpoints-generated.scss: the Sass name is the token path, and rem is
- * breakpointRem() in style-dictionary.config.js, px over the 16px root.
- */
 const tokensIn = (group) => Object.entries(group).filter(([key]) => !key.startsWith('$'));
 const breakpointRow = (path, px) => ({
   name: `$uiowa-${path.join('-')}`,
@@ -78,12 +69,7 @@ const BREAKPOINTS = [
   }),
 ];
 
-/**
- * The tokens this PR adds, by tier and token file: every path in src/tokens/ that 5.x
- * (dc0efcf697, 5.0.0-alpha.0's tokens) lacks. A story can't diff branches, so the names
- * are listed here; values, specimens and descriptions are still read live. To regenerate,
- * compare each file's token paths at that commit and HEAD. Typography adds none.
- */
+/** The tokens this PR adds, by tier and token file. */
 const ADDED = {
   primitives: {
     colors: [
@@ -131,15 +117,9 @@ const ADDED_SECTION_NOTES = {
 };
 /**
  * Component examples for the In this PR page: a story, and the args that bring out the
- * token or the change. Each was checked by rendering the story with these args and
- * measuring the element: the Added examples on 2026-10-02 (a CTA on gold draws its button
- * border in color.border.strong, an underlined h6 draws a 4px bar, and so on), the
- * Changed and Fixed ones on 2026-10-05 (the card's text link is #2C6ECA on white and gray
- * and #588DD6 on black, the blue badge is #2C6ECA, buttons measure 64px and 48px small,
- * and a horizontal stat on gold draws its rule black at 1100px). The background is the
- * component's own background arg: Storybook's backgrounds only paint the canvas, and these
- * tokens follow the bg-- class a component sets. Tabs (tabs.scss), the lowercase button and
- * the circle button have no story.
+ * token or the change. The background is the component's own background arg:
+ * Storybook's backgrounds only paint the canvas, and these tokens follow the bg-- class a
+ * component sets.
  */
 const EXAMPLES = {
   ctaGold: { label: 'CTA on gold', id: 'components-cta--centered', args: 'background:gold' },
@@ -207,8 +187,41 @@ const ADDED_EXAMPLES = {
   'form.height.large': ['textLarge'],
   'logo.minWidth': ['logo'],
 };
-// Relative to the preview's iframe.html, so the link works wherever Storybook is served;
-// target="_top" opens it in the Storybook window rather than inside the canvas.
+// Where each added token is used, shown after its description in the Use column.
+const USES = {
+  'color.green-light': 'Data visualization (color.data.4).',
+  'color.purple': 'Data visualization (color.data.5).',
+  'color.cyan': 'Data visualization (color.data.8).',
+  'color.olive': 'Data visualization (color.data.9).',
+  'color.rose': 'Data visualization (color.data.10).',
+  'color.gray-warm': 'Data visualization (color.data.11).',
+  'color.gray-cool': 'Data visualization (color.data.12).',
+  'color.alpha.black-200': 'The toggle knob shadow (shadow.raised).',
+  'color.alpha.black-425': 'A strong border on light surfaces: buttons (color.border.strong).',
+  'color.alpha.near-black-150': "The inset shadow on form fields (shadow.inset): UIDS's rgba(10, 10, 10, 0.15). #0A0A0A is not a step on the neutral ramp.",
+  'color.alpha.white-425': 'A strong border on dark surfaces: buttons (color.border.strong-inverse).',
+  'border.width.1': 'The resting outline on form fields (form.scss), through border.width.default.',
+  'border.width.2': 'Focus rings, through border.width.focused: form fields, the file input, checkboxes and radios (form.scss), the accordion (accordion.scss) and the circle button (button.scss).',
+  'accent-rule.4': 'The button focus and hover bar, and the h6 headline underline.',
+  'accent-rule.5': 'The tab and menu indicators, and the h5 headline underline.',
+  'accent-rule.6': 'The headline underline on h1 to h4, and the gold spacer.',
+  'accent-rule.8': 'Stat titles and blockquotes.',
+  'duration.150': 'Used through motion.duration.fast.',
+  'duration.250': 'Used through motion.duration.medium.',
+  'duration.400': 'Used through motion.duration.slow.',
+  'easing.standard': 'Form field focus, select options and the toggle track (form.scss), the circle button (button.scss), the button focus bar (_utilities.scss), accordion icons (accordion.scss), menu and tab indicators (menu.scss, tabs.scss), expanding stat content (stat.scss), blockquote bars (blockquote.scss) and banner media (banner.scss).',
+  'easing.enter': 'Tab backgrounds (tabs.scss).',
+  'easing.overshoot': 'The toggle switch knob (form.scss) and the stat reveal (stat.scss).',
+  'breakpoint.930': 'The grid mixins (abstracts/_grid-mixins.scss).',
+  'breakpoint.1350': 'The page container ($break-page-container), through layout.breakpoint.standard.',
+  'border.width.focused': 'Form fields, the file input, checkboxes and radios (form.scss), the accordion (accordion.scss) and the circle button (button.scss). Four places draw focus differently: the toggle (form.scss) and the accordion label (accordion.scss) use a 1px outline with a background change; the circle button draws its ring as a border on a pseudo-element (button.scss); and buttons show an underline and a growing accent bar (_utilities.scss).',
+  'shadow.inset': 'Form fields (form.scss).',
+  'shadow.raised': 'The toggle switch knob (form.scss).',
+  'motion.duration.fast': "Form field focus and select options (form.scss), and the circle button's ring (button.scss).",
+  'motion.duration.medium': 'The toggle switch (form.scss), accordion icons (accordion.scss), menu and tab indicators (menu.scss, tabs.scss) and the button focus bar (_utilities.scss).',
+  'motion.duration.slow': 'The stat reveal and expanding stat content (stat.scss), tab backgrounds (tabs.scss), banner media (banner.scss) and blockquote bars (blockquote.scss).',
+};
+// Relative to the preview's iframe.html, so the link works wherever Storybook is served.
 const linksFor = (keys = []) => keys.map((key) => {
   const { label, id, args } = EXAMPLES[key];
   return { label, href: `./?path=/story/${id}${args ? `&args=${args}` : ''}` };
@@ -216,10 +229,8 @@ const linksFor = (keys = []) => keys.map((key) => {
 const exampleLinks = (path) => linksFor(ADDED_EXAMPLES[path]);
 
 /**
- * What this PR changes, as its CHANGELOG.md entry lists it; the two must agree. Token
- * values: the old value is 5.x's (dc0efcf697, 5.0.0-alpha.0), written here because a story
- * can't read another branch; the new value is read live. was points: the token a semantic
- * token pointed at then. Nothing was removed or renamed.
+ * The token values this PR changes. was: 5.x's value (dc0efcf697). wasPoints: what a
+ * semantic token pointed at then.
  */
 const CHANGED_VALUES = [
   { path: 'color.blue-dark', was: '#00558C', shows: 'Links on white and gray (color.link.default points here), and now info.', examples: ['cardLink', 'cardLinkGray'] },
@@ -230,8 +241,6 @@ const CHANGED_VALUES = [
   { path: 'color.magenta', was: '#AA4981', shows: 'An accent. No component uses one yet.' },
   { path: 'color.ochre', was: '#C08C00', shows: 'An accent. No component uses one yet.' },
 ];
-// Where a component now takes a value from a token and its rendered value moved to the
-// token's. No token changed. The was values are 5.0.0-alpha.0's, measured for CHANGELOG.md.
 const CHANGED_COMPONENTS = [
   {
     section: 'Sizes',
@@ -268,10 +277,6 @@ const CHANGED_COMPONENTS = [
     ],
   },
 ];
-// compare: the same story on the live site, which is built from 4.x and still has the bug.
-// Checked 2026-10-05 at 900, 1100, 1300 and 1400px: the live rule is missing at 900, gold on
-// gold at 1100 and 1300, and black at 1400; this branch's is missing at 900 and black at the
-// other three.
 const FIXED = [
   {
     what: 'Horizontal stats on gold, 980 to 1350px wide',
@@ -283,7 +288,6 @@ const FIXED = [
   },
 ];
 const CHANGED_COMPONENT_COUNT = CHANGED_COMPONENTS.reduce((sum, s) => sum + s.rows.length, 0);
-// The changelog's old values are uppercase hex; the build prints lowercase. Show both alike.
 const hexCase = (value) => (/^#[0-9a-f]{3,8}$/i.test(value) ? value.toUpperCase() : value);
 const ADDED_COUNT = Object.fromEntries(
   Object.entries(ADDED).map(([tier, files]) => [tier, Object.values(files).flat().length]),
@@ -296,11 +300,12 @@ const tokenAt = (tier, file, path) => path.split('.').reduce((node, key) => node
 const computedValue = (name) =>
   getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
-/** The group a reader looks for a token under. A semantic token aliases; a primitive holds a literal. */
+/** The group a reader looks for a token under. */
 function group(name, declared) {
   const n = name.replace('--uiowa-', '');
   if (n.startsWith('typography-font-') || n.startsWith('typography-letter-') || n.startsWith('typography-line-')) return 'type primitive';
   if (n.startsWith('typography-')) return 'type style';
+  // Color and border-width semantic tokens alias a primitive; a primitive holds a literal.
   if (n.startsWith('color-')) return declared.startsWith('var(') ? 'color semantic' : 'color primitive';
   if (n.startsWith('space-')) return 'space';
   if (n.startsWith('layout-')) return 'layout';
@@ -368,24 +373,20 @@ const css = `
   .tk__leading { display: inline-block; width: 14rem; }
   .tk__specimen { white-space: nowrap; }
   .tk__note { color: var(--uiowa-color-neutral-500); }
-  /* Space and layout: a form height's box. The row's token sets its height, inline. */
+  /* A form height's box. The row's token sets its height, inline. */
   .tk__box { display: inline-block; width: 3rem; background: var(--uiowa-color-brand-gold); vertical-align: middle; }
-  /* Borders and shapes: a border width's line. The row's token sets border-top-width, inline. */
+  /* A border width's line. The row's token sets border-top-width, inline. */
   .tk__line {
     display: block; width: 8rem;
     border-top-style: solid; border-top-color: var(--uiowa-color-brand-black);
   }
-  /* An accent bar, at the headline underline's 75px length. The row's token sets its height. */
+  /* An accent bar. The row's token sets its height, inline. */
   .tk__accent { display: block; width: 75px; background: var(--uiowa-color-brand-gold); }
-  /* A radius's corner. The row's token sets border-radius; the box is wider than it is
-     tall, so radius-full reads as a pill. */
   .tk__corner {
     display: inline-block; width: 6rem; height: 2rem;
     background: var(--uiowa-color-neutral-100);
     border: var(--uiowa-border-width-default) solid var(--uiowa-color-border-default);
   }
-  /* A shadow's card: white, with a margin so the shadow has room to show. The row's
-     token sets box-shadow. */
   .tk__card {
     display: inline-block; width: 6rem; height: 3rem; margin: var(--uiowa-space-100);
     background: var(--uiowa-color-background-white);
@@ -854,7 +855,7 @@ export const InThisPR = {
       };
       const rowFor = (tier, file, path) => {
         const token = tokenAt(tier, file, path);
-        const use = token.$description || '';
+        const use = [token.$description, USES[path]].filter(Boolean).join(' ');
         const links = exampleLinks(path);
         const live = tokens.value.find((t) => t.name === cssName(path));
         if (live) return { path, name: live.name, value: live.value, group: live.group, points: pointsAt(live), use, links };
@@ -880,8 +881,6 @@ export const InThisPR = {
           rows: paths.map((path) => rowFor(tier, file, path)),
         })),
       })) : []));
-      // A changed token: its old value, written down, beside its live one. A semantic token
-      // shows what it points at, then and now.
       const changedValues = computed(() => (tokens.value.length ? CHANGED_VALUES.map((c) => {
         const name = cssName(c.path);
         const live = tokens.value.find((t) => t.name === name);
@@ -924,7 +923,7 @@ export const InThisPR = {
         <p class="tk__note">
           {{ count.primitives }} primitives and {{ count.semantic }} semantic tokens. Typography adds
           none. Each specimen is drawn by the token beside it, and the Use column is the token's own
-          description. Point at a motion track to play it.
+          description, then where it is used. Point at a motion track to play it.
         </p>
         <template v-for="t in tiers" :key="t.tier">
           <h3>{{ t.tier === 'primitives' ? 'Primitives' : 'Semantic' }}</h3>
@@ -974,6 +973,7 @@ export const InThisPR = {
                 <td class="tk__use">
                   {{ r.use }}
                   <div v-if="r.links.length" class="tk__links">
+                    <!-- target="_top" opens the story in the Storybook window, not inside this canvas. -->
                     <a v-for="l in r.links" :key="l.href + l.label" :href="l.href" target="_top">{{ l.label }}</a>
                   </div>
                 </td>

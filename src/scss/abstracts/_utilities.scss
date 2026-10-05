@@ -333,18 +333,10 @@
   line-height: 1.4;
   font-family: variables.$font-family-caps-bold;
   font-size: 1.25rem;
-  // --bttn-height is a target, not a height: nothing sets the height property. The
-  // vertical padding is worked out from it, as what is left after one line of text
-  // (1lh) and the top and bottom borders, so padding, text and borders add up to the
-  // target. A size modifier changes only the target (see .bttn--small). Buttons that
-  // set their own padding (large, light-font, circle) ignore it, and a .borderless
-  // button, having no border, comes out 2px short.
-  //
-  // The targets are the spacing steps form fields use (form.height.*), so a button
-  // lines up with the field beside it, and a label that wraps grows the button
-  // instead of being squeezed. Moving .1rem from the top padding to the bottom keeps
-  // the caps font's optical lift. A Components layer could give buttons their own
-  // button.height.* tokens, pointing at these steps.
+  // A size modifier changes only --bttn-height (see .bttn--small). Buttons that set
+  // their own padding (large, light-font, circle) ignore it, and a .borderless button,
+  // having no border, comes out 2px short. Moving .1rem from the top padding to the
+  // bottom keeps the caps font's optical lift.
   --bttn-height: var(--uiowa-space-400);
   --bttn-padding-block: calc((var(--bttn-height) - 1lh - 2 * var(--uiowa-border-width-default)) / 2);
   padding: calc(var(--bttn-padding-block) - .1rem) 2rem calc(var(--bttn-padding-block) + .1rem);
@@ -358,8 +350,6 @@
   }
 }
 
-// Focus is drawn differently on buttons: an underline and the accent bar that grows
-// along the bottom edge, not the 2px ring (border.width.focused) other controls use.
 @mixin bttn--focus {
   &:after {
     content: '';

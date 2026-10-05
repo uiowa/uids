@@ -4,8 +4,6 @@
 // === Blockquote === //
 
 blockquote {
-  // The side rule is a pseudo-element bar, not a border. Its color and the space
-  // it takes are custom properties, so variants change one value instead of redrawing it.
   --blockquote-rule-color: #{variables.$primary};
   --blockquote-rule-space: var(--uiowa-accent-rule-8);
   position: relative;
@@ -40,7 +38,6 @@ blockquote {
     margin-bottom: 0;
   }
 
-  // border color overrides for certain background colors
   [class*="bg--black"] &,
   [class*="bg--"] [class*="bg--black"] &,
   [class*="bg--gray"] &,
@@ -293,6 +290,8 @@ blockquote {
   }
 
   &.blockquote--remove-stylization {
+    // Keep the unit: the padding calc()s add this to a length, and a unitless 0 there
+    // makes the whole padding declaration invalid.
     --blockquote-rule-space: 0px;
 
     &.blockquote--img-above {

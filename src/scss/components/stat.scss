@@ -1,8 +1,6 @@
 @use '../abstracts/variables';
 @use '../abstracts/utilities';
 
-// The accent rule under a stat title is a pseudo-element bar, not a border, so the
-// padding below the title includes the rule's height.
 $rule-space: calc(#{variables.$sm} + var(--uiowa-accent-rule-8));
 
 // https://drafts.csswg.org/css-values-5/#interpolate-size.
@@ -197,11 +195,8 @@ $rule-space: calc(#{variables.$sm} + var(--uiowa-accent-rule-8));
   &[class*="bg--gold"],
   .bg-pattern--brain-reversed &,
   [class*="bg--gold"] & {
-    // The same breakpoint as the rule itself (below), so the rule is never gold on gold.
     .stat__content {
-      @include utilities.breakpoint(md) {
-        --stat-content-rule-color: #{variables.$secondary};
-      }
+      --stat-content-rule-color: #{variables.$secondary};
     }
   }
 
