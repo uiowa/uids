@@ -68,7 +68,17 @@ the table.
   classes. The replacements apply the background images as well as descendant colors.
   The removed selectors only applied descendant styles.
 - `.cta__wrapper.element--left .bold-headline` sizing and margin overrides are removed.
-  Replacing `.bold-headline` with `.headline` uses the standard CTA headline styles.
+  Replacing `.bold-headline` with `.headline` changes `font-size` from `2.5rem` to
+  `2.8rem` and `margin-bottom` from `var(--uiowa-space-50)` (`0.5rem`) to `0`.
+- Replacing `.bold-headline--highlight.bold-headline--serif` with
+  `.headline--highlight.headline--serif` changes span padding from `0.85rem 1rem` to
+  `0.2rem 1rem 0.5rem` through an existing canonical rule.
+- `.headline--uppercase` also styles spans inside `.headline__text`; the old
+  `.bold-headline--caps` class only styled spans inside `.headline__heading`.
+  The additional spans gain highlight colors, `display: inline-block`, top and bottom
+  margins of `0.8rem`, and padding of `0.4rem 1.2rem 0.8rem`.
+- Replacing `.bold-headline` with `.headline` can activate existing banner and card
+  headline rules that did not apply to the legacy class.
 - The unused `.bold-headline--caps .headline__headline span` selector is removed.
 
 ## [5.0.0-alpha.0](https://github.com/uiowa/uids/releases/tag/v5.0.0-alpha.0)
