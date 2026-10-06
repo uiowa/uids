@@ -104,13 +104,11 @@ export const InThisPR = {
     template: `
       <main class="cleanup-review" id="review">
         <h1>CSS cleanup: in this PR</h1>
-        <p class="cleanup-review__callout"><strong>Feedback requested:</strong> We are considering removing the special stat text colors so stats follow the color choices of their background. The related decisions below need review before changing those rules.</p>
         <section id="color-review">
           <h2>Decisions needed</h2>
           <p class="cleanup-review__note">The alternatives below are for review. Production color rules have not changed.</p>
           <h3>Removing special stat colors</h3>
-          <p>Stats currently have their own text color rules: gold titles and gray supporting text on black backgrounds, and gray supporting text on white backgrounds. These rules override the background component's text colors. Removing them would let stats use the background defaults.</p>
-          <p>That single change raises three related choices: whether to keep the gold title on black, whether supporting text needs a separate gray color, and whether a nested stat should follow its nearest background. The comparisons show the effects of removing the special colors. Any colors we retain need a clear design rationale.</p>
+          <p class="cleanup-review__callout"><strong>Feedback requested:</strong> Removing the special stat text colors would make stats follow their background's defaults; the three comparisons below show the choices this raises.</p>
           <template v-for="row in colorCases" :key="row.id">
           <template v-if="row.id === 'table-links'">
             <h3>Table link colors</h3>
