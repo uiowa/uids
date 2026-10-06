@@ -18,14 +18,14 @@ const stat = `<div class="stat stat--static element--flex-center">
   <p class="stat__content" data-measure="Supporting text">Find a path that fits your interests.</p>
 </div>`;
 const colorCases = [
-  { id: 'black-stat', title: 'Stat on black', markup: `<div class="review-surface bg--black">${stat}</div>`,
-    question: 'Should stats use gold and gray text on black?',
-    rule: 'stat.scss: black ancestors set the title to gold and supporting text to #ccc.',
-    rationale: 'Inheriting the black background defaults would change the gold title and gray supporting text to white.' },
-  { id: 'white-stat', title: 'Stat on white', markup: `<div class="review-surface bg--white">${stat}</div>`,
+  { id: 'black-stat', title: 'Stat title on black', scope: 'title', markup: `<div class="review-surface bg--black">${stat}</div>`,
+    question: 'Should stat titles inherit white text on black backgrounds?',
+    rule: 'stat.scss: black ancestors set the title to gold.',
+    rationale: 'Inheriting the black background defaults would change the title from gold to white.' },
+  { id: 'white-stat', title: 'Supporting stat text on black and white', scope: 'supporting', markup: `<div class="review-surface bg--black">${stat}</div><div class="review-surface bg--white">${stat}</div>`,
     question: 'Should supporting stat text have a separate gray color?',
-    rule: 'stat.scss: supporting text uses #666 rather than the surface text token.',
-    rationale: 'Inheriting the white background defaults would change the gray supporting text to black.' },
+    rule: 'stat.scss: supporting text uses #ccc on black and #666 on white rather than the surface text token.',
+    rationale: 'Supporting text would inherit the background defaults: white on black backgrounds and black on white backgrounds.' },
   { id: 'nested-stat', title: 'White stat inside black', markup: `<div class="review-surface bg--black"><div class="review-surface bg--white">${stat}</div></div>`,
     question: 'Should nested stats follow their nearest background?',
     rule: 'Black-ancestor stat selectors still match through a nested white surface.',
@@ -106,9 +106,9 @@ export const InThisPR = {
         <h1>CSS cleanup: in this PR</h1>
         <section id="color-review">
           <h2>Decisions needed</h2>
-          <p class="cleanup-review__note">The alternatives below are for review. Production color rules have not changed.</p>
+          <p>The alternatives below are for review. Production color rules have not changed.</p>
           <h3>Should stats inherit background colors?</h3>
-          <p>Removing the special stat text colors would make stats follow their background's defaults; the three comparisons below show the choices this raises.</p>
+          <p>Stats have special rules to override background colors. Removing them would cause stats to inherit the background defaults.</p>
           <template v-for="row in colorCases" :key="row.id">
           <template v-if="row.id === 'table-links'">
             <h3>Table link colors</h3>
@@ -119,7 +119,7 @@ export const InThisPR = {
             <p class="cleanup-review__decision">{{ row.rationale }}</p>
             <div class="cleanup-review__pair">
               <div><h5>Current colors</h5><CssCleanupSpecimen :css="currentCss" :markup="row.markup" @measured="colors[row.id + '-current'] = $event" /></div>
-              <div><h5>Proposed: inherit background defaults</h5><CssCleanupSpecimen :css="currentCss" :markup="row.markup" defaults @measured="colors[row.id + '-defaults'] = $event" /></div>
+              <div><h5>Proposed: inherit background defaults</h5><CssCleanupSpecimen :css="currentCss" :markup="row.markup" defaults :default-scope="row.scope || 'all'" @measured="colors[row.id + '-defaults'] = $event" /></div>
             </div>
             <details><summary>CSS details and rendered colors</summary>
               <p><strong>{{ row.title }}:</strong> <code>{{ row.rule }}</code></p>
