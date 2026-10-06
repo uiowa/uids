@@ -15,14 +15,19 @@ also carries its date.
 ### Added
 
 - A Storybook `Review/CSS cleanup` page with migration comparisons and a prominent
-  review of existing component text-color overrides against background defaults.
+  comparison of component text colors before and after cleanup.
 
 ### Changed
 
-- Form buttons use `.bttn--small` and `.bttn--full` in place of `.button--small` and
-  `.button--full-width`. Inside `.form`, they keep `font-size: 1.05rem` and `width: 100%`,
-  respectively. With the button stylesheet loaded, replacing `.bttn.button--small` with
-  `.bttn.bttn--small` also changes horizontal padding from `2rem` to `1rem`.
+- Stat text inherits the nearest background’s text color. Titles on black change from
+  gold to white; supporting text changes from gray to white on black and black on white.
+  Nested stats follow the nearest background instead of matching an outer black ancestor.
+- Tables establish their own default link token. Links in white cells stay blue
+  regardless of the surrounding background.
+- `.button--small` and `.button--full-width` use the small and full-width button
+  styles. Inside `.form`, they keep `font-size: 1.05rem` and `width: 100%`, respectively.
+  With the button stylesheet loaded, `.bttn.button--small` horizontal padding changes
+  from `2rem` to `1rem`. Existing `.bttn--small` and `.bttn--full` modifiers remain supported.
 - Component documentation now describes Vue 3 and Storybook in place of Fractal and Twig.
 
 ### Removed
@@ -62,8 +67,6 @@ the table.
 | `.flex--left` | `.element--flex-left` |
 | `.blockquote-center` | `.blockquote--center` |
 | `.blockquote-right` | `.blockquote--right` |
-| `.button--small` | `.bttn--small` |
-| `.button--full-width` | `.bttn--full` |
 | `.bg-pattern--brain` | `.bg--white--pattern--brain` |
 | `.bg-pattern--brain-black` | `.bg--black--pattern--brain` |
 | `.bg-pattern--brain-reversed` | `.bg--gold--pattern--brain` |
@@ -82,7 +85,8 @@ the table.
 - Replacing `.bold-headline--highlight.bold-headline--serif` with
   `.headline--highlight.headline--serif` changes span padding from `0.85rem 1rem` to
   `0.2rem 1rem 0.5rem` through an existing canonical rule.
-- `.headline--uppercase` also styles spans inside `.headline__text`; the old
+- Uppercase highlights inside `.headline__heading` retain their styling after the rename.
+  `.headline--uppercase` also styles spans inside `.headline__text`; the old
   `.bold-headline--caps` class only styled spans inside `.headline__heading`.
   The additional spans gain highlight colors, `display: inline-block`, top and bottom
   margins of `0.8rem`, and padding of `0.4rem 1.2rem 0.8rem`.
