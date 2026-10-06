@@ -19,15 +19,19 @@ const stat = `<div class="stat stat--static element--flex-center">
 </div>`;
 const colorCases = [
   { id: 'black-stat', title: 'Stat on black', markup: `<div class="review-surface bg--black">${stat}</div>`,
+    question: 'Should stats use gold and gray text on black?',
     rule: 'stat.scss: black ancestors set the title to gold and supporting text to #ccc.',
     rationale: 'No rationale documented in the rule. Confirm why these text roles should differ from the black surface defaults.' },
   { id: 'white-stat', title: 'Stat on white', markup: `<div class="review-surface bg--white">${stat}</div>`,
+    question: 'Should supporting stat text have a separate gray color?',
     rule: 'stat.scss: supporting text uses #666 rather than the surface text token.',
     rationale: 'No rationale documented in the rule. Confirm whether supporting text needs a distinct role.' },
   { id: 'nested-stat', title: 'White stat inside black', markup: `<div class="review-surface bg--black"><div class="review-surface bg--white">${stat}</div></div>`,
+    question: 'Should nested stats follow their nearest background?',
     rule: 'Black-ancestor stat selectors still match through a nested white surface.',
     rationale: 'Review whether the nearest background should control these colors. The background tokens reset at the white surface.' },
   { id: 'table-links', title: 'White table inside black', markup: `<div class="review-surface bg--black"><table><caption>Program information</caption><tbody><tr><td><a href="#review" data-measure="Table link">Explore a program</a></td></tr></tbody></table></div>`,
+    question: 'Should a white table establish its own color context?',
     rule: 'tables.scss: table links use the default link color beneath any background ancestor.',
     rationale: 'The table paints a white background. Simply inheriting the outer black surface link token would put light links on white. Confirm whether the table should establish its own white surface context.' },
 ];
@@ -100,22 +104,24 @@ export const InThisPR = {
     template: `
       <main class="cleanup-review" id="review">
         <h1>CSS cleanup: in this PR</h1>
-        <p>Review for UIDS #1092 / PR #1097, against 5.0.0-alpha.0. Before examples use a frozen stylesheet from that release; replacement examples use the current Sass build. Each specimen has isolated styles.</p>
-        <nav aria-label="Review sections"><a href="#color-review">Color decisions</a><a href="#migration-review">Migration examples</a><a href="#removal-review">Removal inventory</a></nav>
+        <p class="cleanup-review__callout"><strong>Feedback requested:</strong> Should these component colors follow background defaults? Any exception needs a clear design rationale.</p>
         <section id="color-review">
-          <h2>Color overrides need a rationale</h2>
-          <p class="cleanup-review__callout">These exceptions remain in the current CSS. This PR removes duplicate legacy selectors; it has not resolved whether the remaining overrides should exist. Confirm a design reason before retaining each exception.</p>
-          <p>Background defaults only is a review simulation: the same current markup and CSS, with the shown text/link overrides replaced by surface tokens. It is not a committed design change. Decorative borders and bars remain untouched.</p>
-          <article v-for="row in colorCases" :key="row.id">
-            <h3>{{ row.title }} <span class="cleanup-review__status">Needs rationale</span></h3>
-            <p><code>{{ row.rule }}</code></p>
+          <h2>Decisions needed</h2>
+          <p class="cleanup-review__note">The alternatives below are for review. Production color rules have not changed.</p>
+          <article v-for="row in colorCases" :key="row.id" :id="row.id">
+            <h3>{{ row.question }}</h3>
+            <p class="cleanup-review__decision">{{ row.rationale }}</p>
             <div class="cleanup-review__pair">
-              <div><h4>Current component rules</h4><CssCleanupSpecimen :css="currentCss" :markup="row.markup" @measured="colors[row.id + '-current'] = $event" /><ul class="cleanup-review__values"><li v-for="value in colors[row.id + '-current']" :key="value.label">{{ value.label }}: <code>{{ value.color }}</code></li></ul></div>
-              <div><h4>Background defaults only</h4><CssCleanupSpecimen :css="currentCss" :markup="row.markup" defaults @measured="colors[row.id + '-defaults'] = $event" /><ul class="cleanup-review__values"><li v-for="value in colors[row.id + '-defaults']" :key="value.label">{{ value.label }}: <code>{{ value.color }}</code></li></ul></div>
+              <div><h4>Current colors</h4><CssCleanupSpecimen :css="currentCss" :markup="row.markup" @measured="colors[row.id + '-current'] = $event" /></div>
+              <div><h4>Background defaults only</h4><CssCleanupSpecimen :css="currentCss" :markup="row.markup" defaults @measured="colors[row.id + '-defaults'] = $event" /></div>
             </div>
-            <p><strong>Decision to make:</strong> {{ row.rationale }}</p>
+            <details><summary>CSS details and rendered colors</summary>
+              <p><strong>{{ row.title }}:</strong> <code>{{ row.rule }}</code></p>
+              <div class="cleanup-review__pair"><div><h4>Current colors</h4><ul class="cleanup-review__values"><li v-for="value in colors[row.id + '-current']" :key="value.label">{{ value.label }}: <code>{{ value.color }}</code></li></ul></div><div><h4>Background defaults only</h4><ul class="cleanup-review__values"><li v-for="value in colors[row.id + '-defaults']" :key="value.label">{{ value.label }}: <code>{{ value.color }}</code></li></ul></div></div>
+            </details>
           </article>
         </section>
+        <nav aria-label="Other review sections"><a href="#migration-review">Migration examples</a><a href="#removal-review">Removal inventory</a></nav>
         <section id="migration-review">
           <h2>What changes when migrating</h2>
           <article v-for="row in migrations" :key="row.id">
@@ -131,6 +137,7 @@ export const InThisPR = {
           <table><thead><tr><th>Removed name</th><th>Replacement</th><th>Review note</th></tr></thead><tbody><tr v-for="row in aliases" :key="row[0]"><td><code>{{ row[0] }}</code></td><td><code>{{ row[1] }}</code></td><td>{{ row[2] }}</td></tr></tbody></table>
           <ul><li>Obsolete footer-cta wrapper/container and socket container styles, including their menu and outline-button rules: no replacement.</li><li>Tabs' is-hidden selector: use the native hidden attribute already managed by the tabs script.</li><li>Retired grid--3-2 stat width override: use the default width shown above.</li><li>Unused headline__headline typo selector: removed.</li></ul>
           <p>The changelog contains the complete class names and migration details. This page highlights visual differences and decisions still requiring review.</p>
+          <details><summary>How the comparisons are rendered</summary><p>Review for UIDS #1092 / PR #1097, against 5.0.0-alpha.0. Before examples use a frozen stylesheet from that release; replacement examples use the current Sass build. Each specimen has isolated styles. Background defaults only replaces the shown text/link overrides with surface tokens for comparison. Decorative borders and bars remain untouched.</p></details>
         </section>
       </main>
     `,
