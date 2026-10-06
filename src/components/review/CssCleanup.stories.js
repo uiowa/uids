@@ -87,6 +87,7 @@ export const InThisPR = {
     template: `
       <main class="cleanup-review" id="review">
         <h1>CSS cleanup: in this PR</h1>
+        <nav aria-label="Review sections"><span>Jump to:</span><a href="#color-review">Decisions needed</a><a href="#migration-review">Migration examples</a><a href="#removal-review">Removal inventory</a></nav>
         <section id="color-review">
           <h2>Decisions needed</h2>
           <p>The alternatives below are for review. Production color rules have not changed.</p>
@@ -111,7 +112,6 @@ export const InThisPR = {
           </article>
           </template>
         </section>
-        <nav aria-label="Other review sections"><a href="#migration-review">Migration examples</a><a href="#removal-review">Removal inventory</a></nav>
         <section id="migration-review">
           <h2>What changes when migrating</h2>
           <p>These CSS examples compare the old classes with alpha.0 styles against their replacements with this PR's styles, in the contexts described below. Class mappings without a demonstrated visual change are listed in the inventory.</p>
