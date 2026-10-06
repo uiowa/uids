@@ -110,8 +110,15 @@ const ADDED_SECTIONS = {
   layout: 'Breakpoints',
 };
 const ADDED_SECTION_NOTES = {
+  'primitives-breakpoints': breakpointTokens.breakpoint.$description,
   'semantic-motion': 'Duration is the speed: how long the move takes. Easing is how the speed changes along the way, its expression.',
   'semantic-layout': "Only one, because a semantic token names a job, and 1350 is the only breakpoint with one in the layout: the width at which the content column reaches its maximum, 1310px (layout.container.max.standard) plus the 20px gutter on each side. $break-page-container reads from it. The other six have only size names in Sass ($break-xxsm to $break-lg, and 930 in the grid mixins), which say how wide, not what changes there, so they stay primitives, named by value.",
+};
+const ADDED_GROUP_INTROS = {
+  'color.alpha.black-200': { label: 'Alpha colors', path: 'color.alpha' },
+  'color.accent.blue': { label: 'Accent colors', path: 'color.accent' },
+  'color.border.strong': { label: 'Border colors', path: 'color.border' },
+  'color.data-visualization.categorical.1': { label: 'Categorical data visualization', path: 'color.data-visualization.categorical' },
 };
 /**
  * Component examples for the In this PR page: a story, and the args that bring out the
@@ -144,7 +151,6 @@ const EXAMPLES = {
   blockquote: { label: 'Blockquote', id: 'components-blockquote--left' },
   accordion: { label: 'Accordion', id: 'components-accordion--default' },
   accordionFocus: { label: 'Accordion (tab to a heading)', id: 'components-accordion--default' },
-  logo: { label: 'Logo', id: 'components-branding-logo--iowa' },
   cardLink: { label: 'Card text link', id: 'components-card--default' },
   cardLinkGray: { label: 'Card text link on gray', id: 'components-card--default', args: 'background:gray' },
   cardLinkBlack: { label: 'Card text link on black', id: 'components-card--default', args: 'background:black' },
@@ -183,23 +189,22 @@ const ADDED_EXAMPLES = {
   'motion.duration.slow': ['stat', 'blockquote'],
   'form.height.medium': ['text'],
   'form.height.large': ['textLarge'],
-  'logo.minWidth': ['logo'],
 };
 // Where each added token is used, shown after its description in the Use column.
 const USES = {
-  'color.green-light': 'Data visualization (color.data-visualization.categorical.4).',
-  'color.purple': 'Data visualization (color.data-visualization.categorical.5).',
-  'color.cyan': 'Data visualization (color.data-visualization.categorical.8).',
-  'color.olive': 'Data visualization (color.data-visualization.categorical.9).',
-  'color.rose': 'Data visualization (color.data-visualization.categorical.10).',
-  'color.gray-warm': 'Data visualization (color.data-visualization.categorical.11).',
-  'color.gray-cool': 'Data visualization (color.data-visualization.categorical.12).',
+  'color.green-light': 'Used through color.data-visualization.categorical.4.',
+  'color.purple': 'Used through color.data-visualization.categorical.5.',
+  'color.cyan': 'Used through color.data-visualization.categorical.8.',
+  'color.olive': 'Used through color.data-visualization.categorical.9.',
+  'color.rose': 'Used through color.data-visualization.categorical.10.',
+  'color.gray-warm': 'Used through color.data-visualization.categorical.11.',
+  'color.gray-cool': 'Used through color.data-visualization.categorical.12.',
   'color.alpha.black-200': 'The toggle knob shadow (shadow.raised).',
   'color.alpha.black-425': 'A strong border on light surfaces: buttons (color.border.strong).',
   'color.alpha.near-black-150': "The inset shadow on form fields (shadow.inset): UIDS's rgba(10, 10, 10, 0.15). #0A0A0A is not a step on the neutral ramp.",
   'color.alpha.white-425': 'A strong border on dark surfaces: buttons (color.border.strong-inverse).',
   'stroke.width.1': 'The resting outline on form fields (form.scss), through stroke.width.default.',
-  'stroke.width.2': 'Focus rings, through stroke.width.focused: form fields, the file input, checkboxes and radios (form.scss), the accordion (accordion.scss) and the circle button (button.scss).',
+  'stroke.width.2': 'Focus rings, through stroke.width.focused.',
   'stroke.width.4': 'The button focus and hover bar, and the h6 headline underline.',
   'stroke.width.5': 'The tab and menu indicators, and the h5 headline underline.',
   'stroke.width.6': 'The headline underline on h1 to h4, and the gold spacer.',
@@ -208,16 +213,17 @@ const USES = {
   'duration.250': 'Used through motion.duration.medium.',
   'duration.400': 'Used through motion.duration.slow.',
   'easing.standard': 'Form field focus, select options and the toggle track (form.scss), the circle button (button.scss), the button focus bar (_utilities.scss), accordion icons (accordion.scss), menu and tab indicators (menu.scss, tabs.scss), expanding stat content (stat.scss), blockquote bars (blockquote.scss) and banner media (banner.scss).',
-  'easing.enter': 'Tab backgrounds (tabs.scss).',
+  'easing.enter': 'No visible component use yet. The tab declares this curve, but its background does not change.',
   'easing.overshoot': 'The toggle switch knob (form.scss) and the stat reveal (stat.scss).',
   'breakpoint.930': 'The grid mixins (abstracts/_grid-mixins.scss).',
   'breakpoint.1350': 'The page container ($break-page-container), through layout.breakpoint.standard.',
-  'stroke.width.focused': 'Form fields, the file input, checkboxes and radios (form.scss), the accordion (accordion.scss) and the circle button (button.scss). Four places draw focus differently: the toggle (form.scss) and the accordion label (accordion.scss) use a 1px outline with a background change; the circle button draws its ring as a border on a pseudo-element (button.scss); and buttons show an underline and a growing accent bar (_utilities.scss).',
+  'stroke.width.focused': 'Form fields, file inputs, checkboxes and radios (form.scss), accordion headings (accordion.scss) and circle buttons (button.scss). Toggles and accordion summaries use a 1px outline; standard buttons use an underline and accent bar.',
   'shadow.inset': 'Form fields (form.scss).',
   'shadow.raised': 'The toggle switch knob (form.scss).',
   'motion.duration.fast': "Form field focus and select options (form.scss), and the circle button's ring (button.scss).",
   'motion.duration.medium': 'The toggle switch (form.scss), accordion icons (accordion.scss), menu and tab indicators (menu.scss, tabs.scss) and the button focus bar (_utilities.scss).',
-  'motion.duration.slow': 'The stat reveal and expanding stat content (stat.scss), tab backgrounds (tabs.scss), banner media (banner.scss) and blockquote bars (blockquote.scss).',
+  'motion.duration.slow': 'The stat reveal and expanding stat content (stat.scss), banner media (banner.scss) and blockquote bars (blockquote.scss).',
+  'logo.minWidth': 'The Logo component does not use this token yet.',
 };
 // Relative to the preview's iframe.html, so the link works wherever Storybook is served.
 const linksFor = (keys = []) => keys.map((key) => {
@@ -261,15 +267,14 @@ const CHANGED_COMPONENTS = [
   },
   {
     section: 'Motion',
-    note: 'Transitions use the motion tokens. These two move most; the rest move by 150ms or less.',
+    note: 'Transitions use the motion tokens. The form field shadow has the largest visible timing change; the rest move by 150ms or less.',
     rows: [
-      { what: 'Tab background', was: '800ms', now: '400ms', token: '--uiowa-motion-duration-slow' },
       { what: 'Form field shadow', was: '500ms', now: '150ms', token: '--uiowa-motion-duration-fast', examples: ['textFocus'] },
     ],
   },
   {
     section: 'Breakpoints',
-    note: "Nothing moves at the default text size. The five in px now move with the reader's browser text size while the text does not, because :root is fixed at 16px. The two in em behave as before.",
+    note: "At a 16px browser default font size, thresholds do not move. Five formerly px breakpoints now use rem in media queries and follow the browser's default font size; container-query rem uses the fixed 16px :root. The two formerly em breakpoints behave as before.",
     rows: [
       { what: 'Sass breakpoints', was: 'px or em', now: 'rem', token: '$uiowa-breakpoint-*', examples: ['spaceAndLayout'] },
     ],
@@ -410,6 +415,7 @@ const css = `
     font-weight: var(--uiowa-typography-font-weight-normal); color: var(--uiowa-color-neutral-500);
     white-space: normal;
   }
+  .tk__group-intro th { padding-top: var(--uiowa-space-150); color: var(--uiowa-color-neutral-800); }
   .tk__use { max-width: 28rem; }
   .tk__links { display: flex; flex-wrap: wrap; gap: 0 var(--uiowa-space-150); margin-top: var(--uiowa-space-50); }
   /* A changed color: the old swatch, then the new one. */
@@ -842,9 +848,14 @@ export const InThisPR = {
       const rowFor = (tier, file, path) => {
         const token = tokenAt(tier, file, path);
         const use = [token.$description, USES[path]].filter(Boolean).join(' ');
+        const intro = ADDED_GROUP_INTROS[path];
+        const groupIntro = intro && {
+          label: intro.label,
+          description: tokenAt(tier, file, intro.path)?.$description,
+        };
         const links = exampleLinks(path);
         const live = tokens.value.find((t) => t.name === cssName(path));
-        if (live) return { path, name: live.name, value: live.value, group: live.group, points: pointsAt(live), use, links };
+        if (live) return { path, name: live.name, value: live.value, group: live.group, points: pointsAt(live), use, links, groupIntro };
         // A breakpoint: it has no custom property, so its token file supplies the value.
         const target = typeof token.$value === 'string' ? token.$value.match(/^\{breakpoint\.(\w+)\}$/)[1] : '';
         const sass = breakpointRow(path.split('.'), target ? BREAKPOINT_PX[target] : token.$value.value);
@@ -856,6 +867,7 @@ export const InThisPR = {
           points: target ? `$uiowa-breakpoint-${target}` : '',
           use,
           links,
+          groupIntro,
         };
       };
       const tiers = computed(() => (tokens.value.length ? Object.entries(ADDED).map(([tier, files]) => ({
@@ -930,39 +942,47 @@ export const InThisPR = {
                   <div v-if="s.note" class="tk__section-note">{{ s.note }}</div>
                 </th>
               </tr>
-              <tr v-for="r in s.rows" :key="r.path">
-                <td><code>{{ r.name }}</code></td>
-                <td v-if="t.tier === 'semantic'"><code class="tk__note">{{ r.points }}</code></td>
-                <td><code>{{ r.value }}</code></td>
-                <td>
-                  <span v-if="r.group.startsWith('color')" class="tk__swatch" :style="{ background: 'var(' + r.name + ')' }"></span>
-                  <span v-else-if="r.group.startsWith('stroke')" class="tk__line" :style="{ borderTopWidth: 'var(' + r.name + ')' }"></span>
-                  <span v-else-if="r.group === 'radius'" class="tk__corner" :style="{ borderRadius: 'var(' + r.name + ')' }"></span>
-                  <span v-else-if="r.group === 'shadow'" class="tk__card" :style="{ boxShadow: 'var(' + r.name + ')' }"></span>
-                  <span v-else-if="r.group.startsWith('duration')" class="tk__track">
-                    <span class="tk__dot" :style="{ transitionDuration: 'var(' + r.name + ')' }"></span>
-                  </span>
-                  <span v-else-if="r.group === 'easing'" class="tk__track">
-                    <span
-                      class="tk__dot"
-                      :style="{
-                        transitionDuration: 'var(--uiowa-motion-duration-slow)',
-                        transitionTimingFunction: 'var(' + r.name + ')',
-                      }"
-                    ></span>
-                  </span>
-                  <span v-else-if="r.group === 'form height'" class="tk__box" :style="{ height: 'var(' + r.name + ')' }"></span>
-                  <span v-else-if="r.group === 'logo'" class="tk__bar" :style="{ width: 'var(' + r.name + ')' }"></span>
-                  <span v-else class="tk__note">No custom property</span>
-                </td>
-                <td class="tk__use">
-                  {{ r.use }}
-                  <div v-if="r.links.length" class="tk__links">
-                    <!-- target="_top" opens the story in the Storybook window, not inside this canvas. -->
-                    <a v-for="l in r.links" :key="l.href + l.label" :href="l.href" target="_top">{{ l.label }}</a>
-                  </div>
-                </td>
-              </tr>
+              <template v-for="r in s.rows" :key="r.path">
+                <tr v-if="r.groupIntro" class="tk__group-intro">
+                  <th :colspan="t.tier === 'semantic' ? 5 : 4">
+                    {{ r.groupIntro.label }}
+                    <div v-if="r.groupIntro.description" class="tk__section-note">{{ r.groupIntro.description }}</div>
+                  </th>
+                </tr>
+                <tr>
+                  <td><code>{{ r.name }}</code></td>
+                  <td v-if="t.tier === 'semantic'"><code class="tk__note">{{ r.points }}</code></td>
+                  <td><code>{{ r.value }}</code></td>
+                  <td>
+                    <span v-if="r.group.startsWith('color')" class="tk__swatch" :style="{ background: 'var(' + r.name + ')' }"></span>
+                    <span v-else-if="r.group.startsWith('stroke')" class="tk__line" :style="{ borderTopWidth: 'var(' + r.name + ')' }"></span>
+                    <span v-else-if="r.group === 'radius'" class="tk__corner" :style="{ borderRadius: 'var(' + r.name + ')' }"></span>
+                    <span v-else-if="r.group === 'shadow'" class="tk__card" :style="{ boxShadow: 'var(' + r.name + ')' }"></span>
+                    <span v-else-if="r.group.startsWith('duration')" class="tk__track">
+                      <span class="tk__dot" :style="{ transitionDuration: 'var(' + r.name + ')' }"></span>
+                    </span>
+                    <span v-else-if="r.group === 'easing'" class="tk__track">
+                      <span
+                        class="tk__dot"
+                        :style="{
+                          transitionDuration: 'var(--uiowa-motion-duration-slow)',
+                          transitionTimingFunction: 'var(' + r.name + ')',
+                        }"
+                      ></span>
+                    </span>
+                    <span v-else-if="r.group === 'form height'" class="tk__box" :style="{ height: 'var(' + r.name + ')' }"></span>
+                    <span v-else-if="r.group === 'logo'" class="tk__bar" :style="{ width: 'var(' + r.name + ')' }"></span>
+                    <span v-else class="tk__note">No custom property</span>
+                  </td>
+                  <td class="tk__use">
+                    {{ r.use }}
+                    <div v-if="r.links.length" class="tk__links">
+                      <!-- target="_top" opens the story in the Storybook window, not inside this canvas. -->
+                      <a v-for="l in r.links" :key="l.href + l.label" :href="l.href" target="_top">{{ l.label }}</a>
+                    </div>
+                  </td>
+                </tr>
+              </template>
             </tbody>
           </table>
         </template>

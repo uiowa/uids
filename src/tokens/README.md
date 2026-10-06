@@ -9,6 +9,14 @@ src/tokens/semantic/     purpose-named roles that may reference primitives or ca
 
 Token files follow [DTCG 2025.10](https://www.designtokens.org/tr/2025.10/format/).
 
+## Breakpoints
+
+Breakpoint values are stored in px and generated as Sass rem values. Media-query rem
+units use the browser's default font size; container-query rem units use the document
+root font size, which UIDS fixes at 16px. At a 16px browser default the thresholds
+match. A different browser default can make media and container queries switch at
+different CSS-pixel widths.
+
 ## Generate
 
 Style Dictionary compiles the token files into `src/scss/abstracts/_tokens-generated.scss`.

@@ -96,15 +96,15 @@ Large, light-font, and circle buttons are unchanged.
 
 #### Motion
 
-Transitions use the motion tokens. The largest changes are the tab background, 800ms to
-400ms, and the form field shadow, 500ms to 150ms. The rest move by 150ms or less.
+Transitions use the motion tokens. The largest visible timing change is the form field
+shadow, 500ms to 150ms. Other visible timings move by 150ms or less.
 
 #### Breakpoints
 
-Sass breakpoints are written from the breakpoint tokens, in rem. Nothing moves at the
-default text size. Five breakpoints were in px and now move with the reader's browser
-text size while the text does not, because `:root` is fixed at 16px. The two that were
-in em behave as before.
+Sass breakpoints are written from the breakpoint tokens, in rem. Nothing moves at a
+16px browser default font size. Five breakpoints were in px; their media queries now
+move with the browser's default font size, while container queries use the fixed 16px
+`:root` size. The two that were in em behave as before.
 
 ### Fixed
 
