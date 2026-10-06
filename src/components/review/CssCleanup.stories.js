@@ -21,11 +21,11 @@ const colorCases = [
   { id: 'black-stat', title: 'Stat on black', markup: `<div class="review-surface bg--black">${stat}</div>`,
     question: 'Should stats use gold and gray text on black?',
     rule: 'stat.scss: black ancestors set the title to gold and supporting text to #ccc.',
-    rationale: 'No rationale documented in the rule. Confirm why these text roles should differ from the black surface defaults.' },
+    rationale: 'Inheriting the black background defaults would change the gold title and gray supporting text to white.' },
   { id: 'white-stat', title: 'Stat on white', markup: `<div class="review-surface bg--white">${stat}</div>`,
     question: 'Should supporting stat text have a separate gray color?',
     rule: 'stat.scss: supporting text uses #666 rather than the surface text token.',
-    rationale: 'No rationale documented in the rule. Confirm whether supporting text needs a distinct role.' },
+    rationale: 'Inheriting the white background defaults would change the gray supporting text to black.' },
   { id: 'nested-stat', title: 'White stat inside black', markup: `<div class="review-surface bg--black"><div class="review-surface bg--white">${stat}</div></div>`,
     question: 'Should nested stats follow their nearest background?',
     rule: 'Black-ancestor stat selectors still match through a nested white surface.',
@@ -107,8 +107,8 @@ export const InThisPR = {
         <section id="color-review">
           <h2>Decisions needed</h2>
           <p class="cleanup-review__note">The alternatives below are for review. Production color rules have not changed.</p>
-          <h3>Removing special stat colors</h3>
-          <p class="cleanup-review__callout"><strong>Feedback requested:</strong> Removing the special stat text colors would make stats follow their background's defaults; the three comparisons below show the choices this raises.</p>
+          <h3>Should stats inherit background colors?</h3>
+          <p>Removing the special stat text colors would make stats follow their background's defaults; the three comparisons below show the choices this raises.</p>
           <template v-for="row in colorCases" :key="row.id">
           <template v-if="row.id === 'table-links'">
             <h3>Table link colors</h3>
@@ -119,11 +119,11 @@ export const InThisPR = {
             <p class="cleanup-review__decision">{{ row.rationale }}</p>
             <div class="cleanup-review__pair">
               <div><h5>Current colors</h5><CssCleanupSpecimen :css="currentCss" :markup="row.markup" @measured="colors[row.id + '-current'] = $event" /></div>
-              <div><h5>Proposed: background defaults only</h5><CssCleanupSpecimen :css="currentCss" :markup="row.markup" defaults @measured="colors[row.id + '-defaults'] = $event" /></div>
+              <div><h5>Proposed: inherit background defaults</h5><CssCleanupSpecimen :css="currentCss" :markup="row.markup" defaults @measured="colors[row.id + '-defaults'] = $event" /></div>
             </div>
             <details><summary>CSS details and rendered colors</summary>
               <p><strong>{{ row.title }}:</strong> <code>{{ row.rule }}</code></p>
-              <div class="cleanup-review__pair"><div><h4>Current colors</h4><ul class="cleanup-review__values"><li v-for="value in colors[row.id + '-current']" :key="value.label">{{ value.label }}: <code>{{ value.color }}</code></li></ul></div><div><h4>Proposed: background defaults only</h4><ul class="cleanup-review__values"><li v-for="value in colors[row.id + '-defaults']" :key="value.label">{{ value.label }}: <code>{{ value.color }}</code></li></ul></div></div>
+              <div class="cleanup-review__pair"><div><h4>Current colors</h4><ul class="cleanup-review__values"><li v-for="value in colors[row.id + '-current']" :key="value.label">{{ value.label }}: <code>{{ value.color }}</code></li></ul></div><div><h4>Proposed: inherit background defaults</h4><ul class="cleanup-review__values"><li v-for="value in colors[row.id + '-defaults']" :key="value.label">{{ value.label }}: <code>{{ value.color }}</code></li></ul></div></div>
             </details>
           </article>
           </template>
