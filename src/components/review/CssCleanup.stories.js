@@ -113,11 +113,11 @@ export const InThisPR = {
             <p class="cleanup-review__decision">{{ row.rationale }}</p>
             <div class="cleanup-review__pair">
               <div><h4>Current colors</h4><CssCleanupSpecimen :css="currentCss" :markup="row.markup" @measured="colors[row.id + '-current'] = $event" /></div>
-              <div><h4>Background defaults only</h4><CssCleanupSpecimen :css="currentCss" :markup="row.markup" defaults @measured="colors[row.id + '-defaults'] = $event" /></div>
+              <div><h4>Proposed: background defaults only</h4><CssCleanupSpecimen :css="currentCss" :markup="row.markup" defaults @measured="colors[row.id + '-defaults'] = $event" /></div>
             </div>
             <details><summary>CSS details and rendered colors</summary>
               <p><strong>{{ row.title }}:</strong> <code>{{ row.rule }}</code></p>
-              <div class="cleanup-review__pair"><div><h4>Current colors</h4><ul class="cleanup-review__values"><li v-for="value in colors[row.id + '-current']" :key="value.label">{{ value.label }}: <code>{{ value.color }}</code></li></ul></div><div><h4>Background defaults only</h4><ul class="cleanup-review__values"><li v-for="value in colors[row.id + '-defaults']" :key="value.label">{{ value.label }}: <code>{{ value.color }}</code></li></ul></div></div>
+              <div class="cleanup-review__pair"><div><h4>Current colors</h4><ul class="cleanup-review__values"><li v-for="value in colors[row.id + '-current']" :key="value.label">{{ value.label }}: <code>{{ value.color }}</code></li></ul></div><div><h4>Proposed: background defaults only</h4><ul class="cleanup-review__values"><li v-for="value in colors[row.id + '-defaults']" :key="value.label">{{ value.label }}: <code>{{ value.color }}</code></li></ul></div></div>
             </details>
           </article>
         </section>
