@@ -12,8 +12,8 @@ also carries its date.
 
 ## [Unreleased]
 
-Adds 58 tokens and moves links, info, and the accent colors to new values. Every value
-below is stated against 5.0.0-alpha.0.
+Adds 58 tokens and moves links, info, three status surfaces, and the accent colors to
+new values. Every value below is stated against 5.0.0-alpha.0.
 
 ### Added
 
@@ -57,9 +57,15 @@ points at `--uiowa-color-blue`.
 | Role | Was | Now |
 | --- | --- | --- |
 | Info | `#3375D1` | `#2C6ECA` |
+| Info surface | `#EAF1FB` | `#EDF4FE` |
+| Success surface | `#E6F4EE` | `#E8F6F0` |
+| Danger surface | `#FBEAEA` | `#FFEFF0` |
 
 Info now points at `--uiowa-color-blue-dark`, the same blue as links on light surfaces.
 Affects `.badge--blue` and the `.alert--info` icon.
+
+The info, success, and danger surfaces are a shade lighter, so links clear 4.5:1 on them.
+Affects alert backgrounds, form fields and toggles with an error, and `mark.deletion`.
 
 #### Accent colors
 
