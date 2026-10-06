@@ -70,12 +70,8 @@ the table.
 
 - Move `.blockquote-center` and `.blockquote-right` from the wrapper to the blockquote
   element, using `.blockquote--center` and `.blockquote--right`.
-  Plain alignment rules match. With image modifiers, the canonical classes also activate
-  existing layout rules: centered images above use `display: block` instead of `flex`,
-  centered images below gain `justify-content: center` on the footer, right-aligned images
-  above use `flex-direction: row-reverse` instead of `row`, and right-aligned images below
-  gain that reversal on the footer plus `text-align: end` on the citation instead of `start`.
-  Media spacing and decorative rules also follow the canonical image layout.
+  Plain alignment rules match. The 4.x Vue blockquote component already uses the
+  replacement classes, including for image layouts.
 - Replace `.bg-pattern--brain*` ancestors with the matching `.bg--*--pattern--brain`
   classes. The replacements preserve the removed descendant declarations and also apply
   the background images and each surface's background, text, link, and border colors.

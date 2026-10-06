@@ -36,12 +36,9 @@ const colorCases = [
     rationale: 'Inheriting the outer black background would put gold links on white table cells. The table needs its own white background defaults if we remove its link color override.' },
 ];
 
-function quote(alignment, image, canonical) {
-  const variant = image ? `blockquote--img-${image}` : '';
-  const media = '<div class="blockquote__media"><img alt="Example portrait" width="80" height="80" src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\'%3E%3Crect width=\'80\' height=\'80\' fill=\'%23999\'/%3E%3Ccircle cx=\'40\' cy=\'29\' r=\'13\' fill=\'%23eee\'/%3E%3Cpath d=\'M15 75 Q15 45 40 45 Q65 45 65 75\' fill=\'%23eee\'/%3E%3C/svg%3E"></div>';
-  return `<div class="review-surface ${canonical ? '' : `blockquote-${alignment}`}"><blockquote class="blockquote ${variant} ${canonical ? `blockquote--${alignment}` : ''}">
-    ${image === 'above' ? media : ''}<div class="blockquote__content"><div class="blockquote__paragraph"><p>Discovery starts with a question.</p></div>
-    <footer>${image === 'below' ? media : ''}<div><cite>Example author</cite></div></footer></div></blockquote></div>`;
+function quote(alignment, canonical) {
+  return `<div class="review-surface ${canonical ? '' : `blockquote-${alignment}`}"><blockquote class="blockquote ${canonical ? `blockquote--${alignment}` : ''}">
+    <p>Discovery starts with a question.</p><footer><cite>Example author</cite></footer></blockquote></div>`;
 }
 
 const migrations = [
@@ -57,18 +54,12 @@ const migrations = [
   { id: 'cta', title: 'Left-aligned CTA headline', note: 'Replacing bold-headline with headline in a left-aligned CTA increases the font size from 2.5rem to 2.8rem and removes the 0.5rem bottom margin.',
     old: '<div class="review-surface cta__wrapper element--left"><h2 class="bold-headline">Start your next chapter</h2><p>Explore your options.</p></div>',
     next: '<div class="review-surface cta__wrapper element--left"><h2 class="headline">Start your next chapter</h2><p>Explore your options.</p></div>' },
-  ...['center', 'right'].flatMap(alignment => ['above', 'below'].map(image => ({
-    id: `quote-${alignment}-${image}`, title: `${alignment === 'center' ? 'Centered' : 'Right-aligned'} blockquote, image ${image}`,
-    intro: alignment === 'center' && image === 'above' ? 'Replace blockquote-center or blockquote-right on the wrapper with blockquote--center or blockquote--right on the blockquote itself. For quotes with images, this also changes the image placement and decorative lines shown below.' : '',
-    note: alignment === 'center'
-      ? image === 'above'
-        ? 'The old wrapper class adds a gold line above the image, while the image variant adds another below the quote. The replacement hides the upper line and centers the image and remaining line.'
-        : 'The replacement centers the image and author together below the quote.'
-      : image === 'above'
-        ? 'The replacement places the image to the right of the quote and moves the gold line to the right edge.'
-        : 'The replacement places the image to the right of the author and aligns the author text to the right.',
-    old: quote(alignment, image, false), next: quote(alignment, image, true),
-  }))),
+  ...['center', 'right'].map(alignment => ({
+    id: `quote-${alignment}`, title: `${alignment === 'center' ? 'Centered' : 'Right-aligned'} blockquote`,
+    intro: alignment === 'center' ? 'Legacy blockquotes need their alignment class moved from the wrapper to the blockquote. The 4.x Vue component already uses the replacement classes, including for image layouts.' : '',
+    note: `Replace blockquote-${alignment} on the wrapper with blockquote--${alignment} on the blockquote. The alignment and decorative line stay the same.`,
+    old: quote(alignment, false), next: quote(alignment, true),
+  })),
   ...[['white', 'bg-pattern--brain'], ['black', 'bg-pattern--brain-black'], ['gold', 'bg-pattern--brain-reversed']].map(([surface, legacy]) => ({
     id: `brain-${surface}`, title: `${surface} brain background`,
     intro: surface === 'white' ? 'The old brain classes adjusted elements inside a background without adding the background itself. Their replacements add the brain artwork, background color, and text and link colors.' : '',
@@ -98,7 +89,7 @@ const aliases = [
   ['flex--center / flex--left', 'element--flex-center / element--flex-left', 'The flex styles stay the same; stats also gain title padding and supporting-text margins.'],
   ['visually-hidden', 'element-invisible', 'Preserve any framework-provided focus-reveal behavior on focusable elements.'],
   ['button--small / button--full-width', 'bttn--small / bttn--full', 'Small-button padding can change.'],
-  ['blockquote-center / blockquote-right on wrapper', 'blockquote--center / blockquote--right on blockquote', 'Image layouts can change.'],
+  ['blockquote-center / blockquote-right on wrapper', 'blockquote--center / blockquote--right on blockquote', 'Plain alignment stays the same. The 4.x Vue component already uses the replacement classes.'],
   ['bg-pattern--brain / brain-black / brain-reversed', 'bg--white / black / gold--pattern--brain', 'Adds images and surface colors.'],
 ];
 
