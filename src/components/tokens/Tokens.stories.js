@@ -78,7 +78,7 @@ const ADDED = {
     ],
     stroke: ['stroke.width.1', 'stroke.width.2', 'stroke.width.4', 'stroke.width.5', 'stroke.width.6', 'stroke.width.8'],
     radius: ['radius.3', 'radius.full'],
-    motion: ['duration.150', 'duration.250', 'duration.400', 'easing.standard', 'easing.enter', 'easing.overshoot'],
+    motion: ['duration.150', 'duration.250', 'duration.400'],
     breakpoints: [
       'breakpoint.400', 'breakpoint.600', 'breakpoint.768', 'breakpoint.930', 'breakpoint.980',
       'breakpoint.1200', 'breakpoint.1350',
@@ -92,7 +92,7 @@ const ADDED = {
     ],
     stroke: ['stroke.width.default', 'stroke.width.focused'],
     shadow: ['shadow.inset', 'shadow.raised'],
-    motion: ['motion.duration.fast', 'motion.duration.medium', 'motion.duration.slow'],
+    motion: ['motion.duration.fast', 'motion.duration.medium', 'motion.duration.slow', 'easing.standard', 'easing.enter', 'easing.overshoot'],
     form: ['form.height.medium', 'form.height.large'],
     logo: ['logo.minWidth'],
     layout: ['layout.breakpoint.standard'],
@@ -110,8 +110,8 @@ const ADDED_SECTIONS = {
   layout: 'Breakpoints',
 };
 const ADDED_SECTION_NOTES = {
-  motion: 'Duration is the speed: how long the move takes. Easing is how the speed changes along the way, its expression.',
-  layout: "Only one, because a semantic token names a job, and 1350 is the only breakpoint with one in the layout: the width at which the content column reaches its maximum, 1310px (layout.container.max.standard) plus the 20px gutter on each side. $break-page-container reads from it. The other six have only size names in Sass ($break-xxsm to $break-lg, and 930 in the grid mixins), which say how wide, not what changes there, so they stay primitives, named by value.",
+  'semantic-motion': 'Duration is the speed: how long the move takes. Easing is how the speed changes along the way, its expression.',
+  'semantic-layout': "Only one, because a semantic token names a job, and 1350 is the only breakpoint with one in the layout: the width at which the content column reaches its maximum, 1310px (layout.container.max.standard) plus the 20px gutter on each side. $break-page-container reads from it. The other six have only size names in Sass ($break-xxsm to $break-lg, and 930 in the grid mixins), which say how wide, not what changes there, so they stay primitives, named by value.",
 };
 /**
  * Component examples for the In this PR page: a story, and the args that bring out the
@@ -801,7 +801,10 @@ export const Motion = {
         </template>
 
         <h2>Easing</h2>
-        <p class="tk__note">Each curve plays at the slow speed, so its shape is easy to see.</p>
+        <p class="tk__note">
+          These purpose-named semantic curves hold their values directly. Each plays at the slow
+          speed, so its shape is easy to see.
+        </p>
         <table>
           <thead><tr><th>Token</th><th>Value</th><th>Track</th></tr></thead>
           <tbody>
@@ -834,7 +837,7 @@ export const InThisPR = {
       const tokens = useTokens();
       const pointsAt = (live) => {
         if (live.group === 'shadow') return colorOf(live.declared);
-        return live.declared.startsWith('var(') ? primitiveOf(live.declared) : '';
+        return live.declared.startsWith('var(') ? primitiveOf(live.declared) : 'Direct value';
       };
       const rowFor = (tier, file, path) => {
         const token = tokenAt(tier, file, path);
@@ -860,7 +863,7 @@ export const InThisPR = {
         sections: Object.entries(files).map(([file, paths]) => ({
           key: `${tier}-${file}`,
           label: ADDED_SECTIONS[file],
-          note: ADDED_SECTION_NOTES[file] || '',
+          note: ADDED_SECTION_NOTES[`${tier}-${file}`] || '',
           rows: paths.map((path) => rowFor(tier, file, path)),
         })),
       })) : []));
