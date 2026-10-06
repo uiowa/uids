@@ -30,10 +30,7 @@ const colorCases = [
     question: 'Nested stats follow their nearest background',
     rule: 'Black-ancestor stat selectors still match through a nested white surface.',
     rationale: 'The removed black-ancestor rules overrode text inside the white panel. All stat text now follows the nearest background and is black in that panel.' },
-  { id: 'table-links', title: 'White table inside black', markup: `<div class="review-surface bg--black"><table><caption>Program information</caption><tbody><tr><td><a href="#review" data-measure="Table link">Explore a program</a></td></tr></tbody></table></div>`,
-    question: 'White table cells keep their default link color',
-    rule: 'tables.scss: the table sets its own default link token.',
-    rationale: 'The table establishes its own link color context, so its white cells keep blue links inside a black background. Removing the old ancestor-specific rules does not change the rendered link color.' },
+
 ];
 
 const uppercaseBefore = '<div class="review-surface"><h2 class="bold-headline bold-headline--caps"><span class="headline__heading"><span>Discover Iowa</span></span></h2></div>';
@@ -88,14 +85,10 @@ export const InThisPR = {
         <nav aria-label="Review sections"><span>Jump to:</span><a href="#color-review">Component colors</a><a href="#migration-review">Migration examples</a><a href="#removal-review">Removal inventory</a></nav>
         <section id="color-review">
           <h2>Component colors</h2>
-          <p>Stat text now follows background defaults. Table links keep the default color for their white cells.</p>
+          <p>Stat text now follows background defaults.</p>
           <h3>Stats inherit background colors</h3>
           <p>The special stat text-color overrides are removed. Stats inherit the nearest background’s text color.</p>
           <template v-for="row in colorCases" :key="row.id">
-          <template v-if="row.id === 'table-links'">
-            <h3>Table link colors</h3>
-            <p>Tables establish their own link color context rather than inheriting it from the surrounding background.</p>
-          </template>
           <article :id="row.id">
             <h4 class="cleanup-review__question">{{ row.question }}</h4>
             <p class="cleanup-review__decision">{{ row.rationale }}</p>
@@ -128,7 +121,7 @@ export const InThisPR = {
           <h2>Removal inventory</h2>
           <table><thead><tr><th>Removed name</th><th>Replacement</th><th>Review note</th></tr></thead><tbody><tr v-for="row in aliases" :key="row[0]"><td><code>{{ row[0] }}</code></td><td><code>{{ row[1] }}</code></td><td>{{ row[2] }}</td></tr></tbody></table>
           <details><summary>Unchanged uppercase highlight</summary><p>Both names support the highlighted span inside headline__heading used by the headline template. The rename preserves this appearance.</p><div class="cleanup-review__pair"><div><h4>Before: alpha.0 styles</h4><CssCleanupSpecimen :css="beforeCss" :markup="uppercaseBefore" /></div><div><h4>After: this PR's styles</h4><CssCleanupSpecimen :css="currentCss" :markup="uppercaseAfter" /></div></div></details>
-          <ul><li>Obsolete footer-cta wrapper/container and socket container styles, including their menu and outline-button rules: no replacement.</li><li>Tabs' is-hidden selector: use the native hidden attribute already managed by the tabs script.</li><li>Retired grid--3-2 stat width override: use the default width shown above.</li><li>Unused headline__headline typo selector: removed.</li></ul>
+          <ul><li>Table link ancestor overrides: replaced by the table’s own default link token. Links in white cells stay blue regardless of the surrounding background; no visual change.</li><li>Obsolete footer-cta wrapper/container and socket container styles, including their menu and outline-button rules: no replacement.</li><li>Tabs' is-hidden selector: use the native hidden attribute already managed by the tabs script.</li><li>Retired grid--3-2 stat width override: use the default width shown above.</li><li>Unused headline__headline typo selector: removed.</li></ul>
           <p>The changelog contains the complete class names and migration details. This page highlights rendered changes and class migrations.</p>
           <details><summary>How the comparisons are rendered</summary><p>Review for UIDS #1092 / PR #1097, against 5.0.0-alpha.0. Before examples use a frozen stylesheet from that release; replacement examples use the current Sass build. Each specimen has isolated styles. Color comparisons use the actual before and after stylesheets. Decorative stat borders and bars stay the same.</p></details>
         </section>
