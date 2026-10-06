@@ -59,7 +59,7 @@ points at `--uiowa-color-blue`.
 | Info | `#3375D1` | `#2C6ECA` |
 | Info surface | `#EAF1FB` | `#EDF4FE` |
 | Success surface | `#E6F4EE` | `#E8F6F0` |
-| Danger surface | `#FBEAEA` | `#FFEFF0` |
+| Danger surface | `#FBEAEA` | `#FFEFF1` |
 
 Info now points at `--uiowa-color-blue-dark`, the same blue as links on light surfaces.
 Affects `.badge--blue` and the `.alert--info` icon.
