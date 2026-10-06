@@ -104,7 +104,12 @@ shadow, 500ms to 150ms. Other visible timings move by 150ms or less.
 Sass breakpoints are written from the breakpoint tokens, in rem. Nothing moves at a
 16px browser default font size. Five breakpoints were in px; their media queries now
 move with the browser's default font size, while container queries use the fixed 16px
-`:root` size. The two that were in em behave as before.
+`:root` size. `$break-page-container` was in em and behaves as before.
+
+### Removed
+
+- `$break-xlg` (106em) and the `xlg` option of the `breakpoint()` mixin. Nothing in UIDS
+  or SiteNow used them. Write `@media (min-width: 106em)` where that width is needed.
 
 ### Fixed
 

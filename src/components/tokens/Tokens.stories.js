@@ -274,7 +274,7 @@ const CHANGED_COMPONENTS = [
   },
   {
     section: 'Breakpoints',
-    note: "At a 16px browser default font size, thresholds do not move. Five formerly px breakpoints now use rem in media queries and follow the browser's default font size; container-query rem uses the fixed 16px :root. The two formerly em breakpoints behave as before.",
+    note: "At a 16px browser default font size, thresholds do not move. Five formerly px breakpoints now use rem in media queries and follow the browser's default font size; container-query rem uses the fixed 16px :root. $break-page-container, formerly em, behaves as before. $break-xlg (106em) is removed: nothing used it.",
     rows: [
       { what: 'Sass breakpoints', was: 'px or em', now: 'rem', token: '$uiowa-breakpoint-*', examples: ['spaceAndLayout'] },
     ],
