@@ -104,22 +104,31 @@ export const InThisPR = {
     template: `
       <main class="cleanup-review" id="review">
         <h1>CSS cleanup: in this PR</h1>
-        <p class="cleanup-review__callout"><strong>Feedback requested:</strong> Should these component colors follow background defaults? Any exception needs a clear design rationale.</p>
+        <p class="cleanup-review__callout"><strong>Feedback requested:</strong> We are considering removing the special stat text colors so stats follow the color choices of their background. The related decisions below need review before changing those rules.</p>
         <section id="color-review">
           <h2>Decisions needed</h2>
           <p class="cleanup-review__note">The alternatives below are for review. Production color rules have not changed.</p>
-          <article v-for="row in colorCases" :key="row.id" :id="row.id">
-            <h3>{{ row.question }}</h3>
+          <h3>Removing special stat colors</h3>
+          <p>Stats currently have their own text color rules: gold titles and gray supporting text on black backgrounds, and gray supporting text on white backgrounds. These rules override the background component's text colors. Removing them would let stats use the background defaults.</p>
+          <p>That single change raises three related choices: whether to keep the gold title on black, whether supporting text needs a separate gray color, and whether a nested stat should follow its nearest background. The comparisons show the effects of removing the special colors. Any colors we retain need a clear design rationale.</p>
+          <template v-for="row in colorCases" :key="row.id">
+          <template v-if="row.id === 'table-links'">
+            <h3>Table link colors</h3>
+            <p>The table link override is a separate decision. Tables paint a white background, so removing their special link color also requires deciding how that white surface should establish its color context.</p>
+          </template>
+          <article :id="row.id">
+            <h4 class="cleanup-review__question">{{ row.question }}</h4>
             <p class="cleanup-review__decision">{{ row.rationale }}</p>
             <div class="cleanup-review__pair">
-              <div><h4>Current colors</h4><CssCleanupSpecimen :css="currentCss" :markup="row.markup" @measured="colors[row.id + '-current'] = $event" /></div>
-              <div><h4>Proposed: background defaults only</h4><CssCleanupSpecimen :css="currentCss" :markup="row.markup" defaults @measured="colors[row.id + '-defaults'] = $event" /></div>
+              <div><h5>Current colors</h5><CssCleanupSpecimen :css="currentCss" :markup="row.markup" @measured="colors[row.id + '-current'] = $event" /></div>
+              <div><h5>Proposed: background defaults only</h5><CssCleanupSpecimen :css="currentCss" :markup="row.markup" defaults @measured="colors[row.id + '-defaults'] = $event" /></div>
             </div>
             <details><summary>CSS details and rendered colors</summary>
               <p><strong>{{ row.title }}:</strong> <code>{{ row.rule }}</code></p>
               <div class="cleanup-review__pair"><div><h4>Current colors</h4><ul class="cleanup-review__values"><li v-for="value in colors[row.id + '-current']" :key="value.label">{{ value.label }}: <code>{{ value.color }}</code></li></ul></div><div><h4>Proposed: background defaults only</h4><ul class="cleanup-review__values"><li v-for="value in colors[row.id + '-defaults']" :key="value.label">{{ value.label }}: <code>{{ value.color }}</code></li></ul></div></div>
             </details>
           </article>
+          </template>
         </section>
         <nav aria-label="Other review sections"><a href="#migration-review">Migration examples</a><a href="#removal-review">Removal inventory</a></nav>
         <section id="migration-review">
