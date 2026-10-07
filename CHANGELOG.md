@@ -24,7 +24,7 @@ new values. Every value below is stated against 5.0.0-alpha.0.
 | Stroke widths | `stroke.width.1`, `.2`, `.4`, `.5`, `.6`, `.8`; `stroke.width.default` (1px) and `stroke.width.focused` (2px) |
 | Radius | `radius.3`, `radius.full` |
 | Shadows | `shadow.inset` (form fields), `shadow.raised` (the toggle knob) |
-| Motion | `duration.150`, `.250`, `.400`; `motion.duration.fast`, `medium`, `slow`; `easing.standard`, `enter`, `overshoot` |
+| Motion | `duration.150`, `.250`, `.400`; `motion.duration.fast`, `medium`, `slow`; `easing.standard`, `overshoot` |
 | Breakpoints | `breakpoint.400`, `.600`, `.768`, `.930`, `.980`, `.1200`, `.1350`; `layout.breakpoint.standard` (1350) |
 | Form heights | `form.height.medium` (48px), `form.height.large` (64px) |
 | Colors | `color.border.strong`, `color.border.strong-inverse`; `color.alpha.black-200`, `black-425`, `near-black-150`, `white-425`; `color.accent.blue` |
@@ -104,6 +104,10 @@ Large, light-font, and circle buttons are unchanged.
 
 Transitions use the motion tokens. The largest visible timing change is the form field
 shadow, 500ms to 150ms. Other visible timings move by 150ms or less.
+
+Eight transitions that never ran are removed instead of tokenized. They sat on elements
+whose properties do not change: the stat grid, the tab background, the blockquote bars,
+the banner overlay, and the circle button's ring.
 
 #### Breakpoints
 
