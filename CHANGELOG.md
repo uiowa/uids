@@ -10,7 +10,123 @@ design system built from UIDS can be realigned from this file alone.
 One `##` heading per release, newest first, carrying its version. A released heading
 also carries its date.
 
-## [5.0.0-alpha.0]
+## [Unreleased]
+
+Adds 58 tokens and moves links, info, three status surfaces, and the accent colors to
+new values. Every value below is stated against 5.0.0-alpha.0.
+
+### Added
+
+#### Design tokens
+
+| Group | Tokens |
+| --- | --- |
+| Stroke widths | `stroke.width.1`, `.2`, `.4`, `.5`, `.6`, `.8`; `stroke.width.default` (1px) and `stroke.width.focused` (2px) |
+| Radius | `radius.3`, `radius.full` |
+| Shadows | `shadow.inset` (form fields), `shadow.raised` (the toggle knob) |
+| Motion | `duration.150`, `.250`, `.400`; `motion.duration.fast`, `medium`, `slow`; `easing.standard`, `overshoot` |
+| Breakpoints | `breakpoint.400`, `.600`, `.768`, `.930`, `.980`, `.1200`, `.1350`; `layout.breakpoint.standard` (1350) |
+| Form heights | `form.height.medium` (48px), `form.height.large` (64px) |
+| Colors | `color.border.strong`, `color.border.strong-inverse`; `color.alpha.black-200`, `black-425`, `near-black-150`, `white-425`; `color.accent.blue` |
+| Data visualization | `color.data-visualization.categorical.1` to `.12`, assigned in numerical order, each pointing at a palette color; the palette gains `color.green-light`, `purple`, `cyan`, `olive`, `rose`, `gray-warm`, and `gray-cool` for them |
+| Logo | `logo.minWidth` (85px) |
+
+Breakpoints have no custom properties, because a media query can't read one. The build
+writes them to Sass, in rem.
+
+- Storybook Tokens pages for Borders and shapes, Shadows, and Motion. Space and layout
+  gains form heights, the logo minimum, and the breakpoints.
+
+### Changed
+
+#### Links
+
+| Surface | Was | Now |
+| --- | --- | --- |
+| White and gray | `#00558C` | `#2C6ECA` |
+| Black | `#FFCD00` (gold) | `#588DD6` |
+
+Links on gold stay black. Footer links and table caption links stay gold: they set gold
+directly rather than through `--uiowa-color-link`.
+
+`--uiowa-color-blue-dark` changes to `#2C6ECA`, and `--uiowa-color-link-inverse` now
+points at `--uiowa-color-blue`.
+
+#### Status colors
+
+| Role | Was | Now |
+| --- | --- | --- |
+| Info | `#3375D1` | `#2C6ECA` |
+| Info surface | `#EAF1FB` | `#EDF4FE` |
+| Success surface | `#E6F4EE` | `#E8F6F0` |
+| Danger surface | `#FBEAEA` | `#FFEFF1` |
+
+Info now points at `--uiowa-color-blue-dark`, the same blue as links on light surfaces.
+Affects `.badge--blue` and the `.alert--info` icon.
+
+The info, success, and danger surfaces are a shade lighter, so links clear 4.5:1 on them.
+Affects alert backgrounds, form fields and toggles with an error, and `mark.deletion`.
+
+#### Accent colors
+
+No component uses an accent color yet.
+
+| Token | Was | Now |
+| --- | --- | --- |
+| `--uiowa-color-blue` | `#3375D1` | `#588DD6` |
+| `--uiowa-color-orange` | `#CC6D17` | `#E16822` |
+| `--uiowa-color-magenta` | `#AA4981` | `#CE68AC` |
+| `--uiowa-color-ochre` | `#C08C00` | `#B98100` |
+
+`--uiowa-color-teal` is unchanged. `--uiowa-color-accent-blue` is new.
+
+#### Sizes
+
+| Element | Was | Now |
+| --- | --- | --- |
+| Form field | 46.4px | 48px |
+| Large form field | 56px | 64px |
+| Default button | 65.2px | 64px |
+| Small button | 47.9px | 48px |
+| Lowercase button | 59.6px | 64px |
+
+Large, light-font, and circle buttons are unchanged.
+
+#### Borders and corners
+
+| Element | Was | Now |
+| --- | --- | --- |
+| Circle button focus ring | 3px | 2px |
+| Blockquote rule | 10px | 8px |
+| Alert corners | 2px | 3px |
+
+#### Motion
+
+Transitions use the motion tokens. The largest visible timing change is the form field
+shadow, 500ms to 150ms. Other visible timings move by 150ms or less.
+
+Eight transitions that never ran are removed instead of tokenized. They sat on elements
+whose properties do not change: the stat grid, the tab background, the blockquote bars,
+the banner overlay, and the circle button's ring.
+
+#### Breakpoints
+
+Sass breakpoints are written from the breakpoint tokens, in rem. Nothing moves at a
+16px browser default font size. Five breakpoints were in px; their media queries now
+move with the browser's default font size, while container queries use the fixed 16px
+`:root` size. `$break-page-container` was in em and behaves as before.
+
+### Removed
+
+- `$break-xlg` (106em) and the `xlg` option of the `breakpoint()` mixin. Nothing in UIDS
+  or SiteNow used them. Write `@media (min-width: 106em)` where that width is needed.
+
+### Fixed
+
+- Horizontal stats on a gold background, 980 to 1350px wide: the rule above the content
+  was gold on gold. It now shows in black.
+
+## [5.0.0-alpha.0] - 2026-09-25
 
 First release of the 5.x line. 5.x starts as a copy of 4.x, so every value below is
 stated against 4.0.1. The major version reflects rendered changes to spacing, heading

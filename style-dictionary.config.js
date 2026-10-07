@@ -59,6 +59,17 @@ export function fluidFontSize(token) {
   return `clamp(${decimal(minimumRem)}rem, calc(${decimal(slope)}vw + ${decimal(intercept)}rem), ${decimal(maximumRem)}rem)`;
 }
 
+export const isBreakpoint = (token) => token.path[0] === 'breakpoint'
+  || (token.path[0] === 'layout' && token.path[1] === 'breakpoint');
+
+export function breakpointRem(token) {
+  const value = token.$value;
+  if (!value || value.unit !== 'px' || typeof value.value !== 'number') {
+    throw new Error(`${token.path.join('.')} must be a px dimension`);
+  }
+  return `${decimal(value.value / REM_IN_PIXELS)}rem`;
+}
+
 export default {
   usesDtcg: true,
   source: ['src/tokens/**/*.json'],
@@ -75,12 +86,22 @@ export default {
           && Boolean(token.$extensions?.[FLUID_EXTENSION]),
         transform: fluidFontSize,
       },
+      'uids/duration-css': {
+        type: 'value',
+        filter: (token) => token.$type === 'duration',
+        transform: (token) => `${token.$value.value}${token.$value.unit}`,
+      },
+      'uids/breakpoint-rem': {
+        type: 'value',
+        filter: isBreakpoint,
+        transform: breakpointRem,
+      },
     },
   },
   platforms: {
     scss: {
       transformGroup: 'css',
-      transforms: ['uids/fluid-font-size'],
+      transforms: ['uids/fluid-font-size', 'uids/duration-css'],
       prefix: 'uiowa',
       buildPath: 'src/scss/abstracts/',
       files: [
@@ -88,6 +109,19 @@ export default {
           destination: '_tokens-generated.scss',
           format: 'css/variables',
           options: { outputReferences: true },
+          filter: (token) => !isBreakpoint(token),
+        },
+      ],
+    },
+    breakpoints: {
+      transforms: ['name/kebab', 'uids/breakpoint-rem'],
+      prefix: 'uiowa',
+      buildPath: 'src/scss/abstracts/',
+      files: [
+        {
+          destination: '_breakpoints-generated.scss',
+          format: 'scss/variables',
+          filter: isBreakpoint,
         },
       ],
     },

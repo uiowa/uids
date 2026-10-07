@@ -9,7 +9,6 @@
 .stat__grid {
   margin: 0;
   width: 100%;
-  transition: all .55s cubic-bezier(.95, 1.25, .375, 1.15);
 
   &.stat--static {
     &:hover .stat__content {
@@ -49,7 +48,7 @@
     font-family: variables.$font-family-caps-bold;
     font-weight: bold;
     font-size: 4rem;
-    border-bottom: 8px solid variables.$primary;
+    border-bottom: var(--uiowa-stroke-width-8) solid variables.$primary;
     padding: variables.$lg 0 variables.$sm 0;
 
     @include utilities.breakpoint(sm) {
@@ -65,7 +64,7 @@
     [class*="bg--white"] &,
     [class*="bg--gray"] &,
     [class*="bg--black"] & {
-      border-bottom: 8px solid variables.$primary;
+      border-bottom: var(--uiowa-stroke-width-8) solid variables.$primary;
     }
 
     // @todo This should probably be resolved with https://sass-lang.com/documentation/values/maps#using-maps
@@ -78,7 +77,7 @@
 
     .bg-pattern--brain-reversed &,
     [class*="bg--gold"] & {
-      border-bottom: 8px solid var(--uiowa-color-neutral-0);
+      border-bottom: var(--uiowa-stroke-width-8) solid var(--uiowa-color-neutral-0);
     }
 
     @include utilities.breakpoint(sm) {
@@ -99,7 +98,7 @@
 
     @include utilities.breakpoint(md) {
       max-height: 0;
-      transition: max-height 0.4s ease-in-out;
+      transition: max-height var(--uiowa-motion-duration-slow) var(--uiowa-easing-standard);
       overflow: hidden;
     }
 
@@ -184,8 +183,8 @@
   .bg-pattern--brain-reversed &,
   [class*="bg--gold"] & {
     .stat__content {
-      @include utilities.breakpoint(page-container) {
-        border-top: 8px solid variables.$secondary;
+      @include utilities.breakpoint(md) {
+        border-top: var(--uiowa-stroke-width-8) solid variables.$secondary;
       }
     }
   }
@@ -215,7 +214,7 @@
     @include utilities.breakpoint(md) {
       padding-top: .5rem;
       margin-top: .75rem;
-      border-top: 8px solid variables.$primary;
+      border-top: var(--uiowa-stroke-width-8) solid variables.$primary;
       flex-basis: 100%;
     }
 
@@ -254,7 +253,6 @@
   display: flex;
   flex-wrap: wrap;
   cursor: inherit;
-  transition: all .55s cubic-bezier(.95, 1.25, .375, 1.15);
 }
 
 .stat:not(.stat--static) {

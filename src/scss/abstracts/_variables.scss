@@ -1,4 +1,5 @@
 @use 'sass:color';
+@use 'breakpoints-generated' as bp;
 
 // Utility color variables
 $uiowa-gold: var(--uiowa-color-brand-gold);
@@ -38,7 +39,7 @@ $dark: #343a40;
 $border-radius: 0;
 $border-radius-lg: 0;
 $border-radius-sm: 0;
-$border-width: 1px;
+$border-width: var(--uiowa-stroke-width-default);
 
 // Typography
 // These hold var() references, so Sass math and color functions cannot operate on them.
@@ -88,14 +89,13 @@ $xlg: 2.5rem; // 40px
 $xxlg: 3.15rem; // 50px
 $xxxlg: 3.75rem; // 60px
 
-// Breakpoints.
-$break-xxsm: 400px;
-$break-xsm: 600px;
-$break-sm: 768px;
-$break-md: 980px;
-$break-lg: 1200px;
-$break-page-container: 84.375em;
-$break-xlg: 106em;
+// Breakpoints
+$break-xxsm: bp.$uiowa-breakpoint-400;
+$break-xsm: bp.$uiowa-breakpoint-600;
+$break-sm: bp.$uiowa-breakpoint-768;
+$break-md: bp.$uiowa-breakpoint-980;
+$break-lg: bp.$uiowa-breakpoint-1200;
+$break-page-container: bp.$uiowa-layout-breakpoint-standard;
 
 // Drop shadow.
 $soft-drop-shadow: 0px 1px 2px rgba(0, 0, 0, 0.4);
