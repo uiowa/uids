@@ -1,0 +1,1 @@
+import{i as e}from"./preload-helper-DylEL7Is.js";function t(e){return e.replace(/_/g,`-`)}var n=e((()=>{}));export{n,t};
