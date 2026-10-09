@@ -1,0 +1,1 @@
+import{i as e}from"./preload-helper-mYgoU-5D.js";function t(e){return e.replace(/_/g,`-`)}var n=e((()=>{}));export{n,t};
