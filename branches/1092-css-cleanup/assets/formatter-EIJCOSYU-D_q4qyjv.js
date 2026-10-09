@@ -1,1 +1,0 @@
-import{i as e}from"./preload-helper-DylEL7Is.js";import{Dt as t,G as n,K as r,Ot as i,U as a,W as o}from"./iframe-NY30v1nY.js";var s;e((()=>{n(),o(),i(),s=(0,t(r(),1).default)(2)(async(e,t)=>e===!1?t:a(t))}))();export{s as formatter};
