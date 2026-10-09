@@ -129,37 +129,37 @@ const Template = {
               </uids-table>
 
               <nav class="pager">
-                <div class="visually-hidden">Pagination</div>
+                <div class="element-invisible">Pagination</div>
                 <ul class="pager">
                   <li class="pager is-active">
                     <a href="/">
-                      <span class="visually-hidden">Current page</span>1
+                      <span class="element-invisible">Current page</span>1
                     </a>
                   </li>
                   <li class="pager">
                     <a href="/">
-                      <span class="visually-hidden">Page</span>2
+                      <span class="element-invisible">Page</span>2
                     </a>
                   </li>
                   <li class="pager">
                     <a href="/">
-                      <span class="visually-hidden">Page</span>3
+                      <span class="element-invisible">Page</span>3
                     </a>
                   </li>
                   <li class="pager">
                     <a href="/">
-                      <span class="visually-hidden">Page</span>4
+                      <span class="element-invisible">Page</span>4
                     </a>
                   </li>
                   <li class="pager">
                     <a href="/">
-                      <span class="visually-hidden">Next page</span>
+                      <span class="element-invisible">Next page</span>
                       <span>Next ›</span>
                     </a>
                   </li>
                   <li class="pager">
                     <a href="/">
-                      <span class="visually-hidden">Last page</span>
+                      <span class="element-invisible">Last page</span>
                       <span>Last »</span>
                     </a>
                   </li>

@@ -65,8 +65,6 @@ component-name/
 6. Import in `src/scss/uids.scss`: `@use 'components/component-name';`
 7. Run `yarn storybook` to test, then `yarn build` before PR
 
-**Prototype components**: New experimental components should have `status: prototype` and be placed in `src/components/prototypes/`
-
 ## Git Workflow
 
 - Work on feature branches from `4.x`
