@@ -67,6 +67,27 @@ Affects `.badge--blue` and the `.alert--info` icon.
 The info, success, and danger surfaces are a shade lighter, so links clear 4.5:1 on them.
 Affects alert backgrounds, form fields and toggles with an error, and `mark.deletion`.
 
+#### Grays
+
+Grays that were typed as hex values now use the neutral ramp, so tables, form fields, the
+stat and the brand footer share one set of grays. Each moves to the nearest neutral step.
+
+| Where | Was | Now |
+| --- | --- | --- |
+| Disabled form field background | `#E1E1E1` | `--uiowa-color-neutral-175` |
+| Form field focus outline | `#8A8A8A` | `--uiowa-color-neutral-300` |
+| Table borders, attribute rows | `#EEE` | `--uiowa-color-neutral-150` |
+| Table borders, light | `#DDD` | `--uiowa-color-neutral-175` |
+| Table borders, dark | `#7C7C7C` | `--uiowa-color-neutral-400` |
+| Table caption background | `#333` | `--uiowa-color-neutral-700` |
+| Stat text | `#666` | `--uiowa-color-neutral-500` |
+| Footer icon links | `#999` | `--uiowa-color-neutral-300` |
+| Footer separator | `#5D5656` | `--uiowa-color-neutral-500` |
+
+The form field background stays `#FAFAFB`. The ramp has no step between white and `#F3F3F3`.
+
+Text still clears 4.5:1: footer icon links are 6.55:1 on black, and stat text is 5.77:1 on white.
+
 #### Accent colors
 
 No component uses an accent color yet.
