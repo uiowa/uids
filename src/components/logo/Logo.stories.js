@@ -16,8 +16,8 @@ export default {
     healthcare: {
       control: { type: 'boolean' },
     },
-    linked: {
-      control: { type: 'boolean' },
+    href: {
+      control: { type: 'text' },
     },
   },
 };
@@ -28,7 +28,7 @@ const Template = (args) => ({
     return { args }
   },
   template: `
-    <uids-logo :healthcare="args.healthcare" :linked="args.linked"></uids-logo>
+    <uids-logo :healthcare="args.healthcare" :href="args.href"></uids-logo>
   `,
 })
 
@@ -36,12 +36,12 @@ export const Iowa = Template.bind({})
 
 Iowa.args = {
   healthcare: false,
-  linked: true,
+  href: 'https://uiowa.edu',
 }
 
 export const IowaHealthCare = Template.bind({})
 
 IowaHealthCare.args = {
   healthcare: true,
-  linked: true,
+  href: 'https://uihealthcare.org',
 }
