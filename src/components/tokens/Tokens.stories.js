@@ -74,7 +74,7 @@ const ADDED = {
   primitives: {
     colors: [
       'color.green-light', 'color.purple', 'color.cyan', 'color.olive', 'color.rose', 'color.gray-warm', 'color.gray-cool',
-      'color.alpha.black-200', 'color.alpha.black-425', 'color.alpha.near-black-150', 'color.alpha.white-425',
+      'color.alpha.black-150', 'color.alpha.black-200', 'color.alpha.black-425', 'color.alpha.white-425',
     ],
     stroke: ['stroke.width.1', 'stroke.width.2', 'stroke.width.4', 'stroke.width.5', 'stroke.width.6', 'stroke.width.8'],
     radius: ['radius.3', 'radius.full'],
@@ -165,7 +165,7 @@ const EXAMPLES = {
 const ADDED_EXAMPLES = {
   'color.alpha.black-200': ['toggle'],
   'color.alpha.black-425': ['ctaGold', 'cardGold'],
-  'color.alpha.near-black-150': ['text'],
+  'color.alpha.black-150': ['text'],
   'color.alpha.white-425': ['ctaBlack', 'cardBlack'],
   'stroke.width.1': ['card', 'table'],
   'stroke.width.2': ['checkboxError', 'textFocus'],
@@ -203,7 +203,7 @@ const USES = {
   'color.gray-cool': 'Used through color.data-visualization.categorical.12.',
   'color.alpha.black-200': 'The toggle knob shadow (shadow.raised).',
   'color.alpha.black-425': 'A strong border on light surfaces: buttons (color.border.strong).',
-  'color.alpha.near-black-150': "The inset shadow on form fields (shadow.inset): UIDS's rgba(10, 10, 10, 0.15). #0A0A0A is not a step on the neutral ramp.",
+  'color.alpha.black-150': 'The inset shadow on form fields (shadow.inset).',
   'color.alpha.white-425': 'A strong border on dark surfaces: buttons (color.border.strong-inverse).',
   'stroke.width.1': 'The resting outline on form fields (form.scss), through stroke.width.default.',
   'stroke.width.2': 'Focus rings, through stroke.width.focused.',
@@ -267,6 +267,13 @@ const CHANGED_COMPONENTS = [
       { what: 'Circle button focus ring', was: '3px', now: '2px', token: '--uiowa-stroke-width-focused' },
       { what: 'Blockquote rule', was: '10px', now: '8px', token: '--uiowa-stroke-width-8', examples: ['blockquote'] },
       { what: 'Alert corners', was: '2px', now: '3px', token: '--uiowa-radius-3', examples: ['alert'] },
+    ],
+  },
+  {
+    section: 'Shadows',
+    note: 'Black at 15%, not near-black: about 1.5 units darker on a white field.',
+    rows: [
+      { what: 'Form field inset shadow', was: 'rgba(10, 10, 10, 0.15)', now: 'rgba(0, 0, 0, 0.15)', token: '--uiowa-shadow-inset', examples: ['text'] },
     ],
   },
   {

@@ -12,7 +12,7 @@ also carries its date.
 
 ## [Unreleased]
 
-Adds 58 tokens and moves links, info, three status surfaces, and the accent colors to
+Adds 57 tokens and moves links, info, three status surfaces, and the accent colors to
 new values. Every value below is stated against 5.0.0-alpha.0.
 
 ### Added
@@ -27,7 +27,7 @@ new values. Every value below is stated against 5.0.0-alpha.0.
 | Motion | `duration.150`, `.250`, `.400`; `motion.duration.fast`, `medium`, `slow`; `easing.standard`, `overshoot` |
 | Breakpoints | `breakpoint.400`, `.600`, `.768`, `.930`, `.980`, `.1200`, `.1350`; `layout.breakpoint.standard` (1350) |
 | Form heights | `form.height.medium` (48px), `form.height.large` (64px) |
-| Colors | `color.border.strong`, `color.border.strong-inverse`; `color.alpha.black-200`, `black-425`, `near-black-150`, `white-425`; `color.accent.blue` |
+| Colors | `color.border.strong`, `color.border.strong-inverse`; `color.alpha.black-150`, `black-200`, `black-425`, `white-425`; `color.accent.blue` |
 | Data visualization | `color.data-visualization.categorical.1` to `.12`, assigned in numerical order, each pointing at a palette color; the palette gains `color.green-light`, `purple`, `cyan`, `olive`, `rose`, `gray-warm`, and `gray-cool` for them |
 | Logo | `logo.minWidth` (85px) |
 
@@ -120,6 +120,14 @@ Large, light-font, and circle buttons are unchanged.
 | Circle button focus ring | 3px | 2px |
 | Blockquote rule | 10px | 8px |
 | Alert corners | 2px | 3px |
+
+#### Shadows
+
+| Element | Was | Now |
+| --- | --- | --- |
+| Form field inset shadow | `rgba(10, 10, 10, 0.15)` | `rgba(0, 0, 0, 0.15)` |
+
+Black at 15% instead of near-black, about 1.5 units darker on a white field.
 
 #### Motion
 
