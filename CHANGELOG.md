@@ -9,11 +9,6 @@ system built from UIDS should be able to catch up using this file alone.
 
 ## [5.0.0-alpha.1](https://github.com/uiowa/uids/compare/v5.0.0-alpha.0...v5.0.0-alpha.1)
 
-### Added
-
-- A Storybook `Review/CSS cleanup` page with migration comparisons and a prominent
-  comparison of component text colors before and after cleanup.
-
 ### Changed
 
 - Stat text inherits the nearest background’s text color. Titles on black change from
