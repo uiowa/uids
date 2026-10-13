@@ -1,13 +1,11 @@
 # Changelog
 
-Notable changes to UIDS. The format follows
-[Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project follows
+Notable changes to UIDS, grouped by release, newest first. The format follows
+[Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-Entries that change a rendered value carry both the old value and the new one, so a
-design system built from UIDS can be realigned from this file alone.
-
-One `##` heading per release, newest first, carrying its version.
+When a change alters a rendered value, list the old value and the new one. A design
+system built from UIDS should be able to catch up using this file alone.
 
 ## [5.0.0-alpha.1](https://github.com/uiowa/uids/compare/v5.0.0-alpha.0...v5.0.0-alpha.1)
 
