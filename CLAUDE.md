@@ -69,7 +69,7 @@ component-name/
 
 - Work on feature branches from `5.x`
 - PRs auto-deploy to GitHub Pages for preview at `/branches/{branch-name}`
-- Releases use semantic versioning via `npm version [major|minor|patch]`
+- `package.json` and the top `CHANGELOG.md` section always name the next release. See "Creating a Release" in `README.md`.
 
 ## Code Style
 
