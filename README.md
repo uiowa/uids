@@ -85,14 +85,15 @@ Releases use [Semantic Versioning](https://semver.org/). The release workflow bu
 tagged source and attaches an installable package to the GitHub release. Do not run
 `npm pack` or upload the tarball manually.
 
-1. Create and merge a release PR that updates `package.json` to the intended version,
-   updates `CHANGELOG.md`, and passes `yarn build`. SemVer prerelease versions such as
-   `5.0.0-alpha.0` are valid.
-2. Create a GitHub release from that merged commit with the matching tag, prefixed with
-   `v` (for example, package version `5.0.0-alpha.0` uses tag `v5.0.0-alpha.0`).
-3. Publish the GitHub release. The `Release` workflow verifies the tag/version match,
+`package.json` and the top section of `CHANGELOG.md` always name the next release. After
+each release, the first PR with a changelog entry opens a section for the next version and
+bumps `package.json` to match. SemVer prerelease versions such as `5.0.0-alpha.1` are valid.
+
+1. Create a GitHub release from the latest commit on `5.x`. Tag it with the `package.json`
+   version prefixed with `v`, so version `5.0.0-alpha.1` gets tag `v5.0.0-alpha.1`.
+2. Publish the GitHub release. The `Release` workflow verifies the tag/version match,
    runs `yarn build`, creates `uids-<version>.tgz`, and attaches it to the release.
-4. Wait for the workflow to finish and verify that the tarball appears in the release's
+3. Wait for the workflow to finish and verify that the tarball appears in the release's
    assets before asking a consumer to update. If it fails, rerun the `Release` workflow
    with that tag; do not upload a replacement tarball manually.
 
@@ -114,15 +115,13 @@ import 'uids/components/button.css';
 Use `uids/tokens.css` when only the token custom properties are needed.
 
 ### Components
-Learn about Fractal components here: https://fractal.build/guide/components/#what-defines-a-component. Note that this project uses Twig (`.twig`) instead of Handlebars (`.hbs`).
+Components are Vue 3 components documented with [Storybook](https://storybook.js.org/docs). Each component directory contains its `.vue` file, its `.stories.js` file, and an `index.ts`.
 
 All work on components should be done in the `src/components` directory. Each component is contained in its own directory. Some component directories are grouped together for presentation purposes.
-
-If you are starting work on a new component, please make sure that it has `status: prototype` in its config file, and it is placed in the `src/components/prototypes` directory.
 
 ### Continuous Integration
 ![Publish docs to GitHub Pages](https://github.com/uiowa/uids/workflows/Publish%20docs%20to%20GitHub%20Pages/badge.svg)
 
-GitHub Actions is used to build and deploy the Fractal artifact to the `gh-pages` branch. This branch is set to host UIDS using GitHub Pages. All pushes to a branches or tags will trigger a build.
+GitHub Actions is used to build and deploy the Storybook site to the `gh-pages` branch. This branch is set to host UIDS using GitHub Pages. All pushes to a branches or tags will trigger a build.
 
 Branches can be accessed at http://uids.brand.uiowa.edu/branches/{your-branch-name}.

@@ -1,16 +1,13 @@
 # Changelog
 
-Notable changes to UIDS. The format follows
-[Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project follows
+Notable changes to UIDS, grouped by release, newest first. The format follows
+[Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-Entries that change a rendered value carry both the old value and the new one, so a
-design system built from UIDS can be realigned from this file alone.
+When a change alters a rendered value, list the old value and the new one. A design
+system built from UIDS should be able to catch up using this file alone.
 
-One `##` heading per release, newest first, carrying its version. A released heading
-also carries its date.
-
-## [Unreleased]
+## [5.0.0-alpha.1](https://github.com/uiowa/uids/compare/v5.0.0-alpha.0...v5.0.0-alpha.1)
 
 Adds 57 tokens and moves links, info, three status surfaces, and the accent colors to
 new values. Every value below is stated against 5.0.0-alpha.0.
@@ -38,6 +35,17 @@ writes them to Sass, in rem.
   gains form heights, the logo minimum, and the breakpoints.
 
 ### Changed
+
+- Stat text inherits the nearest background’s text color. Titles on black change from
+  gold to white; supporting text changes from gray to white on black and black on white.
+  Nested stats follow the nearest background instead of matching an outer black ancestor.
+- Tables establish their own default link token. Links in white cells stay blue
+  regardless of the surrounding background.
+- `.button--small` and `.button--full-width` use the small and full-width button
+  styles. Inside `.form`, they keep `font-size: 1.05rem` and `width: 100%`, respectively.
+  With the button stylesheet loaded, `.bttn.button--small` horizontal padding changes
+  from `2rem` to `1rem`. Existing `.bttn--small` and `.bttn--full` modifiers remain supported.
+- Component documentation now describes Vue 3 and Storybook in place of Fractal and Twig.
 
 #### Links
 
@@ -69,8 +77,8 @@ Affects alert backgrounds, form fields and toggles with an error, and `mark.dele
 
 #### Grays
 
-Grays that were typed as hex values now use the neutral ramp, so tables, form fields, the
-stat and the brand footer share one set of grays. Each moves to the nearest neutral step.
+Grays that were typed as hex values now use the neutral ramp, so tables, form fields, and
+the brand footer share one set of grays. Each moves to the nearest neutral step.
 
 | Where | Was | Now |
 | --- | --- | --- |
@@ -80,13 +88,12 @@ stat and the brand footer share one set of grays. Each moves to the nearest neut
 | Table borders, light | `#DDD` | `--uiowa-color-neutral-175` |
 | Table borders, dark | `#7C7C7C` | `--uiowa-color-neutral-400` |
 | Table caption background | `#333` | `--uiowa-color-neutral-700` |
-| Stat text | `#666` | `--uiowa-color-neutral-500` |
 | Footer icon links | `#999` | `--uiowa-color-neutral-300` |
 | Footer separator | `#5D5656` | `--uiowa-color-neutral-500` |
 
 The form field background stays `#FAFAFB`. The ramp has no step between white and `#F3F3F3`.
 
-Text still clears 4.5:1: footer icon links are 6.55:1 on black, and stat text is 5.77:1 on white.
+Text still clears 4.5:1: footer icon links are 6.55:1 on black.
 
 #### Accent colors
 
@@ -147,15 +154,87 @@ move with the browser's default font size, while container queries use the fixed
 
 ### Removed
 
+- `.tabs-collection [role="tabpanel"].is-hidden`. Use the native `hidden` attribute
+  to hide a tab panel, as the tabs JavaScript already does.
+- `.footer-cta__wrapper`, `.footer-cta__container`, and `.socket__container` styles for
+  obsolete brand-footer wrappers, including `.footer-cta__wrapper .bttn--outline`
+  and descendant menu styles. No replacement classes.
+- `.grid--3-2 .stat__description`, an unused stat-layout override. Default stat
+  descriptions inside `.grid--3-2` now use `width: 85%` instead of `60%` at the
+  medium breakpoint and above.
 - `$break-xlg` (106em) and the `xlg` option of the `breakpoint()` mixin. Nothing in UIDS
   or SiteNow used them. Write `@media (min-width: 106em)` where that width is needed.
+
+#### Legacy class names
+
+Replace the removed classes with the names below. Exceptions to a direct rename follow
+the table.
+
+| Removed | Replacement |
+| --- | --- |
+| `.bold-headline` | `.headline` |
+| `.bold-headline--negative` | `.headline--negative` |
+| `.bold-headline--caps` | `.headline--uppercase` |
+| `.bold-headline--serif` | `.headline--serif` |
+| `.bold-headline--highlight` | `.headline--highlight` |
+| `.bold-headline--underline` | `.headline--underline` |
+| `.block-padding__top`, `__right`, `__bottom`, `__left` and their `--minimal` modifiers | the same suffix on `.element--padding` |
+| `.block-padding__all`, `__all--extra`, `__all--minimal` | the same suffix on `.element--padding` |
+| `.block-margin__top`, `__right`, `__bottom`, `__left` | the same suffix on `.element--margin` |
+| `.block-margin__top--extra`, `.block-margin__bottom--extra` | `.element--margin__top--extra`, `.element--margin__bottom--extra` |
+| `.uids-component--circle-list` | `.element--circle-list` |
+| `.uids-component--bold-intro` | `.element--bold-intro` |
+| `.uids-component--light-intro` | `.element--light-intro` |
+| `.uids-component--gray` ancestor of `.element--circle-list` | `.bg--gray` |
+| `.visually-hidden` | `.element-invisible` |
+| `.flex--center` | `.element--flex-center` |
+| `.flex--left` | `.element--flex-left` |
+| `.blockquote-center` | `.blockquote--center` |
+| `.blockquote-right` | `.blockquote--right` |
+| `.bg-pattern--brain` | `.bg--white--pattern--brain` |
+| `.bg-pattern--brain-black` | `.bg--black--pattern--brain` |
+| `.bg-pattern--brain-reversed` | `.bg--gold--pattern--brain` |
+
+- Move `.blockquote-center` and `.blockquote-right` from the wrapper to the blockquote
+  element, using `.blockquote--center` and `.blockquote--right`.
+  Plain alignment rules match. The 4.x Vue blockquote component already uses the
+  replacement classes, including for image layouts.
+- Replace `.bg-pattern--brain*` ancestors with the matching `.bg--*--pattern--brain`
+  classes. The replacements preserve the removed descendant declarations and also apply
+  the background images and each surface's background, text, link, and border colors.
+  The removed selectors only applied descendant styles.
+- `.cta__wrapper.element--left .bold-headline` sizing and margin overrides are removed.
+  Replacing `.bold-headline` with `.headline` changes `font-size` from `2.5rem` to
+  `2.8rem` and `margin-bottom` from `var(--uiowa-space-50)` (`0.5rem`) to `0`.
+- Replacing `.bold-headline--highlight.bold-headline--serif` with
+  `.headline--highlight.headline--serif` changes span padding from `0.85rem 1rem` to
+  `0.2rem 1rem 0.5rem` through an existing canonical rule.
+- Uppercase highlights inside `.headline__heading` retain their styling after the rename.
+  `.headline--uppercase` also styles spans inside `.headline__text`; the old
+  `.bold-headline--caps` class only styled spans inside `.headline__heading`.
+  The additional spans gain highlight colors, `display: inline-block`, top and bottom
+  margins of `0.8rem`, and padding of `0.4rem 1.2rem 0.8rem`.
+- Replacing `.bold-headline` with `.headline` can activate existing banner and card
+  headline rules that did not apply to the legacy class.
+- Replacing a circle-list ancestor's `.uids-component--gray` with `.bg--gray`
+  preserves the circle's inset shadow. With background styles loaded, `.bg--gray`
+  also applies `background-color: var(--uiowa-color-background-gray)` and the gray
+  surface's text, link, and border colors.
+- Replacing `.flex--center` or `.flex--left` preserves the utility declarations,
+  but can activate existing stat component rules. `.element--flex-center` also
+  excludes horizontal stats from the `.stat--horizontal:not(.element--flex-center)`
+  layout rules.
+- `.element-invisible` preserves UIDS's visually hidden declarations. It does not
+  provide focus-reveal rules for `.visually-hidden.focusable`; preserve any such
+  behavior supplied by other stylesheets when migrating focusable elements.
+- The unused `.bold-headline--caps .headline__headline span` selector is removed.
 
 ### Fixed
 
 - Horizontal stats on a gold background, 980 to 1350px wide: the rule above the content
   was gold on gold. It now shows in black.
 
-## [5.0.0-alpha.0] - 2026-09-25
+## [5.0.0-alpha.0](https://github.com/uiowa/uids/releases/tag/v5.0.0-alpha.0)
 
 First release of the 5.x line. 5.x starts as a copy of 4.x, so every value below is
 stated against 4.0.1. The major version reflects rendered changes to spacing, heading
