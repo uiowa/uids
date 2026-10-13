@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Overview
 
 UIDS (University of Iowa Design System) - Vue 3 component library with SCSS and Storybook docs.
-- **Main branch**: `4.x` | **Package manager**: Yarn 3.7.0 | **Docs**: https://uids.brand.uiowa.edu
+- **Main branch**: `5.x` | **Package manager**: Yarn 3.7.0 | **Docs**: https://uids.brand.uiowa.edu
 
 ## Essential Commands
 
@@ -65,13 +65,11 @@ component-name/
 6. Import in `src/scss/uids.scss`: `@use 'components/component-name';`
 7. Run `yarn storybook` to test, then `yarn build` before PR
 
-**Prototype components**: New experimental components should have `status: prototype` and be placed in `src/components/prototypes/`
-
 ## Git Workflow
 
-- Work on feature branches from `4.x`
+- Work on feature branches from `5.x`
 - PRs auto-deploy to GitHub Pages for preview at `/branches/{branch-name}`
-- Releases use semantic versioning via `npm version [major|minor|patch]`
+- `package.json` and the top `CHANGELOG.md` section always name the next release. See "Creating a Release" in `README.md`.
 
 ## Code Style
 
