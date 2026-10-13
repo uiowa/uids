@@ -13,6 +13,8 @@ export default {
   },
   tags: ['!autodocs'],
   argTypes: {
+    small: { name: 'Small', control: 'boolean', table: { category: 'Modifiers' } },
+    full_width: { name: 'Full width', control: 'boolean', table: { category: 'Modifiers' } },
     compact: {
       name: 'Compact',
       table: { category: 'Modifiers' },
@@ -70,6 +72,8 @@ export default {
                 class="bttn"
                 :class="{
                   error: args.error,
+                  'button--small': args.small,
+                  'button--full-width': args.full_width,
                   'bttn--primary': args.type === 'submit',
                 }"
               >
@@ -83,6 +87,8 @@ export default {
 
 export const Button = {
   args: {
+    small: false,
+    full_width: false,
     disabled: false,
     compact: false,
     large: false,
@@ -109,3 +115,11 @@ export const Submit = {
     label: 'Submit',
   },
 }
+
+export const Small = {
+  args: { ...Submit.args, small: true },
+};
+
+export const FullWidth = {
+  args: { ...Submit.args, full_width: true },
+};

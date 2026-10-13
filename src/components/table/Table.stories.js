@@ -1,10 +1,14 @@
 import UidsTable from './Table.vue';
+import Background from '../shared/background';
+import '../../scss/components/_background.scss';
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
   title: 'Components/Table',
   component: UidsTable,
   argTypes: {
+    ...Background.argTypes,
+    links: { name: 'Links', control: 'boolean' },
     summary: {
       control: { type: 'text' },
       name: 'Summary',
@@ -43,6 +47,7 @@ const Template = (args) => ({
     return { args };
   },
   template: `
+    <div :class="args.background ? 'bg--' + args.background : ''" style="padding: 1rem;">
     <uids-table
       :summary="args.summary"
       :caption="args.caption"
@@ -59,12 +64,12 @@ const Template = (args) => ({
       </template>
       <template #tbody>
         <tr>
-          <th scope="row">Tuition & Fees</th>
+          <th scope="row"><a v-if="args.links" href="#tuition">Tuition & Fees</a><template v-else>Tuition & Fees</template></th>
           <td>$0,000</td>
           <td>$00,000</td>
         </tr>
         <tr>
-          <th scope="row">Housing & Meals</th>
+          <th scope="row"><a v-if="args.links" href="#housing">Housing & Meals</a><template v-else>Housing & Meals</template></th>
           <td>$00,000</td>
           <td>$00,000</td>
         </tr>
@@ -75,6 +80,7 @@ const Template = (args) => ({
         </tr>
       </template>
     </uids-table>
+    </div>
   `,
 });
 
@@ -86,3 +92,6 @@ Default.args = {
   highlight: true,
   border: true,
 };
+
+export const Links = Template.bind({});
+Links.args = { ...Default.args, links: true, background: 'black' };
