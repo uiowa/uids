@@ -27,6 +27,13 @@ style.textContent = `
     color: #595959 !important;
   }
 
+  /* The UIDS Docs entry leaves Storybook: show an outbound arrow, not the page icon. */
+  [data-item-id="uids-docs--docs"] svg use { display: none; }
+  [data-item-id="uids-docs--docs"] svg {
+    background-color: currentColor;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M5 3h6v6M11 3 3 11' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+
   /* Override baby-blue rgb(219,236,255) badge background for consistency. */
   .css-tcngjc { background: #FFFFFF !important; }
 `;
