@@ -1,0 +1,3 @@
+import{i as e,s as t}from"./preload-helper-BL0Fm5OC.js";import{B as n,H as r,I as i,V as a,c as o,f as s}from"./iframe-BKpw05VD.js";function c(e){return(0,u.jsxs)(u.Fragment,{children:[(0,u.jsx)(o,{title:`UIDS Docs`}),`
+`,`
+`,(0,u.jsx)(f,{})]})}function l(e={}){let{wrapper:t}={...n(),...e.components};return t?(0,u.jsx)(t,{...e,children:(0,u.jsx)(c,{...e})}):c(e)}var u,d,f;e((()=>{u=r(),i(),s(),d=t(a()),f=()=>((0,d.useEffect)(()=>{window.top.location.replace(new URL(`../`,window.top.location.href))},[]),(0,u.jsxs)(`p`,{children:[`Opening the `,(0,u.jsx)(`a`,{href:`../`,target:`_top`,children:`UIDS Docs`}),`.`]}))}))();export{f as Leave,l as default};
