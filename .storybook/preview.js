@@ -168,6 +168,7 @@ export default {
       showPanel: true,
       storySort: {
         method: 'alphabetical',
+        order: ['UIDS Docs'],
       }
     },
   },
