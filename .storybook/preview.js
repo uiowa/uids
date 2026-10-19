@@ -168,6 +168,7 @@ export default {
       showPanel: true,
       storySort: {
         method: 'alphabetical',
+        // UIDS Docs leaves Storybook; manager.js keeps it from opening on load.
         order: ['UIDS Docs'],
       }
     },
