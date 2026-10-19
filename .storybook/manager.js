@@ -1,7 +1,7 @@
 // .storybook/manager.js
 
 import { addons } from 'storybook/manager-api';
-import uidsTheme from './uidsTheme';
+import { light, dark } from './uidsTheme';
 
 // When the URL names no story, Storybook opens the first sidebar entry. Start on
 // Introduction so the UIDS Docs entry, which leaves Storybook, never opens on load.
@@ -11,8 +11,15 @@ if (!url.searchParams.has('path') && !url.searchParams.has('id')) {
   window.history.replaceState(null, '', url);
 }
 
+// The docs site's Display setting, saved by docs-shell.js under ais-docs-theme.
+function prefersDark() {
+  let saved = 'system';
+  try { saved = localStorage.getItem('ais-docs-theme') ?? 'system'; } catch (e) { /* storage blocked */ }
+  return saved === 'dark' || (saved !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+}
+
 addons.setConfig({
-  theme: uidsTheme,
+  theme: prefersDark() ? dark : light,
 });
 
 // Machete "just-in-time" CSS overrides for accessibility.

@@ -1,7 +1,7 @@
 import '../src/scss/uids-core.scss';
 import { MINIMAL_VIEWPORTS } from 'storybook/viewport';
 import DocumentationTemplate from '../src/components/DocumentationTemplate.mdx';
-import uidsTheme from "./uidsTheme.js";
+import { light } from "./uidsTheme.js";
 import { styled } from 'storybook/theming';
 
 const pStyles = styled.p(({ theme }) => ({
@@ -64,7 +64,7 @@ export default {
     docs: {
       page: DocumentationTemplate,
       toc: true,
-      theme: uidsTheme,
+      theme: light,
       canvas: {
         // This will remove the "show code" button
         // https://storybook.js.org/docs/api/doc-blocks/doc-block-canvas#sourcestate
