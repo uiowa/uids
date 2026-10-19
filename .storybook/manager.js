@@ -18,8 +18,14 @@ function prefersDark() {
   return saved === 'dark' || (saved !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
 }
 
-addons.setConfig({
-  theme: prefersDark() ? dark : light,
+function applyTheme() {
+  addons.setConfig({ theme: prefersDark() ? dark : light });
+}
+
+applyTheme();
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+window.addEventListener('storage', (event) => {
+  if (event.key === 'ais-docs-theme') applyTheme();
 });
 
 // Machete "just-in-time" CSS overrides for accessibility.
