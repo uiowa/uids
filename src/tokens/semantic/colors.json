@@ -14,30 +14,52 @@
       "white": { "$value": "{color.neutral.0}" }
     },
     "link": {
+      "$description": "Always underline links. Never rely on blue alone to signal a link.",
       "default": { "$value": "{color.blue-dark}", "$description": "Link on white and gray surfaces." },
-      "inverse": { "$value": "{color.brand.gold}", "$description": "Link on black surfaces." },
+      "inverse": { "$value": "{color.blue}", "$description": "Link on black surfaces." },
       "gold": { "$value": "{color.neutral.900}", "$description": "Link on gold surfaces." }
     },
     "brand": {
       "$description": "University of Iowa brand colors.",
-      "gold": { "$value": "{color.gold}" },
+      "gold": { "$value": "{color.gold}", "$description": "Use at full strength, never tinted or translucent. Black text on gold. Never gold text on white or white text on gold. Gold text only for short headlines and callouts on black." },
       "black": { "$value": "{color.neutral.900}" }
     },
     "accent": {
-      "$description": "Decorative emphasis. Draw one item out of a set; never signal status.",
+      "$description": "Decorative emphasis. Draw one item out of a set. Do not use accent color to convey status or as the only cue to meaning. Small details only, about 10% of a layout at most. Never against gold, never as text, and never a unit's or campaign's identifying color. Text on an accent fill is black.",
+      "blue": { "$value": "{color.blue}" },
       "teal": { "$value": "{color.teal}" },
       "orange": { "$value": "{color.orange}" },
       "magenta": { "$value": "{color.magenta}" },
       "ochre": { "$value": "{color.ochre}" }
     },
+    "data-visualization": {
+      "$description": "Colors for data visualization.",
+      "categorical": {
+        "$description": "Colors for graphical marks on white or black surfaces, one per categorical series. Assign token 1 to the first series, token 2 to the second, and continue in numerical order without skipping or reordering. Use labels or patterns so color is not the only cue. Categories only: use accent for emphasis elsewhere in a layout and the status colors for status. Never use gold as a category. Text inside a fill is black. Around seven categories, change the structure instead of adding colors.",
+        "1": { "$value": "{color.blue}" },
+        "2": { "$value": "{color.orange}" },
+        "3": { "$value": "{color.magenta}" },
+        "4": { "$value": "{color.green-light}" },
+        "5": { "$value": "{color.purple}" },
+        "6": { "$value": "{color.ochre}" },
+        "7": { "$value": "{color.teal}" },
+        "8": { "$value": "{color.cyan}" },
+        "9": { "$value": "{color.olive}" },
+        "10": { "$value": "{color.rose}" },
+        "11": { "$value": "{color.gray-warm}" },
+        "12": { "$value": "{color.gray-cool}" }
+      }
+    },
     "border": {
       "default": { "$value": "{color.alpha.black-125}", "$description": "Border on white, gray, and gold surfaces." },
-      "inverse": { "$value": "{color.alpha.white-325}", "$description": "Border on black surfaces." }
+      "inverse": { "$value": "{color.alpha.white-325}", "$description": "Border on black surfaces." },
+      "strong": { "$value": "{color.alpha.black-425}", "$description": "Dark border for controls on white and gray surfaces." },
+      "strong-inverse": { "$value": "{color.alpha.white-425}", "$description": "Light border for controls on black surfaces or with black fills." }
     },
-    "info": { "$value": "{color.blue}", "$description": "Informational status. Never decoration." },
-    "success": { "$value": "{color.green}", "$description": "Success status. Never decoration." },
-    "warning": { "$value": "{color.ochre-dark}", "$description": "Warning status. Never decoration." },
-    "danger": { "$value": "{color.red}", "$description": "Error status. Never decoration." },
+    "info": { "$value": "{color.blue-dark}", "$description": "Informational status. Never decoration. Always pair with text or an icon." },
+    "success": { "$value": "{color.green}", "$description": "Success status. Never decoration. Always pair with text or an icon." },
+    "warning": { "$value": "{color.ochre-dark}", "$description": "Warning status. Never decoration. Always pair with text or an icon." },
+    "danger": { "$value": "{color.red}", "$description": "Error status. Never decoration. Always pair with text or an icon." },
     "info-surface": { "$value": "{color.blue-wash}", "$description": "Fill behind an info message. Pair with info as the border." },
     "success-surface": { "$value": "{color.green-wash}", "$description": "Fill behind a success message. Pair with success as the border." },
     "warning-surface": { "$value": "{color.ochre-wash}", "$description": "Fill behind a warning message. Pair with warning as the border." },
