@@ -1,0 +1,633 @@
+/* =============================================================================
+   docs/site — the documentation shell every page on this site shares.
+
+   Pairs with tokens.css, which must be linked FIRST:
+     tokens.css  brand values — light, app-facing, vendored, do not edit here
+     site.css    page chrome — theme-aware, owns everything outside a mockup
+
+   Mock stages (.stage, .canvas, .mock) render the product, which is light-only.
+   They keep the brand tokens in both themes and opt out of doc typography.
+   ============================================================================= */
+
+:root {
+  --c-bg:      #ECEAE6;
+  --c-fg:      #151515;
+  --c-fg-2:    rgba(21,21,21,.65);
+  --c-fg-3:    rgba(21,21,21,.50);
+  --c-panel:   #FFFFFF;
+  --c-line:    rgba(21,21,21,.14);
+  --c-accent:  #FFCD00;
+  --c-focus:   #63666A;
+  --c-control: #151515;
+
+  /* Status roles for doc chrome. The brand values in tokens.css are tuned for
+     white; these re-tint on the dark panel, so never mix the two families. */
+  --c-link:    #00558C;
+  --c-success: #00664F;
+  --c-warning: #755800;
+  --c-danger:  #BD472A;
+  --c-tint-info:    #F2FAFF;
+  --c-tint-success: #EBFFFA;
+  --c-tint-warning: #FFF8D9;
+  --c-tint-danger:  #FBEEEB;
+
+  --doc-wrap: 1060px;
+  --doc-wrap-narrow: 860px;
+  --doc-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --c-bg:#1B1A18; --c-fg:#F0EEE9; --c-fg-2:rgba(240,238,233,.62); --c-fg-3:rgba(240,238,233,.45);
+    --c-panel:#26241F; --c-line:rgba(240,238,233,.14); --c-focus:#FFCD00; --c-control:#FFCD00;
+    --c-link:#6CB4EE; --c-success:#4CC38A; --c-warning:#E3B341; --c-danger:#F1856A;
+    --c-tint-info:rgba(108,180,238,.13); --c-tint-success:rgba(76,195,138,.13);
+    --c-tint-warning:rgba(227,179,65,.15); --c-tint-danger:rgba(241,133,106,.13);
+  }
+}
+:root[data-theme="dark"] {
+  --c-bg:#1B1A18; --c-fg:#F0EEE9; --c-fg-2:rgba(240,238,233,.62); --c-fg-3:rgba(240,238,233,.45);
+  --c-panel:#26241F; --c-line:rgba(240,238,233,.14); --c-focus:#FFCD00; --c-control:#FFCD00;
+  --c-link:#6CB4EE; --c-success:#4CC38A; --c-warning:#E3B341; --c-danger:#F1856A;
+  --c-tint-info:rgba(108,180,238,.13); --c-tint-success:rgba(76,195,138,.13);
+  --c-tint-warning:rgba(227,179,65,.15); --c-tint-danger:rgba(241,133,106,.13);
+}
+:root[data-theme="light"] {
+  --c-bg:#ECEAE6; --c-fg:#151515; --c-fg-2:rgba(21,21,21,.65); --c-fg-3:rgba(21,21,21,.50);
+  --c-panel:#FFFFFF; --c-line:rgba(21,21,21,.14); --c-focus:#63666A; --c-control:#151515;
+  --c-link:#00558C; --c-success:#00664F; --c-warning:#755800; --c-danger:#BD472A;
+  --c-tint-info:#F2FAFF; --c-tint-success:#EBFFFA; --c-tint-warning:#FFF8D9; --c-tint-danger:#FBEEEB;
+}
+
+/* ---- base ---------------------------------------------------------------- */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--c-bg);
+  color: var(--c-fg);
+  font-family: var(--font-sans);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button, input, select, textarea { font-family: inherit; }
+:focus-visible { outline: 2px solid var(--c-focus); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+main { max-width: var(--doc-wrap); margin: 0 auto; padding: 24px 20px 72px; }
+main.narrow, .narrow { max-width: var(--doc-wrap-narrow); }
+.doc-wrap { max-width: var(--doc-wrap); margin: 0 auto; padding: 0 20px; }
+/* Page header when the page is not a single <main> column. */
+.doc-head { padding-top: 24px; padding-bottom: 8px; }
+
+/* ---- type ---------------------------------------------------------------- */
+
+h1 {
+  font-family: var(--font-serif); font-weight: 600;
+  font-size: clamp(1.9rem, 2vw + 1.2rem, 2.6rem); line-height: 1.15;
+  margin: .4rem 0 0;
+}
+h1::after { content: ""; display: block; width: 75px; height: 6px; margin-top: 14px; background: var(--c-accent); }
+h2 { font-weight: 300; font-size: clamp(1.45rem, 1.2vw + 1rem, 1.8rem); margin: 2.6rem 0 .4rem; line-height: 1.25; scroll-margin-top: 1rem; }
+h3 { font-weight: 500; font-size: 1.1rem; margin: 1.6rem 0 .4rem; }
+p { margin: .5rem 0 .9rem; max-width: 72ch; }
+
+.eyebrow {
+  font-family: var(--font-caps); text-transform: uppercase; letter-spacing: .14em;
+  font-size: .72rem; font-weight: 700; color: var(--c-fg-2); margin: 0 0 .3rem;
+}
+.lede { font-size: 1.05rem; color: var(--c-fg-2); max-width: 74ch; margin: .9rem 0 1.6rem; }
+p.sub { color: var(--c-fg-2); max-width: 72ch; }
+h2 + p.sub, h3 + p.sub { margin: 0 0 1.1rem; }
+
+a { color: var(--c-link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+code, kbd, samp { font-family: var(--doc-mono); font-size: .88em; }
+code {
+  background: var(--c-panel); border: 1px solid var(--c-line);
+  border-radius: 4px; padding: .06em .35em;
+}
+pre {
+  background: var(--c-panel); border: 1px solid var(--c-line); border-radius: 4px;
+  padding: 14px 16px; overflow-x: auto; font-family: var(--doc-mono);
+  font-size: .82rem; line-height: 1.5;
+}
+pre code { background: none; border: none; padding: 0; }
+
+/* ---- blocks -------------------------------------------------------------- */
+
+.panel {
+  background: var(--c-panel); border: 1px solid var(--c-line);
+  border-radius: 4px; padding: 18px 20px; margin: .8rem 0;
+}
+
+.tablewrap { overflow-x: auto; }
+table.ref { border-collapse: collapse; width: 100%; font-size: .85rem; margin: .6rem 0 1rem; }
+table.ref th, table.ref td { text-align: left; padding: .45rem .6rem; border: 1px solid var(--c-line); vertical-align: top; }
+table.ref th { background: var(--c-panel); font-weight: 600; }
+/* A second line in a cell: the generated plugin tables put each description here. */
+.cell-note { display: block; margin-top: .35rem; color: var(--c-fg-2); }
+
+/* Scoped to the grid on purpose — mock stages use a bare .card of their own. */
+ul.cards { list-style: none; margin: 1.2rem 0 0; padding: 0; display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+ul.cards .card {
+  display: block; background: var(--c-panel); border: 1px solid var(--c-line);
+  border-radius: 4px; padding: 16px 20px; color: inherit; height: 100%;
+}
+ul.cards a.card:hover { text-decoration: none; border-color: var(--c-fg-2); }
+ul.cards .card-title { font-size: 1.05rem; font-weight: 600; font-family: var(--font-sans); margin: 0 0 .3rem; color: var(--c-link); }
+ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width: none; }
+
+/* Chip row — a filter/scenario switcher above a mockup. */
+.chips { display: flex; flex-wrap: wrap; gap: .4rem; }
+.chips button {
+  border: 1px solid var(--c-line); background: var(--c-panel); color: var(--c-fg-2);
+  border-radius: 9999px; padding: .3rem .8rem; font-size: .8rem; cursor: pointer;
+}
+.chips button:hover { border-color: var(--c-fg-2); color: var(--c-fg); }
+.chips button.on { background: var(--c-fg); border-color: var(--c-fg); color: var(--c-bg); font-weight: 600; }
+
+.controls { display: flex; flex-wrap: wrap; gap: 1.25rem; align-items: flex-end; margin: 1.25rem 0 .9rem; }
+.ctl-group { display: flex; flex-direction: column; gap: .35rem; }
+.ctl-label { font-family: var(--font-caps); text-transform: uppercase; letter-spacing: .12em; font-size: .68rem; font-weight: 700; color: var(--c-fg-2); }
+
+/* ---- navigation ---------------------------------------------------------- */
+
+.crumb {
+  max-width: var(--doc-wrap); margin: 0 auto; padding: 18px 20px 0;
+  font-size: .8rem; color: var(--c-fg-3);
+}
+.crumb a { color: var(--c-fg-2); }
+.crumb a:hover { color: var(--c-link); }
+.crumb span { padding: 0 .45rem; }
+
+/* Table of contents — expected on any page with 4+ sections. */
+.toc {
+  border: 1px solid var(--c-line); border-radius: 4px; background: var(--c-panel);
+  padding: 12px 18px; margin: 1.4rem 0 0; font-size: .86rem;
+}
+.toc strong { display: block; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--c-fg-2); margin-bottom: .35rem; }
+.toc ol { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: .25rem 1.4rem; }
+.toc a { white-space: nowrap; }
+
+/* ---- doc record: status line at the top, Revisions section at the bottom --- */
+
+/* One compact line under the h1 — never a bordered panel above it. The record
+   bookkeeping (work items, history) lives in the Revisions section at the foot
+   of the page, so the reader reaches the content first. */
+.meta-row {
+  display: flex; flex-wrap: wrap; gap: .6rem 1rem; align-items: center;
+  margin: 1rem 0 0; font-size: .82rem; color: var(--c-fg-2);
+}
+
+.ds-status {
+  font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  padding: .16rem .6rem; border-radius: 9999px; white-space: nowrap;
+  border: 1px solid transparent;
+}
+.ds-status--exploring   { background: var(--c-tint-warning); color: var(--c-warning); border-color: currentColor; }
+.ds-status--final       { background: var(--c-tint-info);    color: var(--c-link);    border-color: currentColor; }
+.ds-status--implemented { background: var(--c-tint-success); color: var(--c-success); border-color: currentColor; }
+.ds-status--reference   { background: transparent;           color: var(--c-link);    border-color: currentColor; }
+
+.ds-revisions { border-collapse: collapse; margin: .6rem 0 0; font-size: .8rem; width: 100%; }
+.ds-revisions th, .ds-revisions td { text-align: left; padding: .3rem .6rem; border: 1px solid var(--c-line); vertical-align: top; }
+.ds-revisions th { background: var(--c-bg); font-weight: 600; }
+
+/* ---- footer -------------------------------------------------------------- */
+
+.site-foot { border-top: 1px solid var(--c-line); font-size: .8rem; color: var(--c-fg-2); }
+.site-foot .footer-inner { max-width: var(--doc-wrap); margin: 0 auto; padding: 1rem 20px 2.5rem; }
+.site-foot .footer-inner.narrow { max-width: var(--doc-wrap-narrow); }
+.site-foot p { max-width: none; margin: 0 0 .4rem; }
+
+/* ---- mock stages --------------------------------------------------------- */
+
+/* A mockup depicts the product. It stays light, keeps the brand tokens, and
+   never inherits the doc's heading furniture. */
+.stage h1::after, .canvas h1::after, .mock h1::after { content: none; }
+.stage p, .canvas p, .mock p { max-width: none; }
+.stage code, .canvas code, .mock code { background: none; border: 0; padding: 0; }
+
+.frame {
+  border: 1px solid var(--c-line); border-radius: 6px; overflow: hidden;
+  background: var(--c-panel); padding: .75rem;
+}
+.frame-meta {
+  display: flex; justify-content: space-between; font-size: .7rem; color: var(--c-fg-3);
+  padding: 0 .15rem .5rem; font-variant-numeric: tabular-nums;
+}
+.caption { font-size: .8rem; color: var(--c-fg-3); margin: .6rem 0 1rem; }
+
+/* =============================================================================
+   DOCS SHELL (v2) — the layout for a multi-page docs site.
+
+   Opt in with <html data-ds-shell> and the markup documented in docs-shell.js.
+   Pages without that attribute (design gallery pages) are not affected.
+
+   Built on UIDS 5.x, pinned to uiowa/uids 5.x@dc0efcf (5.0.0-alpha.0):
+     src/tokens/semantic/{colors,typography,layout}.json and the components
+     menu, brand-bar (IOWA bar, narrow), headline, badge, alert, tables,
+     form, button, card and brand-footer. When UIDS moves, realign from its
+     CHANGELOG (every rendered change lists old -> new) and bump the pin.
+
+   Layout   header (IOWA bar)                         sticky, never scales
+            rail | content | outline column            >= 72rem
+            rail with the outline under the page | content    50-72rem
+            drawer (nav only) | content | "On this page" bar  < 50rem
+   Theme    System (default) / Light / Dark            :root[data-theme]
+   Text     S .65 / M .75 (default) / L .85 / XL 1     :root[data-ds-text]
+            XL is UIDS 5.x exactly; content scales fully, the rail steps
+            13 / 14 / 15 / 17.6px and the outline one size smaller,
+            12 / 12.5 / 13.5 / 15px; the header never scales.
+   ============================================================================= */
+
+/* ---- tokens: 5.x roles behind the shell's --c-* names --------------------- */
+:root[data-ds-shell] {
+  --c-bg: #F3F3F3;                /* color.background.gray (neutral.100) */
+  --c-panel: #FFFFFF;             /* color.background.white */
+  --c-fg: #000000;                /* color.text.default (neutral.900) */
+  --c-fg-2: rgba(0,0,0,.68);
+  --c-fg-3: rgba(0,0,0,.55);
+  --c-line: rgba(0,0,0,.125);     /* color.border.default */
+  --c-link: #00558C;              /* color.link.default (blue-dark) */
+  --c-focus: #63666A;             /* neutral.500 */
+  --c-info: #3375D1;              /* color.info */
+  --c-success: #0E6B4D;           /* color.success */
+  --c-warning: #8B6B13;           /* color.warning (ochre-dark) */
+  --c-danger: #C0392B;            /* color.danger */
+  --c-tint-info: #EAF1FB; --c-tint-success: #E6F4EE; --c-tint-warning: #FBF3DC; --c-tint-danger: #FBEAEA;
+  --ds-gold: #FFCD00;             /* color.brand.gold */
+  --ds-black: #000000;            /* color.brand.black */
+  --ds-stripe: #F3F3F3;
+  --ds-input-bg: #FAFAFB; --ds-input-line: #BCBEC0; --ds-input-glow: #BCBEC0;
+  --ds-nav-active: #BCBEC0;       /* menu.scss: neutral-200 indicator */
+  /* badge.scss fills: solid, white text, the same in both themes (a solid badge
+     carries its own ground). Contrast with white: 4.6, 5.0, 6.5, 5.4. */
+  --ds-badge-info: #3375D1; --ds-badge-warning: #8B6B13; --ds-badge-success: #0E6B4D; --ds-badge-danger: #C0392B;
+  --ds-on-badge: #FFFFFF;
+  --ds-wide: 63.75rem;            /* layout.container.max.narrow: content column cap */
+  --ds-page: 100rem;              /* layout.container.max.wide: whole page cap */
+  --ds-hh: 3.125rem;              /* header height (50px at the default font) */
+  --ds-rail: calc(var(--ds-nav-fs) * 14.5);   /* follows the nav text: S 188, M 203, L 218, XL 255px */
+  --ds-toc: 14.5rem;
+  --t: .75;                       /* text size: M */
+  --ds-nav-fs: .875rem; --ds-ol-fs: .78125rem;
+  color-scheme: light;
+}
+/* Dark = the 5.x black surface: text.inverse, link.inverse (gold), on the
+   5.x neutral ramp. 5.x defines no status colors for dark; these are ours. */
+@media (prefers-color-scheme: dark) {
+  :root[data-ds-shell]:not([data-theme="light"]) {
+    --c-bg: #232527; --c-panel: #33363A; --c-fg: #FFFFFF;
+    --c-fg-2: rgba(255,255,255,.72); --c-fg-3: rgba(255,255,255,.55);
+    --c-line: rgba(255,255,255,.18); --c-link: #FFCD00; --c-focus: #FFCD00;
+    --c-success: #4CC38A; --c-warning: #C08C00; --c-danger: #F1856A;
+    --c-tint-info: rgba(51,117,209,.16); --c-tint-success: rgba(76,195,138,.14);
+    --c-tint-warning: rgba(192,140,0,.16); --c-tint-danger: rgba(241,133,106,.14);
+    --ds-stripe: rgba(255,255,255,.045); --ds-input-bg: #2B2E31;
+    --ds-input-line: rgba(255,255,255,.325); --ds-input-glow: rgba(255,205,0,.35);
+    color-scheme: dark;
+  }
+}
+:root[data-ds-shell][data-theme="dark"] {
+  --c-bg: #232527; --c-panel: #33363A; --c-fg: #FFFFFF;
+  --c-fg-2: rgba(255,255,255,.72); --c-fg-3: rgba(255,255,255,.55);
+  --c-line: rgba(255,255,255,.18); --c-link: #FFCD00; --c-focus: #FFCD00;
+  --c-success: #4CC38A; --c-warning: #C08C00; --c-danger: #F1856A;
+  --c-tint-info: rgba(51,117,209,.16); --c-tint-success: rgba(76,195,138,.14);
+  --c-tint-warning: rgba(192,140,0,.16); --c-tint-danger: rgba(241,133,106,.14);
+  --ds-stripe: rgba(255,255,255,.045); --ds-input-bg: #2B2E31;
+  --ds-input-line: rgba(255,255,255,.325); --ds-input-glow: rgba(255,205,0,.35);
+  color-scheme: dark;
+}
+:root[data-ds-text="s"]  { --t: .65; --ds-nav-fs: .8125rem; --ds-ol-fs: .75rem; }
+:root[data-ds-text="l"]  { --t: .85; --ds-nav-fs: .9375rem; --ds-ol-fs: .84375rem; }
+:root[data-ds-text="xl"] { --t: 1;   --ds-nav-fs: 1.1rem;   --ds-ol-fs: .9375rem; }
+:root[data-ds-shell] { scroll-padding-top: calc(var(--ds-sticky, var(--ds-hh)) + 1rem); }
+/* The scroll padding places every jump target; the base h2 margin would add to it. */
+.ds-shell [id] { scroll-margin-top: 0; }
+
+.ds-shell { margin: 0; background: var(--c-bg); color: var(--c-fg); }
+.ds-skip { position: absolute; left: .75rem; top: -3rem; z-index: 60; padding: .5rem .8rem; background: var(--c-panel); color: var(--c-fg); border: 1px solid var(--c-line); }
+.ds-skip:focus { top: .5rem; }
+
+/* ---- header: UIDS IOWA bar, narrow ------------------------------------------ */
+.ds-head {
+  position: sticky; top: 0; z-index: 30; min-height: var(--ds-hh);
+  display: flex; align-items: center; gap: 1rem; padding: 0 1rem 0 1.25rem;
+  background: var(--ds-gold); color: var(--ds-black);
+}
+.ds-logo { align-self: flex-start; flex: none; display: grid; place-items: center; width: 7.4375rem; height: 3.5rem; margin-bottom: -.375rem; background: var(--ds-black); position: relative; z-index: 1; }
+.ds-logo svg { height: 1.625rem; width: auto; fill: var(--ds-gold); display: block; }
+.ds-logo:focus-visible svg { opacity: .6; }
+.ds-brand { color: var(--ds-black); font-size: 1.15rem; font-weight: 400; white-space: nowrap; }
+.ds-brand:hover { text-decoration: underline; }
+.ds-ver { font: .72rem/1 var(--doc-mono); color: rgba(0,0,0,.72); border: 1px solid rgba(0,0,0,.35); border-radius: 9999px; padding: .22rem .5rem; white-space: nowrap; }
+.ds-gap { flex: 1; }
+.ds-iconbtn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .45rem; flex: none;
+  min-width: 2.25rem; height: 2.25rem; padding: 0 .55rem; border: 1px solid rgba(0,0,0,.35); border-radius: 4px;
+  background: transparent; color: var(--ds-black); cursor: pointer; font: 500 .88rem/1 var(--font-sans);
+}
+.ds-iconbtn svg { display: block; flex: none; }
+.ds-head :focus-visible { outline-color: var(--ds-black); }
+.ds-menu-btn { display: none; }
+.ds-sitename { display: none; }
+/* Dark: the 5.x black surface, gold site name (link.inverse). */
+@media (prefers-color-scheme: dark) {
+  :root[data-ds-shell]:not([data-theme="light"]) .ds-head { background: var(--ds-black); color: #fff; box-shadow: inset 0 -1px 0 rgba(255,255,255,.18); }
+  :root[data-ds-shell]:not([data-theme="light"]) .ds-brand { color: var(--ds-gold); }
+  :root[data-ds-shell]:not([data-theme="light"]) .ds-ver { color: rgba(255,255,255,.72); border-color: rgba(255,255,255,.325); }
+  :root[data-ds-shell]:not([data-theme="light"]) .ds-head > .ds-iconbtn,
+  :root[data-ds-shell]:not([data-theme="light"]) .ds-display > .ds-iconbtn { color: #fff; border-color: rgba(255,255,255,.325); }
+  :root[data-ds-shell]:not([data-theme="light"]) .ds-head :focus-visible { outline-color: var(--ds-gold); }
+}
+:root[data-ds-shell][data-theme="dark"] .ds-head { background: var(--ds-black); color: #fff; box-shadow: inset 0 -1px 0 rgba(255,255,255,.18); }
+:root[data-ds-shell][data-theme="dark"] .ds-brand { color: var(--ds-gold); }
+:root[data-ds-shell][data-theme="dark"] .ds-ver { color: rgba(255,255,255,.72); border-color: rgba(255,255,255,.325); }
+:root[data-ds-shell][data-theme="dark"] .ds-head > .ds-iconbtn,
+:root[data-ds-shell][data-theme="dark"] .ds-display > .ds-iconbtn { color: #fff; border-color: rgba(255,255,255,.325); }
+:root[data-ds-shell][data-theme="dark"] .ds-head :focus-visible { outline-color: var(--ds-gold); }
+/* Dark: the logo is the light header's inverse, black wordmark on a gold tab
+   (our decision: 5.x only shows gold on black; revisit if UIDS publishes a dark-mode logo). */
+@media (prefers-color-scheme: dark) {
+  :root[data-ds-shell]:not([data-theme="light"]) .ds-logo { background: var(--ds-gold); }
+  :root[data-ds-shell]:not([data-theme="light"]) .ds-logo svg { fill: var(--ds-black); }
+    }
+:root[data-ds-shell][data-theme="dark"] .ds-logo { background: var(--ds-gold); }
+:root[data-ds-shell][data-theme="dark"] .ds-logo svg { fill: var(--ds-black); }
+
+/* ---- display settings: one "Display" button, a popover --------------------- */
+.ds-display { position: relative; flex: none; }
+.ds-display-lbl { display: none; }
+.ds-display > .ds-iconbtn[aria-expanded="true"] svg { transform: rotate(30deg); }
+.ds-display > .ds-iconbtn svg { transition: transform .3s ease-in-out; }
+.ds-pop {
+  position: absolute; right: 0; top: calc(100% + 8px); z-index: 45; width: min(21rem, calc(100vw - 2rem));
+  background: var(--c-panel); color: var(--c-fg); border: 1px solid var(--c-line); border-radius: 6px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25); padding: .9rem 1rem 1rem; display: grid; gap: 1rem; text-align: left;
+  font-size: 1rem;
+}
+.ds-pop[hidden] { display: none; }
+.ds-pop-head { display: flex; align-items: center; justify-content: space-between; }
+.ds-pop-title { margin: 0; font-weight: 600; font-size: 1rem; }
+.ds-pop-x { display: inline-grid; place-items: center; width: 2rem; height: 2rem; border: 0; border-radius: 4px; background: none; color: var(--c-fg-2); cursor: pointer; }
+.ds-pop-x:hover { color: var(--c-fg); background: var(--c-bg); }
+.ds-pop-label { margin: 0 0 .4rem; font-family: var(--font-caps); text-transform: uppercase; letter-spacing: .12em; font-size: .74rem; font-weight: 700; color: var(--c-fg-2); }
+.ds-seg { display: grid; gap: 2px; padding: 2px; border: 1px solid var(--c-line); border-radius: 6px; }
+.ds-seg--3 { grid-template-columns: repeat(3, 1fr); }
+.ds-seg--4 { grid-template-columns: repeat(4, 1fr); }
+.ds-seg button {
+  display: inline-flex; align-items: center; justify-content: center; gap: .35rem; height: 2.4rem;
+  border: 0; border-radius: 4px; background: transparent; color: var(--c-fg-2); cursor: pointer; font: 400 .8rem/1 var(--font-sans);
+}
+.ds-seg button:hover { color: var(--c-fg); }
+.ds-seg button[aria-pressed="true"] { background: var(--c-bg); color: var(--c-fg); box-shadow: inset 0 0 0 1px var(--c-fg-3); font-weight: 600; }
+/* Text size: each A on one shared baseline (Roboto's sits .153em above a
+   line-height:1 box bottom), the size name centred below. */
+.ds-seg--4 button { flex-direction: column; justify-content: flex-end; gap: .3rem; height: 3.4rem; padding: .3rem 0 .4rem; }
+.ds-seg--4 .ds-a { display: flex; align-items: flex-end; height: 1.3rem; line-height: 1; font-weight: 500; position: relative; top: .153em; }
+.ds-seg--4 button:nth-child(1) .ds-a { font-size: .75rem; }
+.ds-seg--4 button:nth-child(2) .ds-a { font-size: .9rem; }
+.ds-seg--4 button:nth-child(3) .ds-a { font-size: 1.05rem; }
+.ds-seg--4 button:nth-child(4) .ds-a { font-size: 1.25rem; }
+.ds-seg--4 .ds-n { font-size: .7rem; line-height: 1; color: var(--c-fg-3); letter-spacing: .04em; }
+.ds-seg--4 button[aria-pressed="true"] .ds-n { color: var(--c-fg); }
+.ds-pop-hint { margin: .4rem 0 0; font-size: .8rem; color: var(--c-fg-3); }
+.ds-pop-foot { display: flex; justify-content: space-between; align-items: center; gap: .5rem; padding-top: .7rem; border-top: 1px solid var(--c-line); font-size: .8rem; color: var(--c-fg-3); }
+.ds-pop-foot p { margin: 0; }
+.ds-pop-reset { border: 0; background: none; padding: 0; color: var(--c-link); font-size: .8rem; cursor: pointer; text-decoration: underline; text-underline-offset: .15em; }
+.ds-pop-reset[disabled] { color: var(--c-fg-3); text-decoration: none; cursor: default; }
+
+/* ---- page grid ----------------------------------------------------------------- */
+.ds-body { display: grid; grid-template-columns: minmax(0, 1fr); max-width: var(--ds-page); margin: 0 auto; }
+.ds-shell main.ds-main { min-width: 0; max-width: none; margin: 0; padding: 0 var(--ds-mx, 1rem) 0; --ds-mx: 1rem; }
+.ds-doc { max-width: var(--ds-wide); padding-top: 1.5rem; }
+.ds-rail { display: none; }
+.ds-rail-head { display: none; }
+.ds-scrim { display: none; }
+.ds-toc { display: none; }
+
+@media (max-width: 49.99rem) {
+  .ds-head { padding-left: 0; gap: .6rem; background: var(--ds-black); color: #F3F3F3; min-height: 3.5rem; }
+  :root[data-ds-shell] { --ds-hh: 3.5rem; }
+  .ds-logo { width: 6rem; height: 3.5rem; margin: 0; }
+  .ds-logo svg { height: 1.25rem; }
+  .ds-head > .ds-brand, .ds-head > .ds-ver { display: none; }
+  .ds-head > .ds-iconbtn, .ds-display > .ds-iconbtn { color: #F3F3F3; border-color: rgba(243,243,243,.35); }
+  .ds-head :focus-visible { outline-color: var(--ds-gold); }
+  .ds-menu-btn { display: inline-flex; order: 5; }
+  .ds-sitename { display: block; background: var(--ds-gold); padding: .8rem 1.25rem; }
+  .ds-sitename a { color: var(--ds-black); font-size: 1.35rem; font-weight: 300; }
+  .ds-drawer-open .ds-rail {
+    display: block; position: fixed; top: 0; left: 0; bottom: 0; z-index: 41;
+    width: min(20rem, 86vw); overflow: auto; overscroll-behavior: contain; background: var(--c-panel);
+    border-right: 1px solid var(--c-line); box-shadow: 8px 0 24px rgba(0,0,0,.2);
+  }
+  .ds-drawer-open .ds-rail-head { display: flex; align-items: center; justify-content: space-between; padding: .7rem .75rem .2rem 1.25rem; }
+  .ds-rail-head .ds-iconbtn { color: var(--c-fg); border-color: var(--c-line); }
+  .ds-drawer-open .ds-scrim { display: block; position: fixed; inset: 0; z-index: 40; background: rgba(0,0,0,.4); }
+  .ds-drawer-open { overflow: hidden; }
+  .ds-pop { position: fixed; left: .75rem; right: .75rem; top: calc(var(--ds-hh) + 6px); width: auto; }
+}
+@media (min-width: 50rem) {
+  .ds-display-lbl { display: inline; }
+  .ds-display > .ds-iconbtn { padding: 0 .75rem 0 .6rem; }
+  .ds-body { grid-template-columns: var(--ds-rail) minmax(0, 1fr); }
+  .ds-shell main.ds-main { --ds-mx: clamp(1.5rem, 3vw, 3rem); }
+  .ds-doc { padding-top: 2rem; }
+  .ds-rail {
+    display: block; position: sticky; top: var(--ds-hh); align-self: start;
+    height: calc(100vh - var(--ds-hh)); overflow: auto; overscroll-behavior: contain;
+    border-right: 1px solid var(--c-line);
+  }
+}
+@media (min-width: 72rem) {
+  .ds-body.has-toc { grid-template-columns: var(--ds-rail) minmax(0, 1fr) var(--ds-toc); }
+  .ds-body.has-toc .ds-toc {
+    display: block; position: sticky; top: var(--ds-hh); align-self: start;
+    height: calc(100vh - var(--ds-hh)); overflow: auto; overscroll-behavior: contain; padding: 2rem 1rem 2rem .5rem;
+  }
+  .ds-body.has-toc .ds-local { display: none; }
+}
+
+/* ---- rail: UIDS menu (one size per level; weight, lines and indent carry the
+   hierarchy; current = neutral-200 bar + semi-bold; hover = gold bar) ------------- */
+.ds-menu { list-style: none; margin: 0; padding: .4rem 0 2rem; }
+.ds-menu ul { list-style: none; margin: 0; padding: 0; }
+.ds-menu > li { border-bottom: 1px solid var(--c-line); padding: 0 0 .5rem; margin: 0; }
+.ds-menu > li:last-child { border-bottom: 0; }
+.ds-menu-group { display: block; margin: 0; padding: 1.15em 1.25rem .45em; font-size: var(--ds-nav-fs); font-weight: 500; color: var(--c-fg); }
+.ds-menu > li > ul { margin-left: .55rem; }
+.ds-menu li li { margin: 1px 0; }
+.ds-menu a {
+  position: relative; display: block; padding: .5em .9em .5em 1.1em; color: var(--c-fg);
+  font-size: var(--ds-nav-fs); line-height: 1.35; text-decoration: none;
+}
+.ds-menu a::after {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+  background: var(--ds-nav-active); transform: scaleY(0); transform-origin: center; transition: transform .3s ease-in-out;
+}
+.ds-menu a:hover { text-decoration: underline; }
+.ds-menu a:hover::after { background: var(--ds-gold); transform: scaleY(1); }
+.ds-menu a[aria-current="page"] { font-weight: 600; }
+.ds-menu a[aria-current="page"]::after { transform: scaleY(1); }
+.ds-menu ul ul { margin: 0 0 .2rem 1.1em; }
+
+/* ---- outline: right column, or the "On this page" bar + dropdown ------------- */
+.ds-ol-title { font-family: var(--font-caps); text-transform: uppercase; letter-spacing: .12em; font-size: calc(var(--ds-ol-fs) * .92); font-weight: 700; color: var(--c-fg-2); margin: 0 0 .5rem; }
+.ds-ol { list-style: none; margin: 0; padding: 0; border-left: 1px solid var(--c-line); font-size: var(--ds-ol-fs); }
+.ds-ol li { margin: 0; }
+.ds-ol li[hidden] { display: none; }
+.ds-ol a { display: block; margin-left: -1px; padding: .24rem .5rem .24rem .8rem; border-left: 2px solid transparent; color: var(--c-fg-2); line-height: 1.35; text-decoration: none; }
+.ds-ol a:hover { color: var(--c-fg); border-left-color: var(--ds-gold); }
+.ds-ol .l3 a { padding-left: 1.6rem; }
+.ds-ol a[aria-current="location"] { color: var(--c-fg); font-weight: 600; border-left-color: var(--ds-nav-active); border-left-width: 3px; padding-left: calc(.8rem - 1px); }
+.ds-ol .l3 a[aria-current="location"] { padding-left: calc(1.6rem - 1px); }
+.ds-ol-top { display: inline-block; margin-top: .8rem; font-size: .8rem; color: var(--c-fg-3); }
+/* The rail copy (docs-shell.js puts it under the current page): mid widths only.
+   It keeps the outline's own look, not the menu's links. */
+.ds-ol--rail { display: none; }
+.ds-menu .ds-ol--rail { margin: .15rem 0 .55rem 1.1em; }
+.ds-menu .ds-ol--rail a { display: block; margin-left: -1px; padding: .24rem .5rem .24rem .8rem; font-size: var(--ds-ol-fs); font-weight: 400; color: var(--c-fg-2); border-left: 2px solid transparent; line-height: 1.35; text-decoration: none; }
+.ds-menu .ds-ol--rail a::after { content: none; }
+.ds-menu .ds-ol--rail .l3 a { padding-left: 1.6rem; }
+.ds-menu .ds-ol--rail a:hover { color: var(--c-fg); border-left-color: var(--ds-gold); text-decoration: none; }
+.ds-menu .ds-ol--rail a[aria-current="location"] { color: var(--c-fg); font-weight: 600; border-left: 3px solid var(--ds-nav-active); padding-left: calc(.8rem - 1px); }
+.ds-menu .ds-ol--rail .l3 a[aria-current="location"] { padding-left: calc(1.6rem - 1px); }
+.ds-menu .ds-ol--rail li[hidden] { display: none; }
+/* Mid widths: the outline lives in the rail (wider, as C), no bar. */
+@media (min-width: 50rem) and (max-width: 71.99rem) {
+  .ds-body.has-toc { --ds-rail: calc(var(--ds-nav-fs) * 16.5); }
+  .ds-body.has-toc .ds-ol--rail { display: block; }
+  .ds-body.has-toc .ds-local { display: none; }
+}
+.ds-local {
+  position: sticky; top: var(--ds-hh); z-index: 25; display: flex; align-items: center; min-height: 2.75rem;
+  margin: 0 calc(-1 * var(--ds-mx)); padding: 0 var(--ds-mx); background: var(--c-bg); border-bottom: 1px solid var(--c-line);
+}
+.ds-local[hidden] { display: none; }
+.ds-otp { display: inline-flex; align-items: center; gap: .45rem; min-width: 0; max-width: 100%; border: 0; background: none; padding: .45rem 0; color: var(--c-fg-2); font: 400 .86rem/1.3 var(--font-sans); cursor: pointer; }
+.ds-otp:hover { color: var(--c-fg); }
+.ds-otp-cur { color: var(--c-fg); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.ds-otp svg { flex: none; }
+.ds-otp[aria-expanded="true"] .ds-otp-chev { transform: rotate(180deg); }
+.ds-otp-pop { position: absolute; left: .75rem; right: .75rem; top: calc(100% + 4px); max-width: 26rem; max-height: 60vh; overflow: auto; z-index: 26; background: var(--c-panel); border: 1px solid var(--c-line); border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,.18); padding: .75rem .9rem; }
+.ds-otp-pop[hidden] { display: none; }
+
+/* ---- content: 5.x type, scaled by --t (XL = 5.x) ----------------------------- */
+/* Inside :where() so a project's class selectors still win. Fluid sizes are
+   UIDS's own (600px to 1310px), multiplied by the text size. */
+:where(.ds-doc) h1 { font-family: var(--font-serif); font-weight: 600; font-size: calc(clamp(2.3rem, 1.6967vw + 1.6637rem, 3.0529rem) * var(--t)); line-height: 1.15; letter-spacing: 0; text-wrap: balance; }
+:where(.ds-doc) :is(h2, h3, h4, h5, h6) { font-family: var(--font-sans); font-weight: 500; line-height: 1.25; letter-spacing: 0; text-wrap: balance; }
+:where(.ds-doc) h2 { font-size: calc(clamp(1.95rem, 1.1202vw + 1.5299rem, 2.4471rem) * var(--t)); }
+:where(.ds-doc) h3 { font-size: calc(clamp(1.65rem, .6903vw + 1.3911rem, 1.9563rem) * var(--t)); }
+:where(.ds-doc) h4 { font-size: calc(clamp(1.45rem, .4401vw + 1.285rem, 1.6453rem) * var(--t)); }
+:where(.ds-doc) h5 { font-size: calc(clamp(1.3rem, .2734vw + 1.1975rem, 1.4213rem) * var(--t)); }
+:where(.ds-doc) h6 { font-size: calc(clamp(1.2rem, .1728vw + 1.1352rem, 1.2767rem) * var(--t)); }
+:where(.ds-doc) p, :where(.ds-doc) > :is(ul, ol) { font-size: calc(1.2rem * var(--t)); line-height: 1.7; font-weight: 400; }
+:where(.ds-doc) p { margin: 0 0 1rem; }
+:where(.ds-doc) > :is(p, ul:not(.cards), ol:not(.steps), dl) { max-width: 72ch; }   /* card grids use the column */
+/* typography.intro-light for the lede */
+:where(.ds-doc) .lede { font-weight: 300; font-size: calc(clamp(1.6rem, 1.1268vw + 1.1775rem, 2.1rem) * var(--t)); line-height: 1.4; color: var(--c-fg); max-width: 40ch; }
+/* links are underlined in 5.x */
+:where(.ds-doc) a:not(.card, .anchor) { text-decoration: underline; text-underline-offset: .15em; text-decoration-thickness: from-font; }
+.ds-doc .meta-row { font-size: 1rem; }
+
+/* ---- 5.x components ---------------------------------------------------------- */
+/* tables.scss: gold header row, 1rem cells (floor 12.8px), 1rem padding, stripes */
+.ds-shell table.ref { background: var(--c-panel); color: var(--c-fg); line-height: 1.6; border: 1px solid var(--c-line); }
+.ds-shell table.ref :is(th, td) { padding: 1rem; border: 0; border-bottom: 1px solid var(--c-line); font-size: max(.8rem, calc(1rem * var(--t))); line-height: 1.6; }
+.ds-shell table.ref tr:first-child th { background: var(--ds-gold); color: var(--ds-black); font-weight: 600; border-bottom: 0; }
+.ds-shell table.ref tr:nth-child(odd):not(:first-child) td { background: var(--ds-stripe); }
+.ds-shell table.ref tr:last-child td { border-bottom: 0; }
+/* badge.scss: solid fills from the --ds-badge-* tokens, white text */
+.ds-shell .ds-status { display: inline-block; padding: 0 .75em; line-height: 1.67; font-size: max(.72rem, calc(.8rem * var(--t))); font-weight: 500; border-radius: 1em; text-transform: none; letter-spacing: 0; color: var(--ds-on-badge); border-color: transparent; }
+.ds-shell .ds-status--implemented { background: var(--ds-badge-success); }
+.ds-shell .ds-status--exploring   { background: var(--ds-badge-warning); }
+.ds-shell .ds-status--final       { background: var(--ds-badge-info); }
+.ds-shell .ds-status--reference   { background: transparent; color: var(--c-fg-2); border-color: var(--c-fg-3); }  /* a note, not a status */
+/* alert.scss for callouts: status surface, 1px border, a round status icon */
+.ds-shell .callout { position: relative; border: 1px solid var(--c-line); border-radius: 2px; background: var(--c-tint-info); padding: 1.5rem 1.5rem 1.5rem 4.25rem; line-height: 1.6; font-size: calc(1.2rem * var(--t)); margin: 1rem 0; }
+.ds-shell .callout::before { content: "i"; position: absolute; left: 1.5rem; top: 1.45rem; width: 1.9rem; height: 1.9rem; border-radius: 50%; display: grid; place-items: center; background: var(--c-info); color: #fff; font: 700 1rem/1 var(--font-serif); }
+.ds-shell .callout--warn { background: var(--c-tint-warning); }
+.ds-shell .callout--warn::before { content: "!"; background: var(--c-warning); font-family: var(--font-sans); }
+.ds-shell .callout--ok { background: var(--c-tint-success); }
+.ds-shell .callout--ok::before { content: "\2713"; background: var(--c-success); font-family: var(--font-sans); }
+.ds-shell .callout p { font-size: inherit; }
+.ds-shell .callout > :first-child { margin-top: 0; }
+.ds-shell .callout > :last-child { margin-bottom: 0; }
+@media (prefers-color-scheme: dark) { :root[data-ds-shell]:not([data-theme="light"]) .callout:is(.callout--warn, .callout--ok)::before { color: #000; } }
+:root[data-ds-shell][data-theme="dark"] .callout:is(.callout--warn, .callout--ok)::before { color: #000; }
+/* card.scss */
+.ds-shell ul.cards { grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); }
+.ds-shell ul.cards .card { border-radius: 0; padding: 2rem; display: flex; flex-direction: column; gap: .5rem; }
+.ds-shell ul.cards .card-title { font-size: calc(1.5rem * var(--t)); font-weight: 500; line-height: 1.2; margin: 0; }
+.ds-shell ul.cards a.card:hover .card-title { text-decoration: underline; }
+.ds-shell ul.cards .card p { font-size: max(.8rem, calc(1rem * var(--t))); line-height: 1.7; }
+/* form.scss inputs */
+.ds-doc :is(input[type=text], input[type=search], input[type=number], select) {
+  background: var(--ds-input-bg); color: var(--c-fg); border: 0; border-radius: 3px;
+  outline: 1px solid var(--ds-input-line); box-shadow: inset 0 1px 3px rgba(10,10,10,.15);
+  height: 2.9rem; padding: .5rem; font-size: max(.8rem, calc(1rem * var(--t))); transition: box-shadow .5s;
+}
+.ds-doc :is(input, select):focus { outline: 1px solid var(--c-fg-2); box-shadow: 0 0 5px 2px var(--ds-input-glow); }
+/* code and transcripts */
+.ds-shell :is(pre, .ds-doc pre) { font-size: max(.8rem, calc(.9rem * var(--t))); line-height: 1.5; border-radius: 0; }
+.ds-shell .caption { font-size: max(.72rem, calc(.8rem * var(--t))); }
+
+/* ---- steps: numbered cards in a row (2-4 steps, each >= 14rem), else a joined
+   vertical stepper. UIDS has no stepper; this one is built from brand parts. -- */
+.ds-shell ol.steps { list-style: none; counter-reset: step; display: grid; gap: 0; margin: 1.25rem 0 1.5rem; padding: 0; }
+.ds-shell ol.steps > li { counter-increment: step; position: relative; display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); gap: 0 1rem; padding-bottom: 1.6rem; }
+.ds-shell ol.steps > li::before {
+  content: counter(step); grid-row: span 20; width: 2.5rem; height: 2.5rem; border-radius: 9999px; display: grid; place-items: center;
+  background: var(--c-fg); color: var(--c-bg); font: 700 1.15rem/1 var(--font-caps); position: relative; z-index: 1;
+}
+.ds-shell ol.steps > li:not(:last-child)::after { content: ""; position: absolute; left: calc(1.25rem - 1px); top: 2.5rem; bottom: 0; width: 2px; background: var(--c-line); }
+.ds-shell ol.steps > li > * { grid-column: 2; min-width: 0; }
+.ds-shell :where(ol.steps > li) > h3 { font-size: calc(1.2rem * var(--t)); font-weight: 600; line-height: 1.3; margin: .55rem 0 .3rem; }
+.ds-shell ol.steps > li > p { margin-bottom: 0; }
+.ds-shell ol.steps:not(:has(> li:nth-child(5))) { --n: 1; }
+.ds-shell ol.steps:has(> li:nth-child(2)):not(:has(> li:nth-child(3))) { --n: 2; }
+.ds-shell ol.steps:has(> li:nth-child(3)):not(:has(> li:nth-child(4))) { --n: 3; }
+.ds-shell ol.steps:has(> li:nth-child(4)):not(:has(> li:nth-child(5))) { --n: 4; }
+/* n columns when each gets 14rem, otherwise one: never a ragged 2 + 1. */
+.ds-shell ol.steps:not(:has(> li:nth-child(5))):has(> li:nth-child(2)) {
+  grid-template-columns: repeat(auto-fit, minmax(clamp((100% - (var(--n) - 1) * 1rem) / var(--n), (var(--n) * 14rem + (var(--n) - 1) * 1rem - 100%) * 999, 100%), 1fr));
+  gap: 1rem;
+}
+.ds-shell ol.steps:not(:has(> li:nth-child(5))):has(> li:nth-child(2)) > li { display: flex; flex-direction: column; padding: 1.25rem 1.25rem 1.4rem; background: var(--c-panel); border: 1px solid var(--c-line); }
+.ds-shell ol.steps:not(:has(> li:nth-child(5))):has(> li:nth-child(2)) > li::after { display: none; }
+.ds-shell ol.steps:not(:has(> li:nth-child(5))):has(> li:nth-child(2)) > li > h3 { margin-top: .9rem; }
+
+/* ---- previous / next, and the brand footer (brand-footer.scss) --------------- */
+.ds-pn { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; margin: 3rem 0 0; max-width: var(--ds-wide); }
+.ds-pn a { display: block; padding: .75rem 1rem; border: 1px solid var(--c-line); background: var(--c-panel); color: var(--c-fg); text-decoration: none; }
+.ds-pn a:hover { border-color: var(--c-fg-2); }
+.ds-pn a:hover b { text-decoration: underline; }
+.ds-pn .ds-next { grid-column: 2; text-align: right; }
+.ds-pn small { display: block; font-size: .74rem; color: var(--c-fg-3); }
+.ds-pn b { color: var(--c-link); font-weight: 600; }
+.ds-foot { background: var(--ds-black); color: #ccc; margin: 3rem calc(-1 * var(--ds-mx)) 0; padding: 2.5rem var(--ds-mx) 3rem; font-size: 1rem; line-height: 1.5; }
+.ds-foot-name { color: #fff; font-size: 1.7rem; font-weight: 900; margin: 0 0 .4rem; }
+.ds-foot p { color: #ccc; font-weight: 300; max-width: 80ch; margin: 0 0 .4rem; }
+.ds-foot a, .ds-foot code { color: var(--ds-gold); }
+.ds-foot code { background: none; border: 0; padding: 0; }
+
+@media print {
+  .ds-head, .ds-sitename, .ds-rail, .ds-toc, .ds-local, .ds-pn, .ds-scrim, .ds-skip { display: none !important; }
+  .ds-body { display: block; }
+}
