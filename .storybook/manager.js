@@ -4,10 +4,10 @@ import { addons } from 'storybook/manager-api';
 import { light, dark } from './uidsTheme';
 
 // When the URL names no story, Storybook opens the first sidebar entry. Start on
-// Introduction so the UIDS Docs entry, which leaves Storybook, never opens on load.
+// Tokens so the UIDS Docs entry, which leaves Storybook, never opens on load.
 const url = new URL(window.location.href);
 if (!url.searchParams.has('path') && !url.searchParams.has('id')) {
-  url.searchParams.set('path', '/docs/introduction--docs');
+  url.searchParams.set('path', '/story/tokens--colors');
   window.history.replaceState(null, '', url);
 }
 
