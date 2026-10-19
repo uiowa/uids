@@ -1,12 +1,13 @@
 // Fills the generated blocks in docs/site from src/tokens and package.json, and
-// copies the built dist/tokens.css next to the shell. Run with `yarn docs`.
+// compiles src/scss/tokens.scss next to the shell. Run with `yarn docs`.
 //
 // A page marks a block with a pair of comments; everything between them is
 // replaced on each run:
 //   <!-- generated:accent --> ... <!-- /generated:accent -->
 
-import { copyFileSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import * as sass from 'sass';
 
 const root = new URL('..', import.meta.url).pathname;
 const { version } = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
@@ -169,7 +170,7 @@ const blocks = {
   roles,
 };
 
-copyFileSync(join(root, 'dist/tokens.css'), join(site, 'styles/uids-tokens.css'));
+writeFileSync(join(site, 'styles/uids-tokens.css'), sass.compile(join(root, 'src/scss/tokens.scss')).css);
 
 for (const file of readdirSync(site).filter((f) => f.endsWith('.html'))) {
   const path = join(site, file);
