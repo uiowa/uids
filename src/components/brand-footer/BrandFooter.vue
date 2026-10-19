@@ -44,7 +44,7 @@ export default {
   <footer :class="getClasses">
     <div class="footer__container footer__container--flex">
       <div class="footer__links footer__links--contact">
-        <uids-logo :healthcare="healthcare" context="footer"></uids-logo>
+        <uids-logo :healthcare="healthcare" :href="healthcare ? 'https://uihealthcare.org' : 'https://uiowa.edu'" context="footer"></uids-logo>
         <!-- @slot Default slot shows content next to the logo. -->
         <slot></slot>
         <div v-if="parent_site_title">
