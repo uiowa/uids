@@ -34,6 +34,6 @@ export default create({
 
   // Branding
   brandTitle: 'U of Iowa Design System (UIDS)',
-  brandUrl: 'https://uids.brand.uiowa.edu',
+  brandUrl: '../',
   brandImage: brand_image,
 });
