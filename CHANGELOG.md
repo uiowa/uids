@@ -9,8 +9,6 @@ system built from UIDS should be able to catch up using this file alone.
 
 ## [5.0.0-alpha.1](https://github.com/uiowa/uids/compare/v5.0.0-alpha.0...v5.0.0-alpha.1)
 
-Adds 57 tokens and moves links, info, three status surfaces, and the accent colors to
-new values. Every value below is stated against 5.0.0-alpha.0.
 
 ### Added
 
