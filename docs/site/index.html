@@ -19,7 +19,7 @@
 <header class="ds-head">
   <a class="ds-logo" href="https://uiowa.edu"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 311.6 90.2" role="img" aria-label="University of Iowa"><path d="M40 18.8h-7.3v52.4H40v19H0v-19h7.3V18.8H0V0h40V18.8z"/><path d="M93.8 90.2h-29c-10.5 0-17.4-6.9-17.4-18.2V18.2C47.4 7 54.4 0 64.8 0h29c10.5 0 17.4 7 17.4 18.2V72C111.2 83.2 104.2 90.2 93.8 90.2zM85.6 71.2V18.8H73v52.4H85.6z"/><path d="M122.6 18.8h-6.4V0h38v18.9H147l6.5 43.4L167 0h19.2l14.4 62.3 5.2-43.4h-6.6V0h37.5v18.9h-6.2l-11.3 71.4h-30.6l-11.8-53.2 -12.1 53.1h-29.4L122.6 18.8z"/><path d="M230.1 71.2h6.9L250.7 0h41l13.5 71.2h6.4v19H281l-2.9-22h-15.2l-2.7 22h-30L230.1 71.2 230.1 71.2zM276.5 51.7l-5.8-36.4 -6 36.4H276.5z"/></svg></a>
   <a class="ds-brand" href="index.html">UIDS Docs</a>
-  <span class="ds-ver" title="The version these pages describe">5.0.0-alpha.1</span>
+  <span class="ds-ver" title="The version these pages describe"><!-- generated:version -->5.0.0-alpha.1<!-- /generated:version --></span>
   <span class="ds-gap"></span>
   <div class="ds-display" data-ds-display></div>
   <button type="button" class="ds-iconbtn ds-menu-btn" aria-controls="ds-rail" aria-expanded="false" aria-label="Open navigation"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false"><path d="M2 4.5h14M2 9h14M2 13.5h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
@@ -53,13 +53,12 @@
   <div class="ds-local" hidden></div>
   <article class="ds-doc">
     <p class="eyebrow">Getting Started</p>
-    <h1>University of Iowa Design System (UIDS)</h1>
-    <p class="lede">The <strong>UIDS</strong> component library is a central repository of brand-approved components for use across websites and digital experiences—regardless of platform or chosen content-management system. All components make use of official brand colors, fonts, and graphic elements. You can read more at the <a href="https://brand.uiowa.edu/applying-brand/web">Brand Manual website</a>.</p>
+    <h1>Introduction</h1>
+    <div class="meta-row"><strong>UIDS Docs <!-- generated:version -->5.0.0-alpha.1<!-- /generated:version --></strong></div>
+    <p class="lede">The <strong>UIDS</strong> component library is a central repository of brand-approved components for websites and digital experiences, whatever the platform or content management system. Every component uses the official brand colors, fonts, and graphic elements. Read more on the <a href="https://brand.uiowa.edu/applying-brand/web">Brand Manual website</a>.</p>
 
-    <h2 id="getting-started">Getting started</h2>
-
-    <h3 id="fonts">Fonts</h3>
-    <p>Fonts are not included in the CSS files provide. You must include the code below into the <code>&lt;head&gt;</code> of your html to have fonts render correctly.</p>
+    <h2 id="add-the-fonts">Add the fonts</h2>
+    <p>The UIDS stylesheets don't load fonts. Add these lines to the <code>&lt;head&gt;</code> of every page.</p>
 <pre><code>&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" /&gt;
 &lt;link rel="preconnect" href="https://fonts.googleapis.com" /&gt;
 &lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /&gt;
@@ -68,19 +67,55 @@
 &lt;link href="https://fonts.googleapis.com/css2?family=Antonio:wght@100;300;700&amp;display=swap" rel="stylesheet" /&gt;
 &lt;link href="https://fonts.googleapis.com/css2?family=Lora&amp;display=swap" rel="stylesheet" /&gt;</code></pre>
 
-    <h3 id="use-the-full-library">Use the full library</h3>
-    <p>Include the following CSS file in your project. It will include all UIDS components.</p>
-    <ul>
-      <li><strong><a href="https://github.com/uiowa/uids/tree/gh-pages/docs/v5.0.0-alpha.1/dist/css/uids.css">uids.css</a></strong></li>
-    </ul>
-    <p>Refer to component pages for HTML examples.</p>
+    <h2 id="choose-how-to-load-uids">Choose how to load UIDS</h2>
+    <div class="tablewrap"><table class="ref">
+      <thead><tr><th>Option</th><th>Use it for</th><th>Trade-off</th></tr></thead>
+      <tbody>
+        <tr><td><a href="#link-the-hosted-css">Link the hosted CSS</a></td><td>A page or CMS theme with no build step</td><td>No install. You move to a new version by changing the URL.</td></tr>
+        <tr><td><a href="#install-a-release">Install a release</a></td><td>A project with a JavaScript build</td><td>The version is pinned in <code>package.json</code>. Your build tool must resolve package exports.</td></tr>
+        <tr><td><a href="#use-the-tokens">Use the tokens</a></td><td>Your own components, in UIDS colors, type, and spacing</td><td>No UIDS component styles.</td></tr>
+      </tbody>
+    </table></div>
 
-    <h3 id="use-specific-components">Use specific components</h3>
-    <p>Include the following CSS file in your project. It will include only the UIDS core styles.</p>
-    <ul>
-      <li><strong><a href="https://github.com/uiowa/uids/tree/gh-pages/docs/v5.0.0-alpha.1/dist/css/uids-core.css">uids-core.css</a></strong></li>
-    </ul>
-    <p>For each component you would like to include, you will need to include the CSS file for that component as well. Refer to component pages for HTML examples.</p>
+    <h2 id="link-the-hosted-css">Link the hosted CSS</h2>
+    <p>We publish each release's CSS at a URL that includes the version. Link the full stylesheet, or the core styles plus one file for each component you use.</p>
+<!-- generated:hosted -->
+<pre><code>&lt;!-- Everything --&gt;
+&lt;link rel="stylesheet" href="https://uids.brand.uiowa.edu/docs/v5.0.0-alpha.1/dist/css/uids.css"&gt;
+
+&lt;!-- Or the core styles plus the components you use --&gt;
+&lt;link rel="stylesheet" href="https://uids.brand.uiowa.edu/docs/v5.0.0-alpha.1/dist/css/uids-core.css"&gt;
+&lt;link rel="stylesheet" href="https://uids.brand.uiowa.edu/docs/v5.0.0-alpha.1/dist/css/components/button.css"&gt;</code></pre>
+<!-- /generated:hosted -->
+    <p>Component files are named after the component, such as <code>accordion.css</code>, <code>alert.css</code>, and <code>card.css</code>. Storybook shows the markup each one expects.</p>
+
+    <h2 id="install-a-release">Install a release</h2>
+    <p>Each GitHub release has a package attached. Add it to your dependencies by its URL. The npm package named <code>uids</code> is not this one.</p>
+<!-- generated:install -->
+<pre><code>"dependencies": {
+  "@uiowa/uids": "https://github.com/uiowa/uids/releases/download/v5.0.0-alpha.1/uids-5.0.0-alpha.1.tgz"
+}</code></pre>
+<!-- /generated:install -->
+    <p>Then import what you need:</p>
+    <div class="tablewrap"><table class="ref">
+      <thead><tr><th>Import</th><th>Contents</th></tr></thead>
+      <tbody>
+        <tr><td><code>@uiowa/uids/uids.css</code></td><td>The full stylesheet</td></tr>
+        <tr><td><code>@uiowa/uids/uids-core.css</code></td><td>Reset, base HTML, and custom properties</td></tr>
+        <tr><td><code>@uiowa/uids/tokens.css</code></td><td>Custom properties only</td></tr>
+        <tr><td><code>@uiowa/uids/components/&lt;name&gt;.css</code></td><td>One component</td></tr>
+        <tr><td><code>@uiowa/uids/scss/&lt;path&gt;</code></td><td>Sass source</td></tr>
+        <tr><td><code>@uiowa/uids/tokens/&lt;tier&gt;/&lt;group&gt;.json</code></td><td>Token source</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout callout--warn"><p>A Git install such as <code>github:uiowa/uids</code> leaves out the compiled CSS, so the <code>.css</code> imports fail. Use the release package.</p></div>
+
+    <h2 id="use-the-tokens">Use the tokens</h2>
+    <p><code>tokens.css</code> defines each UIDS token as a CSS custom property named after its path, such as <code>--uiowa-color-link-default</code>. Load it from either source above. <a href="colors.html">Colors</a> and <a href="typography.html">Typography</a> list the tokens.</p>
+    <p>The token source files are JSON in the <a href="https://www.designtokens.org/tr/2025.10/format/">DTCG format</a>, which Figma, Style Dictionary, and Tokens Studio can read.</p>
+
+    <h2 id="find-components">Find components</h2>
+    <p><a href="storybook/index.html">Storybook</a> shows every component with its HTML and options.</p>
   </article>
 
   <nav class="ds-pn" aria-label="Previous and next page">
@@ -95,10 +130,12 @@
 <aside class="ds-toc" aria-labelledby="ds-ol-title">
   <p class="ds-ol-title" id="ds-ol-title">On this page</p>
   <ul class="ds-ol">
-    <li class="l2"><a href="#getting-started">Getting started</a></li>
-    <li class="l3"><a href="#fonts">Fonts</a></li>
-    <li class="l3"><a href="#use-the-full-library">Use the full library</a></li>
-    <li class="l3"><a href="#use-specific-components">Use specific components</a></li>
+    <li class="l2"><a href="#add-the-fonts">Add the fonts</a></li>
+    <li class="l2"><a href="#choose-how-to-load-uids">Choose how to load UIDS</a></li>
+    <li class="l2"><a href="#link-the-hosted-css">Link the hosted CSS</a></li>
+    <li class="l2"><a href="#install-a-release">Install a release</a></li>
+    <li class="l2"><a href="#use-the-tokens">Use the tokens</a></li>
+    <li class="l2"><a href="#find-components">Find components</a></li>
   </ul>
   <a class="ds-ol-top" href="#main">Back to top</a>
 </aside>

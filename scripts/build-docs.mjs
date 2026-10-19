@@ -1,14 +1,15 @@
-// Fills the token-driven blocks in docs/site from src/tokens and copies the
-// built dist/tokens.css next to the shell. Run with `yarn docs`.
+// Fills the generated blocks in docs/site from src/tokens and package.json, and
+// copies the built dist/tokens.css next to the shell. Run with `yarn docs`.
 //
 // A page marks a block with a pair of comments; everything between them is
 // replaced on each run:
-//   <!-- tokens:accent --> ... <!-- /tokens:accent -->
+//   <!-- generated:accent --> ... <!-- /generated:accent -->
 
 import { copyFileSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const root = new URL('..', import.meta.url).pathname;
+const { version } = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
 const site = join(root, 'docs/site');
 
 function merge(target, source) {
@@ -135,7 +136,30 @@ ${rows.join('\n')}
 ${note('typography.heading')}`;
 }
 
+// Snippets name the version in package.json, which is the next release, so their
+// URLs do not resolve until that release is published.
+const hosted = `https://uids.brand.uiowa.edu/docs/v${version}/dist/css`;
+
+function hostedCss() {
+  return `<pre><code>&lt;!-- Everything --&gt;
+&lt;link rel="stylesheet" href="${hosted}/uids.css"&gt;
+
+&lt;!-- Or the core styles plus the components you use --&gt;
+&lt;link rel="stylesheet" href="${hosted}/uids-core.css"&gt;
+&lt;link rel="stylesheet" href="${hosted}/components/button.css"&gt;</code></pre>`;
+}
+
+function install() {
+  return `<pre><code>"dependencies": {
+  "@uiowa/uids": "https://github.com/uiowa/uids/releases/download/v${version}/uids-${version}.tgz"
+}</code></pre>`;
+}
+
+const inline = new Set(['version']);
 const blocks = {
+  version: () => version,
+  hosted: hostedCss,
+  install,
   primary: () => swatches('color.brand'),
   neutral: () => swatches('color.neutral', (key) => `Neutral ${key}`),
   accent: () => swatches('color.accent'),
@@ -151,10 +175,11 @@ for (const file of readdirSync(site).filter((f) => f.endsWith('.html'))) {
   const path = join(site, file);
   const before = readFileSync(path, 'utf8');
   const after = before.replace(
-    /(<!-- tokens:([a-z-]+) -->)[\s\S]*?(<!-- \/tokens:\2 -->)/g,
+    /(<!-- generated:([a-z-]+) -->)[\s\S]*?(<!-- \/generated:\2 -->)/g,
     (_, open, name, close) => {
-      if (!blocks[name]) throw new Error(`${file}: unknown block tokens:${name}`);
-      return `${open}\n${blocks[name]()}\n${close}`;
+      if (!blocks[name]) throw new Error(`${file}: unknown block generated:${name}`);
+      const gap = inline.has(name) ? '' : '\n';
+      return `${open}${gap}${blocks[name]()}${gap}${close}`;
     },
   );
   if (after !== before) {
