@@ -1,1 +1,0 @@
-import{i as e}from"./preload-helper-BL0Fm5OC.js";var t,n=e((()=>{t=`5.0.0-alpha.1`}));export{t as n,n as t};
