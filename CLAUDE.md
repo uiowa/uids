@@ -17,7 +17,7 @@ UIDS (University of Iowa Design System) - Vue 3 component library with SCSS and 
 
 **Before PRs**: Run `yarn build` to ensure dist files are updated.
 
-**Requirements**: Node 18 (use `nvm use` to set correct version)
+**Requirements**: Node 22 (use `nvm use` to match `.nvmrc`)
 
 ## Component Structure
 
