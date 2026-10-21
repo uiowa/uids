@@ -1,0 +1,110 @@
+{
+  "pointAndEdit": {
+    "priorityPaths": {
+      "prefer": [
+        "src/components/**/*.vue",
+        "src/scss/components/**/*.scss",
+        "src/scss/base/**/*.scss"
+      ],
+      "deprioritize": [
+        "src/scss/abstracts/**/*.scss",
+        "src/components/shared/**",
+        "src/assets/js/**",
+        "src/foundations/**"
+      ],
+      "exclude": [
+        "src/components/**/*.stories.js",
+        "src/components/**/*.stories.ts",
+        "src/components/**/*.mdx",
+        "src/foundations/**/*.stories.js",
+        "src/foundations/**/*.mdx",
+        "src/components/DocumentationTemplate.mdx",
+        "src/scss/abstracts/_tokens-generated.scss",
+        "src/scss/abstracts/_breakpoints-generated.scss",
+        "src/tokens/**",
+        "dist/**",
+        "node_modules/**",
+        "figma-plugin/**",
+        ".storybook/**",
+        "src/assets/**"
+      ]
+    },
+    "libraryPaths": {
+      "local": [
+        "src/components/**/*.vue",
+        "src/scss/components/**/*.scss"
+      ],
+      "external": []
+    },
+    "pathClassification": {
+      "classifier": "sonnet"
+    },
+    "exclusions": [
+      {
+        "glob": "src/components/**/*.stories.js",
+        "reason": "Storybook story files are documentation/tooling harnesses, not UI source anchors."
+      },
+      {
+        "glob": "src/components/**/*.stories.ts",
+        "reason": "Storybook story files are documentation/tooling harnesses, not UI source anchors."
+      },
+      {
+        "glob": "src/components/**/*.mdx",
+        "reason": "MDX files are documentation prose, not renderable UI component implementations."
+      },
+      {
+        "glob": "src/foundations/**/*.stories.js",
+        "reason": "Storybook story files under foundations are documentation catalog entries, not UI source anchors."
+      },
+      {
+        "glob": "src/foundations/**/*.mdx",
+        "reason": "MDX docs files are documentation prose, not renderable UI component implementations."
+      },
+      {
+        "glob": "src/components/DocumentationTemplate.mdx",
+        "reason": "Documentation template file, not a renderable UI component."
+      },
+      {
+        "glob": "src/scss/abstracts/_tokens-generated.scss",
+        "reason": "Generated file produced by the style-dictionary build step; edits would be overwritten on next build."
+      },
+      {
+        "glob": "src/scss/abstracts/_breakpoints-generated.scss",
+        "reason": "Generated file produced by the style-dictionary build step; edits would be overwritten on next build."
+      },
+      {
+        "glob": "src/tokens/**",
+        "reason": "Design token JSON source files feed the build pipeline but are not UI rendering source; the generated CSS and SCSS are the rendering artifacts."
+      },
+      {
+        "glob": "dist/**",
+        "reason": "Build output produced by the sass and token build steps; not a source anchor."
+      },
+      {
+        "glob": "node_modules/**",
+        "reason": "Third-party dependency code; not a source anchor for this project."
+      },
+      {
+        "glob": "figma-plugin/**",
+        "reason": "Figma plugin tooling directory; contains only vendored node_modules, not project UI source."
+      },
+      {
+        "glob": ".storybook/**",
+        "reason": "Storybook configuration files; not UI component source anchors."
+      },
+      {
+        "glob": "src/assets/**",
+        "reason": "Static assets (images, fonts, icons, legacy JS utilities); not Vue component or SCSS rendering source."
+      }
+    ],
+    "generated": {
+      "schemaVersion": 2,
+      "source": "setup-agent.point-and-edit-path-classifier",
+      "prompt": "same-turn-setup-subagent-v5",
+      "model": "claude-sonnet-4-6",
+      "createdAt": "2026-10-16T00:00:00Z",
+      "confidence": 0.88,
+      "explanation": "High confidence because the repository is a single-package Vue 3 design system with a flat, well-organized src/components layout and no app-level composition layer above it, making the .vue files and component SCSS the unambiguous primary edit targets."
+    }
+  }
+}
