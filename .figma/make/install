@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Install project dependencies.
+set -eo pipefail
+# Put Node 22 on PATH: nvm first, then Homebrew's node@22. Each Make script runs in a fresh
+# shell, so this block is repeated in setup, install and dev rather than shared (Make documents
+# exactly five files in this folder). nvm.sh is not safe under set -u, so -u is not used here.
+use_node_22() {
+  if [ -s "$HOME/.nvm/nvm.sh" ]; then
+    . "$HOME/.nvm/nvm.sh" && nvm use 22 >/dev/null 2>&1 || true
+  fi
+  if command -v brew >/dev/null 2>&1 && [ -d "$(brew --prefix node@22 2>/dev/null)/bin" ]; then
+    export PATH="$(brew --prefix node@22)/bin:$PATH"
+  fi
+}
+
+use_node_22
+yarn install --immutable
