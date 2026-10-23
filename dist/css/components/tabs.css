@@ -21,7 +21,6 @@
   font-size: var(--uiowa-typography-body-font-size);
   font-weight: var(--uiowa-typography-font-weight-medium);
   background: none;
-  transition: background 0.8s ease-out;
   cursor: pointer;
 }
 .tabs-collection [role=tab]::before {
@@ -29,9 +28,9 @@
   bottom: 0;
   left: 0;
   width: 0;
-  height: 5px;
+  height: var(--uiowa-stroke-width-5);
   content: "";
-  transition: 0.3s;
+  transition: var(--uiowa-motion-duration-medium) var(--uiowa-easing-standard);
   z-index: 1;
 }
 [class*=bg--black] .tabs-collection [role=tab] {
@@ -72,9 +71,9 @@
   bottom: 0;
   left: 0;
   width: 0;
-  height: 5px;
+  height: var(--uiowa-stroke-width-5);
   content: "";
-  transition: 0.3s;
+  transition: var(--uiowa-motion-duration-medium) var(--uiowa-easing-standard);
 }
 .tabs-collection [role=tab]:focus-visible::before, .tabs-collection [role=tab]:hover::before {
   background: var(--uiowa-color-neutral-500);
@@ -90,9 +89,6 @@
   position: relative;
   z-index: 2;
   padding: 2rem 0;
-}
-.tabs-collection [role=tabpanel].is-hidden {
-  display: none;
 }
 .tabs-collection [role=tabpanel] * + p {
   margin-top: 1rem;

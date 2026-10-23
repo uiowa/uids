@@ -1,7 +1,7 @@
 .menu {
   --menu-flex-direction: column;
   --menu-link-color: var(--uiowa-color-brand-black);
-  --menu-link-indicator-width: 5px;
+  --menu-link-indicator-width: var(--uiowa-stroke-width-5);
   --menu-link-indicator-height: 100%;
   --menu-link-transform-end: scaleY(100%);
   --menu-link-transform-start: scaleY(0%);
@@ -16,7 +16,7 @@
   font-weight: var(--uiowa-typography-font-weight-medium);
 }
 .menu li {
-  border-bottom: 1px solid hsla(0, 0%, 79%, 0.5);
+  border-bottom: var(--uiowa-stroke-width-default) solid hsla(0, 0%, 79%, 0.5);
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -64,8 +64,7 @@
   content: "";
   transform-origin: center;
   transform: var(--menu-link-transform-start);
-  transition: 0.3s all ease-in-out;
-  -webkit-transition: 0.3s all ease-in-out;
+  transition: all var(--uiowa-motion-duration-medium) var(--uiowa-easing-standard);
 }
 [class*=bg--white] .menu li a, [class*=bg--] [class*=bg--white] .menu li a, [class*=bg--gray] .menu li a, [class*=bg--] [class*=bg--gray] .menu li a,
 [class*=bg--white] .menu li span:not([class*=fa]),
@@ -93,10 +92,10 @@
 }
 
 @supports (contain: inline-size) {
-  @container column (min-width: 768px) {
+  @container column (min-width: 48rem) {
     .menu--horizontal {
       --menu-link-indicator-width: 100%;
-      --menu-link-indicator-height: 5px;
+      --menu-link-indicator-height: var(--uiowa-stroke-width-5);
       --menu-flex-direction: row;
       --menu-link-transform-start: scaleX(0%);
       --menu-link-transform-end: scaleX(100%);
@@ -112,10 +111,10 @@
   }
 }
 @supports not (contain: inline-size) {
-  @media (min-width: 768px) {
+  @media (min-width: 48rem) {
     .menu--horizontal {
       --menu-link-indicator-width: 100%;
-      --menu-link-indicator-height: 5px;
+      --menu-link-indicator-height: var(--uiowa-stroke-width-5);
       --menu-flex-direction: row;
       --menu-link-transform-start: scaleX(0%);
       --menu-link-transform-end: scaleX(100%);
@@ -136,7 +135,7 @@
 }
 
 .menu--container {
-  border-bottom: 1px solid #e6e5e5;
+  border-bottom: var(--uiowa-stroke-width-default) solid #e6e5e5;
 }
 
 /*# sourceMappingURL=menu.css.map */

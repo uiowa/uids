@@ -14,21 +14,37 @@
   --uiowa-color-neutral-700: #33363a;
   --uiowa-color-neutral-800: #232527;
   --uiowa-color-neutral-900: #000000;
-  --uiowa-color-blue: #3375d1;
-  --uiowa-color-blue-dark: #00558c;
+  --uiowa-color-blue: #588dd6;
+  --uiowa-color-blue-dark: #2c6eca;
   --uiowa-color-teal: #06967e;
-  --uiowa-color-orange: #cc6d17;
-  --uiowa-color-magenta: #aa4981;
-  --uiowa-color-ochre: #c08c00;
+  --uiowa-color-orange: #e16822;
+  --uiowa-color-magenta: #ce68ac;
+  --uiowa-color-ochre: #b98100;
+  --uiowa-color-green-light: #43a06d;
+  --uiowa-color-purple: #9586c6;
+  --uiowa-color-cyan: #249cb0;
+  --uiowa-color-olive: #7d9847;
+  --uiowa-color-rose: #f0667d;
+  --uiowa-color-gray-warm: #998d7e;
+  --uiowa-color-gray-cool: #8d8f90;
   --uiowa-color-green: #0e6b4d;
   --uiowa-color-ochre-dark: #8b6b13;
   --uiowa-color-red: #c0392b;
-  --uiowa-color-blue-wash: #eaf1fb;
-  --uiowa-color-green-wash: #e6f4ee;
+  --uiowa-color-blue-wash: #edf4fe;
+  --uiowa-color-green-wash: #e8f6f0;
   --uiowa-color-ochre-wash: #fbf3dc;
-  --uiowa-color-red-wash: #fbeaea;
+  --uiowa-color-red-wash: #ffeff1;
   --uiowa-color-alpha-black-125: rgba(0, 0, 0, 0.125);
+  --uiowa-color-alpha-black-150: rgba(0, 0, 0, 0.15);
+  --uiowa-color-alpha-black-200: rgba(0, 0, 0, 0.2);
+  --uiowa-color-alpha-black-425: rgba(0, 0, 0, 0.425);
   --uiowa-color-alpha-white-325: rgba(255, 255, 255, 0.325);
+  --uiowa-color-alpha-white-425: rgba(255, 255, 255, 0.425);
+  --uiowa-duration-150: 150ms;
+  --uiowa-duration-250: 250ms;
+  --uiowa-duration-400: 400ms;
+  --uiowa-radius-3: 3px; /** Subtle rounded corners for form fields and alerts. */
+  --uiowa-radius-full: 9999px; /** Pill-shaped corners for badges and toggle tracks. */
   --uiowa-space-25: 0.25rem;
   --uiowa-space-50: 0.5rem;
   --uiowa-space-75: 0.75rem;
@@ -40,6 +56,12 @@
   --uiowa-space-400: 4rem;
   --uiowa-space-600: 6rem;
   --uiowa-space-800: 8rem;
+  --uiowa-stroke-width-1: 1px; /** The system hairline. */
+  --uiowa-stroke-width-2: 2px; /** The red ring on an invalid checkbox, radio or toggle. */
+  --uiowa-stroke-width-4: 4px;
+  --uiowa-stroke-width-5: 5px;
+  --uiowa-stroke-width-6: 6px;
+  --uiowa-stroke-width-8: 8px; /** The heavy accent rule. */
   --uiowa-typography-font-family-roboto: Roboto, sans-serif;
   --uiowa-typography-font-family-zilla-slab: 'Zilla Slab', Zilla-fallback, serif;
   --uiowa-typography-font-family-lora: Lora, serif;
@@ -74,6 +96,9 @@
   --uiowa-layout-container-max-standard: 81.875rem;
   --uiowa-layout-container-max-narrow: 63.75rem;
   --uiowa-layout-container-max-wide: 100rem;
+  --uiowa-logo-min-width: 85px; /** Minimum digital display width for the Block IOWA logo, per the University of Iowa Brand Manual (brand.uiowa.edu/logo). A rule every placement must respect, not a placement size: sizes per placement belong to the Logo component. */
+  --uiowa-easing-standard: cubic-bezier(0.4, 0, 0.2, 1); /** The default, for movement and change on screen. */
+  --uiowa-easing-overshoot: cubic-bezier(0.3, 1.5, 0.7, 1); /** A small overshoot for playful emphasis. */
   --uiowa-typography-heading-h1-font-family: 'Zilla Slab', Zilla-fallback, serif;
   --uiowa-typography-heading-h1-font-size: clamp(2.3rem, calc(1.6967vw + 1.6637rem), 3.0529rem);
   --uiowa-typography-heading-h1-letter-spacing: 0px;
@@ -107,25 +132,50 @@
   --uiowa-color-background-gray: var(--uiowa-color-neutral-100);
   --uiowa-color-background-white: var(--uiowa-color-neutral-0);
   --uiowa-color-link-default: var(--uiowa-color-blue-dark); /** Link on white and gray surfaces. */
+  --uiowa-color-link-inverse: var(--uiowa-color-blue); /** Link on black surfaces. */
   --uiowa-color-link-gold: var(--uiowa-color-neutral-900); /** Link on gold surfaces. */
-  --uiowa-color-brand-gold: var(--uiowa-color-gold);
+  --uiowa-color-brand-gold: var(--uiowa-color-gold); /** Use at full strength, never tinted or translucent. Black text on gold. Never gold text on white or white text on gold. Gold text only for short headlines and callouts on black. */
   --uiowa-color-brand-black: var(--uiowa-color-neutral-900);
+  --uiowa-color-accent-blue: var(--uiowa-color-blue);
   --uiowa-color-accent-teal: var(--uiowa-color-teal);
   --uiowa-color-accent-orange: var(--uiowa-color-orange);
   --uiowa-color-accent-magenta: var(--uiowa-color-magenta);
   --uiowa-color-accent-ochre: var(--uiowa-color-ochre);
+  --uiowa-color-data-visualization-categorical-1: var(--uiowa-color-blue);
+  --uiowa-color-data-visualization-categorical-2: var(--uiowa-color-orange);
+  --uiowa-color-data-visualization-categorical-3: var(--uiowa-color-magenta);
+  --uiowa-color-data-visualization-categorical-4: var(--uiowa-color-green-light);
+  --uiowa-color-data-visualization-categorical-5: var(--uiowa-color-purple);
+  --uiowa-color-data-visualization-categorical-6: var(--uiowa-color-ochre);
+  --uiowa-color-data-visualization-categorical-7: var(--uiowa-color-teal);
+  --uiowa-color-data-visualization-categorical-8: var(--uiowa-color-cyan);
+  --uiowa-color-data-visualization-categorical-9: var(--uiowa-color-olive);
+  --uiowa-color-data-visualization-categorical-10: var(--uiowa-color-rose);
+  --uiowa-color-data-visualization-categorical-11: var(--uiowa-color-gray-warm);
+  --uiowa-color-data-visualization-categorical-12: var(--uiowa-color-gray-cool);
   --uiowa-color-border-default: var(--uiowa-color-alpha-black-125); /** Border on white, gray, and gold surfaces. */
   --uiowa-color-border-inverse: var(--uiowa-color-alpha-white-325); /** Border on black surfaces. */
-  --uiowa-color-info: var(--uiowa-color-blue); /** Informational status. Never decoration. */
-  --uiowa-color-success: var(--uiowa-color-green); /** Success status. Never decoration. */
-  --uiowa-color-warning: var(--uiowa-color-ochre-dark); /** Warning status. Never decoration. */
-  --uiowa-color-danger: var(--uiowa-color-red); /** Error status. Never decoration. */
+  --uiowa-color-border-strong: var(--uiowa-color-alpha-black-425); /** Dark border for controls on white and gray surfaces. */
+  --uiowa-color-border-strong-inverse: var(--uiowa-color-alpha-white-425); /** Light border for controls on black surfaces or with black fills. */
+  --uiowa-color-info: var(--uiowa-color-blue-dark); /** Informational status. Never decoration. Always pair with text or an icon. */
+  --uiowa-color-success: var(--uiowa-color-green); /** Success status. Never decoration. Always pair with text or an icon. */
+  --uiowa-color-warning: var(--uiowa-color-ochre-dark); /** Warning status. Never decoration. Always pair with text or an icon. */
+  --uiowa-color-danger: var(--uiowa-color-red); /** Error status. Never decoration. Always pair with text or an icon. */
   --uiowa-color-info-surface: var(--uiowa-color-blue-wash); /** Fill behind an info message. Pair with info as the border. */
   --uiowa-color-success-surface: var(--uiowa-color-green-wash); /** Fill behind a success message. Pair with success as the border. */
   --uiowa-color-warning-surface: var(--uiowa-color-ochre-wash); /** Fill behind a warning message. Pair with warning as the border. */
   --uiowa-color-danger-surface: var(--uiowa-color-red-wash); /** Fill behind an error message. Pair with danger as the border. */
+  --uiowa-stroke-width-default: var(--uiowa-stroke-width-1); /** Component borders and dividers: inputs, tables, cards and rules, and the resting outline on form fields. The width for any border with no reason to be heavier. */
+  --uiowa-stroke-width-focused: var(--uiowa-stroke-width-2); /** The ring drawn around a focused element. */
   --uiowa-typography-size-small: var(--uiowa-typography-font-size-80);
   --uiowa-typography-size-large: var(--uiowa-typography-font-size-160);
+  --uiowa-form-height-medium: var(--uiowa-space-300); /** Default height for form fields. */
+  --uiowa-form-height-large: var(--uiowa-space-400); /** Height for large form fields. */
+  --uiowa-motion-duration-fast: var(--uiowa-duration-150); /** Hover and focus feedback. */
+  --uiowa-motion-duration-medium: var(--uiowa-duration-250); /** State changes and small movement. */
+  --uiowa-motion-duration-slow: var(--uiowa-duration-400); /** Larger movement and slower changes. */
+  --uiowa-shadow-inset: inset 0px 1px 3px 0px var(--uiowa-color-alpha-black-150); /** A slightly sunken edge. */
+  --uiowa-shadow-raised: 0px 1px 2px 0px var(--uiowa-color-alpha-black-200); /** A small lift off the surface. */
   --uiowa-typography-heading-h1-font-weight: var(--uiowa-typography-font-weight-medium-bold);
   --uiowa-typography-heading-h1-line-height: var(--uiowa-typography-line-height-115);
   --uiowa-typography-heading-h2-font-weight: var(--uiowa-typography-font-weight-medium);
@@ -146,7 +196,6 @@
   --uiowa-typography-body-line-height: var(--uiowa-typography-line-height-170);
   --uiowa-color-background-black: var(--uiowa-color-brand-black);
   --uiowa-color-background-gold: var(--uiowa-color-brand-gold);
-  --uiowa-color-link-inverse: var(--uiowa-color-brand-gold); /** Link on black surfaces. */
 }
 
 /*# sourceMappingURL=tokens.css.map */

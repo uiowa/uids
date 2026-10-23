@@ -14,21 +14,37 @@
   --uiowa-color-neutral-700: #33363a;
   --uiowa-color-neutral-800: #232527;
   --uiowa-color-neutral-900: #000000;
-  --uiowa-color-blue: #3375d1;
-  --uiowa-color-blue-dark: #00558c;
+  --uiowa-color-blue: #588dd6;
+  --uiowa-color-blue-dark: #2c6eca;
   --uiowa-color-teal: #06967e;
-  --uiowa-color-orange: #cc6d17;
-  --uiowa-color-magenta: #aa4981;
-  --uiowa-color-ochre: #c08c00;
+  --uiowa-color-orange: #e16822;
+  --uiowa-color-magenta: #ce68ac;
+  --uiowa-color-ochre: #b98100;
+  --uiowa-color-green-light: #43a06d;
+  --uiowa-color-purple: #9586c6;
+  --uiowa-color-cyan: #249cb0;
+  --uiowa-color-olive: #7d9847;
+  --uiowa-color-rose: #f0667d;
+  --uiowa-color-gray-warm: #998d7e;
+  --uiowa-color-gray-cool: #8d8f90;
   --uiowa-color-green: #0e6b4d;
   --uiowa-color-ochre-dark: #8b6b13;
   --uiowa-color-red: #c0392b;
-  --uiowa-color-blue-wash: #eaf1fb;
-  --uiowa-color-green-wash: #e6f4ee;
+  --uiowa-color-blue-wash: #edf4fe;
+  --uiowa-color-green-wash: #e8f6f0;
   --uiowa-color-ochre-wash: #fbf3dc;
-  --uiowa-color-red-wash: #fbeaea;
+  --uiowa-color-red-wash: #ffeff1;
   --uiowa-color-alpha-black-125: rgba(0, 0, 0, 0.125);
+  --uiowa-color-alpha-black-150: rgba(0, 0, 0, 0.15);
+  --uiowa-color-alpha-black-200: rgba(0, 0, 0, 0.2);
+  --uiowa-color-alpha-black-425: rgba(0, 0, 0, 0.425);
   --uiowa-color-alpha-white-325: rgba(255, 255, 255, 0.325);
+  --uiowa-color-alpha-white-425: rgba(255, 255, 255, 0.425);
+  --uiowa-duration-150: 150ms;
+  --uiowa-duration-250: 250ms;
+  --uiowa-duration-400: 400ms;
+  --uiowa-radius-3: 3px; /** Subtle rounded corners for form fields and alerts. */
+  --uiowa-radius-full: 9999px; /** Pill-shaped corners for badges and toggle tracks. */
   --uiowa-space-25: 0.25rem;
   --uiowa-space-50: 0.5rem;
   --uiowa-space-75: 0.75rem;
@@ -40,6 +56,12 @@
   --uiowa-space-400: 4rem;
   --uiowa-space-600: 6rem;
   --uiowa-space-800: 8rem;
+  --uiowa-stroke-width-1: 1px; /** The system hairline. */
+  --uiowa-stroke-width-2: 2px; /** The red ring on an invalid checkbox, radio or toggle. */
+  --uiowa-stroke-width-4: 4px;
+  --uiowa-stroke-width-5: 5px;
+  --uiowa-stroke-width-6: 6px;
+  --uiowa-stroke-width-8: 8px; /** The heavy accent rule. */
   --uiowa-typography-font-family-roboto: Roboto, sans-serif;
   --uiowa-typography-font-family-zilla-slab: 'Zilla Slab', Zilla-fallback, serif;
   --uiowa-typography-font-family-lora: Lora, serif;
@@ -74,6 +96,9 @@
   --uiowa-layout-container-max-standard: 81.875rem;
   --uiowa-layout-container-max-narrow: 63.75rem;
   --uiowa-layout-container-max-wide: 100rem;
+  --uiowa-logo-min-width: 85px; /** Minimum digital display width for the Block IOWA logo, per the University of Iowa Brand Manual (brand.uiowa.edu/logo). A rule every placement must respect, not a placement size: sizes per placement belong to the Logo component. */
+  --uiowa-easing-standard: cubic-bezier(0.4, 0, 0.2, 1); /** The default, for movement and change on screen. */
+  --uiowa-easing-overshoot: cubic-bezier(0.3, 1.5, 0.7, 1); /** A small overshoot for playful emphasis. */
   --uiowa-typography-heading-h1-font-family: 'Zilla Slab', Zilla-fallback, serif;
   --uiowa-typography-heading-h1-font-size: clamp(2.3rem, calc(1.6967vw + 1.6637rem), 3.0529rem);
   --uiowa-typography-heading-h1-letter-spacing: 0px;
@@ -107,25 +132,50 @@
   --uiowa-color-background-gray: var(--uiowa-color-neutral-100);
   --uiowa-color-background-white: var(--uiowa-color-neutral-0);
   --uiowa-color-link-default: var(--uiowa-color-blue-dark); /** Link on white and gray surfaces. */
+  --uiowa-color-link-inverse: var(--uiowa-color-blue); /** Link on black surfaces. */
   --uiowa-color-link-gold: var(--uiowa-color-neutral-900); /** Link on gold surfaces. */
-  --uiowa-color-brand-gold: var(--uiowa-color-gold);
+  --uiowa-color-brand-gold: var(--uiowa-color-gold); /** Use at full strength, never tinted or translucent. Black text on gold. Never gold text on white or white text on gold. Gold text only for short headlines and callouts on black. */
   --uiowa-color-brand-black: var(--uiowa-color-neutral-900);
+  --uiowa-color-accent-blue: var(--uiowa-color-blue);
   --uiowa-color-accent-teal: var(--uiowa-color-teal);
   --uiowa-color-accent-orange: var(--uiowa-color-orange);
   --uiowa-color-accent-magenta: var(--uiowa-color-magenta);
   --uiowa-color-accent-ochre: var(--uiowa-color-ochre);
+  --uiowa-color-data-visualization-categorical-1: var(--uiowa-color-blue);
+  --uiowa-color-data-visualization-categorical-2: var(--uiowa-color-orange);
+  --uiowa-color-data-visualization-categorical-3: var(--uiowa-color-magenta);
+  --uiowa-color-data-visualization-categorical-4: var(--uiowa-color-green-light);
+  --uiowa-color-data-visualization-categorical-5: var(--uiowa-color-purple);
+  --uiowa-color-data-visualization-categorical-6: var(--uiowa-color-ochre);
+  --uiowa-color-data-visualization-categorical-7: var(--uiowa-color-teal);
+  --uiowa-color-data-visualization-categorical-8: var(--uiowa-color-cyan);
+  --uiowa-color-data-visualization-categorical-9: var(--uiowa-color-olive);
+  --uiowa-color-data-visualization-categorical-10: var(--uiowa-color-rose);
+  --uiowa-color-data-visualization-categorical-11: var(--uiowa-color-gray-warm);
+  --uiowa-color-data-visualization-categorical-12: var(--uiowa-color-gray-cool);
   --uiowa-color-border-default: var(--uiowa-color-alpha-black-125); /** Border on white, gray, and gold surfaces. */
   --uiowa-color-border-inverse: var(--uiowa-color-alpha-white-325); /** Border on black surfaces. */
-  --uiowa-color-info: var(--uiowa-color-blue); /** Informational status. Never decoration. */
-  --uiowa-color-success: var(--uiowa-color-green); /** Success status. Never decoration. */
-  --uiowa-color-warning: var(--uiowa-color-ochre-dark); /** Warning status. Never decoration. */
-  --uiowa-color-danger: var(--uiowa-color-red); /** Error status. Never decoration. */
+  --uiowa-color-border-strong: var(--uiowa-color-alpha-black-425); /** Dark border for controls on white and gray surfaces. */
+  --uiowa-color-border-strong-inverse: var(--uiowa-color-alpha-white-425); /** Light border for controls on black surfaces or with black fills. */
+  --uiowa-color-info: var(--uiowa-color-blue-dark); /** Informational status. Never decoration. Always pair with text or an icon. */
+  --uiowa-color-success: var(--uiowa-color-green); /** Success status. Never decoration. Always pair with text or an icon. */
+  --uiowa-color-warning: var(--uiowa-color-ochre-dark); /** Warning status. Never decoration. Always pair with text or an icon. */
+  --uiowa-color-danger: var(--uiowa-color-red); /** Error status. Never decoration. Always pair with text or an icon. */
   --uiowa-color-info-surface: var(--uiowa-color-blue-wash); /** Fill behind an info message. Pair with info as the border. */
   --uiowa-color-success-surface: var(--uiowa-color-green-wash); /** Fill behind a success message. Pair with success as the border. */
   --uiowa-color-warning-surface: var(--uiowa-color-ochre-wash); /** Fill behind a warning message. Pair with warning as the border. */
   --uiowa-color-danger-surface: var(--uiowa-color-red-wash); /** Fill behind an error message. Pair with danger as the border. */
+  --uiowa-stroke-width-default: var(--uiowa-stroke-width-1); /** Component borders and dividers: inputs, tables, cards and rules, and the resting outline on form fields. The width for any border with no reason to be heavier. */
+  --uiowa-stroke-width-focused: var(--uiowa-stroke-width-2); /** The ring drawn around a focused element. */
   --uiowa-typography-size-small: var(--uiowa-typography-font-size-80);
   --uiowa-typography-size-large: var(--uiowa-typography-font-size-160);
+  --uiowa-form-height-medium: var(--uiowa-space-300); /** Default height for form fields. */
+  --uiowa-form-height-large: var(--uiowa-space-400); /** Height for large form fields. */
+  --uiowa-motion-duration-fast: var(--uiowa-duration-150); /** Hover and focus feedback. */
+  --uiowa-motion-duration-medium: var(--uiowa-duration-250); /** State changes and small movement. */
+  --uiowa-motion-duration-slow: var(--uiowa-duration-400); /** Larger movement and slower changes. */
+  --uiowa-shadow-inset: inset 0px 1px 3px 0px var(--uiowa-color-alpha-black-150); /** A slightly sunken edge. */
+  --uiowa-shadow-raised: 0px 1px 2px 0px var(--uiowa-color-alpha-black-200); /** A small lift off the surface. */
   --uiowa-typography-heading-h1-font-weight: var(--uiowa-typography-font-weight-medium-bold);
   --uiowa-typography-heading-h1-line-height: var(--uiowa-typography-line-height-115);
   --uiowa-typography-heading-h2-font-weight: var(--uiowa-typography-font-weight-medium);
@@ -146,7 +196,6 @@
   --uiowa-typography-body-line-height: var(--uiowa-typography-line-height-170);
   --uiowa-color-background-black: var(--uiowa-color-brand-black);
   --uiowa-color-background-gold: var(--uiowa-color-brand-gold);
-  --uiowa-color-link-inverse: var(--uiowa-color-brand-gold); /** Link on black surfaces. */
 }
 
 .element--center {
@@ -458,7 +507,7 @@ button:-moz-focusring,
  * Change the border, margin, and padding in all browsers (opinionated).
  */
 fieldset {
-  border: 1px solid #c0c0c0;
+  border: var(--uiowa-stroke-width-default) solid #c0c0c0;
   margin: 0 2px;
   padding: 0.35em 0.625em 0.75em;
 }
@@ -629,7 +678,7 @@ aside .region,
   margin: 0 1.25rem;
   position: relative;
 }
-@media (min-width: 84.375em) {
+@media (min-width: 84.375rem) {
   .layout-container {
     max-width: var(--uiowa-layout-container-max-standard);
     margin: 0 auto;
@@ -640,7 +689,7 @@ aside .region,
   margin: 0 1.25rem;
   position: relative;
 }
-@media (min-width: 84.375em) {
+@media (min-width: 84.375rem) {
   .page__container {
     max-width: var(--uiowa-layout-container-max-standard);
     margin: 0 auto;
@@ -650,22 +699,21 @@ aside .region,
   margin: 0 1.25rem;
   position: relative;
 }
-@media (min-width: 84.375em) {
+@media (min-width: 84.375rem) {
   .page__container--mixed {
     max-width: var(--uiowa-layout-container-max-standard);
     margin: 0 auto;
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
   .flex__wrapper {
     flex-wrap: wrap;
     display: flex;
   }
 }
 
-.element-invisible,
-.visually-hidden {
+.element-invisible {
   position: absolute !important;
   height: 1px;
   width: 1px;
@@ -678,53 +726,42 @@ aside .region,
     display: none;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
   .mobile-display {
     display: none;
   }
 }
 
-.block-padding__top,
 .element--padding__top {
   padding-top: 3rem;
 }
-.block-padding__top--minimal,
 .element--padding__top--minimal {
   padding-top: 2rem;
 }
-.block-padding__right,
 .element--padding__right {
   padding-right: 3rem;
 }
-.block-padding__right--minimal,
 .element--padding__right--minimal {
   padding-right: 2rem;
 }
-.block-padding__bottom,
 .element--padding__bottom {
   padding-bottom: 3rem;
 }
-.block-padding__bottom--minimal,
 .element--padding__bottom--minimal {
   padding-bottom: 2rem;
 }
-.block-padding__left,
 .element--padding__left {
   padding-left: 3rem;
 }
-.block-padding__left--minimal,
 .element--padding__left--minimal {
   padding-left: 2rem;
 }
-.block-padding__all,
 .element--padding__all {
   padding: 3rem;
 }
-.block-padding__all--extra,
 .element--padding__all--extra {
   padding: 6rem;
 }
-.block-padding__all--minimal,
 .element--padding__all--minimal {
   padding: 2rem;
 }
@@ -761,42 +798,34 @@ aside .region,
   padding-inline: 1rem;
 }
 
-.block-margin__top,
 .element--margin__top {
   margin-top: var(--uiowa-space-100);
 }
-.block-margin__top--extra,
 .element--margin__top--extra {
   margin-top: var(--uiowa-space-100);
 }
-@media (min-width: 768px) {
-  .block-margin__top--extra,
+@media (min-width: 48rem) {
   .element--margin__top--extra {
     margin-top: 2rem;
   }
 }
-@media (min-width: 768px) {
-  .block-margin__right,
+@media (min-width: 48rem) {
   .element--margin__right {
     margin-right: var(--uiowa-space-100);
   }
 }
-.block-margin__bottom,
 .element--margin__bottom {
   margin-bottom: var(--uiowa-space-100);
 }
-.block-margin__bottom--extra,
 .element--margin__bottom--extra {
   margin-bottom: var(--uiowa-space-100);
 }
-@media (min-width: 768px) {
-  .block-margin__bottom--extra,
+@media (min-width: 48rem) {
   .element--margin__bottom--extra {
     margin-bottom: 2rem;
   }
 }
-@media (min-width: 768px) {
-  .block-margin__left,
+@media (min-width: 48rem) {
   .element--margin__left {
     margin-left: var(--uiowa-space-100);
   }
@@ -834,7 +863,7 @@ h1, .h1 {
   margin-bottom: var(--uiowa-space-50);
 }
 
-.h1.bold-headline--serif, .h1.headline--serif {
+.h1.headline--serif {
   font-family: var(--uiowa-typography-heading-h1-font-family);
   font-weight: var(--uiowa-typography-heading-h1-font-weight);
   font-size: var(--uiowa-typography-heading-h1-font-size);
@@ -972,19 +1001,16 @@ dd {
   margin-left: var(--uiowa-space-200);
 }
 
-.uids-component--circle-list,
 .element--circle-list {
   margin: 0 0 0 -13px;
   padding-left: 0;
   list-style: none;
   counter-reset: circle-counter;
 }
-.uids-component--circle-list li li,
 .element--circle-list li li {
   list-style-type: disc;
   display: list-item;
 }
-.uids-component--circle-list > li,
 .element--circle-list > li {
   position: relative;
   min-height: 90px;
@@ -995,13 +1021,11 @@ dd {
   display: flex;
   align-items: center;
 }
-@media (min-width: 768px) {
-  .uids-component--circle-list > li,
+@media (min-width: 48rem) {
   .element--circle-list > li {
     margin-left: 115px;
   }
 }
-.uids-component--circle-list > li:before,
 .element--circle-list > li:before {
   display: block;
   margin: 0 auto;
@@ -1014,7 +1038,7 @@ dd {
   text-align: center;
   text-transform: uppercase;
   color: var(--uiowa-color-text-default);
-  border: 1px solid var(--uiowa-color-brand-gold);
+  border: var(--uiowa-stroke-width-default) solid var(--uiowa-color-brand-gold);
   border-radius: 50%;
   background-color: var(--uiowa-color-brand-gold);
   box-shadow: inset 0px 0px 0px 10px var(--uiowa-color-background-white);
@@ -1027,42 +1051,32 @@ dd {
   line-height: 0;
   box-sizing: border-box;
 }
-@media (min-width: 768px) {
-  .uids-component--circle-list > li:before,
+@media (min-width: 48rem) {
   .element--circle-list > li:before {
     position: absolute;
     display: inline-block;
     margin: 0 0.5rem 0;
   }
 }
-.uids-component--gray .uids-component--circle-list > li:before, .bg--gray .uids-component--circle-list > li:before,
-.uids-component--gray .element--circle-list > li:before,
 .bg--gray .element--circle-list > li:before {
   box-shadow: inset 0px 0px 0px 10px var(--uiowa-color-neutral-100);
 }
 
-.element--circle-list > li,
-.uids-component--circle-list > li {
+.element--circle-list > li {
   display: block;
   align-items: start;
   padding-top: 1.275rem;
 }
 
 .element--circle-list h2,
-.uids-component--circle-list h2,
 .element--circle-list h3,
-.uids-component--circle-list h3,
 .element--circle-list h4,
-.uids-component--circle-list h4,
 .element--circle-list h5,
-.uids-component--circle-list h5,
-.element--circle-list h6,
-.uids-component--circle-list h6 {
+.element--circle-list h6 {
   margin-bottom: 1.2rem;
 }
 
-.element--circle-list li a.bttn,
-.uids-component--circle-list li a.bttn {
+.element--circle-list li a.bttn {
   display: inline-block;
 }
 
@@ -1169,14 +1183,14 @@ pre {
   height: auto;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
   .element--two-column {
     column-count: 2;
     column-gap: 3rem;
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
   .element--three-column {
     column-count: 3;
     column-gap: 3rem;
@@ -1189,8 +1203,8 @@ hr {
   clear: both;
   float: none;
   width: 100%;
-  border-top: 1px solid rgba(0, 0, 0, 0.3);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  border-top: var(--uiowa-stroke-width-default) solid rgba(0, 0, 0, 0.3);
+  border-bottom: var(--uiowa-stroke-width-default) solid rgba(255, 255, 255, 0.3);
 }
 
 .element--spacer-separator {
@@ -1198,7 +1212,7 @@ hr {
   float: none;
   width: 100%;
   height: 0;
-  border: 1px solid transparent;
+  border: var(--uiowa-stroke-width-default) solid transparent;
   margin: 1.25rem 0;
 }
 
@@ -1208,8 +1222,8 @@ hr {
   clear: both;
   float: none;
   width: 100%;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  border-top: var(--uiowa-stroke-width-default) solid rgba(0, 0, 0, 0.1);
+  border-bottom: var(--uiowa-stroke-width-default) solid rgba(255, 255, 255, 0.3);
 }
 
 .element--spacer-gold {
@@ -1217,14 +1231,14 @@ hr {
   float: none;
   width: 100%;
   height: 0;
-  border: 1px solid transparent;
+  border: var(--uiowa-stroke-width-default) solid transparent;
   margin: 1.25rem 0;
 }
 .element--spacer-gold:after {
   content: "";
   display: block;
   width: 33%;
-  height: 6px;
+  height: var(--uiowa-stroke-width-6);
   margin: 0;
   background: var(--uiowa-color-brand-gold);
 }
@@ -1234,11 +1248,10 @@ hr {
 [class*=bg-] .element--spacer-gold {
   border: none;
 }
-.bg-pattern--brain-reversed .element--spacer-gold:after, .bg--gold--pattern--brain .element--spacer-gold:after, .bg--gold .element--spacer-gold:after {
+.bg--gold--pattern--brain .element--spacer-gold:after, .bg--gold .element--spacer-gold:after {
   background: var(--uiowa-color-background-white);
 }
 
-.uids-component--bold-intro,
 .element--bold-intro {
   font-family: var(--uiowa-typography-intro-bold-font-family);
   font-weight: var(--uiowa-typography-intro-bold-font-weight);
@@ -1247,7 +1260,6 @@ hr {
   margin-top: 0;
 }
 
-.uids-component--light-intro,
 .element--light-intro {
   font-family: var(--uiowa-typography-intro-light-font-family);
   font-weight: var(--uiowa-typography-intro-light-font-weight);
@@ -1296,7 +1308,7 @@ mark::after {
   margin: 0 auto;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
   [class*=grid].grid--gap__sm .list-container__inner {
     column-gap: var(--uiowa-space-125);
   }
@@ -1305,7 +1317,7 @@ mark::after {
 .grid--twocol--50-50 .list-container__inner {
   gap: 2rem;
 }
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
   .grid--twocol--50-50 .list-container__inner {
     display: grid;
     grid-template-rows: auto;
@@ -1313,7 +1325,7 @@ mark::after {
     grid-template-columns: 1fr;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
   .grid--twocol--50-50 .list-container__inner {
     column-gap: var(--uiowa-space-300);
     row-gap: 1.25rem;
@@ -1324,7 +1336,7 @@ mark::after {
 .grid--threecol--33-34-33 .list-container__inner {
   gap: 2rem;
 }
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
   .grid--threecol--33-34-33 .list-container__inner {
     display: grid;
     grid-template-rows: auto;
@@ -1332,7 +1344,7 @@ mark::after {
     grid-template-columns: 1fr;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
   .grid--threecol--33-34-33 .list-container__inner {
     gap: 3rem;
     grid-template-columns: repeat(auto-fill, minmax(29.74%, 1fr));
@@ -1342,7 +1354,7 @@ mark::after {
 .grid--twocol--67-33 .list-container__inner {
   gap: 2rem;
 }
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
   .grid--twocol--67-33 .list-container__inner {
     display: grid;
     grid-template-rows: auto;
@@ -1350,7 +1362,7 @@ mark::after {
     grid-template-columns: 1fr;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
   .grid--twocol--67-33 .list-container__inner {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -1359,7 +1371,7 @@ mark::after {
     min-width: 0;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
   .grid--twocol--67-33 .list-container__inner .grid__column:last-child {
     grid-area: 1/3/2/4;
     min-width: 0;
@@ -1369,7 +1381,7 @@ mark::after {
 .grid--fourcol--25 .list-container__inner {
   gap: 2rem;
 }
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
   .grid--fourcol--25 .list-container__inner {
     display: grid;
     grid-template-rows: auto;
@@ -1377,7 +1389,7 @@ mark::after {
     grid-template-columns: 1fr;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
   .grid--fourcol--25 .list-container__inner {
     gap: 3rem;
     grid-template-columns: repeat(auto-fill, minmax(21%, 1fr));
@@ -1392,42 +1404,39 @@ mark::after {
     container-name: column;
   }
 }
-.element--flex-left,
-.flex--left {
+.element--flex-left {
   flex-flow: column nowrap;
   text-align: left;
   width: 100%;
   padding: 1.5rem 0;
 }
 
-.element--flex-center,
-.flex--center {
+.element--flex-center {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-flow: column nowrap;
   text-align: center;
 }
-@media (min-width: 768px) {
-  .element--flex-center,
-  .flex--center {
+@media (min-width: 48rem) {
+  .element--flex-center {
     padding: 1.5rem 0;
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
   .flex--gap__sm {
     column-gap: var(--uiowa-space-125);
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
   .flex--gap__md {
     column-gap: var(--uiowa-space-200);
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
   .flex {
     display: flex;
   }

@@ -11,7 +11,9 @@
   line-height: 1.4;
   font-family: var(--uiowa-typography-font-family-antonio);
   font-size: 1.25rem;
-  padding: 1rem 2rem 1.2rem;
+  --bttn-height: var(--uiowa-space-400);
+  --bttn-padding-block: calc((var(--bttn-height) - 1lh - 2 * var(--uiowa-stroke-width-default)) / 2);
+  padding: calc(var(--bttn-padding-block) - 0.1rem) 2rem calc(var(--bttn-padding-block) + 0.1rem);
   -webkit-font-smoothing: auto;
   -moz-osx-font-smoothing: auto;
 }
@@ -21,15 +23,15 @@
   margin-left: var(--uiowa-space-50);
 }
 .bttn {
-  border: 1px solid;
+  border: var(--uiowa-stroke-width-default) solid;
   border-color: var(--uiowa-color-border);
 }
 [class*=bg--] .bttn, [class*=bg--] [class*=bg--] .bttn {
-  border-color: rgba(0, 0, 0, 0.425);
+  border-color: var(--uiowa-color-border-strong);
   color: var(--uiowa-color-brand-black);
 }
 [class*=bg--black] .bttn {
-  border-color: rgba(255, 255, 255, 0.425);
+  border-color: var(--uiowa-color-border-strong-inverse);
 }
 
 .bttn--primary {
@@ -47,11 +49,11 @@
   left: 50%;
   bottom: 0;
   width: 100%;
-  height: 4px;
+  height: var(--uiowa-stroke-width-4);
   background-color: var(--uiowa-color-brand-gold);
   transform-origin: center;
   transform: translate(-50%, 0) scaleX(0);
-  transition: transform 0.3s ease-in-out;
+  transition: transform var(--uiowa-motion-duration-medium) var(--uiowa-easing-standard);
 }
 .bttn--primary:focus {
   text-decoration: underline;
@@ -85,11 +87,11 @@
   left: 50%;
   bottom: 0;
   width: 100%;
-  height: 4px;
+  height: var(--uiowa-stroke-width-4);
   background-color: var(--uiowa-color-brand-gold);
   transform-origin: center;
   transform: translate(-50%, 0) scaleX(0);
-  transition: transform 0.3s ease-in-out;
+  transition: transform var(--uiowa-motion-duration-medium) var(--uiowa-easing-standard);
 }
 .bttn--secondary:focus {
   text-decoration: underline;
@@ -101,7 +103,7 @@
   color: var(--uiowa-color-text-inverse);
 }
 [class*=bg--] .bttn--secondary, [class*=bg--] [class*=bg--] .bttn--secondary {
-  border-color: rgba(255, 255, 255, 0.425);
+  border-color: var(--uiowa-color-border-strong-inverse);
   color: var(--uiowa-color-text-inverse);
 }
 
@@ -119,11 +121,11 @@
   left: 50%;
   bottom: 0;
   width: 100%;
-  height: 4px;
+  height: var(--uiowa-stroke-width-4);
   background-color: var(--uiowa-color-brand-gold);
   transform-origin: center;
   transform: translate(-50%, 0) scaleX(0);
-  transition: transform 0.3s ease-in-out;
+  transition: transform var(--uiowa-motion-duration-medium) var(--uiowa-easing-standard);
 }
 .bttn--tertiary:focus {
   text-decoration: underline;
@@ -150,11 +152,11 @@
   left: 50%;
   bottom: 0;
   width: 100%;
-  height: 4px;
+  height: var(--uiowa-stroke-width-4);
   background-color: var(--uiowa-color-brand-gold);
   transform-origin: center;
   transform: translate(-50%, 0) scaleX(0);
-  transition: transform 0.3s ease-in-out;
+  transition: transform var(--uiowa-motion-duration-medium) var(--uiowa-easing-standard);
 }
 .bttn--transparent:focus {
   text-decoration: underline;
@@ -164,7 +166,7 @@
 }
 [class*=bg--black] .bttn--transparent, [class*=bg--] [class*=bg--black] .bttn--transparent {
   color: var(--uiowa-color-text-inverse);
-  border-color: rgba(255, 255, 255, 0.425);
+  border-color: var(--uiowa-color-border-strong-inverse);
 }
 [class*=bg--gold] .bttn--transparent i, [class*=bg--white] [class*=bg--gold] .bttn--transparent i,
 [class*=bg--gold] .bttn--transparent span[class*=fa-],
@@ -232,11 +234,14 @@
   font-size: 1.45rem;
 }
 
+.button--small,
 .bttn--small {
-  padding: 0.6rem 1rem 0.8rem;
+  --bttn-height: var(--uiowa-space-300);
+  padding-inline: 1rem;
   font-size: 1.05rem;
 }
 
+.button--full-width,
 .bttn--full {
   display: flex;
 }
@@ -267,7 +272,7 @@
 .bttn--light-font span[class*=fa-] {
   font-size: 0.9rem;
 }
-.bttn--light-font.bttn--full {
+.bttn--light-font.button--full-width, .bttn--light-font.bttn--full {
   display: flex;
   height: 100%;
 }
@@ -285,14 +290,12 @@
   width: 100%;
   border-radius: 50%;
   background-color: transparent;
-  transition: border-color 0.3s ease-in-out;
   transform: none;
   position: absolute;
 }
 .bttn--circle:hover:after, .bttn--circle:focus:after {
   transform: none;
-  transition: none;
-  border: 3px solid;
+  border: var(--uiowa-stroke-width-focused) solid;
   border-color: inherit;
   background-color: transparent;
 }
