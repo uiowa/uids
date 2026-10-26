@@ -128,7 +128,7 @@ it('writes breakpoints to Sass in rem and durations as CSS times', () => {
   const breakpoints = readFileSync(join(repository, 'src/scss/abstracts/_breakpoints-generated.scss'), 'utf8');
 
   expect(breakpoints).toContain('$uiowa-breakpoint-1350: 84.375rem;');
-  expect(breakpoints).toContain('$uiowa-layout-breakpoint-standard: 84.375rem;');
+  expect(breakpoints).toContain('$uiowa-breakpoint-standard: 84.375rem;');
   expect(tokens).not.toContain('--uiowa-breakpoint-');
   expect(tokens).toContain('--uiowa-duration-150: 150ms;');
   expect(tokens).not.toContain('[object Object]');
