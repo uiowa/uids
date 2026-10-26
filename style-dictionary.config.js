@@ -14,10 +14,12 @@ function rem(value, name) {
 }
 
 function pixelDimension(value, name) {
-  if (!value || value.unit !== 'px' || typeof value.value !== 'number') {
-    throw new Error(`${name} must be a px dimension`);
+  if (!value || typeof value.value !== 'number') {
+    throw new Error(`${name} must be a dimension`);
   }
-  return value.value;
+  if (value.unit === 'px') return value.value;
+  if (value.unit === 'rem') return value.value * REM_IN_PIXELS;
+  throw new Error(`${name} must be a px or rem dimension`);
 }
 
 function maximumSize(minimumRem, fluid) {
