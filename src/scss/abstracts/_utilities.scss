@@ -194,7 +194,7 @@
 // mixins
 
 @mixin border {
-  border: 1px solid;
+  border: var(--uiowa-stroke-width-default) solid;
   border-color: var(--uiowa-color-border);
 }
 
@@ -273,10 +273,10 @@
   padding: 0 0 variables.$gutter;
   margin-bottom: 0;
   background-color: var(--uiowa-color-background-white);
-  border-bottom: 1px solid var(--uiowa-color-border-default);
+  border-bottom: var(--uiowa-stroke-width-default) solid var(--uiowa-color-border-default);
 
   &:first-child {
-    border-top: 1px solid var(--uiowa-color-border-default);
+    border-top: var(--uiowa-stroke-width-default) solid var(--uiowa-color-border-default);
     padding-top: 0;
   }
 }
@@ -333,7 +333,13 @@
   line-height: 1.4;
   font-family: variables.$font-family-caps-bold;
   font-size: 1.25rem;
-  padding: 1rem 2rem 1.2rem;
+  // A size modifier changes only --bttn-height (see .bttn--small). Buttons that set
+  // their own padding (large, light-font, circle) ignore it, and a .borderless button,
+  // having no border, comes out 2px short. Moving .1rem from the top padding to the
+  // bottom keeps the caps font's optical lift.
+  --bttn-height: var(--uiowa-space-400);
+  --bttn-padding-block: calc((var(--bttn-height) - 1lh - 2 * var(--uiowa-stroke-width-default)) / 2);
+  padding: calc(var(--bttn-padding-block) - .1rem) 2rem calc(var(--bttn-padding-block) + .1rem);
   -webkit-font-smoothing: auto;
   -moz-osx-font-smoothing: auto;
 
@@ -351,11 +357,11 @@
     left: 50%;
     bottom: 0;
     width: 100%;
-    height: 4px;
+    height: var(--uiowa-stroke-width-4);
     background-color: variables.$primary;
     transform-origin: center;
     transform: translate(-50%, 0) scaleX(0);
-    transition: transform 0.3s ease-in-out;
+    transition: transform var(--uiowa-motion-duration-medium) var(--uiowa-easing-standard);
   }
 
   &:focus {
