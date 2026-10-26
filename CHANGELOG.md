@@ -48,6 +48,10 @@ not tokens. The multiples are written through a new token extension, `edu.uiowa.
 space. An earlier draft scaled whole sets (Large = Medium ÷ 0.875) and put Roboto Black on
 Headline and the display face on Label.
 
+- Storybook Tokens (roles) pages: Style Library, Recipes, Web Page, Landing Page, Blog Post, and
+  Before and After.
+- Storybook Showcase › Application › Employee Profile (typography roles): an application page on
+  the Hierarchy 4× recipe, with a Show roles toggle.
 - Storybook Tokens pages for Borders and shapes, Shadows, and Motion. Space and layout
   gains form heights, the logo minimum, and the breakpoints.
 
