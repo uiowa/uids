@@ -5,7 +5,7 @@ import semantic from '../../tokens/semantic/typography.json';
 /**
  * The typography roles, as the token files define them: six families (Headline, Eyebrow, Subhead, Subhead 2,
  * Body, Label) in Large, Medium and Small, every size a multiple of one reading size. Six pages:
- * Style Library (the 18 styles), Recipes (how a piece combines them, and the three compositions at
+ * Style Library (the 18 styles), Recipes (how a piece combines them, and the four compositions at
  * actual size), Web Page (one page under each recipe), Landing Page (one recipe per band),
  * Blog Post (one composition) and Before and After (today's styles beside the role each would take). Every specimen is set through the live custom properties the token
  * build ships, so the pages show what the build ships. The values printed beside them are read
@@ -96,8 +96,17 @@ const RECIPES = {
     eyebrow: 'eyebrow-medium', title: 'headline-small', lead: 'subhead-medium', details: 'subhead-2-small', text: 'body-medium', small: 'body-small',
     h2: 'subhead-small', h3: 'subhead-2-small', h4: 'label-large', h5: 'label-medium', h6: 'label-small', cardTitle: 'subhead-small', cardText: 'body-small', button: 'label-medium', meta: 'label-medium',
   },
+  3: {
+    id: 3,
+    name: 'Hierarchy 3× · 3 : 2 : 1 : 1',
+    when: 'The longest titles and the densest formats.',
+    eyebrow: 'eyebrow-small', title: 'headline-xs', lead: 'subhead-medium', details: 'body-medium', text: 'body-medium', small: 'body-small',
+    h2: 'subhead-small', h3: 'subhead-2-small', h4: 'label-large', h5: 'label-medium', h6: 'label-small', cardTitle: 'subhead-small', cardText: 'body-small', button: 'label-medium', meta: 'label-medium',
+  },
 };
-const RECIPE_ORDER = [8, 6, 4];
+const RECIPE_ORDER = [8, 6, 4, 3];
+// The custom properties a composition's gaps read: the reading text's multiple and the title's size.
+const gapVars = (r) => ({ '--tr-text-by': SPECS[r.text].by, '--tr-title': `var(--uiowa-typography-${r.title}-font-size)` });
 const RECIPE_FIELDS = [['eyebrow', 'Eyebrow'], ['title', 'Title'], ['lead', 'Lead-in'], ['details', 'Details'], ['text', 'Reading text'], ['small', 'Small print']];
 const PAGE_FIELDS = [
   ['eyebrow', 'Eyebrow (site name)'], ['title', 'Page title (h1)'], ['lead', 'Lead-in'], ['meta', 'Byline and date'], ['text', 'Reading text'],
@@ -181,23 +190,28 @@ const css = `
      token: typography.space.related (1.5x) or typography.space.break (2x). On the Recipes page the
      gaps are blocks the Spacing toggle tints and labels, scaled by the recipe's reading text
      (--tr-text-by: 1.25 where the text is Body Large); on the pages they are margins. */
-  .tr__comp :is(h1, h2, h3, p), .tr__page :is(h1, h2, h3, p:not(:has(.tr__button))), .tr__card :is(h3, p:not(:has(.tr__button))) { text-box: trim-both cap alphabetic; }
+  .tr__comp :is(h1, h2, h3, p), .tr__page :where(h1, h2, h3, p:not(:has(.tr__button))), .tr__card :is(h3, p:not(:has(.tr__button))) { text-box: trim-both cap alphabetic; }
   .tr__comp { display: flex; flex-direction: column; padding: 48px; box-shadow: inset 0 0 0 1px var(--uiowa-color-neutral-200); color: var(--uiowa-color-neutral-900); }
   .tr__comp > *, .tr__page > * { margin: 0; }
   .tr__comp > :not(.tr__gap) { position: relative; z-index: 1; }
   .tr__gap { display: flex; align-items: center; justify-content: center; height: calc(var(--uiowa-typography-space-related) * var(--tr-text-by, 1)); background: color-mix(in srgb, var(--uiowa-color-blue) 14%, transparent); font: 700 0.75rem/1 var(--uiowa-typography-font-family-roboto); color: var(--uiowa-color-neutral-900); }
   .tr__gap--break { height: calc(var(--uiowa-typography-space-break) * var(--tr-text-by, 1)); }
+  /* Under the title: half the title, never less than a Break; the divider grows that gap by one Related step and sits in the middle. */
+  .tr__gap--title { height: calc((max(calc(var(--tr-title) * 0.5), calc(var(--uiowa-typography-space-break) * var(--tr-text-by, 1))) + var(--uiowa-typography-space-related) * var(--tr-text-by, 1)) / 2); background: color-mix(in srgb, var(--uiowa-color-gold) 35%, transparent); }
   .tr--hide .tr__gap { background: none; }
   .tr--hide .tr__gap span { visibility: hidden; }
   .tr__t { overflow-wrap: anywhere; }
-  .tr__rule { width: 4.5rem; height: var(--uiowa-stroke-width-6, 6px); background: var(--uiowa-color-gold); }
+  .tr__rule { width: 135px; height: 10px; background: var(--uiowa-color-gold); }
   .tr__details strong { font-weight: 700; }
   .tr__text { max-width: 80ch; }
 
   .tr__page { padding: 48px; box-shadow: inset 0 0 0 1px var(--uiowa-color-neutral-200); color: var(--uiowa-color-neutral-900); }
-  .tr__page > * + * { margin-top: var(--uiowa-typography-space-related); }
-  .tr__page > .tr__t + * { margin-top: var(--uiowa-typography-space-break); }
-  .tr__page > h2, .tr__page > .tr__cards { margin-top: var(--uiowa-typography-space-break); }
+  .tr__page > * + * { margin-top: calc(var(--uiowa-typography-space-related) * var(--tr-text-by, 1)); }
+  .tr__page > .tr__t + * { margin-top: max(calc(var(--tr-title) * 0.5), calc(var(--uiowa-typography-space-break) * var(--tr-text-by, 1))); }
+  .tr__page > :is(h2, h3), .tr__page > .tr__cards { margin-top: calc(var(--uiowa-typography-space-break) * var(--tr-text-by, 1)); }
+  /* A heading sits on its own text: no gap, the two facing edges untrimmed, so the space is the lines' own leading. */
+  .tr__page > :is(h2, h3) { text-box: trim-start cap alphabetic; }
+  .tr__page > :is(h2, h3) + * { margin-top: 0; text-box: trim-end cap alphabetic; }
   .tr__page h1, .tr__page h2, .tr__page h3 { font-weight: inherit; }
   .tr__brand { text-transform: uppercase; letter-spacing: .06em; color: var(--uiowa-color-neutral-700); }
   .tr__meta { color: var(--uiowa-color-neutral-500); }
@@ -221,6 +235,8 @@ const css = `
 `;
 
 const SPECS = Object.fromEntries(FAMILIES.flatMap((family) => SIZES.map((size) => [roleIn(family, size), roleSpec(roleIn(family, size))])));
+// Headline XS sits outside the three sizes; Hierarchy 3x takes it.
+SPECS['headline-xs'] = roleSpec('headline-xs');
 const specLine = (spec) => `${spec.face} ${spec.weightName} ${spec.weight} · ${spec.by}× · ${round(spec.px)}px · leading ${spec.leading}`;
 
 export default {
@@ -301,6 +317,8 @@ export const Recipes = {
         textBy: SPECS[r.text].by,
         related: `1.5× · ${round(READING_PX * 1.5 * SPECS[r.text].by)}px`,
         breakGap: `2× · ${round(READING_PX * 2 * SPECS[r.text].by)}px`,
+        titleGap: `½ title + 1.5× ÷ 2 · ${round((Math.max(SPECS[r.title].px * 0.5, READING_PX * 2 * SPECS[r.text].by) + READING_PX * 1.5 * SPECS[r.text].by) / 2)}px`,
+        vars: gapVars(r),
       }));
       const gaps = ref(true);
       return { css, recipes, fields: RECIPE_FIELDS, gaps };
@@ -312,9 +330,10 @@ export const Recipes = {
         <h1 class="tr__title">Recipes</h1>
         <p class="tr__lede">
           <b>A recipe names the style each content field takes.</b> The ratio describes the result; it is
-          not a setting anyone adjusts, and recipes are compositions, not tokens. Three are proposed.
+          not a setting anyone adjusts, and recipes are compositions, not tokens. Four are proposed.
           Hierarchy 6× (6 : 2.5 : 2 : 1.25) is the working default; 8× (8 : 2.5 : 2 : 1.25) suits a short title with room
-          to spare; 4× (4 : 2 : 1.25 : 1) suits a small format or a long title. The reading size never changes.
+          to spare; 4× (4 : 2 : 1.25 : 1) suits a small format or a long title; 3× (3 : 2 : 1 : 1) the longest titles and
+          the densest formats. The reading size never changes.
         </p>
         <table class="tr__table">
           <thead><tr><th>Field</th><th v-for="r in recipes" :key="r.id">{{ r.name }}</th></tr></thead>
@@ -328,22 +347,22 @@ export const Recipes = {
         </table>
 
         <h2 class="tr__h2">The recipes at actual size</h2>
-        <p class="tr__lede">The same composition three times, at full size in this column, with the same placeholder text. Only the six styles change. The gap below the title and the one above the small print are <code>typography.space.break</code> (2×); every other gap, including the one under the eyebrow, is <code>typography.space.related</code> (1.5×). Both are multiples of the recipe's reading text: on Hierarchy 4× that is Body Medium, the reading size, so the gaps are the two tokens as they stand; on 8× and 6× it is Body Large, so the gaps are the tokens times 1.25. Each block of text is trimmed to its cap height and baseline (<code>text-box: trim-both cap alphabetic</code>), so a gap is exactly its number.</p>
+        <p class="tr__lede">The same composition four times, at full size in this column, with the same placeholder text. Only the six styles change. The gap below the title is half the title, never less than <code>typography.space.break</code> (2×), and the divider sits in its middle with the gap grown by one <code>typography.space.related</code> (1.5×) step. The lead-in and the details, and the text and the small print, are a Break apart; every other gap, including the one under the eyebrow, is Related. Both are multiples of the recipe's reading text: on Hierarchy 4× and 3× that is Body Medium, the reading size, so the gaps are the two tokens as they stand; on 8× and 6× it is Body Large, so the gaps are the tokens times 1.25. Each block of text is trimmed to its cap height and baseline (<code>text-box: trim-both cap alphabetic</code>), so a gap is exactly its number.</p>
         <fieldset class="tr__pick"><legend>Spacing</legend>
           <label :class="{ on: gaps }"><input type="radio" name="tr-gaps" :value="true" v-model="gaps"> Show</label>
           <label :class="{ on: !gaps }"><input type="radio" name="tr-gaps" :value="false" v-model="gaps"> Hide</label>
         </fieldset>
         <figure v-for="r in recipes" :key="r.id" class="tr__fig">
           <figcaption>{{ r.name }} <span>{{ r.summary }}</span></figcaption>
-          <div :class="['tr__comp', { 'tr--hide': !gaps }]" :style="{ '--tr-text-by': r.textBy }">
+          <div :class="['tr__comp', { 'tr--hide': !gaps }]" :style="r.vars">
             <p class="tr__eb" :style="r.styles.eyebrow">Lorem ipsum</p>
             <div class="tr__gap"><span>{{ r.related }}</span></div>
             <p class="tr__t" :style="r.styles.title">Lorem ipsum dolor sit amet consectetur</p>
-            <div class="tr__gap tr__gap--break"><span>{{ r.breakGap }}</span></div>
+            <div class="tr__gap tr__gap--title"><span>{{ r.titleGap }}</span></div>
             <div class="tr__rule" aria-hidden="true"></div>
-            <div class="tr__gap"><span>{{ r.related }}</span></div>
+            <div class="tr__gap tr__gap--title"><span>{{ r.titleGap }}</span></div>
             <p :style="r.styles.lead">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <div class="tr__gap"><span>{{ r.related }}</span></div>
+            <div class="tr__gap tr__gap--break"><span>{{ r.breakGap }}</span></div>
             <p class="tr__details" :style="r.styles.details"><strong>Lorem ipsum, 00 dolor sit, 0 amet</strong><br>Consectetur adipiscing, Elit sed</p>
             <div class="tr__gap"><span>{{ r.related }}</span></div>
             <p class="tr__text" :style="r.styles.text">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
@@ -368,7 +387,8 @@ export const WebPage = {
       const legend = computed(() => PAGE_FIELDS.map(([field, label]) => ({ field, label, spec: SPECS[recipe.value[field]] })));
       const root = ref(null);
       const rendered = useRendered(root, [picked]);
-      return { css, recipes: RECIPE_ORDER.map((id) => RECIPES[id]), picked, recipe, style, legend, root, rendered, lorem: LOREM, readingPx: READING_PX };
+      const vars = computed(() => gapVars(recipe.value));
+      return { css, recipes: RECIPE_ORDER.map((id) => RECIPES[id]), picked, recipe, style, legend, root, rendered, vars, lorem: LOREM, readingPx: READING_PX };
     },
     template: `
       <div class="tr tr--standard" ref="root">
@@ -390,7 +410,7 @@ export const WebPage = {
           <li v-for="l in legend" :key="l.field"><b>{{ l.label }}</b> · {{ l.spec.name }} · {{ round(rendered[l.field] || l.spec.px) }}px</li>
         </ul>
 
-        <article class="tr__page">
+        <article class="tr__page" :style="vars">
           <p class="tr__brand" :style="style('eyebrow')" data-measure="eyebrow">The Site Name</p>
           <h1 class="tr__t" :style="style('title')" data-measure="title">Lorem ipsum dolor sit amet consectetur</h1>
           <p :style="style('lead')" data-measure="lead">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
@@ -621,9 +641,12 @@ const bpCss = `
   .bp__head { max-width: var(--uiowa-layout-container-max-standard); margin: 0 auto; padding: 32px var(--uiowa-layout-digital-large-margin) 0; }
   .bp__post { padding-top: var(--uiowa-layout-space-section); border-top: 1px solid var(--uiowa-color-neutral-175); }
   .bp__post > * { margin: 0; font-weight: inherit; }
-  .bp__post :is(h1, h2, h3, h4, h5, h6, p) { text-box: trim-both cap alphabetic; }
-  .bp__post > * + * { margin-top: var(--uiowa-typography-space-related); }
-  .bp__post > .bp__t + *, .bp__post > h2 { margin-top: var(--uiowa-typography-space-break); }
+  .bp__post :where(h1, h2, h3, h4, h5, h6, p) { text-box: trim-both cap alphabetic; }
+  .bp__post > * + * { margin-top: calc(var(--uiowa-typography-space-related) * var(--tr-text-by, 1)); }
+  .bp__post > .bp__t + * { margin-top: max(calc(var(--tr-title) * 0.5), calc(var(--uiowa-typography-space-break) * var(--tr-text-by, 1))); }
+  /* Each heading starts a section a Break below the last and sits on its own text with no gap. */
+  .bp__post > :is(h2, h3, h4, h5, h6) { margin-top: calc(var(--uiowa-typography-space-break) * var(--tr-text-by, 1)); text-box: trim-start cap alphabetic; }
+  .bp__post > :is(h2, h3, h4, h5, h6) + * { margin-top: 0; text-box: trim-end cap alphabetic; }
   .bp__t { overflow-wrap: anywhere; }
   .bp__blog { text-transform: uppercase; letter-spacing: .06em; color: var(--uiowa-color-neutral-700); }
   .bp__meta { color: var(--uiowa-color-neutral-500); }
@@ -641,7 +664,8 @@ export const BlogPost = {
       const fields = [['eyebrow', 'eyebrow'], ['title', 'h1'], ['lead', 'intro'], ['meta', 'byline'], ['text', 'text'], ['h2', 'h2'], ['h3', 'h3'], ['h4', 'h4'], ['h5', 'h5'], ['h6', 'h6']];
       const legend = computed(() => fields.map(([field, label]) => ({ field, label, spec: SPECS[recipe.value[field]] })));
       const outline = BLOG_OUTLINE.map(([tag, text], i) => ({ key: i, tag, text }));
-      return { css, bpCss, recipes: RECIPE_ORDER.map((id) => RECIPES[id]), picked, style, legend, outline, lorem: LOREM };
+      const vars = computed(() => gapVars(recipe.value));
+      return { css, bpCss, recipes: RECIPE_ORDER.map((id) => RECIPES[id]), picked, style, legend, outline, vars, lorem: LOREM };
     },
     template: `
       <div class="bp">
@@ -654,7 +678,8 @@ export const BlogPost = {
             inside it: the h1 is Headline, the h2 Subhead, the h3 Subhead 2, and h4 to h6 take the small styles
             in Bold. Hierarchy 6× is the default, as everywhere; Hierarchy 4× is the step down for a long title
             or a dense page. The post sits in the standard container (<code>layout.container.max.standard</code>,
-            1310px); the reading text keeps its own measure.
+            1310px); the reading text keeps its own measure. Each heading sits on its own text with no gap, and the
+            sections are a Break apart.
           </p>
           <fieldset class="tr__pick"><legend>Recipe</legend>
             <label v-for="r in recipes" :key="r.id" :class="{ on: picked === r.id }">
@@ -666,7 +691,7 @@ export const BlogPost = {
           </ul>
         </div>
         <div class="bp__in">
-          <article class="bp__post">
+          <article class="bp__post" :style="vars">
             <p class="bp__blog" :style="style('eyebrow')">The Blog</p>
             <h1 class="bp__t" :style="style('title')">Lorem ipsum dolor sit amet consectetur</h1>
             <p class="bp__meta" :style="style('meta')">By Lorem Ipsum · 00 Dolor 0000 · 4 min read</p>
