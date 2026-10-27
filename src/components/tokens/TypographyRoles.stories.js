@@ -77,16 +77,16 @@ const SPECIMEN = {
 const RECIPES = {
   8: {
     id: 8,
-    name: 'Hierarchy 8× · 8 : 2.5 : 2 : 1',
+    name: 'Hierarchy 8× · 8 : 2.5 : 2 : 1.25',
     when: 'A short title with room to spare.',
-    eyebrow: 'eyebrow-large', title: 'headline-large', lead: 'subhead-large', details: 'subhead-2-large', text: 'body-medium', small: 'body-small',
+    eyebrow: 'eyebrow-large', title: 'headline-large', lead: 'subhead-large', details: 'subhead-2-large', text: 'body-large', small: 'body-small',
     h2: 'subhead-medium', h3: 'subhead-2-medium', h4: 'subhead-2-small', h5: 'label-large', h6: 'label-medium', cardTitle: 'subhead-2-medium', cardText: 'body-small', button: 'label-large', meta: 'label-medium',
   },
   6: {
     id: 6,
-    name: 'Hierarchy 6× · 6 : 2.5 : 2 : 1',
+    name: 'Hierarchy 6× · 6 : 2.5 : 2 : 1.25',
     when: 'The working default.',
-    eyebrow: 'eyebrow-large', title: 'headline-medium', lead: 'subhead-large', details: 'subhead-2-large', text: 'body-medium', small: 'body-small',
+    eyebrow: 'eyebrow-large', title: 'headline-medium', lead: 'subhead-large', details: 'subhead-2-large', text: 'body-large', small: 'body-small',
     h2: 'subhead-medium', h3: 'subhead-2-medium', h4: 'subhead-2-small', h5: 'label-large', h6: 'label-medium', cardTitle: 'subhead-2-medium', cardText: 'body-small', button: 'label-large', meta: 'label-medium',
   },
   4: {
@@ -313,7 +313,7 @@ export const Recipes = {
         <p class="tr__lede">
           <b>A recipe names the style each content field takes.</b> The ratio describes the result; it is
           not a setting anyone adjusts, and recipes are compositions, not tokens. Three are proposed.
-          Hierarchy 6× (6 : 2.5 : 2 : 1) is the working default; 8× (8 : 2.5 : 2 : 1) suits a short title with room
+          Hierarchy 6× (6 : 2.5 : 2 : 1.25) is the working default; 8× (8 : 2.5 : 2 : 1.25) suits a short title with room
           to spare; 4× (4 : 2 : 1.25 : 1) suits a small format or a long title. The reading size never changes.
         </p>
         <table class="tr__table">

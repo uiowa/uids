@@ -42,7 +42,7 @@ Condensed yet. Each size is a multiple of the reading size (Body Medium, 1.2rem)
 8×, 6× and 4×; Subhead 2.5×, 2× and 1.5×; Subhead 2 2×, 1.5× and 1.25×; Body 1.25×, 1× and 0.875×;
 Label 0.875×, 0.75× and 0.625×. Headline is Special Gothic Condensed, Subhead Zilla Slab, and
 Subhead 2, Body and Label Roboto. A piece picks one size from each family it needs; the four
-recipes, named for the title’s multiple of the reading size, Hierarchy 8× (8 : 2.5 : 2 : 1), 6× (6 : 2.5 : 2 : 1, the working default), 4× (4 : 2 : 1.25 : 1) and 3× (3 : 2 : 1 : 1), are compositions,
+recipes, named for the title’s multiple of the reading size, Hierarchy 8× (8 : 2.5 : 2 : 1.25), 6× (6 : 2.5 : 2 : 1.25, the working default), 4× (4 : 2 : 1.25 : 1) and 3× (3 : 2 : 1 : 1), are compositions,
 not tokens. The multiples are written through a new token extension, `edu.uiowa.multiply`
 (see `src/tokens/README.md`), so changing the reading size on `:root` resizes every role and
 space. An earlier draft scaled whole sets (Large = Medium ÷ 0.875) and put Roboto Black on
