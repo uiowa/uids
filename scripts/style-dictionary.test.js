@@ -138,7 +138,8 @@ it('emits canonical names, fluid typography, and token references', () => {
 it('emits the step 3 roles as multiples of the reading size', () => {
   const output = readFileSync(join(repository, 'src/scss/abstracts/_tokens-generated.scss'), 'utf8');
 
-  expect(output).toContain('--uiowa-typography-base-font-size: var(--uiowa-typography-font-size-120);');
+  expect(output).toContain('--uiowa-typography-font-size-119: 1.1875rem;');
+  expect(output).toContain('--uiowa-typography-base-font-size: var(--uiowa-typography-font-size-119);');
   expect(output).toContain('--uiowa-typography-headline-medium-font-size: calc(var(--uiowa-typography-base-font-size) * 6);');
   expect(output).toContain('--uiowa-typography-headline-xs-font-size: calc(var(--uiowa-typography-base-font-size) * 3);');
   for (const size of ['large', 'medium', 'small']) {
