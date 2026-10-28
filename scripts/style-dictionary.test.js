@@ -4,7 +4,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import { breakpointRem, fluidFontSize } from '../style-dictionary.config.js';
+import { breakpointRem, fluidFontSize, multipliedSize } from '../style-dictionary.config.js';
 
 const repository = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -46,6 +46,13 @@ describe('fluidFontSize', () => {
     })).toBe('clamp(1.6rem, calc(1.3521vw + 1.093rem), 2.2rem)');
   });
 
+  it('accepts a maximum that resolved from a font-size reference', () => {
+    expect(fluidFontSize({
+      $value: '1.6rem',
+      $extensions: { 'edu.uiowa.fluid': { ...fluid, max: '2.2rem' } },
+    })).toBe('clamp(1.6rem, calc(1.3521vw + 1.093rem), 2.2rem)');
+  });
+
   it('derives an exponential maximum from the declared minimum', () => {
     expect(fluidFontSize({
       $value: '2.3rem',
@@ -70,6 +77,27 @@ describe('fluidFontSize', () => {
         },
       },
     })).toThrow('edu.uiowa.fluid.maxViewport must exceed minViewport');
+  });
+});
+
+describe('multipliedSize', () => {
+  const multiplied = (by) => ({
+    original: {
+      $value: '{typography.base.fontSize}',
+      $extensions: { 'edu.uiowa.multiply': { by } },
+    },
+  });
+
+  it('multiplies a reference to the reading size by a multiplier, both as custom properties', () => {
+    expect(multipliedSize(multiplied('{typography.scale.display}')))
+      .toBe('calc(var(--uiowa-typography-base-font-size) * var(--uiowa-typography-scale-display))');
+    expect(multipliedSize(multiplied('{typography.scale.related}')))
+      .toBe('calc(var(--uiowa-typography-base-font-size) * var(--uiowa-typography-scale-related))');
+  });
+
+  it('multiplies by a number, for a role whose multiple is its own', () => {
+    expect(multipliedSize(multiplied(6)))
+      .toBe('calc(var(--uiowa-typography-base-font-size) * 6)');
   });
 });
 
@@ -107,6 +135,22 @@ it('emits canonical names, fluid typography, and token references', () => {
   expect(output).not.toContain('--uiowa-font-size-120:');
 });
 
+it('emits the step 3 roles as multiples of the reading size', () => {
+  const output = readFileSync(join(repository, 'src/scss/abstracts/_tokens-generated.scss'), 'utf8');
+
+  expect(output).toContain('--uiowa-typography-font-size-119: 1.1875rem;');
+  expect(output).toContain('--uiowa-typography-base-font-size: var(--uiowa-typography-font-size-119);');
+  expect(output).toContain('--uiowa-typography-headline-medium-font-size: calc(var(--uiowa-typography-base-font-size) * 6);');
+  expect(output).toContain('--uiowa-typography-headline-xs-font-size: calc(var(--uiowa-typography-base-font-size) * 3);');
+  for (const size of ['large', 'medium', 'small']) {
+    expect(output).toContain(`--uiowa-typography-subhead-2-${size}-font-weight-emphasis: var(--uiowa-typography-font-weight-bold);`);
+  }
+  expect(output).toContain('--uiowa-typography-subhead-large-font-family: var(--uiowa-typography-typeface-slab);');
+  expect(output).toContain('--uiowa-typography-body-small-font-size: calc(var(--uiowa-typography-base-font-size) * 0.875);');
+  expect(output).toContain('--uiowa-typography-space-related: calc(var(--uiowa-typography-base-font-size) * var(--uiowa-typography-scale-related));');
+  expect(output).toContain('--uiowa-typography-body-font-size: var(--uiowa-typography-font-size-120);');
+});
+
 describe('breakpointRem', () => {
   it('converts a px breakpoint to rem at the 16px default', () => {
     expect(breakpointRem({
@@ -132,4 +176,29 @@ it('writes breakpoints to Sass in rem and durations as CSS times', () => {
   expect(tokens).not.toContain('--uiowa-breakpoint-');
   expect(tokens).toContain('--uiowa-duration-150: 150ms;');
   expect(tokens).not.toContain('[object Object]');
+});
+
+// Layout tokens: spacing roles and digital tiers.
+function generated(name) {
+  return readFileSync(join(repository, 'src/scss/abstracts', name), 'utf8');
+}
+
+describe('layout tiers', () => {
+  it('puts spacing roles and tier margins and gutters on space stops', () => {
+    const css = generated('_tokens-generated.scss');
+
+    expect(css).toContain('--uiowa-layout-space-section: var(--uiowa-space-300);');
+    expect(css).toContain('--uiowa-layout-digital-medium-margin: var(--uiowa-space-200);');
+    expect(css).toContain('--uiowa-layout-digital-large-gutter: var(--uiowa-space-150);');
+  });
+
+  it('keeps padding equal to gutter in every tier', () => {
+    const css = generated('_tokens-generated.scss');
+
+    for (const tier of ['small', 'medium', 'large']) {
+      expect(css).toContain(`--uiowa-layout-digital-${tier}-padding: var(--uiowa-layout-digital-${tier}-gutter);`);
+    }
+  });
+
+
 });
