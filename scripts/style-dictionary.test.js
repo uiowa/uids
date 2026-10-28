@@ -141,6 +141,9 @@ it('emits the step 3 roles as multiples of the reading size', () => {
   expect(output).toContain('--uiowa-typography-base-font-size: var(--uiowa-typography-font-size-120);');
   expect(output).toContain('--uiowa-typography-headline-medium-font-size: calc(var(--uiowa-typography-base-font-size) * 6);');
   expect(output).toContain('--uiowa-typography-headline-xs-font-size: calc(var(--uiowa-typography-base-font-size) * 3);');
+  for (const size of ['large', 'medium', 'small']) {
+    expect(output).toContain(`--uiowa-typography-subhead-2-${size}-font-weight-emphasis: var(--uiowa-typography-font-weight-bold);`);
+  }
   expect(output).toContain('--uiowa-typography-subhead-large-font-family: var(--uiowa-typography-typeface-slab);');
   expect(output).toContain('--uiowa-typography-body-small-font-size: calc(var(--uiowa-typography-base-font-size) * 0.875);');
   expect(output).toContain('--uiowa-typography-space-related: calc(var(--uiowa-typography-base-font-size) * var(--uiowa-typography-scale-related));');

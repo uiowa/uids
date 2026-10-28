@@ -28,7 +28,7 @@ system built from UIDS should be able to catch up using this file alone.
 | Data visualization | `color.data-visualization.categorical.1` to `.12`, assigned in numerical order, each pointing at a palette color; the palette gains `color.green-light`, `purple`, `cyan`, `olive`, `rose`, `gray-warm`, and `gray-cool` for them |
 | Logo | `logo.minWidth` (85px) |
 | Type scale | `typography.base.fontSize` (1.2rem, the reading size); `typography.scale.related` (1.5) and `break` (2); `typography.space.related` and `break`, the reading size times each |
-| Typography roles | `typography.headline`, `eyebrow`, `subhead`, `subhead-2`, `body` and `label`, each `large`, `medium` and `small`, plus `typography.headline.xs`, with `fontFamily`, `fontWeight`, `fontSize`, `lineHeight` and `letterSpacing`; faces through `typography.typeface.display`, `slab` and `sans` |
+| Typography roles | `typography.headline`, `eyebrow`, `subhead`, `subhead-2`, `body` and `label`, each `large`, `medium` and `small`, plus `typography.headline.xs`, with `fontFamily`, `fontWeight`, `fontSize`, `lineHeight` and `letterSpacing`; Subhead 2 also carries `fontWeightEmphasis`, Bold; faces through `typography.typeface.display`, `slab` and `sans` |
 | Typography primitives | `typography.font-family.special-gothic-condensed`; `typography.line-height.090`, `.100`, `.110`, `.120`, `.150` |
 
 Breakpoints have no custom properties, because a media query can't read one. The build
@@ -49,7 +49,9 @@ space. Text is spaced with the two space tokens, measured from baseline to cap h
 recipe's reading text: Related between things that belong together, Break between groups. The gap
 under a title is half the title, never less than a Break; a divider in that gap grows it by one
 Related step and sits in the middle; a heading sits on its own text with no gap, and repeating
-sections are a Break apart. An earlier draft scaled whole sets (Large = Medium ÷ 0.875) and put Roboto Black on
+sections are a Break apart. Subhead 2 is Regular, with one emphasis, Bold, by rule: a heading set
+in Subhead 2, and the line that leads a details group, such as the date, take `fontWeightEmphasis`; every
+other line stays at `fontWeight`. An earlier draft scaled whole sets (Large = Medium ÷ 0.875) and put Roboto Black on
 Headline and the display face on Label.
 
 - Storybook Tokens (roles) pages: Style Library, Recipes, Web Page, Landing Page, Blog Post, and
