@@ -50,8 +50,10 @@
   }
   function write(key, v) { try { localStorage.setItem(key, v); } catch (e) { /* not kept; works for this visit */ } }
 
-  var theme = read('ais-docs-theme', THEMES, 'system');
-  var size = read('ais-docs-text', SIZES, 'm');
+  // Display is off for now. Nothing saved is read: a saved choice could not be changed back.
+  var DISPLAY_ON = false;
+  var theme = DISPLAY_ON ? read('ais-docs-theme', THEMES, 'system') : 'system';
+  var size = DISPLAY_ON ? read('ais-docs-text', SIZES, 'm') : 'm';
   function applyTheme() { if (theme === 'system') root.removeAttribute('data-theme'); else root.setAttribute('data-theme', theme); }
   function applySize() { if (size === 'm') root.removeAttribute('data-ds-text'); else root.setAttribute('data-ds-text', size); }
   applyTheme(); applySize();
@@ -258,7 +260,7 @@
 
   function start() {
     var box = document.querySelector('[data-ds-display]');
-    if (box) display(box);
+    if (box && DISPLAY_ON) display(box);
     // Re-measured on every page, outline or not, whenever it can change. Registered
     // before outline() adds its own resize and load handlers, so they read the new value.
     on(window, 'resize', sticky);

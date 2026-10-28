@@ -66,6 +66,7 @@
   --uiowa-typography-font-family-zilla-slab: 'Zilla Slab', Zilla-fallback, serif;
   --uiowa-typography-font-family-lora: Lora, serif;
   --uiowa-typography-font-family-antonio: Antonio, Antonio-fallback, sans-serif;
+  --uiowa-typography-font-family-special-gothic-condensed: 'Special Gothic Condensed', 'Special Gothic', sans-serif; /** Foundations' display face. UIDS does not load it yet. */
   --uiowa-typography-font-weight-light: 300;
   --uiowa-typography-font-weight-normal: 400;
   --uiowa-typography-font-weight-medium: 500;
@@ -87,15 +88,28 @@
   --uiowa-typography-font-size-220: 2.2rem;
   --uiowa-typography-font-size-230: 2.3rem;
   --uiowa-typography-font-size-335: 3.35rem;
+  --uiowa-typography-line-height-100: 1;
+  --uiowa-typography-line-height-110: 1.1;
   --uiowa-typography-line-height-115: 1.15;
+  --uiowa-typography-line-height-120: 1.2;
   --uiowa-typography-line-height-125: 1.25;
   --uiowa-typography-line-height-130: 1.3;
   --uiowa-typography-line-height-140: 1.4;
+  --uiowa-typography-line-height-150: 1.5;
   --uiowa-typography-line-height-170: 1.7;
+  --uiowa-typography-line-height-090: 0.9;
   --uiowa-typography-letter-spacing-normal: 0px;
+  --uiowa-typography-scale-related: 1.5;
+  --uiowa-typography-scale-break: 2;
   --uiowa-layout-container-max-standard: 81.875rem;
   --uiowa-layout-container-max-narrow: 63.75rem;
   --uiowa-layout-container-max-wide: 100rem;
+  --uiowa-layout-digital-small-columns: 4;
+  --uiowa-layout-digital-small-reading: 4;
+  --uiowa-layout-digital-medium-columns: 12;
+  --uiowa-layout-digital-medium-reading: 10;
+  --uiowa-layout-digital-large-columns: 12;
+  --uiowa-layout-digital-large-reading: 8;
   --uiowa-logo-min-width: 85px; /** Minimum digital display width for the Block IOWA logo, per the University of Iowa Brand Manual (brand.uiowa.edu/logo). A rule every placement must respect, not a placement size: sizes per placement belong to the Logo component. */
   --uiowa-easing-standard: cubic-bezier(0.4, 0, 0.2, 1); /** The default, for movement and change on screen. */
   --uiowa-easing-overshoot: cubic-bezier(0.3, 1.5, 0.7, 1); /** A small overshoot for playful emphasis. */
@@ -123,9 +137,6 @@
   --uiowa-typography-intro-light-font-family: Roboto, sans-serif;
   --uiowa-typography-intro-light-font-size: clamp(1.6rem, calc(1.1268vw + 1.1775rem), 2.1rem);
   --uiowa-typography-intro-light-letter-spacing: 0px;
-  --uiowa-typography-body-font-family: Roboto, sans-serif;
-  --uiowa-typography-body-font-size: 1.2rem;
-  --uiowa-typography-body-letter-spacing: 0px;
   --uiowa-color-text-default: var(--uiowa-color-neutral-900); /** Text on white, gray, and gold surfaces. */
   --uiowa-color-text-inverse: var(--uiowa-color-neutral-0); /** Text on black surfaces. */
   --uiowa-color-background-default: var(--uiowa-color-neutral-0);
@@ -167,10 +178,83 @@
   --uiowa-color-danger-surface: var(--uiowa-color-red-wash); /** Fill behind an error message. Pair with danger as the border. */
   --uiowa-stroke-width-default: var(--uiowa-stroke-width-1); /** Component borders and dividers: inputs, tables, cards and rules, and the resting outline on form fields. The width for any border with no reason to be heavier. */
   --uiowa-stroke-width-focused: var(--uiowa-stroke-width-2); /** The ring drawn around a focused element. */
+  --uiowa-typography-body-font-family: var(--uiowa-typography-font-family-roboto);
+  --uiowa-typography-body-font-weight: var(--uiowa-typography-font-weight-normal);
+  --uiowa-typography-body-font-size: var(--uiowa-typography-font-size-120);
+  --uiowa-typography-body-letter-spacing: var(--uiowa-typography-letter-spacing-normal);
+  --uiowa-typography-body-line-height: var(--uiowa-typography-line-height-170);
+  --uiowa-typography-body-large-font-weight: var(--uiowa-typography-font-weight-normal);
+  --uiowa-typography-body-large-line-height: var(--uiowa-typography-line-height-150);
+  --uiowa-typography-body-large-letter-spacing: var(--uiowa-typography-letter-spacing-normal);
+  --uiowa-typography-body-medium-font-weight: var(--uiowa-typography-font-weight-normal);
+  --uiowa-typography-body-medium-line-height: var(--uiowa-typography-line-height-150);
+  --uiowa-typography-body-medium-letter-spacing: var(--uiowa-typography-letter-spacing-normal);
+  --uiowa-typography-body-small-font-weight: var(--uiowa-typography-font-weight-normal);
+  --uiowa-typography-body-small-line-height: var(--uiowa-typography-line-height-150);
+  --uiowa-typography-body-small-letter-spacing: var(--uiowa-typography-letter-spacing-normal);
   --uiowa-typography-size-small: var(--uiowa-typography-font-size-80);
   --uiowa-typography-size-large: var(--uiowa-typography-font-size-160);
+  --uiowa-typography-typeface-display: var(--uiowa-typography-font-family-special-gothic-condensed); /** Foundations' display face: the headline and eyebrow styles. */
+  --uiowa-typography-typeface-slab: var(--uiowa-typography-font-family-zilla-slab); /** The lead-in and section heads: the subhead styles. */
+  --uiowa-typography-typeface-sans: var(--uiowa-typography-font-family-roboto); /** Details, reading text and component text: the subhead 2, body and label styles. */
+  --uiowa-typography-base-font-size: var(--uiowa-typography-font-size-120);
+  --uiowa-typography-headline-large-font-weight: var(--uiowa-typography-font-weight-medium-bold);
+  --uiowa-typography-headline-large-line-height: var(--uiowa-typography-line-height-090);
+  --uiowa-typography-headline-large-letter-spacing: var(--uiowa-typography-letter-spacing-normal);
+  --uiowa-typography-headline-medium-font-weight: var(--uiowa-typography-font-weight-medium-bold);
+  --uiowa-typography-headline-medium-line-height: var(--uiowa-typography-line-height-090);
+  --uiowa-typography-headline-medium-letter-spacing: var(--uiowa-typography-letter-spacing-normal);
+  --uiowa-typography-headline-small-font-weight: var(--uiowa-typography-font-weight-medium-bold);
+  --uiowa-typography-headline-small-line-height: var(--uiowa-typography-line-height-100);
+  --uiowa-typography-headline-small-letter-spacing: var(--uiowa-typography-letter-spacing-normal);
+  --uiowa-typography-eyebrow-large-font-weight: var(--uiowa-typography-font-weight-medium-bold);
+  --uiowa-typography-eyebrow-large-line-height: var(--uiowa-typography-line-height-120);
+  --uiowa-typography-eyebrow-large-letter-spacing: var(--uiowa-typography-letter-spacing-normal);
+  --uiowa-typography-eyebrow-medium-font-weight: var(--uiowa-typography-font-weight-medium-bold);
+  --uiowa-typography-eyebrow-medium-line-height: var(--uiowa-typography-line-height-120);
+  --uiowa-typography-eyebrow-medium-letter-spacing: var(--uiowa-typography-letter-spacing-normal);
+  --uiowa-typography-eyebrow-small-font-weight: var(--uiowa-typography-font-weight-medium-bold);
+  --uiowa-typography-eyebrow-small-line-height: var(--uiowa-typography-line-height-120);
+  --uiowa-typography-eyebrow-small-letter-spacing: var(--uiowa-typography-letter-spacing-normal);
+  --uiowa-typography-subhead-large-font-weight: var(--uiowa-typography-font-weight-medium-bold);
+  --uiowa-typography-subhead-large-line-height: var(--uiowa-typography-line-height-110);
+  --uiowa-typography-subhead-large-letter-spacing: var(--uiowa-typography-letter-spacing-normal);
+  --uiowa-typography-subhead-medium-font-weight: var(--uiowa-typography-font-weight-medium-bold);
+  --uiowa-typography-subhead-medium-line-height: var(--uiowa-typography-line-height-110);
+  --uiowa-typography-subhead-medium-letter-spacing: var(--uiowa-typography-letter-spacing-normal);
+  --uiowa-typography-subhead-small-font-weight: var(--uiowa-typography-font-weight-medium-bold);
+  --uiowa-typography-subhead-small-line-height: var(--uiowa-typography-line-height-125);
+  --uiowa-typography-subhead-small-letter-spacing: var(--uiowa-typography-letter-spacing-normal);
+  --uiowa-typography-subhead-2-large-font-weight: var(--uiowa-typography-font-weight-normal);
+  --uiowa-typography-subhead-2-large-line-height: var(--uiowa-typography-line-height-120);
+  --uiowa-typography-subhead-2-large-letter-spacing: var(--uiowa-typography-letter-spacing-normal);
+  --uiowa-typography-subhead-2-medium-font-weight: var(--uiowa-typography-font-weight-normal);
+  --uiowa-typography-subhead-2-medium-line-height: var(--uiowa-typography-line-height-130);
+  --uiowa-typography-subhead-2-medium-letter-spacing: var(--uiowa-typography-letter-spacing-normal);
+  --uiowa-typography-subhead-2-small-font-weight: var(--uiowa-typography-font-weight-normal);
+  --uiowa-typography-subhead-2-small-line-height: var(--uiowa-typography-line-height-130);
+  --uiowa-typography-subhead-2-small-letter-spacing: var(--uiowa-typography-letter-spacing-normal);
+  --uiowa-typography-label-large-font-weight: var(--uiowa-typography-font-weight-medium);
+  --uiowa-typography-label-large-line-height: var(--uiowa-typography-line-height-140);
+  --uiowa-typography-label-large-letter-spacing: var(--uiowa-typography-letter-spacing-normal);
+  --uiowa-typography-label-medium-font-weight: var(--uiowa-typography-font-weight-medium);
+  --uiowa-typography-label-medium-line-height: var(--uiowa-typography-line-height-140);
+  --uiowa-typography-label-medium-letter-spacing: var(--uiowa-typography-letter-spacing-normal);
+  --uiowa-typography-label-small-font-weight: var(--uiowa-typography-font-weight-medium);
+  --uiowa-typography-label-small-line-height: var(--uiowa-typography-line-height-140);
+  --uiowa-typography-label-small-letter-spacing: var(--uiowa-typography-letter-spacing-normal);
   --uiowa-form-height-medium: var(--uiowa-space-300); /** Default height for form fields. */
   --uiowa-form-height-large: var(--uiowa-space-400); /** Height for large form fields. */
+  --uiowa-layout-space-tight: var(--uiowa-space-50);
+  --uiowa-layout-space-related: var(--uiowa-space-150);
+  --uiowa-layout-space-separated: var(--uiowa-space-200);
+  --uiowa-layout-space-section: var(--uiowa-space-300);
+  --uiowa-layout-digital-small-margin: var(--uiowa-space-100);
+  --uiowa-layout-digital-small-gutter: var(--uiowa-space-100);
+  --uiowa-layout-digital-medium-margin: var(--uiowa-space-200);
+  --uiowa-layout-digital-medium-gutter: var(--uiowa-space-100);
+  --uiowa-layout-digital-large-margin: var(--uiowa-space-200);
+  --uiowa-layout-digital-large-gutter: var(--uiowa-space-150);
   --uiowa-motion-duration-fast: var(--uiowa-duration-150); /** Hover and focus feedback. */
   --uiowa-motion-duration-medium: var(--uiowa-duration-250); /** State changes and small movement. */
   --uiowa-motion-duration-slow: var(--uiowa-duration-400); /** Larger movement and slower changes. */
@@ -192,10 +276,49 @@
   --uiowa-typography-intro-bold-line-height: var(--uiowa-typography-line-height-130);
   --uiowa-typography-intro-light-font-weight: var(--uiowa-typography-font-weight-light);
   --uiowa-typography-intro-light-line-height: var(--uiowa-typography-line-height-140);
-  --uiowa-typography-body-font-weight: var(--uiowa-typography-font-weight-normal);
-  --uiowa-typography-body-line-height: var(--uiowa-typography-line-height-170);
   --uiowa-color-background-black: var(--uiowa-color-brand-black);
   --uiowa-color-background-gold: var(--uiowa-color-brand-gold);
+  --uiowa-typography-body-large-font-family: var(--uiowa-typography-typeface-sans);
+  --uiowa-typography-body-large-font-size: calc(var(--uiowa-typography-base-font-size) * 1.25);
+  --uiowa-typography-body-medium-font-family: var(--uiowa-typography-typeface-sans);
+  --uiowa-typography-body-medium-font-size: calc(var(--uiowa-typography-base-font-size) * 1);
+  --uiowa-typography-body-small-font-family: var(--uiowa-typography-typeface-sans);
+  --uiowa-typography-body-small-font-size: calc(var(--uiowa-typography-base-font-size) * 0.875);
+  --uiowa-typography-space-related: calc(var(--uiowa-typography-base-font-size) * var(--uiowa-typography-scale-related)); /** Between closely related elements, such as a heading and its text. */
+  --uiowa-typography-space-break: calc(var(--uiowa-typography-base-font-size) * var(--uiowa-typography-scale-break)); /** Below display type, and between distinct sections or content groups. */
+  --uiowa-typography-headline-large-font-family: var(--uiowa-typography-typeface-display);
+  --uiowa-typography-headline-large-font-size: calc(var(--uiowa-typography-base-font-size) * 8);
+  --uiowa-typography-headline-medium-font-family: var(--uiowa-typography-typeface-display);
+  --uiowa-typography-headline-medium-font-size: calc(var(--uiowa-typography-base-font-size) * 6);
+  --uiowa-typography-headline-small-font-family: var(--uiowa-typography-typeface-display);
+  --uiowa-typography-headline-small-font-size: calc(var(--uiowa-typography-base-font-size) * 4);
+  --uiowa-typography-eyebrow-large-font-family: var(--uiowa-typography-typeface-display);
+  --uiowa-typography-eyebrow-large-font-size: calc(var(--uiowa-typography-base-font-size) * 2);
+  --uiowa-typography-eyebrow-medium-font-family: var(--uiowa-typography-typeface-display);
+  --uiowa-typography-eyebrow-medium-font-size: calc(var(--uiowa-typography-base-font-size) * 1.5);
+  --uiowa-typography-eyebrow-small-font-family: var(--uiowa-typography-typeface-display);
+  --uiowa-typography-eyebrow-small-font-size: calc(var(--uiowa-typography-base-font-size) * 1);
+  --uiowa-typography-subhead-large-font-family: var(--uiowa-typography-typeface-slab);
+  --uiowa-typography-subhead-large-font-size: calc(var(--uiowa-typography-base-font-size) * 2.5);
+  --uiowa-typography-subhead-medium-font-family: var(--uiowa-typography-typeface-slab);
+  --uiowa-typography-subhead-medium-font-size: calc(var(--uiowa-typography-base-font-size) * 2);
+  --uiowa-typography-subhead-small-font-family: var(--uiowa-typography-typeface-slab);
+  --uiowa-typography-subhead-small-font-size: calc(var(--uiowa-typography-base-font-size) * 1.5);
+  --uiowa-typography-subhead-2-large-font-family: var(--uiowa-typography-typeface-sans);
+  --uiowa-typography-subhead-2-large-font-size: calc(var(--uiowa-typography-base-font-size) * 2);
+  --uiowa-typography-subhead-2-medium-font-family: var(--uiowa-typography-typeface-sans);
+  --uiowa-typography-subhead-2-medium-font-size: calc(var(--uiowa-typography-base-font-size) * 1.5);
+  --uiowa-typography-subhead-2-small-font-family: var(--uiowa-typography-typeface-sans);
+  --uiowa-typography-subhead-2-small-font-size: calc(var(--uiowa-typography-base-font-size) * 1.25);
+  --uiowa-typography-label-large-font-family: var(--uiowa-typography-typeface-sans);
+  --uiowa-typography-label-large-font-size: calc(var(--uiowa-typography-base-font-size) * 0.875);
+  --uiowa-typography-label-medium-font-family: var(--uiowa-typography-typeface-sans);
+  --uiowa-typography-label-medium-font-size: calc(var(--uiowa-typography-base-font-size) * 0.75);
+  --uiowa-typography-label-small-font-family: var(--uiowa-typography-typeface-sans);
+  --uiowa-typography-label-small-font-size: calc(var(--uiowa-typography-base-font-size) * 0.625);
+  --uiowa-layout-digital-small-padding: var(--uiowa-layout-digital-small-gutter);
+  --uiowa-layout-digital-medium-padding: var(--uiowa-layout-digital-medium-gutter);
+  --uiowa-layout-digital-large-padding: var(--uiowa-layout-digital-large-gutter);
 }
 
 .footer__links .menu, .footer__links .menu ul li, .footer__links--icon ul,

@@ -247,10 +247,6 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
             rail with the outline under the page | content    50-72rem
             drawer (nav only) | content | "On this page" bar  < 50rem
    Theme    System (default) / Light / Dark            :root[data-theme]
-   Text     S .65 / M .75 (default) / L .85 / XL 1     :root[data-ds-text]
-            XL is UIDS 5.x exactly; content scales fully, the rail steps
-            13 / 14 / 15 / 17.6px and the outline one size smaller,
-            12 / 12.5 / 13.5 / 15px; the header never scales.
    ============================================================================= */
 
 /* ---- tokens: 5.x roles behind the shell's --c-* names --------------------- */
@@ -282,7 +278,7 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
   --ds-hh: 3.125rem;              /* header height (50px at the default font) */
   --ds-rail: calc(var(--ds-nav-fs) * 14.5);   /* follows the nav text: S 188, M 203, L 218, XL 255px */
   --ds-toc: 14.5rem;
-  --t: .75;                       /* text size: M */
+  --t: 1;                         /* text size: the UIDS reading size */
   --ds-nav-fs: .875rem; --ds-ol-fs: .78125rem;
   color-scheme: light;
 }
@@ -315,7 +311,7 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
 :root[data-ds-text="s"]  { --t: .65; --ds-nav-fs: .8125rem; --ds-ol-fs: .75rem; }
 :root[data-ds-text="l"]  { --t: .85; --ds-nav-fs: .9375rem; --ds-ol-fs: .84375rem; }
 :root[data-ds-text="xl"] { --t: 1;   --ds-nav-fs: 1.1rem;   --ds-ol-fs: .9375rem; }
-:root[data-ds-shell] { scroll-padding-top: calc(var(--ds-sticky, var(--ds-hh)) + 1rem); }
+:root[data-ds-shell] { scroll-padding-top: calc(var(--ds-sticky, var(--ds-hh)) + 1rem); scrollbar-gutter: stable; }
 /* The scroll padding places every jump target; the base h2 margin would add to it. */
 .ds-shell [id] { scroll-margin-top: 0; }
 
@@ -527,24 +523,14 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
 .ds-otp-pop { position: absolute; left: .75rem; right: .75rem; top: calc(100% + 4px); max-width: 26rem; max-height: 60vh; overflow: auto; z-index: 26; background: var(--c-panel); border: 1px solid var(--c-line); border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,.18); padding: .75rem .9rem; }
 .ds-otp-pop[hidden] { display: none; }
 
-/* ---- content: 5.x type, scaled by --t (XL = 5.x) ----------------------------- */
-/* Inside :where() so a project's class selectors still win. Fluid sizes are
-   UIDS's own (600px to 1310px), multiplied by the text size. */
-:where(.ds-doc) h1 { font-family: var(--font-serif); font-weight: 600; font-size: calc(clamp(2.3rem, 1.6967vw + 1.6637rem, 3.0529rem) * var(--t)); line-height: 1.15; letter-spacing: 0; text-wrap: balance; }
-:where(.ds-doc) :is(h2, h3, h4, h5, h6) { font-family: var(--font-sans); font-weight: 500; line-height: 1.25; letter-spacing: 0; text-wrap: balance; }
-:where(.ds-doc) h2 { font-size: calc(clamp(1.95rem, 1.1202vw + 1.5299rem, 2.4471rem) * var(--t)); }
-:where(.ds-doc) h3 { font-size: calc(clamp(1.65rem, .6903vw + 1.3911rem, 1.9563rem) * var(--t)); }
-:where(.ds-doc) h4 { font-size: calc(clamp(1.45rem, .4401vw + 1.285rem, 1.6453rem) * var(--t)); }
-:where(.ds-doc) h5 { font-size: calc(clamp(1.3rem, .2734vw + 1.1975rem, 1.4213rem) * var(--t)); }
-:where(.ds-doc) h6 { font-size: calc(clamp(1.2rem, .1728vw + 1.1352rem, 1.2767rem) * var(--t)); }
-:where(.ds-doc) p, :where(.ds-doc) > :is(ul, ol) { font-size: calc(1.2rem * var(--t)); line-height: 1.7; font-weight: 400; }
+/* ---- content ----------------------------------------------------------------- */
+/* Type comes from the UIDS roles in uids-bridge.css. */
+:where(.ds-doc) :is(h1, h2, h3, h4, h5, h6) { letter-spacing: 0; text-wrap: balance; }
 :where(.ds-doc) p { margin: 0 0 1rem; }
 :where(.ds-doc) > :is(p, ul:not(.cards), ol:not(.steps), dl) { max-width: 72ch; }   /* card grids use the column */
-/* typography.intro-light for the lede */
-:where(.ds-doc) .lede { font-weight: 300; font-size: calc(clamp(1.6rem, 1.1268vw + 1.1775rem, 2.1rem) * var(--t)); line-height: 1.4; color: var(--c-fg); max-width: 40ch; }
+:where(.ds-doc) .lede { color: var(--c-fg); max-width: 40ch; }
 /* links are underlined in 5.x */
 :where(.ds-doc) a:not(.card, .anchor) { text-decoration: underline; text-underline-offset: .15em; text-decoration-thickness: from-font; }
-.ds-doc .meta-row { font-size: 1rem; }
 
 /* ---- 5.x components ---------------------------------------------------------- */
 /* tables.scss: gold header row, 1rem cells (floor 12.8px), 1rem padding, stripes */
