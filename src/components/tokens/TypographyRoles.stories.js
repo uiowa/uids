@@ -98,9 +98,9 @@ const RECIPES = {
   },
   3: {
     id: 3,
-    name: 'Hierarchy 3× · 3 : 2 : 1.25 : 1',
+    name: 'Hierarchy 3× · 3 : 1.5 : 1.25 : 1',
     when: 'The longest titles and the densest formats.',
-    eyebrow: 'eyebrow-small', title: 'headline-xs', lead: 'subhead-medium', details: 'subhead-2-small', text: 'body-medium', small: 'body-small',
+    eyebrow: 'eyebrow-small', title: 'headline-xs', lead: 'subhead-small', details: 'subhead-2-small', text: 'body-medium', small: 'body-small',
     h2: 'subhead-small', h3: 'subhead-2-small', h4: 'label-large', h5: 'label-medium', h6: 'label-small', cardTitle: 'subhead-small', cardText: 'body-small', button: 'label-medium', meta: 'label-medium',
   },
 };
@@ -332,7 +332,7 @@ export const Recipes = {
           <b>A recipe names the style each content field takes.</b> The ratio describes the result; it is
           not a setting anyone adjusts, and recipes are compositions, not tokens. Four are proposed.
           Hierarchy 6× (6 : 2.5 : 2 : 1.25) is the working default; 8× (8 : 2.5 : 2 : 1.25) suits a short title with room
-          to spare; 4× (4 : 2 : 1.25 : 1) suits a small format or a long title; 3× (3 : 2 : 1.25 : 1) the longest titles and
+          to spare; 4× (4 : 2 : 1.25 : 1) suits a small format or a long title; 3× (3 : 1.5 : 1.25 : 1) the longest titles and
           the densest formats. The reading size never changes.
         </p>
         <table class="tr__table">
