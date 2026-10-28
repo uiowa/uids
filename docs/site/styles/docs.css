@@ -23,8 +23,137 @@
 
 .tk-specimen { font-size: 1.5rem; line-height: 1.2; }
 .tk-roles .tk-specimen { display: inline-block; white-space: nowrap; }
+.ds-shell .tk-roles--stacked td { background: none; }
+.tk-roles--stacked .tk-specimen-row td { border-bottom: 0; padding-bottom: 0; }
+.tk-bar { display: block; height: 1rem; background: var(--ds-gold); }
+.tk-spaces td:nth-child(2) { min-width: 9rem; }
 
 .sb-embeds { display: grid; gap: 1rem; margin: 1rem 0; }
 .sb-embed { margin: 0; border: 1px solid var(--c-line); background: var(--c-panel); }
 .sb-embed iframe { display: block; width: 100%; height: 8rem; border: 0; background: #fff; }
 .sb-embed figcaption { padding: .5rem .75rem; border-top: 1px solid var(--c-line); font-size: .85rem; }
+
+/* ---- Typography page: the Storybook Showcase › Typography page story ---------- */
+.ds-doc.ty {
+  --ty-read: var(--uiowa-typography-base-font-size);
+  --ty-rel: var(--uiowa-typography-space-related);
+  --ty-brk: var(--uiowa-typography-space-break);
+  --ty-band: calc(var(--ty-read) * 4);
+  --ty-title-fs: var(--uiowa-typography-headline-small-font-size);
+  --ty-title-lh: var(--uiowa-typography-headline-small-line-height);
+  --ty-head-fs: var(--uiowa-typography-subhead-medium-font-size);
+  --ty-head-lh: var(--uiowa-typography-subhead-medium-line-height);
+  --ty-rule: rgba(0, 0, 0, .3); --ty-rule-thin: rgba(0, 0, 0, .1); --ty-bevel: rgba(255, 255, 255, .3);
+  --ty-eyebrow-color: var(--uiowa-color-neutral-500);
+  /* the page opens on the band gap, from the bar to the first cap, and closes on it */
+  padding-top: var(--ty-band); padding-bottom: var(--ty-band);
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-ds-shell]:not([data-theme="light"]) :is(.ds-doc.ty, .ds-splash) { --ty-rule: rgba(255, 255, 255, .3); --ty-rule-thin: rgba(255, 255, 255, .15); --ty-bevel: transparent; --ty-eyebrow-color: var(--c-fg-2); }
+}
+:root[data-ds-shell][data-theme="dark"] :is(.ds-doc.ty, .ds-splash) { --ty-rule: rgba(255, 255, 255, .3); --ty-rule-thin: rgba(255, 255, 255, .15); --ty-bevel: transparent; --ty-eyebrow-color: var(--c-fg-2); }
+
+/* grids: UIDS twocol--67-33 and threecol--33-34-33, three equal columns 3rem apart from 768; stacked below */
+.ds-doc .ty-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3rem; }
+.ds-doc .ty-grid:not(.ty-grid--three) > :first-child { grid-column: 1 / 3; min-width: 0; }
+.ds-doc .ty-grid:not(.ty-grid--three) > :last-child { grid-column: 3 / 4; min-width: 0; }
+.ds-doc .ty-grid--three > * { min-width: 0; }
+@media (max-width: 47.99rem) { .ds-doc .ty-grid { display: block; } .ds-doc .ty-pair > * + * { margin-top: var(--ty-brk); } }
+.ds-doc .ty-band .ty-grid + .ty-grid { margin-top: var(--ty-band); }
+.ds-doc .ty-pair { margin-top: var(--ty-band); }
+@media (min-width: 48rem) { .ds-doc .ty-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3rem; } }
+
+/* rules: the UIDS hr */
+.ds-doc.ty hr { height: 0; margin: var(--ty-band) 0; border: 0; border-top: 1px solid var(--ty-rule); border-bottom: 1px solid var(--ty-bevel); background: none; }
+.ds-doc.ty hr.ty-inner { margin: var(--ty-band) 0 var(--ty-brk); border-top-color: var(--ty-rule-thin); }
+.ds-doc.ty hr.ty-divider { width: 135px; height: 10px; border: 0; background: var(--uiowa-color-brand-gold);
+  margin: calc((max(calc(var(--ty-title-fs) / 2), var(--ty-brk)) + var(--ty-rel)) / 2) 0; }
+
+/* roles */
+.ds-doc .ty-eyebrow { font: var(--uiowa-typography-eyebrow-medium-font-weight) var(--uiowa-typography-eyebrow-medium-font-size) / var(--uiowa-typography-eyebrow-medium-line-height) var(--uiowa-typography-eyebrow-medium-font-family); letter-spacing: var(--uiowa-typography-eyebrow-medium-letter-spacing); text-transform: uppercase; color: var(--ty-eyebrow-color); }
+.ds-doc .ty-title { font: var(--uiowa-typography-headline-small-font-weight) var(--uiowa-typography-headline-small-font-size) / var(--uiowa-typography-headline-small-line-height) var(--uiowa-typography-headline-small-font-family); letter-spacing: var(--uiowa-typography-headline-small-letter-spacing); }
+.ds-doc .ty-specimen { font-size: var(--ty-title-fs); line-height: var(--ty-title-lh); overflow-wrap: anywhere; }
+.ds-doc .ty-h { font: var(--uiowa-typography-subhead-medium-font-weight) var(--uiowa-typography-subhead-medium-font-size) / var(--uiowa-typography-subhead-medium-line-height) var(--uiowa-typography-subhead-medium-font-family); letter-spacing: var(--uiowa-typography-subhead-medium-letter-spacing); }
+.ds-doc .ty-text { font: var(--uiowa-typography-body-medium-font-weight) var(--uiowa-typography-body-medium-font-size) / var(--uiowa-typography-body-medium-line-height) var(--uiowa-typography-body-medium-font-family); letter-spacing: var(--uiowa-typography-body-medium-letter-spacing); }
+.ds-doc .ty-small { font: var(--uiowa-typography-body-small-font-weight) var(--uiowa-typography-body-small-font-size) / var(--uiowa-typography-body-small-line-height) var(--uiowa-typography-body-small-font-family); letter-spacing: var(--uiowa-typography-body-small-letter-spacing); }
+.ds-doc .ty-label { font: var(--uiowa-typography-label-large-font-weight) var(--uiowa-typography-label-large-font-size) / var(--uiowa-typography-label-large-line-height) var(--uiowa-typography-label-large-font-family); letter-spacing: .06em; text-transform: uppercase; color: var(--c-fg); }
+.ds-doc :is(.ty-weights, .ty-chars) { font: var(--uiowa-typography-subhead-2-small-font-weight) var(--uiowa-typography-subhead-2-small-font-size) / var(--uiowa-typography-subhead-2-small-line-height) var(--uiowa-typography-subhead-2-small-font-family); }
+.ds-doc .ty-chars { margin: 0; max-width: none; overflow-wrap: anywhere; }
+.ds-doc.ty strong { font-weight: 700; }
+
+.ds-doc :is(.ty-eyebrow, .ty-label, .ty-body, .ty-title, .ty-specimen, .ty-h) { text-box: trim-both cap alphabetic; }
+.ds-doc :is(.ty-eyebrow, .ty-label, .ty-body) { margin: 0 0 var(--ty-rel); }
+.ds-doc .ty-body { max-width: 72ch; }
+.ds-doc :is(h1, h2).ty-title, .ds-doc h2.ty-specimen { margin: 0 0 max(calc(var(--ty-title-fs) / 2), var(--ty-brk)); padding: 0; background: none; }
+.ds-doc h1.ty-title:has(+ .ty-divider) { margin-bottom: 0; }
+.ds-doc .ty-band ul + .ty-label { margin-top: var(--ty-brk); }
+.ds-doc .ty-action { margin: var(--ty-brk) 0 0; max-width: none; }
+/* a head in running text: Break above; its baseline to the text's first baseline is one line of the head */
+.ds-doc h2.ty-h { margin: var(--ty-brk) 0 0; }
+.ds-doc .ty-h + .ty-body { margin-top: calc(var(--ty-head-fs) * var(--ty-head-lh) - 1cap); }
+
+/* lists */
+.ds-doc.ty ul li { line-height: 1.6; }
+.ds-doc.ty ul.ty-weights { list-style: none; margin-left: 0; }
+.ds-doc.ty ul.ty-weights li { margin-bottom: 0; line-height: var(--uiowa-typography-subhead-2-small-line-height); }
+
+/* the callout: UIDS .callout.bg--gray */
+.ds-doc .ty-callout { padding: 3rem; background: var(--ds-stripe); }
+
+/* the button: UIDS .bttn--primary.bttn--light-font */
+.ds-doc a.ty-btn { display: inline-block; padding: 1rem 2rem; border: 1px solid var(--uiowa-color-brand-gold); background: var(--uiowa-color-brand-gold); color: var(--uiowa-color-brand-black); font: 400 .9rem / 1.4 var(--uiowa-typography-font-family-roboto); letter-spacing: .04rem; text-transform: uppercase; text-decoration: none; }
+.ds-doc a.ty-btn:is(:hover, :focus-visible) { text-decoration: underline; }
+
+/* the icon grid */
+.ds-doc .ty-icons { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; }
+.ds-doc .ty-icons li { display: flex; align-items: center; gap: .75em; margin: 0; }
+.ds-doc .ty-icons i { width: 1.5em; text-align: center; font-size: 1.25em; }
+.ds-doc .ty-more { margin: var(--ty-rel) 0 0; }
+
+/* ---- Home: the welcome splash, on the letter flyer's type hierarchy ------------- */
+.ds-splash { --sp-read: 1.25rem; max-width: var(--ds-wide); padding: calc(var(--uiowa-typography-base-font-size) * 4) 0; color: var(--c-fg); }
+.ds-splash :is(.ds-splash__eyebrow, .ds-splash__title, .ds-splash__subhead, .ds-splash__subhead-2, .ds-splash__body) {
+  margin: 0; padding: 0; max-width: none; background: none; text-box: trim-both cap alphabetic;
+}
+.ds-splash .ds-splash__eyebrow {
+  font: 600 calc(var(--sp-read) * 1.5) / 1.2 var(--uiowa-typography-font-family-special-gothic-condensed);
+  text-transform: uppercase;
+  color: var(--ty-eyebrow-color, var(--uiowa-color-neutral-500));
+}
+.ds-splash .ds-splash__title {
+  margin-top: calc(var(--sp-read) * 1.5);
+  font: 600 calc(var(--sp-read) * 4) / 1 var(--uiowa-typography-font-family-special-gothic-condensed);
+  text-wrap: balance;
+}
+.ds-splash .ds-splash__title::after { content: none; }
+.ds-splash__divider {
+  width: 96px; height: 10px; border: 0;
+  margin: calc(var(--sp-read) * 1.75) 0;
+  background: var(--uiowa-color-brand-gold);
+}
+.ds-splash .ds-splash__subhead {
+  font: 600 calc(var(--sp-read) * 2) / 1.1 var(--uiowa-typography-font-family-zilla-slab);
+  text-wrap: pretty;
+}
+.ds-splash .ds-splash__subhead-2 {
+  margin-top: calc(var(--sp-read) * 2);
+  font: 400 calc(var(--sp-read) * 1.5) / 1.3 var(--uiowa-typography-font-family-roboto);
+}
+.ds-splash__subhead-2 strong { font-weight: 700; }
+.ds-splash .ds-splash__body {
+  margin-top: calc(var(--sp-read) * 1.5);
+  max-width: 33rem;
+  font: 400 var(--sp-read) / 1.5 var(--uiowa-typography-font-family-roboto);
+  text-wrap: pretty;
+}
+.ds-splash .ds-splash__actions { display: flex; flex-wrap: wrap; gap: 1rem; margin: calc(var(--sp-read) * 2) 0 0; max-width: none; }
+/* The UIDS primary button (gold, black text) and a bordered secondary */
+.ds-splash a.ds-splash__btn {
+  display: inline-block; padding: 1rem 2rem; border: 1px solid var(--uiowa-color-brand-gold);
+  background: var(--uiowa-color-brand-gold); color: var(--uiowa-color-brand-black);
+  font: 400 .9rem / 1.4 var(--uiowa-typography-font-family-roboto); letter-spacing: .04rem;
+  text-transform: uppercase; text-decoration: none;
+}
+.ds-splash a.ds-splash__btn--ghost { background: transparent; border-color: currentColor; color: var(--c-fg); }
+.ds-splash a.ds-splash__btn:is(:hover, :focus-visible) { text-decoration: underline; }
+@media (max-width: 47.99rem) { .ds-splash { --sp-read: 1rem; } }
