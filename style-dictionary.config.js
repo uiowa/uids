@@ -1,5 +1,8 @@
+import StyleDictionary from 'style-dictionary';
+
 const REM_IN_PIXELS = 16;
 const FLUID_EXTENSION = 'edu.uiowa.fluid';
+const RESPONSIVE_EXTENSION = 'edu.uiowa.responsive';
 
 // Style Dictionary does not calculate a responsive font size from the UIDS fluid
 // extension, so these helpers validate that metadata and convert it to clamp().
@@ -72,11 +75,62 @@ export function breakpointRem(token) {
   return `${decimal(value.value / REM_IN_PIXELS)}rem`;
 }
 
+// Emits the standard CSS custom properties, then appends a min-width media block
+// for every value declared under the UIDS responsive extension. The breakpoint is
+// a token reference by name (e.g. `md`), so responsiveness stays out of token names.
+export async function cssResponsive(args) {
+  const { dictionary } = args;
+  const byPath = new Map(dictionary.allTokens.map((token) => [token.path.join('.'), token]));
+  const originalValue = (token) => token?.original?.$value ?? token?.$value;
+
+  const referenceToVar = (value) => {
+    const match = /^\{(.+)\}$/.exec(value);
+    if (!match) return value;
+    const token = byPath.get(match[1]);
+    if (!token) throw new Error(`responsive override references unknown token "${value}"`);
+    return `var(--${token.name})`;
+  };
+
+  const breakpointToRem = (key) => {
+    let value = originalValue(byPath.get(`breakpoint.${key}`));
+    const reference = typeof value === 'string' && /^\{(.+)\}$/.exec(value);
+    if (reference) value = originalValue(byPath.get(reference[1]));
+    if (!value || value.unit !== 'px' || typeof value.value !== 'number') {
+      throw new Error(`responsive breakpoint "${key}" did not resolve to a px dimension`);
+    }
+    return `${decimal(value.value / REM_IN_PIXELS)}rem`;
+  };
+
+  // Base output is the existing css/variables result, minus breakpoint tokens.
+  const base = await StyleDictionary.hooks.formats['css/variables']({
+    ...args,
+    dictionary: { ...dictionary, allTokens: dictionary.allTokens.filter((token) => !isBreakpoint(token)) },
+  });
+
+  const groups = {};
+  for (const token of dictionary.allTokens) {
+    const responsive = token.original?.$extensions?.[RESPONSIVE_EXTENSION];
+    if (!responsive) continue;
+    for (const [breakpoint, value] of Object.entries(responsive)) {
+      (groups[breakpoint] ??= []).push(`    --${token.name}: ${referenceToVar(value)};`);
+    }
+  }
+
+  const media = Object.entries(groups)
+    .map(([breakpoint, lines]) => `@media (min-width: ${breakpointToRem(breakpoint)}) {\n  :root {\n${lines.join('\n')}\n  }\n}`)
+    .join('\n\n');
+
+  return media ? `${base}\n${media}\n` : base;
+}
+
 export default {
   usesDtcg: true,
   source: ['src/tokens/**/*.json'],
   expand: { include: ['typography'] },
   hooks: {
+    formats: {
+      'uids/css-responsive': cssResponsive,
+    },
     transforms: {
       // Run only on the fontSize member created when Style Dictionary expands a
       // typography composite carrying the UIDS fluid extension.
@@ -109,9 +163,8 @@ export default {
       files: [
         {
           destination: '_tokens-generated.scss',
-          format: 'css/variables',
+          format: 'uids/css-responsive',
           options: { outputReferences: true },
-          filter: (token) => !isBreakpoint(token),
         },
       ],
     },
