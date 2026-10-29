@@ -7,41 +7,39 @@
   align-items: center;
   margin: 0 auto 0 0;
   text-align: left;
-  font-size: 1.8rem;
-  font-weight: 300;
-  line-height: 1;
-  font-family: variables.$font-family-sans-serif;
+  font-size: var(--uiowa-brand-bar-site-name-typography-font-size);
+  font-weight: var(--uiowa-brand-bar-site-name-typography-font-weight);
+  line-height: var(--uiowa-brand-bar-site-name-typography-line-height);
+  font-family: var(--uiowa-brand-bar-site-name-typography-font-family);
 
   a {
-    color: variables.$secondary;
+    color: var(--uiowa-brand-bar-site-name-color);
     text-decoration: none;
   }
 
   @include utilities.breakpoint(md) {
     flex-basis: content;
     margin: 1px 0 0 0;
-    font-size: 2rem;
   }
 
   @include utilities.breakpoint(page-container) {
     margin: 5px 0 0 0;
     text-align: left;
-    font-size: 2.2rem;
   }
 }
 // === End: Site Name === //
 
 // === Parent Site Name === //
 .parent-site-name {
-  font-weight: variables.$font-weight-light;
+  font-weight: var(--uiowa-brand-bar-parent-site-name-font-weight);
   flex-basis: content;
   margin: 0 0 -10px 0;
   padding: variables.$md 0 0 variables.$gutter;
   width: 100%;
-  background: variables.$primary;
+  background: var(--uiowa-brand-bar-below-md-parent-site-name-background);
 
   a {
-    color: variables.$secondary;
+    color: var(--uiowa-brand-bar-parent-site-name-color);
     text-decoration: none;
   }
 
@@ -63,11 +61,10 @@
   z-index: 2;
   display: block;
   min-height: auto;
-  background: variables.$secondary;
+  background: var(--uiowa-brand-bar-background);
 
   @include utilities.breakpoint(md) {
     min-height: 80px;
-    background: variables.$primary;
   }
 
   &:not(.iowa-bar--narrow) {
@@ -102,7 +99,7 @@
   .site-name {
     width: 100%;
     padding: variables.$gutter;
-    background: variables.$primary;
+    background: var(--uiowa-brand-bar-below-md-site-name-background);
 
     @include utilities.breakpoint(md) {
       width: auto;
@@ -194,14 +191,14 @@
     }
 
     .site-name {
-      font-size: 1rem;
+      font-size: var(--uiowa-brand-bar-narrow-site-name-font-size);
       margin: 0;
       padding: variables.$gutter;
-      background: variables.$primary;
+      background: var(--uiowa-brand-bar-below-md-site-name-background);
 
       @include utilities.breakpoint(md) {
         background: transparent;
-        font-size: 1rem;
+        font-size: var(--uiowa-brand-bar-narrow-site-name-font-size);
         padding: 0;
       }
 
@@ -214,8 +211,8 @@
   // Styles for container underneath
   &__below {
     z-index: 2;
-    border-bottom: var(--uiowa-stroke-width-default) solid #e6e5e5;
-    background: var(--uiowa-color-background-white);
+    border-bottom: var(--uiowa-stroke-width-default) solid var(--uiowa-brand-bar-nameplate-border-color);
+    background: var(--uiowa-brand-bar-nameplate-background);
 
     & .iowa-bar__container {
       flex-wrap: wrap;
@@ -243,17 +240,12 @@
     .site-name {
       margin: 0;
       text-align: left;
-      font-size: 1.8rem;
+      font-size: var(--uiowa-brand-bar-site-name-typography-font-size);
 
       @include utilities.breakpoint(md) {
         width: 75%;
         padding: 25px 20px 25px 0;
         background: transparent;
-        font-size: 2rem;
-      }
-
-      @include utilities.breakpoint(page-container) {
-        font-size: 2.2rem;
       }
     }
   }
