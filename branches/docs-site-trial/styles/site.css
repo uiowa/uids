@@ -276,10 +276,10 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
   --ds-wide: 63.75rem;            /* layout.container.max.narrow: content column cap */
   --ds-page: 100rem;              /* layout.container.max.wide: whole page cap */
   --ds-hh: 3.125rem;              /* header height (50px at the default font) */
-  --ds-rail: calc(var(--ds-nav-fs) * 14.5);   /* follows the nav text: S 188, M 203, L 218, XL 255px */
+  --ds-rail: calc(var(--ds-nav-fs) * 14.5);   /* follows the nav text */
   --ds-toc: 14.5rem;
   --t: 1;                         /* text size: the UIDS reading size */
-  --ds-nav-fs: .875rem; --ds-ol-fs: .78125rem;
+  --ds-nav-fs: 1.1rem; --ds-ol-fs: .78125rem;
   color-scheme: light;
 }
 /* Dark = the 5.x black surface: text.inverse, link.inverse (gold), on the
@@ -330,6 +330,8 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
 .ds-logo:focus-visible svg { opacity: .6; }
 .ds-brand { color: var(--ds-black); font-size: 1.15rem; font-weight: 400; white-space: nowrap; }
 .ds-brand:hover { text-decoration: underline; }
+.ds-manual { color: inherit; font-size: .95rem; font-weight: 500; white-space: nowrap; }
+.ds-manual svg { display: inline-block; margin-left: .4em; vertical-align: -.05em; }
 .ds-ver { font: .72rem/1 var(--doc-mono); color: rgba(0,0,0,.72); border: 1px solid rgba(0,0,0,.35); border-radius: 9999px; padding: .22rem .5rem; white-space: nowrap; }
 .ds-gap { flex: 1; }
 .ds-iconbtn {
@@ -459,15 +461,15 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
   .ds-body.has-toc .ds-local { display: none; }
 }
 
-/* ---- rail: UIDS menu (one size per level; weight, lines and indent carry the
-   hierarchy; current = neutral-200 bar + semi-bold; hover = gold bar) ------------- */
-.ds-menu { list-style: none; margin: 0; padding: .4rem 0 2rem; }
+/* ---- rail: a title, then UIDS menus split by a rule ----------------------------- */
+/* hidden below 50rem, where the drawer's head names the rail */
+.ds-rail-title { display: none; margin: 0 0 1rem; padding: 0 1.1rem; font: var(--uiowa-typography-eyebrow-medium-font-weight) var(--uiowa-typography-eyebrow-medium-font-size) / var(--uiowa-typography-eyebrow-medium-line-height) var(--uiowa-typography-eyebrow-medium-font-family); text-transform: uppercase; color: var(--c-fg); }
+.ds-rail-rule { margin: .75rem 1.1rem; border: 0; border-top: 1px solid var(--c-line); }
+.ds-menu { list-style: none; margin: 0; padding: 0; }
+.ds-menu:last-child { padding-bottom: 2rem; }
 .ds-menu ul { list-style: none; margin: 0; padding: 0; }
-.ds-menu > li { border-bottom: 1px solid var(--c-line); padding: 0 0 .5rem; margin: 0; }
-.ds-menu > li:last-child { border-bottom: 0; }
-.ds-menu-group { display: block; margin: 0; padding: 1.15em 1.25rem .45em; font-size: var(--ds-nav-fs); font-weight: 500; color: var(--c-fg); }
-.ds-menu > li > ul { margin-left: .55rem; }
-.ds-menu li li { margin: 1px 0; }
+.ds-menu li { margin: 0; }
+.ds-menu > li > ul { margin-left: 1.1em; }
 .ds-menu a {
   position: relative; display: block; padding: .5em .9em .5em 1.1em; color: var(--c-fg);
   font-size: var(--ds-nav-fs); line-height: 1.35; text-decoration: none;
@@ -478,8 +480,10 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
 }
 .ds-menu a:hover { text-decoration: underline; }
 .ds-menu a:hover::after { background: var(--ds-gold); transform: scaleY(1); }
-.ds-menu a[aria-current="page"] { font-weight: 600; }
-.ds-menu a[aria-current="page"]::after { transform: scaleY(1); }
+.ds-menu a[aria-current="page"] { font-weight: 700; background: var(--ds-stripe); }
+.ds-menu a[aria-current="page"]::after { background: var(--ds-gold); transform: scaleY(1); }
+.ds-menu a[href^="http"] { display: flex; align-items: center; gap: .4em; }
+.ds-menu a[href^="http"]::before { order: 1; color: var(--c-fg-3); content: ""; width: .7em; height: .7em; background: currentColor; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M7 1.5h3.5V5M10.5 1.5l-5 5M9 7.5v3H1.5V3h3' fill='none' stroke='black' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat; }
 .ds-menu ul ul { margin: 0 0 .2rem 1.1em; }
 
 /* ---- outline: right column, or the "On this page" bar + dropdown ------------- */
