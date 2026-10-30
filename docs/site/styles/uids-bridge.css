@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Special+Gothic:wdth,wght@75,400..700&display=swap');
+
+/* The shell's --c-* and --ds-* names, set from UIDS tokens. The selector
+   matches the shell's light block; its dark blocks are more specific and
+   still apply. */
+
+:root[data-ds-shell] {
+  --c-bg: var(--uiowa-color-background-white);
+  --c-panel: var(--uiowa-color-background-white);
+  --c-fg: var(--uiowa-color-text-default);
+  --c-line: var(--uiowa-color-border-default);
+  --c-link: var(--uiowa-color-link-default);
+  --c-focus: var(--uiowa-color-neutral-500);
+  --c-info: var(--uiowa-color-info);
+  --c-success: var(--uiowa-color-success);
+  --c-warning: var(--uiowa-color-warning);
+  --c-danger: var(--uiowa-color-danger);
+  --c-tint-info: var(--uiowa-color-info-surface);
+  --c-tint-success: var(--uiowa-color-success-surface);
+  --c-tint-warning: var(--uiowa-color-warning-surface);
+  --c-tint-danger: var(--uiowa-color-danger-surface);
+
+  --ds-gold: var(--uiowa-color-brand-gold);
+  --ds-black: var(--uiowa-color-brand-black);
+  --ds-stripe: var(--uiowa-color-neutral-100);
+  --ds-input-line: var(--uiowa-color-neutral-200);
+  --ds-input-glow: var(--uiowa-color-neutral-200);
+  --ds-nav-active: var(--uiowa-color-neutral-200);
+  --ds-badge-info: var(--uiowa-color-info);
+  --ds-badge-warning: var(--uiowa-color-warning);
+  --ds-badge-success: var(--uiowa-color-success);
+  --ds-badge-danger: var(--uiowa-color-danger);
+  --ds-on-badge: var(--uiowa-color-text-inverse);
+  --ds-wide: var(--uiowa-layout-container-max-narrow);
+  --ds-page: var(--uiowa-layout-container-max-standard);
+
+  --font-sans: var(--uiowa-typography-font-family-roboto);
+  --font-serif: var(--uiowa-typography-font-family-zilla-slab);
+  --font-caps: var(--uiowa-typography-font-family-antonio);
+}
+
+/* ---- type: the UIDS roles at Hierarchy 4× ------------------------------- */
+
+
+:root[data-ds-shell] { --uiowa-typography-base-font-size: calc(var(--uiowa-typography-font-size-120) * var(--t)); }
+
+.ds-doc .eyebrow { font: var(--uiowa-typography-eyebrow-medium-font-weight) var(--uiowa-typography-eyebrow-medium-font-size) / var(--uiowa-typography-eyebrow-medium-line-height) var(--uiowa-typography-eyebrow-medium-font-family); }
+.ds-doc h1 { font: var(--uiowa-typography-headline-small-font-weight) var(--uiowa-typography-headline-small-font-size) / var(--uiowa-typography-headline-small-line-height) var(--uiowa-typography-headline-small-font-family); }
+.ds-doc .lede { font: var(--uiowa-typography-subhead-medium-font-weight) var(--uiowa-typography-subhead-medium-font-size) / var(--uiowa-typography-subhead-medium-line-height) var(--uiowa-typography-subhead-medium-font-family); }
+.ds-doc p, .ds-doc > :is(ul, ol), .ds-shell .callout { font: var(--uiowa-typography-body-medium-font-weight) var(--uiowa-typography-body-medium-font-size) / var(--uiowa-typography-body-medium-line-height) var(--uiowa-typography-body-medium-font-family); }
+.ds-doc h2 { font: var(--uiowa-typography-subhead-small-font-weight) var(--uiowa-typography-subhead-small-font-size) / var(--uiowa-typography-subhead-small-line-height) var(--uiowa-typography-subhead-small-font-family); }
+.ds-doc h3, .ds-shell ol.steps > li > h3 { font: var(--uiowa-typography-subhead-2-small-font-weight) var(--uiowa-typography-subhead-2-small-font-size) / var(--uiowa-typography-subhead-2-small-line-height) var(--uiowa-typography-subhead-2-small-font-family); }
+.ds-doc h4 { font: var(--uiowa-typography-label-large-font-weight) var(--uiowa-typography-label-large-font-size) / var(--uiowa-typography-label-large-line-height) var(--uiowa-typography-label-large-font-family); }
+.ds-doc h5 { font: var(--uiowa-typography-label-medium-font-weight) var(--uiowa-typography-label-medium-font-size) / var(--uiowa-typography-label-medium-line-height) var(--uiowa-typography-label-medium-font-family); }
+.ds-doc h6 { font: var(--uiowa-typography-label-small-font-weight) var(--uiowa-typography-label-small-font-size) / var(--uiowa-typography-label-small-line-height) var(--uiowa-typography-label-small-font-family); }
+.ds-shell ul.cards .card-title { font: var(--uiowa-typography-subhead-small-font-weight) var(--uiowa-typography-subhead-small-font-size) / var(--uiowa-typography-subhead-small-line-height) var(--uiowa-typography-subhead-small-font-family); }
+
+
+
+.ds-doc .eyebrow { letter-spacing: .04em; text-transform: uppercase; margin: 0 0 var(--uiowa-typography-space-related); }
+/* site.css draws the h1 bar as a block ::after, which stops text-box trimming the
+   title's bottom; here it is painted in the padding. */
+.ds-doc h1 { margin: 0 0 var(--uiowa-typography-space-related); padding-bottom: calc(var(--uiowa-typography-space-break) + 6px); background: linear-gradient(var(--c-accent), var(--c-accent)) left bottom / 75px 6px no-repeat; }
+.ds-doc h1::after { content: none; }
+.ds-doc :is(.eyebrow, h1, .lede) { text-box: trim-both cap alphabetic; }
+.ds-doc .lede { margin: 0 0 var(--uiowa-typography-space-related); }
+.ds-doc .meta-row { margin: 0 0 var(--uiowa-typography-space-related); font: var(--uiowa-typography-label-medium-font-weight) var(--uiowa-typography-label-medium-font-size) / var(--uiowa-typography-label-medium-line-height) var(--uiowa-typography-label-medium-font-family); }
+.ds-doc :is(h2, h3, h4, h5, h6) { margin: var(--uiowa-typography-space-break) 0 var(--uiowa-typography-space-related); }
+.ds-doc :is(h2, h3, h4, h5, h6) + * { margin-top: 0; }
+
+.ds-shell table.ref :is(th, td), .ds-shell ul.cards .card p, .ds-shell .caption, .ds-doc .tk-note,
+.ds-doc :is(input[type=text], input[type=search], input[type=number], select) {
+  font: var(--uiowa-typography-body-small-font-weight) var(--uiowa-typography-body-small-font-size) / var(--uiowa-typography-body-small-line-height) var(--uiowa-typography-body-small-font-family);
+}
+.ds-shell table.ref tr:first-child th { font-weight: 600; }
+.ds-shell .ds-status, .ds-shell :is(.ds-ol-title, .ctl-label, .ds-pop-label) {
+  font: var(--uiowa-typography-label-medium-font-weight) var(--uiowa-typography-label-medium-font-size) / var(--uiowa-typography-label-medium-line-height) var(--uiowa-typography-label-medium-font-family);
+}
+.ds-shell :is(.ds-ol-title, .ctl-label, .ds-pop-label) { text-transform: uppercase; letter-spacing: .08em; }
+
+/* ---- lists: base/_lists.scss --------------------------------------------- */
+.ds-doc ul:not(.cards, .tk-swatches, .ty-icons) { list-style: disc outside; margin: 1.05rem 0 1.05rem 1.875rem; padding-left: 0; }
+.ds-doc ol { list-style-position: outside; margin: var(--uiowa-space-100) 0 var(--uiowa-space-100) var(--uiowa-space-200); padding-left: 0; }
+.ds-doc :is(ul:not(.cards, .tk-swatches, .ty-icons), ol) li { margin-bottom: .5rem; }
+.ds-doc ul ul { list-style-type: circle; }
+.ds-doc ul ul ul { list-style-type: square; }
+.ds-doc :is(ol ol, ol ul, ul ol, ul ul) { margin-block: .75rem; }
+.ds-doc .element--list-none, .ds-doc .element--list-none li { list-style: none; }
+
+/* ---- layout: the digital tiers and spacing roles ----------------------------- */
+
+:root[data-ds-shell] {
+  --ds-margin: var(--uiowa-layout-digital-small-margin);
+  --ds-gutter: var(--uiowa-layout-digital-small-gutter);
+  --ds-padding: var(--uiowa-layout-digital-small-padding);
+}
+@media (min-width: 48rem) {
+  :root[data-ds-shell] {
+    --ds-margin: var(--uiowa-layout-digital-medium-margin);
+    --ds-gutter: var(--uiowa-layout-digital-medium-gutter);
+    --ds-padding: var(--uiowa-layout-digital-medium-padding);
+  }
+}
+@media (min-width: 61.25rem) {
+  :root[data-ds-shell] {
+    --ds-margin: var(--uiowa-layout-digital-large-margin);
+    --ds-gutter: var(--uiowa-layout-digital-large-gutter);
+    --ds-padding: var(--uiowa-layout-digital-large-padding);
+  }
+}
+
+.ds-shell main.ds-main { --ds-mx: var(--ds-margin); }
+.ds-doc { padding-top: var(--uiowa-layout-space-related); }
+
+.ds-shell ul.cards { gap: var(--ds-gutter); }
+.ds-shell ul.cards .card { padding: var(--ds-padding); gap: var(--uiowa-layout-space-tight); }
+.ds-shell ol.steps > li { column-gap: var(--ds-gutter); }
+.ds-doc .tk-swatches { gap: var(--ds-gutter); }
+
+.ds-doc :is(.tablewrap, pre, .callout, ul.cards, ol.steps, .tk-swatches, .sb-embeds) { margin-block: var(--uiowa-layout-space-separated); }
+.ds-doc .tablewrap table.ref { margin: 0; }
+.ds-doc :is(.tk-note, .caption) { margin-block: var(--uiowa-layout-space-related) var(--uiowa-layout-space-separated); }
+.ds-doc :is(.tablewrap, pre, ul.cards, .tk-swatches, .sb-embeds):has(+ :is(.tk-note, .caption)) { margin-bottom: 0; }
+.ds-doc .sb-embed figcaption { padding: var(--uiowa-layout-space-tight) var(--ds-padding); }
+
+.ds-pn { margin-top: var(--uiowa-layout-space-section); gap: var(--ds-gutter); }
+.ds-pn, .ds-foot { display: none; }
+.ds-foot { margin-top: var(--uiowa-layout-space-section); }
+
+/* ---- header: the brand bar's container ---------------------------------------- */
+/* As the UIDS brand bar: the bar spans the window and its content sits in the
+   standard container, centred once the window is wider than it. The page grid
+   uses the same cap (--ds-page), so the logo and the rail line up. */
+@media (min-width: 50rem) {
+  /* The rail's title caps on the line where a page's first cap sits. */
+  .ds-rail-title { display: block; margin-top: calc(var(--uiowa-typography-base-font-size) * 4); text-box: trim-both cap alphabetic; }
+  .ds-head { padding-left: max(1.25rem, calc((100% - var(--ds-page)) / 2)); padding-right: max(1rem, calc((100% - var(--ds-page)) / 2)); }
+}
