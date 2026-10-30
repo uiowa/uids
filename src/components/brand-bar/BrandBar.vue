@@ -22,16 +22,29 @@ export default {
       type: Boolean,
       default: false,
     },
-
+    /**
+     * The site name, shown next to the logo.
+     */
+    site_name: {
+      type: String,
+      default: '',
+    },
+    /**
+     * Optional URL that the site name links to.
+     */
+    site_url: {
+      type: String,
+      default: '',
+    },
   },
-  setup(props, context) {
+  setup(props) {
 
     /**
      * Get computed classes based on properties of the component.
      */
     const getClasses = computed(() => {
       let classes = ['iowa-bar']
-      if (props.narrow || context.slots.second_row_content) {
+      if (props.narrow) {
         classes.push('iowa-bar--narrow')
       }
       if (props.healthcare) {
@@ -41,13 +54,8 @@ export default {
       return classes;
     })
 
-    const showBottomBar = computed(() => {
-      return context.slots.parent_title && context.slots.parent_title().length || context.slots.bottom_content && context.slots.bottom_content().length
-    })
-
     return {
       getClasses,
-      showBottomBar,
     }
   }
 }
@@ -57,13 +65,12 @@ export default {
   <header :class="getClasses" data-uids-header>
     <div class="iowa-bar__container">
       <uids-logo :healthcare="healthcare" context="header"></uids-logo>
-      <!-- @slot Default slot shows content next to the logo. -->
+      <h1 v-if="site_name" class="site-name">
+        <a v-if="site_url" :href="site_url">{{ site_name }}</a>
+        <template v-else>{{ site_name }}</template>
+      </h1>
+      <!-- @slot Default slot shows content after the site name. -->
       <slot></slot>
-    </div>
-    <div class="iowa-bar__below" v-if="$slots.second_row_content">
-      <div class="iowa-bar__container">
-        <slot name="second_row_content"></slot>
-      </div>
     </div>
   </header>
 </template>
