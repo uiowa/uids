@@ -108,9 +108,8 @@ WithParentSiteTitle.args = {
   default: ``,
 }
 
-// Mimics the closed Tippie College of Business brand bar (tippie.uiowa.edu) at
-// desktop widths. The top links and search button, with their inline styles, are
-// default slot content. The search button doesn't open anything.
+// Mimics top links and the closed search button as
+// default slot content.
 export const Tippie = Template.bind({})
 Tippie.args = {
   ...Default.args,
