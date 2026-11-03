@@ -278,8 +278,9 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
   --ds-hh: 3.125rem;              /* header height (50px at the default font) */
   --ds-rail: calc(var(--ds-nav-fs) * 14.5);   /* follows the nav text */
   --ds-toc: 14.5rem;
+  --ds-frame: calc(var(--ds-page) + var(--ds-toc));   /* the outline column adds width, it doesn't take it from the content */
   --t: 1;                         /* text size: the UIDS reading size */
-  --ds-nav-fs: 1.1rem; --ds-ol-fs: .78125rem;
+  --ds-nav-fs: 1.1rem;
   color-scheme: light;
 }
 /* Dark = the 5.x black surface: text.inverse, link.inverse (gold), on the
@@ -308,9 +309,9 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
   --ds-input-line: rgba(255,255,255,.325); --ds-input-glow: rgba(255,205,0,.35);
   color-scheme: dark;
 }
-:root[data-ds-text="s"]  { --t: .65; --ds-nav-fs: .8125rem; --ds-ol-fs: .75rem; }
-:root[data-ds-text="l"]  { --t: .85; --ds-nav-fs: .9375rem; --ds-ol-fs: .84375rem; }
-:root[data-ds-text="xl"] { --t: 1;   --ds-nav-fs: 1.1rem;   --ds-ol-fs: .9375rem; }
+:root[data-ds-text="s"]  { --t: .875;  --ds-nav-fs: 1rem; }
+:root[data-ds-text="l"]  { --t: 1.125; --ds-nav-fs: 1.2rem; }
+:root[data-ds-text="xl"] { --t: 1.25;  --ds-nav-fs: 1.3rem; }
 :root[data-ds-shell] { scroll-padding-top: calc(var(--ds-sticky, var(--ds-hh)) + 1rem); scrollbar-gutter: stable; }
 /* The scroll padding places every jump target; the base h2 margin would add to it. */
 .ds-shell [id] { scroll-margin-top: 0; }
@@ -348,15 +349,13 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
   :root[data-ds-shell]:not([data-theme="light"]) .ds-head { background: var(--ds-black); color: #fff; box-shadow: inset 0 -1px 0 rgba(255,255,255,.18); }
   :root[data-ds-shell]:not([data-theme="light"]) .ds-brand { color: var(--ds-gold); }
   :root[data-ds-shell]:not([data-theme="light"]) .ds-ver { color: rgba(255,255,255,.72); border-color: rgba(255,255,255,.325); }
-  :root[data-ds-shell]:not([data-theme="light"]) .ds-head > .ds-iconbtn,
-  :root[data-ds-shell]:not([data-theme="light"]) .ds-display > .ds-iconbtn { color: #fff; border-color: rgba(255,255,255,.325); }
+  :root[data-ds-shell]:not([data-theme="light"]) .ds-head > .ds-iconbtn { color: #fff; border-color: rgba(255,255,255,.325); }
   :root[data-ds-shell]:not([data-theme="light"]) .ds-head :focus-visible { outline-color: var(--ds-gold); }
 }
 :root[data-ds-shell][data-theme="dark"] .ds-head { background: var(--ds-black); color: #fff; box-shadow: inset 0 -1px 0 rgba(255,255,255,.18); }
 :root[data-ds-shell][data-theme="dark"] .ds-brand { color: var(--ds-gold); }
 :root[data-ds-shell][data-theme="dark"] .ds-ver { color: rgba(255,255,255,.72); border-color: rgba(255,255,255,.325); }
-:root[data-ds-shell][data-theme="dark"] .ds-head > .ds-iconbtn,
-:root[data-ds-shell][data-theme="dark"] .ds-display > .ds-iconbtn { color: #fff; border-color: rgba(255,255,255,.325); }
+:root[data-ds-shell][data-theme="dark"] .ds-head > .ds-iconbtn { color: #fff; border-color: rgba(255,255,255,.325); }
 :root[data-ds-shell][data-theme="dark"] .ds-head :focus-visible { outline-color: var(--ds-gold); }
 /* Dark: the logo is the light header's inverse, black wordmark on a gold tab
    (our decision: 5.x only shows gold on black; revisit if UIDS publishes a dark-mode logo). */
@@ -367,13 +366,18 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
 :root[data-ds-shell][data-theme="dark"] .ds-logo { background: var(--ds-gold); }
 :root[data-ds-shell][data-theme="dark"] .ds-logo svg { fill: var(--ds-black); }
 
-/* ---- display settings: one "Display" button, a popover --------------------- */
-.ds-display { position: relative; flex: none; }
-.ds-display-lbl { display: none; }
-.ds-display > .ds-iconbtn[aria-expanded="true"] svg { transform: rotate(30deg); }
-.ds-display > .ds-iconbtn svg { transition: transform .3s ease-in-out; }
+/* ---- display settings: a "Display" row at the foot of the rail, a popover above it ---- */
+.ds-display { position: sticky; bottom: 0; margin-top: auto; padding: .5rem 0 1rem; background: var(--c-bg); }
+.ds-display-btn {
+  display: flex; align-items: center; gap: .6em; width: 100%; padding: .5em .9em .5em 1.1em; border: 0;
+  background: none; color: var(--c-fg); font: 400 var(--ds-nav-fs) / 1.35 var(--font-sans); text-align: left; cursor: pointer;
+}
+.ds-display-btn:hover { text-decoration: underline; }
+.ds-display-btn svg { flex: none; transition: transform .3s ease-in-out; }
+.ds-display-btn[aria-expanded="true"] svg { transform: rotate(30deg); }
+/* Fixed, so the rail's scrolling box doesn't clip it. */
 .ds-pop {
-  position: absolute; right: 0; top: calc(100% + 8px); z-index: 45; width: min(21rem, calc(100vw - 2rem));
+  position: fixed; left: .75rem; bottom: 4.5rem; z-index: 45; width: min(21rem, calc(100vw - 1.5rem));
   background: var(--c-panel); color: var(--c-fg); border: 1px solid var(--c-line); border-radius: 6px;
   box-shadow: 0 10px 30px rgba(0,0,0,.25); padding: .9rem 1rem 1rem; display: grid; gap: 1rem; text-align: left;
   font-size: 1rem;
@@ -410,7 +414,7 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
 .ds-pop-reset[disabled] { color: var(--c-fg-3); text-decoration: none; cursor: default; }
 
 /* ---- page grid ----------------------------------------------------------------- */
-.ds-body { display: grid; grid-template-columns: minmax(0, 1fr); max-width: var(--ds-page); margin: 0 auto; }
+.ds-body { display: grid; grid-template-columns: minmax(0, 1fr); max-width: var(--ds-frame); margin: 0 auto; }
 .ds-shell main.ds-main { min-width: 0; max-width: none; margin: 0; padding: 0 var(--ds-mx, 1rem) 0; --ds-mx: 1rem; }
 .ds-doc { max-width: var(--ds-wide); padding-top: 1.5rem; }
 .ds-rail { display: none; }
@@ -424,41 +428,39 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
   .ds-logo { width: 6rem; height: 3.5rem; margin: 0; }
   .ds-logo svg { height: 1.25rem; }
   .ds-head > .ds-brand, .ds-head > .ds-ver { display: none; }
-  .ds-head > .ds-iconbtn, .ds-display > .ds-iconbtn { color: #F3F3F3; border-color: rgba(243,243,243,.35); }
+  .ds-head > .ds-iconbtn { color: #F3F3F3; border-color: rgba(243,243,243,.35); }
   .ds-head :focus-visible { outline-color: var(--ds-gold); }
   .ds-menu-btn { display: inline-flex; order: 5; }
   .ds-sitename { display: block; background: var(--ds-gold); padding: .8rem 1.25rem; }
   .ds-sitename a { color: var(--ds-black); font-size: 1.35rem; font-weight: 300; }
   .ds-drawer-open .ds-rail {
-    display: block; position: fixed; top: 0; left: 0; bottom: 0; z-index: 41;
+    display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; z-index: 41;
     width: min(20rem, 86vw); overflow: auto; overscroll-behavior: contain; background: var(--c-panel);
     border-right: 1px solid var(--c-line); box-shadow: 8px 0 24px rgba(0,0,0,.2);
   }
   .ds-drawer-open .ds-rail-head { display: flex; align-items: center; justify-content: space-between; padding: .7rem .75rem .2rem 1.25rem; }
   .ds-rail-head .ds-iconbtn { color: var(--c-fg); border-color: var(--c-line); }
+  .ds-drawer-open .ds-display { background: var(--c-panel); }
   .ds-drawer-open .ds-scrim { display: block; position: fixed; inset: 0; z-index: 40; background: rgba(0,0,0,.4); }
   .ds-drawer-open { overflow: hidden; }
-  .ds-pop { position: fixed; left: .75rem; right: .75rem; top: calc(var(--ds-hh) + 6px); width: auto; }
 }
 @media (min-width: 50rem) {
-  .ds-display-lbl { display: inline; }
-  .ds-display > .ds-iconbtn { padding: 0 .75rem 0 .6rem; }
   .ds-body { grid-template-columns: var(--ds-rail) minmax(0, 1fr); }
   .ds-shell main.ds-main { --ds-mx: clamp(1.5rem, 3vw, 3rem); }
   .ds-doc { padding-top: 2rem; }
   .ds-rail {
-    display: block; position: sticky; top: var(--ds-hh); align-self: start;
+    display: flex; flex-direction: column; position: sticky; top: var(--ds-hh); align-self: start;
     height: calc(100vh - var(--ds-hh)); overflow: auto; overscroll-behavior: contain;
     border-right: 1px solid var(--c-line);
   }
 }
-@media (min-width: 72rem) {
+/* The outline shows only where the content column keeps its width beside it. */
+@media (min-width: 90rem) {
   .ds-body.has-toc { grid-template-columns: var(--ds-rail) minmax(0, 1fr) var(--ds-toc); }
   .ds-body.has-toc .ds-toc {
     display: block; position: sticky; top: var(--ds-hh); align-self: start;
-    height: calc(100vh - var(--ds-hh)); overflow: auto; overscroll-behavior: contain; padding: 2rem 1rem 2rem .5rem;
+    max-height: calc(100vh - var(--ds-hh)); overflow: auto; overscroll-behavior: contain; padding: 0 1.25rem 2rem 0;
   }
-  .ds-body.has-toc .ds-local { display: none; }
 }
 
 /* ---- rail: a title, then UIDS menus split by a rule ----------------------------- */
@@ -486,46 +488,16 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
 .ds-menu a[href^="http"]::before { order: 1; color: var(--c-fg-3); content: ""; width: .7em; height: .7em; background: currentColor; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M7 1.5h3.5V5M10.5 1.5l-5 5M9 7.5v3H1.5V3h3' fill='none' stroke='black' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat; }
 .ds-menu ul ul { margin: 0 0 .2rem 1.1em; }
 
-/* ---- outline: right column, or the "On this page" bar + dropdown ------------- */
-.ds-ol-title { font-family: var(--font-caps); text-transform: uppercase; letter-spacing: .12em; font-size: calc(var(--ds-ol-fs) * .92); font-weight: 700; color: var(--c-fg-2); margin: 0 0 .5rem; }
-.ds-ol { list-style: none; margin: 0; padding: 0; border-left: 1px solid var(--c-line); font-size: var(--ds-ol-fs); }
+/* ---- outline: "On this page", the right column ---------------------------- */
+.ds-ol-title { margin: 0 0 calc(var(--uiowa-typography-space-related) - .4rem); }   /* as under .ty-label, less the links' top padding */
+.ds-ol { list-style: none; margin: 0; padding: 0; border-left: 1px solid var(--c-line); }
 .ds-ol li { margin: 0; }
 .ds-ol li[hidden] { display: none; }
-.ds-ol a { display: block; margin-left: -1px; padding: .24rem .5rem .24rem .8rem; border-left: 2px solid transparent; color: var(--c-fg-2); line-height: 1.35; text-decoration: none; }
-.ds-ol a:hover { color: var(--c-fg); border-left-color: var(--ds-gold); }
-.ds-ol .l3 a { padding-left: 1.6rem; }
-.ds-ol a[aria-current="location"] { color: var(--c-fg); font-weight: 600; border-left-color: var(--ds-nav-active); border-left-width: 3px; padding-left: calc(.8rem - 1px); }
-.ds-ol .l3 a[aria-current="location"] { padding-left: calc(1.6rem - 1px); }
+.ds-ol a { display: block; margin-left: -1px; padding: .4rem .5rem .4rem 1.25rem; border-left: 3px solid transparent; color: var(--c-fg); text-decoration: none; }
+.ds-ol a:hover { border-left-color: var(--ds-nav-active); }
+.ds-ol .l3 a { padding-left: 2.25rem; }
+.ds-ol a[aria-current="location"] { font-weight: 700; border-left-color: var(--ds-gold); }
 .ds-ol-top { display: inline-block; margin-top: .8rem; font-size: .8rem; color: var(--c-fg-3); }
-/* The rail copy (docs-shell.js puts it under the current page): mid widths only.
-   It keeps the outline's own look, not the menu's links. */
-.ds-ol--rail { display: none; }
-.ds-menu .ds-ol--rail { margin: .15rem 0 .55rem 1.1em; }
-.ds-menu .ds-ol--rail a { display: block; margin-left: -1px; padding: .24rem .5rem .24rem .8rem; font-size: var(--ds-ol-fs); font-weight: 400; color: var(--c-fg-2); border-left: 2px solid transparent; line-height: 1.35; text-decoration: none; }
-.ds-menu .ds-ol--rail a::after { content: none; }
-.ds-menu .ds-ol--rail .l3 a { padding-left: 1.6rem; }
-.ds-menu .ds-ol--rail a:hover { color: var(--c-fg); border-left-color: var(--ds-gold); text-decoration: none; }
-.ds-menu .ds-ol--rail a[aria-current="location"] { color: var(--c-fg); font-weight: 600; border-left: 3px solid var(--ds-nav-active); padding-left: calc(.8rem - 1px); }
-.ds-menu .ds-ol--rail .l3 a[aria-current="location"] { padding-left: calc(1.6rem - 1px); }
-.ds-menu .ds-ol--rail li[hidden] { display: none; }
-/* Mid widths: the outline lives in the rail (wider, as C), no bar. */
-@media (min-width: 50rem) and (max-width: 71.99rem) {
-  .ds-body.has-toc { --ds-rail: calc(var(--ds-nav-fs) * 16.5); }
-  .ds-body.has-toc .ds-ol--rail { display: block; }
-  .ds-body.has-toc .ds-local { display: none; }
-}
-.ds-local {
-  position: sticky; top: var(--ds-hh); z-index: 25; display: flex; align-items: center; min-height: 2.75rem;
-  margin: 0 calc(-1 * var(--ds-mx)); padding: 0 var(--ds-mx); background: var(--c-bg); border-bottom: 1px solid var(--c-line);
-}
-.ds-local[hidden] { display: none; }
-.ds-otp { display: inline-flex; align-items: center; gap: .45rem; min-width: 0; max-width: 100%; border: 0; background: none; padding: .45rem 0; color: var(--c-fg-2); font: 400 .86rem/1.3 var(--font-sans); cursor: pointer; }
-.ds-otp:hover { color: var(--c-fg); }
-.ds-otp-cur { color: var(--c-fg); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
-.ds-otp svg { flex: none; }
-.ds-otp[aria-expanded="true"] .ds-otp-chev { transform: rotate(180deg); }
-.ds-otp-pop { position: absolute; left: .75rem; right: .75rem; top: calc(100% + 4px); max-width: 26rem; max-height: 60vh; overflow: auto; z-index: 26; background: var(--c-panel); border: 1px solid var(--c-line); border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,.18); padding: .75rem .9rem; }
-.ds-otp-pop[hidden] { display: none; }
 
 /* ---- content ----------------------------------------------------------------- */
 /* Type comes from the UIDS roles in uids-bridge.css. */
@@ -618,6 +590,6 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
 .ds-foot code { background: none; border: 0; padding: 0; }
 
 @media print {
-  .ds-head, .ds-sitename, .ds-rail, .ds-toc, .ds-local, .ds-pn, .ds-scrim, .ds-skip { display: none !important; }
+  .ds-head, .ds-sitename, .ds-rail, .ds-toc, .ds-pn, .ds-scrim, .ds-skip { display: none !important; }
   .ds-body { display: block; }
 }
