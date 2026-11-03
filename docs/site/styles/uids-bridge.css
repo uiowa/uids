@@ -73,10 +73,19 @@
   font: var(--uiowa-typography-body-small-font-weight) var(--uiowa-typography-body-small-font-size) / var(--uiowa-typography-body-small-line-height) var(--uiowa-typography-body-small-font-family);
 }
 .ds-shell table.ref tr:first-child th { font-weight: 600; }
-.ds-shell .ds-status, .ds-shell :is(.ds-ol-title, .ctl-label, .ds-pop-label) {
+.ds-shell .ds-status, .ds-shell :is(.ctl-label, .ds-pop-label) {
   font: var(--uiowa-typography-label-medium-font-weight) var(--uiowa-typography-label-medium-font-size) / var(--uiowa-typography-label-medium-line-height) var(--uiowa-typography-label-medium-font-family);
 }
-.ds-shell :is(.ds-ol-title, .ctl-label, .ds-pop-label) { text-transform: uppercase; letter-spacing: .08em; }
+.ds-shell :is(.ctl-label, .ds-pop-label) { text-transform: uppercase; letter-spacing: .08em; }
+/* Body text at the label-medium size: smaller than the page's text, as a side outline. */
+.ds-shell .ds-ol {
+  font: var(--uiowa-typography-body-small-font-weight) var(--uiowa-typography-label-medium-font-size) / var(--uiowa-typography-body-small-line-height) var(--uiowa-typography-body-small-font-family);
+}
+/* As the page's .ty-label ("Guidance", "When to use"). */
+.ds-shell .ds-ol-title {
+  font: var(--uiowa-typography-label-large-font-weight) var(--uiowa-typography-label-large-font-size) / var(--uiowa-typography-label-large-line-height) var(--uiowa-typography-label-large-font-family);
+  letter-spacing: .06em; text-transform: uppercase; color: var(--c-fg);
+}
 
 /* ---- lists: base/_lists.scss --------------------------------------------- */
 .ds-doc ul:not(.cards, .tk-swatches, .ty-icons) { list-style: disc outside; margin: 1.05rem 0 1.05rem 1.875rem; padding-left: 0; }
@@ -130,9 +139,10 @@
 /* ---- header: the brand bar's container ---------------------------------------- */
 /* As the UIDS brand bar: the bar spans the window and its content sits in the
    standard container, centred once the window is wider than it. The page grid
-   uses the same cap (--ds-page), so the logo and the rail line up. */
+   uses the same cap (--ds-frame), so the logo and the rail line up. */
 @media (min-width: 50rem) {
-  /* The rail's title caps on the line where a page's first cap sits. */
-  .ds-rail-title { display: block; margin-top: calc(var(--uiowa-typography-base-font-size) * 4); text-box: trim-both cap alphabetic; }
-  .ds-head { padding-left: max(1.25rem, calc((100% - var(--ds-page)) / 2)); padding-right: max(1rem, calc((100% - var(--ds-page)) / 2)); }
+  /* The rail's and outline's titles cap on the line where a page's first cap sits. */
+  .ds-rail-title, .ds-ol-title { margin-top: calc(var(--uiowa-typography-base-font-size) * 4); text-box: trim-both cap alphabetic; }
+  .ds-rail-title { display: block; }
+  .ds-head { padding-left: max(1.25rem, calc((100% - var(--ds-frame)) / 2)); padding-right: max(1rem, calc((100% - var(--ds-frame)) / 2)); }
 }
