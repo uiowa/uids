@@ -12,17 +12,6 @@ export default {
   components: { UidsLogo },
   props: {
     /**
-     * Determines whether to use the narrow version of the IOWA bar.
-     */
-    narrow: {
-      type: Boolean,
-      default: false,
-    },
-    healthcare: {
-      type: Boolean,
-      default: false,
-    },
-    /**
      * The site name, shown next to the logo.
      */
     site_name: {
@@ -30,11 +19,25 @@ export default {
       default: '',
     },
     /**
-     * Optional URL that the site name links to.
+     * URL that the site name links to.
      */
     site_url: {
       type: String,
       default: '',
+    },
+    /**
+     * Determines whether to use the narrow version of the IOWA bar.
+     */
+    narrow: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * Determines whether to use the healthcare version of the IOWA Logo.
+     */
+    healthcare: {
+      type: Boolean,
+      default: false,
     },
   },
   setup(props) {

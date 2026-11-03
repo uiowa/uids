@@ -56,10 +56,10 @@ const Template = (args) => ({
 
 export const Default = Template.bind({})
 Default.args = {
-  narrow: false,
   site_name: '',
   site_url: '',
   default: '',
+  narrow: false,
   healthcare: false,
 }
 
