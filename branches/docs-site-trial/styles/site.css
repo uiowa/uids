@@ -79,7 +79,7 @@ button, input, select, textarea { font-family: inherit; }
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
 
-.sr-only {
+.sr-only, .element-invisible {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
@@ -331,8 +331,6 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
 .ds-logo:focus-visible svg { opacity: .6; }
 .ds-brand { color: var(--ds-black); font-size: 1.15rem; font-weight: 400; white-space: nowrap; }
 .ds-brand:hover { text-decoration: underline; }
-.ds-manual { color: inherit; font-size: .95rem; font-weight: 500; white-space: nowrap; }
-.ds-manual svg { display: inline-block; margin-left: .4em; vertical-align: -.05em; }
 .ds-ver { font: .72rem/1 var(--doc-mono); color: rgba(0,0,0,.72); border: 1px solid rgba(0,0,0,.35); border-radius: 9999px; padding: .22rem .5rem; white-space: nowrap; }
 .ds-gap { flex: 1; }
 .ds-iconbtn {
@@ -456,7 +454,15 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
 }
 /* The outline shows only where the content column keeps its width beside it. */
 @media (min-width: 90rem) {
-  .ds-body.has-toc { grid-template-columns: var(--ds-rail) minmax(0, 1fr) var(--ds-toc); }
+  /* The outline sits at the window's right edge. Rail and content keep the frame's left
+     margin, so they still line up with the header; the right margin goes before the outline. */
+  .ds-body.has-toc {
+    max-width: none;
+    grid-template-columns: minmax(0, 1fr) var(--ds-rail) minmax(0, calc(var(--ds-page) - var(--ds-rail))) minmax(0, 1fr) var(--ds-toc);
+  }
+  .ds-body.has-toc > .ds-rail { grid-column: 2; }
+  .ds-body.has-toc > .ds-main { grid-column: 3; }
+  .ds-body.has-toc > .ds-toc { grid-column: 5; }
   .ds-body.has-toc .ds-toc {
     display: block; position: sticky; top: var(--ds-hh); align-self: start;
     max-height: calc(100vh - var(--ds-hh)); overflow: auto; overscroll-behavior: contain; padding: 0 1.25rem 2rem 0;
@@ -583,11 +589,6 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
 .ds-pn .ds-next { grid-column: 2; text-align: right; }
 .ds-pn small { display: block; font-size: .74rem; color: var(--c-fg-3); }
 .ds-pn b { color: var(--c-link); font-weight: 600; }
-.ds-foot { background: var(--ds-black); color: #ccc; margin: 3rem calc(-1 * var(--ds-mx)) 0; padding: 2.5rem var(--ds-mx) 3rem; font-size: 1rem; line-height: 1.5; }
-.ds-foot-name { color: #fff; font-size: 1.7rem; font-weight: 900; margin: 0 0 .4rem; }
-.ds-foot p { color: #ccc; font-weight: 300; max-width: 80ch; margin: 0 0 .4rem; }
-.ds-foot a, .ds-foot code { color: var(--ds-gold); }
-.ds-foot code { background: none; border: 0; padding: 0; }
 
 @media print {
   .ds-head, .ds-sitename, .ds-rail, .ds-toc, .ds-pn, .ds-scrim, .ds-skip { display: none !important; }
