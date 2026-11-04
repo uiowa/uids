@@ -133,8 +133,12 @@
 .ds-doc .sb-embed figcaption { padding: var(--uiowa-layout-space-tight) var(--ds-padding); }
 
 .ds-pn { margin-top: var(--uiowa-layout-space-section); gap: var(--ds-gutter); }
-.ds-pn, .ds-foot { display: none; }
-.ds-foot { margin-top: var(--uiowa-layout-space-section); }
+.ds-pn { display: none; }
+
+/* ---- footer: UIDS base type (reset, paragraph, lists), which the docs body doesn't use ---- */
+.footer { line-height: 1.15; }
+.footer p { font-size: var(--uiowa-typography-body-font-size); line-height: var(--uiowa-typography-body-line-height); }
+.footer li { line-height: 1.6; }
 
 /* ---- header: the brand bar's container ---------------------------------------- */
 /* As the UIDS brand bar: the bar spans the window and its content sits in the
@@ -146,5 +150,7 @@
   .ds-rail-title { display: block; }
   /* Title hidden: the first entry's cap takes its line (less the link's padding and leading). */
   .ds-ol-title.sr-only + .ds-ol { margin-top: calc(var(--uiowa-typography-base-font-size) * 4 - .75rem); }
-  .ds-head { padding-left: max(1.25rem, calc((100% - var(--ds-frame)) / 2)); padding-right: max(1rem, calc((100% - var(--ds-frame)) / 2)); }
+  .ds-head, .footer .footer__container { padding-left: max(1.25rem, calc((100% - var(--ds-frame)) / 2)); padding-right: max(1rem, calc((100% - var(--ds-frame)) / 2)); }
+  /* The UIDS footer (dist/css/components/brand-footer.css) on the header's measure, so their logos line up. */
+  .footer .footer__container { max-width: none; margin: 0; box-sizing: border-box; }
 }
