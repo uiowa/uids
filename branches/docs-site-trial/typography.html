@@ -21,6 +21,24 @@
     document.querySelectorAll('.tabs-collection [role="tab"]').forEach(function (tab) {
       document.getElementById(tab.getAttribute('aria-controls')).hidden = tab.getAttribute('aria-selected') !== 'true';
     });
+    // Guidance shows two items; a button opens the rest.
+    document.querySelectorAll('.ty-guidance').forEach(function (list, i) {
+      var extra = Array.prototype.slice.call(list.children, 2);
+      if (!extra.length) return;
+      list.id = list.id || 'ty-guidance-' + i;
+      var more = document.createElement('p');
+      more.className = 'ty-small ty-more';
+      more.innerHTML = '<button type="button" class="ty-more-btn" aria-expanded="false" aria-controls="' + list.id + '"></button>';
+      var btn = more.firstChild;
+      function set(open) {
+        extra.forEach(function (li) { li.hidden = !open; });
+        btn.setAttribute('aria-expanded', open);
+        btn.textContent = open ? 'Show less' : 'Show ' + extra.length + ' more';
+      }
+      btn.addEventListener('click', function () { set(btn.getAttribute('aria-expanded') !== 'true'); });
+      set(false);
+      list.after(more);
+    });
   });
 </script>
 </head>
@@ -89,18 +107,14 @@
         </div>
       </div>
       <hr class="ty-inner">
-      <div class="ty-grid ty-grid--three">
+      <div class="ty-grid">
         <div>
           <p class="ty-label">Weights</p>
-          <ul class="ty-weights"><li style="font-family: var(--uiowa-typography-font-family-special-gothic-condensed); font-weight: 400; font-style: normal">Regular</li><li style="font-family: var(--uiowa-typography-font-family-special-gothic-condensed); font-weight: 500; font-style: normal">Medium</li><li style="font-family: var(--uiowa-typography-font-family-special-gothic-condensed); font-weight: 600; font-style: normal">SemiBold</li><li style="font-family: var(--uiowa-typography-font-family-special-gothic-condensed); font-weight: 700; font-style: normal">Bold</li></ul>
-        </div>
-        <div>
-          <p class="ty-label">Characters</p>
-          <p class="ty-chars" style="font-family: var(--uiowa-typography-font-family-special-gothic-condensed); font-weight: 600">Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz 0123456789!@#$%&amp;*()</p>
+          <ul class="ty-weights"><li><span class="ty-weight-name">Regular</span><span class="ty-weight-sample" style="font-family: var(--uiowa-typography-font-family-special-gothic-condensed); font-weight: 400">Aa Bb Cc 0123</span></li><li><span class="ty-weight-name">Medium</span><span class="ty-weight-sample" style="font-family: var(--uiowa-typography-font-family-special-gothic-condensed); font-weight: 500">Aa Bb Cc 0123</span></li><li><span class="ty-weight-name">SemiBold</span><span class="ty-weight-sample" style="font-family: var(--uiowa-typography-font-family-special-gothic-condensed); font-weight: 600">Aa Bb Cc 0123</span></li><li><span class="ty-weight-name">Bold</span><span class="ty-weight-sample" style="font-family: var(--uiowa-typography-font-family-special-gothic-condensed); font-weight: 700">Aa Bb Cc 0123</span></li></ul>
         </div>
         <div>
           <p class="ty-label">Guidance</p>
-          <ul class="ty-small"><li>Keep headlines and display text concise. Never use Special Gothic Condensed for body copy, long passages, or text that requires sustained reading.</li><li>Create emphasis through size, weight, and letter case. Don’t add artificial italics, stretch, skew, or further condense the letterforms.</li><li>Use sentence case for headlines. Only use all caps for short headlines or display text of 1–5 words when you need to create emphasis. Legibility is compromised if all caps are applied to long headlines and display text.</li></ul>
+          <ul class="ty-small ty-guidance"><li>Keep headlines and display text concise. Never use Special Gothic Condensed for body copy, long passages, or text that requires sustained reading.</li><li>Create emphasis through size, weight, and letter case. Don’t add artificial italics, stretch, skew, or further condense the letterforms.</li><li>Use sentence case for headlines. Only use all caps for short headlines or display text of 1–5 words when you need to create emphasis. Legibility is compromised if all caps are applied to long headlines and display text.</li></ul>
         </div>
       </div>
     </section>
@@ -119,18 +133,14 @@
         </div>
       </div>
       <hr class="ty-inner">
-      <div class="ty-grid ty-grid--three">
+      <div class="ty-grid">
         <div>
           <p class="ty-label">Weights</p>
-          <ul class="ty-weights"><li style="font-family: var(--uiowa-typography-font-family-roboto); font-weight: 100; font-style: normal">Roboto Thin</li><li style="font-family: var(--uiowa-typography-font-family-roboto); font-weight: 100; font-style: italic">Roboto Thin Italic</li><li style="font-family: var(--uiowa-typography-font-family-roboto); font-weight: 300; font-style: normal">Roboto Light</li><li style="font-family: var(--uiowa-typography-font-family-roboto); font-weight: 300; font-style: italic">Roboto Light Italic</li><li style="font-family: var(--uiowa-typography-font-family-roboto); font-weight: 400; font-style: normal">Roboto Regular</li><li style="font-family: var(--uiowa-typography-font-family-roboto); font-weight: 400; font-style: italic">Roboto Italic</li><li style="font-family: var(--uiowa-typography-font-family-roboto); font-weight: 500; font-style: normal">Roboto Medium</li><li style="font-family: var(--uiowa-typography-font-family-roboto); font-weight: 500; font-style: italic">Roboto Medium Italic</li><li style="font-family: var(--uiowa-typography-font-family-roboto); font-weight: 700; font-style: normal">Roboto Bold</li><li style="font-family: var(--uiowa-typography-font-family-roboto); font-weight: 700; font-style: italic">Roboto Bold Italic</li><li style="font-family: var(--uiowa-typography-font-family-roboto); font-weight: 900; font-style: normal">Roboto Black</li><li style="font-family: var(--uiowa-typography-font-family-roboto); font-weight: 900; font-style: italic">Roboto Black Italic</li></ul>
-        </div>
-        <div>
-          <p class="ty-label">Characters</p>
-          <p class="ty-chars" style="font-family: var(--uiowa-typography-font-family-roboto); font-weight: 400">Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz 0123456789!@#$%&amp;*()</p>
+          <ul class="ty-weights"><li><span class="ty-weight-name">Thin</span><span class="ty-weight-sample" style="font-family: var(--uiowa-typography-font-family-roboto); font-weight: 100">Aa Bb Cc 0123 <i>Aa Bb Cc 0123</i></span></li><li><span class="ty-weight-name">Light</span><span class="ty-weight-sample" style="font-family: var(--uiowa-typography-font-family-roboto); font-weight: 300">Aa Bb Cc 0123 <i>Aa Bb Cc 0123</i></span></li><li><span class="ty-weight-name">Regular</span><span class="ty-weight-sample" style="font-family: var(--uiowa-typography-font-family-roboto); font-weight: 400">Aa Bb Cc 0123 <i>Aa Bb Cc 0123</i></span></li><li><span class="ty-weight-name">Medium</span><span class="ty-weight-sample" style="font-family: var(--uiowa-typography-font-family-roboto); font-weight: 500">Aa Bb Cc 0123 <i>Aa Bb Cc 0123</i></span></li><li><span class="ty-weight-name">Bold</span><span class="ty-weight-sample" style="font-family: var(--uiowa-typography-font-family-roboto); font-weight: 700">Aa Bb Cc 0123 <i>Aa Bb Cc 0123</i></span></li><li><span class="ty-weight-name">Black</span><span class="ty-weight-sample" style="font-family: var(--uiowa-typography-font-family-roboto); font-weight: 900">Aa Bb Cc 0123 <i>Aa Bb Cc 0123</i></span></li></ul>
         </div>
         <div>
           <p class="ty-label">Guidance</p>
-          <ul class="ty-small"><li>Use Roboto as the standard for body text and functional information. Don’t use Special Gothic Condensed or Zilla for body text.</li><li>Use italics for emphasis and as outlined in our editorial style guide. Don’t use italics decoratively or in place of clearer writing.</li></ul>
+          <ul class="ty-small ty-guidance"><li>Use Roboto as the standard for body text and functional information. Don’t use Special Gothic Condensed or Zilla for body text.</li><li>Use italics for emphasis and as outlined in our editorial style guide. Don’t use italics decoratively or in place of clearer writing.</li></ul>
         </div>
       </div>
     </section>
@@ -149,18 +159,14 @@
         </div>
       </div>
       <hr class="ty-inner">
-      <div class="ty-grid ty-grid--three">
+      <div class="ty-grid">
         <div>
           <p class="ty-label">Weights</p>
-          <ul class="ty-weights"><li style="font-family: var(--uiowa-typography-font-family-zilla-slab); font-weight: 300; font-style: normal">Zilla Slab Light</li><li style="font-family: var(--uiowa-typography-font-family-zilla-slab); font-weight: 300; font-style: italic">Zilla Slab Light Italic</li><li style="font-family: var(--uiowa-typography-font-family-zilla-slab); font-weight: 400; font-style: normal">Zilla Slab Regular</li><li style="font-family: var(--uiowa-typography-font-family-zilla-slab); font-weight: 400; font-style: italic">Zilla Slab Italic</li><li style="font-family: var(--uiowa-typography-font-family-zilla-slab); font-weight: 500; font-style: normal">Zilla Slab Medium</li><li style="font-family: var(--uiowa-typography-font-family-zilla-slab); font-weight: 500; font-style: italic">Zilla Slab Medium Italic</li><li style="font-family: var(--uiowa-typography-font-family-zilla-slab); font-weight: 600; font-style: normal">Zilla Slab SemiBold</li><li style="font-family: var(--uiowa-typography-font-family-zilla-slab); font-weight: 600; font-style: italic">Zilla Slab SemiBold Italic</li><li style="font-family: var(--uiowa-typography-font-family-zilla-slab); font-weight: 700; font-style: normal">Zilla Slab Bold</li><li style="font-family: var(--uiowa-typography-font-family-zilla-slab); font-weight: 700; font-style: italic">Zilla Slab Bold Italic</li></ul>
-        </div>
-        <div>
-          <p class="ty-label">Characters</p>
-          <p class="ty-chars" style="font-family: var(--uiowa-typography-font-family-zilla-slab); font-weight: 400">Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz 0123456789!@#$%&amp;*()</p>
+          <ul class="ty-weights"><li><span class="ty-weight-name">Light</span><span class="ty-weight-sample" style="font-family: var(--uiowa-typography-font-family-zilla-slab); font-weight: 300">Aa Bb Cc 0123 <i>Aa Bb Cc 0123</i></span></li><li><span class="ty-weight-name">Regular</span><span class="ty-weight-sample" style="font-family: var(--uiowa-typography-font-family-zilla-slab); font-weight: 400">Aa Bb Cc 0123 <i>Aa Bb Cc 0123</i></span></li><li><span class="ty-weight-name">Medium</span><span class="ty-weight-sample" style="font-family: var(--uiowa-typography-font-family-zilla-slab); font-weight: 500">Aa Bb Cc 0123 <i>Aa Bb Cc 0123</i></span></li><li><span class="ty-weight-name">SemiBold</span><span class="ty-weight-sample" style="font-family: var(--uiowa-typography-font-family-zilla-slab); font-weight: 600">Aa Bb Cc 0123 <i>Aa Bb Cc 0123</i></span></li><li><span class="ty-weight-name">Bold</span><span class="ty-weight-sample" style="font-family: var(--uiowa-typography-font-family-zilla-slab); font-weight: 700">Aa Bb Cc 0123 <i>Aa Bb Cc 0123</i></span></li></ul>
         </div>
         <div>
           <p class="ty-label">Guidance</p>
-          <ul class="ty-small"><li>Use Zilla Slab to support other brand fonts or as a primary typeface in editorial communications.</li><li>Don’t use Zilla Slab for body text. Its heavier serifs can make longer passages harder to read.</li></ul>
+          <ul class="ty-small ty-guidance"><li>Use Zilla Slab to support other brand fonts or as a primary typeface in editorial communications.</li><li>Don’t use Zilla Slab for body text. Its heavier serifs can make longer passages harder to read.</li></ul>
         </div>
       </div>
     </section>
@@ -179,18 +185,14 @@
         </div>
       </div>
       <hr class="ty-inner">
-      <div class="ty-grid ty-grid--three">
+      <div class="ty-grid">
         <div>
           <p class="ty-label">Weights</p>
-          <ul class="ty-weights"><li style="font-family: var(--uiowa-typography-font-family-lora); font-weight: 400; font-style: normal">Lora Regular</li><li style="font-family: var(--uiowa-typography-font-family-lora); font-weight: 400; font-style: italic">Lora Italic</li><li style="font-family: var(--uiowa-typography-font-family-lora); font-weight: 500; font-style: normal">Lora Medium</li><li style="font-family: var(--uiowa-typography-font-family-lora); font-weight: 500; font-style: italic">Lora Medium Italic</li><li style="font-family: var(--uiowa-typography-font-family-lora); font-weight: 600; font-style: normal">Lora SemiBold</li><li style="font-family: var(--uiowa-typography-font-family-lora); font-weight: 600; font-style: italic">Lora SemiBold Italic</li><li style="font-family: var(--uiowa-typography-font-family-lora); font-weight: 700; font-style: normal">Lora Bold</li><li style="font-family: var(--uiowa-typography-font-family-lora); font-weight: 700; font-style: italic">Lora Bold Italic</li></ul>
-        </div>
-        <div>
-          <p class="ty-label">Characters</p>
-          <p class="ty-chars" style="font-family: var(--uiowa-typography-font-family-lora); font-weight: 400">Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz 0123456789!@#$%&amp;*()</p>
+          <ul class="ty-weights"><li><span class="ty-weight-name">Regular</span><span class="ty-weight-sample" style="font-family: var(--uiowa-typography-font-family-lora); font-weight: 400">Aa Bb Cc 0123 <i>Aa Bb Cc 0123</i></span></li><li><span class="ty-weight-name">Medium</span><span class="ty-weight-sample" style="font-family: var(--uiowa-typography-font-family-lora); font-weight: 500">Aa Bb Cc 0123 <i>Aa Bb Cc 0123</i></span></li><li><span class="ty-weight-name">SemiBold</span><span class="ty-weight-sample" style="font-family: var(--uiowa-typography-font-family-lora); font-weight: 600">Aa Bb Cc 0123 <i>Aa Bb Cc 0123</i></span></li><li><span class="ty-weight-name">Bold</span><span class="ty-weight-sample" style="font-family: var(--uiowa-typography-font-family-lora); font-weight: 700">Aa Bb Cc 0123 <i>Aa Bb Cc 0123</i></span></li></ul>
         </div>
         <div>
           <p class="ty-label">Guidance</p>
-          <ul class="ty-small"><li>Reserve Lora for communications with a clear formal or ceremonial purpose. Don’t use it as decoration or to make routine pieces feel formal.</li><li>Use Lora for prominent titles and shorter passages of text. Keep longer body text in Roboto.</li><li>Don’t use Lora and Zilla Slab in the same piece. Both are distinctive serifs, and together they compete for attention.</li><li>Use italics to add contrast or emphasis to short passages and callouts.</li></ul>
+          <ul class="ty-small ty-guidance"><li>Reserve Lora for communications with a clear formal or ceremonial purpose. Don’t use it as decoration or to make routine pieces feel formal.</li><li>Use Lora for prominent titles and shorter passages of text. Keep longer body text in Roboto.</li><li>Don’t use Lora and Zilla Slab in the same piece. Both are distinctive serifs, and together they compete for attention.</li><li>Use italics to add contrast or emphasis to short passages and callouts.</li></ul>
         </div>
       </div>
     </section>
@@ -208,15 +210,16 @@
           <ul class="ty-small"><li>Interface and navigation elements</li><li>Social media platform icons</li><li>Directional arrows and wayfinding cues</li><li>Action icons paired with buttons or links</li></ul>
         </div>
       </div>
-      <div class="ty-grid ty-grid--33-67">
+      <hr class="ty-inner">
+      <div class="ty-grid">
         <div>
-          <p class="ty-label">Icons</p>
-          <ul class="ty-small ty-icons"><li><i class="fa-solid fa-arrow-right" aria-hidden="true"></i>arrow-right</li><li><i class="fa-solid fa-download" aria-hidden="true"></i>download</li><li><i class="fa-regular fa-envelope" aria-hidden="true"></i>envelope</li><li><i class="fa-regular fa-calendar" aria-hidden="true"></i>calendar</li><li><i class="fa-brands fa-square-facebook" aria-hidden="true"></i>square-facebook</li></ul>
+          <p class="ty-label">Styles</p>
+          <ul class="ty-weights"><li><span class="ty-weight-name">Solid</span><span class="ty-weight-sample ty-icon-row"><i class="fa-solid fa-envelope" aria-hidden="true"></i><i class="fa-solid fa-calendar" aria-hidden="true"></i><i class="fa-solid fa-bell" aria-hidden="true"></i><i class="fa-solid fa-user" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-comment" aria-hidden="true"></i><i class="fa-solid fa-clock" aria-hidden="true"></i><i class="fa-solid fa-file" aria-hidden="true"></i><span class="sr-only">envelope, calendar, bell, user, star, comment, clock, file</span></span></li><li><span class="ty-weight-name">Regular</span><span class="ty-weight-sample ty-icon-row"><i class="fa-regular fa-envelope" aria-hidden="true"></i><i class="fa-regular fa-calendar" aria-hidden="true"></i><i class="fa-regular fa-bell" aria-hidden="true"></i><i class="fa-regular fa-user" aria-hidden="true"></i><i class="fa-regular fa-star" aria-hidden="true"></i><i class="fa-regular fa-comment" aria-hidden="true"></i><i class="fa-regular fa-clock" aria-hidden="true"></i><i class="fa-regular fa-file" aria-hidden="true"></i><span class="sr-only">envelope, calendar, bell, user, star, comment, clock, file</span></span></li></ul>
           <p class="ty-small ty-more"><a href="#">View all suggested icons</a></p>
         </div>
         <div>
           <p class="ty-label">Guidance</p>
-          <ul class="ty-small element--two-column"><li>Choose either Solid or Regular icons based on the level of emphasis needed and use that style consistently. Don’t use Thin, Light, Duotone, Sharp, animated, or other specialty styles.</li><li>Keep icons smaller and less prominent than the text they support. As a starting point, size an icon to about 75% of the text line height, then adjust for visual balance.</li><li>Pair icons with visible text unless their meaning is widely understood. When text already explains the icon, hide it from screen readers to avoid repetition. When an icon appears alone, provide an accessible name and add a tooltip when helpful.</li><li>Don’t use Font Awesome as a substitute for Iowa brand icons in larger-scale or expressive applications.</li></ul>
+          <ul class="ty-small ty-guidance"><li>Choose either Solid or Regular icons based on the level of emphasis needed and use that style consistently. Don’t use Thin, Light, Duotone, Sharp, animated, or other specialty styles.</li><li>Keep icons smaller and less prominent than the text they support. As a starting point, size an icon to about 75% of the text line height, then adjust for visual balance.</li><li>Pair icons with visible text unless their meaning is widely understood. When text already explains the icon, hide it from screen readers to avoid repetition. When an icon appears alone, provide an accessible name and add a tooltip when helpful.</li><li>Don’t use Font Awesome as a substitute for Iowa brand icons in larger-scale or expressive applications.</li></ul>
         </div>
       </div>
     </section>
