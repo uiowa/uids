@@ -32,7 +32,7 @@
 
    Saved per browser in localStorage: ais-docs-theme (system | light | dark,
    shared with the toolkit's own docs), ais-docs-hierarchy (s | m | l) and
-   ais-docs-bg (white | gray) and ais-docs-toc (on | off).
+   ais-docs-bg (white | gray) and ais-docs-outline (off: lines that open the list | on: the list always shown).
    ============================================================================= */
 
 (function () {
@@ -45,7 +45,7 @@
   var SIZE_NAME = { s: 'Small, body 16px', m: 'Medium, body 19px (default)', l: 'Large, body 24px' };
   var BGS = ['white', 'gray'];
   var BG_HEX = { white: '#FFFFFF', gray: '#F3F3F3' };
-  var TOCS = ['on', 'off'];
+  var OUTLINES = ['on', 'off'];
 
   // Storage throws outright in some privacy modes; the page must work with none.
   function read(key, allowed, fallback) {
@@ -56,12 +56,12 @@
   var theme = read('ais-docs-theme', THEMES, 'system');
   var size = read('ais-docs-hierarchy', SIZES, 'm');
   var bg = read('ais-docs-bg', BGS, 'white');
-  var outlinePref = read('ais-docs-toc', TOCS, 'on');
+  var outlinePref = read('ais-docs-outline', OUTLINES, 'off');
   function applyTheme() { if (theme === 'system') root.removeAttribute('data-theme'); else root.setAttribute('data-theme', theme); }
   function applySize() { if (size === 'm') root.removeAttribute('data-ds-hierarchy'); else root.setAttribute('data-ds-hierarchy', size); }
   function applyBg() { if (bg === 'white') root.removeAttribute('data-ds-bg'); else root.setAttribute('data-ds-bg', bg); }
-  function applyToc() { if (outlinePref === 'on') root.removeAttribute('data-ds-toc'); else root.setAttribute('data-ds-toc', outlinePref); }
-  applyTheme(); applySize(); applyBg(); applyToc();
+  function applyOutline() { if (outlinePref === 'off') root.removeAttribute('data-ds-outline'); else root.setAttribute('data-ds-outline', outlinePref); }
+  applyTheme(); applySize(); applyBg(); applyOutline();
 
   var ICON = {
     gear: '<svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M8.6 1.8h2.8l.4 2.3a6.2 6.2 0 011.6.9l2.2-.8 1.4 2.4-1.8 1.5a6.3 6.3 0 010 1.8l1.8 1.5-1.4 2.4-2.2-.8a6.2 6.2 0 01-1.6.9l-.4 2.3H8.6l-.4-2.3a6.2 6.2 0 01-1.6-.9l-2.2.8L3 12.4l1.8-1.5a6.3 6.3 0 010-1.8L3 7.6l1.4-2.4 2.2.8a6.2 6.2 0 011.6-.9z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="10" cy="10" r="2.6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>',
@@ -101,9 +101,9 @@
         '<div><p class="ds-pop-label" id="' + id + '-bg">Background</p><div class="ds-seg ds-seg--2" role="group" aria-labelledby="' + id + '-bg">' +
           BGS.map(function (b) { return '<button type="button" data-bg-pick="' + b + '"><span class="ds-swatch" style="background:' + BG_HEX[b] + '" aria-hidden="true"></span><span>' + b.charAt(0).toUpperCase() + b.slice(1) + '</span></button>'; }).join('') +
         '</div><p class="ds-pop-hint">In the light theme.</p></div>' +
-        '<div><p class="ds-pop-label" id="' + id + '-toc">Page outline menu</p><div class="ds-seg ds-seg--2" role="group" aria-labelledby="' + id + '-toc">' +
-          TOCS.map(function (o) { return '<button type="button" data-toc-pick="' + o + '"><span>' + o.charAt(0).toUpperCase() + o.slice(1) + '</span></button>'; }).join('') +
-        '</div><p class="ds-pop-hint">The page outline, on wide screens.</p></div>' +
+        '<div><p class="ds-pop-label" id="' + id + '-toc">Always show page outline</p><div class="ds-seg ds-seg--2" role="group" aria-labelledby="' + id + '-toc">' +
+          OUTLINES.map(function (o) { return '<button type="button" data-toc-pick="' + o + '"><span>' + o.charAt(0).toUpperCase() + o.slice(1) + '</span></button>'; }).join('') +
+        '</div><p class="ds-pop-hint">On lists the page’s sections at the right. Off shows short lines there instead; point to or select them to open the list. Wide screens only.</p></div>' +
         '<div class="ds-pop-foot"><p>Saved on this browser.</p><button type="button" class="ds-pop-reset">Reset to defaults</button></div>' +
       '</div>';
     var btn = box.firstChild, pop = box.querySelector('.ds-pop');
@@ -114,7 +114,7 @@
       pop.querySelectorAll('[data-bg-pick]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-bg-pick') === bg)); });
       pop.querySelectorAll('[data-toc-pick]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-toc-pick') === outlinePref)); });
       pop.querySelector('.ds-pop-hint').textContent = SIZE_NAME[size];
-      pop.querySelector('.ds-pop-reset').disabled = theme === 'system' && size === 'm' && bg === 'white' && outlinePref === 'on';
+      pop.querySelector('.ds-pop-reset').disabled = theme === 'system' && size === 'm' && bg === 'white' && outlinePref === 'off';
     }
     function open(v) {
       pop.hidden = !v; btn.setAttribute('aria-expanded', String(v));
@@ -127,9 +127,9 @@
       if (!t) return;
       if (t.hasAttribute('data-theme-pick')) { theme = t.getAttribute('data-theme-pick'); write('ais-docs-theme', theme); applyTheme(); }
       else if (t.hasAttribute('data-bg-pick')) { bg = t.getAttribute('data-bg-pick'); write('ais-docs-bg', bg); applyBg(); }
-      else if (t.hasAttribute('data-toc-pick')) { outlinePref = t.getAttribute('data-toc-pick'); write('ais-docs-toc', outlinePref); applyToc(); }
+      else if (t.hasAttribute('data-toc-pick')) { outlinePref = t.getAttribute('data-toc-pick'); write('ais-docs-outline', outlinePref); applyOutline(); }
       else if (t.hasAttribute('data-size-pick')) { size = t.getAttribute('data-size-pick'); write('ais-docs-hierarchy', size); applySize(); sticky(); if (items.length) spy(); }
-      else { theme = 'system'; size = 'm'; bg = 'white'; outlinePref = 'on'; write('ais-docs-theme', theme); write('ais-docs-hierarchy', size); write('ais-docs-bg', bg); write('ais-docs-toc', outlinePref); applyTheme(); applySize(); applyBg(); applyToc(); sticky(); if (items.length) spy(); pop.querySelector('[data-theme-pick="system"]').focus(); }
+      else { theme = 'system'; size = 'm'; bg = 'white'; outlinePref = 'off'; write('ais-docs-theme', theme); write('ais-docs-hierarchy', size); write('ais-docs-bg', bg); write('ais-docs-outline', outlinePref); applyTheme(); applySize(); applyBg(); applyOutline(); sticky(); if (items.length) spy(); pop.querySelector('[data-theme-pick="system"]').focus(); }
       sync();
     });
     on(document, 'click', function (e) { if (!pop.hidden && !box.contains(e.target)) { pop.hidden = true; btn.setAttribute('aria-expanded', 'false'); } });
