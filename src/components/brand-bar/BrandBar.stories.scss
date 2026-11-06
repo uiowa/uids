@@ -1,0 +1,69 @@
+// Story-only styles for the brand bar examples. Imported by
+// BrandBar.stories.js only; not compiled into dist or part of UIDS.
+//
+// Once a story loads, these styles stay on the page for every story
+// viewed after it, so scope every rule under a story-only class.
+@use '../../scss/abstracts/variables';
+@use '../../scss/abstracts/utilities';
+
+// === Content examples === //
+// Below md, inset the examples to line up with the site name text.
+.sb-brand-bar-badge,
+.sb-brand-bar-button {
+  align-self: center;
+  margin: 0 variables.$gutter 10px;
+}
+
+.sb-brand-bar-badge {
+  @include utilities.breakpoint(md) {
+    margin: 0 0 0 10px;
+  }
+}
+
+.sb-brand-bar-button {
+  @include utilities.breakpoint(md) {
+    margin: 0 10px 0 auto;
+  }
+}
+
+// === Second row === //
+// Recreates the removed 4.x `.iowa-bar__below` row, matched to the live
+// With Parent Site Title story.
+.sb-brand-bar-row {
+  border-bottom: var(--uiowa-stroke-width-default) solid #e6e5e5;
+  background: var(--uiowa-color-background-white);
+
+  &__container {
+    max-width: variables.$container-width;
+
+    @include utilities.breakpoint(md) {
+      display: flex;
+      flex-wrap: wrap;
+      min-height: 90px;
+      padding-left: variables.$gutter;
+    }
+
+    @include utilities.breakpoint(page-container) {
+      margin: 0 auto;
+      padding-left: 0;
+    }
+  }
+
+  .site-name {
+    margin: 0;
+    padding: variables.$gutter;
+    background: var(--uiowa-brand-bar-below-md-site-name-background);
+    font-size: 1.8rem;
+    line-height: 1;
+
+    @include utilities.breakpoint(md) {
+      padding: 25px 20px 25px 0;
+      background: transparent;
+      font-size: 2rem;
+    }
+
+    @include utilities.breakpoint(page-container) {
+      font-size: 2.2rem;
+    }
+  }
+}

@@ -71,6 +71,33 @@ describe('fluidFontSize', () => {
       },
     })).toThrow('edu.uiowa.fluid.maxViewport must exceed minViewport');
   });
+
+  it('accepts rem viewport bounds, converting them to px', () => {
+    // 37.5rem and 81.875rem are the rem equivalents of 600px and 1310px, so the
+    // clamp must match the px case above exactly.
+    expect(fluidFontSize({
+      $value: '1.6rem',
+      $extensions: {
+        'edu.uiowa.fluid': {
+          ...fluid,
+          minViewport: { value: 37.5, unit: 'rem' },
+          maxViewport: { value: 81.875, unit: 'rem' },
+        },
+      },
+    })).toBe('clamp(1.6rem, calc(1.3521vw + 1.093rem), 2.2rem)');
+  });
+
+  it('rejects a viewport bound that is neither px nor rem', () => {
+    expect(() => fluidFontSize({
+      $value: '1.6rem',
+      $extensions: {
+        'edu.uiowa.fluid': {
+          ...fluid,
+          minViewport: { value: 600, unit: 'em' },
+        },
+      },
+    })).toThrow('edu.uiowa.fluid.minViewport must be a px or rem dimension');
+  });
 });
 
 // DTCG requires components for an sRGB value and permits a hex fallback. Style
@@ -128,7 +155,7 @@ it('writes breakpoints to Sass in rem and durations as CSS times', () => {
   const breakpoints = readFileSync(join(repository, 'src/scss/abstracts/_breakpoints-generated.scss'), 'utf8');
 
   expect(breakpoints).toContain('$uiowa-breakpoint-1350: 84.375rem;');
-  expect(breakpoints).toContain('$uiowa-layout-breakpoint-standard: 84.375rem;');
+  expect(breakpoints).toContain('$uiowa-breakpoint-standard: 84.375rem;');
   expect(tokens).not.toContain('--uiowa-breakpoint-');
   expect(tokens).toContain('--uiowa-duration-150: 150ms;');
   expect(tokens).not.toContain('[object Object]');
