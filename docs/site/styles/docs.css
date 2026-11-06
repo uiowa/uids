@@ -28,10 +28,10 @@
 .tk-bar { display: block; height: 1rem; background: var(--ds-gold); }
 .tk-spaces td:nth-child(2) { min-width: 9rem; }
 
-.sb-embeds { display: grid; gap: 1rem; margin: 1rem 0; }
-.sb-embed { margin: 0; border: 1px solid var(--c-line); background: var(--c-panel); }
+.sb-embeds { display: grid; gap: var(--ty-gap, 1rem); margin: 1rem 0; }
+.sb-embed { margin: 0; }
 .sb-embed iframe { display: block; width: 100%; height: 8rem; border: 0; background: #fff; }
-.sb-embed figcaption { padding: .5rem .75rem; border-top: 1px solid var(--c-line); font-size: .85rem; }
+.sb-embed figcaption { font-size: .85rem; }
 
 /* ---- Typography page: the Storybook Showcase › Typography page story ---------- */
 .ds-doc.ty {
@@ -45,6 +45,8 @@
   --ty-head-lh: var(--uiowa-typography-subhead-medium-line-height);
   --ty-rule: rgba(0, 0, 0, .3); --ty-rule-thin: rgba(0, 0, 0, .1); --ty-bevel: rgba(255, 255, 255, .3);
   --ty-eyebrow-color: var(--uiowa-color-neutral-500);
+  /* one gap for every row or grid of boxes: buttons, cards, swatches, examples, embeds */
+  --ty-gap: var(--uiowa-layout-gutter);
   /* the page opens on the band gap, from the bar to the first cap, and closes on it */
   padding-top: var(--ty-band); padding-bottom: var(--ty-band);
 }
@@ -99,7 +101,7 @@
 .ds-doc .ty-btn { display: inline-block; padding: 1rem 2rem; border: 1px solid var(--uiowa-color-brand-gold); background: var(--uiowa-color-brand-gold); color: var(--uiowa-color-brand-black); font: 400 .9rem / 1.4 var(--uiowa-typography-font-family-roboto); letter-spacing: .04rem; text-transform: uppercase; text-decoration: none; }
 .ds-doc .ty-btn:is(:hover, :focus-visible) { text-decoration: underline; }
 /* the actions under the intro: UIDS .bttn--tertiary.bttn--light-font */
-.ds-doc .ty-actions { display: flex; flex-wrap: wrap; gap: var(--ty-rel) 1rem; margin: var(--ty-brk) 0 0; max-width: none; }
+.ds-doc .ty-actions { display: flex; flex-wrap: wrap; gap: var(--ty-gap); margin: var(--ty-brk) 0 0; max-width: none; }
 .ds-doc a.ty-btn--outline { border-color: var(--uiowa-color-border-default); background: var(--uiowa-color-background-white); }
 .ds-doc a.ty-btn--outline i { margin-right: .5em; color: var(--uiowa-color-brand-gold); }
 
@@ -134,9 +136,9 @@
 @media (max-width: 35.99rem) { .ds-doc .ty-callout { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; } }
 
 /* the overview cards, each linking to its section */
-.ds-doc ul.ufi { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: 2rem 0 0; padding: 0; list-style: none; }
+.ds-doc ul.ufi { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--ty-gap); max-width: none; margin: 2rem 0 0; padding: 0; list-style: none; }
 @media (max-width: 47.99rem) { .ds-doc ul.ufi { grid-template-columns: minmax(0, 1fr); } }
-.ds-doc .ufi li { margin: 0; }
+.ds-doc ul.ufi > li { margin: 0; }
 .ds-doc .ufi li:last-child:nth-child(odd) { grid-column: 1 / -1; }
 .ds-doc .ufi a { display: flex; flex-direction: column; gap: .75rem; height: 100%; padding: 1.5rem; border: 1px solid var(--c-line); color: var(--c-fg); text-decoration: none; transition: box-shadow .15s, border-color .15s; }
 .ds-doc .ufi a:is(:hover, :focus-visible) { border-color: var(--ds-gold); box-shadow: inset 0 0 0 2px var(--ds-gold); }
@@ -152,7 +154,7 @@
 /* When to use: the gray panel beside the palette or weights */
 .ds-doc .ty-wtu { align-self: start; padding: 2rem 2rem 1.5rem; background: var(--ds-stripe); }
 .ds-doc .ty-wtu .ty-label { margin: 0 0 1rem; }
-.ds-doc .ty-wtu ul { margin: 0; }
+.ds-doc .ty-wtu ul { margin: 0; padding-left: 1.25em; }
 .ds-doc .ty-wtu li { margin: 0 0 .6rem; }
 
 /* Typography: weights and styles */
@@ -174,7 +176,7 @@
 .ds-doc .cl-intro { max-width: 44rem; }
 .ds-doc .cl-split { margin-top: 2.5rem; }
 .ds-doc .cl-sub { margin: 2rem 0 .75rem; }
-.ds-doc .cl-swatches { display: grid; gap: .75rem; margin: 0; }
+.ds-doc .cl-swatches { display: grid; gap: var(--ty-gap); margin: 0; }
 .ds-doc .cl-swatches--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .ds-doc .csw { display: flex; flex-direction: column; margin: 0; border: 1px solid var(--c-line); }
 .ds-doc .csw-chip { display: flex; align-items: flex-end; height: 3.5rem; padding: .6rem .75rem; }
@@ -245,8 +247,10 @@
 
 /* the example cards: Dos on the first row, Don'ts on the next. The examples are pictures,
    so a Don't's colors never become system CSS. */
-.ds-doc .tcards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.5rem 1.5rem; }
-.ds-doc .tcards .tg-break { grid-column: 1 / -1; height: 0; margin-top: -1.25rem; }
+.ds-doc .tcards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--ty-gap); }
+/* the Don'ts start a new row; the break itself takes no row, so every gap is the same */
+.ds-doc .tcards .tg-break { display: none; }
+.ds-doc .tcards .tg-break + .tcard { grid-column-start: 1; }
 @media (max-width: 63.99rem) { .ds-doc .tcards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 35.99rem) { .ds-doc .tcards { grid-template-columns: minmax(0, 1fr); } }
 .ds-doc .mk { margin: 0; }
@@ -254,8 +258,5 @@
 .ds-doc .mk-stage--img img { display: block; width: 100%; height: auto; }
 .ds-doc .tcard-cap p { margin: .5rem 0 0; font: 400 1rem / 1.5 var(--uiowa-typography-font-family-roboto); }
 
-/* Use in your work: Copy Markdown */
-.ds-doc .ty-md { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.5rem; }
-.ds-doc button.ty-btn { cursor: pointer; }
-.ds-doc .ty-md .ty-btn i { margin-right: .5em; }
-.ds-doc .ty-md-status { font-weight: 500; }
+/* Use in your work: the page as Markdown, wrapped, in a box that scrolls */
+.ds-doc pre.ty-md { max-height: 32rem; overflow: auto; white-space: pre-wrap; }

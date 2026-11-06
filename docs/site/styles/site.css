@@ -352,13 +352,13 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
   :root[data-ds-shell]:not([data-theme="light"]) .ds-head { background: var(--ds-black); color: #fff; box-shadow: inset 0 -1px 0 var(--c-line); }
   :root[data-ds-shell]:not([data-theme="light"]) .ds-brand { color: #fff; }
   :root[data-ds-shell]:not([data-theme="light"]) .ds-ver { color: rgba(255,255,255,.72); border-color: rgba(255,255,255,.325); }
-  :root[data-ds-shell]:not([data-theme="light"]) .ds-head > .ds-iconbtn { color: #fff; border-color: rgba(255,255,255,.325); }
+  :root[data-ds-shell]:not([data-theme="light"]) :is(.ds-head, .ds-display) > .ds-iconbtn { color: #fff; border-color: rgba(255,255,255,.325); }
   :root[data-ds-shell]:not([data-theme="light"]) .ds-head :focus-visible { outline-color: var(--ds-gold); }
 }
 :root[data-ds-shell][data-theme="dark"] .ds-head { background: var(--ds-black); color: #fff; box-shadow: inset 0 -1px 0 var(--c-line); }
 :root[data-ds-shell][data-theme="dark"] .ds-brand { color: #fff; }
 :root[data-ds-shell][data-theme="dark"] .ds-ver { color: rgba(255,255,255,.72); border-color: rgba(255,255,255,.325); }
-:root[data-ds-shell][data-theme="dark"] .ds-head > .ds-iconbtn { color: #fff; border-color: rgba(255,255,255,.325); }
+:root[data-ds-shell][data-theme="dark"] :is(.ds-head, .ds-display) > .ds-iconbtn { color: #fff; border-color: rgba(255,255,255,.325); }
 :root[data-ds-shell][data-theme="dark"] .ds-head :focus-visible { outline-color: var(--ds-gold); }
 /* Dark: the logo is the light header's inverse, black wordmark on a gold tab
    (our decision: 5.x only shows gold on black; revisit if UIDS publishes a dark-mode logo). */
@@ -369,19 +369,14 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
 :root[data-ds-shell][data-theme="dark"] .ds-logo { background: var(--ds-gold); }
 :root[data-ds-shell][data-theme="dark"] .ds-logo svg { fill: var(--ds-black); }
 
-/* ---- display settings: a "Display" row at the foot of the rail, a popover above it ---- */
-.ds-display { position: sticky; bottom: 0; margin-top: auto; padding: .5rem 1.25rem 1rem .5rem; background: var(--c-bg); }
-.ds-display-btn {
-  /* on the current menu item's gray; the text stays on the menu's line */
-  display: flex; align-items: center; gap: .6em; width: 100%; padding: .5em .9em .5em calc(1.1em - .5rem); border: 0; border-radius: 8px;
-  background: var(--ds-stripe); color: var(--c-fg); font: 400 var(--ds-nav-fs) / 1.35 var(--font-sans); text-align: left; cursor: pointer;
-}
-.ds-display-btn:hover { text-decoration: underline; }
-.ds-display-btn svg { flex: none; transition: transform .3s ease-in-out; }
-.ds-display-btn[aria-expanded="true"] svg { transform: rotate(30deg); }
-/* Fixed, so the rail's scrolling box doesn't clip it. */
+/* ---- display settings: a "Display" button in the header, a popover under it ---- */
+.ds-display { position: relative; flex: none; }
+.ds-display > .ds-iconbtn { border: 0; }
+.ds-display-lbl { display: none; }
+.ds-display > .ds-iconbtn svg { transition: transform .3s ease-in-out; }
+.ds-display > .ds-iconbtn[aria-expanded="true"] svg { transform: rotate(30deg); }
 .ds-pop {
-  position: fixed; left: .75rem; bottom: 4.5rem; z-index: 45; width: min(21rem, calc(100vw - 1.5rem));
+  position: absolute; right: 0; top: calc(100% + 8px); z-index: 45; width: min(21rem, calc(100vw - 2rem));
   background: var(--c-panel); color: var(--c-fg); border: 1px solid var(--c-line); border-radius: 6px;
   box-shadow: 0 10px 30px rgba(0,0,0,.25); padding: .9rem 1rem 1rem; display: grid; gap: 1rem; text-align: left;
   font-size: 1rem;
@@ -432,7 +427,7 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
   .ds-logo { width: 6rem; height: 3.5rem; margin: 0; }
   .ds-logo svg { height: 1.25rem; }
   .ds-head > .ds-brand, .ds-head > .ds-ver { display: none; }
-  .ds-head > .ds-iconbtn { color: #F3F3F3; border-color: rgba(243,243,243,.35); }
+  :is(.ds-head, .ds-display) > .ds-iconbtn { color: #F3F3F3; border-color: rgba(243,243,243,.35); }
   .ds-head :focus-visible { outline-color: var(--ds-gold); }
   .ds-menu-btn { display: inline-flex; order: 5; }
   .ds-sitename { display: block; background: var(--ds-gold); padding: .8rem 1.25rem; }
@@ -451,11 +446,13 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
   }
   .ds-drawer-open .ds-rail-head { display: flex; align-items: center; justify-content: space-between; padding: .7rem .75rem .2rem 1.25rem; }
   .ds-rail-head .ds-iconbtn { color: var(--c-fg); border-color: var(--c-line); }
-  .ds-drawer-open .ds-display { background: var(--c-panel); }
+  .ds-pop { position: fixed; left: .75rem; right: .75rem; top: calc(var(--ds-hh) + 6px); width: auto; }
   .ds-drawer-open .ds-scrim { display: block; position: fixed; inset: 0; z-index: 40; background: rgba(0,0,0,.4); }
   .ds-drawer-open { overflow: hidden; }
 }
 @media (min-width: 50rem) {
+  .ds-display-lbl { display: inline; }
+  .ds-display > .ds-iconbtn { padding: 0 .75rem 0 .6rem; }
   .ds-body { grid-template-columns: var(--ds-rail) minmax(0, 1fr); }
   .ds-shell main.ds-main { --ds-mx: clamp(1.5rem, 3vw, 3rem); }
   .ds-doc { padding-top: 2rem; }
@@ -478,6 +475,8 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
   .ds-body.has-toc > .ds-toc { grid-column: 5; }
   /* docs-shell.js builds the minimap; without the script the column stays empty. */
   .ds-body.has-toc .ds-toc.ds-mm { display: block; position: sticky; top: var(--ds-hh); align-self: start; z-index: 20; }
+  /* Display > On this page: Off. The column stays, so the page doesn't shift. */
+  :root[data-ds-toc="off"] .ds-body.has-toc .ds-toc.ds-mm { display: none; }
 }
 
 /* ---- rail: a title, then UIDS menus, each under a small group head ----------------- */

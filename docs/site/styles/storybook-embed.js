@@ -5,6 +5,8 @@ document.querySelectorAll('.sb-embed iframe').forEach((frame) => {
     const doc = frame.contentDocument;
     if (!doc?.body || frame.dataset.sized) return;
     frame.dataset.sized = 'true';
+    // Storybook pads the story; the embed sits flush with the page.
+    doc.head.insertAdjacentHTML('beforeend', '<style>.sb-show-main.sb-main-padded { padding: 0; }</style>');
     const fit = () => { frame.style.height = `${doc.documentElement.scrollHeight}px`; };
     new ResizeObserver(fit).observe(doc.body);
     fit();
