@@ -277,41 +277,46 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
   --ds-page: 100rem;              /* layout.container.max.wide: whole page cap */
   --ds-hh: 3.125rem;              /* header height (50px at the default font) */
   --ds-rail: calc(var(--ds-nav-fs) * 14.5);   /* follows the nav text */
-  --ds-toc: 14.5rem;
+  --ds-toc: 4.5rem;               /* the outline minimap */
   --ds-frame: calc(var(--ds-page) + var(--ds-toc));   /* the outline column adds width, it doesn't take it from the content */
-  --t: 1;                         /* text size: the UIDS reading size */
+  --t: 1;                         /* hierarchy: Medium, the UIDS reading size */
   --ds-nav-fs: 1.1rem;
   color-scheme: light;
 }
-/* Dark = the 5.x black surface: text.inverse, link.inverse (gold), on the
-   5.x neutral ramp. 5.x defines no status colors for dark; these are ours. */
+/* Display > Background: Gray. The page takes color.background.gray (#F3F3F3) and what is
+   gray on white turns white. Before the dark blocks, which win at the same specificity. */
+:root[data-ds-shell][data-ds-bg="gray"] { --c-bg: var(--uiowa-color-background-gray); --ds-stripe: var(--uiowa-color-background-white); }
+/* Dark = the Simple page story's dark mode: a black page (neutral.900), neutral.700
+   dividers, text.inverse and link.inverse. Panels and the current item sit one step up
+   (neutral.800), which the story has no need for. 5.x defines no status colors for
+   dark; these are ours. */
 @media (prefers-color-scheme: dark) {
   :root[data-ds-shell]:not([data-theme="light"]) {
-    --c-bg: #232527; --c-panel: #33363A; --c-fg: #FFFFFF;
+    --c-bg: #000000; --c-panel: #232527; --c-fg: #FFFFFF;
     --c-fg-2: rgba(255,255,255,.72); --c-fg-3: rgba(255,255,255,.55);
-    --c-line: rgba(255,255,255,.18); --c-link: #FFCD00; --c-focus: #FFCD00;
+    --c-line: #33363A; --c-link: #588DD6; --c-focus: #FFCD00;
     --c-success: #4CC38A; --c-warning: #C08C00; --c-danger: #F1856A;
     --c-tint-info: rgba(51,117,209,.16); --c-tint-success: rgba(76,195,138,.14);
     --c-tint-warning: rgba(192,140,0,.16); --c-tint-danger: rgba(241,133,106,.14);
-    --ds-stripe: rgba(255,255,255,.045); --ds-input-bg: #2B2E31;
+    --ds-stripe: #232527; --ds-input-bg: #2B2E31;
     --ds-input-line: rgba(255,255,255,.325); --ds-input-glow: rgba(255,205,0,.35);
     color-scheme: dark;
   }
 }
 :root[data-ds-shell][data-theme="dark"] {
-  --c-bg: #232527; --c-panel: #33363A; --c-fg: #FFFFFF;
+  --c-bg: #000000; --c-panel: #232527; --c-fg: #FFFFFF;
   --c-fg-2: rgba(255,255,255,.72); --c-fg-3: rgba(255,255,255,.55);
-  --c-line: rgba(255,255,255,.18); --c-link: #FFCD00; --c-focus: #FFCD00;
+  --c-line: #33363A; --c-link: #588DD6; --c-focus: #FFCD00;
   --c-success: #4CC38A; --c-warning: #C08C00; --c-danger: #F1856A;
   --c-tint-info: rgba(51,117,209,.16); --c-tint-success: rgba(76,195,138,.14);
   --c-tint-warning: rgba(192,140,0,.16); --c-tint-danger: rgba(241,133,106,.14);
-  --ds-stripe: rgba(255,255,255,.045); --ds-input-bg: #2B2E31;
+  --ds-stripe: #232527; --ds-input-bg: #2B2E31;
   --ds-input-line: rgba(255,255,255,.325); --ds-input-glow: rgba(255,205,0,.35);
   color-scheme: dark;
 }
-:root[data-ds-text="s"]  { --t: .875;  --ds-nav-fs: 1rem; }
-:root[data-ds-text="l"]  { --t: 1.125; --ds-nav-fs: 1.2rem; }
-:root[data-ds-text="xl"] { --t: 1.25;  --ds-nav-fs: 1.3rem; }
+/* Hierarchy Small and Large: body 16px and 24px. The page's roles follow; the rail does not. */
+:root[data-ds-hierarchy="s"] { --t: calc(16 / 19.2); }
+:root[data-ds-hierarchy="l"] { --t: 1.25; }
 :root[data-ds-shell] { scroll-padding-top: calc(var(--ds-sticky, var(--ds-hh)) + 1rem); scrollbar-gutter: stable; }
 /* The scroll padding places every jump target; the base h2 margin would add to it. */
 .ds-shell [id] { scroll-margin-top: 0; }
@@ -342,16 +347,16 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
 .ds-head :focus-visible { outline-color: var(--ds-black); }
 .ds-menu-btn { display: none; }
 .ds-sitename { display: none; }
-/* Dark: the 5.x black surface, gold site name (link.inverse). */
+/* Dark: a black bar with a neutral.700 divider and a white site name (text.inverse). */
 @media (prefers-color-scheme: dark) {
-  :root[data-ds-shell]:not([data-theme="light"]) .ds-head { background: var(--ds-black); color: #fff; box-shadow: inset 0 -1px 0 rgba(255,255,255,.18); }
-  :root[data-ds-shell]:not([data-theme="light"]) .ds-brand { color: var(--ds-gold); }
+  :root[data-ds-shell]:not([data-theme="light"]) .ds-head { background: var(--ds-black); color: #fff; box-shadow: inset 0 -1px 0 var(--c-line); }
+  :root[data-ds-shell]:not([data-theme="light"]) .ds-brand { color: #fff; }
   :root[data-ds-shell]:not([data-theme="light"]) .ds-ver { color: rgba(255,255,255,.72); border-color: rgba(255,255,255,.325); }
   :root[data-ds-shell]:not([data-theme="light"]) .ds-head > .ds-iconbtn { color: #fff; border-color: rgba(255,255,255,.325); }
   :root[data-ds-shell]:not([data-theme="light"]) .ds-head :focus-visible { outline-color: var(--ds-gold); }
 }
-:root[data-ds-shell][data-theme="dark"] .ds-head { background: var(--ds-black); color: #fff; box-shadow: inset 0 -1px 0 rgba(255,255,255,.18); }
-:root[data-ds-shell][data-theme="dark"] .ds-brand { color: var(--ds-gold); }
+:root[data-ds-shell][data-theme="dark"] .ds-head { background: var(--ds-black); color: #fff; box-shadow: inset 0 -1px 0 var(--c-line); }
+:root[data-ds-shell][data-theme="dark"] .ds-brand { color: #fff; }
 :root[data-ds-shell][data-theme="dark"] .ds-ver { color: rgba(255,255,255,.72); border-color: rgba(255,255,255,.325); }
 :root[data-ds-shell][data-theme="dark"] .ds-head > .ds-iconbtn { color: #fff; border-color: rgba(255,255,255,.325); }
 :root[data-ds-shell][data-theme="dark"] .ds-head :focus-visible { outline-color: var(--ds-gold); }
@@ -365,10 +370,11 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
 :root[data-ds-shell][data-theme="dark"] .ds-logo svg { fill: var(--ds-black); }
 
 /* ---- display settings: a "Display" row at the foot of the rail, a popover above it ---- */
-.ds-display { position: sticky; bottom: 0; margin-top: auto; padding: .5rem 0 1rem; background: var(--c-bg); }
+.ds-display { position: sticky; bottom: 0; margin-top: auto; padding: .5rem .5rem 1rem; background: var(--c-bg); }
 .ds-display-btn {
-  display: flex; align-items: center; gap: .6em; width: 100%; padding: .5em .9em .5em 1.1em; border: 0;
-  background: none; color: var(--c-fg); font: 400 var(--ds-nav-fs) / 1.35 var(--font-sans); text-align: left; cursor: pointer;
+  /* on the current menu item's gray; the text stays on the menu's line */
+  display: flex; align-items: center; gap: .6em; width: 100%; padding: .5em .9em .5em calc(1.1em - .5rem); border: 0; border-radius: 4px;
+  background: var(--ds-stripe); color: var(--c-fg); font: 400 var(--ds-nav-fs) / 1.35 var(--font-sans); text-align: left; cursor: pointer;
 }
 .ds-display-btn:hover { text-decoration: underline; }
 .ds-display-btn svg { flex: none; transition: transform .3s ease-in-out; }
@@ -387,25 +393,25 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
 .ds-pop-x:hover { color: var(--c-fg); background: var(--c-bg); }
 .ds-pop-label { margin: 0 0 .4rem; font-family: var(--font-caps); text-transform: uppercase; letter-spacing: .12em; font-size: .74rem; font-weight: 700; color: var(--c-fg-2); }
 .ds-seg { display: grid; gap: 2px; padding: 2px; border: 1px solid var(--c-line); border-radius: 6px; }
+.ds-seg--2 { grid-template-columns: repeat(2, 1fr); }
 .ds-seg--3 { grid-template-columns: repeat(3, 1fr); }
-.ds-seg--4 { grid-template-columns: repeat(4, 1fr); }
 .ds-seg button {
   display: inline-flex; align-items: center; justify-content: center; gap: .35rem; height: 2.4rem;
   border: 0; border-radius: 4px; background: transparent; color: var(--c-fg-2); cursor: pointer; font: 400 .8rem/1 var(--font-sans);
 }
 .ds-seg button:hover { color: var(--c-fg); }
 .ds-seg button[aria-pressed="true"] { background: var(--c-bg); color: var(--c-fg); box-shadow: inset 0 0 0 1px var(--c-fg-3); font-weight: 600; }
-/* Text size: each A on one shared baseline (Roboto's sits .153em above a
+/* Hierarchy: each A on one shared baseline (Roboto's sits .153em above a
    line-height:1 box bottom), the size name centred below. */
-.ds-seg--4 button { flex-direction: column; justify-content: flex-end; gap: .3rem; height: 3.4rem; padding: .3rem 0 .4rem; }
-.ds-seg--4 .ds-a { display: flex; align-items: flex-end; height: 1.3rem; line-height: 1; font-weight: 500; position: relative; top: .153em; }
-.ds-seg--4 button:nth-child(1) .ds-a { font-size: .75rem; }
-.ds-seg--4 button:nth-child(2) .ds-a { font-size: .9rem; }
-.ds-seg--4 button:nth-child(3) .ds-a { font-size: 1.05rem; }
-.ds-seg--4 button:nth-child(4) .ds-a { font-size: 1.25rem; }
-.ds-seg--4 .ds-n { font-size: .7rem; line-height: 1; color: var(--c-fg-3); letter-spacing: .04em; }
-.ds-seg--4 button[aria-pressed="true"] .ds-n { color: var(--c-fg); }
+.ds-seg--size button { flex-direction: column; justify-content: flex-end; gap: .3rem; height: 3.4rem; padding: .3rem 0 .4rem; }
+.ds-seg--size .ds-a { display: flex; align-items: flex-end; height: 1.3rem; line-height: 1; font-weight: 500; position: relative; top: .153em; }
+.ds-seg--size button:nth-child(1) .ds-a { font-size: .8rem; }
+.ds-seg--size button:nth-child(2) .ds-a { font-size: .95rem; }
+.ds-seg--size button:nth-child(3) .ds-a { font-size: 1.2rem; }
+.ds-seg--size .ds-n { font-size: .7rem; line-height: 1; color: var(--c-fg-3); letter-spacing: .04em; }
+.ds-seg--size button[aria-pressed="true"] .ds-n { color: var(--c-fg); }
 .ds-pop-hint { margin: .4rem 0 0; font-size: .8rem; color: var(--c-fg-3); }
+.ds-swatch { width: .9rem; height: .9rem; border: 1px solid var(--c-fg-3); }
 .ds-pop-foot { display: flex; justify-content: space-between; align-items: center; gap: .5rem; padding-top: .7rem; border-top: 1px solid var(--c-line); font-size: .8rem; color: var(--c-fg-3); }
 .ds-pop-foot p { margin: 0; }
 .ds-pop-reset { border: 0; background: none; padding: 0; color: var(--c-link); font-size: .8rem; cursor: pointer; text-decoration: underline; text-underline-offset: .15em; }
@@ -431,6 +437,13 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
   .ds-menu-btn { display: inline-flex; order: 5; }
   .ds-sitename { display: block; background: var(--ds-gold); padding: .8rem 1.25rem; }
   .ds-sitename a { color: var(--ds-black); font-size: 1.35rem; font-weight: 300; }
+  /* Dark: the site name moves onto the black bar, in white, above a neutral.700 divider. */
+  @media (prefers-color-scheme: dark) {
+    :root[data-ds-shell]:not([data-theme="light"]) .ds-sitename { background: var(--ds-black); border-bottom: 1px solid var(--c-line); }
+    :root[data-ds-shell]:not([data-theme="light"]) .ds-sitename a { color: #fff; }
+  }
+  :root[data-ds-shell][data-theme="dark"] .ds-sitename { background: var(--ds-black); border-bottom: 1px solid var(--c-line); }
+  :root[data-ds-shell][data-theme="dark"] .ds-sitename a { color: #fff; }
   .ds-drawer-open .ds-rail {
     display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; z-index: 41;
     width: min(20rem, 86vw); overflow: auto; overscroll-behavior: contain; background: var(--c-panel);
@@ -463,47 +476,80 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
   .ds-body.has-toc > .ds-rail { grid-column: 2; }
   .ds-body.has-toc > .ds-main { grid-column: 3; }
   .ds-body.has-toc > .ds-toc { grid-column: 5; }
-  .ds-body.has-toc .ds-toc {
-    display: block; position: sticky; top: var(--ds-hh); align-self: start;
-    max-height: calc(100vh - var(--ds-hh)); overflow: auto; overscroll-behavior: contain; padding: 0 1.25rem 2rem 0;
-  }
+  /* docs-shell.js builds the minimap; without the script the column stays empty. */
+  .ds-body.has-toc .ds-toc.ds-mm { display: block; position: sticky; top: var(--ds-hh); align-self: start; z-index: 20; }
 }
 
-/* ---- rail: a title, then UIDS menus split by a rule ----------------------------- */
+/* ---- rail: a title, then UIDS menus, each under a small group head ----------------- */
 /* hidden below 50rem, where the drawer's head names the rail */
 .ds-rail-title { display: none; margin: 0 0 1rem; padding: 0 1.1rem; font: var(--uiowa-typography-eyebrow-medium-font-weight) var(--uiowa-typography-eyebrow-medium-font-size) / var(--uiowa-typography-eyebrow-medium-line-height) var(--uiowa-typography-eyebrow-medium-font-family); text-transform: uppercase; color: var(--c-fg); }
-.ds-rail-rule { margin: .75rem 1.1rem; border: 0; border-top: 1px solid var(--c-line); }
+.ds-menu-head { margin: 1.5rem 0 .25rem; padding: 0 1.1rem; color: var(--c-fg-2); font-size: calc(var(--ds-nav-fs) * .75); font-weight: 500; line-height: 1.3; letter-spacing: .06em; text-transform: uppercase; }
 .ds-menu { list-style: none; margin: 0; padding: 0; }
 .ds-menu:last-child { padding-bottom: 2rem; }
 .ds-menu ul { list-style: none; margin: 0; padding: 0; }
 .ds-menu li { margin: 0; }
 .ds-menu > li > ul { margin-left: 1.1em; }
-.ds-menu a {
+.ds-menu :is(a, .ds-menu-toggle) {
   position: relative; display: block; padding: .5em .9em .5em 1.1em; color: var(--c-fg);
   font-size: var(--ds-nav-fs); line-height: 1.35; text-decoration: none;
 }
-.ds-menu a::after {
+.ds-menu :is(a, .ds-menu-toggle)::after {
   content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
   background: var(--ds-nav-active); transform: scaleY(0); transform-origin: center; transition: transform .3s ease-in-out;
 }
-.ds-menu a:hover { text-decoration: underline; }
-.ds-menu a:hover::after { background: var(--ds-gold); transform: scaleY(1); }
-.ds-menu a[aria-current="page"] { font-weight: 700; background: var(--ds-stripe); }
-.ds-menu a[aria-current="page"]::after { background: var(--ds-gold); transform: scaleY(1); }
+.ds-menu :is(a, .ds-menu-toggle):hover { text-decoration: underline; }
+.ds-menu :is(a, .ds-menu-toggle):hover::after { background: var(--ds-gold); transform: scaleY(1); }
+/* A section with pages under it: docs-shell.js makes its name a button, the chevron at the far right. */
+.ds-menu .ds-menu-toggle { display: flex; align-items: center; justify-content: space-between; gap: .5em; width: 100%; padding-right: 1.1em; border: 0; background: none; font-family: inherit; font-weight: 400; text-align: left; cursor: pointer; }
+.ds-menu-toggle svg { flex: none; transition: transform .2s ease-in-out; }
+.ds-menu-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+.ds-menu a[aria-current="page"] { background: var(--ds-stripe); }
+.ds-menu .ds-menu-toggle.is-current { background: var(--ds-stripe); }
+.ds-menu a[aria-current="page"]::after, .ds-menu .ds-menu-toggle.is-current::after { background: var(--ds-gold); transform: scaleY(1); }
+/* Inside a section the tab is on the section's button; the current page there is bold only. */
+.ds-menu ul a[aria-current="page"] { font-weight: 700; background: none; }
+.ds-menu ul a[aria-current="page"]:not(:hover)::after { transform: scaleY(0); }
 .ds-menu a[href^="http"] { display: flex; align-items: center; gap: .4em; }
 .ds-menu a[href^="http"]::before { order: 1; color: var(--c-fg-3); content: ""; width: .7em; height: .7em; background: currentColor; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M7 1.5h3.5V5M10.5 1.5l-5 5M9 7.5v3H1.5V3h3' fill='none' stroke='black' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat; }
+/* a section name with no page of its own; docs-shell.js swaps it for a toggle */
+.ds-menu > li > span { display: block; padding: .5em .9em .5em 1.1em; color: var(--c-fg); font-size: var(--ds-nav-fs); line-height: 1.35; }
+/* pages inside a section, a step smaller than the section names */
+.ds-menu ul :is(a, .ds-menu-toggle) { font-size: calc(var(--ds-nav-fs) * .9); }
 .ds-menu ul ul { margin: 0 0 .2rem 1.1em; }
 
-/* ---- outline: "On this page", the right column ---------------------------- */
-.ds-ol-title { margin: 0 0 calc(var(--uiowa-typography-space-related) - .4rem); }   /* as under .ty-label, less the links' top padding */
-.ds-ol { list-style: none; margin: 0; padding: 0; border-left: 1px solid var(--c-line); }
-.ds-ol li { margin: 0; }
-.ds-ol li[hidden] { display: none; }
-.ds-ol a { display: block; margin-left: -1px; padding: .4rem .5rem .4rem 1.25rem; border-left: 3px solid transparent; color: var(--c-fg); text-decoration: none; }
-.ds-ol a:hover { border-left-color: var(--ds-nav-active); }
-.ds-ol .l3 a { padding-left: 2.25rem; }
-.ds-ol a[aria-current="location"] { font-weight: 700; border-left-color: var(--ds-gold); }
-.ds-ol-top { display: inline-block; margin-top: .8rem; font-size: .8rem; color: var(--c-fg-3); }
+/* ---- outline: "On this page", a minimap in the right column ------------------- */
+/* One bar per section at the window's edge, a subsection's shorter; the sections read
+   so far are dark. Hover, click or Enter opens the list, which slides in over the bars. */
+.ds-mm .ds-ol-title { margin: 1.25rem 1.5rem 0; }
+.ds-mm-box { position: relative; margin-top: calc(var(--uiowa-typography-base-font-size) * 4 - .75rem); }   /* first bar on the rail title's cap line, less the button's padding */
+.ds-mm-btn {
+  display: flex; flex-direction: column; align-items: flex-end; gap: .75rem; width: 100%; max-height: 50vh; overflow: hidden;
+  padding: .75rem 1.25rem; border: 0; background: none; cursor: pointer; transition: opacity .2s;
+}
+.ds-mm-bar { flex: none; width: 2rem; height: 2px; border-radius: 1px; background: var(--ds-input-line); transition: background-color .2s; }
+.ds-mm-bar.l3 { width: 1.25rem; }
+.ds-mm-bar.is-read { background: var(--c-fg); }
+.ds-mm.is-open .ds-mm-btn { opacity: 0; }
+.ds-mm-panel {
+  /* top: its title's cap on the first bar's line (button padding, less the gold bar and the title's margin) */
+  position: absolute; top: calc(-.5rem - 5px); right: .75rem; width: 14rem; max-height: 50vh; overflow: auto; overscroll-behavior: contain;
+  background: var(--c-panel); border: 1px solid var(--ds-input-line); border-top: 5px solid var(--ds-gold);   /* the rail's active bar */
+  visibility: hidden; opacity: 0; transform: translateX(.75rem);
+  transition: opacity .2s, transform .2s, visibility 0s .2s;
+}
+.ds-mm.is-open .ds-mm-panel { visibility: visible; opacity: 1; transform: none; transition-delay: 0s; }
+.ds-ol { list-style: none; margin: 0; padding: 1rem 1.5rem; font-size: .875rem; line-height: 1.4; }
+.ds-ol li { margin: 0; padding: .25rem 0; }
+.ds-ol a {
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
+  color: var(--c-fg-2); text-decoration: none; transition: color .2s;
+}
+.ds-ol a:hover { color: var(--c-fg); }
+.ds-ol .l3 a { padding-left: 1rem; }
+.ds-ol a[aria-current="location"] { color: var(--c-fg); font-weight: 700; }
+.ds-ol-top { display: inline-block; margin: 0 1.5rem 1rem; font-size: .8rem; color: var(--c-fg-3); }
+/* A section the outline sent focus to: it holds focus but isn't a control. */
+.ds-doc [tabindex="-1"]:focus { outline: none; }
 
 /* ---- content ----------------------------------------------------------------- */
 /* Type comes from the UIDS roles in uids-bridge.css. */

@@ -49,9 +49,9 @@
   padding-top: var(--ty-band); padding-bottom: var(--ty-band);
 }
 @media (prefers-color-scheme: dark) {
-  :root[data-ds-shell]:not([data-theme="light"]) .ds-doc.ty { --ty-rule: rgba(255, 255, 255, .3); --ty-rule-thin: rgba(255, 255, 255, .15); --ty-bevel: transparent; --ty-eyebrow-color: var(--c-fg-2); }
+  :root[data-ds-shell]:not([data-theme="light"]) .ds-doc.ty { --ty-rule: rgba(255, 255, 255, .3); --ty-rule-thin: var(--c-line); --ty-bevel: transparent; --ty-eyebrow-color: var(--c-fg-2); }
 }
-:root[data-ds-shell][data-theme="dark"] .ds-doc.ty { --ty-rule: rgba(255, 255, 255, .3); --ty-rule-thin: rgba(255, 255, 255, .15); --ty-bevel: transparent; --ty-eyebrow-color: var(--c-fg-2); }
+:root[data-ds-shell][data-theme="dark"] .ds-doc.ty { --ty-rule: rgba(255, 255, 255, .3); --ty-rule-thin: var(--c-line); --ty-bevel: transparent; --ty-eyebrow-color: var(--c-fg-2); }
 
 /* grids: UIDS twocol--67-33, on three equal columns 3rem apart from 768; stacked below */
 .ds-doc .ty-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3rem; }
@@ -62,7 +62,6 @@
 
 /* rules: the UIDS hr */
 .ds-doc.ty hr { height: 0; margin: var(--ty-band) 0; border: 0; border-top: 1px solid var(--ty-rule); border-bottom: 1px solid var(--ty-bevel); background: none; }
-.ds-doc.ty hr.ty-inner { margin: var(--ty-band) 0 var(--ty-brk); border-top-color: var(--ty-rule-thin); }
 .ds-doc.ty hr.ty-divider { width: 135px; height: 10px; border: 0; background: var(--uiowa-color-brand-gold);
   margin: calc((max(calc(var(--ty-title-fs) / 2), var(--ty-brk)) + var(--ty-rel)) / 2) 0; }
 
@@ -90,13 +89,6 @@
 
 /* lists */
 .ds-doc.ty ul li { line-height: 1.6; }
-.ds-doc.ty ul.ty-weights { list-style: none; margin: 0; }
-.ds-doc.ty ul.ty-weights li { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); align-items: baseline; gap: 0 1rem; margin: 0 0 .5rem; }
-.ds-doc .ty-weight-sample i { white-space: nowrap; }
-.ds-doc .ty-icon-row { display: flex; flex-wrap: wrap; gap: .25em .75em; }
-@media (max-width: 47.99rem) { .ds-doc.ty ul.ty-weights li { grid-template-columns: minmax(0, 1fr); } }
-.ds-doc .ty-weight-name { font: var(--uiowa-typography-body-small-font-weight) var(--uiowa-typography-body-small-font-size) / var(--uiowa-typography-body-small-line-height) var(--uiowa-typography-body-small-font-family); color: var(--c-fg-2); }
-.ds-doc .ty-weight-sample { font-size: var(--uiowa-typography-subhead-2-small-font-size); line-height: var(--uiowa-typography-subhead-2-small-line-height); overflow-wrap: anywhere; }
 
 /* the callout: UIDS .callout.bg--gray */
 .ds-doc .ty-callout { padding: 3rem; background: var(--ds-stripe); }
@@ -104,15 +96,17 @@
 .ds-doc .ty-callout .ty-body { max-width: none; }
 
 /* the button: UIDS .bttn--primary.bttn--light-font */
-.ds-doc a.ty-btn { display: inline-block; padding: 1rem 2rem; border: 1px solid var(--uiowa-color-brand-gold); background: var(--uiowa-color-brand-gold); color: var(--uiowa-color-brand-black); font: 400 .9rem / 1.4 var(--uiowa-typography-font-family-roboto); letter-spacing: .04rem; text-transform: uppercase; text-decoration: none; }
-.ds-doc a.ty-btn:is(:hover, :focus-visible) { text-decoration: underline; }
+.ds-doc .ty-btn { display: inline-block; padding: 1rem 2rem; border: 1px solid var(--uiowa-color-brand-gold); background: var(--uiowa-color-brand-gold); color: var(--uiowa-color-brand-black); font: 400 .9rem / 1.4 var(--uiowa-typography-font-family-roboto); letter-spacing: .04rem; text-transform: uppercase; text-decoration: none; }
+.ds-doc .ty-btn:is(:hover, :focus-visible) { text-decoration: underline; }
 /* the actions under the intro: UIDS .bttn--tertiary.bttn--light-font */
 .ds-doc .ty-actions { display: flex; flex-wrap: wrap; gap: var(--ty-rel) 1rem; margin: var(--ty-brk) 0 0; max-width: none; }
 .ds-doc a.ty-btn--outline { border-color: var(--uiowa-color-border-default); background: var(--uiowa-color-background-white); }
 .ds-doc a.ty-btn--outline i { margin-right: .5em; color: var(--uiowa-color-brand-gold); }
 
-.ds-doc .ty-crumbs ol { display: flex; flex-wrap: wrap; list-style: none; margin: 0 0 var(--uiowa-typography-space-related); padding: 0; }
-.ds-doc .ty-crumbs li { margin: 0; font-size: .8rem; text-box: trim-both cap alphabetic; }
+/* Related to the title, as an eyebrow to its headline: baseline to cap. The items run inline, so the
+   trim reaches the list's own box (a flex row keeps its untrimmed height). */
+.ds-doc .ty-crumbs ol { list-style: none; margin: 0 0 var(--uiowa-typography-space-related); padding: 0; font-size: .8rem; text-box: trim-both cap alphabetic; }
+.ds-doc .ty-crumbs li { display: inline; margin: 0; }
 .ds-doc .ty-crumbs li:not(:last-child)::after { content: "/"; margin: 0 .5rem; color: var(--uiowa-color-brand-gold); }
 .ds-doc .ty-crumbs a { color: inherit; text-decoration: none; }
 .ds-doc .ty-crumbs a:is(:hover, :focus-visible) { text-decoration: underline; }
@@ -129,8 +123,139 @@
 .ds-doc .ty-use [role="tabpanel"] { padding-top: 2rem; }
 .ds-doc .ty-use [role="tabpanel"] > :last-child { margin-bottom: 0; }
 
-/* the icon grid */
-.ds-doc .ty-more { margin: var(--ty-rel) 0 0; }
-/* as the page's links */
-.ds-doc .ty-more-btn { padding: 0; border: 0; background: none; color: var(--c-link); font: inherit; text-decoration: underline; cursor: pointer; }
+/* ---- Color and Typography: one layout (the 2026-11-06 prototypes) ----------------- */
+/* Each section: intro, then the palette or weights beside a When to use panel, then Guidance:
+   Do and Don't lists over a Show examples accordion of image cards. */
 
+/* Before you start: a brand icon beside the text */
+.ds-doc .ty-callout { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 2rem; align-items: center; }
+.ds-doc .ty-callout .co-ic { width: 5.5rem; height: 5.5rem; }
+.ds-doc .ty-callout .co-txt > :last-child { margin-bottom: 0; }
+@media (max-width: 35.99rem) { .ds-doc .ty-callout { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; } }
+
+/* the overview cards, each linking to its section */
+.ds-doc ul.ufi { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: 2rem 0 0; padding: 0; list-style: none; }
+@media (max-width: 47.99rem) { .ds-doc ul.ufi { grid-template-columns: minmax(0, 1fr); } }
+.ds-doc .ufi li { margin: 0; }
+.ds-doc .ufi li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.ds-doc .ufi a { display: flex; flex-direction: column; gap: .75rem; height: 100%; padding: 1.5rem; border: 1px solid var(--c-line); color: var(--c-fg); text-decoration: none; transition: box-shadow .15s, border-color .15s; }
+.ds-doc .ufi a:is(:hover, :focus-visible) { border-color: var(--ds-gold); box-shadow: inset 0 0 0 2px var(--ds-gold); }
+.ds-doc .ufi a:focus-visible { outline: 2px solid var(--c-fg); outline-offset: 3px; }
+.ds-doc .ufi-name { margin: 0; font-size: 2rem; line-height: 1.05; text-wrap: balance; }
+.ds-doc .cl-ufi-name { font: 600 1.5rem / 1.1 var(--uiowa-typography-font-family-zilla-slab); }
+.ds-doc .ufi-role { margin: 0; font: 400 1rem / 1.45 var(--uiowa-typography-font-family-roboto); color: var(--c-fg-2); }
+.ds-doc .ufi-go { margin-top: auto; font: 500 .875rem / 1 var(--uiowa-typography-font-family-roboto); text-decoration: underline; text-underline-offset: 3px; }
+.ds-doc .ufi-sw { display: flex; height: 2rem; margin-bottom: .25rem; box-shadow: inset 0 0 0 1px var(--c-line); }
+.ds-doc .ufi-sw i { flex: 1; }
+.ds-doc .cl-note { margin-top: 1.5rem; }
+
+/* When to use: the gray panel beside the palette or weights */
+.ds-doc .ty-wtu { align-self: start; padding: 2rem 2rem 1.5rem; background: var(--ds-stripe); }
+.ds-doc .ty-wtu .ty-label { margin: 0 0 1rem; }
+.ds-doc .ty-wtu ul { margin: 0; }
+.ds-doc .ty-wtu li { margin: 0 0 .6rem; }
+
+/* Typography: weights and styles */
+.ds-doc .spX { margin: 2.75rem 0 1.75rem; }
+.ds-doc .spX .ty-label { margin-bottom: .9rem; }
+.ds-doc .spX .spX-alpha { margin: 0 0 1rem; font-family: inherit; font-size: 1.925rem; line-height: 1.15; letter-spacing: .005em; }
+.ds-doc .spX ul.spX-w { list-style: none; margin: 0; padding: 0; }
+.ds-doc .spX .spX-w li { margin: 0; font-family: inherit; font-size: 1.2375rem; line-height: 1.45; }
+.ds-doc .spX-w i { margin-left: .6em; }
+/* a condensed face reads small at the same size */
+.ds-doc #special-gothic-condensed .spX .spX-alpha { font-size: 2.5rem; }
+.ds-doc #special-gothic-condensed .spX .spX-w li { font-size: 1.6rem; line-height: 1.35; }
+.ds-doc .faS-row { display: flex; align-items: center; gap: 1.25rem; margin: 0 0 .6rem; }
+.ds-doc .faS-row .nm { width: 4.5rem; font: 400 1.2375rem / 1.3 var(--uiowa-typography-font-family-roboto); }
+.ds-doc .faS-row .ic { display: flex; flex-wrap: wrap; gap: 1.1rem; font-size: 1.5rem; }
+.ds-doc .faS-more { margin: .9rem 0 0; font: 400 1rem / 1.4 var(--uiowa-typography-font-family-roboto); }
+
+/* Color: swatches */
+.ds-doc .cl-intro { max-width: 44rem; }
+.ds-doc .cl-split { margin-top: 2.5rem; }
+.ds-doc .cl-sub { margin: 2rem 0 .75rem; }
+.ds-doc .cl-swatches { display: grid; gap: .75rem; margin: 0; }
+.ds-doc .cl-swatches--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ds-doc .csw { display: flex; flex-direction: column; margin: 0; border: 1px solid var(--c-line); }
+.ds-doc .csw-chip { display: flex; align-items: flex-end; height: 3.5rem; padding: .6rem .75rem; }
+.ds-doc .csw--big .csw-chip { height: 5rem; }
+.ds-doc .csw-aa { font: 600 1.125rem / 1 var(--uiowa-typography-font-family-roboto); }
+.ds-doc .csw figcaption { padding: .6rem .75rem .7rem; }
+.ds-doc .csw-name { margin: 0 0 .35rem; font: 600 .875rem / 1.2 var(--uiowa-typography-font-family-roboto); }
+.ds-doc ul.csw-vals { display: grid; gap: .15rem; margin: 0; padding: 0; list-style: none; }
+.ds-doc .csw-vals li { display: grid; grid-template-columns: 4.75rem 1fr; gap: .4rem; align-items: baseline; margin: 0; font: 400 .75rem / 1.3 var(--uiowa-typography-font-family-roboto); }
+.ds-doc .csw-vals span { color: var(--c-fg-2); font-size: .625rem; letter-spacing: .04em; text-transform: uppercase; }
+.ds-doc .csw code { padding: 0; border: 0; border-radius: 0; background: none; color: var(--c-fg); font: 400 .75rem / 1.3 var(--doc-mono); }
+.ds-doc .cl-use { font: 400 .8125rem / 1.3 var(--uiowa-typography-font-family-roboto); font-style: normal; }
+.ds-doc .csw-surface { display: flex; align-items: center; height: 1.5rem; padding: 0 .75rem; border-bottom: 1px solid var(--c-line); }
+.ds-doc .csw-surface span { color: var(--c-fg-2); font: 500 .6875rem / 1 var(--uiowa-typography-font-family-roboto); letter-spacing: .04em; text-transform: uppercase; }
+.ds-doc .csw-aa--surface { display: none; }
+
+/* swatches as rows: chip, name, values; beside When to use, the rows share its height */
+.ds-doc .cl-split--rows .cl-swatches { grid-template-columns: minmax(0, 1fr); gap: 0; border-top: 1px solid var(--c-line); }
+.ds-doc .cl-split--rows .csw { flex-direction: row; align-items: stretch; border: 0; border-bottom: 1px solid var(--c-line); }
+.ds-doc .cl-split--rows .csw-chip { flex: none; width: 4.5rem; height: auto; min-height: 3.25rem; padding: .5rem .6rem; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08); }
+.ds-doc .cl-split--rows .csw-aa { font-size: .9375rem; }
+.ds-doc .cl-split--rows .csw-surface { flex: none; justify-content: center; align-items: flex-end; width: 2.75rem; height: auto; padding: 0 0 .5rem; border: 0; }
+.ds-doc .cl-split--rows .csw-surface span { display: none; }
+.ds-doc .cl-split--rows .csw-aa--surface { display: block; color: #000; }
+.ds-doc .cl-split--rows .csw figcaption { flex: 1; display: grid; grid-template-columns: 8rem 1fr; align-items: center; gap: 1rem; padding: .5rem 1rem; }
+.ds-doc .cl-split--rows .csw-name { margin: 0; }
+.ds-doc .cl-split--rows .csw-vals { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .25rem 1.5rem; }
+.ds-doc .cl-split--rows .csw-vals li { display: block; }
+.ds-doc .cl-split--rows .csw-vals span { display: block; }
+.ds-doc .cl-split--rows.ty-grid { align-items: stretch; }
+.ds-doc .cl-split--rows.ty-grid > .cl-pal { display: flex; flex-direction: column; }
+.ds-doc .cl-split--rows.ty-grid .cl-swatches { flex: var(--rows, 1) 1 0; grid-auto-rows: 1fr; }
+/* status rows add a meaning and its common uses */
+.ds-doc .cl-split--rows .cl-swatches--status .csw figcaption { grid-template-columns: minmax(0, 1fr) 16rem; gap: 1.5rem; padding: .9rem 1rem; }
+@media (max-width: 47.99rem) { .ds-doc .cl-split--rows .cl-swatches--status .csw figcaption { grid-template-columns: minmax(0, 1fr); } }
+.ds-doc .cl-swatches--status .csw-desc { margin: .25rem 0 0; font: 400 .9375rem / 1.45 var(--uiowa-typography-font-family-roboto); }
+.ds-doc .cl-swatches--status .csw-uses { margin: .35rem 0 0; color: var(--c-fg-2); font: 400 .8125rem / 1.45 var(--uiowa-typography-font-family-roboto); }
+.ds-doc .cl-swatches--status .csw-uses span { margin-right: .25rem; font-size: .625rem; letter-spacing: .04em; text-transform: uppercase; }
+/* the pointer to the data visualization page */
+.ds-doc .cl-dv { display: flex; align-items: center; gap: 1rem; margin: 1.75rem 0 0; }
+.ds-doc .cl-dv img { flex: none; width: 2.5rem; height: 2.5rem; }
+.ds-doc .cl-dv p { margin: 0; font: 400 .9375rem / 1.5 var(--uiowa-typography-font-family-roboto); }
+.ds-doc .cl-dv a { color: var(--c-link); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+
+/* Guidance: the Do and Don't lists */
+.ds-doc .ty-ex { margin-top: var(--ty-band); }
+.ds-doc .ty-ex > .ty-label { margin-bottom: 1.5rem; }
+.ds-doc .gx-rules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 3rem; }
+@media (max-width: 47.99rem) { .ds-doc .gx-rules { grid-template-columns: minmax(0, 1fr); } }
+.ds-doc .gx-rules ul { margin: .5rem 0 0; padding: 0 0 0 1.25rem; }
+.ds-doc .gx-rules li { margin: 0 0 .6rem; font: 400 1rem / 1.5 var(--uiowa-typography-font-family-roboto); }
+.ds-doc .mk-v { display: flex; align-items: center; gap: .4rem; margin: .6rem 0 0; font: 700 .75rem / 1 var(--uiowa-typography-font-family-roboto); letter-spacing: .06em; text-transform: uppercase; }
+.ds-doc :is(.mk.do .mk-v, .gx-h--do) { color: var(--c-success); }
+.ds-doc :is(.mk.dont .mk-v, .gx-h--dont) { color: var(--c-danger); }
+.ds-doc .gx-h { margin: 0; padding-bottom: .6rem; border-bottom: 2px solid currentColor; }
+
+/* Show examples: a full-width accordion on a white panel with a hairline border */
+.ds-doc .gx-acc { margin-top: 2rem; border: 1px solid var(--c-line); background: var(--c-panel); }
+.ds-doc .gx-acc > summary { display: flex; align-items: center; gap: .75rem; padding: 1rem 1.25rem; font: 700 1rem / 1.3 var(--uiowa-typography-font-family-roboto); list-style: none; cursor: pointer; }
+.ds-doc .gx-acc > summary::-webkit-details-marker { display: none; }
+.ds-doc .gx-acc > summary:hover { text-decoration: underline; }
+.ds-doc .gx-acc > summary:focus-visible { outline: 2px solid var(--c-fg); outline-offset: 2px; }
+.ds-doc .gx-acc > summary i { transition: transform .2s ease-in-out; }
+.ds-doc .gx-acc[open] > summary i { transform: rotate(180deg); }
+.ds-doc .gx-acc[open] .gx-acc-show, .ds-doc .gx-acc:not([open]) .gx-acc-hide { display: none; }
+.ds-doc .gx-acc[open] > summary { border-bottom: 1px solid var(--c-line); }
+.ds-doc .gx-ex { padding: 1.5rem 1.25rem 2rem; }
+
+/* the example cards: Dos on the first row, Don'ts on the next. The examples are pictures,
+   so a Don't's colors never become system CSS. */
+.ds-doc .tcards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.5rem 1.5rem; }
+.ds-doc .tcards .tg-break { grid-column: 1 / -1; height: 0; margin-top: -1.25rem; }
+@media (max-width: 63.99rem) { .ds-doc .tcards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 35.99rem) { .ds-doc .tcards { grid-template-columns: minmax(0, 1fr); } }
+.ds-doc .mk { margin: 0; }
+.ds-doc .mk-stage--img { border: 1px solid var(--c-line); }
+.ds-doc .mk-stage--img img { display: block; width: 100%; height: auto; }
+.ds-doc .tcard-cap p { margin: .5rem 0 0; font: 400 1rem / 1.5 var(--uiowa-typography-font-family-roboto); }
+
+/* Use in your work: Copy Markdown */
+.ds-doc .ty-md { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.5rem; }
+.ds-doc button.ty-btn { cursor: pointer; }
+.ds-doc .ty-md .ty-btn i { margin-right: .5em; }
+.ds-doc .ty-md-status { font-weight: 500; }
