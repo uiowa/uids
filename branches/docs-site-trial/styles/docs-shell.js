@@ -15,13 +15,13 @@
        <header class="ds-head">
          <a class="ds-logo">…</a> <a class="ds-brand">Site name</a> <span class="ds-ver">…</span>
          <span class="ds-gap"></span>
+         <div class="ds-display" data-ds-display></div>          ← Display button + popover
          <button class="ds-iconbtn ds-menu-btn" aria-controls="ds-rail">  ← opens the rail
        </header>
        <div class="ds-sitename">…</div>                          ← phones: name below the bar
        <div class="ds-body has-toc">
          <nav class="ds-rail" id="ds-rail"><div class="ds-rail-head">…<button data-ds-close></div>
-           <ul class="ds-menu">…</ul>
-           <div class="ds-display" data-ds-display></div></nav>     ← Display button + popover
+           <ul class="ds-menu">…</ul></nav>
          <main class="ds-main" id="main">
            <article class="ds-doc">…</article> …
          </main>
@@ -32,7 +32,7 @@
 
    Saved per browser in localStorage: ais-docs-theme (system | light | dark,
    shared with the toolkit's own docs), ais-docs-hierarchy (s | m | l) and
-   ais-docs-bg (white | gray).
+   ais-docs-bg (white | gray) and ais-docs-toc (on | off).
    ============================================================================= */
 
 (function () {
@@ -45,6 +45,7 @@
   var SIZE_NAME = { s: 'Small, body 16px', m: 'Medium, body 19px (default)', l: 'Large, body 24px' };
   var BGS = ['white', 'gray'];
   var BG_HEX = { white: '#FFFFFF', gray: '#F3F3F3' };
+  var TOCS = ['on', 'off'];
 
   // Storage throws outright in some privacy modes; the page must work with none.
   function read(key, allowed, fallback) {
@@ -55,10 +56,12 @@
   var theme = read('ais-docs-theme', THEMES, 'system');
   var size = read('ais-docs-hierarchy', SIZES, 'm');
   var bg = read('ais-docs-bg', BGS, 'white');
+  var outlinePref = read('ais-docs-toc', TOCS, 'on');
   function applyTheme() { if (theme === 'system') root.removeAttribute('data-theme'); else root.setAttribute('data-theme', theme); }
   function applySize() { if (size === 'm') root.removeAttribute('data-ds-hierarchy'); else root.setAttribute('data-ds-hierarchy', size); }
   function applyBg() { if (bg === 'white') root.removeAttribute('data-ds-bg'); else root.setAttribute('data-ds-bg', bg); }
-  applyTheme(); applySize(); applyBg();
+  function applyToc() { if (outlinePref === 'on') root.removeAttribute('data-ds-toc'); else root.setAttribute('data-ds-toc', outlinePref); }
+  applyTheme(); applySize(); applyBg(); applyToc();
 
   var ICON = {
     gear: '<svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M8.6 1.8h2.8l.4 2.3a6.2 6.2 0 011.6.9l2.2-.8 1.4 2.4-1.8 1.5a6.3 6.3 0 010 1.8l1.8 1.5-1.4 2.4-2.2-.8a6.2 6.2 0 01-1.6.9l-.4 2.3H8.6l-.4-2.3a6.2 6.2 0 01-1.6-.9l-2.2.8L3 12.4l1.8-1.5a6.3 6.3 0 010-1.8L3 7.6l1.4-2.4 2.2.8a6.2 6.2 0 011.6-.9z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="10" cy="10" r="2.6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>',
@@ -85,8 +88,8 @@
   function display(box) {
     var id = 'ds-display-pop';
     box.innerHTML =
-      '<button type="button" class="ds-display-btn" aria-haspopup="dialog" aria-expanded="false" aria-controls="' + id + '" aria-label="Display settings: theme and hierarchy">' +
-        ICON.gear + '<span aria-hidden="true">Display</span></button>' +
+      '<button type="button" class="ds-iconbtn" aria-haspopup="dialog" aria-expanded="false" aria-controls="' + id + '" aria-label="Display settings">' +
+        ICON.gear + '<span class="ds-display-lbl" aria-hidden="true">Display</span></button>' +
       '<div class="ds-pop" id="' + id + '" role="dialog" aria-modal="false" aria-labelledby="' + id + '-t" hidden>' +
         '<div class="ds-pop-head"><p class="ds-pop-title" id="' + id + '-t">Display</p><button type="button" class="ds-pop-x" aria-label="Close display settings">' + ICON.close + '</button></div>' +
         '<div><p class="ds-pop-label" id="' + id + '-th">Theme</p><div class="ds-seg ds-seg--3" role="group" aria-labelledby="' + id + '-th">' +
@@ -98,6 +101,9 @@
         '<div><p class="ds-pop-label" id="' + id + '-bg">Background</p><div class="ds-seg ds-seg--2" role="group" aria-labelledby="' + id + '-bg">' +
           BGS.map(function (b) { return '<button type="button" data-bg-pick="' + b + '"><span class="ds-swatch" style="background:' + BG_HEX[b] + '" aria-hidden="true"></span><span>' + b.charAt(0).toUpperCase() + b.slice(1) + '</span></button>'; }).join('') +
         '</div><p class="ds-pop-hint">In the light theme.</p></div>' +
+        '<div><p class="ds-pop-label" id="' + id + '-toc">On this page</p><div class="ds-seg ds-seg--2" role="group" aria-labelledby="' + id + '-toc">' +
+          TOCS.map(function (o) { return '<button type="button" data-toc-pick="' + o + '"><span>' + o.charAt(0).toUpperCase() + o.slice(1) + '</span></button>'; }).join('') +
+        '</div><p class="ds-pop-hint">The page outline, on wide screens.</p></div>' +
         '<div class="ds-pop-foot"><p>Saved on this browser.</p><button type="button" class="ds-pop-reset">Reset to defaults</button></div>' +
       '</div>';
     var btn = box.firstChild, pop = box.querySelector('.ds-pop');
@@ -106,8 +112,9 @@
       pop.querySelectorAll('[data-theme-pick]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-theme-pick') === theme)); });
       pop.querySelectorAll('[data-size-pick]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-size-pick') === size)); });
       pop.querySelectorAll('[data-bg-pick]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-bg-pick') === bg)); });
+      pop.querySelectorAll('[data-toc-pick]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-toc-pick') === outlinePref)); });
       pop.querySelector('.ds-pop-hint').textContent = SIZE_NAME[size];
-      pop.querySelector('.ds-pop-reset').disabled = theme === 'system' && size === 'm' && bg === 'white';
+      pop.querySelector('.ds-pop-reset').disabled = theme === 'system' && size === 'm' && bg === 'white' && outlinePref === 'on';
     }
     function open(v) {
       pop.hidden = !v; btn.setAttribute('aria-expanded', String(v));
@@ -116,12 +123,13 @@
     on(btn, 'click', function () { open(pop.hidden); });
     on(pop.querySelector('.ds-pop-x'), 'click', function () { open(false); });
     on(pop, 'click', function (e) {
-      var t = e.target.closest('[data-theme-pick], [data-size-pick], [data-bg-pick], .ds-pop-reset');
+      var t = e.target.closest('[data-theme-pick], [data-size-pick], [data-bg-pick], [data-toc-pick], .ds-pop-reset');
       if (!t) return;
       if (t.hasAttribute('data-theme-pick')) { theme = t.getAttribute('data-theme-pick'); write('ais-docs-theme', theme); applyTheme(); }
       else if (t.hasAttribute('data-bg-pick')) { bg = t.getAttribute('data-bg-pick'); write('ais-docs-bg', bg); applyBg(); }
+      else if (t.hasAttribute('data-toc-pick')) { outlinePref = t.getAttribute('data-toc-pick'); write('ais-docs-toc', outlinePref); applyToc(); }
       else if (t.hasAttribute('data-size-pick')) { size = t.getAttribute('data-size-pick'); write('ais-docs-hierarchy', size); applySize(); sticky(); if (items.length) spy(); }
-      else { theme = 'system'; size = 'm'; bg = 'white'; write('ais-docs-theme', theme); write('ais-docs-hierarchy', size); write('ais-docs-bg', bg); applyTheme(); applySize(); applyBg(); sticky(); if (items.length) spy(); pop.querySelector('[data-theme-pick="system"]').focus(); }
+      else { theme = 'system'; size = 'm'; bg = 'white'; outlinePref = 'on'; write('ais-docs-theme', theme); write('ais-docs-hierarchy', size); write('ais-docs-bg', bg); write('ais-docs-toc', outlinePref); applyTheme(); applySize(); applyBg(); applyToc(); sticky(); if (items.length) spy(); pop.querySelector('[data-theme-pick="system"]').focus(); }
       sync();
     });
     on(document, 'click', function (e) { if (!pop.hidden && !box.contains(e.target)) { pop.hidden = true; btn.setAttribute('aria-expanded', 'false'); } });
@@ -298,42 +306,6 @@
     on(window, 'hashchange', function () { requestAnimationFrame(spy); });
   }
 
-  // A [data-copy-md] button copies the page's Markdown file; its sibling
-  // .ty-md-status says whether it worked. The file is fetched up front so the
-  // copy runs inside the click, where browsers allow it.
-  function copyText(text) {
-    function legacy() {
-      var ta = document.createElement('textarea');
-      ta.value = text;
-      ta.setAttribute('readonly', '');
-      ta.style.position = 'fixed';
-      ta.style.opacity = '0';
-      document.body.appendChild(ta);
-      ta.select();
-      var ok = false;
-      try { ok = document.execCommand('copy'); } catch (e) { /* reported below */ }
-      ta.remove();
-      return ok ? Promise.resolve() : Promise.reject();
-    }
-    if (!navigator.clipboard) return legacy();
-    return navigator.clipboard.writeText(text).catch(legacy);
-  }
-  function copyMarkdown() {
-    document.querySelectorAll('[data-copy-md]').forEach(function (btn) {
-      var status = btn.parentNode.querySelector('.ty-md-status'), md = null;
-      function say(t) { if (status) status.textContent = t; }
-      fetch(btn.getAttribute('data-copy-md'))
-        .then(function (r) { return r.ok ? r.text() : null; })
-        .then(function (t) { md = t; }, function () { /* md stays null */ });
-      on(btn, 'click', function () {
-        say('');
-        if (md === null) { say('Could not load the Markdown. Open the file instead.'); return; }
-        copyText(md).then(function () { say('Copied to the clipboard.'); },
-                          function () { say('Could not copy. Open the file and copy it from there.'); });
-      });
-    });
-  }
-
   function start() {
     var box = document.querySelector('[data-ds-display]');
     if (box) display(box);
@@ -345,7 +317,6 @@
     // too, not only the header.
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { sticky(); if (items.length) spy(); });
     groups();
-    copyMarkdown();
     drawer();
     outline();
     sticky();
