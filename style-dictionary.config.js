@@ -22,6 +22,8 @@ function pixelDimension(value, name) {
 
 function maximumSize(minimumRem, fluid) {
   if (fluid.max) {
+    // A reference to a font-size token arrives resolved to its CSS value.
+    if (typeof fluid.max === 'string') return rem(fluid.max, 'edu.uiowa.fluid.max');
     if (fluid.max.unit !== 'rem' || typeof fluid.max.value !== 'number') {
       throw new Error('edu.uiowa.fluid.max must be a rem dimension');
     }
@@ -59,6 +61,26 @@ export function fluidFontSize(token) {
   return `clamp(${decimal(minimumRem)}rem, calc(${decimal(slope)}vw + ${decimal(intercept)}rem), ${decimal(maximumRem)}rem)`;
 }
 
+const MULTIPLY_EXTENSION = 'edu.uiowa.multiply';
+
+// The custom property a reference such as {typography.base.fontSize} is written to. The prefix
+// must match each platform's `prefix` below, or the calc() points at nothing.
+function referenceName(reference) {
+  const path = reference.slice(1, -1).split('.');
+  return `--uiowa-${path.map((part) => part.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()).join('-')}`;
+}
+
+/**
+ * Turns the explicit `edu.uiowa.multiply` metadata on a size or space token into a calc(): the
+ * token's own reference times a multiplier, either a multiplier token or a number. The reference
+ * stays a custom property.
+ */
+export function multipliedSize(token) {
+  const { by } = token.original.$extensions[MULTIPLY_EXTENSION];
+  const multiplier = typeof by === 'number' ? by : `var(${referenceName(by)})`;
+  return `calc(var(${referenceName(token.original.$value)}) * ${multiplier})`;
+}
+
 export const isBreakpoint = (token) => token.path[0] === 'breakpoint'
   || (token.path[0] === 'layout' && token.path[1] === 'breakpoint');
 
@@ -86,6 +108,12 @@ export default {
           && Boolean(token.$extensions?.[FLUID_EXTENSION]),
         transform: fluidFontSize,
       },
+      'uids/multiply': {
+        type: 'value',
+        transitive: true,
+        filter: (token) => Boolean(token.$extensions?.[MULTIPLY_EXTENSION]),
+        transform: multipliedSize,
+      },
       'uids/duration-css': {
         type: 'value',
         filter: (token) => token.$type === 'duration',
@@ -101,14 +129,15 @@ export default {
   platforms: {
     scss: {
       transformGroup: 'css',
-      transforms: ['uids/fluid-font-size', 'uids/duration-css'],
+      transforms: ['uids/fluid-font-size', 'uids/multiply', 'uids/duration-css'],
       prefix: 'uiowa',
       buildPath: 'src/scss/abstracts/',
       files: [
         {
           destination: '_tokens-generated.scss',
           format: 'css/variables',
-          options: { outputReferences: true },
+          // A multiplied size prints its calc(), not a reference to the reading size it starts from.
+          options: { outputReferences: (token) => !token.$extensions?.[MULTIPLY_EXTENSION] },
           filter: (token) => !isBreakpoint(token),
         },
       ],

@@ -58,7 +58,7 @@ const config = {
           },
         },
       ],
-      base: process.env.BASE_URL || config.base,
+      base: process.env.BASE_URL ? `${process.env.BASE_URL}${process.env.STORYBOOK_SUBDIR ?? ''}` : config.base,
       css: {
         lightningcss: {
           errorRecovery: true,

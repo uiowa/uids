@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en" data-ds-shell>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Typography · Design System</title>
+<link rel="stylesheet" href="styles/uids-tokens.css">
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="styles/site.css">
+<link rel="stylesheet" href="styles/uids-bridge.css">
+<link rel="stylesheet" href="styles/docs.css">
+<!-- The UIDS footer, compiled into dist/ by the production build. -->
+<link rel="stylesheet" href="dist/css/components/logo.css">
+<link rel="stylesheet" href="dist/css/components/brand-footer.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
+<!-- The weights and italics tokens.css doesn't ship, so every sample in the Weights lists is the real face. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,400;1,500;1,600;1,700&amp;family=Roboto:ital,wght@0,100;1,100;1,300;1,500;1,700;1,900&amp;family=Zilla+Slab:ital,wght@1,300;1,500;1,600;1,700&amp;display=swap">
+<script src="styles/docs-shell.js"></script>
+<script src="styles/tabs.js" defer></script>
+<script>
+  // tabs.js opens the first panel; reopen the selected tab's (a #hash tab included).
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.tabs-collection [role="tab"]').forEach(function (tab) {
+      document.getElementById(tab.getAttribute('aria-controls')).hidden = tab.getAttribute('aria-selected') !== 'true';
+    });
+  });
+</script>
+</head>
+<body class="ds-shell">
+<a class="ds-skip" href="#main">Skip to content</a>
+<header class="ds-head">
+  <a class="ds-logo" href="https://uiowa.edu"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 311.6 90.2" role="img" aria-label="University of Iowa"><path d="M40 18.8h-7.3v52.4H40v19H0v-19h7.3V18.8H0V0h40V18.8z"/><path d="M93.8 90.2h-29c-10.5 0-17.4-6.9-17.4-18.2V18.2C47.4 7 54.4 0 64.8 0h29c10.5 0 17.4 7 17.4 18.2V72C111.2 83.2 104.2 90.2 93.8 90.2zM85.6 71.2V18.8H73v52.4H85.6z"/><path d="M122.6 18.8h-6.4V0h38v18.9H147l6.5 43.4L167 0h19.2l14.4 62.3 5.2-43.4h-6.6V0h37.5v18.9h-6.2l-11.3 71.4h-30.6l-11.8-53.2 -12.1 53.1h-29.4L122.6 18.8z"/><path d="M230.1 71.2h6.9L250.7 0h41l13.5 71.2h6.4v19H281l-2.9-22h-15.2l-2.7 22h-30L230.1 71.2 230.1 71.2zM276.5 51.7l-5.8-36.4 -6 36.4H276.5z"/></svg></a>
+  <a class="ds-brand" href="index.html">Design System</a>
+  <span class="ds-ver" title="The version these pages describe"><!-- generated:version -->5.0.0-alpha.1<!-- /generated:version --></span>
+  <span class="ds-gap"></span>
+  <div class="ds-display" data-ds-display></div>
+  <button type="button" class="ds-iconbtn ds-menu-btn" aria-controls="ds-rail" aria-expanded="false" aria-label="Open navigation"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false"><path d="M2 4.5h14M2 9h14M2 13.5h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+</header>
+<div class="ds-sitename"><a href="index.html">Design System</a></div>
+
+<div class="ds-body has-toc">
+<nav class="ds-rail" id="ds-rail" aria-label="Design System" tabindex="-1">
+  <div class="ds-rail-head"><span>Design System</span><button type="button" class="ds-iconbtn" data-ds-close aria-label="Close navigation"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9m0-9l-9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button></div>
+  <p class="ds-rail-title">Design System</p>
+  <p class="ds-menu-head" id="ds-menu-start">Start here</p>
+  <ul class="ds-menu" aria-labelledby="ds-menu-start">
+    <li><a href="index.html">Overview</a></li>
+    <li><a href="#">Getting started</a></li>
+  </ul>
+  <p class="ds-menu-head" id="ds-menu-foundations">Foundations</p>
+  <ul class="ds-menu" aria-labelledby="ds-menu-foundations">
+    <li><a href="colors.html">Color</a></li>
+    <li><a href="typography.html" aria-current="page">Typography</a>
+      <ul>
+        <li><a href="#">Hierarchy</a></li>
+      </ul>
+    </li>
+    <li><a href="https://brand.uiowa.edu/imagery">Imagery</a></li>
+    <li><a href="https://brand.uiowa.edu/graphic-elements">Graphic Elements</a></li>
+    <li><a href="https://icons.brand.uiowa.edu/">Icon Browser</a></li>
+  </ul>
+  <p class="ds-menu-head" id="ds-menu-build">Build</p>
+  <ul class="ds-menu" aria-labelledby="ds-menu-build">
+    <li><span>Components</span>
+      <ul>
+        <li><a href="alert.html">Alert</a></li>
+      </ul>
+    </li>
+  </ul>
+  <p class="ds-menu-head" id="ds-menu-resources">Resources</p>
+  <ul class="ds-menu" aria-labelledby="ds-menu-resources">
+    <li><a href="https://brand.uiowa.edu/">Brand Manual</a></li>
+  </ul>
+</nav>
+
+<main class="ds-main" id="main">
+  <article class="ds-doc ty">
+    <nav class="ty-crumbs" aria-label="Breadcrumb"><ol><li><a href="https://uids.brand.uiowa.edu/branches/docs-site-trial/index.html">Home</a></li><li><a href="index.html">Design System</a></li><li aria-current="page">Typography</li></ol></nav>
+    <h1 class="ty-title">Typography</h1>
+    <hr class="ty-divider">
+    <p class="ty-text ty-body">Iowa brand fonts reflect our personality and reinforce our identity. Together, they create a cohesive typography system that supports brand recognition across print and digital communications.</p>
+    <p class="ty-actions"><a class="ty-btn ty-btn--outline" href="#use-tabs__tab--0"><i class="fa-solid fa-download" aria-hidden="true"></i>Typography Library</a><a class="ty-btn ty-btn--outline" href="#use-tabs__tab--2"><i class="fa-regular fa-file-lines" aria-hidden="true"></i>Copy Markdown</a><a class="ty-btn ty-btn--outline" href="#use-tabs__tab--1"><i class="fa-solid fa-code" aria-hidden="true"></i>Code</a></p>
+    <div class="ty-callout"><img class="co-ic" src="images/brand-icons/warning-two-color.svg" alt="" width="88" height="88"><div class="co-txt"><p class="ty-label">Before you start</p><p class="ty-small ty-body"><strong>Only approved brand fonts are permitted in marketing and communications materials.</strong> To install these fonts on university computers, open the Self-Service application on your desktop. Once the app has launched, search “University Brand Fonts” and click “Install.” Once complete, fonts should appear in your font dropdown menus. Downloads of each font are also provided below if needed.</p></div></div>
+    <h2 class="ty-h" id="guidance">Use fonts intentionally</h2>
+    <p class="ty-text ty-body">Each font serves a distinct purpose within our typography system. Understanding these roles helps you use fonts consistently across different applications. Many brand templates and tools already include approved font styles to make this easier.</p>
+    <ul class="ufi">
+    <li><a href="#special-gothic-condensed"><p class="ufi-name" style="font-family:var(--uiowa-typography-font-family-special-gothic-condensed);font-weight:600">Special Gothic Condensed</p><p class="ufi-role">Promotional, bold, attention-getting</p><span class="ufi-go">See Special Gothic Condensed guidance</span></a></li>
+    <li><a href="#roboto"><p class="ufi-name" style="font-family:var(--uiowa-typography-font-family-roboto);font-weight:400">Roboto</p><p class="ufi-role">Functional, everyday, readable</p><span class="ufi-go">See Roboto guidance</span></a></li>
+    <li><a href="#zilla-slab"><p class="ufi-name" style="font-family:var(--uiowa-typography-font-family-zilla-slab);font-weight:600">Zilla Slab</p><p class="ufi-role">Warm, editorial, publication-like</p><span class="ufi-go">See Zilla Slab guidance</span></a></li>
+    <li><a href="#lora"><p class="ufi-name" style="font-family:var(--uiowa-typography-font-family-lora);font-weight:500">Lora</p><p class="ufi-role">Formal, traditional, ceremonial or institutional</p><span class="ufi-go">See Lora guidance</span></a></li>
+    </ul>
+
+    <!-- ================= Special Gothic Condensed ================= -->
+    <section class="ty-band" id="special-gothic-condensed"><hr>
+    <div class="ty-grid"><div>
+    <h2 class="ty-specimen" style="font-family:var(--uiowa-typography-font-family-special-gothic-condensed);font-weight:600">Special Gothic Condensed</h2>
+    <p class="ty-text ty-body">Special Gothic Condensed is a tall, condensed typeface that creates strong visual presence. Its bold character adds emphasis and impact, helping important messages and information stand out.</p>
+    <div class="spX" style="font-family:var(--uiowa-typography-font-family-special-gothic-condensed)"><p class="ty-label" style="font-family:var(--uiowa-typography-label-large-font-family)">Weights</p><p class="spX-alpha" style="font-weight:400">Aa<wbr>Bb<wbr>Cc<wbr>Dd<wbr>Ee<wbr>Ff<wbr>Gg<wbr>Hh<wbr>Ii<wbr>Jj<wbr>Kk<wbr>Ll<wbr>Mm<wbr>Nn<wbr>Oo<wbr>Pp<wbr>Qq<wbr>Rr<wbr>Ss<wbr>Tt<wbr>Uu<wbr>Vv<wbr>Ww<wbr>Xx<wbr>Yy<wbr>Zz<wbr>0123456789</p><ul class="spX-w"><li style="font-weight:400">Special Gothic Condensed Regular</li><li style="font-weight:500">Special Gothic Condensed Medium</li><li style="font-weight:600">Special Gothic Condensed SemiBold</li><li style="font-weight:700">Special Gothic Condensed Bold</li></ul></div>
+    <p class="ty-action"><a class="ty-btn" href="https://github.com/AlistairMcCready/Special-Gothic">Get Special Gothic Condensed</a></p>
+    </div><div class="ty-wtu"><p class="ty-label">When to use</p><ul class="ty-small"><li>Headlines and titles in promotional communications</li><li>Callouts and key messages</li><li>Eyebrows and labels</li><li>Facts, rankings, and statistics</li><li>Other concise text that needs to stand out</li></ul></div></div>
+    <div class="ty-ex gx"><p class="ty-label">Guidance</p><div class="gx-rules"><div><p class="mk-v gx-h gx-h--do"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Do</p><ul><li>Keep headlines and display text concise.</li><li>Create emphasis through size and weight.</li><li>Only use all caps for short headlines or display text of 1–5 words when you need to create emphasis.</li></ul></div><div><p class="mk-v gx-h gx-h--dont"><i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>Don’t</p><ul><li>Never use Special Gothic Condensed for body copy, long passages, or text that requires sustained reading.</li><li>Don’t add artificial italics, stretch, skew, or further condense the letterforms.</li><li>Don’t use Special Gothic Condensed for small text such as captions, credits, or fine print.</li></ul></div></div><details class="gx-acc"><summary><i class="fa-solid fa-chevron-down" aria-hidden="true"></i><span class="gx-acc-show">Show examples</span><span class="gx-acc-hide">Hide examples</span></summary><div class="gx-ex"><div class="tcards">
+    <div class="tcard"><figure class="mk do"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-special-gothic-condensed-do-1.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Do</p></figure><div class="tcard-cap"><p>Keep headlines and display text concise.</p></div></div>
+    <div class="tcard"><figure class="mk do"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-special-gothic-condensed-do-2.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Do</p></figure><div class="tcard-cap"><p>Create emphasis through size and weight.</p></div></div>
+    <div class="tcard"><figure class="mk do"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-special-gothic-condensed-do-3.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Do</p></figure><div class="tcard-cap"><p>Only use all caps for short headlines or display text of 1–5 words when you need to create emphasis.</p></div></div>
+    <div class="tg-break"></div>
+    <div class="tcard"><figure class="mk dont"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-special-gothic-condensed-dont-1.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>Don’t</p></figure><div class="tcard-cap"><p>Never use Special Gothic Condensed for body copy, long passages, or text that requires sustained reading.</p></div></div>
+    <div class="tcard"><figure class="mk dont"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-special-gothic-condensed-dont-2.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>Don’t</p></figure><div class="tcard-cap"><p>Don’t add artificial italics, stretch, skew, or further condense the letterforms.</p></div></div>
+    <div class="tcard"><figure class="mk dont"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-special-gothic-condensed-dont-3.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>Don’t</p></figure><div class="tcard-cap"><p>Don’t use Special Gothic Condensed for small text such as captions, credits, or fine print.</p></div></div>
+    </div></div></details></div></section>
+
+    <!-- ================= Roboto ================= -->
+    <section class="ty-band" id="roboto"><hr>
+    <div class="ty-grid"><div>
+    <h2 class="ty-specimen" style="font-family:var(--uiowa-typography-font-family-roboto);font-weight:700">Roboto</h2>
+    <p class="ty-text ty-body">Roboto is our functional typeface. It is clean, neutral, and easy to read across a wide range of sizes. It offers a broad range of weights and styles that makes it highly versatile across print and digital communications.</p>
+    <div class="spX" style="font-family:var(--uiowa-typography-font-family-roboto)"><p class="ty-label" style="font-family:var(--uiowa-typography-label-large-font-family)">Weights and styles</p><p class="spX-alpha" style="font-weight:400">Aa<wbr>Bb<wbr>Cc<wbr>Dd<wbr>Ee<wbr>Ff<wbr>Gg<wbr>Hh<wbr>Ii<wbr>Jj<wbr>Kk<wbr>Ll<wbr>Mm<wbr>Nn<wbr>Oo<wbr>Pp<wbr>Qq<wbr>Rr<wbr>Ss<wbr>Tt<wbr>Uu<wbr>Vv<wbr>Ww<wbr>Xx<wbr>Yy<wbr>Zz<wbr>0123456789</p><ul class="spX-w"><li style="font-weight:100">Roboto Thin<i>Italic</i></li><li style="font-weight:300">Roboto Light<i>Italic</i></li><li style="font-weight:400">Roboto Regular<i>Italic</i></li><li style="font-weight:500">Roboto Medium<i>Italic</i></li><li style="font-weight:700">Roboto Bold<i>Italic</i></li><li style="font-weight:900">Roboto Black<i>Italic</i></li></ul></div>
+    <p class="ty-action"><a class="ty-btn" href="https://fonts.google.com/specimen/Roboto">Download Roboto</a></p>
+    </div><div class="ty-wtu"><p class="ty-label">When to use</p><ul class="ty-small"><li>Body text and long passages</li><li>Captions and explanatory text</li><li>Interface labels, controls, and forms</li><li>Email and everyday documents</li><li>Tables, labels, and dense layouts</li></ul></div></div>
+    <div class="ty-ex gx"><p class="ty-label">Guidance</p><div class="gx-rules"><div><p class="mk-v gx-h gx-h--do"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Do</p><ul><li>Use Roboto as the standard for body text and functional information.</li><li>Use Roboto for interface labels, controls, and forms.</li><li>Use Roboto Thin and Light only at large sizes. At small sizes they become faint and hard to read.</li></ul></div><div><p class="mk-v gx-h gx-h--dont"><i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>Don’t</p><ul><li>Don’t set paragraphs or longer passages of Roboto in all caps.</li><li>Don’t use Roboto for formal or ceremonial titles. Use Lora instead.</li><li>Don’t use Roboto Black for paragraphs. Reserve it for short, high-impact text.</li></ul></div></div><details class="gx-acc"><summary><i class="fa-solid fa-chevron-down" aria-hidden="true"></i><span class="gx-acc-show">Show examples</span><span class="gx-acc-hide">Hide examples</span></summary><div class="gx-ex"><div class="tcards">
+    <div class="tcard"><figure class="mk do"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-roboto-do-1.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Do</p></figure><div class="tcard-cap"><p>Use Roboto as the standard for body text and functional information.</p></div></div>
+    <div class="tcard"><figure class="mk do"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-roboto-do-2.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Do</p></figure><div class="tcard-cap"><p>Use Roboto for interface labels, controls, and forms.</p></div></div>
+    <div class="tcard"><figure class="mk do"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-roboto-do-3.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Do</p></figure><div class="tcard-cap"><p>Use Roboto Thin and Light only at large sizes. At small sizes they become faint and hard to read.</p></div></div>
+    <div class="tg-break"></div>
+    <div class="tcard"><figure class="mk dont"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-roboto-dont-1.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>Don’t</p></figure><div class="tcard-cap"><p>Don’t set paragraphs or longer passages of Roboto in all caps.</p></div></div>
+    <div class="tcard"><figure class="mk dont"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-roboto-dont-2.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>Don’t</p></figure><div class="tcard-cap"><p>Don’t use Roboto for formal or ceremonial titles. Use Lora instead.</p></div></div>
+    <div class="tcard"><figure class="mk dont"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-roboto-dont-3.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>Don’t</p></figure><div class="tcard-cap"><p>Don’t use Roboto Black for paragraphs. Reserve it for short, high-impact text.</p></div></div>
+    </div></div></details></div></section>
+
+    <!-- ================= Zilla Slab ================= -->
+    <section class="ty-band" id="zilla-slab"><hr>
+    <div class="ty-grid"><div>
+    <h2 class="ty-specimen" style="font-family:var(--uiowa-typography-font-family-zilla-slab);font-weight:600">Zilla Slab</h2>
+    <p class="ty-text ty-body">Zilla Slab adds warmth and contrast to the typography system. Its distinctive serif letterforms are well suited for editorial communications, while offering flexibility to lead or support other brand fonts.</p>
+    <div class="spX" style="font-family:var(--uiowa-typography-font-family-zilla-slab)"><p class="ty-label" style="font-family:var(--uiowa-typography-label-large-font-family)">Weights and styles</p><p class="spX-alpha" style="font-weight:400">Aa<wbr>Bb<wbr>Cc<wbr>Dd<wbr>Ee<wbr>Ff<wbr>Gg<wbr>Hh<wbr>Ii<wbr>Jj<wbr>Kk<wbr>Ll<wbr>Mm<wbr>Nn<wbr>Oo<wbr>Pp<wbr>Qq<wbr>Rr<wbr>Ss<wbr>Tt<wbr>Uu<wbr>Vv<wbr>Ww<wbr>Xx<wbr>Yy<wbr>Zz<wbr>0123456789</p><ul class="spX-w"><li style="font-weight:300">Zilla Slab Light<i>Italic</i></li><li style="font-weight:400">Zilla Slab Regular<i>Italic</i></li><li style="font-weight:500">Zilla Slab Medium<i>Italic</i></li><li style="font-weight:600">Zilla Slab SemiBold<i>Italic</i></li><li style="font-weight:700">Zilla Slab Bold<i>Italic</i></li></ul></div>
+    <p class="ty-action"><a class="ty-btn" href="https://fonts.google.com/specimen/Zilla+Slab">Download Zilla Slab</a></p>
+    </div><div class="ty-wtu"><p class="ty-label">When to use</p><ul class="ty-small"><li>Headlines for feature stories and profiles</li><li>Subheads and introductory or lead-in text</li><li>Pull quotes</li><li>Select section labels</li><li>Other moments where a warmer, more editorial tone is useful</li></ul></div></div>
+    <div class="ty-ex gx"><p class="ty-label">Guidance</p><div class="gx-rules"><div><p class="mk-v gx-h gx-h--do"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Do</p><ul><li>Use Zilla Slab to support other brand fonts or as a primary typeface in editorial communications.</li><li>Use Zilla Slab at headline and subhead sizes, not in captions or small labels. Its slab serifs fill in at small sizes.</li><li>Use Zilla Slab to add warmth to pieces that would otherwise feel purely functional, such as reports and data summaries.</li></ul></div><div><p class="mk-v gx-h gx-h--dont"><i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>Don’t</p><ul><li>Don’t use Zilla Slab for body text. Its heavier serifs can make longer passages harder to read.</li><li>Don’t use Zilla Slab for promotional, attention-getting headlines. That’s the role of Special Gothic Condensed.</li><li>Don’t set Zilla Slab in all caps. Its heavy serifs make all-caps text dense and harder to read.</li></ul></div></div><details class="gx-acc"><summary><i class="fa-solid fa-chevron-down" aria-hidden="true"></i><span class="gx-acc-show">Show examples</span><span class="gx-acc-hide">Hide examples</span></summary><div class="gx-ex"><div class="tcards">
+    <div class="tcard"><figure class="mk do"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-zilla-slab-do-1.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Do</p></figure><div class="tcard-cap"><p>Use Zilla Slab to support other brand fonts or as a primary typeface in editorial communications.</p></div></div>
+    <div class="tcard"><figure class="mk do"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-zilla-slab-do-2.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Do</p></figure><div class="tcard-cap"><p>Use Zilla Slab at headline and subhead sizes, not in captions or small labels. Its slab serifs fill in at small sizes.</p></div></div>
+    <div class="tcard"><figure class="mk do"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-zilla-slab-do-3.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Do</p></figure><div class="tcard-cap"><p>Use Zilla Slab to add warmth to pieces that would otherwise feel purely functional, such as reports and data summaries.</p></div></div>
+    <div class="tg-break"></div>
+    <div class="tcard"><figure class="mk dont"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-zilla-slab-dont-1.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>Don’t</p></figure><div class="tcard-cap"><p>Don’t use Zilla Slab for body text. Its heavier serifs can make longer passages harder to read.</p></div></div>
+    <div class="tcard"><figure class="mk dont"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-zilla-slab-dont-2.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>Don’t</p></figure><div class="tcard-cap"><p>Don’t use Zilla Slab for promotional, attention-getting headlines. That’s the role of Special Gothic Condensed.</p></div></div>
+    <div class="tcard"><figure class="mk dont"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-zilla-slab-dont-3.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>Don’t</p></figure><div class="tcard-cap"><p>Don’t set Zilla Slab in all caps. Its heavy serifs make all-caps text dense and harder to read.</p></div></div>
+    </div></div></details></div></section>
+
+    <!-- ================= Lora ================= -->
+    <section class="ty-band" id="lora"><hr>
+    <div class="ty-grid"><div>
+    <h2 class="ty-specimen" style="font-family:var(--uiowa-typography-font-family-lora);font-weight:400">Lora</h2>
+    <p class="ty-text ty-body">Lora is our more traditional serif typeface reserved for formal and ceremonial communications. Its refined letterforms give these materials a polished appearance while maintaining strong readability.</p>
+    <div class="spX" style="font-family:var(--uiowa-typography-font-family-lora)"><p class="ty-label" style="font-family:var(--uiowa-typography-label-large-font-family)">Weights and styles</p><p class="spX-alpha" style="font-weight:400">Aa<wbr>Bb<wbr>Cc<wbr>Dd<wbr>Ee<wbr>Ff<wbr>Gg<wbr>Hh<wbr>Ii<wbr>Jj<wbr>Kk<wbr>Ll<wbr>Mm<wbr>Nn<wbr>Oo<wbr>Pp<wbr>Qq<wbr>Rr<wbr>Ss<wbr>Tt<wbr>Uu<wbr>Vv<wbr>Ww<wbr>Xx<wbr>Yy<wbr>Zz<wbr>0123456789</p><ul class="spX-w"><li style="font-weight:400">Lora Regular<i>Italic</i></li><li style="font-weight:500">Lora Medium<i>Italic</i></li><li style="font-weight:600">Lora SemiBold<i>Italic</i></li><li style="font-weight:700">Lora Bold<i>Italic</i></li></ul></div>
+    <p class="ty-action"><a class="ty-btn" href="https://fonts.google.com/specimen/Lora">Download Lora</a></p>
+    </div><div class="ty-wtu"><p class="ty-label">When to use</p><ul class="ty-small"><li>Headlines and titles for formal events, ceremonies, awards, and invitations</li><li>Subheads and introductory or lead-in text in formal pieces</li><li>Formal tributes, citations, and quotes</li><li>Names and titles on certificates and ceremonial programs</li><li>Other moments where a formal, traditional tone is useful</li></ul></div></div>
+    <div class="ty-ex gx"><p class="ty-label">Guidance</p><div class="gx-rules"><div><p class="mk-v gx-h gx-h--do"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Do</p><ul><li>Reserve Lora for communications with a clear formal or ceremonial purpose.</li><li>Use Lora for prominent titles and shorter passages of text.</li><li>Use italics to add contrast or emphasis to short passages and callouts.</li></ul></div><div><p class="mk-v gx-h gx-h--dont"><i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>Don’t</p><ul><li>Don’t use Lora as decoration or to make routine pieces feel formal.</li><li>Don’t use Lora for interface elements such as navigation, buttons, and forms.</li><li>Don’t use Lora for long body text. Keep longer body text in Roboto.</li></ul></div></div><details class="gx-acc"><summary><i class="fa-solid fa-chevron-down" aria-hidden="true"></i><span class="gx-acc-show">Show examples</span><span class="gx-acc-hide">Hide examples</span></summary><div class="gx-ex"><div class="tcards">
+    <div class="tcard"><figure class="mk do"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-lora-do-1.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Do</p></figure><div class="tcard-cap"><p>Reserve Lora for communications with a clear formal or ceremonial purpose.</p></div></div>
+    <div class="tcard"><figure class="mk do"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-lora-do-2.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Do</p></figure><div class="tcard-cap"><p>Use Lora for prominent titles and shorter passages of text.</p></div></div>
+    <div class="tcard"><figure class="mk do"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-lora-do-3.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Do</p></figure><div class="tcard-cap"><p>Use italics to add contrast or emphasis to short passages and callouts.</p></div></div>
+    <div class="tg-break"></div>
+    <div class="tcard"><figure class="mk dont"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-lora-dont-1.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>Don’t</p></figure><div class="tcard-cap"><p>Don’t use Lora as decoration or to make routine pieces feel formal.</p></div></div>
+    <div class="tcard"><figure class="mk dont"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-lora-dont-2.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>Don’t</p></figure><div class="tcard-cap"><p>Don’t use Lora for interface elements such as navigation, buttons, and forms.</p></div></div>
+    <div class="tcard"><figure class="mk dont"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-lora-dont-3.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>Don’t</p></figure><div class="tcard-cap"><p>Don’t use Lora for long body text. Keep longer body text in Roboto.</p></div></div>
+    </div></div></details></div></section>
+
+    <!-- ================= Font Awesome ================= -->
+    <section class="ty-band" id="font-awesome"><hr>
+    <div class="ty-grid"><div>
+    <h2 class="ty-title">Font Awesome icons</h2>
+    <p class="ty-text ty-body">Font Awesome provides small, functional icons that support actions, information, and interface states. Use these icons minimally. For more expressive applications, use Iowa Brand Icons.</p>
+    <div class="spX"><p class="ty-label">Styles</p><div class="faS-row"><span class="nm" style="font-weight:700">Solid</span><span class="ic"><i class="fa-solid fa-envelope" aria-hidden="true"></i><i class="fa-solid fa-calendar" aria-hidden="true"></i><i class="fa-solid fa-bell" aria-hidden="true"></i><i class="fa-solid fa-user" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-comment" aria-hidden="true"></i><i class="fa-solid fa-clock" aria-hidden="true"></i><i class="fa-solid fa-file" aria-hidden="true"></i><span class="sr-only">envelope, calendar, bell, user, star, comment, clock, file</span></span></div><div class="faS-row"><span class="nm" style="font-weight:400">Regular</span><span class="ic"><i class="fa-regular fa-envelope" aria-hidden="true"></i><i class="fa-regular fa-calendar" aria-hidden="true"></i><i class="fa-regular fa-bell" aria-hidden="true"></i><i class="fa-regular fa-user" aria-hidden="true"></i><i class="fa-regular fa-star" aria-hidden="true"></i><i class="fa-regular fa-comment" aria-hidden="true"></i><i class="fa-regular fa-clock" aria-hidden="true"></i><i class="fa-regular fa-file" aria-hidden="true"></i><span class="sr-only">envelope, calendar, bell, user, star, comment, clock, file</span></span></div><p class="faS-more"><a href="#">View all suggested icons</a></p></div>
+    <p class="ty-action"><a class="ty-btn" href="https://fontawesome.com/icons">Use Font Awesome</a></p>
+    </div><div class="ty-wtu"><p class="ty-label">When to use</p><ul class="ty-small"><li>Interface and navigation elements</li><li>Social media platform icons</li><li>Directional arrows and wayfinding cues</li><li>Action icons paired with buttons or links</li></ul></div></div>
+    <div class="ty-ex gx"><p class="ty-label">Guidance</p><div class="gx-rules"><div><p class="mk-v gx-h gx-h--do"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Do</p><ul><li>Choose either Solid or Regular icons based on the level of emphasis needed and use that style consistently.</li><li>Keep icons smaller and less prominent than the text they support. As a starting point, size an icon to about 75% of the text line height, then adjust for visual balance.</li><li>Pair icons with visible text unless their meaning is widely understood. When text already explains the icon, hide it from screen readers to avoid repetition. When an icon appears alone, provide an accessible name and add a tooltip when helpful.</li></ul></div><div><p class="mk-v gx-h gx-h--dont"><i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>Don’t</p><ul><li>Don’t use Thin, Light, Duotone, Sharp, animated, or other specialty styles.</li><li>Don’t use Font Awesome as a substitute for Iowa brand icons in larger-scale or expressive applications.</li><li>Don’t mix Font Awesome with Iowa brand icons in the same set or row.</li></ul></div></div><details class="gx-acc"><summary><i class="fa-solid fa-chevron-down" aria-hidden="true"></i><span class="gx-acc-show">Show examples</span><span class="gx-acc-hide">Hide examples</span></summary><div class="gx-ex"><div class="tcards">
+    <div class="tcard"><figure class="mk do"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-font-awesome-do-1.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Do</p></figure><div class="tcard-cap"><p>Choose either Solid or Regular icons based on the level of emphasis needed and use that style consistently.</p></div></div>
+    <div class="tcard"><figure class="mk do"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-font-awesome-do-2.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Do</p></figure><div class="tcard-cap"><p>Keep icons smaller and less prominent than the text they support. As a starting point, size an icon to about 75% of the text line height, then adjust for visual balance.</p></div></div>
+    <div class="tcard"><figure class="mk do"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-font-awesome-do-3.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Do</p></figure><div class="tcard-cap"><p>Pair icons with visible text unless their meaning is widely understood. When text already explains the icon, hide it from screen readers to avoid repetition. When an icon appears alone, provide an accessible name and add a tooltip when helpful.</p></div></div>
+    <div class="tg-break"></div>
+    <div class="tcard"><figure class="mk dont"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-font-awesome-dont-1.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>Don’t</p></figure><div class="tcard-cap"><p>Don’t use Thin, Light, Duotone, Sharp, animated, or other specialty styles.</p></div></div>
+    <div class="tcard"><figure class="mk dont"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-font-awesome-dont-2.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>Don’t</p></figure><div class="tcard-cap"><p>Don’t use Font Awesome as a substitute for Iowa brand icons in larger-scale or expressive applications.</p></div></div>
+    <div class="tcard"><figure class="mk dont"><div class="mk-stage mk-stage--img"><img src="images/examples/typography-font-awesome-dont-3.png" alt="" width="280" height="230" loading="lazy"></div><p class="mk-v"><i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>Don’t</p></figure><div class="tcard-cap"><p>Don’t mix Font Awesome with Iowa brand icons in the same set or row.</p></div></div>
+    </div></div></details></div></section>
+
+    <!-- Parked for the Hierarchy page: cross-font, emphasis and letter-case rules removed from the font sections.
+    <div class="tcard"><figure class="mk do"><div class="mk-stage"><i class="gi" style="height:60px;width:100%"></i><p style="font:600 1.35rem/1.05 var(&#45;&#45;uiowa-typography-font-family-special-gothic-condensed);text-wrap:balance">Join us for a week of homecoming events across campus</p><i class="gb" style="width:100%"></i><i class="gb" style="width:100%"></i><i class="gb" style="width:60%"></i></div><p class="mk-v"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Do</p></figure><div class="tcard-cap"><p>Use sentence case for headlines. Only use all caps for short headlines or display text of 1–5 words when you need to create emphasis.</p></div></div>
+    <div class="tcard"><figure class="mk do"><div class="mk-stage"><i class="gb t" style="width:80%"></i><i class="gb" style="width:100%"></i><i class="gb" style="width:100%"></i><i class="gb" style="width:100%"></i><i class="gb" style="width:70%"></i><p style="font:400 .9375rem/1.5 var(&#45;&#45;uiowa-typography-font-family-roboto);margin:.3rem 0;text-wrap:balance">Applications are due <i>before</i> the priority deadline.</p><i class="gb" style="width:100%"></i><i class="gb" style="width:100%"></i><i class="gb" style="width:100%"></i><i class="gb" style="width:100%"></i><i class="gb" style="width:55%"></i></div><p class="mk-v"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Do</p></figure><div class="tcard-cap"><p>Use italics for emphasis and as outlined in our editorial style guide.</p></div></div>
+    <div class="tcard"><figure class="mk do"><div class="mk-stage"><i class="gi" style="height:55px;width:100%"></i><p style="font:500 1.35rem/1.1 var(&#45;&#45;uiowa-typography-font-family-lora);text-wrap:balance">Commencement 2027</p><p style="font:400 .8125rem/1.5 var(&#45;&#45;uiowa-typography-font-family-roboto);text-wrap:balance">Ceremonies will be held <span style="white-space:nowrap">May 14–16</span> at <span style="white-space:nowrap">Carver-Hawkeye Arena</span>.</p><i class="gb" style="width:100%"></i><i class="gb" style="width:60%"></i></div><p class="mk-v"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Do</p></figure><div class="tcard-cap"><p>Use Lora for prominent titles and shorter passages of text. Keep longer body text in Roboto.</p></div></div>
+    <div class="tcard"><figure class="mk dont"><div class="mk-stage"><i class="gi" style="height:70px;width:100%"></i><p style="font:500 1.35rem/1.1 var(&#45;&#45;uiowa-typography-font-family-lora);text-wrap:balance">Commencement 2027</p><p style="font:500 .95rem/1.2 var(&#45;&#45;uiowa-typography-font-family-zilla-slab);text-wrap:balance">A celebration of the graduating class</p><i class="gb" style="width:100%"></i><i class="gb" style="width:100%"></i><i class="gb" style="width:100%"></i><i class="gb" style="width:60%"></i><svg class="mk-slash" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="6" y1="94" x2="94" y2="6" stroke="#e03c31" vector-effect="non-scaling-stroke" style="stroke-width:3px"></line></svg></div><p class="mk-v"><i class="fa-solid fa-circle-xmark" aria-hidden="true"></i>Don’t</p></figure><div class="tcard-cap"><p>Don’t use Lora and Zilla Slab in the same piece. Both are distinctive serifs, and together they compete for attention.</p></div></div>
+    <div class="tcard"><figure class="mk do"><div class="mk-stage"><i class="gb t" style="width:70%"></i><i class="gb" style="width:100%"></i><i class="gb" style="width:100%"></i><i class="gb" style="width:85%"></i><p style="font:500 1.15rem/1.25 var(&#45;&#45;uiowa-typography-font-family-zilla-slab);border-top:3px solid #FFCD00;border-bottom:1px solid #c4c4c4;padding:.6rem 0;margin:.2rem 0;text-wrap:balance">“Every river has a voice if you take the time to listen.”</p><i class="gb" style="width:100%"></i><i class="gb" style="width:100%"></i><i class="gb" style="width:100%"></i><i class="gb" style="width:60%"></i></div><p class="mk-v"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Do</p></figure><div class="tcard-cap"><p>Use Zilla Slab for pull quotes.</p></div></div>
+    -->
+
+    <section class="ty-use" id="use-in-your-work"><h2 class="ty-title">Use in your work</h2><p class="ty-text ty-body">Fonts, styles and code for the typography system, built from the same approved decisions on this page.</p><div class="tabs-collection" id="use-tabs"><div role="tablist" aria-label="Use in your work"><button type="button" id="use-tabs__tab--0" class="tab__button" role="tab" aria-selected="false" aria-controls="use-tabs__panel--0" tabindex="-1">Print and design files</button><button type="button" id="use-tabs__tab--1" class="tab__button" role="tab" aria-selected="true" aria-controls="use-tabs__panel--1">Developers</button><button type="button" id="use-tabs__tab--2" class="tab__button" role="tab" aria-selected="false" aria-controls="use-tabs__panel--2" tabindex="-1">Copy Markdown</button></div><div id="use-tabs__panel--0" class="tab__content ty-text" role="tabpanel" tabindex="0" aria-labelledby="use-tabs__tab--0" hidden><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p></div><div id="use-tabs__panel--1" class="tab__content ty-text" role="tabpanel" tabindex="0" aria-labelledby="use-tabs__tab--1"><pre><code>:root {
+      --lorem-ipsum:  "Dolor Sit", sans-serif;
+      --consectetur:  "Adipiscing", sans-serif;
+      --sed-eiusmod:  "Tempor", serif;
+      --incididunt:   "Labore", serif;
+    }</code></pre></div><div id="use-tabs__panel--2" class="tab__content ty-text" role="tabpanel" tabindex="0" aria-labelledby="use-tabs__tab--2" hidden><pre class="ty-md"><code># Typography
+
+Iowa brand fonts reflect our personality and reinforce our identity. Together, they create a cohesive typography system that supports brand recognition across print and digital communications.
+
+### Before you start
+
+**Only approved brand fonts are permitted in marketing and communications materials.** To install these fonts on university computers, open the Self-Service application on your desktop. Once the app has launched, search “University Brand Fonts” and click “Install.” Once complete, fonts should appear in your font dropdown menus. Downloads of each font are also provided below if needed.
+
+## Use fonts intentionally
+
+Each font serves a distinct purpose within our typography system. Understanding these roles helps you use fonts consistently across different applications. Many brand templates and tools already include approved font styles to make this easier.
+
+- **Special Gothic Condensed:** promotional, bold, attention-getting
+- **Roboto:** functional, everyday, readable
+- **Zilla Slab:** warm, editorial, publication-like
+- **Lora:** formal, traditional, ceremonial or institutional
+
+## Special Gothic Condensed
+
+Special Gothic Condensed is a tall, condensed typeface that creates strong visual presence. Its bold character adds emphasis and impact, helping important messages and information stand out.
+
+[Get Special Gothic Condensed](https://github.com/AlistairMcCready/Special-Gothic)
+
+### When to use
+
+- Headlines and titles in promotional communications
+- Callouts and key messages
+- Eyebrows and labels
+- Facts, rankings, and statistics
+- Other concise text that needs to stand out
+
+### Weights
+
+- Regular
+- Medium
+- SemiBold
+- Bold
+
+### Guidance
+
+- Keep headlines and display text concise. Never use Special Gothic Condensed for body copy, long passages, or text that requires sustained reading.
+- Create emphasis through size, weight, and letter case. Don’t add artificial italics, stretch, skew, or further condense the letterforms.
+- Use sentence case for headlines. Only use all caps for short headlines or display text of 1–5 words when you need to create emphasis. Legibility is compromised if all caps are applied to long headlines and display text.
+
+## Roboto
+
+Roboto is our functional typeface. It is clean, neutral, and easy to read across a wide range of sizes. It offers a broad range of weights and styles that makes it highly versatile across print and digital communications.
+
+[Download Roboto](https://fonts.google.com/specimen/Roboto)
+
+### When to use
+
+- Body text and long passages
+- Captions and explanatory text
+- Interface labels, controls, and forms
+- Email and everyday documents
+- Tables, labels, and dense layouts
+
+### Weights
+
+- Thin
+- Light
+- Regular
+- Medium
+- Bold
+- Black
+
+### Guidance
+
+- Use Roboto as the standard for body text and functional information. Don’t use Special Gothic Condensed or Zilla for body text.
+- Use italics for emphasis and as outlined in our editorial style guide. Don’t use italics decoratively or in place of clearer writing.
+
+## Zilla Slab
+
+Zilla Slab adds warmth and contrast to the typography system. Its distinctive serif letterforms are well suited for editorial communications, while offering flexibility to lead or support other brand fonts.
+
+[Download Zilla Slab](https://fonts.google.com/specimen/Zilla+Slab)
+
+### When to use
+
+- Headlines for feature stories and profiles
+- Subheads and introductory or lead-in text
+- Pull quotes
+- Select section labels
+- Other moments where a warmer, more editorial tone is useful
+
+### Weights
+
+- Light
+- Regular
+- Medium
+- SemiBold
+- Bold
+
+### Guidance
+
+- Use Zilla Slab to support other brand fonts or as a primary typeface in editorial communications.
+- Don’t use Zilla Slab for body text. Its heavier serifs can make longer passages harder to read.
+
+## Lora
+
+Lora is our more traditional serif typeface reserved for formal and ceremonial communications. Its refined letterforms give these materials a polished appearance while maintaining strong readability.
+
+[Download Lora](https://fonts.google.com/specimen/Lora)
+
+### When to use
+
+- Headlines and titles for formal events, ceremonies, awards, and invitations
+- Subheads and introductory or lead-in text in formal pieces
+- Formal tributes, citations, and quotes
+- Names and titles on certificates and ceremonial programs
+- Other moments where a formal, traditional tone is useful
+
+### Weights
+
+- Regular
+- Medium
+- SemiBold
+- Bold
+
+### Guidance
+
+- Reserve Lora for communications with a clear formal or ceremonial purpose. Don’t use it as decoration or to make routine pieces feel formal.
+- Use Lora for prominent titles and shorter passages of text. Keep longer body text in Roboto.
+- Don’t use Lora and Zilla Slab in the same piece. Both are distinctive serifs, and together they compete for attention.
+- Use italics to add contrast or emphasis to short passages and callouts.
+
+## Font Awesome icons
+
+Font Awesome provides small, functional icons that support actions, information, and interface states. Use these icons minimally. For more expressive applications, use Iowa Brand Icons.
+
+[Use Font Awesome](https://fontawesome.com/icons)
+
+### When to use
+
+- Interface and navigation elements
+- Social media platform icons
+- Directional arrows and wayfinding cues
+- Action icons paired with buttons or links
+
+### Styles
+
+- Solid
+- Regular
+
+
+### Guidance
+
+- Choose either Solid or Regular icons based on the level of emphasis needed and use that style consistently. Don’t use Thin, Light, Duotone, Sharp, animated, or other specialty styles.
+- Keep icons smaller and less prominent than the text they support. As a starting point, size an icon to about 75% of the text line height, then adjust for visual balance.
+- Pair icons with visible text unless their meaning is widely understood. When text already explains the icon, hide it from screen readers to avoid repetition. When an icon appears alone, provide an accessible name and add a tooltip when helpful.
+- Don’t use Font Awesome as a substitute for Iowa brand icons in larger-scale or expressive applications.
+
+&lt;!-- Hidden on the page for now. --&gt;
+
+## Letter case guidelines
+
+**Use sentence case as the standard:** For optimal legibility, always use sentence case as the default for body text, full sentences, longer headlines and subheads, navigation, instructions, descriptions, and supporting content.
+
+**Limit uppercase (or all caps):** Only use uppercase when text is short (1–5 words), and the goal is to signal, label, emphasize, or create visual impact. While uppercase can add boldness to messaging and draw attention to key moments, it becomes harder to read and less effective when overused.
+
+Never use uppercase for paragraphs and body text content intended for sustained reading or multiple elements within the same composition.
+
+### Only use uppercase for short, high-impact text, such as:
+
+- Display headlines or short statements intended to create a bold visual moment
+- Eyebrows, kickers, labels, tags, and badges
+- Short calls to action
+- Dates, times, or other concise informational callouts
+- Environmental graphics, merchandise, and other applications where typography functions as a prominent visual element
+
+The University of Iowa uses predominantly AP style across our communication. Consult the [Editorial Style Guide](https://brand.uiowa.edu/editorial-style-guide) for additional instructions for text formatting, capitalization, and punctuation.
+
+[See editorial style guide](https://brand.uiowa.edu/editorial-style-guide)
+
+### Uppercase in digital applications
+
+For digital use, apply uppercase through CSS. This allows uppercase to function as a visual treatment without changing the underlying content. Siteimprove R72 evaluates paragraph-role elements, so CSS applied on a heading, button, tag, or similar element does not trigger the rule. Letters should only be typed as capitals for acronyms.</code></pre></div></div></section>
+  </article>
+
+  <nav class="ds-pn" aria-label="Previous and next page">
+    <a href="colors.html"><small>Previous</small><b>Color</b></a>
+    <a class="ds-next" href="alert.html"><small>Next</small><b>Alert</b></a>
+  </nav>
+</main>
+
+<nav class="ds-toc" aria-labelledby="ds-ol-title">
+  <p class="ds-ol-title" id="ds-ol-title">On this page</p>
+  <ul class="ds-ol">
+    <li class="l2"><a href="#guidance">Use fonts intentionally</a></li>
+    <li class="l2"><a href="#special-gothic-condensed">Special Gothic Condensed</a></li>
+    <li class="l2"><a href="#roboto">Roboto</a></li>
+    <li class="l2"><a href="#zilla-slab">Zilla Slab</a></li>
+    <li class="l2"><a href="#lora">Lora</a></li>
+    <li class="l2"><a href="#font-awesome">Font Awesome icons</a></li>
+    <!-- <li class="l2"><a href="#letter-case">Letter case guidelines</a></li> -->
+    <li class="l2"><a href="#use-in-your-work">Use in your work</a></li>
+  </ul>
+</nav>
+
+</div>
+<footer class="footer">
+  <div class="footer__container footer__container--flex">
+    <div class="footer__links footer__links--contact">
+      <div class="logo logo--footer">
+        <a href="https://uiowa.edu">
+          <div class="element-invisible">University of Iowa</div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="logo-icon" aria-labelledby="footer-logo" role="img" viewBox="0 0 311.6 90.2">
+            <title id="footer-logo">University of Iowa</title>
+            <path class="st0" d="M40 18.8h-7.3v52.4H40v19H0v-19h7.3V18.8H0V0h40V18.8z"/>
+            <path class="st0" d="M93.8 90.2h-29c-10.5 0-17.4-6.9-17.4-18.2V18.2C47.4 7 54.4 0 64.8 0h29c10.5 0 17.4 7 17.4 18.2V72C111.2 83.2 104.2 90.2 93.8 90.2zM85.6 71.2V18.8H73v52.4H85.6z"/>
+            <path class="st0" d="M122.6 18.8h-6.4V0h38v18.9H147l6.5 43.4L167 0h19.2l14.4 62.3 5.2-43.4h-6.6V0h37.5v18.9h-6.2l-11.3 71.4h-30.6l-11.8-53.2 -12.1 53.1h-29.4L122.6 18.8z"/>
+            <path class="st0" d="M230.1 71.2h6.9L250.7 0h41l13.5 71.2h6.4v19H281l-2.9-22h-15.2l-2.7 22h-30L230.1 71.2 230.1 71.2zM276.5 51.7l-5.8-36.4 -6 36.4H276.5z"/>
+          </svg>
+        </a>
+      </div>
+      <div class="site-name">Design System</div>
+      <div class="footer__links footer__links--icon">
+        <p>
+          300 Plaza Centre One<br>
+          Iowa City, Iowa 52242<br>
+          <a href="tel:319-384-0019"><span class="fa-phone fas" role="presentation"></span> 319-384-0019</a><br>
+          <a href="mailto:osc-brand@uiowa.edu?subject=OSC Contact Email:"><span class="fa-envelope fas" role="presentation"></span> osc-brand@uiowa.edu</a>
+        </p>
+      </div>
+      <div class="socket">
+        <ul class="socket__menu">
+          <li>© 2026 The University of Iowa</li>
+          <li><a href="https://uiowa.edu/privacy">Privacy Notice</a></li>
+          <li><a href="https://policy.uiowa.edu/community-policies/nondiscrimination-statement">UI Nondiscrimination Statement</a></li>
+          <li><a href="https://accessibility.uiowa.edu/">Accessibility</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+<div class="ds-scrim"></div>
+</body>
+</html>

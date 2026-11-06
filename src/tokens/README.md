@@ -17,6 +17,12 @@ root font size, which UIDS fixes at 16px. At a 16px browser default the threshol
 match. A different browser default can make media and container queries switch at
 different CSS-pixel widths.
 
+## Layout tiers
+
+`layout.digital.*` holds the column count, margin, gutter, padding, and reading width for each
+digital size tier. The Medium tier starts at `breakpoint.768` and Large at `breakpoint.980`.
+Padding is an alias of gutter in every tier.
+
 ## Generate
 
 Style Dictionary compiles the token files into `src/scss/abstracts/_tokens-generated.scss`.
@@ -32,7 +38,7 @@ build so release artifacts include the generated Sass and CSS.
 
 ## UIDS extensions
 
-UIDS currently defines one namespaced extension using DTCG's `$extensions` property.
+UIDS defines two namespaced extensions using DTCG's `$extensions` property.
 
 ### `edu.uiowa.fluid`
 
@@ -40,3 +46,21 @@ Adds responsive scaling to a typography token. The generator resolves the token'
 `fontSize` reference to a CSS `clamp()` value. The extension declares
 `minViewport` and `maxViewport` as px dimensions, then either a `max` size or
 `strategy: "exponential"` with a numeric `exponent`.
+
+### `edu.uiowa.multiply`
+
+Makes a size a multiple of another size. The token's `$value` references the size it
+starts from, and `by` is the multiplier: a number token's reference, or a number. The
+generator prints a `calc()` that keeps the reference as a custom property, so setting the
+size it starts from once resizes every token built on it. The typography roles use it on
+the reading size, `typography.base.fontSize`:
+
+```json
+"fontSize": {
+  "$type": "dimension",
+  "$value": "{typography.base.fontSize}",
+  "$extensions": { "edu.uiowa.multiply": { "by": 8 } }
+}
+```
+
+prints `calc(var(--uiowa-typography-base-font-size) * 8)`.
