@@ -101,7 +101,7 @@
         '<div><p class="ds-pop-label" id="' + id + '-bg">Background</p><div class="ds-seg ds-seg--2" role="group" aria-labelledby="' + id + '-bg">' +
           BGS.map(function (b) { return '<button type="button" data-bg-pick="' + b + '"><span class="ds-swatch" style="background:' + BG_HEX[b] + '" aria-hidden="true"></span><span>' + b.charAt(0).toUpperCase() + b.slice(1) + '</span></button>'; }).join('') +
         '</div><p class="ds-pop-hint">In the light theme.</p></div>' +
-        '<div><p class="ds-pop-label" id="' + id + '-toc">On this page</p><div class="ds-seg ds-seg--2" role="group" aria-labelledby="' + id + '-toc">' +
+        '<div><p class="ds-pop-label" id="' + id + '-toc">Page outline menu</p><div class="ds-seg ds-seg--2" role="group" aria-labelledby="' + id + '-toc">' +
           TOCS.map(function (o) { return '<button type="button" data-toc-pick="' + o + '"><span>' + o.charAt(0).toUpperCase() + o.slice(1) + '</span></button>'; }).join('') +
         '</div><p class="ds-pop-hint">The page outline, on wide screens.</p></div>' +
         '<div class="ds-pop-foot"><p>Saved on this browser.</p><button type="button" class="ds-pop-reset">Reset to defaults</button></div>' +
