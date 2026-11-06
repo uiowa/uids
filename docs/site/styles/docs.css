@@ -46,10 +46,12 @@
   --ty-rule: rgba(0, 0, 0, .3); --ty-rule-thin: rgba(0, 0, 0, .1); --ty-bevel: rgba(255, 255, 255, .3);
   --ty-eyebrow-color: var(--uiowa-color-neutral-500);
   /* one gap for every row or grid of boxes: buttons, cards, swatches, examples, embeds */
-  --ty-gap: var(--uiowa-layout-gutter);
+  --ty-gap: var(--uiowa-layout-digital-small-gutter);
   /* the page opens on the band gap, from the bar to the first cap, and closes on it */
   padding-top: var(--ty-band); padding-bottom: var(--ty-band);
 }
+/* the large gutter from UIDS's large breakpoint (the layout.gutter token isn't in this branch's tokens) */
+@media (min-width: 61.25rem) { .ds-doc.ty { --ty-gap: var(--uiowa-layout-digital-large-gutter); } }
 @media (prefers-color-scheme: dark) {
   :root[data-ds-shell]:not([data-theme="light"]) .ds-doc.ty { --ty-rule: rgba(255, 255, 255, .3); --ty-rule-thin: var(--c-line); --ty-bevel: transparent; --ty-eyebrow-color: var(--c-fg-2); }
 }
