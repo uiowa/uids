@@ -475,8 +475,11 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
   .ds-body.has-toc > .ds-toc { grid-column: 5; }
   /* docs-shell.js builds the minimap; without the script the column stays empty. */
   .ds-body.has-toc .ds-toc.ds-mm { display: block; position: sticky; top: var(--ds-hh); align-self: start; z-index: 20; }
-  /* Display > On this page: Off. The column stays, so the page doesn't shift. */
-  :root[data-ds-toc="off"] .ds-body.has-toc .ds-toc.ds-mm { display: none; }
+  /* Display > Always show page outline: the list stands open in a wider column, no lines. */
+  :root[data-ds-outline="on"] .ds-body.has-toc { --ds-toc: 15.5rem; }
+  :root[data-ds-outline="on"] .ds-mm-btn { display: none; }
+  /* its top edge on the cap line of the rail title and breadcrumbs, where the first line sits when closed */
+  :root[data-ds-outline="on"] .ds-mm-panel { position: relative; top: .75rem; right: auto; margin: 0 .75rem 0 auto; visibility: visible; opacity: 1; transform: none; transition: none; }
 }
 
 /* ---- rail: a title, then UIDS menus, each under a small group head ----------------- */
