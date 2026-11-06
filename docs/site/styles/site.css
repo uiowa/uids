@@ -475,11 +475,13 @@ ul.cards .card p { margin: 0; font-size: .86rem; color: var(--c-fg-2); max-width
   .ds-body.has-toc > .ds-toc { grid-column: 5; }
   /* docs-shell.js builds the minimap; without the script the column stays empty. */
   .ds-body.has-toc .ds-toc.ds-mm { display: block; position: sticky; top: var(--ds-hh); align-self: start; z-index: 20; }
-  /* Display > Always show page outline: the list stands open in a wider column, no lines. */
-  :root[data-ds-outline="on"] .ds-body.has-toc { --ds-toc: 15.5rem; }
-  :root[data-ds-outline="on"] .ds-mm-btn { display: none; }
-  /* its top edge on the cap line of the rail title and breadcrumbs, where the first line sits when closed */
-  :root[data-ds-outline="on"] .ds-mm-panel { position: relative; top: .75rem; right: auto; margin: 0 .75rem 0 auto; visibility: visible; opacity: 1; transform: none; transition: none; }
+}
+/* Display > Always show page outline: the list stays open where it would open over the lines,
+   so the page doesn't move; its top edge on the rail title's and breadcrumbs' cap line. Only
+   where it clears the content; narrower, the lines stay. */
+@media (min-width: 105rem) {
+  :root[data-ds-outline="on"] .ds-mm-btn { visibility: hidden; }
+  :root[data-ds-outline="on"] .ds-mm-panel { top: .75rem; visibility: visible; opacity: 1; transform: none; transition: none; }
 }
 
 /* ---- rail: a title, then UIDS menus, each under a small group head ----------------- */
