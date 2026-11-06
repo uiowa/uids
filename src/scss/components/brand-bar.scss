@@ -112,6 +112,18 @@
     }
   }
 
+  // Default slot content. Below md it continues the gold strip under
+  // the site name.
+  &__content {
+    background: var(--uiowa-brand-bar-below-md-content-background);
+
+    @include utilities.breakpoint(md) {
+      display: flex;
+      flex: 1 1 auto;
+      background: transparent;
+    }
+  }
+
   &__container {
     max-width: variables.$container-width;
     flex-wrap: wrap;
@@ -192,6 +204,7 @@
 
     .site-name {
       font-size: var(--uiowa-brand-bar-narrow-site-name-font-size);
+      font-weight: var(--uiowa-brand-bar-narrow-site-name-font-weight);
       margin: 0;
       padding: variables.$gutter;
       background: var(--uiowa-brand-bar-below-md-site-name-background);

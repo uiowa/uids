@@ -34,6 +34,10 @@ writes them to Sass, in rem.
 - Brand bar `site_name` and `site_url` props. `site_name` renders
   `<h1 class="site-name">` after the logo; `site_url` wraps the name in a link. The
   default slot now follows the site name.
+- Brand bar `.iowa-bar__content` wrapper around the default slot, rendered only when the
+  slot has content. Below md it continues the site name's gold strip
+  (`brand-bar.below-md.content.background`, `--uiowa-brand-bar-below-md-content-background`);
+  at md and up it fills the space after the site name as a flex row.
 
 ### Changed
 

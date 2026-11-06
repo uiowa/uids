@@ -72,8 +72,10 @@ export default {
         <a v-if="site_url" :href="site_url">{{ site_name }}</a>
         <template v-else>{{ site_name }}</template>
       </h1>
-      <!-- @slot Default slot shows content after the site name. -->
-      <slot></slot>
+      <div v-if="$slots.default" class="iowa-bar__content">
+        <!-- @slot Default slot shows content after the site name. -->
+        <slot></slot>
+      </div>
     </div>
   </header>
 </template>
