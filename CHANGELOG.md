@@ -51,6 +51,11 @@ writes them to Sass, in rem.
   With the button stylesheet loaded, `.bttn.button--small` horizontal padding changes
   from `2rem` to `1rem`. Existing `.bttn--small` and `.bttn--full` modifiers remain supported.
 - Component documentation now describes Vue 3 and Storybook in place of Fractal and Twig.
+- The logo links only when given the new `url` prop; without it, the logo renders no
+  `<a>`. The brand bar and footer pass `https://uiowa.edu`, or `https://uihealthcare.org`
+  with `healthcare`, so they still link. The logo dims to 0.7 opacity on hover and focus
+  only when linked; focus was 0.5. The SVG takes its accessible name from `aria-label`
+  in place of `aria-labelledby`, a `<title>`, and a visually hidden div.
 
 #### Links
 
@@ -174,6 +179,7 @@ move with the browser's default font size, while container queries use the fixed
   (`--uiowa-brand-bar-nameplate-background`, `--uiowa-brand-bar-nameplate-border-color`).
   Filling the slot no longer applies `.iowa-bar--narrow`; pass `narrow` instead. Pass
   the site name with `site_name`. No replacement for a second row.
+- The logo's `id` prop, used only to label the SVG. No replacement.
 
 #### Legacy class names
 
