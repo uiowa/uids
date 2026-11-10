@@ -174,49 +174,30 @@
 .ds-doc .faS-row .ic { display: flex; flex-wrap: wrap; gap: 1.1rem; font-size: 1.5rem; }
 .ds-doc .faS-more { margin: .9rem 0 0; font: 400 1rem / 1.4 var(--uiowa-typography-font-family-roboto); }
 
-/* Color: swatches */
+/* Color: intro, section splits */
 .ds-doc .cl-intro { max-width: 44rem; }
 .ds-doc .cl-split { margin-top: 2.5rem; }
 .ds-doc .cl-sub { margin: 2rem 0 .75rem; }
-.ds-doc .cl-swatches { display: grid; gap: var(--ty-gap); margin: 0; }
-.ds-doc .cl-swatches--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.ds-doc .csw { display: flex; flex-direction: column; margin: 0; border: 1px solid var(--c-line); }
-.ds-doc .csw-chip { display: flex; align-items: flex-end; height: 3.5rem; padding: .6rem .75rem; border-bottom: 1px solid var(--c-line); }
-.ds-doc .csw--big .csw-chip { height: 5rem; }
-.ds-doc .csw-aa { font: 600 1.125rem / 1 var(--uiowa-typography-font-family-roboto); }
-.ds-doc .csw figcaption { padding: .6rem .75rem .7rem; }
-.ds-doc .csw-name { margin: 0 0 .35rem; font: 600 .875rem / 1.2 var(--uiowa-typography-font-family-roboto); }
-.ds-doc ul.csw-vals { display: grid; gap: .15rem; margin: 0; padding: 0; list-style: none; }
-.ds-doc .csw-vals li { display: grid; grid-template-columns: 4.75rem 1fr; gap: .4rem; align-items: baseline; margin: 0; font: 400 .75rem / 1.3 var(--uiowa-typography-font-family-roboto); }
-.ds-doc .csw-vals span { color: var(--c-fg-2); font-size: .625rem; letter-spacing: .04em; text-transform: uppercase; }
-.ds-doc .csw code { padding: 0; border: 0; border-radius: 0; background: none; color: var(--c-fg); font: 400 .75rem / 1.3 var(--doc-mono); }
-.ds-doc .cl-use { font: 400 .8125rem / 1.3 var(--uiowa-typography-font-family-roboto); font-style: normal; }
-.ds-doc .csw-surface { display: flex; align-items: center; height: 1.5rem; padding: 0 .75rem; border-bottom: 1px solid var(--c-line); }
-.ds-doc .csw-surface span { color: var(--c-fg-2); font: 500 .6875rem / 1 var(--uiowa-typography-font-family-roboto); letter-spacing: .04em; text-transform: uppercase; }
-.ds-doc .csw-aa--surface { display: none; }
 
-/* swatches as rows: chip, name, values; beside When to use, the rows share its height */
-.ds-doc .cl-split--rows .cl-swatches { grid-template-columns: minmax(0, 1fr); gap: 0; border-top: 1px solid var(--c-line); }
-.ds-doc .cl-split--rows .csw { flex-direction: row; align-items: stretch; border: 0; border-bottom: 1px solid var(--c-line); }
-.ds-doc .cl-split--rows .csw-chip { border-bottom: 0; flex: none; width: 4.5rem; height: auto; min-height: 3.25rem; padding: .5rem .6rem; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08); }
-.ds-doc .cl-split--rows .csw-aa { font-size: .9375rem; }
-.ds-doc .cl-split--rows .csw-surface { flex: none; justify-content: center; align-items: flex-end; width: 2.75rem; height: auto; padding: 0 0 .5rem; border: 0; }
-.ds-doc .cl-split--rows .csw-surface span { display: none; }
-.ds-doc .cl-split--rows .csw-aa--surface { display: block; color: #000; }
-.ds-doc .cl-split--rows .csw figcaption { flex: 1; display: grid; grid-template-columns: 8rem 1fr; align-items: center; gap: 1rem; padding: .5rem 1rem; }
-.ds-doc .cl-split--rows .csw-name { margin: 0; }
-.ds-doc .cl-split--rows .csw-vals { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .25rem 1.5rem; }
-.ds-doc .cl-split--rows .csw-vals li { display: block; }
-.ds-doc .cl-split--rows .csw-vals span { display: block; }
+/* Color ramps as tables (Neutral, Status), in a quiet reference style: small-caps column
+   heads, hairline row rules, no fills. The name is the row header. The shell's table.ref
+   rules (gold header, zebra rows, panel) are outranked here by selector length. */
+.ds-doc .cl-table { margin: 0; }
+.ds-doc .cl-table:focus-visible { outline: 2px solid var(--c-fg); outline-offset: 2px; }
+.ds-shell .cl-table table.ref { background: none; border: 0; }
+.ds-shell .cl-table :is(th, td) { padding: .6rem .75rem; vertical-align: middle; }
+.ds-shell .cl-table table.ref thead tr:first-child th { background: none; color: var(--c-fg-2); font: 500 .6875rem / 1.3 var(--uiowa-typography-font-family-roboto); letter-spacing: .04em; text-transform: uppercase; border-bottom: 1px solid var(--c-line); }
+.ds-shell .cl-table table.ref tr:nth-child(odd):not(:first-child) td { background: none; }
+.ds-shell .cl-table table.ref tbody tr:nth-child(n) th { background: none; color: var(--c-fg); font-weight: 600; border-bottom: 1px solid var(--c-line); }
+.ds-shell .cl-table table.ref tr:last-child :is(td, th) { border-bottom: 1px solid var(--c-line); }
+.ds-doc .cl-table td.cl-chip { width: 4.5rem; min-width: 4.5rem; padding: .5rem .6rem; vertical-align: bottom; box-shadow: inset 0 0 0 1px var(--c-line); }
+.ds-doc .cl-table .csw-aa { font: 600 .9375rem / 1 var(--uiowa-typography-font-family-roboto); }
+.ds-doc .cl-table code { padding: 0; border: 0; border-radius: 0; background: none; color: var(--c-fg); font: 400 .8125rem / 1.4 var(--doc-mono); white-space: nowrap; }
+.ds-doc .cl-table .cl-mini { display: inline-block; width: 1rem; height: 1rem; margin-right: .45rem; vertical-align: -.15rem; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .12); }
+.ds-doc .cl-table .cl-meaning { margin: 0; font: 400 .9375rem / 1.45 var(--uiowa-typography-font-family-roboto); }
+.ds-doc .cl-table .cl-uses { margin: .35rem 0 0; color: var(--c-fg-2); font: 400 .8125rem / 1.45 var(--uiowa-typography-font-family-roboto); }
+.ds-doc .cl-table .cl-uses span { margin-right: .25rem; font-size: .625rem; letter-spacing: .04em; text-transform: uppercase; }
 .ds-doc .cl-split--rows.ty-grid { align-items: stretch; }
-.ds-doc .cl-split--rows.ty-grid > .cl-pal { display: flex; flex-direction: column; }
-.ds-doc .cl-split--rows.ty-grid .cl-swatches { flex: var(--rows, 1) 1 0; grid-auto-rows: 1fr; }
-/* status rows add a meaning and its common uses */
-.ds-doc .cl-split--rows .cl-swatches--status .csw figcaption { grid-template-columns: minmax(0, 1fr) 16rem; gap: 1.5rem; padding: .9rem 1rem; }
-@media (max-width: 47.99rem) { .ds-doc .cl-split--rows .cl-swatches--status .csw figcaption { grid-template-columns: minmax(0, 1fr); } }
-.ds-doc .cl-swatches--status .csw-desc { margin: .25rem 0 0; font: 400 .9375rem / 1.45 var(--uiowa-typography-font-family-roboto); }
-.ds-doc .cl-swatches--status .csw-uses { margin: .35rem 0 0; color: var(--c-fg-2); font: 400 .8125rem / 1.45 var(--uiowa-typography-font-family-roboto); }
-.ds-doc .cl-swatches--status .csw-uses span { margin-right: .25rem; font-size: .625rem; letter-spacing: .04em; text-transform: uppercase; }
 /* the pointer to the data visualization page */
 .ds-doc .cl-dv { display: flex; align-items: center; gap: 1rem; margin: 1.75rem 0 0; }
 .ds-doc .cl-dv img { flex: none; width: 2.5rem; height: 2.5rem; }
