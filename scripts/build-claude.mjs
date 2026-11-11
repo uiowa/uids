@@ -10,7 +10,17 @@ const repository = join(dirname(fileURLToPath(import.meta.url)), '..');
 const output = join(repository, 'dist/claude');
 const TITLE = 'UIDS';
 
-const git = (...args) => execFileSync('git', args, { cwd: repository, encoding: 'utf8' }).trim();
+const git = (...args) => execFileSync('git', args, { cwd: repository, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+
+function ref() {
+  let name;
+  try {
+    name = git('describe', '--tags', '--exact-match');
+  } catch {
+    name = git('rev-parse', '--abbrev-ref', 'HEAD');
+  }
+  return `${name}@${git('rev-parse', '--short', 'HEAD')}`;
+}
 
 function declarations(tokens, value = (token) => token.value) {
   return tokens.map((token) => `  --${token.name}: ${value(token)};`).join('\n');
@@ -56,7 +66,7 @@ function build() {
   tokens.meta = {
     source: 'github',
     repo: 'uiowa/uids',
-    ref: `${git('rev-parse', '--abbrev-ref', 'HEAD')}@${git('rev-parse', '--short', 'HEAD')}`,
+    ref: ref(),
     version,
     paths: { tokens: ['src/tokens'], docs: ['src/claude'] },
   };
@@ -67,6 +77,12 @@ function build() {
   cpSync(join(repository, 'dist/uids.css'), join(output, 'components/bundle.css'));
   cpSync(join(repository, 'src/claude/README.md'), join(output, 'README.md'));
   cpSync(join(repository, 'src/claude/Cover/preview.html'), join(output, 'components/Cover/preview.html'));
+
+  const logos = join(output, 'assets/Logos');
+  mkdirSync(logos, { recursive: true });
+  cpSync(join(repository, 'src/claude/Logos/README.md'), join(logos, 'README.md'));
+  cpSync(join(repository, 'src/assets/images/uiowa-primary.png'), join(logos, 'block-iowa-gold.png'));
+  cpSync(join(repository, 'src/assets/images/uiowa-secondary.svg'), join(logos, 'block-iowa-black.svg'));
 
   const images = join(repository, 'dist/images');
   if (existsSync(images)) {

@@ -96,6 +96,8 @@ bumps `package.json` to match. SemVer prerelease versions such as `5.0.0-alpha.1
 3. Wait for the workflow to finish and verify that the tarball appears in the release's
    assets before asking a consumer to update. If it fails, rerun the `Release` workflow
    with that tag; do not upload a replacement tarball manually.
+4. Republish the UIDS design system in Claude: open Claude Code in this repository and run
+   `/design-sync`.
 
 Consumers install the release artifact by URL:
 
