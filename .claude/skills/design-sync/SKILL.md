@@ -9,7 +9,7 @@ The UIDS design system in Claude is a Design System artifact built from this
 repository. Its page is read-only (`"editing": "code"`), so every change goes through the
 repository and this skill republishes it. Run it once per release, from the release tag.
 
-**System URL:** none yet. The first run creates the artifact and replaces "none yet" with its URL.
+**System URL:** https://claude.ai/artifact/2LFLU3CDsJVZrUzwnf6mUZ
 
 ## 1. Build
 
