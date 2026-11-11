@@ -133,3 +133,18 @@ it('writes breakpoints to Sass in rem and durations as CSS times', () => {
   expect(tokens).toContain('--uiowa-duration-150: 150ms;');
   expect(tokens).not.toContain('[object Object]');
 });
+
+it('writes the design system tokens as the flat lists the artifact reads', () => {
+  const tokens = JSON.parse(readFileSync(join(repository, 'dist/design-system/tokens.json'), 'utf8'));
+  const color = (name) => tokens.color.tokens.find((token) => token.name === name);
+  const listed = Object.values(tokens).flatMap((family) => family?.tokens ?? []);
+
+  expect(color('uiowa-color-gold')).toEqual({ name: 'uiowa-color-gold', value: '#ffcd00', usage: 'Hawkeye Gold.' });
+  expect(color('uiowa-color-link-default').value).toBe('{uiowa-color-blue-dark}');
+  expect(color('uiowa-color-background-gold').usage).toBe('Fills behind page and section content.');
+  expect(tokens.type.families['zilla-slab']).toBe("'Zilla Slab', Zilla-fallback, serif");
+  expect(tokens.type.groups[0].styles[0]).toMatchObject({ name: 'h1', family: 'zilla-slab', fontSize: '3.0529rem' });
+  expect(tokens).not.toHaveProperty('motion');
+  expect(new Set(listed.map((token) => token.name)).size).toBe(listed.length);
+  expect(listed.every((token) => typeof token.value === 'string' || typeof token.value === 'number')).toBe(true);
+});

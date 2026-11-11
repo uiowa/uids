@@ -1,3 +1,5 @@
+import { designSystemTokens, recordGroupDescriptions } from './scripts/design-system-tokens.js';
+
 const REM_IN_PIXELS = 16;
 const FLUID_EXTENSION = 'edu.uiowa.fluid';
 
@@ -74,7 +76,14 @@ export default {
   usesDtcg: true,
   source: ['src/tokens/**/*.json'],
   expand: { include: ['typography'] },
+  preprocessors: ['uids/group-descriptions'],
   hooks: {
+    preprocessors: {
+      'uids/group-descriptions': (tokens) => recordGroupDescriptions(tokens),
+    },
+    formats: {
+      'uids/design-system-tokens': designSystemTokens,
+    },
     transforms: {
       // Run only on the fontSize member created when Style Dictionary expands a
       // typography composite carrying the UIDS fluid extension.
@@ -124,6 +133,14 @@ export default {
           filter: isBreakpoint,
         },
       ],
+    },
+    designSystem: {
+      transformGroup: 'css',
+      transforms: ['uids/fluid-font-size', 'uids/duration-css'],
+      // The artifact turns each token name into a variable, so these match the UIDS stylesheets.
+      prefix: 'uiowa',
+      buildPath: 'dist/design-system/',
+      files: [{ destination: 'tokens.json', format: 'uids/design-system-tokens' }],
     },
   },
 };
