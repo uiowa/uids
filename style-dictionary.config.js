@@ -139,7 +139,7 @@ export default {
       transforms: ['uids/fluid-font-size', 'uids/duration-css'],
       // The artifact turns each token name into a variable, so these match the UIDS stylesheets.
       prefix: 'uiowa',
-      buildPath: 'dist/design-system/',
+      buildPath: 'dist/claude/',
       files: [{ destination: 'tokens.json', format: 'uids/design-system-tokens' }],
     },
   },

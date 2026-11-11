@@ -135,7 +135,7 @@ it('writes breakpoints to Sass in rem and durations as CSS times', () => {
 });
 
 it('writes the design system tokens as the flat lists the artifact reads', () => {
-  const tokens = JSON.parse(readFileSync(join(repository, 'dist/design-system/tokens.json'), 'utf8'));
+  const tokens = JSON.parse(readFileSync(join(repository, 'dist/claude/tokens.json'), 'utf8'));
   const color = (name) => tokens.color.tokens.find((token) => token.name === name);
   const listed = Object.values(tokens).flatMap((family) => family?.tokens ?? []);
 
