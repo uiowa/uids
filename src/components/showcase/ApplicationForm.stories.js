@@ -58,9 +58,9 @@ const Template = {
       <brand-bar
         :narrow='true'
         :healthcare='false'
+        site_name="Profiles"
       >
-        <h1 class="site-name flex--10">Profiles</h1>
-        <div class="user-menu-toggle bg--gold">
+        <div class="user-menu-toggle bg--gold" style="margin-left: auto;">
           <uids-button
             :url=""
             :color='link'

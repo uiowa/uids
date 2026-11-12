@@ -31,6 +31,13 @@ writes them to Sass, in rem.
 
 - Storybook Tokens pages for Borders and shapes, Shadows, and Motion. Space and layout
   gains form heights, the logo minimum, and the breakpoints.
+- Brand bar `site_name` and `site_url` props. `site_name` renders
+  `<h1 class="site-name">` after the logo; `site_url` wraps the name in a link. The
+  default slot now follows the site name.
+- Brand bar `.iowa-bar__content` wrapper around the default slot, rendered only when the
+  slot has content. Below md it continues the site name's gold strip
+  (`brand-bar.below-md.content.background`, `--uiowa-brand-bar-below-md-content-background`);
+  at md and up it fills the space after the site name as a flex row.
 
 ### Changed
 
@@ -44,6 +51,11 @@ writes them to Sass, in rem.
   With the button stylesheet loaded, `.bttn.button--small` horizontal padding changes
   from `2rem` to `1rem`. Existing `.bttn--small` and `.bttn--full` modifiers remain supported.
 - Component documentation now describes Vue 3 and Storybook in place of Fractal and Twig.
+- The logo links only when given the new `url` prop; without it, the logo renders no
+  `<a>`. The brand bar and footer pass `https://uiowa.edu`, or `https://uihealthcare.org`
+  with `healthcare`, so they still link. The logo dims to 0.7 opacity on hover and focus
+  only when linked; focus was 0.5. The SVG takes its accessible name from `aria-label`
+  in place of `aria-labelledby`, a `<title>`, and a visually hidden div.
 
 #### Links
 
@@ -162,6 +174,12 @@ move with the browser's default font size, while container queries use the fixed
   medium breakpoint and above.
 - `$break-xlg` (106em) and the `xlg` option of the `breakpoint()` mixin. Nothing in UIDS
   or SiteNow used them. Write `@media (min-width: 106em)` where that width is needed.
+- The brand bar's second row: the `second_row_content` slot, `.iowa-bar__below` styles,
+  and the `brand-bar.nameplate.background` and `brand-bar.nameplate.border-color` tokens
+  (`--uiowa-brand-bar-nameplate-background`, `--uiowa-brand-bar-nameplate-border-color`).
+  Filling the slot no longer applies `.iowa-bar--narrow`; pass `narrow` instead. Pass
+  the site name with `site_name`. No replacement for a second row.
+- The logo's `id` prop, used only to label the SVG. No replacement.
 
 #### Legacy class names
 

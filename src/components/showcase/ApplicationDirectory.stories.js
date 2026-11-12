@@ -63,9 +63,8 @@ const Template = {
         <brand-bar
           :narrow='true'
           :healthcare='false'
-        >
-          <h1 class="site-name flex--10">Profiles</h1>
-        </brand-bar>
+          site_name="Profiles"
+        ></brand-bar>
         <nav class="menu--container">
           <div class="layout-container">
             <uids-menu
