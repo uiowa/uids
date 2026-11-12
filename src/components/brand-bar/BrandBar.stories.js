@@ -7,14 +7,18 @@ import './BrandBar.stories.scss';
 // Example default slot content, picked from the Content control.
 const contentExamples = {
   none: '',
-  badge: '<uids-badge type="secondary" text="Beta" class="sb-brand-bar-badge" />',
-  button: '<uids-button url="#" color="secondary" size="small" transparent class="sb-brand-bar-button">Apply now</uids-button>',
+  badge: '<uids-badge type="secondary" text="Beta" />',
+  button: '<uids-button url="#" color="secondary" size="small" transparent>Apply now</uids-button>',
 }
 
 export default {
   title: 'Components/Branding/Brand Bar',
   component: UidsIowaBar,
   tags: ['autodocs'],
+  // Story-only wrapper that scopes BrandBar.stories.scss to these stories.
+  decorators: [
+    () => ({ template: '<div class="sb-brand-bar-stories"><story /></div>' }),
+  ],
   argTypes: {
     site_name: {
       control: { type: 'text' },
@@ -43,6 +47,10 @@ export default {
     },
   },
   parameters: {
+    // Keep the story-only wrapper out of the HTML tab.
+    html: {
+      root: '.sb-brand-bar-stories',
+    },
     docs: {
       source: {
         code: null,
@@ -106,8 +114,8 @@ const ContentTemplate = (args) => ({
     >
       <component v-if="args.default" :is="{ components: { UidsBadge, UidsButton }, template: args.default }" />
     </uids-iowa-bar>
-    <div class="sb-brand-bar-row">
-      <div class="sb-brand-bar-row__container">
+    <div class="sb-brand-bar-stories__row">
+      <div class="sb-brand-bar-stories__row-container">
         <div class="site-name">Icon Browser</div>
       </div>
     </div>

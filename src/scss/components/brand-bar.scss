@@ -29,31 +29,6 @@
 }
 // === End: Site Name === //
 
-// === Parent Site Name === //
-.parent-site-name {
-  font-weight: var(--uiowa-brand-bar-parent-site-name-font-weight);
-  flex-basis: content;
-  margin: 0 0 -10px 0;
-  padding: variables.$md 0 0 variables.$gutter;
-  width: 100%;
-  background: var(--uiowa-brand-bar-below-md-parent-site-name-background);
-
-  a {
-    color: var(--uiowa-brand-bar-parent-site-name-color);
-    text-decoration: none;
-  }
-
-  @include utilities.breakpoint(md) {
-    background: transparent;
-    display: flex;
-    align-items: center;
-    margin: 0;
-    padding: 1px 0 0;
-    width: auto;
-  }
-}
-// === End: Parent Site Name === //
-
 // === Iowa Bar === //
 // Settings for the default version of the IOWA bar.
 .iowa-bar {
@@ -116,6 +91,14 @@
   // the site name.
   &__content {
     background: var(--uiowa-brand-bar-below-md-content-background);
+
+    // Only below md, where the content stacks under the site name:
+    // overlap the site name by 1px so the bar's background can't show
+    // through a sub-pixel gap between the two at fractional zoom.
+    @media not all and (min-width: variables.$break-md) {
+      margin-top: -1px;
+      padding-top: 1px;
+    }
 
     @include utilities.breakpoint(md) {
       display: flex;
@@ -196,15 +179,8 @@
       }
     }
 
-    .parent-site-name {
-      @include utilities.breakpoint(page-container) {
-        padding: 6px 0 0 0;
-      }
-    }
-
     .site-name {
       font-size: var(--uiowa-brand-bar-narrow-site-name-font-size);
-      font-weight: var(--uiowa-brand-bar-narrow-site-name-font-weight);
       margin: 0;
       padding: variables.$gutter;
       background: var(--uiowa-brand-bar-below-md-site-name-background);

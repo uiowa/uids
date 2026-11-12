@@ -2,38 +2,95 @@
 // BrandBar.stories.js only; not compiled into dist or part of UIDS.
 //
 // Once a story loads, these styles stay on the page for every story
-// viewed after it, so scope every rule under a story-only class.
+// viewed after it, so every rule is nested under `.sb-brand-bar-stories`,
+// the wrapper that the BrandBar.stories.js decorator puts around each
+// brand bar story.
 @use '../../scss/abstracts/variables';
 @use '../../scss/abstracts/utilities';
 
-// === Content examples === //
-// Below md, inset the examples to line up with the site name text.
-.sb-brand-bar-badge,
-.sb-brand-bar-button {
-  align-self: center;
-  margin: 0 variables.$gutter 10px;
-}
-
-.sb-brand-bar-badge {
-  @include utilities.breakpoint(md) {
-    margin: 0 0 0 10px;
+.sb-brand-bar-stories {
+  // === Content examples === //
+  // Below md, inset the examples to line up with the site name text.
+  .badge,
+  .bttn {
+    align-self: center;
   }
-}
 
-.sb-brand-bar-button {
-  @include utilities.breakpoint(md) {
-    margin: 0 10px 0 auto;
+  .badge {
+    margin-left: variables.$gutter;
+
+    @include utilities.breakpoint(md) {
+      margin: 0 0 0 10px;
+    }
   }
-}
 
-// === Second row === //
-// Recreates the removed 4.x `.iowa-bar__below` row, matched to the live
-// With Parent Site Title story.
-.sb-brand-bar-row {
-  border-bottom: var(--uiowa-stroke-width-default) solid #e6e5e5;
-  background: var(--uiowa-color-background-white);
+  .bttn {
+    margin-left: variables.$gutter;
 
-  &__container {
+    @include utilities.breakpoint(md) {
+      margin: 0 10px 0px auto;
+    }
+  }
+
+  // On the default bar, lift the examples to line up with the site name.
+  // The narrow bar is too short for this: the margin would stretch it.
+  .iowa-bar:not(.iowa-bar--narrow) {
+    @include utilities.breakpoint(page-container) {
+      .badge,
+      .bttn {
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  .iowa-bar__content {
+    @include utilities.breakpoint(page-container) {
+      // padding-bottom: 10px;
+    }
+  }
+
+  // === Second row === //
+  // Recreates the removed 4.x `.iowa-bar__below` row, matched to the live
+  // With Parent Site Title story.
+  &__row {
+    border-bottom: var(--uiowa-stroke-width-default) solid #e6e5e5;
+    background: var(--uiowa-color-background-white);
+
+    // Only below md, where the brand bar collapses: overlap the brand bar
+    // by 1px, stacked above it, so no background can show through a
+    // sub-pixel gap between the two site names at fractional zoom.
+    @media not all and (min-width: variables.$break-md) {
+      position: relative;
+      z-index: 3;
+      margin-top: -1px;
+    }
+
+    .site-name {
+      margin: 0;
+      padding: variables.$gutter;
+
+      background: var(--uiowa-brand-bar-below-md-site-name-background);
+      font-size: 1.8rem;
+      line-height: 1;
+
+      // Make up for the row's 1px overlap so the text doesn't shift.
+      @media not all and (min-width: variables.$break-md) {
+        padding-top: calc(#{variables.$gutter} + 1px);
+      }
+
+      @include utilities.breakpoint(md) {
+        padding: 25px 20px 25px 0;
+        background: transparent;
+        font-size: 2rem;
+      }
+
+      @include utilities.breakpoint(page-container) {
+        font-size: 2.2rem;
+      }
+    }
+  }
+
+  &__row-container {
     max-width: variables.$container-width;
 
     @include utilities.breakpoint(md) {
@@ -46,24 +103,6 @@
     @include utilities.breakpoint(page-container) {
       margin: 0 auto;
       padding-left: 0;
-    }
-  }
-
-  .site-name {
-    margin: 0;
-    padding: variables.$gutter;
-    background: var(--uiowa-brand-bar-below-md-site-name-background);
-    font-size: 1.8rem;
-    line-height: 1;
-
-    @include utilities.breakpoint(md) {
-      padding: 25px 20px 25px 0;
-      background: transparent;
-      font-size: 2rem;
-    }
-
-    @include utilities.breakpoint(page-container) {
-      font-size: 2.2rem;
     }
   }
 }

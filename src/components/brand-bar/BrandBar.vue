@@ -1,7 +1,24 @@
 <script lang="ts">
-import { computed } from "vue"
+import { computed, Comment, Fragment, Text, type VNode } from "vue"
 import '../../scss/components/brand-bar.scss'
 import UidsLogo from '../logo/Logo.vue'
+
+/**
+ * Whether slot output has anything to show. A slot passed with only
+ * comments, such as a false `v-if`, or blank text counts as empty.
+ */
+const hasContent = (nodes: VNode[]): boolean => nodes.some((node) => {
+  if (node.type === Comment) {
+    return false;
+  }
+  if (node.type === Text) {
+    return String(node.children).trim() !== '';
+  }
+  if (node.type === Fragment) {
+    return hasContent(node.children as VNode[]);
+  }
+  return true;
+})
 
 /**
  * The UIDS IOWA Bar is the visual starting point for all
@@ -40,7 +57,7 @@ export default {
       default: false,
     },
   },
-  setup(props) {
+  setup(props, { slots }) {
 
     /**
      * Get computed classes based on properties of the component.
@@ -57,8 +74,14 @@ export default {
       return classes;
     })
 
+    /**
+     * Check whether the default slot has content to render.
+     */
+    const hasDefaultSlot = () => !!slots.default && hasContent(slots.default())
+
     return {
       getClasses,
+      hasDefaultSlot,
     }
   }
 }
@@ -72,7 +95,7 @@ export default {
         <a v-if="site_url" :href="site_url">{{ site_name }}</a>
         <template v-else>{{ site_name }}</template>
       </h1>
-      <div v-if="$slots.default" class="iowa-bar__content">
+      <div v-if="hasDefaultSlot()" class="iowa-bar__content">
         <!-- @slot Default slot shows content after the site name. -->
         <slot></slot>
       </div>
