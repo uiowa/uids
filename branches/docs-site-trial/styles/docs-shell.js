@@ -306,6 +306,38 @@
     on(window, 'hashchange', function () { requestAnimationFrame(spy); });
   }
 
+  // Copy for LLM: copies the Markdown shown in the same tab panel.
+  function copyText(text) {
+    function legacy() {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) { /* reported below */ }
+      ta.remove();
+      return ok ? Promise.resolve() : Promise.reject();
+    }
+    if (!navigator.clipboard) return legacy();
+    return navigator.clipboard.writeText(text).catch(legacy);
+  }
+  function copyMarkdown() {
+    document.querySelectorAll('[data-copy-md]').forEach(function (btn) {
+      var panel = btn.closest('[role="tabpanel"]') || document;
+      var md = panel.querySelector('pre.ty-md');
+      var status = btn.parentNode.querySelector('.ty-md-status');
+      function say(t) { if (status) status.textContent = t; }
+      on(btn, 'click', function () {
+        say('');
+        copyText(md.textContent).then(function () { say('Copied.'); },
+                                      function () { say('Could not copy. Select the Markdown below and copy it.'); });
+      });
+    });
+  }
+
   function start() {
     var box = document.querySelector('[data-ds-display]');
     if (box) display(box);
@@ -317,6 +349,7 @@
     // too, not only the header.
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { sticky(); if (items.length) spy(); });
     groups();
+    copyMarkdown();
     drawer();
     outline();
     sticky();
