@@ -11,6 +11,10 @@ const props = defineProps({
     type: String,
     default: 'Table',
   },
+  caption_hidden: {
+    type: Boolean,
+    default: false,
+  },
   sticky: {
     type: Boolean,
     default: false,
@@ -23,10 +27,19 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  variant: {
+    type: String,
+    default: 'default',
+    validator: (value) => ['default', 'minimal'].includes(value),
+  },
 });
 
 const tableClasses = computed(() => {
   let classes = [];
+
+  if (props.variant && props.variant !== 'default') {
+    classes.push(`table--${props.variant}`);
+  }
 
   if (props.highlight) {
     classes.push('table--hover-highlight');
@@ -43,7 +56,7 @@ const tableClasses = computed(() => {
 <template>
   <div class="table-responsive" :class="{ 'table-sticky': props.sticky }">
     <table :class="tableClasses" class="table" :summary="summary">
-      <caption>{{ caption }}</caption>
+      <caption v-if="caption" :class="{ 'element-invisible': caption_hidden }">{{ caption }}</caption>
       <thead>
       <slot name="thead"></slot>
       </thead>
