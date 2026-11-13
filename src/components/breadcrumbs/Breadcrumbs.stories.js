@@ -1,0 +1,56 @@
+import '../../scss/components/_background.scss';
+import UidsBreadcrumbs from './Breadcrumbs.vue';
+
+export default {
+  title: 'Components/Breadcrumbs',
+  component: UidsBreadcrumbs,
+  tags: ['autodocs'],
+  render: (args) => ({
+    setup() {
+      return { args };
+    },
+    components: { UidsBreadcrumbs },
+    template: `
+    <uids-breadcrumbs v-bind="args" />
+  `,
+  }),
+};
+
+export const Default = {
+  args: {
+    items: [
+      { text: 'Home', url: '#' },
+      { text: 'Parent page' },
+      { text: 'Current page' },
+    ],
+  },
+};
+
+export const AllLinked = {
+  args: {
+    items: [
+      { text: 'Home', url: '#' },
+      { text: 'Academics', url: '#' },
+      { text: 'Programs', url: '#' },
+      { text: 'Current page' },
+    ],
+  },
+};
+
+// Pins the [class*="bg--black"] context rule (crumbs and links flip to white).
+export const OnBlack = {
+  render: (args) => ({
+    setup() {
+      return { args };
+    },
+    components: { UidsBreadcrumbs },
+    template: `
+    <div class="bg--black" style="padding: 1rem">
+      <uids-breadcrumbs v-bind="args" heading_id="breadcrumb-on-black" />
+    </div>
+  `,
+  }),
+  args: {
+    ...Default.args,
+  },
+};
