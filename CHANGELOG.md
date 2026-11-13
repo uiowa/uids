@@ -21,16 +21,57 @@ system built from UIDS should be able to catch up using this file alone.
 | Shadows | `shadow.inset` (form fields), `shadow.raised` (the toggle knob) |
 | Motion | `duration.150`, `.250`, `.400`; `motion.duration.fast`, `medium`, `slow`; `easing.standard`, `overshoot` |
 | Breakpoints | `breakpoint.400`, `.600`, `.768`, `.930`, `.980`, `.1200`, `.1350`; `layout.breakpoint.standard` (1350) |
+| Spacing roles | `layout.space.tight` (8px), `related` (24px), `separated` (32px), `section` (48px) |
+| Digital layout tiers | `layout.digital.small`, `.medium` and `.large`, each with `columns`, `margin`, `gutter`, `padding` and `reading` |
 | Form heights | `form.height.medium` (48px), `form.height.large` (64px) |
 | Colors | `color.border.strong`, `color.border.strong-inverse`; `color.alpha.black-150`, `black-200`, `black-425`, `white-425`; `color.accent.blue` |
 | Data visualization | `color.data-visualization.categorical.1` to `.12`, assigned in numerical order, each pointing at a palette color; the palette gains `color.green-light`, `purple`, `cyan`, `olive`, `rose`, `gray-warm`, and `gray-cool` for them |
 | Logo | `logo.minWidth` (85px) |
+| Type scale | `typography.base.fontSize` (1.2rem, the reading size); `typography.scale.related` (1.5) and `break` (2); `typography.space.related` and `break`, the reading size times each |
+| Typography roles | `typography.headline`, `eyebrow`, `subhead`, `subhead-2`, `body` and `label`, each `large`, `medium` and `small`, with `fontFamily`, `fontWeight`, `fontSize`, `lineHeight` and `letterSpacing`; faces through `typography.typeface.display`, `slab` and `sans` |
+| Typography primitives | `typography.font-family.special-gothic-condensed`; `typography.line-height.090`, `.100`, `.110`, `.120`, `.150` |
 
 Breakpoints have no custom properties, because a media query can't read one. The build
 writes them to Sass, in rem.
 
+The typography roles follow Material 3's shape with one addition: six families, each in Large,
+Medium and Small, so 18 styles. Eyebrow, the label above a title, is the addition; the roles are named Headline, Subhead and Subhead 2 rather than Material’s Display, Headline and Title (renamed 2026-10-26): Special Gothic
+Condensed at 2×, 1.5× and 1×, set in uppercase by the component. They sit beside today's heading, intro, body and size tokens, and no
+component uses them yet, so nothing renders differently. UIDS does not load Special Gothic
+Condensed yet. Each size is a multiple of the reading size (Body Medium, 1.2rem): Headline
+8×, 6× and 4×; Subhead 2.5×, 2× and 1.5×; Subhead 2 2×, 1.5× and 1.25×; Body 1.25×, 1× and 0.875×;
+Label 0.875×, 0.75× and 0.625×. Headline is Special Gothic Condensed, Subhead Zilla Slab, and
+Subhead 2, Body and Label Roboto. A piece picks one size from each family it needs; the four
+recipes, named for the title’s multiple of the reading size, Hierarchy 8× (8 : 2.5 : 2 : 1), 6× (6 : 2.5 : 2 : 1, the working default), 4× (4 : 2 : 1.25 : 1) and 3× (3 : 2 : 1 : 1), are compositions,
+not tokens. The multiples are written through a new token extension, `edu.uiowa.multiply`
+(see `src/tokens/README.md`), so changing the reading size on `:root` resizes every role and
+space. An earlier draft scaled whole sets (Large = Medium ÷ 0.875) and put Roboto Black on
+Headline and the display face on Label.
+
+- Storybook Tokens (roles) pages: Style Library, Recipes, Web Page, Landing Page, Blog Post, and
+  Before and After.
+- Storybook Showcase › Application › Employee Profile (typography roles): an application page on
+  the Hierarchy 4× recipe, with a Show roles toggle.
 - Storybook Tokens pages for Borders and shapes, Shadows, and Motion. Space and layout
   gains form heights, the logo minimum, and the breakpoints.
+
+#### Components
+
+- **Table** gains a `variant` prop: `minimal` (class `table--minimal`; no box, uppercase column
+  heads in Label Large, hairline row rules — reference lists and specifications). `default` is
+  the new rounded box (see Changed › Tables). `border`, `highlight` and `sticky` work with either.
+  An empty `caption` now renders no caption element (the default is still "Table"), and
+  `caption_hidden` hides it visually (`element-invisible`) for screen readers only. Cell
+  alignment classes `table__cell--left`, `table__cell--center` and `table__cell--right` go on a
+  `th` or `td`.
+- **Breadcrumbs**, ported from uids_base through uiowa/uids#1087: `nav.breadcrumb` with a
+  visually hidden heading, an ordered list, gold `/` separators, and white crumbs on a black
+  background. Component `UidsBreadcrumbs`, props `items` (`{ text, url? }`) and `heading_id`.
+- **Tabs**: a component over the existing `tabs.scss` and `assets/js/tabs.js`. Component
+  `UidsTabs`, props `id` (required; tabs.js keys panels and `#hash` activation off it), `aria_label`,
+  `items` (`{ title, content }`, content as HTML) and `selected` (the tab open on load, default 0).
+- **Accordion** gains `heading_level` (`h2` to `h6`, default `h2`) for the summary heading, so an
+  accordion inside a section can keep the page outline in order.
 
 ### Changed
 
@@ -52,8 +93,8 @@ writes them to Sass, in rem.
 | White and gray | `#00558C` | `#2C6ECA` |
 | Black | `#FFCD00` (gold) | `#588DD6` |
 
-Links on gold stay black. Footer links and table caption links stay gold: they set gold
-directly rather than through `--uiowa-color-link`.
+Links on gold stay black. Footer links stay gold: they set gold directly rather than
+through `--uiowa-color-link`. Table caption links take the default link color (see Tables).
 
 `--uiowa-color-blue-dark` changes to `#2C6ECA`, and `--uiowa-color-link-inverse` now
 points at `--uiowa-color-blue`.
@@ -84,14 +125,29 @@ the brand footer share one set of grays. Each moves to the nearest neutral step.
 | Form field focus outline | `#8A8A8A` | `--uiowa-color-neutral-300` |
 | Table borders, attribute rows | `#EEE` | `--uiowa-color-neutral-150` |
 | Table borders, light | `#DDD` | `--uiowa-color-neutral-175` |
-| Table borders, dark | `#7C7C7C` | `--uiowa-color-neutral-400` |
-| Table caption background | `#333` | `--uiowa-color-neutral-700` |
 | Footer icon links | `#999` | `--uiowa-color-neutral-300` |
 | Footer separator | `#5D5656` | `--uiowa-color-neutral-500` |
 
 The form field background stays `#FAFAFB`. The ramp has no step between white and `#F3F3F3`.
 
 Text still clears 4.5:1: footer icon links are 6.55:1 on black.
+
+#### Tables
+
+The default table is a rounded box: a gray header row over white rows with a rule between
+them. The gold header and the zebra rows are gone. This restyles every `table` element, with
+or without the `table` class. `variant="minimal"` (`table--minimal`) is the one alternative.
+
+| Part | Was | Now |
+| --- | --- | --- |
+| Table edge | none | `--uiowa-color-neutral-175` border, `--uiowa-radius-3` corners |
+| Border model | `border-collapse: collapse` | `separate`, `border-spacing: 0` |
+| Header row | `--uiowa-color-brand-gold` | `--uiowa-color-neutral-100`, Medium weight, a `neutral-175` rule below |
+| Body rows | even rows `--uiowa-color-neutral-100` | white, a `neutral-150` rule between rows |
+| Caption | white bold text on `#333`, centered | black bold text on white, left aligned, the box's first row |
+| Caption padding | `1.05rem` | `--uiowa-space-150` top and bottom, `--uiowa-space-100` sides |
+| Caption links | gold | the default link color |
+| `table--gray-borders` | every cell boxed, `#7C7C7C` between header cells | column rules only, `neutral-175` |
 
 #### Accent colors
 
@@ -149,6 +205,15 @@ Sass breakpoints are written from the breakpoint tokens, in rem. Nothing moves a
 16px browser default font size. Five breakpoints were in px; their media queries now
 move with the browser's default font size, while container queries use the fixed 16px
 `:root` size. `$break-page-container` was in em and behaves as before.
+
+#### Typography tokens
+
+`typography.body` is now five separate tokens instead of one composite, so the step 3 Body
+roles can sit inside it. Its custom properties keep their names and computed values. Three
+now print as references: `--uiowa-typography-body-font-family` as
+`var(--uiowa-typography-font-family-roboto)`, `-font-size` as
+`var(--uiowa-typography-font-size-120)`, and `-letter-spacing` as
+`var(--uiowa-typography-letter-spacing-normal)`.
 
 ### Removed
 
