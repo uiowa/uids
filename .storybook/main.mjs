@@ -59,6 +59,9 @@ const config = {
         },
       ],
       base: process.env.BASE_URL ? `${process.env.BASE_URL}${process.env.STORYBOOK_SUBDIR ?? ''}` : config.base,
+      resolve: {
+        alias: [{ find: /^images\//, replacement: `${join(root, 'src/assets/images')}/` }],
+      },
       css: {
         lightningcss: {
           errorRecovery: true,
