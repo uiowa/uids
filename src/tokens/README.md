@@ -70,6 +70,10 @@ stays visible in the CSS. The typography roles use it on the body sizes:
 
 prints `calc(var(--uiowa-typography-body-medium-font-size) * 4)`.
 
+A tool that does not support this extension reads only the `$value`, so it gets the size a
+token starts from: the example above would come out at Body Medium's size, not four times
+it. Such a tool should read the resolved sizes in `dist/typography-roles.json` instead.
+
 The roles are one scale of fixed sizes. Body X-Small, Small, Medium, Large and X-Large
 (`typography.body.x-small`, `.small`, `.medium`, `.large`, `.x-large`; 12.67, 16, 19, 24 and 36px) are the five
 body sizes, and each names a hierarchy: the X-Small, Small, Medium, Large or X-Large of every other
