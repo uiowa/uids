@@ -1,0 +1,42 @@
+@use 'sass:map';
+@use '../abstracts/utilities';
+
+// The type roles as opt-in classes, .type-headline--x-small through .type-label--small.
+// A class is its role's five properties and nothing more: no margins and no element
+// selectors, so a page puts the class on whatever carries the role. Headings keep
+// their own styles until they are moved onto the roles.
+$hierarchies: ('x-small', 'small', 'medium', 'large', 'x-large');
+$type-roles: (
+  'headline': $hierarchies,
+  'headline-6x': $hierarchies,
+  'headline-8x': $hierarchies,
+  'eyebrow': $hierarchies,
+  'subhead': $hierarchies,
+  'subhead-2': $hierarchies,
+  'body': $hierarchies,
+  'small-print': $hierarchies,
+  'label': ('large', 'medium', 'small'),
+);
+
+@each $family, $sizes in $type-roles {
+  @each $size in $sizes {
+    .type-#{$family}--#{$size} {
+      @include utilities.role($family, $size);
+    }
+  }
+}
+
+// The eyebrow is set in uppercase by the component, as its token describes.
+@each $size in map.get($type-roles, 'eyebrow') {
+  .type-eyebrow--#{$size} {
+    text-transform: uppercase;
+  }
+}
+
+// Subhead 2's emphasis weight, Medium, for a line set in strong or b, such as the date
+// that leads a details group.
+@each $size in map.get($type-roles, 'subhead-2') {
+  .type-subhead-2--#{$size} :is(strong, b) {
+    font-weight: var(--uiowa-typography-subhead-2-#{$size}-font-weight-emphasis);
+  }
+}
