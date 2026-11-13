@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-DaJ6WEGw.js";var t,n=e((()=>{t=`5.0.0-alpha.1`}));export{t as n,n as t};
