@@ -32,6 +32,11 @@ writes them to Sass, in rem.
 - Storybook Tokens pages for Borders and shapes, Shadows, and Motion. Space and layout
   gains form heights, the logo minimum, and the breakpoints.
 
+#### Components
+
+- **Button** gains `icon_left` (class `bttn--icon-left`): the icon comes before the text, and the
+  space between them moves to the icon's right.
+
 ### Changed
 
 - Stat text inherits the nearest background’s text color. Titles on black change from
