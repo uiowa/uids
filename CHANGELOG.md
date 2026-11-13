@@ -55,6 +55,24 @@ Headline and the display face on Label.
 - Storybook Tokens pages for Borders and shapes, Shadows, and Motion. Space and layout
   gains form heights, the logo minimum, and the breakpoints.
 
+#### Components
+
+- **Table** gains a `variant` prop: `minimal` (class `table--minimal`; no box, uppercase column
+  heads in Label Large, hairline row rules — reference lists and specifications). `default` is
+  the new rounded box (see Changed › Tables). `border`, `highlight` and `sticky` work with either.
+  An empty `caption` now renders no caption element (the default is still "Table"), and
+  `caption_hidden` hides it visually (`element-invisible`) for screen readers only. Cell
+  alignment classes `table__cell--left`, `table__cell--center` and `table__cell--right` go on a
+  `th` or `td`.
+- **Breadcrumbs**, ported from uids_base through uiowa/uids#1087: `nav.breadcrumb` with a
+  visually hidden heading, an ordered list, gold `/` separators, and white crumbs on a black
+  background. Component `UidsBreadcrumbs`, props `items` (`{ text, url? }`) and `heading_id`.
+- **Tabs**: a component over the existing `tabs.scss` and `assets/js/tabs.js`. Component
+  `UidsTabs`, props `id` (required; tabs.js keys panels and `#hash` activation off it), `aria_label`,
+  `items` (`{ title, content }`, content as HTML) and `selected` (the tab open on load, default 0).
+- **Accordion** gains `heading_level` (`h2` to `h6`, default `h2`) for the summary heading, so an
+  accordion inside a section can keep the page outline in order.
+
 ### Changed
 
 - Stat text inherits the nearest background’s text color. Titles on black change from
@@ -75,8 +93,8 @@ Headline and the display face on Label.
 | White and gray | `#00558C` | `#2C6ECA` |
 | Black | `#FFCD00` (gold) | `#588DD6` |
 
-Links on gold stay black. Footer links and table caption links stay gold: they set gold
-directly rather than through `--uiowa-color-link`.
+Links on gold stay black. Footer links stay gold: they set gold directly rather than
+through `--uiowa-color-link`. Table caption links take the default link color (see Tables).
 
 `--uiowa-color-blue-dark` changes to `#2C6ECA`, and `--uiowa-color-link-inverse` now
 points at `--uiowa-color-blue`.
@@ -107,14 +125,29 @@ the brand footer share one set of grays. Each moves to the nearest neutral step.
 | Form field focus outline | `#8A8A8A` | `--uiowa-color-neutral-300` |
 | Table borders, attribute rows | `#EEE` | `--uiowa-color-neutral-150` |
 | Table borders, light | `#DDD` | `--uiowa-color-neutral-175` |
-| Table borders, dark | `#7C7C7C` | `--uiowa-color-neutral-400` |
-| Table caption background | `#333` | `--uiowa-color-neutral-700` |
 | Footer icon links | `#999` | `--uiowa-color-neutral-300` |
 | Footer separator | `#5D5656` | `--uiowa-color-neutral-500` |
 
 The form field background stays `#FAFAFB`. The ramp has no step between white and `#F3F3F3`.
 
 Text still clears 4.5:1: footer icon links are 6.55:1 on black.
+
+#### Tables
+
+The default table is a rounded box: a gray header row over white rows with a rule between
+them. The gold header and the zebra rows are gone. This restyles every `table` element, with
+or without the `table` class. `variant="minimal"` (`table--minimal`) is the one alternative.
+
+| Part | Was | Now |
+| --- | --- | --- |
+| Table edge | none | `--uiowa-color-neutral-175` border, `--uiowa-radius-3` corners |
+| Border model | `border-collapse: collapse` | `separate`, `border-spacing: 0` |
+| Header row | `--uiowa-color-brand-gold` | `--uiowa-color-neutral-100`, Medium weight, a `neutral-175` rule below |
+| Body rows | even rows `--uiowa-color-neutral-100` | white, a `neutral-150` rule between rows |
+| Caption | white bold text on `#333`, centered | black bold text on white, left aligned, the box's first row |
+| Caption padding | `1.05rem` | `--uiowa-space-150` top and bottom, `--uiowa-space-100` sides |
+| Caption links | gold | the default link color |
+| `table--gray-borders` | every cell boxed, `#7C7C7C` between header cells | column rules only, `neutral-175` |
 
 #### Accent colors
 

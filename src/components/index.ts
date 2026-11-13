@@ -2,6 +2,7 @@
 
 export { default as UidsAlert } from './alert'
 export { default as UidsBanner } from './banner'
+export { default as UidsBreadcrumbs } from './breadcrumbs'
 export { default as UidsIowaBar } from './brand-bar'
 export { default as UidsIowaFooter } from './brand-footer'
 export { default as UidsButton } from './button'
@@ -10,3 +11,4 @@ export { default as UidsCta } from './cta'
 export { default as UidsHeadline } from './headline'
 export { default as UidsLogo } from './logo'
 export { default as UidsMenu } from './menu';
+export { default as UidsTabs } from './tabs'
