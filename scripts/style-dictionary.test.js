@@ -83,21 +83,19 @@ describe('fluidFontSize', () => {
 describe('multipliedSize', () => {
   const multiplied = (by) => ({
     original: {
-      $value: '{typography.base.fontSize}',
+      $value: '{typography.body.medium.fontSize}',
       $extensions: { 'edu.uiowa.multiply': { by } },
     },
   });
 
-  it('multiplies a reference to the reading size by a multiplier, both as custom properties', () => {
-    expect(multipliedSize(multiplied('{typography.scale.display}')))
-      .toBe('calc(var(--uiowa-typography-base-font-size) * var(--uiowa-typography-scale-display))');
+  it('multiplies a reference to a body size by a multiplier token, both as custom properties', () => {
     expect(multipliedSize(multiplied('{typography.scale.related}')))
-      .toBe('calc(var(--uiowa-typography-base-font-size) * var(--uiowa-typography-scale-related))');
+      .toBe('calc(var(--uiowa-typography-body-medium-font-size) * var(--uiowa-typography-scale-related))');
   });
 
   it('multiplies by a number, for a role whose multiple is its own', () => {
-    expect(multipliedSize(multiplied(6)))
-      .toBe('calc(var(--uiowa-typography-base-font-size) * 6)');
+    expect(multipliedSize(multiplied(4)))
+      .toBe('calc(var(--uiowa-typography-body-medium-font-size) * 4)');
   });
 });
 
@@ -135,20 +133,39 @@ it('emits canonical names, fluid typography, and token references', () => {
   expect(output).not.toContain('--uiowa-font-size-120:');
 });
 
-it('emits the step 3 roles as multiples of the reading size', () => {
+it('emits one scale: each hierarchy\'s roles as multiples of its own body size', () => {
   const output = readFileSync(join(repository, 'src/scss/abstracts/_tokens-generated.scss'), 'utf8');
 
   expect(output).toContain('--uiowa-typography-font-size-119: 1.1875rem;');
-  expect(output).toContain('--uiowa-typography-base-font-size: var(--uiowa-typography-font-size-119);');
-  expect(output).toContain('--uiowa-typography-headline-medium-font-size: calc(var(--uiowa-typography-base-font-size) * 6);');
-  expect(output).toContain('--uiowa-typography-headline-xs-font-size: calc(var(--uiowa-typography-base-font-size) * 3);');
-  for (const size of ['large', 'medium', 'small']) {
-    expect(output).toContain(`--uiowa-typography-subhead-2-${size}-font-weight-emphasis: var(--uiowa-typography-font-weight-bold);`);
+  expect(output).toContain('--uiowa-typography-body-x-small-font-size: var(--uiowa-typography-font-size-79);');
+  expect(output).toContain('--uiowa-typography-body-small-font-size: var(--uiowa-typography-font-size-100);');
+  expect(output).toContain('--uiowa-typography-body-medium-font-size: var(--uiowa-typography-font-size-119);');
+  expect(output).toContain('--uiowa-typography-body-large-font-size: var(--uiowa-typography-font-size-150);');
+  expect(output).toContain('--uiowa-typography-body-x-large-font-size: var(--uiowa-typography-font-size-225);');
+  for (const size of ['x-large', 'large', 'medium', 'small', 'x-small']) {
+    const body = `var(--uiowa-typography-body-${size}-font-size)`;
+    expect(output).toContain(`--uiowa-typography-headline-${size}-font-size: calc(${body} * 4);`);
+    expect(output).toContain(`--uiowa-typography-headline-6x-${size}-font-size: calc(${body} * 6);`);
+    expect(output).toContain(`--uiowa-typography-headline-8x-${size}-font-size: calc(${body} * 8);`);
+    expect(output).toContain(`--uiowa-typography-headline-8x-${size}-line-height: var(--uiowa-typography-line-height-090);`);
+    expect(output).toContain(`--uiowa-typography-small-print-${size}-font-size: calc(${body} * 0.75);`);
+    expect(output).toContain(`--uiowa-typography-space-related-${size}: calc(${body} * var(--uiowa-typography-scale-related));`);
+    expect(output).toContain(`--uiowa-typography-subhead-2-${size}-font-weight-emphasis: var(--uiowa-typography-font-weight-medium);`);
   }
+  expect(output).toContain('--uiowa-typography-label-small-font-size: calc(var(--uiowa-typography-body-medium-font-size) * 0.625);');
   expect(output).toContain('--uiowa-typography-subhead-large-font-family: var(--uiowa-typography-typeface-slab);');
-  expect(output).toContain('--uiowa-typography-body-small-font-size: calc(var(--uiowa-typography-base-font-size) * 0.875);');
-  expect(output).toContain('--uiowa-typography-space-related: calc(var(--uiowa-typography-base-font-size) * var(--uiowa-typography-scale-related));');
   expect(output).toContain('--uiowa-typography-body-font-size: var(--uiowa-typography-font-size-120);');
+  expect(output).not.toContain('--uiowa-typography-base-font-size');
+});
+
+it('emits the highlight multiples as plain numbers', () => {
+  const output = readFileSync(join(repository, 'src/scss/abstracts/_tokens-generated.scss'), 'utf8');
+
+  expect(output).toContain('--uiowa-typography-highlight-headline-padding: 0.1;');
+  expect(output).toContain('--uiowa-typography-highlight-headline-leading: 0.05;');
+  expect(output).toContain('--uiowa-typography-highlight-subhead-above: 0.32;');
+  expect(output).toContain('--uiowa-typography-highlight-subhead-below: 0.16;');
+  expect(output).toContain('--uiowa-typography-highlight-subhead-bleed: 0.08;');
 });
 
 describe('breakpointRem', () => {
@@ -201,4 +218,37 @@ describe('layout tiers', () => {
   });
 
 
+});
+
+// The resolved typography roles, for tools that read numbers rather than CSS (an agent building print
+// templates): every size in rem, px and pt, worked out from the tokens, never stored in them.
+describe('typography roles JSON', () => {
+  const roles = () => JSON.parse(readFileSync(join(repository, 'dist/typography-roles.json'), 'utf8'));
+
+  it('resolves each role style to its face, weight, leading and size in rem, px and pt', () => {
+    expect(roles()['typography.headline.medium']).toMatchObject({
+      fontFamily: 'Special Gothic Condensed',
+      fontWeight: 600,
+      lineHeight: 1,
+      fontSize: { rem: 4.75, px: 76, pt: 57 },
+    });
+    expect(roles()['typography.body.x-small'].fontSize).toEqual({ rem: 0.7917, px: 12.6667, pt: 9.5 });
+    expect(roles()['typography.headline-8x.x-large'].fontSize).toEqual({ rem: 18, px: 288, pt: 216 });
+    expect(roles()['typography.subhead-2.large'].fontWeightEmphasis).toBe(500);
+    expect(roles()['typography.headline-6x.large']).toMatchObject({ lineHeight: 0.9, fontSize: { rem: 9, px: 144, pt: 108 } });
+  });
+
+  it('resolves the text gaps and keeps the descriptions', () => {
+    expect(roles()['typography.space.related.large']).toMatchObject({ rem: 2.25, px: 36, pt: 27 });
+    expect(roles()['typography.body.medium'].description).toContain('web pages');
+    expect(roles()['typography.body.small'].description).toContain('letters, forms and covers');
+    expect(roles()['typography.body.x-large'].description).toContain('read at a distance');
+    expect(roles()['typography.headline.small'].description).toMatch(/^The title/);
+  });
+
+  it('resolves the highlight multiples with their descriptions', () => {
+    expect(roles()['typography.highlight.headline']).toMatchObject({ padding: 0.1, leading: 0.05 });
+    expect(roles()['typography.highlight.subhead']).toMatchObject({ above: 0.32, below: 0.16, bleed: 0.08 });
+    expect(roles()['typography.highlight.subhead'].description).toContain('Zilla Slab');
+  });
 });

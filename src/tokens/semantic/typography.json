@@ -146,19 +146,73 @@
       }
     },
     "body": {
-      "$description": "Body text: the body style, and the Body roles in large, medium and small.",
+      "$description": "Body text: the body style, and the five body sizes. Each body size names a hierarchy: the X-Small, Small, Medium, Large or X-Large of every other role is a multiple of it.",
       "fontFamily": { "$type": "fontFamily", "$value": "{typography.font-family.roboto}" },
       "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.normal}" },
       "fontSize": { "$type": "dimension", "$value": "{typography.font-size.120}" },
       "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" },
       "lineHeight": { "$type": "number", "$value": "{typography.line-height.170}" },
+      "x-small": {
+        "$description": "The X-Small hierarchy's body size: programs, program flyers, mini flyers, brochures and Word documents.",
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.sans}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.normal}" },
+        "fontSize": { "$type": "dimension", "$value": "{typography.font-size.79}" },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.150}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
+      "small": {
+        "$description": "The Small hierarchy's body size: letters, forms and covers.",
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.sans}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.normal}" },
+        "fontSize": { "$type": "dimension", "$value": "{typography.font-size.100}" },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.150}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
+      "medium": {
+        "$description": "The Medium hierarchy's body size: web pages and applications, video, the letter-size flyer and poster.",
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.sans}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.normal}" },
+        "fontSize": { "$type": "dimension", "$value": "{typography.font-size.119}" },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.150}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
+      "large": {
+        "$description": "The Large hierarchy's body size: the digital ad, web banner and 11 × 17 poster.",
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.sans}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.normal}" },
+        "fontSize": { "$type": "dimension", "$value": "{typography.font-size.150}" },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.150}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
+      "x-large": {
+        "$description": "The X-Large hierarchy's body size: displays and slides read at a distance.",
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.sans}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.normal}" },
+        "fontSize": { "$type": "dimension", "$value": "{typography.font-size.225}" },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.150}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      }
+    },
+    "small-print": {
+      "$description": "Small print: credits, dates and fine print under body text.",
+      "x-large": {
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.sans}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.normal}" },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.body.x-large.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 0.75 } }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.150}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
       "large": {
         "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.sans}" },
         "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.normal}" },
         "fontSize": {
           "$type": "dimension",
-          "$value": "{typography.base.fontSize}",
-          "$extensions": { "edu.uiowa.multiply": { "by": 1.25 } }
+          "$value": "{typography.body.large.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 0.75 } }
         },
         "lineHeight": { "$type": "number", "$value": "{typography.line-height.150}" },
         "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
@@ -168,8 +222,8 @@
         "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.normal}" },
         "fontSize": {
           "$type": "dimension",
-          "$value": "{typography.base.fontSize}",
-          "$extensions": { "edu.uiowa.multiply": { "by": 1 } }
+          "$value": "{typography.body.medium.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 0.75 } }
         },
         "lineHeight": { "$type": "number", "$value": "{typography.line-height.150}" },
         "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
@@ -179,8 +233,19 @@
         "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.normal}" },
         "fontSize": {
           "$type": "dimension",
-          "$value": "{typography.base.fontSize}",
-          "$extensions": { "edu.uiowa.multiply": { "by": 0.875 } }
+          "$value": "{typography.body.small.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 0.75 } }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.150}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
+      "x-small": {
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.sans}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.normal}" },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.body.x-small.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 0.75 } }
         },
         "lineHeight": { "$type": "number", "$value": "{typography.line-height.150}" },
         "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
@@ -199,39 +264,125 @@
       "slab": { "$value": "{typography.font-family.zilla-slab}", "$description": "The lead-in and section heads: the subhead styles." },
       "sans": { "$value": "{typography.font-family.roboto}", "$description": "Details, reading text and component text: the subhead 2, body and label styles." }
     },
-    "base": {
-      "$description": "The reading size: Body Medium, and the one number every role and every space is measured against.",
-      "fontSize": { "$type": "dimension", "$value": "{typography.font-size.119}" }
-    },
     "scale": {
       "$type": "number",
-      "$description": "Multipliers of the reading size for the space between text.",
+      "$description": "Multipliers of the body size for the space between text.",
       "related": { "$value": 1.5 },
       "break": { "$value": 2 }
     },
     "space": {
       "$type": "dimension",
-      "$description": "Space between text elements: the reading size times a multiplier.",
+      "$description": "Space between text elements: a hierarchy's body size times a multiplier.",
       "related": {
         "$description": "Between closely related elements, such as a heading and its text.",
-        "$value": "{typography.base.fontSize}",
-        "$extensions": { "edu.uiowa.multiply": { "by": "{typography.scale.related}" } }
+        "x-large": { "$value": "{typography.body.x-large.fontSize}", "$extensions": { "edu.uiowa.multiply": { "by": "{typography.scale.related}" } } },
+        "large": { "$value": "{typography.body.large.fontSize}", "$extensions": { "edu.uiowa.multiply": { "by": "{typography.scale.related}" } } },
+        "medium": { "$value": "{typography.body.medium.fontSize}", "$extensions": { "edu.uiowa.multiply": { "by": "{typography.scale.related}" } } },
+        "small": { "$value": "{typography.body.small.fontSize}", "$extensions": { "edu.uiowa.multiply": { "by": "{typography.scale.related}" } } },
+        "x-small": { "$value": "{typography.body.x-small.fontSize}", "$extensions": { "edu.uiowa.multiply": { "by": "{typography.scale.related}" } } }
       },
       "break": {
         "$description": "Below display type, and between distinct sections or content groups.",
-        "$value": "{typography.base.fontSize}",
-        "$extensions": { "edu.uiowa.multiply": { "by": "{typography.scale.break}" } }
+        "x-large": { "$value": "{typography.body.x-large.fontSize}", "$extensions": { "edu.uiowa.multiply": { "by": "{typography.scale.break}" } } },
+        "large": { "$value": "{typography.body.large.fontSize}", "$extensions": { "edu.uiowa.multiply": { "by": "{typography.scale.break}" } } },
+        "medium": { "$value": "{typography.body.medium.fontSize}", "$extensions": { "edu.uiowa.multiply": { "by": "{typography.scale.break}" } } },
+        "small": { "$value": "{typography.body.small.fontSize}", "$extensions": { "edu.uiowa.multiply": { "by": "{typography.scale.break}" } } },
+        "x-small": { "$value": "{typography.body.x-small.fontSize}", "$extensions": { "edu.uiowa.multiply": { "by": "{typography.scale.break}" } } }
+      }
+    },
+    "highlight": {
+      "$type": "number",
+      "$description": "The highlight behind chosen headline words, and the band under a subhead. Each value is a multiple of the role's own font size: em in CSS.",
+      "headline": {
+        "$description": "A gold box with black text, or a black box with white text, behind the chosen words of a headline, Special Gothic Condensed only. The box runs from cap height to baseline; descenders hang below it.",
+        "padding": { "$value": 0.1, "$description": "Added on all four sides of the box, and at the top and bottom of a highlighted headline, so the gaps above and below measure from the box." },
+        "leading": { "$value": 0.05, "$description": "Added to the line height of every line of a highlighted headline." }
+      },
+      "subhead": {
+        "$description": "A band across the lower part of every line of a subhead, Zilla Slab only: gold on white, white on gold, not used on black. It adds no space.",
+        "above": { "$value": 0.32, "$description": "The band's top edge, above the baseline." },
+        "below": { "$value": 0.16, "$description": "The band's bottom edge, below the baseline." },
+        "bleed": { "$value": 0.08, "$description": "How far the band runs past the text at each end." }
       }
     },
     "headline": {
-      "$description": "The title: page titles (h1), banners and posters, once per piece. Large for a short title with room to spare, Medium as the working default, Small for a small format or a long title, XS for the longest titles and the densest formats.",
+      "$description": "The title: page titles (h1), banners and posters, once per piece.",
+      "x-large": {
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.display}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.body.x-large.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 4 } }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.100}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
       "large": {
         "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.display}" },
         "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
         "fontSize": {
           "$type": "dimension",
-          "$value": "{typography.base.fontSize}",
-          "$extensions": { "edu.uiowa.multiply": { "by": 8 } }
+          "$value": "{typography.body.large.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 4 } }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.100}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
+      "medium": {
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.display}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.body.medium.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 4 } }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.100}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
+      "small": {
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.display}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.body.small.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 4 } }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.100}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
+      "x-small": {
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.display}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.body.x-small.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 4 } }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.100}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      }
+    },
+    "headline-6x": {
+      "$description": "The headline for a bigger statement: 6× its hierarchy's body size.",
+      "x-large": {
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.display}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.body.x-large.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 6 } }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.090}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
+      "large": {
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.display}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.body.large.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 6 } }
         },
         "lineHeight": { "$type": "number", "$value": "{typography.line-height.090}" },
         "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
@@ -241,7 +392,7 @@
         "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
         "fontSize": {
           "$type": "dimension",
-          "$value": "{typography.base.fontSize}",
+          "$value": "{typography.body.medium.fontSize}",
           "$extensions": { "edu.uiowa.multiply": { "by": 6 } }
         },
         "lineHeight": { "$type": "number", "$value": "{typography.line-height.090}" },
@@ -252,33 +403,102 @@
         "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
         "fontSize": {
           "$type": "dimension",
-          "$value": "{typography.base.fontSize}",
-          "$extensions": { "edu.uiowa.multiply": { "by": 4 } }
+          "$value": "{typography.body.small.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 6 } }
         },
-        "lineHeight": { "$type": "number", "$value": "{typography.line-height.100}" },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.090}" },
         "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
       },
-      "xs": {
+      "x-small": {
         "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.display}" },
         "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
         "fontSize": {
           "$type": "dimension",
-          "$value": "{typography.base.fontSize}",
-          "$extensions": { "edu.uiowa.multiply": { "by": 3 } }
+          "$value": "{typography.body.x-small.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 6 } }
         },
-        "lineHeight": { "$type": "number", "$value": "{typography.line-height.100}" },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.090}" },
         "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
       }
     },
-    "eyebrow": {
-      "$description": "The label above a title: it names the composition (a series, a unit, an event type); the component sets it in uppercase. The Banner pre-title is an eyebrow; the Card pre-title, a contextual tag, is a Label.",
+    "headline-8x": {
+      "$description": "The headline for a bigger statement: 8× its hierarchy's body size.",
+      "x-large": {
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.display}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.body.x-large.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 8 } }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.090}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
       "large": {
         "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.display}" },
         "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
         "fontSize": {
           "$type": "dimension",
-          "$value": "{typography.base.fontSize}",
-          "$extensions": { "edu.uiowa.multiply": { "by": 2 } }
+          "$value": "{typography.body.large.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 8 } }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.090}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
+      "medium": {
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.display}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.body.medium.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 8 } }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.090}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
+      "small": {
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.display}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.body.small.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 8 } }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.090}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
+      "x-small": {
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.display}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.body.x-small.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 8 } }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.090}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      }
+    },
+    "eyebrow": {
+      "$description": "The label above a title: it names the composition (a series, a unit, an event type); the component sets it in uppercase. The Banner pre-title is an eyebrow; the Card pre-title, a contextual tag, is a Label.",
+      "x-large": {
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.display}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.body.x-large.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 1.5 } }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.120}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
+      "large": {
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.display}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.body.large.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 1.5 } }
         },
         "lineHeight": { "$type": "number", "$value": "{typography.line-height.120}" },
         "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
@@ -288,7 +508,7 @@
         "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
         "fontSize": {
           "$type": "dimension",
-          "$value": "{typography.base.fontSize}",
+          "$value": "{typography.body.medium.fontSize}",
           "$extensions": { "edu.uiowa.multiply": { "by": 1.5 } }
         },
         "lineHeight": { "$type": "number", "$value": "{typography.line-height.120}" },
@@ -299,8 +519,19 @@
         "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
         "fontSize": {
           "$type": "dimension",
-          "$value": "{typography.base.fontSize}",
-          "$extensions": { "edu.uiowa.multiply": { "by": 1 } }
+          "$value": "{typography.body.small.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 1.5 } }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.120}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
+      "x-small": {
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.display}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.body.x-small.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 1.5 } }
         },
         "lineHeight": { "$type": "number", "$value": "{typography.line-height.120}" },
         "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
@@ -308,13 +539,24 @@
     },
     "subhead": {
       "$description": "The lead-in under a title, and section heads (h2).",
+      "x-large": {
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.slab}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.body.x-large.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 2 } }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.110}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
       "large": {
         "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.slab}" },
         "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
         "fontSize": {
           "$type": "dimension",
-          "$value": "{typography.base.fontSize}",
-          "$extensions": { "edu.uiowa.multiply": { "by": 2.5 } }
+          "$value": "{typography.body.large.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 2 } }
         },
         "lineHeight": { "$type": "number", "$value": "{typography.line-height.110}" },
         "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
@@ -324,7 +566,7 @@
         "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
         "fontSize": {
           "$type": "dimension",
-          "$value": "{typography.base.fontSize}",
+          "$value": "{typography.body.medium.fontSize}",
           "$extensions": { "edu.uiowa.multiply": { "by": 2 } }
         },
         "lineHeight": { "$type": "number", "$value": "{typography.line-height.110}" },
@@ -335,8 +577,19 @@
         "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
         "fontSize": {
           "$type": "dimension",
-          "$value": "{typography.base.fontSize}",
-          "$extensions": { "edu.uiowa.multiply": { "by": 1.5 } }
+          "$value": "{typography.body.small.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 2 } }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.125}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
+      "x-small": {
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.slab}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.body.x-small.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 2 } }
         },
         "lineHeight": { "$type": "number", "$value": "{typography.line-height.125}" },
         "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
@@ -344,14 +597,26 @@
     },
     "subhead-2": {
       "$description": "Details and short headings (h3, h4): a date and place, a card's title.",
+      "x-large": {
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.sans}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.normal}" },
+        "fontWeightEmphasis": { "$type": "fontWeight", "$value": "{typography.font-weight.medium}", "$description": "Subhead 2's one emphasis: a heading set in Subhead 2, and the line that leads a details group, such as the date. Everything else in Subhead 2 stays at fontWeight." },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.body.x-large.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 1.5 } }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.120}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
       "large": {
         "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.sans}" },
         "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.normal}" },
-        "fontWeightEmphasis": { "$type": "fontWeight", "$value": "{typography.font-weight.bold}", "$description": "Subhead 2's one emphasis: a heading set in Subhead 2, and the line that leads a details group, such as the date. Everything else in Subhead 2 stays at fontWeight." },
+        "fontWeightEmphasis": { "$type": "fontWeight", "$value": "{typography.font-weight.medium}", "$description": "Subhead 2's one emphasis: a heading set in Subhead 2, and the line that leads a details group, such as the date. Everything else in Subhead 2 stays at fontWeight." },
         "fontSize": {
           "$type": "dimension",
-          "$value": "{typography.base.fontSize}",
-          "$extensions": { "edu.uiowa.multiply": { "by": 2 } }
+          "$value": "{typography.body.large.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 1.5 } }
         },
         "lineHeight": { "$type": "number", "$value": "{typography.line-height.120}" },
         "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
@@ -359,10 +624,10 @@
       "medium": {
         "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.sans}" },
         "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.normal}" },
-        "fontWeightEmphasis": { "$type": "fontWeight", "$value": "{typography.font-weight.bold}", "$description": "Subhead 2's one emphasis: a heading set in Subhead 2, and the line that leads a details group, such as the date. Everything else in Subhead 2 stays at fontWeight." },
+        "fontWeightEmphasis": { "$type": "fontWeight", "$value": "{typography.font-weight.medium}", "$description": "Subhead 2's one emphasis: a heading set in Subhead 2, and the line that leads a details group, such as the date. Everything else in Subhead 2 stays at fontWeight." },
         "fontSize": {
           "$type": "dimension",
-          "$value": "{typography.base.fontSize}",
+          "$value": "{typography.body.medium.fontSize}",
           "$extensions": { "edu.uiowa.multiply": { "by": 1.5 } }
         },
         "lineHeight": { "$type": "number", "$value": "{typography.line-height.130}" },
@@ -371,24 +636,36 @@
       "small": {
         "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.sans}" },
         "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.normal}" },
-        "fontWeightEmphasis": { "$type": "fontWeight", "$value": "{typography.font-weight.bold}", "$description": "Subhead 2's one emphasis: a heading set in Subhead 2, and the line that leads a details group, such as the date. Everything else in Subhead 2 stays at fontWeight." },
+        "fontWeightEmphasis": { "$type": "fontWeight", "$value": "{typography.font-weight.medium}", "$description": "Subhead 2's one emphasis: a heading set in Subhead 2, and the line that leads a details group, such as the date. Everything else in Subhead 2 stays at fontWeight." },
         "fontSize": {
           "$type": "dimension",
-          "$value": "{typography.base.fontSize}",
-          "$extensions": { "edu.uiowa.multiply": { "by": 1.25 } }
+          "$value": "{typography.body.small.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 1.5 } }
+        },
+        "lineHeight": { "$type": "number", "$value": "{typography.line-height.130}" },
+        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
+      },
+      "x-small": {
+        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.sans}" },
+        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.normal}" },
+        "fontWeightEmphasis": { "$type": "fontWeight", "$value": "{typography.font-weight.medium}", "$description": "Subhead 2's one emphasis: a heading set in Subhead 2, and the line that leads a details group, such as the date. Everything else in Subhead 2 stays at fontWeight." },
+        "fontSize": {
+          "$type": "dimension",
+          "$value": "{typography.body.x-small.fontSize}",
+          "$extensions": { "edu.uiowa.multiply": { "by": 1.5 } }
         },
         "lineHeight": { "$type": "number", "$value": "{typography.line-height.130}" },
         "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
       }
     },
     "label": {
-      "$description": "Controls, captions and small print: buttons, form labels, badges, bylines.",
+      "$description": "Controls and captions: buttons, form labels, badges, bylines. One set for every hierarchy, measured from Body Medium.",
       "large": {
         "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.sans}" },
         "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium}" },
         "fontSize": {
           "$type": "dimension",
-          "$value": "{typography.base.fontSize}",
+          "$value": "{typography.body.medium.fontSize}",
           "$extensions": { "edu.uiowa.multiply": { "by": 0.875 } }
         },
         "lineHeight": { "$type": "number", "$value": "{typography.line-height.140}" },
@@ -399,7 +676,7 @@
         "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium}" },
         "fontSize": {
           "$type": "dimension",
-          "$value": "{typography.base.fontSize}",
+          "$value": "{typography.body.medium.fontSize}",
           "$extensions": { "edu.uiowa.multiply": { "by": 0.75 } }
         },
         "lineHeight": { "$type": "number", "$value": "{typography.line-height.140}" },
@@ -410,7 +687,7 @@
         "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium}" },
         "fontSize": {
           "$type": "dimension",
-          "$value": "{typography.base.fontSize}",
+          "$value": "{typography.body.medium.fontSize}",
           "$extensions": { "edu.uiowa.multiply": { "by": 0.625 } }
         },
         "lineHeight": { "$type": "number", "$value": "{typography.line-height.140}" },
