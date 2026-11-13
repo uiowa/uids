@@ -56,7 +56,7 @@ function source(path) {
 }
 
 const dimension = ({ value, unit }) => `${value}${unit}`;
-const cssVar = (path) => `--uiowa-${path.replaceAll('.', '-')}`;
+const cssVar = (path) => `--uiowa-${path.replaceAll('.', '-').replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}`;
 const hex = (path) => resolve(path).hex.toUpperCase();
 const children = (path) => Object.keys(node(path)).filter((k) => !k.startsWith('$'));
 const title = (s) => s.charAt(0).toUpperCase() + s.slice(1).replaceAll('-', ' ');
@@ -106,7 +106,41 @@ ${rows.join('\n')}
 </table></div>`;
 }
 
-function roles() {
+const REM_IN_PIXELS = 16;
+const num = (n) => String(Number(n.toFixed(4)));
+const rem = (n) => `${num(n)}rem`;
+const px = (n) => `${num(n * REM_IN_PIXELS)}px`;
+const inPixels = ({ value, unit }) => (unit === 'rem' ? value * REM_IN_PIXELS : value);
+
+// A type style is one composite token (the heading, intro and body styles) or a
+// group of member tokens (body and the roles). Returns the path a member aliases.
+function member(path, key) {
+  const style = node(path);
+  const value = '$value' in style ? style.$value[key] : style[key]?.$value;
+  const next = alias(value);
+  if (!next) throw new Error(`${path}.${key} is not an alias`);
+  return next;
+}
+
+// The factor a multiplied size applies to the size it starts from.
+function multiplier(path) {
+  const by = node(path).$extensions?.['edu.uiowa.multiply']?.by;
+  if (by === undefined) return 1;
+  return typeof by === 'number' ? by : resolve(alias(by));
+}
+
+const specimenStyle = (prefix) => ['font-family', 'font-weight', 'font-size', 'line-height']
+  .map((property) => `${property}: var(${prefix}-${property})`)
+  .join('; ');
+
+const table = (className, head, rows) => `<div class="tablewrap"><table class="ref${className ? ` ${className}` : ''}">
+<thead><tr>${head.map((h) => `<th>${h}</th>`).join('')}</tr></thead>
+<tbody>
+${rows.join('\n')}
+</tbody>
+</table></div>`;
+
+function styles() {
   const styles = [
     ...children('typography.heading').map((key) => [`typography.heading.${key}`, key.toUpperCase()]),
     ['typography.intro-bold', 'Intro bold'],
@@ -114,27 +148,159 @@ function roles() {
     ['typography.body', 'Body'],
   ];
   const rows = styles.map(([path, name]) => {
-    const parts = node(path).$value;
     const prefix = cssVar(path);
-    const family = source(alias(parts.fontFamily)).split('.').pop();
-    const style = ['font-family', 'font-weight', 'font-size', 'line-height']
-      .map((property) => `${property}: var(${prefix}-${property})`)
-      .join('; ');
+    const family = source(member(path, 'fontFamily')).split('.').pop();
     return `<tr>
-  <td><span class="tk-specimen" style="${style}">${name}</span></td>
-  <td>${fontName(family)} ${resolve(alias(parts.fontWeight))}</td>
-  <td>${dimension(resolve(alias(parts.fontSize)))}</td>
-  <td>${resolve(alias(parts.lineHeight))}</td>
+  <td><span class="tk-specimen" style="${specimenStyle(prefix)}">${name}</span></td>
+  <td>${fontName(family)} ${resolve(member(path, 'fontWeight'))}</td>
+  <td>${dimension(resolve(member(path, 'fontSize')))}</td>
+  <td>${resolve(member(path, 'lineHeight'))}</td>
   <td><code>${prefix}-*</code></td>
 </tr>`;
   });
-  return `<div class="tablewrap"><table class="ref tk-roles">
-<thead><tr><th>Style</th><th>Family and weight</th><th>Smallest size</th><th>Line height</th><th>Tokens</th></tr></thead>
-<tbody>
-${rows.join('\n')}
-</tbody>
-</table></div>
+  return `${table('tk-roles', ['Style', 'Family and weight', 'Smallest size', 'Line height', 'Tokens'], rows)}
 ${note('typography.heading')}`;
+}
+
+const readingSize = () => resolve('typography.base.fontSize').value;
+
+function reading() {
+  const base = readingSize();
+  const rows = [`<tr>
+  <td><span class="tk-specimen" style="${specimenStyle(cssVar('typography.body.medium'))}">Reading size</span></td>
+  <td>${rem(base)} · ${px(base)}</td>
+  <td><code>${cssVar('typography.base.fontSize')}</code></td>
+</tr>`];
+  return `${table('tk-roles', ['Body Medium', 'Size', 'Token'], rows)}
+${note('typography.base')}`;
+}
+
+const ROLE_FAMILIES = ['headline', 'eyebrow', 'subhead', 'subhead-2', 'body', 'label'];
+const ROLE_SIZES = ['large', 'medium', 'small'];
+
+function roles() {
+  const base = readingSize();
+  return ROLE_FAMILIES.map((family) => {
+    const rows = ROLE_SIZES.map((size) => {
+      const path = `typography.${family}.${size}`;
+      const prefix = cssVar(path);
+      const by = multiplier(`${path}.fontSize`);
+      const face = source(member(path, 'fontFamily')).split('.').pop();
+      return `<tr class="tk-specimen-row"><td colspan="5"><span class="tk-specimen" style="${specimenStyle(prefix)}">${title(size)}</span></td></tr>
+<tr>
+  <td>${fontName(face)} ${resolve(member(path, 'fontWeight'))}</td>
+  <td>${num(by)}×</td>
+  <td>${rem(base * by)} · ${px(base * by)}</td>
+  <td>${resolve(member(path, 'lineHeight'))}</td>
+  <td><code>${prefix}-*</code></td>
+</tr>`;
+    });
+    return `<h3 id="role-${family}">${title(family)}</h3>
+${note(`typography.${family}`)}
+${table('tk-roles tk-roles--stacked', ['Family and weight', 'Of reading size', 'Size', 'Line height', 'Tokens'], rows)}`;
+  }).join('\n');
+}
+
+function textSpaces() {
+  const base = readingSize();
+  const rows = children('typography.space').map((key) => {
+    const path = `typography.space.${key}`;
+    const by = multiplier(path);
+    return `<tr>
+  <td>${title(key)}</td>
+  <td>${num(by)}×</td>
+  <td>${rem(base * by)} · ${px(base * by)}</td>
+  <td>${escape(node(path).$description ?? '')}</td>
+  <td><code>${cssVar(path)}</code></td>
+</tr>`;
+  });
+  return `${table('', ['Space', 'Of reading size', 'Size', 'Use', 'Token'], rows)}
+${note('typography.space')}`;
+}
+
+// The layout tokens that alias each step of the space scale.
+function spaceUsers() {
+  const users = {};
+  const add = (path, label) => (users[source(path)] ??= []).push(label);
+  for (const key of children('layout.space')) add(`layout.space.${key}`, title(key));
+  for (const tier of children('layout.digital')) {
+    for (const key of ['margin', 'gutter']) add(`layout.digital.${tier}.${key}`, `${title(tier)} ${key}`);
+  }
+  return users;
+}
+
+function spaces() {
+  const users = spaceUsers();
+  const steps = children('space').sort((a, b) => Number(a) - Number(b));
+  const rows = steps.map((key) => {
+    const path = `space.${key}`;
+    const { value } = resolve(path);
+    return `<tr>
+  <td>${key}</td>
+  <td><span class="tk-bar" style="width: var(${cssVar(path)})"></span></td>
+  <td>${rem(value)} · ${px(value)}</td>
+  <td>${(users[path] ?? []).join(', ')}</td>
+  <td><code>${cssVar(path)}</code></td>
+</tr>`;
+  });
+  return `${table('tk-spaces', ['Step', '', 'Size', 'Used by', 'Token'], rows)}
+${note('space')}`;
+}
+
+function spacing() {
+  const rows = children('layout.space').map((key) => {
+    const path = `layout.space.${key}`;
+    const { value } = resolve(path);
+    return `<tr>
+  <td>${title(key)}</td>
+  <td><span class="tk-bar" style="width: var(${cssVar(path)})"></span></td>
+  <td>${rem(value)} · ${px(value)}</td>
+  <td>Space ${source(path).split('.').pop()}</td>
+  <td><code>${cssVar(path)}</code></td>
+</tr>`;
+  });
+  return `${table('tk-spaces', ['Role', '', 'Size', 'From', 'Token'], rows)}
+${note('layout.space')}`;
+}
+
+// The window width each tier starts at (src/tokens/README.md, Layout tiers).
+const TIER_START = { small: null, medium: 'breakpoint.768', large: 'breakpoint.980' };
+
+function tiers() {
+  const size = (path) => {
+    const { value } = resolve(path);
+    return `${rem(value)} · ${px(value)}`;
+  };
+  const rows = children('layout.digital').map((tier) => {
+    const path = `layout.digital.${tier}`;
+    const start = TIER_START[tier];
+    return `<tr>
+  <td>${title(tier)}</td>
+  <td>${start ? `${inPixels(resolve(start))}px` : 'Any width'}</td>
+  <td>${resolve(`${path}.columns`)}</td>
+  <td>${size(`${path}.margin`)}</td>
+  <td>${size(`${path}.gutter`)}</td>
+  <td>${size(`${path}.padding`)}</td>
+  <td>${resolve(`${path}.reading`)} columns</td>
+  <td><code>${cssVar(path)}-*</code></td>
+</tr>`;
+  });
+  return `${table('', ['Tier', 'Starts at', 'Columns', 'Margin', 'Gutter', 'Padding', 'Reading width', 'Tokens'], rows)}
+${note('layout.digital')}`;
+}
+
+function containers() {
+  const rows = children('layout.container.max').map((key) => {
+    const path = `layout.container.max.${key}`;
+    const { value } = resolve(path);
+    return `<tr>
+  <td>${title(key)}</td>
+  <td>${rem(value)} · ${px(value)}</td>
+  <td><code>${cssVar(path)}</code></td>
+</tr>`;
+  });
+  return `${table('', ['Width', 'Size', 'Token'], rows)}
+${note('layout.container.max')}`;
 }
 
 // Snippets name the version in package.json, which is the next release, so their
@@ -167,7 +333,14 @@ const blocks = {
   data: () => swatches('color.data-visualization.categorical', (key, path) => `${key.padStart(2, '0')} ${title(source(path).split('.').pop())}`),
   status,
   families,
+  styles,
+  reading,
   roles,
+  'text-spaces': textSpaces,
+  spaces,
+  spacing,
+  tiers,
+  containers,
 };
 
 writeFileSync(join(site, 'styles/uids-tokens.css'), sass.compile(join(root, 'src/scss/tokens.scss')).css);
