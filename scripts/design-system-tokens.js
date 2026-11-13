@@ -34,6 +34,13 @@ export function recordGroupDescriptions(node, inherited) {
   ]));
 }
 
+const FAMILY_NAMES = { space: 'spacing' };
+
+function familyOf(token) {
+  if (token.$type === 'color' || token.$type === 'shadow' || token.path[0] === 'motion') return token.$type;
+  return FAMILY_NAMES[token.path[0]] ?? token.path[0];
+}
+
 const usage = (token) => token.$description ?? token.$extensions?.[GROUP_DESCRIPTION];
 
 export function designSystemTokens({ dictionary }) {
@@ -48,7 +55,6 @@ export function designSystemTokens({ dictionary }) {
     return target?.$type === 'color' ? `{${target.name}}` : token.$value;
   }
 
-  const families = {};
   const fontStacks = {};
   const fontKeys = new Map();
   const styles = new Map();
@@ -89,18 +95,10 @@ export function designSystemTokens({ dictionary }) {
       } else {
         style[part] = token.$value;
       }
-    } else if (token.$type === 'color') {
-      tokens.color.tokens.push(entry(token, colorValue(token)));
-    } else if (token.path[0] === 'space') {
-      tokens.spacing.tokens.push(entry(token));
-    } else if (token.path[0] === 'radius') {
-      tokens.radius.tokens.push(entry(token));
-    } else if (token.$type === 'shadow') {
-      tokens.shadow.tokens.push(entry(token));
     } else {
-      const family = token.path[0] === 'motion' ? token.$type : token.path[0];
-      families[family] ??= { tokens: [] };
-      families[family].tokens.push(entry(token));
+      const family = familyOf(token);
+      const value = family === 'color' ? colorValue(token) : token.$value;
+      (tokens[family] ??= { tokens: [] }).tokens.push(entry(token, value));
     }
   }
 
@@ -115,5 +113,5 @@ export function designSystemTokens({ dictionary }) {
     target.styles.push(style);
   }
 
-  return `${JSON.stringify({ ...tokens, ...families }, null, 2)}\n`;
+  return `${JSON.stringify(tokens, null, 2)}\n`;
 }
