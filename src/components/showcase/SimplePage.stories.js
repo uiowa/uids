@@ -24,7 +24,7 @@ export default {
 };
 
 // Dark mode: the logo flips to a gold tab with black IOWA, and the bar, menu
-// and page are all black, split by neutral-700 dividers (decoration, 1.73:1).
+// and page are all black, split by neutral-500 dividers (3.64:1).
 // Text is white (text.inverse), links #588DD6 (link.inverse); menu icons are
 // neutral-300 (6.55:1).
 const darkCss = `
@@ -45,10 +45,10 @@ const darkCss = `
   .on-dark .menu .fas { color: var(--uiowa-color-neutral-300); }
   .on-dark .menu--container {
     background: var(--uiowa-color-neutral-900);
-    border-top: 1px solid var(--uiowa-color-neutral-700);
-    border-bottom-color: var(--uiowa-color-neutral-700);
+    border-top: 1px solid var(--uiowa-color-neutral-500);
+    border-bottom-color: var(--uiowa-color-neutral-500);
   }
-  .on-dark .menu--container li { border-bottom-color: var(--uiowa-color-neutral-700); }
+  .on-dark .menu--container li { border-bottom-color: var(--uiowa-color-neutral-500); }
   .on-dark .content a { color: var(--uiowa-color-link-inverse); }
 `;
 
