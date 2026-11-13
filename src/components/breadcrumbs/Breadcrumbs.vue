@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import '../../scss/components/breadcrumbs.scss';
 
-// Markup mirrors Drupal core's breadcrumb template as SiteNow renders it:
-// nav.breadcrumb > visually-hidden h2 + ol > li per crumb. A crumb with a url
-// renders a link; without one it renders bare text (production does this for
-// non-linked parents AND for the current page). The gold "/" separators come
-// from CSS (li:not(:last-child)::after), not markup.
+// The gold "/" separators come from CSS (li:not(:last-child)::after), not markup.
 
 const props = defineProps({
   items: {

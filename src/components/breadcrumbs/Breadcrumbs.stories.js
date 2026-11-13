@@ -16,13 +16,11 @@ export default {
   }),
 };
 
-// Mirrors the production test page: linked Home, an unlinked parent (no menu
-// link), and the unlinked current page.
 export const Default = {
   args: {
     items: [
       { text: 'Home', url: '#' },
-      { text: 'Parent page with menu link' },
+      { text: 'Parent page' },
       { text: 'Current page' },
     ],
   },
