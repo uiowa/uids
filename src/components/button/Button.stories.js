@@ -41,6 +41,10 @@ export default {
     icon: {
       control: { type: 'text' },
     },
+    icon_left: {
+      name: 'icon on the left',
+      control: { type: 'boolean' },
+    },
   },
 };
 
@@ -63,6 +67,7 @@ const Template = (args) => ({
       :transparent="args.transparent"
       :light_font="args.light_font"
       :icon="args.icon"
+      :icon_left="args.icon_left"
     >
       <template #default v-if="args.label">{{ args.label }}</template>
       <template #icon v-if="args.icon"><span v-html="args.icon" ></span></template>
@@ -82,6 +87,7 @@ Primary.args = {
   transparent: false,
   light_font: false,
   icon: '<i class="fas fa-arrow-right"></i>',
+  icon_left: false,
 };
 
 export const Secondary = Template.bind({});
@@ -106,6 +112,14 @@ export const LightFont = Template.bind({});
 LightFont.args = {
   ...Primary.args,
   light_font: true,
+};
+
+export const IconLeft = Template.bind({});
+IconLeft.args = {
+  ...Primary.args,
+  label: 'Download',
+  icon: '<i class="fas fa-download"></i>',
+  icon_left: true,
 };
 
 

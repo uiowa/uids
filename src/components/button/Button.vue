@@ -40,6 +40,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  icon_left: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const slots = useSlots();
@@ -48,7 +52,7 @@ const classes = computed(() => {
   let classes = ['bttn'];
 
   // If these props are set to true, add the corresponding class.
-  ['full', 'transparent', 'light_font'].forEach((prop) => {
+  ['full', 'transparent', 'light_font', 'icon_left'].forEach((prop) => {
     if (props[prop] === true) {
       classes.push(`bttn--${ className(prop) }`);
     }
@@ -75,7 +79,8 @@ const classes = computed(() => {
 
 <template>
   <a :class="classes" :href="url">
+    <slot v-if="icon_left" name="icon"></slot>
     <slot></slot>
-    <slot name="icon"></slot>
+    <slot v-if="!icon_left" name="icon"></slot>
   </a>
 </template>
