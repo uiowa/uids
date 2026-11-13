@@ -61,6 +61,11 @@ sections are a Break apart. Subhead 2 is Regular by default (`fontWeight`); its
 that leads a details group. A highlight on chosen headline words is a box from cap height to baseline plus 0.1× the headline size on all four sides, with 0.05× more leading per line; the subhead's band runs from 0.32× the subhead size above the baseline to 0.16× below it, 0.08× past the text. An earlier draft scaled whole sets (Large = Medium ÷ 0.875, in sizes since renamed) and put Roboto Black on
 Headline and the display face on Label.
 
+- The typography roles as classes, `.type-headline--x-small` through `.type-label--small`, 43 in all, and
+  the `role($family, $size)` mixin behind them. A class is its role's family, weight, size, line height
+  and letter spacing, read from the custom properties, with no margins. The eyebrow classes add
+  uppercase, and `strong` or `b` inside a Subhead 2 class takes its emphasis weight. Headings keep their
+  own styles.
 - Storybook Tokens (roles) pages: Style Library, Recipes, Web Page, Landing Page, Blog Post, and
   Before and After.
 - Storybook Showcase › Application › Employee Profile (typography roles): an application page on
