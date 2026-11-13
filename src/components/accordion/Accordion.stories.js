@@ -22,6 +22,11 @@ export default {
       control: 'boolean',
       name: 'Multi select'
     },
+    heading_level: {
+      name: 'Heading level',
+      options: ['h2', 'h3', 'h4', 'h5', 'h6'],
+      control: { type: 'select' },
+    },
   },
   render: (args) => ({
     setup() {
