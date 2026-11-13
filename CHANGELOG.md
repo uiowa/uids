@@ -32,6 +32,11 @@ writes them to Sass, in rem.
 - Storybook Tokens pages for Borders and shapes, Shadows, and Motion. Space and layout
   gains form heights, the logo minimum, and the breakpoints.
 
+#### Components
+
+- **Accordion** gains `heading_level` (`h2` to `h6`, default `h2`) for the summary heading, so an
+  accordion inside a section can keep the page outline in order.
+
 ### Changed
 
 - Stat text inherits the nearest background’s text color. Titles on black change from
