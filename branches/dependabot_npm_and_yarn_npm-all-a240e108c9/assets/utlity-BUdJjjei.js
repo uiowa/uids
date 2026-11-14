@@ -1,1 +1,0 @@
-import{n as e}from"./rolldown-runtime-DaJ6WEGw.js";function t(e){return e.replace(/_/g,`-`)}var n=e((()=>{}));export{n,t};
