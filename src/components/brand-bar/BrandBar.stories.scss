@@ -56,31 +56,30 @@
     border-bottom: var(--uiowa-stroke-width-default) solid #e6e5e5;
     background: var(--uiowa-color-background-white);
 
-    // Only below md, where the brand bar collapses: overlap the brand bar
+    // Until md, where the brand bar is collapsed: overlap the brand bar
     // by 1px, stacked above it, so no background can show through a
     // sub-pixel gap between the two site names at fractional zoom.
-    @media not all and (min-width: variables.$break-md) {
-      position: relative;
-      z-index: 3;
-      margin-top: -1px;
+    position: relative;
+    z-index: 3;
+    margin-top: -1px;
+
+    @include utilities.breakpoint(md) {
+      position: static;
+      z-index: auto;
+      margin-top: 0;
     }
 
     .site-name {
       margin: 0;
-      padding: variables.$gutter;
-
-      background: var(--uiowa-brand-bar-below-md-site-name-background);
+      // The extra 1px on top makes up for the row's overlap so the text
+      // doesn't shift.
+      padding: calc(#{variables.$gutter} + 1px) variables.$gutter variables.$gutter;
+      background: var(--uiowa-brand-bar-site-name-background);
       font-size: 1.8rem;
       line-height: 1;
 
-      // Make up for the row's 1px overlap so the text doesn't shift.
-      @media not all and (min-width: variables.$break-md) {
-        padding-top: calc(#{variables.$gutter} + 1px);
-      }
-
       @include utilities.breakpoint(md) {
         padding: 25px 20px 25px 0;
-        background: transparent;
         font-size: 2rem;
       }
 

@@ -7,10 +7,10 @@
   align-items: center;
   margin: 0 auto 0 0;
   text-align: left;
-  font-size: var(--uiowa-brand-bar-site-name-typography-font-size);
-  font-weight: var(--uiowa-brand-bar-site-name-typography-font-weight);
-  line-height: var(--uiowa-brand-bar-site-name-typography-line-height);
-  font-family: var(--uiowa-brand-bar-site-name-typography-font-family);
+  font-size: var(--uiowa-brand-bar-site-name-font-size);
+  font-weight: var(--uiowa-brand-bar-site-name-font-weight);
+  line-height: var(--uiowa-brand-bar-site-name-line-height);
+  font-family: var(--uiowa-brand-bar-site-name-font-family);
 
   a {
     color: var(--uiowa-brand-bar-site-name-color);
@@ -74,11 +74,10 @@
   .site-name {
     width: 100%;
     padding: variables.$gutter;
-    background: var(--uiowa-brand-bar-below-md-site-name-background);
+    background: var(--uiowa-brand-bar-site-name-background);
 
     @include utilities.breakpoint(md) {
       width: auto;
-      background: transparent;
       padding: 0;
     }
 
@@ -87,23 +86,14 @@
     }
   }
 
-  // Default slot content. Below md it continues the gold strip under
-  // the site name.
+  // Default slot content. Until md it stacks under the site name and
+  // continues its gold strip.
   &__content {
-    background: var(--uiowa-brand-bar-below-md-content-background);
-
-    // Only below md, where the content stacks under the site name:
-    // overlap the site name by 1px so the bar's background can't show
-    // through a sub-pixel gap between the two at fractional zoom.
-    @media not all and (min-width: variables.$break-md) {
-      margin-top: -1px;
-      padding-top: 1px;
-    }
+    background: var(--uiowa-brand-bar-content-background);
 
     @include utilities.breakpoint(md) {
       display: flex;
       flex: 1 1 auto;
-      background: transparent;
     }
   }
 
@@ -180,14 +170,11 @@
     }
 
     .site-name {
-      font-size: var(--uiowa-brand-bar-narrow-site-name-font-size);
       margin: 0;
       padding: variables.$gutter;
-      background: var(--uiowa-brand-bar-below-md-site-name-background);
+      background: var(--uiowa-brand-bar-site-name-background);
 
       @include utilities.breakpoint(md) {
-        background: transparent;
-        font-size: var(--uiowa-brand-bar-narrow-site-name-font-size);
         padding: 0;
       }
 
