@@ -46,6 +46,10 @@ writes them to Sass, in rem.
   With the button stylesheet loaded, `.bttn.button--small` horizontal padding changes
   from `2rem` to `1rem`. Existing `.bttn--small` and `.bttn--full` modifiers remain supported.
 - Component documentation now describes Vue 3 and Storybook in place of Fractal and Twig.
+- `$gutter`, `$mobile-width-gutter`, `$desktop-width-gutter`, `$mobile-height-gutter`, and
+  `$desktop-height-gutter` hold `var()` references to the space tokens they equal (`space.125`,
+  `.300`, `.200`, and `.800`) rather than literals. Their values are unchanged, but Sass math
+  functions cannot operate on them.
 
 #### Links
 
