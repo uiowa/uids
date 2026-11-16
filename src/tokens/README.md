@@ -5,6 +5,7 @@
 ```
 src/tokens/primitives/   context-free values named by measurement or appearance
 src/tokens/semantic/     purpose-named roles that may reference primitives or carry direct values
+src/tokens/components/   one file per component; decisions that belong to that component
 ```
 
 Token files follow [DTCG 2025.10](https://www.designtokens.org/tr/2025.10/format/).
@@ -29,6 +30,35 @@ yarn build:tokens
 `yarn build` runs this step automatically, and CI validates it. No token command is
 needed for a CSS-only change. Generated token files are not committed; `prepack` runs the
 build so release artifacts include the generated Sass and CSS.
+
+## Component tokens
+
+`src/tokens/components/` holds one file per component. A component token names a
+decision that belongs to that component and that a theme or variant could change. It
+always references a semantic or primitive token; it never carries its own value.
+
+Give a component a token for:
+
+- **Color.** Backgrounds, text, borders, and fills.
+- **Typography.** Font family, weight, size, and line height, as separate tokens.
+
+Leave in SCSS:
+
+- **Sizes** that follow from the component's geometry, such as fixed heights and
+  widths.
+- **Alignment corrections**: nudges, negative margins, and any value derived from
+  another element's size.
+- **Layout switches** at a breakpoint, such as `display` or `flex-direction`.
+
+Spacing is undecided. No component has a spacing token yet; revisit this when a
+component with spacing variants, such as the button, is tokenised.
+
+A token is public: each one becomes a `--uiowa-*` custom property that a consumer can
+set. Add one only when the SCSS uses it.
+
+Variants and breakpoints re-point an existing token through `edu.uiowa.variant` and
+`edu.uiowa.responsive`; they do not add token names. Interactive states are the
+exception: hover, focus, and disabled values are named tokens.
 
 ## UIDS extensions
 
