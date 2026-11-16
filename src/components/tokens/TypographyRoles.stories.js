@@ -823,8 +823,8 @@ const lpCss = `
   .lp { color: var(--uiowa-color-neutral-900); font-family: var(--uiowa-typography-font-family-roboto); }
   .lp *, .lp *::before, .lp *::after { box-sizing: border-box; }
   /* The content sits in the standard container; the bands run edge to edge. */
-  .lp__in { max-width: var(--uiowa-layout-container-max-standard); margin: 0 auto; padding: 0 var(--uiowa-layout-digital-large-margin); }
-  .lp__head { max-width: var(--uiowa-layout-container-max-standard); margin: 0 auto; padding: 32px var(--uiowa-layout-digital-large-margin); }
+  .lp__in { max-width: var(--uiowa-layout-container-max-standard); margin: 0 auto; padding: 0 var(--uiowa-space-200); }
+  .lp__head { max-width: var(--uiowa-layout-container-max-standard); margin: 0 auto; padding: 32px var(--uiowa-space-200); }
   .lp__picks { display: flex; flex-wrap: wrap; gap: 0 32px; }
   .lp__legend { margin: 12px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px 28px; font: var(--tr-f-small); color: var(--uiowa-color-neutral-700); }
   .lp__legend b { color: var(--uiowa-color-neutral-900); }
@@ -861,7 +861,7 @@ const lpCss = `
   .lp__btn--plain { background: transparent; color: var(--uiowa-color-neutral-900); box-shadow: inset 0 0 0 1px var(--uiowa-color-neutral-900); }
   /* Each section's headline stepper sits in the band's top padding, at the content's right edge. */
   .lp__step-row { position: relative; height: 0; z-index: 2; }
-  .lp__step-row .lp__controls { position: absolute; right: var(--uiowa-layout-digital-large-margin); top: calc(var(--uiowa-space-600) * -1 + 20px); display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px 24px; }
+  .lp__step-row .lp__controls { position: absolute; right: var(--uiowa-space-200); top: calc(var(--uiowa-space-600) * -1 + 20px); display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px 24px; }
   .lp__step { display: inline-flex; align-items: center; margin: 0; padding: 0; border: 0; }
   .lp__step-name { float: left; margin-right: 10px; padding: 0; font: var(--tr-f-tag); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: inherit; opacity: .75; }
   .lp__step label { position: relative; display: inline-flex; align-items: center; justify-content: center; min-width: 48px; margin: 0; padding: 7px 12px; border: 1px solid var(--uiowa-color-neutral-400); border-left-width: 0; background: var(--uiowa-color-neutral-0); font: var(--tr-f-label); color: var(--uiowa-color-neutral-900); cursor: pointer; }
@@ -1370,10 +1370,10 @@ const BLOG_OUTLINE = [
   ['h4', 'Laboris nisi ut aliquip'], ['p'], ['h5', 'Ex ea commodo consequat'], ['p'], ['h6', 'Duis aute irure dolor'], ['p'],
 ];
 const bpCss = `
-  .bp__in { max-width: var(--uiowa-layout-container-max-standard); margin: 0 auto; padding: 0 var(--uiowa-layout-digital-large-margin) var(--uiowa-layout-space-section); color: var(--uiowa-color-neutral-900); font-family: var(--uiowa-typography-font-family-roboto); }
+  .bp__in { max-width: var(--uiowa-layout-container-max-standard); margin: 0 auto; padding: 0 var(--uiowa-space-200) var(--uiowa-space-300); color: var(--uiowa-color-neutral-900); font-family: var(--uiowa-typography-font-family-roboto); }
   .bp__in *, .bp__in *::before, .bp__in *::after { box-sizing: border-box; }
-  .bp__head { max-width: var(--uiowa-layout-container-max-standard); margin: 0 auto; padding: 32px var(--uiowa-layout-digital-large-margin) 0; }
-  .bp__post { padding-top: var(--uiowa-layout-space-section); border-top: 1px solid var(--uiowa-color-neutral-175); }
+  .bp__head { max-width: var(--uiowa-layout-container-max-standard); margin: 0 auto; padding: 32px var(--uiowa-space-200) 0; }
+  .bp__post { padding-top: var(--uiowa-space-300); border-top: 1px solid var(--uiowa-color-neutral-175); }
   .bp__post > * { margin: 0; font-weight: inherit; }
   .bp__post :where(h1, h2, h3, h4, h5, h6, p) { text-box: trim-both cap alphabetic; }
   .bp__post > * + * { margin-top: var(--tr-related); }

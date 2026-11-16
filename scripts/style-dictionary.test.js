@@ -195,31 +195,6 @@ it('writes breakpoints to Sass in rem and durations as CSS times', () => {
   expect(tokens).not.toContain('[object Object]');
 });
 
-// Layout tokens: spacing roles and digital tiers.
-function generated(name) {
-  return readFileSync(join(repository, 'src/scss/abstracts', name), 'utf8');
-}
-
-describe('layout tiers', () => {
-  it('puts spacing roles and tier margins and gutters on space stops', () => {
-    const css = generated('_tokens-generated.scss');
-
-    expect(css).toContain('--uiowa-layout-space-section: var(--uiowa-space-300);');
-    expect(css).toContain('--uiowa-layout-digital-medium-margin: var(--uiowa-space-200);');
-    expect(css).toContain('--uiowa-layout-digital-large-gutter: var(--uiowa-space-150);');
-  });
-
-  it('keeps padding equal to gutter in every tier', () => {
-    const css = generated('_tokens-generated.scss');
-
-    for (const tier of ['small', 'medium', 'large']) {
-      expect(css).toContain(`--uiowa-layout-digital-${tier}-padding: var(--uiowa-layout-digital-${tier}-gutter);`);
-    }
-  });
-
-
-});
-
 // The resolved typography roles, for tools that read numbers rather than CSS (an agent building print
 // templates): every size in rem, px and pt, worked out from the tokens, never stored in them.
 describe('typography roles JSON', () => {

@@ -21,8 +21,6 @@ system built from UIDS should be able to catch up using this file alone.
 | Shadows | `shadow.inset` (form fields), `shadow.raised` (the toggle knob) |
 | Motion | `duration.150`, `.250`, `.400`; `motion.duration.fast`, `medium`, `slow`; `easing.standard`, `overshoot` |
 | Breakpoints | `breakpoint.400`, `.600`, `.768`, `.930`, `.980`, `.1200`, `.1350`; `layout.breakpoint.standard` (1350) |
-| Spacing roles | `layout.space.tight` (8px), `related` (24px), `separated` (32px), `section` (48px) |
-| Digital layout tiers | `layout.digital.small`, `.medium` and `.large`, each with `columns`, `margin`, `gutter`, `padding` and `reading` |
 | Form heights | `form.height.medium` (48px), `form.height.large` (64px) |
 | Colors | `color.border.strong`, `color.border.strong-inverse`; `color.alpha.black-150`, `black-200`, `black-425`, `white-425`; `color.accent.blue` |
 | Data visualization | `color.data-visualization.categorical.1` to `.12`, assigned in numerical order, each pointing at a palette color; the palette gains `color.green-light`, `purple`, `cyan`, `olive`, `rose`, `gray-warm`, and `gray-cool` for them |
