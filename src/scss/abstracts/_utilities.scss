@@ -309,13 +309,10 @@
 }
 
 @mixin container-width {
-  margin: 0 variables.$gutter;
+  // The tier's margin is a minimum. Once the window is wider than the column plus two margins,
+  // the margin grows so the column stays centered at its maximum width.
+  margin-inline: max(var(--uiowa-layout-margin), calc((100% - var(--uiowa-layout-container-max-standard)) / 2));
   position: relative;
-
-  @include breakpoints.breakpoint(page-container) {
-    max-width: var(--uiowa-layout-container-max-standard);
-    margin: 0 auto;
-  }
 }
 
 // Buttons
@@ -437,13 +434,7 @@
 }
 
 %container {
-  margin: 0 variables.$gutter;
-  position: relative;
-
-  @include breakpoints.breakpoint(page-container) {
-    max-width: var(--uiowa-layout-container-max-standard);
-    margin: 0 auto;
-  }
+  @include container-width;
 }
 
 // Font Smoothing ///////////////

@@ -145,6 +145,22 @@ Eight transitions that never ran are removed instead of tokenized. They sat on e
 whose properties do not change: the stat grid, the tab background, the blockquote bars,
 the banner overlay, and the circle button's ring.
 
+#### Layout tiers
+
+Page containers, grids, and multi-column text follow the digital layout tiers through three
+custom properties, `--uiowa-layout-margin`, `--uiowa-layout-gutter`, and `--uiowa-layout-padding`:
+Small below 768px, Medium from 768px, and Large from 980px.
+
+| Element | Was | Now |
+| --- | --- | --- |
+| Page container side margin | 20px | 16px; 32px from 768px |
+| Gap between `.grid--*` items, from 768px | 48px (two-column grid: 48px across, 20px down) | 16px; 24px from 980px |
+| Gap between `.element--two-column` and `--three-column` text columns, from 768px | 48px | 16px; 24px from 980px |
+
+The page containers are `.layout-container`, `.page__container`, `.page__container--mixed`, and the
+brand footer's `.footer__container`. They still stop at 1310px wide, but reach it once the page is
+1374px wide instead of 1350px, because the side margin stays at least 32px.
+
 #### Breakpoints
 
 Sass breakpoints are written from the breakpoint tokens, in rem. Nothing moves at a
