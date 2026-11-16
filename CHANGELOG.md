@@ -48,6 +48,17 @@ writes them to Sass, in rem.
   `--uiowa-brand-bar-background`) is gold at every width; below md it was black. The
   bar looks the same: below md the black now comes from `.iowa-bar__logo`, and the site
   name and slot content sit on the bar's gold with no background of their own.
+- The logo tab (`.logo--tab`) centers its logo with flexbox, and `.logo-icon` is
+  `display: block`. All tab padding is removed (was `25px 1.25rem`, `25px` at md, and
+  `23px 20px` at the page container; Health Care `20px 1.25rem`, then `23px 22px` at
+  md). Tab sizes are unchanged. The Health Care logo moves: below md, 1px up; at md,
+  3.7px right and, outside the brand bar, 3.5px down. Other logos move by half a pixel
+  or less. Styles that set padding on `.logo--tab` now shrink the area the logo centers
+  in.
+- The brand bar no longer sets padding on the logo tab, except `padding-top: 7px` at the
+  page container on the default bar (was `27px 20px 20px`), which keeps the logo 27px
+  from the top of the hanging tab. Removed: `padding-top: 27px` at md on the Health Care
+  bar and `padding: 15px` at md on the narrow bar.
 - Stat text inherits the nearest background’s text color. Titles on black change from
   gold to white; supporting text changes from gray to white on black and black on white.
   Nested stats follow the nearest background instead of matching an outer black ancestor.

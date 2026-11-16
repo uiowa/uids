@@ -46,17 +46,19 @@
     @include utilities.breakpoint(md) {
       height: 80px;
     }
+
+    // The tab hangs below the bar here, so sit the logo lower than centre.
+    .logo--tab {
+      @include utilities.breakpoint(page-container) {
+        padding-top: 7px;
+      }
+    }
   }
 
   &.iowa-bar--healthcare {
     &:not(.iowa-bar--narrow) {
       @include utilities.breakpoint(md) {
         height: 100px;
-      }
-      .logo--tab {
-        @include utilities.breakpoint(md) {
-          padding-top: 27px;
-        }
       }
     }
   }
@@ -77,8 +79,6 @@
 
     @include utilities.breakpoint(page-container) {
       margin-left: -12px;
-      // More padding on top in this variation.
-      padding: 27px 20px 20px;
     }
   }
 
@@ -133,9 +133,7 @@
         @include utilities.breakpoint(md) {
           height: 70px;
           width: 119px;
-          padding: 15px;
         }
-
       }
       .logo-icon {
         @include utilities.breakpoint(md) {
@@ -158,7 +156,6 @@
       @include utilities.breakpoint(md) {
         height: 56px;
         width: 119px;
-        padding: 15px;
       }
 
       @include utilities.breakpoint(page-container) {

@@ -1,4 +1,3 @@
-@use '../abstracts/variables';
 @use '../abstracts/utilities';
 
 // === Logo === //
@@ -6,28 +5,31 @@
   display: block;
 }
 
+// The tab is a fixed size and centres the icon, so no padding positions it.
 .logo--tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 70px;
   width:  109px;
-  padding: 25px variables.$gutter;
   background: var(--uiowa-logo-background);
 
   @include utilities.breakpoint(md) {
     width: 154px;
     height: 80px;
-    padding: 25px;
   }
 
   @include utilities.breakpoint(page-container) {
     width: 188px;
     height: 90px;
-    padding: 23px 20px;
   }
 }
 // === End: Logo === //
 
 // === Logo SVG === //
 .logo-icon {
+  // Block, so the icon sits the same with or without a link around it.
+  display: block;
   fill: var(--uiowa-logo-text-color);
   height: 20px;
 
@@ -53,10 +55,8 @@
 // === Logo Healthcare === //
 .logo--tab {
   &.logo--healthcare {
-    padding: 20px 1.25rem;
     @include utilities.breakpoint(md) {
       height: 100px;
-      padding: 23px 22px;
     }
     @include utilities.breakpoint(page-container) {
       height: 113px;
