@@ -35,12 +35,19 @@ writes them to Sass, in rem.
   `<h1 class="site-name">` after the logo; `site_url` wraps the name in a link. The
   default slot now follows the site name.
 - Brand bar `.iowa-bar__content` wrapper around the default slot, rendered only when the
-  slot has content. Below md it continues the site name's gold strip
-  (`brand-bar.below-md.content.background`, `--uiowa-brand-bar-below-md-content-background`);
-  at md and up it fills the space after the site name as a flex row.
+  slot has content. Below md it stacks under the site name on the bar's gold; at md and
+  up it fills the space after the site name as a flex row.
+- Brand bar `.iowa-bar__logo` wrapper around the logo. Below md it fills the row with
+  the logo tab's black (`--uiowa-logo-background`); at md and up it is
+  `display: contents` and has no effect on layout. Markup copied from the brand bar
+  needs this wrapper, or the black stops at the edge of the logo tab below md.
 
 ### Changed
 
+- The brand bar's own background (`brand-bar.background`,
+  `--uiowa-brand-bar-background`) is gold at every width; below md it was black. The
+  bar looks the same: below md the black now comes from `.iowa-bar__logo`, and the site
+  name and slot content sit on the bar's gold with no background of their own.
 - Stat text inherits the nearest background’s text color. Titles on black change from
   gold to white; supporting text changes from gray to white on black and black on white.
   Nested stats follow the nearest background instead of matching an outer black ancestor.

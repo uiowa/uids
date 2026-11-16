@@ -90,7 +90,9 @@ export default {
 <template>
   <header :class="getClasses" data-uids-header>
     <div class="iowa-bar__container">
-      <uids-logo :healthcare="healthcare" :url="healthcare ? 'https://uihealthcare.org' : 'https://uiowa.edu'" context="header"></uids-logo>
+      <div class="iowa-bar__logo">
+        <uids-logo :healthcare="healthcare" :url="healthcare ? 'https://uihealthcare.org' : 'https://uiowa.edu'" context="header"></uids-logo>
+      </div>
       <h1 v-if="site_name" class="site-name">
         <a v-if="site_url" :href="site_url">{{ site_name }}</a>
         <template v-else>{{ site_name }}</template>

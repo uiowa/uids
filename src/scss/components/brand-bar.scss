@@ -61,6 +61,17 @@
     }
   }
 
+  // The row holding the logo. Until md it runs the logo tab's black across the
+  // full width of the gold bar; from md it drops out of the layout, leaving the
+  // tab as a direct flex item of the container.
+  &__logo {
+    background: var(--uiowa-logo-background);
+
+    @include utilities.breakpoint(md) {
+      display: contents;
+    }
+  }
+
   .logo--tab {
     margin-right: 20px;
 
@@ -74,7 +85,6 @@
   .site-name {
     width: 100%;
     padding: variables.$gutter;
-    background: var(--uiowa-brand-bar-site-name-background);
 
     @include utilities.breakpoint(md) {
       width: auto;
@@ -86,11 +96,8 @@
     }
   }
 
-  // Default slot content. Until md it stacks under the site name and
-  // continues its gold strip.
+  // Default slot content. Until md it stacks under the site name.
   &__content {
-    background: var(--uiowa-brand-bar-content-background);
-
     @include utilities.breakpoint(md) {
       display: flex;
       flex: 1 1 auto;
@@ -172,7 +179,6 @@
     .site-name {
       margin: 0;
       padding: variables.$gutter;
-      background: var(--uiowa-brand-bar-site-name-background);
 
       @include utilities.breakpoint(md) {
         padding: 0;
