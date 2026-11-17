@@ -35,7 +35,17 @@ build so release artifacts include the generated Sass and CSS.
 
 `src/tokens/components/` holds one file per component. A component token names a
 decision that belongs to that component and that a theme or variant could change. It
-always references a semantic or primitive token; it never carries its own value.
+always references another token; it never carries its own value.
+
+Which tier a component token references depends on what a mode or theme would change:
+
+- **Color** references semantic tokens. A mode or theme re-points these, so a
+  component must inherit the change. If no semantic token fits, add the role to the
+  semantic tier instead of reaching for a primitive.
+- **Typography** (font family, size, weight, line height) may reference primitives
+  directly. A step on a scale means the same thing in every mode, and UIDS fonts are
+  fixed by the brand rather than swapped by a theme, so a semantic alias would only
+  repeat the primitive. Use a semantic token where one already names the role.
 
 Give a component a token for:
 

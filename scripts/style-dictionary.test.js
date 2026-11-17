@@ -280,6 +280,31 @@ describe('edu.uiowa.variant', () => {
     })).rejects.toThrow('card.title edu.uiowa.variant.narrow must key its overrides by member');
   });
 
+  // Style Dictionary resolves references to array- and object-valued tokens before
+  // expanding a composite, so the format restores them from the source file.
+  it('keeps references in expanded typography members', async () => {
+    const output = await buildTokens({
+      family: { $type: 'fontFamily', sans: { $value: ['Roboto', 'sans-serif'] } },
+      size: { $type: 'dimension', body: { $value: { value: 1.2, unit: 'rem' } } },
+      card: {
+        title: {
+          $type: 'typography',
+          $value: {
+            fontFamily: '{family.sans}',
+            fontWeight: 300,
+            fontSize: '{size.body}',
+            letterSpacing: { value: 0, unit: 'px' },
+            lineHeight: 1.15,
+          },
+        },
+      },
+    });
+
+    expect(output).toContain('--uiowa-card-title-font-family: var(--uiowa-family-sans);');
+    expect(output).toContain('--uiowa-card-title-font-size: var(--uiowa-size-body);');
+    expect(output).toContain('--uiowa-card-title-letter-spacing: 0px;');
+  });
+
   it('rejects a variant that references an unknown token', async () => {
     await expect(buildTokens({
       card: {

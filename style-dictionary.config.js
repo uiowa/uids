@@ -150,6 +150,23 @@ export function overrides(token, extension) {
   return result;
 }
 
+// Before expanding a composite, Style Dictionary resolves every member reference
+// that points at an object- or array-valued token (fontFamily, dimensions), so the
+// expanded member no longer knows it was a reference and outputReferences cannot
+// emit var(). This returns the member's reference as written in the source file.
+export function compositeMemberReference(token) {
+  if (!token.filePath || token.path.length < 2) return undefined;
+
+  let node = sourceFile(token);
+  for (const key of token.path.slice(0, -1)) node = node?.[key];
+
+  const composite = node?.$value;
+  if (!isObject(composite) || Array.isArray(composite)) return undefined;
+
+  const member = composite[token.path.at(-1)];
+  return typeof member === 'string' && /^\{[^{}]+\}$/.test(member) ? member : undefined;
+}
+
 // The nearest group that maps the variant to a selector wins; without one the
 // selector follows the BEM modifier convention, `.{component}--{variant}`.
 
@@ -196,10 +213,20 @@ export async function cssResponsive(args) {
     return `${decimal(value.value / REM_IN_PIXELS)}rem`;
   };
 
+  // Restores each composite member's source reference so css/variables can emit it.
+  const withMemberReference = (token) => {
+    const reference = compositeMemberReference(token);
+    if (!reference || reference === token.original?.$value) return token;
+    return { ...token, original: { ...token.original, $value: reference } };
+  };
+
   // Base output is the existing css/variables result, minus breakpoint tokens.
   const base = await StyleDictionary.hooks.formats['css/variables']({
     ...args,
-    dictionary: { ...dictionary, allTokens: dictionary.allTokens.filter((token) => !isBreakpoint(token)) },
+    dictionary: {
+      ...dictionary,
+      allTokens: dictionary.allTokens.filter((token) => !isBreakpoint(token)).map(withMemberReference),
+    },
   });
 
   const groups = {};
