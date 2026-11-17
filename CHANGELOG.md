@@ -33,10 +33,9 @@ system built from UIDS should be able to catch up using this file alone.
 Breakpoints have no custom properties, because a media query can't read one. The build
 writes them to Sass, in rem.
 
-The typography roles follow Material 3's shape with two additions:
-six families in X-Small, Small, Medium, Large and X-Large, the Headline also at 6× and 8× (`headline-6x`,
-`headline-8x`, leading 0.9), and Label in Large, Medium and Small, so 43 styles. Eyebrow, the label above a title, and
-Small Print are the additions; the roles are named Headline, Subhead and Subhead 2 rather than Material’s Display, Headline and Title (renamed 2026-10-26). Eyebrow is Special Gothic
+The typography roles are Headline, Eyebrow, Subhead, Subhead 2, Body and Small Print in five hierarchies,
+X-Small, Small, Medium, Large and X-Large, with the Headline also at 6× and 8× (`headline-6x`, `headline-8x`,
+leading 0.9), and Label in Large, Medium and Small: 43 styles. Eyebrow, the label above a title, is Special Gothic
 Condensed, set in uppercase by the component. They sit beside today's heading, intro, body and size tokens, and no
 component uses them yet, so nothing renders differently. UIDS's CSS does not load Special Gothic
 Condensed: it is Google's Special Gothic at width 75, weight 600, which Storybook loads with
@@ -50,15 +49,14 @@ for the digital ad, web banner and 11 × 17 poster, and X-Large for displays and
 one set for every hierarchy, 0.875×, 0.75× and 0.625× of Body Medium. Headline is Special Gothic
 Condensed, Subhead Zilla Slab, and Subhead 2, Body, Small Print and Label Roboto. Each role is held once, as base + multiples: its own tokens and a multiple of the body size
 (`typography.headline.multiple` is 4), with a hierarchy group only where a value differs, so the 43 styles take
-64 tokens, Labels included, rather than 220. The Labels' sizes
+64 tokens, Labels included. The Labels' sizes
 are written as plain sizes. Body text gets bigger or smaller only by picking
 another hierarchy. Text is spaced with the hierarchy's two gaps, its body size times `typography.scale.related` and `.break`, measured from baseline to cap height: Related between things that belong together, Break between groups. The gap
 under a title is half the title; a heading is a Related step above its own text, but an item
 heading, the title of an item in a list, card or schedule, sits on its own text with no gap; and repeating
 sections are a Break apart. Subhead 2 is Regular by default (`fontWeight`); its
 `fontWeightEmphasis`, Medium, is an option for a line the designer wants to stand out, such as the date
-that leads a details group. A highlight on chosen headline words is a box from cap height to baseline plus 0.1× the headline size on all four sides, with 0.05× more leading per line; the subhead's band runs from 0.32× the subhead size above the baseline to 0.16× below it, 0.08× past the text. An earlier draft scaled whole sets (Large = Medium ÷ 0.875, in sizes since renamed) and put Roboto Black on
-Headline and the display face on Label.
+that leads a details group. A highlight on chosen headline words is a box from cap height to baseline plus 0.1× the headline size on all four sides, with 0.05× more leading per line; the subhead's band runs from 0.32× the subhead size above the baseline to 0.16× below it, 0.08× past the text.
 
 - The typography roles as classes. A hierarchy class, `.type-scale--x-small` through `.type-scale--x-large`,
   on a piece, a section or a component sets the body size, the gaps (`--uiowa-type-space-related` and

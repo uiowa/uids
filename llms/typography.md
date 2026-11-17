@@ -1,6 +1,6 @@
 # UIDS typography
 
-The type styles of UIDS, the University of Iowa Design System, with every size worked out. Written from the design tokens of UIDS 5.0.0-alpha.1 and kept by hand: when a typography token changes, change this page with it.
+The type styles of UIDS, the University of Iowa Design System, with every size worked out. Written from the design tokens of UIDS 5.0.0-alpha.1.
 
 ## How to use it
 

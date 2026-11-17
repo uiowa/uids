@@ -2,14 +2,11 @@
 @use 'sass:map';
 @use '../abstracts/utilities';
 
-// The type roles as opt-in classes. A hierarchy class, .type-scale--x-small through
-// .type-scale--x-large, on a piece, a section or a component sets the body size every role
-// inside it multiplies, its two gaps and the line heights that differ in it; Medium's also sit
-// on :root, so Medium is the default and needs no class. A role class, .type-body through
-// .type-subhead-2, is its role's five properties and nothing more: no margins and no element
-// selectors. Headings keep their own styles until they are moved onto the roles.
+// The type roles as classes; src/tokens/README.md says how to use them.
+// $hierarchies, $roles and $own-line-heights copy src/tokens/semantic/typography.json by hand: a hierarchy, a
+// role with a multiple or a hierarchy group added there does nothing here until it's added here too.
 $hierarchies: ('x-small', 'small', 'medium', 'large', 'x-large');
-// Every role but Body: its size is the base times its multiple.
+// The roles whose size is the base times their multiple.
 $roles: ('small-print', 'headline', 'headline-6x', 'headline-8x', 'eyebrow', 'subhead', 'subhead-2');
 // The line heights that differ by hierarchy, and the hierarchies that have their own.
 $own-line-heights: ('subhead': ('x-small', 'small'), 'subhead-2': ('large', 'x-large'));
@@ -56,13 +53,10 @@ $own-line-heights: ('subhead': ('x-small', 'small'), 'subhead-2': ('large', 'x-l
   }
 }
 
-// The eyebrow is set in uppercase by the component, as its token describes.
 .type-eyebrow {
   text-transform: uppercase;
 }
 
-// Subhead 2's emphasis weight, Medium, for a line set in strong or b, such as the date
-// that leads a details group.
 .type-subhead-2 :is(strong, b) {
   font-weight: var(--uiowa-typography-subhead-2-font-weight-emphasis);
 }
@@ -70,6 +64,6 @@ $own-line-heights: ('subhead': ('x-small', 'small'), 'subhead-2': ('large', 'x-l
 // The Labels are one set for every hierarchy.
 @each $size in ('large', 'medium', 'small') {
   .type-label--#{$size} {
-    @include utilities.role('label', $size);
+    @include utilities.label($size);
   }
 }

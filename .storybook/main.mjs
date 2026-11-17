@@ -28,7 +28,6 @@ const watchTokens = {
 
 const config = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
-  // llms.txt and the plain-text typography page, kept by hand in llms/, at the site root.
   staticDirs: ['../llms'],
   addons: [
     '@storybook/addon-docs',
