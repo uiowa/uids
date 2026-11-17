@@ -1,6 +1,6 @@
 import { computed, ref, onMounted } from 'vue';
 import breakpointTokens from '../../tokens/primitives/breakpoints.json';
-import layoutTokens from '../../tokens/semantic/layout.json';
+import semanticBreakpointTokens from '../../tokens/semantic/breakpoint.json';
 
 const TYPOGRAPHY_CHANNELS = [
   { name: 'font-family', property: 'fontFamily' },
@@ -57,12 +57,12 @@ const BREAKPOINTS = [
     tier: 'primitive',
     ...breakpointRow(['breakpoint', key], px),
   })),
-  ...tokensIn(layoutTokens.layout.breakpoint).map(([key, token]) => {
+  ...tokensIn(semanticBreakpointTokens.breakpoint).map(([key, token]) => {
     const target = token.$value.match(/^\{breakpoint\.(\w+)\}$/)[1];
     return {
       tier: 'semantic',
       primitive: `$uiowa-breakpoint-${target}`,
-      ...breakpointRow(['layout', 'breakpoint', key], BREAKPOINT_PX[target]),
+      ...breakpointRow(['breakpoint', key], BREAKPOINT_PX[target]),
     };
   }),
 ];

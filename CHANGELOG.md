@@ -22,6 +22,20 @@ system built from UIDS should be able to catch up using this file alone.
   `display: contents` and has no effect on layout. Markup copied from the brand bar
   needs this wrapper, or the black stops at the edge of the logo tab below md.
 
+#### Design tokens
+
+| Group | Tokens |
+| --- | --- |
+| Breakpoints | `breakpoint.xxsm` (400), `xsm` (600), `sm` (768), `md` (980), `lg` (1200), `standard` (1350), written to Sass as `$uiowa-breakpoint-xxsm` and so on |
+| Brand bar | `brand-bar.background`; `brand-bar.site-name.color`, `font-family`, `font-weight`, `font-size`, `line-height` |
+| Logo | `logo.text.color`, `logo.subtext.color`, `logo.background` |
+
+- Token extensions for component authors: `edu.uiowa.variant` re-points a token under a
+  variant's selector, `edu.uiowa.variants` maps a variant to a selector other than
+  `.{component}--{variant}`, and `edu.uiowa.responsive` re-points a token at a
+  breakpoint. `edu.uiowa.fluid` also applies to a standalone `font-size` token and takes
+  token references for its viewports. See `src/tokens/README.md`.
+
 ### Changed
 
 - The brand bar's own background (`brand-bar.background`,
@@ -49,15 +63,22 @@ system built from UIDS should be able to catch up using this file alone.
   `var(--uiowa-typography-font-family-roboto)` (was `Roboto, sans-serif`), and each
   `letter-spacing` member is `var(--uiowa-typography-letter-spacing-normal)` (was `0px`).
   Fluid font sizes keep their `clamp()` values. Computed values are unchanged.
+- On the narrow Health Care brand bar, the logo below md is 32px tall (was 33px). The
+  narrow bar's own height is removed, so the logo takes the Health Care logo's height.
+- The Storybook Tokens page lists the semantic breakpoints `breakpoint.xxsm` to
+  `breakpoint.standard` in place of `layout.breakpoint.standard`.
 
 ### Removed
 
-- The brand bar's second row: the `second_row_content` slot, `.iowa-bar__below` styles,
-  and the `brand-bar.nameplate.background` and `brand-bar.nameplate.border-color` tokens
-  (`--uiowa-brand-bar-nameplate-background`, `--uiowa-brand-bar-nameplate-border-color`).
-  Filling the slot no longer applies `.iowa-bar--narrow`; pass `narrow` instead. Pass
-  the site name with `site_name`. No replacement for a second row.
+- The brand bar's second row: the `second_row_content` slot and `.iowa-bar__below`
+  styles. Filling the slot no longer applies `.iowa-bar--narrow`; pass `narrow` instead.
+  Pass the site name with `site_name`. No replacement for a second row.
 - The logo's `id` prop, used only to label the SVG. No replacement.
+- The brand bar's `.parent-site-name` styles (light weight; a gold row below md;
+  inline after the logo at md and up). The footer keeps its own `.parent-site-name`
+  styles. No replacement in the brand bar.
+- `layout.breakpoint.standard` and its Sass variable `$uiowa-layout-breakpoint-standard`.
+  Use `breakpoint.standard` (`$uiowa-breakpoint-standard`), also 1350px.
 
 ## [5.0.0-alpha.1](https://github.com/uiowa/uids/compare/v5.0.0-alpha.0...v5.0.0-alpha.1)
 
