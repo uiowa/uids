@@ -72,9 +72,8 @@ Headline and the display face on Label.
   `_type-roles-generated.scss`. Headings keep their own styles.
 - `llms.txt` and `typography.md`, UIDS's typography as plain text for readers that can't run the docs
   site, such as a web chat: the hierarchy each format takes, each hierarchy's styles in px and pt with
-  their classes, its gaps, and one Google Fonts link for the faces. `yarn build:tokens` writes them to
-  `dist/llms` from `dist/typography-roles.json` and the generated classes, and Storybook serves them at
-  its root.
+  their classes, its gaps, and one Google Fonts link for the faces. They're kept by hand in `llms/`, and
+  Storybook serves them at its root.
 - Storybook Tokens pages for Borders and shapes, Shadows, and Motion. Space and layout
   gains form heights, the logo minimum, and the breakpoints.
 
