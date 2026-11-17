@@ -1,22 +1,18 @@
 import { computed, ref } from 'vue';
-import primitives from '../../tokens/primitives/typography.json';
-import semantic from '../../tokens/semantic/typography.json';
+import { roleSpec, roleStyle, sizesOf } from './roleStyle';
 
 /**
  * The proposed UIDS roles beside the type scale of eight other systems, one system at a time, at actual size.
  * Each system's values are from its own documentation, read on 2026-11-10 (Material 3's from the M3 type scale
  * image on developer.android.com); the UIDS values are read from the token files, and each UIDS specimen is set
- * through the live custom properties the token build ships. A face not installed here falls back to the system
- * font; the sizes hold.
+ * as its classes set it, the hierarchy's body size times the role's multiple. A face not installed here falls back
+ * to the system font; the sizes hold.
  */
 
 const WEIGHT_NAMES = { 300: 'Light', 400: 'Regular', 500: 'Medium', 600: 'SemiBold', 700: 'Bold' };
 const round = (n) => String(Math.round(n * 100) / 100);
 const titleCase = (key) => key.split('-').map((word) => word[0].toUpperCase() + word.slice(1)).join(' ');
 
-const TREE = { typography: { ...primitives.typography, ...semantic.typography } };
-const at = (path) => path.split('.').reduce((node, key) => node?.[key], TREE);
-const deref = (value) => (typeof value === 'string' && value.startsWith('{') ? deref(at(value.slice(1, -1)).$value) : value);
 
 // The jobs the rows pair by, and the UIDS families that do each.
 const JOBS = [
@@ -160,46 +156,38 @@ const ratio = (px, body) => (px == null ? '—' : Array.isArray(px) ? `${round(p
 const pxText = (px) => (px == null ? '—' : Array.isArray(px) ? `${px[0]}–${px[1]}px` : `${px}px`);
 const HOMEPAGE_ROWS = HOMEPAGES.map(([site, url, body, hero, section, note]) => ({ site, url, body: `${body}px`, hero: pxText(hero), heroX: ratio(hero, body), section: pxText(section), sectionX: ratio(section, body), note }));
 
-// A UIDS family's styles. Each size is a multiple of the body size it names (Headline Medium of Body Medium);
-// a body size is the 1× of its hierarchy.
+// A UIDS family's styles: a role in each hierarchy, its size the hierarchy's body size times the role's multiple
+// (Headline Medium is 4× Body Medium); a body size is the 1× of its hierarchy, and the Labels are one set, each a
+// multiple of Body Medium.
 const SIZE_NAMES = { 'x-large': 'X-Large', large: 'Large', medium: 'Medium', small: 'Small', 'x-small': 'X-Small' };
-const uidsStyles = (family) => Object.keys(SIZE_NAMES).filter((size) => at(`typography.${family}.${size}`))
-  .map((size) => [`${family}-${size}`, at(`typography.${family}.${size}`), size]);
-const uidsFamily = (family) => uidsStyles(family).map(([key, token, size]) => {
-  const multiply = token.fontSize.$extensions?.['edu.uiowa.multiply'];
-  const px = (multiply ? multiply.by : 1) * deref(token.fontSize.$value).value * 16;
-  const body = multiply && SIZE_NAMES[token.fontSize.$value.split('.')[2]];
-  const leading = deref(token.lineHeight.$value);
-  const weight = deref(token.fontWeight.$value);
+const uidsStyles = (family) => Object.keys(SIZE_NAMES).filter((size) => sizesOf(family).includes(size));
+const uidsFamily = (family) => uidsStyles(family).map((size) => {
+  const { px, leading, weight, by } = roleSpec(family, size);
+  const bodyName = family === 'label' ? 'Medium' : SIZE_NAMES[size];
+  const basis = family === 'body' ? 'the body size' : `${by}× Body ${bodyName}`;
   return {
-    key,
+    key: `${family}-${size}`,
     size,
     badge: family === 'label' ? 'Every hierarchy' : `${SIZE_NAMES[size]} hierarchy`,
     name: `${titleCase(family).replace(/(\d)x$/, '$1×')} ${SIZE_NAMES[size]}`,
     px,
-    spec: `${round(px)}/${round(px * leading)} · ${WEIGHT_NAMES[weight]} ${weight} · ${multiply ? `${multiply.by}× Body ${body}` : 'the body size'}`,
-    style: Object.fromEntries(['font-family', 'font-weight', 'font-size', 'line-height', 'letter-spacing'].map((name) => [
-      name.replace(/-(\w)/g, (_, c) => c.toUpperCase()),
-      `var(--uiowa-typography-${key}-${name})`,
-    ])),
+    spec: `${round(px)}/${round(px * leading)} · ${WEIGHT_NAMES[weight]} ${weight} · ${basis}`,
+    style: roleStyle(family, size),
   };
 });
 const UIDS_COUNT = Object.values(UIDS_JOBS).flat().reduce((n, family) => n + uidsStyles(family).length, 0);
 const familyName = (family) => titleCase(family).replace(/(\d)x$/, '$1×');
-const familyFace = (family) => deref(uidsStyles(family)[0][1].fontFamily.$value)[0];
+const familyFace = (family) => roleSpec(family, uidsStyles(family)[0]).face;
 
-// Special Gothic Condensed is not in UIDS yet; Google's Special Gothic at width 75 stands in for it,
-// through the second name in the token's font stack.
 const css = `
-  @import url('https://fonts.googleapis.com/css2?family=Special+Gothic:wdth,wght@75,600&display=swap');
   .m3c { box-sizing: border-box; max-width: 1440px; margin: 0 auto; padding: 40px 24px 64px; color: var(--uiowa-color-neutral-800); font-family: var(--uiowa-typography-font-family-roboto); }
   .m3c *, .m3c *::before, .m3c *::after { box-sizing: border-box; }
   /* The page's own text sits on the Medium hierarchy. */
   .m3c {
-    --tr-f-title: var(--uiowa-typography-subhead-medium-font-weight) var(--uiowa-typography-subhead-medium-font-size)/var(--uiowa-typography-subhead-medium-line-height) var(--uiowa-typography-subhead-medium-font-family);
-    --tr-f-h2: var(--uiowa-typography-subhead-2-medium-font-weight-emphasis) var(--uiowa-typography-subhead-2-medium-font-size)/var(--uiowa-typography-subhead-2-medium-line-height) var(--uiowa-typography-subhead-2-medium-font-family);
-    --tr-f-body: var(--uiowa-typography-body-medium-font-weight) var(--uiowa-typography-body-medium-font-size)/var(--uiowa-typography-body-medium-line-height) var(--uiowa-typography-body-medium-font-family);
-    --tr-f-small: var(--uiowa-typography-small-print-medium-font-weight) var(--uiowa-typography-small-print-medium-font-size)/var(--uiowa-typography-small-print-medium-line-height) var(--uiowa-typography-small-print-medium-font-family);
+    --tr-f-title: var(--uiowa-typography-subhead-font-weight) calc(var(--uiowa-typography-body-medium-font-size) * var(--uiowa-typography-subhead-multiple))/var(--uiowa-typography-subhead-line-height) var(--uiowa-typography-subhead-font-family);
+    --tr-f-h2: var(--uiowa-typography-subhead-2-font-weight-emphasis) calc(var(--uiowa-typography-body-medium-font-size) * var(--uiowa-typography-subhead-2-multiple))/var(--uiowa-typography-subhead-2-line-height) var(--uiowa-typography-subhead-2-font-family);
+    --tr-f-body: var(--uiowa-typography-body-font-weight) var(--uiowa-typography-body-medium-font-size)/var(--uiowa-typography-body-line-height) var(--uiowa-typography-body-font-family);
+    --tr-f-small: var(--uiowa-typography-small-print-font-weight) calc(var(--uiowa-typography-body-medium-font-size) * var(--uiowa-typography-small-print-multiple))/var(--uiowa-typography-small-print-line-height) var(--uiowa-typography-small-print-font-family);
     --tr-f-label: var(--uiowa-typography-label-large-font-weight) var(--uiowa-typography-label-large-font-size)/var(--uiowa-typography-label-large-line-height) var(--uiowa-typography-label-large-font-family);
     --tr-f-tag: var(--uiowa-typography-label-small-font-weight) var(--uiowa-typography-label-small-font-size)/var(--uiowa-typography-label-small-line-height) var(--uiowa-typography-label-small-font-family);
   }
@@ -365,7 +353,7 @@ export const ScalesCompared = {
           atlassian.design, GOV.UK from its type scale page, USWDS from its font size, line height and settings pages,
           Carbon from its type sets page, Radix from its Themes typography page. Adobe Spectrum's sizes could not be
           read from its documentation and are left out. Faces not installed here fall back to the system font; the
-          sizes hold. Special Gothic Condensed stands in as Google's Special Gothic at width 75. The homepage sizes are
+          sizes hold. Special Gothic Condensed is Google's Special Gothic at width 75, weight 600. The homepage sizes are
           the survey's desktop captures; TCU could not be measured.
         </p>
       </div>

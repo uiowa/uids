@@ -12,6 +12,7 @@ import BrandBar from '../brand-bar/BrandBar.vue';
 import UidsMenu from '../menu/Menu.vue';
 import UidsTable from '../table/Table.vue';
 import UidsBadge from '../badge/Badge.vue';
+import { roleCss as roleDeclarationsCss, splitKey } from '../tokens/roleStyle';
 
 /**
  * An employee profile, set with the typography roles (Tokens (roles) › Style Library). An application
@@ -50,10 +51,9 @@ const sidebarMenuItems = [
   { label: 'Activity Log', url: '#' },
 ];
 const ROLES = ['headline', 'subhead', 'subhead-2', 'body', 'label'].flatMap((f) => ['large', 'medium', 'small'].map((s) => `${f}-${s}`));
-const roleCss = ROLES.map((r) => `.ep [data-role="${r}"]{font-family:var(--uiowa-typography-${r}-font-family);font-weight:var(--uiowa-typography-${r}-font-weight);font-size:var(--uiowa-typography-${r}-font-size);line-height:var(--uiowa-typography-${r}-line-height)}`).join('\n');
+const roleCss = ROLES.map((r) => `.ep [data-role="${r}"]{${roleDeclarationsCss(...splitKey(r))}}`).join('\n');
 
 const css = `
-  @import url('https://fonts.googleapis.com/css2?family=Special+Gothic:wdth,wght@75,600&display=swap');
   ${roleCss}
   .ep { --ep-related: var(--uiowa-typography-space-related); --ep-break: var(--uiowa-typography-space-break); }
   .ep__toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; padding: 12px 0; border-bottom: 1px solid var(--uiowa-color-neutral-175); font-size: 0.875rem; color: var(--uiowa-color-neutral-700); }
@@ -92,7 +92,7 @@ const css = `
   .ep__contact li { padding: 6px 0; }
   .ep__contact i { width: 1.4em; color: var(--uiowa-color-neutral-500); }
   .ep__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: var(--ep-related); }
-  .ep .table-container table { font-family: var(--uiowa-typography-body-small-font-family); font-size: var(--uiowa-typography-body-small-font-size); line-height: var(--uiowa-typography-body-small-line-height); }
+  .ep .table-container table { ${roleDeclarationsCss('body', 'small')}; }
   .ep__legend { margin: 0; padding: 12px 0 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 4px 24px; font-size: 0.8125rem; color: var(--uiowa-color-neutral-700); }
   .ep__legend b { color: var(--uiowa-color-neutral-900); }
 `;

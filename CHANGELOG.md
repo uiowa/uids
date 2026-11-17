@@ -39,8 +39,9 @@ six families in X-Small, Small, Medium, Large and X-Large, the Headline also at 
 `headline-8x`, leading 0.9), and Label in Large, Medium and Small, so 43 styles. Eyebrow, the label above a title, and
 Small Print are the additions; the roles are named Headline, Subhead and Subhead 2 rather than Material’s Display, Headline and Title (renamed 2026-10-26). Eyebrow is Special Gothic
 Condensed, set in uppercase by the component. They sit beside today's heading, intro, body and size tokens, and no
-component uses them yet, so nothing renders differently. UIDS does not load Special Gothic
-Condensed yet. Body X-Small, Small, Medium, Large and X-Large are the five body sizes, 12.67px, 16px, 19px, 24px and 36px (9.5,
+component uses them yet, so nothing renders differently. UIDS's CSS does not load Special Gothic
+Condensed: it is Google's Special Gothic at width 75, weight 600, which Storybook loads with
+`https://fonts.googleapis.com/css2?family=Special+Gothic:wdth,wght@75,600&display=swap`. Body X-Small, Small, Medium, Large and X-Large are the five body sizes, 12.67px, 16px, 19px, 24px and 36px (9.5,
 12, 14.25, 18 and 27pt), and each names a hierarchy that every template, screen or print, chooses from:
 the X-Small, Small, Medium, Large or X-Large of every other family is a multiple of the body size
 of the same name, so a hierarchy's styles are used together and the math is done. X-Small is

@@ -1,6 +1,7 @@
 import { ref, reactive, computed, onMounted, onBeforeUnmount, nextTick, watch } from 'vue';
 import primitives from '../../tokens/primitives/typography.json';
 import semantic from '../../tokens/semantic/typography.json';
+import { gapSize, roleSpec as specOf, roleStyle, splitKey } from './roleStyle';
 
 /**
  * The typography roles, as the token files define them: one scale. Six families (Headline, Eyebrow, Subhead,
@@ -41,30 +42,20 @@ const titleCase = (key) => key.split('-').map((word) => word[0].toUpperCase() + 
 // A family's name: 'headline-6x' is Headline 6×.
 const familyName = (family) => titleCase(family).replace(/(\d)x$/, '$1×');
 
-// A role's spec from the token files: face, weight, multiple of its body size, px, leading. A body size is
-// 1× of the hierarchy it names.
+// A style's spec from the token files (roleStyle.js): face, weight, multiple of its body size, px, leading, the classes
+// that set it, and its name.
 function roleSpec(key) {
-  // a family key can carry a hyphen ('subhead-2'), and so can a size ('x-small')
-  const [, family, size] = key.match(/^(.+?)-(x-small|small|medium|large|x-large)$/);
-  const tokenName = `typography.${family}.${size}`;
-  const token = at(tokenName);
-  const weight = deref(token.fontWeight.$value);
-  const multiply = token.fontSize.$extensions?.['edu.uiowa.multiply'];
-  const by = multiply ? multiply.by : 1;
-  return {
-    key,
-    name: `${familyName(family)} ${SIZE_NAMES[size]}`,
-    tokenName,
-    face: deref(token.fontFamily.$value)[0],
-    weight,
-    weightName: WEIGHT_NAMES[weight] || String(weight),
-    by,
-    px: by * deref(token.fontSize.$value).value * 16,
-    leading: deref(token.lineHeight.$value),
-  };
+  const [family, size] = splitKey(key);
+  const spec = specOf(family, size);
+  return { key, name: `${familyName(family)} ${SIZE_NAMES[size]}`, ...spec, weightName: WEIGHT_NAMES[spec.weight] || String(spec.weight) };
 }
-// A role's style, through the live custom properties.
-const styleOf = (key) => Object.fromEntries(CHANNELS.map(([name, property]) => [property, `var(--uiowa-typography-${key}-${name})`]));
+// A style through the live custom properties, as its classes set it. Today's styles (heading-h1, paragraph and the
+// rest) have a property for each channel.
+function styleOf(key) {
+  const [family, size] = splitKey(key);
+  return family ? roleStyle(family, size) : Object.fromEntries(CHANNELS.map(([name, property]) => [property, `var(--uiowa-typography-${key}-${name})`]));
+}
+const emphasisOf = (key) => `var(--uiowa-typography-${splitKey(key)[0]}-font-weight-emphasis)`;
 const roleIn = (family, size) => `${family}-${size}`;
 
 const FAMILY_NOTES = {
@@ -102,7 +93,7 @@ const roleOf = (field, hierarchy = 'medium') => FIELD_LABELS[field] || roleIn(FI
 // The headline steps: 4× is the hierarchy's Headline, and 6× or 8× its Headline 6× or 8× for a bigger statement.
 const STEPS = [4, 6, 8];
 const titleKey = (hierarchy, step) => roleIn(step === 4 ? 'headline' : `headline-${step}x`, hierarchy);
-const headlineSize = (hierarchy, step) => `var(--uiowa-typography-${titleKey(hierarchy, step)}-font-size)`;
+const headlineSize = (hierarchy, step) => styleOf(titleKey(hierarchy, step)).fontSize;
 const titleStyle = (hierarchy, step) => styleOf(titleKey(hierarchy, step));
 const fieldStyle = (field, hierarchy, step = 4) => (field === 'title' ? titleStyle(hierarchy, step) : styleOf(roleOf(field, hierarchy)));
 const STEP_NAME = (step) => `${step}×${step === 4 ? ' (default)' : ''}`;
@@ -117,8 +108,8 @@ const HEADINGS = { h1: 'headline-medium', h2: 'subhead-large', h3: 'subhead-2-la
 const hierarchyVars = (hierarchy, step = 4) => ({
   '--tr-body': `var(--uiowa-typography-body-${hierarchy}-font-size)`,
   '--tr-title': headlineSize(hierarchy, step),
-  '--tr-related': `var(--uiowa-typography-space-related-${hierarchy})`,
-  '--tr-break': `var(--uiowa-typography-space-break-${hierarchy})`,
+  '--tr-related': gapSize(hierarchy, 'related'),
+  '--tr-break': gapSize(hierarchy, 'break'),
 });
 const FIELDS = [['eyebrow', 'Eyebrow'], ['title', 'Headline'], ['lead', 'Subhead'], ['details', 'Subhead 2'], ['text', 'Body'], ['small', 'Small print']];
 const LOREM = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
@@ -145,19 +136,16 @@ function useRendered(root, deps = []) {
   return rendered;
 }
 
-// Special Gothic Condensed is not in UIDS yet; Google's Special Gothic at width 75 stands in for
-// it, through the second name in the token's font stack.
 const css = `
-  @import url('https://fonts.googleapis.com/css2?family=Special+Gothic:wdth,wght@75,600&display=swap');
   .tr { box-sizing: border-box; max-width: 1310px; margin: 0 auto; padding: 40px 24px 64px; color: var(--uiowa-color-neutral-800); font-family: var(--uiowa-typography-font-family-roboto); }
   .tr *, .tr *::before, .tr *::after { box-sizing: border-box; }
   /* The pages' own text sits on the Medium hierarchy: the title Subhead, section heads Subhead 2 at its emphasis weight, text Body,
      notes and captions Small print, controls Label. */
   .bp, .lp, .tr {
-    --tr-f-title: var(--uiowa-typography-subhead-medium-font-weight) var(--uiowa-typography-subhead-medium-font-size)/var(--uiowa-typography-subhead-medium-line-height) var(--uiowa-typography-subhead-medium-font-family);
-    --tr-f-h2: var(--uiowa-typography-subhead-2-medium-font-weight-emphasis) var(--uiowa-typography-subhead-2-medium-font-size)/var(--uiowa-typography-subhead-2-medium-line-height) var(--uiowa-typography-subhead-2-medium-font-family);
-    --tr-f-body: var(--uiowa-typography-body-medium-font-weight) var(--uiowa-typography-body-medium-font-size)/var(--uiowa-typography-body-medium-line-height) var(--uiowa-typography-body-medium-font-family);
-    --tr-f-small: var(--uiowa-typography-small-print-medium-font-weight) var(--uiowa-typography-small-print-medium-font-size)/var(--uiowa-typography-small-print-medium-line-height) var(--uiowa-typography-small-print-medium-font-family);
+    --tr-f-title: var(--uiowa-typography-subhead-font-weight) calc(var(--uiowa-typography-body-medium-font-size) * var(--uiowa-typography-subhead-multiple))/var(--uiowa-typography-subhead-line-height) var(--uiowa-typography-subhead-font-family);
+    --tr-f-h2: var(--uiowa-typography-subhead-2-font-weight-emphasis) calc(var(--uiowa-typography-body-medium-font-size) * var(--uiowa-typography-subhead-2-multiple))/var(--uiowa-typography-subhead-2-line-height) var(--uiowa-typography-subhead-2-font-family);
+    --tr-f-body: var(--uiowa-typography-body-font-weight) var(--uiowa-typography-body-medium-font-size)/var(--uiowa-typography-body-line-height) var(--uiowa-typography-body-font-family);
+    --tr-f-small: var(--uiowa-typography-small-print-font-weight) calc(var(--uiowa-typography-body-medium-font-size) * var(--uiowa-typography-small-print-multiple))/var(--uiowa-typography-small-print-line-height) var(--uiowa-typography-small-print-font-family);
     --tr-f-label: var(--uiowa-typography-label-large-font-weight) var(--uiowa-typography-label-large-font-size)/var(--uiowa-typography-label-large-line-height) var(--uiowa-typography-label-large-font-family);
     --tr-f-tag: var(--uiowa-typography-label-small-font-weight) var(--uiowa-typography-label-small-font-size)/var(--uiowa-typography-label-small-line-height) var(--uiowa-typography-label-small-font-family);
   }
@@ -223,7 +211,7 @@ const css = `
   .tr--hide .tr__gap { background: none; }
   .tr--hide .tr__gap span { visibility: hidden; }
   .tr__t { overflow-wrap: anywhere; }
-  .tr__details strong { font-weight: var(--uiowa-typography-subhead-2-medium-font-weight-emphasis); }
+  .tr__details strong { font-weight: var(--uiowa-typography-subhead-2-font-weight-emphasis); }
   .tr__text { max-width: 80ch; }
 
   .tr__legend { margin: 12px 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 4px 24px; font: var(--tr-f-small); color: var(--uiowa-color-neutral-700); }
@@ -240,7 +228,8 @@ const css = `
   .tr__next b { color: var(--uiowa-color-neutral-900); }
 `;
 
-const sizesOf = (family) => SIZES.filter((size) => at(`typography.${family}.${size}`));
+// A role takes every hierarchy; Label has its own three sizes.
+const sizesOf = (family) => (family === 'label' ? SIZES.filter((size) => at(`typography.label.${size}`)) : SIZES);
 const SPECS = Object.fromEntries(FAMILIES.flatMap((family) => sizesOf(family).map((size) => [roleIn(family, size), roleSpec(roleIn(family, size))])));
 // The five hierarchies, each named by its body size.
 const HIERARCHIES = BODY_SIZES.map((size) => ({ size, label: SIZE_NAMES[size], px: round(SPECS[`body-${size}`].px), pt: round(SPECS[`body-${size}`].px * 0.75), formats: FORMATS[size] }));
@@ -366,20 +355,19 @@ export const StyleLibrary = {
         <p class="tr__eyebrow">Typography roles</p>
         <h1 class="tr__title">Style Library</h1>
         <p class="tr__lede">
-          <b>One scale, and five hierarchies drawn from it.</b> Six families in X-Small, Small, Medium, Large and
-          X-Large, the Headline also at 6× and 8×, and Label in three sizes: forty-three styles, each at one fixed size. Body X-Small,
-          Small, Medium, Large and X-Large, 12.67, 16, 19, 24 and 36px (9.5, 12, 14.25, 18 and 27pt), are the five body sizes, and every
-          template, screen or print, chooses one. Each names a hierarchy: the X-Small,
-          Small, Medium, Large or X-Large of every other family, each a multiple of that body size, so the math is done and a template, or an
-          agent building one, looks a size up. Pick a hierarchy and use its styles together.
-          Label is one set for every hierarchy. The headline is 4× its body by default, and steps up to 6× or 8×.
+          <b>Five hierarchies, from base + multiples.</b> Body X-Small, Small, Medium, Large and X-Large, 12.67, 16, 19,
+          24 and 36px (9.5, 12, 14.25, 18 and 27pt), are the five body sizes, and every template, screen or print,
+          chooses one. Each names a hierarchy. Every other role is held once, with its multiple of the body size, so six
+          families in five hierarchies, the Headline also at 6× and 8×, and Label in three sizes make forty-three styles
+          from 64 tokens. Pick a hierarchy and use its styles together. Label is one set for every hierarchy. The
+          headline is 4× its body by default, and steps up to 6× or 8×.
         </p>
         <p class="tr__lede">
           A style fixes the typeface, weight, size and leading. Headline and Eyebrow are Special Gothic
           Condensed, Subhead is Zilla Slab, and Subhead 2, Body, Small Print and Label are Roboto. Each
-          specimen is set through the live custom properties the token build ships
-          (<code>--uiowa-typography-&lt;family&gt;-&lt;size&gt;-*</code>); the values beside it are read
-          from the token files. No component uses the roles yet.
+          specimen is set the way its classes set it, shown under it: the hierarchy class sets the body size, and the role
+          class multiplies it by the role's multiple (<code>--uiowa-typography-&lt;role&gt;-multiple</code>). The values
+          beside it are read from the token files. No component uses the roles yet.
         </p>
         <hierarchy-pick v-model="hierarchy" v-model:others="others" name="tr-hierarchy" pt />
         <fieldset class="tr__pick"><legend>Headline</legend>
@@ -396,7 +384,7 @@ export const StyleLibrary = {
               <strong>{{ r.label }}</strong>
               {{ r.by }}× · {{ pxPt(rendered['combo-' + r.key] || r.px) }}<br>
               {{ r.name }} · {{ r.face }} {{ r.weightName }} {{ r.weight }} · leading {{ r.leading }}<br>
-              <code>{{ r.tokenName }}</code>
+              <code>{{ r.classes }}</code>
             </div>
             <p :class="['tr__specimen', { 'tr__specimen--eyebrow': r.field === 'eyebrow' }]" :style="r.style" :data-measure="'combo-' + r.key">{{ r.text }}</p>
           </div>
@@ -414,15 +402,15 @@ export const StyleLibrary = {
               <strong>{{ s.size }}<span v-if="inHierarchy(s.key)" class="tr__tag">{{ pick.label }}</span></strong>
               {{ s.by }}× · {{ pxPt(rendered[s.key] || s.px) }}<br>
               {{ s.weightName }} {{ s.weight }} · leading {{ s.leading }}<br>
-              <code>{{ s.tokenName }}</code>
+              <code>{{ s.classes }}</code>
             </div>
             <p :class="['tr__specimen', { 'tr__specimen--eyebrow': f.family === 'eyebrow' }]" :style="s.style" :data-measure="s.key">{{ s.text }}</p>
           </div>
         </section>
         </div>
         <p class="tr__note">
-          Special Gothic Condensed is not in UIDS yet; here Google's Special Gothic at width 75 stands in
-          through the second name in the token's font stack. Sizes are fixed; fluid sizing for the web is a
+          Special Gothic Condensed is Google's Special Gothic at width 75, weight 600, which Storybook
+          loads. Sizes are fixed; fluid sizing for the web is a
           next step. X-Small's small print is 9.5px (7.125pt), too small to read.
         </p>
       </div>
@@ -591,7 +579,7 @@ export const Highlight = {
         if (hl.value !== 'off') {
           s.title = {
             ...s.title,
-            lineHeight: `calc(var(--uiowa-typography-${titleKey(hierarchy.value, step.value)}-line-height) + var(--uiowa-typography-highlight-headline-leading))`,
+            lineHeight: `calc(${styleOf(titleKey(hierarchy.value, step.value)).lineHeight} + var(--uiowa-typography-highlight-headline-leading))`,
             paddingBlock: 'calc(var(--uiowa-typography-highlight-headline-padding) * 1em)',
           };
         }
@@ -854,7 +842,7 @@ const lpCss = `
   .lp__t, .lp__hl, .lp__sh, .lp__h { overflow-wrap: anywhere; }
   .lp__eb { text-transform: uppercase; letter-spacing: .04em; }
   .lp__leadin { max-width: 36ch; }
-  .lp__details strong { font-weight: var(--uiowa-typography-subhead-2-medium-font-weight-emphasis); }
+  .lp__details strong { font-weight: var(--uiowa-typography-subhead-2-font-weight-emphasis); }
   .lp__link { color: inherit; text-decoration: underline; text-underline-offset: .15em; }
   .lp__btns { display: flex; flex-wrap: wrap; gap: calc(var(--tr-body) * 0.75); }
   .lp__btn { display: inline-block; padding: calc(var(--tr-body) * 0.7) calc(var(--tr-body) * 1.05); background: var(--uiowa-color-neutral-900); color: var(--uiowa-color-neutral-0); text-decoration: none; }
@@ -961,7 +949,7 @@ export const LandingPage = {
         const headline = band === 'hero' ? { role: titleKey(h, steps.hero) } : H.value[band].headline;
         if (headline) {
           const under = Math.max(SPECS[headline.role].px / 2, body * 2);
-          vars['--lp-hl'] = `var(--uiowa-typography-${headline.role}-font-size)`;
+          vars['--lp-hl'] = styleOf(headline.role).fontSize;
           vars['--gap-hl'] = `"Half the headline · ${round(under)}px"`;
         }
         return vars;
@@ -1248,7 +1236,7 @@ export const MakeItYourDay = {
       const scope = computed(() => ({
         ...hierarchyVars(DAY_HIERARCHY, step.value),
         ...gapLabels(SPECS[`body-${DAY_HIERARCHY}`].px),
-        '--lp-hl': `var(--uiowa-typography-${role.value}-font-size)`,
+        '--lp-hl': styleOf(role.value).fontSize,
         '--gap-hl': `"Half the headline · ${round(SPECS[role.value].px / 2)}px"`,
       }));
       const options = DAY_CHOICES.map(({ family: f, emphasis }) => {
@@ -1265,7 +1253,7 @@ export const MakeItYourDay = {
         return {
           ...hierarchyVars(DAY_HIERARCHY, heroStep.value),
           ...gapLabels(body),
-          '--lp-hl': `var(--uiowa-typography-${titleRole}-font-size)`,
+          '--lp-hl': styleOf(titleRole).fontSize,
           '--gap-hl': `"Half the headline · ${round(under)}px"`,
         };
       });
@@ -1412,7 +1400,7 @@ export const BlogPost = {
       const style = (field) => {
         if (isTitle(field)) return titleStyle('medium', step.value);
         const key = blogRole(field);
-        return emphasis(field) ? { ...styleOf(key), fontWeight: `var(--uiowa-typography-${key}-font-weight-emphasis)` } : styleOf(key);
+        return emphasis(field) ? { ...styleOf(key), fontWeight: emphasisOf(key) } : styleOf(key);
       };
       const crumbs = [{ text: 'Home', url: '#' }, { text: 'The Blog', url: '#' }, { text: 'Lorem ipsum dolor sit amet consectetur' }];
       const fields = [['small', 'breadcrumbs'], ['h1', 'h1'], ['meta', 'byline'], ['text', 'text and lists'], ['h2', 'h2'], ['h3', 'h3'], ['h4', 'h4'], ['h5', 'h5'], ['h6', 'h6']];
@@ -1495,15 +1483,15 @@ const TODAY = [
   ...['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].map((tag) => ({ name: `Heading ${tag.slice(1)}`, key: `heading-${tag}`, token: `typography.heading.${tag}`, role: HEADINGS[tag], emphasis: HEADINGS[tag].startsWith('subhead-2') })),
   { name: 'Intro bold', key: 'intro-bold', token: 'typography.intro-bold', role: 'subhead-medium' },
   { name: 'Intro light', key: 'intro-light', token: 'typography.intro-light', role: 'subhead-2-medium' },
-  { name: 'Body', key: 'body', token: 'typography.body', role: 'body-medium' },
-  { name: 'Size large', key: 'body', sizeKey: 'size-large', token: 'typography.size.large', role: 'subhead-2-medium' },
-  { name: 'Size small', key: 'body', sizeKey: 'size-small', token: 'typography.size.small', role: 'small-print-medium' },
+  { name: 'Body', key: 'paragraph', token: 'typography.paragraph', role: 'body-medium' },
+  { name: 'Size large', key: 'paragraph', sizeKey: 'size-large', token: 'typography.size.large', role: 'subhead-2-medium' },
+  { name: 'Size small', key: 'paragraph', sizeKey: 'size-small', token: 'typography.size.small', role: 'small-print-medium' },
 ];
 function todaySpec(row) {
   const token = at(row.token);
   const composite = token.$value && typeof token.$value === 'object' ? token.$value : null;
   const channel = (name) => (composite ? composite[name] : token[name]?.$value);
-  const bodyChannel = (name) => at('typography.body')[name].$value;
+  const bodyChannel = (name) => at('typography.paragraph')[name].$value;
   const weight = deref(row.sizeKey ? bodyChannel('fontWeight') : channel('fontWeight'));
   const style = styleOf(row.key);
   if (row.sizeKey) style.fontSize = `var(--uiowa-typography-${row.sizeKey})`;
@@ -1524,10 +1512,10 @@ export const BeforeAndAfter = {
       const rendered = useRendered(root);
       const rows = TODAY.map((row) => {
         const before = todaySpec(row);
-        const [, family, size] = row.role.match(/^(.*)-(x-small|small|medium|large|x-large)$/) || [];
-        const weight = row.emphasis ? deref(at(`typography.${family}.${size}`).fontWeightEmphasis.$value) : null;
+        const [family] = splitKey(row.role);
+        const weight = row.emphasis ? deref(at(`typography.${family}.fontWeightEmphasis`).$value) : null;
         const after = weight
-          ? { ...SPECS[row.role], weight, weightName: WEIGHT_NAMES[weight], style: { ...styleOf(row.role), fontWeight: `var(--uiowa-typography-${row.role}-font-weight-emphasis)` } }
+          ? { ...SPECS[row.role], weight, weightName: WEIGHT_NAMES[weight], style: { ...styleOf(row.role), fontWeight: emphasisOf(row.role) } }
           : { ...SPECS[row.role], style: styleOf(row.role) };
         return {
           ...row,
@@ -1572,7 +1560,7 @@ export const BeforeAndAfter = {
             <div class="tr__ba-spec">
               <span :style="r.after.style" :data-measure="'after-' + r.name">{{ r.name }}</span>
               <span class="tr__cap">
-                <code>{{ r.after.tokenName }}</code> · <span :class="{ tr__hl: r.changed.face }">{{ r.after.face }}</span> <span :class="{ tr__hl: r.changed.weight }">{{ r.after.weightName }} {{ r.after.weight }}</span> · {{ r.after.by }}× · {{ round(rendered['after-' + r.name] || r.after.px) }}px · <span :class="{ tr__hl: r.changed.leading }">leading {{ r.after.leading }}</span>
+                <code>{{ r.after.classes }}</code> · <span :class="{ tr__hl: r.changed.face }">{{ r.after.face }}</span> <span :class="{ tr__hl: r.changed.weight }">{{ r.after.weightName }} {{ r.after.weight }}</span> · {{ r.after.by }}× · {{ round(rendered['after-' + r.name] || r.after.px) }}px · <span :class="{ tr__hl: r.changed.leading }">leading {{ r.after.leading }}</span>
               </span>
             </div>
           </template>
