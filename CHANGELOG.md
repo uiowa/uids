@@ -32,8 +32,19 @@ writes them to Sass, in rem.
 - Storybook Tokens pages for Borders and shapes, Shadows, and Motion. Space and layout
   gains form heights, the logo minimum, and the breakpoints.
 
+#### Components
+
+- **Menu** gains `variant="sidebar"` (class `menu--sidebar`) for a page's side navigation: no
+  borders between items, regular-weight top-level items, and the current page bold on gray with
+  a gold bar. Links nested under the current page carry no bar, and the chevron on items with
+  children is hidden.
+- **Menu** items gain `external`, which puts an icon after the link text for a link to another
+  site.
+
 ### Changed
 
+- The current **Menu** item's link carries `aria-current="page"`, so screen readers announce
+  the current page. Before, only the `is-active` class marked it.
 - Stat text inherits the nearest background’s text color. Titles on black change from
   gold to white; supporting text changes from gray to white on black and black on white.
   Nested stats follow the nearest background instead of matching an outer black ancestor.

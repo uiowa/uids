@@ -16,7 +16,7 @@
   font-size: 1.1rem;
 
   // Make top-level menu items bold.
-  &:not(ul ul):not(.menu--horizontal) > li > a {
+  &:not(ul ul):not(.menu--horizontal):not(.menu--sidebar) > li > a {
     font-weight: variables.$font-weight-medium;
   }
 
@@ -45,6 +45,10 @@
 
     .fas {
       color: var(--uiowa-color-neutral-500);
+    }
+
+    .icon-external {
+      margin-left: .4em;
     }
 
     // Active menu item has a gray indicator.
@@ -144,6 +148,33 @@
     > li ul {
       display: none;
     }
+  }
+}
+
+// A vertical menu for a page's side navigation: no borders, regular-weight
+// items, and the current page bold on gray with a gold bar.
+.menu--sidebar {
+  li {
+    border-bottom: none;
+
+    &.is-active > a {
+      background: var(--uiowa-color-background-gray);
+      font-weight: variables.$font-weight-bold;
+
+      &:after {
+        background: var(--uiowa-color-brand-gold);
+      }
+    }
+
+    // Only the current page carries the bar, not the links nested under it.
+    &.is-active li a:after {
+      height: 0;
+      width: 0;
+    }
+  }
+
+  .icon-after {
+    display: none;
   }
 }
 

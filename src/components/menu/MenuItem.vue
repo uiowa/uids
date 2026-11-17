@@ -32,6 +32,13 @@ const props = defineProps({
     default: '',
     required: false,
   },
+  /**
+   * Marks a link to another site with an icon after the text
+   */
+  external: {
+    type: Boolean,
+    default: false,
+  },
 });
 const liClasses = computed(() => {
   let classes = ['menu'];
@@ -50,9 +57,10 @@ const liClasses = computed(() => {
 
 <template>
   <li :class="liClasses">
-    <a v-if="url" :href="url">
+    <a v-if="url" :href="url" :aria-current="active ? 'page' : undefined">
       <span v-if="icon" class="fa-li"><span role="presentation" class="fas fa-xs" :class="icon"></span></span>
       {{ label }}
+      <span role="presentation" v-if="external" class="fas fa-arrow-up-right-from-square fa-xs icon-external"></span>
       <span role="presentation" v-if="children && children.length" class="fas fa-chevron-down fa-xs icon-after"></span>
     </a>
     <span v-else>
