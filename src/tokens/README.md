@@ -19,8 +19,8 @@ different CSS-pixel widths.
 
 ## Generate
 
-Style Dictionary compiles the token files into `src/scss/abstracts/_tokens-generated.scss`, and the
-typography classes' declarations into `_type-roles-generated.scss`. Do not edit those generated files. When changing `src/tokens/**`, run:
+Style Dictionary compiles the token files into `src/scss/abstracts/_tokens-generated.scss`.
+Do not edit that generated file. When changing `src/tokens/**`, run:
 
 ```
 yarn build:tokens
@@ -30,15 +30,9 @@ yarn build:tokens
 needed for a CSS-only change. Generated token files are not committed; `prepack` runs the
 build so release artifacts include the generated Sass and CSS.
 
-The same build writes `dist/typography-roles.json`: every typography role style in every hierarchy, resolved to its
-face, weight, leading and size, and every text gap, with each size in rem, px (at the 16px
-root) and pt (1pt = 4/3px), and each group's description. It is for tools that read numbers
-rather than CSS, such as an agent building print templates. Points are worked out there,
-never stored in a token, since DTCG dimensions take only px and rem.
-
 ## UIDS extensions
 
-UIDS defines two namespaced extensions using DTCG's `$extensions` property.
+UIDS currently defines one namespaced extension using DTCG's `$extensions` property.
 
 ### `edu.uiowa.fluid`
 
@@ -47,26 +41,7 @@ Adds responsive scaling to a typography token. The generator resolves the token'
 `minViewport` and `maxViewport` as px dimensions, then either a `max` size or
 `strategy: "exponential"` with a numeric `exponent`.
 
-### `edu.uiowa.multiply`
-
-Makes a size a multiple of another size. The token's `$value` references the size it
-starts from, and `by` is the multiplier: a number token's reference, or a number. The
-generator prints a `calc()` that keeps the reference as a custom property, so the math
-stays visible in the CSS. The Labels use it, each a size measured from Body Medium:
-
-```json
-"fontSize": {
-  "$type": "dimension",
-  "$value": "{typography.body.medium.fontSize}",
-  "$extensions": { "edu.uiowa.multiply": { "by": 0.875 } }
-}
-```
-
-prints `calc(var(--uiowa-typography-body-medium-font-size) * 0.875)`.
-
-A tool that does not support this extension reads only the `$value`, so it gets the size a
-token starts from: the example above would come out at Body Medium's size, not 0.875 times
-it. Such a tool should read the resolved sizes in `dist/typography-roles.json` instead.
+## Typography roles
 
 The roles are base + multiples. Body X-Small, Small, Medium, Large and X-Large
 (`typography.body.x-small`, `.small`, `.medium`, `.large`, `.x-large`; 12.67, 16, 19, 24 and 36px) are the five
@@ -77,9 +52,9 @@ hierarchy: Subhead's line height in X-Small and Small, Subhead 2's in Large and 
 size times `typography.scale.related` (1.5) and `.break` (2). Use one hierarchy's styles together. Each body
 size's description lists its formats. The Headline is 4× its body size; `typography.headline-6x` and
 `headline-8x` are the bigger steps. The Labels are one set for every hierarchy, `large`, `medium` and `small`,
-measured from Body Medium.
+measured from Body Medium: 0.875, 0.75 and 0.625 of it, written as plain sizes, so they don't follow it if it changes.
 
-The token build also writes the classes that apply the roles. A hierarchy class on a piece, a section or a
+The classes that apply the roles are in `src/scss/base/_type-roles.scss`. A hierarchy class on a piece, a section or a
 component sets the body size every role inside it multiplies. Medium is the default, so a web page needs none:
 
 ```html

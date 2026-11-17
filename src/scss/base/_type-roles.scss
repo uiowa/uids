@@ -1,30 +1,58 @@
-@use '../abstracts/type-roles-generated' as generated;
+@use 'sass:list';
+@use 'sass:map';
 @use '../abstracts/utilities';
 
 // The type roles as opt-in classes. A hierarchy class, .type-scale--x-small through
 // .type-scale--x-large, on a piece, a section or a component sets the body size every role
-// inside it multiplies; Medium's values also sit on :root, so Medium is the default and needs
-// no class. A role class, .type-headline through .type-small-print, is its role's five
-// properties and nothing more: no margins and no element selectors, so a page puts the class
-// on whatever carries the role. Headings keep their own styles until they are moved onto the
-// roles. The declarations come from the tokens, in _type-roles-generated.scss.
-@each $scale, $declarations in generated.$type-scales {
-  $selector: '.type-scale--#{$scale}';
-  @if $scale == 'medium' {
+// inside it multiplies, its two gaps and the line heights that differ in it; Medium's also sit
+// on :root, so Medium is the default and needs no class. A role class, .type-body through
+// .type-subhead-2, is its role's five properties and nothing more: no margins and no element
+// selectors. Headings keep their own styles until they are moved onto the roles.
+$hierarchies: ('x-small', 'small', 'medium', 'large', 'x-large');
+// Every role but Body: its size is the base times its multiple.
+$roles: ('small-print', 'headline', 'headline-6x', 'headline-8x', 'eyebrow', 'subhead', 'subhead-2');
+// The line heights that differ by hierarchy, and the hierarchies that have their own.
+$own-line-heights: ('subhead': ('x-small', 'small'), 'subhead-2': ('large', 'x-large'));
+
+@each $hierarchy in $hierarchies {
+  $base: var(--uiowa-typography-body-#{$hierarchy}-font-size);
+  $selector: '.type-scale--#{$hierarchy}';
+  @if $hierarchy == 'medium' {
     $selector: ':root, #{$selector}';
   }
   #{$selector} {
-    @each $name, $value in $declarations {
-      #{$name}: #{$value};
+    --uiowa-type-base: #{$base};
+    --uiowa-type-space-related: calc(#{$base} * var(--uiowa-typography-scale-related));
+    --uiowa-type-space-break: calc(#{$base} * var(--uiowa-typography-scale-break));
+    @each $role, $own in $own-line-heights {
+      $token: $role;
+      @if list.index($own, $hierarchy) {
+        $token: '#{$role}-#{$hierarchy}';
+      }
+      --uiowa-type-#{$role}-line-height: var(--uiowa-typography-#{$token}-line-height);
     }
   }
 }
 
-@each $role, $properties in generated.$type-roles {
+.type-body {
+  font-family: var(--uiowa-typography-body-font-family);
+  font-weight: var(--uiowa-typography-body-font-weight);
+  font-size: var(--uiowa-type-base);
+  line-height: var(--uiowa-typography-body-line-height);
+  letter-spacing: var(--uiowa-typography-body-letter-spacing);
+}
+
+@each $role in $roles {
+  $line-height: var(--uiowa-typography-#{$role}-line-height);
+  @if map.has-key($own-line-heights, $role) {
+    $line-height: var(--uiowa-type-#{$role}-line-height);
+  }
   .type-#{$role} {
-    @each $property, $value in $properties {
-      #{$property}: #{$value};
-    }
+    font-family: var(--uiowa-typography-#{$role}-font-family);
+    font-weight: var(--uiowa-typography-#{$role}-font-weight);
+    font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-#{$role}-multiple));
+    line-height: $line-height;
+    letter-spacing: var(--uiowa-typography-#{$role}-letter-spacing);
   }
 }
 
