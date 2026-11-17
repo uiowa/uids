@@ -29,6 +29,7 @@ system built from UIDS should be able to catch up using this file alone.
 | Breakpoints | `breakpoint.xxsm` (400), `xsm` (600), `sm` (768), `md` (980), `lg` (1200), `standard` (1350), written to Sass as `$uiowa-breakpoint-xxsm` and so on |
 | Brand bar | `brand-bar.background`; `brand-bar.site-name.color`, `font-family`, `font-weight`, `font-size`, `line-height` |
 | Logo | `logo.text.color`, `logo.subtext.color`, `logo.background` |
+| Line height | `typography.line-height.100` (1), used by `brand-bar.site-name.line-height` so the site name keeps its line height of 1 |
 
 - Token extensions for component authors: `edu.uiowa.variant` re-points a token under a
   variant's selector, `edu.uiowa.variants` maps a variant to a selector other than
@@ -63,6 +64,7 @@ system built from UIDS should be able to catch up using this file alone.
   `var(--uiowa-typography-font-family-roboto)` (was `Roboto, sans-serif`), and each
   `letter-spacing` member is `var(--uiowa-typography-letter-spacing-normal)` (was `0px`).
   Fluid font sizes keep their `clamp()` values. Computed values are unchanged.
+- On the narrow brand bar, the site name is 1.2rem at every width (was 1rem).
 - On the narrow Health Care brand bar, the logo below md is 32px tall (was 33px). The
   narrow bar's own height is removed, so the logo takes the Health Care logo's height.
 - The Storybook Tokens page lists the semantic breakpoints `breakpoint.xxsm` to
