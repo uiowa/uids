@@ -61,8 +61,6 @@ sections are a Break apart. Subhead 2 is Regular by default (`fontWeight`); its
 that leads a details group. A highlight on chosen headline words is a box from cap height to baseline plus 0.1× the headline size on all four sides, with 0.05× more leading per line; the subhead's band runs from 0.32× the subhead size above the baseline to 0.16× below it, 0.08× past the text. An earlier draft scaled whole sets (Large = Medium ÷ 0.875, in sizes since renamed) and put Roboto Black on
 Headline and the display face on Label.
 
-- Storybook Tokens (roles) pages: Style Library, Recipes, Web Page, Landing Page, Blog Post, and
-  Before and After.
 - The typography roles as classes. A hierarchy class, `.type-scale--x-small` through `.type-scale--x-large`,
   on a piece, a section or a component sets the body size, the gaps (`--uiowa-type-space-related` and
   `--uiowa-type-space-break`) and the values that hierarchy overrides; Medium's also sit on `:root`, so Medium
@@ -77,8 +75,6 @@ Headline and the display face on Label.
   their classes, its gaps, and one Google Fonts link for the faces. `yarn build:tokens` writes them to
   `dist/llms` from `dist/typography-roles.json` and the generated classes, and Storybook serves them at
   its root.
-- Storybook Showcase › Application › Employee Profile (typography roles): an application page on
-  the Hierarchy 4× recipe, with a Show roles toggle.
 - Storybook Tokens pages for Borders and shapes, Shadows, and Motion. Space and layout
   gains form heights, the logo minimum, and the breakpoints.
 
