@@ -19,8 +19,8 @@ different CSS-pixel widths.
 
 ## Generate
 
-Style Dictionary compiles the token files into `src/scss/abstracts/_tokens-generated.scss`.
-Do not edit that generated file. When changing `src/tokens/**`, run:
+Style Dictionary compiles the token files into `src/scss/abstracts/_tokens-generated.scss`, and the
+typography classes' declarations into `_type-roles-generated.scss`. Do not edit those generated files. When changing `src/tokens/**`, run:
 
 ```
 yarn build:tokens
@@ -30,7 +30,7 @@ yarn build:tokens
 needed for a CSS-only change. Generated token files are not committed; `prepack` runs the
 build so release artifacts include the generated Sass and CSS.
 
-The same build writes `dist/typography-roles.json`: every typography role style resolved to its
+The same build writes `dist/typography-roles.json`: every typography role style in every hierarchy, resolved to its
 face, weight, leading and size, and every text gap, with each size in rem, px (at the 16px
 root) and pt (1pt = 4/3px), and each group's description. It is for tools that read numbers
 rather than CSS, such as an agent building print templates. Points are worked out there,
@@ -52,29 +52,49 @@ Adds responsive scaling to a typography token. The generator resolves the token'
 Makes a size a multiple of another size. The token's `$value` references the size it
 starts from, and `by` is the multiplier: a number token's reference, or a number. The
 generator prints a `calc()` that keeps the reference as a custom property, so the math
-stays visible in the CSS. The typography roles use it on the body sizes:
+stays visible in the CSS. The Labels use it, each a size measured from Body Medium:
 
 ```json
 "fontSize": {
   "$type": "dimension",
   "$value": "{typography.body.medium.fontSize}",
-  "$extensions": { "edu.uiowa.multiply": { "by": 4 } }
+  "$extensions": { "edu.uiowa.multiply": { "by": 0.875 } }
 }
 ```
 
-prints `calc(var(--uiowa-typography-body-medium-font-size) * 4)`.
+prints `calc(var(--uiowa-typography-body-medium-font-size) * 0.875)`.
 
 A tool that does not support this extension reads only the `$value`, so it gets the size a
-token starts from: the example above would come out at Body Medium's size, not four times
+token starts from: the example above would come out at Body Medium's size, not 0.875 times
 it. Such a tool should read the resolved sizes in `dist/typography-roles.json` instead.
 
-The roles are one scale of fixed sizes. Body X-Small, Small, Medium, Large and X-Large
+The roles are base + multiples. Body X-Small, Small, Medium, Large and X-Large
 (`typography.body.x-small`, `.small`, `.medium`, `.large`, `.x-large`; 12.67, 16, 19, 24 and 36px) are the five
-body sizes, and each names a hierarchy: the X-Small, Small, Medium, Large or X-Large of every other
-role, and of `typography.space.related` and `.break`, is a multiple of the body size of the same
-name. Use one hierarchy's styles together. Each body size's description lists its formats. The Headline is 4× its body size;
-`typography.headline-6x` and `headline-8x` are the bigger steps, in every hierarchy. The Labels are
-one set for every hierarchy, `large`, `medium` and `small`, measured from Body Medium.
+body sizes, and each names a hierarchy. Every other role is held once: its own family, weight, line height and
+letter spacing, and a `multiple`, so its size in a hierarchy is that hierarchy's body size times the multiple
+(`typography.headline.multiple` is 4). A hierarchy group inside a role holds only what differs in that
+hierarchy: Subhead's line height in X-Small and Small, Subhead 2's in Large and X-Large. The gaps are the body
+size times `typography.scale.related` (1.5) and `.break` (2). Use one hierarchy's styles together. Each body
+size's description lists its formats. The Headline is 4× its body size; `typography.headline-6x` and
+`headline-8x` are the bigger steps. The Labels are one set for every hierarchy, `large`, `medium` and `small`,
+measured from Body Medium.
+
+The token build also writes the classes that apply the roles. A hierarchy class on a piece, a section or a
+component sets the body size every role inside it multiplies. Medium is the default, so a web page needs none:
+
+```html
+<section class="type-scale--large">
+  <h2 class="type-headline">…</h2>
+  <p class="type-body">…</p>
+</section>
+```
+
+The nearest hierarchy class wins, so a section or a component can take its own. The hierarchy classes also
+set the gaps as `--uiowa-type-space-related` and `--uiowa-type-space-break`. The Labels are
+`.type-label--large`, `--medium` and `--small`.
+
+`typography.paragraph` is the style UIDS's base styles set on paragraphs, 1.2rem with a line height of 1.7.
+It was `typography.body` until the Body role took that name.
 
 Label Large (Roboto Medium, 0.875 × Body Medium, line height 1.4, normal tracking) is also the
 small head of a box or a table. The docs site (uiowa/uids#1105) sets it for “When to use”,

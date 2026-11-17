@@ -133,7 +133,7 @@ it('emits canonical names, fluid typography, and token references', () => {
   expect(output).not.toContain('--uiowa-font-size-120:');
 });
 
-it('emits one scale: each hierarchy\'s roles as multiples of its own body size', () => {
+it('emits the five body sizes and each role once, with its multiple and the values a hierarchy overrides', () => {
   const output = readFileSync(join(repository, 'src/scss/abstracts/_tokens-generated.scss'), 'utf8');
 
   expect(output).toContain('--uiowa-typography-font-size-119: 1.1875rem;');
@@ -142,20 +142,33 @@ it('emits one scale: each hierarchy\'s roles as multiples of its own body size',
   expect(output).toContain('--uiowa-typography-body-medium-font-size: var(--uiowa-typography-font-size-119);');
   expect(output).toContain('--uiowa-typography-body-large-font-size: var(--uiowa-typography-font-size-150);');
   expect(output).toContain('--uiowa-typography-body-x-large-font-size: var(--uiowa-typography-font-size-225);');
-  for (const size of ['x-large', 'large', 'medium', 'small', 'x-small']) {
-    const body = `var(--uiowa-typography-body-${size}-font-size)`;
-    expect(output).toContain(`--uiowa-typography-headline-${size}-font-size: calc(${body} * 4);`);
-    expect(output).toContain(`--uiowa-typography-headline-6x-${size}-font-size: calc(${body} * 6);`);
-    expect(output).toContain(`--uiowa-typography-headline-8x-${size}-font-size: calc(${body} * 8);`);
-    expect(output).toContain(`--uiowa-typography-headline-8x-${size}-line-height: var(--uiowa-typography-line-height-090);`);
-    expect(output).toContain(`--uiowa-typography-small-print-${size}-font-size: calc(${body} * 0.75);`);
-    expect(output).toContain(`--uiowa-typography-space-related-${size}: calc(${body} * var(--uiowa-typography-scale-related));`);
-    expect(output).toContain(`--uiowa-typography-subhead-2-${size}-font-weight-emphasis: var(--uiowa-typography-font-weight-medium);`);
-  }
+  expect(output).toContain('--uiowa-typography-headline-multiple: 4;');
+  expect(output).toContain('--uiowa-typography-headline-6x-multiple: 6;');
+  expect(output).toContain('--uiowa-typography-headline-8x-multiple: 8;');
+  expect(output).toContain('--uiowa-typography-headline-8x-line-height: var(--uiowa-typography-line-height-090);');
+  expect(output).toContain('--uiowa-typography-small-print-multiple: 0.75;');
+  expect(output).toContain('--uiowa-typography-subhead-font-family: var(--uiowa-typography-typeface-slab);');
+  expect(output).toContain('--uiowa-typography-subhead-2-font-weight-emphasis: var(--uiowa-typography-font-weight-medium);');
+  expect(output).toContain('--uiowa-typography-subhead-x-small-line-height: var(--uiowa-typography-line-height-125);');
+  expect(output).toContain('--uiowa-typography-subhead-2-x-large-line-height: var(--uiowa-typography-line-height-120);');
   expect(output).toContain('--uiowa-typography-label-small-font-size: calc(var(--uiowa-typography-body-medium-font-size) * 0.625);');
-  expect(output).toContain('--uiowa-typography-subhead-large-font-family: var(--uiowa-typography-typeface-slab);');
-  expect(output).toContain('--uiowa-typography-body-font-size: var(--uiowa-typography-font-size-120);');
-  expect(output).not.toContain('--uiowa-typography-base-font-size');
+  expect(output).toContain('--uiowa-typography-paragraph-font-size: var(--uiowa-typography-font-size-120);');
+  // No size is stored per role and hierarchy and no gap per hierarchy; the legacy body style is the paragraph's now.
+  expect(output).not.toContain('--uiowa-typography-headline-medium-font-size');
+  expect(output).not.toContain('--uiowa-typography-space-');
+  expect(output).not.toContain('--uiowa-typography-body-font-size:');
+});
+
+it('writes the hierarchy classes\' body size, gaps and overrides, and the role classes\' multiplied size', () => {
+  const output = readFileSync(join(repository, 'src/scss/abstracts/_type-roles-generated.scss'), 'utf8');
+
+  expect(output).toContain('\'--uiowa-type-base\': \'var(--uiowa-typography-body-large-font-size)\',');
+  expect(output).toContain('\'--uiowa-type-space-break\': \'calc(var(--uiowa-typography-body-large-font-size) * var(--uiowa-typography-scale-break))\',');
+  expect(output).toContain('\'--uiowa-type-subhead-line-height\': \'var(--uiowa-typography-subhead-x-small-line-height)\',');
+  expect(output).toContain('\'--uiowa-type-subhead-line-height\': \'var(--uiowa-typography-subhead-line-height)\',');
+  expect(output).toContain('\'font-size\': \'calc(var(--uiowa-type-base) * var(--uiowa-typography-headline-multiple))\',');
+  expect(output).toContain('\'font-size\': \'var(--uiowa-type-base)\',');
+  expect(output).toContain('\'line-height\': \'var(--uiowa-type-subhead-2-line-height)\',');
 });
 
 it('emits the highlight multiples as plain numbers', () => {
