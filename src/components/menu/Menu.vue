@@ -8,13 +8,13 @@ const name = 'uids-menu';
 
 const props = defineProps({
   /**
-   * Menu variant - horizontal, vertical, or sidebar (a vertical menu for a page's side navigation)
+   * Menu variant - horizontal or vertical
    */
   variant: {
     type: String,
     default: 'horizontal',
     validator: function (value) {
-      return ['horizontal', 'vertical', 'sidebar'].indexOf(value) !== -1;
+      return ['horizontal', 'vertical'].indexOf(value) !== -1;
     },
   },
   /**
@@ -37,7 +37,7 @@ const props = defineProps({
 const classes = computed(() => {
   let classes = ['menu'];
 
-  if (props.variant === 'horizontal' || props.variant === 'sidebar') {
+  if (props.variant === 'horizontal') {
     classes.push(`menu--${className(props.variant)}`);
   }
 

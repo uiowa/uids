@@ -34,14 +34,20 @@ writes them to Sass, in rem.
 
 #### Components
 
-- **Menu** gains `variant="sidebar"` (class `menu--sidebar`) for a page's side navigation: no
-  borders between items, regular-weight top-level items, and the current page bold on gray with
-  a gold bar. Links nested under the current page carry no bar, and the chevron on items with
-  children is hidden.
 - **Menu** items gain `external`, which puts an icon after the link text for a link to another
   site.
 
 ### Changed
+
+- The vertical **Menu** is restyled for side navigation. Horizontal menus are unchanged.
+
+  | | Old | New |
+  | --- | --- | --- |
+  | Line under each item | 1px `hsla(0, 0%, 79%, .5)` | None |
+  | Top-level items | Medium weight | Regular weight |
+  | Current page | Gray bar (`color.neutral.200`) | Bold, on `color.background.gray`, with a gold bar (`color.brand.gold`) |
+  | Links nested under the current page | Gray bar | No bar |
+  | Chevron after items with children | Shown | Hidden |
 
 - The current **Menu** item's link carries `aria-current="page"`, so screen readers announce
   the current page. Before, only the `is-active` class marked it.

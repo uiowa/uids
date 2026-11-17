@@ -15,11 +15,6 @@
   padding: 0;
   font-size: 1.1rem;
 
-  // Make top-level menu items bold.
-  &:not(ul ul):not(.menu--horizontal):not(.menu--sidebar) > li > a {
-    font-weight: variables.$font-weight-medium;
-  }
-
   li {
     border-bottom: var(--uiowa-stroke-width-default) solid hsla(0, 0%, 79%, .5);
     list-style-type: none;
@@ -151,9 +146,9 @@
   }
 }
 
-// A vertical menu for a page's side navigation: no borders, regular-weight
-// items, and the current page bold on gray with a gold bar.
-.menu--sidebar {
+// The vertical menu: no borders, and the current page bold on gray with a gold
+// bar. A horizontal menu, and the menus nested in it, keep their own look.
+.menu:not(.menu--horizontal, .menu--horizontal .menu) {
   li {
     border-bottom: none;
 

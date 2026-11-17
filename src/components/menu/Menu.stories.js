@@ -14,7 +14,7 @@ export default {
   argTypes: {
     variant: {
       control: { type: 'select' },
-      options: ['horizontal', 'vertical', 'sidebar'],
+      options: ['horizontal', 'vertical'],
     },
   },
 };
@@ -84,6 +84,11 @@ const menuItems = [
     url: '#campus',
     icon: 'fa-university'
   },
+  {
+    label: 'Visit Campus',
+    url: 'https://example.com/visit',
+    external: true,
+  },
 ];
 
 export const HorizontalMenu = {
@@ -102,32 +107,6 @@ export const VerticalMenu = {
   args: {
     variant: 'vertical',
     items: menuItems,
-    label: "Section",
-  },
-};
-
-// Sample side navigation: the current page with its child pages, and a link to another site.
-const sidebarItems = [
-  { label: 'Overview', url: '#overview' },
-  {
-    label: 'Undergraduate',
-    url: '#undergraduate',
-    active: true,
-    children: [
-      { label: 'Majors', url: '#majors' },
-      { label: 'Minors', url: '#minors' },
-    ],
-  },
-  { label: 'Graduate', url: '#graduate' },
-  { label: 'Visit campus', url: 'https://example.com/visit', external: true },
-];
-
-export const SidebarMenu = {
-  name: 'Sidebar Menu',
-  ...Template,
-  args: {
-    variant: 'sidebar',
-    items: sidebarItems,
     label: "Section",
   },
 };
