@@ -28,6 +28,8 @@ const watchTokens = {
 
 const config = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  // llms.txt and the plain-text typography page, at the site root. yarn build:tokens writes them.
+  staticDirs: ['../dist/llms'],
   addons: [
     '@storybook/addon-docs',
     '@storybook/addon-links',

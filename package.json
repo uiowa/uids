@@ -29,7 +29,7 @@
     "./tokens/*.json": "./src/tokens/*.json"
   },
   "scripts": {
-    "build:tokens": "style-dictionary build --config style-dictionary.config.js",
+    "build:tokens": "style-dictionary build --config style-dictionary.config.js && node scripts/build-llms.mjs",
     "prepare": "yarn build:tokens",
     "prepack": "yarn build",
     "dev": "yarn build:tokens && sass --watch src/scss:dist",

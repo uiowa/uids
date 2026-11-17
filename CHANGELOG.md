@@ -72,6 +72,11 @@ Headline and the display face on Label.
   `--small`. No class sets a margin. The eyebrow class adds uppercase, and `strong` or `b` inside
   `.type-subhead-2` takes its emphasis weight. The declarations are generated from the tokens into
   `_type-roles-generated.scss`. Headings keep their own styles.
+- `llms.txt` and `typography.md`, UIDS's typography as plain text for readers that can't run the docs
+  site, such as a web chat: the hierarchy each format takes, each hierarchy's styles in px and pt with
+  their classes, its gaps, and one Google Fonts link for the faces. `yarn build:tokens` writes them to
+  `dist/llms` from `dist/typography-roles.json` and the generated classes, and Storybook serves them at
+  its root.
 - Storybook Showcase › Application › Employee Profile (typography roles): an application page on
   the Hierarchy 4× recipe, with a Show roles toggle.
 - Storybook Tokens pages for Borders and shapes, Shadows, and Motion. Space and layout
