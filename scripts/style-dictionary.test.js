@@ -132,8 +132,10 @@ it('emits canonical names, fluid typography, and token references', () => {
 
   expect(output).toContain('--uiowa-typography-font-size-120: 1.2rem;');
   expect(output).toContain('--uiowa-typography-heading-h1-font-size: clamp(2.3rem, calc(1.6967vw + 1.6637rem), 3.0529rem);');
-  // A standalone fluid font-size token, outside a typography composite.
-  expect(output).toContain('--uiowa-brand-bar-site-name-font-size: clamp(1.65rem, calc(2.3784vw + 0.1932rem), 2.2rem);');
+  // A token re-pointed at breakpoints through edu.uiowa.responsive.
+  expect(output).toContain('--uiowa-brand-bar-site-name-font-size: var(--uiowa-typography-font-size-165);');
+  expect(output).toContain('@media (min-width: 61.25rem) {\n  :root {\n    --uiowa-brand-bar-site-name-font-size: var(--uiowa-typography-font-size-195);');
+  expect(output).toContain('@media (min-width: 84.375rem) {\n  :root {\n    --uiowa-brand-bar-site-name-font-size: var(--uiowa-typography-font-size-220);');
   expect(output).toContain('--uiowa-color-link-default: var(--uiowa-color-blue-dark);');
   expect(output).not.toContain('--uiowa-font-size-120:');
 });

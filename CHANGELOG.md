@@ -64,6 +64,9 @@ system built from UIDS should be able to catch up using this file alone.
   `var(--uiowa-typography-font-family-roboto)` (was `Roboto, sans-serif`), and each
   `letter-spacing` member is `var(--uiowa-typography-letter-spacing-normal)` (was `0px`).
   Fluid font sizes keep their `clamp()` values. Computed values are unchanged.
+- The brand bar site name (`.site-name`) takes its sizes from the font-size scale
+  (`brand-bar.site-name.font-size`): 1.65rem below md (was 1.8rem), 1.95rem at md (was
+  2rem), and 2.2rem at the page container (unchanged).
 - On the narrow brand bar, the site name is 1.2rem at every width (was 1rem).
 - On the narrow Health Care brand bar, the logo below md is 32px tall (was 33px). The
   narrow bar's own height is removed, so the logo takes the Health Care logo's height.
