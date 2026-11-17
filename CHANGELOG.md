@@ -7,34 +7,6 @@ Notable changes to UIDS, grouped by release, newest first. The format follows
 When a change alters a rendered value, list the old value and the new one. A design
 system built from UIDS should be able to catch up using this file alone.
 
-## [5.0.0-alpha.2](https://github.com/uiowa/uids/compare/v5.0.0-alpha.1...v5.0.0-alpha.2)
-
-### Changed
-
-#### Status and data colors
-
-| Token | Role | Was | Now |
-| --- | --- | --- | --- |
-| `color.green` | Success | `#0E6B4D` | `#117E5B` |
-| `color.red` | Danger | `#C0392B` | `#CA3C2D` |
-| `color.green-light` | Data visualization 4 | `#43A06D` | `#429C6B` |
-| `color.purple` | Data visualization 5 | `#9586C6` | `#9182C1` |
-| `color.cyan` | Data visualization 8 | `#249CB0` | `#2398AC` |
-| `color.olive` | Data visualization 9 | `#7D9847` | `#7A9445` |
-| `color.rose` | Data visualization 10 | `#F0667D` | `#E36076` |
-| `color.gray-warm` | Data visualization 11 | `#998D7E` | `#958A7B` |
-| `color.gray-cool` | Data visualization 12 | `#8D8F90` | `#8A8B8C` |
-
-Each now reaches 3:1 as a mark on white, `color.neutral.100`, black, and
-`color.neutral.800`. Success and danger are lighter: they still reach 4.5:1 as text on
-white and on `color.neutral.100`, and white text on them still reaches 4.5:1. Danger
-text on `color.danger-surface` falls just under 4.5:1 (4.49:1); UIDS draws only the
-alert icon there.
-
-Affects `.badge--green`, `.badge--orange`, the `.alert--success` and `.alert--danger`
-icons, the form's required marks and error outlines, and
-`color.data-visualization.categorical.4`, `.5`, and `.8` to `.12`.
-
 ## [5.0.0-alpha.1](https://github.com/uiowa/uids/compare/v5.0.0-alpha.0...v5.0.0-alpha.1)
 
 
@@ -100,6 +72,30 @@ Affects `.badge--blue` and the `.alert--info` icon.
 
 The info, success, and danger surfaces are a shade lighter, so links clear 4.5:1 on them.
 Affects alert backgrounds, form fields and toggles with an error, and `mark.deletion`.
+
+#### Status and data colors
+
+| Token | Role | Was | Now |
+| --- | --- | --- | --- |
+| `color.green` | Success | `#0E6B4D` | `#117E5B` |
+| `color.red` | Danger | `#C0392B` | `#CA3C2D` |
+| `color.green-light` | Data visualization 4 | `#43A06D` | `#429C6B` |
+| `color.purple` | Data visualization 5 | `#9586C6` | `#9182C1` |
+| `color.cyan` | Data visualization 8 | `#249CB0` | `#2398AC` |
+| `color.olive` | Data visualization 9 | `#7D9847` | `#7A9445` |
+| `color.rose` | Data visualization 10 | `#F0667D` | `#E36076` |
+| `color.gray-warm` | Data visualization 11 | `#998D7E` | `#958A7B` |
+| `color.gray-cool` | Data visualization 12 | `#8D8F90` | `#8A8B8C` |
+
+Each now reaches 3:1 as a mark on white, `color.neutral.100`, black, and
+`color.neutral.800`. Success and danger are lighter: they still reach 4.5:1 as text on
+white and on `color.neutral.100`, and white text on them still reaches 4.5:1. Danger
+text on `color.danger-surface` falls just under 4.5:1 (4.49:1); UIDS draws only the
+alert icon there.
+
+Affects `.badge--green`, `.badge--orange`, the `.alert--success` and `.alert--danger`
+icons, the form's required marks and error outlines, and
+`color.data-visualization.categorical.4`, `.5`, and `.8` to `.12`.
 
 #### Grays
 
