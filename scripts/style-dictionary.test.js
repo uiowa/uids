@@ -224,6 +224,33 @@ describe('edu.uiowa.responsive', () => {
     expect(md).toBeGreaterThan(-1);
     expect(standard).toBeGreaterThan(md);
   });
+
+  it('follows a breakpoint that aliases another named breakpoint', async () => {
+    const output = await buildTokens({
+      breakpoint: {
+        $type: 'dimension',
+        980: { $value: { value: 980, unit: 'px' } },
+        md: { $value: '{breakpoint.980}' },
+        desktop: { $value: '{breakpoint.md}' },
+      },
+      color: { gold: color('#ffcd00'), black: color('#000000') },
+      card: {
+        background: color('#ffcd00', { 'edu.uiowa.responsive': { desktop: '{color.black}' } }),
+      },
+    });
+
+    expect(output).toContain('@media (min-width: 61.25rem) {\n  :root {\n    --uiowa-card-background: var(--uiowa-color-black);');
+  });
+
+  it('rejects an unknown breakpoint name', async () => {
+    await expect(buildTokens({
+      breakpoint: { $type: 'dimension', md: { $value: { value: 980, unit: 'px' } } },
+      color: { gold: color('#ffcd00'), black: color('#000000') },
+      card: {
+        background: color('#ffcd00', { 'edu.uiowa.responsive': { medium: '{color.black}' } }),
+      },
+    })).rejects.toThrow('responsive breakpoint "medium" references unknown token "breakpoint.medium"');
+  });
 });
 
 describe('edu.uiowa.variant', () => {

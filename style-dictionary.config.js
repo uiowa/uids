@@ -203,10 +203,20 @@ export async function cssResponsive(args) {
     return `var(--${token.name})`;
   };
 
+  // Follows the source references down to the px value. Style Dictionary's resolved
+  // $value is already a transformed CSS string whose unit depends on the platform.
+  // Circular references stop the build before this format runs.
   const breakpointPixels = (key) => {
-    let value = originalValue(byPath.get(`breakpoint.${key}`));
-    const reference = typeof value === 'string' && /^\{(.+)\}$/.exec(value);
-    if (reference) value = originalValue(byPath.get(reference[1]));
+    let path = `breakpoint.${key}`;
+    let value;
+    for (;;) {
+      const token = byPath.get(path);
+      if (!token) throw new Error(`responsive breakpoint "${key}" references unknown token "${path}"`);
+      value = originalValue(token);
+      const reference = typeof value === 'string' && /^\{(.+)\}$/.exec(value);
+      if (!reference) break;
+      path = reference[1];
+    }
     if (!value || value.unit !== 'px' || typeof value.value !== 'number') {
       throw new Error(`responsive breakpoint "${key}" did not resolve to a px dimension`);
     }
