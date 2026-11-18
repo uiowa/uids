@@ -1,0 +1,1 @@
+import{i as e}from"./preload-helper-Fhi_kkld.js";function t(e){return e.replace(/_/g,`-`)}var n=e((()=>{}));export{n,t};
