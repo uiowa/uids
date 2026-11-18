@@ -37,6 +37,8 @@ writes them to Sass, in rem.
 - Stat text inherits the nearest background’s text color. Titles on black change from
   gold to white; supporting text changes from gray to white on black and black on white.
   Nested stats follow the nearest background instead of matching an outer black ancestor.
+- **Accordion** gains `heading_level` (`h2` to `h6`, default `h2`) for the summary heading, so an
+  accordion inside a section can keep the page outline in order.
 - Tables establish their own default link token. Links in white cells stay blue
   regardless of the surrounding background.
 - `.button--small` and `.button--full-width` use the small and full-width button
