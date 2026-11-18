@@ -185,6 +185,7 @@ export function variantSelector(token, variant) {
   }
 
   let selector = `.${token.path[0]}--${variant}`;
+  // Without filePath the group's selector map is gone, so the default applies.
   if (!token.filePath) return selector;
 
   let group = sourceFile(token);

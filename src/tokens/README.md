@@ -114,7 +114,9 @@ variants stay out of token names:
 
 The selector defaults to the BEM modifier `.{component}--{variant}`, where the
 component is the token's top-level group. A group can declare `edu.uiowa.variants`
-to map a variant name to a different selector, as above. Interactive states remain
+to map a variant name to a different selector, as above. The generator reads this map
+from the token's JSON file, so tokens passed to Style Dictionary as an object always
+get the default selector. Interactive states remain
 named tokens; give each state token its own variant override.
 
 A typography token keys each override by member, so only that member is re-pointed.
