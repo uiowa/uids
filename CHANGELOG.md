@@ -32,11 +32,6 @@ writes them to Sass, in rem.
 - Storybook Tokens pages for Borders and shapes, Shadows, and Motion. Space and layout
   gains form heights, the logo minimum, and the breakpoints.
 
-#### Components
-
-- **Button** gains `icon_left` (class `bttn--icon-left`): the icon comes before the text, and the
-  space between them moves to the icon's right.
-
 ### Changed
 
 - Stat text inherits the nearest background’s text color. Titles on black change from
@@ -48,6 +43,8 @@ writes them to Sass, in rem.
   styles. Inside `.form`, they keep `font-size: 1.05rem` and `width: 100%`, respectively.
   With the button stylesheet loaded, `.bttn.button--small` horizontal padding changes
   from `2rem` to `1rem`. Existing `.bttn--small` and `.bttn--full` modifiers remain supported.
+- **Button** gains `icon_left` (class `bttn--icon-left`): the icon comes before the text, and the
+  space between them moves to the icon's right.
 - Component documentation now describes Vue 3 and Storybook in place of Fractal and Twig.
 
 #### Links
