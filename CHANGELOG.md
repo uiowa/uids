@@ -231,6 +231,11 @@ the table.
 
 - Horizontal stats on a gold background, 980 to 1350px wide: the rule above the content
   was gold on gold. It now shows in black.
+- Background patterns in the compiled CSS (`dist/uids.css`) pointed at
+  `../../assets/images/`, which does not exist relative to `dist/`, so every pattern
+  404ed. The build now copies the pattern images to `dist/images/`, and `$imgpath`
+  defaults to `images`. Sass builds that set `$imgpath` are unaffected; Sass builds that
+  relied on the old default must now set it or copy the images next to their CSS.
 
 ## [5.0.0-alpha.0](https://github.com/uiowa/uids/releases/tag/v5.0.0-alpha.0)
 
