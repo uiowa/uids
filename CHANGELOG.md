@@ -32,13 +32,6 @@ writes them to Sass, in rem.
 - Storybook Tokens pages for Borders and shapes, Shadows, and Motion. Space and layout
   gains form heights, the logo minimum, and the breakpoints.
 
-#### Components
-
-- **Table** gains a `variant` prop: `minimal` (class `table--minimal`; no box, uppercase column
-  heads in Label Large, hairline row rules — reference lists and specifications). `default` is
-  the new rounded box (see Changed › Tables). `border`, `highlight` and `sticky` work with either.
-  `caption_hidden` hides the caption visually (`element-invisible`) for screen readers only.
-
 ### Changed
 
 - Stat text inherits the nearest background’s text color. Titles on black change from
@@ -102,7 +95,7 @@ Text still clears 4.5:1: footer icon links are 6.55:1 on black.
 
 The default table is a rounded box: a gray header row over white rows with a rule between
 them. The gold header and the zebra rows are gone. This restyles every `table` element, with
-or without the `table` class. `variant="minimal"` (`table--minimal`) is the one alternative.
+or without the `table` class.
 
 | Part | Was | Now |
 | --- | --- | --- |
@@ -114,6 +107,11 @@ or without the `table` class. `variant="minimal"` (`table--minimal`) is the one 
 | Caption padding | `1.05rem` | `--uiowa-space-150` top and bottom, `--uiowa-space-100` sides |
 | Caption links | gold | the default link color |
 | `table--gray-borders` | every cell boxed, `#7C7C7C` between header cells | column rules only, `neutral-175` |
+
+`Table` gains `variant="minimal"` (class `table--minimal`): no box, uppercase column heads in
+Label Large, and hairline row rules, for reference lists and specifications. `border`,
+`highlight` and `sticky` work with either look. `caption_hidden` hides the caption visually
+(`element-invisible`) for screen readers only.
 
 #### Accent colors
 
