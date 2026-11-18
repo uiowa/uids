@@ -40,9 +40,12 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  icon_left: {
-    type: Boolean,
-    default: false,
+  icon_position: {
+    type: String,
+    default: 'end',
+    validator: function (value) {
+      return ['start', 'end'].indexOf(value) !== -1;
+    },
   },
 })
 
@@ -52,11 +55,15 @@ const classes = computed(() => {
   let classes = ['bttn'];
 
   // If these props are set to true, add the corresponding class.
-  ['full', 'transparent', 'light_font', 'icon_left'].forEach((prop) => {
+  ['full', 'transparent', 'light_font'].forEach((prop) => {
     if (props[prop] === true) {
       classes.push(`bttn--${ className(prop) }`);
     }
   });
+
+  if (props.icon_position === 'start') {
+    classes.push('bttn--icon-start');
+  }
 
   if (props.color) {
     classes.push(`bttn--${ className(props.color)}`);
@@ -79,8 +86,8 @@ const classes = computed(() => {
 
 <template>
   <a :class="classes" :href="url">
-    <slot v-if="icon_left" name="icon"></slot>
+    <slot v-if="icon_position === 'start'" name="icon"></slot>
     <slot></slot>
-    <slot v-if="!icon_left" name="icon"></slot>
+    <slot v-if="icon_position === 'end'" name="icon"></slot>
   </a>
 </template>
