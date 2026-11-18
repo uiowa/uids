@@ -23,21 +23,12 @@ system built from UIDS should be able to catch up using this file alone.
 | Breakpoints | `breakpoint.400`, `.600`, `.768`, `.930`, `.980`, `.1200`, `.1350`; `layout.breakpoint.standard` (1350) |
 | Form heights | `form.height.medium` (48px), `form.height.large` (64px) |
 | Colors | `color.border.strong`, `color.border.strong-inverse`; `color.alpha.black-150`, `black-200`, `black-425`, `white-425`; `color.accent.blue` |
+| Color roles | `color.text`, `color.text.supporting`, `.detail`, `.disabled`; `color.background`, `color.background.panel`, `.subtle`; `color.link`; `color.border.field`; `color.indicator`, `color.divider`, `color.hairline` |
 | Data visualization | `color.data-visualization.categorical.1` to `.12`, assigned in numerical order, each pointing at a palette color; the palette gains `color.green-light`, `purple`, `cyan`, `olive`, `rose`, `gray-warm`, and `gray-cool` for them |
 | Logo | `logo.minWidth` (85px) |
-| Color roles | `color.text`, `color.text.supporting`, `.detail`, `.disabled`; `color.background`, `color.background.panel`, `.subtle`; `color.link`; `color.border.field`; `color.indicator`, `color.divider`, `color.hairline` |
 
 Breakpoints have no custom properties, because a media query can't read one. The build
 writes them to Sass, in rem.
-
-Dark mode. The color roles follow the operating system's dark mode
-(`prefers-color-scheme`); `data-theme="light"` or `data-theme="dark"` on the root element
-fixes the mode. In dark mode, text is `neutral.100`, supporting text `neutral.200`, detail
-text `neutral.300`, the page and panels `neutral.900`, subtle fills `neutral.800`,
-dividers and hairlines `neutral.500`, and links `link.inverse`; `color-scheme` turns dark,
-so form controls and scrollbars follow. Disabled text, field borders, and the indicator
-keep one value in both modes. Components don't use the roles yet: in dark mode the page,
-its text, and its links change, and components keep their light colors.
 
 - Storybook Tokens pages for Borders and shapes, Shadows, and Motion. Space and layout
   gains form heights, the logo minimum, and the breakpoints.
@@ -49,9 +40,6 @@ its text, and its links change, and components keep their light colors.
 
 ### Changed
 
-- The page uses the color roles: `body` paints `color.background` behind `color.text`, and
-  links use `color.link`. Light mode looks the same: before, the body had no background
-  and its text fell back to the browser's black.
 - Stat text inherits the nearest background’s text color. Titles on black change from
   gold to white; supporting text changes from gray to white on black and black on white.
   Nested stats follow the nearest background instead of matching an outer black ancestor.
@@ -75,6 +63,21 @@ directly rather than through `--uiowa-color-link`.
 
 `--uiowa-color-blue-dark` changes to `#2C6ECA`, and `--uiowa-color-link-inverse` now
 points at `--uiowa-color-blue`.
+
+#### Dark mode
+
+The page uses the color roles: `body` paints `color.background` behind `color.text`, and
+links use `color.link`. Light mode looks the same: before, the body had no background and
+its text fell back to the browser's black.
+
+The color roles follow the operating system's dark mode (`prefers-color-scheme`);
+`data-theme="light"` or `data-theme="dark"` on the root element fixes the mode. In dark mode,
+text is `neutral.100`, supporting text `neutral.200`, detail text `neutral.300`, the page and
+panels `neutral.900`, subtle fills `neutral.800`, dividers and hairlines `neutral.500`, and
+links `link.inverse`; `color-scheme` turns dark, so form controls and scrollbars follow.
+Disabled text, field borders, and the indicator keep one value in both modes. Components
+don't use the roles yet: in dark mode the page, its text, and its links change, and
+components keep their light colors.
 
 #### Status colors
 

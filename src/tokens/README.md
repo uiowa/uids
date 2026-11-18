@@ -49,13 +49,6 @@ beside `--uiowa-color-text-default` and `--uiowa-color-text-inverse`.
 
 UIDS defines two namespaced extensions using DTCG's `$extensions` property.
 
-### `edu.uiowa.fluid`
-
-Adds responsive scaling to a typography token. The generator resolves the token's
-`fontSize` reference to a CSS `clamp()` value. The extension declares
-`minViewport` and `maxViewport` as px dimensions, then either a `max` size or
-`strategy: "exponential"` with a numeric `exponent`.
-
 ### `edu.uiowa.dark`
 
 Gives a color role its dark mode value, as a reference to another token:
@@ -68,3 +61,10 @@ The generator writes these values twice: under `:root[data-theme="dark"]`, and u
 `@media (prefers-color-scheme: dark)` for a root without `data-theme="light"`. Both set
 `color-scheme: dark`, so form controls and scrollbars follow. A dark value that is not a
 reference fails the build.
+
+### `edu.uiowa.fluid`
+
+Adds responsive scaling to a typography token. The generator resolves the token's
+`fontSize` reference to a CSS `clamp()` value. The extension declares
+`minViewport` and `maxViewport` as px dimensions, then either a `max` size or
+`strategy: "exponential"` with a numeric `exponent`.
