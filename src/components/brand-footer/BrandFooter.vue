@@ -1,7 +1,7 @@
 <script lang="ts">
 import { computed } from "vue"
 import '../../scss/components/brand-footer.scss'
-import UidsLogo from '../logo/Logo.vue'
+import UidsLogo, { logoUrl } from '../logo/Logo.vue'
 
 export default {
   name: 'uids-iowa-footer',
@@ -35,6 +35,7 @@ export default {
     return {
       getClasses,
       getYear,
+      logoUrl,
     }
   }
 }
@@ -44,7 +45,7 @@ export default {
   <footer :class="getClasses">
     <div class="footer__container footer__container--flex">
       <div class="footer__links footer__links--contact">
-        <uids-logo :healthcare="healthcare" :url="healthcare ? 'https://uihealthcare.org' : 'https://uiowa.edu'" context="footer"></uids-logo>
+        <uids-logo :healthcare="healthcare" :url="logoUrl(healthcare)" context="footer"></uids-logo>
         <!-- @slot Default slot shows content next to the logo. -->
         <slot></slot>
         <div v-if="parent_site_title">

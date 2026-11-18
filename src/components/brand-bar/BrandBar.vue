@@ -1,7 +1,7 @@
 <script lang="ts">
 import { computed, Comment, Fragment, Text, type VNode } from "vue"
 import '../../scss/components/brand-bar.scss'
-import UidsLogo from '../logo/Logo.vue'
+import UidsLogo, { logoUrl } from '../logo/Logo.vue'
 
 /**
  * Whether slot output has anything to show. A slot passed with only
@@ -82,6 +82,7 @@ export default {
     return {
       getClasses,
       hasDefaultSlot,
+      logoUrl,
     }
   }
 }
@@ -91,7 +92,7 @@ export default {
   <header :class="getClasses" data-uids-header>
     <div class="iowa-bar__container">
       <div class="iowa-bar__logo">
-        <uids-logo :healthcare="healthcare" :url="healthcare ? 'https://uihealthcare.org' : 'https://uiowa.edu'" context="header"></uids-logo>
+        <uids-logo :healthcare="healthcare" :url="logoUrl(healthcare)" context="header"></uids-logo>
       </div>
       <h1 v-if="site_name" class="site-name">
         <a v-if="site_url" :href="site_url">{{ site_name }}</a>

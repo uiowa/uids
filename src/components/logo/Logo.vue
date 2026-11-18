@@ -1,3 +1,9 @@
+<script lang="ts">
+/** The site the IOWA or Health Care logo links to. */
+export const logoUrl = (healthcare: boolean): string =>
+  healthcare ? 'https://uihealthcare.org' : 'https://uiowa.edu';
+</script>
+
 <script setup lang="ts">
 import { computed, type FunctionalComponent } from 'vue';
 import '../../scss/components/logo.scss'
