@@ -15,11 +15,6 @@
   padding: 0;
   font-size: 1.1rem;
 
-  // Make top-level menu items bold.
-  &:not(ul ul):not(.menu--horizontal) > li > a {
-    font-weight: variables.$font-weight-medium;
-  }
-
   li {
     border-bottom: var(--uiowa-stroke-width-default) solid hsla(0, 0%, 79%, .5);
     list-style-type: none;
@@ -47,7 +42,7 @@
       color: var(--uiowa-color-neutral-500);
     }
 
-    // Active menu item has a gray indicator.
+    // Active menu item shows its indicator.
     &.is-active {
       a {
         &:after {
@@ -144,6 +139,30 @@
     > li ul {
       display: none;
     }
+  }
+}
+
+.menu:not(.menu--horizontal, .menu--horizontal .menu) {
+  li {
+    border-bottom: none;
+
+    &.is-active > a {
+      background: var(--uiowa-color-background-gray);
+      font-weight: variables.$font-weight-bold;
+
+      &:after {
+        background: var(--uiowa-color-brand-gold);
+      }
+    }
+
+    &.is-active li a:after {
+      height: 0;
+      width: 0;
+    }
+  }
+
+  .icon-after {
+    display: none;
   }
 }
 
