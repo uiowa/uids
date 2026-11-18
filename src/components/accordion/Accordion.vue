@@ -19,7 +19,6 @@ const props = defineProps({
     type: Array,
     required: true,
   },
-  // The heading level of each summary, so the accordion sits in the page's outline.
   heading_level: {
     type: String,
     default: 'h2',
