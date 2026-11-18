@@ -42,6 +42,11 @@ its text, and its links change, and components keep their light colors.
 - Storybook Tokens pages for Borders and shapes, Shadows, and Motion. Space and layout
   gains form heights, the logo minimum, and the breakpoints.
 
+- Storybook Showcase › Simple page, with a Dark mode story on the color roles: the logo is a
+  gold tab with black IOWA, and the bar, menu and page are black, split by neutral-500
+  dividers. The brand bar and menu rules are the story's own, until those components use
+  the roles.
+
 ### Changed
 
 - The page uses the color roles: `body` paints `color.background` behind `color.text`, and
