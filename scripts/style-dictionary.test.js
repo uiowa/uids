@@ -358,6 +358,46 @@ describe('edu.uiowa.variant', () => {
     expect(output).toContain('--uiowa-card-title-letter-spacing: 0px;');
   });
 
+  // Tokens passed through the `tokens` option have no filePath to re-read.
+  it('rejects member overrides on tokens without a filePath', async () => {
+    const dictionary = new StyleDictionary({
+      usesDtcg: true,
+      log: { verbosity: 'silent' },
+      expand: config.expand,
+      hooks: config.hooks,
+      tokens: {
+        size: {
+          $type: 'dimension',
+          large: { $value: { value: 1.65, unit: 'rem' } },
+          small: { $value: { value: 1, unit: 'rem' } },
+        },
+        card: {
+          title: {
+            $type: 'typography',
+            $value: {
+              fontFamily: 'Roboto',
+              fontWeight: 300,
+              fontSize: '{size.large}',
+              letterSpacing: { value: 0, unit: 'px' },
+              lineHeight: 1.15,
+            },
+            $extensions: { 'edu.uiowa.variant': { narrow: { fontSize: '{size.small}' } } },
+          },
+        },
+      },
+      platforms: {
+        scss: {
+          transformGroup: 'css',
+          prefix: 'uiowa',
+          files: [{ destination: 'out.scss', format: 'uids/css-responsive' }],
+        },
+      },
+    });
+
+    await expect(dictionary.formatPlatform('scss'))
+      .rejects.toThrow('card.title.fontFamily edu.uiowa.variant.narrow: tokens without a filePath support only plain token references');
+  });
+
   it('rejects a variant that references an unknown token', async () => {
     await expect(buildTokens({
       card: {

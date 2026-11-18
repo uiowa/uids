@@ -119,7 +119,16 @@ const isObject = (value) => Boolean(value) && typeof value === 'object';
  * member receives only its own entry.
  */
 export function overrides(token, extension) {
-  if (!token.filePath) return token.original?.$extensions?.[extension] ?? {};
+  if (!token.filePath) {
+    // Without filePath there is no file to re-read, so only plain references work.
+    const declared = token.original?.$extensions?.[extension] ?? {};
+    for (const [context, value] of Object.entries(declared)) {
+      if (typeof value !== 'string') {
+        throw new Error(`${token.path.join('.')} ${extension}.${context}: tokens without a filePath support only plain token references`);
+      }
+    }
+    return declared;
+  }
 
   const name = token.path.join('.');
   let node = sourceFile(token);
