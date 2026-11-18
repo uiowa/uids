@@ -86,8 +86,7 @@ export const isFluidFontSize = (token) => token.$type === 'dimension'
   && ['fontSize', 'font-size'].includes(token.path.at(-1))
   && Boolean(token.$extensions?.[FLUID_EXTENSION]);
 
-export const isBreakpoint = (token) => token.path[0] === 'breakpoint'
-  || (token.path[0] === 'layout' && token.path[1] === 'breakpoint');
+export const isBreakpoint = (token) => token.path[0] === 'breakpoint';
 
 export function breakpointRem(token) {
   const value = token.$value;
