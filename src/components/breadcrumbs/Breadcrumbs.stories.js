@@ -20,18 +20,7 @@ export const Default = {
   args: {
     items: [
       { text: 'Home', url: '#' },
-      { text: 'Parent page' },
-      { text: 'Current page' },
-    ],
-  },
-};
-
-export const AllLinked = {
-  args: {
-    items: [
-      { text: 'Home', url: '#' },
-      { text: 'Academics', url: '#' },
-      { text: 'Programs', url: '#' },
+      { text: 'Parent page', url: '#' },
       { text: 'Current page' },
     ],
   },

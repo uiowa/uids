@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import '../../scss/components/breadcrumbs.scss';
 
-// The gold "/" separators come from CSS (li:not(:last-child)::after), not markup.
-
 const props = defineProps({
   items: {
     type: Array,
