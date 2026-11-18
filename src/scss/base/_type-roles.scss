@@ -1,6 +1,5 @@
 @use 'sass:list';
 @use 'sass:map';
-@use '../abstracts/utilities';
 
 // The type roles as classes; src/tokens/README.md says how to use them.
 // $hierarchies, $roles and $own-line-heights copy src/tokens/semantic/typography.json by hand: a hierarchy, a
@@ -62,8 +61,26 @@ $own-line-heights: ('subhead': ('x-small', 'small'), 'subhead-2': ('large', 'x-l
 }
 
 // The Labels are one set for every hierarchy.
-@each $size in ('large', 'medium', 'small') {
-  .type-label--#{$size} {
-    @include utilities.label($size);
-  }
+.type-label--large {
+  font-family: var(--uiowa-typography-label-large-font-family);
+  font-weight: var(--uiowa-typography-label-large-font-weight);
+  font-size: var(--uiowa-typography-label-large-font-size);
+  line-height: var(--uiowa-typography-label-large-line-height);
+  letter-spacing: var(--uiowa-typography-label-large-letter-spacing);
+}
+
+.type-label--medium {
+  font-family: var(--uiowa-typography-label-medium-font-family);
+  font-weight: var(--uiowa-typography-label-medium-font-weight);
+  font-size: var(--uiowa-typography-label-medium-font-size);
+  line-height: var(--uiowa-typography-label-medium-line-height);
+  letter-spacing: var(--uiowa-typography-label-medium-letter-spacing);
+}
+
+.type-label--small {
+  font-family: var(--uiowa-typography-label-small-font-family);
+  font-weight: var(--uiowa-typography-label-small-font-weight);
+  font-size: var(--uiowa-typography-label-small-font-size);
+  line-height: var(--uiowa-typography-label-small-line-height);
+  letter-spacing: var(--uiowa-typography-label-small-letter-spacing);
 }
