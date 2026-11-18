@@ -1,13 +1,8 @@
 <script setup lang="ts">
 import '../../scss/components/tabs.scss';
-// Registers window.UidsTabs. Its own page-load scan runs before this component
-// mounts, so the component instantiates it below.
+// Registers window.UidsTabs.
 import '../../assets/js/tabs.js';
 import { onMounted, ref } from 'vue';
-
-// div.tabs-collection#id > div[role=tablist] of button.tab__button[role=tab], then a
-// div.tab__content[role=tabpanel] per item; the selected tab (the first by default) is open. tabs.js drives
-// clicks, arrow keys and #hash activation, so the root id is required.
 
 const props = defineProps({
   id: {

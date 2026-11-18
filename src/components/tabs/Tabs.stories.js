@@ -1,4 +1,3 @@
-import '../../scss/components/_background.scss';
 import UidsTabs from './Tabs.vue';
 
 export default {
@@ -46,26 +45,6 @@ export const Default = {
   args: {
     id: 'tabs-example',
     aria_label: 'Additional building information',
-    items: items,
-  },
-};
-
-// The selected-tab indicator on gold and on black.
-export const OnBackgrounds = {
-  render: (args) => ({
-    setup() {
-      return { args };
-    },
-    components: { UidsTabs },
-    template: `
-    <div>
-      <div class="bg--gold" style="padding: 1rem"><uids-tabs v-bind="args" id="tabs-on-gold" /></div>
-      <div class="bg--black" style="padding: 1rem"><uids-tabs v-bind="args" id="tabs-on-black" /></div>
-    </div>
-  `,
-  }),
-  args: {
-    aria_label: Default.args.aria_label,
     items: items,
   },
 };
