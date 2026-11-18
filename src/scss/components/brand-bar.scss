@@ -1,34 +1,6 @@
 @use '../abstracts/variables';
 @use '../abstracts/utilities';
 
-// === Site Name === //
-.site-name {
-  display: flex;
-  align-items: center;
-  margin: 0 auto 0 0;
-  text-align: left;
-  font-size: var(--uiowa-brand-bar-site-name-font-size);
-  font-weight: var(--uiowa-brand-bar-site-name-font-weight);
-  line-height: var(--uiowa-brand-bar-site-name-line-height);
-  font-family: var(--uiowa-brand-bar-site-name-font-family);
-
-  a {
-    color: var(--uiowa-brand-bar-site-name-color);
-    text-decoration: none;
-  }
-
-  @include utilities.breakpoint(md) {
-    flex-basis: content;
-    margin: 1px 0 0 0;
-  }
-
-  @include utilities.breakpoint(page-container) {
-    margin: 5px 0 0 0;
-    text-align: left;
-  }
-}
-// === End: Site Name === //
-
 // === Iowa Bar === //
 // Settings for the default version of the IOWA bar.
 .iowa-bar {
@@ -82,12 +54,28 @@
     }
   }
 
+  // Scoped to the bar so the brand-bar tokens style only this site name.
   .site-name {
+    display: flex;
+    align-items: center;
     width: 100%;
+    margin: 0 auto 0 0;
     padding: variables.$gutter;
+    text-align: left;
+    font-size: var(--uiowa-brand-bar-site-name-font-size);
+    font-weight: var(--uiowa-brand-bar-site-name-font-weight);
+    line-height: var(--uiowa-brand-bar-site-name-line-height);
+    font-family: var(--uiowa-brand-bar-site-name-font-family);
+
+    a {
+      color: var(--uiowa-brand-bar-site-name-color);
+      text-decoration: none;
+    }
 
     @include utilities.breakpoint(md) {
+      flex-basis: content;
       width: auto;
+      margin: 1px 0 0 0;
       padding: 0;
     }
 

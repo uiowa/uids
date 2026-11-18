@@ -70,6 +70,13 @@ system built from UIDS should be able to catch up using this file alone.
 - On the narrow brand bar, the site name is 1.2rem at every width (was 1rem).
 - On the narrow Health Care brand bar, the logo below md is 32px tall (was 33px). The
   narrow bar's own height is removed, so the logo takes the Health Care logo's height.
+- The brand bar's site-name styles, and the `brand-bar.site-name.*` tokens, apply only
+  to `.iowa-bar .site-name`. Before, `brand-bar.css` styled every `.site-name` on the
+  page. A `.site-name` outside the brand bar no longer gets its flex layout, margins,
+  font family, size, weight, line height, or link color.
+- The footer site name (`.footer .site-name`) sets its own line height of 1. It looks
+  the same whether or not `brand-bar.css` is loaded. Without `brand-bar.css` its line
+  height was the body's 1.15.
 - The Storybook Tokens page lists the semantic breakpoints `breakpoint.xxsm` to
   `breakpoint.standard` in place of `layout.breakpoint.standard`.
 
