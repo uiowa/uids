@@ -40,6 +40,13 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  icon_position: {
+    type: String,
+    default: 'end',
+    validator: function (value) {
+      return ['start', 'end'].indexOf(value) !== -1;
+    },
+  },
 })
 
 const slots = useSlots();
@@ -53,6 +60,10 @@ const classes = computed(() => {
       classes.push(`bttn--${ className(prop) }`);
     }
   });
+
+  if (props.icon_position === 'start') {
+    classes.push('bttn--icon-start');
+  }
 
   if (props.color) {
     classes.push(`bttn--${ className(props.color)}`);
@@ -75,7 +86,8 @@ const classes = computed(() => {
 
 <template>
   <a :class="classes" :href="url">
+    <slot v-if="icon_position === 'start'" name="icon"></slot>
     <slot></slot>
-    <slot name="icon"></slot>
+    <slot v-if="icon_position === 'end'" name="icon"></slot>
   </a>
 </template>

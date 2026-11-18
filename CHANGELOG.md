@@ -43,6 +43,9 @@ writes them to Sass, in rem.
   styles. Inside `.form`, they keep `font-size: 1.05rem` and `width: 100%`, respectively.
   With the button stylesheet loaded, `.bttn.button--small` horizontal padding changes
   from `2rem` to `1rem`. Existing `.bttn--small` and `.bttn--full` modifiers remain supported.
+- **Button** gains `icon_position`, `end` (the default) or `start`. With `start` (class
+  `bttn--icon-start`), the icon comes before the text, and the space between them moves to the
+  icon's right.
 - Component documentation now describes Vue 3 and Storybook in place of Fractal and Twig.
 
 #### Links
