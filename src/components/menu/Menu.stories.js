@@ -84,11 +84,6 @@ const menuItems = [
     url: '#campus',
     icon: 'fa-university'
   },
-  {
-    label: 'Visit Campus',
-    url: 'https://example.com/visit',
-    external: true,
-  },
 ];
 
 export const HorizontalMenu = {
