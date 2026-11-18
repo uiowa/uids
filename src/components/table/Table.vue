@@ -56,7 +56,7 @@ const tableClasses = computed(() => {
 <template>
   <div class="table-responsive" :class="{ 'table-sticky': props.sticky }">
     <table :class="tableClasses" class="table" :summary="summary">
-      <caption v-if="caption" :class="{ 'element-invisible': caption_hidden }">{{ caption }}</caption>
+      <caption :class="{ 'element-invisible': caption_hidden }">{{ caption }}</caption>
       <thead>
       <slot name="thead"></slot>
       </thead>

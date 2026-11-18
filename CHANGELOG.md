@@ -37,10 +37,7 @@ writes them to Sass, in rem.
 - **Table** gains a `variant` prop: `minimal` (class `table--minimal`; no box, uppercase column
   heads in Label Large, hairline row rules — reference lists and specifications). `default` is
   the new rounded box (see Changed › Tables). `border`, `highlight` and `sticky` work with either.
-  An empty `caption` now renders no caption element (the default is still "Table"), and
-  `caption_hidden` hides it visually (`element-invisible`) for screen readers only. Cell
-  alignment classes `table__cell--left`, `table__cell--center` and `table__cell--right` go on a
-  `th` or `td`.
+  `caption_hidden` hides the caption visually (`element-invisible`) for screen readers only.
 
 ### Changed
 

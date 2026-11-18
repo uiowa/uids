@@ -1,8 +1,7 @@
 @use '../abstracts/variables';
 @use '../abstracts/utilities';
 
-// The caption as the box's first row. Only while the table lays out as a table: below sm a
-// bare table is an inline-block whose own border already wraps the caption.
+// The caption as the box's first row.
 @mixin caption-in-box {
   caption {
     border: var(--uiowa-color-neutral-175) var(--uiowa-stroke-width-default) solid;
@@ -26,7 +25,6 @@ table[border] {
   }
 }
 
-// A rounded box: a gray header row, then white rows with a rule between them.
 table {
   --uiowa-color-link: var(--uiowa-color-link-default);
   background-color: var(--uiowa-color-background-white);
@@ -76,19 +74,6 @@ table {
     }
   }
 
-  // Text alignment for one header or cell; repeat it down a column.
-  :is(th, td) {
-    &.table__cell--left {
-      text-align: left;
-    }
-    &.table__cell--center {
-      text-align: center;
-    }
-    &.table__cell--right {
-      text-align: right;
-    }
-  }
-
   thead td,
   thead th {
     background-color: var(--uiowa-color-neutral-100);
@@ -110,12 +95,10 @@ table {
     padding-left: variables.$md;
   }
 
-  // The box's border closes the last row.
   > :last-child > tr:last-child > * {
     border-bottom-width: 0;
   }
 
-  // Corner cells round with the box. :where() keeps these easy to override.
   > :where(thead > tr:first-child) > :first-child {
     border-top-left-radius: var(--uiowa-radius-3);
   }
@@ -180,8 +163,7 @@ table {
   }
 }
 
-// Column rules. Separate borders let each cell carry its own, so they stay put under a
-// sticky header.
+// Column rules.
 table.table--gray-borders {
   & > tr,
   & > thead > tr,
@@ -193,11 +175,7 @@ table.table--gray-borders {
   }
 }
 
-// === Variant === //
-// table--minimal (the Table component's `variant="minimal"`): no box, uppercase column
-// heads in Label Large, hairline row rules — reference lists, specifications, token
-// tables. The caption is a plain title above the table. Hover highlight, sticky header
-// and column rules still apply.
+// Minimal variant.
 table.table--minimal {
   background-color: transparent;
   border: 0;
