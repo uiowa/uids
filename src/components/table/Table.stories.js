@@ -8,6 +8,14 @@ export default {
   component: UidsTable,
   argTypes: {
     ...Background.argTypes,
+    variant: {
+      control: { type: 'select' },
+      options: ['default', 'minimal'],
+      name: 'Variant',
+      table: {
+        category: 'Display options',
+      },
+    },
     links: { name: 'Links', control: 'boolean' },
     summary: {
       control: { type: 'text' },
@@ -16,6 +24,10 @@ export default {
     caption: {
       control: { type: 'text' },
       name: 'Caption',
+    },
+    caption_hidden: {
+      control: { type: 'boolean' },
+      name: 'Hide caption visually',
     },
     sticky: {
       control: { type: 'boolean' },
@@ -51,9 +63,11 @@ const Template = (args) => ({
     <uids-table
       :summary="args.summary"
       :caption="args.caption"
+      :caption_hidden="args.caption_hidden"
       :sticky="args.sticky"
       :highlight="args.highlight"
       :border="args.border"
+      :variant="args.variant"
     >
       <template #thead>
         <tr>
@@ -90,8 +104,11 @@ Default.args = {
   caption: 'Living On Campus - Example Table',
   sticky: true,
   highlight: true,
-  border: true,
+  border: false,
 };
 
 export const Links = Template.bind({});
 Links.args = { ...Default.args, links: true, background: 'black' };
+
+export const Minimal = Template.bind({});
+Minimal.args = { ...Default.args, variant: 'minimal', sticky: false };
