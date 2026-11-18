@@ -203,14 +203,14 @@ export async function cssResponsive(args) {
     return `var(--${token.name})`;
   };
 
-  const breakpointToRem = (key) => {
+  const breakpointPixels = (key) => {
     let value = originalValue(byPath.get(`breakpoint.${key}`));
     const reference = typeof value === 'string' && /^\{(.+)\}$/.exec(value);
     if (reference) value = originalValue(byPath.get(reference[1]));
     if (!value || value.unit !== 'px' || typeof value.value !== 'number') {
       throw new Error(`responsive breakpoint "${key}" did not resolve to a px dimension`);
     }
-    return `${decimal(value.value / REM_IN_PIXELS)}rem`;
+    return value.value;
   };
 
   // Restores each composite member's source reference so css/variables can emit it.
@@ -236,8 +236,12 @@ export async function cssResponsive(args) {
     }
   }
 
+  // Every block sets the same properties with equal specificity, so the last match
+  // wins. Emit narrowest first so the widest matching breakpoint applies.
   const media = Object.entries(groups)
-    .map(([breakpoint, lines]) => `@media (min-width: ${breakpointToRem(breakpoint)}) {\n  :root {\n${lines.join('\n')}\n  }\n}`)
+    .map(([breakpoint, lines]) => [breakpointPixels(breakpoint), lines])
+    .sort(([a], [b]) => a - b)
+    .map(([pixels, lines]) => `@media (min-width: ${decimal(pixels / REM_IN_PIXELS)}rem) {\n  :root {\n${lines.join('\n')}\n  }\n}`)
     .join('\n\n');
 
   const selectors = {};

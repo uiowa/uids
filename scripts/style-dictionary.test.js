@@ -202,6 +202,30 @@ const color = (hex, extensions) => ({
   ...(extensions && { $extensions: extensions }),
 });
 
+describe('edu.uiowa.responsive', () => {
+  // The first token names only the wider breakpoint, so source order alone would
+  // emit the wider block first and let the narrower one override it.
+  it('emits media blocks from narrowest to widest', async () => {
+    const output = await buildTokens({
+      breakpoint: {
+        $type: 'dimension',
+        md: { $value: { value: 980, unit: 'px' } },
+        standard: { $value: { value: 1350, unit: 'px' } },
+      },
+      color: { gold: color('#ffcd00'), black: color('#000000') },
+      card: {
+        border: color('#000000', { 'edu.uiowa.responsive': { standard: '{color.gold}' } }),
+        background: color('#ffcd00', { 'edu.uiowa.responsive': { md: '{color.black}', standard: '{color.gold}' } }),
+      },
+    });
+
+    const md = output.indexOf('@media (min-width: 61.25rem)');
+    const standard = output.indexOf('@media (min-width: 84.375rem)');
+    expect(md).toBeGreaterThan(-1);
+    expect(standard).toBeGreaterThan(md);
+  });
+});
+
 describe('edu.uiowa.variant', () => {
   it('re-points a token under the BEM modifier selector for its component', async () => {
     const output = await buildTokens({
