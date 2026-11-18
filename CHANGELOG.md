@@ -31,6 +31,9 @@ writes them to Sass, in rem.
 
 - Storybook Tokens pages for Borders and shapes, Shadows, and Motion. Space and layout
   gains form heights, the logo minimum, and the breakpoints.
+- Tabs component, `UidsTabs`, with a Storybook page (Components › Tabs): the existing tab styles
+  and script as a Vue component, with a tab and a panel per item and `selected` for the tab that
+  opens first.
 
 ### Changed
 
