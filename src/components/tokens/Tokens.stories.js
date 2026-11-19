@@ -87,7 +87,7 @@ function group(name, declared) {
   if (n.startsWith('motion-duration-')) return 'duration semantic';
   if (n.startsWith('easing-')) return 'easing';
   if (n.startsWith('form-height-')) return 'form height';
-  if (n.startsWith('logo-')) return 'logo';
+  if (n === 'logo-min-width') return 'logo';
   return 'other';
 }
 
