@@ -43,6 +43,14 @@ export default {
       default: '',
     },
     /**
+     * Element for the site name. Use `h1` only when the page has no other `h1`.
+     */
+    site_name_element: {
+      type: String,
+      default: 'h1',
+      validator: (value: string) => ['h1', 'span'].includes(value),
+    },
+    /**
      * Determines whether to use the narrow version of the IOWA bar.
      */
     narrow: {
@@ -94,10 +102,10 @@ export default {
       <div class="iowa-bar__logo">
         <uids-logo :healthcare="healthcare" :url="logoUrl(healthcare)" context="header"></uids-logo>
       </div>
-      <h1 v-if="site_name" class="site-name">
+      <component :is="site_name_element" v-if="site_name" class="site-name">
         <a v-if="site_url" :href="site_url">{{ site_name }}</a>
         <template v-else>{{ site_name }}</template>
-      </h1>
+      </component>
       <div v-if="hasDefaultSlot()" class="iowa-bar__content">
         <!-- @slot Default slot shows content after the site name. -->
         <slot></slot>

@@ -28,6 +28,11 @@ export default {
       control: { type: 'text' },
       name: 'Site URL'
     },
+    site_name_element: {
+      control: { type: 'select' },
+      options: ['h1', 'span'],
+      name: 'Site name element'
+    },
     default: {
       name: 'Content',
       options: Object.keys(contentExamples),
@@ -71,6 +76,7 @@ const Template = (args) => ({
       :narrow="args.narrow"
       :site_name="args.site_name"
       :site_url="args.site_url"
+      :site_name_element="args.site_name_element"
     >
       <component v-if="args.default" :is="{ components: { UidsBadge, UidsButton }, template: args.default }" />
     </uids-iowa-bar>
@@ -81,6 +87,7 @@ export const Default = Template.bind({})
 Default.args = {
   site_name: '',
   site_url: '',
+  site_name_element: 'h1',
   default: 'none',
   narrow: false,
   healthcare: false,
@@ -111,6 +118,7 @@ const ContentTemplate = (args) => ({
       :narrow="args.narrow"
       :site_name="args.site_name"
       :site_url="args.site_url"
+      :site_name_element="args.site_name_element"
     >
       <component v-if="args.default" :is="{ components: { UidsBadge, UidsButton }, template: args.default }" />
     </uids-iowa-bar>

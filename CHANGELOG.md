@@ -11,9 +11,10 @@ system built from UIDS should be able to catch up using this file alone.
 
 ### Added
 
-- Brand bar `site_name` and `site_url` props. `site_name` renders
-  `<h1 class="site-name">` after the logo; `site_url` wraps the name in a link. The
-  default slot now follows the site name.
+- Brand bar `site_name`, `site_url`, and `site_name_element` props. `site_name` renders
+  the site name after the logo as `.site-name`; `site_url` wraps the name in a link. Set
+  `site_name_element` to `span` when the page has its own `<h1>`; it accepts `h1`
+  (default) or `span`. The default slot now follows the site name.
 - Brand bar `.iowa-bar__content` wrapper around the default slot, rendered only when the
   slot has content. Below md it stacks under the site name on the bar's gold; at md and
   up it fills the space after the site name as a flex row.

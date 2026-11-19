@@ -64,6 +64,7 @@ const Template = {
           :narrow='true'
           :healthcare='false'
           site_name="Profiles"
+        site_name_element="span"
         ></brand-bar>
         <nav class="menu--container">
           <div class="layout-container">

@@ -59,6 +59,7 @@ const Template = {
         :narrow='true'
         :healthcare='false'
         site_name="Profiles"
+        site_name_element="span"
       >
         <div class="user-menu-toggle bg--gold" style="margin-left: auto;">
           <uids-button
