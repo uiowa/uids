@@ -64,9 +64,9 @@ that leads a details group. A highlight on chosen headline words is a box from c
   is the default and needs no class, and the nearest hierarchy class wins. A role class, `.type-headline`
   through `.type-small-print`, is its role's family, weight, size, line height and letter spacing, the size
   being the body size times the role's multiple. The Labels are `.type-label--large`, `--medium` and
-  `--small`. No class sets a margin. The eyebrow class adds uppercase, and `strong` or `b` inside
-  `.type-subhead-2` takes its emphasis weight. The classes are written in
-  `src/scss/base/_type-roles.scss`. Headings keep their own styles.
+  `--small`. No class sets a margin. The eyebrow class adds uppercase. `.type-subhead-2--emphasis` sets
+  Subhead 2's emphasis weight, and a `strong` or `b` inside `.type-subhead-2` takes it too. The classes are
+  written in `src/scss/base/_type-roles.scss`. Headings keep their own styles.
 - `llms.txt` and `typography.md`, UIDS's typography as plain text for readers that can't run the docs
   site, such as a web chat: the hierarchy each format takes, each hierarchy's styles in px and pt with
   their classes, its gaps, and one Google Fonts link for the faces. They're kept by hand in `llms/`, and

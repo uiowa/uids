@@ -7,7 +7,7 @@ The type styles of UIDS, the University of Iowa Design System, with every size w
 1. Find the piece's format under Formats. Its row names the piece's hierarchy: X-Small, Small, Medium, Large or X-Large.
 2. Use that hierarchy's styles together, from its section below. Don't mix styles from two hierarchies in one piece.
 3. The Label styles are one set for every hierarchy.
-4. In CSS, use UIDS's classes rather than the numbers: the hierarchy's class on the piece, and each style's class, from the Class column, on its text. Medium is the default, so its pieces need no hierarchy class. An X-Small piece, for example, is `class="type-scale--x-small"` and its headline `class="type-headline"`. In Subhead 2, `strong` or `b` takes its emphasis weight. UIDS's stylesheets uids.css and uids-core.css have the classes.
+4. In CSS, use UIDS's classes rather than the numbers: the hierarchy's class on the piece, and each style's class, from the Class column, on its text. Medium is the default, so its pieces need no hierarchy class. An X-Small piece, for example, is `class="type-scale--x-small"` and its headline `class="type-headline"`. Subhead 2's emphasis weight is the class `type-subhead-2--emphasis`, on the element or on a span for part of a line; a `strong` or `b` inside Subhead 2 takes it too. UIDS's stylesheets uids.css and uids-core.css have the classes.
 
 Sizes are in px, at a 16px root, and in pt (1pt = 4/3px). A line height is a multiple of the font size; the px and pt after it are the same height.
 
@@ -50,7 +50,7 @@ For programs, program flyers, mini flyers, brochures and Word documents. Body si
 | Headline 6× | `type-headline-6x` | Special Gothic Condensed | 600 | 76px (57pt) | 0.9 (68.4px, 51.3pt) | 0 |
 | Headline 8× | `type-headline-8x` | Special Gothic Condensed | 600 | 101.33px (76pt) | 0.9 (91.2px, 68.4pt) | 0 |
 | Subhead | `type-subhead` | Zilla Slab | 600 | 25.33px (19pt) | 1.25 (31.67px, 23.75pt) | 0 |
-| Subhead 2 | `type-subhead-2` | Roboto | 400, emphasis 500 | 19px (14.25pt) | 1.3 (24.7px, 18.53pt) | 0 |
+| Subhead 2 | `type-subhead-2`, emphasis `type-subhead-2--emphasis` | Roboto | 400, emphasis 500 | 19px (14.25pt) | 1.3 (24.7px, 18.53pt) | 0 |
 | Body | `type-body` | Roboto | 400 | 12.67px (9.5pt) | 1.5 (19px, 14.25pt) | 0 |
 | Small print | `type-small-print` | Roboto | 400 | 9.5px (7.13pt) | 1.5 (14.25px, 10.69pt) | 0 |
 
@@ -67,7 +67,7 @@ For letters, forms and covers. Body size 16px (12pt). Hierarchy class `type-scal
 | Headline 6× | `type-headline-6x` | Special Gothic Condensed | 600 | 96px (72pt) | 0.9 (86.4px, 64.8pt) | 0 |
 | Headline 8× | `type-headline-8x` | Special Gothic Condensed | 600 | 128px (96pt) | 0.9 (115.2px, 86.4pt) | 0 |
 | Subhead | `type-subhead` | Zilla Slab | 600 | 32px (24pt) | 1.25 (40px, 30pt) | 0 |
-| Subhead 2 | `type-subhead-2` | Roboto | 400, emphasis 500 | 24px (18pt) | 1.3 (31.2px, 23.4pt) | 0 |
+| Subhead 2 | `type-subhead-2`, emphasis `type-subhead-2--emphasis` | Roboto | 400, emphasis 500 | 24px (18pt) | 1.3 (31.2px, 23.4pt) | 0 |
 | Body | `type-body` | Roboto | 400 | 16px (12pt) | 1.5 (24px, 18pt) | 0 |
 | Small print | `type-small-print` | Roboto | 400 | 12px (9pt) | 1.5 (18px, 13.5pt) | 0 |
 
@@ -86,7 +86,7 @@ On application pages the Headline is 3× the body instead of 4×: 57px (42.75pt)
 | Headline 6× | `type-headline-6x` | Special Gothic Condensed | 600 | 114px (85.5pt) | 0.9 (102.6px, 76.95pt) | 0 |
 | Headline 8× | `type-headline-8x` | Special Gothic Condensed | 600 | 152px (114pt) | 0.9 (136.8px, 102.6pt) | 0 |
 | Subhead | `type-subhead` | Zilla Slab | 600 | 38px (28.5pt) | 1.1 (41.8px, 31.35pt) | 0 |
-| Subhead 2 | `type-subhead-2` | Roboto | 400, emphasis 500 | 28.5px (21.38pt) | 1.3 (37.05px, 27.79pt) | 0 |
+| Subhead 2 | `type-subhead-2`, emphasis `type-subhead-2--emphasis` | Roboto | 400, emphasis 500 | 28.5px (21.38pt) | 1.3 (37.05px, 27.79pt) | 0 |
 | Body | `type-body` | Roboto | 400 | 19px (14.25pt) | 1.5 (28.5px, 21.38pt) | 0 |
 | Small print | `type-small-print` | Roboto | 400 | 14.25px (10.69pt) | 1.5 (21.38px, 16.03pt) | 0 |
 
@@ -103,7 +103,7 @@ For the digital ad, web banner and 11 × 17 poster. Body size 24px (18pt). Hiera
 | Headline 6× | `type-headline-6x` | Special Gothic Condensed | 600 | 144px (108pt) | 0.9 (129.6px, 97.2pt) | 0 |
 | Headline 8× | `type-headline-8x` | Special Gothic Condensed | 600 | 192px (144pt) | 0.9 (172.8px, 129.6pt) | 0 |
 | Subhead | `type-subhead` | Zilla Slab | 600 | 48px (36pt) | 1.1 (52.8px, 39.6pt) | 0 |
-| Subhead 2 | `type-subhead-2` | Roboto | 400, emphasis 500 | 36px (27pt) | 1.2 (43.2px, 32.4pt) | 0 |
+| Subhead 2 | `type-subhead-2`, emphasis `type-subhead-2--emphasis` | Roboto | 400, emphasis 500 | 36px (27pt) | 1.2 (43.2px, 32.4pt) | 0 |
 | Body | `type-body` | Roboto | 400 | 24px (18pt) | 1.5 (36px, 27pt) | 0 |
 | Small print | `type-small-print` | Roboto | 400 | 18px (13.5pt) | 1.5 (27px, 20.25pt) | 0 |
 
@@ -120,7 +120,7 @@ For displays and slides read at a distance. Body size 36px (27pt). Hierarchy cla
 | Headline 6× | `type-headline-6x` | Special Gothic Condensed | 600 | 216px (162pt) | 0.9 (194.4px, 145.8pt) | 0 |
 | Headline 8× | `type-headline-8x` | Special Gothic Condensed | 600 | 288px (216pt) | 0.9 (259.2px, 194.4pt) | 0 |
 | Subhead | `type-subhead` | Zilla Slab | 600 | 72px (54pt) | 1.1 (79.2px, 59.4pt) | 0 |
-| Subhead 2 | `type-subhead-2` | Roboto | 400, emphasis 500 | 54px (40.5pt) | 1.2 (64.8px, 48.6pt) | 0 |
+| Subhead 2 | `type-subhead-2`, emphasis `type-subhead-2--emphasis` | Roboto | 400, emphasis 500 | 54px (40.5pt) | 1.2 (64.8px, 48.6pt) | 0 |
 | Body | `type-body` | Roboto | 400 | 36px (27pt) | 1.5 (54px, 40.5pt) | 0 |
 | Small print | `type-small-print` | Roboto | 400 | 27px (20.25pt) | 1.5 (40.5px, 30.38pt) | 0 |
 
