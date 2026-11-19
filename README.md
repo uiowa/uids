@@ -11,15 +11,20 @@ The documentation uses Vue.js. You can build and run a local version to aid in d
 
 After installing NVM, run `nvm use`. You may need to install the specified version of Node using `nvm install`.
 
+Node 25 and later don't include Corepack, which provides Yarn. Install and enable it once for each Node version:
+
+```sh
+npm install -g corepack
+corepack enable
+```
+
+To have nvm install Corepack with every new Node version, add `corepack` to `~/.nvm/default-packages`. You still need to run `corepack enable` after each install.
+
 The node-gyp package requires a C compiler. If you notice node-gyp errors after installing dependencies, see the instructions for installing a C compiler based on your OS: https://github.com/nodejs/node-gyp#on-macos
 
 ## Project Setup
 
 ### Install dependencies
-
-```sh
-yarn install
-```
 
 ```sh
 yarn install
