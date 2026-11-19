@@ -77,6 +77,8 @@ Space between text: related 24px (18pt); break 32px (24pt). The hierarchy class 
 
 For web pages and applications, video, the letter-size flyer and poster. Body size 19px (14.25pt). Hierarchy class `type-scale--medium`, the default, which a piece doesn't need.
 
+On application pages the Headline is 3× the body instead of 4×: 57px (42.75pt). UIDS has no class for it; set `--uiowa-typography-headline-multiple: 3` on the application's wrapper in its own CSS.
+
 | Style | Class | Font | Weight | Size | Line height | Letter spacing |
 | --- | --- | --- | --- | --- | --- | --- |
 | Eyebrow | `type-eyebrow` | Special Gothic Condensed | 600 | 28.5px (21.38pt) | 1.2 (34.2px, 25.65pt) | 0 |

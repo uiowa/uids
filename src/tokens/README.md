@@ -67,6 +67,10 @@ The nearest hierarchy class wins, so a section or a component can take its own. 
 set the gaps as `--uiowa-type-space-related` and `--uiowa-type-space-break`. The Labels are
 `.type-label--large`, `--medium` and `--small`.
 
+Application pages take the Headline at 3× the body rather than 4×, 57px on Medium. UIDS has no 3× token or class:
+the application's own CSS sets `--uiowa-typography-headline-multiple: 3` on its wrapper, and `.type-headline` inside
+it follows.
+
 `typography.paragraph` is the style UIDS's base styles set on paragraphs.
 
 The highlight tokens are multiples of the role's own font size, em in CSS. A highlight on chosen
