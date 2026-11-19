@@ -14,7 +14,8 @@ $own-line-heights: ('subhead': ('x-small', 'small'), 'subhead-2': ('large', 'x-l
   $base: var(--uiowa-typography-body-#{$hierarchy}-font-size);
   $selector: '.type-scale--#{$hierarchy}';
   @if $hierarchy == 'medium' {
-    $selector: ':root, #{$selector}';
+    // :where() gives the default no specificity, so a hierarchy class on html still overrides it.
+    $selector: ':where(:root), #{$selector}';
   }
   #{$selector} {
     --uiowa-type-base: #{$base};
