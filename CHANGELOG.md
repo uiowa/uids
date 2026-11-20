@@ -25,15 +25,71 @@ system built from UIDS should be able to catch up using this file alone.
 | Colors | `color.border.strong`, `color.border.strong-inverse`; `color.alpha.black-150`, `black-200`, `black-425`, `white-425`; `color.accent.blue` |
 | Data visualization | `color.data-visualization.categorical.1` to `.12`, assigned in numerical order, each pointing at a palette color; the palette gains `color.green-light`, `purple`, `cyan`, `olive`, `rose`, `gray-warm`, and `gray-cool` for them |
 | Logo | `logo.minWidth` (85px) |
+| Type scale | `typography.scale.related` (1.5) and `break` (2): in each hierarchy, a gap is the body size times one of these |
+| Highlight | `typography.highlight.headline.padding` (0.1) and `.leading` (0.05); `typography.highlight.subhead.above` (0.32), `.below` (0.16) and `.bleed` (0.08): multiples of the role's own font size |
+| Typography roles | `typography.headline`, `headline-6x`, `headline-8x`, `eyebrow`, `subhead`, `subhead-2` and `small-print`, each once: a `multiple` of the body size with `fontFamily`, `fontWeight`, `lineHeight` and `letterSpacing`, and a hierarchy group only where a value differs (Subhead's `lineHeight` in `x-small` and `small`, Subhead 2's in `large` and `x-large`); `typography.body`, the Body role's values and the five body sizes `x-small`, `small`, `medium`, `large` and `x-large`; `typography.label` `large`, `medium` and `small`, each with its own `fontSize` from Body Medium. Subhead 2 also carries `fontWeightEmphasis`, Medium; faces through `typography.typeface.display`, `slab` and `sans` |
+| Typography primitives | `typography.font-family.special-gothic-condensed`; `typography.font-size.74`, `.79`, `.89`, `.104`, `.119`, `.150`, `.225`; `typography.line-height.090`, `.100`, `.110`, `.120`, `.150` |
 
 Breakpoints have no custom properties, because a media query can't read one. The build
 writes them to Sass, in rem.
 
+The typography roles are Headline, Eyebrow, Subhead, Subhead 2, Body and Small Print in five hierarchies,
+X-Small, Small, Medium, Large and X-Large, with the Headline also at 6× and 8× (`headline-6x`, `headline-8x`,
+leading 0.9), and Label in Large, Medium and Small: 43 styles. Eyebrow, the label above a title, is Special Gothic
+Condensed, set in uppercase by the component. They sit beside today's heading, intro, body and size tokens, and no
+component uses them yet. Of today's classes, only the two intro classes take them: see Changed. UIDS's CSS does not load Special Gothic
+Condensed: it is Google's Special Gothic at width 75, weight 600, which Storybook loads with
+`https://fonts.googleapis.com/css2?family=Special+Gothic:wdth,wght@75,600&display=swap`. Body X-Small, Small, Medium, Large and X-Large are the five body sizes, 12.67px, 16px, 19px, 24px and 36px (9.5,
+12, 14.25, 18 and 27pt), and each names a hierarchy that every template, screen or print, chooses from:
+the X-Small, Small, Medium, Large or X-Large of every other family is a multiple of the body size
+of the same name, so a hierarchy's styles are used together and the math is done. X-Small is
+for programs, program flyers, mini flyers, brochures and Word documents, Small for letters, forms
+and covers, Medium for web pages and applications, video, the letter-size flyer and poster, Large
+for the digital ad, web banner and 11 × 17 poster, and X-Large for displays and slides read at a distance. Headline 4×, Eyebrow 1.5×, Subhead 2×, Subhead 2 1.5× and Small Print 0.75×; the Labels are
+one set for every hierarchy, 0.875×, 0.75× and 0.625× of Body Medium. Headline is Special Gothic
+Condensed, Subhead Zilla Slab, and Subhead 2, Body, Small Print and Label Roboto. Each role is held once, as base + multiples: its own tokens and a multiple of the body size
+(`typography.headline.multiple` is 4), with a hierarchy group only where a value differs, so the 43 styles take
+64 tokens, Labels included. The Labels' sizes
+are written as plain sizes. Body text gets bigger or smaller only by picking
+another hierarchy. Text is spaced with the hierarchy's two gaps, its body size times `typography.scale.related` and `.break`, measured from baseline to cap height: Related between things that belong together, Break between groups. The gap
+under a title is half the title; a heading is a Related step above its own text, but an item
+heading, the title of an item in a list, card or schedule, sits on its own text with no gap; and repeating
+sections are a Break apart. Subhead 2 is Regular by default (`fontWeight`); its
+`fontWeightEmphasis`, Medium, is an option for a line the designer wants to stand out, such as the date
+that leads a details group. A highlight on chosen headline words is a box from cap height to baseline plus 0.1× the headline size on all four sides, with 0.05× more leading per line; the subhead's band runs from 0.32× the subhead size above the baseline to 0.16× below it, 0.08× past the text.
+
+- The typography roles as classes. A hierarchy class, `.type-scale--x-small` through `.type-scale--x-large`,
+  on a piece, a section or a component sets the body size, the gaps (`--uiowa-type-space-related` and
+  `--uiowa-type-space-break`) and the values that hierarchy overrides; Medium's also sit on `:root`, so Medium
+  is the default and needs no class, and the nearest hierarchy class wins. A role class, `.type-headline`
+  through `.type-small-print`, is its role's family, weight, size, line height and letter spacing, the size
+  being the body size times the role's multiple. The Labels are `.type-label--large`, `--medium` and
+  `--small`. No role class sets a margin. The eyebrow class adds uppercase. `.type-subhead-2--emphasis` sets
+  Subhead 2's emphasis weight, and a `strong` or `b` inside `.type-subhead-2` takes it too. The classes are
+  written in `src/scss/base/_type-roles.scss`. Headings keep their own styles, except inside `.type-rich-text`,
+  the container for rich text: there, with no classes, the h1 is the Headline, the h2 the Subhead, and h3 to h6
+  Subhead 2 at its emphasis weight, all in the hierarchy the rich text sits in, Medium by default; paragraphs
+  and lists are Body; and the gaps between blocks are Related, with Break below the h1 and above a heading that
+  starts a section.
+- `.element--intro`, the intro under a page's title: Subhead 2 at its regular weight at the Subhead's size, in the
+  hierarchy it sits in, Roboto 400 at 38px (2.375rem) / 1.3 on Medium, the h2's size. It replaces
+  `.element--light-intro` and `.element--bold-intro`, which set the same style: see Deprecated.
+- `llms.txt` and `typography.md`, UIDS's typography as plain text for readers that can't run the docs
+  site, such as a web chat: the hierarchy each format takes, each hierarchy's styles in px and pt with
+  their classes, its gaps, and one Google Fonts link for the faces. They're kept by hand in `llms/`, and
+  Storybook serves them at its root.
+- Storybook Tokens (typography) pages: Document outline, Token diff, Formats, Hierarchy, Highlight, Landing Page,
+  Make it your day, Before and After, Design system research, and Applying typography.
 - Storybook Tokens pages for Borders and shapes, Shadows, and Motion. Space and layout
   gains form heights, the logo minimum, and the breakpoints.
 
 ### Changed
 
+- `.element--light-intro` and `.element--bold-intro`, the intro under a page's title, both set Subhead 2 at its
+  regular weight at the Subhead's size, in the hierarchy they sit in: on Medium, Roboto 400 at 38px (2.375rem) / 1.3,
+  the h2's size. `.element--light-intro` was Roboto 300 at 25.6px to 33.6px / 1.4, and `.element--bold-intro` Zilla
+  Slab 600 at 25.6px to 35.2px / 1.3, each growing between 600 and 1310px wide. The `typography.intro-light` and
+  `intro-bold` tokens are unchanged, and the classes no longer read them.
 - Stat text inherits the nearest background’s text color. Titles on black change from
   gold to white; supporting text changes from gray to white on black and black on white.
   Nested stats follow the nearest background instead of matching an outer black ancestor.
@@ -149,6 +205,24 @@ Sass breakpoints are written from the breakpoint tokens, in rem. Nothing moves a
 16px browser default font size. Five breakpoints were in px; their media queries now
 move with the browser's default font size, while container queries use the fixed 16px
 `:root` size. `$break-page-container` was in em and behaves as before.
+
+#### Typography tokens
+
+`typography.body` is now the Body role: its family, weight, line height and letter spacing, and the five body
+sizes. The paragraph style it held, once a composite, is now five tokens under `typography.paragraph`, and UIDS's
+`p` and `$content-font-size` read them there, so paragraphs render as before. Code outside UIDS that reads the
+old names changes:
+
+| Custom property | Was | Now |
+| --- | --- | --- |
+| `--uiowa-typography-body-font-size` | 1.2rem | Gone: the paragraph's is `--uiowa-typography-paragraph-font-size`; the body sizes are `--uiowa-typography-body-x-small-font-size` to `-x-large-font-size` |
+| `--uiowa-typography-body-line-height` | 1.7 | 1.5, the Body role's; the paragraph's 1.7 is `--uiowa-typography-paragraph-line-height` |
+| `--uiowa-typography-body-font-family`, `-font-weight`, `-letter-spacing` | Roboto, normal, normal | The same values, now the Body role's |
+
+### Deprecated
+
+- `.element--light-intro` and `.element--bold-intro`. Use `.element--intro`, which sets the same style. Both still
+  work, and will be removed in a future major release.
 
 ### Removed
 

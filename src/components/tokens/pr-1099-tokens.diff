@@ -1,0 +1,600 @@
+base 3b114fde2ba35accf24afa52ec17136b0f9c8ab2
+head 9526d6bf9e4a8197573ab1f0cee4c6e4b9effdbf
+diff --git a/src/scss/abstracts/_variables.scss b/src/scss/abstracts/_variables.scss
+index b479e563e8..2614234086 100755
+--- a/src/scss/abstracts/_variables.scss
++++ b/src/scss/abstracts/_variables.scss
+@@ -64,7 +64,7 @@ $h3-font-size: var(--uiowa-typography-font-size-191);
+ $h4-font-size: var(--uiowa-typography-font-size-160);
+ $h5-font-size: var(--uiowa-typography-font-size-140);
+ $h6-font-size: var(--uiowa-typography-font-size-120);
+-$content-font-size: var(--uiowa-typography-body-font-size);
++$content-font-size: var(--uiowa-typography-paragraph-font-size);
+ $label-font-size: 0.9rem;
+ $base-font-size: var(--uiowa-typography-font-size-100);
+ $small-font-size: var(--uiowa-typography-size-small);
+diff --git a/src/scss/base/_paragraph.scss b/src/scss/base/_paragraph.scss
+index d402457478..541876edb3 100755
+--- a/src/scss/base/_paragraph.scss
++++ b/src/scss/base/_paragraph.scss
+@@ -26,10 +26,10 @@ table {
+ }
+ 
+ p {
+-  font-family: var(--uiowa-typography-body-font-family);
+-  font-weight: var(--uiowa-typography-body-font-weight);
+-  font-size: var(--uiowa-typography-body-font-size);
+-  line-height: var(--uiowa-typography-body-line-height);
++  font-family: var(--uiowa-typography-paragraph-font-family);
++  font-weight: var(--uiowa-typography-paragraph-font-weight);
++  font-size: var(--uiowa-typography-paragraph-font-size);
++  line-height: var(--uiowa-typography-paragraph-line-height);
+   @include utilities.margin($bottom: variables.$md, $top: 0);
+ }
+ 
+@@ -181,19 +181,16 @@ hr {
+   }
+ }
+ 
+-.element--bold-intro {
+-  font-family: var(--uiowa-typography-intro-bold-font-family);
+-  font-weight: var(--uiowa-typography-intro-bold-font-weight);
+-  font-size: var(--uiowa-typography-intro-bold-font-size);
+-  line-height: var(--uiowa-typography-intro-bold-line-height);
+-  margin-top: 0;
+-}
+-
++// The intro under a page's title: Subhead 2 at its regular weight, at the Subhead's size. .element--bold-intro and
++// .element--light-intro are deprecated names for .element--intro.
++.element--intro,
++.element--bold-intro,
+ .element--light-intro {
+-  font-family: var(--uiowa-typography-intro-light-font-family);
+-  font-weight: var(--uiowa-typography-intro-light-font-weight);
+-  font-size: var(--uiowa-typography-intro-light-font-size);
+-  line-height: var(--uiowa-typography-intro-light-line-height);
++  font-family: var(--uiowa-typography-subhead-2-font-family);
++  font-weight: var(--uiowa-typography-subhead-2-font-weight);
++  font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-subhead-multiple));
++  line-height: var(--uiowa-type-subhead-2-line-height);
++  letter-spacing: var(--uiowa-typography-subhead-2-letter-spacing);
+   margin-top: 0;
+ }
+ 
+diff --git a/src/scss/base/_type-roles.scss b/src/scss/base/_type-roles.scss
+new file mode 100644
+index 0000000000..793ba89299
+--- /dev/null
++++ b/src/scss/base/_type-roles.scss
+@@ -0,0 +1,200 @@
++// The type roles as classes; src/tokens/README.md says how to use them.
++
++// Each hierarchy sets the body size the roles multiply, its two gaps, and the line heights that differ by hierarchy.
++.type-scale--x-small {
++  --uiowa-type-base: var(--uiowa-typography-body-x-small-font-size);
++  --uiowa-type-space-related: calc(var(--uiowa-typography-body-x-small-font-size) * var(--uiowa-typography-scale-related));
++  --uiowa-type-space-break: calc(var(--uiowa-typography-body-x-small-font-size) * var(--uiowa-typography-scale-break));
++  --uiowa-type-subhead-line-height: var(--uiowa-typography-subhead-x-small-line-height);
++  --uiowa-type-subhead-2-line-height: var(--uiowa-typography-subhead-2-line-height);
++}
++
++.type-scale--small {
++  --uiowa-type-base: var(--uiowa-typography-body-small-font-size);
++  --uiowa-type-space-related: calc(var(--uiowa-typography-body-small-font-size) * var(--uiowa-typography-scale-related));
++  --uiowa-type-space-break: calc(var(--uiowa-typography-body-small-font-size) * var(--uiowa-typography-scale-break));
++  --uiowa-type-subhead-line-height: var(--uiowa-typography-subhead-small-line-height);
++  --uiowa-type-subhead-2-line-height: var(--uiowa-typography-subhead-2-line-height);
++}
++
++// :where() gives the default no specificity, so a hierarchy class on html still overrides it.
++:where(:root),
++.type-scale--medium {
++  --uiowa-type-base: var(--uiowa-typography-body-medium-font-size);
++  --uiowa-type-space-related: calc(var(--uiowa-typography-body-medium-font-size) * var(--uiowa-typography-scale-related));
++  --uiowa-type-space-break: calc(var(--uiowa-typography-body-medium-font-size) * var(--uiowa-typography-scale-break));
++  --uiowa-type-subhead-line-height: var(--uiowa-typography-subhead-line-height);
++  --uiowa-type-subhead-2-line-height: var(--uiowa-typography-subhead-2-line-height);
++}
++
++.type-scale--large {
++  --uiowa-type-base: var(--uiowa-typography-body-large-font-size);
++  --uiowa-type-space-related: calc(var(--uiowa-typography-body-large-font-size) * var(--uiowa-typography-scale-related));
++  --uiowa-type-space-break: calc(var(--uiowa-typography-body-large-font-size) * var(--uiowa-typography-scale-break));
++  --uiowa-type-subhead-line-height: var(--uiowa-typography-subhead-line-height);
++  --uiowa-type-subhead-2-line-height: var(--uiowa-typography-subhead-2-large-line-height);
++}
++
++.type-scale--x-large {
++  --uiowa-type-base: var(--uiowa-typography-body-x-large-font-size);
++  --uiowa-type-space-related: calc(var(--uiowa-typography-body-x-large-font-size) * var(--uiowa-typography-scale-related));
++  --uiowa-type-space-break: calc(var(--uiowa-typography-body-x-large-font-size) * var(--uiowa-typography-scale-break));
++  --uiowa-type-subhead-line-height: var(--uiowa-typography-subhead-line-height);
++  --uiowa-type-subhead-2-line-height: var(--uiowa-typography-subhead-2-x-large-line-height);
++}
++
++// Rich text, where an author picks only a heading level: its headings take the document outline in
++// src/tokens/README.md, and its paragraphs and lists take Body, with no classes, all in the hierarchy it sits in. It
++// styles only its own children, and these rules come before the role classes, so a role class on a heading still wins.
++.type-rich-text {
++  > :where(p, ul, ol) {
++    font-family: var(--uiowa-typography-body-font-family);
++    font-weight: var(--uiowa-typography-body-font-weight);
++    font-size: var(--uiowa-type-base);
++    line-height: var(--uiowa-typography-body-line-height);
++    letter-spacing: var(--uiowa-typography-body-letter-spacing);
++  }
++
++  // The base list rule gives list items their own line height.
++  > :where(ul, ol) li {
++    line-height: inherit;
++  }
++
++  > :where(h1) {
++    font-family: var(--uiowa-typography-headline-font-family);
++    font-weight: var(--uiowa-typography-headline-font-weight);
++    font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-headline-multiple));
++    line-height: var(--uiowa-typography-headline-line-height);
++    letter-spacing: var(--uiowa-typography-headline-letter-spacing);
++  }
++
++  > :where(h2) {
++    font-family: var(--uiowa-typography-subhead-font-family);
++    font-weight: var(--uiowa-typography-subhead-font-weight);
++    font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-subhead-multiple));
++    line-height: var(--uiowa-type-subhead-line-height);
++    letter-spacing: var(--uiowa-typography-subhead-letter-spacing);
++  }
++
++  > :where(h3, h4, h5, h6) {
++    font-family: var(--uiowa-typography-subhead-2-font-family);
++    font-weight: var(--uiowa-typography-subhead-2-font-weight-emphasis);
++    font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-subhead-2-multiple));
++    line-height: var(--uiowa-type-subhead-2-line-height);
++    letter-spacing: var(--uiowa-typography-subhead-2-letter-spacing);
++  }
++
++  // The gaps: Related between blocks, Break below the h1 and above a heading that starts a section. The heading
++  // selectors outweigh the base h2:not(:first-child) margins.
++  > * {
++    margin-block: 0;
++  }
++
++  > * + *,
++  > * + :is(h2, h3, h4, h5, h6) {
++    margin-block-start: var(--uiowa-type-space-related);
++  }
++
++  > h1 + *,
++  > :not(h1, h2, h3, h4, h5, h6) + :is(h2, h3, h4, h5, h6) {
++    margin-block-start: var(--uiowa-type-space-break);
++  }
++}
++
++.type-body {
++  font-family: var(--uiowa-typography-body-font-family);
++  font-weight: var(--uiowa-typography-body-font-weight);
++  font-size: var(--uiowa-type-base);
++  line-height: var(--uiowa-typography-body-line-height);
++  letter-spacing: var(--uiowa-typography-body-letter-spacing);
++}
++
++.type-small-print {
++  font-family: var(--uiowa-typography-small-print-font-family);
++  font-weight: var(--uiowa-typography-small-print-font-weight);
++  font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-small-print-multiple));
++  line-height: var(--uiowa-typography-small-print-line-height);
++  letter-spacing: var(--uiowa-typography-small-print-letter-spacing);
++}
++
++.type-headline {
++  font-family: var(--uiowa-typography-headline-font-family);
++  font-weight: var(--uiowa-typography-headline-font-weight);
++  font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-headline-multiple));
++  line-height: var(--uiowa-typography-headline-line-height);
++  letter-spacing: var(--uiowa-typography-headline-letter-spacing);
++}
++
++.type-headline-6x {
++  font-family: var(--uiowa-typography-headline-6x-font-family);
++  font-weight: var(--uiowa-typography-headline-6x-font-weight);
++  font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-headline-6x-multiple));
++  line-height: var(--uiowa-typography-headline-6x-line-height);
++  letter-spacing: var(--uiowa-typography-headline-6x-letter-spacing);
++}
++
++.type-headline-8x {
++  font-family: var(--uiowa-typography-headline-8x-font-family);
++  font-weight: var(--uiowa-typography-headline-8x-font-weight);
++  font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-headline-8x-multiple));
++  line-height: var(--uiowa-typography-headline-8x-line-height);
++  letter-spacing: var(--uiowa-typography-headline-8x-letter-spacing);
++}
++
++.type-eyebrow {
++  font-family: var(--uiowa-typography-eyebrow-font-family);
++  font-weight: var(--uiowa-typography-eyebrow-font-weight);
++  font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-eyebrow-multiple));
++  line-height: var(--uiowa-typography-eyebrow-line-height);
++  letter-spacing: var(--uiowa-typography-eyebrow-letter-spacing);
++  text-transform: uppercase;
++}
++
++.type-subhead {
++  font-family: var(--uiowa-typography-subhead-font-family);
++  font-weight: var(--uiowa-typography-subhead-font-weight);
++  font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-subhead-multiple));
++  line-height: var(--uiowa-type-subhead-line-height);
++  letter-spacing: var(--uiowa-typography-subhead-letter-spacing);
++}
++
++.type-subhead-2 {
++  font-family: var(--uiowa-typography-subhead-2-font-family);
++  font-weight: var(--uiowa-typography-subhead-2-font-weight);
++  font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-subhead-2-multiple));
++  line-height: var(--uiowa-type-subhead-2-line-height);
++  letter-spacing: var(--uiowa-typography-subhead-2-letter-spacing);
++}
++
++.type-subhead-2 :is(strong, b) {
++  font-weight: var(--uiowa-typography-subhead-2-font-weight-emphasis);
++}
++
++.type-subhead-2--emphasis {
++  font-weight: var(--uiowa-typography-subhead-2-font-weight-emphasis);
++}
++
++// The Labels are one set for every hierarchy.
++.type-label--large {
++  font-family: var(--uiowa-typography-label-large-font-family);
++  font-weight: var(--uiowa-typography-label-large-font-weight);
++  font-size: var(--uiowa-typography-label-large-font-size);
++  line-height: var(--uiowa-typography-label-large-line-height);
++  letter-spacing: var(--uiowa-typography-label-large-letter-spacing);
++}
++
++.type-label--medium {
++  font-family: var(--uiowa-typography-label-medium-font-family);
++  font-weight: var(--uiowa-typography-label-medium-font-weight);
++  font-size: var(--uiowa-typography-label-medium-font-size);
++  line-height: var(--uiowa-typography-label-medium-line-height);
++  letter-spacing: var(--uiowa-typography-label-medium-letter-spacing);
++}
++
++.type-label--small {
++  font-family: var(--uiowa-typography-label-small-font-family);
++  font-weight: var(--uiowa-typography-label-small-font-weight);
++  font-size: var(--uiowa-typography-label-small-font-size);
++  line-height: var(--uiowa-typography-label-small-line-height);
++  letter-spacing: var(--uiowa-typography-label-small-letter-spacing);
++}
+diff --git a/src/scss/uids-core.scss b/src/scss/uids-core.scss
+index 968c4a942e..9948d0b94b 100644
+--- a/src/scss/uids-core.scss
++++ b/src/scss/uids-core.scss
+@@ -6,6 +6,7 @@
+ @forward 'abstracts/utility-classes';
+ @use 'abstracts/local-fonts';
+ @forward 'base/headings';
++@forward 'base/type-roles';
+ @forward 'base/lists';
+ @forward 'base/paragraph';
+ @forward 'layout/grid';
+diff --git a/src/tokens/README.md b/src/tokens/README.md
+index f6ec823964..c41e784eae 100644
+--- a/src/tokens/README.md
++++ b/src/tokens/README.md
+@@ -40,3 +40,76 @@ Adds responsive scaling to a typography token. The generator resolves the token'
+ `fontSize` reference to a CSS `clamp()` value. The extension declares
+ `minViewport` and `maxViewport` as px dimensions, then either a `max` size or
+ `strategy: "exponential"` with a numeric `exponent`.
++
++## Typography roles
++
++The roles are base + multiples. Body X-Small, Small, Medium, Large and X-Large
++(`typography.body.x-small`, `.small`, `.medium`, `.large`, `.x-large`) are the five body sizes, and each names a
++hierarchy. The other roles, the Labels aside, are each held once: their own family, weight, line height and letter
++spacing, and a `multiple`, so a role's size in a hierarchy is that hierarchy's body size times the multiple. A
++hierarchy group inside a role holds only what differs in that hierarchy. The gaps are the body size times
++`typography.scale.related` and `.break`. Use one hierarchy's styles together. Each body size's description lists
++its formats. `typography.headline-6x` and `headline-8x` are bigger steps of the Headline. The Labels are one set
++for every hierarchy, `large`, `medium` and `small`, measured from Body Medium and written as plain sizes, so they
++don't follow it if it changes.
++
++The classes that apply the roles are in `src/scss/base/_type-roles.scss`. A hierarchy class on a piece, a section or a
++component sets the body size every role inside it multiplies. Medium is the default, so a web page needs none:
++
++```html
++<section class="type-scale--large">
++  <h2 class="type-headline">…</h2>
++  <p class="type-body">…</p>
++</section>
++```
++
++The nearest hierarchy class wins, so a section or a component can take its own. The hierarchy classes also
++set the gaps as `--uiowa-type-space-related` and `--uiowa-type-space-break`. The Labels are
++`.type-label--large`, `--medium` and `--small`. Subhead 2's emphasis weight is `.type-subhead-2--emphasis`, on the
++element or on a span for part of a line; a `strong` or `b` inside `.type-subhead-2` takes it too. The intro under a
++page's title is `.element--intro`: Subhead 2 at its regular weight, at the Subhead's size, so the intro is the h2's
++size in every hierarchy. `.element--light-intro` and `.element--bold-intro` are deprecated names for it. A banner's or
++poster's lead-in is the Subhead. Rich text, where an author picks only a heading level, goes inside `.type-rich-text`: see Document outline.
++
++`typography.paragraph` is the style UIDS's base styles set on paragraphs.
++
++The highlight tokens are multiples of the role's own font size, em in CSS. A highlight on chosen
++headline words is a box from cap height to baseline plus `typography.highlight.headline.padding` on all four
++sides, and the headline takes `.leading` more leading per line; the subhead's band runs from
++`typography.highlight.subhead.above` above the baseline to `.below` below it, and `.bleed` past the text at each
++end.
++
++`llms/llms.txt` and `llms/typography.md` give the typography as plain text, for readers that can't run the docs
++site. They're kept by hand: when a typography token changes, change `llms/typography.md` with it.
++
++## Document outline
++
++Where an author picks only a heading level, as in rich text, each level takes a role by default, all in one
++hierarchy. On Medium, the web's:
++
++| Level | Role | Face, weight, size / leading |
++| --- | --- | --- |
++| h1 | Headline Medium | Special Gothic Condensed 600, 76px / 1 |
++| h2 | Subhead Medium | Zilla Slab 600, 38px / 1.1 |
++| h3 to h6 | Subhead 2 Medium, emphasis weight | Roboto 500, 28.5px / 1.3 |
++
++h3 to h6 share Subhead 2 at its emphasis weight, so they read as headings. The text under them is Body Medium, 19px.
++A design picks a role first and a level second, so the outline is only the default, and components keep their own
++heading styles.
++
++Put rich text inside `.type-rich-text`. Its headings then take the outline, and its paragraphs and lists Body, with no
++classes:
++
++```html
++<div class="type-rich-text">
++  <h2>…</h2>
++  <p>…</p>
++</div>
++```
++
++`.type-rich-text` styles only its own children, so components inside it keep their own styles, and a role class on a
++heading still wins. Between blocks the gap is Related; below the h1 and above a heading that starts a section, it is
++Break. Rich text takes the hierarchy it sits in: Medium, unless a hierarchy class on it or around it sets another.
++
++Outside rich text, put each level's role class on it: `type-headline` on the h1, `type-subhead` on the h2, and
++`type-subhead-2 type-subhead-2--emphasis` on h3 to h6.
+diff --git a/src/tokens/primitives/typography.json b/src/tokens/primitives/typography.json
+index 0d9b9bdc57..a8f7725f17 100644
+--- a/src/tokens/primitives/typography.json
++++ b/src/tokens/primitives/typography.json
+@@ -5,7 +5,11 @@
+       "roboto": { "$value": ["Roboto", "sans-serif"] },
+       "zilla-slab": { "$value": ["Zilla Slab", "Zilla-fallback", "serif"] },
+       "lora": { "$value": ["Lora", "serif"] },
+-      "antonio": { "$value": ["Antonio", "Antonio-fallback", "sans-serif"] }
++      "antonio": { "$value": ["Antonio", "Antonio-fallback", "sans-serif"] },
++      "special-gothic-condensed": {
++        "$value": ["Special Gothic Condensed", "Special Gothic", "sans-serif"],
++        "$description": "Foundations' display face."
++      }
+     },
+     "font-weight": {
+       "$type": "fontWeight",
+@@ -18,29 +22,41 @@
+     },
+     "font-size": {
+       "$type": "dimension",
++      "74": { "$value": { "value": 0.7421875, "unit": "rem" } },
++      "79": { "$value": { "value": 0.791667, "unit": "rem" } },
+       "80": { "$value": { "value": 0.8, "unit": "rem" } },
++      "89": { "$value": { "value": 0.890625, "unit": "rem" } },
+       "90": { "$value": { "value": 0.9, "unit": "rem" } },
+       "100": { "$value": { "value": 1, "unit": "rem" } },
++      "104": { "$value": { "value": 1.0390625, "unit": "rem" } },
++      "119": { "$value": { "value": 1.1875, "unit": "rem" } },
+       "120": { "$value": { "value": 1.2, "unit": "rem" } },
+       "130": { "$value": { "value": 1.3, "unit": "rem" } },
+       "140": { "$value": { "value": 1.4, "unit": "rem" } },
+       "145": { "$value": { "value": 1.45, "unit": "rem" } },
++      "150": { "$value": { "value": 1.5, "unit": "rem" } },
+       "160": { "$value": { "value": 1.6, "unit": "rem" } },
+       "165": { "$value": { "value": 1.65, "unit": "rem" } },
+       "191": { "$value": { "value": 1.9125, "unit": "rem" } },
+       "195": { "$value": { "value": 1.95, "unit": "rem" } },
+       "210": { "$value": { "value": 2.1, "unit": "rem" } },
+       "220": { "$value": { "value": 2.2, "unit": "rem" } },
++      "225": { "$value": { "value": 2.25, "unit": "rem" } },
+       "230": { "$value": { "value": 2.3, "unit": "rem" } },
+       "335": { "$value": { "value": 3.35, "unit": "rem" } }
+     },
+     "line-height": {
+       "$type": "number",
+       "$description": "Step names are the value x 100.",
++      "090": { "$value": 0.9 },
++      "100": { "$value": 1 },
++      "110": { "$value": 1.1 },
+       "115": { "$value": 1.15 },
++      "120": { "$value": 1.2 },
+       "125": { "$value": 1.25 },
+       "130": { "$value": 1.3 },
+       "140": { "$value": 1.4 },
++      "150": { "$value": 1.5 },
+       "170": { "$value": 1.7 }
+     },
+     "letter-spacing": {
+diff --git a/src/tokens/semantic/typography.json b/src/tokens/semantic/typography.json
+index 92506c4b49..b464c774dc 100644
+--- a/src/tokens/semantic/typography.json
++++ b/src/tokens/semantic/typography.json
+@@ -145,21 +145,167 @@
+         }
+       }
+     },
++    "paragraph": {
++      "$description": "The style UIDS's base styles set on paragraphs.",
++      "fontFamily": { "$type": "fontFamily", "$value": "{typography.font-family.roboto}" },
++      "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.normal}" },
++      "fontSize": { "$type": "dimension", "$value": "{typography.font-size.120}" },
++      "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" },
++      "lineHeight": { "$type": "number", "$value": "{typography.line-height.170}" }
++    },
+     "body": {
+-      "$type": "typography",
+-      "$value": {
+-        "fontFamily": "{typography.font-family.roboto}",
+-        "fontWeight": "{typography.font-weight.normal}",
+-        "fontSize": "{typography.font-size.120}",
+-        "letterSpacing": "{typography.letter-spacing.normal}",
+-        "lineHeight": "{typography.line-height.170}"
++      "$description": "Body text, and the five body sizes. Each body size names a hierarchy: in it, each role with a multiple is the body size times that multiple, and a hierarchy group inside a role holds the values that differ in that hierarchy.",
++      "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.sans}" },
++      "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.normal}" },
++      "lineHeight": { "$type": "number", "$value": "{typography.line-height.150}" },
++      "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" },
++      "x-small": {
++        "$description": "The X-Small hierarchy's body size: programs, program flyers, mini flyers, brochures and Word documents.",
++        "fontSize": { "$type": "dimension", "$value": "{typography.font-size.79}" }
++      },
++      "small": {
++        "$description": "The Small hierarchy's body size: letters, forms and covers.",
++        "fontSize": { "$type": "dimension", "$value": "{typography.font-size.100}" }
++      },
++      "medium": {
++        "$description": "The Medium hierarchy's body size: web pages and applications, video, the letter-size flyer and poster.",
++        "fontSize": { "$type": "dimension", "$value": "{typography.font-size.119}" }
++      },
++      "large": {
++        "$description": "The Large hierarchy's body size: the digital ad, web banner and 11 × 17 poster.",
++        "fontSize": { "$type": "dimension", "$value": "{typography.font-size.150}" }
++      },
++      "x-large": {
++        "$description": "The X-Large hierarchy's body size: displays and slides read at a distance.",
++        "fontSize": { "$type": "dimension", "$value": "{typography.font-size.225}" }
+       }
+     },
++    "small-print": {
++      "$description": "Small print: credits, dates and fine print under body text.",
++      "multiple": { "$type": "number", "$value": 0.75 },
++      "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.sans}" },
++      "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.normal}" },
++      "lineHeight": { "$type": "number", "$value": "{typography.line-height.150}" },
++      "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
++    },
+     "size": {
+       "$type": "dimension",
+       "$description": "Size modifiers on body text.",
+       "small": { "$value": "{typography.font-size.80}" },
+       "large": { "$value": "{typography.font-size.160}" }
++    },
++    "typeface": {
++      "$type": "fontFamily",
++      "$description": "The faces the type roles point at.",
++      "display": { "$value": "{typography.font-family.special-gothic-condensed}", "$description": "Foundations' display face." },
++      "slab": { "$value": "{typography.font-family.zilla-slab}", "$description": "Foundations' slab face." },
++      "sans": { "$value": "{typography.font-family.roboto}", "$description": "Foundations' sans face." }
++    },
++    "scale": {
++      "$type": "number",
++      "$description": "Multipliers of the body size for the space between text: in each hierarchy, a gap is the body size times one of these.",
++      "related": { "$value": 1.5, "$description": "Between closely related elements, such as a heading and its text." },
++      "break": { "$value": 2, "$description": "Below display type, and between distinct sections or content groups." }
++    },
++    "highlight": {
++      "$type": "number",
++      "$description": "The highlight behind chosen headline words, and the band under a subhead. Each value is a multiple of the role's own font size: em in CSS.",
++      "headline": {
++        "$description": "A gold box with black text, or a black box with white text, behind the chosen words of a headline, Special Gothic Condensed only. The box runs from cap height to baseline; descenders hang below it.",
++        "padding": { "$value": 0.1, "$description": "Added on all four sides of the box, and at the top and bottom of a highlighted headline, so the gaps above and below measure from the box." },
++        "leading": { "$value": 0.05, "$description": "Added to the line height of every line of a highlighted headline." }
++      },
++      "subhead": {
++        "$description": "A band across the lower part of every line of a subhead, Zilla Slab only: gold on white, white on gold, not used on black. It adds no space.",
++        "above": { "$value": 0.32, "$description": "The band's top edge, above the baseline." },
++        "below": { "$value": 0.16, "$description": "The band's bottom edge, below the baseline." },
++        "bleed": { "$value": 0.08, "$description": "How far the band runs past the text at each end." }
++      }
++    },
++    "headline": {
++      "$description": "The title: page titles (h1), banners and posters, once per piece.",
++      "multiple": { "$type": "number", "$value": 4 },
++      "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.display}" },
++      "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
++      "lineHeight": { "$type": "number", "$value": "{typography.line-height.100}" },
++      "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
++    },
++    "headline-6x": {
++      "$description": "The headline for a bigger statement: 6× its hierarchy's body size.",
++      "multiple": { "$type": "number", "$value": 6 },
++      "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.display}" },
++      "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
++      "lineHeight": { "$type": "number", "$value": "{typography.line-height.090}" },
++      "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
++    },
++    "headline-8x": {
++      "$description": "The headline for a bigger statement: 8× its hierarchy's body size.",
++      "multiple": { "$type": "number", "$value": 8 },
++      "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.display}" },
++      "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
++      "lineHeight": { "$type": "number", "$value": "{typography.line-height.090}" },
++      "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
++    },
++    "eyebrow": {
++      "$description": "The label above a title: it names the composition (a series, a unit, an event type); the component sets it in uppercase. The Banner pre-title is an eyebrow; the Card pre-title, a contextual tag, is a Label.",
++      "multiple": { "$type": "number", "$value": 1.5 },
++      "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.display}" },
++      "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
++      "lineHeight": { "$type": "number", "$value": "{typography.line-height.120}" },
++      "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
++    },
++    "subhead": {
++      "$description": "The lead-in under a title, and section heads (h2).",
++      "multiple": { "$type": "number", "$value": 2 },
++      "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.slab}" },
++      "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium-bold}" },
++      "lineHeight": { "$type": "number", "$value": "{typography.line-height.110}" },
++      "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" },
++      "x-small": {
++        "lineHeight": { "$type": "number", "$value": "{typography.line-height.125}" }
++      },
++      "small": {
++        "lineHeight": { "$type": "number", "$value": "{typography.line-height.125}" }
++      }
++    },
++    "subhead-2": {
++      "$description": "Details and short headings (h3 to h6): a date and place, a card's title.",
++      "multiple": { "$type": "number", "$value": 1.5 },
++      "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.sans}" },
++      "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.normal}" },
++      "fontWeightEmphasis": { "$type": "fontWeight", "$value": "{typography.font-weight.medium}", "$description": "Subhead 2's one emphasis: a heading set in Subhead 2, and the line that leads a details group, such as the date. Everything else in Subhead 2 stays at fontWeight." },
++      "lineHeight": { "$type": "number", "$value": "{typography.line-height.130}" },
++      "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" },
++      "large": {
++        "lineHeight": { "$type": "number", "$value": "{typography.line-height.120}" }
++      },
++      "x-large": {
++        "lineHeight": { "$type": "number", "$value": "{typography.line-height.120}" }
++      }
++    },
++    "label": {
++      "$description": "Controls and captions: buttons, form labels, badges, bylines. One set for every hierarchy, measured from Body Medium.",
++      "large": {
++        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.sans}" },
++        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium}" },
++        "fontSize": { "$type": "dimension", "$value": "{typography.font-size.104}" },
++        "lineHeight": { "$type": "number", "$value": "{typography.line-height.140}" },
++        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
++      },
++      "medium": {
++        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.sans}" },
++        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium}" },
++        "fontSize": { "$type": "dimension", "$value": "{typography.font-size.89}" },
++        "lineHeight": { "$type": "number", "$value": "{typography.line-height.140}" },
++        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
++      },
++      "small": {
++        "fontFamily": { "$type": "fontFamily", "$value": "{typography.typeface.sans}" },
++        "fontWeight": { "$type": "fontWeight", "$value": "{typography.font-weight.medium}" },
++        "fontSize": { "$type": "dimension", "$value": "{typography.font-size.74}" },
++        "lineHeight": { "$type": "number", "$value": "{typography.line-height.140}" },
++        "letterSpacing": { "$type": "dimension", "$value": "{typography.letter-spacing.normal}" }
++      }
+     }
+   }
+ }
