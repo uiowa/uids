@@ -71,10 +71,6 @@ page's title is `.element--light-intro` or `.element--bold-intro`, which set the
 weight, at the Subhead's size, so the intro is the h2's size in every hierarchy. A banner's or poster's lead-in is the
 Subhead.
 
-Application pages take the Headline at 3× the body rather than 4×, 57px on Medium. UIDS has no 3× token or class:
-the application's own CSS sets `--uiowa-typography-headline-multiple: 3` on its wrapper, and `.type-headline` inside
-it follows.
-
 `typography.paragraph` is the style UIDS's base styles set on paragraphs.
 
 The highlight tokens are multiples of the role's own font size, em in CSS. A highlight on chosen
