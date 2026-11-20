@@ -23,6 +23,7 @@ system built from UIDS should be able to catch up using this file alone.
 | Breakpoints | `breakpoint.400`, `.600`, `.768`, `.930`, `.980`, `.1200`, `.1350`; `layout.breakpoint.standard` (1350) |
 | Form heights | `form.height.medium` (48px), `form.height.large` (64px) |
 | Colors | `color.border.strong`, `color.border.strong-inverse`; `color.alpha.black-150`, `black-200`, `black-425`, `white-425`; `color.accent.blue` |
+| Color roles | `color.text`, `color.text.supporting`, `.detail`, `.disabled`; `color.background`, `color.background.panel`, `.subtle`; `color.link`; `color.border.field`; `color.indicator`, `color.divider`, `color.hairline` |
 | Data visualization | `color.data-visualization.categorical.1` to `.12`, assigned in numerical order, each pointing at a palette color; the palette gains `color.green-light`, `purple`, `cyan`, `olive`, `rose`, `gray-warm`, and `gray-cool` for them |
 | Logo | `logo.minWidth` (85px) |
 
@@ -31,6 +32,17 @@ writes them to Sass, in rem.
 
 - Storybook Tokens pages for Borders and shapes, Shadows, and Motion. Space and layout
   gains form heights, the logo minimum, and the breakpoints.
+
+- Storybook Showcase › Simple page, with a Dark mode story on the color roles: the logo is a
+  gold tab with black IOWA, and the bar, menu and page are black, split by neutral-500
+  dividers. The brand bar and menu rules are the story's own, until those components use
+  the roles.
+
+- `dist/qualtrics.css`, a theme for Qualtrics surveys (New Survey Taking Experience), built
+  from `src/scss/qualtrics.scss`. It carries the tokens and draws the survey with the IOWA
+  bar's sizes and the form and button mixins, in light and dark. Rebuild and paste it into
+  the theme again after a design system change. See "Qualtrics theme" in the README.
+  Storybook Showcase › Qualtrics survey shows it on a stand-in for a survey page.
 
 ### Changed
 
@@ -57,6 +69,44 @@ directly rather than through `--uiowa-color-link`.
 
 `--uiowa-color-blue-dark` changes to `#2C6ECA`, and `--uiowa-color-link-inverse` now
 points at `--uiowa-color-blue`.
+
+#### Dark mode
+
+The page uses the color roles: `body` paints `color.background` behind `color.text`, and
+links use `color.link`. Light mode looks the same: before, the body had no background and
+its text fell back to the browser's black.
+
+The color roles follow the operating system's dark mode (`prefers-color-scheme`);
+`data-theme="light"` or `data-theme="dark"` on the root element fixes the mode. In dark mode,
+text is `neutral.100`, supporting text `neutral.200`, detail text `neutral.300`, the page and
+panels `neutral.900`, subtle fills `neutral.800`, dividers and hairlines `neutral.500`, and
+links `link.inverse`; `color-scheme` turns dark, so form controls and scrollbars follow.
+Field borders are `neutral.400` in light mode and `neutral.300` in dark; the indicator is
+`neutral.500` and `neutral.300`. Disabled text keeps one value in both modes. Forms use the
+roles (see Forms). Other components don't yet: in dark mode the page, its text, and its
+links change, and those components keep their light colors.
+
+#### Forms
+
+Form fields, labels and help text use the color roles, so a form follows dark mode.
+
+| Where | Was | Now |
+| --- | --- | --- |
+| Field border | `--uiowa-color-neutral-200` | `color.border.field`: `neutral.400`, and `neutral.300` in dark |
+| Field background | `#FAFAFB`, and `#FEFEFE` on focus | `color.background` |
+| Field text and labels | `--uiowa-color-brand-black` | `color.text` |
+| Help text (`.form-item__description`) | the page's text color | `color.text.supporting` |
+| Text in a field with an error | the field's text color | `color.text.default`, because the error wash is light in both modes |
+| Multi-select background | `color.background.white` | `color.background` |
+| Chosen option in a multi-select | `color.text.default` | `color.text` |
+
+The section border (`color.divider`) and the details background (`color.background.panel`)
+keep their light values and gain dark ones. Disabled and read-only fields, toggles, and the
+focus glow keep their fixed grays.
+
+The field, label, help text, textarea and form button rules moved into mixins in
+`src/scss/abstracts/_form-mixins.scss`. The compiled CSS for them is the same apart from
+the values above.
 
 #### Status colors
 
@@ -89,7 +139,7 @@ the brand footer share one set of grays. Each moves to the nearest neutral step.
 | Footer icon links | `#999` | `--uiowa-color-neutral-300` |
 | Footer separator | `#5D5656` | `--uiowa-color-neutral-500` |
 
-The form field background stays `#FAFAFB`. The ramp has no step between white and `#F3F3F3`.
+The form field background was `#FAFAFB` here and is now `color.background` (see Forms).
 
 Text still clears 4.5:1: footer icon links are 6.55:1 on black.
 
