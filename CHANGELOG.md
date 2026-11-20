@@ -70,7 +70,8 @@ that leads a details group. A highlight on chosen headline words is a box from c
   the container for rich text: there, with no classes, the h1 is the Headline, the h2 the Subhead, and h3 to h6
   Subhead 2 at its emphasis weight, all in the hierarchy the rich text sits in, Medium by default; paragraphs
   and lists are Body; and the gaps between blocks are Related, with Break below the h1 and above a heading that
-  starts a section.
+  starts a section. `.type-rich-text--compact` drops the gap under a subhead, for a compact layout of many short
+  groups.
 - `.element--intro`, the intro under a page's title: Subhead 2 at its regular weight at the Subhead's size, in the
   hierarchy it sits in, Roboto 400 at 38px (2.375rem) / 1.3 on Medium, the h2's size. It replaces
   `.element--light-intro` and `.element--bold-intro`, which set the same style: see Deprecated.
