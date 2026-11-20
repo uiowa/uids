@@ -78,6 +78,8 @@ that leads a details group. A highlight on chosen headline words is a box from c
   site, such as a web chat: the hierarchy each format takes, each hierarchy's styles in px and pt with
   their classes, its gaps, and one Google Fonts link for the faces. They're kept by hand in `llms/`, and
   Storybook serves them at its root.
+- Storybook Tokens (typography) pages: Document outline, Token diff, Formats, Hierarchy, Highlight, Landing Page,
+  Make it your day, Before and After, Design system research, and Applying typography.
 - Storybook Tokens pages for Borders and shapes, Shadows, and Motion. Space and layout
   gains form heights, the logo minimum, and the breakpoints.
 
