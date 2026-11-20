@@ -43,6 +43,64 @@
   --uiowa-type-subhead-2-line-height: var(--uiowa-typography-subhead-2-x-large-line-height);
 }
 
+// Rich text, where an author picks only a heading level: its headings take the document outline in
+// src/tokens/README.md, and its paragraphs and lists take Body, with no classes, all in the hierarchy it sits in. It
+// styles only its own children, and these rules come before the role classes, so a role class on a heading still wins.
+.type-rich-text {
+  > :where(p, ul, ol) {
+    font-family: var(--uiowa-typography-body-font-family);
+    font-weight: var(--uiowa-typography-body-font-weight);
+    font-size: var(--uiowa-type-base);
+    line-height: var(--uiowa-typography-body-line-height);
+    letter-spacing: var(--uiowa-typography-body-letter-spacing);
+  }
+
+  // The base list rule gives list items their own line height.
+  > :where(ul, ol) li {
+    line-height: inherit;
+  }
+
+  > :where(h1) {
+    font-family: var(--uiowa-typography-headline-font-family);
+    font-weight: var(--uiowa-typography-headline-font-weight);
+    font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-headline-multiple));
+    line-height: var(--uiowa-typography-headline-line-height);
+    letter-spacing: var(--uiowa-typography-headline-letter-spacing);
+  }
+
+  > :where(h2) {
+    font-family: var(--uiowa-typography-subhead-font-family);
+    font-weight: var(--uiowa-typography-subhead-font-weight);
+    font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-subhead-multiple));
+    line-height: var(--uiowa-type-subhead-line-height);
+    letter-spacing: var(--uiowa-typography-subhead-letter-spacing);
+  }
+
+  > :where(h3, h4, h5, h6) {
+    font-family: var(--uiowa-typography-subhead-2-font-family);
+    font-weight: var(--uiowa-typography-subhead-2-font-weight-emphasis);
+    font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-subhead-2-multiple));
+    line-height: var(--uiowa-type-subhead-2-line-height);
+    letter-spacing: var(--uiowa-typography-subhead-2-letter-spacing);
+  }
+
+  // The gaps: Related between blocks, Break below the h1 and above a heading that starts a section. The heading
+  // selectors outweigh the base h2:not(:first-child) margins.
+  > * {
+    margin-block: 0;
+  }
+
+  > * + *,
+  > * + :is(h2, h3, h4, h5, h6) {
+    margin-block-start: var(--uiowa-type-space-related);
+  }
+
+  > h1 + *,
+  > :not(h1, h2, h3, h4, h5, h6) + :is(h2, h3, h4, h5, h6) {
+    margin-block-start: var(--uiowa-type-space-break);
+  }
+}
+
 .type-body {
   font-family: var(--uiowa-typography-body-font-family);
   font-weight: var(--uiowa-typography-body-font-weight);

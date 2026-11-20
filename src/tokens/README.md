@@ -69,7 +69,7 @@ set the gaps as `--uiowa-type-space-related` and `--uiowa-type-space-break`. The
 element or on a span for part of a line; a `strong` or `b` inside `.type-subhead-2` takes it too. The intro under a
 page's title is `.element--intro`: Subhead 2 at its regular weight, at the Subhead's size, so the intro is the h2's
 size in every hierarchy. `.element--light-intro` and `.element--bold-intro` are deprecated names for it. A banner's or
-poster's lead-in is the Subhead.
+poster's lead-in is the Subhead. Rich text, where an author picks only a heading level, goes inside `.type-rich-text`: see Document outline.
 
 `typography.paragraph` is the style UIDS's base styles set on paragraphs.
 
@@ -81,3 +81,35 @@ end.
 
 `llms/llms.txt` and `llms/typography.md` give the typography as plain text, for readers that can't run the docs
 site. They're kept by hand: when a typography token changes, change `llms/typography.md` with it.
+
+## Document outline
+
+Where an author picks only a heading level, as in rich text, each level takes a role by default, all in one
+hierarchy. On Medium, the web's:
+
+| Level | Role | Face, weight, size / leading |
+| --- | --- | --- |
+| h1 | Headline Medium | Special Gothic Condensed 600, 76px / 1 |
+| h2 | Subhead Medium | Zilla Slab 600, 38px / 1.1 |
+| h3 to h6 | Subhead 2 Medium, emphasis weight | Roboto 500, 28.5px / 1.3 |
+
+h3 to h6 share Subhead 2 at its emphasis weight, so they read as headings. The text under them is Body Medium, 19px.
+A design picks a role first and a level second, so the outline is only the default, and components keep their own
+heading styles.
+
+Put rich text inside `.type-rich-text`. Its headings then take the outline, and its paragraphs and lists Body, with no
+classes:
+
+```html
+<div class="type-rich-text">
+  <h2>…</h2>
+  <p>…</p>
+</div>
+```
+
+`.type-rich-text` styles only its own children, so components inside it keep their own styles, and a role class on a
+heading still wins. Between blocks the gap is Related; below the h1 and above a heading that starts a section, it is
+Break. Rich text takes the hierarchy it sits in: Medium, unless a hierarchy class on it or around it sets another.
+
+Outside rich text, put each level's role class on it: `type-headline` on the h1, `type-subhead` on the h2, and
+`type-subhead-2 type-subhead-2--emphasis` on h3 to h6.

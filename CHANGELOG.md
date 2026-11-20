@@ -64,9 +64,13 @@ that leads a details group. A highlight on chosen headline words is a box from c
   is the default and needs no class, and the nearest hierarchy class wins. A role class, `.type-headline`
   through `.type-small-print`, is its role's family, weight, size, line height and letter spacing, the size
   being the body size times the role's multiple. The Labels are `.type-label--large`, `--medium` and
-  `--small`. No class sets a margin. The eyebrow class adds uppercase. `.type-subhead-2--emphasis` sets
+  `--small`. No role class sets a margin. The eyebrow class adds uppercase. `.type-subhead-2--emphasis` sets
   Subhead 2's emphasis weight, and a `strong` or `b` inside `.type-subhead-2` takes it too. The classes are
-  written in `src/scss/base/_type-roles.scss`. Headings keep their own styles.
+  written in `src/scss/base/_type-roles.scss`. Headings keep their own styles, except inside `.type-rich-text`,
+  the container for rich text: there, with no classes, the h1 is the Headline, the h2 the Subhead, and h3 to h6
+  Subhead 2 at its emphasis weight, all in the hierarchy the rich text sits in, Medium by default; paragraphs
+  and lists are Body; and the gaps between blocks are Related, with Break below the h1 and above a heading that
+  starts a section.
 - `.element--intro`, the intro under a page's title: Subhead 2 at its regular weight at the Subhead's size, in the
   hierarchy it sits in, Roboto 400 at 38px (2.375rem) / 1.3 on Medium, the h2's size. It replaces
   `.element--light-intro` and `.element--bold-intro`, which set the same style: see Deprecated.
