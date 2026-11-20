@@ -1,0 +1,355 @@
+// University of Iowa theme for Qualtrics surveys (New Survey Taking Experience).
+// Compiles to dist/qualtrics.css. See "Qualtrics theme" in README.md.
+
+@use 'sass:list';
+@use 'sass:math';
+@use 'abstracts/variables';
+@use 'abstracts/utilities';
+@use 'abstracts/form-mixins';
+@use 'abstracts/logo-art';
+@use 'abstracts/tokens-dark-mixin-generated' as dark-tokens;
+@use 'abstracts/tokens-generated';
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400;1,700&family=Antonio:wght@300;700&display=swap');
+
+// Qualtrics' own measures. The theme caps the canvas to its text column.
+$qx-phone: 30rem;
+$qx-gutter: 3rem;
+$qx-gutter-phone: 1rem;
+$qx-canvas: 45rem + $qx-gutter * 2;
+
+$wordmark-ratio: math.div(logo-art.$iowa-wordmark-width, logo-art.$iowa-wordmark-height);
+
+// Qualtrics has most of its color variables twice, as --name and --name-on-bg.
+@mixin qx-pair($name, $value) {
+  --#{$name}: #{$value};
+  --#{$name}-on-bg: #{$value};
+}
+
+// ---- Color modes ---------------------------------------------------------------------
+// Qualtrics marks the mode with data-mode on the root element and follows the operating
+// system when the attribute is absent. The dark values are the design system's.
+
+@mixin dark {
+  @include dark-tokens.dark-mode;
+  --qx-bar: #{variables.$secondary};
+  --qx-bar-line: var(--uiowa-color-hairline);
+  --qx-tab: #{variables.$primary};
+  --qx-iowa: #{variables.$secondary};
+}
+
+// Qualtrics declares its variables on :root[data-mode="dark"] and :root:not([data-mode]).
+html:root:root {
+  @include form-mixins.form-vars;
+
+  --qx-bar: #{variables.$primary};
+  --qx-bar-line: transparent;
+  --qx-tab: #{variables.$secondary};
+  --qx-iowa: #{variables.$uiowa-gold};
+
+  --qx-bar-height: #{variables.$iowa-bar-height};
+  --qx-tab-width: #{variables.$logo-tab-width};
+  --qx-tab-height: #{variables.$logo-tab-height};
+  --qx-tab-padding-top: #{list.nth(variables.$logo-tab-padding-in-bar, 1)};
+  --qx-tab-padding-side: #{list.nth(variables.$logo-tab-padding-in-bar, 2)};
+  --qx-iowa-height: #{variables.$logo-icon-height};
+  --qx-iowa-width: #{variables.$logo-icon-height * $wordmark-ratio};
+
+  --qx-gutter: #{$qx-gutter};
+  --qx-inset: max(var(--qx-gutter), calc((100% - #{$qx-canvas}) / 2 + var(--qx-gutter)));
+  --qx-bar-gap: var(--uiowa-space-300);
+
+  // Qualtrics' variables, pointed at UIDS.
+  --background-color: var(--uiowa-color-background);
+  --questions-container-color: var(--uiowa-color-background);
+  --font-family: #{variables.$font-family-sans-serif};
+  --question-text-size: var(--form-label-font-size);
+  --question-text-weight: #{variables.$font-weight-bold};
+  --answer-text-size: var(--form-input-font-size);
+  --answer-text-weight: #{variables.$font-weight-normal};
+
+  @include qx-pair(palettes-text-1, var(--uiowa-color-text));
+  @include qx-pair(palettes-text-2, var(--uiowa-color-text-supporting));
+  @include qx-pair(palettes-text-3, var(--uiowa-color-text-supporting));
+  @include qx-pair(palettes-text-4, var(--uiowa-color-text-detail));
+  @include qx-pair(palettes-text-5, var(--uiowa-color-text-disabled));
+
+  @include qx-pair(palettes-bg-1, var(--uiowa-color-background));
+  @include qx-pair(palettes-bg-2, var(--uiowa-color-background-panel));
+  @include qx-pair(palettes-bg-3, var(--uiowa-color-background-subtle));
+  @include qx-pair(palettes-bg-4, var(--uiowa-color-background-subtle));
+  @include qx-pair(palettes-bg-5, var(--uiowa-color-text));
+
+  @include qx-pair(palettes-neutral-1, var(--uiowa-color-background-subtle));
+  @include qx-pair(palettes-neutral-2, var(--uiowa-color-background-subtle));
+  @include qx-pair(palettes-neutral-3, var(--uiowa-color-divider));
+  @include qx-pair(palettes-neutral-4, var(--uiowa-color-divider));
+  @include qx-pair(palettes-neutral-5, var(--uiowa-color-border-field));
+
+  @include qx-pair(palettes-error-1, var(--uiowa-color-danger));
+  @include qx-pair(palettes-info-1, var(--uiowa-color-link));
+  @include qx-pair(palettes-info-2, var(--uiowa-color-link));
+  @include qx-pair(palettes-warn-1, var(--uiowa-color-background-subtle));
+  @include qx-pair(palettes-warn-2, var(--uiowa-color-warning));
+  @include qx-pair(palettes-correct-1, var(--uiowa-color-success));
+
+  --mixes-primary-1: #{variables.$primary};
+  --mixes-primary-2: #{variables.$secondary};
+  --mixes-primary-for-active-1: var(--uiowa-color-background-subtle);
+  --mixes-primary-for-active-2: var(--uiowa-color-text);
+  --mixes-primary-text-on-white-1: var(--uiowa-color-background);
+  --mixes-primary-text-on-white-2: var(--uiowa-color-text);
+  --mixes-disabled-text-on-input-1: var(--uiowa-color-text-disabled);
+  --mixes-disabled-text-on-input-2: var(--uiowa-color-background-subtle);
+  --mixes-secondary-button-1: var(--uiowa-color-background-subtle);
+  --mixes-secondary-button-2: var(--uiowa-color-text);
+  --mixes-input-neutral-border-1: var(--uiowa-color-hairline);
+  --mixes-input-neutral-border-2: var(--uiowa-color-border-field);
+
+  @include qx-pair(colors-primary-as-text, var(--uiowa-color-text));
+  @include qx-pair(colors-primary-as-control, var(--uiowa-color-text));
+  @include qx-pair(colors-primary-for-hover, var(--uiowa-color-background-subtle));
+  @include qx-pair(colors-primary-for-active, var(--uiowa-color-background-subtle));
+  @include qx-pair(colors-primary-for-selected, var(--uiowa-color-background-subtle));
+  @include qx-pair(colors-primary-for-matrix-hover, var(--uiowa-color-background-subtle));
+  @include qx-pair(colors-primary-for-selected-hover, var(--uiowa-color-background-subtle));
+  @include qx-pair(colors-primary-for-sbs-column-hover, var(--uiowa-color-background-subtle));
+  @include qx-pair(colors-primary-for-focus, var(--uiowa-color-text));
+  @include qx-pair(colors-primary-for-border, var(--uiowa-color-hairline));
+}
+
+// Phones get the narrow IOWA bar.
+@media (max-width: #{$qx-phone}) {
+  html:root:root {
+    --qx-bar-height: #{variables.$iowa-bar-narrow-height};
+    --qx-tab-width: #{variables.$logo-tab-narrow-width};
+    --qx-tab-height: #{variables.$logo-tab-narrow-height};
+    --qx-tab-padding-top: #{variables.$logo-tab-narrow-padding};
+    --qx-tab-padding-side: #{variables.$logo-tab-narrow-padding};
+    --qx-iowa-height: #{variables.$logo-icon-narrow-height};
+    --qx-iowa-width: #{variables.$logo-icon-narrow-height * $wordmark-ratio};
+    --qx-gutter: #{$qx-gutter-phone};
+    --qx-bar-gap: var(--uiowa-space-200);
+  }
+}
+
+html:root:root[data-mode='dark'] {
+  @include dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:root:root:not([data-mode]) {
+    @include dark;
+  }
+}
+
+// ---- IOWA bar ------------------------------------------------------------------------
+// The bar is Qualtrics' logo container at full width. Its side padding puts the tab on
+// the left edge of the content column.
+
+#page #logo-container {
+  position: relative;
+  z-index: 2;
+  align-items: flex-start;
+  width: 100%;
+  height: var(--qx-bar-height);
+  padding: 0 var(--qx-inset);
+  background: var(--qx-bar);
+  box-shadow: inset 0 calc(var(--uiowa-stroke-width-default) * -1) 0 var(--qx-bar-line);
+
+  // The tab, drawn behind the wordmark. It hangs below the bar as it does in UIDS.
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: var(--qx-inset);
+    width: var(--qx-tab-width);
+    height: var(--qx-tab-height);
+    background: var(--qx-tab);
+  }
+
+  &.position-center::before {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &.position-right::before {
+    right: var(--qx-inset);
+    left: auto;
+  }
+
+  img {
+    flex: none;
+    box-sizing: border-box;
+    width: var(--qx-iowa-width);
+    max-width: none;
+    // Qualtrics sets img { height: auto !important }.
+    height: var(--qx-iowa-height) !important;
+    max-height: none;
+    margin: var(--qx-tab-padding-top) var(--qx-tab-padding-side) 0;
+    // Hides the logo uploaded to the theme.
+    padding: 0 0 0 var(--qx-iowa-width);
+    background-color: var(--qx-iowa);
+    -webkit-mask: logo-art.iowa-wordmark-mask() center / 100% 100% no-repeat;
+    mask: logo-art.iowa-wordmark-mask() center / 100% 100% no-repeat;
+  }
+}
+
+// ---- Column ---------------------------------------------------------------------------
+
+#page #survey-canvas,
+#page #header-container,
+#page #footer,
+#page #progress-bar.floating {
+  max-width: $qx-canvas;
+}
+
+#page #header-container,
+#page #footer,
+#page #navigation,
+#page #progress-bar.floating {
+  padding-right: var(--qx-gutter);
+  padding-left: var(--qx-gutter);
+}
+
+// The tab hangs below the bar into this space.
+#page #progress-bar.floating {
+  margin-top: var(--qx-bar-gap);
+}
+
+#page #survey-canvas {
+  padding-top: var(--uiowa-space-150);
+}
+
+// ---- Text ------------------------------------------------------------------------------
+
+// Survey title: the Header field.
+#page #header {
+  @include utilities.h3;
+  color: var(--uiowa-color-text);
+}
+
+// A question is the label of its answers.
+#page .question .question-display {
+  @include form-mixins.form-label;
+}
+
+#page main a {
+  color: var(--uiowa-color-link);
+}
+
+// ---- Choices ---------------------------------------------------------------------------
+// As .form-item--radio and .form-item--checkbox: a plain list, the label beside its mark.
+// Qualtrics hides the real input and draws the mark itself, so the mark takes the field
+// border, and the indicator color once chosen.
+
+#page .mc .choices .choice {
+  margin-bottom: variables.$mobile-width-gutter;
+}
+
+#page .mc .choice .choice-label {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+
+#page .mc .choice-content {
+  padding-inline: var(--form-item-margin) 0;
+}
+
+#page .mc .choice.focused .radio-button {
+  outline: var(--uiowa-stroke-width-focused) solid var(--uiowa-color-text);
+  outline-offset: 2px;
+}
+
+#page .radio-button.selected {
+  border-color: var(--uiowa-color-indicator);
+  background-color: var(--uiowa-color-indicator);
+}
+
+#page .radio-button svg {
+  fill: var(--uiowa-color-background);
+  stroke: var(--uiowa-color-background);
+}
+
+// ---- Fields ----------------------------------------------------------------------------
+
+#page .question:is(.te, .form) :is(.text-input, textarea) {
+  @include form-mixins.form-field;
+  outline-offset: 0;
+}
+
+#page .question:is(.te, .form) textarea {
+  @include form-mixins.form-textarea;
+}
+
+// ---- Buttons ---------------------------------------------------------------------------
+
+#page #navigation .navigation-button {
+  @include utilities.bttn;
+  @include utilities.border;
+  @include form-mixins.form-button;
+  border-radius: 0;
+}
+
+#page #navigation #next-button {
+  @include utilities.bttn--primary;
+  @include utilities.bttn--focus;
+  border-color: variables.$primary;
+
+  &::after {
+    background-color: variables.$secondary;
+  }
+
+  // Qualtrics' default label: the arrow character U+2192 between two spaces.
+  &[aria-label=' \2192  '] {
+    span {
+      display: none;
+    }
+
+    svg {
+      margin: 0;
+    }
+  }
+}
+
+#page #navigation #previous-button {
+  @include utilities.bttn--tertiary;
+  background: var(--uiowa-color-background-white);
+}
+
+// ---- Progress bar ----------------------------------------------------------------------
+
+// Two rows: the label, then the track with the percentage beside it.
+#page #progress-bar.progress-bar-verbose {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--uiowa-space-25) var(--uiowa-space-75);
+}
+
+#page #progress-bar #progress-bar-fill {
+  grid-area: 2 / 1;
+  border: 0;
+  background: linear-gradient(var(--uiowa-color-border-field), var(--uiowa-color-border-field)) left bottom / 100% var(--uiowa-stroke-width-default) no-repeat;
+}
+
+#page #progress-bar #progress-bar-fill div {
+  height: var(--uiowa-stroke-width-8);
+  background-color: var(--uiowa-color-text);
+  box-shadow: none;
+}
+
+#page #progress-bar #progress-bar-text {
+  display: contents;
+  font-size: variables.$label-font-size;
+  line-height: 1.4;
+  color: var(--uiowa-color-text-detail);
+}
+
+#page #progress-bar #progress-bar-percent {
+  grid-area: 2 / 2;
+  color: var(--uiowa-color-text);
+}

@@ -38,6 +38,12 @@ writes them to Sass, in rem.
   dividers. The brand bar and menu rules are the story's own, until those components use
   the roles.
 
+- `dist/qualtrics.css`, a theme for Qualtrics surveys (New Survey Taking Experience), built
+  from `src/scss/qualtrics.scss`. It carries the tokens and draws the survey with the IOWA
+  bar's sizes and the form and button mixins, in light and dark. Rebuild and paste it into
+  the theme again after a design system change. See "Qualtrics theme" in the README.
+  Storybook Showcase › Qualtrics survey shows it on a stand-in for a survey page.
+
 ### Changed
 
 - Stat text inherits the nearest background’s text color. Titles on black change from
@@ -76,13 +82,35 @@ text is `neutral.100`, supporting text `neutral.200`, detail text `neutral.300`,
 panels `neutral.900`, subtle fills `neutral.800`, dividers and hairlines `neutral.500`, and
 links `link.inverse`; `color-scheme` turns dark, so form controls and scrollbars follow.
 Field borders are `neutral.400` in light mode and `neutral.300` in dark; the indicator is
-`neutral.500` and `neutral.300`. Disabled text keeps one value in both modes. Components
-don't use the roles yet: in dark mode the page, its text, and its links change, and
-components keep their light colors.
+`neutral.500` and `neutral.300`. Disabled text keeps one value in both modes. Forms use the
+roles (see Forms). Other components don't yet: in dark mode the page, its text, and its
+links change, and those components keep their light colors.
 
 The build also writes the dark values as a Sass mixin, `dark-mode` in
 `src/scss/abstracts/_tokens-dark-mixin-generated.scss`, for a stylesheet that marks its
 color mode some other way than `data-theme`.
+
+#### Forms
+
+Form fields, labels and help text use the color roles, so a form follows dark mode.
+
+| Where | Was | Now |
+| --- | --- | --- |
+| Field border | `--uiowa-color-neutral-200` | `color.border.field`: `neutral.400`, and `neutral.300` in dark |
+| Field background | `#FAFAFB`, and `#FEFEFE` on focus | `color.background` |
+| Field text and labels | `--uiowa-color-brand-black` | `color.text` |
+| Help text (`.form-item__description`) | the page's text color | `color.text.supporting` |
+| Text in a field with an error | the field's text color | `color.text.default`, because the error wash is light in both modes |
+| Multi-select background | `color.background.white` | `color.background` |
+| Chosen option in a multi-select | `color.text.default` | `color.text` |
+
+The section border (`color.divider`) and the details background (`color.background.panel`)
+keep their light values and gain dark ones. Disabled and read-only fields, toggles, and the
+focus glow keep their fixed grays.
+
+The field, label, help text, textarea and form button rules moved into mixins in
+`src/scss/abstracts/_form-mixins.scss`. The compiled CSS for them is the same apart from
+the values above.
 
 #### Status colors
 
@@ -115,7 +143,7 @@ the brand footer share one set of grays. Each moves to the nearest neutral step.
 | Footer icon links | `#999` | `--uiowa-color-neutral-300` |
 | Footer separator | `#5D5656` | `--uiowa-color-neutral-500` |
 
-The form field background stays `#FAFAFB`. The ramp has no step between white and `#F3F3F3`.
+The form field background was `#FAFAFB` here and is now `color.background` (see Forms).
 
 Text still clears 4.5:1: footer icon links are 6.55:1 on black.
 

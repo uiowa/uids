@@ -1,0 +1,103 @@
+@use 'variables';
+
+// The parts of a form that more than one stylesheet draws: .form in
+// components/form.scss and the Qualtrics theme in qualtrics.scss.
+
+// Include on an ancestor of whatever uses the mixins below: they read these properties.
+@mixin form-vars {
+  --form-input-bg: var(--uiowa-color-background);
+  --form-input-bg-disabled: var(--uiowa-color-neutral-175);
+  --form-input-fg-disabled: #484741;
+  --form-details-bg: var(--uiowa-color-background-panel);
+  --form-input-radius: var(--uiowa-radius-3);
+  --form-label-font-size: 1rem;
+  --form-label-color: var(--uiowa-color-text);
+  --form-text-color: var(--uiowa-color-text);
+  --form-input-padding: 0.5rem;
+  --form-input-height: var(--uiowa-form-height-medium);
+  --form-input-font-size: 1rem;
+  --form-button-font-size: 1.05rem;
+  --form-item-margin: 1rem;
+  --form-section-border-color: var(--uiowa-color-divider);
+  --form-input-outline-color: var(--uiowa-color-border-field);
+}
+
+// A text input, textarea or select.
+@mixin form-field {
+  appearance: none;
+  background-color: var(--form-input-bg);
+  border: none;
+  border-radius: var(--form-input-radius);
+  box-shadow: var(--uiowa-shadow-inset);
+  box-sizing: border-box;
+  color: var(--uiowa-color-text);
+  display: block;
+  font-family: inherit;
+  font-size: var(--form-input-font-size);
+  font-weight: normal;
+  height: var(--form-input-height);
+  line-height: 1.5;
+  margin: 0;
+  outline: var(--uiowa-stroke-width-default) solid var(--form-input-outline-color);
+  padding: var(--form-input-padding);
+  transition: box-shadow var(--uiowa-motion-duration-fast) var(--uiowa-easing-standard), border-color var(--uiowa-motion-duration-fast) var(--uiowa-easing-standard);
+  width: 100%;
+
+  &:focus {
+    --form-input-outline-color: var(--uiowa-color-neutral-300);
+    box-shadow: 0 0 5px 2px variables.$gray-light;
+    outline-width: var(--uiowa-stroke-width-focused);
+    transition: box-shadow var(--uiowa-motion-duration-fast) var(--uiowa-easing-standard), border-color var(--uiowa-motion-duration-fast) var(--uiowa-easing-standard);
+  }
+
+  // Error styles.
+  &.form--error {
+    --form-input-outline-color: #{variables.$danger};
+    --form-input-bg: #{variables.$danger-light};
+    color: var(--uiowa-color-text-default);
+
+    &:focus {
+      box-shadow: 0 0 5px 2px variables.$danger-light;
+    }
+  }
+}
+
+@mixin form-textarea {
+  height: auto;
+  min-height: 100px;
+  overflow: auto;
+  max-width: 100%;
+}
+
+// A button in a form takes the fields' height.
+@mixin form-button {
+  border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-family: variables.$font-family-caps-bold;
+  font-size: var(--form-button-font-size);
+  height: var(--form-input-height);
+  box-sizing: border-box;
+  padding-block: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin form-label {
+  color: var(--form-label-color);
+  display: block;
+  font-size: var(--form-label-font-size);
+  font-weight: variables.$font-weight-bold;
+  margin-bottom: 0.5rem;
+}
+
+@mixin form-description {
+  color: var(--uiowa-color-text-supporting);
+  font-size: var(--form-label-font-size);
+  line-height: 1.4;
+  clear: both;
+  margin: variables.$xsm 0 0;
+  flex-basis: 100%;
+}

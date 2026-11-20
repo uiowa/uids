@@ -65,6 +65,27 @@ yarn test:e2e # or `npm run test:e2e:ci` for headless testing
 yarn lint
 ```
 
+## Qualtrics theme
+
+`yarn build` writes `dist/qualtrics.css`, the University theme for Qualtrics surveys (New
+Survey Taking Experience). Its source, `src/scss/qualtrics.scss`, reads the tokens, the IOWA
+bar's sizes, and the form and button mixins, so the survey follows the design system. Only
+what is specific to Qualtrics is written in that file: its variables and its selectors.
+
+To update the theme after a design system change:
+
+1. Run `yarn build`.
+2. In Qualtrics, replace the theme's custom CSS with the contents of `dist/qualtrics.css`.
+3. Check the theme's preview in light and dark, on desktop and on a phone.
+
+Storybook Showcase › Qualtrics survey shows the theme on a stand-in for a survey page. The
+stand-in does not carry Qualtrics' own stylesheet, so step 3 is the real check.
+
+In Qualtrics, keep a logo uploaded to the theme: the theme draws the IOWA tab itself, and the
+uploaded logo supplies the alternative text. With Qualtrics' default label, an arrow, the Next
+button shows Qualtrics' arrow icon alone. When a survey sets its own text, the button shows
+that text with the icon after it.
+
 ## Contributing
 While we have not done a perfect job of applying any of these standards, we recommend the following resources as a starting point for best practices that are observed by this project:
 * Writing CSS and HTML: https://codeguide.co/

@@ -1,5 +1,6 @@
 @use '../abstracts/variables';
 @use '../abstracts/utilities';
+@use '../abstracts/form-mixins';
 
 // NOTE: The `.field-prefix` and `.field-suffix` Drupal Form API classes
 // were removed in this refactor. SiteNow implementations using these
@@ -7,62 +8,12 @@
 
 // Generalized styles.
 .form {
-  // Not on the neutral ramp: there is no step between white and #f3f3f3. Revisit.
-  --form-input-bg: #fafafb;
-  --form-input-bg-disabled: var(--uiowa-color-neutral-175);
-  --form-input-fg-disabled: #484741;
-  --form-details-bg: var(--uiowa-color-background-gray);
-  --form-input-radius: var(--uiowa-radius-3);
-  --form-label-font-size: 1rem;
-  --form-label-color: #{variables.$secondary};
-  --form-text-color: #{variables.$secondary};
-  --form-input-padding: 0.5rem;
-  --form-input-height: var(--uiowa-form-height-medium);
-  --form-input-font-size: 1rem;
-  --form-button-font-size: 1.05rem;
-  --form-item-margin: 1rem;
-  --form-section-border-color: #{variables.$gray-light};
-  --form-input-outline-color: #{variables.$gray-light};
+  @include form-mixins.form-vars;
 
   input:not([type='checkbox'], [type='radio'], [type='submit'], [type='button'], [type='reset'], [type='range']),
   textarea,
   select {
-    appearance: none;
-    background-color: var(--form-input-bg);
-    border: none;
-    border-radius: var(--form-input-radius);
-    box-shadow: var(--uiowa-shadow-inset);
-    box-sizing: border-box;
-    color: var(--uiowa-color-brand-black);
-    display: block;
-    font-family: inherit;
-    font-size: var(--form-input-font-size);
-    font-weight: normal;
-    height: var(--form-input-height);
-    line-height: 1.5;
-    margin: 0;
-    outline: var(--uiowa-stroke-width-default) solid var(--form-input-outline-color);
-    padding: var(--form-input-padding);
-    transition: box-shadow var(--uiowa-motion-duration-fast) var(--uiowa-easing-standard), border-color var(--uiowa-motion-duration-fast) var(--uiowa-easing-standard);
-    width: 100%;
-
-    &:focus {
-      --form-input-bg: #fefefe;
-      --form-input-outline-color: var(--uiowa-color-neutral-300);
-      box-shadow: 0 0 5px 2px variables.$gray-light;
-      outline-width: var(--uiowa-stroke-width-focused);
-      transition: box-shadow var(--uiowa-motion-duration-fast) var(--uiowa-easing-standard), border-color var(--uiowa-motion-duration-fast) var(--uiowa-easing-standard);
-    }
-
-    // Error styles.
-    &.form--error {
-      --form-input-outline-color: #{variables.$danger};
-      --form-input-bg: #{variables.$danger-light};
-
-      &:focus {
-        box-shadow: 0 0 5px 2px variables.$danger-light;
-      }
-    }
+    @include form-mixins.form-field;
   }
 
   select {
@@ -77,11 +28,7 @@
 
   // === Labels/Description === //
   label {
-    color: var(--form-label-color);
-    display: block;
-    font-size: var(--form-label-font-size);
-    font-weight:  variables.$font-weight-bold;
-    margin-bottom: 0.5rem;
+    @include form-mixins.form-label;
   }
 
   label,
@@ -101,20 +48,13 @@
   }
 
   .form-item__description {
-    font-size: var(--form-label-font-size);
-    line-height: 1.4;
-    clear: both;
-    margin: variables.$xsm 0 0;
-    flex-basis: 100%;
+    @include form-mixins.form-description;
   }
 
   // === End: Labels/Description === //
 
   textarea {
-    height: auto;
-    min-height: 100px;
-    overflow: auto;
-    max-width: 100%;
+    @include form-mixins.form-textarea;
 
     &[rows] {
       height: auto;
@@ -161,18 +101,7 @@
   [type='submit'],
   [type='button'],
   [type='reset'] {
-    border: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    font-family: variables.$font-family-caps-bold;
-    font-size: var(--form-button-font-size);
-    height: var(--form-input-height);
-    box-sizing: border-box;
-    padding-block: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    @include form-mixins.form-button;
 
     &.button--small {
       font-size: 1.05rem;
@@ -212,7 +141,7 @@
     border: var(--uiowa-stroke-width-default) solid variables.$gray;
     cursor: pointer;
     line-height: 1.1;
-    background-color: var(--uiowa-color-background-white);
+    background-color: var(--uiowa-color-background);
     padding: 0.5rem 0 0.5rem 0.5rem;
     height: 10rem;
 
@@ -226,7 +155,7 @@
 
       &:checked {
         padding-left: 0.5em;
-        color: var(--uiowa-color-text-default);
+        color: var(--uiowa-color-text);
       }
     }
   }
