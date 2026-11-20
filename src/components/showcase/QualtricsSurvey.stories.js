@@ -29,9 +29,9 @@ export default {
 // A stand-in for a Qualtrics survey page (New Survey Taking Experience): the ids and
 // classes the theme styles, and the few rules of Qualtrics' own stylesheet they sit on.
 //
-// The text entry question is the one part not copied from a real page. Its class names
-// (te, text-input) are the ones Qualtrics' stylesheet uses. The Next button's label is
-// assumed to be repeated in its aria-label, as it is for the default label.
+// Two parts are assumptions about Qualtrics: the text entry question's markup, built from
+// the class names in its stylesheet (te, text-input), and a custom Next label being
+// repeated in aria-label, as the default label is.
 const standInCss = `
   * { margin: 0; padding: 0; }
   html { box-sizing: border-box; background: var(--background-color, #fff); }
