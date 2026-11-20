@@ -66,7 +66,10 @@ component sets the body size every role inside it multiplies. Medium is the defa
 The nearest hierarchy class wins, so a section or a component can take its own. The hierarchy classes also
 set the gaps as `--uiowa-type-space-related` and `--uiowa-type-space-break`. The Labels are
 `.type-label--large`, `--medium` and `--small`. Subhead 2's emphasis weight is `.type-subhead-2--emphasis`, on the
-element or on a span for part of a line; a `strong` or `b` inside `.type-subhead-2` takes it too.
+element or on a span for part of a line; a `strong` or `b` inside `.type-subhead-2` takes it too. The intro under a
+page's title is `.element--light-intro` or `.element--bold-intro`, which set the same style: Subhead 2 at its regular
+weight, at the Subhead's size, so the intro is the h2's size in every hierarchy. A banner's or poster's lead-in is the
+Subhead.
 
 Application pages take the Headline at 3× the body rather than 4×, 57px on Medium. UIDS has no 3× token or class:
 the application's own CSS sets `--uiowa-typography-headline-multiple: 3` on its wrapper, and `.type-headline` inside
