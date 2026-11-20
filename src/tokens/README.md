@@ -111,8 +111,5 @@ classes:
 heading still wins. Between blocks the gap is Related; below the h1 and above a heading that starts a section, it is
 Break. Rich text takes the hierarchy it sits in: Medium, unless a hierarchy class on it or around it sets another.
 
-For a compact layout of many short groups, add `.type-rich-text--compact`: a subhead then meets its text with no gap,
-and the groups stay a Break apart.
-
 Outside rich text, put each level's role class on it: `type-headline` on the h1, `type-subhead` on the h2, and
 `type-subhead-2 type-subhead-2--emphasis` on h3 to h6.
