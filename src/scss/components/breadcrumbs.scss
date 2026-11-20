@@ -1,0 +1,83 @@
+@use '../abstracts/variables';
+@use '../abstracts/utilities';
+
+// Ported from uids_base (uiowa/uiowa docroot/themes/custom/uids_base/scss/components/breadcrumbs.scss)
+// through uiowa/uids#1087, on this repo's variables rather than that branch's breadcrumb tokens.
+// Markup is Drupal core's breadcrumb template: nav.breadcrumb > visually-hidden h2 + ol > li
+// (a for linked crumbs, bare text otherwise). The .hero__content and .block-system-breadcrumb-block
+// ancestors are SiteNow page contexts (inert here, kept so uids_base can consume this file as-is).
+
+.breadcrumb {
+  list-style: none;
+  @include utilities.margin($top: variables.$sm, $right: 0, $bottom: variables.$sm, $left: 0);
+
+  ol {
+    @extend %no-ul-list;
+  }
+
+  // Drupal core supplies .visually-hidden; here the heading takes the UIDS mixin.
+  .visually-hidden {
+    @include utilities.element-invisible;
+  }
+}
+
+.breadcrumb::before,
+.breadcrumb::after {
+  display: table;
+  content: ' ';
+  flex: 1 0 0;
+  order: 1;
+}
+
+.breadcrumb::after {
+  clear: both;
+}
+
+.breadcrumb li {
+  float: left;
+  cursor: default;
+  color: variables.$secondary;
+  font-size: variables.$small-font-size;
+}
+
+.breadcrumb li:not(:last-child)::after {
+  position: relative;
+  content: '/';
+  opacity: 1;
+  color: variables.$primary;
+  @include utilities.margin($top: 0, $right: variables.$sm, $bottom: 0, $left: variables.$sm);
+}
+
+.breadcrumb a {
+  text-decoration: none;
+  color: variables.$secondary;
+}
+
+.breadcrumb a:hover,
+.breadcrumb a:focus {
+  text-decoration: underline;
+}
+
+.breadcrumb .disabled {
+  cursor: not-allowed;
+  color: variables.$gray-light;
+}
+
+.breadcrumb {
+  margin-bottom: 0;
+  margin-top: 1.75rem;
+
+  .hero__content & {
+    margin-bottom: 0;
+    margin-top: 1rem;
+  }
+
+  [class*='bg--black'] & li,
+  [class*='bg--black'] & li a {
+    color: var(--uiowa-color-neutral-0);
+  }
+}
+
+.block-system-breadcrumb-block {
+  z-index: 1;
+}

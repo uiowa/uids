@@ -1,39 +1,56 @@
-// .storybook/YourTheme.js
-
 import { create } from 'storybook/theming/create';
-import brand_image from '../src/assets/images/uiowa-secondary.svg'
+import primitives from '../src/tokens/primitives/colors.json';
 
-export default create({
-  base: 'light',
+const color = (path) => {
+  const { hex, alpha, components } = path.split('.').reduce((node, key) => node[key], primitives.color).$value;
+  return alpha === undefined ? hex : `rgba(${components.map((c) => Math.round(c * 255)).join(', ')}, ${alpha})`;
+};
 
-  colorPrimary: '#FFCD00',
-  colorSecondary: '#151515',
+const gold = color('gold');
+const black = color('neutral.900');
+const white = color('neutral.0');
 
-  // UI
-  appBg: 'white',
-  appContentBg: 'white',
-  appBorderColor: 'grey',
+const shared = {
+  colorPrimary: gold,
   appBorderRadius: 0,
-
-  // Typography
   fontBase: '"Roboto", sans-serif',
   fontCode: 'monospace',
+};
 
-  // Text colors
-  textColor: '#151515',
-  textInverseColor: 'white',
-
-  // Toolbar default and active colors
-  barTextColor: '#151515',
-  barHoverColor: '#343a40',
-  barSelectedColor: '#151515',
-  barBg: '#FFCD00',
-
+export const light = create({
+  ...shared,
+  base: 'light',
+  colorSecondary: black,
+  appBg: color('neutral.100'),
+  appContentBg: white,
+  appPreviewBg: white,
+  appBorderColor: color('alpha.black-125'),
+  textColor: black,
+  textInverseColor: white,
+  textMutedColor: color('neutral.500'),
+  barTextColor: black,
+  barHoverColor: color('neutral.700'),
+  barSelectedColor: black,
+  barBg: gold,
   // Color contrast fixes
-  booleanBg: '#F5F5F5',
+  booleanBg: color('neutral.100'),
+});
 
-  // Branding
-  brandTitle: 'U of Iowa Design System (UIDS)',
-  brandUrl: 'https://uids.brand.uiowa.edu',
-  brandImage: brand_image,
+// Dark values are chosen by hand from the neutral ramp.
+export const dark = create({
+  ...shared,
+  base: 'dark',
+  colorSecondary: color('neutral.500'),
+  appBg: color('neutral.800'),
+  appContentBg: color('neutral.700'),
+  appPreviewBg: white,
+  appBorderColor: color('alpha.white-325'),
+  textColor: white,
+  textInverseColor: black,
+  textMutedColor: color('neutral.200'),
+  barTextColor: white,
+  barHoverColor: gold,
+  barSelectedColor: gold,
+  barBg: black,
+  booleanBg: color('neutral.800'),
 });
