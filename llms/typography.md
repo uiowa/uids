@@ -139,3 +139,25 @@ Controls and captions: buttons, form labels, badges, bylines. One set for every 
 | Label Large | `type-label--large` | Roboto | 500 | 16.63px (12.47pt) | 1.4 (23.27px, 17.46pt) | 0 |
 | Label Medium | `type-label--medium` | Roboto | 500 | 14.25px (10.69pt) | 1.4 (19.95px, 14.96pt) | 0 |
 | Label Small | `type-label--small` | Roboto | 500 | 11.88px (8.91pt) | 1.4 (16.63px, 12.47pt) | 0 |
+
+## Highlight
+
+A highlight is a box behind chosen headline words, or a band under a subhead. Its five tokens are multiples of the role's own font size, so in CSS they are em of the highlighted text: `--uiowa-typography-highlight-headline-padding` and so on.
+
+- `typography.highlight.headline.padding`, 0.1: the box runs from the cap height to the baseline plus this much on all four sides, and a highlighted headline takes it as padding at its top and bottom, so the gaps above and below measure from the box.
+- `typography.highlight.headline.leading`, 0.05: added to the line height of every line of a highlighted headline.
+- `typography.highlight.subhead.above`, 0.32: the band's top edge, above the baseline.
+- `typography.highlight.subhead.below`, 0.16: the band's bottom edge, below the baseline.
+- `typography.highlight.subhead.bleed`, 0.08: how far the band runs past the text at each end. The band adds no space.
+
+UIDS's stylesheets have no highlight class: set the highlight in your own CSS from these tokens. With the 4× headline:
+
+| Hierarchy | Headline | Box padding | More leading | Subhead | Band above | Band below | Band bleed |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| X-Small | 50.67px (38pt) | 5.07px (3.8pt) | 2.53px (1.9pt) | 25.33px (19pt) | 8.11px (6.08pt) | 4.05px (3.04pt) | 2.03px (1.52pt) |
+| Small | 64px (48pt) | 6.4px (4.8pt) | 3.2px (2.4pt) | 32px (24pt) | 10.24px (7.68pt) | 5.12px (3.84pt) | 2.56px (1.92pt) |
+| Medium | 76px (57pt) | 7.6px (5.7pt) | 3.8px (2.85pt) | 38px (28.5pt) | 12.16px (9.12pt) | 6.08px (4.56pt) | 3.04px (2.28pt) |
+| Large | 96px (72pt) | 9.6px (7.2pt) | 4.8px (3.6pt) | 48px (36pt) | 15.36px (11.52pt) | 7.68px (5.76pt) | 3.84px (2.88pt) |
+| X-Large | 144px (108pt) | 14.4px (10.8pt) | 7.2px (5.4pt) | 72px (54pt) | 23.04px (17.28pt) | 11.52px (8.64pt) | 5.76px (4.32pt) |
+
+With the 6× or 8× headline, the box padding and the added leading are the same multiples of that headline's size.
