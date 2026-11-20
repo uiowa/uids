@@ -1,34 +1,46 @@
-@use 'sass:list';
-@use 'sass:map';
-
 // The type roles as classes; src/tokens/README.md says how to use them.
-// $hierarchies, $roles and $own-line-heights copy src/tokens/semantic/typography.json by hand: a hierarchy, a
-// role with a multiple or a hierarchy group added there does nothing here until it's added here too.
-$hierarchies: ('x-small', 'small', 'medium', 'large', 'x-large');
-// The roles whose size is the base times their multiple.
-$roles: ('small-print', 'headline', 'headline-6x', 'headline-8x', 'eyebrow', 'subhead', 'subhead-2');
-// The line heights that differ by hierarchy, and the hierarchies that have their own.
-$own-line-heights: ('subhead': ('x-small', 'small'), 'subhead-2': ('large', 'x-large'));
 
-@each $hierarchy in $hierarchies {
-  $base: var(--uiowa-typography-body-#{$hierarchy}-font-size);
-  $selector: '.type-scale--#{$hierarchy}';
-  @if $hierarchy == 'medium' {
-    // :where() gives the default no specificity, so a hierarchy class on html still overrides it.
-    $selector: ':where(:root), #{$selector}';
-  }
-  #{$selector} {
-    --uiowa-type-base: #{$base};
-    --uiowa-type-space-related: calc(#{$base} * var(--uiowa-typography-scale-related));
-    --uiowa-type-space-break: calc(#{$base} * var(--uiowa-typography-scale-break));
-    @each $role, $own in $own-line-heights {
-      $token: $role;
-      @if list.index($own, $hierarchy) {
-        $token: '#{$role}-#{$hierarchy}';
-      }
-      --uiowa-type-#{$role}-line-height: var(--uiowa-typography-#{$token}-line-height);
-    }
-  }
+// Each hierarchy sets the body size the roles multiply, its two gaps, and the line heights that differ by hierarchy.
+.type-scale--x-small {
+  --uiowa-type-base: var(--uiowa-typography-body-x-small-font-size);
+  --uiowa-type-space-related: calc(var(--uiowa-typography-body-x-small-font-size) * var(--uiowa-typography-scale-related));
+  --uiowa-type-space-break: calc(var(--uiowa-typography-body-x-small-font-size) * var(--uiowa-typography-scale-break));
+  --uiowa-type-subhead-line-height: var(--uiowa-typography-subhead-x-small-line-height);
+  --uiowa-type-subhead-2-line-height: var(--uiowa-typography-subhead-2-line-height);
+}
+
+.type-scale--small {
+  --uiowa-type-base: var(--uiowa-typography-body-small-font-size);
+  --uiowa-type-space-related: calc(var(--uiowa-typography-body-small-font-size) * var(--uiowa-typography-scale-related));
+  --uiowa-type-space-break: calc(var(--uiowa-typography-body-small-font-size) * var(--uiowa-typography-scale-break));
+  --uiowa-type-subhead-line-height: var(--uiowa-typography-subhead-small-line-height);
+  --uiowa-type-subhead-2-line-height: var(--uiowa-typography-subhead-2-line-height);
+}
+
+// :where() gives the default no specificity, so a hierarchy class on html still overrides it.
+:where(:root),
+.type-scale--medium {
+  --uiowa-type-base: var(--uiowa-typography-body-medium-font-size);
+  --uiowa-type-space-related: calc(var(--uiowa-typography-body-medium-font-size) * var(--uiowa-typography-scale-related));
+  --uiowa-type-space-break: calc(var(--uiowa-typography-body-medium-font-size) * var(--uiowa-typography-scale-break));
+  --uiowa-type-subhead-line-height: var(--uiowa-typography-subhead-line-height);
+  --uiowa-type-subhead-2-line-height: var(--uiowa-typography-subhead-2-line-height);
+}
+
+.type-scale--large {
+  --uiowa-type-base: var(--uiowa-typography-body-large-font-size);
+  --uiowa-type-space-related: calc(var(--uiowa-typography-body-large-font-size) * var(--uiowa-typography-scale-related));
+  --uiowa-type-space-break: calc(var(--uiowa-typography-body-large-font-size) * var(--uiowa-typography-scale-break));
+  --uiowa-type-subhead-line-height: var(--uiowa-typography-subhead-line-height);
+  --uiowa-type-subhead-2-line-height: var(--uiowa-typography-subhead-2-large-line-height);
+}
+
+.type-scale--x-large {
+  --uiowa-type-base: var(--uiowa-typography-body-x-large-font-size);
+  --uiowa-type-space-related: calc(var(--uiowa-typography-body-x-large-font-size) * var(--uiowa-typography-scale-related));
+  --uiowa-type-space-break: calc(var(--uiowa-typography-body-x-large-font-size) * var(--uiowa-typography-scale-break));
+  --uiowa-type-subhead-line-height: var(--uiowa-typography-subhead-line-height);
+  --uiowa-type-subhead-2-line-height: var(--uiowa-typography-subhead-2-x-large-line-height);
 }
 
 .type-body {
@@ -39,22 +51,61 @@ $own-line-heights: ('subhead': ('x-small', 'small'), 'subhead-2': ('large', 'x-l
   letter-spacing: var(--uiowa-typography-body-letter-spacing);
 }
 
-@each $role in $roles {
-  $line-height: var(--uiowa-typography-#{$role}-line-height);
-  @if map.has-key($own-line-heights, $role) {
-    $line-height: var(--uiowa-type-#{$role}-line-height);
-  }
-  .type-#{$role} {
-    font-family: var(--uiowa-typography-#{$role}-font-family);
-    font-weight: var(--uiowa-typography-#{$role}-font-weight);
-    font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-#{$role}-multiple));
-    line-height: $line-height;
-    letter-spacing: var(--uiowa-typography-#{$role}-letter-spacing);
-  }
+.type-small-print {
+  font-family: var(--uiowa-typography-small-print-font-family);
+  font-weight: var(--uiowa-typography-small-print-font-weight);
+  font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-small-print-multiple));
+  line-height: var(--uiowa-typography-small-print-line-height);
+  letter-spacing: var(--uiowa-typography-small-print-letter-spacing);
+}
+
+.type-headline {
+  font-family: var(--uiowa-typography-headline-font-family);
+  font-weight: var(--uiowa-typography-headline-font-weight);
+  font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-headline-multiple));
+  line-height: var(--uiowa-typography-headline-line-height);
+  letter-spacing: var(--uiowa-typography-headline-letter-spacing);
+}
+
+.type-headline-6x {
+  font-family: var(--uiowa-typography-headline-6x-font-family);
+  font-weight: var(--uiowa-typography-headline-6x-font-weight);
+  font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-headline-6x-multiple));
+  line-height: var(--uiowa-typography-headline-6x-line-height);
+  letter-spacing: var(--uiowa-typography-headline-6x-letter-spacing);
+}
+
+.type-headline-8x {
+  font-family: var(--uiowa-typography-headline-8x-font-family);
+  font-weight: var(--uiowa-typography-headline-8x-font-weight);
+  font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-headline-8x-multiple));
+  line-height: var(--uiowa-typography-headline-8x-line-height);
+  letter-spacing: var(--uiowa-typography-headline-8x-letter-spacing);
 }
 
 .type-eyebrow {
+  font-family: var(--uiowa-typography-eyebrow-font-family);
+  font-weight: var(--uiowa-typography-eyebrow-font-weight);
+  font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-eyebrow-multiple));
+  line-height: var(--uiowa-typography-eyebrow-line-height);
+  letter-spacing: var(--uiowa-typography-eyebrow-letter-spacing);
   text-transform: uppercase;
+}
+
+.type-subhead {
+  font-family: var(--uiowa-typography-subhead-font-family);
+  font-weight: var(--uiowa-typography-subhead-font-weight);
+  font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-subhead-multiple));
+  line-height: var(--uiowa-type-subhead-line-height);
+  letter-spacing: var(--uiowa-typography-subhead-letter-spacing);
+}
+
+.type-subhead-2 {
+  font-family: var(--uiowa-typography-subhead-2-font-family);
+  font-weight: var(--uiowa-typography-subhead-2-font-weight);
+  font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-subhead-2-multiple));
+  line-height: var(--uiowa-type-subhead-2-line-height);
+  letter-spacing: var(--uiowa-typography-subhead-2-letter-spacing);
 }
 
 .type-subhead-2 :is(strong, b) {
