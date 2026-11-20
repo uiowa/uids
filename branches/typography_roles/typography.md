@@ -156,8 +156,6 @@ In another hierarchy the levels take that hierarchy's Headline, Subhead, Subhead
 
 Space between blocks: related 28.5px (21.38pt); break 38px (28.5pt), below the h1 and above a heading that starts a section. In another hierarchy, that hierarchy's.
 
-In a compact layout of many short groups, add `type-rich-text--compact`: a subhead (h2 to h6) then meets its text with no gap, and the groups stay a break apart.
-
 ## Highlight
 
 A highlight is a box behind chosen headline words, or a band under a subhead. Its five tokens are multiples of the role's own font size, so in CSS they are em of the highlighted text: `--uiowa-typography-highlight-headline-padding` and so on.

@@ -1,0 +1,1 @@
+import{i as e}from"./preload-helper-4HKJDzVh.js";var t,n,r=e((()=>{t={h1:`headline-medium`,h2:`subhead-medium`,h3:`subhead-2-medium`,h4:`subhead-2-medium`,h5:`subhead-2-medium`,h6:`subhead-2-medium`},n=[`h3`,`h4`,`h5`,`h6`]}));export{n,r,t};
