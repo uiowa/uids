@@ -8,6 +8,7 @@ The type styles of UIDS, the University of Iowa Design System, with every size w
 2. Use that hierarchy's styles together, from its section below. Don't mix styles from two hierarchies in one piece.
 3. The Label styles are one set for every hierarchy.
 4. In CSS, use UIDS's classes rather than the numbers: the hierarchy's class on the piece, and each style's class, from the Class column, on its text. Medium is the default, so its pieces need no hierarchy class. An X-Small piece, for example, is `class="type-scale--x-small"` and its headline `class="type-headline"`. Subhead 2's emphasis weight is the class `type-subhead-2--emphasis`, on the element or on a span for part of a line; a `strong` or `b` inside Subhead 2 takes it too. UIDS's stylesheets uids.css and uids-core.css have the classes.
+5. In rich text, where an author picks only a heading level, put the content inside `class="type-rich-text"`. Its h1 to h6 then take the styles under Rich text, below, and its paragraphs and lists take Body, with no classes.
 
 Sizes are in px, at a 16px root, and in pt (1pt = 4/3px). A line height is a multiple of the font size; the px and pt after it are the same height.
 
@@ -34,7 +35,7 @@ Special Gothic Condensed is Google's Special Gothic at width 75, weight 600.
 - Headline 6×: The headline for a bigger statement: 6× its hierarchy's body size.
 - Headline 8×: The headline for a bigger statement: 8× its hierarchy's body size.
 - Subhead: The lead-in under a title, and section heads (h2).
-- Subhead 2: Details and short headings (h3, h4): a date and place, a card's title.
+- Subhead 2: Details and short headings (h3 to h6): a date and place, a card's title.
 - Intro: The text under a page's title (h1) that introduces the page: Subhead 2 at its regular weight, at the Subhead's size. Its class is `element--intro`; `element--light-intro` and `element--bold-intro` are deprecated names for it. A banner's or poster's lead-in is the Subhead.
 - Small print: Credits, dates and fine print under body text.
 - Related space: Between closely related elements, such as a heading and its text.
@@ -139,6 +140,23 @@ Controls and captions: buttons, form labels, badges, bylines. One set for every 
 | Label Large | `type-label--large` | Roboto | 500 | 16.63px (12.47pt) | 1.4 (23.27px, 17.46pt) | 0 |
 | Label Medium | `type-label--medium` | Roboto | 500 | 14.25px (10.69pt) | 1.4 (19.95px, 14.96pt) | 0 |
 | Label Small | `type-label--small` | Roboto | 500 | 11.88px (8.91pt) | 1.4 (16.63px, 12.47pt) | 0 |
+
+## Rich text
+
+Inside `type-rich-text`, each heading level takes a role with no class, all in one hierarchy: the hierarchy the rich text sits in, Medium unless a hierarchy class sets another. Its paragraphs and lists are Body. A role class on a heading inside it still wins, and components inside it keep their own styles. On Medium:
+
+| Level | Style | Font | Weight | Size | Line height | Letter spacing |
+| --- | --- | --- | --- | --- | --- | --- |
+| h1 | Headline Medium | Special Gothic Condensed | 600 | 76px (57pt) | 1 (76px, 57pt) | 0 |
+| h2 | Subhead Medium | Zilla Slab | 600 | 38px (28.5pt) | 1.1 (41.8px, 31.35pt) | 0 |
+| h3 to h6 | Subhead 2 Medium, emphasis | Roboto | 500 | 28.5px (21.38pt) | 1.3 (37.05px, 27.79pt) | 0 |
+| p, ul, ol | Body Medium | Roboto | 400 | 19px (14.25pt) | 1.5 (28.5px, 21.38pt) | 0 |
+
+In another hierarchy the levels take that hierarchy's Headline, Subhead, Subhead 2 and Body, from its table above.
+
+Space between blocks: related 28.5px (21.38pt); break 38px (28.5pt), below the h1 and above a heading that starts a section. In another hierarchy, that hierarchy's.
+
+In a compact layout of many short groups, add `type-rich-text--compact`: a subhead (h2 to h6) then meets its text with no gap, and the groups stay a break apart.
 
 ## Highlight
 

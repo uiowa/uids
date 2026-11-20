@@ -1036,7 +1036,8 @@ h6:not(:first-child), .h6:not(:first-child) {
   --uiowa-type-subhead-2-line-height: var(--uiowa-typography-subhead-2-line-height);
 }
 
-:where(:root), .type-scale--medium {
+:where(:root),
+.type-scale--medium {
   --uiowa-type-base: var(--uiowa-typography-body-medium-font-size);
   --uiowa-type-space-related: calc(var(--uiowa-typography-body-medium-font-size) * var(--uiowa-typography-scale-related));
   --uiowa-type-space-break: calc(var(--uiowa-typography-body-medium-font-size) * var(--uiowa-typography-scale-break));
@@ -1058,6 +1059,53 @@ h6:not(:first-child), .h6:not(:first-child) {
   --uiowa-type-space-break: calc(var(--uiowa-typography-body-x-large-font-size) * var(--uiowa-typography-scale-break));
   --uiowa-type-subhead-line-height: var(--uiowa-typography-subhead-line-height);
   --uiowa-type-subhead-2-line-height: var(--uiowa-typography-subhead-2-x-large-line-height);
+}
+
+.type-rich-text > :where(p, ul, ol) {
+  font-family: var(--uiowa-typography-body-font-family);
+  font-weight: var(--uiowa-typography-body-font-weight);
+  font-size: var(--uiowa-type-base);
+  line-height: var(--uiowa-typography-body-line-height);
+  letter-spacing: var(--uiowa-typography-body-letter-spacing);
+}
+.type-rich-text > :where(ul, ol) li {
+  line-height: inherit;
+}
+.type-rich-text > :where(h1) {
+  font-family: var(--uiowa-typography-headline-font-family);
+  font-weight: var(--uiowa-typography-headline-font-weight);
+  font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-headline-multiple));
+  line-height: var(--uiowa-typography-headline-line-height);
+  letter-spacing: var(--uiowa-typography-headline-letter-spacing);
+}
+.type-rich-text > :where(h2) {
+  font-family: var(--uiowa-typography-subhead-font-family);
+  font-weight: var(--uiowa-typography-subhead-font-weight);
+  font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-subhead-multiple));
+  line-height: var(--uiowa-type-subhead-line-height);
+  letter-spacing: var(--uiowa-typography-subhead-letter-spacing);
+}
+.type-rich-text > :where(h3, h4, h5, h6) {
+  font-family: var(--uiowa-typography-subhead-2-font-family);
+  font-weight: var(--uiowa-typography-subhead-2-font-weight-emphasis);
+  font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-subhead-2-multiple));
+  line-height: var(--uiowa-type-subhead-2-line-height);
+  letter-spacing: var(--uiowa-typography-subhead-2-letter-spacing);
+}
+.type-rich-text > * {
+  margin-block: 0;
+}
+.type-rich-text > * + *,
+.type-rich-text > * + :is(h2, h3, h4, h5, h6) {
+  margin-block-start: var(--uiowa-type-space-related);
+}
+.type-rich-text > h1 + *,
+.type-rich-text > :not(h1, h2, h3, h4, h5, h6) + :is(h2, h3, h4, h5, h6) {
+  margin-block-start: var(--uiowa-type-space-break);
+}
+
+.type-rich-text--compact > :is(h2, h3, h4, h5, h6) + :not(h1, h2, h3, h4, h5, h6) {
+  margin-block-start: 0;
 }
 
 .type-body {
@@ -1106,6 +1154,7 @@ h6:not(:first-child), .h6:not(:first-child) {
   font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-eyebrow-multiple));
   line-height: var(--uiowa-typography-eyebrow-line-height);
   letter-spacing: var(--uiowa-typography-eyebrow-letter-spacing);
+  text-transform: uppercase;
 }
 
 .type-subhead {
@@ -1122,10 +1171,6 @@ h6:not(:first-child), .h6:not(:first-child) {
   font-size: calc(var(--uiowa-type-base) * var(--uiowa-typography-subhead-2-multiple));
   line-height: var(--uiowa-type-subhead-2-line-height);
   letter-spacing: var(--uiowa-typography-subhead-2-letter-spacing);
-}
-
-.type-eyebrow {
-  text-transform: uppercase;
 }
 
 .type-subhead-2 :is(strong, b) {
