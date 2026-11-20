@@ -15,9 +15,9 @@ UIDS (University of Iowa Design System) - Vue 3 component library with SCSS and 
 - `yarn lint` - ESLint with auto-fix
 - `yarn test:unit` - Vitest tests (use `yarn test:unit ComponentName` to run specific tests)
 
-**Before PRs**: Run `yarn build` to ensure dist files are updated.
+`dist/` is gitignored. `prepack` and the package workflow build it, so never commit it.
 
-**Requirements**: Node 22 (use `nvm use` to match `.nvmrc`)
+**Requirements**: Node 26 (use `nvm use` to set correct version)
 
 ## Component Structure
 
@@ -63,7 +63,7 @@ component-name/
 4. Add to `src/components/index.ts` barrel export
 5. Create `src/scss/components/_component-name.scss`
 6. Import in `src/scss/uids.scss`: `@use 'components/component-name';`
-7. Run `yarn storybook` to test, then `yarn build` before PR
+7. Run `yarn storybook` to test and `yarn build` to check the SCSS compiles
 
 ## Git Workflow
 
