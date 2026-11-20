@@ -67,9 +67,9 @@ The nearest hierarchy class wins, so a section or a component can take its own. 
 set the gaps as `--uiowa-type-space-related` and `--uiowa-type-space-break`. The Labels are
 `.type-label--large`, `--medium` and `--small`. Subhead 2's emphasis weight is `.type-subhead-2--emphasis`, on the
 element or on a span for part of a line; a `strong` or `b` inside `.type-subhead-2` takes it too. The intro under a
-page's title is `.element--light-intro` or `.element--bold-intro`, which set the same style: Subhead 2 at its regular
-weight, at the Subhead's size, so the intro is the h2's size in every hierarchy. A banner's or poster's lead-in is the
-Subhead.
+page's title is `.element--intro`: Subhead 2 at its regular weight, at the Subhead's size, so the intro is the h2's
+size in every hierarchy. `.element--light-intro` and `.element--bold-intro` are deprecated names for it. A banner's or
+poster's lead-in is the Subhead.
 
 `typography.paragraph` is the style UIDS's base styles set on paragraphs.
 

@@ -67,6 +67,9 @@ that leads a details group. A highlight on chosen headline words is a box from c
   `--small`. No class sets a margin. The eyebrow class adds uppercase. `.type-subhead-2--emphasis` sets
   Subhead 2's emphasis weight, and a `strong` or `b` inside `.type-subhead-2` takes it too. The classes are
   written in `src/scss/base/_type-roles.scss`. Headings keep their own styles.
+- `.element--intro`, the intro under a page's title: Subhead 2 at its regular weight at the Subhead's size, in the
+  hierarchy it sits in, Roboto 400 at 38px (2.375rem) / 1.3 on Medium, the h2's size. It replaces
+  `.element--light-intro` and `.element--bold-intro`, which set the same style: see Deprecated.
 - `llms.txt` and `typography.md`, UIDS's typography as plain text for readers that can't run the docs
   site, such as a web chat: the hierarchy each format takes, each hierarchy's styles in px and pt with
   their classes, its gaps, and one Google Fonts link for the faces. They're kept by hand in `llms/`, and
@@ -209,6 +212,11 @@ old names changes:
 | `--uiowa-typography-body-font-size` | 1.2rem | Gone: the paragraph's is `--uiowa-typography-paragraph-font-size`; the body sizes are `--uiowa-typography-body-x-small-font-size` to `-x-large-font-size` |
 | `--uiowa-typography-body-line-height` | 1.7 | 1.5, the Body role's; the paragraph's 1.7 is `--uiowa-typography-paragraph-line-height` |
 | `--uiowa-typography-body-font-family`, `-font-weight`, `-letter-spacing` | Roboto, normal, normal | The same values, now the Body role's |
+
+### Deprecated
+
+- `.element--light-intro` and `.element--bold-intro`. Use `.element--intro`, which sets the same style. Both still
+  work, and will be removed in a future major release.
 
 ### Removed
 

@@ -35,7 +35,7 @@ Special Gothic Condensed is Google's Special Gothic at width 75, weight 600.
 - Headline 8×: The headline for a bigger statement: 8× its hierarchy's body size.
 - Subhead: The lead-in under a title, and section heads (h2).
 - Subhead 2: Details and short headings (h3, h4): a date and place, a card's title.
-- Intro: The text under a page's title (h1) that introduces the page: Subhead 2 at its regular weight, at the Subhead's size. The classes `element--light-intro` and `element--bold-intro` both set it. A banner's or poster's lead-in is the Subhead.
+- Intro: The text under a page's title (h1) that introduces the page: Subhead 2 at its regular weight, at the Subhead's size. Its class is `element--intro`; `element--light-intro` and `element--bold-intro` are deprecated names for it. A banner's or poster's lead-in is the Subhead.
 - Small print: Credits, dates and fine print under body text.
 - Related space: Between closely related elements, such as a heading and its text.
 - Break space: Below display type, and between distinct sections or content groups.
@@ -52,7 +52,7 @@ For programs, program flyers, mini flyers, brochures and Word documents. Body si
 | Headline 8× | `type-headline-8x` | Special Gothic Condensed | 600 | 101.33px (76pt) | 0.9 (91.2px, 68.4pt) | 0 |
 | Subhead | `type-subhead` | Zilla Slab | 600 | 25.33px (19pt) | 1.25 (31.67px, 23.75pt) | 0 |
 | Subhead 2 | `type-subhead-2`, emphasis `type-subhead-2--emphasis` | Roboto | 400, emphasis 500 | 19px (14.25pt) | 1.3 (24.7px, 18.53pt) | 0 |
-| Intro | `element--light-intro` or `element--bold-intro` | Roboto | 400 | 25.33px (19pt) | 1.3 (32.93px, 24.7pt) | 0 |
+| Intro | `element--intro` | Roboto | 400 | 25.33px (19pt) | 1.3 (32.93px, 24.7pt) | 0 |
 | Body | `type-body` | Roboto | 400 | 12.67px (9.5pt) | 1.5 (19px, 14.25pt) | 0 |
 | Small print | `type-small-print` | Roboto | 400 | 9.5px (7.13pt) | 1.5 (14.25px, 10.69pt) | 0 |
 
@@ -70,7 +70,7 @@ For letters, forms and covers. Body size 16px (12pt). Hierarchy class `type-scal
 | Headline 8× | `type-headline-8x` | Special Gothic Condensed | 600 | 128px (96pt) | 0.9 (115.2px, 86.4pt) | 0 |
 | Subhead | `type-subhead` | Zilla Slab | 600 | 32px (24pt) | 1.25 (40px, 30pt) | 0 |
 | Subhead 2 | `type-subhead-2`, emphasis `type-subhead-2--emphasis` | Roboto | 400, emphasis 500 | 24px (18pt) | 1.3 (31.2px, 23.4pt) | 0 |
-| Intro | `element--light-intro` or `element--bold-intro` | Roboto | 400 | 32px (24pt) | 1.3 (41.6px, 31.2pt) | 0 |
+| Intro | `element--intro` | Roboto | 400 | 32px (24pt) | 1.3 (41.6px, 31.2pt) | 0 |
 | Body | `type-body` | Roboto | 400 | 16px (12pt) | 1.5 (24px, 18pt) | 0 |
 | Small print | `type-small-print` | Roboto | 400 | 12px (9pt) | 1.5 (18px, 13.5pt) | 0 |
 
@@ -88,7 +88,7 @@ For web pages and applications, video, the letter-size flyer and poster. Body si
 | Headline 8× | `type-headline-8x` | Special Gothic Condensed | 600 | 152px (114pt) | 0.9 (136.8px, 102.6pt) | 0 |
 | Subhead | `type-subhead` | Zilla Slab | 600 | 38px (28.5pt) | 1.1 (41.8px, 31.35pt) | 0 |
 | Subhead 2 | `type-subhead-2`, emphasis `type-subhead-2--emphasis` | Roboto | 400, emphasis 500 | 28.5px (21.38pt) | 1.3 (37.05px, 27.79pt) | 0 |
-| Intro | `element--light-intro` or `element--bold-intro` | Roboto | 400 | 38px (28.5pt) | 1.3 (49.4px, 37.05pt) | 0 |
+| Intro | `element--intro` | Roboto | 400 | 38px (28.5pt) | 1.3 (49.4px, 37.05pt) | 0 |
 | Body | `type-body` | Roboto | 400 | 19px (14.25pt) | 1.5 (28.5px, 21.38pt) | 0 |
 | Small print | `type-small-print` | Roboto | 400 | 14.25px (10.69pt) | 1.5 (21.38px, 16.03pt) | 0 |
 
@@ -106,7 +106,7 @@ For the digital ad, web banner and 11 × 17 poster. Body size 24px (18pt). Hiera
 | Headline 8× | `type-headline-8x` | Special Gothic Condensed | 600 | 192px (144pt) | 0.9 (172.8px, 129.6pt) | 0 |
 | Subhead | `type-subhead` | Zilla Slab | 600 | 48px (36pt) | 1.1 (52.8px, 39.6pt) | 0 |
 | Subhead 2 | `type-subhead-2`, emphasis `type-subhead-2--emphasis` | Roboto | 400, emphasis 500 | 36px (27pt) | 1.2 (43.2px, 32.4pt) | 0 |
-| Intro | `element--light-intro` or `element--bold-intro` | Roboto | 400 | 48px (36pt) | 1.2 (57.6px, 43.2pt) | 0 |
+| Intro | `element--intro` | Roboto | 400 | 48px (36pt) | 1.2 (57.6px, 43.2pt) | 0 |
 | Body | `type-body` | Roboto | 400 | 24px (18pt) | 1.5 (36px, 27pt) | 0 |
 | Small print | `type-small-print` | Roboto | 400 | 18px (13.5pt) | 1.5 (27px, 20.25pt) | 0 |
 
@@ -124,7 +124,7 @@ For displays and slides read at a distance. Body size 36px (27pt). Hierarchy cla
 | Headline 8× | `type-headline-8x` | Special Gothic Condensed | 600 | 288px (216pt) | 0.9 (259.2px, 194.4pt) | 0 |
 | Subhead | `type-subhead` | Zilla Slab | 600 | 72px (54pt) | 1.1 (79.2px, 59.4pt) | 0 |
 | Subhead 2 | `type-subhead-2`, emphasis `type-subhead-2--emphasis` | Roboto | 400, emphasis 500 | 54px (40.5pt) | 1.2 (64.8px, 48.6pt) | 0 |
-| Intro | `element--light-intro` or `element--bold-intro` | Roboto | 400 | 72px (54pt) | 1.2 (86.4px, 64.8pt) | 0 |
+| Intro | `element--intro` | Roboto | 400 | 72px (54pt) | 1.2 (86.4px, 64.8pt) | 0 |
 | Body | `type-body` | Roboto | 400 | 36px (27pt) | 1.5 (54px, 40.5pt) | 0 |
 | Small print | `type-small-print` | Roboto | 400 | 27px (20.25pt) | 1.5 (40.5px, 30.38pt) | 0 |
 
