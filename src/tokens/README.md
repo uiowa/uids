@@ -5,6 +5,7 @@
 ```
 src/tokens/primitives/   context-free values named by measurement or appearance
 src/tokens/semantic/     purpose-named roles that may reference primitives or carry direct values
+src/tokens/components/   one file per component; decisions that belong to that component
 ```
 
 Token files follow [DTCG 2025.10](https://www.designtokens.org/tr/2025.10/format/).
@@ -30,13 +31,100 @@ yarn build:tokens
 needed for a CSS-only change. Generated token files are not committed; `prepack` runs the
 build so release artifacts include the generated Sass and CSS.
 
+## Component tokens
+
+`src/tokens/components/` holds one file per component. A component token names a
+decision that belongs to that component and that a theme or variant could change. It
+always references another token; it never carries its own value.
+
+Which tier a component token references depends on what a mode or theme would change:
+
+- **Color** references semantic tokens. A mode or theme re-points these, so a
+  component must inherit the change. If no semantic token fits, add the role to the
+  semantic tier instead of reaching for a primitive.
+- **Typography** (font family, size, weight, line height) may reference primitives
+  directly. A step on a scale means the same thing in every mode, and UIDS fonts are
+  fixed by the brand rather than swapped by a theme, so a semantic alias would only
+  repeat the primitive. Use a semantic token where one already names the role.
+
+Give a component a token for:
+
+- **Color.** Backgrounds, text, borders, and fills.
+- **Typography.** Font family, weight, size, and line height, as separate tokens.
+
+Leave in SCSS:
+
+- **Sizes** that follow from the component's geometry, such as fixed heights and
+  widths.
+- **Alignment corrections**: nudges, negative margins, and any value derived from
+  another element's size.
+- **Layout switches** at a breakpoint, such as `display` or `flex-direction`.
+
+Spacing is undecided. No component has a spacing token yet; revisit this when a
+component with spacing variants, such as the button, is tokenised.
+
+A token is public: each one becomes a `--uiowa-*` custom property that a consumer can
+set. Add one only when the SCSS uses it.
+
+Variants and breakpoints re-point an existing token through `edu.uiowa.variant` and
+`edu.uiowa.responsive`; they do not add token names. Interactive states are the
+exception: hover, focus, and disabled values are named tokens.
+
 ## UIDS extensions
 
-UIDS currently defines one namespaced extension using DTCG's `$extensions` property.
+UIDS defines these namespaced extensions using DTCG's `$extensions` property.
 
 ### `edu.uiowa.fluid`
 
-Adds responsive scaling to a typography token. The generator resolves the token's
-`fontSize` reference to a CSS `clamp()` value. The extension declares
-`minViewport` and `maxViewport` as px dimensions, then either a `max` size or
-`strategy: "exponential"` with a numeric `exponent`.
+Adds responsive scaling to a font size. Declare it on a typography token, where it
+applies to the `fontSize` member, or on a standalone dimension token whose key is
+`font-size`. The generator emits the font size as a CSS `clamp()` value instead of a
+reference. The extension declares `minViewport` and `maxViewport` as px or rem
+dimensions, then either a `max` size in rem or `strategy: "exponential"` with a
+numeric `exponent`.
+
+### `edu.uiowa.responsive`
+
+Re-points a token at a breakpoint. Keys are breakpoint token names and values are
+token references. The generator emits each override in a `min-width` media block, so
+breakpoints stay out of token names.
+
+### `edu.uiowa.variant`
+
+Re-points a token for a component variant. Keys are variant names and values are
+token references. The generator emits each override under the variant's selector, so
+variants stay out of token names:
+
+```json
+"button": {
+  "$extensions": { "edu.uiowa.variants": { "black": ".bttn--black" } },
+  "background": {
+    "$type": "color",
+    "$value": "{color.background.gold}",
+    "$extensions": { "edu.uiowa.variant": { "black": "{color.background.black}" } }
+  }
+}
+```
+
+```css
+.bttn--black {
+  --uiowa-button-background: var(--uiowa-color-background-black);
+}
+```
+
+The selector defaults to the BEM modifier `.{component}--{variant}`, where the
+component is the token's top-level group. A group can declare `edu.uiowa.variants`
+to map a variant name to a different selector, as above. The generator reads this map
+from the token's JSON file, so tokens passed to Style Dictionary as an object always
+get the default selector. Interactive states remain
+named tokens; give each state token its own variant override.
+
+A typography token keys each override by member, so only that member is re-pointed.
+The same applies to `edu.uiowa.responsive`:
+
+```json
+"$extensions": { "edu.uiowa.variant": { "narrow": { "fontSize": "{typography.font-size.100}" } } }
+```
+
+Setting the token on an ancestor does not reach a variant, because the variant
+selector sets it on the element itself.

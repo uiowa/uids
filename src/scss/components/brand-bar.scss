@@ -1,61 +1,6 @@
 @use '../abstracts/variables';
 @use '../abstracts/utilities';
 
-// === Site Name === //
-.site-name {
-  display: flex;
-  align-items: center;
-  margin: 0 auto 0 0;
-  text-align: left;
-  font-size: 1.8rem;
-  font-weight: 300;
-  line-height: 1;
-  font-family: variables.$font-family-sans-serif;
-
-  a {
-    color: variables.$secondary;
-    text-decoration: none;
-  }
-
-  @include utilities.breakpoint(md) {
-    flex-basis: content;
-    margin: 1px 0 0 0;
-    font-size: 2rem;
-  }
-
-  @include utilities.breakpoint(page-container) {
-    margin: 5px 0 0 0;
-    text-align: left;
-    font-size: 2.2rem;
-  }
-}
-// === End: Site Name === //
-
-// === Parent Site Name === //
-.parent-site-name {
-  font-weight: variables.$font-weight-light;
-  flex-basis: content;
-  margin: 0 0 -10px 0;
-  padding: variables.$md 0 0 variables.$gutter;
-  width: 100%;
-  background: variables.$primary;
-
-  a {
-    color: variables.$secondary;
-    text-decoration: none;
-  }
-
-  @include utilities.breakpoint(md) {
-    background: transparent;
-    display: flex;
-    align-items: center;
-    margin: 0;
-    padding: 1px 0 0;
-    width: auto;
-  }
-}
-// === End: Parent Site Name === //
-
 // === Iowa Bar === //
 // Settings for the default version of the IOWA bar.
 .iowa-bar {
@@ -63,16 +8,22 @@
   z-index: 2;
   display: block;
   min-height: auto;
-  background: variables.$secondary;
+  background: var(--uiowa-brand-bar-background);
 
   @include utilities.breakpoint(md) {
     min-height: 80px;
-    background: variables.$primary;
   }
 
   &:not(.iowa-bar--narrow) {
     @include utilities.breakpoint(md) {
       height: 80px;
+    }
+
+    // The tab hangs below the bar here, so sit the logo lower than centre.
+    .logo--tab {
+      @include utilities.breakpoint(page-container) {
+        padding-top: 7px;
+      }
     }
   }
 
@@ -81,11 +32,17 @@
       @include utilities.breakpoint(md) {
         height: 100px;
       }
-      .logo--tab {
-        @include utilities.breakpoint(md) {
-          padding-top: 27px;
-        }
-      }
+    }
+  }
+
+  // The row holding the logo. Until md it runs the logo tab's black across the
+  // full width of the gold bar; from md it drops out of the layout, leaving the
+  // tab as a direct flex item of the container.
+  &__logo {
+    background: var(--uiowa-logo-background);
+
+    @include utilities.breakpoint(md) {
+      display: contents;
     }
   }
 
@@ -94,24 +51,44 @@
 
     @include utilities.breakpoint(page-container) {
       margin-left: -12px;
-      // More padding on top in this variation.
-      padding: 27px 20px 20px;
     }
   }
 
+  // Scoped to the bar so the brand-bar tokens style only this site name.
   .site-name {
+    display: flex;
+    align-items: center;
     width: 100%;
+    margin: 0 auto 0 0;
     padding: variables.$gutter;
-    background: variables.$primary;
+    text-align: left;
+    font-size: var(--uiowa-brand-bar-site-name-font-size);
+    font-weight: var(--uiowa-brand-bar-site-name-font-weight);
+    line-height: var(--uiowa-brand-bar-site-name-line-height);
+    font-family: var(--uiowa-brand-bar-site-name-font-family);
+
+    a {
+      color: var(--uiowa-brand-bar-site-name-color);
+      text-decoration: none;
+    }
 
     @include utilities.breakpoint(md) {
+      flex-basis: content;
       width: auto;
-      background: transparent;
+      margin: 1px 0 0 0;
       padding: 0;
     }
 
     @include utilities.breakpoint(page-container) {
       margin: 5px 0 0 0;
+    }
+  }
+
+  // Default slot content. Until md it stacks under the site name.
+  &__content {
+    @include utilities.breakpoint(md) {
+      display: flex;
+      flex: 1 1 auto;
     }
   }
 
@@ -144,13 +121,9 @@
         @include utilities.breakpoint(md) {
           height: 70px;
           width: 119px;
-          padding: 15px;
         }
-
       }
       .logo-icon {
-        height: 33px;
-
         @include utilities.breakpoint(md) {
           height: 41px;
         }
@@ -171,7 +144,6 @@
       @include utilities.breakpoint(md) {
         height: 56px;
         width: 119px;
-        padding: 15px;
       }
 
       @include utilities.breakpoint(page-container) {
@@ -180,80 +152,21 @@
     }
 
     .logo-icon {
-      height: 20px;
-
       @include utilities.breakpoint(md) {
         height: 26px;
       }
     }
 
-    .parent-site-name {
-      @include utilities.breakpoint(page-container) {
-        padding: 6px 0 0 0;
-      }
-    }
-
     .site-name {
-      font-size: 1rem;
       margin: 0;
       padding: variables.$gutter;
-      background: variables.$primary;
 
       @include utilities.breakpoint(md) {
-        background: transparent;
-        font-size: 1rem;
         padding: 0;
       }
 
       @include utilities.breakpoint(page-container) {
         padding: 6px 0 0 0;
-      }
-    }
-  }
-
-  // Styles for container underneath
-  &__below {
-    z-index: 2;
-    border-bottom: var(--uiowa-stroke-width-default) solid #e6e5e5;
-    background: var(--uiowa-color-background-white);
-
-    & .iowa-bar__container {
-      flex-wrap: wrap;
-      justify-content: space-between;
-      margin-right: 0;
-      margin-left: 0;
-
-      @include utilities.breakpoint(md) {
-        display: flex;
-        position: unset;
-        min-height: 90px;
-        justify-content: unset;
-        margin-right: auto;
-        padding-left: 1.25rem;
-      }
-
-      @include utilities.breakpoint(page-container) {
-        margin-left: auto;
-        padding-left: 0;
-      }
-    }
-
-    // Override .site-name styles when
-    // displayed underneath the iowa-bar.
-    .site-name {
-      margin: 0;
-      text-align: left;
-      font-size: 1.8rem;
-
-      @include utilities.breakpoint(md) {
-        width: 75%;
-        padding: 25px 20px 25px 0;
-        background: transparent;
-        font-size: 2rem;
-      }
-
-      @include utilities.breakpoint(page-container) {
-        font-size: 2.2rem;
       }
     }
   }
