@@ -4,7 +4,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import { breakpointRem, fluidFontSize } from '../style-dictionary.config.js';
+import { breakpointRem, darkValue, fluidFontSize } from '../style-dictionary.config.js';
 
 const repository = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -132,4 +132,38 @@ it('writes breakpoints to Sass in rem and durations as CSS times', () => {
   expect(tokens).not.toContain('--uiowa-breakpoint-');
   expect(tokens).toContain('--uiowa-duration-150: 150ms;');
   expect(tokens).not.toContain('[object Object]');
+});
+
+describe('darkValue', () => {
+  const neutral = { path: ['color', 'neutral', '100'], name: 'uiowa-color-neutral-100' };
+  const tokensByPath = new Map([['color.neutral.100', neutral]]);
+  const token = (dark) => ({
+    path: ['color', 'text', '$root'],
+    original: { $extensions: { 'edu.uiowa.dark': dark } },
+  });
+
+  it('writes a referenced token as its custom property', () => {
+    expect(darkValue(token('{color.neutral.100}'), tokensByPath)).toBe('var(--uiowa-color-neutral-100)');
+  });
+
+  it('rejects a dark value that is not a reference to a token', () => {
+    expect(() => darkValue(token('#F3F3F3'), tokensByPath))
+      .toThrow('color.text.$root: edu.uiowa.dark must reference a token');
+    expect(() => darkValue(token('{color.neutral.150}'), tokensByPath))
+      .toThrow('color.text.$root: edu.uiowa.dark must reference a token');
+  });
+});
+
+it('names $root tokens after their group and writes dark mode for the OS and data-theme', () => {
+  const tokens = readFileSync(join(repository, 'src/scss/abstracts/_tokens-generated.scss'), 'utf8');
+  const dark = readFileSync(join(repository, 'src/scss/abstracts/_tokens-dark-generated.scss'), 'utf8');
+
+  expect(tokens).toContain('--uiowa-color-text: var(--uiowa-color-text-default);');
+  expect(tokens).not.toContain('-root:');
+  expect(dark).toContain(':root[data-theme="dark"] {');
+  expect(dark).toContain('@media (prefers-color-scheme: dark) {');
+  expect(dark).toContain(':root:not([data-theme="light"]) {');
+  expect(dark.match(/color-scheme: dark;/g)).toHaveLength(2);
+  expect(dark.match(/--uiowa-color-text: var\(--uiowa-color-neutral-100\);/g)).toHaveLength(2);
+  expect(dark).not.toContain('--uiowa-color-text-disabled');
 });
