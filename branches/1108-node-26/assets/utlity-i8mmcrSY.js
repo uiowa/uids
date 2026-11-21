@@ -1,1 +1,0 @@
-import{i as e}from"./preload-helper-XRUXCSy0.js";function t(e){return e.replace(/_/g,`-`)}var n=e((()=>{}));export{n,t};
