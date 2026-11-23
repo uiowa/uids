@@ -1,11 +1,11 @@
 import { readFileSync } from 'node:fs';
 import StyleDictionary from 'style-dictionary';
+import { breakpointPixels, variantSelector as selectorFor } from './src/tokens/resolve.js';
 
 const REM_IN_PIXELS = 16;
 const FLUID_EXTENSION = 'edu.uiowa.fluid';
 const RESPONSIVE_EXTENSION = 'edu.uiowa.responsive';
 const VARIANT_EXTENSION = 'edu.uiowa.variant';
-const VARIANT_SELECTORS_EXTENSION = 'edu.uiowa.variants';
 
 // Style Dictionary does not calculate a responsive font size from the UIDS fluid
 // extension, so these helpers validate that metadata and convert it to clamp().
@@ -175,24 +175,10 @@ export function compositeMemberReference(token) {
   return typeof member === 'string' && /^\{[^{}]+\}$/.test(member) ? member : undefined;
 }
 
-// The nearest group that maps the variant to a selector wins; without one the
-// selector follows the BEM modifier convention, `.{component}--{variant}`.
-
+// The selector a token's variant is emitted under, read from its source file. Without
+// filePath the group's selector map is gone, so the default applies.
 export function variantSelector(token, variant) {
-  if (!/^[a-z][a-z0-9-]*$/.test(variant)) {
-    throw new Error(`${token.path.join('.')} declares an invalid variant name "${variant}"`);
-  }
-
-  let selector = `.${token.path[0]}--${variant}`;
-  // Without filePath the group's selector map is gone, so the default applies.
-  if (!token.filePath) return selector;
-
-  let group = sourceFile(token);
-  for (const key of token.path.slice(0, -1)) {
-    group = group?.[key];
-    selector = group?.$extensions?.[VARIANT_SELECTORS_EXTENSION]?.[variant] ?? selector;
-  }
-  return selector;
+  return selectorFor(token.filePath ? sourceFile(token) : undefined, token.path, variant);
 }
 
 // Emits the standard CSS custom properties, then appends a min-width media block
@@ -212,24 +198,11 @@ export async function cssResponsive(args) {
     return `var(--${token.name})`;
   };
 
-  // Follows the source references down to the px value. Style Dictionary's resolved
-  // $value is already a transformed CSS string whose unit depends on the platform.
-  // Circular references stop the build before this format runs.
-  const breakpointPixels = (key) => {
-    let path = `breakpoint.${key}`;
-    let value;
-    for (;;) {
-      const token = byPath.get(path);
-      if (!token) throw new Error(`responsive breakpoint "${key}" references unknown token "${path}"`);
-      value = originalValue(token);
-      const reference = typeof value === 'string' && /^\{(.+)\}$/.exec(value);
-      if (!reference) break;
-      path = reference[1];
-    }
-    if (!value || value.unit !== 'px' || typeof value.value !== 'number') {
-      throw new Error(`responsive breakpoint "${key}" did not resolve to a px dimension`);
-    }
-    return value.value;
+  // Reads source values: Style Dictionary's resolved $value is already a transformed
+  // CSS string whose unit depends on the platform.
+  const sourceToken = (path) => {
+    const token = byPath.get(path);
+    return token && { $value: originalValue(token) };
   };
 
   // Restores each composite member's source reference so css/variables can emit it.
@@ -258,7 +231,7 @@ export async function cssResponsive(args) {
   // Every block sets the same properties with equal specificity, so the last match
   // wins. Emit narrowest first so the widest matching breakpoint applies.
   const media = Object.entries(groups)
-    .map(([breakpoint, lines]) => [breakpointPixels(breakpoint), lines])
+    .map(([breakpoint, lines]) => [breakpointPixels(breakpoint, sourceToken), lines])
     .sort(([a], [b]) => a - b)
     .map(([pixels, lines]) => `@media (min-width: ${decimal(pixels / REM_IN_PIXELS)}rem) {\n  :root {\n${lines.join('\n')}\n  }\n}`)
     .join('\n\n');

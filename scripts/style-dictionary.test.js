@@ -7,6 +7,8 @@ import { fileURLToPath } from 'node:url';
 import StyleDictionary from 'style-dictionary';
 import { describe, expect, it } from 'vitest';
 import config, { breakpointRem, fluidFontSize, variantSelector } from '../style-dictionary.config.js';
+import * as resolve from '../src/tokens/resolve.js';
+import { tokenRows } from '../src/components/tokens/componentTokens.js';
 
 const repository = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -409,5 +411,76 @@ describe('edu.uiowa.variant', () => {
   it('rejects a variant name that cannot form a class name', () => {
     expect(() => variantSelector({ path: ['card', 'background'] }, 'Black Card'))
       .toThrow('card.background declares an invalid variant name "Black Card"');
+  });
+});
+
+// The shared helpers the build and the Storybook component token pages both use.
+describe('src/tokens/resolve.js', () => {
+  const tokens = {
+    breakpoint: {
+      980: { $value: { value: 980, unit: 'px' } },
+      md: { $value: '{breakpoint.980}' },
+      desktop: { $value: '{breakpoint.md}' },
+      loop: { $value: '{breakpoint.loop}' },
+      rem: { $value: { value: 60, unit: 'rem' } },
+    },
+  };
+  const tokenAt = (path) => path.split('.').reduce((node, key) => node?.[key], tokens);
+
+  it('follows breakpoint references down to px', () => {
+    expect(resolve.breakpointPixels('980', tokenAt)).toBe(980);
+    expect(resolve.breakpointPixels('desktop', tokenAt)).toBe(980);
+  });
+
+  it('rejects unknown, circular, and non-px breakpoints', () => {
+    expect(() => resolve.breakpointPixels('wide', tokenAt))
+      .toThrow('responsive breakpoint "wide" references unknown token "breakpoint.wide"');
+    expect(() => resolve.breakpointPixels('loop', tokenAt)).toThrow('circular reference');
+    expect(() => resolve.breakpointPixels('rem', tokenAt)).toThrow('did not resolve to a px dimension');
+  });
+
+  it('takes the nearest group selector for a variant, else the BEM modifier', () => {
+    const source = {
+      card: {
+        $extensions: { 'edu.uiowa.variants': { dark: '.card--inverse', narrow: '.card--slim' } },
+        title: {
+          $extensions: { 'edu.uiowa.variants': { dark: '.card__title--dark' } },
+          color: { $value: '{color.brand.black}' },
+        },
+      },
+    };
+    expect(resolve.variantSelector(source, ['card', 'title', 'color'], 'dark')).toBe('.card__title--dark');
+    expect(resolve.variantSelector(source, ['card', 'title', 'color'], 'narrow')).toBe('.card--slim');
+    expect(resolve.variantSelector(source, ['card', 'title', 'color'], 'large')).toBe('.card--large');
+    expect(resolve.variantSelector(undefined, ['card', 'title', 'color'], 'dark')).toBe('.card--dark');
+  });
+});
+
+// The component Tokens pages build their rows from the source files; the build writes the
+// CSS. Every name, reference and selector a page shows must be one the CSS declares.
+describe('component token pages', () => {
+  const css = readFileSync(join(repository, 'src/scss/abstracts/_tokens-generated.scss'), 'utf8');
+  const componentsDirectory = join(repository, 'src/tokens/components');
+  const files = readdirSync(componentsDirectory).filter((file) => file.endsWith('.json'));
+  const rowsOf = (file) => tokenRows(JSON.parse(readFileSync(join(componentsDirectory, file), 'utf8')));
+  const declaration = (name, ref) => (ref ? `${name}: var(${ref});` : `${name}:`);
+
+  it.each(files)('%s matches the generated CSS', (file) => {
+    const rows = rowsOf(file);
+    expect(rows.length).toBeGreaterThan(0);
+    for (const row of rows) {
+      expect(css).toContain(declaration(row.name, row.ref));
+      for (const override of row.overrides) expect(css).toContain(declaration(row.name, override.ref));
+    }
+  });
+
+  it('lists brand bar breakpoints narrowest first and names the variant selector', () => {
+    const fontSize = rowsOf('brand-bar.json').find((row) => row.name === '--uiowa-brand-bar-site-name-font-size');
+    expect(fontSize.overrides.map((override) => override.px ?? override.label)).toEqual([
+      980,
+      1350,
+      '.iowa-bar--narrow (narrow variant)',
+    ]);
+    expect(css).toContain('.iowa-bar--narrow {');
   });
 });
