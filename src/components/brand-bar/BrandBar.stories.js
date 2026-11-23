@@ -1,16 +1,26 @@
 import UidsIowaBar from './BrandBar.vue'
-import UidsBadge from '../badge/Badge.vue'
 import UidsButton from '../button/Button.vue'
 import BrandBarDocs from './BrandBarDocs.mdx';
 import brandBarTokens from '../../tokens/components/brand-bar.json';
 import { componentTokensStory } from '../tokens/componentTokens.js';
+// The user menu example needs the borderless utility, and the menu styles that hide its list.
+import '../../scss/components/_border.scss';
+import '../../scss/components/menu.scss';
 import './BrandBar.stories.scss';
 
 // Example default slot content, picked from the Content control.
+// The user menu matches the one in Showcase › Application › Form.
 const contentExamples = {
-  none: '',
-  badge: '<uids-badge type="secondary" text="Beta" />',
-  button: '<uids-button url="#" color="secondary" size="small" transparent>Apply now</uids-button>',
+  userMenu: `
+    <div class="user-menu-toggle bg--gold">
+      <uids-button transparent light_font borderless>
+        <i style="color: var(--uiowa-color-brand-black)" class="fas fa-user"></i> HawkID <i style="color: var(--uiowa-color-brand-black)" class="fas fa-caret-down"></i>
+      </uids-button>
+      <ul class="menu">
+        <li><a href="/">Sign out</a></li>
+      </ul>
+    </div>
+  `,
 }
 
 export default {
@@ -41,7 +51,7 @@ export default {
       mapping: contentExamples,
       control: {
         type: 'select',
-        labels: { none: 'None', badge: 'Badge', button: 'Button' },
+        labels: { userMenu: 'User menu' },
       },
     },
     narrow: {
@@ -76,7 +86,7 @@ export const Tokens = {
 const Template = (args) => ({
   components: { UidsIowaBar },
   setup() {
-    return { args, UidsBadge, UidsButton }
+    return { args, UidsButton }
   },
   template: `
     <uids-iowa-bar
@@ -86,7 +96,7 @@ const Template = (args) => ({
       :site_url="args.site_url"
       :site_name_element="args.site_name_element"
     >
-      <component v-if="args.default" :is="{ components: { UidsBadge, UidsButton }, template: args.default }" />
+      <component v-if="args.default" :is="{ components: { UidsButton }, template: args.default }" />
     </uids-iowa-bar>
   `,
 })
@@ -96,7 +106,6 @@ Default.args = {
   site_name: '',
   site_url: '',
   site_name_element: 'h1',
-  default: 'none',
   narrow: false,
   healthcare: false,
 }
@@ -118,7 +127,7 @@ Narrow.args = {
 const ContentTemplate = (args) => ({
   components: { UidsIowaBar },
   setup() {
-    return { args, UidsBadge, UidsButton }
+    return { args, UidsButton }
   },
   template: `
     <uids-iowa-bar
@@ -128,7 +137,7 @@ const ContentTemplate = (args) => ({
       :site_url="args.site_url"
       :site_name_element="args.site_name_element"
     >
-      <component v-if="args.default" :is="{ components: { UidsBadge, UidsButton }, template: args.default }" />
+      <component v-if="args.default" :is="{ components: { UidsButton }, template: args.default }" />
     </uids-iowa-bar>
     <div class="sb-brand-bar-stories__row">
       <div class="sb-brand-bar-stories__row-container">
@@ -149,5 +158,5 @@ WithParentSiteTitle.args = {
 export const ContentExamples = Template.bind({})
 ContentExamples.args = {
   ...WithSiteTitle.args,
-  default: 'badge',
+  default: 'userMenu',
 }
