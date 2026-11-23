@@ -20,8 +20,10 @@ different CSS-pixel widths.
 ## Generate
 
 Style Dictionary compiles the token files into `src/scss/abstracts/_tokens-generated.scss`
-and the dark mode values into `src/scss/abstracts/_tokens-dark-generated.scss`. Do not
-edit those generated files. When changing `src/tokens/**`, run:
+and the dark mode values into `src/scss/abstracts/_tokens-dark-generated.scss`. It writes
+the dark values again as a Sass mixin with no selector, `dark-mode`, in
+`src/scss/abstracts/_tokens-dark-mixin-generated.scss`. Do not edit those generated files.
+When changing `src/tokens/**`, run:
 
 ```
 yarn build:tokens

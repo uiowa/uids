@@ -167,3 +167,13 @@ it('names $root tokens after their group and writes dark mode for the OS and dat
   expect(dark.match(/--uiowa-color-text: var\(--uiowa-color-neutral-100\);/g)).toHaveLength(2);
   expect(dark).not.toContain('--uiowa-color-text-disabled');
 });
+
+it('writes the same dark values as a Sass mixin with no selector of its own', () => {
+  const dark = readFileSync(join(repository, 'src/scss/abstracts/_tokens-dark-generated.scss'), 'utf8');
+  const mixin = readFileSync(join(repository, 'src/scss/abstracts/_tokens-dark-mixin-generated.scss'), 'utf8');
+  const declarations = (css) => new Set(css.match(/^\s*(color-scheme|--uiowa-[\w-]+): [^;]+;/gm).map((line) => line.trim()));
+
+  expect(mixin).toContain('@mixin dark-mode {');
+  expect(mixin).not.toContain(':root');
+  expect(declarations(mixin)).toEqual(declarations(dark));
+});

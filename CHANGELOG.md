@@ -75,9 +75,14 @@ The color roles follow the operating system's dark mode (`prefers-color-scheme`)
 text is `neutral.100`, supporting text `neutral.200`, detail text `neutral.300`, the page and
 panels `neutral.900`, subtle fills `neutral.800`, dividers and hairlines `neutral.500`, and
 links `link.inverse`; `color-scheme` turns dark, so form controls and scrollbars follow.
-Disabled text, field borders, and the indicator keep one value in both modes. Components
+Field borders are `neutral.400` in light mode and `neutral.300` in dark; the indicator is
+`neutral.500` and `neutral.300`. Disabled text keeps one value in both modes. Components
 don't use the roles yet: in dark mode the page, its text, and its links change, and
 components keep their light colors.
+
+The build also writes the dark values as a Sass mixin, `dark-mode` in
+`src/scss/abstracts/_tokens-dark-mixin-generated.scss`, for a stylesheet that marks its
+color mode some other way than `data-theme`.
 
 #### Status colors
 

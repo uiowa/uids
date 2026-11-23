@@ -89,16 +89,20 @@ export function darkValue(token, tokensByPath) {
   return `var(--${target.name})`;
 }
 
+function darkDeclarations(dictionary) {
+  const tokensByPath = new Map(dictionary.unfilteredAllTokens.map((token) => [token.path.join('.'), token]));
+  return [
+    'color-scheme: dark;',
+    ...dictionary.allTokens.map((token) => `--${token.name}: ${darkValue(token, tokensByPath)};`),
+  ];
+}
+
 /**
  * Dark mode follows the operating system unless the page sets
  * data-theme="light" or data-theme="dark" on its root element.
  */
 export function darkModeCss({ dictionary }) {
-  const tokensByPath = new Map(dictionary.unfilteredAllTokens.map((token) => [token.path.join('.'), token]));
-  const declarations = [
-    'color-scheme: dark;',
-    ...dictionary.allTokens.map((token) => `--${token.name}: ${darkValue(token, tokensByPath)};`),
-  ];
+  const declarations = darkDeclarations(dictionary);
   const block = (indent) => declarations.map((line) => `${indent}${line}`).join('\n');
 
   return [
@@ -114,6 +118,21 @@ export function darkModeCss({ dictionary }) {
     '  :root:not([data-theme="light"]) {',
     block('    '),
     '  }',
+    '}',
+    '',
+  ].join('\n');
+}
+
+/**
+ * The same dark values as a Sass mixin, for a page that marks its color mode
+ * some other way than data-theme.
+ */
+export function darkModeMixin({ dictionary }) {
+  return [
+    '// Do not edit directly, this file was auto-generated.',
+    '',
+    '@mixin dark-mode {',
+    ...darkDeclarations(dictionary).map((line) => `  ${line}`),
     '}',
     '',
   ].join('\n');
@@ -153,6 +172,7 @@ export default {
     },
     formats: {
       'uids/css-dark': darkModeCss,
+      'uids/scss-dark-mixin': darkModeMixin,
     },
   },
   platforms: {
@@ -171,6 +191,11 @@ export default {
         {
           destination: '_tokens-dark-generated.scss',
           format: 'uids/css-dark',
+          filter: hasDarkValue,
+        },
+        {
+          destination: '_tokens-dark-mixin-generated.scss',
+          format: 'uids/scss-dark-mixin',
           filter: hasDarkValue,
         },
       ],
