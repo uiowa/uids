@@ -59,7 +59,35 @@ const customViewports = {
   // },
 };
 
+// Light by default, so stories look as they always have; Dark and System preview
+// the color modes the way a page sets them.
+const withColorMode = (story, context) => {
+  const root = document.documentElement;
+  if (context.globals.theme === 'system') root.removeAttribute('data-theme');
+  else root.setAttribute('data-theme', context.globals.theme);
+  return { components: { story }, template: '<story />' };
+};
+
 export default {
+  globalTypes: {
+    theme: {
+      description: 'Color mode',
+      toolbar: {
+        title: 'Theme',
+        icon: 'contrast',
+        items: [
+          { value: 'light', title: 'Light' },
+          { value: 'dark', title: 'Dark' },
+          { value: 'system', title: 'System' },
+        ],
+        dynamicTitle: true,
+      },
+    },
+  },
+  initialGlobals: {
+    theme: 'light',
+  },
+  decorators: [withColorMode],
   parameters: {
     docs: {
       page: DocumentationTemplate,

@@ -2,11 +2,18 @@
   "color": {
     "$type": "color",
     "text": {
+      "$root": { "$value": "{color.text.default}", "$extensions": { "edu.uiowa.dark": "{color.neutral.100}" }, "$description": "Text in the current color mode. 4.5:1." },
       "default": { "$value": "{color.neutral.900}", "$description": "Text on white, gray, and gold surfaces." },
-      "inverse": { "$value": "{color.neutral.0}", "$description": "Text on black surfaces." }
+      "inverse": { "$value": "{color.neutral.0}", "$description": "Text on black surfaces." },
+      "supporting": { "$value": "{color.neutral.500}", "$extensions": { "edu.uiowa.dark": "{color.neutral.200}" }, "$description": "Supporting text in the current color mode. 4.5:1." },
+      "detail": { "$value": "{color.neutral.500}", "$extensions": { "edu.uiowa.dark": "{color.neutral.300}" }, "$description": "Detail text, such as labels and counts, in the current color mode. 4.5:1." },
+      "disabled": { "$value": "{color.neutral.400}", "$description": "Disabled text in both color modes. Exempt from contrast minimums." }
     },
     "background": {
       "$description": "Fills behind page and section content.",
+      "$root": { "$value": "{color.background.default}", "$extensions": { "edu.uiowa.dark": "{color.neutral.900}" }, "$description": "The page in the current color mode." },
+      "panel": { "$value": "{color.background.gray}", "$extensions": { "edu.uiowa.dark": "{color.neutral.900}" }, "$description": "A panel on the page. In dark mode a panel is black like the page, so give it a hairline." },
+      "subtle": { "$value": "{color.neutral.150}", "$extensions": { "edu.uiowa.dark": "{color.neutral.800}" }, "$description": "A fill one step off the page, in the current color mode." },
       "default": { "$value": "{color.neutral.0}" },
       "black": { "$value": "{color.brand.black}" },
       "gold": { "$value": "{color.brand.gold}" },
@@ -15,6 +22,7 @@
     },
     "link": {
       "$description": "Always underline links. Never rely on blue alone to signal a link.",
+      "$root": { "$value": "{color.link.default}", "$extensions": { "edu.uiowa.dark": "{color.link.inverse}" }, "$description": "Link in the current color mode." },
       "default": { "$value": "{color.blue-dark}", "$description": "Link on white and gray surfaces." },
       "inverse": { "$value": "{color.blue}", "$description": "Link on black surfaces." },
       "gold": { "$value": "{color.neutral.900}", "$description": "Link on gold surfaces." }
@@ -54,8 +62,12 @@
       "default": { "$value": "{color.alpha.black-125}", "$description": "Border on white, gray, and gold surfaces." },
       "inverse": { "$value": "{color.alpha.white-325}", "$description": "Border on black surfaces." },
       "strong": { "$value": "{color.alpha.black-425}", "$description": "Dark border for controls on white and gray surfaces." },
-      "strong-inverse": { "$value": "{color.alpha.white-425}", "$description": "Light border for controls on black surfaces or with black fills." }
+      "strong-inverse": { "$value": "{color.alpha.white-425}", "$description": "Light border for controls on black surfaces or with black fills." },
+      "field": { "$value": "{color.neutral.400}", "$extensions": { "edu.uiowa.dark": "{color.neutral.300}" }, "$description": "Form field borders in the current color mode. 3:1." }
     },
+    "indicator": { "$value": "{color.neutral.500}", "$extensions": { "edu.uiowa.dark": "{color.neutral.300}" }, "$description": "Current-page bars, check marks, and functional icons, in the current color mode. 3:1." },
+    "divider": { "$value": "{color.neutral.200}", "$extensions": { "edu.uiowa.dark": "{color.neutral.500}" }, "$description": "Lines between sections, in the current color mode. Decoration." },
+    "hairline": { "$value": "{color.neutral.175}", "$extensions": { "edu.uiowa.dark": "{color.neutral.500}" }, "$description": "Thin rules, such as a panel's edge, in the current color mode. Decoration." },
     "info": { "$value": "{color.blue-dark}", "$description": "Informational status. Never decoration. Always pair with text or an icon." },
     "success": { "$value": "{color.green}", "$description": "Success status. Never decoration. Always pair with text or an icon." },
     "warning": { "$value": "{color.ochre-dark}", "$description": "Warning status. Never decoration. Always pair with text or an icon." },

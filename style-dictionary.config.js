@@ -1,5 +1,6 @@
 const REM_IN_PIXELS = 16;
 const FLUID_EXTENSION = 'edu.uiowa.fluid';
+const DARK_EXTENSION = 'edu.uiowa.dark';
 
 // Style Dictionary does not calculate a responsive font size from the UIDS fluid
 // extension, so these helpers validate that metadata and convert it to clamp().
@@ -70,6 +71,73 @@ export function breakpointRem(token) {
   return `${decimal(value.value / REM_IN_PIXELS)}rem`;
 }
 
+// A group's own token is written `$root` in DTCG; its custom property takes the
+// group's name, so `color.text.$root` is `--uiowa-color-text`.
+export const isRootToken = (token) => token.path.at(-1) === '$root';
+
+export const hasDarkValue = (token) => Boolean(token.original.$extensions?.[DARK_EXTENSION]);
+
+/**
+ * Writes a token's `edu.uiowa.dark` reference as the referenced custom property.
+ * Style Dictionary resolves references inside $extensions, so the reference is
+ * read from the token's source.
+ */
+export function darkValue(token, tokensByPath) {
+  const reference = /^\{([^}]+)\}$/.exec(token.original.$extensions[DARK_EXTENSION]);
+  const target = reference && tokensByPath.get(reference[1]);
+  if (!target) throw new Error(`${token.path.join('.')}: ${DARK_EXTENSION} must reference a token`);
+  return `var(--${target.name})`;
+}
+
+function darkDeclarations(dictionary) {
+  const tokensByPath = new Map(dictionary.unfilteredAllTokens.map((token) => [token.path.join('.'), token]));
+  return [
+    'color-scheme: dark;',
+    ...dictionary.allTokens.map((token) => `--${token.name}: ${darkValue(token, tokensByPath)};`),
+  ];
+}
+
+/**
+ * Dark mode follows the operating system unless the page sets
+ * data-theme="light" or data-theme="dark" on its root element.
+ */
+export function darkModeCss({ dictionary }) {
+  const declarations = darkDeclarations(dictionary);
+  const block = (indent) => declarations.map((line) => `${indent}${line}`).join('\n');
+
+  return [
+    '/**',
+    ' * Do not edit directly, this file was auto-generated.',
+    ' */',
+    '',
+    ':root[data-theme="dark"] {',
+    block('  '),
+    '}',
+    '',
+    '@media (prefers-color-scheme: dark) {',
+    '  :root:not([data-theme="light"]) {',
+    block('    '),
+    '  }',
+    '}',
+    '',
+  ].join('\n');
+}
+
+/**
+ * The same dark values as a Sass mixin, for a page that marks its color mode
+ * some other way than data-theme.
+ */
+export function darkModeMixin({ dictionary }) {
+  return [
+    '// Do not edit directly, this file was auto-generated.',
+    '',
+    '@mixin dark-mode {',
+    ...darkDeclarations(dictionary).map((line) => `  ${line}`),
+    '}',
+    '',
+  ].join('\n');
+}
+
 export default {
   usesDtcg: true,
   source: ['src/tokens/**/*.json'],
@@ -96,12 +164,21 @@ export default {
         filter: isBreakpoint,
         transform: breakpointRem,
       },
+      'uids/name-root': {
+        type: 'name',
+        filter: isRootToken,
+        transform: (token) => token.name.replace(/-root$/, ''),
+      },
+    },
+    formats: {
+      'uids/css-dark': darkModeCss,
+      'uids/scss-dark-mixin': darkModeMixin,
     },
   },
   platforms: {
     scss: {
       transformGroup: 'css',
-      transforms: ['uids/fluid-font-size', 'uids/duration-css'],
+      transforms: ['uids/fluid-font-size', 'uids/duration-css', 'uids/name-root'],
       prefix: 'uiowa',
       buildPath: 'src/scss/abstracts/',
       files: [
@@ -110,6 +187,16 @@ export default {
           format: 'css/variables',
           options: { outputReferences: true },
           filter: (token) => !isBreakpoint(token),
+        },
+        {
+          destination: '_tokens-dark-generated.scss',
+          format: 'uids/css-dark',
+          filter: hasDarkValue,
+        },
+        {
+          destination: '_tokens-dark-mixin-generated.scss',
+          format: 'uids/scss-dark-mixin',
+          filter: hasDarkValue,
         },
       ],
     },

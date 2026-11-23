@@ -19,8 +19,11 @@ different CSS-pixel widths.
 
 ## Generate
 
-Style Dictionary compiles the token files into `src/scss/abstracts/_tokens-generated.scss`.
-Do not edit that generated file. When changing `src/tokens/**`, run:
+Style Dictionary compiles the token files into `src/scss/abstracts/_tokens-generated.scss`
+and the dark mode values into `src/scss/abstracts/_tokens-dark-generated.scss`. It writes
+the dark values again as a Sass mixin with no selector, `dark-mode`, in
+`src/scss/abstracts/_tokens-dark-mixin-generated.scss`. Do not edit those generated files.
+When changing `src/tokens/**`, run:
 
 ```
 yarn build:tokens
@@ -30,9 +33,36 @@ yarn build:tokens
 needed for a CSS-only change. Generated token files are not committed; `prepack` runs the
 build so release artifacts include the generated Sass and CSS.
 
+## Color modes
+
+UIDS has a light and a dark color mode. Dark mode follows the operating system
+(`prefers-color-scheme`). A page can fix the mode with `data-theme="light"` or
+`data-theme="dark"` on its root element; without the attribute, it follows the system.
+
+Color roles such as `color.text`, `color.background.panel` and `color.divider` name a
+job, not a color. Each has a light value and, when the job needs a different color on
+dark, a dark value in `edu.uiowa.dark`. A role without a dark value uses one color in
+both modes. Primitives have no modes.
+
+A group's own token is written `$root`: `color.text.$root` is `--uiowa-color-text`,
+beside `--uiowa-color-text-default` and `--uiowa-color-text-inverse`.
+
 ## UIDS extensions
 
-UIDS currently defines one namespaced extension using DTCG's `$extensions` property.
+UIDS defines two namespaced extensions using DTCG's `$extensions` property.
+
+### `edu.uiowa.dark`
+
+Gives a color role its dark mode value, as a reference to another token:
+
+```json
+"$root": { "$value": "{color.text.default}", "$extensions": { "edu.uiowa.dark": "{color.neutral.100}" } }
+```
+
+The generator writes these values twice: under `:root[data-theme="dark"]`, and under
+`@media (prefers-color-scheme: dark)` for a root without `data-theme="light"`. Both set
+`color-scheme: dark`, so form controls and scrollbars follow. A dark value that is not a
+reference fails the build.
 
 ### `edu.uiowa.fluid`
 
