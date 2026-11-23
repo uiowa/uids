@@ -5,6 +5,12 @@ import uidsTheme from './uidsTheme';
 
 addons.setConfig({
   theme: uidsTheme,
+  layoutCustomisations: {
+    // A story tagged noAddonsDrawer has no use for the addons drawer, so it stays closed.
+    showPanel({ storyId, index }, defaultValue) {
+      return index?.[storyId]?.tags?.includes('noAddonsDrawer') ? false : defaultValue;
+    },
+  },
 });
 
 // Machete "just-in-time" CSS overrides for accessibility.

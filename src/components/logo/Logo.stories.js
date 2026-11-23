@@ -1,4 +1,6 @@
 import UidsLogo from './Logo.vue'
+import logoTokens from '../../tokens/components/logo.json';
+import { componentTokensStory } from '../tokens/componentTokens.js';
 
 export default {
   title: 'Components/Branding/Logo',
@@ -21,6 +23,12 @@ export default {
       name: 'URL'
     },
   },
+};
+
+// First, so it sits right under Docs.
+export const Tokens = {
+  ...componentTokensStory(logoTokens),
+  tags: ['!autodocs', 'noAddonsDrawer'],
 };
 
 const Template = (args) => ({

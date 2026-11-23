@@ -2,6 +2,8 @@ import UidsIowaBar from './BrandBar.vue'
 import UidsBadge from '../badge/Badge.vue'
 import UidsButton from '../button/Button.vue'
 import BrandBarDocs from './BrandBarDocs.mdx';
+import brandBarTokens from '../../tokens/components/brand-bar.json';
+import { componentTokensStory } from '../tokens/componentTokens.js';
 import './BrandBar.stories.scss';
 
 // Example default slot content, picked from the Content control.
@@ -63,6 +65,12 @@ export default {
       page: BrandBarDocs,
     },
   },
+};
+
+// First, so it sits right under Docs.
+export const Tokens = {
+  ...componentTokensStory(brandBarTokens),
+  tags: ['!autodocs', 'noAddonsDrawer'],
 };
 
 const Template = (args) => ({
