@@ -186,6 +186,8 @@ export function variantSelector(token, variant) {
 // block for every value declared under the UIDS variant extension. Breakpoints and
 // variants re-point the same custom property, so neither appears in a token name.
 export async function cssResponsive(args) {
+  // Read each token file fresh per build; the cache only saves re-reading it per token.
+  sourceFiles.clear();
   const { dictionary } = args;
   const byPath = new Map(dictionary.allTokens.map((token) => [token.path.join('.'), token]));
   const originalValue = (token) => token?.original?.$value ?? token?.$value;
