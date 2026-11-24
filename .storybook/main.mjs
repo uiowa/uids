@@ -28,6 +28,7 @@ const watchTokens = {
 
 const config = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  staticDirs: ['../llms'],
   addons: [
     '@storybook/addon-docs',
     '@storybook/addon-links',
