@@ -1,24 +1,25 @@
 <script lang="ts">
-import { computed, Comment, Fragment, Text, type VNode } from "vue"
-import '../../scss/components/brand-bar.scss'
-import UidsLogo, { logoUrl } from '../logo/Logo.vue'
+import { computed, Comment, Fragment, Text, type VNode } from 'vue';
+import '../../scss/components/brand-bar.scss';
+import UidsLogo, { logoUrl } from '../logo/Logo.vue';
 
 /**
  * Whether slot output has anything to show. A slot passed with only
  * comments, such as a false `v-if`, or blank text counts as empty.
  */
-const hasContent = (nodes: VNode[]): boolean => nodes.some((node) => {
-  if (node.type === Comment) {
-    return false;
-  }
-  if (node.type === Text) {
-    return String(node.children).trim() !== '';
-  }
-  if (node.type === Fragment) {
-    return hasContent(node.children as VNode[]);
-  }
-  return true;
-})
+const hasContent = (nodes: VNode[]): boolean =>
+  nodes.some((node) => {
+    if (node.type === Comment) {
+      return false;
+    }
+    if (node.type === Text) {
+      return String(node.children).trim() !== '';
+    }
+    if (node.type === Fragment) {
+      return hasContent(node.children as VNode[]);
+    }
+    return true;
+  });
 
 /**
  * The UIDS IOWA Bar is the visual starting point for all
@@ -66,34 +67,33 @@ export default {
     },
   },
   setup(props, { slots }) {
-
     /**
      * Get computed classes based on properties of the component.
      */
     const getClasses = computed(() => {
-      let classes = ['iowa-bar']
+      let classes = ['iowa-bar'];
       if (props.narrow) {
-        classes.push('iowa-bar--narrow')
+        classes.push('iowa-bar--narrow');
       }
       if (props.healthcare) {
-        classes.push('iowa-bar--healthcare')
+        classes.push('iowa-bar--healthcare');
       }
 
       return classes;
-    })
+    });
 
     /**
      * Check whether the default slot has content to render.
      */
-    const hasDefaultSlot = () => !!slots.default && hasContent(slots.default())
+    const hasDefaultSlot = () => !!slots.default && hasContent(slots.default());
 
     return {
       getClasses,
       hasDefaultSlot,
       logoUrl,
-    }
-  }
-}
+    };
+  },
+};
 </script>
 
 <template>
