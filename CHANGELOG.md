@@ -34,6 +34,16 @@ writes them to Sass, in rem.
 
 ### Changed
 
+- The vertical **Menu** is restyled for side navigation. Horizontal menus are unchanged.
+
+  | | Old | New |
+  | --- | --- | --- |
+  | Line under each item | 1px `hsla(0, 0%, 79%, .5)` | None |
+  | Top-level items | Medium weight | Regular weight |
+  | Current page | Gray bar (`color.neutral.200`) | Bold, on `color.background.gray`, with a gold bar (`color.brand.gold`) |
+  | Links nested under the current page | Gray bar | No bar |
+  | Chevron after items with children | Shown | Hidden |
+
 - Stat text inherits the nearest background’s text color. Titles on black change from
   gold to white; supporting text changes from gray to white on black and black on white.
   Nested stats follow the nearest background instead of matching an outer black ancestor.
