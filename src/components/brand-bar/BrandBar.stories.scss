@@ -1,0 +1,56 @@
+// Story-only styles for the brand bar examples. Imported by
+// BrandBar.stories.js only; not compiled into dist or part of UIDS.
+//
+// Once a story loads, these styles stay on the page for every story
+// viewed after it, so every rule is nested under `.sb-brand-bar-stories`,
+// the wrapper that the BrandBar.stories.js decorator puts around each
+// brand bar story.
+@use '../../scss/abstracts/variables';
+@use '../../scss/abstracts/utilities';
+
+.sb-brand-bar-stories {
+  // === Second row === //
+  // Recreates the removed 4.x `.iowa-bar__below` row, matched to the live
+  // With Parent Site Title story.
+  &__row {
+    border-bottom: var(--uiowa-stroke-width-default) solid #e6e5e5;
+    background: var(--uiowa-color-background-white);
+
+    .site-name {
+      margin: 0;
+      padding: 0 variables.$gutter variables.$gutter;
+      // Until md the row continues the brand bar's gold.
+      background: var(--uiowa-brand-bar-background);
+      font-family: var(--uiowa-brand-bar-site-name-font-family);
+      font-weight: var(--uiowa-brand-bar-site-name-font-weight);
+      font-size: 1.8rem;
+      line-height: 1;
+
+      @include utilities.breakpoint(md) {
+        padding: 25px 20px 25px 0;
+        background: transparent;
+        font-size: 2rem;
+      }
+
+      @include utilities.breakpoint(page-container) {
+        font-size: 2.2rem;
+      }
+    }
+  }
+
+  &__row-container {
+    max-width: variables.$container-width;
+
+    @include utilities.breakpoint(md) {
+      display: flex;
+      flex-wrap: wrap;
+      min-height: 90px;
+      padding-left: variables.$gutter;
+    }
+
+    @include utilities.breakpoint(page-container) {
+      margin: 0 auto;
+      padding-left: 0;
+    }
+  }
+}

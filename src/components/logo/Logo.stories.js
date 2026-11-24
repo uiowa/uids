@@ -1,5 +1,6 @@
 import UidsLogo from './Logo.vue'
-import BrandBarDocs from '../brand-bar/BrandBarDocs.mdx';
+import logoTokens from '../../tokens/components/logo.json';
+import { componentTokensStory } from '../tokens/componentTokens.js';
 
 export default {
   title: 'Components/Branding/Logo',
@@ -15,8 +16,19 @@ export default {
   argTypes: {
     healthcare: {
       control: { type: 'boolean' },
+      name: 'Healthcare'
+    },
+    url: {
+      control: { type: 'text' },
+      name: 'URL'
     },
   },
+};
+
+// First, so it sits right under Docs.
+export const Tokens = {
+  ...componentTokensStory(logoTokens),
+  tags: ['!autodocs', 'noAddonsDrawer'],
 };
 
 const Template = (args) => ({
@@ -25,7 +37,7 @@ const Template = (args) => ({
     return { args }
   },
   template: `
-    <uids-logo :healthcare="args.healthcare"></uids-logo>
+    <uids-logo :healthcare="args.healthcare" :url="args.url"></uids-logo>
   `,
 })
 
@@ -33,10 +45,19 @@ export const Iowa = Template.bind({})
 
 Iowa.args = {
   healthcare: false,
+  url: 'https://uiowa.edu',
 }
 
 export const IowaHealthCare = Template.bind({})
 
 IowaHealthCare.args = {
   healthcare: true,
+  url: 'https://uihealthcare.org',
+}
+
+export const Unlinked = Template.bind({})
+
+Unlinked.args = {
+  ...Iowa.args,
+  url: '',
 }

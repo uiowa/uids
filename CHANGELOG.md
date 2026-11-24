@@ -7,6 +7,92 @@ Notable changes to UIDS, grouped by release, newest first. The format follows
 When a change alters a rendered value, list the old value and the new one. A design
 system built from UIDS should be able to catch up using this file alone.
 
+## [5.0.0-alpha.2](https://github.com/uiowa/uids/compare/v5.0.0-alpha.1...v5.0.0-alpha.2)
+
+### Added
+
+- Brand bar `site_name`, `site_url`, and `site_name_element` props. `site_name` renders
+  the site name after the logo as `.site-name`; `site_url` wraps the name in a link. Set
+  `site_name_element` to `span` when the page has its own `<h1>`; it accepts `h1`
+  (default) or `span`. The default slot now follows the site name.
+- Brand bar `.iowa-bar__content` wrapper around the default slot, rendered only when the
+  slot has content. Below md it stacks under the site name on the bar's gold; at md and
+  up it fills the space after the site name as a flex row.
+- Brand bar `.iowa-bar__logo` wrapper around the logo. Below md it fills the row with
+  the logo tab's black (`--uiowa-logo-background`); at md and up it is
+  `display: contents` and has no effect on layout. Markup copied from the brand bar
+  needs this wrapper, or the black stops at the edge of the logo tab below md.
+
+#### Design tokens
+
+| Group | Tokens |
+| --- | --- |
+| Breakpoints | `breakpoint.xxsm` (400), `xsm` (600), `sm` (768), `md` (980), `lg` (1200), `standard` (1350), written to Sass as `$uiowa-breakpoint-xxsm` and so on |
+| Brand bar | `brand-bar.background`; `brand-bar.site-name.color`, `font-family`, `font-weight`, `font-size`, `line-height` |
+| Logo | `logo.text.color`, `logo.subtext.color`, `logo.background` |
+| Line height | `typography.line-height.100` (1), used by `brand-bar.site-name.line-height` so the site name keeps its line height of 1 |
+
+- Token extensions for component authors: `edu.uiowa.variant` re-points a token under a
+  variant's selector, `edu.uiowa.variants` maps a variant to a selector other than
+  `.{component}--{variant}`, and `edu.uiowa.responsive` re-points a token at a
+  breakpoint. `edu.uiowa.fluid` also applies to a standalone `font-size` token and takes
+  token references for its viewports. See `src/tokens/README.md`.
+
+### Changed
+
+- The brand bar's own background (`brand-bar.background`,
+  `--uiowa-brand-bar-background`) is gold at every width; below md it was black. The
+  bar looks the same: below md the black now comes from `.iowa-bar__logo`, and the site
+  name and slot content sit on the bar's gold with no background of their own.
+- The logo tab (`.logo--tab`) centers its logo with flexbox, and `.logo-icon` is
+  `display: block`. All tab padding is removed (was `25px 1.25rem`, `25px` at md, and
+  `23px 20px` at the page container; Health Care `20px 1.25rem`, then `23px 22px` at
+  md). Tab sizes are unchanged. The Health Care logo moves: below md, 1px up; at md,
+  3.7px right and, outside the brand bar, 3.5px down. Other logos move by half a pixel
+  or less. Styles that set padding on `.logo--tab` now shrink the area the logo centers
+  in.
+- The brand bar no longer sets padding on the logo tab, except `padding-top: 7px` at the
+  page container on the default bar (was `27px 20px 20px`), which keeps the logo 27px
+  from the top of the hanging tab. Removed: `padding-top: 27px` at md on the Health Care
+  bar and `padding: 15px` at md on the narrow bar.
+- The logo links only when given the new `url` prop; without it, the logo renders no
+  `<a>`. The brand bar and footer pass `https://uiowa.edu`, or `https://uihealthcare.org`
+  with `healthcare`, so they still link. The logo dims to 0.7 opacity on hover and focus
+  only when linked; focus was 0.5. The SVG takes its accessible name from `aria-label`
+  in place of `aria-labelledby`, a `<title>`, and a visually hidden div.
+- Typography composite members reference the tokens they are built from instead of
+  repeating their values. For example, `--uiowa-typography-body-font-family` is
+  `var(--uiowa-typography-font-family-roboto)` (was `Roboto, sans-serif`), and each
+  `letter-spacing` member is `var(--uiowa-typography-letter-spacing-normal)` (was `0px`).
+  Fluid font sizes keep their `clamp()` values. Computed values are unchanged.
+- The brand bar site name (`.site-name`) takes its sizes from the font-size scale
+  (`brand-bar.site-name.font-size`): 1.65rem below md (was 1.8rem), 1.95rem at md (was
+  2rem), and 2.2rem at the page container (unchanged).
+- On the narrow brand bar, the site name is 1.2rem at every width (was 1rem).
+- On the narrow Health Care brand bar, the logo below md is 32px tall (was 33px). The
+  narrow bar's own height is removed, so the logo takes the Health Care logo's height.
+- The brand bar's site-name styles, and the `brand-bar.site-name.*` tokens, apply only
+  to `.iowa-bar .site-name`. Before, `brand-bar.css` styled every `.site-name` on the
+  page. A `.site-name` outside the brand bar no longer gets its flex layout, margins,
+  font family, size, weight, line height, or link color.
+- The footer site name (`.footer .site-name`) sets its own line height of 1. It looks
+  the same whether or not `brand-bar.css` is loaded. Without `brand-bar.css` its line
+  height was the body's 1.15.
+- The Storybook Tokens page lists the semantic breakpoints `breakpoint.xxsm` to
+  `breakpoint.standard` in place of `layout.breakpoint.standard`.
+
+### Removed
+
+- The brand bar's second row: the `second_row_content` slot and `.iowa-bar__below`
+  styles. Filling the slot no longer applies `.iowa-bar--narrow`; pass `narrow` instead.
+  Pass the site name with `site_name`. No replacement for a second row.
+- The logo's `id` prop, used only to label the SVG. No replacement.
+- The brand bar's `.parent-site-name` styles (light weight; a gold row below md;
+  inline after the logo at md and up). The footer keeps its own `.parent-site-name`
+  styles. No replacement in the brand bar.
+- `layout.breakpoint.standard` and its Sass variable `$uiowa-layout-breakpoint-standard`.
+  Use `breakpoint.standard` (`$uiowa-breakpoint-standard`), also 1350px.
+
 ## [5.0.0-alpha.1](https://github.com/uiowa/uids/compare/v5.0.0-alpha.0...v5.0.0-alpha.1)
 
 

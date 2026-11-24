@@ -76,9 +76,7 @@ const Template = {
     },
     template: `
       <main>
-        <brand-bar :narrow="false" :healthcare="false">
-          <h1 class="site-name">College of Liberal Arts and Sciences</h1>
-        </brand-bar>
+        <brand-bar :narrow="false" :healthcare="false" site_name="College of Liberal Arts and Sciences"></brand-bar>
 
         <nav class="menu--container">
           <div class="layout-container">
