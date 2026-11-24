@@ -3,7 +3,7 @@ import { kebabCase } from 'change-case';
 import breakpointTokens from '../../tokens/primitives/breakpoints.json';
 import semanticBreakpointTokens from '../../tokens/semantic/breakpoint.json';
 import { breakpointPixels, variantSelector } from '../../tokens/resolve.js';
-import { TYPOGRAPHY_CHANNELS, computedValue, css } from './tokenDisplay.js';
+import { CHANNEL_PROPERTY, computedValue, css } from './tokenDisplay.js';
 
 /**
  * A Tokens page for one component, laid out like the Tokens stories. Rows come from the
@@ -21,8 +21,6 @@ import { TYPOGRAPHY_CHANNELS, computedValue, css } from './tokenDisplay.js';
 
 const RESPONSIVE = 'edu.uiowa.responsive';
 const VARIANT = 'edu.uiowa.variant';
-
-const CHANNEL_PROPERTY = Object.fromEntries(TYPOGRAPHY_CHANNELS.map(({ name, property }) => [name, property]));
 
 // Style Dictionary's name/kebab with the build's uiowa prefix.
 const varName = (path) => `--${kebabCase(['uiowa', ...path].join(' '))}`;

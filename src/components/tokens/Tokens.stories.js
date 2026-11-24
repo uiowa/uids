@@ -1,7 +1,7 @@
 import { computed, ref, onMounted } from 'vue';
 import breakpointTokens from '../../tokens/primitives/breakpoints.json';
 import semanticBreakpointTokens from '../../tokens/semantic/breakpoint.json';
-import { TYPOGRAPHY_CHANNELS, computedValue, css, primitiveOf } from './tokenDisplay.js';
+import { CHANNEL_PROPERTY, TYPOGRAPHY_CHANNELS, computedValue, css, primitiveOf } from './tokenDisplay.js';
 
 const TYPOGRAPHY_CHANNEL_PATTERN = new RegExp(`-(${TYPOGRAPHY_CHANNELS.map(({ name }) => name).join('|')})$`);
 
@@ -20,7 +20,8 @@ function readTokens() {
       continue; // cross-origin sheet
     }
     for (const rule of rules) {
-      if (!rule.style || !rule.selectorText) continue;
+      // Only :root holds a token's default; variant and context rules re-point it.
+      if (rule.selectorText !== ':root' || !rule.style) continue;
       for (const prop of rule.style) {
         if (prop.startsWith('--uiowa-')) {
           found.set(prop, rule.style.getPropertyValue(prop).trim());
@@ -79,12 +80,10 @@ function group(name, declared) {
   return 'other';
 }
 
-const SPECIMEN_PROPERTY = Object.fromEntries(TYPOGRAPHY_CHANNELS.map(({ name, property }) => [name, property]));
-
 const kindOf = (name) =>
   (name.match(new RegExp(`^--uiowa-typography-(${TYPOGRAPHY_CHANNELS.map(({ name }) => name).join('|')})-`)) || [])[1];
 
-const specimenStyle = (token) => ({ [SPECIMEN_PROPERTY[token.kind]]: `var(${token.name})` });
+const specimenStyle = (token) => ({ [CHANNEL_PROPERTY[token.kind]]: `var(${token.name})` });
 const typographyStyle = (base) => Object.fromEntries(
   TYPOGRAPHY_CHANNELS.map(({ name, property }) => [property, `var(${base}-${name})`]),
 );

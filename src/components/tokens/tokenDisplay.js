@@ -9,6 +9,9 @@ export const TYPOGRAPHY_CHANNELS = [
   { name: 'line-height', property: 'lineHeight' },
 ];
 
+/** A typography channel's name (font-size) to its CSS property in a style object (fontSize). */
+export const CHANNEL_PROPERTY = Object.fromEntries(TYPOGRAPHY_CHANNELS.map(({ name, property }) => [name, property]));
+
 /** A semantic token's declared value is a var() reference; the reader wants the primitive's name. */
 export const primitiveOf = (declared) => declared.replace(/^var\(\s*/, '').replace(/\s*\)$/, '');
 
