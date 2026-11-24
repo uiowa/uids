@@ -2,7 +2,7 @@ import { ref, onMounted } from 'vue';
 import { kebabCase } from 'change-case';
 import breakpointTokens from '../../tokens/primitives/breakpoints.json';
 import semanticBreakpointTokens from '../../tokens/semantic/breakpoint.json';
-import { breakpointPixels, variantSelector } from '../../tokens/resolve.js';
+import { breakpointPixels, referencePath, variantSelector } from '../../tokens/resolve.js';
 import { CHANNEL_PROPERTY, computedValue, css } from './tokenDisplay.js';
 
 /**
@@ -25,8 +25,8 @@ const VARIANT = 'edu.uiowa.variant';
 // Style Dictionary's name/kebab with the build's uiowa prefix.
 const varName = (path) => `--${kebabCase(['uiowa', ...path].join(' '))}`;
 const refVar = (reference) => {
-  const match = typeof reference === 'string' && reference.match(/^\{([^{}]+)\}$/);
-  return match ? varName(match[1].split('.')) : null;
+  const path = referencePath(reference);
+  return path ? varName(path.split('.')) : null;
 };
 // A value that isn't a {reference}, as CSS. A dimension is stored as { value, unit }.
 const literalOf = (value) => {

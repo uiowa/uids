@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import StyleDictionary from 'style-dictionary';
-import { breakpointPixels, variantSelector as selectorFor } from './src/tokens/resolve.js';
+import { breakpointPixels, referencePath, variantSelector as selectorFor } from './src/tokens/resolve.js';
 
 const REM_IN_PIXELS = 16;
 const FLUID_EXTENSION = 'edu.uiowa.fluid';
@@ -172,7 +172,7 @@ export function compositeMemberReference(token) {
   if (!isObject(composite) || Array.isArray(composite)) return undefined;
 
   const member = composite[token.path.at(-1)];
-  return typeof member === 'string' && /^\{[^{}]+\}$/.test(member) ? member : undefined;
+  return referencePath(member) ? member : undefined;
 }
 
 // The selector a token's variant is emitted under, read from its source file. Without
@@ -193,9 +193,11 @@ export async function cssResponsive(args) {
   const originalValue = (token) => token?.original?.$value ?? token?.$value;
 
   const referenceToVar = (value) => {
-    const match = /^\{(.+)\}$/.exec(value);
-    if (!match) return value;
-    const token = byPath.get(match[1]);
+    const path = referencePath(value);
+    // Anything else with a brace is a malformed reference; fail rather than emit it as text.
+    if (!path && value.includes('{')) throw new Error(`override "${value}" is not a single token reference`);
+    if (!path) return value;
+    const token = byPath.get(path);
     if (!token) throw new Error(`override references unknown token "${value}"`);
     return `var(--${token.name})`;
   };

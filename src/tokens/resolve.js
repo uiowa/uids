@@ -4,6 +4,12 @@
 
 export const VARIANT_SELECTORS_EXTENSION = 'edu.uiowa.variants';
 
+/** The dotted path a `{path}` reference names, or null when the value isn't one. */
+export const referencePath = (value) => {
+  const match = typeof value === 'string' && /^\{([^{}]+)\}$/.exec(value);
+  return match ? match[1] : null;
+};
+
 /**
  * The selector a variant override is emitted under. `source` is the token's source file
  * and `path` its path in it. The nearest group that maps the variant to a selector wins;
@@ -39,9 +45,9 @@ export function breakpointPixels(key, tokenAt) {
     const token = tokenAt(path);
     if (!token) throw new Error(`responsive breakpoint "${key}" references unknown token "${path}"`);
     value = token.$value;
-    const reference = typeof value === 'string' && /^\{(.+)\}$/.exec(value);
+    const reference = referencePath(value);
     if (!reference) break;
-    path = reference[1];
+    path = reference;
   }
   if (!value || value.unit !== 'px' || typeof value.value !== 'number') {
     throw new Error(`responsive breakpoint "${key}" did not resolve to a px dimension`);
