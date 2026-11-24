@@ -1,4 +1,4 @@
-import UidsIowaBar from './BrandBar.vue'
+import UidsIowaBar from './BrandBar.vue';
 import UserMenuExample from '../showcase/UserMenuExample.js';
 import BrandBarDocs from './BrandBarDocs.mdx';
 import brandBarTokens from '../../tokens/components/brand-bar.json';
@@ -16,16 +16,16 @@ export default {
   argTypes: {
     site_name: {
       control: { type: 'text' },
-      name: 'Site name'
+      name: 'Site name',
     },
     site_url: {
       control: { type: 'text' },
-      name: 'Site URL'
+      name: 'Site URL',
     },
     site_name_element: {
       control: { type: 'select' },
       options: ['h1', 'span'],
-      name: 'Site name element'
+      name: 'Site name element',
     },
     // Example default slot content: the name of a component the templates register.
     default: {
@@ -38,11 +38,11 @@ export default {
     },
     narrow: {
       control: { type: 'boolean' },
-      name: 'Narrow'
+      name: 'Narrow',
     },
     healthcare: {
       control: { type: 'boolean' },
-      name: 'Healthcare'
+      name: 'Healthcare',
     },
   },
   parameters: {
@@ -68,7 +68,7 @@ export const Tokens = {
 const Template = (args) => ({
   components: { UidsIowaBar, UserMenuExample },
   setup() {
-    return { args }
+    return { args };
   },
   template: `
     <uids-iowa-bar
@@ -81,35 +81,35 @@ const Template = (args) => ({
       <component v-if="args.default" :is="args.default" />
     </uids-iowa-bar>
   `,
-})
+});
 
-export const Default = Template.bind({})
+export const Default = Template.bind({});
 Default.args = {
   site_name: '',
   site_url: '#',
   site_name_element: 'h1',
   narrow: false,
   healthcare: false,
-}
+};
 
-export const WithSiteTitle = Template.bind({})
+export const WithSiteTitle = Template.bind({});
 WithSiteTitle.args = {
   ...Default.args,
   site_name: 'Brand',
-}
+};
 
-export const Narrow = Template.bind({})
+export const Narrow = Template.bind({});
 Narrow.args = {
   ...WithSiteTitle.args,
   narrow: true,
-}
+};
 
 // The second row is story-only markup, styled in BrandBar.stories.scss,
 // recreating the removed `.iowa-bar__below` row. It is not part of UIDS.
 const ContentTemplate = (args) => ({
   components: { UidsIowaBar, UserMenuExample },
   setup() {
-    return { args }
+    return { args };
   },
   template: `
     <uids-iowa-bar
@@ -127,16 +127,16 @@ const ContentTemplate = (args) => ({
       </div>
     </div>
   `,
-})
+});
 
-export const WithParentSiteTitle = ContentTemplate.bind({})
+export const WithParentSiteTitle = ContentTemplate.bind({});
 WithParentSiteTitle.args = {
   ...Narrow.args,
-}
+};
 
-export const ContentExamples = Template.bind({})
+export const ContentExamples = Template.bind({});
 ContentExamples.args = {
   ...WithSiteTitle.args,
   default: 'UserMenuExample',
   narrow: true,
-}
+};
