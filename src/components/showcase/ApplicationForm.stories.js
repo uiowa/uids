@@ -1,12 +1,11 @@
 import '../../scss/components/_background.scss';
-import '../../scss/components/_border.scss';
 import '../../scss/components/_headline.scss';
 import '../../scss/components/form.scss';
 import '../../scss/layout/_flexbox.scss';
 import '../../scss/layout/_grid.scss';
 
-import UidsButton from '../button/Button.vue';
 import BrandBar from '../brand-bar/BrandBar.vue';
+import UserMenuExample from './UserMenuExample.js';
 import UidsMenu from '../menu/Menu.vue';
 
 export default {
@@ -49,7 +48,7 @@ const sidebarMenuItems = [
 
 const Template = {
   render: (args) => ({
-    components: { UidsButton, BrandBar, UidsMenu },
+    components: { BrandBar, UserMenuExample, UidsMenu },
     setup() {
       return { args, horizontalMenuItems, sidebarMenuItems };
     },
@@ -61,20 +60,7 @@ const Template = {
         site_name="Profiles"
         site_name_element="span"
       >
-        <div class="user-menu-toggle bg--gold" style="margin-left: auto;">
-          <uids-button
-            :url=""
-            :color='link'
-            :size='small'
-            :borderless='true'
-            :full='false'
-            :transparent='true'
-            :light_font='true'
-          ><i style="color: var(--uiowa-color-brand-black)" class="fas fa-user"></i> HawkID <i style="color: var(--uiowa-color-brand-black)" class="fas fa-caret-down"></i></uids-button>
-          <ul class="menu">
-            <li><a href="/">Sign out</a></li>
-          </ul>
-        </div>
+        <user-menu-example />
       </brand-bar>
       <nav class="menu--container">
         <div class="layout-container">

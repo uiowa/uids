@@ -1,27 +1,9 @@
 import UidsIowaBar from './BrandBar.vue'
-import UidsButton from '../button/Button.vue'
+import UserMenuExample from '../showcase/UserMenuExample.js';
 import BrandBarDocs from './BrandBarDocs.mdx';
 import brandBarTokens from '../../tokens/components/brand-bar.json';
 import { componentTokensStory } from '../tokens/componentTokens.js';
-// The user menu example needs the borderless utility, and the menu styles that hide its list.
-import '../../scss/components/_border.scss';
-import '../../scss/components/menu.scss';
 import './BrandBar.stories.scss';
-
-// Example default slot content, picked from the Content control.
-// The user menu matches the one in Showcase › Application › Form.
-const contentExamples = {
-  userMenu: `
-    <div class="user-menu-toggle bg--gold">
-      <uids-button transparent light_font borderless>
-        <i style="color: var(--uiowa-color-brand-black)" class="fas fa-user"></i> HawkID <i style="color: var(--uiowa-color-brand-black)" class="fas fa-caret-down"></i>
-      </uids-button>
-      <ul class="menu">
-        <li><a href="/">Sign out</a></li>
-      </ul>
-    </div>
-  `,
-}
 
 export default {
   title: 'Components/Branding/Brand Bar',
@@ -45,13 +27,13 @@ export default {
       options: ['h1', 'span'],
       name: 'Site name element'
     },
+    // Example default slot content: the name of a component the templates register.
     default: {
       name: 'Content',
-      options: Object.keys(contentExamples),
-      mapping: contentExamples,
+      options: ['UserMenuExample'],
       control: {
         type: 'select',
-        labels: { userMenu: 'User menu' },
+        labels: { UserMenuExample: 'User menu' },
       },
     },
     narrow: {
@@ -84,9 +66,9 @@ export const Tokens = {
 };
 
 const Template = (args) => ({
-  components: { UidsIowaBar },
+  components: { UidsIowaBar, UserMenuExample },
   setup() {
-    return { args, UidsButton }
+    return { args }
   },
   template: `
     <uids-iowa-bar
@@ -96,7 +78,7 @@ const Template = (args) => ({
       :site_url="args.site_url"
       :site_name_element="args.site_name_element"
     >
-      <component v-if="args.default" :is="{ components: { UidsButton }, template: args.default }" />
+      <component v-if="args.default" :is="args.default" />
     </uids-iowa-bar>
   `,
 })
@@ -104,7 +86,7 @@ const Template = (args) => ({
 export const Default = Template.bind({})
 Default.args = {
   site_name: '',
-  site_url: '',
+  site_url: '#',
   site_name_element: 'h1',
   narrow: false,
   healthcare: false,
@@ -125,9 +107,9 @@ Narrow.args = {
 // The second row is story-only markup, styled in BrandBar.stories.scss,
 // recreating the removed `.iowa-bar__below` row. It is not part of UIDS.
 const ContentTemplate = (args) => ({
-  components: { UidsIowaBar },
+  components: { UidsIowaBar, UserMenuExample },
   setup() {
-    return { args, UidsButton }
+    return { args }
   },
   template: `
     <uids-iowa-bar
@@ -137,7 +119,7 @@ const ContentTemplate = (args) => ({
       :site_url="args.site_url"
       :site_name_element="args.site_name_element"
     >
-      <component v-if="args.default" :is="{ components: { UidsButton }, template: args.default }" />
+      <component v-if="args.default" :is="args.default" />
     </uids-iowa-bar>
     <div class="sb-brand-bar-stories__row">
       <div class="sb-brand-bar-stories__row-container">
@@ -149,14 +131,12 @@ const ContentTemplate = (args) => ({
 
 export const WithParentSiteTitle = ContentTemplate.bind({})
 WithParentSiteTitle.args = {
-  ...Default.args,
-  narrow: true,
-  site_name: 'Brand',
-  site_url: '#',
+  ...Narrow.args,
 }
 
 export const ContentExamples = Template.bind({})
 ContentExamples.args = {
   ...WithSiteTitle.args,
-  default: 'userMenu',
+  default: 'UserMenuExample',
+  narrow: true,
 }
