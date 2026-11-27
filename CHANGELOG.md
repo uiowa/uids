@@ -12,6 +12,10 @@ system built from UIDS should be able to catch up using this file alone.
 
 ### Added
 
+- Breadcrumbs component, `UidsBreadcrumbs`, with a Storybook page (Components › Breadcrumbs): a
+  `nav.breadcrumb` with a visually hidden heading and an ordered list of crumbs, each a link or
+  plain text, with a gold slash between them.
+
 #### Design tokens
 
 | Group | Tokens |
