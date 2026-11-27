@@ -19,6 +19,11 @@ const props = defineProps({
     type: Array,
     required: true,
   },
+  heading_level: {
+    type: String,
+    default: 'h2',
+    validator: (value) => ['h2', 'h3', 'h4', 'h5', 'h6'].includes(value),
+  },
 });
 
 const itemIds = [];
@@ -63,10 +68,10 @@ onMounted(() => {
       <summary :id="item.id" class="accordion__heading"
         role="tab"
       >
-        <h2>
+        <component :is="props.heading_level">
           <i aria-hidden="true" class="fas fa-chevron-up" role="presentation"></i>
           {{ item.title }}
-        </h2>
+        </component>
       </summary>
       <div
         class="accordion__content"
