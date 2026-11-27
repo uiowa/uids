@@ -41,6 +41,11 @@ export default {
     icon: {
       control: { type: 'text' },
     },
+    icon_position: {
+      name: 'icon position',
+      control: { type: 'select' },
+      options: ['end', 'start'],
+    },
   },
 };
 
@@ -63,6 +68,7 @@ const Template = (args) => ({
       :transparent="args.transparent"
       :light_font="args.light_font"
       :icon="args.icon"
+      :icon_position="args.icon_position"
     >
       <template #default v-if="args.label">{{ args.label }}</template>
       <template #icon v-if="args.icon"><span v-html="args.icon" ></span></template>
@@ -82,6 +88,7 @@ Primary.args = {
   transparent: false,
   light_font: false,
   icon: '<i class="fas fa-arrow-right"></i>',
+  icon_position: 'end',
 };
 
 export const Secondary = Template.bind({});
@@ -106,6 +113,14 @@ export const LightFont = Template.bind({});
 LightFont.args = {
   ...Primary.args,
   light_font: true,
+};
+
+export const IconStart = Template.bind({});
+IconStart.args = {
+  ...Primary.args,
+  label: 'Download',
+  icon: '<i class="fas fa-download"></i>',
+  icon_position: 'start',
 };
 
 
