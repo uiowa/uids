@@ -1,0 +1,22 @@
+@use 'breakpoints';
+
+// The current digital tier's margin, gutter, and padding. Small is the base; Medium starts at
+// $break-sm (768px) and Large at $break-md (980px). A media query cannot read a custom
+// property, so the breakpoints stay in Sass and only the values come from layout.digital.
+:root {
+  --uiowa-layout-margin: var(--uiowa-layout-digital-small-margin);
+  --uiowa-layout-gutter: var(--uiowa-layout-digital-small-gutter);
+  --uiowa-layout-padding: var(--uiowa-layout-digital-small-padding);
+
+  @include breakpoints.breakpoint(sm) {
+    --uiowa-layout-margin: var(--uiowa-layout-digital-medium-margin);
+    --uiowa-layout-gutter: var(--uiowa-layout-digital-medium-gutter);
+    --uiowa-layout-padding: var(--uiowa-layout-digital-medium-padding);
+  }
+
+  @include breakpoints.breakpoint(md) {
+    --uiowa-layout-margin: var(--uiowa-layout-digital-large-margin);
+    --uiowa-layout-gutter: var(--uiowa-layout-digital-large-gutter);
+    --uiowa-layout-padding: var(--uiowa-layout-digital-large-padding);
+  }
+}

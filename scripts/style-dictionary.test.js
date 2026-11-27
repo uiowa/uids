@@ -123,6 +123,26 @@ describe('breakpointRem', () => {
   });
 });
 
+describe('layout tokens', () => {
+  const tokens = () => readFileSync(join(repository, 'src/scss/abstracts/_tokens-generated.scss'), 'utf8');
+
+  it('puts spacing roles and tier margins and gutters on space stops', () => {
+    const css = tokens();
+
+    expect(css).toContain('--uiowa-layout-space-section: var(--uiowa-space-300);');
+    expect(css).toContain('--uiowa-layout-digital-medium-margin: var(--uiowa-space-200);');
+    expect(css).toContain('--uiowa-layout-digital-large-gutter: var(--uiowa-space-150);');
+  });
+
+  it('keeps padding equal to gutter in every tier', () => {
+    const css = tokens();
+
+    for (const tier of ['small', 'medium', 'large']) {
+      expect(css).toContain(`--uiowa-layout-digital-${tier}-padding: var(--uiowa-layout-digital-${tier}-gutter);`);
+    }
+  });
+});
+
 it('writes breakpoints to Sass in rem and durations as CSS times', () => {
   const tokens = readFileSync(join(repository, 'src/scss/abstracts/_tokens-generated.scss'), 'utf8');
   const breakpoints = readFileSync(join(repository, 'src/scss/abstracts/_breakpoints-generated.scss'), 'utf8');

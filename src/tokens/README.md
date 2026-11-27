@@ -17,6 +17,16 @@ root font size, which UIDS fixes at 16px. At a 16px browser default the threshol
 match. A different browser default can make media and container queries switch at
 different CSS-pixel widths.
 
+## Layout tiers
+
+`layout.digital.*` holds the column count, margin, gutter, padding, and reading width for each
+digital size tier. The Medium tier starts at `breakpoint.768` and Large at `breakpoint.980`.
+Padding is an alias of gutter in every tier.
+
+`--uiowa-layout-margin`, `--uiowa-layout-gutter`, and `--uiowa-layout-padding` hold the current
+tier's values, switched at those two breakpoints in `src/scss/abstracts/_layout-tiers.scss`.
+Page containers use the margin; grids and multi-column text use the gutter.
+
 ## Generate
 
 Style Dictionary compiles the token files into `src/scss/abstracts/_tokens-generated.scss`.

@@ -21,6 +21,8 @@ system built from UIDS should be able to catch up using this file alone.
 | Shadows | `shadow.inset` (form fields), `shadow.raised` (the toggle knob) |
 | Motion | `duration.150`, `.250`, `.400`; `motion.duration.fast`, `medium`, `slow`; `easing.standard`, `overshoot` |
 | Breakpoints | `breakpoint.400`, `.600`, `.768`, `.930`, `.980`, `.1200`, `.1350`; `layout.breakpoint.standard` (1350) |
+| Spacing roles | `layout.space.tight` (8px), `related` (24px), `separated` (32px), `section` (48px) |
+| Digital layout tiers | `layout.digital.small`, `.medium` and `.large`, each with `columns`, `margin`, `gutter`, `padding` and `reading` |
 | Form heights | `form.height.medium` (48px), `form.height.large` (64px) |
 | Colors | `color.border.strong`, `color.border.strong-inverse`; `color.alpha.black-150`, `black-200`, `black-425`, `white-425`; `color.accent.blue` |
 | Data visualization | `color.data-visualization.categorical.1` to `.12`, assigned in numerical order, each pointing at a palette color; the palette gains `color.green-light`, `purple`, `cyan`, `olive`, `rose`, `gray-warm`, and `gray-cool` for them |
@@ -44,6 +46,10 @@ writes them to Sass, in rem.
   With the button stylesheet loaded, `.bttn.button--small` horizontal padding changes
   from `2rem` to `1rem`. Existing `.bttn--small` and `.bttn--full` modifiers remain supported.
 - Component documentation now describes Vue 3 and Storybook in place of Fractal and Twig.
+- `$gutter`, `$mobile-width-gutter`, `$desktop-width-gutter`, `$mobile-height-gutter`, and
+  `$desktop-height-gutter` hold `var()` references to the space tokens they equal (`space.125`,
+  `.300`, `.200`, and `.800`) rather than literals. Their values are unchanged, but Sass math
+  functions cannot operate on them.
 
 #### Links
 
@@ -142,6 +148,22 @@ shadow, 500ms to 150ms. Other visible timings move by 150ms or less.
 Eight transitions that never ran are removed instead of tokenized. They sat on elements
 whose properties do not change: the stat grid, the tab background, the blockquote bars,
 the banner overlay, and the circle button's ring.
+
+#### Layout tiers
+
+Page containers, grids, and multi-column text follow the digital layout tiers through three
+custom properties, `--uiowa-layout-margin`, `--uiowa-layout-gutter`, and `--uiowa-layout-padding`:
+Small below 768px, Medium from 768px, and Large from 980px.
+
+| Element | Was | Now |
+| --- | --- | --- |
+| Page container side margin | 20px | 16px; 32px from 768px |
+| Gap between `.grid--*` items, from 768px | 48px (two-column grid: 48px across, 20px down) | 16px; 24px from 980px |
+| Gap between `.element--two-column` and `--three-column` text columns, from 768px | 48px | 16px; 24px from 980px |
+
+The page containers are `.layout-container`, `.page__container`, `.page__container--mixed`, and the
+brand footer's `.footer__container`. They still stop at 1310px wide, but reach it once the page is
+1374px wide instead of 1350px, because the side margin stays at least 32px.
 
 #### Breakpoints
 
