@@ -10,3 +10,4 @@ export { default as UidsCta } from './cta'
 export { default as UidsHeadline } from './headline'
 export { default as UidsLogo } from './logo'
 export { default as UidsMenu } from './menu';
+export { default as UidsTabs } from './tabs'
