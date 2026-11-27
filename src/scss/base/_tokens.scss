@@ -1,17 +1,150 @@
-/**
- * @tokens SCSS Colors
- * @presenter Color
- */
+// =============================================================================
+// UIDS Design Tokens (Runtime CSS Custom Properties)
+// =============================================================================
+// This file defines CSS custom properties that are emitted to :root for:
+// - JavaScript access and runtime theming
+// - Figma token generation
+// - Cross-browser runtime CSS variables
+//
+// NOTE: For SCSS variables (build-time), see abstracts/_variables.scss
+// =============================================================================
 
-$primary: #FFCD00;
-$secondary: #000000;
-$light: #f3f3f3;
-$gray: #737373;
-$gray-light: #cacaca;
-$brand-cool-gray: #63666A;
+:root {
+  // ---------------------------------------------------------------------------
+  // Brand Colors
+  // ---------------------------------------------------------------------------
+  --color-brand-gold: #FFCD00;
+  --color-brand-black: #000000;
 
-/**
-  * @tokens SCSS Fonts
-  * @presenter FontFamily
-  */
-$base: system-ui, sans-serif;
+  // ---------------------------------------------------------------------------
+  // Neutral Colors
+  // ---------------------------------------------------------------------------
+  --color-neutral-100: #f3f3f3; // Lightest gray (bg)
+  --color-neutral-300: #cacaca; // Light gray (borders, disabled)
+  --color-neutral-400: #9a9a9a; // Mid-light gray
+  --color-neutral-500: #737373; // Mid gray (text, muted)
+  --color-neutral-600: #63666A; // Cool gray (brand)
+
+  // ---------------------------------------------------------------------------
+  // Semantic Colors
+  // ---------------------------------------------------------------------------
+  --color-link: #00558C;
+  --color-border-subtle: rgba(0, 0, 0, 0.125);
+
+  // ---------------------------------------------------------------------------
+  // Typography
+  // ---------------------------------------------------------------------------
+  --type-font-family-base: 'Roboto', sans-serif;
+  --type-font-family-caps: 'Antonio', sans-serif;
+  --type-weight-regular: 400;
+  --type-weight-semibold: 600;
+
+  // Type scale (size + line height pairs) — matches SCSS button font sizes
+  --type-size-small: 1.05rem;
+  --type-line-small: 1.4;
+
+  --type-size-medium: 1.25rem;
+  --type-line-medium: 1.4;
+
+  --type-size-large: 1.45rem;
+  --type-line-large: 1.4;
+
+  // ---------------------------------------------------------------------------
+  // Spacing Scale
+  // ---------------------------------------------------------------------------
+  --space-2: 0.5rem;    // 8px
+  --space-3: 0.75rem;   // 12px
+  --space-4: 1rem;      // 16px
+  --space-5: 1.5rem;    // 24px
+  --space-6: 2rem;      // 32px
+  --space-8: 2.5rem;    // 40px
+
+  // ---------------------------------------------------------------------------
+  // Radius
+  // ---------------------------------------------------------------------------
+  --radius-md: 0rem; // UIDS uses 0 border radius by default
+
+  // ---------------------------------------------------------------------------
+  // Button Tokens (for Figma generation)
+  // ---------------------------------------------------------------------------
+
+  // Button radius
+  --button-radius: var(--radius-md);
+
+  // Button padding — asymmetric top/bottom matches SCSS button styles
+  --button-padding-x-small: 1rem;
+  --button-padding-top-small: 0.6rem;
+  --button-padding-bottom-small: 0.8rem;
+
+  --button-padding-x-medium: 2rem;
+  --button-padding-top-medium: 1rem;
+  --button-padding-bottom-medium: 1.2rem;
+
+  --button-padding-x-large: 2.5rem;
+  --button-padding-top-large: 1.5rem;
+  --button-padding-bottom-large: 1.7rem;
+
+  // Button icon spacing (matches SCSS $sm variable)
+  --button-icon-spacing: 0.625rem;
+
+  // Button border
+  --button-border-width: 1px;
+
+  // Button Primary
+  --button-primary-bg-default: var(--color-brand-gold);
+  --button-primary-bg-hover: #E6B800;      // Darkened gold
+  --button-primary-bg-disabled: #999999;    // Neutral gray
+
+  --button-primary-text-default: var(--color-brand-black);
+  --button-primary-text-disabled: #CCCCCC;  // Light gray
+
+  --button-primary-border-default: var(--color-brand-gold);
+  --button-primary-border-hover: #E6B800;
+  --button-primary-border-disabled: #999999;
+
+  // Button Secondary
+  --button-secondary-bg-default: var(--color-brand-black);
+  --button-secondary-bg-hover: #333333;     // Lightened black
+  --button-secondary-bg-disabled: #999999;  // Neutral gray
+
+  --button-secondary-text-default: #FFFFFF;
+  --button-secondary-text-disabled: #CCCCCC; // Light gray
+
+  --button-secondary-border-default: var(--color-brand-black);
+  --button-secondary-border-hover: #333333;
+  --button-secondary-border-disabled: #999999;
+
+  // Button Tertiary
+  --button-tertiary-bg-default: #FFFFFF;
+  --button-tertiary-bg-hover: #F3F3F3;      // Light gray
+  --button-tertiary-bg-disabled: #999999;   // Neutral gray
+
+  --button-tertiary-text-default: var(--color-brand-black);
+  --button-tertiary-text-disabled: #CCCCCC; // Light gray
+
+  --button-tertiary-border-default: rgba(0, 0, 0, 0.425);
+  --button-tertiary-border-hover: rgba(0, 0, 0, 0.425);
+  --button-tertiary-border-disabled: #999999;
+
+  // ---------------------------------------------------------------------------
+  // Layout Spacing (gutters)
+  // ---------------------------------------------------------------------------
+  --space-lg-width-gutter: 3rem;
+  --space-md-width-gutter: 2rem;
+  --space-sm-width-gutter: 1.25rem;
+
+  // ---------------------------------------------------------------------------
+  // Backward-compatible aliases (deprecated, use new token names above)
+  // ---------------------------------------------------------------------------
+  --uiowa-gold: var(--color-brand-gold);
+  --uiowa-black: var(--color-brand-black);
+  --brand-primary: var(--color-brand-gold);
+  --brand-secondary: var(--color-brand-black);
+  --uids-gray-cool: var(--color-neutral-600);
+  --link-color: var(--color-link);
+  --uids-light: var(--color-neutral-100);
+  --uids-gray-mid: var(--color-neutral-400);
+  --uids-gray: var(--color-neutral-500);
+  --uids-gray-light: var(--color-neutral-300);
+  --transparent-border: var(--color-border-subtle);
+}
