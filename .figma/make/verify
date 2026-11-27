@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Ready when Storybook has indexed the Foundations Color page.
+# Storybook starts in the background and needs time to boot (longer on the first
+# run, when Vite re-optimizes dependencies), so poll until the story index is
+# served rather than checking exactly once. Returns as soon as it is ready.
+set -eo pipefail
+url="http://localhost:${PORT:-6020}/index.json"
+for _ in $(seq 1 60); do
+  if curl -fsS "$url" 2>/dev/null | grep -q '"foundations-color--docs"'; then
+    exit 0
+  fi
+  sleep 2
+done
+echo "Storybook did not serve $url with the Foundations Color page within 120s" >&2
+exit 1

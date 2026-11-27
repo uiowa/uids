@@ -2,6 +2,16 @@ This # CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Foundations guidelines
+
+Agents editing `src/foundations/`, including Figma Make in local-codebase mode, follow these.
+`rules.md` covers composing pages and using components, and applies to any page work.
+
+@.figma/guidelines/overview.md
+@.figma/guidelines/foundations.md
+@.figma/guidelines/components.md
+@.figma/guidelines/rules.md
+
 ## Project Overview
 
 UIDS (University of Iowa Design System) - Vue 3 component library with SCSS and Storybook docs.
@@ -9,7 +19,7 @@ UIDS (University of Iowa Design System) - Vue 3 component library with SCSS and 
 
 ## Essential Commands
 
-- `yarn storybook` - Start Storybook dev server (port 6006)
+- `yarn storybook` - Start Storybook dev server (port 6006). Changing `.storybook/main.mjs` or `manager.js` needs a restart; MDX, stories and `preview.js` hot-reload.
 - `yarn dev` - Watch mode for SCSS compilation
 - `yarn build` - Compile SCSS to `dist/`
 - `yarn lint` - ESLint with auto-fix
