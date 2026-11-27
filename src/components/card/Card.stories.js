@@ -183,7 +183,7 @@ const Template = (args) => ({
   },
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
-    <div :class="args.section_background" style="padding-top: 2rem; padding-bottom: 2rem;">
+    <div :class="['column-container', args.section_background]" style="padding-top: 2rem; padding-bottom: 2rem;">
       <div class="grid--threecol--33-34-33">
         <div class="list-container">
           <uids-card
@@ -346,7 +346,7 @@ const GridTemplate = (args) => ({
   },
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
-    <div :class="args.section_background" style="padding-top: 2rem; padding-bottom: 2rem;">
+    <div :class="['column-container', args.section_background]" style="padding-top: 2rem; padding-bottom: 2rem;">
       <uids-grid :type="args.grid_type">
         <uids-grid-item v-for="item in args.record_count" :key="item">
           <uids-card
